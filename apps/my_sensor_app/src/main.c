@@ -22,19 +22,21 @@ static struct sensor_listener listener = {
 
 static int
 read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-    char tmpstr[13];
     struct sensor_temp_data *temp;
     if (!databuf) { return SYS_EINVAL; }
     temp = (struct sensor_temp_data *)databuf;
     if (!temp->std_temp_is_valid) {
         return SYS_EINVAL;
     }
+#ifdef NOTUSED
+    char tmpstr[13];
     console_printf("%s: [ secs: %ld usecs: %d cputime: %u ]\n",
                    ((int)arg == LISTENER_CB) ? "LISTENER_CB" : "READ_CB",
                    (long int)sensor->s_sts.st_ostv.tv_sec,
                    (int)sensor->s_sts.st_ostv.tv_usec,
                    (unsigned int)sensor->s_sts.st_cputime);
     console_printf("temp = %s\n\n", sensor_ftostr(temp->std_temp, tmpstr, 13));
+#endif  //  NOTUSED
     return 0;
 }
 
