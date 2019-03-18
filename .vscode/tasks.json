@@ -9,7 +9,7 @@
             "command": "newt",
             "args": [
                 "build",
-                "-p",
+                //  "-p",  //  Uncomment to print each command executed.
                 "-v",
                 "bluepill_boot"
             ],
@@ -23,7 +23,7 @@
             "command": "newt",
             "args": [
                 "build",
-                "-p",
+                //  "-p",  //  Uncomment to print each command executed.
                 "-v",
                 "bluepill_my_sensor"
             ],
