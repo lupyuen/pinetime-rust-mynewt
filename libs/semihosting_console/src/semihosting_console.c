@@ -119,7 +119,7 @@ semihosting_console_write_ch(char c)
     while (1) {
         OS_ENTER_CRITICAL(sr);
         //  Previously: SEGGER_RTT_WriteNoLock(0, &c, 1);
-        semihost_write(SEMIHOST_HANDLE, &c, 1);
+        semihost_write(SEMIHOST_HANDLE, (const unsigned char *) &c, 1);
         //  Set ret to 1 to indicate success.
         ret = 1;
         OS_EXIT_CRITICAL(sr);
@@ -161,7 +161,7 @@ semihosting_console_write_ch(char c)
 
     OS_ENTER_CRITICAL(sr);
     //  Previously: SEGGER_RTT_WriteNoLock(0, &c, 1);
-    semihost_write(SEMIHOST_HANDLE, &c, 1);
+    semihost_write(SEMIHOST_HANDLE, (const unsigned char *) &c, 1);
     OS_EXIT_CRITICAL(sr);
 }
 
@@ -191,7 +191,9 @@ console_out_nolock(int character)
 void
 console_rx_restart(void)
 {
+#if MYNEWT_VAL(CONSOLE_INPUT)
     os_cputime_timer_relative(&semihosting_timer, 0);
+#endif  //  MYNEWT_VAL(CONSOLE_INPUT)
 }
 
 #if MYNEWT_VAL(CONSOLE_INPUT)

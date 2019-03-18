@@ -3,7 +3,7 @@
 #include <defs/error.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
-#include <semihosting_console/semihosting_console.h>
+#include <console/console.h>  //  Actually points to libs/semihosting_console
 
 static struct sensor *my_sensor;
 

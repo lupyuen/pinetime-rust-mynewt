@@ -1,23 +1,18 @@
 # This is an OpenOCD script that connects to the STM32 Blue Pill for Cortex Debug.
 
 debug_level 2
-echo "a"
-# gdb_port 50000
+
 stm32f1x.cpu configure -event gdb-detach {
     echo "gdb-detach"
     # if {[stm32f1x.cpu curstate] eq "halted"} resume;shutdown
 }
-echo "b"
-# init
-# halt
-echo "d"
 
-# Arm Semihosting is used to show debug console output and may only be enabled after init event.  We wait for the event and enable Arm Semihosting.
 $_TARGETNAME configure -event reset-init {
+    # Arm Semihosting is used to show debug console output and may only be enabled after init event.  We wait for the event and enable Arm Semihosting.
     echo "Enable ARM Semihosting to show debug output"
-    # arm semihosting enable
+    arm semihosting enable
 
-    echo "Loading boot symbols"
+    # echo "Loading boot symbols"
     # symbol-file bin/targets/bluepill_boot/app/apps/boot/boot.elf
     # symbol-file bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 
