@@ -19,6 +19,65 @@
 #
 -->
 
+# How this sensor sample was created under macOS
+
+Based on 
+
+https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html
+
+https://mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html
+
+```
+cd /mnt/c/mynewt
+newt new stm32bluepill-mynewt-sensor
+cd stm32bluepill-mynewt-sensor
+nano project.yml
+Change
+    vers: 1-latest
+to
+    vers: 0-dev
+
+newt install
+newt pkg new -t app apps/my_sensor_app
+
+nano apps/my_sensor_app/pkg.yml
+Add 
+    - "@apache-mynewt-core/hw/sensor"
+    - "@apache-mynewt-core/hw/sensor/creator"
+Change
+    - "@apache-mynewt-core/sys/console/full"
+    - "@apache-mynewt-core/sys/log/full"
+    - "@apache-mynewt-core/sys/stats/full"
+to
+    - "@apache-mynewt-core/sys/console/stub"
+    - "@apache-mynewt-core/sys/log/stub"
+    - "@apache-mynewt-core/sys/stats/stub"
+
+newt target create bluepill_boot
+newt target set bluepill_boot bsp=@apache-mynewt-core/hw/bsp/bluepill
+newt target set bluepill_boot app=@apache-mynewt-core/apps/boot
+newt target set bluepill_boot build_profile=optimized
+
+newt target create bluepill_my_sensor
+newt target set bluepill_my_sensor bsp=@apache-mynewt-core/hw/bsp/bluepill
+newt target set bluepill_my_sensor app=apps/my_sensor_app
+newt target set bluepill_my_sensor build_profile=debug
+
+newt target set bluepill_my_sensor syscfg=SPI_0_MASTER=1:BME280_OFB=1:SENSOR_OIC=0:CONSOLE_RTT=0:CONSOLE_UART=0:LOG_CLI=0:LOG_LEVEL=255:STATS_CLI=0:SHELL_CMD_HELP=0:SHELL_OS_MODULE=0:SHELL_TASK=0
+
+TODO: Edit repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c
+Change to:
+#if MYNEWT_VAL(SPI_0_MASTER) && MYNEWT_VAL(BME280_OFB)
+static struct sensor_itf spi_0_itf_bme = {
+    .si_type = SENSOR_ITF_SPI,
+    .si_num = 0,
+    //// TODO: .si_cs_pin = 3,
+    .si_cs_pin = 4  ////  TODO
+};
+#endif
+
+```
+
 # Apache Blinky
 
 ## Overview

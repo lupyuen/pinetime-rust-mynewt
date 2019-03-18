@@ -28,5 +28,25 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 19,
+				"column": 11,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/src/semihosting_console.c",
+		"bookmarks": [
+			{
+				"line": 21,
+				"column": 11,
+				"label": ""
+			}
+		]
 	}
 ]
