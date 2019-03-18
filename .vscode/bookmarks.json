@@ -48,5 +48,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/README.md",
+		"bookmarks": [
+			{
+				"line": 21,
+				"column": 9,
+				"label": ""
+			}
+		]
 	}
 ]

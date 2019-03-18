@@ -39,6 +39,7 @@ to
 
 newt install
 newt pkg new -t app apps/my_sensor_app
+newt pkg new -t lib libs/semihosting_console
 
 nano apps/my_sensor_app/pkg.yml
 Add 

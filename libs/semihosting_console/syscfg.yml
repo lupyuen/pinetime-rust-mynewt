@@ -1,0 +1,74 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+syscfg.defs:
+    CONSOLE_SEMIHOSTING:
+        description: 'Set console output to Semihosting'
+        value: 1
+    CONSOLE_INPUT:
+        description: 'Enable console input'
+        value: 0
+    CONSOLE_TICKS:
+        description: 'Print OS Ticks'
+        value: 0
+    CONSOLE_ECHO:
+        description: 'Default console echo'
+        value: 0
+    CONSOLE_COMPAT:
+        description: 'Console backward compatibility'
+        value: 1
+    CONSOLE_MAX_INPUT_LEN:
+        description: 'Maximum input line length'
+        value: 256
+    CONSOLE_HISTORY_SIZE:
+        description: >
+            Number of lines to be stored in console history.
+            Set to "0" to disable console history.
+        value: 0
+
+    CONSOLE_SEMIHOSTING_RETRY_COUNT:
+        description: >
+            Number of retries to write data in case buffer is full. This allows
+            to wait for host to read data from buffer in case there's a lot of
+            data to write which do not fit in buffer.
+        value: 2
+    CONSOLE_SEMIHOSTING_RETRY_DELAY_MS:
+        description: >
+            Delay (in miliseconds) between each write retry.
+        value: 2
+    CONSOLE_SEMIHOSTING_RETRY_IN_ISR:
+        description: >
+            Set to non-zero to enable write retries also in ISR.
+        value: 0
+    CONSOLE_SEMIHOSTING_INPUT_POLL_INTERVAL_MAX:
+        description: >
+            Maximum interval (milliseconds) to poll for RTT input.
+            With no new data on RTT input, interval to poll for new data will
+            be gradually increased up to specified value. Using high interval
+            value may affect RTT console responsiveness, using small value may
+            affect device performance due to more frequent polling.
+        value: 250
+
+    CONSOLE_DEFAULT_LOCK_TIMEOUT:
+        description: 'Default timeout (in ms) for console_lock() function used in console_write.'
+        value: 1000
+
+    CONSOLE_SYSINIT_STAGE:
+        description: >
+            Sysinit stage for console functionality.
+        value: 20
