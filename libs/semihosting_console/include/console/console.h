@@ -62,8 +62,16 @@ void console_blocking_mode(void);
 void console_non_blocking_mode(void);
 void console_echo(int on);
 
-int console_printf(const char *fmt, ...)
-    __attribute__ ((format (printf, 1, 2)));;
+//// int console_printf(const char *fmt, ...)
+////     __attribute__ ((format (printf, 1, 2)));;
+
+static int inline console_printf(const char *fmt, ...)
+    __attribute__ ((format (printf, 1, 2)));
+
+static int inline
+console_printf(const char *fmt, ...) {
+    return 0;
+}
 
 void console_set_completion_cb(completion_cb cb);
 int console_handle_char(uint8_t byte);

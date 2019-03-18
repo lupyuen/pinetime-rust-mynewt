@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-#include <stdarg.h>
+//  #include <stdarg.h>
 #include <stdio.h>
 #include "os/mynewt.h"
 #include "console/console.h"
@@ -24,6 +24,7 @@
 
 #define CONS_OUTPUT_MAX_LINE    128
 
+#ifdef NOTUSED
 int
 console_printf(const char *fmt, ...)
 {
@@ -34,7 +35,6 @@ console_printf(const char *fmt, ...)
     return num_chars;
 }
 
-#ifdef NOTUSED
 #if MYNEWT_VAL(BASELIBC_PRESENT)
 
 /**
