@@ -4,6 +4,7 @@ syscfg.vals:
     CONSOLE_UART: 0
     LOG_CLI: 0
     LOG_LEVEL: 255
+    SENSOR_CLI: 0
     SENSOR_OIC: 0
     SHELL_CMD_HELP: 0
     SHELL_OS_MODULE: 0

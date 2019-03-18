@@ -62,16 +62,29 @@ void console_blocking_mode(void);
 void console_non_blocking_mode(void);
 void console_echo(int on);
 
-//// int console_printf(const char *fmt, ...)
-////     __attribute__ ((format (printf, 1, 2)));;
+int console_printf(const char *fmt, ...)
+    __attribute__ ((format (printf, 1, 2)));;
 
-static int inline console_printf(const char *fmt, ...)
+#ifdef NOTUSED
+static int inline console_printf0(const char *fmt, ...)
     __attribute__ ((format (printf, 1, 2)));
 
 static int inline
-console_printf(const char *fmt, ...) {
-    return 0;
+console_printf0(const char *fmt, ...) {
+    //  Print the format string without any formatting.
+    if (!fmt) { return 0; }
+    int num_chars;
+    const char *s; 
+    num_chars = 0;
+    s = fmt;
+    while (*s) {
+        s++;
+        num_chars++;
+    }
+    console_write(fmt, num_chars);
+    return num_chars;
 }
+#endif  //  NOTUSED
 
 void console_set_completion_cb(completion_cb cb);
 int console_handle_char(uint8_t byte);
