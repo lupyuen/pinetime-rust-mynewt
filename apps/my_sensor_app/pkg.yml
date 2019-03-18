@@ -26,8 +26,10 @@ pkg.keywords:
 
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"
-    - "@apache-mynewt-core/sys/console/stub"
     - "@apache-mynewt-core/sys/log/stub"
     - "@apache-mynewt-core/sys/stats/stub"
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/hw/sensor/creator"
+    - "libs/semihosting_console"
+    
+#   - "@apache-mynewt-core/sys/console/stub"
