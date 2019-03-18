@@ -7,7 +7,8 @@
 	"settings": {
 		"files.associations": {
 			"limits": "cpp",
-			"temperature.h": "c"
+			"temperature.h": "c",
+			"sensor.h": "c"
 		}
 	}
 }

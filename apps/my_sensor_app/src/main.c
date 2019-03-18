@@ -29,14 +29,17 @@ read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t 
         return SYS_EINVAL;
     }
 #ifdef NOTUSED
-    char tmpstr[13];
     console_printf("%s: [ secs: %ld usecs: %d cputime: %u ]\n",
                    ((int)arg == LISTENER_CB) ? "LISTENER_CB" : "READ_CB",
                    (long int)sensor->s_sts.st_ostv.tv_sec,
                    (int)sensor->s_sts.st_ostv.tv_usec,
                    (unsigned int)sensor->s_sts.st_cputime);
-    console_printf("temp = %s\n\n", sensor_ftostr(temp->std_temp, tmpstr, 13));
 #endif  //  NOTUSED
+    console_printf(
+        "temp = %d.%d\n",
+        (int) (temp->std_temp),
+        (int) (10.0 * temp->std_temp) % 10
+    );
     return 0;
 }
 
