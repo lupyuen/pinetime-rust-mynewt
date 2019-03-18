@@ -1,34 +1,31 @@
 #include "sysinit/sysinit.h"
 #include "os/os.h"
-
-//  Added
 #include <defs/error.h>
 #include <sensor/sensor.h>
-#include <sensor/temperature.h>  //  TODO
-#include <console/console.h>
+#include <sensor/temperature.h>
+#include <semihosting_console/semihosting_console.h>
 
 static struct sensor *my_sensor;
 
-#define MY_SENSOR_DEVICE "bme280_0"  //  TODO
+#define MY_SENSOR_DEVICE "bme280_0"
 #define MY_SENSOR_POLL_TIME 2000
 #define LISTENER_CB 1
 #define READ_CB 2
 
-static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);  //  TODO
+static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
 static struct sensor_listener listener = {
-   .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,    //  TODO
-   .sl_func = read_temperature,    //  TODO
+   .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
+   .sl_func = read_temperature,
    .sl_arg = (void *)LISTENER_CB,
 };
 
 static int
-read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type)    //  TODO
-{
+read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
     char tmpstr[13];
-    struct sensor_temp_data *temp;   //  TODO
+    struct sensor_temp_data *temp;
     if (!databuf) { return SYS_EINVAL; }
-    temp = (struct sensor_temp_data *)databuf;   //  TODO
+    temp = (struct sensor_temp_data *)databuf;
     if (!temp->std_temp_is_valid) {
         return SYS_EINVAL;
     }
@@ -65,28 +62,23 @@ read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t 
 int
 main(int argc, char **argv)
 {
-    int rc;
-
-    /* Perform some extra setup if we're running in the simulator. */
+    int rc;    
 #ifdef ARCH_sim
-    mcu_sim_parse_args(argc, argv);
+    mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
-
-    /* Initialize all packages. */
-    sysinit();
+    sysinit();  //  Initialize all packages.  Create the sensors.
 
     rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
     my_sensor = sensor_mgr_find_next_bydevname(MY_SENSOR_DEVICE, NULL);
     assert(my_sensor != NULL);
+
     rc = sensor_register_listener(my_sensor, &listener);
     assert(rc == 0);
-    
-    /* As the last thing, process events from default event queue. */
-    while (1) {
+        
+    while (1) {  //  As the last thing, process events from default event queue.
         os_eventq_run(os_eventq_dflt_get());
     }
-
-    return 0;
+    return 0;  //  Never comes here.
 }
