@@ -30,6 +30,3 @@ pkg.apis: console
 
 pkg.init:
     console_pkg_init: 'MYNEWT_VAL(CONSOLE_SYSINIT_STAGE)'
-
-# pkg.deps.CONSOLE_UART:
-#    - "@apache-mynewt-core/hw/drivers/uart"

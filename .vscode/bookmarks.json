@@ -58,5 +58,35 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/semihosting_console/src/semihosting_console.c",
+		"bookmarks": [
+			{
+				"line": 21,
+				"column": 11,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/semihosting_console/src/console_fmt.c",
+		"bookmarks": [
+			{
+				"line": 47,
+				"column": 8,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/semihosting_console/include/console/console.h",
+		"bookmarks": [
+			{
+				"line": 18,
+				"column": 15,
+				"label": ""
+			}
+		]
 	}
 ]
