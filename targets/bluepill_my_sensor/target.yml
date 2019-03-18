@@ -1,0 +1,3 @@
+target.app: apps/my_sensor_app
+target.bsp: "@apache-mynewt-core/hw/bsp/bluepill"
+target.build_profile: debug

@@ -1,0 +1,7 @@
+# Can't easily add license to rat-excludes file.
+.rat-excludes
+
+# Temporary user files.
+.gdb_history
+.gdb_out
+tags

@@ -1,0 +1,106 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "1️⃣ Build bluepill_boot",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "build",
+                "-p",
+                "-v",
+                "bluepill_boot"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "2️⃣ Build bluepill_my_sensor",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "build",
+                "-p",
+                "-v",
+                "bluepill_my_sensor"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "3️⃣ Image bluepill_my_sensor",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "create-image",
+                "-v",
+                "bluepill_my_sensor",
+                "1.0.0"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "4️⃣ Load bluepill_boot",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "load",
+                "-v",
+                "bluepill_boot"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "5️⃣ Load bluepill_my_sensor",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "load",
+                "-v",
+                "bluepill_my_sensor"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "💣 Debug bluepill_my_sensor",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "debug",
+                "bluepill_my_sensor",
+                //  "-n",
+                "-v"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "🗑 Clean",
+            "type": "shell",
+            "command": "newt",
+            "args": [
+                "clean",
+                "-v",
+                "all"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}

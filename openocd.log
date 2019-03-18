@@ -1,0 +1,30 @@
+Open On-Chip Debugger 0.10.0
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+none separate
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : clock speed 950 kHz
+Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
+Info : using stlink api v2
+Info : Target voltage: 3.227531
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x41000000 pc: 0x0800aeb6 psp: 0x20000380
+Info : accepting 'gdb' connection on tcp/3333
+Info : device id = 0x20036410
+Info : flash size = 64kbytes
+Info : halted: PC: 0x0800824a
+Info : halted: PC: 0x0800aad4
+Info : halted: PC: 0x0800ab1c
+Info : halted: PC: 0x0800824a
+Info : halted: PC: 0x0800aad4
+Info : halted: PC: 0x0800ab1c
+shutdown command invoked
+
+

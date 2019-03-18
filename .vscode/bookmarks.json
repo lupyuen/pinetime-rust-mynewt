@@ -1,0 +1,32 @@
+[
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 26,
+				"column": 5,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/targets/bluepill_my_sensor/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 3,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c",
+		"bookmarks": [
+			{
+				"line": 199,
+				"column": 37,
+				"label": ""
+			}
+		]
+	}
+]

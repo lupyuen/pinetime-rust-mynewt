@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"limits": "cpp",
+			"temperature.h": "c"
+		}
+	}
+}
