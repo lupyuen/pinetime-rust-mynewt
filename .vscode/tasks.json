@@ -77,12 +77,8 @@
             "label": "4️⃣ Load bluepill_boot",
             "type": "shell",
             "windows": {
-                "command": "bash",
-                "args": [
-                    "-c",
-                    //  TODO
-                    " newt load -v bluepill_boot "
-                ]
+                "command": 
+                " c:\\openocd\\bin\\openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash.ocd "
             },
             "osx": {
                 "command": 
@@ -100,12 +96,8 @@
             "label": "5️⃣ Load bluepill_my_sensor",
             "type": "shell",
             "windows": {
-                "command": "bash",
-                "args": [
-                    "-c",
-                    //  TODO
-                    " newt load -v bluepill_my_sensor "
-                ]
+                "command": 
+                " c:\\openocd\\bin\\openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash.ocd "
             },
             "osx": {
                 "command": 
