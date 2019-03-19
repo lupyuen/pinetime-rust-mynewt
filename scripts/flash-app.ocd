@@ -1,7 +1,7 @@
-# This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the ROM.
-# Used by tasks.json for "Load bluepill_boot" and "Load bluepill_my_sensor" commands.
+# This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Application ROM.
+# Used by tasks.json for "Load bluepill_my_sensor" command.
 # Used only for Windows, not used for macOS.  On macOS we use "newt load".
-# openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash.ocd
+# openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd
 
 # Disable all openocd messages.
 debug_level 0
@@ -20,10 +20,11 @@ reset halt
 flash banks
 flash list
 
+# TODO: Check flash address
 echo "Flashing the Blue Pill..."
 flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08000000
 flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0
 
 # Restart the device.
 echo "Restarting the Blue Pill..."
-reset run
+reset halt

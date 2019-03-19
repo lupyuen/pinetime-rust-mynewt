@@ -1,0 +1,29 @@
+# This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Bootloader ROM.
+# Used by tasks.json for "Load bluepill_boot" command.
+# Used only for Windows, not used for macOS.  On macOS we use "newt load".
+# openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd
+
+# Disable all openocd messages.
+debug_level 0
+
+# Connect to the device.
+init
+
+# Enable ARM semihosting to show debug console output in OpenOCD console.
+arm semihosting enable
+
+echo "NOTE: Trash this window before flashing the Blue Pill again"
+
+echo "Stopping the Blue Pill..."
+reset halt
+
+flash banks
+flash list
+
+echo "Flashing the Blue Pill..."
+flash write_image erase unlock bin/targets/bluepill_boot/app/apps/boot/boot.elf.bin 0x08000000
+flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot/boot.elf.bin 0
+
+# Restart the device.
+echo "Restarting the Blue Pill..."
+reset halt
