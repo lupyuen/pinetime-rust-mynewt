@@ -80,6 +80,7 @@
                 "command": "bash",
                 "args": [
                     "-c",
+                    //  TODO
                     " newt load -v bluepill_boot "
                 ]
             },
@@ -102,6 +103,7 @@
                 "command": "bash",
                 "args": [
                     "-c",
+                    //  TODO
                     " newt load -v bluepill_my_sensor "
                 ]
             },
