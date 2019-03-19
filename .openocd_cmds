@@ -1,0 +1,5 @@
+
+init
+reset halt
+
+flash write_image erase bin/targets/bluepill_boot/app/apps/boot/boot.elf.bin 0x8000000

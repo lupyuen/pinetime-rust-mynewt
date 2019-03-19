@@ -12,13 +12,11 @@ Info : Unable to match requested speed 1000 kHz, using 950 kHz
 Info : clock speed 950 kHz
 Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
 Info : using stlink api v2
-Info : Target voltage: 3.222721
+Info : Target voltage: 3.225943
 Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : accepting 'gdb' connection on tcp/3333
 Info : device id = 0x20036410
-Info : flash size = 64kbytes
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x21000000 pc: 0x08009d18 psp: 0x20001144
-shutdown command invoked
-
-
+Warn : STM32 flash size failed, probe inaccurate - assuming 128k flash
+Info : flash size = 128kbytes
+target halted due to debug-request, current mode: Thread 
+xPSR: 00000000 pc: 0x00000024 msp: 0x96f3b83c

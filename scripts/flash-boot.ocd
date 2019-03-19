@@ -27,3 +27,4 @@ flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot/boot.elf.
 # Restart the device.
 echo "Restarting the Blue Pill..."
 reset halt
+echo "Done"
