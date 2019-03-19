@@ -6,13 +6,21 @@
         {
             "label": "1️⃣ Build bluepill_boot",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "build",
-                //  "-p",  //  Uncomment to print each command executed.
-                "-v",
-                "bluepill_boot"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt build -v bluepill_boot && newt size -v bluepill_boot "
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt build -v bluepill_boot && newt size -v bluepill_boot "
+            },
+            "linux": {
+                "command": 
+                " newt build -v bluepill_boot && newt size -v bluepill_boot "
+            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -20,13 +28,21 @@
         {
             "label": "2️⃣ Build bluepill_my_sensor",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "build",
-                //  "-p",  //  Uncomment to print each command executed.
-                "-v",
-                "bluepill_my_sensor"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor "
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor "
+            },
+            "linux": {
+                "command": 
+                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor "
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -38,13 +54,21 @@
         {
             "label": "3️⃣ Image bluepill_my_sensor",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "create-image",
-                "-v",
-                "bluepill_my_sensor",
-                "1.0.0"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor "
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor "
+            },
+            "linux": {
+                "command": 
+                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor "
+            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -52,12 +76,21 @@
         {
             "label": "4️⃣ Load bluepill_boot",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "load",
-                "-v",
-                "bluepill_boot"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt load -v bluepill_boot "
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt load -v bluepill_boot "
+            },
+            "linux": {
+                "command": 
+                " newt load -v bluepill_boot "
+            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -65,12 +98,21 @@
         {
             "label": "5️⃣ Load bluepill_my_sensor",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "load",
-                "-v",
-                "bluepill_my_sensor"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt load -v bluepill_my_sensor "
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt load -v bluepill_my_sensor "
+            },
+            "linux": {
+                "command": 
+                " newt load -v bluepill_my_sensor "
+            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -78,13 +120,22 @@
         {
             "label": "💣 Debug bluepill_my_sensor",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "debug",
-                "bluepill_my_sensor",
-                //  "-n",
-                "-v"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt debug -v bluepill_my_sensor ",
+                    //  "-n",
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt debug -v bluepill_my_sensor "
+            },
+            "linux": {
+                "command": 
+                " newt debug -v bluepill_my_sensor "
+            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -92,12 +143,21 @@
         {
             "label": "🗑 Clean",
             "type": "shell",
-            "command": "newt",
-            "args": [
-                "clean",
-                "-v",
-                "all"
-            ],
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    " newt clean -v all "
+                ]
+            },
+            "osx": {
+                "command": 
+                " newt clean -v all "
+            },
+            "linux": {
+                "command": 
+                " newt clean -v all "
+            },
             "problemMatcher": [
                 "$gcc"
             ]
