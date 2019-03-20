@@ -51,7 +51,8 @@ if [ ! -e /usr/bin/newt ]; then
     if [ ! -d $mynewtpath ]; then
         mkdir $mynewtpath
     fi
-    cd $mynewtpath
+    pushd $mynewtpath
+    
     git clone https://github.com/apache/mynewt-newt/
     cd mynewt-newt/
     ./build.sh
@@ -60,6 +61,7 @@ if [ ! -e /usr/bin/newt ]; then
     #  If you see "Error: go 1.10 or later is required (detected version: 1.2.X)"
     #  then install go 1.10 as shown above.
     sudo mv newt/newt /usr/bin
+    popd
 fi
 which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.6.0-dev" or later.
