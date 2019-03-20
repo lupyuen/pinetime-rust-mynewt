@@ -18,8 +18,10 @@ set -x  #  Echo all commands.
 ##sudo xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc
 
 #  Add Arm Toolchain to front of PATH.
-##echo export PATH=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`:\$PATH >> ~/.bashrc
-##export PATH=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`:$PATH
+gccpath=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`
+echo export PATH=$gccpath:\$PATH >> ~/.bashrc
+echo export PATH=$gccpath:\$PATH >> ~/.profile
+export PATH=$gccpath:$PATH
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
 #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
