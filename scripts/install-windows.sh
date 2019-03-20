@@ -19,27 +19,27 @@ echo $PATH
 ##sudo xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc
 
 #  Add Arm Toolchain to front of PATH.
-##gccpath=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`
+gccpath=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`
 ##echo export PATH=$gccpath:\$PATH >> ~/.bashrc
 ##echo export PATH=$gccpath:\$PATH >> ~/.profile
 ##export PATH=$gccpath:$PATH
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
 #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
-sudo add-apt-repository ppa:git-core/ppa -y
-sudo apt update
-sudo apt install git -y
-git --version  #  Should show "git version 2.21.0" or later.
+##sudo add-apt-repository ppa:git-core/ppa -y
+##sudo apt update
+##sudo apt install git -y
+##git --version  #  Should show "git version 2.21.0" or later.
 
 # Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
-sudo apt install golang-1.10 -y
-golangpath=/usr/local/go/bin
-echo export PATH=$golangpath:\$PATH >> ~/.bashrc
-echo export PATH=$golangpath:\$PATH >> ~/.profile
-echo export GOROOT= >> ~/.bashrc
-echo export GOROOT= >> ~/.profile
-export PATH=$golangpath:$PATH
-export GOROOT=
+##sudo apt install golang-1.10 -y
+golangpath=/usr/lib/go-1.10/bin
+##echo export PATH=$golangpath:\$PATH >> ~/.bashrc
+##echo export PATH=$golangpath:\$PATH >> ~/.profile
+##echo export GOROOT= >> ~/.bashrc
+##echo export GOROOT= >> ~/.profile
+##export PATH=$golangpath:$PATH
+##export GOROOT=
 go version  #  Should show "go1.10.1" or later.
 
 echo "Done!"
