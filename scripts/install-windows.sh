@@ -4,6 +4,7 @@
 echo "Installing Apache Mynewt for Windows..."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
+echo $PATH
 
 ##sudo apt update  -y  #  Update all Ubuntu packages.
 ##sudo apt upgrade -y  #  Upgrade all Ubuntu packages.
