@@ -26,13 +26,7 @@ if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
-#  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
-sudo add-apt-repository ppa:git-core/ppa -y
-sudo apt update
-sudo apt install git -y
-git --version  #  Should show "git version 2.21.0" or later.
-
-# Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
+#  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
 golangpath=/usr/lib/go-1.10/bin
 if [ ! -e $golangpath/go ]; then
     sudo apt install golang-1.10 -y
@@ -44,5 +38,30 @@ if [ ! -e $golangpath/go ]; then
     export GOROOT=
 fi
 go version  #  Should show "go1.10.1" or later.
+
+#  Build newt tool in /tmp/mynewt.
+if [ ! -e /usr/bin/newt ]; then
+    #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
+    sudo add-apt-repository ppa:git-core/ppa -y
+    sudo apt update
+    sudo apt install git -y
+    git --version  #  Should show "git version 2.21.0" or later.
+
+    mynewtpath=/tmp/mynewt
+    if [ ! -d $mynewtpath ]; then
+        mkdir $mynewtpath
+    fi
+    cd $mynewtpath
+    git clone https://github.com/apache/mynewt-newt/
+    cd mynewt-newt/
+    ./build.sh
+    #  Should show: "Building newt.  This may take a minute..."
+    #  "Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt"
+    #  If you see "Error: go 1.10 or later is required (detected version: 1.2.X)"
+    #  then install go 1.10 as shown above.
+    sudo mv newt/newt /usr/bin
+fi
+which newt    #  Should show "/usr/bin/newt"
+newt version  #  Should show "Version: 1.6.0-dev" or later.
 
 echo "Done!"
