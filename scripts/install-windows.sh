@@ -67,7 +67,7 @@ which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.6.0-dev" or later.
 
 #  Download Mynext OS into the current project folder.  Note: .git will now point to Mynext.  Don't commit any files.
-newt install
+newt install -v
 
 #  Should show: "Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git"
 #  "apache-mynewt-nimble successfully installed version 0.0.0"
