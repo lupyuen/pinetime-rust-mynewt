@@ -43,7 +43,6 @@
                 " newt build -v bluepill_boot && newt size -v bluepill_boot && echo Done! "
             },
             "problemMatcher": [
-                "$gcc"
             ]
         },
         {
@@ -69,7 +68,6 @@
                 "isDefault": true
             },
             "problemMatcher": [
-                "$gcc"
             ]
         },
         {
@@ -91,7 +89,6 @@
                 " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo Done! "
             },
             "problemMatcher": [
-                "$gcc"
             ]
         },
         {
@@ -110,7 +107,6 @@
                 " newt load -v bluepill_boot && echo Done! "
             },
             "problemMatcher": [
-                "$gcc"
             ]
         },
         {
@@ -129,7 +125,6 @@
                 " newt load -v bluepill_my_sensor && echo Done! "
             },
             "problemMatcher": [
-                "$gcc"
             ]
         },
         {
@@ -152,7 +147,6 @@
                 " newt debug -v bluepill_my_sensor "
             },
             "problemMatcher": [
-                "$gcc"
             ]
         },
         {
@@ -174,7 +168,6 @@
                 " newt clean -v all && echo Done! "
             },
             "problemMatcher": [
-                "$gcc"
             ]
         }
     ]
