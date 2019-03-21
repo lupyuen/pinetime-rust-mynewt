@@ -67,6 +67,9 @@ which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.6.0-dev" or later.
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
+if [ -d repos ]; then
+    rm -rf repos
+fi
 if [ -d .git ]; then
     mv .git git-backup
 fi
