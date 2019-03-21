@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Install Apache Mynewt",
+            "label": "0️⃣ Install Apache Mynewt",
             "type": "shell",
             "windows": {
                 "command": "bash",
