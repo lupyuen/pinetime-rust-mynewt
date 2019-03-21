@@ -19,7 +19,7 @@
 #
 -->
 
-# Windows Installation Log
+# Sample Log for Install Apache Mynewt on Windows
 
 ```bash
 > Executing task in folder stm32bluepill-mynewt-sensor: bash -c -l ' scripts/install-windows.sh ' <
@@ -238,6 +238,41 @@ Receiving objects: 100% (102496/102496), 156.93 MiB | 3.92 MiB/s, done.
 Resolving deltas: 100% (62445/62445), done.
 Checking out files: 100% (5602/5602), done.
 Will checkout origin/master
+Fetching repo mynewt-core
+Download of "repository.yml" from repo:apache-mynewt-core commit:master successful
+[apache-mynewt-nimble]:
+Downloading repository description
+Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+Cloning into '/tmp/newt-repo197825452'...
+remote: Enumerating objects: 161, done.
+remote: Counting objects: 100% (161/161), done.
+remote: Compressing objects: 100% (121/121), done.
+remote: Total 33437 (delta 89), reused 69 (delta 38), pack-reused 33276
+Receiving objects: 100% (33437/33437), 9.66 MiB | 1.61 MiB/s, done.
+Resolving deltas: 100% (19639/19639), done.
+Checking out files: 100% (564/564), done.
+Will checkout origin/master
+Fetching repo mynewt-nimble
+Download of "repository.yml" from repo:apache-mynewt-nimble commit:master successful
+Making the following changes to the project:
+    install apache-mynewt-core (0.0.0)
+    install apache-mynewt-nimble (0.0.0)
+Will checkout origin/master
+Merging changes from origin/master: error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+
+Will checkout origin/master
+apache-mynewt-core successfully installed version 0.0.0
+Will checkout origin/master
+Merging changes from origin/master: error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+
+Will checkout origin/master
+apache-mynewt-nimble successfully installed version 0.0.0
++ '[' -d git-backup ']'
++ mv git-backup .git
++ echo 'Done!'
+Done!
 ```
 
 # How this sensor sample was created under macOS
