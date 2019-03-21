@@ -8,8 +8,10 @@ rm -rf /tmp/mynewt
 
 sudo apt remove golang-1.10 -y
 
-sudo xpm uninstall --global @gnu-mcu-eclipse/arm-none-eabi-gcc
+rm -rf ~/opt/xPacks
+
 sudo npm uninstall --global xpm
 
 sudo apt remove nodejs -y
+
 sudo apt autoremove -y
