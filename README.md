@@ -19,6 +19,12 @@
 #
 -->
 
+# Apache Mynewt Sensor Application for STM32 Blue Pill
+
+Check out the article...
+
+https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725
+
 # Sample Log for Install Apache Mynewt on Windows
 
 ```bash
