@@ -175,7 +175,7 @@
             "type": "shell",
             "windows": {
                 "command": 
-                " scripts\\install-windows-ext.cmd "
+                " scripts\\install-ext-windows.cmd "
             }
         }
     ]
