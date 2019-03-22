@@ -169,6 +169,14 @@
             },
             "problemMatcher": [
             ]
+        },
+        {
+            "label": "Install Extensions",
+            "type": "shell",
+            "windows": {
+                "command": 
+                " scripts\\install-windows-ext.cmd "
+            }
         }
     ]
 }
