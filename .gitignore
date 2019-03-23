@@ -29,3 +29,4 @@ tags
 .DS_Store
 *.swp
 *.swo
+.vscode/ipch/
