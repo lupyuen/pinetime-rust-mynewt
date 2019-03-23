@@ -4,8 +4,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            //  Cortex Debug: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
-            "name": "Cortex Debug (OpenOCD)",
+            //  Cortex Debug Configuration: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
+            "name": "Blue Pill",
             "type": "cortex-debug",
             "request": "launch",
             "servertype": "openocd",
