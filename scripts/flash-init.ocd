@@ -1,0 +1,5 @@
+# Disable all openocd messages.
+##debug_level 0
+debug_level 2
+
+set FLASH_SIZE 0x3000

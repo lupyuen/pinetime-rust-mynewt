@@ -100,7 +100,8 @@
             },
             "osx": {
                 "command": 
-                " newt load -v bluepill_boot && echo Done! "
+                //// " newt load -v bluepill_boot && echo Done! "
+                " openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -c 'transport select hla_swd' -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
             },
             "linux": {
                 "command": 
