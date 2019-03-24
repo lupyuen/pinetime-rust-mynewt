@@ -1,6 +1,5 @@
 {
-    //  VSCode Debugger Config for Cortex Debug Extension and for QEMU Blue Pill Emulator.
-    //  Manually overwrite launch.json by this file.
+    //  VSCode Debugger Config for Cortex Debug Extension.
     "version": "0.2.0",
     "configurations": [
         {
@@ -11,7 +10,7 @@
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
             "executable": "bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
-            // "executable": "bin/targets/bluepill_boot/app/apps/boot/boot.elf",
+            //  For Bootloader: "executable": "bin/targets/bluepill_boot/app/apps/boot/boot.elf",
             "device": "STM32F103C8",
             "configFiles": [ 
                 "interface/stlink-v2.cfg",
@@ -19,30 +18,32 @@
                 "scripts/debug.ocd" 
             ],
             "preLaunchCommands": [
+                //  Before loading the Application, run these gdb commands.
+                //  Set timeout for executing openocd commands.
                 "set remotetimeout 60",
 
                 //  This indicates that an unrecognized breakpoint location should automatically result in a pending breakpoint being created.
                 "set breakpoint pending on",
             
                 //  Display the instruction when hitting breakpoint.
-                "display/i $pc",
+                //  "display/i $pc",
 
+                //  Load Bootloader symbols.
                 //  "symbol-file bin/targets/bluepill_boot/app/apps/boot/boot.elf",
+
+                //  Load Application symbols.
                 //  "symbol-file bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
 
             ],
             "postLaunchCommands": [
-                "stepi",  //  Must step before setting PC.
+                //  After loading the Application, run these gdb commands.
+                //  Bootloader confuses gdb so we bypass the Bootloader and jump to the Application directly.
+                "stepi",                    //  Must step before setting PC.
                 "set $pc = Reset_Handler",  //  Prepare to jump to the application's Reset Handler.
-                "stepi",  //  Execute the Reset Handler.
-                "break main",  //  Break at main().
-                "step",
-                //  "monitor sleep 1000",
-                //  "continue",  //  Run until main().
-            ],
-            "preAttachCommands": [
-            ],
-            "postAttachCommands": [
+                "stepi",                    //  Execute the Reset Handler.
+                "break main",               //  Break at main().
+                "break __assert_func",      //  Break for any assert failures.
+                "continue",                 //  Run until main().
             ],
             "preRestartCommands": [
             ],
