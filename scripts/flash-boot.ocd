@@ -1,112 +1,6 @@
 # This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Bootloader ROM.
 # Used by tasks.json for "Load bluepill_boot" command.
-# Used only for Windows, not used for macOS.  On macOS we use "newt load".
 # openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd
-
-####
-reset_config none
-
-##  Read options. See http://openocd.org/doc-release/doxygen/stm32f1x_8c_source.html#l00054
-init
-echo "**** Read options"
-sleep 5000
-debug_level 2
-stm32f1x options_read 0
-
-echo "**** Mass erase"
-sleep 5000
-stm32f1x mass_erase 0
-
-echo "**** Unlock"
-sleep 5000
-stm32f1x unlock 0
-
-echo "**** Read options"
-sleep 5000
-debug_level 2
-stm32f1x options_read 0
-
-##exit
-
-##  Program
-echo "**** Program"
-sleep 5000
-debug_level 2
-program bin/targets/bluepill_boot/app/apps/boot/boot.elf.bin verify reset exit 0x08000000
-shutdown
-exit
-
-#Debug: 412 5321 target.c:2240 target_read_u32(): address: 0x4002200c, value: 0x00000010
-#Debug: 413 5321 stm32f1x.c:177 stm32x_wait_status_busy(): status: 0x10
-#Error: 414 5321 stm32f1x.c:188 stm32x_wait_status_busy(): stm32x device protected
-#FLASH_SR = FLASH_SR_WRPRTERR (0x10)
-
-#Debug: 116 15062 hla_target.c:750 adapter_read_memory(): adapter_read_memory 0x4002201c 4 1
-#Debug: 117 15063 target.c:2240 target_read_u32(): address: 0x4002201c, value: 0x03fffffe
-#Info : 118 15063 stm32f1x.c:240 stm32x_read_options(): Device Security Bit Set
-#FLASH_OBR = FLASH_OBR_RDPRT_SHIFT (0x03fffffe)
-
-#/* --- FLASH registers ----------------------------------------------------- */
-#define PERIPH_BASE			(0x40000000U)
-#define PERIPH_BASE_AHB			(PERIPH_BASE + 0x18000)
-#define FLASH_MEM_INTERFACE_BASE	(PERIPH_BASE_AHB + 0x0a000)
-#FLASH_MEM_INTERFACE_BASE = 0x40022000
-
-#define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
-#define FLASH_KEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x04)
-#define FLASH_OPTKEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x08)
-#define FLASH_SR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x0C)
-#define FLASH_CR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x10)
-#define FLASH_AR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
-#define FLASH_OBR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x1C)
-#define FLASH_WRPR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x20)
-
-#/* --- FLASH_SR values ----------------------------------------------------- */
-#define FLASH_SR_EOP			(1 << 5)
-#define FLASH_SR_WRPRTERR		(1 << 4)
-#define FLASH_SR_PGERR			(1 << 2)
-#define FLASH_SR_BSY			(1 << 0)
-
-#/* --- FLASH_OBR values ---------------------------------------------------- */
-#define FLASH_OBR_RDPRT_SHIFT		1
-#define FLASH_OBR_OPTERR		(1 << 0)
-
-#/* --- FLASH Keys -----------------------------------------------------------*/
-#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
-#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
-
-#/* --- FLASH_CR values ----------------------------------------------------- */
-#define FLASH_CR_EOPIE			(1 << 12)
-#define FLASH_CR_ERRIE			(1 << 10)
-#define FLASH_CR_OPTWRE			(1 << 9)
-#define FLASH_CR_LOCK			(1 << 7)
-#define FLASH_CR_STRT			(1 << 6)
-#define FLASH_CR_OPTER			(1 << 5)
-#define FLASH_CR_OPTPG			(1 << 4)
-#define FLASH_CR_MER			(1 << 2)
-#define FLASH_CR_PER			(1 << 1)
-#define FLASH_CR_PG			(1 << 0)
-
-##  Unlock
-sleep 5000
-
-echo "**** init"
-init
-sleep 5000
-
-echo "**** reset halt"
-reset halt
-sleep 5000
-
-echo "**** unlock"
-debug_level 3
-stm32f1x unlock 0
-exit
-
-sleep 1000
-reset halt
-exit
-
 
 # Connect to the device.
 init
@@ -114,19 +8,33 @@ init
 # Enable ARM semihosting to show debug console output in OpenOCD console.
 arm semihosting enable
 
-echo "NOTE: Trash this window before flashing the Blue Pill again"
-
-echo "Stopping the Blue Pill..."
+echo "Stopping Blue Pill..."
 reset halt
+echo ""
 
-flash banks
-flash list
+echo "Current flash info..."
+flash banks; flash list; flash probe 0
+# flash info 0 sectors  #  Show details of each sector.
+echo ""
 
-echo "Flashing the Blue Pill..."
+# Mass erase is needed to allow unlocking of Blue Pill.
+echo "Erasing Blue Pill..."
+stm32f1x mass_erase 0
+echo ""
+
+# Unlock will fail if Blue Pill is locked, need to mass erase first.
+echo "Unlocking Blue Pill..."
+stm32f1x unlock 0  # Unlock will allow flash to be read after flashing.
+echo ""
+
+echo "Flashing Blue Pill..."
 flash write_image erase unlock bin/targets/bluepill_boot/app/apps/boot/boot.elf.bin 0x08000000
 flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot/boot.elf.bin 0
+echo ""
 
 # Restart the device.
-echo "Restarting the Blue Pill..."
+echo "Restarting Blue Pill..."
 reset halt
-echo "Done"
+echo ""
+
+echo "**** Done!"
