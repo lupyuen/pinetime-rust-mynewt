@@ -116,19 +116,22 @@
             "type": "shell",
             "windows": {
                 "command": 
-                " c:\\openocd\\bin\\openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                " c:\\openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
             },
             "osx": {
                 "command": 
-                " newt load -v bluepill_my_sensor && echo Done! "
+                // Previously: " newt load -v bluepill_my_sensor && echo Done! "
+                " openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
             },
             "linux": {
                 "command": 
-                " newt load -v bluepill_my_sensor && echo Done! "
+                // Previously: " newt load -v bluepill_my_sensor && echo Done! "
+                " openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
             },
             "problemMatcher": [
             ]
         },
+        /*  For debug we now use the Cortex Debug Extension.
         {
             "label": "💣 Debug bluepill_my_sensor",
             "type": "shell",
@@ -151,6 +154,7 @@
             "problemMatcher": [
             ]
         },
+        */
         {
             "label": "🗑 Clean",
             "type": "shell",

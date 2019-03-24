@@ -1,10 +1,7 @@
 # This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Application ROM.
 # Used by tasks.json for "Load bluepill_my_sensor" command.
-# Used only for Windows, not used for macOS.  On macOS we use "newt load".
-# openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd
-
-# Disable all openocd messages.
-debug_level 0
+# Equivalent to "newt load -v bluepill_my_sensor".
+# openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd
 
 # Connect to the device.
 init
@@ -12,20 +9,28 @@ init
 # Enable ARM semihosting to show debug console output in OpenOCD console.
 arm semihosting enable
 
-echo "NOTE: Trash this window before flashing the Blue Pill again"
-
-echo "Stopping the Blue Pill..."
+echo "Stopping Blue Pill..."
 reset halt
+echo ""
 
-flash banks
-flash list
+echo "Current flash info..."
+flash banks; flash list; flash probe 0
+# flash info 0 sectors  #  Show details of each sector.
+echo ""
 
-# TODO: Check flash address
-echo "Flashing the Blue Pill..."
-flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08000000
-flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0
+# Unlock will fail if Blue Pill is locked, need to mass erase first.  See flash-boot.ocd.
+echo "Unlocking Blue Pill..."
+stm32f1x unlock 0  # Unlock will allow flash to be read after flashing.
+echo ""
+
+echo "Flashing Application to Blue Pill..."
+flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08008000
+flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x8000
+echo ""
 
 # Restart the device.
-echo "Restarting the Blue Pill..."
+echo "Restarting Blue Pill..."
 reset halt
-echo "Done"
+echo ""
+
+echo "**** Done!"
