@@ -10,7 +10,7 @@ echo $PATH
 if [ ! -e openocd/bin/openocd ]; then
     brew install wget -f
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
-    tar -xvf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
+    tar xf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     mv gnu-mcu-eclipse openocd
     mv openocd/openocd/*/* openocd
@@ -18,24 +18,31 @@ if [ ! -e openocd/bin/openocd ]; then
 fi
 
 #  Install npm.
-if [ ! -e /usr/bin/npm ]; then
-    sudo apt update  -y  #  Update all Ubuntu packages.
-    sudo apt upgrade -y  #  Upgrade all Ubuntu packages.
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
-    sudo apt install nodejs -y
+if [ ! -e /usr/local/bin/npm ]; then
+    brew install node -f
     node --version
 fi
 
 #  Install Arm Toolchain into $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/. From https://gnu-mcu-eclipse.github.io/toolchain/arm/install/
-if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
-    sudo npm install --global xpm
-    sudo xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc
-    gccpath=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`
+if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
+    if [ ! -d "${HOME}"/opt ]; then
+        mkdir -p "${HOME}"/opt
+    fi
+    pushd "${HOME}"/opt
+    wget https://github.com/gnu-mcu-eclipse/arm-none-eabi-gcc/releases/download/v8.2.1-1.4/gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
+    tar xf gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
+    rm gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
+    chmod -R -w "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4-20190214-0604
+    gccpath=`ls -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`
     echo export PATH=$gccpath:\$PATH >> ~/.bashrc
     echo export PATH=$gccpath:\$PATH >> ~/.profile
     export PATH=$gccpath:$PATH
+    popd
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
+
+exit 0
+####
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
 golangpath=/usr/lib/go-1.10/bin
