@@ -78,7 +78,7 @@ if [ ! -e $golangpath/go ]; then
     export PATH="$golangpath:$PATH"
     export GOROOT=
 fi
-go version  #  Should show "go1.10.1" or later.
+go version  #  Should show "go1.12.1" or later.
 
 #  Install newt tool.
 if [ ! -e "${brewdir}"/bin/newt ]; then
@@ -89,9 +89,6 @@ if [ ! -e "${brewdir}"/bin/newt ]; then
 fi
 which newt    #  Should show "/usr/local/bin/newt"
 newt version  #  Should show "Version: 1.6.0-dev" or later.
-
-exit 0
-####
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
 if [ -d repos ]; then
