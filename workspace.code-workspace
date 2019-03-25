@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		//  TODO: Path of OpenOCD executable.  Comment this on macOS.
-		"cortex-debug.openocdPath": "c:\\openocd\\bin\\openocd.exe",
+		"cortex-debug.openocdPath": "openocd/bin/openocd",
 		"files.associations": {
 			"limits": "cpp",
 			"temperature.h": "c",
