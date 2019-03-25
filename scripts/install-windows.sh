@@ -83,4 +83,4 @@ fi
 #  If you see "Error: Unknown subcommand: get-url"
 #  then upgrade git as shown above.
 
-echo "Done!"
+echo "**** Done! Please restart Visual Studio Code to update the extensions"
