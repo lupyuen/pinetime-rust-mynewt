@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            //  Combined install command to install VSCode Extensions and Mynewt.
+            //  Combined install command to install VSCode Extensions and Mynewt.  Both are run concurrently.
             "label": "0️⃣ Install Apache Mynewt",
             "dependsOn": [
                 "Install Extensions", 
@@ -12,6 +12,7 @@
             ]
         },
         {
+            //  Build the Bootloader.
             "label": "1️⃣ Build bluepill_boot",
             "type": "shell",
             "windows": {
@@ -33,6 +34,7 @@
             ]
         },
         {
+            //  Build the Application.
             "label": "2️⃣ Build bluepill_my_sensor",
             "type": "shell",
             "windows": {
@@ -58,6 +60,7 @@
             ]
         },
         {
+            //  Create the Application ROM Image.
             "label": "3️⃣ Image bluepill_my_sensor",
             "type": "shell",
             "windows": {
@@ -79,6 +82,7 @@
             ]
         },
         {
+            //  Flash the Bootloader to Blue Pill.
             "label": "4️⃣ Load bluepill_boot",
             "type": "shell",
             "windows": {
@@ -99,6 +103,7 @@
             ]
         },
         {
+            //  Flash the Application to Blue Pill.
             "label": "5️⃣ Load bluepill_my_sensor",
             "type": "shell",
             "windows": {
@@ -165,7 +170,7 @@
             ]
         },
         {
-            //  Install VSCode Extensions.
+            //  Install VSCode Extensions. They will be activated upon restarting VSCode.
             "label": "Install Extensions",
             "type": "shell",
             "windows": {

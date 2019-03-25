@@ -1,9 +1,12 @@
 ::  Install Visual Studio Code Extensions for Windows.
 
+::  Install the Task Running Extension which allows us to run tasks by clicking the task in the Task Runner pane.
 call code --install-extension sanaajani.taskrunnercode --force
 
+::  Install the Cortex Debugger Extension for debugging Blue Pill programs.
 call code --install-extension marus25.cortex-debug --force
 
+::  Install C++ Intellisense to provide C++ code navigation.
 call code --install-extension ms-vscode.cpptools --force
 
 echo "Done!"
