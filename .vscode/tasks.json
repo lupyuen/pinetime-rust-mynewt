@@ -19,7 +19,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo '**** Done!' "
+                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅\"  \"Done! "
             ],
             "problemMatcher": []
         },
@@ -30,7 +30,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo '**** Done!' "
+                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo ✅\"  \"Done! "
             ],
             "group": {
                 "kind": "build",
@@ -45,7 +45,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo '**** Done!' "
+                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo ✅\"  \"Done! "
             ],
             "problemMatcher": []
         },
@@ -108,7 +108,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " newt clean -v all && echo '**** Done!' "
+                " newt clean -v all && echo ✅\"  \"Done! "
             ],
             "problemMatcher": []
         },
