@@ -19,16 +19,16 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt build -v bluepill_boot && newt size -v bluepill_boot && echo Done! "
+                    " newt build -v bluepill_boot && newt size -v bluepill_boot && echo '**** Done!' "
                 ]
             },
             "osx": {
                 "command": 
-                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo Done! "
+                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo '**** Done!' "
             },
             "linux": {
                 "command": 
-                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo Done! "
+                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo '**** Done!' "
             },
             "problemMatcher": [
             ]
@@ -41,16 +41,16 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo Done! "
+                    " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo '**** Done!' "
                 ]
             },
             "osx": {
                 "command": 
-                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo Done! "
+                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo '**** Done!' "
             },
             "linux": {
                 "command": 
-                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo Done! "
+                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo '**** Done!' "
             },
             "group": {
                 "kind": "build",
@@ -67,16 +67,16 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo Done! "
+                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo '**** Done!' "
                 ]
             },
             "osx": {
                 "command": 
-                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo Done! "
+                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo '**** Done!' "
             },
             "linux": {
                 "command": 
-                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo Done! "
+                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo '**** Done!' "
             },
             "problemMatcher": [
             ]
@@ -91,12 +91,12 @@
             },
             "osx": {
                 "command": 
-                // Previously: " newt load -v bluepill_boot && echo Done! "
+                // Previously: " newt load -v bluepill_boot && echo '**** Done!' "
                 " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
             },
             "linux": {
                 "command": 
-                // Previously: " newt load -v bluepill_boot && echo Done! "
+                // Previously: " newt load -v bluepill_boot && echo '**** Done!' "
                 " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
             },
             "problemMatcher": [
@@ -112,12 +112,12 @@
             },
             "osx": {
                 "command": 
-                // Previously: " newt load -v bluepill_my_sensor && echo Done! "
+                // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
                 " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
             },
             "linux": {
                 "command": 
-                // Previously: " newt load -v bluepill_my_sensor && echo Done! "
+                // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
                 " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
             },
             "problemMatcher": [
@@ -155,16 +155,16 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt clean -v all && echo Done! "
+                    " newt clean -v all && echo '**** Done!' "
                 ]
             },
             "osx": {
                 "command": 
-                " newt clean -v all && echo Done! "
+                " newt clean -v all && echo '**** Done!' "
             },
             "linux": {
                 "command": 
-                " newt clean -v all && echo Done! "
+                " newt clean -v all && echo '**** Done!' "
             },
             "problemMatcher": [
             ]
