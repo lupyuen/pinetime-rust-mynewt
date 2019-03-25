@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-#  Install Apache Mynewt for Windows
+#  Install Apache Mynewt for Windows.  Based on https://mynewt.apache.org/latest/newt/install/newt_windows.html.  
+#  Except we use Ubuntu on Windows instead of MinGW because it provides a cleaner, Linux build environment.
+#  gdb and openocd will run under Windows not Ubuntu because the ST Link USB driver only works under Windows.
 
 echo "Installing Apache Mynewt for Windows..."
 set -e  #  Exit when any command fails.

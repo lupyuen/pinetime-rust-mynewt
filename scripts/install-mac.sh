@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
-#  Install Apache Mynewt for macOS
+#  Install Apache Mynewt for macOS.  Based on https://mynewt.apache.org/latest/newt/install/newt_mac.html
 
 echo "Installing Apache Mynewt for macOS.."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 #  echo $PATH
+
+#  Install brew.  From https://brew.sh
+if [ ! -e /usr/local/bin/brew ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
@@ -45,24 +50,24 @@ exit 0
 ####
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
-golangpath=/usr/lib/go-1.10/bin
+golangpath=/usr/local/bin
 if [ ! -e $golangpath/go ]; then
-    sudo apt install golang-1.10 -y
-    echo export PATH=$golangpath:\$PATH >> ~/.bashrc
-    echo export PATH=$golangpath:\$PATH >> ~/.profile
+    brew install go -f
+    echo export PATH=\"$golangpath:\$PATH\" >> ~/.bashrc
+    echo export PATH=\"$golangpath:\$PATH\" >> ~/.profile
     echo export GOROOT= >> ~/.bashrc
     echo export GOROOT= >> ~/.profile
-    export PATH=$golangpath:$PATH
+    export PATH="$golangpath:$PATH"
     export GOROOT=
 fi
 go version  #  Should show "go1.10.1" or later.
 
-#  Build newt tool in /tmp/mynewt.
-if [ ! -e /usr/bin/newt ]; then
+#  Install newt tool.
+if [ ! -e /usr/local/bin/newt ]; then
     #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
-    sudo add-apt-repository ppa:git-core/ppa -y
-    sudo apt update
-    sudo apt install git -y
+    #  sudo add-apt-repository ppa:git-core/ppa -y
+    #  sudo apt update
+    #  sudo apt install git -y
     git --version  #  Should show "git version 2.21.0" or later.
 
     mynewtpath=/tmp/mynewt
