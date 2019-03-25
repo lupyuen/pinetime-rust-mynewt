@@ -176,7 +176,11 @@
             "windows": {
                 "command": 
                 " scripts\\install-ext-windows.cmd "
-            }
+            },
+            "osx": {
+                "command": 
+                " scripts/install-ext-mac.sh "
+            },
         },
         {
             //  Install Mynewt source, build tools, sample.
