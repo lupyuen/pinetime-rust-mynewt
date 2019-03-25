@@ -4,7 +4,25 @@
     "version": "2.0.0",
     "tasks": [
         {
+            //  Combined install command to install VSCode Extensions and Mynewt.
             "label": "0️⃣ Install Apache Mynewt",
+            "dependsOn": [
+                "Install Extensions", 
+                "Install Mynewt"
+            ]
+        },
+        {
+            //  Install VSCode Extensions.
+            "label": "Install Extensions",
+            "type": "shell",
+            "windows": {
+                "command": 
+                " scripts\\install-ext-windows.cmd "
+            }
+        },
+        {
+            //  Install Mynewt source, build tools, sample.
+            "label": "Install Mynewt",
             "type": "shell",
             "windows": {
                 "command": "bash",
@@ -156,6 +174,7 @@
         },
         */
         {
+            //  Remove all compiled files.
             "label": "🗑 Clean",
             "type": "shell",
             "windows": {
@@ -176,13 +195,5 @@
             "problemMatcher": [
             ]
         },
-        {
-            "label": "Install Extensions",
-            "type": "shell",
-            "windows": {
-                "command": 
-                " scripts\\install-ext-windows.cmd "
-            }
-        }
     ]
 }
