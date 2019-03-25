@@ -10,7 +10,7 @@ echo $PATH
 if [ ! -e openocd/bin/openocd.exe ]; then
     sudo apt install wget unzip -y
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
-    unzip gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip -d openocd
+    unzip -q gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip -d openocd
     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
     mv "openocd/GNU MCU Eclipse/OpenOCD/"*/* openocd
     rm -rf "openocd/GNU MCU Eclipse"

@@ -30,3 +30,4 @@ tags
 *.swp
 *.swo
 .vscode/ipch/
+openocd
