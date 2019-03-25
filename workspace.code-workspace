@@ -5,8 +5,8 @@
 		}
 	],
 	"settings": {
-		//  TODO: Path of OpenOCD executable.  Comment this on macOS.
-		"cortex-debug.openocdPath": "openocd/bin/openocd",
+		//  Path of OpenOCD executable for Blue Pill debugging.
+		"cortex-debug.openocdPath": "${workspaceRoot}/openocd/bin/openocd",
 		"files.associations": {
 			"limits": "cpp",
 			"temperature.h": "c",
