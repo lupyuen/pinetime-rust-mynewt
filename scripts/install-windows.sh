@@ -6,6 +6,16 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 echo $PATH
 
+#  Install OpenOCD into the ./openocd folder.
+if [ ! -e openocd/bin/openocd.exe ]; then
+    sudo apt install wget -y
+    wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
+    unzip gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip -d openocd
+    rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
+    mv "openocd/GNU MCU Eclipse/OpenOCD/"*/* openocd
+    rm -rf "openocd/GNU MCU Eclipse"
+fi
+
 #  Install npm.
 if [ ! -e /usr/bin/npm ]; then
     sudo apt update  -y  #  Update all Ubuntu packages.
