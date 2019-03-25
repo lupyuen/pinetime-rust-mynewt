@@ -108,7 +108,7 @@
             "type": "shell",
             "windows": {
                 "command": 
-                " c:\\openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
             },
             "osx": {
                 "command": 
