@@ -8,8 +8,13 @@ set -x  #  Echo all commands.
 
 #  Install brew.  From https://brew.sh
 if [ ! -e /usr/local/bin/brew ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
 fi
+
+#  For Testing: Install brew locally.
+#  mkdir "${HOME}"/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "${HOME}"/homebrew
+#  echo export PATH=\"${HOME}/homebrew/bin:\$PATH\" >> ~/.bashrc
+#  echo export PATH=\"${HOME}/homebrew/bin:\$PATH\" >> ~/.profile
 
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
