@@ -46,9 +46,6 @@ if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
-exit 0
-####
-
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
 golangpath=/usr/local/bin
 if [ ! -e $golangpath/go ]; then
@@ -64,30 +61,16 @@ go version  #  Should show "go1.10.1" or later.
 
 #  Install newt tool.
 if [ ! -e /usr/local/bin/newt ]; then
-    #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
-    #  sudo add-apt-repository ppa:git-core/ppa -y
-    #  sudo apt update
-    #  sudo apt install git -y
-    git --version  #  Should show "git version 2.21.0" or later.
-
-    mynewtpath=/tmp/mynewt
-    if [ ! -d $mynewtpath ]; then
-        mkdir $mynewtpath
-    fi
-    pushd $mynewtpath
-
-    git clone https://github.com/apache/mynewt-newt/
-    cd mynewt-newt/
-    ./build.sh
-    #  Should show: "Building newt.  This may take a minute..."
-    #  "Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt"
-    #  If you see "Error: go 1.10 or later is required (detected version: 1.2.X)"
-    #  then install go 1.10 as shown above.
-    sudo mv newt/newt /usr/bin
-    popd
+    # Add the Mynewt brew package repository.
+    brew tap JuulLabs-OSS/mynewt
+    # Must install the main branch, which has Blue Pill support.
+    brew install mynewt-newt --HEAD -f
 fi
-which newt    #  Should show "/usr/bin/newt"
+which newt    #  Should show "/usr/local/bin/newt"
 newt version  #  Should show "Version: 1.6.0-dev" or later.
+
+exit 0
+####
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
 if [ -d repos ]; then
@@ -100,11 +83,6 @@ newt install -v
 if [ -d git-backup ]; then
     mv git-backup .git
 fi
-
-#  Should show: "Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git"
-#  "apache-mynewt-nimble successfully installed version 0.0.0"
-#  If you see "Error: Unknown subcommand: get-url"
-#  then upgrade git as shown above.
 
 set +x  #  Stop echoing all commands.
 echo "**** Done! Please restart Visual Studio Code to activate the extensions"
