@@ -181,6 +181,8 @@
                 "command": 
                 " scripts/install-ext-mac.sh "
             },
+            "problemMatcher": [
+            ]
         },
         {
             //  Install Mynewt source, build tools, sample.
@@ -194,12 +196,18 @@
                 ]
             },
             "osx": {
-                "command": 
-                " scripts/install-mac.sh "
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/install-mac.sh "
+                ]
             },
             "linux": {
-                "command": 
-                " scripts/install-linux.sh "
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/install-linux.sh "
+                ]
             },
             "problemMatcher": [
             ]
