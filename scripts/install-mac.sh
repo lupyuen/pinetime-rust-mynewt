@@ -8,7 +8,7 @@ echo $PATH
 
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
-    brew install wget -f
+    brew install wget unzip -f
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     tar xf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
