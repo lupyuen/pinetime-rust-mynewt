@@ -12,37 +12,6 @@
             ]
         },
         {
-            //  Install VSCode Extensions.
-            "label": "Install Extensions",
-            "type": "shell",
-            "windows": {
-                "command": 
-                " scripts\\install-ext-windows.cmd "
-            }
-        },
-        {
-            //  Install Mynewt source, build tools, sample.
-            "label": "Install Mynewt",
-            "type": "shell",
-            "windows": {
-                "command": "bash",
-                "args": [
-                    "-c", "-l",
-                    " scripts/install-windows.sh "
-                ]
-            },
-            "osx": {
-                "command": 
-                " scripts/install-mac.sh "
-            },
-            "linux": {
-                "command": 
-                " scripts/install-linux.sh "
-            },
-            "problemMatcher": [
-            ]
-        },
-        {
             "label": "1️⃣ Build bluepill_boot",
             "type": "shell",
             "windows": {
@@ -191,6 +160,37 @@
             "linux": {
                 "command": 
                 " newt clean -v all && echo Done! "
+            },
+            "problemMatcher": [
+            ]
+        },
+        {
+            //  Install VSCode Extensions.
+            "label": "Install Extensions",
+            "type": "shell",
+            "windows": {
+                "command": 
+                " scripts\\install-ext-windows.cmd "
+            }
+        },
+        {
+            //  Install Mynewt source, build tools, sample.
+            "label": "Install Mynewt",
+            "type": "shell",
+            "windows": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/install-windows.sh "
+                ]
+            },
+            "osx": {
+                "command": 
+                " scripts/install-mac.sh "
+            },
+            "linux": {
+                "command": 
+                " scripts/install-linux.sh "
             },
             "problemMatcher": [
             ]
