@@ -4,7 +4,7 @@
 echo "Installing Apache Mynewt for Windows..."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
-echo $PATH
+#  echo $PATH
 
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd.exe ]; then
@@ -93,4 +93,5 @@ fi
 #  If you see "Error: Unknown subcommand: get-url"
 #  then upgrade git as shown above.
 
+set +x  #  Stop echoing all commands.
 echo "**** Done! Please restart Visual Studio Code to activate the extensions"
