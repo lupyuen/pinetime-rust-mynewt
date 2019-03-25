@@ -19,6 +19,7 @@ fi
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
     brew install wget unzip -f
+    rm gnu-mcu-eclipse*tgz*
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     tar xf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
@@ -39,6 +40,13 @@ if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
         mkdir -p "${HOME}"/opt
     fi
     pushd "${HOME}"/opt
+
+    #  Remove partial downloads.
+    if [ -d gnu-mcu-eclipse ]; then
+        rm -rf gnu-mcu-eclipse
+    fi
+    rm gnu-mcu-eclipse*tgz*
+    
     wget https://github.com/gnu-mcu-eclipse/arm-none-eabi-gcc/releases/download/v8.2.1-1.4/gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
     tar xf gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
     rm gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
