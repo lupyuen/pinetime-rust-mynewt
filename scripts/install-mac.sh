@@ -6,15 +6,23 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 #  echo $PATH
 
+#  For Testing: Install brew locally.
+#  mkdir "${HOME}"/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "${HOME}"/homebrew
+#  echo export PATH=\"${HOME}/homebrew/bin:\$PATH\" >> ~/.bashrc
+#  echo export PATH=\"${HOME}/homebrew/bin:\$PATH\" >> ~/.profile
+
+#  Where brew files are installed.
+brewdir=/usr/local
+
 #  Install brew.  From https://brew.sh
 if [ ! -e /usr/local/bin/brew ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
 fi
 
-#  For Testing: Install brew locally.
-#  mkdir "${HOME}"/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "${HOME}"/homebrew
-#  echo export PATH=\"${HOME}/homebrew/bin:\$PATH\" >> ~/.bashrc
-#  echo export PATH=\"${HOME}/homebrew/bin:\$PATH\" >> ~/.profile
+#  If brew exists locally, use the local installation.
+if [ -e "${HOME}"/homebrew/bin/brew ]; then
+    brewdir="${HOME}"/homebrew
+fi
 
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
@@ -29,7 +37,7 @@ if [ ! -e openocd/bin/openocd ]; then
 fi
 
 #  Install npm.
-if [ ! -e /usr/local/bin/npm ]; then
+if [ ! -e "${brewdir}"/bin/npm ]; then
     brew install node -f
     node --version
 fi
@@ -60,7 +68,7 @@ fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
-golangpath=/usr/local/bin
+golangpath="${brewdir}"/bin
 if [ ! -e $golangpath/go ]; then
     brew install go -f
     echo export PATH=\"$golangpath:\$PATH\" >> ~/.bashrc
@@ -73,7 +81,7 @@ fi
 go version  #  Should show "go1.10.1" or later.
 
 #  Install newt tool.
-if [ ! -e /usr/local/bin/newt ]; then
+if [ ! -e "${brewdir}"/bin/newt ]; then
     # Add the Mynewt brew package repository.
     brew tap JuulLabs-OSS/mynewt
     # Must install the main branch, which has Blue Pill support.
