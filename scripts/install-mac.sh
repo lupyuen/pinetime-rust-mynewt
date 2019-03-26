@@ -103,4 +103,4 @@ if [ -d git-backup ]; then
 fi
 
 set +x  #  Stop echoing all commands.
-echo "**** Done! Please restart Visual Studio Code to activate the extensions"
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions

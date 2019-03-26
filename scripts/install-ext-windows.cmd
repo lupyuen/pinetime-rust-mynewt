@@ -9,4 +9,4 @@ call code --install-extension marus25.cortex-debug --force
 ::  Install C++ Intellisense to provide C++ code navigation.
 call code --install-extension ms-vscode.cpptools --force
 
-echo **** Done! Please restart Visual Studio Code to activate the extensions
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions

@@ -96,4 +96,4 @@ fi
 #  then upgrade git as shown above.
 
 set +x  #  Stop echoing all commands.
-echo "**** Done! Please restart Visual Studio Code to activate the extensions"
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions

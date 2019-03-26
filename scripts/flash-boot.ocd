@@ -38,4 +38,4 @@ echo "Restarting Blue Pill..."
 reset halt
 echo ""
 
-echo "**** Done!"
+echo "✅ ◾ ️Done!"

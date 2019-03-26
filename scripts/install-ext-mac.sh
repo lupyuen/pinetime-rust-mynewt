@@ -17,4 +17,4 @@ codedir="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 "$codedir/code" --install-extension ms-vscode.cpptools --force
 
 set +x  #  Stop echoing all commands.
-echo "**** Done! Please restart Visual Studio Code to activate the extensions"
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
