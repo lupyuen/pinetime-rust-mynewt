@@ -33,4 +33,4 @@ echo "Restarting Blue Pill..."
 reset halt
 echo ""
 
-echo "\u2705\u25FC\uFE0FDone!"
+echo "**** Done!"
