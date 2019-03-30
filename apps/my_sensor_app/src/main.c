@@ -4,7 +4,7 @@
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
-#include "hal/hal_uart.h"
+#include <hal/hal_uart.h>
 
 #define MY_UART 0  //  0 means UART2
 
@@ -12,13 +12,19 @@ static char *str = "AT\r\n";
 static char *ptr = NULL;
 
 static int uart_tx_char(void *arg) {    
+    //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     if (ptr == NULL) { ptr = str; }
-    // while(*ptr) {
-        // hal_uart_blocking_tx(MY_UART, *ptr++);
-    // }
+    if (*ptr == 0) { return -1; }
+    return *ptr++;
 }
 
-static int uart_rx_char(void *arg, uint8_t byte) {    
+static int uart_rx_char(void *arg, uint8_t byte) {
+    //  UART driver reports incoming byte of data. Return -1 if data was dropped.
+    char buf[2];
+    buf[0] = byte;
+    buf[1] = 0;
+    console_printf(buf);
+    return 0;
 }
 
 static int setup_uart(void) {
@@ -31,19 +37,14 @@ static int setup_uart(void) {
         19200,
         1,
         8,
-        HALUart::hal_uart_parity.HAL_UART_PARITY_NONE,
-        HALUart::hal_uart_flow_ctl.HAL_UART_FLOW_CTL_NONE
+        HAL_UART_PARITY_NONE,
+        HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
     return 0;
 }
 
-static void handle_uart() /* write to the console with blocking */
-{
-    int rc;
-    rc = setup_uart();
-}
-
+#ifdef NOTUSED
 static struct sensor *my_sensor;
 
 #define MY_SENSOR_DEVICE "bme280_0"
@@ -72,6 +73,7 @@ read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t 
     );
     return 0;
 }
+#endif //  NOTUSED
 
 /**
  * Depending on the type of package, there are different
@@ -102,6 +104,9 @@ main(int argc, char **argv)
     mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
     sysinit();  //  Initialize all packages.  Create the sensors.
+    rc = setup_uart();
+    assert(rc == 0);
+
 #ifdef NOTUSED
     rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
@@ -112,6 +117,7 @@ main(int argc, char **argv)
     rc = sensor_register_listener(my_sensor, &listener);
     assert(rc == 0);
 #endif  //  NOTUSED        
+
     while (1) {  //  As the last thing, process events from default event queue.
         os_eventq_run(os_eventq_dflt_get());
     }
