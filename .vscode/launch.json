@@ -46,7 +46,7 @@
                 "stepi",                    //  Execute the Reset Handler.
                 "break main",               //  Break at main().
                 "break __assert_func",      //  Break for any assert failures.
-                "continue",                 //  Run until main() and break.
+                ////"continue",                 //  Run until main() and break.
             ],
             "preRestartCommands": [
             ],

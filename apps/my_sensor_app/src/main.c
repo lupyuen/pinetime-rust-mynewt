@@ -35,44 +35,45 @@ static int setup_uart(void) {
     if (rc != 0) { return rc; }
     rc = hal_uart_config(MY_UART,
         19200,
-        1,
         8,
+        1,
         HAL_UART_PARITY_NONE,
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
+    hal_uart_start_tx(MY_UART);
     return 0;
 }
 
 #ifdef NOTUSED
-static struct sensor *my_sensor;
+    static struct sensor *my_sensor;
 
-#define MY_SENSOR_DEVICE "bme280_0"
-#define MY_SENSOR_POLL_TIME 2000
-#define LISTENER_CB 1
-#define READ_CB 2
+    #define MY_SENSOR_DEVICE "bme280_0"
+    #define MY_SENSOR_POLL_TIME 2000
+    #define LISTENER_CB 1
+    #define READ_CB 2
 
-static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
+    static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
-static struct sensor_listener listener = {
-   .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
-   .sl_func = read_temperature,
-   .sl_arg = (void *)LISTENER_CB,
-};
+    static struct sensor_listener listener = {
+    .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
+    .sl_func = read_temperature,
+    .sl_arg = (void *)LISTENER_CB,
+    };
 
-static int
-read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-    struct sensor_temp_data *temp;
-    if (!databuf) { return SYS_EINVAL; }
-    temp = (struct sensor_temp_data *)databuf;
-    if (!temp->std_temp_is_valid) { return SYS_EINVAL; }
-    console_printf(
-        "temp = %d.%d\n",
-        (int) (temp->std_temp),
-        (int) (10.0 * temp->std_temp) % 10
-    );
-    return 0;
-}
+    static int
+    read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
+        struct sensor_temp_data *temp;
+        if (!databuf) { return SYS_EINVAL; }
+        temp = (struct sensor_temp_data *)databuf;
+        if (!temp->std_temp_is_valid) { return SYS_EINVAL; }
+        console_printf(
+            "temp = %d.%d\n",
+            (int) (temp->std_temp),
+            (int) (10.0 * temp->std_temp) % 10
+        );
+        return 0;
+    }
 #endif //  NOTUSED
 
 /**
