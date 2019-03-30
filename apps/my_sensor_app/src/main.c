@@ -8,22 +8,25 @@
 
 #define MY_UART 0  //  0 means UART2
 
-static char *str = "AT\r\n";
+static char *str = "AT\r\nAT\r\n";
 static char *ptr = NULL;
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     if (ptr == NULL) { ptr = str; }
     if (*ptr == 0) { return -1; }
-    return *ptr++;
+    int byte = *ptr++;
+    return byte;
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
+#ifndef NOTUSED
     char buf[2];
     buf[0] = byte;
     buf[1] = 0;
     console_printf(buf);
+#endif  //  NOTUSED
     return 0;
 }
 
@@ -41,6 +44,7 @@ static int setup_uart(void) {
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
+    console_printf("Starting tx...");
     hal_uart_start_tx(MY_UART);
     return 0;
 }
@@ -120,6 +124,7 @@ main(int argc, char **argv)
 #endif  //  NOTUSED        
 
     while (1) {  //  As the last thing, process events from default event queue.
+        console_printf("."); ////
         os_eventq_run(os_eventq_dflt_get());
     }
     return 0;  //  Never comes here.
