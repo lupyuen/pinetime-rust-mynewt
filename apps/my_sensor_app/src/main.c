@@ -11,22 +11,23 @@
 static char *str = "AT\r\nAT\r\n";
 static char *ptr = NULL;
 
+static char *tx_msg = "> ?\n";
+static char *rx_msg = "< ?\n";
+
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     if (ptr == NULL) { ptr = str; }
     if (*ptr == 0) { return -1; }
-    int byte = *ptr++;
+    char byte = *ptr++;
+    tx_msg[2] = byte == '%' ? '?' : byte;
+    //  console_printf(tx_msg);
     return byte;
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
-#ifndef NOTUSED
-    char buf[2];
-    buf[0] = byte;
-    buf[1] = 0;
-    console_printf(buf);
-#endif  //  NOTUSED
+    rx_msg[2] = byte == '%' ? '?' : byte;
+    //  console_printf(rx_msg);
     return 0;
 }
 
@@ -37,14 +38,14 @@ static int setup_uart(void) {
         uart_rx_char, NULL);
     if (rc != 0) { return rc; }
     rc = hal_uart_config(MY_UART,
-        19200,
+        115200,
         8,
         1,
         HAL_UART_PARITY_NONE,
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
-    console_printf("Starting tx...");
+    console_printf("Starting tx...\n");
     hal_uart_start_tx(MY_UART);
     return 0;
 }
@@ -124,7 +125,9 @@ main(int argc, char **argv)
 #endif  //  NOTUSED        
 
     while (1) {  //  As the last thing, process events from default event queue.
-        console_printf("."); ////
+        //// console_printf(".\n"); ////
+        console_printf(tx_msg);  tx_msg[2] = '?';
+        console_printf(rx_msg);  rx_msg[2] = '?';
         os_eventq_run(os_eventq_dflt_get());
     }
     return 0;  //  Never comes here.
