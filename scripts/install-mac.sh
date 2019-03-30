@@ -24,10 +24,16 @@ if [ -e "${HOME}"/homebrew/bin/brew ]; then
     brewdir="${HOME}"/homebrew
 fi
 
+#  Install wget and unzip.
+if [ ! -e "${brewdir}"/bin/wget ]; then
+    brew install wget unzip -f
+fi
+
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
-    brew install wget unzip -f
-    rm gnu-mcu-eclipse*tgz*
+    if [ ! gnu-mcu-eclipse*tgz* ]; then
+        rm gnu-mcu-eclipse*tgz*
+    fi
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     tar xf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
