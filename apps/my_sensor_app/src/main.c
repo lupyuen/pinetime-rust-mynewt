@@ -35,9 +35,10 @@ static int uart_rx_char(void *arg, uint8_t byte) {
 
 static void uart_tx_done(void *arg) {
     //  UART driver reports that transmission is complete.
-    //  We wait 1 second for the current command to complete, 
+    //  We wait 5 seconds for the current command to complete, 
     //  then trigger the next_cmd callout to switch to next ESP8266 command.
-    os_callout_reset(&next_cmd_callout, OS_TICKS_PER_SEC);
+    int rc = os_callout_reset(&next_cmd_callout, OS_TICKS_PER_SEC * 5);
+    assert(rc == 0);
 }
 
 static void next_cmd(struct os_event *ev) {
