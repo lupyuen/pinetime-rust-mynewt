@@ -21,7 +21,7 @@ static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte 
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
-    if (*tx_ptr == 0) { return -1; }
+    if (tx_ptr == NULL || *tx_ptr == 0) { return -1; }
     char byte = *tx_ptr++;  //  Fetch next byte from tx buffer.
     return byte;
 }
@@ -35,7 +35,10 @@ static int uart_rx_char(void *arg, uint8_t byte) {
 static void uart_tx_done(void *arg) {
     //   UART driver reports that transmission is complete.
     tx_buf = *cmd_ptr++;         //  Fetch next command.
-    if (tx_buf == NULL) { return; }  //  No more commands.
+    if (tx_buf == NULL) {        //  No more commands.
+        tx_ptr = NULL;
+        return; 
+    }
     tx_ptr = tx_buf;
     hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
     hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
