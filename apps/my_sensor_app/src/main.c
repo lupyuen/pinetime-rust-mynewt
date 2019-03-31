@@ -44,7 +44,11 @@ static void uart_tx_done(void *arg) {
 static void next_cmd(struct os_event *ev) {
     //  Switch to next ESP8266 command.
     assert(ev);
-    os_callout_stop(&next_cmd_callout);  //  Stop the callout.
+    if (rx_buf[0]) {  //  If UART data has been received...
+        console_printf("< %s\n", rx_buf);   //  Show the UART data.
+        memset(rx_buf, 0, sizeof(rx_buf));  //  Empty the rx buffer.
+        rx_ptr = rx_buf;
+    }
     if (*cmd_ptr == NULL) {      //  No more commands.
         tx_buf = NULL;
         tx_ptr = NULL;
@@ -169,6 +173,7 @@ main(int argc, char **argv)
         if (rx_buf[0]) {  //  If UART data has been received...
             console_printf("< %s\n", rx_buf);   //  Show the UART data.
             memset(rx_buf, 0, sizeof(rx_buf));  //  Empty the rx buffer.
+            rx_ptr = rx_buf;
         }
         os_eventq_run(os_eventq_dflt_get());  //  Process events from default event queue.
     }
