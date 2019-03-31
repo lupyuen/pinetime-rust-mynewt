@@ -8,9 +8,7 @@
 
 #define MY_UART 0  //  0 means UART2
 
-static char *tx_buf = 
-    //"AT\r\n"
-    "AT\r\n";
+static char *tx_buf = "AT+CWLAP\r\n";
 static char rx_buf[256];
 static char *tx_ptr = NULL;
 static char *rx_ptr = NULL;
@@ -45,7 +43,7 @@ static int setup_uart(void) {
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
-    //  console_printf("Starting tx / rx...\n");
+    //  Don't call console_printf() tx/rx or some UART data will be dropped.
     hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
     hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
     return 0;
