@@ -6,17 +6,23 @@
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include <hal/hal_uart.h>
 
-#define MY_UART 0  //  0 means UART2
+#define MY_UART 0  //  UART port: 0 means UART2.
 
-static char *tx_buf = "AT+CWLAP\r\n";
-static char rx_buf[256];
-static char *tx_ptr = NULL;
-static char *rx_ptr = NULL;
+static char *cmds[] = {     //  List of ESP8266 commands to be sent.
+    "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Station).
+    "AT+CWLAP\r\n",         //  List all WiFi access points.
+    NULL                    //  No more commands.
+};
+static char **cmd_ptr = NULL;   //  Pointer to ESP8266 command being sent.
+static char *tx_buf = NULL;     //  ESP8266 command buffer being sent.
+static char *tx_ptr = NULL;     //  Pointer to next ESP8266 command buffer byte to be sent.
+static char rx_buf[256];        //  ESP8266 receive buffer.
+static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     if (*tx_ptr == 0) { return -1; }
-    char byte = *tx_ptr++;  //  Fetch from tx buffer.
+    char byte = *tx_ptr++;  //  Fetch next byte from tx buffer.
     return byte;
 }
 
@@ -26,15 +32,30 @@ static int uart_rx_char(void *arg, uint8_t byte) {
     return 0;
 }
 
+static void uart_tx_done(void *arg) {
+    //   UART driver reports that transmission is complete.
+    tx_buf = *cmd_ptr++;         //  Fetch next command.
+    if (tx_buf == NULL) { return; }  //  No more commands.
+    tx_ptr = tx_buf;
+    hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
+    hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
+}
+
 static int setup_uart(void) {
     int rc;
-    memset(rx_buf, 0, sizeof(rx_buf));
+    //  Init tx and rx buffers.
+    cmd_ptr = cmds;
+    tx_buf = *cmd_ptr;  //  Fetch first command.
+    if (tx_buf == NULL) { return -1; }  //  No more commands.
     tx_ptr = tx_buf;
+    memset(rx_buf, 0, sizeof(rx_buf));
     rx_ptr = rx_buf;
+    //  Define the UART callbacks.
     rc = hal_uart_init_cbs(MY_UART,
-        uart_tx_char, NULL,
+        uart_tx_char, uart_tx_done,
         uart_rx_char, NULL);
     if (rc != 0) { return rc; }
+    //  Set UART parameters.
     rc = hal_uart_config(MY_UART,
         115200,
         8,
