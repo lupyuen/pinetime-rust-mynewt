@@ -18,13 +18,13 @@ static char *rx_ptr = NULL;
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     if (*tx_ptr == 0) { return -1; }
-    char byte = *tx_ptr++;
+    char byte = *tx_ptr++;  //  Fetch from tx buffer.
     return byte;
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
-    if (rx_ptr - rx_buf < sizeof(rx_buf)) { *rx_ptr++ = byte; }
+    if (rx_ptr - rx_buf < sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
     return 0;
 }
 
@@ -124,9 +124,12 @@ main(int argc, char **argv)
     assert(rc == 0);
 #endif  //  NOTUSED        
 
-    while (1) {  //  As the last thing, process events from default event queue.
-        console_printf("< %s\n", rx_buf); 
-        os_eventq_run(os_eventq_dflt_get());
+    while (1) {
+        if (rx_buf[0]) {  //  If UART data has been received...
+            console_printf("< %s\n", rx_buf);   //  Show the UART data.
+            memset(rx_buf, 0, sizeof(rx_buf));  //  Empty the rx buffer.
+        }
+        os_eventq_run(os_eventq_dflt_get());  //  Process events from default event queue.
     }
     return 0;  //  Never comes here.
 }
