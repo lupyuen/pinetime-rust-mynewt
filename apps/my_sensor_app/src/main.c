@@ -8,26 +8,28 @@
 
 #define MY_UART 0  //  0 means UART2
 
-static char *str = "AT\r\nAT\r\n";
+static char *str = 
+    "AT\r\n"
+    "AT\r\n";
 static char *ptr = NULL;
 
-static char *tx_msg = "> ?\n";
-static char *rx_msg = "< ?\n";
+static uint8_t last_tx_byte = 0;
+static uint8_t last_rx_byte = 0;
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     if (ptr == NULL) { ptr = str; }
     if (*ptr == 0) { return -1; }
     char byte = *ptr++;
-    tx_msg[2] = byte == '%' ? '?' : byte;
-    //  console_printf(tx_msg);
+    last_tx_byte = byte;
+    console_printf("< %c\n", last_tx_byte); 
     return byte;
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
-    rx_msg[2] = byte == '%' ? '?' : byte;
-    //  console_printf(rx_msg);
+    last_rx_byte = byte;
+    console_printf("> %c\n", last_rx_byte); 
     return 0;
 }
 
@@ -125,9 +127,17 @@ main(int argc, char **argv)
 #endif  //  NOTUSED        
 
     while (1) {  //  As the last thing, process events from default event queue.
-        //// console_printf(".\n"); ////
-        console_printf(tx_msg);  tx_msg[2] = '?';
-        console_printf(rx_msg);  rx_msg[2] = '?';
+        console_printf(".\n"); ////
+        if (last_rx_byte != 0) { 
+            //  console_printf("> %c\n", last_rx_byte); 
+            last_rx_byte = 0;
+        }
+        if (last_tx_byte != 0) { 
+            //  console_printf("< %c\n", last_tx_byte); 
+            last_tx_byte = 0;
+        }
+        //// console_printf(tx_msg);  tx_msg[2] = '?';
+        //// console_printf(rx_msg);  rx_msg[2] = '?';
         os_eventq_run(os_eventq_dflt_get());
     }
     return 0;  //  Never comes here.
