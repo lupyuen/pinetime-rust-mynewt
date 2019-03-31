@@ -8,33 +8,31 @@
 
 #define MY_UART 0  //  0 means UART2
 
-static char *str = 
-    "AT\r\n"
+static char *tx_buf = 
+    //"AT\r\n"
     "AT\r\n";
-static char *ptr = NULL;
-
-static uint8_t last_tx_byte = 0;
-static uint8_t last_rx_byte = 0;
+static char rx_buf[256];
+static char *tx_ptr = NULL;
+static char *rx_ptr = NULL;
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
-    if (ptr == NULL) { ptr = str; }
-    if (*ptr == 0) { return -1; }
-    char byte = *ptr++;
-    last_tx_byte = byte;
-    console_printf("< %c\n", last_tx_byte); 
+    if (*tx_ptr == 0) { return -1; }
+    char byte = *tx_ptr++;
     return byte;
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
-    last_rx_byte = byte;
-    console_printf("> %c\n", last_rx_byte); 
+    if (rx_ptr - rx_buf < sizeof(rx_buf)) { *rx_ptr++ = byte; }
     return 0;
 }
 
 static int setup_uart(void) {
     int rc;
+    memset(rx_buf, 0, sizeof(rx_buf));
+    tx_ptr = tx_buf;
+    rx_ptr = rx_buf;
     rc = hal_uart_init_cbs(MY_UART,
         uart_tx_char, NULL,
         uart_rx_char, NULL);
@@ -53,26 +51,26 @@ static int setup_uart(void) {
 }
 
 #ifdef NOTUSED
-    static struct sensor *my_sensor;
+    static tx_bufuct sensor *my_sensor;
 
     #define MY_SENSOR_DEVICE "bme280_0"
     #define MY_SENSOR_POLL_TIME 2000
     #define LISTENER_CB 1
     #define READ_CB 2
 
-    static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
+    static int read_temperature(tx_bufuct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
-    static struct sensor_listener listener = {
+    static tx_bufuct sensor_listener listener = {
     .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
     .sl_func = read_temperature,
     .sl_arg = (void *)LISTENER_CB,
     };
 
     static int
-    read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-        struct sensor_temp_data *temp;
+    read_temperature(tx_bufuct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
+        tx_bufuct sensor_temp_data *temp;
         if (!databuf) { return SYS_EINVAL; }
-        temp = (struct sensor_temp_data *)databuf;
+        temp = (tx_bufuct sensor_temp_data *)databuf;
         if (!temp->std_temp_is_valid) { return SYS_EINVAL; }
         console_printf(
             "temp = %d.%d\n",
@@ -112,7 +110,7 @@ main(int argc, char **argv)
     mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
     sysinit();  //  Initialize all packages.  Create the sensors.
-    rc = setup_uart();
+    rc = setup_uart();  //  Starting transmitting and receiving to/from the UART port.
     assert(rc == 0);
 
 #ifdef NOTUSED
@@ -127,17 +125,7 @@ main(int argc, char **argv)
 #endif  //  NOTUSED        
 
     while (1) {  //  As the last thing, process events from default event queue.
-        console_printf(".\n"); ////
-        if (last_rx_byte != 0) { 
-            //  console_printf("> %c\n", last_rx_byte); 
-            last_rx_byte = 0;
-        }
-        if (last_tx_byte != 0) { 
-            //  console_printf("< %c\n", last_tx_byte); 
-            last_tx_byte = 0;
-        }
-        //// console_printf(tx_msg);  tx_msg[2] = '?';
-        //// console_printf(rx_msg);  rx_msg[2] = '?';
+        console_printf("< %s\n", rx_buf); 
         os_eventq_run(os_eventq_dflt_get());
     }
     return 0;  //  Never comes here.
