@@ -18,6 +18,7 @@ static char *tx_buf = NULL;     //  ESP8266 command buffer being sent.
 static char *tx_ptr = NULL;     //  Pointer to next ESP8266 command buffer byte to be sent.
 static char rx_buf[256];        //  ESP8266 receive buffer.
 static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.
+static struct os_callout next_cmd_callout;  //  Callout to switch to next ESP8266 command after a delay.
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
@@ -33,7 +34,16 @@ static int uart_rx_char(void *arg, uint8_t byte) {
 }
 
 static void uart_tx_done(void *arg) {
-    //   UART driver reports that transmission is complete.
+    //  UART driver reports that transmission is complete.
+    //  We wait 1 second for the current command to complete, 
+    //  then trigger the next_cmd callout to switch to next ESP8266 command.
+    os_callout_reset(&next_cmd_callout, OS_TICKS_PER_SEC);
+}
+
+static void next_cmd(struct os_event *ev) {
+    //  Switch to next ESP8266 command.
+    assert(ev);
+    os_callout_stop(&next_cmd_callout);  //  Stop the callout.
     if (*cmd_ptr == NULL) {      //  No more commands.
         tx_buf = NULL;
         tx_ptr = NULL;
@@ -56,9 +66,10 @@ static int setup_uart(void) {
     }
     tx_buf = *cmd_ptr++;  //  Fetch first command.
     tx_ptr = tx_buf;
-
     memset(rx_buf, 0, sizeof(rx_buf));
     rx_ptr = rx_buf;
+    //  Define the next_cmd callout to switch to next ESP8266 command.
+    os_callout_init(&next_cmd_callout, os_eventq_dflt_get(), next_cmd, NULL);
     //  Define the UART callbacks.
     rc = hal_uart_init_cbs(MY_UART,
         uart_tx_char, uart_tx_done,
