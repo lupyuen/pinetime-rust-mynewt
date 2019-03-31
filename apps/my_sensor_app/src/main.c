@@ -45,7 +45,7 @@ static int setup_uart(void) {
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
-    console_printf("Starting tx / rx...\n");
+    //  console_printf("Starting tx / rx...\n");
     hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
     hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
     return 0;
