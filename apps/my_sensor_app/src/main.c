@@ -45,7 +45,7 @@ static int setup_uart(void) {
     int rc;
     //  Init tx and rx buffers.
     cmd_ptr = cmds;
-    tx_buf = *cmd_ptr;  //  Fetch first command.
+    tx_buf = *cmd_ptr++;  //  Fetch first command.
     if (tx_buf == NULL) { return -1; }  //  No more commands.
     tx_ptr = tx_buf;
     memset(rx_buf, 0, sizeof(rx_buf));
