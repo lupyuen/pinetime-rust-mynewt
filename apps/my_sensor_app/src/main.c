@@ -1,12 +1,12 @@
-#include "sysinit/sysinit.h"
-#include "os/os.h"
+#include <sysinit/sysinit.h>
+#include <os/os.h>
 #include <defs/error.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
-#include <hal/hal_uart.h>
+#include <hal/hal_uart.h>     //  UART functions.
 
-#define MY_UART 0  //  UART port: 0 means UART2.
+#define MY_UART 0  //  Select UART port: 0 means UART2.
 
 static char *cmds[] = {     //  List of ESP8266 commands to be sent.
     "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Station).
@@ -34,11 +34,12 @@ static int uart_rx_char(void *arg, uint8_t byte) {
 
 static void uart_tx_done(void *arg) {
     //   UART driver reports that transmission is complete.
-    tx_buf = *cmd_ptr++;         //  Fetch next command.
-    if (tx_buf == NULL) {        //  No more commands.
+    if (*cmd_ptr == NULL) {      //  No more commands.
+        tx_buf = NULL;
         tx_ptr = NULL;
         return; 
     }
+    tx_buf = *cmd_ptr++;         //  Fetch next command.
     tx_ptr = tx_buf;
     hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
     hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
@@ -48,9 +49,14 @@ static int setup_uart(void) {
     int rc;
     //  Init tx and rx buffers.
     cmd_ptr = cmds;
+    if (*cmd_ptr == NULL) {  //  No more commands.
+        tx_buf = NULL;
+        tx_ptr = NULL;
+        return -1; 
+    }
     tx_buf = *cmd_ptr++;  //  Fetch first command.
-    if (tx_buf == NULL) { return -1; }  //  No more commands.
     tx_ptr = tx_buf;
+
     memset(rx_buf, 0, sizeof(rx_buf));
     rx_ptr = rx_buf;
     //  Define the UART callbacks.
