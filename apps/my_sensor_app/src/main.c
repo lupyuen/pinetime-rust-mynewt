@@ -77,8 +77,10 @@ main(int argc, char **argv)
     assert(rc == 0);
 #endif  //  NOTUSED        
 
-    while (1) {  //  Loop forever...
-        os_eventq_run(os_eventq_dflt_get());  //  Process events from default event queue.
+    while (1) {                   //  Loop forever...
+        os_eventq_run(            //  Process events...
+            os_eventq_dflt_get()  //  From default event queue.
+        );
     }
     return 0;  //  Never comes here.
 }
