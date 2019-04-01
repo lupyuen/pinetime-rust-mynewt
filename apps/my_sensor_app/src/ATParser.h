@@ -205,21 +205,6 @@ public:
     */
     void oob(const char *prefix, void (*func)(void), void *arg);
 
-#ifdef NOTUSED
-    /**
-    * Attach a callback for out-of-band data
-    *
-    * @param prefix string on when to initiate callback
-    * @param obj pointer to object to call member function on
-    * @param method callback to call when string is read
-    * @note out-of-band data is only processed during a scanf call
-    */
-    template <typename T, typename M>
-    void oob(const char *prefix, void (*func)(void), void *arg) {
-        return oob(prefix, func, arg);
-    }
-#endif  //  NOTUSED
-
     /**
     * Flushes the underlying stream
     */

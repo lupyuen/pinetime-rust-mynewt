@@ -1,3 +1,4 @@
+//  Ported from https://os.mbed.com/teams/ESP8266/code/esp8266-driver/file/6946b0b9e323/ESP8266/ESP8266.cpp/
 /* ESP8266 Example
  * Copyright (c) 2015 ARM Limited
  *

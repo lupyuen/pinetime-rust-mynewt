@@ -1,3 +1,4 @@
+//  Ported from https://os.mbed.com/teams/ESP8266/code/esp8266-driver/file/6946b0b9e323/ESP8266/ESP8266.h/
 /* ESP8266Interface Example
  * Copyright (c) 2015 ARM Limited
  *
@@ -25,7 +26,7 @@
 class ESP8266
 {
 public:
-    ESP8266(PinName tx, PinName rx, bool debug=false);
+    ESP8266(bool debug=false);
 
     /**
     * Startup the ESP8266
@@ -178,18 +179,7 @@ public:
     *
     * @param func A pointer to a void function, or 0 to set as none
     */
-    void attach(Callback<void()> func);
-
-    /**
-    * Attach a function to call whenever network state has changed
-    *
-    * @param obj pointer to the object to call the member function on
-    * @param method pointer to the member function to call
-    */
-    template <typename T, typename M>
-    void attach(T *obj, M method) {
-        attach(Callback<void()>(obj, method));
-    }
+    void attach(void (*func)(void *), void *arg);
 
 private:
     BufferedSerial _serial;
