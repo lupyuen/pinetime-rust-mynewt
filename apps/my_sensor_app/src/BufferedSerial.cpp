@@ -31,78 +31,101 @@
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
 
 #define MY_UART 0  //  Select UART port: 0 means UART2.
+//  #define TEST_UART  //  Uncomment to test locally.
 
-static const char *cmds[] = {     //  List of ESP8266 commands to be sent.
-    "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Access Point mode).
-    "AT+CWLAP\r\n",         //  List all WiFi access points.
-    NULL                    //  No more commands.
-};
-static const char **cmd_ptr = NULL;   //  Pointer to ESP8266 command being sent.
-static const char *tx_buf = NULL;     //  ESP8266 command buffer being sent.
-static const char *tx_ptr = NULL;     //  Pointer to next ESP8266 command buffer byte to be sent.
 static char rx_buf[256];        //  ESP8266 receive buffer.
 static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.
-static struct os_callout next_cmd_callout;  //  Callout to switch to next ESP8266 command after a delay.
+
+#ifdef TEST_UART
+    static const char *cmds[] = {     //  List of ESP8266 commands to be sent.
+        "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Access Point mode).
+        "AT+CWLAP\r\n",         //  List all WiFi access points.
+        NULL                    //  No more commands.
+    };
+    static const char **cmd_ptr = NULL;   //  Pointer to ESP8266 command being sent.
+    static const char *tx_buf = NULL;     //  ESP8266 command buffer being sent.
+    static const char *tx_ptr = NULL;     //  Pointer to next ESP8266 command buffer byte to be sent.
+    static struct os_callout next_cmd_callout;  //  Callout to switch to next ESP8266 command after a delay.
+#endif  //  TEST_UART
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
+#ifndef TEST_UART
+    if (arg == NULL) { return -1; }
+    BufferedSerial *serial = (BufferedSerial *) arg;
+    return serial->txIrq();
+#else
     if (tx_ptr == NULL || *tx_ptr == 0) { return -1; }
     char byte = *tx_ptr++;  //  Fetch next byte from tx buffer.
     return byte;
+#endif  //  TEST_UART
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
+#ifndef TEST_UART
+    if (arg == NULL) { return -1; }
+    BufferedSerial *serial = (BufferedSerial *) arg;
+    return serial->rxIrq(byte);
+#else
     if (rx_ptr - rx_buf < sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
     return 0;
+#endif  //  TEST_UART
 }
 
 static void uart_tx_done(void *arg) {
     //  UART driver reports that transmission is complete.
+#ifdef TEST_UART
     //  We wait 5 seconds for the current command to complete, 
     //  then trigger the next_cmd callout to switch to next ESP8266 command.
     int rc = os_callout_reset(&next_cmd_callout, OS_TICKS_PER_SEC * 5);
     assert(rc == 0);
+#endif  //  TEST_UART
 }
 
-static void next_cmd(struct os_event *ev) {
-    //  Switch to next ESP8266 command.
-    assert(ev);
-    if (rx_buf[0]) {  //  If UART data has been received...
-        console_printf("< %s\n", rx_buf);   //  Show the UART data.
-        memset(rx_buf, 0, sizeof(rx_buf));  //  Empty the rx buffer.
-        rx_ptr = rx_buf;
+#ifdef TEST_UART
+    static void next_cmd(struct os_event *ev) {
+        //  Switch to next ESP8266 command.
+        assert(ev);
+        if (rx_buf[0]) {  //  If UART data has been received...
+            console_printf("< %s\n", rx_buf);   //  Show the UART data.
+            memset(rx_buf, 0, sizeof(rx_buf));  //  Empty the rx buffer.
+            rx_ptr = rx_buf;
+        }
+        if (*cmd_ptr == NULL) {      //  No more commands.
+            tx_buf = NULL;
+            tx_ptr = NULL;
+            return; 
+        }
+        tx_buf = *cmd_ptr++;         //  Fetch next command.
+        tx_ptr = tx_buf;
+        hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
+        hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
     }
-    if (*cmd_ptr == NULL) {      //  No more commands.
-        tx_buf = NULL;
-        tx_ptr = NULL;
-        return; 
-    }
-    tx_buf = *cmd_ptr++;         //  Fetch next command.
-    tx_ptr = tx_buf;
-    hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
-    hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
-}
+#endif  //  TEST_UART
 
-static int setup_uart(void) {
+static int setup_uart(BufferedSerial *serial) {
     int rc;
-    //  Init tx and rx buffers.
-    cmd_ptr = cmds;
-    if (*cmd_ptr == NULL) {  //  No more commands.
-        tx_buf = NULL;
-        tx_ptr = NULL;
-        return -1; 
-    }
-    tx_buf = *cmd_ptr++;  //  Fetch first command.
-    tx_ptr = tx_buf;
+    //  Init rx buffer.
     memset(rx_buf, 0, sizeof(rx_buf));
     rx_ptr = rx_buf;
-    //  Define the next_cmd callout to switch to next ESP8266 command.
-    os_callout_init(&next_cmd_callout, os_eventq_dflt_get(), next_cmd, NULL);
+    #ifdef TEST_UART
+        //  Init tx buffer.
+        cmd_ptr = cmds;
+        if (*cmd_ptr == NULL) {  //  No more commands.
+            tx_buf = NULL;
+            tx_ptr = NULL;
+            return -1; 
+        }
+        tx_buf = *cmd_ptr++;  //  Fetch first command.
+        tx_ptr = tx_buf;
+        //  Define the next_cmd callout to switch to next ESP8266 command.
+        os_callout_init(&next_cmd_callout, os_eventq_dflt_get(), next_cmd, NULL);
+    #endif  //  TEST_UART
     //  Define the UART callbacks.
     rc = hal_uart_init_cbs(MY_UART,
         uart_tx_char, uart_tx_done,
-        uart_rx_char, NULL);
+        uart_rx_char, serial);
     if (rc != 0) { return rc; }
     //  Set UART parameters.
     rc = hal_uart_config(MY_UART,
@@ -113,9 +136,11 @@ static int setup_uart(void) {
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
-    //  Don't call console_printf() tx/rx or some UART data will be dropped.
-    hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
-    hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
+    #ifdef TEST_UART
+        //  Don't call console_printf() tx/rx or some UART data will be dropped.
+        hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
+        hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
+    #endif  //  TEST_UART
     return 0;
 }
 
@@ -125,7 +150,7 @@ BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const ch
     int rc;
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
-    rc = setup_uart();  //  Starting transmitting and receiving to/from the UART port.
+    rc = setup_uart(this);  //  Starting transmitting and receiving to/from the UART port.
     assert(rc == 0);
 }
 
@@ -203,50 +228,34 @@ size_t BufferedSerial::write(const void *s, size_t length)
     return 0;
 }
 
-
-void BufferedSerial::rxIrq(void)
+int BufferedSerial::rxIrq(uint8_t byte)
 {
-    // read from the peripheral and make sure something is available
-    if(serial_readable(&_serial)) {
-        _rxbuf = serial_getc(&_serial); // if so load them into a buffer
-        // trigger callback if necessary
-        if (_cbs[RxIrq]) {
-            _cbs[RxIrq]();
-        }
-    }
-
-    return;
+    //  UART driver reports incoming byte of data. Return -1 if data was dropped.
+    _rxbuf.put(byte);  //  Add to TX buffer.
+    //  Trigger callback if necessary
+    if (_cbs[RxIrq]) { _cbs[RxIrq](); }
+    return 0;
 }
 
-void BufferedSerial::txIrq(void)
+int BufferedSerial::txIrq(void)
 {
-    // see if there is room in the hardware fifo and if something is in the software fifo
-    while(serial_writable(&_serial)) {
-        if(_txbuf.available()) {
-            serial_putc(&_serial, (int)_txbuf.get());
-        } else {
-            // TODO: disable the TX interrupt when there is nothing left to send
-            // trigger callback if necessary
-            if (_cbs[TxIrq]) {
-                _cbs[TxIrq]();
-            }
-            break;
-        }
+    //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
+    if(_txbuf.available()) {
+        uint8_t byte = _txbuf.get();  //  Get data from TX buffer.
+        return byte;
     }
+    //  Trigger callback if no more data to send.
+    if (_cbs[TxIrq]) { _cbs[TxIrq](); }
+    return -1;
+}
 
-    return;
+void BufferedSerial::prime(void)
+{
+    hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
+    hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
 }
 
 #ifdef NOTUSED
-void BufferedSerial::prime(void)
-{
-    // if already busy then the irq will pick this up
-    if(serial_writable(&_serial)) {
-        //  TODO: BufferedSerial::txIrq();                // only write to hardware in one place
-    }
-    return;
-}
-
 void BufferedSerial::attach(Callback<void()> func, IrqType type)
 {
     _cbs[type] = func;

@@ -25,6 +25,8 @@
 #define BUFFEREDSERIAL_H
  
 #include "MyBuffer.h"
+#define RxIrq 0  //  First callback in _cbs is rx.
+#define TxIrq 1  //  Second callback in _cbs is tx.
 
 /** A serial port (UART) for communication with other serial devices
  *
@@ -73,13 +75,8 @@ private:
     MyBuffer <char> _rxbuf;
     MyBuffer <char> _txbuf;
     uint32_t      _buf_size;
-    uint32_t      _tx_multiple;
- 
-    void rxIrq(void);
-    void txIrq(void);
-    void prime(void);
-
-    void (*_cbs[2])(void);
+    uint32_t      _tx_multiple; 
+    void (*_cbs[2])(void);  //  Indexed by RxIrq, TxIrq.
     
 public:
     /** Create a BufferedSerial port
@@ -134,6 +131,10 @@ public:
      *  @return The number of bytes written to the Serial Port Buffer
      */
     virtual size_t write(const void *s, size_t length);
+
+    int rxIrq(uint8_t byte);
+    int txIrq(void);
+    void prime(void);
 
 #ifdef NOTUSED
     /** Attach a function to call whenever a serial interrupt is generated
