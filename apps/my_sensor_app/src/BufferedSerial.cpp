@@ -147,13 +147,14 @@ static int setup_uart(BufferedSerial *serial) {
 BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const char* name)
     : _rxbuf(buf_size), _txbuf((uint32_t)(tx_multiple*buf_size))
 {
-    int rc;
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
-    rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
+    os_error_t rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
-    rc = setup_uart(this);  //  Starting transmitting and receiving to/from the UART port.
-    assert(rc == 0);
+
+    //  Start transmitting and receiving to/from the UART port.
+    int rc2 = setup_uart(this);
+    assert(rc2 == 0);
 }
 
 BufferedSerial::~BufferedSerial(void)
@@ -240,7 +241,7 @@ int BufferedSerial::rxIrq(uint8_t byte)
     os_error_t rc = os_sem_release(&_rx_sem);  //  Signal to semaphore that data is available.
     assert(rc == OS_OK);
     //  Trigger callback if necessary
-    if (_cbs[RxIrq]) { _cbs[RxIrq](); }
+    if (_cbs[RxIrq]) { _cbs[RxIrq](_cbs_arg[RxIrq]); }
     return 0;
 }
 
@@ -252,7 +253,7 @@ int BufferedSerial::txIrq(void)
         return byte;
     }
     //  Trigger callback if no more data to send.
-    if (_cbs[TxIrq]) { _cbs[TxIrq](); }
+    if (_cbs[TxIrq]) { _cbs[TxIrq](_cbs_arg[TxIrq]); }
     return -1;
 }
 
@@ -262,9 +263,8 @@ void BufferedSerial::prime(void)
     hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
 }
 
-#ifdef NOTUSED
-void BufferedSerial::attach(Callback<void()> func, IrqType type)
+void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)
 {
     _cbs[type] = func;
+    _cbs_arg[type] = arg;
 }
-#endif  //  NOTUSED

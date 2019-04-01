@@ -239,7 +239,7 @@ bool ATParser::vrecv(const char *response, va_list args)
                 if (j == _oobs[k].len && memcmp(
                         _oobs[k].prefix, _buffer+offset, _oobs[k].len) == 0) {
                     debug_if(dbg_on, "AT! %s\r\n", _oobs[k].prefix);
-                    _oobs[k].cb();
+                    _oobs[k].cb(_oobs[k].arg);
 
                     // oob may have corrupted non-reentrant buffer,
                     // so we need to set it up again
@@ -318,9 +318,8 @@ bool ATParser::recv(const char *response, ...)
     return res;
 }
 
-
 // oob registration
-void ATParser::oob(const char *prefix, void (*func)(void), void *arg)
+void ATParser::oob(const char *prefix, void (*func)(void *), void *arg)
 {
     for (int k = 0; k < MAX_OOBS; k++) { 
         if (_oobs[k].len != 0) { continue; }  //  Find an empty callback. 

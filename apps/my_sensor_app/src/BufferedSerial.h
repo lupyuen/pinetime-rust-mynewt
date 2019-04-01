@@ -24,8 +24,11 @@
 #ifndef BUFFEREDSERIAL_H
 #define BUFFEREDSERIAL_H
 
-#include <os_sem.h>  //  For os_sem.
+#include <os/os.h>  //  For os_sem.
 #include "MyBuffer.h"
+#undef putc      //  Avoid conflict with putc() below.
+
+#define IrqType int
 #define RxIrq 0  //  First callback in _cbs is rx.
 #define TxIrq 1  //  Second callback in _cbs is tx.
 
@@ -77,8 +80,9 @@ private:
     MyBuffer <char> _txbuf;
     uint32_t      _buf_size;
     uint32_t      _tx_multiple; 
-    os_sem        _rx_sem;   //  Semaphore that is signalled for every byte received.
-    void (*_cbs[2])(void);  //  RX, TX callbacks, indexed by RxIrq, TxIrq.
+    os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
+    void (*_cbs[2])(void *);   //  RX, TX callbacks, indexed by RxIrq, TxIrq.
+    void *_cbs_arg[2];         //  RX, TX callback arguments, indexed by RxIrq, TxIrq.
     
 public:
     /** Create a BufferedSerial port
@@ -139,33 +143,11 @@ public:
     int txIrq(void);
     void prime(void);
 
-#ifdef NOTUSED
     /** Attach a function to call whenever a serial interrupt is generated
      *  @param func A pointer to a void function, or 0 to set as none
      *  @param type Which serial interrupt to attach the member function to (Serial::RxIrq for receive, TxIrq for transmit buffer empty)
      */
-    virtual void attach(Callback<void()> func, IrqType type=RxIrq);
-
-    /** Attach a member function to call whenever a serial interrupt is generated
-     *  @param obj pointer to the object to call the member function on
-     *  @param method pointer to the member function to call
-     *  @param type Which serial interrupt to attach the member function to (Serial::RxIrq for receive, TxIrq for transmit buffer empty)
-     */
-    template <typename T>
-    void attach(T *obj, void (T::*method)(), IrqType type=RxIrq) {
-        attach(Callback<void()>(obj, method), type);
-    }
-
-    /** Attach a member function to call whenever a serial interrupt is generated
-     *  @param obj pointer to the object to call the member function on
-     *  @param method pointer to the member function to call
-     *  @param type Which serial interrupt to attach the member function to (Serial::RxIrq for receive, TxIrq for transmit buffer empty)
-     */
-    template <typename T>
-    void attach(T *obj, void (*method)(T*), IrqType type=RxIrq) {
-        attach(Callback<void()>(obj, method), type);
-    }
-#endif  //  NOTUSED
+    virtual void attach(void (*func)(void *), void *arg, IrqType type=RxIrq);
 };
 
 #endif

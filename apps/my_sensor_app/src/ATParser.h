@@ -59,7 +59,7 @@ private:
     struct oob {
         unsigned len;
         const char *prefix;
-        void (*cb)(void);
+        void (*cb)(void *);
         void *arg;
     };
     oob _oobs[MAX_OOBS];
@@ -203,7 +203,7 @@ public:
     * @param func callback to call when string is read
     * @note out-of-band data is only processed during a scanf call
     */
-    void oob(const char *prefix, void (*func)(void), void *arg);
+    void oob(const char *prefix, void (*func)(void *), void *arg);
 
     /**
     * Flushes the underlying stream

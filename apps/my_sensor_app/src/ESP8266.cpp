@@ -15,14 +15,20 @@
  * limitations under the License.
  */
 
+#include <assert.h>
 #include "ESP8266.h"
 
-ESP8266::ESP8266(PinName tx, PinName rx, bool debug)
-    : _serial(tx, rx, 1024), _parser(_serial)
+ESP8266::ESP8266(bool debug)
+    : _serial(1024), _parser(_serial)
     , _packets(0), _packets_end(&_packets)
 {
     _serial.baud(115200);
     _parser.debugOn(debug);
+}
+
+void packet_handler(void *arg) {
+    assert(arg != NULL);
+    ((ESP8266 *)arg)->_packet_handler();
 }
 
 bool ESP8266::startup(int mode)
@@ -31,15 +37,12 @@ bool ESP8266::startup(int mode)
     if(mode < 1 || mode > 3) {
         return false;
     }
-
     bool success = reset()
         && _parser.send("AT+CWMODE=%d", mode)
         && _parser.recv("OK")
         && _parser.send("AT+CIPMUX=1")
         && _parser.recv("OK");
-
-    _parser.oob("+IPD", this, &ESP8266::_packet_handler);
-
+    _parser.oob("+IPD", packet_handler, this);
     return success;
 }
 
@@ -146,28 +149,30 @@ bool ESP8266::isConnected(void)
     return getIPAddress() != 0;
 }
 
-int ESP8266::scan(WiFiAccessPoint *res, unsigned limit)
-{
-    unsigned cnt = 0;
-    nsapi_wifi_ap_t ap;
+#ifdef NOTUSED
+    int ESP8266::scan(WiFiAccessPoint *res, unsigned limit)
+    {
+        unsigned cnt = 0;
+        nsapi_wifi_ap_t ap;
 
-    if (!_parser.send("AT+CWLAP")) {
-        return NSAPI_ERROR_DEVICE_ERROR;
-    }
-
-    while (recv_ap(&ap)) {
-        if (cnt < limit) {
-            res[cnt] = WiFiAccessPoint(ap);
+        if (!_parser.send("AT+CWLAP")) {
+            return NSAPI_ERROR_DEVICE_ERROR;
         }
 
-        cnt++;
-        if (limit != 0 && cnt >= limit) {
-            break;
-        }
-    }
+        while (recv_ap(&ap)) {
+            if (cnt < limit) {
+                res[cnt] = WiFiAccessPoint(ap);
+            }
 
-    return cnt;
-}
+            cnt++;
+            if (limit != 0 && cnt >= limit) {
+                break;
+            }
+        }
+
+        return cnt;
+    }
+#endif  //  NOTUSED
 
 bool ESP8266::open(const char *type, int id, const char* addr, int port)
 {
@@ -289,19 +294,21 @@ bool ESP8266::writeable()
     return _serial.writeable();
 }
 
-void ESP8266::attach(Callback<void()> func)
+void ESP8266::attach(void (*func)(void *), void *arg)
 {
-    _serial.attach(func);
+    _serial.attach(func, arg);
 }
 
-bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
-{
-    int sec;
-    bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
-                            &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
-                            &ap->bssid[5], &ap->channel);
+#ifdef NOTUSED
+    bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
+    {
+        int sec;
+        bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
+                                &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
+                                &ap->bssid[5], &ap->channel);
 
-    ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
+        ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
 
-    return ret;
-}
+        return ret;
+    }
+#endif  //  NOTUSED

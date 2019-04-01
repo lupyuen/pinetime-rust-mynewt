@@ -109,6 +109,7 @@ public:
     */
     bool isConnected(void);
 
+#ifdef NOTUSED
     /** Scan for available networks
      *
      * @param  ap    Pointer to allocated array to store discovered AP
@@ -117,6 +118,7 @@ public:
      *               see @a nsapi_error
      */
     int scan(WiFiAccessPoint *res, unsigned limit);
+#endif  //  NOTUSED
 
     /**
     * Open a socketed connection
@@ -181,6 +183,7 @@ public:
     */
     void attach(void (*func)(void *), void *arg);
 
+    void _packet_handler();
 private:
     BufferedSerial _serial;
     ATParser _parser;
@@ -191,8 +194,6 @@ private:
         uint32_t len;
         // data follows
     } *_packets, **_packets_end;
-    void _packet_handler();
-    bool recv_ap(nsapi_wifi_ap_t *ap);
 
     char _ip_buffer[16];
     char _gateway_buffer[16];
