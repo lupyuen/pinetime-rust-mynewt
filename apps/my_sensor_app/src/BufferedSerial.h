@@ -139,9 +139,12 @@ public:
      */
     virtual size_t write(const void *s, size_t length);
 
+    virtual void baud(uint32_t baud0);
+
     int rxIrq(uint8_t byte);
     int txIrq(void);
     void prime(void);
+    uint32_t _baud;
 
     /** Attach a function to call whenever a serial interrupt is generated
      *  @param func A pointer to a void function, or 0 to set as none

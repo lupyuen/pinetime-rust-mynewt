@@ -236,7 +236,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             // Check for oob data
             for (int k = 0; k < MAX_OOBS; k++) {
                 if (_oobs[k].len == 0) { continue; }  //  Skip empty callbacks.
-                if (j == _oobs[k].len && memcmp(
+                if (j == (int) _oobs[k].len && memcmp(
                         _oobs[k].prefix, _buffer+offset, _oobs[k].len) == 0) {
                     debug_if(dbg_on, "AT! %s\r\n", _oobs[k].prefix);
                     _oobs[k].cb(_oobs[k].arg);

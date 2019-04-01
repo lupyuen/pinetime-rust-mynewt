@@ -128,8 +128,14 @@ static int setup_uart(BufferedSerial *serial) {
         uart_rx_char, serial);
     if (rc != 0) { return rc; }
     //  Set UART parameters.
+#ifndef TEST_UART
+    uint32_t baud = serial->_baud;
+#else
+    uint32_t baud = 115200;
+#endif  //  TEST_UART
+    assert(baud != 0);
     rc = hal_uart_config(MY_UART,
-        115200,
+        baud,
         8,
         1,
         HAL_UART_PARITY_NONE,
@@ -149,6 +155,7 @@ BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const ch
 {
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
+    this->_baud = 0;
     os_error_t rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
 
@@ -267,4 +274,9 @@ void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)
 {
     _cbs[type] = func;
     _cbs_arg[type] = arg;
+}
+
+void BufferedSerial::baud(uint32_t baud0)
+{
+    _baud = baud0;
 }
