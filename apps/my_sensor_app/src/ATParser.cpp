@@ -39,38 +39,20 @@ ATParser::ATParser(BufferedSerial &serial, const char *delimiter, int buffer_siz
 // getc/putc handling with timeouts
 int ATParser::putc(char c)
 {
-    Timer timer;
-    timer.start();
-
-    while (true) {
-        if (_serial->writeable()) {
-            return _serial->putc(c);
-        }
-        if (timer.read_ms() > _timeout) {
-            return -1;
-        }
-    }
+    //  TODO: Handle timeout.
+    return _serial->putc(c);
 }
 
 int ATParser::getc()
 {
-    Timer timer;
-    timer.start();
-
-    while (true) {
-        if (_serial->readable()) {
-            return _serial->getc();
-        }
-        if (timer.read_ms() > _timeout) {
-            return -1;
-        }
-    }
+    //  Return the next received byte.  If no data, block until the timeout.
+    return _serial->getc(_timeout);
 }
 
 void ATParser::flush()
 {
     while (_serial->readable()) {
-        _serial->getc();
+        _serial->getc(0);  //  Do not wait for data to be available.
     }
 }
 

@@ -70,7 +70,7 @@ public:
     *
     * @param serial serial interface to use for AT commands
     * @param buffer_size size of internal buffer for transaction
-    * @param timeout timeout of the connection
+    * @param timeout timeout of the connection in milliseconds
     * @param delimiter string of characters to use as line delimiters
     */
     ATParser(BufferedSerial &serial, const char *delimiter = "\r\n", int buffer_size = 256, int timeout = 8000, bool debug = false);

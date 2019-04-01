@@ -150,6 +150,8 @@ BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const ch
     int rc;
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
+    rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
+    assert(rc == OS_OK);
     rc = setup_uart(this);  //  Starting transmitting and receiving to/from the UART port.
     assert(rc == 0);
 }
@@ -168,16 +170,19 @@ int BufferedSerial::writeable(void)
     return 1;   // buffer allows overwriting by design, always true
 }
 
-int BufferedSerial::getc(void)
+int BufferedSerial::getc(int timeout)
 {
-    return _rxbuf;
+    //  If no data available, wait until the timeout for data.
+    os_error_t rc = os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
+    assert(rc == OS_OK);
+    if (_rxbuf.available()) { return _rxbuf.get(); }
+    return -1;
 }
 
 int BufferedSerial::putc(int c)
 {
     _txbuf = (char)c;
     BufferedSerial::prime();
-
     return c;
 }
 
@@ -232,6 +237,8 @@ int BufferedSerial::rxIrq(uint8_t byte)
 {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
     _rxbuf.put(byte);  //  Add to TX buffer.
+    os_error_t rc = os_sem_release(&_rx_sem);  //  Signal to semaphore that data is available.
+    assert(rc == OS_OK);
     //  Trigger callback if necessary
     if (_cbs[RxIrq]) { _cbs[RxIrq](); }
     return 0;

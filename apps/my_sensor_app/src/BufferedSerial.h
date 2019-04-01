@@ -23,7 +23,8 @@
 
 #ifndef BUFFEREDSERIAL_H
 #define BUFFEREDSERIAL_H
- 
+
+#include <os_sem.h>  //  For os_sem.
 #include "MyBuffer.h"
 #define RxIrq 0  //  First callback in _cbs is rx.
 #define TxIrq 1  //  Second callback in _cbs is tx.
@@ -76,7 +77,8 @@ private:
     MyBuffer <char> _txbuf;
     uint32_t      _buf_size;
     uint32_t      _tx_multiple; 
-    void (*_cbs[2])(void);  //  Indexed by RxIrq, TxIrq.
+    os_sem        _rx_sem;   //  Semaphore that is signalled for every byte received.
+    void (*_cbs[2])(void);  //  RX, TX callbacks, indexed by RxIrq, TxIrq.
     
 public:
     /** Create a BufferedSerial port
@@ -103,9 +105,10 @@ public:
     
     /** Get a single byte from the BufferedSerial Port.
      *  Should check readable() before calling this.
-     *  @return A byte that came in on the Serial Port
+     *  @param timeout if no data is available, wait until this timeout in milliseconds
+     *  @return A byte that came in on the Serial Port. If no data available, return -1
      */
-    virtual int getc(void);
+    virtual int getc(int timeout);
     
     /** Write a single byte to the BufferedSerial Port.
      *  @param c The byte to write to the Serial Port
