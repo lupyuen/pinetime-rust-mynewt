@@ -19,7 +19,6 @@
  */
 
 #include "ATParser.h"
-#include "mbed_debug.h"
 
 
 // getc/putc handling with timeouts

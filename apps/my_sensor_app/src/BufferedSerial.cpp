@@ -28,7 +28,6 @@ extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_li
 BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const char* name)
     : _rxbuf(buf_size), _txbuf((uint32_t)(tx_multiple*buf_size))
 {
-    RawSerial::attach(this, &BufferedSerial::rxIrq, Serial::RxIrq);
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
     return;
@@ -36,9 +35,6 @@ BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const ch
 
 BufferedSerial::~BufferedSerial(void)
 {
-    RawSerial::attach(NULL, RawSerial::RxIrq);
-    RawSerial::attach(NULL, RawSerial::TxIrq);
-
     return;
 }
 
@@ -134,8 +130,7 @@ void BufferedSerial::txIrq(void)
         if(_txbuf.available()) {
             serial_putc(&_serial, (int)_txbuf.get());
         } else {
-            // disable the TX interrupt when there is nothing left to send
-            RawSerial::attach(NULL, RawSerial::TxIrq);
+            // TODO: disable the TX interrupt when there is nothing left to send
             // trigger callback if necessary
             if (_cbs[TxIrq]) {
                 _cbs[TxIrq]();
@@ -151,16 +146,15 @@ void BufferedSerial::prime(void)
 {
     // if already busy then the irq will pick this up
     if(serial_writable(&_serial)) {
-        RawSerial::attach(NULL, RawSerial::TxIrq);    // make sure not to cause contention in the irq
         BufferedSerial::txIrq();                // only write to hardware in one place
-        RawSerial::attach(this, &BufferedSerial::txIrq, RawSerial::TxIrq);
     }
 
     return;
 }
 
+#ifdef NOTUSED
 void BufferedSerial::attach(Callback<void()> func, IrqType type)
 {
     _cbs[type] = func;
 }
-
+#endif  //  NOTUSED

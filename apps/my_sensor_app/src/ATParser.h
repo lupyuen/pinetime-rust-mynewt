@@ -22,9 +22,7 @@
 #define AT_PARSER_H
 
 #include <cstdarg>
-#include <vector>
 #include "BufferedSerial.h"
-#include "Callback.h"
 
 
 /**
