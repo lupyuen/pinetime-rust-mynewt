@@ -91,13 +91,17 @@ public:
      *  @param buf_size printf() buffer size
      *  @param tx_multiple amount of max printf() present in the internal ring buffer at one time
      *  @param name optional name
-     *  @note Either tx or rx may be specified as NC if unused
      */
-    BufferedSerial(int uart, uint32_t buf_size = 256, uint32_t tx_multiple = 4, const char* name=NULL);
+    BufferedSerial(uint32_t buf_size = 256, uint32_t tx_multiple = 4, const char* name=NULL);
     
     /** Destroy a BufferedSerial port
      */
     virtual ~BufferedSerial(void);
+
+    /** Configure the BufferedSerial port
+     *  @param uart UART port number. 0 means UART2
+     */
+    virtual void configure(int uart);
     
     /** Check on how many bytes are in the rx buffer
      *  @return 1 if something exists, 0 otherwise

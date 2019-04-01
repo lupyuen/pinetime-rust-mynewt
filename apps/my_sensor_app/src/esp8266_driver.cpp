@@ -1,5 +1,6 @@
 #include <os/os.h>
 #include <sensor/sensor.h>
+#include "ESP8266.h"
 
 struct esp8266_cfg {
 };
@@ -8,6 +9,7 @@ struct esp8266 {
     struct os_dev dev;
     struct sensor sensor;
     struct esp8266_cfg cfg;
+    ESP8266 drv;
 };
 
 static struct esp8266 esp8266;
@@ -50,11 +52,20 @@ int esp8266_init(struct os_dev *dev, void *arg) {
 }
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
-_esp(tx, rx, debug)
-        memset(_ids, 0, sizeof(_ids));
-        memset(_cbs, 0, sizeof(_cbs));
+    drv->drv.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
+    //  TODO: memset(_ids, 0, sizeof(_ids));
+    //  TODO: memset(_cbs, 0, sizeof(_cbs));
+    drv->drv.attach(&esp8266_event, drv);
+}
 
-        _esp.attach(this, &ESP8266Interface::event);
+void esp8266_event(void *drv) {
+#ifdef TODO
+    for (int i = 0; i < ESP8266_SOCKET_COUNT; i++) {
+        if (_cbs[i].callback) {
+            _cbs[i].callback(_cbs[i].data);
+        }
+    }
+#endif  //  TODO
 }
 
 //  int drv2605_trigger_rom(struct sensor_itf *itf);

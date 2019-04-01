@@ -155,13 +155,13 @@ static int setup_uart(BufferedSerial *serial) {
     return 0;
 }
 
-BufferedSerial::BufferedSerial(int uart, uint32_t buf_size, uint32_t tx_multiple, const char* name)
+BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const char* name)
     : _rxbuf(buf_size), _txbuf((uint32_t)(tx_multiple*buf_size))
 {
     this->_initialised = 0;
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
-    this->_uart = uart;
+    this->_uart = 0;
     this->_baud = 0;
     os_error_t rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
@@ -169,6 +169,10 @@ BufferedSerial::BufferedSerial(int uart, uint32_t buf_size, uint32_t tx_multiple
 
 BufferedSerial::~BufferedSerial(void)
 {
+}
+
+void BufferedSerial::configure(int uart) {
+    _uart = uart;
 }
 
 int BufferedSerial::readable(void)

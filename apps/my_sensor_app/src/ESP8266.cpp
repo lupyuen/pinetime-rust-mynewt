@@ -18,12 +18,16 @@
 #include <assert.h>
 #include "ESP8266.h"
 
-ESP8266::ESP8266(int uart, bool debug)
-    : _serial(uart, 1024), _parser(_serial)
+ESP8266::ESP8266(bool debug)
+    : _serial(1024), _parser(_serial)
     , _packets(0), _packets_end(&_packets)
 {
     _serial.baud(115200);
     _parser.debugOn(debug);
+}
+
+void ESP8266::configure(int uart) {
+    _serial.configure(uart);
 }
 
 void packet_handler(void *arg) {
