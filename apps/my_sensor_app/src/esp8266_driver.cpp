@@ -48,17 +48,20 @@ void esp8266_sensor_dev_create(void)
 
 /////////////////////////////////////////////////////////
 
+static void esp8266_event(void *drv);
+
 int esp8266_init(struct os_dev *dev, void *arg) {
 }
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
-    drv->drv.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
     //  TODO: memset(_ids, 0, sizeof(_ids));
     //  TODO: memset(_cbs, 0, sizeof(_cbs));
-    drv->drv.attach(&esp8266_event, drv);
+    drv->drv.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
+    drv->drv.attach(&esp8266_event, drv);  //  Set the callback for ESP8266 events.
 }
 
-void esp8266_event(void *drv) {
+static void esp8266_event(void *drv) {
+    //  Callback for ESP8266 events.
 #ifdef TODO
     for (int i = 0; i < ESP8266_SOCKET_COUNT; i++) {
         if (_cbs[i].callback) {
@@ -68,7 +71,8 @@ void esp8266_event(void *drv) {
 #endif  //  TODO
 }
 
-//  int drv2605_trigger_rom(struct sensor_itf *itf);
+static void esp8266_scan(struct sensor_itf *itf) {
+}
 
 #ifdef NOTUSED
 
@@ -77,16 +81,6 @@ void esp8266_event(void *drv) {
     #define ESP8266_SEND_TIMEOUT    500
     #define ESP8266_RECV_TIMEOUT    0
     #define ESP8266_MISC_TIMEOUT    500
-
-    // ESP8266Interface implementation
-    ESP8266Interface::ESP8266Interface(PinName tx, PinName rx, bool debug)
-        : _esp(tx, rx, debug)
-    {
-        memset(_ids, 0, sizeof(_ids));
-        memset(_cbs, 0, sizeof(_cbs));
-
-        _esp.attach(this, &ESP8266Interface::event);
-    }
 
     int ESP8266Interface::connect(const char *ssid, const char *pass, nsapi_security_t security,
                                             uint8_t channel)
