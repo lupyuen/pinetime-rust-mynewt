@@ -10,7 +10,34 @@
 		"files.associations": {
 			"limits": "cpp",
 			"temperature.h": "c",
-			"sensor.h": "c"
+			"sensor.h": "c",
+			"__config": "cpp",
+			"__debug": "cpp",
+			"__functional_base": "cpp",
+			"__nullptr": "cpp",
+			"atomic": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cstring": "cpp",
+			"exception": "cpp",
+			"iosfwd": "cpp",
+			"memory": "cpp",
+			"new": "cpp",
+			"stdexcept": "cpp",
+			"typeinfo": "cpp",
+			"__bit_reference": "cpp",
+			"__split_buffer": "cpp",
+			"__tuple": "cpp",
+			"algorithm": "cpp",
+			"initializer_list": "cpp",
+			"iterator": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"vector": "cpp"
 		}
 	}
 }

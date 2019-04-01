@@ -1,3 +1,4 @@
+//  Ported from https://github.com/ARMmbed/ATParser//blob/269f14532b98442669c50383782cbce1c67aced5/ATParser.h
 /* Copyright (c) 2015 ARM Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +21,6 @@
 #ifndef AT_PARSER_H
 #define AT_PARSER_H
 
-#include "mbed.h"
 #include <cstdarg>
 #include <vector>
 #include "BufferedSerial.h"

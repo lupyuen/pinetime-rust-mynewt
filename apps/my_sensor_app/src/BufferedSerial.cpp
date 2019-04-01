@@ -25,8 +25,8 @@
 
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
 
-BufferedSerial::BufferedSerial(PinName tx, PinName rx, uint32_t buf_size, uint32_t tx_multiple, const char* name)
-    : RawSerial(tx, rx) , _rxbuf(buf_size), _txbuf((uint32_t)(tx_multiple*buf_size))
+BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const char* name)
+    : _rxbuf(buf_size), _txbuf((uint32_t)(tx_multiple*buf_size))
 {
     RawSerial::attach(this, &BufferedSerial::rxIrq, Serial::RxIrq);
     this->_buf_size = buf_size;

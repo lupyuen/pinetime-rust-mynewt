@@ -21,7 +21,7 @@
                 "-c", "-l",
                 " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅ ◾ ️Done! "
             ],
-            "problemMatcher": []
+            "problemMatcher": [ "$gcc" ]
         },
         {
             //  Build the Application.
@@ -36,7 +36,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": []
+            "problemMatcher": [ "$gcc" ]
         },
         {
             //  Create the Application ROM Image.

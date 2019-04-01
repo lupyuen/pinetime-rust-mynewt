@@ -1,4 +1,4 @@
-
+//  Ported from https://github.com/ARMmbed/ATParser//blob/269f14532b98442669c50383782cbce1c67aced5/BufferedSerial/BufferedSerial.h
 /**
  * @file    BufferedSerial.h
  * @brief   Software Buffer - Extends mbed Serial functionallity adding irq driven TX and RX
@@ -24,7 +24,6 @@
 #ifndef BUFFEREDSERIAL_H
 #define BUFFEREDSERIAL_H
  
-#include "mbed.h"
 #include "MyBuffer.h"
 
 /** A serial port (UART) for communication with other serial devices
@@ -68,7 +67,7 @@
  *  @class BufferedSerial
  *  @brief Software buffers and interrupt driven tx and rx for Serial
  */  
-class BufferedSerial : public RawSerial 
+class BufferedSerial
 {
 private:
     MyBuffer <char> _rxbuf;
@@ -80,18 +79,16 @@ private:
     void txIrq(void);
     void prime(void);
 
-    Callback<void()> _cbs[2];
+    void (*_cbs[2])(void);
     
 public:
-    /** Create a BufferedSerial port, connected to the specified transmit and receive pins
-     *  @param tx Transmit pin
-     *  @param rx Receive pin
+    /** Create a BufferedSerial port
      *  @param buf_size printf() buffer size
      *  @param tx_multiple amount of max printf() present in the internal ring buffer at one time
      *  @param name optional name
      *  @note Either tx or rx may be specified as NC if unused
      */
-    BufferedSerial(PinName tx, PinName rx, uint32_t buf_size = 256, uint32_t tx_multiple = 4,const char* name=NULL);
+    BufferedSerial(uint32_t buf_size = 256, uint32_t tx_multiple = 4,const char* name=NULL);
     
     /** Destroy a BufferedSerial port
      */
@@ -136,8 +133,9 @@ public:
      *  @param length The amount of data being pointed to
      *  @return The number of bytes written to the Serial Port Buffer
      */
-    virtual ssize_t write(const void *s, std::size_t length);
+    virtual size_t write(const void *s, size_t length);
 
+#ifdef NOTUSED
     /** Attach a function to call whenever a serial interrupt is generated
      *  @param func A pointer to a void function, or 0 to set as none
      *  @param type Which serial interrupt to attach the member function to (Serial::RxIrq for receive, TxIrq for transmit buffer empty)
@@ -163,6 +161,7 @@ public:
     void attach(T *obj, void (*method)(T*), IrqType type=RxIrq) {
         attach(Callback<void()>(obj, method), type);
     }
+#endif  //  NOTUSED
 };
 
 #endif
