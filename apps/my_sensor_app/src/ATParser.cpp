@@ -1,3 +1,4 @@
+//  Ported from https://github.com/ARMmbed/ATParser//blob/269f14532b98442669c50383782cbce1c67aced5/ATParser.cpp
 /* Copyright (c) 2015 ARM Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +20,11 @@
  */
 
 #include <assert.h>
+#include <console/console.h>
 #include "ATParser.h"
+
+//  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
+#define debug_if(dbg_on, format, arg) console_printf(format, arg)
 
 ATParser::ATParser(BufferedSerial &serial, const char *delimiter, int buffer_size, int timeout, bool debug) :
     _serial(&serial),
@@ -335,11 +340,12 @@ bool ATParser::recv(const char *response, ...)
 // oob registration
 void ATParser::oob(const char *prefix, void (*func)(void), void *arg)
 {
-    //  struct oob *oob = &(_oobs[0]);  //  TODO    
-    _oobs[0].len = strlen(prefix);
-    _oobs[0].prefix = prefix;
-    _oobs[0].cb = func;
-    _oobs[0].arg = arg;
-    assert(0);
-    //  TODO: _oobs.push_back(oob);
+    for (int k = 0; k < MAX_OOBS; k++) { 
+        if (_oobs[k].len != 0) { continue; }  //  Find an empty callback. 
+        _oobs[k].len = strlen(prefix);
+        _oobs[k].prefix = prefix;
+        _oobs[k].cb = func;
+        _oobs[k].arg = arg;
+    }
+    assert(0);  //  Too many callbacks.
 }

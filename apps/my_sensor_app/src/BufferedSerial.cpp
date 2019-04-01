@@ -1,3 +1,4 @@
+//  Ported from https://github.com/ARMmbed/ATParser//blob/269f14532b98442669c50383782cbce1c67aced5/BufferedSerial/BufferedSerial.cpp
 /**
  * @file    BufferedSerial.cpp
  * @brief   Software Buffer - Extends mbed Serial functionallity adding irq driven TX and RX
