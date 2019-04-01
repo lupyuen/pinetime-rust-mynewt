@@ -4,28 +4,34 @@
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
+#include "esp8266_driver.h"
+
+#define TRANSCEIVER_DEVICE "esp8266_0"
+#define MAX_WIFI_AP 3
+static struct sensor *trans;
+static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];
 
 #ifdef NOTUSED
-    static tx_bufuct sensor *my_sensor;
-
     #define MY_SENSOR_DEVICE "bme280_0"
     #define MY_SENSOR_POLL_TIME 2000
     #define LISTENER_CB 1
     #define READ_CB 2
 
-    static int read_temperature(tx_bufuct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
+    static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
-    static tx_bufuct sensor_listener listener = {
-    .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
-    .sl_func = read_temperature,
-    .sl_arg = (void *)LISTENER_CB,
+    static struct sensor *my_sensor;
+
+    static struct sensor_listener listener = {
+        .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
+        .sl_func = read_temperature,
+        .sl_arg = (void *)LISTENER_CB,
     };
 
     static int
-    read_temperature(tx_bufuct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-        tx_bufuct sensor_temp_data *temp;
+    read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
+        struct sensor_temp_data *temp;
         if (!databuf) { return SYS_EINVAL; }
-        temp = (tx_bufuct sensor_temp_data *)databuf;
+        temp = (struct sensor_temp_data *)databuf;
         if (!temp->std_temp_is_valid) { return SYS_EINVAL; }
         console_printf(
             "temp = %d.%d\n",
@@ -60,11 +66,18 @@
 int
 main(int argc, char **argv)
 {
-    //  int rc;    
+    int rc;    
 #ifdef ARCH_sim
     mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
     sysinit();  //  Initialize all packages.  Create the sensors.
+    esp8266_sensor_dev_create();  //  Create the ESP8266 transceiver.
+
+    trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
+    assert(trans != NULL);
+
+    rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP);
+    assert(rc > 0 && rc <= MAX_WIFI_AP);
 
 #ifdef NOTUSED
     rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);

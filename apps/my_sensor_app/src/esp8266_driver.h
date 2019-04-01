@@ -3,6 +3,7 @@
 
 #include "os/os.h"
 #include "sensor/sensor.h"
+#include "wifi.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,6 +18,7 @@ struct esp8266 {
     struct esp8266_cfg cfg;
 };
 
+void esp8266_sensor_dev_create(void);
 int esp8266_init(struct os_dev *dev, void *arg);
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);
 int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit);

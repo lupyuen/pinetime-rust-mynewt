@@ -3,7 +3,7 @@
 #include "ESP8266.h"
 #include "esp8266_driver.h"
 
-// Various timeouts for different ESP8266 operations
+//  Various timeouts for different ESP8266 operations
 #define ESP8266_CONNECT_TIMEOUT 15000
 #define ESP8266_SEND_TIMEOUT    500
 #define ESP8266_RECV_TIMEOUT    0
