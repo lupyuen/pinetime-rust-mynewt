@@ -1,27 +1,26 @@
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include "ESP8266.h"
+#include "esp8266_driver.h"
 
-struct esp8266_cfg {
-};
-
-struct esp8266 {
-    struct os_dev dev;
-    struct sensor sensor;
-    struct esp8266_cfg cfg;
-    ESP8266 drv;
-};
+// Various timeouts for different ESP8266 operations
+#define ESP8266_CONNECT_TIMEOUT 15000
+#define ESP8266_SEND_TIMEOUT    500
+#define ESP8266_RECV_TIMEOUT    0
+#define ESP8266_MISC_TIMEOUT    500
 
 static struct esp8266 esp8266;
 
-//  #if MYNEWT_VAL(UART_0)
+//  #if MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
+static ESP8266 driver;  //  TODO: Support multiple ESP8266 instances.
+
 static const struct sensor_itf uart_0_itf = {        
     SENSOR_ITF_UART, //  si_type: Sensor interface type
     0,               //  si_num: Sensor interface number    
     //  .si_type = SENSOR_ITF_UART,
     //  .si_num = 0,
 };
-//  #endif
+//  #endif  //  MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
 static int config_esp8266(void)
 {
@@ -38,7 +37,6 @@ static int config_esp8266(void)
 void esp8266_sensor_dev_create(void)
 {
     int rc;
-    assert(rc == 0);
     rc = os_dev_create((struct os_dev *) &esp8266, "esp8266_0",
         OS_DEV_INIT_PRIMARY, 0, esp8266_init, (void *) &uart_0_itf);
     assert(rc == 0);
@@ -51,13 +49,15 @@ void esp8266_sensor_dev_create(void)
 static void esp8266_event(void *drv);
 
 int esp8266_init(struct os_dev *dev, void *arg) {
+    return 0;
 }
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
     //  TODO: memset(_ids, 0, sizeof(_ids));
     //  TODO: memset(_cbs, 0, sizeof(_cbs));
-    drv->drv.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
-    drv->drv.attach(&esp8266_event, drv);  //  Set the callback for ESP8266 events.
+    driver.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
+    driver.attach(&esp8266_event, drv);  //  Set the callback for ESP8266 events.
+    return 0;
 }
 
 static void esp8266_event(void *drv) {
@@ -71,16 +71,13 @@ static void esp8266_event(void *drv) {
 #endif  //  TODO
 }
 
-static void esp8266_scan(struct sensor_itf *itf) {
+int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
+    driver.setTimeout(ESP8266_CONNECT_TIMEOUT);
+    if (!driver.startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }  //  Start in WiFi Client mode.
+    return driver.scan(res, limit);
 }
 
 #ifdef NOTUSED
-
-    // Various timeouts for different ESP8266 operations
-    #define ESP8266_CONNECT_TIMEOUT 15000
-    #define ESP8266_SEND_TIMEOUT    500
-    #define ESP8266_RECV_TIMEOUT    0
-    #define ESP8266_MISC_TIMEOUT    500
 
     int ESP8266Interface::connect(const char *ssid, const char *pass, nsapi_security_t security,
                                             uint8_t channel)

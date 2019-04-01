@@ -243,6 +243,7 @@ public:
     void attach(void (*func)(void *), void *arg);
 
     void _packet_handler();
+    int _uart;
 private:
     BufferedSerial _serial;
     ATParser _parser;

@@ -22,11 +22,13 @@ ESP8266::ESP8266(bool debug)
     : _serial(1024), _parser(_serial)
     , _packets(0), _packets_end(&_packets)
 {
+    _uart = 0;
     _serial.baud(115200);
     _parser.debugOn(debug);
 }
 
 void ESP8266::configure(int uart) {
+    _uart = uart;
     _serial.configure(uart);
 }
 
