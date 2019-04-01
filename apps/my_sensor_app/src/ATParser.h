@@ -23,7 +23,7 @@
 
 #include <cstdarg>
 #include "BufferedSerial.h"
-
+#define MAX_OOBS 2  //  Up to 2 callbacks allowed.
 
 /**
 * Parser class for parsing AT commands
@@ -59,9 +59,10 @@ private:
     struct oob {
         unsigned len;
         const char *prefix;
-        mbed::Callback<void()> cb;
+        void (*cb)(void);
+        void *arg;
     };
-    std::vector<oob> _oobs;
+    oob _oobs[MAX_OOBS];
 
 public:
     /**
@@ -72,14 +73,7 @@ public:
     * @param timeout timeout of the connection
     * @param delimiter string of characters to use as line delimiters
     */
-    ATParser(BufferedSerial &serial, const char *delimiter = "\r\n", int buffer_size = 256, int timeout = 8000, bool debug = false) :
-        _serial(&serial),
-        _buffer_size(buffer_size) {
-        _buffer = new char[buffer_size];
-        setTimeout(timeout);
-        setDelimiter(delimiter);
-        debugOn(debug);
-    }
+    ATParser(BufferedSerial &serial, const char *delimiter = "\r\n", int buffer_size = 256, int timeout = 8000, bool debug = false);
 
     /**
     * Destructor
@@ -209,8 +203,9 @@ public:
     * @param func callback to call when string is read
     * @note out-of-band data is only processed during a scanf call
     */
-    void oob(const char *prefix, mbed::Callback<void()> func);
+    void oob(const char *prefix, void (*func)(void), void *arg);
 
+#ifdef NOTUSED
     /**
     * Attach a callback for out-of-band data
     *
@@ -220,9 +215,10 @@ public:
     * @note out-of-band data is only processed during a scanf call
     */
     template <typename T, typename M>
-    void oob(const char *prefix, T *obj, M method) {
-        return oob(prefix, mbed::Callback<void()>(obj, method));
+    void oob(const char *prefix, void (*func)(void), void *arg) {
+        return oob(prefix, func, arg);
     }
+#endif  //  NOTUSED
 
     /**
     * Flushes the underlying stream

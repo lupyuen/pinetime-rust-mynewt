@@ -92,7 +92,7 @@ int BufferedSerial::printf(const char* format, ...)
     return r;
 }
 
-ssize_t BufferedSerial::write(const void *s, size_t length)
+size_t BufferedSerial::write(const void *s, size_t length)
 {
     if (s != NULL && length > 0) {
         const char* ptr = (const char*)s;

@@ -18,8 +18,18 @@
  *
  */
 
+#include <assert.h>
 #include "ATParser.h"
 
+ATParser::ATParser(BufferedSerial &serial, const char *delimiter, int buffer_size, int timeout, bool debug) :
+    _serial(&serial),
+    _buffer_size(buffer_size) {
+    _buffer = new char[buffer_size];
+    setTimeout(timeout);
+    setDelimiter(delimiter);
+    debugOn(debug);
+    for (int k = 0; k < MAX_OOBS; k++) { _oobs[k].len = 0; }  //  Init the callbacks.
+}
 
 // getc/putc handling with timeouts
 int ATParser::putc(char c)
@@ -237,7 +247,8 @@ bool ATParser::vrecv(const char *response, va_list args)
             _buffer[offset + j] = 0;
 
             // Check for oob data
-            for (int k = 0; k < _oobs.size(); k++) {
+            for (int k = 0; k < MAX_OOBS; k++) {
+                if (_oobs[k].len == 0) { continue; }  //  Skip empty callbacks.
                 if (j == _oobs[k].len && memcmp(
                         _oobs[k].prefix, _buffer+offset, _oobs[k].len) == 0) {
                     debug_if(dbg_on, "AT! %s\r\n", _oobs[k].prefix);
@@ -322,11 +333,13 @@ bool ATParser::recv(const char *response, ...)
 
 
 // oob registration
-void ATParser::oob(const char *prefix, Callback<void()> cb)
+void ATParser::oob(const char *prefix, void (*func)(void), void *arg)
 {
-    struct oob oob;
-    oob.len = strlen(prefix);
-    oob.prefix = prefix;
-    oob.cb = cb;
-    _oobs.push_back(oob);
+    //  struct oob *oob = &(_oobs[0]);  //  TODO    
+    _oobs[0].len = strlen(prefix);
+    _oobs[0].prefix = prefix;
+    _oobs[0].cb = func;
+    _oobs[0].arg = arg;
+    assert(0);
+    //  TODO: _oobs.push_back(oob);
 }
