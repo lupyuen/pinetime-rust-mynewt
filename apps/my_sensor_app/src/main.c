@@ -9,7 +9,7 @@
 #define MY_UART 0  //  Select UART port: 0 means UART2.
 
 static char *cmds[] = {     //  List of ESP8266 commands to be sent.
-    "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Station).
+    "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Access Point mode).
     "AT+CWLAP\r\n",         //  List all WiFi access points.
     NULL                    //  No more commands.
 };
