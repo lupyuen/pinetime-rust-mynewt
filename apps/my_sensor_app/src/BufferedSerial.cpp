@@ -30,11 +30,14 @@
 
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
 
-#define MY_UART 0  //  Select UART port: 0 means UART2.
 //  #define TEST_UART  //  Uncomment to test locally.
 
-static char rx_buf[256];        //  ESP8266 receive buffer.
-static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.
+#ifdef TEST_UART
+    #define MY_UART 0  //  Select UART port: 0 means UART2.
+#endif  //  TEST_UART
+
+static char rx_buf[256];        //  ESP8266 receive buffer.  TODO: Support multiple instances.
+static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.  TODO: Support multiple instances.
 
 #ifdef TEST_UART
     static const char *cmds[] = {     //  List of ESP8266 commands to be sent.
@@ -106,6 +109,13 @@ static void uart_tx_done(void *arg) {
 
 static int setup_uart(BufferedSerial *serial) {
     int rc;
+#ifndef TEST_UART
+    int uart = serial->_uart;
+    uint32_t baud = serial->_baud;
+#else
+    int uart = MY_UART;
+    uint32_t baud = 115200;
+#endif  //  TEST_UART
     //  Init rx buffer.
     memset(rx_buf, 0, sizeof(rx_buf));
     rx_ptr = rx_buf;
@@ -123,18 +133,13 @@ static int setup_uart(BufferedSerial *serial) {
         os_callout_init(&next_cmd_callout, os_eventq_dflt_get(), next_cmd, NULL);
     #endif  //  TEST_UART
     //  Define the UART callbacks.
-    rc = hal_uart_init_cbs(MY_UART,
+    rc = hal_uart_init_cbs(uart,
         uart_tx_char, uart_tx_done,
         uart_rx_char, serial);
     if (rc != 0) { return rc; }
     //  Set UART parameters.
-#ifndef TEST_UART
-    uint32_t baud = serial->_baud;
-#else
-    uint32_t baud = 115200;
-#endif  //  TEST_UART
     assert(baud != 0);
-    rc = hal_uart_config(MY_UART,
+    rc = hal_uart_config(uart,
         baud,
         8,
         1,
@@ -150,18 +155,16 @@ static int setup_uart(BufferedSerial *serial) {
     return 0;
 }
 
-BufferedSerial::BufferedSerial(uint32_t buf_size, uint32_t tx_multiple, const char* name)
+BufferedSerial::BufferedSerial(int uart, uint32_t buf_size, uint32_t tx_multiple, const char* name)
     : _rxbuf(buf_size), _txbuf((uint32_t)(tx_multiple*buf_size))
 {
+    this->_initialised = 0;
     this->_buf_size = buf_size;
     this->_tx_multiple = tx_multiple;   
+    this->_uart = uart;
     this->_baud = 0;
     os_error_t rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
-
-    //  Start transmitting and receiving to/from the UART port.
-    int rc2 = setup_uart(this);
-    assert(rc2 == 0);
 }
 
 BufferedSerial::~BufferedSerial(void)
@@ -197,14 +200,12 @@ int BufferedSerial::putc(int c)
 int BufferedSerial::puts(const char *s)
 {
     if (s != NULL) {
-        const char* ptr = s;
-    
+        const char* ptr = s;    
         while(*(ptr) != 0) {
             _txbuf = *(ptr++);
         }
         _txbuf = '\n';  // done per puts definition
         BufferedSerial::prime();
-    
         return (ptr - s) + 1;
     }
     return 0;
@@ -229,13 +230,11 @@ size_t BufferedSerial::write(const void *s, size_t length)
 {
     if (s != NULL && length > 0) {
         const char* ptr = (const char*)s;
-        const char* end = ptr + length;
-    
+        const char* end = ptr + length;    
         while (ptr != end) {
             _txbuf = *(ptr++);
         }
-        BufferedSerial::prime();
-    
+        BufferedSerial::prime();    
         return ptr - (const char*)s;
     }
     return 0;
@@ -266,8 +265,14 @@ int BufferedSerial::txIrq(void)
 
 void BufferedSerial::prime(void)
 {
-    hal_uart_start_rx(MY_UART);  //  Start receiving UART data.
-    hal_uart_start_tx(MY_UART);  //  Start transmitting UART data.
+    if (!_initialised) {
+        //  Configure the UART port on first use.
+        _initialised = 1;
+        int rc = setup_uart(this);
+        assert(rc == 0);
+    }
+    hal_uart_start_rx(_uart);  //  Start receiving UART data.
+    hal_uart_start_tx(_uart);  //  Start transmitting UART data.
 }
 
 void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)

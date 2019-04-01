@@ -85,7 +85,7 @@ typedef struct nsapi_wifi_ap {
 class ESP8266
 {
 public:
-    ESP8266(bool debug=false);
+    ESP8266(int uart, bool debug=false);
 
     /**
     * Startup the ESP8266

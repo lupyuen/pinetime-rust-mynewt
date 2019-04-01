@@ -38,7 +38,7 @@ void esp8266_sensor_dev_create(void)
     int rc;
     assert(rc == 0);
     rc = os_dev_create((struct os_dev *) &esp8266, "esp8266_0",
-      OS_DEV_INIT_PRIMARY, 0, esp8266_init, (void *) &uart_0_itf);
+        OS_DEV_INIT_PRIMARY, 0, esp8266_init, (void *) &uart_0_itf);
     assert(rc == 0);
     rc = config_esp8266();
     assert(rc == 0);

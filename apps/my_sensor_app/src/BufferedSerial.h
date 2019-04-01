@@ -78,6 +78,7 @@ class BufferedSerial
 private:
     MyBuffer <char> _rxbuf;
     MyBuffer <char> _txbuf;
+    uint8_t       _initialised;  //  Set to non-zero if UART port has been initialised.
     uint32_t      _buf_size;
     uint32_t      _tx_multiple; 
     os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
@@ -86,12 +87,13 @@ private:
     
 public:
     /** Create a BufferedSerial port
+     *  @param uart UART port number. 0 means UART2
      *  @param buf_size printf() buffer size
      *  @param tx_multiple amount of max printf() present in the internal ring buffer at one time
      *  @param name optional name
      *  @note Either tx or rx may be specified as NC if unused
      */
-    BufferedSerial(uint32_t buf_size = 256, uint32_t tx_multiple = 4,const char* name=NULL);
+    BufferedSerial(int uart, uint32_t buf_size = 256, uint32_t tx_multiple = 4, const char* name=NULL);
     
     /** Destroy a BufferedSerial port
      */
@@ -144,6 +146,7 @@ public:
     int rxIrq(uint8_t byte);
     int txIrq(void);
     void prime(void);
+    int _uart;
     uint32_t _baud;
 
     /** Attach a function to call whenever a serial interrupt is generated
