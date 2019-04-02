@@ -68,7 +68,7 @@ static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];
 
 
 int main(int argc, char **argv) {
-    int rc, counter = 1;    
+    int rc;
 #ifdef ARCH_sim
     mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
@@ -94,11 +94,13 @@ int main(int argc, char **argv) {
         os_eventq_run(            //  Process events...
             os_eventq_dflt_get()  //  From default event queue.
         );
+#ifdef NOTUSED
         if (counter++ % 2 == 0 && rx_buf[0]) {  //  If UART data has been received...
             console_printf("< %s\n", rx_buf);   //  Show the UART data.
             memset(rx_buf, 0, 256 /* sizeof(rx_buf) */);  //  Empty the rx buffer.
             rx_ptr = rx_buf;
         }
+#endif  //  NOTUSED
     }
     return 0;  //  Never comes here.
 }

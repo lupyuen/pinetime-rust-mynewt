@@ -55,36 +55,12 @@ void console_reinit(void);
 int console_init(console_rx_cb rx_cb);
 int console_is_init(void);
 void console_write(const char *str, int cnt);
-#if MYNEWT_VAL(CONSOLE_COMPAT)
-int console_read(char *str, int cnt, int *newline);
-#endif
 void console_blocking_mode(void);
 void console_non_blocking_mode(void);
 void console_echo(int on);
 
 int console_printf(const char *fmt, ...)
     __attribute__ ((format (printf, 1, 2)));;
-
-#ifdef NOTUSED
-static int inline console_printf0(const char *fmt, ...)
-    __attribute__ ((format (printf, 1, 2)));
-
-static int inline
-console_printf0(const char *fmt, ...) {
-    //  Print the format string without any formatting.
-    if (!fmt) { return 0; }
-    int num_chars;
-    const char *s; 
-    num_chars = 0;
-    s = fmt;
-    while (*s) {
-        s++;
-        num_chars++;
-    }
-    console_write(fmt, num_chars);
-    return num_chars;
-}
-#endif  //  NOTUSED
 
 void console_set_completion_cb(completion_cb cb);
 int console_handle_char(uint8_t byte);

@@ -95,7 +95,7 @@ static int semihost_write(uint32_t fh, const unsigned char *buffer, unsigned int
     return __semihost(SYS_WRITE, args);
 }
 
-static void flush_output(void) {
+void console_flush(void) {
     //  Flush output buffer to the console log.  This will be slow.
     if (!log_enabled) { output_buffer_length = 0; return; }  //  Skip if log not enabled.
     if (output_buffer_length == 0) { return; }  //  Buffer is empty, nothing to write.
@@ -105,11 +105,11 @@ static void flush_output(void) {
     output_buffer_length = 0;
 }
 
-static void append_output(const char *buffer, unsigned int length) {
+static void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
     if (length >= OUTPUT_BUFFER_SIZE) { return; }  //  Don't allow logging of very long messages.
     if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is full...
-        flush_output();  //  Display the output buffer.
+        console_flush();  //  Display the output buffer.
     }
     if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is still full...
         //  Erase the entire buffer.  Latest log is more important than old log.
@@ -126,8 +126,8 @@ static void append_output(const char *buffer, unsigned int length) {
 static void semihosting_console_write_ch(char c) {
     //  os_sr_t sr;
     //  OS_ENTER_CRITICAL(sr);
-    append_output(&c, 1);  //  Append the char to the output buffer.
-    if (c == '\n') { flush_output(); }  //  If we see a newline, flush the buffer.
+    console_buffer(&c, 1);  //  Append the char to the output buffer.
+    //  if (c == '\n') { console_flush(); }  //  If we see a newline, flush the buffer.
     //  OS_EXIT_CRITICAL(sr);
 }
 

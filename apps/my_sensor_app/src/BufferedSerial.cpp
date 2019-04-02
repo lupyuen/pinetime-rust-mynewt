@@ -187,8 +187,7 @@ int BufferedSerial::writeable(void)
 int BufferedSerial::getc(int timeout)
 {
     //  If no data available, wait until the timeout for data.
-    os_error_t rc = os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
-    assert(rc == OS_OK);
+    os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
     if (_rxbuf.available()) { return _rxbuf.get(); }
     return -1;
 }

@@ -24,8 +24,8 @@
 #include "ATParser.h"
 
 //  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
-//  #define debug_if(dbg_on, format, arg) console_printf(format, arg)
-#define debug_if(dbg_on, format, arg) {}
+#define debug_if(dbg_on, format, arg) console_printf(format, arg)
+//  #define debug_if(dbg_on, format, arg) {}
 
 void ATParser::init(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter, int timeout, bool debug)
 {
