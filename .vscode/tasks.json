@@ -36,7 +36,24 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [ "$gcc" ]
+            "problemMatcher": [ 
+                "$gcc",
+                {
+                    //  Problem matcher for GNU Linker, e.g. /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/ATParser.h:82: undefined reference to `operator delete[](void*)'
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}"
+                    ],
+                    "pattern": {
+                        "regexp": "^(.*):(\\d+):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "message": 3,
+                        // "code": 3,
+                        // "severity": 4,
+                    }                    
+                }
+            ]
         },
         {
             //  Create the Application ROM Image.
