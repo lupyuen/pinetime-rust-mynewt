@@ -36,9 +36,6 @@ ATParser::ATParser(BufferedSerial &serial, char *buffer, int buffer_size, const 
     for (int k = 0; k < MAX_OOBS; k++) { _oobs[k].len = 0; }  //  Init the callbacks.
 }
 
-ATParser::~ATParser() {
-}
-
 // getc/putc handling with timeouts
 int ATParser::putc(char c)
 {

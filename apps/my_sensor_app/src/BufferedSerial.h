@@ -76,11 +76,11 @@
 class BufferedSerial
 {
 private:
-    MyBuffer <char> _rxbuf;
     MyBuffer <char> _txbuf;
+    MyBuffer <char> _rxbuf;
+    uint32_t      _txbuf_size;
+    uint32_t      _rxbuf_size; 
     uint8_t       _initialised;  //  Set to non-zero if UART port has been initialised.
-    uint32_t      _buf_size;
-    uint32_t      _tx_multiple; 
     os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
     void (*_cbs[2])(void *);   //  RX, TX callbacks, indexed by RxIrq, TxIrq.
     void *_cbs_arg[2];         //  RX, TX callback arguments, indexed by RxIrq, TxIrq.
@@ -88,16 +88,14 @@ private:
 public:
     /** Create a BufferedSerial port
      *  @param uart UART port number. 0 means UART2
-     *  @param buf_size printf() buffer size
-     *  @param tx_multiple amount of max printf() present in the internal ring buffer at one time
+     *  @param txbuf TX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
+     *  @param txbuf_size TX buffer size
+     *  @param rxbuf RX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
+     *  @param txbuf_size RX buffer size
      *  @param name optional name
      */
-    BufferedSerial(uint32_t buf_size = 256, uint32_t tx_multiple = 4, const char* name=NULL);
+    BufferedSerial(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name = NULL);
     
-    /** Destroy a BufferedSerial port
-     */
-    virtual ~BufferedSerial(void);
-
     /** Configure the BufferedSerial port
      *  @param uart UART port number. 0 means UART2
      */

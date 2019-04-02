@@ -27,8 +27,20 @@
 class ESP8266
 {
 public:
-    ESP8266(bool debug=false);
+    /** Create an ESP8266 interface
+     *  @param txbuf TX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
+     *  @param txbuf_size TX buffer size
+     *  @param rxbuf RX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
+     *  @param txbuf_size RX buffer size
+     *  @param parserbuf parser static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
+     *  @param parserbuf_size parser buffer size
+     *  @param debug set to true to show debug messages
+     */
+    ESP8266(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, char *parserbuf, uint32_t parserbuf_size, bool debug = false);
 
+    /** Configure the ESP8266 interface
+     *  @param uart UART port number. For STM32 Blue Pill, 0 means UART2
+     */
     void configure(int uart);
 
     /**

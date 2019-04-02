@@ -3,16 +3,28 @@
 #include "ESP8266.h"
 #include "esp8266_driver.h"
 
+//  Use static buffers to avoid dynamic memory allocation (new, delete)
+#define ESP8266_TX_BUFFER_SIZE 256
+#define ESP8266_RX_BUFFER_SIZE 256
+#define ESP8266_PARSER_BUFFER_SIZE 256
+
 //  Various timeouts for different ESP8266 operations
 #define ESP8266_CONNECT_TIMEOUT 15000
 #define ESP8266_SEND_TIMEOUT    500
 #define ESP8266_RECV_TIMEOUT    0
 #define ESP8266_MISC_TIMEOUT    500
 
-static struct esp8266 esp8266;
+static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
+static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
+static char esp8266_parser_buffer[ESP8266_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
 
 //  #if MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
-static ESP8266 driver;  //  TODO: Support multiple ESP8266 instances.
+static ESP8266 driver(  //  TODO: Support multiple ESP8266 instances.
+    esp8266_tx_buffer, ESP8266_TX_BUFFER_SIZE,
+    esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
+    esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
+);
+static struct esp8266 esp8266;
 
 static const struct sensor_itf uart_0_itf = {        
     SENSOR_ITF_UART, //  si_type: Sensor interface type

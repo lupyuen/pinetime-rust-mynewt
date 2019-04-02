@@ -77,11 +77,6 @@ public:
     ATParser(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter = "\r\n", int timeout = 8000, bool debug = false);
 
     /**
-    * Destructor
-    */
-    ~ATParser();
-
-    /**
     * Allows timeout to be changed between commands
     *
     * @param timeout timeout of the connection

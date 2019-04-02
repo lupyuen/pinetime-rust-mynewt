@@ -68,9 +68,10 @@ private:
 
 public:
     /** Create a Buffer and allocate memory for it
+     *  @param buffer The static buffer to be used. Passing in the buffer avoids dynamic memory allocation (new, delete)
      *  @param size The size of the buffer
      */
-    MyBuffer(uint32_t size = 0x100);
+    MyBuffer(T *buffer, uint32_t size);
     
     /** Get the size of the ring buffer
      * @return the size of the ring buffer
