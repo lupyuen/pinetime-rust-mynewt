@@ -57,11 +57,73 @@ void esp8266_sensor_dev_create(void)
 }
 
 /////////////////////////////////////////////////////////
+//  Sensor Creator Tasks
 
 static void esp8266_event(void *drv);
 
-int esp8266_init(struct os_dev *dev, void *arg) {
+/* Exports for the sensor API */
+static int esp8266_sensor_read(struct sensor *, sensor_type_t,
+        sensor_data_func_t, void *, uint32_t) { return 0; }
+static int esp8266_sensor_get_config(struct sensor *, sensor_type_t type,
+        struct sensor_cfg *cfg) {
+    //  int rc;
+    //  if (!(type & SENSOR_TYPE_PRESSURE)) { rc = SYS_EINVAL; goto err; }
+    cfg->sc_valtype = SENSOR_VALUE_TYPE_FLOAT;
+    return (0);
+    //  err: return (rc);
+}
+
+static const struct sensor_driver g_esp8266_sensor_driver = {
+    esp8266_sensor_read,
+    esp8266_sensor_get_config
+};
+
+static int esp8266_default_cfg(struct esp8266_cfg *cfg) {
+    //  cfg->bc_iir = BME280_FILTER_OFF;
     return 0;
+}
+
+int esp8266_init(struct os_dev *dev0, void *arg) {
+    //  Called by os_dev_create().  Register with Sensor Manager.
+    struct esp8266 *dev;
+    struct sensor *sensor;
+    int rc;
+    if (!arg || !dev0) { rc = SYS_ENODEV; goto err; }
+
+    dev = (struct esp8266 *) dev0;
+    rc = esp8266_default_cfg(&dev->cfg);
+    if (rc) { goto err; }
+
+    sensor = &dev->sensor;
+#ifdef NOTUSED
+    /* Initialise the stats entry */
+    rc = stats_init(
+        STATS_HDR(g_bme280stats),
+        STATS_SIZE_INIT_PARMS(g_bme280stats, STATS_SIZE_32),
+        STATS_NAME_INIT_PARMS(bme280_stat_section));
+    SYSINIT_PANIC_ASSERT(rc == 0);
+    /* Register the entry with the stats registry */
+    rc = stats_register(dev->od_name, STATS_HDR(g_bme280stats));
+    SYSINIT_PANIC_ASSERT(rc == 0);
+#endif  //  NOTUSED
+    rc = sensor_init(sensor, dev0);
+    if (rc != 0) { goto err; }
+
+    /* Add the driver with all the supported type */
+    rc = sensor_set_driver(sensor, SENSOR_TYPE_NONE,
+                           (struct sensor_driver *) &g_esp8266_sensor_driver);
+    if (rc != 0) { goto err; }
+
+    /* Set the interface */
+    rc = sensor_set_interface(sensor, (sensor_itf *) arg);
+    if (rc) { goto err; }
+
+    //  Register with Sensor Manager.
+    rc = sensor_mgr_register(sensor);
+    if (rc != 0) { goto err; }
+    return (0);
+err:
+    return (rc);
 }
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
