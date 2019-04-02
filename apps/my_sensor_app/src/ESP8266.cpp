@@ -16,6 +16,7 @@
  */
 
 #include <assert.h>
+#include <console/console.h>
 #include "ESP8266.h"
 
 void ESP8266::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
@@ -58,12 +59,16 @@ bool ESP8266::startup(int mode)
 bool ESP8266::reset(void)
 {
     for (int i = 0; i < 2; i++) {
-        if (_parser.send("AT+RST")
-            ////  TODO: Was && _parser.recv("OK\r\nready")) {
-            && _parser.recv("jump")) {  //  Last line of response looks like: "jump to run user1 @ 1000"
-            return true;
+        if (
+            _parser.send("AT+RST") &&
+            ////  TODO: Was "OK\r\nready"
+            _parser.recv("jump") &&  //  Wait for last line of response: "jump to run user1 @ 1000"
+            _parser.recv("\r\n")     //  Wait for end of the line
+        ) {
+            console_printf("ESP reset OK\n"); console_flush(); return true; 
         }
     }
+    console_printf("ESP reset FAILED\n"); console_flush(); 
     return false;
 }
 

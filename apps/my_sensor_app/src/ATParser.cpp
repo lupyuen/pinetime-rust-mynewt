@@ -143,8 +143,7 @@ int ATParser::vscanf(const char *format, va_list args)
         // Recieve next character
         int c = getc();
         if (c < 0) {
-            console_printf("vscanf timeout\n");
-            console_flush();  //  TODO: Only for Semihosting Console.
+            console_printf("ATP vscanf timeout\n"); console_flush();  //  TODO: Only for Semihosting Console.
             return -1;
         }
         _buffer[offset + j++] = c;
@@ -232,6 +231,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             // Recieve next character
             int c = getc();
             if (c < 0) {
+                console_printf("ATP vrecv timeout\n"); console_flush();  //  TODO: Only for Semihosting Console.
                 return false;
             }
             _buffer[offset + j++] = c;
