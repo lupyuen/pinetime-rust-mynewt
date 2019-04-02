@@ -54,9 +54,10 @@ static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
 #ifndef TEST_UART
-    if (arg == NULL) { return -1; }
+    assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
-    return serial->txIrq();
+    int byte = serial->txIrq();
+    return byte;
 #else
     if (tx_ptr == NULL || *tx_ptr == 0) { return -1; }
     char byte = *tx_ptr++;  //  Fetch next byte from tx buffer.
@@ -67,9 +68,10 @@ static int uart_tx_char(void *arg) {
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
 #ifndef TEST_UART
-    if (arg == NULL) { return -1; }
+    assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
-    return serial->rxIrq(byte);
+    int rc = serial->rxIrq(byte);
+    return rc;
 #else
     if (rx_ptr - rx_buf < sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
     return 0;
@@ -193,7 +195,7 @@ int BufferedSerial::getc(int timeout)
 
 int BufferedSerial::putc(int c)
 {
-    _txbuf = (char)c;
+    _txbuf.put(c);
     BufferedSerial::prime();
     return c;
 }
