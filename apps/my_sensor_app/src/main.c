@@ -7,8 +7,10 @@
 #include "esp8266_driver.h"
 
 #define TRANSCEIVER_DEVICE "esp8266_0"
-#define MAX_WIFI_AP 3
-static struct sensor *trans;
+#define MAX_WIFI_AP 3  //  Read at most 3 wifi access points.
+
+static int init_tasks(void);
+
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];
 
 #ifdef NOTUSED
@@ -63,21 +65,13 @@ static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];
 
 
 
-int
-main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int rc;    
 #ifdef ARCH_sim
     mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
+
     sysinit();  //  Initialize all packages.  Create the sensors.
-    esp8266_sensor_dev_create();  //  Create the ESP8266 transceiver.
-
-    trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
-    assert(trans != NULL);
-
-    rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP);
-    assert(rc > 0 && rc <= MAX_WIFI_AP);
 
 #ifdef NOTUSED
     rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
@@ -90,12 +84,46 @@ main(int argc, char **argv)
     assert(rc == 0);
 #endif  //  NOTUSED        
 
+    esp8266_sensor_dev_create();  //  Create the ESP8266 transceiver.
+    rc = init_tasks();            //  Start the background tasks.
+    assert(rc == 0);
+
     while (1) {                   //  Loop forever...
         os_eventq_run(            //  Process events...
             os_eventq_dflt_get()  //  From default event queue.
         );
     }
     return 0;  //  Never comes here.
+}
+
+#define WORK_TASK_PRIO (10)  //  Command task is lower priority than event processing.  
+#define WORK_STACK_SIZE OS_STACK_ALIGN(256)
+
+static struct os_task work_task;
+static uint8_t work_stack[sizeof(os_stack_t) * WORK_STACK_SIZE];
+
+static void work_task_handler(void *arg) {
+    struct sensor *trans;
+    trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
+    assert(trans != NULL);
+
+    int rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP);
+    assert(rc > 0 && rc <= MAX_WIFI_AP);
+
+    while (1) {  //  Loop forever
+        // struct os_task *t;
+        // t = os_sched_get_current_task();
+        // assert(t->t_func == work_task_handler);
+        /* Wait one second */
+        os_time_delay(1000);
+    }
+}
+
+static int init_tasks(void) {
+    os_task_init(&work_task, "work", work_task_handler, NULL,
+            WORK_TASK_PRIO, OS_WAIT_FOREVER, 
+            (os_stack_t *) work_stack, WORK_STACK_SIZE);
+    return 0;
 }
 
 //  Dummy destructor for global C++ objects, since our program never terminates.  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
