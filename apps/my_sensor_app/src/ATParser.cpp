@@ -20,7 +20,7 @@
  */
 
 #include <assert.h>
-#include <console/console.h>
+#include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "ATParser.h"
 
 //  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
@@ -143,6 +143,8 @@ int ATParser::vscanf(const char *format, va_list args)
         // Recieve next character
         int c = getc();
         if (c < 0) {
+            console_printf("vscanf timeout\n");
+            console_flush();  //  TODO: Only for Semihosting Console.
             return -1;
         }
         _buffer[offset + j++] = c;

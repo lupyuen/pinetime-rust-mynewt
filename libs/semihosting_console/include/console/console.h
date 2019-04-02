@@ -44,6 +44,9 @@ typedef void (*console_rx_cb)(void);
 typedef int (*console_append_char_cb)(char *line, uint8_t byte);
 typedef void (*completion_cb)(char *str, console_append_char_cb cb);
 
+//  Implemented only for Semihosting Console.
+void console_flush(void);  //  Flush the output buffer to the console.
+
 /**
  * De initializes the UART console.
  */
