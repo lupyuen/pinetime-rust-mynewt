@@ -221,15 +221,6 @@ extern "C" size_t BufferedSerialThunk(void *buf_serial, const void *s, size_t le
     return buffered_serial->write(s, length);
 }
 
-int BufferedSerial::printf(const char* format, ...)
-{
-    va_list arg;
-    va_start(arg, format);
-    int r = BufferedPrintfC((void*)this, this->_buf_size, format, arg);
-    va_end(arg);
-    return r;
-}
-
 size_t BufferedSerial::write(const void *s, size_t length)
 {
     if (s != NULL && length > 0) {

@@ -132,12 +132,6 @@ public:
      */
     virtual int puts(const char *s);
     
-    /** Write a formatted string to the BufferedSerial Port.
-     *  @param format The string + format specifiers to write to the Serial Port
-     *  @return The number of bytes written to the Serial Port Buffer
-     */
-    virtual int printf(const char* format, ...);
-    
     /** Write data to the Buffered Serial Port
      *  @param s A pointer to data to send
      *  @param length The amount of data being pointed to
