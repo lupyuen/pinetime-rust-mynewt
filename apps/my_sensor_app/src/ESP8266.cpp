@@ -18,13 +18,14 @@
 #include <assert.h>
 #include "ESP8266.h"
 
-ESP8266::ESP8266(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
-    char *parserbuf, uint32_t parserbuf_size, bool debug):
-    _serial(txbuf, txbuf_size, rxbuf, rxbuf_size),
-    _parser(_serial, parserbuf, parserbuf_size),
-    _packets(0), _packets_end(&_packets)
+void ESP8266::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
+    char *parserbuf, uint32_t parserbuf_size, bool debug)
 {
     _uart = 0;
+    _serial.init(txbuf, txbuf_size, rxbuf, rxbuf_size);
+    _parser.init(_serial, parserbuf, parserbuf_size);
+    _packets = 0;
+    _packets_end = &_packets;
     _serial.baud(115200);
     _parser.debugOn(debug);
 }

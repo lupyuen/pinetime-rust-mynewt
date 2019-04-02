@@ -24,16 +24,11 @@
 #include "MyBuffer.h"
 
 template <class T>
-MyBuffer<T>::MyBuffer(T *buffer, uint32_t size)
+void MyBuffer<T>::init(T *buffer, uint32_t size)
 {
     _buf = buffer;
     _size = size;
     clear();    
-}
-
-template <class T>
-MyBuffer<T>::~MyBuffer()
-{
 }
 
 template <class T>

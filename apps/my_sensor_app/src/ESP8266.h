@@ -36,7 +36,7 @@ public:
      *  @param parserbuf_size parser buffer size
      *  @param debug set to true to show debug messages
      */
-    ESP8266(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, char *parserbuf, uint32_t parserbuf_size, bool debug = false);
+    void init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, char *parserbuf, uint32_t parserbuf_size, bool debug = false);
 
     /** Configure the ESP8266 interface
      *  @param uart UART port number. For STM32 Blue Pill, 0 means UART2

@@ -71,16 +71,12 @@ public:
      *  @param buffer The static buffer to be used. Passing in the buffer avoids dynamic memory allocation (new, delete)
      *  @param size The size of the buffer
      */
-    MyBuffer(T *buffer, uint32_t size);
+    void init(T *buffer, uint32_t size);
     
     /** Get the size of the ring buffer
      * @return the size of the ring buffer
      */
      uint32_t getSize();
-    
-    /** Destry a Buffer and release it's allocated memory
-     */
-    ~MyBuffer();
     
     /** Add a data element into the buffer
      *  @param data Something to add to the buffer

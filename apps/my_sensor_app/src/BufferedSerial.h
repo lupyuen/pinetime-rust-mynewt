@@ -94,7 +94,7 @@ public:
      *  @param txbuf_size RX buffer size
      *  @param name optional name
      */
-    BufferedSerial(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name = NULL);
+    void init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name = NULL);
     
     /** Configure the BufferedSerial port
      *  @param uart UART port number. 0 means UART2

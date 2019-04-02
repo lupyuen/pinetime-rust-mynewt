@@ -155,14 +155,16 @@ static int setup_uart(BufferedSerial *serial) {
     return 0;
 }
 
-BufferedSerial::BufferedSerial(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name): 
-    _txbuf(txbuf, txbuf_size), _rxbuf(rxbuf, rxbuf_size),
-    _txbuf_size(txbuf_size), _rxbuf_size(rxbuf_size)
+void BufferedSerial::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name)
 {
-    this->_initialised = 0;
-    this->_uart = 0;
-    this->_baud = 0;
-    os_error_t rc = os_sem_init(&this->_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
+    _initialised = 0;
+    _uart = 0;
+    _baud = 0;
+    _txbuf_size = txbuf_size;
+    _rxbuf_size = rxbuf_size;
+    _txbuf.init(txbuf, txbuf_size);
+    _rxbuf.init(rxbuf, rxbuf_size);
+    os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
 }
 

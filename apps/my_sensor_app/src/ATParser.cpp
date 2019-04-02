@@ -26,10 +26,11 @@
 //  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
 #define debug_if(dbg_on, format, arg) console_printf(format, arg)
 
-ATParser::ATParser(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter, int timeout, bool debug) :
-    _serial(&serial),
-    _buffer(buffer),
-    _buffer_size(buffer_size) {
+void ATParser::init(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter, int timeout, bool debug)
+{
+    _serial = &serial;
+    _buffer = buffer;
+    _buffer_size = buffer_size; 
     setTimeout(timeout);
     setDelimiter(delimiter);
     debugOn(debug);

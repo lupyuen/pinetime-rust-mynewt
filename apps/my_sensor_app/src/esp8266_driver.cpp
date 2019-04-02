@@ -19,11 +19,7 @@ static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
 static char esp8266_parser_buffer[ESP8266_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
 
 //  #if MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
-static ESP8266 driver(  //  TODO: Support multiple ESP8266 instances.
-    esp8266_tx_buffer, ESP8266_TX_BUFFER_SIZE,
-    esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
-    esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
-);
+static ESP8266 driver;  //  TODO: Support multiple ESP8266 instances.
 static struct esp8266 esp8266;
 
 static const struct sensor_itf uart_0_itf = {        
@@ -129,6 +125,11 @@ err:
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
     //  TODO: memset(_ids, 0, sizeof(_ids));
     //  TODO: memset(_cbs, 0, sizeof(_cbs));
+    driver.init(
+        esp8266_tx_buffer, ESP8266_TX_BUFFER_SIZE,
+        esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
+        esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
+    );
     driver.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
     driver.attach(&esp8266_event, drv);  //  Set the callback for ESP8266 events.
     return 0;
