@@ -16,6 +16,7 @@
 #define ESP8266_MISC_TIMEOUT    500
 
 static int config_esp8266(void);
+static int esp8266_init(struct os_dev *dev0, void *arg);
 
 static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
 static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
@@ -62,7 +63,7 @@ static int config_esp8266(void) {
 //  Sensor Creator Tasks
 
 static void esp8266_event(void *drv);
-static int internal_connect(void);
+static int internal_connect(struct sensor_itf *itf);
 
 //  Exports for the sensor API
 static int esp8266_sensor_read(struct sensor *, sensor_type_t,
@@ -87,7 +88,7 @@ static int esp8266_default_cfg(struct esp8266_cfg *cfg) {
     return 0;
 }
 
-int esp8266_init(struct os_dev *dev0, void *arg) {
+static int esp8266_init(struct os_dev *dev0, void *arg) {
     //  Configure the device and register with Sensor Manager.  Called by os_dev_create().
     struct esp8266 *dev;
     struct sensor *sensor;
@@ -134,13 +135,50 @@ int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
     //  Configure the ESP8266 driver.
     //  TODO: memset(_ids, 0, sizeof(_ids));
     //  TODO: memset(_cbs, 0, sizeof(_cbs));
-    driver.init(
+    driver.init(  //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
         esp8266_tx_buffer, ESP8266_TX_BUFFER_SIZE,
         esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
         esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
     );
     driver.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
     driver.attach(&esp8266_event, drv);          //  Set the callback for ESP8266 events.
+    return 0;
+}
+
+/////////////////////////////////////////////////////////
+//  ESP8266 Driver Interface based on https://os.mbed.com/teams/ESP8266/code/esp8266-driver/file/6946b0b9e323/ESP8266Interface.cpp/
+
+static ESP8266 *drv(struct sensor_itf *itf) { return &driver; }  //  TODO: Return the ESP8266 Driver based on itf.si_num
+static esp8266_cfg *cfg(struct sensor_itf *itf) { return &esp8266.cfg; }  //  TODO: Return the ESP8266 Config based on itf.si_num
+
+int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
+    //  Scan for WiFi access points.
+    drv(itf)->setTimeout(ESP8266_CONNECT_TIMEOUT);
+    if (!drv(itf)->startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }  //  Start in WiFi Client mode.
+    return drv(itf)->scan(res, limit);
+}
+
+int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security, uint8_t channel) {
+    if (channel != 0) { return NSAPI_ERROR_UNSUPPORTED; }
+    esp8266_set_credentials(itf, ssid, pass, security);
+    return internal_connect(itf);
+}
+
+static int internal_connect(struct sensor_itf *itf) {
+    drv(itf)->setTimeout(ESP8266_CONNECT_TIMEOUT);
+    if (!drv(itf)->startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }
+    if (!drv(itf)->dhcp(true, 1)) { return NSAPI_ERROR_DHCP_FAILURE; }
+    if (!drv(itf)->connect(cfg(itf)->ap_ssid, cfg(itf)->ap_pass)) { return NSAPI_ERROR_NO_CONNECTION; }
+    if (!drv(itf)->getIPAddress()) { return NSAPI_ERROR_DHCP_FAILURE; }
+    return NSAPI_ERROR_OK;
+}
+
+int esp8266_set_credentials(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security) {
+    memset(cfg(itf)->ap_ssid, 0, sizeof(cfg(itf)->ap_ssid));
+    strncpy(cfg(itf)->ap_ssid, ssid, sizeof(cfg(itf)->ap_ssid));
+    memset(cfg(itf)->ap_pass, 0, sizeof(cfg(itf)->ap_pass));
+    strncpy(cfg(itf)->ap_pass, pass, sizeof(cfg(itf)->ap_pass));
+    cfg(itf)->ap_sec = security;
     return 0;
 }
 
@@ -155,38 +193,6 @@ static void esp8266_event(void *drv) {
 #endif  //  TODO
 }
 
-int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
-    //  Scan for WiFi access points.
-    driver.setTimeout(ESP8266_CONNECT_TIMEOUT);
-    if (!driver.startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }  //  Start in WiFi Client mode.
-    return driver.scan(res, limit);
-}
-
-int esp8266_connect(const char *ssid, const char *pass, nsapi_security_t security,
-    uint8_t channel) {
-    if (channel != 0) { return NSAPI_ERROR_UNSUPPORTED; }
-    esp8266_set_credentials(ssid, pass, security);
-    return internal_connect();
-}
-
-static int internal_connect(void) {
-    driver.setTimeout(ESP8266_CONNECT_TIMEOUT);
-    if (!driver.startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }
-    if (!driver.dhcp(true, 1)) { return NSAPI_ERROR_DHCP_FAILURE; }
-    if (!driver.connect(ap_ssid, ap_pass)) { return NSAPI_ERROR_NO_CONNECTION; }
-    if (!driver.getIPAddress()) { return NSAPI_ERROR_DHCP_FAILURE; }
-    return NSAPI_ERROR_OK;
-}
-
-int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t security) {
-    memset(ap_ssid, 0, sizeof(ap_ssid));
-    strncpy(ap_ssid, ssid, sizeof(ap_ssid));
-    memset(ap_pass, 0, sizeof(ap_pass));
-    strncpy(ap_pass, pass, sizeof(ap_pass));
-    ap_sec = security;
-    return 0;
-}
-
 #ifdef NOTUSED
 
     int esp8266_set_channel(uint8_t channel)
@@ -197,9 +203,9 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
 
     int esp8266_disconnect()
     {
-        driver.setTimeout(ESP8266_MISC_TIMEOUT);
+        drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
 
-        if (!driver.disconnect()) {
+        if (!drv(itf)->disconnect()) {
             return NSAPI_ERROR_DEVICE_ERROR;
         }
 
@@ -208,32 +214,32 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
 
     const char *esp8266_get_ip_address()
     {
-        return driver.getIPAddress();
+        return drv(itf)->getIPAddress();
     }
 
     const char *esp8266_get_mac_address()
     {
-        return driver.getMACAddress();
+        return drv(itf)->getMACAddress();
     }
 
     const char *esp8266_get_gateway()
     {
-        return driver.getGateway();
+        return drv(itf)->getGateway();
     }
 
     const char *esp8266_get_netmask()
     {
-        return driver.getNetmask();
+        return drv(itf)->getNetmask();
     }
 
     int8_t esp8266_get_rssi()
     {
-        return driver.getRSSI();
+        return drv(itf)->getRSSI();
     }
 
     int esp8266_scan(WiFiAccessPoint *res, unsigned count)
     {
-        return driver.scan(res, count);
+        return drv(itf)->scan(res, count);
     }
 
     struct esp8266_socket {
@@ -276,9 +282,9 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
     {
         struct esp8266_socket *socket = (struct esp8266_socket *)handle;
         int err = 0;
-        driver.setTimeout(ESP8266_MISC_TIMEOUT);
+        drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
     
-        if (!driver.close(socket->id)) {
+        if (!drv(itf)->close(socket->id)) {
             err = NSAPI_ERROR_DEVICE_ERROR;
         }
 
@@ -300,10 +306,10 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
     int esp8266_socket_connect(void *handle, const SocketAddress &addr)
     {
         struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-        driver.setTimeout(ESP8266_MISC_TIMEOUT);
+        drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
 
         const char *proto = (socket->proto == NSAPI_UDP) ? "UDP" : "TCP";
-        if (!driver.open(proto, socket->id, addr.get_ip_address(), addr.get_port())) {
+        if (!drv(itf)->open(proto, socket->id, addr.get_ip_address(), addr.get_port())) {
             return NSAPI_ERROR_DEVICE_ERROR;
         }
         
@@ -319,9 +325,9 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
     int esp8266_socket_send(void *handle, const void *data, unsigned size)
     {
         struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-        driver.setTimeout(ESP8266_SEND_TIMEOUT);
+        drv(itf)->setTimeout(ESP8266_SEND_TIMEOUT);
     
-        if (!driver.send(socket->id, data, size)) {
+        if (!drv(itf)->send(socket->id, data, size)) {
             return NSAPI_ERROR_DEVICE_ERROR;
         }
     
@@ -331,9 +337,9 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
     int esp8266_socket_recv(void *handle, void *data, unsigned size)
     {
         struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-        driver.setTimeout(ESP8266_RECV_TIMEOUT);
+        drv(itf)->setTimeout(ESP8266_RECV_TIMEOUT);
     
-        int32_t recv = driver.recv(socket->id, data, size);
+        int32_t recv = drv(itf)->recv(socket->id, data, size);
         if (recv < 0) {
             return NSAPI_ERROR_WOULD_BLOCK;
         }
@@ -346,8 +352,8 @@ int esp8266_set_credentials(const char *ssid, const char *pass, nsapi_security_t
         struct esp8266_socket *socket = (struct esp8266_socket *)handle;
 
         if (socket->connected && socket->addr != addr) {
-            driver.setTimeout(ESP8266_MISC_TIMEOUT);
-            if (!driver.close(socket->id)) {
+            drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
+            if (!drv(itf)->close(socket->id)) {
                 return NSAPI_ERROR_DEVICE_ERROR;
             }
             socket->connected = false;
