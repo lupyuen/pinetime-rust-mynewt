@@ -97,3 +97,8 @@ main(int argc, char **argv)
     }
     return 0;  //  Never comes here.
 }
+
+//  Dummy destructor for global C++ objects, since our program never terminates.  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
+void* __dso_handle = NULL;
+void _fini(void) { }
+int __aeabi_atexit(void *object, void (*destructor)(void *), void *dso_handle) { return 0; }
