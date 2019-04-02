@@ -71,7 +71,7 @@
 
 /**
  *  @class BufferedSerial
- *  @brief Software buffers and interrupt driven tx and rx for Serial
+ *  @brief Software buffers and interrupt driven tx and rx for Serial. Should not have any virtual methods because we don't support vtables.
  */  
 class BufferedSerial
 {
@@ -99,57 +99,61 @@ public:
     /** Configure the BufferedSerial port
      *  @param uart UART port number. 0 means UART2
      */
-    virtual void configure(int uart);
+    void configure(int uart);
+
+    /** Set the baud rate
+     *  @param baud baud rate e.g. 115200
+     */
+    void baud(uint32_t baud);
     
     /** Check on how many bytes are in the rx buffer
      *  @return 1 if something exists, 0 otherwise
      */
-    virtual int readable(void);
+    int readable(void);
     
     /** Check to see if the tx buffer has room
      *  @return 1 always has room and can overwrite previous content if too small / slow
      */
-    virtual int writeable(void);
+    int writeable(void);
     
     /** Get a single byte from the BufferedSerial Port.
      *  Should check readable() before calling this.
      *  @param timeout if no data is available, wait until this timeout in milliseconds
      *  @return A byte that came in on the Serial Port. If no data available, return -1
      */
-    virtual int getc(int timeout);
+    int getc(int timeout);
     
     /** Write a single byte to the BufferedSerial Port.
      *  @param c The byte to write to the Serial Port
      *  @return The byte that was written to the Serial Port Buffer
      */
-    virtual int putc(int c);
+    int putc(int c);
     
     /** Write a string to the BufferedSerial Port. Must be NULL terminated
      *  @param s The string to write to the Serial Port
      *  @return The number of bytes written to the Serial Port Buffer
      */
-    virtual int puts(const char *s);
+    int puts(const char *s);
     
     /** Write data to the Buffered Serial Port
      *  @param s A pointer to data to send
      *  @param length The amount of data being pointed to
      *  @return The number of bytes written to the Serial Port Buffer
      */
-    virtual size_t write(const void *s, size_t length);
-
-    virtual void baud(uint32_t baud0);
-
-    int rxIrq(uint8_t byte);
-    int txIrq(void);
-    void prime(void);
-    int _uart;
-    uint32_t _baud;
+    size_t write(const void *s, size_t length);
 
     /** Attach a function to call whenever a serial interrupt is generated
      *  @param func A pointer to a void function, or 0 to set as none
      *  @param type Which serial interrupt to attach the member function to (Serial::RxIrq for receive, TxIrq for transmit buffer empty)
      */
-    virtual void attach(void (*func)(void *), void *arg, IrqType type=RxIrq);
+    void attach(void (*func)(void *), void *arg, IrqType type=RxIrq);
+
+    //  TODO: Move these internal variables to protected section.
+    int rxIrq(uint8_t byte);
+    int txIrq(void);
+    void prime(void);
+    int _uart;
+    uint32_t _baud;
 };
 
 #endif
