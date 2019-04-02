@@ -133,8 +133,8 @@ err:
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
     //  Configure the ESP8266 driver.
-    //  TODO: memset(_ids, 0, sizeof(_ids));
-    //  TODO: memset(_cbs, 0, sizeof(_cbs));
+    memset(cfg->_ids, 0, sizeof(cfg->_ids));
+    memset(cfg->_cbs, 0, sizeof(cfg->_cbs));
     driver.init(  //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
         esp8266_tx_buffer, ESP8266_TX_BUFFER_SIZE,
         esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
