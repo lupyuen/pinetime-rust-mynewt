@@ -124,11 +124,9 @@ static void console_buffer(const char *buffer, unsigned int length) {
 }
 
 static void semihosting_console_write_ch(char c) {
-    //  os_sr_t sr;
-    //  OS_ENTER_CRITICAL(sr);
+    if (c == '\r') { return; }  //  Don't display \r.
     console_buffer(&c, 1);  //  Append the char to the output buffer.
     //  if (c == '\n') { console_flush(); }  //  If we see a newline, flush the buffer.
-    //  OS_EXIT_CRITICAL(sr);
 }
 
 int console_out_nolock(int character) {
