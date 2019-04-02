@@ -1,3 +1,4 @@
+//  ESP8266 driver for Apache Mynewt
 #ifndef __ESP8266_DRIVER_H__
 #define __ESP8266_DRIVER_H__
 
@@ -8,6 +9,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define ESP8266_DEVICE "esp8266_0"
 
 struct esp8266_cfg {
 };

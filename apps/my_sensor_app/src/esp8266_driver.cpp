@@ -1,3 +1,4 @@
+//  ESP8266 driver for Apache Mynewt
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include "ESP8266.h"
@@ -14,42 +15,47 @@
 #define ESP8266_RECV_TIMEOUT    0
 #define ESP8266_MISC_TIMEOUT    500
 
+static int config_esp8266(void);
+
 static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
 static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
 static char esp8266_parser_buffer[ESP8266_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
 
 //  #if MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
-static ESP8266 driver;  //  TODO: Support multiple ESP8266 instances.
-static struct esp8266 esp8266;
+static ESP8266 driver;  //  The single C++ driver instance.  TODO: Support multiple ESP8266 instances.
+static struct esp8266 esp8266;  //  Mynewt driver instance.
 
 static const struct sensor_itf uart_0_itf = {        
     SENSOR_ITF_UART, //  si_type: Sensor interface type
     0,               //  si_num: Sensor interface number    
-    //  .si_type = SENSOR_ITF_UART,
-    //  .si_num = 0,
 };
 //  #endif  //  MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
-static int config_esp8266(void)
-{
+void esp8266_sensor_dev_create(void) {  //  TODO: Rename.
+    //  Create the ESP8266 device, configure it and register with Sensor Manager.  Called by main().
+    int rc;
+    //  Create the device and register with Sensor Manager.
+    rc = os_dev_create((struct os_dev *) &esp8266, ESP8266_DEVICE,
+        OS_DEV_INIT_PRIMARY, 0, esp8266_init, (void *) &uart_0_itf);
+    assert(rc == 0);
+
+    //  Configure the device.
+    rc = config_esp8266();
+    assert(rc == 0);
+}
+
+static int config_esp8266(void) {
+    //  Fetch the ESP8266 device from Mynewt, configure it and register with Sensor Manager.
     int rc;
     struct os_dev *dev;
     struct esp8266_cfg cfg = {};
-    dev = (struct os_dev *) os_dev_open("esp8266_0", OS_TIMEOUT_NEVER, NULL);
+    dev = (struct os_dev *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
     assert(dev != NULL);
+
+    //  Configure the device.
     rc = esp8266_config((struct esp8266 *) dev, &cfg);
     os_dev_close(dev);
     return rc;
-}
-
-void esp8266_sensor_dev_create(void)
-{
-    int rc;
-    rc = os_dev_create((struct os_dev *) &esp8266, "esp8266_0",
-        OS_DEV_INIT_PRIMARY, 0, esp8266_init, (void *) &uart_0_itf);
-    assert(rc == 0);
-    rc = config_esp8266();
-    assert(rc == 0);
 }
 
 /////////////////////////////////////////////////////////
@@ -57,7 +63,7 @@ void esp8266_sensor_dev_create(void)
 
 static void esp8266_event(void *drv);
 
-/* Exports for the sensor API */
+//  Exports for the sensor API
 static int esp8266_sensor_read(struct sensor *, sensor_type_t,
         sensor_data_func_t, void *, uint32_t) { return 0; }
 static int esp8266_sensor_get_config(struct sensor *, sensor_type_t type,
@@ -69,6 +75,7 @@ static int esp8266_sensor_get_config(struct sensor *, sensor_type_t type,
     //  err: return (rc);
 }
 
+//  ESP8266 Mynewt Sensor Driver
 static const struct sensor_driver g_esp8266_sensor_driver = {
     esp8266_sensor_read,
     esp8266_sensor_get_config
@@ -80,7 +87,7 @@ static int esp8266_default_cfg(struct esp8266_cfg *cfg) {
 }
 
 int esp8266_init(struct os_dev *dev0, void *arg) {
-    //  Called by os_dev_create().  Register with Sensor Manager.
+    //  Configure the device and register with Sensor Manager.  Called by os_dev_create().
     struct esp8266 *dev;
     struct sensor *sensor;
     int rc;
@@ -105,12 +112,12 @@ int esp8266_init(struct os_dev *dev0, void *arg) {
     rc = sensor_init(sensor, dev0);
     if (rc != 0) { goto err; }
 
-    /* Add the driver with all the supported type */
+    //  Add the driver with all the supported types.
     rc = sensor_set_driver(sensor, SENSOR_TYPE_NONE,
                            (struct sensor_driver *) &g_esp8266_sensor_driver);
     if (rc != 0) { goto err; }
 
-    /* Set the interface */
+    //  Set the driver interface.
     rc = sensor_set_interface(sensor, (sensor_itf *) arg);
     if (rc) { goto err; }
 
@@ -123,6 +130,7 @@ err:
 }
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
+    //  Configure the ESP8266 driver.
     //  TODO: memset(_ids, 0, sizeof(_ids));
     //  TODO: memset(_cbs, 0, sizeof(_cbs));
     driver.init(
@@ -131,7 +139,7 @@ int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
         esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
     );
     driver.configure(drv->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
-    driver.attach(&esp8266_event, drv);  //  Set the callback for ESP8266 events.
+    driver.attach(&esp8266_event, drv);          //  Set the callback for ESP8266 events.
     return 0;
 }
 
@@ -147,6 +155,7 @@ static void esp8266_event(void *drv) {
 }
 
 int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
+    //  Scan for WiFi access points.
     driver.setTimeout(ESP8266_CONNECT_TIMEOUT);
     if (!driver.startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }  //  Start in WiFi Client mode.
     return driver.scan(res, limit);
