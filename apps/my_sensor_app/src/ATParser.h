@@ -47,8 +47,8 @@ class ATParser
 private:
     // Serial information
     BufferedSerial *_serial;
-    int _buffer_size;
     char *_buffer;
+    int _buffer_size;
     int _timeout;
 
     // Parsing information
@@ -69,18 +69,17 @@ public:
     * Constructor
     *
     * @param serial serial interface to use for AT commands
+    * @param buffer internal buffer for transaction. Passing in the buffer avoids dynamic memory allocation (new, delete)
     * @param buffer_size size of internal buffer for transaction
-    * @param timeout timeout of the connection in milliseconds
     * @param delimiter string of characters to use as line delimiters
+    * @param timeout timeout of the connection in milliseconds
     */
-    ATParser(BufferedSerial &serial, const char *delimiter = "\r\n", int buffer_size = 256, int timeout = 8000, bool debug = false);
+    ATParser(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter = "\r\n", int timeout = 8000, bool debug = false);
 
     /**
     * Destructor
     */
-    ~ATParser() {
-        delete [] _buffer;
-    }
+    ~ATParser();
 
     /**
     * Allows timeout to be changed between commands

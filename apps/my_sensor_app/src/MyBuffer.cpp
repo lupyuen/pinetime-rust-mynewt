@@ -28,16 +28,14 @@ MyBuffer<T>::MyBuffer(uint32_t size)
 {
     _buf = new T [size];
     _size = size;
-    clear();
-    
+    clear();    
     return;
 }
 
 template <class T>
 MyBuffer<T>::~MyBuffer()
 {
-    delete [] _buf;
-    
+    delete [] _buf;    
     return;
 }
 

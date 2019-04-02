@@ -26,14 +26,17 @@
 //  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
 #define debug_if(dbg_on, format, arg) console_printf(format, arg)
 
-ATParser::ATParser(BufferedSerial &serial, const char *delimiter, int buffer_size, int timeout, bool debug) :
+ATParser::ATParser(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter, int timeout, bool debug) :
     _serial(&serial),
+    _buffer(buffer),
     _buffer_size(buffer_size) {
-    _buffer = new char[buffer_size];
     setTimeout(timeout);
     setDelimiter(delimiter);
     debugOn(debug);
     for (int k = 0; k < MAX_OOBS; k++) { _oobs[k].len = 0; }  //  Init the callbacks.
+}
+
+ATParser::~ATParser() {
 }
 
 // getc/putc handling with timeouts
