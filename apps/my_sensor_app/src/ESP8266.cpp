@@ -309,12 +309,23 @@ void ESP8266::attach(void (*func)(void *), void *arg)
 
 bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
 {
+    //  Parse the next AP line, which looks like:
+    //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec;
+    #ifdef NOTUSED
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             &ap->bssid[5], &ap->channel);
-
+    #endif  //  NOTUSED
+    bool ret = _parser.recv(
+        "+CWLAP:(%d"
+        ",\""
+        "%32[^\"]"
+        //  "\",%hhd,"
+        //  "\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
+        , 
+        &sec, ap->ssid, &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &ap->channel);
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
-
+    console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
     return ret;
 }

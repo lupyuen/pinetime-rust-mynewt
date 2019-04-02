@@ -143,7 +143,7 @@ int ATParser::vscanf(const char *format, va_list args)
         // Recieve next character
         int c = getc();
         if (c < 0) {
-            console_printf("ATP vscanf timeout\n"); console_flush();  //  TODO: Only for Semihosting Console.
+            console_printf("ATP vscanf timeout: %s\n", _buffer); console_flush();  //  TODO: Only for Semihosting Console.
             return -1;
         }
         _buffer[offset + j++] = c;
@@ -231,7 +231,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             // Recieve next character
             int c = getc();
             if (c < 0) {
-                console_printf("ATP vrecv timeout\n"); console_flush();  //  TODO: Only for Semihosting Console.
+                console_printf("ATP vrecv timeout: %s\n", _buffer); console_flush();  //  TODO: Only for Semihosting Console.
                 return false;
             }
             _buffer[offset + j++] = c;
@@ -240,8 +240,10 @@ bool ATParser::vrecv(const char *response, va_list args)
             // Check for oob data
             for (int k = 0; k < MAX_OOBS; k++) {
                 if (_oobs[k].len == 0) { continue; }  //  Skip empty callbacks.
-                if (j == (int) _oobs[k].len && memcmp(
-                        _oobs[k].prefix, _buffer+offset, _oobs[k].len) == 0) {
+                if (
+                    j == (int) _oobs[k].len && 
+                    memcmp(_oobs[k].prefix, _buffer+offset, _oobs[k].len) == 0
+                ) {
                     debug_if(dbg_on, "AT! %s\r\n", _oobs[k].prefix);
                     _oobs[k].cb(_oobs[k].arg);
 
