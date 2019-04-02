@@ -11,6 +11,8 @@
 
 static int init_tasks(void);
 
+extern char *rx_buf;     //  ESP8266 receive buffer.
+extern char *rx_ptr;     //  Pointer to next ESP8266 receive buffer byte to be received.
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];
 
 #ifdef NOTUSED
@@ -66,7 +68,7 @@ static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];
 
 
 int main(int argc, char **argv) {
-    int rc;    
+    int rc, counter = 1;    
 #ifdef ARCH_sim
     mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
 #endif
@@ -92,6 +94,11 @@ int main(int argc, char **argv) {
         os_eventq_run(            //  Process events...
             os_eventq_dflt_get()  //  From default event queue.
         );
+        if (counter++ % 2 == 0 && rx_buf[0]) {  //  If UART data has been received...
+            console_printf("< %s\n", rx_buf);   //  Show the UART data.
+            memset(rx_buf, 0, 256 /* sizeof(rx_buf) */);  //  Empty the rx buffer.
+            rx_ptr = rx_buf;
+        }
     }
     return 0;  //  Never comes here.
 }
@@ -114,6 +121,7 @@ static void work_task_handler(void *arg) {
         // struct os_task *t;
         // t = os_sched_get_current_task();
         // assert(t->t_func == work_task_handler);
+
         /* Wait one second */
         os_time_delay(1000);
     }

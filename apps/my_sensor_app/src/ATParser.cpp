@@ -324,11 +324,18 @@ bool ATParser::recv(const char *response, ...)
 void ATParser::oob(const char *prefix, void (*func)(void *), void *arg)
 {
     for (int k = 0; k < MAX_OOBS; k++) { 
+        if (_oobs[k].len == strlen(prefix) &&
+            _oobs[k].prefix == prefix &&
+            _oobs[k].cb == func &&
+            _oobs[k].arg == arg) { return; }  //  Skip duplicate callback.
         if (_oobs[k].len != 0) { continue; }  //  Find an empty callback. 
+
+        //  Assign the callback.
         _oobs[k].len = strlen(prefix);
         _oobs[k].prefix = prefix;
         _oobs[k].cb = func;
         _oobs[k].arg = arg;
+        return;
     }
     assert(0);  //  Too many callbacks.
 }

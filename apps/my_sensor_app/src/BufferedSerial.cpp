@@ -36,8 +36,8 @@ extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_li
     #define MY_UART 0  //  Select UART port: 0 means UART2.
 #endif  //  TEST_UART
 
-static char rx_buf[256];        //  ESP8266 receive buffer.  TODO: Support multiple instances.
-static char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.  TODO: Support multiple instances.
+char rx_buf[256];        //  ESP8266 receive buffer.  TODO: Support multiple instances.
+char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.  TODO: Support multiple instances.
 
 #ifdef TEST_UART
     static const char *cmds[] = {     //  List of ESP8266 commands to be sent.
@@ -67,13 +67,13 @@ static int uart_tx_char(void *arg) {
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
+    if (rx_ptr - rx_buf < (int) sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
 #ifndef TEST_UART
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int rc = serial->rxIrq(byte);
     return rc;
 #else
-    if (rx_ptr - rx_buf < sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
     return 0;
 #endif  //  TEST_UART
 }
