@@ -193,105 +193,113 @@ static void esp8266_event(void *drv) {
 #endif  //  TODO
 }
 
-#ifdef NOTUSED
-
-    int esp8266_set_channel(uint8_t channel)
-    {
-        return NSAPI_ERROR_UNSUPPORTED;
+int esp8266_disconnect(struct sensor_itf *itf) {
+    drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
+    if (!drv(itf)->disconnect()) {
+        return NSAPI_ERROR_DEVICE_ERROR;
     }
+    return NSAPI_ERROR_OK;
+}
 
+const char *esp8266_get_ip_address(struct sensor_itf *itf) {
+    return drv(itf)->getIPAddress();
+}
 
-    int esp8266_disconnect()
-    {
+const char *esp8266_get_mac_address(struct sensor_itf *itf) {
+    return drv(itf)->getMACAddress();
+}
+
+const char *esp8266_get_gateway(struct sensor_itf *itf) {
+    return drv(itf)->getGateway();
+}
+
+const char *esp8266_get_netmask(struct sensor_itf *itf) {
+    return drv(itf)->getNetmask();
+}
+
+int8_t esp8266_get_rssi(struct sensor_itf *itf) {
+    return drv(itf)->getRSSI();
+}
+
+struct esp8266_socket {
+    int id;
+    nsapi_protocol_t proto;
+    bool connected;
+    SocketAddress addr;
+};
+
+int esp8266_socket_open(struct sensor_itf *itf, void **handle, nsapi_protocol_t proto) {
+    // Look for an unused socket
+    int id = -1;
+    for (int i = 0; i < ESP8266_SOCKET_COUNT; i++) {
+        if (!cfg(itf)->_ids[i]) {
+            id = i;
+            cfg(itf)->_ids[i] = true;
+            break;
+        }
+    }
+    if (id == -1) { return NSAPI_ERROR_NO_SOCKET; }    
+    struct esp8266_socket *socket = new struct esp8266_socket;
+    if (!socket) { return NSAPI_ERROR_NO_SOCKET; }
+    socket->id = id;
+    socket->proto = proto;
+    socket->connected = false;
+    *handle = socket;
+    return 0;
+}
+
+int esp8266_socket_close(struct sensor_itf *itf, void *handle) {
+    struct esp8266_socket *socket = (struct esp8266_socket *)handle;
+    int err = 0;
+    drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
+    if (!drv(itf)->close(socket->id)) { err = NSAPI_ERROR_DEVICE_ERROR; }
+    cfg(itf)->_ids[socket->id] = false;
+    delete socket;
+    return err;
+}
+
+int esp8266_socket_connect(struct sensor_itf *itf, void *handle, const SocketAddress &addr) {
+    struct esp8266_socket *socket = (struct esp8266_socket *)handle;
+    drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
+    const char *proto = (socket->proto == NSAPI_UDP) ? "UDP" : "TCP";
+    if (!drv(itf)->open(proto, socket->id, addr.get_ip_address(), addr.get_port())) {
+        return NSAPI_ERROR_DEVICE_ERROR;
+    }
+    socket->connected = true;
+    return 0;
+}
+
+int esp8266_socket_send(struct sensor_itf *itf, void *handle, const void *data, unsigned size) {
+    struct esp8266_socket *socket = (struct esp8266_socket *)handle;
+    drv(itf)->setTimeout(ESP8266_SEND_TIMEOUT);
+    if (!drv(itf)->send(socket->id, data, size)) {
+        return NSAPI_ERROR_DEVICE_ERROR;
+    }
+    return size;
+}
+
+int esp8266_socket_sendto(struct sensor_itf *itf, void *handle, const SocketAddress &addr, const void *data, unsigned size) {
+    struct esp8266_socket *socket = (struct esp8266_socket *)handle;
+    if (socket->connected && socket->addr != addr) {
         drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
-
-        if (!drv(itf)->disconnect()) {
-            return NSAPI_ERROR_DEVICE_ERROR;
-        }
-
-        return NSAPI_ERROR_OK;
-    }
-
-    const char *esp8266_get_ip_address()
-    {
-        return drv(itf)->getIPAddress();
-    }
-
-    const char *esp8266_get_mac_address()
-    {
-        return drv(itf)->getMACAddress();
-    }
-
-    const char *esp8266_get_gateway()
-    {
-        return drv(itf)->getGateway();
-    }
-
-    const char *esp8266_get_netmask()
-    {
-        return drv(itf)->getNetmask();
-    }
-
-    int8_t esp8266_get_rssi()
-    {
-        return drv(itf)->getRSSI();
-    }
-
-    int esp8266_scan(WiFiAccessPoint *res, unsigned count)
-    {
-        return drv(itf)->scan(res, count);
-    }
-
-    struct esp8266_socket {
-        int id;
-        nsapi_protocol_t proto;
-        bool connected;
-        SocketAddress addr;
-    };
-
-    int esp8266_socket_open(void **handle, nsapi_protocol_t proto)
-    {
-        // Look for an unused socket
-        int id = -1;
-    
-        for (int i = 0; i < ESP8266_SOCKET_COUNT; i++) {
-            if (!_ids[i]) {
-                id = i;
-                _ids[i] = true;
-                break;
-            }
-        }
-    
-        if (id == -1) {
-            return NSAPI_ERROR_NO_SOCKET;
-        }
-        
-        struct esp8266_socket *socket = new struct esp8266_socket;
-        if (!socket) {
-            return NSAPI_ERROR_NO_SOCKET;
-        }
-        
-        socket->id = id;
-        socket->proto = proto;
+        if (!drv(itf)->close(socket->id)) { return NSAPI_ERROR_DEVICE_ERROR; }
         socket->connected = false;
-        *handle = socket;
-        return 0;
     }
-
-    int esp8266_socket_close(void *handle)
-    {
-        struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-        int err = 0;
-        drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
-    
-        if (!drv(itf)->close(socket->id)) {
-            err = NSAPI_ERROR_DEVICE_ERROR;
-        }
-
-        _ids[socket->id] = false;
-        delete socket;
-        return err;
+    if (!socket->connected) {
+        int err = esp8266_socket_connect(itf, socket, addr);
+        if (err < 0) { return err; }
+        socket->addr = addr;
     }
+    return esp8266_socket_send(itf, socket, data, size);
+}
+
+void esp8266_socket_attach(struct sensor_itf *itf, void *handle, void (*callback)(void *), void *data) {
+    struct esp8266_socket *socket = (struct esp8266_socket *)handle;    
+    cfg(itf)->_cbs[socket->id].callback = callback;
+    cfg(itf)->_cbs[socket->id].data = data;
+}
+
+#ifdef NOTUSED
 
     int esp8266_socket_bind(void *handle, const SocketAddress &address)
     {
@@ -302,36 +310,10 @@ static void esp8266_event(void *drv) {
     {
         return NSAPI_ERROR_UNSUPPORTED;
     }
-
-    int esp8266_socket_connect(void *handle, const SocketAddress &addr)
-    {
-        struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-        drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
-
-        const char *proto = (socket->proto == NSAPI_UDP) ? "UDP" : "TCP";
-        if (!drv(itf)->open(proto, socket->id, addr.get_ip_address(), addr.get_port())) {
-            return NSAPI_ERROR_DEVICE_ERROR;
-        }
-        
-        socket->connected = true;
-        return 0;
-    }
         
     int esp8266_socket_accept(void *server, void **socket, SocketAddress *addr)
     {
         return NSAPI_ERROR_UNSUPPORTED;
-    }
-
-    int esp8266_socket_send(void *handle, const void *data, unsigned size)
-    {
-        struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-        drv(itf)->setTimeout(ESP8266_SEND_TIMEOUT);
-    
-        if (!drv(itf)->send(socket->id, data, size)) {
-            return NSAPI_ERROR_DEVICE_ERROR;
-        }
-    
-        return size;
     }
 
     int esp8266_socket_recv(void *handle, void *data, unsigned size)
@@ -347,29 +329,6 @@ static void esp8266_event(void *drv) {
         return recv;
     }
 
-    int esp8266_socket_sendto(void *handle, const SocketAddress &addr, const void *data, unsigned size)
-    {
-        struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-
-        if (socket->connected && socket->addr != addr) {
-            drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
-            if (!drv(itf)->close(socket->id)) {
-                return NSAPI_ERROR_DEVICE_ERROR;
-            }
-            socket->connected = false;
-        }
-
-        if (!socket->connected) {
-            int err = socket_connect(socket, addr);
-            if (err < 0) {
-                return err;
-            }
-            socket->addr = addr;
-        }
-        
-        return socket_send(socket, data, size);
-    }
-
     int esp8266_socket_recvfrom(void *handle, SocketAddress *addr, void *data, unsigned size)
     {
         struct esp8266_socket *socket = (struct esp8266_socket *)handle;
@@ -379,13 +338,6 @@ static void esp8266_event(void *drv) {
         }
 
         return ret;
-    }
-
-    void esp8266_socket_attach(void *handle, void (*callback)(void *), void *data)
-    {
-        struct esp8266_socket *socket = (struct esp8266_socket *)handle;    
-        _cbs[socket->id].callback = callback;
-        _cbs[socket->id].data = data;
     }
 
     void esp8266_event() {

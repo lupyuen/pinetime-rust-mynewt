@@ -2,8 +2,9 @@
 #ifndef __ESP8266_DRIVER_H__
 #define __ESP8266_DRIVER_H__
 
-#include "os/os.h"
-#include "sensor/sensor.h"
+#include <os/os.h>
+#include <sensor/sensor.h>
+#include "network.h"
 #include "wifi.h"
 
 #ifdef __cplusplus
