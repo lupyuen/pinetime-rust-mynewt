@@ -80,20 +80,20 @@ bool ESP8266::startup(int mode)
 
 bool ESP8266::reset(void)
 {
+    debug_vrecv = 1;  ////
     for (int i = 0; i < 2; i++) {
-#ifdef TOOO
         if (
-            _parser.send("\r\nAT+RST") &&
-            _parser.recv("OK\r\nready")  //  Wait response: "[System Ready, Vendor:www.ai-thinker.com]"
-        ) {
-            console_printf("ESP reset OK\n"); console_flush(); return true; 
-        }
+            _parser.send("\r\nAT+RST")
+            && _parser.recv("OK")  //  Wait for response.
+#ifndef TOOO
+            && _parser.recv("ready")  //  TODO: Wait for response: "ready" or "[System Ready, Vendor:www.ai-thinker.com]"
+            && _parser.recv("\r\n")   //  Wait for end of the line
+#else
+            && _parser.recv("jump")  //  Wait for last line of response: "jump to run user1 @ 1000"
+            && _parser.recv("\r\n")  //  Wait for end of the line
 #endif  //  TODO
-        if (
-            _parser.send("\r\nAT+RST") &&
-            _parser.recv("jump") &&  //  Wait for last line of response: "jump to run user1 @ 1000"
-            _parser.recv("\r\n")     //  Wait for end of the line
         ) {
+            _parser.flush();  //  Discard the rest of the response before sending next command.
             console_printf("ESP reset OK\n"); console_flush(); return true; 
         }
     }
@@ -342,38 +342,12 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec = -1, channel = -1;
     memset(ap, 0, sizeof(nsapi_wifi_ap_t));
-    ////  debug_vrecv = 1;  ////
-
-#ifdef NOTUSED
-    int rc = sscanf(
-        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
-        //  ""
-        ,
-        "+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
-        //  ""
-        , 
-        &sec, ap->ssid, &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
-    );
-    ap->channel = (uint8_t) channel;
-    console_printf("sscanf %d\n", rc);
-    return true;
-#endif  //  NOTUSED
+    debug_vrecv = 1;  ////
 
     //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
-
-#ifdef NOTUSED
-    bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\","
-                            //  "%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
-                            , &sec, ap->ssid
-                            //  ,
-                            //  &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
-                            //  &ap->bssid[5], &channel
-                            );  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
-#endif  //  NOTUSED
-
     ap->channel = (uint8_t) channel;
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
     console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
