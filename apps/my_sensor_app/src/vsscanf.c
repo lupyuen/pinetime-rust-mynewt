@@ -1,4 +1,4 @@
-//  Patched version that transitions state "st_match" back to "st_normal" after matching "[...]".  Original version: https://github.com/apache/mynewt-core/blob/master/libc/baselibc/src/vsscanf.c
+//  Patched version that transitions state "st_match" back to "st_normal" after matching "[...]".  Also ignores matches like "%*...[...]" correctly.  Original version: https://github.com/apache/mynewt-core/blob/master/libc/baselibc/src/vsscanf.c
 /*
  * vsscanf.c
  *
@@ -383,9 +383,11 @@ int vsscanf(const char *buffer, const char *format, va_list ap)
 					*sarg++ = uc;
 				q++;
 			}
-			if (q != qq && sarg) {
-				*sarg = '\0';
-				converted++;
+			if (q != qq) {   ////  Previously: if (q != qq && sarg) {
+				if (sarg) {  ////  Added: For "%*...[...]" format, don't bail out.
+					*sarg = '\0';
+					converted++;
+				}
 			} else {
 				bail = bail_err;
 			}
