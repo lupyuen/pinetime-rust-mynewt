@@ -319,6 +319,7 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     //  Parse the next line of WiFi AP info received, which looks like:
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec, channel;
+#ifdef NOTUSED
     int rc = sscanf(
         "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
         //  ""
@@ -331,15 +332,15 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     ap->channel = (uint8_t) channel;
     console_printf("sscanf %d\n", rc);
     return true;
-#ifdef NOTUSED    
+#endif  //  NOTUSED
     //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
-                            &ap->bssid[5], &ap->channel);
+                            &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
+    ap->channel = (uint8_t) channel;
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
     console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
     return ret;
-#endif  //  NOTUSED
 }
 
 #ifdef NOTUSED  //  Test for vsscanf() bug in Baselibc...

@@ -225,13 +225,13 @@ bool ATParser::vrecv(const char *response, va_list args)
         //
         // We keep trying the match until we succeed or some other error
         // derails us.
-        int j = 0;
+        int j = 0, last_count = -1;
 
         while (true) {
             // Recieve next character
             int c = getc();
             if (c < 0) {
-                console_printf("ATP vrecv timeout: %s\n", _buffer); console_flush();  //  TODO: Only for Semihosting Console.
+                console_printf("ATP vrecv timeout: %d, %s\n", last_count, _buffer); console_flush();  //  TODO: Only for Semihosting Console.
                 return false;
             }
             _buffer[offset + j++] = c;
@@ -256,6 +256,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             // Check for match
             int count = -1;
             sscanf(_buffer+offset, _buffer, &count);
+            last_count = count;
 
             // We only succeed if all characters in the response are matched
             if (count == j) {
