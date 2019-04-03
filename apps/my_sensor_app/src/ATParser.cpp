@@ -236,7 +236,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             }
             _buffer[offset + j++] = c;
             _buffer[offset + j] = 0;
-            char ch = c; if (ch != '\r') { console_buffer(&ch, 1); }  //  TODO: Only for Semihosting Console.
+            //  char ch = c; if (ch != '\r') { console_buffer(&ch, 1); }  //  TODO: Only for Semihosting Console.
 
             // Check for oob data
             for (int k = 0; k < MAX_OOBS; k++) {
@@ -258,6 +258,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             int count = -1;
             sscanf(_buffer+offset, _buffer, &count);
             last_count = count; last_scan = _buffer + offset;
+            console_printf("? %s\n", last_scan); ////
 
             // We only succeed if all characters in the response are matched
             if (count == j) {

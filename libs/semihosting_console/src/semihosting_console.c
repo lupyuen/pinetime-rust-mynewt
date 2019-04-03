@@ -108,9 +108,11 @@ void console_flush(void) {
 void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
     if (length >= OUTPUT_BUFFER_SIZE) { return; }  //  Don't allow logging of very long messages.
+#ifdef AUTO_FLUSH_CONSOLE
     if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is full...
         console_flush();  //  Display the output buffer.
     }
+#endif  //  AUTO_FLUSH_CONSOLE
     if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is still full...
         //  Erase the entire buffer.  Latest log is more important than old log.
         strcpy(output_buffer, "[DROPPED]");
