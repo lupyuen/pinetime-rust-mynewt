@@ -69,7 +69,7 @@ bool ESP8266::startup(int mode)
     }
     bool success = 
         reset()            //  Restart the ESP8266 module.
-        && setEcho(false)  //  Disable command echo because it complicates the response processing.
+        && setEcho(false)  //  Disable command echo to speed up response processing.
         && _parser.send("AT+CWMODE=%d", mode)  //  Set the mode to WiFi Client, WiFi Access Point, or both.
         && _parser.recv("OK")                  //  Wait for response.
         && _parser.send("AT+CIPMUX=1")         //  Allow multiple TCP/UDP connections.
@@ -342,6 +342,8 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec = -1, channel = -1;
     memset(ap, 0, sizeof(nsapi_wifi_ap_t));
+    debug_vrecv = 1;  ////
+
 #ifdef NOTUSED
     int rc = sscanf(
         "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
@@ -356,23 +358,13 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     console_printf("sscanf %d\n", rc);
     return true;
 #endif  //  NOTUSED
+
     //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
-#ifdef NOTUSED
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
-#endif  //  NOTUSED
-    int count = -1;
-    int rc = sscanf(
-        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
-        ,
-        //  "+CWLAP:(%*d,\"%*32[^\"]\",%n"
-        "+CWLAP:(%*d,\"%*32[^\"]\",%n"
-        ,
-        &count
-    );
-    console_printf("sscanf %d / %d\n", rc, count); console_flush();
-    debug_vrecv = 1;  ////
+
+#ifdef NOTUSED
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\","
                             //  "%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
                             , &sec, ap->ssid
@@ -380,13 +372,16 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
                             //  &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             //  &ap->bssid[5], &channel
                             );  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
+#endif  //  NOTUSED
+
     ap->channel = (uint8_t) channel;
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
     console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
     return ret;
 }
 
-#ifdef NOTUSED  //  Test for vsscanf() bug in Baselibc...
+#ifdef NOTUSED  
+    //  Test for vsscanf() end-of-match bug in Baselibc...
     int sec, rssi;
     int rc = sscanf(
         "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,"
@@ -398,6 +393,18 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
         &sec, ap->ssid, &rssi 
         //  ,&ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
     );
-    //  Should return rc=3, rssi=-74.  Buggy version of vsscanf() return rc=2, rssi=some other value.
+    //  Should return rc=3, rssi=-74.  Buggy version of vsscanf() returns rc=2, rssi=some other value.
     console_printf("sscanf %d\n", rc);
+
+    //  Test for vsscanf() ignore-match bug in Baselibc...
+    int count = -1;
+    int rc = sscanf(
+        "+CWLAP:(3,\"HP\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
+        ,
+        "+CWLAP:(%*d,\"%*32[^\"]\",%n"
+        ,
+        &count
+    );
+    //  Shoud return rc=0, count=15.  Buggy version of vsscanf() returns count<15
+    console_printf("sscanf %d / %d\n", rc, count); console_flush();        
 #endif  //  NOTUSED
