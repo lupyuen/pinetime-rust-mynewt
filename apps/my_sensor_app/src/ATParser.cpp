@@ -260,7 +260,10 @@ bool ATParser::vrecv(const char *response, va_list args)
             int count = -1;
             sscanf(_buffer+offset, _buffer, &count);
             last_count = count; last_scan = _buffer + offset;
-            if (debug_vrecv && c == '\n') { console_printf("? %d / %s", last_count, last_scan); if (debug_vrecv % 20 == 1) { /* console_flush(); */ } } ////
+            if (debug_vrecv && c == '\n' && last_scan[0] != '\n' && last_scan[0] != '\r') {
+                if (last_count > 0) { console_printf("  < %d / %s", last_count, last_scan); }
+                else { console_printf("  < %s", last_scan); }
+            } ////
 
             // We only succeed if all characters in the response are matched
             if (count == j) {

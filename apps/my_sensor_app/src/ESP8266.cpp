@@ -208,6 +208,7 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit)
             break;
         }
     }
+    console_printf(cnt > 0 ? "ESP scan OK\n" : "ESP scan FAILED\n"); console_flush();  ////
     return cnt;
 }
 
@@ -350,7 +351,7 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
     ap->channel = (uint8_t) channel;
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
-    console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
+    console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n");  //  Don't flush here, we are still receiving data.
     return ret;
 }
 
