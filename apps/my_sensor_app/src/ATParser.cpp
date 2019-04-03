@@ -27,6 +27,8 @@
 #define debug_if(dbg_on, format, arg) console_printf(format, arg)
 //  #define debug_if(dbg_on, format, arg) {}
 
+extern "C" int debug_vrecv; int debug_vrecv = 0;  ////
+
 void ATParser::init(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter, int timeout, bool debug)
 {
     _serial = &serial;
@@ -236,7 +238,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             }
             _buffer[offset + j++] = c;
             _buffer[offset + j] = 0;
-            //  char ch = c; if (ch != '\r') { console_buffer(&ch, 1); }  //  TODO: Only for Semihosting Console.
+            ////  char ch = c; if (ch != '\r') { console_buffer(&ch, 1); }  //  TODO: Only for Semihosting Console.
 
             // Check for oob data
             for (int k = 0; k < MAX_OOBS; k++) {
@@ -258,11 +260,11 @@ bool ATParser::vrecv(const char *response, va_list args)
             int count = -1;
             sscanf(_buffer+offset, _buffer, &count);
             last_count = count; last_scan = _buffer + offset;
-            console_printf("? %s\n", last_scan); ////
+            if (debug_vrecv && (debug_vrecv++ % 10 == 1)) { console_printf("? %s\n", last_scan); } ////
 
             // We only succeed if all characters in the response are matched
             if (count == j) {
-                debug_if(dbg_on, "\nAT= %s\r\n", _buffer+offset);
+                debug_if(dbg_on, "AT= %s\r\n", _buffer+offset);
                 // Reuse the front end of the buffer
                 memcpy(_buffer, response, i);
                 _buffer[i] = 0;
@@ -280,7 +282,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             if (j+1 >= _buffer_size - offset ||
                 strcmp(&_buffer[offset + j-_delim_size], _delimiter) == 0) {
 
-                debug_if(dbg_on, "\nAT< %s", _buffer+offset);
+                debug_if(dbg_on, "AT< %s", _buffer+offset);
                 j = 0;
             }
         }

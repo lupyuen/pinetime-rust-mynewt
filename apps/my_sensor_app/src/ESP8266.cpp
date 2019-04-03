@@ -19,6 +19,8 @@
 #include <console/console.h>
 #include "ESP8266.h"
 
+extern "C" int debug_vrecv;  ////
+
 void ESP8266::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug)
 {
@@ -340,6 +342,7 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
 #endif  //  NOTUSED
+    debug_vrecv = 1;  ////
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\","
                             //  "%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
                             , &sec, ap->ssid,
