@@ -83,12 +83,12 @@ Supporting OS subroutines required:
 #include <stdlib.h>
 #include <stdint.h>
 #include <limits.h>
-#include <wchar.h>
+////  #include <wchar.h>
 #include <string.h>
 #include <stdarg.h>
 #include <errno.h>
 #include "local.h"
-#include "../stdlib/local.h"
+////  #include "../stdlib/local.h"
 
 #ifdef INTEGER_ONLY
 #define VFSCANF vfiscanf
