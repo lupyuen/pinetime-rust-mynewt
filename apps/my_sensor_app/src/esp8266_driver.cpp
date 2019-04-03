@@ -225,7 +225,8 @@ struct esp8266_socket {
     int id;
     nsapi_protocol_t proto;
     bool connected;
-    SocketAddress addr;
+    const char *host;
+    uint16_t port;
 };
 
 int esp8266_socket_open(struct sensor_itf *itf, void **handle, nsapi_protocol_t proto) {
@@ -258,11 +259,11 @@ int esp8266_socket_close(struct sensor_itf *itf, void *handle) {
     return err;
 }
 
-int esp8266_socket_connect(struct sensor_itf *itf, void *handle, const SocketAddress &addr) {
+int esp8266_socket_connect(struct sensor_itf *itf, void *handle, const char *host, uint16_t port) {
     struct esp8266_socket *socket = (struct esp8266_socket *)handle;
     drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
     const char *proto = (socket->proto == NSAPI_UDP) ? "UDP" : "TCP";
-    if (!drv(itf)->open(proto, socket->id, addr.get_ip_address(), addr.get_port())) {
+    if (!drv(itf)->open(proto, socket->id, host, port)) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
     socket->connected = true;
@@ -278,17 +279,19 @@ int esp8266_socket_send(struct sensor_itf *itf, void *handle, const void *data, 
     return size;
 }
 
-int esp8266_socket_sendto(struct sensor_itf *itf, void *handle, const SocketAddress &addr, const void *data, unsigned size) {
+int esp8266_socket_sendto(struct sensor_itf *itf, void *handle, const char *host, uint16_t port, const void *data, unsigned size) {
+    //  Note: Host must point to a static string that will never change.
     struct esp8266_socket *socket = (struct esp8266_socket *)handle;
-    if (socket->connected && socket->addr != addr) {
+    if (socket->connected && (socket->host != host || socket->port != port)) {  //  If connected but sending to a different destination...
         drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
         if (!drv(itf)->close(socket->id)) { return NSAPI_ERROR_DEVICE_ERROR; }
         socket->connected = false;
     }
     if (!socket->connected) {
-        int err = esp8266_socket_connect(itf, socket, addr);
+        int err = esp8266_socket_connect(itf, socket, host, port);
         if (err < 0) { return err; }
-        socket->addr = addr;
+        socket->host = host;
+        socket->port = port;
     }
     return esp8266_socket_send(itf, socket, data, size);
 }
