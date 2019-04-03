@@ -59,9 +59,16 @@ bool ESP8266::startup(int mode)
 bool ESP8266::reset(void)
 {
     for (int i = 0; i < 2; i++) {
+#ifdef TOOO
         if (
-            _parser.send("AT+RST") &&
-            ////  TODO: Was "OK\r\nready"
+            _parser.send("\r\nAT+RST") &&
+            _parser.recv("OK\r\nready")  //  Wait response: "[System Ready, Vendor:www.ai-thinker.com]"
+        ) {
+            console_printf("ESP reset OK\n"); console_flush(); return true; 
+        }
+#endif  //  TODO
+        if (
+            _parser.send("\r\nAT+RST") &&
             _parser.recv("jump") &&  //  Wait for last line of response: "jump to run user1 @ 1000"
             _parser.recv("\r\n")     //  Wait for end of the line
         ) {
@@ -309,15 +316,22 @@ void ESP8266::attach(void (*func)(void *), void *arg)
 
 bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
 {
-    //  Parse the next AP line, which looks like:
+    //  Parse the next line of WiFi AP info received, which looks like:
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
-    int sec, channel;
+    int sec;  //  channel
+    char rssi[4];
     int rc = sscanf(
-        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)",
-        "+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", 
-        &sec, ap->ssid, &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
+        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",74,"
+        //  "\"8c:dc:d4:00:00:00\",1,-34,0)"
+        ,
+        "+CWLAP:(%d,\"%32[^\"]\",%3[^,],"
+        //  "\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d,"
+        , 
+        &sec, ap->ssid, rssi 
+        //  ,&ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
     );
-    ap->channel = (uint8_t) channel;
+    //  ap->channel = (uint8_t) channel;
+    //  ap->rssi = (int8_t) rssi;
     console_printf("sscanf %d\n", rc);
 
     #ifdef NOTUSED
