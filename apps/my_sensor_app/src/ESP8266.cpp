@@ -318,7 +318,8 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
 {
     //  Parse the next line of WiFi AP info received, which looks like:
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
-    int sec, channel;
+    int sec = -1, channel = -1;
+    memset(ap, 0, sizeof(nsapi_wifi_ap_t));
 #ifdef NOTUSED
     int rc = sscanf(
         "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
@@ -334,7 +335,14 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     return true;
 #endif  //  NOTUSED
     //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
+#ifdef NOTUSED
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
+                            &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
+                            &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
+#endif  //  NOTUSED
+    bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\","
+                            //  "%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
+                            , &sec, ap->ssid,
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
     ap->channel = (uint8_t) channel;
