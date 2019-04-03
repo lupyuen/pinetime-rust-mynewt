@@ -29,7 +29,7 @@
 static struct hal_timer semihosting_timer;
 #endif
 
-#define OUTPUT_BUFFER_SIZE 512  //  Use a larger buffer size so that we don't affect interrupt processing.
+#define OUTPUT_BUFFER_SIZE 2048  //  Use a larger buffer size so that we don't affect interrupt processing.
 static char output_buffer[OUTPUT_BUFFER_SIZE + 1] = { 0 };  //  Buffer to hold output before flushing.
 static volatile uint16_t output_buffer_length = 0;         //  Number of bytes in buffer.
 static bool log_enabled = true;  //  Logging is on by default.
@@ -105,7 +105,7 @@ void console_flush(void) {
     output_buffer_length = 0;
 }
 
-static void console_buffer(const char *buffer, unsigned int length) {
+void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
     if (length >= OUTPUT_BUFFER_SIZE) { return; }  //  Don't allow logging of very long messages.
     if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is full...
