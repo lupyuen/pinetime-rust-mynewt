@@ -318,6 +318,31 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
 {
     //  Parse the next line of WiFi AP info received, which looks like:
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
+    int sec, channel;
+    int rc = sscanf(
+        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
+        //  ""
+        ,
+        "+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
+        //  ""
+        , 
+        &sec, ap->ssid, &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
+    );
+    ap->channel = (uint8_t) channel;
+    console_printf("sscanf %d\n", rc);
+    return true;
+#ifdef NOTUSED    
+    //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
+    bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
+                            &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
+                            &ap->bssid[5], &ap->channel);
+    ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
+    console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
+    return ret;
+#endif  //  NOTUSED
+}
+
+#ifdef NOTUSED  //  Test for vsscanf() bug in Baselibc...
     int sec, rssi;
     int rc = sscanf(
         "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,"
@@ -329,18 +354,6 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
         &sec, ap->ssid, &rssi 
         //  ,&ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
     );
+    //  Should return rc=3, rssi=-74.  Buggy version of vsscanf() return rc=2, rssi=some other value.
     console_printf("sscanf %d\n", rc);
-
-#ifdef ORIGINAL_CODE
-    bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
-                            &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
-                            &ap->bssid[5], &ap->channel);
-    ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
-    console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
-    return ret;
-#endif  //  ORIGINAL_CODE
-    return true;
-}
-
-//  ap->channel = (uint8_t) channel;
-//  ap->rssi = (int8_t) rssi;
+#endif  //  NOTUSED
