@@ -1,3 +1,4 @@
+//  Patched version that transitions state "st_match" back to "st_normal" after matching "[...]".  Original version: https://github.com/apache/mynewt-core/blob/master/libc/baselibc/src/vsscanf.c
 /*
  * vsscanf.c
  *
@@ -349,6 +350,7 @@ int vsscanf(const char *buffer, const char *format, va_list ap)
 
 		case st_match:	/* Main state for %[ match */
 			if (ch == ']') {
+				state = st_normal;  ////  Added: State should return to normal after matching.
 				goto match_run;
 			} else if (ch == '-') {
 				range_start = (unsigned char)ch;

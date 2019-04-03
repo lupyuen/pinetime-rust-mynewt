@@ -320,7 +320,7 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec, rssi;
     int rc = sscanf(
-        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",74,"
+        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,"
         //  "\"8c:dc:d4:00:00:00\",1,-34,0)"
         ,
         "+CWLAP:(%d,\"%32[^\"]\",%d,"
