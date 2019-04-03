@@ -43,6 +43,11 @@ public:
      */
     void configure(int uart);
 
+    /** Enable or disable ESP8266 command echo
+     *  @param echoEnabled true if echo should be enabled
+     */
+    bool setEcho(bool echoEnabled);
+
     /**
     * Startup the ESP8266
     *

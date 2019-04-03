@@ -43,18 +43,38 @@ void packet_handler(void *arg) {
     ((ESP8266 *)arg)->_packet_handler();
 }
 
+bool ESP8266::setEcho(bool echoEnabled) {
+    //  Turn command echoing on or off.
+    for (int i = 0; i < 2; i++) {  //  Try twice in case of error...
+        if (
+            _parser.send(       //  Send echo on or off command.
+                echoEnabled 
+                ? "\r\nATE1"
+                : "\r\nATE0"
+            ) &&
+            _parser.recv("OK")  //  Wait for OK response.
+        ) {
+            console_printf("ESP setEcho OK\n"); console_flush(); return true; 
+        }
+    }
+    console_printf("ESP setEcho FAILED\n"); console_flush(); 
+    return false;
+}
+
 bool ESP8266::startup(int mode)
 {
-    //only 3 valid modes
+    //  only 3 valid modes
     if(mode < 1 || mode > 3) {
         return false;
     }
-    bool success = reset()
-        && _parser.send("AT+CWMODE=%d", mode)
-        && _parser.recv("OK")
-        && _parser.send("AT+CIPMUX=1")
-        && _parser.recv("OK");
-    _parser.oob("+IPD", packet_handler, this);
+    bool success = 
+        reset()            //  Restart the ESP8266 module.
+        && setEcho(false)  //  Disable command echo because it complicates the response processing.
+        && _parser.send("AT+CWMODE=%d", mode)  //  Set the mode to WiFi Client, WiFi Access Point, or both.
+        && _parser.recv("OK")                  //  Wait for response.
+        && _parser.send("AT+CIPMUX=1")         //  Allow multiple TCP/UDP connections.
+        && _parser.recv("OK");                 //  Wait for response.
+    _parser.oob("+IPD", packet_handler, this); //  Call the packet handler when network data is received.
     return success;
 }
 
@@ -342,12 +362,24 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
                             &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
 #endif  //  NOTUSED
+    int count = -1;
+    int rc = sscanf(
+        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
+        ,
+        //  "+CWLAP:(%*d,\"%*32[^\"]\",%n"
+        "+CWLAP:(%*d,\"%*32[^\"]\",%n"
+        ,
+        &count
+    );
+    console_printf("sscanf %d / %d\n", rc, count); console_flush();
     debug_vrecv = 1;  ////
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\","
                             //  "%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d"
-                            , &sec, ap->ssid,
-                            &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
-                            &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
+                            , &sec, ap->ssid
+                            //  ,
+                            //  &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
+                            //  &ap->bssid[5], &channel
+                            );  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
     ap->channel = (uint8_t) channel;
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
     console_printf(ret ? "ESP ap OK\n" : "ESP ap FAILED\n"); console_flush();
