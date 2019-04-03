@@ -342,7 +342,7 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec = -1, channel = -1;
     memset(ap, 0, sizeof(nsapi_wifi_ap_t));
-    debug_vrecv = 1;  ////
+    ////  debug_vrecv = 1;  ////
 
 #ifdef NOTUSED
     int rc = sscanf(
