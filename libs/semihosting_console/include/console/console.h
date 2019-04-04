@@ -46,6 +46,8 @@ typedef void (*completion_cb)(char *str, console_append_char_cb cb);
 
 //  Implemented only for Semihosting Console.
 void console_buffer(const char *buffer, unsigned int length);  //  Add the string to the output buffer.
+void console_printhex(uint8_t v);  //  Write a char in hexadecimal to the output buffer.
+void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
 void console_flush(void);  //  Flush the output buffer to the console.
 
 /**

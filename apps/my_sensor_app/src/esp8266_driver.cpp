@@ -70,7 +70,9 @@ void init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
 }
 
 static void oc_tx_ucast(struct os_mbuf *m) {
-    console_printf("oc_tx_ucast\n"); console_flush();
+    console_printf(">>> oc_tx_ucast: %d / %d\n", m->om_pkthdr_len, m->om_len);
+    if (m->om_data) { console_dump(m->om_data, m->om_len); }
+    console_printf("\n");  console_flush();
 }
 
 static uint8_t oc_ep_size(const struct oc_endpoint *oe) {

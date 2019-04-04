@@ -125,6 +125,34 @@ void console_buffer(const char *buffer, unsigned int length) {
     output_buffer_length += length;
 }
 
+void console_printhex(uint8_t v) {
+    //  Write a char in hexadecimal to the output buffer.
+    #define MAX_BYTE_LENGTH 2
+    char buffer[MAX_BYTE_LENGTH + 1];
+    int size = MAX_BYTE_LENGTH + 1;
+    bool prefixByZero = true;
+    int length = 0;
+    for(uint8_t divisor = 16; divisor >= 1; divisor = divisor / 16) {
+        char digit = '0' + (char)(v / divisor);
+        if (digit > '9') { digit = digit - 10 - '0' + 'a'; }
+        if (digit > '0' || length > 0 || prefixByZero) {
+            if (length < size) {
+                buffer[length++] = digit;
+            }
+        }
+        v = v % divisor;
+    }
+    if (length == 0) { buffer[length++] = '0'; };
+    if (length < size) buffer[length] = 0;
+    buffer[size - 1] = 0;  //  Terminate in case of overflow.
+    console_buffer(buffer, strlen(buffer));
+}
+
+void console_dump(const uint8_t *buffer, unsigned int len) {
+	//  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+	for (int i = 0; i < len; i++) { console_printhex(buffer[i]); console_buffer(" ", 1); } 
+}
+
 static void semihosting_console_write_ch(char c) {
     if (c == '\r') { return; }  //  Don't display \r.
     console_buffer(&c, 1);  //  Append the char to the output buffer.
