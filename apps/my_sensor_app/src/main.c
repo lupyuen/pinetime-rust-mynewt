@@ -27,7 +27,7 @@
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "esp8266_driver.h"
 
-//  CoAP Connection Settings
+//  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 #define COAP_HOST   "coap.thethings.io"  //  CoAP hostname e.g. coap.thethings.io
 #define COAP_PORT   COAP_PORT_UNSECURED  //  CoAP port, usually UDP port 5683
 #define COAP_URI    "v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"  //  CoAP URI
@@ -62,21 +62,29 @@ static void handle_coap(oc_client_response_t *data) {
 
 static void init_coap(void) {
     //  Send the sensor data over CoAP to the cloud.
-    esp8266_register_transport();
-    init_esp8266_endpoint(&coap_server.endpoint);
-    if (oc_init_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS)) {
-        oc_rep_start_root_object();
-        oc_rep_set_double(root, state, 28.1);
-        oc_rep_end_root_object();
-        console_flush();  ////
-        if (oc_do_post()) {
-            console_printf("Sending POST request\n"); console_flush();
-        } else {
-            console_printf("Could not send POST\n"); console_flush();
-        }
-    } else {
-        console_printf("Could not init POST\n"); console_flush();
-    }
+    esp8266_register_transport();  //  Register the ESP8266 driver as a transport for CoAP.
+    init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint values before use.
+
+    //  Create a CoAP request.
+    int rc = oc_init_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS);
+    assert(rc != 0);
+
+    //  Populate the CoAP request body in Concise Binary Object Representation format (compressed JSON).
+    //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
+    oc_rep_start_root_object();  //  Create the root.
+        oc_rep_start_array(root, values);  //  Create "values" as an array of objects.
+            oc_rep_start_object(values, )
+
+            //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
+            oc_rep_set_double(root, state, 28.1);
+
+        oc_rep_end_array(root, values);
+    oc_rep_end_root_object();  //  Close the root.
+
+    //  Forward the CoAP request to the CoAP TX Background Task for transmission.
+    rc = oc_do_post();
+    assert(rc != 0);
+    console_printf("Sending POST request\n");
 }
 
 #ifdef NOTUSED

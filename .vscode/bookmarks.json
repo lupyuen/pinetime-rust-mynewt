@@ -93,7 +93,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 124,
+				"line": 140,
 				"column": 3,
 				"label": ""
 			}
@@ -195,6 +195,16 @@
 			{
 				"line": 97,
 				"column": 13,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h",
+		"bookmarks": [
+			{
+				"line": 31,
+				"column": 12,
 				"label": ""
 			}
 		]
