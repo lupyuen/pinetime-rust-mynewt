@@ -36,7 +36,10 @@ static int init_tasks(void);
 
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
-void __wrap_oc_init(void) {} ////  TODO: Prevent OIC modules from being linked in.
+void __wrap_oc_buffer_init(void) {  ////  TODO: Prevent OIC receive process from being linked in.
+    // os_mqueue_init(&oc_inq, oc_buffer_rx, NULL);
+    // os_mqueue_init(&oc_outq, oc_buffer_tx, NULL);
+}
 
 static struct oc_server_handle coap_server = {
     .endpoint = {

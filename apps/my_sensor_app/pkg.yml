@@ -38,5 +38,6 @@ pkg.cflags:  #  C compiler flags
     - -DFLOAT_SUPPORT  #  For encoding floats in CoAP messages
 
 pkg.lflags:  #  Linker flags
-    - -Wl,-wrap,oc_init  #  Rename all oc_init() references to __wrap_oc_init(), so that we can provide an alternative version
+    - -Wl,-wrap,oc_buffer_init  #  Rename all oc_buffer_init() references to __wrap_oc_buffer_init(), so that we can provide an alternative implementation
 
+#    - -Wl,-wrap,oc_init  #  Rename all oc_init() references to __wrap_oc_init(), so that we can provide an alternative implementation
