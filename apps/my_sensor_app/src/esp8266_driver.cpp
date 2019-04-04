@@ -69,10 +69,27 @@ void init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
     endpoint->ep.oe_flags = 0;
 }
 
-static void oc_tx_ucast(struct os_mbuf *m) {
-    console_printf(">>> oc_tx_ucast: %d / %d\n", m->om_pkthdr_len, m->om_len);
-    if (m->om_data) { console_dump(m->om_data, m->om_len); }
-    console_printf("\n");  console_flush();
+static void oc_tx_ucast(struct os_mbuf *m0) {
+    //  Dump out each mbuf in the linked list.
+    console_printf(">>> oc_tx_ucast:\n");
+    struct os_mbuf *m = m0;
+    while (m) {
+        assert(m->om_data);
+        if (m->om_pkthdr_len) {
+            //  Exclude 16 bytes for the mbuf packet header structure.
+            unsigned int len = m->om_pkthdr_len - 16;
+            console_printf("Header: %d\n", len); 
+            console_dump(m->om_databuf, len);
+            console_printf("\n");
+        }
+        if (m->om_len) {
+            console_printf("Data: %d\n", m->om_len); 
+            console_dump(m->om_data, m->om_len);
+            console_printf("\n");
+        }
+        m = m->om_next.sle_next;  //  Fetch next mbuf in the list.
+    }
+    console_flush();
 }
 
 static uint8_t oc_ep_size(const struct oc_endpoint *oe) {
