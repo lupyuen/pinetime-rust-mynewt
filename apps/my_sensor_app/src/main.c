@@ -72,13 +72,24 @@ static void init_coap(void) {
     //  Populate the CoAP request body in Concise Binary Object Representation format (compressed JSON).
     //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
     oc_rep_start_root_object();  //  Create the root.
-        oc_rep_start_array(root, values);  //  Create "values" as an array of objects.
-            oc_rep_start_object(values, )
 
-            //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-            oc_rep_set_double(root, state, 28.1);
+        oc_rep_set_object(root, values);  //  Create "values" as an array of objects.
 
-        oc_rep_end_array(root, values);
+            oc_rep_set_array(values, aces);
+
+                oc_rep_object_array_start_item(aces);
+
+                    //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
+                    oc_rep_set_text_string(aces, key, "tmp");
+                    oc_rep_set_double(aces, value, 28.1);
+
+                oc_rep_object_array_end_item(aces);
+
+
+            oc_rep_close_array(values, aces);
+
+        oc_rep_close_object(root, values);
+
     oc_rep_end_root_object();  //  Close the root.
 
     //  Forward the CoAP request to the CoAP TX Background Task for transmission.
@@ -86,16 +97,6 @@ static void init_coap(void) {
     assert(rc != 0);
     console_printf("Sending POST request\n");
 }
-
-#ifdef NOTUSED
-    #include <oic/messaging/coap/coap.h>
-    static struct coap_packet packet;
-    static void init_coap(void) {
-        //  Send the sensor data over CoAP to the cloud.  We manipulate the message directly
-        //  instead of using Mynewt OIC library because the OIC library is too large for Blue Pill.
-        packet.version = 1;
-    }
-#endif  //  NOTUSED
 
 int main(int argc, char **argv) {
     int rc;
