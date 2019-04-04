@@ -27,8 +27,12 @@
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "esp8266_driver.h"
 
-#define COAP_URI "coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8/"
-#define TRANSCEIVER_DEVICE "esp8266_0"
+//  CoAP Connection Settings
+#define COAP_HOST   "coap.thethings.io"  //  CoAP hostname e.g. coap.thethings.io
+#define COAP_PORT   COAP_PORT_UNSECURED  //  CoAP port, usually UDP port 5683
+#define COAP_URI    "v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"  //  CoAP URI
+
+#define TRANSCEIVER_DEVICE ESP8266_DEVICE  //  Name of the transceiver device e.g. esp8266_0
 #define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
 
 //  static void init_sensors(void);
@@ -37,19 +41,18 @@ static int init_tasks(void);
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
 int __wrap_coap_receive(/* struct os_mbuf **mp */) {
+    //  We override the default coap_receive() with an empty function so that we will 
+    //  NOT pull in any modules for receiving and parse CoAP requests.  We only need
+    //  to transmit CoAP requests.
     console_printf("__wrap_coap_receive\n"); console_flush();
     return -1;
 }
 
-void __wrap_oc_buffer_init(void) {  ////  TODO: Prevent OIC receive process from being linked in.
-    // os_mqueue_init(&oc_inq, oc_buffer_rx, NULL);
-    // os_mqueue_init(&oc_outq, oc_buffer_tx, NULL);
-}
-
+//  CoAP Connection Configuration
 static struct esp8266_server_handle coap_server = {
     .endpoint = {
-        .host = "coap.thethings.io",
-        .port = COAP_PORT_UNSECURED  //  UDP port 5683.
+        .host = COAP_HOST,  //  CoAP hostname e.g. coap.thethings.io
+        .port = COAP_PORT   //  CoAP port, usually UDP port 5683
     }
 };
 
@@ -67,7 +70,7 @@ static void init_coap(void) {
         oc_rep_end_root_object();
         console_flush();  ////
         if (oc_do_post()) {
-            console_printf("Sent POST request\n"); console_flush();
+            console_printf("Sending POST request\n"); console_flush();
         } else {
             console_printf("Could not send POST\n"); console_flush();
         }
@@ -90,8 +93,8 @@ int main(int argc, char **argv) {
     int rc;
     sysinit();  //  Initialize all packages.  Create the sensors.
     //  init_sensors();  //  Init the sensors.    
-    init_esp8266();  //  Init the ESP8266 transceiver.
-    init_coap();  //  Init CoAP request.
+    init_esp8266();     //  Init the ESP8266 transceiver.
+    init_coap();        //  Init CoAP request.
 
     rc = init_tasks();            //  Start the background tasks.
     assert(rc == 0);
