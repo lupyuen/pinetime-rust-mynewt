@@ -188,5 +188,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/kernel/os/src/os_mbuf.c",
+		"bookmarks": [
+			{
+				"line": 97,
+				"column": 13,
+				"label": ""
+			}
+		]
 	}
 ]
