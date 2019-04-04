@@ -60,10 +60,10 @@ static void handle_coap(oc_client_response_t *data) {
     console_printf("handle_coap\n"); console_flush();
 }
 
-static void init_coap(void) {
+static void send_coap_request(void) {
     //  Send the sensor data over CoAP to the cloud.
-    esp8266_register_transport();  //  Register the ESP8266 driver as a transport for CoAP.
-    init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint values before use.
+    esp8266_register_transport();                  //  Register the ESP8266 driver as a transport for CoAP.
+    init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
 
     //  Create a CoAP request.
     int rc = oc_init_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS);
@@ -71,26 +71,15 @@ static void init_coap(void) {
 
     //  Populate the CoAP request body in Concise Binary Object Representation format (compressed JSON).
     //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
-    oc_rep_start_root_object();  //  Create the root.
-
-        oc_rep_set_object(root, values);  //  Create "values" as an array of objects.
-
-            oc_rep_set_array(values, aces);
-
-                oc_rep_object_array_start_item(aces);
-
-                    //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-                    oc_rep_set_text_string(aces, key, "tmp");
-                    oc_rep_set_double(aces, value, 28.1);
-
-                oc_rep_object_array_end_item(aces);
-
-
-            oc_rep_close_array(values, aces);
-
-        oc_rep_close_object(root, values);
-
-    oc_rep_end_root_object();  //  Close the root.
+    oc_rep_start_root_object();                              //  Create the root.
+        oc_rep_set_array(root, values);                      //  Create "values" as an array of objects.
+            oc_rep_object_array_start_item(values);          //  Create a new item in the "values" array.
+                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
+                oc_rep_set_text_string(values, key,   "tmp");  //  Set the key.
+                oc_rep_set_double     (values, value, 28.2);      //  Set the value.
+            oc_rep_object_array_end_item(values);            //  Close the item in the "values" array.
+        oc_rep_close_array(root, values);                    //  Close the "values" array.
+    oc_rep_end_root_object();                                //  Close the root.
 
     //  Forward the CoAP request to the CoAP TX Background Task for transmission.
     rc = oc_do_post();
@@ -103,7 +92,7 @@ int main(int argc, char **argv) {
     sysinit();  //  Initialize all packages.  Create the sensors.
     //  init_sensors();  //  Init the sensors.    
     init_esp8266();     //  Init the ESP8266 transceiver.
-    init_coap();        //  Init CoAP request.
+    send_coap_request();        //  Init CoAP request.
 
     rc = init_tasks();            //  Start the background tasks.
     assert(rc == 0);
