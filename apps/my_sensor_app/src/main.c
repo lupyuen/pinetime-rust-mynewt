@@ -1,3 +1,4 @@
+//  Main program for the sensor app that reads sensor data and sends to the cloud
 /**
  * Depending on the type of package, there are different
  * compilation rules for this directory.  This comment applies
@@ -21,9 +22,12 @@
 #include <defs/error.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
+#include <oic/oc_api.h>
+#include <oic/port/mynewt/ip.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "esp8266_driver.h"
 
+#define COAP_URI "coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8/"
 #define TRANSCEIVER_DEVICE "esp8266_0"
 #define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
 
@@ -34,10 +38,37 @@ extern char *rx_buf;     //  ESP8266 receive buffer.
 extern char *rx_ptr;     //  Pointer to next ESP8266 receive buffer byte to be received.
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
+static struct oc_server_handle coap_server = {
+    .endpoint = {
+        //  TODO
+    }
+};
+
+static void handle_coap(oc_client_response_t *data) {
+    console_printf("handle_coap\n"); console_flush();
+}
+
+static void init_coap(void) {
+    //  Send the sensor data over CoAP to the cloud.
+    if (oc_init_post(COAP_URI, &coap_server, NULL, handle_coap, LOW_QOS)) {
+        oc_rep_start_root_object();
+        oc_rep_set_double(root, state, 28.1);
+        oc_rep_end_root_object();
+        if (oc_do_post()) {
+            console_printf("Sent POST request\n"); console_flush();
+        } else {
+            console_printf("Could not send POST\n"); console_flush();
+        }
+    } else {
+        console_printf("Could not init POST\n"); console_flush();
+    }
+}
+
 int main(int argc, char **argv) {
     int rc;
     sysinit();  //  Initialize all packages.  Create the sensors.
-    //  init_sensors();  //  Init the sensors.
+    init_coap();  //  Init CoAP request.
+    //  init_sensors();  //  Init the sensors.    
     esp8266_sensor_dev_create();  //  Create the ESP8266 transceiver.
     rc = init_tasks();            //  Start the background tasks.
     assert(rc == 0);
@@ -57,8 +88,7 @@ static struct os_task work_task;
 static uint8_t work_stack[sizeof(os_stack_t) * WORK_STACK_SIZE];
 
 static void work_task_handler(void *arg) {
-    struct sensor *trans;
-    trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
+    struct sensor *trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
     assert(trans != NULL);
 
     int rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP);

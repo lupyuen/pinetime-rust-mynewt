@@ -30,5 +30,6 @@ pkg.deps:
     - "@apache-mynewt-core/sys/stats/stub"
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/hw/sensor/creator"
+    - "@apache-mynewt-core/net/oic"
     - "@apache-mynewt-core/libc/baselibc"
     - "libs/semihosting_console"

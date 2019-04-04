@@ -32,6 +32,61 @@ static const struct sensor_itf uart_0_itf = {
 };
 //  #endif  //  MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
+#ifdef NOTUSED
+#define COAP_PORT_UNSECURED (5683)
+
+typedef struct {
+    uint8_t address[4];
+} oc_ipv4_addr_t;
+
+/*
+ * oc_endpoint for IPv4/IPv6
+ */
+struct oc_endpoint_ip {
+    struct oc_ep_hdr ep;
+    uint16_t port;
+    oc_ipv4_addr_t v4;
+};
+
+static inline int oc_endpoint_is_ip(struct oc_endpoint *oe) {
+    return oe->ep.oe_type == oc_ip6_transport_id ||
+      oe->ep.oe_type == oc_ip4_transport_id;
+}
+
+#define oc_make_ip4_endpoint(__name__, __flags__, __port__, ...)        \
+    struct oc_endpoint_ip __name__ = {.ep = {.oe_type = oc_ip4_transport_id, \
+                                             .oe_flags = __flags__},    \
+                                      .port = __port__,                 \
+                                      .v4 = {.address = { __VA_ARGS__ } } }
+
+static void oc_send_buffer_ip4(struct os_mbuf *m);
+static void oc_send_buffer_ip4_mcast(struct os_mbuf *m);
+static uint8_t oc_ep_ip4_size(const struct oc_endpoint *oe);
+static char *oc_log_ep_ip4(char *ptr, int maxlen, const struct oc_endpoint *);
+static int oc_connectivity_init_ip4(void);
+void oc_connectivity_shutdown_ip4(void);
+static void oc_event_ip4(struct os_event *ev);
+
+static const struct oc_transport oc_ip4_transport = {
+    .ot_flags = 0,
+    .ot_ep_size = oc_ep_ip4_size,
+    .ot_tx_ucast = oc_send_buffer_ip4,
+    .ot_tx_mcast = oc_send_buffer_ip4_mcast,
+    .ot_get_trans_security = NULL,
+    .ot_ep_str = oc_log_ep_ip4,
+    .ot_init = oc_connectivity_init_ip4,
+    .ot_shutdown = oc_connectivity_shutdown_ip4
+};
+
+uint8_t oc_ip4_transport_id = -1;
+
+void oc_register_ip4(void) {
+#if (MYNEWT_VAL(OC_TRANSPORT_IP) == 1) && (MYNEWT_VAL(OC_TRANSPORT_IPV4) == 1)
+    oc_ip4_transport_id = oc_transport_register(&oc_ip4_transport);
+#endif
+}
+#endif
+
 void esp8266_sensor_dev_create(void) {  //  TODO: Rename.
     //  Create the ESP8266 device, configure it and register with Sensor Manager.  Called by main().
     int rc;

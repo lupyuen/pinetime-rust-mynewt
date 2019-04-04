@@ -4,6 +4,7 @@ syscfg.vals:
     CONSOLE_UART: 0
     LOG_CLI: 0
     LOG_LEVEL: 255
+    OC_CLIENT: 1  # Include the CoAP client library.
     SENSOR_CLI: 0
     SENSOR_OIC: 0
     SHELL_CMD_HELP: 0
