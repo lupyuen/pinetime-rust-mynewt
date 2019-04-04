@@ -30,6 +30,12 @@ pkg.deps:
     - "@apache-mynewt-core/sys/stats/stub"
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/hw/sensor/creator"
-    - "@apache-mynewt-core/net/oic"
+    - "@apache-mynewt-core/net/oic" #  For CoAP library
+    - "@apache-mynewt-core/encoding/tinycbor" #  For CoAP float encoding
     - "@apache-mynewt-core/libc/baselibc"
     - "libs/semihosting_console"
+
+pkg.lflags:
+    - -DFLOAT_SUPPORT
+
+#    - -lm

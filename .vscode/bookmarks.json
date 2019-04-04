@@ -93,8 +93,18 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 99,
+				"line": 108,
 				"column": 3,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/bluepill/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 20,
+				"column": 14,
 				"label": ""
 			}
 		]

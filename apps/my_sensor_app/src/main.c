@@ -34,9 +34,9 @@
 //  static void init_sensors(void);
 static int init_tasks(void);
 
-extern char *rx_buf;     //  ESP8266 receive buffer.
-extern char *rx_ptr;     //  Pointer to next ESP8266 receive buffer byte to be received.
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
+
+void oc_init(void) {} ////  TODO: Prevent OIC modules from being linked in.
 
 static struct oc_server_handle coap_server = {
     .endpoint = {
@@ -63,6 +63,16 @@ static void init_coap(void) {
         console_printf("Could not init POST\n"); console_flush();
     }
 }
+
+#ifdef NOTUSED
+    #include <oic/messaging/coap/coap.h>
+    static struct coap_packet packet;
+    static void init_coap(void) {
+        //  Send the sensor data over CoAP to the cloud.  We manipulate the message directly
+        //  instead of using Mynewt OIC library because the OIC library is too large for Blue Pill.
+        packet.version = 1;
+    }
+#endif  //  NOTUSED
 
 int main(int argc, char **argv) {
     int rc;

@@ -1,14 +1,24 @@
 syscfg.vals:
     BME280_OFB: 1
-    # CONSOLE_RTT: 0
-    # CONSOLE_UART: 0
-    # LOG_CLI: 0
-    # LOG_LEVEL: 255
-    # OC_CLIENT: 1  # Include the CoAP client library.
-    # SENSOR_CLI: 0
-    # SENSOR_OIC: 0
-    # SHELL_CMD_HELP: 0
-    # SHELL_OS_MODULE: 0
-    # SHELL_TASK: 0
+    CONSOLE_RTT: 0
+    CONSOLE_UART: 0
+    LOG_CLI: 0
+    LOG_LEVEL: 255
+    SENSOR_CLI: 0
+    SENSOR_OIC: 0
+    SHELL_CMD_HELP: 0
+    SHELL_OS_MODULE: 0
+    SHELL_TASK: 0
     SPI_0_MASTER: 1
-    # STATS_CLI: 0
+    STATS_CLI: 0
+    OC_CLIENT: 1  # Enable the CoAP client library.
+    OC_SERVER: 0  # Disable the CoAP server library.
+    OC_TRANSPORT_IPV6: 0
+    OC_CLIENT_DISCOVERY_ENABLE: 0
+    OC_NUM_REP_OBJECTS: 1
+    OC_CONCURRENT_REQUESTS: 1
+    OC_MAX_PAYLOAD_SIZE: 200
+    OC_APP_RESOURCES: 1
+    OC_MAX_PAYLOAD: 200
+    OC_TRANS_SECURITY: 0
+    OC_CONN_EV_CB_CNT: 1
