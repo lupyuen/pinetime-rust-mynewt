@@ -60,6 +60,7 @@ static void init_coap(void) {
         oc_rep_start_root_object();
         oc_rep_set_double(root, state, 28.1);
         oc_rep_end_root_object();
+        console_flush();  ////
         if (oc_do_post()) {
             console_printf("Sent POST request\n"); console_flush();
         } else {

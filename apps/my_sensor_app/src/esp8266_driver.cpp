@@ -74,17 +74,17 @@ static void oc_tx_ucast(struct os_mbuf *m) {
 }
 
 static uint8_t oc_ep_size(const struct oc_endpoint *oe) {
-    console_printf("oc_ep_size\n"); console_flush();
+    console_printf("oc_ep_size\n");
     return sizeof(struct esp8266_endpoint);
 }
 
 static int oc_ep_has_conn(const struct oc_endpoint *) {
-    console_printf("oc_ep_has_conn\n"); console_flush();
+    console_printf("oc_ep_has_conn\n");
     return 0;
 }
 
 static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *) {
-    console_printf("oc_ep_str\n"); console_flush();
+    console_printf("oc_ep_str\n");
 #ifdef NOTUSED
     const struct oc_endpoint_ip *oe_ip = (const struct oc_endpoint_ip *)oe;
     int len;
