@@ -4,6 +4,7 @@
 
 #include <os/os.h>
 #include <sensor/sensor.h>
+#include <oic/port/oc_connectivity.h>
 #include "network.h"
 #include "wifi.h"
 
@@ -11,8 +12,21 @@
 extern "C" {
 #endif
 
+#define COAP_PORT_UNSECURED (5683)  //  Port number for CoAP Unsecured
 #define ESP8266_DEVICE "esp8266_0"
 #define ESP8266_SOCKET_COUNT 3  //  Max number of concurrent TCP+UDP connections allowed.
+
+//  ESP8266 Endpoint for CoAP
+struct esp8266_endpoint {
+    struct oc_ep_hdr ep;  //  Don't change, must be first field.  Will be initialised upon use.
+    const char *host;     //  Must point to static string that will not change.
+    uint16_t port;
+};
+
+//  ESP8266 Server Handle for CoAP
+struct esp8266_server_handle {
+    struct esp8266_endpoint endpoint;  //  Don't change, must be first field.
+};
 
 //  ESP8266 Configuration
 struct esp8266_cfg {
@@ -34,7 +48,9 @@ struct esp8266 {
     struct esp8266_cfg cfg;
 };
 
-void esp8266_sensor_dev_create(void);  //  Create the Mynewt sensor device for ESP8266.
+void init_esp8266(void);  //  Init the Mynewt sensor device for ESP8266.
+void init_esp8266_endpoint(struct esp8266_endpoint *endpoint);
+void esp8266_register_transport(void);  //  Register the CoAP transport for ESP8266.
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);
 int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit);
 int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security, uint8_t channel);

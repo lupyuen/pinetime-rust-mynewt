@@ -1,6 +1,8 @@
 //  ESP8266 driver for Apache Mynewt
 #include <os/os.h>
+//  #include <oic/port/mynewt/transport.h>
 #include <sensor/sensor.h>
+#include <console/console.h>
 #include "ESP8266.h"
 #include "esp8266_driver.h"
 
@@ -16,7 +18,7 @@
 #define ESP8266_MISC_TIMEOUT    500
 
 static int config_esp8266(void);
-static int esp8266_init(struct os_dev *dev0, void *arg);
+static int internal_init(struct os_dev *dev0, void *arg);
 
 static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
 static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
@@ -32,67 +34,109 @@ static const struct sensor_itf uart_0_itf = {
 };
 //  #endif  //  MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
+/////////////////////////////////////////////////////////
+//  CoAP Transport Tasks
+
+static void oc_tx_ucast(struct os_mbuf *m);
+static uint8_t oc_ep_size(const struct oc_endpoint *oe);
+static int oc_ep_has_conn(const struct oc_endpoint *);
+static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *);
+static int oc_init(void);
+static void oc_shutdown(void);
+//  static void oc_event(struct os_event *ev);
+
+uint8_t transport_id = -1;
+
+static const struct oc_transport transport = {
+    0,               //  uint8_t ot_flags;
+    oc_ep_size,      //  uint8_t (*ot_ep_size)(const struct oc_endpoint *);
+    oc_ep_has_conn,  //  int (*ot_ep_has_conn)(const struct oc_endpoint *);
+    oc_tx_ucast,     //  void (*ot_tx_ucast)(struct os_mbuf *);
+    NULL,  //  void (*ot_tx_mcast)(struct os_mbuf *);
+    NULL,  //  enum oc_resource_properties *ot_get_trans_security)(const struct oc_endpoint *);
+    oc_ep_str,    //  char *(*ot_ep_str)(char *ptr, int maxlen, const struct oc_endpoint *);
+    oc_init,      //  int (*ot_init)(void);
+    oc_shutdown,  //  void (*ot_shutdown)(void);
+};
+
+void esp8266_register_transport(void) {
+    transport_id = oc_transport_register(&transport);
+}
+
+void init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
+    assert(transport_id >= 0);
+    endpoint->ep.oe_type = transport_id;
+    endpoint->ep.oe_flags = 0;
+}
+
+static void oc_tx_ucast(struct os_mbuf *m) {
+    console_printf("oc_tx_ucast\n"); console_flush();
+}
+
+static uint8_t oc_ep_size(const struct oc_endpoint *oe) {
+    console_printf("oc_ep_size\n"); console_flush();
+    return sizeof(struct esp8266_endpoint);
+}
+
+static int oc_ep_has_conn(const struct oc_endpoint *) {
+    console_printf("oc_ep_has_conn\n"); console_flush();
+    return 0;
+}
+
+static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *) {
+    console_printf("oc_ep_str\n"); console_flush();
 #ifdef NOTUSED
-#define COAP_PORT_UNSECURED (5683)
-
-typedef struct {
-    uint8_t address[4];
-} oc_ipv4_addr_t;
-
-/*
- * oc_endpoint for IPv4/IPv6
- */
-struct oc_endpoint_ip {
-    struct oc_ep_hdr ep;
-    uint16_t port;
-    oc_ipv4_addr_t v4;
-};
-
-static inline int oc_endpoint_is_ip(struct oc_endpoint *oe) {
-    return oe->ep.oe_type == oc_ip6_transport_id ||
-      oe->ep.oe_type == oc_ip4_transport_id;
+    const struct oc_endpoint_ip *oe_ip = (const struct oc_endpoint_ip *)oe;
+    int len;
+    mn_inet_ntop(MN_PF_INET, oe_ip->v4.address, ptr, maxlen);
+    len = strlen(ptr);
+    snprintf(ptr + len, maxlen - len, "-%u", oe_ip->port);
+    return ptr;
+#endif  //  NOTUSED
+    strcpy(ptr, "TODO:oc_ep_str");
+    return ptr;
 }
 
-#define oc_make_ip4_endpoint(__name__, __flags__, __port__, ...)        \
-    struct oc_endpoint_ip __name__ = {.ep = {.oe_type = oc_ip4_transport_id, \
-                                             .oe_flags = __flags__},    \
-                                      .port = __port__,                 \
-                                      .v4 = {.address = { __VA_ARGS__ } } }
-
-static void oc_send_buffer_ip4(struct os_mbuf *m);
-static void oc_send_buffer_ip4_mcast(struct os_mbuf *m);
-static uint8_t oc_ep_ip4_size(const struct oc_endpoint *oe);
-static char *oc_log_ep_ip4(char *ptr, int maxlen, const struct oc_endpoint *);
-static int oc_connectivity_init_ip4(void);
-void oc_connectivity_shutdown_ip4(void);
-static void oc_event_ip4(struct os_event *ev);
-
-static const struct oc_transport oc_ip4_transport = {
-    .ot_flags = 0,
-    .ot_ep_size = oc_ep_ip4_size,
-    .ot_tx_ucast = oc_send_buffer_ip4,
-    .ot_tx_mcast = oc_send_buffer_ip4_mcast,
-    .ot_get_trans_security = NULL,
-    .ot_ep_str = oc_log_ep_ip4,
-    .ot_init = oc_connectivity_init_ip4,
-    .ot_shutdown = oc_connectivity_shutdown_ip4
-};
-
-uint8_t oc_ip4_transport_id = -1;
-
-void oc_register_ip4(void) {
-#if (MYNEWT_VAL(OC_TRANSPORT_IP) == 1) && (MYNEWT_VAL(OC_TRANSPORT_IPV4) == 1)
-    oc_ip4_transport_id = oc_transport_register(&oc_ip4_transport);
-#endif
+static int oc_init(void) {
+    console_printf("oc_init\n"); console_flush();
+    return 0;
 }
+
+static void oc_shutdown(void) {
+    console_printf("oc_shutdown\n"); console_flush();
+}
+
+#ifdef NOTUSED
+    static void oc_event(struct os_event *ev) {
+        console_printf("oc_event\n"); console_flush();
+    }
+
+    typedef struct {
+        uint8_t address[4];
+    } oc_ipv4_addr_t;
+
+    static inline int oc_endpoint_is_ip(struct oc_endpoint *oe) {
+        return oe->ep.oe_type == oc_ip6_transport_id ||
+        oe->ep.oe_type == oc_ip4_transport_id;
+    }
+
+    #define oc_make_ip4_endpoint(__name__, __flags__, __port__, ...)        \
+        struct oc_endpoint_ip __name__ = {.ep = {.oe_type = oc_ip4_transport_id, \
+                                                .oe_flags = __flags__},    \
+                                        .port = __port__,                 \
+                                        .v4 = {.address = { __VA_ARGS__ } } }
+
 #endif
 
-void esp8266_sensor_dev_create(void) {  //  TODO: Rename.
+/////////////////////////////////////////////////////////
+//  Init Tasks
+
+void init_esp8266(void) {  //  TODO: Rename.
     //  Create the ESP8266 device, configure it and register with Sensor Manager.  Called by main().
     int rc;
     //  Create the device and register with Sensor Manager.
     rc = os_dev_create((struct os_dev *) &esp8266, ESP8266_DEVICE,
-        OS_DEV_INIT_PRIMARY, 0, esp8266_init, (void *) &uart_0_itf);
+        OS_DEV_INIT_PRIMARY, 0, internal_init, (void *) &uart_0_itf);
     assert(rc == 0);
 
     //  Configure the device.
@@ -143,7 +187,7 @@ static int esp8266_default_cfg(struct esp8266_cfg *cfg) {
     return 0;
 }
 
-static int esp8266_init(struct os_dev *dev0, void *arg) {
+static int internal_init(struct os_dev *dev0, void *arg) {
     //  Configure the device and register with Sensor Manager.  Called by os_dev_create().
     struct esp8266 *dev;
     struct sensor *sensor;

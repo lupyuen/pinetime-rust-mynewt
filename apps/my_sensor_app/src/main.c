@@ -41,9 +41,10 @@ void __wrap_oc_buffer_init(void) {  ////  TODO: Prevent OIC receive process from
     // os_mqueue_init(&oc_outq, oc_buffer_tx, NULL);
 }
 
-static struct oc_server_handle coap_server = {
+static struct esp8266_server_handle coap_server = {
     .endpoint = {
-        //  TODO
+        .host = "coap.thethings.io",
+        .port = COAP_PORT_UNSECURED  //  UDP port 5683.
     }
 };
 
@@ -53,7 +54,9 @@ static void handle_coap(oc_client_response_t *data) {
 
 static void init_coap(void) {
     //  Send the sensor data over CoAP to the cloud.
-    if (oc_init_post(COAP_URI, &coap_server, NULL, handle_coap, LOW_QOS)) {
+    esp8266_register_transport();
+    init_esp8266_endpoint(&coap_server.endpoint);
+    if (oc_init_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS)) {
         oc_rep_start_root_object();
         oc_rep_set_double(root, state, 28.1);
         oc_rep_end_root_object();
@@ -80,9 +83,10 @@ static void init_coap(void) {
 int main(int argc, char **argv) {
     int rc;
     sysinit();  //  Initialize all packages.  Create the sensors.
-    init_coap();  //  Init CoAP request.
     //  init_sensors();  //  Init the sensors.    
-    esp8266_sensor_dev_create();  //  Create the ESP8266 transceiver.
+    init_esp8266();  //  Init the ESP8266 transceiver.
+    init_coap();  //  Init CoAP request.
+
     rc = init_tasks();            //  Start the background tasks.
     assert(rc == 0);
 

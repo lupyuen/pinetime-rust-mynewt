@@ -93,7 +93,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 111,
+				"line": 115,
 				"column": 3,
 				"label": ""
 			}
@@ -175,6 +175,16 @@
 			{
 				"line": 44,
 				"column": 41,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h",
+		"bookmarks": [
+			{
+				"line": 199,
+				"column": 21,
 				"label": ""
 			}
 		]
