@@ -70,20 +70,46 @@ int coap_write_json(void *buf, char *data, int len) {
 struct json_encoder coap_json_encoder;  //  Only 1 encoding at a time.
 
 void json_rep_start_root_object(void) {
+    //  Start the JSON represengtation.  Assume top level is object.
+    //  --> {
     memset(*coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
     coap_json_encoder.je_write = coap_write_json;
     int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
 }
 
 void json_rep_end_root_object(void) {
+    //  End the JSON represengtation.  Assume top level is object.
+    //  {... --> {...}
     int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
 }
 
-void json_rep_set_array
-
+//  Start the JSON represengtation.  Assume top level is object.
+//  --> {
 #define rep_start_root_object() json_rep_start_root_object()
+
+//  End the JSON represengtation.  Assume top level is object.
+//  {... --> {...}
 #define rep_end_root_object() json_rep_end_root_object()
-#define rep_set_array(object, key) cbor_encode_text_string(&object##_map, #key, strlen(#key));  
+
+//  Assume we are writing an object now.  Write the key name and start a child array.
+//  {a:b --> {a:b, key:[
+#define rep_set_array(object, key) json_encode_array_name(&coap_json_encoder, key)
+//  CBOR: cbor_encode_text_string(&object##_map, #key, strlen(#key));  
+
+//  End the child array and resume writing the parent object.
+//  {a:b, key:[... --> {a:b, key:[...]
+#define rep_close_array(object, key) json_encode_array_finish(&coap_json_encoder)
+//  CBOR: oc_rep_end_array(object##_map, key)
+
+//  Assume we have called set_array.  Start an array item.
+//  [... --> [...,
+#define rep_object_array_start_item(key)        
+//  CBOR: oc_rep_start_object(key##_array, key)
+
+//  End an array item.
+//  [... --> [...,
+#define rep_object_array_end_item(key)        
+//  CBOR: oc_rep_end_object(key##_array, key)
 
 ////
 
@@ -113,7 +139,7 @@ static void send_coap_request(void) {
 
 #ifdef COAP_CBOR_ENCODING
     //  Populate the CoAP request body in Concise Binary Object Representation format (compressed JSON).
-    //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
+    //  (thethings.io doesn't support CBOR encoding yet)
     oc_rep_start_root_object();                              //  Create the root.
         oc_rep_set_array(root, values);                      //  Create "values" as an array of objects.
             oc_rep_object_array_start_item(values);          //  Create a new item in the "values" array.
