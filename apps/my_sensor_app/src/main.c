@@ -64,7 +64,8 @@ static void handle_coap(oc_client_response_t *data) {
 ////
 
 int coap_write_json(void *buf, char *data, int len) {
-    console_printf("JSON: "); console_buffer(data, len); console_flush();
+    console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
+    return 0;
 }
 
 struct json_encoder coap_json_encoder;  //  Only 1 encoding at a time.
@@ -72,7 +73,7 @@ struct json_encoder coap_json_encoder;  //  Only 1 encoding at a time.
 void json_rep_start_root_object(void) {
     //  Start the JSON represengtation.  Assume top level is object.
     //  --> {
-    memset(*coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
+    memset(&coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
     coap_json_encoder.je_write = coap_write_json;
     int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
 }
@@ -93,7 +94,7 @@ void json_rep_end_root_object(void) {
 
 //  Assume we are writing an object now.  Write the key name and start a child array.
 //  {a:b --> {a:b, key:[
-#define rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, key); json_encode_array_start(&coap_json_encoder); }
+#define rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
 //  CBOR: cbor_encode_text_string(&object##_map, #key, strlen(#key));  
 
 //  End the child array and resume writing the parent object.
@@ -113,9 +114,10 @@ void json_rep_end_root_object(void) {
 
 struct json_value coap_json_value;
 
-#define rep_set_text_string(object, key, value) { json_encode_object_entry(&coap_json_encoder, key, JSON_VALUE_STRING(&coap_json_value, value)); }
+#define rep_set_text_string(object, key, value) { JSON_VALUE_STRING(&coap_json_value, value); json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value); }
 
-#define rep_set_double(object, key, value) { json_encode_object_entry(&coap_json_encoder, key, JSON_VALUE_INT(&coap_json_value, value)); }
+#define rep_set_double(object, key, value) {  JSON_VALUE_INT(&coap_json_value, value); json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value); }
+
 ////
 
 static void send_coap_request(void) {
@@ -136,7 +138,7 @@ static void send_coap_request(void) {
             rep_object_array_start_item(values);          //  Create a new item in the "values" array.
                 //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
                 rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                rep_set_double     (values, value, 28.2);      //  Set the value.
+                rep_set_double     (values, value, 28.2);   //  Set the value.
             rep_object_array_end_item(values);            //  Close the item in the "values" array.
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
@@ -150,15 +152,14 @@ static void send_coap_request(void) {
             oc_rep_object_array_start_item(values);          //  Create a new item in the "values" array.
                 //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
                 oc_rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                oc_rep_set_double     (values, value, 28.2);      //  Set the value.
+                oc_rep_set_double     (values, value, 28.2);   //  Set the value.
             oc_rep_object_array_end_item(values);            //  Close the item in the "values" array.
         oc_rep_close_array(root, values);                    //  Close the "values" array.
     oc_rep_end_root_object();                                //  Close the root.
 #endif  //  COAP_CBOR_ENCODING
 
     //  Forward the CoAP request to the CoAP TX Background Task for transmission.
-    rc = oc_do_post();
-    assert(rc != 0);
+    rc = oc_do_post();  assert(rc);
     console_printf("Sending POST request\n");
 }
 

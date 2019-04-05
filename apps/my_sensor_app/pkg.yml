@@ -28,11 +28,12 @@ pkg.deps:
     - "@apache-mynewt-core/kernel/os"       #  Mynewt kernel
     - "@apache-mynewt-core/sys/log/stub"    #  Disable logging
     - "@apache-mynewt-core/sys/stats/stub"  #  Disable stats
-    - "@apache-mynewt-core/hw/sensor"          #  For Sensor Library
-    - "@apache-mynewt-core/hw/sensor/creator"  #  For Sensor Creator
-    - "@apache-mynewt-core/net/oic"        #  For CoAP library
-    - "@apache-mynewt-core/libc/baselibc"  #  For Baselic, the tiny version of standard C library
-    - "libs/semihosting_console"           #  For Semihosting Console
+    - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
+    - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
+    - "@apache-mynewt-core/net/oic"        #  CoAP library
+    - "@apache-mynewt-core/encoding/json"  #  JSON encodng for CoAP
+    - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
+    - "libs/semihosting_console"           #  Semihosting Console
 
 pkg.cflags:  #  C compiler flags
     - -DFLOAT_SUPPORT  #  For encoding floats in CoAP messages
