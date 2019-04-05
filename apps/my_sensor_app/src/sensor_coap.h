@@ -17,6 +17,7 @@ bool do_sensor_post(void);
 #ifdef COAP_JSON_ENCODING  //  If we are encoding the CoAP payload in JSON...
 
     #include <json/json.h>
+    #define COAP_CONTENT_FORMAT APPLICATION_JSON  //  Specify JSON content type and accept type in the CoAP header.
 
     extern struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent encoding of JSON messages.
     extern struct json_value coap_json_value;
@@ -74,6 +75,7 @@ bool do_sensor_post(void);
 #ifdef COAP_CBOR_ENCODING  //  If we are encoding the CoAP payload in CBOR...
 
     #include <oic/oc_rep.h>  //  Use the default Mynewt encoding in CBOR.
+    #define COAP_CONTENT_FORMAT APPLICATION_CBOR  //  Specify CBOR content type and accept type in the CoAP header.
     
     #define rep_new(mbuf)                           oc_rep_new(mbuf)
     #define rep_reset()                             oc_rep_reset()

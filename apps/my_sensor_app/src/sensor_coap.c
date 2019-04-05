@@ -46,7 +46,7 @@ dispatch_coap_request(void)
     if (response_length) {
         oc_c_request->payload_m = oc_c_rsp;
         oc_c_request->payload_len = response_length;
-        coap_set_header_content_format(oc_c_request, APPLICATION_CBOR);  //  TODO: Support JSON
+        coap_set_header_content_format(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
     } else {
         os_mbuf_free_chain(oc_c_rsp);
     }
@@ -80,7 +80,7 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
     rep_new(oc_c_rsp);
 
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
-    coap_set_header_accept(oc_c_request, APPLICATION_CBOR);  //  TODO
+    coap_set_header_accept(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
     coap_set_token(oc_c_request, cb->token, cb->token_len);
     coap_set_header_uri_path(oc_c_request, oc_string(cb->uri));
     if (cb->observe_seq != -1) {
