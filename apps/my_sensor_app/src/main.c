@@ -24,6 +24,7 @@
 #include <sensor/temperature.h>
 #include <oic/oc_api.h>
 #include <oic/port/mynewt/ip.h>
+#include <json/json.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "esp8266_driver.h"
 
@@ -60,6 +61,32 @@ static void handle_coap(oc_client_response_t *data) {
     console_printf("handle_coap\n"); console_flush();
 }
 
+////
+
+int coap_write_json(void *buf, char *data, int len) {
+    console_printf("JSON: "); console_buffer(data, len); console_flush();
+}
+
+struct json_encoder coap_json_encoder;  //  Only 1 encoding at a time.
+
+void json_rep_start_root_object(void) {
+    memset(*coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
+    coap_json_encoder.je_write = coap_write_json;
+    int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
+}
+
+void json_rep_end_root_object(void) {
+    int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
+}
+
+void json_rep_set_array
+
+#define rep_start_root_object() json_rep_start_root_object()
+#define rep_end_root_object() json_rep_end_root_object()
+#define rep_set_array(object, key) cbor_encode_text_string(&object##_map, #key, strlen(#key));  
+
+////
+
 static void send_coap_request(void) {
     //  Send the sensor data over CoAP to the cloud.
     esp8266_register_transport();                  //  Register the ESP8266 driver as a transport for CoAP.
@@ -73,15 +100,15 @@ static void send_coap_request(void) {
 #ifdef COAP_JSON_ENCODING
     //  Populate the CoAP request body in JSON format.
     //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
-    oc_rep_start_root_object();                              //  Create the root.
-        oc_rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            oc_rep_object_array_start_item(values);          //  Create a new item in the "values" array.
+    rep_start_root_object();                              //  Create the root.
+        rep_set_array(root, values);                      //  Create "values" as an array of objects.
+            rep_object_array_start_item(values);          //  Create a new item in the "values" array.
                 //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-                oc_rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                oc_rep_set_double     (values, value, 28.2);      //  Set the value.
-            oc_rep_object_array_end_item(values);            //  Close the item in the "values" array.
-        oc_rep_close_array(root, values);                    //  Close the "values" array.
-    oc_rep_end_root_object();                                //  Close the root.
+                rep_set_text_string(values, key,   "tmp");  //  Set the key.
+                rep_set_double     (values, value, 28.2);      //  Set the value.
+            rep_object_array_end_item(values);            //  Close the item in the "values" array.
+        rep_close_array(root, values);                    //  Close the "values" array.
+    rep_end_root_object();                                //  Close the root.
 #endif  //  COAP_JSON_ENCODING
 
 #ifdef COAP_CBOR_ENCODING
