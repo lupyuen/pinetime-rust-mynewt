@@ -26,6 +26,7 @@
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
 static struct os_mbuf *oc_c_message;
+static struct os_mbuf *oc_c_rsp;
 static coap_packet_t oc_c_request[1];
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,6 +39,17 @@ static void handle_coap_response(oc_client_response_t *data) {
 static bool
 dispatch_coap_request(void)
 {
+    int response_length = oc_rep_finalize();
+
+    if (response_length) {
+        oc_c_request->payload_m = oc_c_rsp;
+        oc_c_request->payload_len = response_length;
+        coap_set_header_content_format(oc_c_request, APPLICATION_CBOR);  //  TODO: Support JSON
+    } else {
+        os_mbuf_free_chain(oc_c_rsp);
+    }
+    oc_c_rsp = NULL;
+
     if (oc_c_message) {
         if (!coap_serialize_message(oc_c_request, oc_c_message)) {
             coap_send_message(oc_c_message, 0);
@@ -54,10 +66,17 @@ static bool
 prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
 {
     coap_message_type_t type = COAP_TYPE_NON;
+
+    oc_c_rsp = os_msys_get_pkthdr(0, 0);
+    if (!oc_c_rsp) {
+        return false;
+    }
     oc_c_message = oc_allocate_mbuf(&cb->server.endpoint);
     if (!oc_c_message) {
         goto free_rsp;
     }
+    oc_rep_new(oc_c_rsp);
+
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
     coap_set_header_accept(oc_c_request, APPLICATION_CBOR);  //  TODO
     coap_set_token(oc_c_request, cb->token, cb->token_len);
@@ -75,6 +94,8 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
 
     return true;
 free_rsp:
+    os_mbuf_free_chain(oc_c_rsp);
+    oc_c_rsp = NULL;
     return false;
 }
 
@@ -83,10 +104,12 @@ init_sensor_post(oc_server_handle_t *server, const char *uri)
 {
     assert(server);
     assert(uri);
+    oc_qos_t qos = LOW_QOS;  //  Default to low QoS, no transactions.
+    oc_response_handler_t handler = handle_coap_response;
     oc_client_cb_t *cb;
     bool status = false;
 
-    cb = oc_ri_alloc_client_cb(uri, (oc_server_handle_t *) server, OC_POST, handle_coap_response, LOW_QOS);
+    cb = oc_ri_alloc_client_cb(uri, server, OC_POST, handler, qos);
     if (!cb) {
         return false;
     }
