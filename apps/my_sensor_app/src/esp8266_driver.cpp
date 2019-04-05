@@ -84,8 +84,8 @@ static void oc_tx_ucast(struct os_mbuf *m0) {
         if (m->om_pkthdr_len) { console_printf("Header: %d\n", m->om_pkthdr_len); console_dump(m->om_databuf, m->om_pkthdr_len); console_printf("\n"); }
         if (m->om_len) { console_printf("Data: %d\n", m->om_len); console_dump(m->om_data, m->om_len); console_printf("\n"); }
 
-        //  Find the endpoint header.  Should be the packet header of the first packet.
-        if (m->om_pkthdr_len >= ep_size) { oe = (esp8266_endpoint *) m->om_databuf; }
+        //  Find the endpoint header.  Should be the end of the packet header of the first packet.
+        if (m->om_pkthdr_len >= ep_size) { oe = (esp8266_endpoint *) &m->om_databuf[m->om_pkthdr_len - ep_size]; }
 
         //  Consolidate the CoAP header and payload for sending.
         memcpy(&esp8266_mbuf_buffer[esp8266_mbuf_index], m->om_data, m->om_len);
@@ -94,7 +94,7 @@ static void oc_tx_ucast(struct os_mbuf *m0) {
         m = m->om_next.sle_next;  //  Fetch next mbuf in the list.
     }
     console_flush(); ////
-    assert(oe);
+    assert(oe);  assert(oe->host);  assert(oe->port);
     assert(esp8266_mbuf_index > 0);
 }
 
