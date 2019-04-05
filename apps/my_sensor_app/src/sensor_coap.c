@@ -20,19 +20,21 @@
 #include <oic/port/mynewt/config.h>
 #include <oic/messaging/coap/coap.h>
 #include <oic/oc_buffer.h>
+#include <oic/oc_client_state.h>
 #include <console/console.h>
 #include "sensor_coap.h"
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
-static struct os_mbuf *oc_c_message;
-static struct os_mbuf *oc_c_rsp;
+static struct os_mbuf *oc_c_message;  //  Contains the CoAP headers.
+static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
 static coap_packet_t oc_c_request[1];
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
 
 static void handle_coap_response(oc_client_response_t *data) {
+    //  Handle CoAP response.
     console_printf("handle_coap\n"); console_flush();
 }
 
@@ -75,7 +77,7 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
     if (!oc_c_message) {
         goto free_rsp;
     }
-    oc_rep_new(oc_c_rsp);
+    rep_new(oc_c_rsp);
 
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
     coap_set_header_accept(oc_c_request, APPLICATION_CBOR);  //  TODO
@@ -100,7 +102,7 @@ free_rsp:
 }
 
 bool
-init_sensor_post(oc_server_handle_t *server, const char *uri)
+init_sensor_post(struct oc_server_handle *server, const char *uri)
 {
     assert(server);
     assert(uri);
@@ -130,9 +132,32 @@ do_sensor_post(void)
 
 struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent encoding of JSON messages.
 struct json_value coap_json_value;
+static struct os_mbuf *coap_json_mbuf;  //  The mbuf that contains the outgoing CoAP payload.
+
+void json_rep_new(struct os_mbuf *m) {
+    //  Prepare to write a new JSON CoAP payload into the mbuf.
+    assert(m);
+    coap_json_mbuf = m;
+}
+
+void json_rep_reset(void) {
+    //  Close the current JSON CoAP payload.
+    coap_json_mbuf = NULL;
+}
+
+int json_rep_finalize(void) {
+    //  Finalise the payload and return the payload size.
+    assert(coap_json_mbuf);
+    return coap_json_mbuf->om_len;
+}
 
 int coap_write_json(void *buf, char *data, int len) {
-    console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
+    //  Write the JSON to the mbuf for the outgoing CoAP message.
+    assert(coap_json_mbuf);
+    assert(data);
+    //  console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
+    int rc = os_mbuf_append(coap_json_mbuf, data, len);
+    if (rc) { return -1; }
     return 0;
 }
 

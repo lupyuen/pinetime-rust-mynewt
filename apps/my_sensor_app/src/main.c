@@ -22,8 +22,6 @@
 #include <defs/error.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
-//#include <oic/oc_api.h>
-//#include <oic/port/mynewt/ip.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "sensor_coap.h"
 #include "esp8266_driver.h"
@@ -41,14 +39,6 @@ static int init_tasks(void);
 
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
-int __wrap_coap_receive(/* struct os_mbuf **mp */) {
-    //  We override the default coap_receive() with an empty function so that we will 
-    //  NOT pull in any modules for receiving and parse CoAP requests.  We only need
-    //  to transmit CoAP requests.
-    console_printf("__wrap_coap_receive\n"); console_flush();
-    return -1;
-}
-
 //  CoAP Connection Configuration
 static struct esp8266_server_handle coap_server = {
     .endpoint = {
@@ -63,7 +53,7 @@ static void send_coap_request(void) {
     init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
 
     //  Create a CoAP request.
-    int rc = init_sensor_post((oc_server_handle_t *) &coap_server, COAP_URI);
+    int rc = init_sensor_post((struct oc_server_handle *) &coap_server, COAP_URI);
     assert(rc != 0);
 
     //  Populate the CoAP request body in JSON format.
@@ -164,6 +154,14 @@ static int init_tasks(void) {
         return 0;
     }
 #endif  //  POLL_SENSOR
+
+int __wrap_coap_receive(/* struct os_mbuf **mp */) {
+    //  We override the default coap_receive() with an empty function so that we will 
+    //  NOT pull in any modules for receiving and parse CoAP requests, to save ROM space.
+    //  We only need to transmit CoAP requests.
+    console_printf("coap_receive NOT IMPLEMENTED\n"); console_flush();
+    return -1;
+}
 
 //  Dummy destructor for global C++ objects, since our program never terminates.  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
 void* __dso_handle = NULL;

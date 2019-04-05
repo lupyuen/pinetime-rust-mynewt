@@ -1,14 +1,15 @@
 //  Post sensor data to CoAP server with JSON or CBOR encoding.
 #ifndef __SENSOR_COAP_H__
 #define __SENSOR_COAP_H__
-#include <oic/oc_api.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+struct oc_server_handle;
+
 //  Create a new sensor post request to send to CoAP server.
-bool init_sensor_post(oc_server_handle_t *server, const char *uri);
+bool init_sensor_post(struct oc_server_handle *server, const char *uri);
 
 //  Send the sensor post request to CoAP server.
 bool do_sensor_post(void);
@@ -20,6 +21,10 @@ bool do_sensor_post(void);
     extern struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent encoding of JSON messages.
     extern struct json_value coap_json_value;
 
+    void json_rep_new(struct os_mbuf *m);
+    void json_rep_reset(void);
+    int json_rep_finalize(void);
+
     //  Start the JSON representation.  Assume top level is object.
     //  --> {
     void json_rep_start_root_object(void);
@@ -28,13 +33,17 @@ bool do_sensor_post(void);
     //  {... --> {...}
     void json_rep_end_root_object(void);
 
+    #define rep_new(mbuf)           json_rep_new(mbuf)
+    #define rep_reset(mbuf)         json_rep_reset(mbuf)
+    #define rep_finalize(mbuf)      json_rep_finalize(mbuf)
+
     //  Start the JSON representation.  Assume top level is object.
     //  --> {
     #define rep_start_root_object() json_rep_start_root_object()
 
     //  End the JSON represengtation.  Assume top level is object.
     //  {... --> {...}
-    #define rep_end_root_object() json_rep_end_root_object()
+    #define rep_end_root_object()   json_rep_end_root_object()
 
     //  Assume we are writing an object now.  Write the key name and start a child array.
     //  {a:b --> {a:b, key:[
@@ -64,7 +73,12 @@ bool do_sensor_post(void);
 
 #ifdef COAP_CBOR_ENCODING  //  If we are encoding the CoAP payload in CBOR...
 
-    //  Use the default Mynewt encoding in CBOR.
+    #include <oic/oc_rep.h>  //  Use the default Mynewt encoding in CBOR.
+    
+    #define rep_new(mbuf)                           oc_rep_new(mbuf)
+    #define rep_reset()                             oc_rep_reset()
+    #define rep_finalize()                          oc_rep_finalize()
+
     #define rep_start_root_object()                 oc_rep_start_root_object()
     #define rep_end_root_object()                   oc_rep_end_root_object()
 
