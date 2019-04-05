@@ -26,11 +26,13 @@ bool do_sensor_post(void);
     void json_rep_reset(void);
     int json_rep_finalize(void);
 
+    //  Macros for composing JSON payload
+    
     //  Start the JSON representation.  Assume top level is object.
     //  --> {
     void json_rep_start_root_object(void);
 
-    //  End the JSON represengtation.  Assume top level is object.
+    //  End the JSON representation.  Assume top level is object.
     //  {... --> {...}
     void json_rep_end_root_object(void);
 

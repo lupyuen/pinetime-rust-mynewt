@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Mynewt",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
@@ -14,10 +14,10 @@
                 "OC_CLIENT"
             ],
             "windowsSdkVersion": "10.0.10586.0",
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/cl.exe",
+            "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "msvc-x64"
+            "intelliSenseMode": "gcc-x64"
         }
     ],
     "version": 4

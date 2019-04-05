@@ -41,7 +41,7 @@ static void handle_coap_response(oc_client_response_t *data) {
 static bool
 dispatch_coap_request(void)
 {
-    int response_length = oc_rep_finalize();
+    int response_length = rep_finalize();
 
     if (response_length) {
         oc_c_request->payload_m = oc_c_rsp;
@@ -134,25 +134,6 @@ struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent en
 struct json_value coap_json_value;
 static struct os_mbuf *coap_json_mbuf;  //  The mbuf that contains the outgoing CoAP payload.
 
-void json_rep_new(struct os_mbuf *m) {
-    //  Prepare to write a new JSON CoAP payload into the mbuf.
-    assert(m);
-    coap_json_mbuf = m;
-}
-
-void json_rep_reset(void) {
-    //  Close the current JSON CoAP payload.
-    coap_json_mbuf = NULL;
-}
-
-int json_rep_finalize(void) {
-    //  Finalise the payload and return the payload size.
-    assert(coap_json_mbuf);
-    int size = OS_MBUF_PKTLEN(coap_json_mbuf);
-    json_rep_reset();
-    return size;
-}
-
 int json_write_mbuf(void *buf, char *data, int len) {
     //  Write the JSON to the mbuf for the outgoing CoAP message.
     assert(coap_json_mbuf);
@@ -163,16 +144,36 @@ int json_write_mbuf(void *buf, char *data, int len) {
     return 0;
 }
 
-void json_rep_start_root_object(void) {
-    //  Start the JSON represengtation.  Assume top level is object.
-    //  --> {
+void json_rep_new(struct os_mbuf *m) {
+    //  Prepare to write a new JSON CoAP payload into the mbuf.
+    assert(m);
+    json_rep_reset();  //  Erase the JSON encoder.
+    coap_json_mbuf = m;
+}
+
+void json_rep_reset(void) {
+    //  Close the current JSON CoAP payload.  Erase the JSON encoder.
+    coap_json_mbuf = NULL;
     memset(&coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
     coap_json_encoder.je_write = json_write_mbuf;
+}
+
+int json_rep_finalize(void) {
+    //  Finalise the payload and return the payload size.
+    assert(coap_json_mbuf);
+    int size = OS_MBUF_PKTLEN(coap_json_mbuf);
+    json_rep_reset();
+    return size;
+}
+
+void json_rep_start_root_object(void) {
+    //  Start the JSON representation.  Assume top level is object.
+    //  --> {
     int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
 }
 
 void json_rep_end_root_object(void) {
-    //  End the JSON represengtation.  Assume top level is object.
+    //  End the JSON representation.  Assume top level is object.
     //  {... --> {...}
     int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
 }
