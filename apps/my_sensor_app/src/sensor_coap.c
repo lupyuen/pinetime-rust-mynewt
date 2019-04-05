@@ -116,6 +116,11 @@ init_sensor_post(struct oc_server_handle *server, const char *uri)
         return false;
     }
     status = prepare_coap_request(cb, NULL);
+
+    //  Set the CoAP server hostname and port into the request.
+    oc_c_request[0].uri_host = "zzz";  //  TODO: server->endpoint.ep.
+    oc_c_request[0].uri_host_len = strlen(oc_c_request[0].uri_host);
+    oc_c_request[0].uri_port = COAP_DEFAULT_PORT;  //  TODO: server->endpoint.ep.
     return status;
 }
 
