@@ -69,6 +69,22 @@ static void send_coap_request(void) {
     int rc = oc_init_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS);
     assert(rc != 0);
 
+#define COAP_JSON_ENCODING
+#ifdef COAP_JSON_ENCODING
+    //  Populate the CoAP request body in JSON format.
+    //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
+    oc_rep_start_root_object();                              //  Create the root.
+        oc_rep_set_array(root, values);                      //  Create "values" as an array of objects.
+            oc_rep_object_array_start_item(values);          //  Create a new item in the "values" array.
+                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
+                oc_rep_set_text_string(values, key,   "tmp");  //  Set the key.
+                oc_rep_set_double     (values, value, 28.2);      //  Set the value.
+            oc_rep_object_array_end_item(values);            //  Close the item in the "values" array.
+        oc_rep_close_array(root, values);                    //  Close the "values" array.
+    oc_rep_end_root_object();                                //  Close the root.
+#endif  //  COAP_JSON_ENCODING
+
+#ifdef COAP_CBOR_ENCODING
     //  Populate the CoAP request body in Concise Binary Object Representation format (compressed JSON).
     //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
     oc_rep_start_root_object();                              //  Create the root.
@@ -80,6 +96,7 @@ static void send_coap_request(void) {
             oc_rep_object_array_end_item(values);            //  Close the item in the "values" array.
         oc_rep_close_array(root, values);                    //  Close the "values" array.
     oc_rep_end_root_object();                                //  Close the root.
+#endif  //  COAP_CBOR_ENCODING
 
     //  Forward the CoAP request to the CoAP TX Background Task for transmission.
     rc = oc_do_post();

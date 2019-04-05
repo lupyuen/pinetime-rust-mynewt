@@ -1,6 +1,5 @@
 //  ESP8266 driver for Apache Mynewt
 #include <os/os.h>
-//  #include <oic/port/mynewt/transport.h>
 #include <sensor/sensor.h>
 #include <console/console.h>
 #include "ESP8266.h"
@@ -34,8 +33,31 @@ static const struct sensor_itf uart_0_itf = {
 };
 //  #endif  //  MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
+#ifdef NOTUSED
 /////////////////////////////////////////////////////////
-//  CoAP Transport Tasks
+// CBOR Tasks
+
+#include <tinycbor/cbor.h>
+#include <tinycbor/cborjson.h>
+#include <tinycbor/cbor_buf_reader.h>
+
+static CborParser cbor_parser;
+static CborValue cbor_value;
+static cbor_buf_reader cbor_reader;
+
+static void convert_cbor_to_json(const uint8_t *buffer, size_t size) {
+    //  Convert CBOR to JSON.
+    cbor_buf_reader_init(&cbor_reader, buffer, size);
+    CborError err = cbor_parser_init(&cbor_reader.r, 0, &cbor_parser, &cbor_value);
+    assert(err == CborNoError);
+    err = cbor_value_to_json(stdout, &cbor_value, 0);
+    assert(err == CborNoError);
+    console_flush();
+}
+#endif  //  NOTUSED
+
+/////////////////////////////////////////////////////////
+//  CoAP Transport Functions
 
 static void oc_tx_ucast(struct os_mbuf *m);
 static uint8_t oc_ep_size(const struct oc_endpoint *oe);
@@ -78,14 +100,15 @@ static void oc_tx_ucast(struct os_mbuf *m0) {
         if (m->om_pkthdr_len) {
             //  Exclude 16 bytes for the mbuf packet header structure.
             unsigned int len = m->om_pkthdr_len - 16;
-            console_printf("Header: %d\n", len); 
-            console_dump(m->om_databuf, len);
-            console_printf("\n");
+            console_printf("Header: %d\n", len); console_dump(m->om_databuf, len); console_printf("\n");
+            //  Update the header from Content Type CBOR to JSON.
         }
         if (m->om_len) {
-            console_printf("Data: %d\n", m->om_len); 
-            console_dump(m->om_data, m->om_len);
-            console_printf("\n");
+            console_printf("Data: %d\n", m->om_len); console_dump(m->om_data, m->om_len); console_printf("\n");
+            if (m->om_pkthdr_len == 0) {
+                //  If this not the header packet, then it must be the data packet.  Convert data from CBOR to JSON.
+                //  convert_cbor_to_json(m->om_data, m->om_len);
+            }
         }
         m = m->om_next.sle_next;  //  Fetch next mbuf in the list.
     }
@@ -148,7 +171,7 @@ static void oc_shutdown(void) {
 #endif
 
 /////////////////////////////////////////////////////////
-//  Init Tasks
+//  Init Functions
 
 void init_esp8266(void) {  //  TODO: Rename.
     //  Create the ESP8266 device, configure it and register with Sensor Manager.  Called by main().
@@ -178,7 +201,7 @@ static int config_esp8266(void) {
 }
 
 /////////////////////////////////////////////////////////
-//  Sensor Creator Tasks
+//  Sensor Creator Functions
 
 static void esp8266_event(void *drv);
 static int internal_connect(struct sensor_itf *itf);
