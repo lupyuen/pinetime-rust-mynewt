@@ -18,9 +18,8 @@
 #include <os/mynewt.h>
 #include <oic/port/mynewt/config.h>
 #include <oic/messaging/coap/coap.h>
-#include <oic/messaging/coap/transactions.h>
-#include <oic/oc_api.h>
 #include <oic/oc_buffer.h>
+#include "sensor_coap.h"
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
@@ -51,7 +50,7 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
         goto free_rsp;
     }
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
-    coap_set_header_accept(oc_c_request, APPLICATION_CBOR);
+    coap_set_header_accept(oc_c_request, APPLICATION_CBOR);  //  TODO
     coap_set_token(oc_c_request, cb->token, cb->token_len);
     coap_set_header_uri_path(oc_c_request, oc_string(cb->uri));
     if (cb->observe_seq != -1) {

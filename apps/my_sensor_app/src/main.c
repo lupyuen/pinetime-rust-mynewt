@@ -22,10 +22,11 @@
 #include <defs/error.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
-#include <oic/oc_api.h>
-#include <oic/port/mynewt/ip.h>
+//#include <oic/oc_api.h>
+//#include <oic/port/mynewt/ip.h>
 #include <json/json.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
+#include "sensor_coap.h"
 #include "esp8266_driver.h"
 
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
@@ -126,7 +127,7 @@ static void send_coap_request(void) {
     init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
 
     //  Create a CoAP request.
-    int rc = oc_init_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS);
+    int rc = init_sensor_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS);
     assert(rc != 0);
 
 #define COAP_JSON_ENCODING
@@ -159,7 +160,7 @@ static void send_coap_request(void) {
 #endif  //  COAP_CBOR_ENCODING
 
     //  Forward the CoAP request to the CoAP TX Background Task for transmission.
-    rc = oc_do_post();  assert(rc);
+    rc = do_sensor_post();  assert(rc);
     console_printf("Sending POST request\n");
 }
 
