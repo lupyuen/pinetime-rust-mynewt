@@ -93,7 +93,7 @@ void json_rep_end_root_object(void) {
 
 //  Assume we are writing an object now.  Write the key name and start a child array.
 //  {a:b --> {a:b, key:[
-#define rep_set_array(object, key) json_encode_array_name(&coap_json_encoder, key)
+#define rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, key); json_encode_array_start(&coap_json_encoder); }
 //  CBOR: cbor_encode_text_string(&object##_map, #key, strlen(#key));  
 
 //  End the child array and resume writing the parent object.
@@ -101,16 +101,21 @@ void json_rep_end_root_object(void) {
 #define rep_close_array(object, key) json_encode_array_finish(&coap_json_encoder)
 //  CBOR: oc_rep_end_array(object##_map, key)
 
-//  Assume we have called set_array.  Start an array item.
+//  Assume we have called set_array.  Start an array item, assumed to be an object.
 //  [... --> [...,
-#define rep_object_array_start_item(key)        
+#define rep_object_array_start_item(key) { json_encode_object_start(&coap_json_encoder); }
 //  CBOR: oc_rep_start_object(key##_array, key)
 
-//  End an array item.
+//  End an array item, assumed to be an object.
 //  [... --> [...,
-#define rep_object_array_end_item(key)        
+#define rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }   
 //  CBOR: oc_rep_end_object(key##_array, key)
 
+struct json_value coap_json_value;
+
+#define rep_set_text_string(object, key, value) { json_encode_object_entry(&coap_json_encoder, key, JSON_VALUE_STRING(&coap_json_value, value)); }
+
+#define rep_set_double(object, key, value) { json_encode_object_entry(&coap_json_encoder, key, JSON_VALUE_INT(&coap_json_value, value)); }
 ////
 
 static void send_coap_request(void) {
