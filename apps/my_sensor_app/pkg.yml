@@ -36,7 +36,9 @@ pkg.deps:
     - "libs/semihosting_console"           #  Semihosting Console
 
 pkg.cflags:  #  C compiler flags
-    - -DFLOAT_SUPPORT  #  For encoding floats in CoAP messages
+    - -DFLOAT_SUPPORT       #  For encoding floats in CoAP messages
+    - -DCOAP_JSON_ENCODING  #  Use JSON to encode CoAP payload
+#   - -DCOAP_CBOR_ENCODING  #  Use CBOR to encode CoAP payload (not supported by thethings.io)
 
 pkg.lflags:  #  Linker flags
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation

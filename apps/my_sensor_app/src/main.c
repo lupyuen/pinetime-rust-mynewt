@@ -24,7 +24,6 @@
 #include <sensor/temperature.h>
 //#include <oic/oc_api.h>
 //#include <oic/port/mynewt/ip.h>
-#include <json/json.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "sensor_coap.h"
 #include "esp8266_driver.h"
@@ -58,80 +57,15 @@ static struct esp8266_server_handle coap_server = {
     }
 };
 
-static void handle_coap(oc_client_response_t *data) {
-    console_printf("handle_coap\n"); console_flush();
-}
-
-////
-
-int coap_write_json(void *buf, char *data, int len) {
-    console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
-    return 0;
-}
-
-struct json_encoder coap_json_encoder;  //  Only 1 encoding at a time.
-
-void json_rep_start_root_object(void) {
-    //  Start the JSON represengtation.  Assume top level is object.
-    //  --> {
-    memset(&coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
-    coap_json_encoder.je_write = coap_write_json;
-    int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
-}
-
-void json_rep_end_root_object(void) {
-    //  End the JSON represengtation.  Assume top level is object.
-    //  {... --> {...}
-    int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
-}
-
-//  Start the JSON represengtation.  Assume top level is object.
-//  --> {
-#define rep_start_root_object() json_rep_start_root_object()
-
-//  End the JSON represengtation.  Assume top level is object.
-//  {... --> {...}
-#define rep_end_root_object() json_rep_end_root_object()
-
-//  Assume we are writing an object now.  Write the key name and start a child array.
-//  {a:b --> {a:b, key:[
-#define rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
-//  CBOR: cbor_encode_text_string(&object##_map, #key, strlen(#key));  
-
-//  End the child array and resume writing the parent object.
-//  {a:b, key:[... --> {a:b, key:[...]
-#define rep_close_array(object, key) json_encode_array_finish(&coap_json_encoder)
-//  CBOR: oc_rep_end_array(object##_map, key)
-
-//  Assume we have called set_array.  Start an array item, assumed to be an object.
-//  [... --> [...,
-#define rep_object_array_start_item(key) { json_encode_object_start(&coap_json_encoder); }
-//  CBOR: oc_rep_start_object(key##_array, key)
-
-//  End an array item, assumed to be an object.
-//  [... --> [...,
-#define rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }   
-//  CBOR: oc_rep_end_object(key##_array, key)
-
-struct json_value coap_json_value;
-
-#define rep_set_text_string(object, key, value) { JSON_VALUE_STRING(&coap_json_value, value); json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value); }
-
-#define rep_set_double(object, key, value) {  JSON_VALUE_INT(&coap_json_value, value); json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value); }
-
-////
-
 static void send_coap_request(void) {
     //  Send the sensor data over CoAP to the cloud.
     esp8266_register_transport();                  //  Register the ESP8266 driver as a transport for CoAP.
     init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
 
     //  Create a CoAP request.
-    int rc = init_sensor_post(COAP_URI, (oc_server_handle_t *) &coap_server, NULL, handle_coap, LOW_QOS);
+    int rc = init_sensor_post((oc_server_handle_t *) &coap_server, COAP_URI);
     assert(rc != 0);
 
-#define COAP_JSON_ENCODING
-#ifdef COAP_JSON_ENCODING
     //  Populate the CoAP request body in JSON format.
     //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
     rep_start_root_object();                              //  Create the root.
@@ -143,37 +77,19 @@ static void send_coap_request(void) {
             rep_object_array_end_item(values);            //  Close the item in the "values" array.
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
-#endif  //  COAP_JSON_ENCODING
 
-#ifdef COAP_CBOR_ENCODING
-    //  Populate the CoAP request body in Concise Binary Object Representation format (compressed JSON).
-    //  (thethings.io doesn't support CBOR encoding yet)
-    oc_rep_start_root_object();                              //  Create the root.
-        oc_rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            oc_rep_object_array_start_item(values);          //  Create a new item in the "values" array.
-                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-                oc_rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                oc_rep_set_double     (values, value, 28.2);   //  Set the value.
-            oc_rep_object_array_end_item(values);            //  Close the item in the "values" array.
-        oc_rep_close_array(root, values);                    //  Close the "values" array.
-    oc_rep_end_root_object();                                //  Close the root.
-#endif  //  COAP_CBOR_ENCODING
-
-    //  Forward the CoAP request to the CoAP TX Background Task for transmission.
+    //  Forward the CoAP request to the CoAP Background Task for transmission.
     rc = do_sensor_post();  assert(rc);
     console_printf("Sending POST request\n");
 }
 
 int main(int argc, char **argv) {
     int rc;
-    sysinit();  //  Initialize all packages.  Create the sensors.
+    sysinit();           //  Initialize all packages.  Create the sensors.
     //  init_sensors();  //  Init the sensors.    
-    init_esp8266();     //  Init the ESP8266 transceiver.
-    send_coap_request();        //  Init CoAP request.
-
-    rc = init_tasks();            //  Start the background tasks.
-    assert(rc == 0);
-
+    init_esp8266();      //  Init the ESP8266 transceiver.
+    send_coap_request(); //  Send CoAP request.
+    rc = init_tasks();  assert(rc == 0);  //  Start the background tasks.   
     while (1) {                   //  Loop forever...
         os_eventq_run(            //  Process events...
             os_eventq_dflt_get()  //  From default event queue.

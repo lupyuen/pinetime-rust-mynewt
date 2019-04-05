@@ -1,3 +1,4 @@
+//  Post sensor data to CoAP server with JSON or CBOR encoding.
 //  Simpler version of oc_client_api that supports sensors and JSON.  Original version: repos\apache-mynewt-core\net\oic\src\api\oc_client_api.c
 /*
     // Copyright (c) 2016 Intel Corporation
@@ -19,12 +20,20 @@
 #include <oic/port/mynewt/config.h>
 #include <oic/messaging/coap/coap.h>
 #include <oic/oc_buffer.h>
+#include <console/console.h>
 #include "sensor_coap.h"
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
 static struct os_mbuf *oc_c_message;
 static coap_packet_t oc_c_request[1];
+
+///////////////////////////////////////////////////////////////////////////////
+//  CoAP Functions
+
+static void handle_coap_response(oc_client_response_t *data) {
+    console_printf("handle_coap\n"); console_flush();
+}
 
 static bool
 dispatch_coap_request(void)
@@ -70,26 +79,18 @@ free_rsp:
 }
 
 bool
-init_sensor_post(const char *uri, oc_server_handle_t *server, const char *query,
-             oc_response_handler_t handler, oc_qos_t qos)
+init_sensor_post(oc_server_handle_t *server, const char *uri)
 {
+    assert(server);
+    assert(uri);
     oc_client_cb_t *cb;
     bool status = false;
-    oc_string_t q;
 
-    cb = oc_ri_alloc_client_cb(uri, server, OC_POST, handler, qos);
+    cb = oc_ri_alloc_client_cb(uri, (oc_server_handle_t *) server, OC_POST, handle_coap_response, LOW_QOS);
     if (!cb) {
         return false;
     }
-
-    if (query && strlen(query)) {
-        oc_concat_strings(&q, "?", query);
-        status = prepare_coap_request(cb, &q);
-        oc_free_string(&q);
-    } else {
-        status = prepare_coap_request(cb, NULL);
-    }
-
+    status = prepare_coap_request(cb, NULL);
     return status;
 }
 
@@ -98,3 +99,32 @@ do_sensor_post(void)
 {
     return dispatch_coap_request();
 }
+
+#ifdef COAP_JSON_ENCODING  //  If we are encoding the CoAP payload in JSON...
+
+///////////////////////////////////////////////////////////////////////////////
+//  JSON Encoding Functions
+
+struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent encoding of JSON messages.
+struct json_value coap_json_value;
+
+int coap_write_json(void *buf, char *data, int len) {
+    console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
+    return 0;
+}
+
+void json_rep_start_root_object(void) {
+    //  Start the JSON represengtation.  Assume top level is object.
+    //  --> {
+    memset(&coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
+    coap_json_encoder.je_write = coap_write_json;
+    int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
+}
+
+void json_rep_end_root_object(void) {
+    //  End the JSON represengtation.  Assume top level is object.
+    //  {... --> {...}
+    int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
+}
+
+#endif  //  COAP_JSON_ENCODING
