@@ -47,9 +47,8 @@ static struct esp8266_server_handle coap_server = {
     }
 };
 
-static void send_coap_request(void) {
+static void send_sensor_data(void) {
     //  Send the sensor data over CoAP to the cloud.
-    esp8266_register_transport();                  //  Register the ESP8266 driver as a transport for CoAP.
     init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
 
     //  Create a CoAP request.
@@ -70,16 +69,17 @@ static void send_coap_request(void) {
 
     //  Forward the CoAP request to the CoAP Background Task for transmission.
     rc = do_sensor_post();  assert(rc);
-    console_printf("Sending POST request\n");
+    console_printf("Sending sensor data...\n");
 }
 
 int main(int argc, char **argv) {
     int rc;
     sysinit();           //  Initialize all packages.  Create the sensors.
     //  init_sensors();  //  Init the sensors.    
-    init_esp8266();      //  Init the ESP8266 transceiver.
-    send_coap_request(); //  Send CoAP request.
-    rc = init_tasks();  assert(rc == 0);  //  Start the background tasks.   
+    init_esp8266();      //  Init the ESP8266 driver.
+    esp8266_register_transport();  //  Register the ESP8266 driver as a transport for CoAP.
+    rc = init_tasks();  assert(rc == 0);  //  Start the background tasks.
+
     while (1) {                   //  Loop forever...
         os_eventq_run(            //  Process events...
             os_eventq_dflt_get()  //  From default event queue.
@@ -95,14 +95,16 @@ static struct os_task work_task;
 static uint8_t work_stack[sizeof(os_stack_t) * WORK_STACK_SIZE];
 
 static void work_task_handler(void *arg) {
+    //  Get the handle for the ESP8266 driver.
     struct sensor *trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
     assert(trans != NULL);
 
-    int rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP);
-    assert(rc > 0 && rc <= MAX_WIFI_AP);
+    //  Scan for WiFi access points.
+    int rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
 
     while (1) {  //  Loop forever...        
-        os_time_delay(1000);  //  Wait one second.
+        send_sensor_data();  //  Send sensor data to server via CoAP.
+        os_time_delay(10 * OS_TICKS_PER_SEC);  //  Wait 10 seconds.
     }
 }
 

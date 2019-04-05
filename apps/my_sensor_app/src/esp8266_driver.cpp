@@ -92,6 +92,7 @@ void init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
 }
 
 static void oc_tx_ucast(struct os_mbuf *m0) {
+    //  Transmit the mbuf to the network.
     //  Dump out each mbuf in the linked list.
     console_printf(">>> oc_tx_ucast:\n");
     struct os_mbuf *m = m0;
