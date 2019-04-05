@@ -148,15 +148,17 @@ void json_rep_reset(void) {
 int json_rep_finalize(void) {
     //  Finalise the payload and return the payload size.
     assert(coap_json_mbuf);
-    return coap_json_mbuf->om_len;
+    int size = OS_MBUF_PKTLEN(coap_json_mbuf);
+    json_rep_reset();
+    return size;
 }
 
-int coap_write_json(void *buf, char *data, int len) {
+int json_write_mbuf(void *buf, char *data, int len) {
     //  Write the JSON to the mbuf for the outgoing CoAP message.
     assert(coap_json_mbuf);
     assert(data);
     //  console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
-    int rc = os_mbuf_append(coap_json_mbuf, data, len);
+    int rc = os_mbuf_append(coap_json_mbuf, data, len);  assert(rc == 0);
     if (rc) { return -1; }
     return 0;
 }
@@ -165,7 +167,7 @@ void json_rep_start_root_object(void) {
     //  Start the JSON represengtation.  Assume top level is object.
     //  --> {
     memset(&coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
-    coap_json_encoder.je_write = coap_write_json;
+    coap_json_encoder.je_write = json_write_mbuf;
     int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
 }
 
