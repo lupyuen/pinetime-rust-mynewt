@@ -32,12 +32,10 @@
 #define COAP_URI    "v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"  //  CoAP URI
 
 #define TRANSCEIVER_DEVICE ESP8266_DEVICE  //  Name of the transceiver device e.g. esp8266_0
-//  #define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
+#define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
 
 //  static void init_sensors(void);
 static int init_tasks(void);
-
-//  static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
 //  CoAP Connection Configuration
 static struct esp8266_server_handle coap_server = {
@@ -46,6 +44,10 @@ static struct esp8266_server_handle coap_server = {
         .port = COAP_PORT   //  CoAP port, usually UDP port 5683
     }
 };
+
+#ifdef MAX_WIFI_AP
+static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
+#endif  //  MAX_WIFI_AP
 
 static void send_sensor_data(float tmp) {
     //  Send the sensor data over CoAP to the cloud.
@@ -95,15 +97,17 @@ static struct os_task work_task;
 static uint8_t work_stack[sizeof(os_stack_t) * WORK_STACK_SIZE];
 
 static void work_task_handler(void *arg) {
+    //  Background task that reads sensor data and sends to the server.
+
     //  Get the handle for the ESP8266 driver.
     struct sensor *trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);  assert(trans != NULL);
     struct sensor_itf *itf = &trans->s_itf;
 
-    //  Scan for WiFi access points.
-    //  int rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
-
     //  Connect to WiFi access point.
     int rc = esp8266_connect(itf, "my_ssid", "my_password_is_secret");  assert(rc == 0);
+
+    //  Scan for WiFi access points.
+    rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
 
     float tmp = 28.0;  //  Simulated sensor data.
     while (1) {  //  Loop forever...        
@@ -114,6 +118,7 @@ static void work_task_handler(void *arg) {
 }
 
 static int init_tasks(void) {
+    //  Create the sensor task.
     os_task_init(&work_task, "work", work_task_handler, NULL,
             WORK_TASK_PRIO, OS_WAIT_FOREVER, 
             (os_stack_t *) work_stack, WORK_STACK_SIZE);
@@ -164,7 +169,7 @@ static int init_tasks(void) {
 
 int __wrap_coap_receive(/* struct os_mbuf **mp */) {
     //  We override the default coap_receive() with an empty function so that we will 
-    //  NOT pull in any modules for receiving and parse CoAP requests, to save ROM space.
+    //  NOT link in any modules for receiving and parse CoAP requests, to save ROM space.
     //  We only need to transmit CoAP requests.
     console_printf("coap_receive NOT IMPLEMENTED\n"); console_flush();
     return -1;
