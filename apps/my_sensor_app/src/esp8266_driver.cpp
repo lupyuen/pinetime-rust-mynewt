@@ -6,7 +6,7 @@
 #include "esp8266_driver.h"
 
 //  Use static buffers to avoid dynamic memory allocation (new, delete)
-#define ESP8266_TX_BUFFER_SIZE 256
+#define ESP8266_TX_BUFFER_SIZE 400
 #define ESP8266_RX_BUFFER_SIZE 256
 #define ESP8266_PARSER_BUFFER_SIZE 256
 
