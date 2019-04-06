@@ -9,23 +9,26 @@
 #include "wifi.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 #define COAP_PORT_UNSECURED (5683)  //  Port number for CoAP Unsecured
 #define ESP8266_DEVICE "esp8266_0"
 #define ESP8266_SOCKET_COUNT 2  //  Max number of concurrent TCP+UDP connections allowed.
 
-//  ESP8266 Endpoint for CoAP
+struct oc_server_handle;
+
+//  ESP8266 Endpoint
 struct esp8266_endpoint {
     struct oc_ep_hdr ep;  //  Don't change, must be first field.  Will be initialised upon use.
     const char *host;     //  Must point to static string that will not change.
     uint16_t port;
 };
 
-//  ESP8266 Server Handle for CoAP
-struct esp8266_server_handle {
+//  ESP8266 Server Endpoint
+struct esp8266_server {
     struct esp8266_endpoint endpoint;  //  Don't change, must be first field.
+    struct oc_server_handle *handle;   //  Actually points back to itself.  Set here for convenience.
 };
 
 //  ESP8266 Socket

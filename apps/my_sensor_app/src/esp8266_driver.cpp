@@ -44,8 +44,9 @@ static int oc_init(void);
 static void oc_shutdown(void);
 //  static void oc_event(struct os_event *ev);
 
-uint8_t transport_id = -1;
+uint8_t transport_id = -1;  //  Will contain the Transport ID allocated by Mynewt.
 
+//  Definition of ESP8266 driver as a transport for CoAP
 static const struct oc_transport transport = {
     0,               //  uint8_t ot_flags;
     oc_ep_size,      //  uint8_t (*ot_ep_size)(const struct oc_endpoint *);
@@ -59,11 +60,19 @@ static const struct oc_transport transport = {
 };
 
 void esp8266_register_transport(void) {
+    //  Register the ESP8266 driver as a transport for CoAP.
     transport_id = oc_transport_register(&transport);
 }
 
+void init_esp8266_server(struct esp8266_server *server) {
+    //  Init the server endpoint before use.
+    init_esp8266_endpoint(&server->endpoint);
+    server->handle = (struct oc_server_handle *) server;
+}
+
 void init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
-    assert(transport_id >= 0);
+    //  Init the endpoint before use.
+    assert(transport_id >= 0);  //  Transport ID must be allocated.
     endpoint->ep.oe_type = transport_id;
     endpoint->ep.oe_flags = 0;
 }

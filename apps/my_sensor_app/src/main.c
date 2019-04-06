@@ -25,6 +25,8 @@
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "sensor_coap.h"
 #include "esp8266_driver.h"
+#include "geolocate.h"
+#include "sensor.h"
 
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 #define COAP_HOST   "coap.thethings.io"  //  CoAP hostname e.g. coap.thethings.io
@@ -32,55 +34,29 @@
 #define COAP_URI    "v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"  //  CoAP URI
 
 #define TRANSCEIVER_DEVICE ESP8266_DEVICE  //  Name of the transceiver device e.g. esp8266_0
-#define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
 
-//  static void init_sensors(void);
 static int init_tasks(void);
+static void sensor_task(void *arg);
+static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp);
 
-//  CoAP Connection Configuration
-static struct esp8266_server_handle coap_server = {
+//  CoAP Server Configuration
+static struct esp8266_server coap_server = {
     .endpoint = {
         .host = COAP_HOST,  //  CoAP hostname e.g. coap.thethings.io
         .port = COAP_PORT   //  CoAP port, usually UDP port 5683
     }
 };
 
-#ifdef MAX_WIFI_AP
-static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
-#endif  //  MAX_WIFI_AP
-
-static void send_sensor_data(float tmp) {
-    //  Send the sensor data over CoAP to the cloud.
-    init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
-
-    //  Create a CoAP request.
-    int rc = init_sensor_post((struct oc_server_handle *) &coap_server, COAP_URI);
-    assert(rc != 0);
-
-    //  Populate the CoAP request body in JSON format.
-    //  For thethings.io, the body should look like {"values":[{"key":"tmp","value":28.7}, ... ]}
-    rep_start_root_object();                              //  Create the root.
-        rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            rep_object_array_start_item(values);          //  Create a new item in the "values" array.
-                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-                rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                rep_set_double     (values, value, tmp);    //  Set the value.
-            rep_object_array_end_item(values);            //  Close the item in the "values" array.
-        rep_close_array(root, values);                    //  Close the "values" array.
-    rep_end_root_object();                                //  Close the root.
-
-    //  Forward the CoAP request to the CoAP Background Task for transmission.
-    rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send sensor data\n");
-}
-
 int main(int argc, char **argv) {
-    int rc;
+    //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send
+    //  sensor data.
     sysinit();           //  Initialize all packages.  Create the sensors.
     //  init_sensors();  //  Init the sensors.    
     init_esp8266();      //  Init the ESP8266 driver.
-    esp8266_register_transport();  //  Register the ESP8266 driver as a transport for CoAP.
-    rc = init_tasks();  assert(rc == 0);  //  Start the background tasks.
+    esp8266_register_transport();       //  Register the ESP8266 driver as a transport for CoAP.
+    init_esp8266_server(&coap_server);  //  Init the CoAP server endpoint before use.
+
+    int rc = init_tasks();  assert(rc == 0);  //  Start the background tasks.
 
     while (1) {                   //  Loop forever...
         os_eventq_run(            //  Process events...
@@ -96,7 +72,15 @@ int main(int argc, char **argv) {
 static struct os_task work_task;
 static uint8_t work_stack[sizeof(os_stack_t) * WORK_STACK_SIZE];
 
-static void work_task_handler(void *arg) {
+static int init_tasks(void) {
+    //  Start the sensor task that reads sensor data and sends to the server.
+    int rc = os_task_init(&work_task, "work", sensor_task, NULL,
+        WORK_TASK_PRIO, OS_WAIT_FOREVER, 
+        (os_stack_t *) work_stack, WORK_STACK_SIZE);
+    return rc;
+}
+
+static void sensor_task(void *arg) {
     //  Background task that reads sensor data and sends to the server.
 
     //  Get the handle for the ESP8266 driver.
@@ -106,70 +90,42 @@ static void work_task_handler(void *arg) {
     //  Connect to WiFi access point.
     int rc = esp8266_connect(itf, "my_ssid", "my_password_is_secret");  assert(rc == 0);
 
-    //  Scan for WiFi access points.
-    rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
-    os_time_delay(10 * OS_TICKS_PER_SEC);  //  Wait 10 seconds for the command to complete.
-
-    //    "macAddress": "00:25:9c:cf:1c:ac", "signalStrength": -43,
-    console_printf("*** %02x\n", 0xa);
+    //  Geolocate the device by sending WiFi Access Point info.
+    geolocate(itf, coap_server.handle, COAP_URI);
 
     float tmp = 28.0;  //  Simulated sensor data.
     while (1) {  //  Loop forever...        
-        send_sensor_data(tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.1;
-        os_time_delay(10 * OS_TICKS_PER_SEC);  //  Wait 10 seconds.
+        send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
+        tmp += 0.1;                                           //  Simulate change in sensor data.
+        os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }
 }
 
-static int init_tasks(void) {
-    //  Create the sensor task.
-    os_task_init(&work_task, "work", work_task_handler, NULL,
-            WORK_TASK_PRIO, OS_WAIT_FOREVER, 
-            (os_stack_t *) work_stack, WORK_STACK_SIZE);
-    return 0;
+static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp) {
+    //  Send the sensor data over CoAP to the specified thethings.io server and uri.
+    //  The CoAP body should look like:
+    //  {"values":[
+    //    {"key":"tmp", "value":28.7}
+    //  ]}
+    //  Create a CoAP request.
+    assert(server);  assert(uri);
+    int rc = init_sensor_post(server, uri);  assert(rc != 0);
+
+    //  Populate the CoAP request body in JSON format.
+    rep_start_root_object();                              //  Create the root.
+        rep_set_array(root, values);                      //  Create "values" as an array of objects.
+            rep_object_array_start_item(values);          //  Create a new item in the "values" array.
+                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
+                rep_set_text_string(values, key,   "tmp");  //  Set the key.
+                rep_set_double     (values, value, tmp);    //  Set the value.
+            rep_object_array_end_item(values);            //  Close the item in the "values" array.
+        rep_close_array(root, values);                    //  Close the "values" array.
+    rep_end_root_object();                                //  Close the root.
+
+    //  Forward the CoAP request to the CoAP Background Task for transmission.
+    rc = do_sensor_post();  assert(rc != 0);
+    console_printf("  > send sensor data\n");
 }
-
-#ifdef POLL_SENSOR
-    #define MY_SENSOR_DEVICE "bme280_0"
-    #define MY_SENSOR_POLL_TIME 2000
-    #define LISTENER_CB 1
-    #define READ_CB 2
-
-    static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
-
-    static struct sensor *my_sensor;
-
-    static struct sensor_listener listener = {
-        .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
-        .sl_func = read_temperature,
-        .sl_arg = (void *)LISTENER_CB,
-    };
-
-    static void init_sensors(void) {
-        int rc;
-        rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
-        assert(rc == 0);
-
-        my_sensor = sensor_mgr_find_next_bydevname(MY_SENSOR_DEVICE, NULL);
-        assert(my_sensor != NULL);
-
-        rc = sensor_register_listener(my_sensor, &listener);
-        assert(rc == 0);
-    }
-
-    static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-        struct sensor_temp_data *temp;
-        if (!databuf) { return SYS_EINVAL; }
-        temp = (struct sensor_temp_data *)databuf;
-        if (!temp->std_temp_is_valid) { return SYS_EINVAL; }
-        console_printf(
-            "temp = %d.%d\n",
-            (int) (temp->std_temp),
-            (int) (10.0 * temp->std_temp) % 10
-        );
-        return 0;
-    }
-#endif  //  POLL_SENSOR
 
 int __wrap_coap_receive(/* struct os_mbuf **mp */) {
     //  We override the default coap_receive() with an empty function so that we will 
