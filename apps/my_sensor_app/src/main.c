@@ -32,12 +32,12 @@
 #define COAP_URI    "v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"  //  CoAP URI
 
 #define TRANSCEIVER_DEVICE ESP8266_DEVICE  //  Name of the transceiver device e.g. esp8266_0
-#define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
+//  #define MAX_WIFI_AP 3  //  Read at most 3 WiFi access points.
 
 //  static void init_sensors(void);
 static int init_tasks(void);
 
-static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
+//  static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
 //  CoAP Connection Configuration
 static struct esp8266_server_handle coap_server = {
@@ -47,7 +47,7 @@ static struct esp8266_server_handle coap_server = {
     }
 };
 
-static void send_sensor_data(void) {
+static void send_sensor_data(float tmp) {
     //  Send the sensor data over CoAP to the cloud.
     init_esp8266_endpoint(&coap_server.endpoint);  //  Init the endpoint before use.
 
@@ -62,7 +62,7 @@ static void send_sensor_data(void) {
             rep_object_array_start_item(values);          //  Create a new item in the "values" array.
                 //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
                 rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                rep_set_double     (values, value, 28.2);   //  Set the value.
+                rep_set_double     (values, value, tmp);    //  Set the value.
             rep_object_array_end_item(values);            //  Close the item in the "values" array.
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
@@ -100,13 +100,15 @@ static void work_task_handler(void *arg) {
     struct sensor_itf *itf = &trans->s_itf;
 
     //  Scan for WiFi access points.
-    int rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
+    //  int rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
 
     //  Connect to WiFi access point.
-    rc = esp8266_connect(itf, "my_ssid", "my_password_is_secret");  assert(rc == 0);
+    int rc = esp8266_connect(itf, "my_ssid", "my_password_is_secret");  assert(rc == 0);
 
+    float tmp = 28.0;  //  Simulated sensor data.
     while (1) {  //  Loop forever...        
-        send_sensor_data();  //  Send sensor data to server via CoAP.
+        send_sensor_data(tmp);  //  Send sensor data to server via CoAP.
+        tmp += 0.1;
         os_time_delay(10 * OS_TICKS_PER_SEC);  //  Wait 10 seconds.
     }
 }
