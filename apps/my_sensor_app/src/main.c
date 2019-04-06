@@ -70,8 +70,8 @@ static void send_sensor_data(float tmp) {
     rep_end_root_object();                                //  Close the root.
 
     //  Forward the CoAP request to the CoAP Background Task for transmission.
-    rc = do_sensor_post();  assert(rc);
-    console_printf("Sending sensor data...\n");
+    rc = do_sensor_post();  assert(rc != 0);
+    console_printf("  > send sensor data\n");
 }
 
 int main(int argc, char **argv) {
@@ -108,6 +108,10 @@ static void work_task_handler(void *arg) {
 
     //  Scan for WiFi access points.
     rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
+    os_time_delay(10 * OS_TICKS_PER_SEC);  //  Wait 10 seconds for the command to complete.
+
+    //    "macAddress": "00:25:9c:cf:1c:ac", "signalStrength": -43,
+    console_printf("*** %02x\n", 0xa);
 
     float tmp = 28.0;  //  Simulated sensor data.
     while (1) {  //  Loop forever...        

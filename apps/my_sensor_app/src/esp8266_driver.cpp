@@ -74,7 +74,7 @@ static int esp8266_mbuf_index;
 static void oc_tx_ucast(struct os_mbuf *m0) {
     //  Transmit the mbuf to the network over UDP.  First mbuf is CoAP header, second mbuf is CoAP payload.
     //  Dump out each mbuf in the linked list.
-    console_printf(">>> oc_tx_ucast:\n");
+    console_printf("  > send UDP packet\n");
     struct os_mbuf *m = m0;
     struct esp8266_endpoint *endpoint = NULL;
     int ep_size = oc_ep_size(NULL);  assert(ep_size > 0);
@@ -248,16 +248,16 @@ static ESP8266 *drv(struct sensor_itf *itf) { return &driver; }  //  TODO: Retur
 static esp8266_cfg *cfg(struct sensor_itf *itf) { return &esp8266.cfg; }  //  TODO: Return the ESP8266 Config based on itf.si_num
 
 int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
-    //  Scan for WiFi access points.
-    drv(itf)->setTimeout(ESP8266_CONNECT_TIMEOUT);
-    if (!drv(itf)->startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }  //  Start in WiFi Client mode.
+    //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
+    assert(itf);  assert(res);
     return drv(itf)->scan(res, limit);
 }
 
 int esp8266_send_udp(struct sensor_itf *itf, const char *host, uint16_t port, const char *buffer, int length) {
-    //  Send the buffer to the host and port via UDP.
-    void *socket;
+    //  Send the buffer to the host and port via UDP.  Assume that esp8266_connect() has already been called.
+    assert(itf);  assert(host);  assert(port);  assert(buffer);  assert(length);
     //  Get a new socket.
+    void *socket;
     int rc = esp8266_socket_open(itf, &socket, NSAPI_UDP);  assert(rc == 0);
     //  Connect the socket to the UDP address and port.
     rc = esp8266_socket_connect(itf, socket, host, port);  assert(rc == 0);
@@ -269,6 +269,8 @@ int esp8266_send_udp(struct sensor_itf *itf, const char *host, uint16_t port, co
 }
 
 int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass) {
+    //  Connect to the WiFi access point with the SSID and password.
+    assert(itf);  assert(ssid);  assert(pass);
     esp8266_set_credentials(itf, ssid, pass, NSAPI_SECURITY_UNKNOWN);
     return internal_connect(itf);
 }
