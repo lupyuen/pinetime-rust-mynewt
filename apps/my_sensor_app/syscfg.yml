@@ -19,6 +19,14 @@
 
 # Settings this app defines.
 syscfg.defs:
+    WIFI_SSID:
+        description: 'Connect to the WiFi access point with this SSID'
+        value: 'my_ssid'
+        type: raw
+    WIFI_PASSWORD:
+        description: 'Password for WiFi access point'
+        value: 'my_password'
+        type: raw
 
 # Settings this app overrides.
 syscfg.vals:

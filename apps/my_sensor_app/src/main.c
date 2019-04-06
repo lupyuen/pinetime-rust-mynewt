@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
     return 0;  //  Never comes here.
 }
 
-#define WORK_TASK_PRIO (10)  //  Command task is lower priority than event processing.  
+#define WORK_TASK_PRIO (10)  //  TODO: Command task should be lower priority than event processing.  
 #define WORK_STACK_SIZE OS_STACK_ALIGN(256)
 
 static struct os_task work_task;
@@ -96,11 +96,14 @@ static uint8_t work_stack[sizeof(os_stack_t) * WORK_STACK_SIZE];
 
 static void work_task_handler(void *arg) {
     //  Get the handle for the ESP8266 driver.
-    struct sensor *trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);
-    assert(trans != NULL);
+    struct sensor *trans = sensor_mgr_find_next_bydevname(TRANSCEIVER_DEVICE, NULL);  assert(trans != NULL);
+    struct sensor_itf *itf = &trans->s_itf;
 
     //  Scan for WiFi access points.
-    int rc = esp8266_scan(&trans->s_itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
+    int rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
+
+    //  Connect to WiFi access point.
+    rc = esp8266_connect(itf, "my_ssid", "my_password_is_secret");  assert(rc == 0);
 
     while (1) {  //  Loop forever...        
         send_sensor_data();  //  Send sensor data to server via CoAP.

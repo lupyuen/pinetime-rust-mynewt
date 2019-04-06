@@ -72,30 +72,36 @@ static char esp8266_mbuf_buffer[ESP8266_TX_BUFFER_SIZE];
 static int esp8266_mbuf_index;
 
 static void oc_tx_ucast(struct os_mbuf *m0) {
-    //  Transmit the mbuf to the network.  First mbuf is CoAP header, second mbuf is CoAP payload.
+    //  Transmit the mbuf to the network over UDP.  First mbuf is CoAP header, second mbuf is CoAP payload.
     //  Dump out each mbuf in the linked list.
     console_printf(">>> oc_tx_ucast:\n");
     struct os_mbuf *m = m0;
-    struct esp8266_endpoint *oe = NULL;
+    struct esp8266_endpoint *endpoint = NULL;
     int ep_size = oc_ep_size(NULL);  assert(ep_size > 0);
     esp8266_mbuf_index = 0;
-    while (m) {
+    while (m) {  //  For each mbuf in the list...
         assert(m->om_data);
         if (m->om_pkthdr_len) { console_printf("Header: %d\n", m->om_pkthdr_len); console_dump(m->om_databuf, m->om_pkthdr_len); console_printf("\n"); }
         if (m->om_len) { console_printf("Data: %d\n", m->om_len); console_dump(m->om_data, m->om_len); console_printf("\n"); }
 
         //  Find the endpoint header.  Should be the end of the packet header of the first packet.
-        if (m->om_pkthdr_len >= ep_size) { oe = (esp8266_endpoint *) &m->om_databuf[m->om_pkthdr_len - ep_size]; }
+        if (m->om_pkthdr_len >= ep_size) { endpoint = (esp8266_endpoint *) &m->om_databuf[m->om_pkthdr_len - ep_size]; }
 
         //  Consolidate the CoAP header and payload for sending.
+        assert(esp8266_mbuf_index + m->om_len <= ESP8266_TX_BUFFER_SIZE);  //  Buffer too small.
         memcpy(&esp8266_mbuf_buffer[esp8266_mbuf_index], m->om_data, m->om_len);
         esp8266_mbuf_index += m->om_len;
 
         m = m->om_next.sle_next;  //  Fetch next mbuf in the list.
     }
     console_flush(); ////
-    assert(oe);  assert(oe->host);  assert(oe->port);
+    assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(esp8266_mbuf_index > 0);
+
+    //  Send the consolidated buffer via UDP.
+    struct sensor_itf *itf = (struct sensor_itf *) &uart_0_itf;  //  TODO: Support multiple sensors.
+    int rc = esp8266_send_udp(itf, endpoint->host, endpoint->port, esp8266_mbuf_buffer, esp8266_mbuf_index);
+    assert(rc == 0);
 }
 
 static uint8_t oc_ep_size(const struct oc_endpoint *oe) {
@@ -129,28 +135,6 @@ static int oc_init(void) {
 static void oc_shutdown(void) {
     console_printf("oc_shutdown\n"); console_flush();
 }
-
-#ifdef NOTUSED
-    static void oc_event(struct os_event *ev) {
-        console_printf("oc_event\n"); console_flush();
-    }
-
-    typedef struct {
-        uint8_t address[4];
-    } oc_ipv4_addr_t;
-
-    static inline int oc_endpoint_is_ip(struct oc_endpoint *oe) {
-        return oe->ep.oe_type == oc_ip6_transport_id ||
-        oe->ep.oe_type == oc_ip4_transport_id;
-    }
-
-    #define oc_make_ip4_endpoint(__name__, __flags__, __port__, ...)        \
-        struct oc_endpoint_ip __name__ = {.ep = {.oe_type = oc_ip4_transport_id, \
-                                                .oe_flags = __flags__},    \
-                                        .port = __port__,                 \
-                                        .v4 = {.address = { __VA_ARGS__ } } }
-
-#endif
 
 /////////////////////////////////////////////////////////
 //  Init Functions
@@ -223,17 +207,6 @@ static int internal_init(struct os_dev *dev0, void *arg) {
     if (rc) { goto err; }
 
     sensor = &dev->sensor;
-#ifdef NOTUSED
-    /* Initialise the stats entry */
-    rc = stats_init(
-        STATS_HDR(g_bme280stats),
-        STATS_SIZE_INIT_PARMS(g_bme280stats, STATS_SIZE_32),
-        STATS_NAME_INIT_PARMS(bme280_stat_section));
-    SYSINIT_PANIC_ASSERT(rc == 0);
-    /* Register the entry with the stats registry */
-    rc = stats_register(dev->od_name, STATS_HDR(g_bme280stats));
-    SYSINIT_PANIC_ASSERT(rc == 0);
-#endif  //  NOTUSED
     rc = sensor_init(sensor, dev0);
     if (rc != 0) { goto err; }
 
@@ -281,9 +254,22 @@ int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
     return drv(itf)->scan(res, limit);
 }
 
-int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security, uint8_t channel) {
-    if (channel != 0) { return NSAPI_ERROR_UNSUPPORTED; }
-    esp8266_set_credentials(itf, ssid, pass, security);
+int esp8266_send_udp(struct sensor_itf *itf, const char *host, uint16_t port, const char *buffer, int length) {
+    //  Send the buffer to the host and port via UDP.
+    void *socket;
+    //  Get a new socket.
+    int rc = esp8266_socket_open(itf, &socket, NSAPI_UDP);  assert(rc == 0);
+    //  Connect the socket to the UDP address and port.
+    rc = esp8266_socket_connect(itf, socket, host, port);  assert(rc == 0);
+    //  Send the data.
+    rc = esp8266_socket_send(itf, socket, buffer, length);  assert(rc > 0);
+    //  Close the socket.
+    rc = esp8266_socket_close(itf, socket);  assert(rc == 0);
+    return 0;
+}
+
+int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass) {
+    esp8266_set_credentials(itf, ssid, pass, NSAPI_SECURITY_UNKNOWN);
     return internal_connect(itf);
 }
 
@@ -344,14 +330,6 @@ int8_t esp8266_get_rssi(struct sensor_itf *itf) {
     return drv(itf)->getRSSI();
 }
 
-struct esp8266_socket {
-    int id;
-    nsapi_protocol_t proto;
-    bool connected;
-    const char *host;
-    uint16_t port;
-};
-
 int esp8266_socket_open(struct sensor_itf *itf, void **handle, nsapi_protocol_t proto) {
     // Look for an unused socket
     int id = -1;
@@ -363,7 +341,7 @@ int esp8266_socket_open(struct sensor_itf *itf, void **handle, nsapi_protocol_t 
         }
     }
     if (id == -1) { return NSAPI_ERROR_NO_SOCKET; }    
-    struct esp8266_socket *socket = new struct esp8266_socket;
+    struct esp8266_socket *socket = &cfg(itf)->_sockets[id];
     if (!socket) { return NSAPI_ERROR_NO_SOCKET; }
     socket->id = id;
     socket->proto = proto;
@@ -378,7 +356,6 @@ int esp8266_socket_close(struct sensor_itf *itf, void *handle) {
     drv(itf)->setTimeout(ESP8266_MISC_TIMEOUT);
     if (!drv(itf)->close(socket->id)) { err = NSAPI_ERROR_DEVICE_ERROR; }
     cfg(itf)->_ids[socket->id] = false;
-    delete socket;
     return err;
 }
 
