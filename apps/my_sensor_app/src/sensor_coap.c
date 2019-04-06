@@ -183,4 +183,63 @@ void json_rep_end_root_object(void) {
     int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
 }
 
+static int json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv);
+
+int
+json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
+        struct json_value *val)
+{
+    //  Extended version of json_encode_object_entry that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
+    int rc;
+
+    if (encoder->je_wr_commas) {
+        encoder->je_write(encoder->je_arg, ",", sizeof(",")-1);
+        encoder->je_wr_commas = 0;
+    }
+    /* Write the key entry */
+    encoder->je_write(encoder->je_arg, "\"", sizeof("\"")-1);
+    encoder->je_write(encoder->je_arg, key, strlen(key));
+    encoder->je_write(encoder->je_arg, "\": ", sizeof("\": ")-1);
+
+    rc = json_encode_value_ext(encoder, val);
+    if (rc != 0) {
+        goto err;
+    }
+    encoder->je_wr_commas = 1;
+
+    return (0);
+err:
+    return (rc);
+}
+
+static int
+json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
+{
+    //  Extended version of json_encode_value_ext that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
+    int rc;
+    int len;
+
+    switch (jv->jv_type) {
+        case JSON_VALUE_TYPE_EXT_FLOAT: {
+            //  Encode the float with 1 decimal place.
+            len = sprintf(
+                encoder->je_encode_buf,
+                "%d.%d",
+                (int) (jv->jv_val.fl),
+                (int) (10.0 * jv->jv_val.fl) % 10
+            );
+            encoder->je_write(encoder->je_arg, encoder->je_encode_buf, len);
+            break;
+        }
+        default:
+            rc = -1;
+            goto err;
+    }
+
+
+    return (0);
+err:
+    return (rc);
+}
+
 #endif  //  COAP_JSON_ENCODING

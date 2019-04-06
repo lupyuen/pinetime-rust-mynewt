@@ -17,14 +17,16 @@ bool do_sensor_post(void);
 #ifdef COAP_JSON_ENCODING  //  If we are encoding the CoAP payload in JSON...
 
     #include <json/json.h>
-    #define COAP_CONTENT_FORMAT APPLICATION_JSON  //  Specify JSON content type and accept type in the CoAP header.
+    #define COAP_CONTENT_FORMAT APPLICATION_JSON   //  Specify JSON content type and accept type in the CoAP header.
+    #define JSON_VALUE_TYPE_EXT_FLOAT (6)          //  For custom encoding of floats.
 
     extern struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent encoding of JSON messages.
-    extern struct json_value coap_json_value;
+    extern struct json_value coap_json_value;      //  Custom JSON value being encoded.
 
-    void json_rep_new(struct os_mbuf *m);
-    void json_rep_reset(void);
-    int json_rep_finalize(void);
+    void json_rep_new(struct os_mbuf *m);   //  Prepare to write a new JSON CoAP payload into the mbuf.
+    void json_rep_reset(void);              //  Close the current JSON CoAP payload.  Erase the JSON encoder.
+    int json_rep_finalize(void);            //  Finalise the payload and return the payload size.
+    int json_encode_object_entry_ext(struct json_encoder *encoder, char *key, struct json_value *val);  //  Custom encoder for floats.
 
     //  Macros for composing JSON payload
     
@@ -68,9 +70,16 @@ bool do_sensor_post(void);
     #define rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }   
     //  CBOR: oc_rep_end_object(key##_array, key)
 
-    #define rep_set_text_string(object, key, value) { JSON_VALUE_STRING(&coap_json_value, value); json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value); }
+    //  Define a float JSON value.
+    #define JSON_VALUE_EXT_FLOAT(__jv, __v)       \
+    (__jv)->jv_type = JSON_VALUE_TYPE_EXT_FLOAT;  \
+    (__jv)->jv_val.fl = (float) __v;
 
-    #define rep_set_double(object, key, value) {  JSON_VALUE_INT(&coap_json_value, value); json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value); }
+    //  Encode a value into JSON: int, unsigned int, text, double, ...
+    #define rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+    #define rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+    #define rep_set_double(     object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+    #define rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
 
 #endif  //  COAP_JSON_ENCODING
 
@@ -92,8 +101,10 @@ bool do_sensor_post(void);
     #define rep_object_array_start_item(key)        oc_rep_object_array_start_item(key)
     #define rep_object_array_end_item(key)          oc_rep_object_array_end_item(key)
 
+    #define rep_set_int(        object, key, value) oc_rep_set_int        (object, key, value)
+    #define rep_set_uint(       object, key, value) oc_rep_set_uint       (object, key, value)
+    #define rep_set_double(     object, key, value) oc_rep_set_double     (object, key, value)
     #define rep_set_text_string(object, key, value) oc_rep_set_text_string(object, key, value)
-    #define rep_set_double     (object, key, value) oc_rep_set_double     (object, key, value)
 
 #endif  //  COAP_CBOR_ENCODING
 
