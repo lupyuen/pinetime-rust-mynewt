@@ -65,8 +65,10 @@ struct esp8266 {
 };
 
 void init_esp8266(void);  //  Init the Mynewt sensor device for ESP8266.
-void init_esp8266_endpoint(struct esp8266_endpoint *endpoint);
+void init_esp8266_endpoint(struct esp8266_endpoint *endpoint);  //  Init the endpoint before use.
+void init_esp8266_server(struct esp8266_server *server);        //  Init the server endpoint before use.
 void esp8266_register_transport(void);  //  Register the CoAP transport for ESP8266.
+
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);
 int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit);
 int esp8266_send_udp(struct sensor_itf *itf, const char *host, uint16_t port, const char *buffer, int length);

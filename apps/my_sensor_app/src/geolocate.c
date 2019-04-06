@@ -27,14 +27,21 @@ int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const cha
     return rc;
 }
 
+static char buf[20];  //  Long enough to hold "00:25:9c:cf:1c:ac"
+
 static void send_wifi_access_points(struct oc_server_handle *server, const char *uri, 
     const nsapi_wifi_ap_t *access_points, int length) {
     //  Send the list of WiFI access point info (MAC Address and Signal Strength)
     //  over CoAP to specified thethings.io server and uri.  The CoAP body should look like:
     //  {"values":[
-    //    {"key":"macAddress",     "value":"00:25:9c:cf:1c:ac"},
-    //    {"key":"signalStrength", "value":-43}
+    //    {"key":"ssid0", "value":"00:25:9c:cf:1c:ac"},
+    //    {"key":"rssi0", "value":-43.0},
+    //    {"key":"ssid1", "value":"00:25:9c:cf:1c:ad"},
+    //    {"key":"rssi1", "value":-43.0},
+    //    {"key":"ssid2", "value":"00:25:9c:cf:1c:ae"},
+    //    {"key":"rssi2", "value":-43.0}
     //  ]}
+    //  We use float instead of int for rssi because int doesn't support negative values.
 
     //  Create a CoAP request.
     assert(server);  assert(uri);  assert(length > 0);
@@ -44,19 +51,26 @@ static void send_wifi_access_points(struct oc_server_handle *server, const char 
     int i;
     rep_start_root_object();                              //  Create the root.
         rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            for (i = 0; i < length; i++) {
+            for (i = 0; i < length; i++) {                //  Loop for the 3 access points (or fewer)...
                 const nsapi_wifi_ap_t *ap = access_points + i;
-                rep_object_array_start_item(values);          //  Create a new item in the "values" array.
-                    //  Each child of "values" is an object with the sensor values.
-                    rep_set_text_string(values, key, "macAddress");  //  Set the key.
-                    rep_set_int     (values, value, "TODO");    //  Set the value.
-                rep_object_array_end_item(values);            //  Close the item in the "values" array.
+                //  Write the item {"key":"ssid1", "value":"00:25:9c:cf:1c:ac"}
+                rep_object_array_start_item(values);       //  Create a new item in the "values" array.
+                    sprintf(buf, "ssid%d", i);             //  e.g. ssid0
+                    rep_set_text_string(values, key, buf); //  Set the key.
 
-                rep_object_array_start_item(values);          //  Create a new item in the "values" array.
-                    //  Each child of "values" is an object with the sensor values.
-                    rep_set_text_string(values, key, "signalStrength");  //  Set the key.
-                    rep_set_int     (values, value, ap->rssi);    //  Set the value.
-                rep_object_array_end_item(values);            //  Close the item in the "values" array.
+                    sprintf(buf, 
+                        "%02x:%02x:%02x:%02x:%02x:%02x",   //  e.g. 00:25:9c:cf:1c:ac
+                        ap->bssid[0], ap->bssid[1], ap->bssid[2],
+                        ap->bssid[3], ap->bssid[4], ap->bssid[5]);
+                    rep_set_text_string(values, value, buf); //  Set the value.
+                rep_object_array_end_item(values);         //  Close the item in the "values" array.
+
+                //  Write the item {"key":"rssi1", "value":-43}
+                rep_object_array_start_item(values);       //  Create a new item in the "values" array.
+                    sprintf(buf, "rssi%d", i);             //  e.g. rssi0
+                    rep_set_text_string(values, key, buf); //  Set the key.
+                    rep_set_double(values, value, ap->rssi);  //  Set the value, e.g. -43
+                rep_object_array_end_item(values);         //  Close the item in the "values" array.
             }
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
