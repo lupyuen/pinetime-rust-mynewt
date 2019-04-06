@@ -114,8 +114,10 @@ bool ESP8266::dhcp(bool enabled, int mode)
 
 bool ESP8266::connect(const char *ap, const char *passPhrase)
 {
-    return _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
+    bool ret = _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
         && _parser.recv("OK");
+    console_printf(ret ? "ESP connect OK\n" : "ESP connect FAILED\n");  console_flush();
+    return ret;
 }
 
 bool ESP8266::disconnect(void)
@@ -219,8 +221,10 @@ bool ESP8266::open(const char *type, int id, const char* addr, int port)
         return false;
     }
 
-    return _parser.send("AT+CIPSTART=%d,\"%s\",\"%s\",%d", id, type, addr, port)
+    bool ret = _parser.send("AT+CIPSTART=%d,\"%s\",\"%s\",%d", id, type, addr, port)
         && _parser.recv("OK");
+    console_printf(ret ? "ESP open OK\n" : "ESP open FAILED\n");  console_flush();
+    return ret;
 }
 
 bool ESP8266::send(int id, const void *data, uint32_t amount)
@@ -230,10 +234,11 @@ bool ESP8266::send(int id, const void *data, uint32_t amount)
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
             && _parser.recv(">")
             && _parser.write((char*)data, (int)amount) >= 0) {
+            console_printf("ESP send OK\n");  console_flush();
             return true;
         }
     }
-
+    console_printf("ESP send FAILED\n");  console_flush();
     return false;
 }
 
