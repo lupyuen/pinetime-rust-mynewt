@@ -102,8 +102,8 @@ static void sensor_task(void *arg) {
     //  Init the Sensor CoAP module for composing CoAP requests.
     rc = init_sensor_coap();  assert(rc == 0);
 
-    //  Geolocate the device by sending WiFi Access Point info.
-    //  rc = geolocate(itf, coap_server.handle, COAP_URI);  assert(rc == 0);
+    //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
+    rc = geolocate(itf, coap_server.handle, COAP_URI);  assert(rc > 0);
 
     float tmp = 28.0;  //  Simulated sensor data.
     while (1) {  //  Loop forever...        

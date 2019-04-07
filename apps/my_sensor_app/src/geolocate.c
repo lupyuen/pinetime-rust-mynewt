@@ -27,7 +27,7 @@ int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const cha
     os_time_delay(5 * OS_TICKS_PER_SEC);
 
     //  Send the first 3 access points (or fewer) to thethings.io, which will call Google Geolocation API.
-    send_wifi_access_points(server, uri, wifi_aps, rc);  
+    if (rc > 0) { send_wifi_access_points(server, uri, wifi_aps, rc); }
     return rc;
 }
 
