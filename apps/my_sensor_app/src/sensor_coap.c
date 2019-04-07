@@ -133,7 +133,7 @@ bool
 init_sensor_post(struct oc_server_handle *server, const char *uri)
 {
     //  Create a new sensor post request to send to CoAP server.
-    assert(server);  assert(uri);
+    assert(oc_sensor_coap_ready);  assert(server);  assert(uri);
     os_error_t rc = os_sem_pend(&oc_sem, OS_TIMEOUT_NEVER);  //  Allow only 1 task to be creating a sensor request at any time.
     assert(rc == OS_OK);
 
