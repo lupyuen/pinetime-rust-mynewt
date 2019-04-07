@@ -80,6 +80,8 @@ bool ESP8266::startup(int mode)
 
 bool ESP8266::reset(void)
 {
+    debug_vrecv = 1;  ////    
+    bool ret = false;
     for (int i = 0; i < 2; i++) {
         if (
             _parser.send("\r\nAT+RST")
@@ -93,11 +95,13 @@ bool ESP8266::reset(void)
 #endif  //  TODO
         ) {
             _parser.flush();  //  Discard the rest of the response before sending next command.
-            console_printf("ESP reset OK\n"); console_flush(); return true; 
+            ret = true;
+            break;
         }
     }
-    console_printf("ESP reset FAILED\n"); console_flush(); 
-    return false;
+    console_printf(ret ? "ESP reset OK\n" : "ESP reset FAILED\n"); console_flush(); 
+    debug_vrecv = 0;  ////    
+    return true;
 }
 
 bool ESP8266::dhcp(bool enabled, int mode)

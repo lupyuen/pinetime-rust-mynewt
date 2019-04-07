@@ -145,7 +145,7 @@ int ATParser::vscanf(const char *format, va_list args)
         // Recieve next character
         int c = getc();
         if (c < 0) {
-            console_printf("ATP vscanf timeout: %s\n", _buffer);  console_flush();
+            console_printf("ATP vscanf mismatch: %s\n", _buffer);  console_flush();
             return -1;
         }
         _buffer[offset + j++] = c;
@@ -233,7 +233,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             // Recieve next character
             int c = getc();
             if (c < 0) {
-                console_printf("ATP vrecv timeout, matches: %d\nscan: %s\nfmt: %s\n", last_count, last_scan, _buffer);  console_flush();
+                console_printf("ATP vrecv mismatch: %s\n    fmt: %s\n", last_scan, _buffer);  console_flush();
                 return false;
             }
             _buffer[offset + j++] = c;
@@ -285,7 +285,9 @@ bool ATParser::vrecv(const char *response, va_list args)
             if (j+1 >= _buffer_size - offset ||
                 strcmp(&_buffer[offset + j-_delim_size], _delimiter) == 0) {
 
-                debug_if(dbg_on, "AT< %s", _buffer+offset);
+                if (_buffer[offset] != '\r' && _buffer[offset] != '\n') {  //  Skip blank lines.
+                    debug_if(dbg_on, "AT< %s", _buffer+offset);
+                }
                 j = 0;
             }
         }

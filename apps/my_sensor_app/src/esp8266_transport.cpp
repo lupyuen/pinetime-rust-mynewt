@@ -66,9 +66,7 @@ int init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
 }
 
 static void oc_tx_ucast(struct os_mbuf *m) {
-    //  Transmit the mbuf to the network over UDP.  First mbuf is CoAP header, second mbuf is CoAP payload.
-    //  Dump out each mbuf in the linked list.
-    console_printf("  > send UDP packet\n");
+    //  Transmit the chain of mbufs to the network over UDP.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
 
     //  Find the endpoint header.  Should be the end of the packet header of the first packet.
     assert(OS_MBUF_USRHDR_LEN(m) >= sizeof(struct esp8266_endpoint));
@@ -77,6 +75,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
     assert(driver);  assert(socket);
+    console_printf("  > send udp packet\n");
 
     //  Send the consolidated buffer via UDP.
     int rc = esp8266_socket_send_mbuf(driver, socket, m);  assert(rc > 0);
