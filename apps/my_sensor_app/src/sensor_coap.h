@@ -12,6 +12,9 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 struct oc_server_handle;
 
+//  Init the Sensor CoAP module. 
+int init_sensor_coap(void);
+
 //  Create a new sensor post request to send to CoAP server.
 bool init_sensor_post(struct oc_server_handle *server, const char *uri);
 

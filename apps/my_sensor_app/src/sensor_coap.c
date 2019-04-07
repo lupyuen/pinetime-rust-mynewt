@@ -30,10 +30,18 @@
 
 static struct os_mbuf *oc_c_message;  //  Contains the CoAP headers.
 static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
-static coap_packet_t oc_c_request[1];
+static coap_packet_t oc_c_request[1]; //  CoAP request.
+static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
+
+int init_sensor_coap(void) {
+    //  Init the Sensor CoAP module. 
+    os_error_t rc = os_sem_init(&oc_sem, 1);  //  Init to 1 token, so only 1 caller will be allowed.
+    assert(rc == OS_OK);
+    return 0;
+}
 
 static void handle_coap_response(oc_client_response_t *data) {
     //  Handle CoAP response.
@@ -45,6 +53,7 @@ dispatch_coap_request(void)
 {
     //  Serialise the CoAP request and payload into the final mbuf format for transmitting.
     //  Forward the serialised mbuf to the background transmit task for transmitting.
+    bool ret = false;
     int response_length = rep_finalize();
 
     if (response_length) {
@@ -63,9 +72,11 @@ dispatch_coap_request(void)
             os_mbuf_free_chain(oc_c_message);
         }
         oc_c_message = NULL;
-        return true;
+        ret = true;
     }
-    return false;
+    os_error_t rc = os_sem_release(&oc_sem);  //  Request completed.  Release the semaphore for another request.
+    assert(rc == OS_OK);
+    return ret;
 }
 
 static bool
@@ -111,6 +122,9 @@ init_sensor_post(struct oc_server_handle *server, const char *uri)
 {
     //  Create a new sensor post request to send to CoAP server.
     assert(server);  assert(uri);
+    os_error_t rc = os_sem_pend(&oc_sem, OS_TIMEOUT_NEVER);  //  Allow only 1 task to be creating a sensor request at any time.
+    assert(rc == OS_OK);
+
     oc_qos_t qos = LOW_QOS;  //  Default to low QoS, no transactions.
     oc_response_handler_t handler = handle_coap_response;
     oc_client_cb_t *cb;
@@ -118,6 +132,8 @@ init_sensor_post(struct oc_server_handle *server, const char *uri)
 
     cb = oc_ri_alloc_client_cb(uri, server, OC_POST, handler, qos);
     if (!cb) {
+        rc = os_sem_release(&oc_sem);  //  Failed.  Release the semaphore.
+        assert(rc == OS_OK);
         return false;
     }
     status = prepare_coap_request(cb, NULL);

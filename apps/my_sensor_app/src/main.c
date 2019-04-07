@@ -99,8 +99,11 @@ static void sensor_task(void *arg) {
     //  Register the ESP8266 driver as the network transport for CoAP.
     rc = esp8266_register_transport(itf, &coap_server);  assert(rc == 0);
 
+    //  Init the Sensor CoAP module for composing CoAP requests.
+    rc = init_sensor_coap();  assert(rc == 0);
+
     //  Geolocate the device by sending WiFi Access Point info.
-    geolocate(itf, coap_server.handle, COAP_URI);
+    //  rc = geolocate(itf, coap_server.handle, COAP_URI);  assert(rc == 0);
 
     float tmp = 28.0;  //  Simulated sensor data.
     while (1) {  //  Loop forever...        
