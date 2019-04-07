@@ -32,11 +32,12 @@ static const struct oc_transport transport = {
     oc_shutdown,  //  void (*ot_shutdown)(void);
 };
 
-int esp8266_register_transport(struct sensor_itf *itf, struct esp8266_server *server) {
+int esp8266_register_transport(struct sensor_itf *itf, struct esp8266_server *server0) {
     //  Register the ESP8266 driver (itf) as the transport for the specifed CoAP server.
-    assert(itf);  assert(server);
+    assert(itf);  assert(server0);
     transport_id = oc_transport_register(&transport);
     driver = itf;
+    server = server0;
 
     //  Init the server endpoint before use.
     int rc = init_esp8266_server(server);  assert(rc == 0);

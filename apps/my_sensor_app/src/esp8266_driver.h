@@ -13,20 +13,21 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 #define ESP8266_DEVICE "esp8266_0"
-#define ESP8266_SOCKET_COUNT 2  //  Max number of concurrent TCP+UDP connections allowed.
+#define ESP8266_SOCKET_COUNT 2  //  Max number of concurrent TCP+UDP connections allowed.  Should be 5 or fewer, since ESP8266 supports up to 5 sockets.
 
 //  Use static buffers to avoid dynamic memory allocation (new, delete)
 #define ESP8266_TX_BUFFER_SIZE      400  //  Must be large enough to hold sensor and geolocation CoAP UDP messages.
 #define ESP8266_RX_BUFFER_SIZE      256
 #define ESP8266_PARSER_BUFFER_SIZE  256
 
-//  Various timeouts for different ESP8266 operations
-#define ESP8266_CONNECT_TIMEOUT     15000
-#define ESP8266_SEND_TIMEOUT        500
-#define ESP8266_RECV_TIMEOUT        0
-#define ESP8266_MISC_TIMEOUT        500
+//  Various timeouts for different ESP8266 operations, in milliseconds.
+#define ESP8266_CONNECT_TIMEOUT     15000  //  15  seconds: Timeout for connecting to WiFi access point
+#define ESP8266_SEND_TIMEOUT        500    //  0.5 seconds: Timeout for sending a packet
+#define ESP8266_RECV_TIMEOUT        0      //  0   seconds: Timeout for receiving a packet
+#define ESP8266_SCAN_TIMEOUT        15000  //  15  seconds: Timeout for scanning WiFi access points
+#define ESP8266_MISC_TIMEOUT        500    //  0.5 seconds: Timeout for opening a socket
 
-//  ESP8266 Socket
+//  ESP8266 Socket: Represents an ESP8266 socket that has been allocated.
 struct esp8266_socket {
     int id;
     nsapi_protocol_t proto;
@@ -35,7 +36,7 @@ struct esp8266_socket {
     uint16_t port;
 };
 
-//  ESP8266 Configuration
+//  ESP8266 Configuration: SSID and socket configuration
 struct esp8266_cfg {
     //  SSID Configuration
     char ap_ssid[33]; /* 32 is what 802.11 defines as longest possible name; +1 for the \0 */

@@ -80,7 +80,6 @@ bool ESP8266::startup(int mode)
 
 bool ESP8266::reset(void)
 {
-    debug_vrecv = 1;  ////
     for (int i = 0; i < 2; i++) {
         if (
             _parser.send("\r\nAT+RST")
@@ -201,6 +200,7 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit)
     if (!_parser.send("AT+CWLAP")) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
+    //  debug_vrecv = 1;  ////
     while (recv_ap(&ap)) {
         if (cnt < limit) {
             memcpy(&res[cnt], &ap, sizeof(ap));
@@ -210,6 +210,7 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit)
             break;
         }
     }
+    //  debug_vrecv = 0;  ////
     console_printf(cnt > 0 ? "ESP scan OK\n" : "ESP scan FAILED\n"); console_flush();  ////
     return cnt;
 }
@@ -348,7 +349,6 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
     int sec = -1, channel = -1;
     memset(ap, 0, sizeof(nsapi_wifi_ap_t));
-    debug_vrecv = 1;  ////
 
     //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
     bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,

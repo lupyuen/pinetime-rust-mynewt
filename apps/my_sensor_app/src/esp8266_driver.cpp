@@ -138,6 +138,7 @@ static esp8266_cfg *cfg(struct sensor_itf *itf) { return &esp8266.cfg; }  //  TO
 int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
     //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
     assert(itf);  assert(res);
+    drv(itf)->setTimeout(ESP8266_SCAN_TIMEOUT);
     return drv(itf)->scan(res, limit);
 }
 
