@@ -16,23 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//  #include <stdarg.h>
 #include <stdio.h>
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "console/ticks.h"
 
 #define CONS_OUTPUT_MAX_LINE    128
-
-#ifdef NOTUSED
-int console_printf(const char *fmt, ...) {
-    //  Print the format string without any formatting.
-    if (!fmt) { return 0; }
-    int num_chars = strlen(fmt);
-    console_write(fmt, num_chars);
-    return num_chars;
-}
-#endif  //  NOTUSED
 
 #if MYNEWT_VAL(BASELIBC_PRESENT)
 

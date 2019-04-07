@@ -26,6 +26,8 @@ extern "C" {
 
 int semihosting_console_is_init(void);
 int semihosting_console_init(void);
+void enable_buffer(void);   //  Enable buffering.
+void disable_buffer(void);  //  Disable buffering.
 
 #ifdef __cplusplus
 }

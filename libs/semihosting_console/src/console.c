@@ -97,9 +97,13 @@ void console_write(const char *str, int cnt) {
     }
 }
 
-void console_blocking_mode(void) {}
+void console_blocking_mode(void) {
+    disable_buffer();
+}
 
-void console_non_blocking_mode(void) {}
+void console_non_blocking_mode(void) {
+    enable_buffer();
+}
 
 static inline void cursor_forward(unsigned int count) {
     console_printf("\x1b[%uC", count);

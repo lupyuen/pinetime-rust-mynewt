@@ -73,7 +73,7 @@
 		"path": "$ROOTPATH$/libs/semihosting_console/src/console_fmt.c",
 		"bookmarks": [
 			{
-				"line": 47,
+				"line": 36,
 				"column": 8,
 				"label": ""
 			}

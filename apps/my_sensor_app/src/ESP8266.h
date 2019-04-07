@@ -137,7 +137,7 @@ public:
      *
      * @param  ap    Pointer to allocated array to store discovered AP
      * @param  limit Size of allocated @a res array, or 0 to only count available AP
-     * @param  filter_func Filter function that will be passed the current AP, saved row count.  Return true if the AP should be saved.
+     * @param  filter_func Filter function will be called with the current AP and saved row count.  Return true if the AP should be saved.
      * @return       Number of entries in @a res, or if @a count was 0 number of available networks, negative on error
      *               see @a nsapi_error
      */

@@ -32,10 +32,13 @@ static struct hal_timer semihosting_timer;
 #define OUTPUT_BUFFER_SIZE 2048  //  Use a larger buffer size so that we don't affect interrupt processing.
 static char output_buffer[OUTPUT_BUFFER_SIZE + 1] = { 0 };  //  Buffer to hold output before flushing.
 static volatile uint16_t output_buffer_length = 0;         //  Number of bytes in buffer.
-static bool log_enabled = true;  //  Logging is on by default.
+static bool log_enabled = true;     //  Logging is on by default.
+static bool buffer_enabled = true;  //  Buffering is on by default.
 
 void enable_log(void)  { log_enabled = true; }
 void disable_log(void) { log_enabled = false; }
+void enable_buffer(void) { buffer_enabled = true; }  //  Enable buffering.
+void disable_buffer(void) { buffer_enabled = false; console_flush(); }  //  Disable buffering.
 
 //  ARM Semihosting code from 
 //  http://www.keil.com/support/man/docs/ARMCC/armcc_pge1358787046598.htm
@@ -107,6 +110,10 @@ void console_flush(void) {
 
 void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
+    if (!buffer_enabled) { 
+        semihost_write(SEMIHOST_HANDLE, (const unsigned char *) buffer, length);
+        return; 
+    }
     if (length >= OUTPUT_BUFFER_SIZE) { return; }  //  Don't allow logging of very long messages.
 #ifdef AUTO_FLUSH_CONSOLE
     if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is full...
