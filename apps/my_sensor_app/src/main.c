@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
     //  Start the background tasks.
     rc = init_tasks();  assert(rc == 0);
 
-    while (1) {                   //  Loop forever...
+    while (true) {                //  Loop forever...
         os_eventq_run(            //  Process events...
             os_eventq_dflt_get()  //  From default event queue.
         );
@@ -106,12 +106,10 @@ static void sensor_task(void *arg) {
     rc = geolocate(itf, coap_server.handle, COAP_URI);  assert(rc > 0);
 
     float tmp = 28.0;  //  Simulated sensor data.
-    while (1) {  //  Loop forever...        
+    while (true) {  //  Loop forever...        
         send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
         tmp += 0.1;                                           //  Simulate change in sensor data.
-
-        console_printf("  ? free mbuf: %d\n", os_msys_num_free());
-
+        console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
         os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }
 }
@@ -122,7 +120,7 @@ static void send_sensor_data(struct oc_server_handle *server, const char *uri, f
     //  {"values":[
     //    {"key":"tmp", "value":28.7}
     //  ]}
-    //  Create a CoAP request.
+    //  Create a CoAP request.  This will call a semaphore to block other tasks from creating a CoAP request.
     assert(server);  assert(uri);
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
@@ -137,7 +135,7 @@ static void send_sensor_data(struct oc_server_handle *server, const char *uri, f
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
 
-    //  Forward the CoAP request to the CoAP Background Task for transmission.
+    //  Forward the CoAP request to the CoAP Background Task for transmission.  This will release a semaphore to allow other tasks to create CoAP requests.
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send sensor data\n");
 }

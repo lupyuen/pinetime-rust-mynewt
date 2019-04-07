@@ -210,6 +210,8 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit)
             break;
         }
     }
+    //  Wait for the end of the response.
+    if (!_parser.recv("OK\r\n")) { cnt = 0; }
     //  debug_vrecv = 0;  ////
     console_printf(cnt > 0 ? "ESP scan OK\n" : "ESP scan FAILED\n"); console_flush();  ////
     return cnt;
