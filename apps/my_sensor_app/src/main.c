@@ -140,7 +140,7 @@ int __wrap_coap_receive(/* struct os_mbuf **mp */) {
     //  We override the default coap_receive() with an empty function so that we will 
     //  NOT link in any modules for receiving and parse CoAP requests, to save ROM space.
     //  We only need to transmit CoAP requests.
-    console_printf("coap_receive NOT IMPLEMENTED\n"); console_flush();
+    console_printf("coap_receive NOT IMPLEMENTED\n");
     return -1;
 }
 

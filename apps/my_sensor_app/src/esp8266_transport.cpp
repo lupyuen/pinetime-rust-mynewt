@@ -91,7 +91,6 @@ static void oc_tx_ucast(struct os_mbuf *m0) {
 
         m = m->om_next.sle_next;  //  Fetch next mbuf in the list.
     }
-    console_flush(); ////
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
     assert(driver);  assert(socket);  assert(esp8266_mbuf_index > 0);
@@ -126,10 +125,10 @@ static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *oe) {
 }
 
 static int oc_init(void) {
-    console_printf("oc_init\n"); console_flush();
+    console_printf("oc_init\n");
     return 0;
 }
 
 static void oc_shutdown(void) {
-    console_printf("oc_shutdown\n"); console_flush();
+    console_printf("oc_shutdown\n");
 }

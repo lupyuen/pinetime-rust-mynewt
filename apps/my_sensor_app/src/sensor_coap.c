@@ -37,7 +37,7 @@ static coap_packet_t oc_c_request[1];
 
 static void handle_coap_response(oc_client_response_t *data) {
     //  Handle CoAP response.
-    console_printf("handle_coap\n"); console_flush();
+    console_printf("handle_coap\n");
 }
 
 static bool
@@ -144,7 +144,7 @@ int json_write_mbuf(void *buf, char *data, int len) {
     //  Write the JSON to the mbuf for the outgoing CoAP message.
     assert(coap_json_mbuf);
     assert(data);
-    //  console_printf("JSON: "); console_buffer(data, len); console_printf("\n"); console_flush();  ////
+    //  console_printf("JSON: "); console_buffer(data, len); console_printf("\n");  ////
     int rc = os_mbuf_append(coap_json_mbuf, data, len);  assert(rc == 0);
     if (rc) { return -1; }
     return 0;
