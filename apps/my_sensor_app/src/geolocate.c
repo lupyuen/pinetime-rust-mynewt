@@ -22,43 +22,9 @@ static mac_pattern skip_ssid[] = {
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
 static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int length);
-
-static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern) {
-    //  Return true if the SSID MAC matches the MAC address pattern.
-    console_printf("match pattern "); console_dump(bssid, 6); console_printf("\n");
-    int i;
-    for (i = 0; i < 6; i++) {
-        if (pattern[0][i] == ANY) { continue; }
-        if (bssid[i] != pattern[0][i]) { return false; }
-    }
-    return true;
-}
-
-static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]) {
-    //  Return true if the two SSID MACs are identical except the last byte.    
-    console_printf("similar mac "); console_dump(bssid1, 6); console_printf(" / "); console_dump(bssid2, 6);  console_printf("\n");
-    if (bssid1[0] == bssid2[0] && bssid1[1] == bssid2[1] && bssid1[2] == bssid2[2] &&
-        bssid1[3] == bssid2[3] && bssid1[4] == bssid2[4]) { return true; }
-    return false;
-}
-
-static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count) {
-    //  Filter function will be called with the current AP and saved row count.  Return true if the AP should be saved.
-    //  (1) We skip the SSID MAC if it matches any skip_ssid pattern.
-    //  (2) We skip SSID MACs that look similar, e.g. they differ only in the last byte.  Similar SSID MACs
-    //  probably belong to the same WiFi router configured with multiple addresses.
-    int i;
-    for (i = 0; ; i++) {  //  Match against all skip_ssid patterns...
-        mac_pattern *pattern = &skip_ssid[i];
-        if (!pattern[0][0] && !pattern[0][1] && !pattern[0][2] && !pattern[0][3] && !pattern[0][4] && !pattern[0][5]) { break; }  //  LAST_MAC_PATTERN
-        if (mac_matches_pattern(ap->bssid, pattern)) { return false; }  //  Matches the skip_ssid pattern, don't save.
-    }
-    for (i = 0; i < count; i++) {  //  Compare with all saved SSID MAC addresses...
-        uint8_t *saved_bssid = wifi_aps[i].bssid;
-        if (similar_mac(ap->bssid, saved_bssid)) { return false; }  //  Similar to a saved SSID MAC address, don't save.
-    }
-    return true;  //  Save this AP since it doesn't match any skip_ssid and it's not similar to saved APs.
-}
+static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count);
+static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern);
+static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]);
 
 int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const char *uri) {
     //  Scan for WiFi access points in your area.  Send the MAC Address and signal strength of
@@ -81,6 +47,43 @@ int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const cha
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send wifi ap\n");
     return rc;
+}
+
+static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count) {
+    //  Filter function will be called with the current AP and saved row count.  Return true if the AP should be saved.
+    //  (1) We skip the SSID MAC if it matches any skip_ssid pattern.
+    //  (2) We skip SSID MACs that look similar, e.g. they differ only in the first and last bytes.  Similar SSID MACs
+    //  probably belong to the same WiFi router configured with multiple addresses.
+    int i;
+    for (i = 0; ; i++) {  //  Match against all skip_ssid patterns...
+        mac_pattern *pattern = &skip_ssid[i];
+        if (!pattern[0][0] && !pattern[0][1] && !pattern[0][2] && !pattern[0][3] && !pattern[0][4] && !pattern[0][5]) { break; }  //  LAST_MAC_PATTERN
+        if (mac_matches_pattern(ap->bssid, pattern)) { return false; }  //  Matches the skip_ssid pattern, don't save.
+    }
+    for (i = 0; i < count; i++) {  //  Compare with all saved SSID MAC addresses...
+        uint8_t *saved_bssid = wifi_aps[i].bssid;
+        if (similar_mac(ap->bssid, saved_bssid)) { return false; }  //  Similar to a saved SSID MAC address, don't save.
+    }
+    return true;  //  Save this AP since it doesn't match any skip_ssid and it's not similar to saved APs.
+}
+
+static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern) {
+    //  Return true if the SSID MAC matches the MAC address pattern.
+    //  console_printf("match pattern "); console_dump(bssid, 6); console_printf("\n");
+    int i;
+    for (i = 0; i < 6; i++) {
+        if (pattern[0][i] == ANY) { continue; }
+        if (bssid[i] != pattern[0][i]) { return false; }
+    }
+    return true;
+}
+
+static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]) {
+    //  Return true if the two SSID MACs are identical except the first and last bytes.
+    //  console_printf("similar mac "); console_dump(bssid1, 6); console_printf(" / "); console_dump(bssid2, 6);  console_printf("\n");
+    if (bssid1[1] == bssid2[1] && bssid1[2] == bssid2[2] &&
+        bssid1[3] == bssid2[3] && bssid1[4] == bssid2[4]) { return true; }
+    return false;
 }
 
 static char buf[20];  //  Buffer for JSON keys and values.  Long enough to hold a MAC address like "00:25:9c:cf:1c:ac"
