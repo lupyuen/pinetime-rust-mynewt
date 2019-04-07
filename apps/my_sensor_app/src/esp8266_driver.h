@@ -22,10 +22,10 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 //  Various timeouts for different ESP8266 operations, in milliseconds.
 #define ESP8266_CONNECT_TIMEOUT     10000  //  10  seconds: Timeout for connecting to WiFi access point
-#define ESP8266_SEND_TIMEOUT         2000  //  2   seconds: Timeout for sending a packet
-#define ESP8266_RECV_TIMEOUT            0  //  0   seconds: Timeout for receiving a packet
-#define ESP8266_SCAN_TIMEOUT        15000  //  15  seconds: Timeout for scanning WiFi access points
-#define ESP8266_MISC_TIMEOUT         2000  //  2   seconds: Timeout for opening a socket
+#define ESP8266_SEND_TIMEOUT        10000  //  10  seconds: Timeout for sending a packet
+#define ESP8266_RECV_TIMEOUT            0  //   0  seconds: Timeout for receiving a packet
+#define ESP8266_SCAN_TIMEOUT        30000  //  30  seconds: Timeout for scanning WiFi access points
+#define ESP8266_MISC_TIMEOUT         2000  //   2  seconds: Timeout for opening a socket
 
 typedef bool filter_func_t0(nsapi_wifi_ap_t *, unsigned);
 

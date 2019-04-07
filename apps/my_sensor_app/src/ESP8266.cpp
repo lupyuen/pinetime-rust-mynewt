@@ -80,7 +80,7 @@ bool ESP8266::startup(int mode)
 
 bool ESP8266::reset(void)
 {
-    debug_vrecv = 1;  ////    
+    //  debug_vrecv = 1;  ////    
     bool ret = false;
     for (int i = 0; i < 2; i++) {
         if (
@@ -100,7 +100,7 @@ bool ESP8266::reset(void)
         }
     }
     console_printf(ret ? "ESP reset OK\n" : "ESP reset FAILED\n"); console_flush(); 
-    debug_vrecv = 0;  ////    
+    //  debug_vrecv = 0;  ////    
     return true;
 }
 
@@ -268,14 +268,14 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
                 const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
                 int size = m->om_len;  //  Fetch the size.
                 console_dump((const uint8_t *) data, size); console_printf("\n");
-                if (_parser.write(data, size) < 0
-                    || !_parser.recv("SEND OK")) {  //  If the writing failed, retry.
+                if (_parser.write(data, size) < 0) {   //  If the writing failed, retry.
                     failed = true;
                     break;
                 }
                 m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
             }
-            if (failed) { break; }  //  If the writing failed, retry.
+            if (failed) { break; }
+            if (!_parser.recv("SEND OK")) { break; }
             console_printf("ESP send mbuf OK: %u\n", (unsigned) amount);  console_flush();
             return true;
         }
