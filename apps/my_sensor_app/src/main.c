@@ -109,6 +109,9 @@ static void sensor_task(void *arg) {
     while (1) {  //  Loop forever...        
         send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
         tmp += 0.1;                                           //  Simulate change in sensor data.
+
+        console_printf("  ? free mbuf: %d\n", os_msys_num_free());
+
         os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }
 }
