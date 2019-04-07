@@ -230,16 +230,45 @@ bool ESP8266::open(const char *type, int id, const char* addr, int port)
 
 bool ESP8266::send(int id, const void *data, uint32_t amount)
 {
-    //May take a second try if device is busy
+    //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
             && _parser.recv(">")
             && _parser.write((char*)data, (int)amount) >= 0) {
-            console_printf("ESP send OK\n");  console_flush();
+            console_printf("ESP send OK: %u\n", (unsigned) amount);  console_flush();
             return true;
         }
     }
-    console_printf("ESP send FAILED\n");  console_flush();
+    console_printf("ESP send FAILED: %u\n", (unsigned) amount);  console_flush();
+    return false;
+}
+
+bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
+{
+    //  Send the chain of mbufs.
+    uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
+    //  May take a second try if device is busy
+    for (unsigned i = 0; i < 2; i++) {
+        if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
+            && _parser.recv(">")) {
+            struct os_mbuf *m = m0;
+            bool failed = false;
+            while (m) {  //  For each mbuf in the list...
+                const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
+                int size = m->om_len;  //  Fetch the size.
+                console_dump((const uint8_t *) data, size); console_printf("\n");
+                if (_parser.write(data, size) < 0) {  //  If the writing failed, retry.
+                    failed = true;
+                    break;
+                }
+                m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
+            }
+            if (failed) { break; }  //  If the writing failed, retry.
+            console_printf("ESP send mbuf OK: %u\n", (unsigned) amount);  console_flush();
+            return true;
+        }
+    }
+    console_printf("ESP send mbuf FAILED: %u\n", (unsigned) amount);  console_flush();
     return false;
 }
 

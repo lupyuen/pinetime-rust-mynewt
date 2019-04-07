@@ -160,6 +160,15 @@ public:
     bool send(int id, const void *data, uint32_t amount);
 
     /**
+    * Sends chain of mbufs to an open socket
+    *
+    * @param id id of socket to send to
+    * @param m0 chain of mbufs to be sent
+    * @return true only if data sent successfully
+    */
+    bool sendMBuf(int id,  struct os_mbuf *m0);
+
+    /**
     * Receives data from an open socket
     *
     * @param id id to receive from

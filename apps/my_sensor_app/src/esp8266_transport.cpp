@@ -65,46 +65,24 @@ int init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
     return 0;
 }
 
-static char esp8266_mbuf_buffer[ESP8266_TX_BUFFER_SIZE];  //  Buffer that contains the consolidated UDP packet.
-static int esp8266_mbuf_index;  //  Next index for writing into esp8266_mbuf_buffer. 
-
-static void oc_tx_ucast(struct os_mbuf *m0) {
+static void oc_tx_ucast(struct os_mbuf *m) {
     //  Transmit the mbuf to the network over UDP.  First mbuf is CoAP header, second mbuf is CoAP payload.
     //  Dump out each mbuf in the linked list.
     console_printf("  > send UDP packet\n");
-    struct os_mbuf *m = m0;
-    ////struct esp8266_endpoint *endpoint = NULL;
-    ////int ep_size = oc_ep_size(NULL);  assert(ep_size > 0);
 
     //  Find the endpoint header.  Should be the end of the packet header of the first packet.
     assert(OS_MBUF_USRHDR_LEN(m) >= sizeof(struct esp8266_endpoint));
     struct esp8266_endpoint *endpoint = (struct esp8266_endpoint *) OC_MBUF_ENDPOINT(m);
 
-    esp8266_mbuf_index = 0;
-    while (m) {  //  For each mbuf in the list...
-        assert(m->om_data);
-        if (m->om_pkthdr_len) { console_printf("Header: %d\n", m->om_pkthdr_len); console_dump(m->om_databuf, m->om_pkthdr_len); console_printf("\n"); }
-        if (m->om_len) { console_printf("Data: %d\n", m->om_len); console_dump(m->om_data, m->om_len); console_printf("\n"); }
-
-        //  Find the endpoint header.  Should be the end of the packet header of the first packet.
-        ////if (m->om_pkthdr_len >= ep_size) { endpoint = (esp8266_endpoint *) &m->om_databuf[m->om_pkthdr_len - ep_size]; }
-
-        //  Consolidate the CoAP header and payload for sending.
-        assert(esp8266_mbuf_index + m->om_len <= ESP8266_TX_BUFFER_SIZE);  //  Buffer too small.
-        memcpy(&esp8266_mbuf_buffer[esp8266_mbuf_index], m->om_data, m->om_len);
-        esp8266_mbuf_index += m->om_len;
-
-        m = m->om_next.sle_next;  //  Fetch next mbuf in the list.
-    }
-    //  After consolidating, free the chain of mbufs.
-    int rc = os_mbuf_free_chain(m0);  assert(rc == 0);
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
-    assert(driver);  assert(socket);  assert(esp8266_mbuf_index > 0);
+    assert(driver);  assert(socket);
 
     //  Send the consolidated buffer via UDP.
-    rc = esp8266_socket_send(driver, socket, esp8266_mbuf_buffer, esp8266_mbuf_index);  
-    assert(rc > 0);
+    int rc = esp8266_socket_send_mbuf(driver, socket, m);  assert(rc > 0);
+
+    //  After sending, free the chain of mbufs.
+    rc = os_mbuf_free_chain(m);  assert(rc == 0);
 }
 
 static uint8_t oc_ep_size(const struct oc_endpoint *oe) {

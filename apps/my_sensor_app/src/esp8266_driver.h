@@ -79,6 +79,7 @@ int esp8266_socket_open(struct sensor_itf *itf, void **handle, nsapi_protocol_t 
 int esp8266_socket_close(struct sensor_itf *itf, void *handle);
 int esp8266_socket_connect(struct sensor_itf *itf, void *handle, const char *host, uint16_t port);
 int esp8266_socket_send(struct sensor_itf *itf, void *handle, const void *data, unsigned size);
+int esp8266_socket_send_mbuf(struct sensor_itf *itf, void *handle, struct os_mbuf *m);
 int esp8266_socket_sendto(struct sensor_itf *itf, void *handle, const char *host, uint16_t port, const void *data, unsigned size);
 void esp8266_socket_attach(struct sensor_itf *itf, void *handle, void (*callback)(void *), void *data);
 

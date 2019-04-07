@@ -258,6 +258,17 @@ int esp8266_socket_send(struct sensor_itf *itf, void *handle, const void *data, 
     return size;
 }
 
+int esp8266_socket_send_mbuf(struct sensor_itf *itf, void *handle, struct os_mbuf *m) {
+    //  Send the chain of mbufs to the socket.
+    struct esp8266_socket *socket = (struct esp8266_socket *)handle;
+    drv(itf)->setTimeout(ESP8266_SEND_TIMEOUT);
+    if (!drv(itf)->sendMBuf(socket->id, m)) {
+        return NSAPI_ERROR_DEVICE_ERROR;
+    }
+    int size = OS_MBUF_PKTLEN(m);  //  Length of the mbuf chain.
+    return size;
+}
+
 int esp8266_socket_sendto(struct sensor_itf *itf, void *handle, const char *host, uint16_t port, const void *data, unsigned size) {
     //  Note: Host must point to a static string that will never change.
     struct esp8266_socket *socket = (struct esp8266_socket *)handle;
