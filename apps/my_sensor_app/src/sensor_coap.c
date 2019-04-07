@@ -71,6 +71,11 @@ dispatch_coap_request(void)
         } else {
             os_mbuf_free_chain(oc_c_message);
         }
+
+        //  Deallocate the client callback for the message ID.  We won't be processing the response from server.  
+        //  TODO: Handle errors from server.
+        oc_ri_remove_client_cb_by_mid(oc_c_request->mid);
+
         oc_c_message = NULL;
         ret = true;
     }
