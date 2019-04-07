@@ -32,6 +32,7 @@ static struct os_mbuf *oc_c_message;  //  Contains the CoAP headers.
 static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
 static coap_packet_t oc_c_request[1]; //  CoAP request.
 static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
+static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready for sending sensor data.
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
@@ -40,7 +41,13 @@ int init_sensor_coap(void) {
     //  Init the Sensor CoAP module. 
     os_error_t rc = os_sem_init(&oc_sem, 1);  //  Init to 1 token, so only 1 caller will be allowed.
     assert(rc == OS_OK);
+    oc_sensor_coap_ready = true;
     return 0;
+}
+
+bool sensor_coap_ready(void) {
+    //  Return true if the Sensor CoAP is ready for sending sensor data.
+    return oc_sensor_coap_ready;
 }
 
 static void handle_coap_response(oc_client_response_t *data) {
