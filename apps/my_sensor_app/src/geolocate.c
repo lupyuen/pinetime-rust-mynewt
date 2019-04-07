@@ -18,16 +18,20 @@ int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const cha
     //  the first 3 access points to thethings.io.  itf is the ESP8266 interface.
     //  Return the number of access points transmitted.
     //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
-    int rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
-    os_time_delay(5 * OS_TICKS_PER_SEC);  //  Wait 5 seconds to clear the remaining ESP8266 input.
-    send_wifi_access_points(server, uri, wifi_aps, rc);
 
-    //    "macAddress": "00:25:9c:cf:1c:ac", "signalStrength": -43,
-    console_printf("*** %02x\n", 0xa);
+    //  Scan for nearby WiFi access points and take the first 3 (or fewer) access points.
+    //  TODO: If ESP8266 is connected to a mobile hotspot, we should remove the mobile hotspot access point from the list.
+    int rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
+
+    //  Wait 5 seconds to clear the remaining ESP8266 input beyond the first 3 access points.
+    os_time_delay(5 * OS_TICKS_PER_SEC);
+
+    //  Send the first 3 access points (or fewer) to thethings.io, which will call Google Geolocation API.
+    send_wifi_access_points(server, uri, wifi_aps, rc);  
     return rc;
 }
 
-static char buf[20];  //  Long enough to hold "00:25:9c:cf:1c:ac"
+static char buf[20];  //  Buffer for JSON keys and values.  Long enough to hold a MAC address like "00:25:9c:cf:1c:ac"
 
 static void send_wifi_access_points(struct oc_server_handle *server, const char *uri, 
     const nsapi_wifi_ap_t *access_points, int length) {
