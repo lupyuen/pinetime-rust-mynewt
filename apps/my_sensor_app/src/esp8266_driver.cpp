@@ -135,11 +135,11 @@ int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
 static ESP8266 *drv(struct sensor_itf *itf) { return &driver; }  //  TODO: Return the ESP8266 Driver based on itf.si_num
 static esp8266_cfg *cfg(struct sensor_itf *itf) { return &esp8266.cfg; }  //  TODO: Return the ESP8266 Config based on itf.si_num
 
-int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit) {
+int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func) {
     //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
     assert(itf);  assert(res);
     drv(itf)->setTimeout(ESP8266_SCAN_TIMEOUT);
-    return drv(itf)->scan(res, limit);
+    return drv(itf)->scan(res, limit, filter_func);
 }
 
 int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass) {

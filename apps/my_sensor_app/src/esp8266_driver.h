@@ -27,6 +27,8 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #define ESP8266_SCAN_TIMEOUT        15000  //  15  seconds: Timeout for scanning WiFi access points
 #define ESP8266_MISC_TIMEOUT        500    //  0.5 seconds: Timeout for opening a socket
 
+typedef bool filter_func_t0(nsapi_wifi_ap_t *, unsigned);
+
 //  ESP8266 Socket: Represents an ESP8266 socket that has been allocated.
 struct esp8266_socket {
     int id;
@@ -63,7 +65,7 @@ struct esp8266 {
 int init_esp8266(void);  //  Init the Mynewt sensor device for ESP8266.
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);  //  Configure the ESP8266 driver.
-int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit);  //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
+int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);  //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
 
 int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass);  //  Connect to the WiFi access point with the SSID and password.
 int esp8266_set_credentials(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security);      //  Save the credentials for the WiFi access point.

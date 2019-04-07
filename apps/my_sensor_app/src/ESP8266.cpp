@@ -197,8 +197,6 @@ bool ESP8266::isConnected(void)
     return getIPAddress() != 0;
 }
 
-typedef bool filter_func_t(nsapi_wifi_ap_t *, unsigned);
-
 int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_func)
 {
     unsigned cnt = 0;
@@ -246,7 +244,8 @@ bool ESP8266::send(int id, const void *data, uint32_t amount)
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
             && _parser.recv(">")
-            && _parser.write((char*)data, (int)amount) >= 0) {
+            && _parser.write((char*)data, (int)amount) >= 0 
+            && _parser.recv("SEND OK")) {
             console_printf("ESP send OK: %u\n", (unsigned) amount);  console_flush();
             return true;
         }
@@ -269,7 +268,8 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
                 const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
                 int size = m->om_len;  //  Fetch the size.
                 console_dump((const uint8_t *) data, size); console_printf("\n");
-                if (_parser.write(data, size) < 0) {  //  If the writing failed, retry.
+                if (_parser.write(data, size) < 0
+                    || !_parser.recv("SEND OK")) {  //  If the writing failed, retry.
                     failed = true;
                     break;
                 }
