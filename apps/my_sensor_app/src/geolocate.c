@@ -15,7 +15,7 @@ typedef int16_t mac_pattern[6];  //  MAC address pattern for filtering out unwan
 //  Skip SSIDs that match these MAC addresses.  Add your mobile hotspots here because they 
 //  are not useful for WiFi geolocation.  ANY is a wildcard that matches any value for a byte.
 static mac_pattern skip_ssid[] = {
-    { 0xfc, 0xe9, 0x98, ANY, ANY, ANY },
+    { 0xfc, 0xe9, 0x98, ANY, ANY, ANY },  //  Exclude my iPhone hotspot, which has address fc:39:98:*:*:*
     LAST_MAC_PATTERN
 };
 
