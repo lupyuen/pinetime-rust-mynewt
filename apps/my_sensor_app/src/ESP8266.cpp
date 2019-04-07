@@ -197,7 +197,9 @@ bool ESP8266::isConnected(void)
     return getIPAddress() != 0;
 }
 
-int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit)
+typedef bool filter_func_t(nsapi_wifi_ap_t *, unsigned);
+
+int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_func)
 {
     unsigned cnt = 0;
     nsapi_wifi_ap_t ap;
@@ -206,8 +208,12 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit)
     }
     //  debug_vrecv = 1;  ////
     while (recv_ap(&ap)) {
+        //  Call the filter function to determine if we should record this access point.
+        const bool filter = filter_func ? filter_func(&ap, cnt) : true;
+        if (!filter) { continue; }  //  Caller says skip this access point.
+
         if (cnt < limit) {
-            memcpy(&res[cnt], &ap, sizeof(ap));
+            memcpy(&res[cnt], &ap, sizeof(ap));  //  Copy the access point.
         }
         cnt++;
         if (limit != 0 && cnt >= limit) {

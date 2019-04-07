@@ -7,6 +7,36 @@
 #include "geolocate.h"
 
 #define MAX_WIFI_AP 3  //  Scan at most 3 WiFi access points.
+#define ANY -1         //  Wildcard in a MAC address pattern that matches any value for a byte.
+#define LAST_MAC_PATTERN { 0, 0, 0, 0, 0, 0 }  //  skip_ssid must end with LAST_MAC_PATTERN
+
+typedef int16_t mac_pattern[6];  //  MAC address pattern for filtering out unwanted SSID MAC addresses.
+
+//  Skip SSIDs that match these MAC addresses.  Add your mobile hotspots here because they 
+//  are not useful for WiFi geolocation.  ANY is a wildcard that matches any value for a byte.
+static mac_pattern skip_ssid[] = {
+    { 0xfc, 0xe9, 0x98, ANY, ANY, ANY },
+    LAST_MAC_PATTERN
+};
+
+static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern pattern) {
+    //  Return true if the SSID MAC matches the MAC address pattern.
+    int i;
+    for (i = 0; i < 6; i++) {
+        if (pattern[i] == ANY) { continue; }
+        if (bssid[i] != pattern[i]) { return false; }
+    }
+    return true;
+}
+
+static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]) {
+    //  Return true if the two SSID MACs are identical except the last byte.    
+    //  Skip SSID MACs that look similar, e.g. they differ only in the last byte.  Similar SSID MACs
+    //  probably belong to the same WiFi router configured with multiple addresses.
+    if (bssid1[0] == bssid2[0] && bssid1[1] == bssid2[1] && bssid1[2] == bssid2[2] &&
+        bssid1[3] == bssid2[3] && bssid1[4] == bssid2[4]) { return true; }
+    return false;
+}
 
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
@@ -23,7 +53,7 @@ int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const cha
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
     //  Scan for nearby WiFi access points and take the first 3 (or fewer) access points.
-    //  TODO: If ESP8266 is connected to a mobile hotspot, we should remove the mobile hotspot access point from the list.
+    //  If ESP8266 is connected to a mobile hotspot, we should remove the mobile hotspot access point from the list.
     rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP); assert(rc > 0 && rc <= MAX_WIFI_AP);
 
     //  Send the first 3 access points (or fewer) to thethings.io, which will call Google Geolocation API.
