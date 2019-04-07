@@ -1,5 +1,7 @@
-//  Post sensor data to CoAP server with JSON or CBOR encoding.
-//  Simpler version of oc_client_api that supports sensors and JSON.  Original version: repos\apache-mynewt-core\net\oic\src\api\oc_client_api.c
+//  Post sensor data to CoAP server with JSON or CBOR encoding.  We call the Mynewt OIC
+//  interface to encode and transmit CoAP messages.  For ESP8266, the OIC interface
+//  is implemented by esp8266_transport.h.  This is a simpler version of oc_client_api 
+//  that supports sensors and JSON.  Original version: repos\apache-mynewt-core\net\oic\src\api\oc_client_api.c
 /*
     // Copyright (c) 2016 Intel Corporation
     //
@@ -41,6 +43,8 @@ static void handle_coap_response(oc_client_response_t *data) {
 static bool
 dispatch_coap_request(void)
 {
+    //  Serialise the CoAP request and payload into the final mbuf format for transmitting.
+    //  Forward the serialised mbuf to the background transmit task for transmitting.
     int response_length = rep_finalize();
 
     if (response_length) {
@@ -67,6 +71,7 @@ dispatch_coap_request(void)
 static bool
 prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
 {
+    //  Prepare a new CoAP request for transmitting sensor data.
     coap_message_type_t type = COAP_TYPE_NON;
 
     oc_c_rsp = os_msys_get_pkthdr(0, 0);
@@ -104,8 +109,8 @@ free_rsp:
 bool
 init_sensor_post(struct oc_server_handle *server, const char *uri)
 {
-    assert(server);
-    assert(uri);
+    //  Create a new sensor post request to send to CoAP server.
+    assert(server);  assert(uri);
     oc_qos_t qos = LOW_QOS;  //  Default to low QoS, no transactions.
     oc_response_handler_t handler = handle_coap_response;
     oc_client_cb_t *cb;
@@ -116,17 +121,13 @@ init_sensor_post(struct oc_server_handle *server, const char *uri)
         return false;
     }
     status = prepare_coap_request(cb, NULL);
-
-    //  Set the CoAP server hostname and port into the request.
-    oc_c_request[0].uri_host = "zzz";  //  TODO: server->endpoint.ep.
-    oc_c_request[0].uri_host_len = strlen(oc_c_request[0].uri_host);
-    oc_c_request[0].uri_port = COAP_DEFAULT_PORT;  //  TODO: server->endpoint.ep.
     return status;
 }
 
 bool
 do_sensor_post(void)
 {
+    //  Send the sensor post request to CoAP server.
     return dispatch_coap_request();
 }
 

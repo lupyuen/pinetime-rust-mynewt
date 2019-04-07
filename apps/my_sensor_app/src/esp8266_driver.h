@@ -1,10 +1,10 @@
-//  ESP8266 driver for Apache Mynewt
+//  ESP8266 Driver for Apache Mynewt.  Functions for creating the driver instance and performing ESP8266 functions.
+//  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
 #ifndef __ESP8266_DRIVER_H__
 #define __ESP8266_DRIVER_H__
 
 #include <os/os.h>
 #include <sensor/sensor.h>
-#include <oic/port/oc_connectivity.h>
 #include "network.h"
 #include "wifi.h"
 
@@ -12,24 +12,19 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
-#define COAP_PORT_UNSECURED (5683)  //  Port number for CoAP Unsecured
 #define ESP8266_DEVICE "esp8266_0"
 #define ESP8266_SOCKET_COUNT 2  //  Max number of concurrent TCP+UDP connections allowed.
 
-struct oc_server_handle;
+//  Use static buffers to avoid dynamic memory allocation (new, delete)
+#define ESP8266_TX_BUFFER_SIZE      400  //  Must be large enough to hold sensor and geolocation CoAP UDP messages.
+#define ESP8266_RX_BUFFER_SIZE      256
+#define ESP8266_PARSER_BUFFER_SIZE  256
 
-//  ESP8266 Endpoint
-struct esp8266_endpoint {
-    struct oc_ep_hdr ep;  //  Don't change, must be first field.  Will be initialised upon use.
-    const char *host;     //  Must point to static string that will not change.
-    uint16_t port;
-};
-
-//  ESP8266 Server Endpoint
-struct esp8266_server {
-    struct esp8266_endpoint endpoint;  //  Don't change, must be first field.
-    struct oc_server_handle *handle;   //  Actually points back to itself.  Set here for convenience.
-};
+//  Various timeouts for different ESP8266 operations
+#define ESP8266_CONNECT_TIMEOUT     15000
+#define ESP8266_SEND_TIMEOUT        500
+#define ESP8266_RECV_TIMEOUT        0
+#define ESP8266_MISC_TIMEOUT        500
 
 //  ESP8266 Socket
 struct esp8266_socket {
@@ -64,18 +59,14 @@ struct esp8266 {
     struct esp8266_cfg cfg;
 };
 
-void init_esp8266(void);  //  Init the Mynewt sensor device for ESP8266.
-void init_esp8266_endpoint(struct esp8266_endpoint *endpoint);  //  Init the endpoint before use.
-void init_esp8266_server(struct esp8266_server *server);        //  Init the server endpoint before use.
-void esp8266_register_transport(void);  //  Register the CoAP transport for ESP8266.
+int init_esp8266(void);  //  Init the Mynewt sensor device for ESP8266.
 
-int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);
-int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit);
-int esp8266_send_udp(struct sensor_itf *itf, const char *host, uint16_t port, const char *buffer, int length);
+int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);  //  Configure the ESP8266 driver.
+int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit);  //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
 
-int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass);
-int esp8266_set_credentials(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security);
-int esp8266_disconnect(struct sensor_itf *itf);
+int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass);  //  Connect to the WiFi access point with the SSID and password.
+int esp8266_set_credentials(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security);      //  Save the credentials for the WiFi access point.
+int esp8266_disconnect(struct sensor_itf *itf);  //  Disconnect from the WiFi access point.
 
 const char *esp8266_get_ip_address(struct sensor_itf *itf);
 const char *esp8266_get_mac_address(struct sensor_itf *itf);

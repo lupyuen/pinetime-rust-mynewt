@@ -25,6 +25,7 @@
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "sensor_coap.h"
 #include "esp8266_driver.h"
+#include "esp8266_transport.h"
 #include "geolocate.h"
 #include "sensor.h"
 
@@ -50,13 +51,18 @@ static struct esp8266_server coap_server = {
 int main(int argc, char **argv) {
     //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send
     //  sensor data.
-    sysinit();           //  Initialize all packages.  Create the sensors.
-    //  init_sensors();  //  Init the sensors.    
-    init_esp8266();      //  Init the ESP8266 driver.
-    esp8266_register_transport();       //  Register the ESP8266 driver as a transport for CoAP.
-    init_esp8266_server(&coap_server);  //  Init the CoAP server endpoint before use.
+    int rc;
+    //  Initialize all packages.  Create the sensors.  Start background task for OIC to transmit CoAP requests.
+    sysinit();           
 
-    int rc = init_tasks();  assert(rc == 0);  //  Start the background tasks.
+    //  Initialize the sensors. 
+    //  rc = init_sensors();  assert(rc == 0);
+
+    //  Initialize the ESP8266 driver.
+    rc = init_esp8266();  assert(rc == 0); 
+
+    //  Start the background tasks.
+    rc = init_tasks();  assert(rc == 0);
 
     while (1) {                   //  Loop forever...
         os_eventq_run(            //  Process events...
@@ -89,6 +95,9 @@ static void sensor_task(void *arg) {
 
     //  Connect to WiFi access point.
     int rc = esp8266_connect(itf, "my_ssid", "my_password_is_secret");  assert(rc == 0);
+
+    //  Register the ESP8266 driver as the network transport for CoAP.
+    rc = esp8266_register_transport(itf, &coap_server);  assert(rc == 0);
 
     //  Geolocate the device by sending WiFi Access Point info.
     geolocate(itf, coap_server.handle, COAP_URI);

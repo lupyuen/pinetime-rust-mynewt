@@ -1,10 +1,14 @@
-//  Post sensor data to CoAP server with JSON or CBOR encoding.
+//  Post sensor data to CoAP server with JSON or CBOR encoding.  We call the Mynewt OIC
+//  interface to encode and transmit CoAP messages.  For ESP8266, the OIC interface
+//  is implemented by esp8266_transport.h.
 #ifndef __SENSOR_COAP_H__
 #define __SENSOR_COAP_H__
 
 #ifdef __cplusplus
-extern "C" {
+extern "C" {  //  Expose the types and functions below to C functions.
 #endif
+
+#define COAP_PORT_UNSECURED (5683)  //  Port number for CoAP Unsecured
 
 struct oc_server_handle;
 
