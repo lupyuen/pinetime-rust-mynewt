@@ -1,3 +1,4 @@
+//  Based on adc_stm32f4. We currently support blocking reads, not interrupts (marked by #ifdef TODO).
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -35,10 +36,12 @@
 #include <adc/adc.h>
 #endif
 
+#ifdef TODO
 #define STM32F1_IS_DMA_ADC_CHANNEL(CHANNEL) ((CHANNEL) <= DMA_CHANNEL_2)
 
 static DMA_HandleTypeDef *dma_handle[5];
 static struct adc_dev *adc_dma[5];
+#endif  //  TODO
 
 struct stm32f1_adc_stats {
     uint16_t adc_events;
@@ -215,11 +218,12 @@ done:
         .Pin = pin,
         .Mode = GPIO_MODE_ANALOG,
         .Pull = GPIO_NOPULL,
-        .Alternate = pin
+        //// .Alternate = pin
     };
     return rc;
 }
 
+#ifdef TODO
 static IRQn_Type
 stm32f1_resolve_adc_dma_irq(DMA_HandleTypeDef *hdma)
 {
@@ -300,6 +304,7 @@ stm32f1_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
     return ((stream_addr & 0xFF) - ((uintptr_t)DMA2_Stream0_BASE & 0xFF))/0x18;
 }
+#endif  //  TODO
 
 void
 HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
@@ -318,6 +323,7 @@ HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
     }
 }
 
+#ifdef TODO
 /**
  * Callback that gets called by the HAL when ADC conversion is complete and
  * the DMA buffer is full. If a secondary buffer exists it will the buffers.
@@ -367,17 +373,20 @@ HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
         ++stm32f1_adc_stats.adc_error;
     }
 }
+#endif  //  TODO
 
 static void
 stm32f1_adc_dma_init(ADC_HandleTypeDef* hadc)
 {
-
+#ifdef TODO
     DMA_HandleTypeDef *hdma;
-
+#endif  //  TODO
     assert(hadc);
+#ifdef TODO
     hdma = hadc->DMA_Handle;
-
+#endif  //  TODO
     stm32f1_adc_clk_enable(hadc);
+#ifdef TODO
     __HAL_RCC_DMA2_CLK_ENABLE();
 
     HAL_DMA_Init(hdma);
@@ -388,7 +397,7 @@ stm32f1_adc_dma_init(ADC_HandleTypeDef* hadc)
     NVIC_SetVector(stm32f1_resolve_adc_dma_irq(hdma),
                    stm32f1_resolve_adc_dma_irq_handler(hdma));
     NVIC_EnableIRQ(stm32f1_resolve_adc_dma_irq(hdma));
-
+#endif  //  TODO
 }
 
 static void
@@ -413,7 +422,7 @@ static void
 stm32f1_adc_uninit(struct adc_dev *dev)
 {
     GPIO_InitTypeDef gpio_td;
-    DMA_HandleTypeDef *hdma;
+    ////  DMA_HandleTypeDef *hdma;
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
     uint8_t cnum;
@@ -421,16 +430,18 @@ stm32f1_adc_uninit(struct adc_dev *dev)
     assert(dev);
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
-    hdma = hadc->DMA_Handle;
+    ////  hdma = hadc->DMA_Handle;
     cnum = dev->ad_chans->c_cnum;
 
+#ifdef TODO
     __HAL_RCC_DMA2_CLK_DISABLE();
     if (HAL_DMA_DeInit(hdma) != HAL_OK) {
         assert(0);
     }
+#endif  //  TODO
     stm32f1_adc_clk_disable(hadc);
 
-    NVIC_DisableIRQ(stm32f1_resolve_adc_dma_irq(hdma));
+    ////  NVIC_DisableIRQ(stm32f1_resolve_adc_dma_irq(hdma));
 
     if (stm32f1_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
         goto err;
@@ -460,9 +471,11 @@ err:
 static int
 stm32f1_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
 {
+#ifdef TODO
     DMA_HandleTypeDef *hdma;
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
+#endif  //  TODO
     struct adc_dev *dev;
     int rc;
 
@@ -485,11 +498,13 @@ stm32f1_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
 
     stm32f1_adc_init(dev);
 
+#ifdef TODO    
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
     hdma = hadc->DMA_Handle;
 
     adc_dma[stm32f1_resolve_dma_handle_idx(hdma)] = dev;
+#endif  //  TODO    
 
     return (OS_OK);
 err:
@@ -572,6 +587,7 @@ err:
     return (rc);
 }
 
+#ifdef TODO
 /**
  * Set buffer to read data into.  Implementation of setbuffer handler.
  * Sets both the primary and secondary buffers for DMA.
@@ -614,6 +630,7 @@ stm32f1_adc_release_buffer(struct adc_dev *dev, void *buf, int buf_len)
 
     return (0);
 }
+#endif  //  TODO
 
 /**
  * Trigger an ADC sample.
@@ -706,8 +723,8 @@ static const struct adc_driver_funcs stm32f1_adc_funcs = {
         .af_configure_channel = stm32f1_adc_configure_channel,
         .af_sample = stm32f1_adc_sample,
         .af_read_channel = stm32f1_adc_read_channel,
-        .af_set_buffer = stm32f1_adc_set_buffer,
-        .af_release_buffer = stm32f1_adc_release_buffer,
+        .af_set_buffer = NULL,  ///// stm32f1_adc_set_buffer,
+        .af_release_buffer = NULL, //// stm32f1_adc_release_buffer,
         .af_read_buffer = stm32f1_adc_read_buffer,
         .af_size_buffer = stm32f1_adc_size_buffer,
 };
