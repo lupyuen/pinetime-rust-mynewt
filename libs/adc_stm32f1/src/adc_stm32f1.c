@@ -630,6 +630,22 @@ stm32f1_adc_release_buffer(struct adc_dev *dev, void *buf, int buf_len)
 
     return (0);
 }
+#else
+//  Catch calls to these functions
+static int
+stm32f1_adc_set_buffer(struct adc_dev *dev, void *buf1, void *buf2,
+        int buflen)
+{
+    assert(0);  //  Not implemented.
+    return (0);
+}
+
+static int
+stm32f1_adc_release_buffer(struct adc_dev *dev, void *buf, int buf_len)
+{
+    assert(0);  //  Not implemented.
+    return (0);
+}
 #endif  //  TODO
 
 /**
@@ -723,8 +739,8 @@ static const struct adc_driver_funcs stm32f1_adc_funcs = {
         .af_configure_channel = stm32f1_adc_configure_channel,
         .af_sample = stm32f1_adc_sample,
         .af_read_channel = stm32f1_adc_read_channel,
-        .af_set_buffer = NULL,  ///// stm32f1_adc_set_buffer,
-        .af_release_buffer = NULL, //// stm32f1_adc_release_buffer,
+        .af_set_buffer = stm32f1_adc_set_buffer,
+        .af_release_buffer = stm32f1_adc_release_buffer,
         .af_read_buffer = stm32f1_adc_read_buffer,
         .af_size_buffer = stm32f1_adc_size_buffer,
 };
