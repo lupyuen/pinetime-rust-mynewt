@@ -22,25 +22,25 @@
 #include <assert.h>
 #include "os/mynewt.h"
 #include <mcu/cmsis_nvic.h>
-#include "stm32f4xx_hal_dma.h"
-#include "stm32f4xx_hal_adc.h"
-#include "stm32f4xx_hal_rcc.h"
-#include "stm32f4xx_hal_cortex.h"
-#include "stm32f4xx_hal.h"
-#include "adc_stm32f4/adc_stm32f4.h"
-#include "stm32f4xx_hal_dma.h"
-#include "mcu/stm32f4xx_mynewt_hal.h"
+#include "stm32f1xx_hal_dma.h"
+#include "stm32f1xx_hal_adc.h"
+#include "stm32f1xx_hal_rcc.h"
+#include "stm32f1xx_hal_cortex.h"
+#include "stm32f1xx_hal.h"
+#include "adc_stm32f1/adc_stm32f1.h"
+#include "stm32f1xx_hal_dma.h"
+#include "mcu/stm32f1xx_mynewt_hal.h"
 
 #if MYNEWT_VAL(ADC_1)||MYNEWT_VAL(ADC_2)||MYNEWT_VAL(ADC_3)
 #include <adc/adc.h>
 #endif
 
-#define STM32F4_IS_DMA_ADC_CHANNEL(CHANNEL) ((CHANNEL) <= DMA_CHANNEL_2)
+#define STM32F1_IS_DMA_ADC_CHANNEL(CHANNEL) ((CHANNEL) <= DMA_CHANNEL_2)
 
 static DMA_HandleTypeDef *dma_handle[5];
 static struct adc_dev *adc_dma[5];
 
-struct stm32f4_adc_stats {
+struct stm32f1_adc_stats {
     uint16_t adc_events;
     uint16_t adc_error;
     uint16_t adc_dma_xfer_failed;
@@ -51,10 +51,10 @@ struct stm32f4_adc_stats {
     uint16_t adc_internal_error;
 };
 
-static struct stm32f4_adc_stats stm32f4_adc_stats;
+static struct stm32f1_adc_stats stm32f1_adc_stats;
 
 static void
-stm32f4_adc_clk_enable(ADC_HandleTypeDef *hadc)
+stm32f1_adc_clk_enable(ADC_HandleTypeDef *hadc)
 {
     uintptr_t adc_addr = (uintptr_t)hadc->Instance;
 
@@ -80,7 +80,7 @@ stm32f4_adc_clk_enable(ADC_HandleTypeDef *hadc)
 }
 
 static void
-stm32f4_adc_clk_disable(ADC_HandleTypeDef *hadc)
+stm32f1_adc_clk_disable(ADC_HandleTypeDef *hadc)
 {
     uintptr_t adc_addr = (uintptr_t)hadc->Instance;
 
@@ -106,7 +106,7 @@ stm32f4_adc_clk_disable(ADC_HandleTypeDef *hadc)
 }
 
 static int
-stm32f4_resolve_adc_gpio(ADC_HandleTypeDef *adc, uint8_t cnum,
+stm32f1_resolve_adc_gpio(ADC_HandleTypeDef *adc, uint8_t cnum,
         GPIO_InitTypeDef *gpio)
 {
     uintptr_t adc_addr = (uintptr_t)adc->Instance;
@@ -221,11 +221,11 @@ done:
 }
 
 static IRQn_Type
-stm32f4_resolve_adc_dma_irq(DMA_HandleTypeDef *hdma)
+stm32f1_resolve_adc_dma_irq(DMA_HandleTypeDef *hdma)
 {
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
 
-    assert(STM32F4_IS_DMA_ADC_CHANNEL(hdma->Init.Channel));
+    assert(STM32F1_IS_DMA_ADC_CHANNEL(hdma->Init.Channel));
 
     switch(stream_addr) {
         /* DMA2 */
@@ -275,7 +275,7 @@ dma2_stream4_irq_handler(void)
 }
 
 uint32_t
-stm32f4_resolve_adc_dma_irq_handler(DMA_HandleTypeDef *hdma)
+stm32f1_resolve_adc_dma_irq_handler(DMA_HandleTypeDef *hdma)
 {
     switch((uintptr_t)hdma->Instance) {
         /* DMA2 */
@@ -295,7 +295,7 @@ stm32f4_resolve_adc_dma_irq_handler(DMA_HandleTypeDef *hdma)
 }
 
 static int
-stm32f4_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
+stm32f1_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
 {
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
     return ((stream_addr & 0xFF) - ((uintptr_t)DMA2_Stream0_BASE & 0xFF))/0x18;
@@ -304,17 +304,17 @@ stm32f4_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
 void
 HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
 {
-    ++stm32f4_adc_stats.adc_error;
+    ++stm32f1_adc_stats.adc_error;
 
     if (hadc->ErrorCode & HAL_ADC_ERROR_DMA) {
         /* DMA transfer error */
-        ++stm32f4_adc_stats.adc_dma_xfer_failed;
+        ++stm32f1_adc_stats.adc_dma_xfer_failed;
     } else if (hadc->ErrorCode & HAL_ADC_ERROR_OVR) {
         /* DMA transfer overrun */
-        ++stm32f4_adc_stats.adc_dma_overrun;
+        ++stm32f1_adc_stats.adc_dma_overrun;
     } else if (hadc->ErrorCode & HAL_ADC_ERROR_INTERNAL) {
        /* ADC IP Internal Error */
-        ++stm32f4_adc_stats.adc_internal_error;
+        ++stm32f1_adc_stats.adc_internal_error;
     }
 }
 
@@ -330,16 +330,16 @@ HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
     int rc;
     struct adc_dev *adc;
     DMA_HandleTypeDef *hdma;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
     void *buf;
 
     assert(hadc);
     hdma = hadc->DMA_Handle;
 
-    ++stm32f4_adc_stats.adc_dma_xfer_complete;
+    ++stm32f1_adc_stats.adc_dma_xfer_complete;
 
-    adc = adc_dma[stm32f4_resolve_dma_handle_idx(hdma)];
-    cfg  = (struct stm32f4_adc_dev_cfg *)adc->ad_dev.od_init_arg;
+    adc = adc_dma[stm32f1_resolve_dma_handle_idx(hdma)];
+    cfg  = (struct stm32f1_adc_dev_cfg *)adc->ad_dev.od_init_arg;
 
     buf = cfg->primarybuf;
     /**
@@ -356,7 +356,7 @@ HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
         cfg->secondarybuf = buf;
 
         if (HAL_ADC_Start_DMA(hadc, cfg->primarybuf, cfg->buflen) != HAL_OK) {
-            ++stm32f4_adc_stats.adc_dma_start_error;
+            ++stm32f1_adc_stats.adc_dma_start_error;
         }
     }
 
@@ -364,12 +364,12 @@ HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
                                     cfg->buflen);
 
     if (rc) {
-        ++stm32f4_adc_stats.adc_error;
+        ++stm32f1_adc_stats.adc_error;
     }
 }
 
 static void
-stm32f4_adc_dma_init(ADC_HandleTypeDef* hadc)
+stm32f1_adc_dma_init(ADC_HandleTypeDef* hadc)
 {
 
     DMA_HandleTypeDef *hdma;
@@ -377,32 +377,32 @@ stm32f4_adc_dma_init(ADC_HandleTypeDef* hadc)
     assert(hadc);
     hdma = hadc->DMA_Handle;
 
-    stm32f4_adc_clk_enable(hadc);
+    stm32f1_adc_clk_enable(hadc);
     __HAL_RCC_DMA2_CLK_ENABLE();
 
     HAL_DMA_Init(hdma);
-    dma_handle[stm32f4_resolve_dma_handle_idx(hdma)] = hdma;
+    dma_handle[stm32f1_resolve_dma_handle_idx(hdma)] = hdma;
 
-    NVIC_SetPriority(stm32f4_resolve_adc_dma_irq(hdma),
+    NVIC_SetPriority(stm32f1_resolve_adc_dma_irq(hdma),
                      NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-    NVIC_SetVector(stm32f4_resolve_adc_dma_irq(hdma),
-                   stm32f4_resolve_adc_dma_irq_handler(hdma));
-    NVIC_EnableIRQ(stm32f4_resolve_adc_dma_irq(hdma));
+    NVIC_SetVector(stm32f1_resolve_adc_dma_irq(hdma),
+                   stm32f1_resolve_adc_dma_irq_handler(hdma));
+    NVIC_EnableIRQ(stm32f1_resolve_adc_dma_irq(hdma));
 
 }
 
 static void
-stm32f4_adc_init(struct adc_dev *dev)
+stm32f1_adc_init(struct adc_dev *dev)
 {
-    struct stm32f4_adc_dev_cfg *adc_config;
+    struct stm32f1_adc_dev_cfg *adc_config;
     ADC_HandleTypeDef *hadc;
 
     assert(dev);
 
-    adc_config = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    adc_config = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = adc_config->sac_adc_handle;
 
-    stm32f4_adc_dma_init(hadc);
+    stm32f1_adc_dma_init(hadc);
 
     if (HAL_ADC_Init(hadc) != HAL_OK) {
         assert(0);
@@ -410,16 +410,16 @@ stm32f4_adc_init(struct adc_dev *dev)
 }
 
 static void
-stm32f4_adc_uninit(struct adc_dev *dev)
+stm32f1_adc_uninit(struct adc_dev *dev)
 {
     GPIO_InitTypeDef gpio_td;
     DMA_HandleTypeDef *hdma;
     ADC_HandleTypeDef *hadc;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
     uint8_t cnum;
 
     assert(dev);
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
     hdma = hadc->DMA_Handle;
     cnum = dev->ad_chans->c_cnum;
@@ -428,11 +428,11 @@ stm32f4_adc_uninit(struct adc_dev *dev)
     if (HAL_DMA_DeInit(hdma) != HAL_OK) {
         assert(0);
     }
-    stm32f4_adc_clk_disable(hadc);
+    stm32f1_adc_clk_disable(hadc);
 
-    NVIC_DisableIRQ(stm32f4_resolve_adc_dma_irq(hdma));
+    NVIC_DisableIRQ(stm32f1_resolve_adc_dma_irq(hdma));
 
-    if (stm32f4_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
+    if (stm32f1_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
         goto err;
     }
 
@@ -445,7 +445,7 @@ err:
 }
 
 /**
- * Open the STM32F4 ADC device
+ * Open the STM32F1 ADC device
  *
  * This function locks the device for access from other tasks.
  *
@@ -458,11 +458,11 @@ err:
  * @return 0 on success, non-zero on failure.
  */
 static int
-stm32f4_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
+stm32f1_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
 {
     DMA_HandleTypeDef *hdma;
     ADC_HandleTypeDef *hadc;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
     struct adc_dev *dev;
     int rc;
 
@@ -483,13 +483,13 @@ stm32f4_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
         goto err;
     }
 
-    stm32f4_adc_init(dev);
+    stm32f1_adc_init(dev);
 
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
     hdma = hadc->DMA_Handle;
 
-    adc_dma[stm32f4_resolve_dma_handle_idx(hdma)] = dev;
+    adc_dma[stm32f1_resolve_dma_handle_idx(hdma)] = dev;
 
     return (OS_OK);
 err:
@@ -498,20 +498,20 @@ err:
 
 
 /**
- * Close the STM32F4 ADC device.
+ * Close the STM32F1 ADC device.
  *
  * This function unlocks the device.
  *
  * @param odev The device to close.
  */
 static int
-stm32f4_adc_close(struct os_dev *odev)
+stm32f1_adc_close(struct os_dev *odev)
 {
     struct adc_dev *dev;
 
     dev = (struct adc_dev *) odev;
 
-    stm32f4_adc_uninit(dev);
+    stm32f1_adc_uninit(dev);
 
     if (os_started()) {
         os_mutex_release(&dev->ad_lock);
@@ -521,7 +521,7 @@ stm32f4_adc_close(struct os_dev *odev)
 }
 
 /**
- * Configure an ADC channel on the STM32F4 ADC.
+ * Configure an ADC channel on the STM32F1 ADC.
  *
  * @param dev The ADC device to configure
  * @param cnum The channel on the ADC device to configure
@@ -531,12 +531,12 @@ stm32f4_adc_close(struct os_dev *odev)
  * @return 0 on success, non-zero on failure.
  */
 static int
-stm32f4_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
+stm32f1_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
         void *cfgdata)
 {
     int rc;
     ADC_HandleTypeDef *hadc;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
     struct adc_chan_config *chan_cfg;
     GPIO_InitTypeDef gpio_td;
 
@@ -546,7 +546,7 @@ stm32f4_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
         goto err;
     }
 
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
     chan_cfg = &((struct adc_chan_config *)cfg->sac_chans)[cnum];
 
@@ -561,7 +561,7 @@ stm32f4_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
     dev->ad_chans[cnum].c_configured = 1;
     dev->ad_chans[cnum].c_cnum = cnum;
 
-    if (stm32f4_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
+    if (stm32f1_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
         goto err;
     }
 
@@ -580,10 +580,10 @@ err:
  *
  */
 static int
-stm32f4_adc_set_buffer(struct adc_dev *dev, void *buf1, void *buf2,
+stm32f1_adc_set_buffer(struct adc_dev *dev, void *buf1, void *buf2,
         int buflen)
 {
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
     int rc;
 
 
@@ -591,7 +591,7 @@ stm32f4_adc_set_buffer(struct adc_dev *dev, void *buf1, void *buf2,
     rc = OS_OK;
     buflen /= sizeof(uint32_t);
 
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
 
     cfg->primarybuf = buf1;
     cfg->secondarybuf = buf2;
@@ -601,13 +601,13 @@ stm32f4_adc_set_buffer(struct adc_dev *dev, void *buf1, void *buf2,
 }
 
 static int
-stm32f4_adc_release_buffer(struct adc_dev *dev, void *buf, int buf_len)
+stm32f1_adc_release_buffer(struct adc_dev *dev, void *buf, int buf_len)
 {
     ADC_HandleTypeDef *hadc;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
 
     assert(dev);
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
 
     HAL_ADC_Stop_DMA(hadc);
@@ -622,20 +622,20 @@ stm32f4_adc_release_buffer(struct adc_dev *dev, void *buf, int buf_len)
  * @return OS_OK on success, non OS_OK on failure
  */
 static int
-stm32f4_adc_sample(struct adc_dev *dev)
+stm32f1_adc_sample(struct adc_dev *dev)
 {
     int rc;
     ADC_HandleTypeDef *hadc;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
 
     assert(dev);
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
 
     rc = OS_EINVAL;
 
     if (HAL_ADC_Start_DMA(hadc, cfg->primarybuf, cfg->buflen) != HAL_OK) {
-        ++stm32f4_adc_stats.adc_dma_start_error;
+        ++stm32f1_adc_stats.adc_dma_start_error;
         goto err;
     }
 
@@ -653,13 +653,13 @@ err:
  * @param3 ADC result ptr
  */
 static int
-stm32f4_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
+stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 {
     ADC_HandleTypeDef *hadc;
-    struct stm32f4_adc_dev_cfg *cfg;
+    struct stm32f1_adc_dev_cfg *cfg;
 
     assert(dev != NULL && result != NULL);
-    cfg  = (struct stm32f4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
 
     *result = HAL_ADC_GetValue(hadc);
@@ -668,7 +668,7 @@ stm32f4_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 }
 
 static int
-stm32f4_adc_read_buffer(struct adc_dev *dev, void *buf, int buf_len, int off,
+stm32f1_adc_read_buffer(struct adc_dev *dev, void *buf, int buf_len, int off,
                         int *result)
 {
 
@@ -694,7 +694,7 @@ stm32f4_adc_read_buffer(struct adc_dev *dev, void *buf, int buf_len, int off,
  * @return Length of buffer in bytes
  */
 static int
-stm32f4_adc_size_buffer(struct adc_dev *dev, int chans, int samples)
+stm32f1_adc_size_buffer(struct adc_dev *dev, int chans, int samples)
 {
     return (sizeof(uint32_t) * chans * samples);
 }
@@ -702,32 +702,32 @@ stm32f4_adc_size_buffer(struct adc_dev *dev, int chans, int samples)
 /**
  * ADC device driver functions
  */
-static const struct adc_driver_funcs stm32f4_adc_funcs = {
-        .af_configure_channel = stm32f4_adc_configure_channel,
-        .af_sample = stm32f4_adc_sample,
-        .af_read_channel = stm32f4_adc_read_channel,
-        .af_set_buffer = stm32f4_adc_set_buffer,
-        .af_release_buffer = stm32f4_adc_release_buffer,
-        .af_read_buffer = stm32f4_adc_read_buffer,
-        .af_size_buffer = stm32f4_adc_size_buffer,
+static const struct adc_driver_funcs stm32f1_adc_funcs = {
+        .af_configure_channel = stm32f1_adc_configure_channel,
+        .af_sample = stm32f1_adc_sample,
+        .af_read_channel = stm32f1_adc_read_channel,
+        .af_set_buffer = stm32f1_adc_set_buffer,
+        .af_release_buffer = stm32f1_adc_release_buffer,
+        .af_read_buffer = stm32f1_adc_read_buffer,
+        .af_size_buffer = stm32f1_adc_size_buffer,
 };
 
 /**
  * Callback to initialize an adc_dev structure from the os device
- * initialization callback.  This sets up a stm32f4_adc_device(), so
+ * initialization callback.  This sets up a stm32f1_adc_device(), so
  * that subsequent lookups to this device allow us to manipulate it.
  *
  * @param1 os device ptr
- * @param2 stm32f4 ADC device cfg ptr
+ * @param2 stm32f1 ADC device cfg ptr
  * @return OS_OK on success
  */
 int
-stm32f4_adc_dev_init(struct os_dev *odev, void *arg)
+stm32f1_adc_dev_init(struct os_dev *odev, void *arg)
 {
-    struct stm32f4_adc_dev_cfg *sac;
+    struct stm32f1_adc_dev_cfg *sac;
     struct adc_dev *dev;
 
-    sac = (struct stm32f4_adc_dev_cfg *) arg;
+    sac = (struct stm32f1_adc_dev_cfg *) arg;
 
     assert(sac != NULL);
 
@@ -738,9 +738,9 @@ stm32f4_adc_dev_init(struct os_dev *odev, void *arg)
     dev->ad_chans = (void *) sac->sac_chans;
     dev->ad_chan_count = sac->sac_chan_count;
 
-    OS_DEV_SETHANDLERS(odev, stm32f4_adc_open, stm32f4_adc_close);
+    OS_DEV_SETHANDLERS(odev, stm32f1_adc_open, stm32f1_adc_close);
 
-    dev->ad_funcs = &stm32f4_adc_funcs;
+    dev->ad_funcs = &stm32f1_adc_funcs;
 
     return (OS_OK);
 }

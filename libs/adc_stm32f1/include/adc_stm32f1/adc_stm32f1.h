@@ -17,8 +17,8 @@
  * under the License.
  */
 
-#ifndef __ADC_STM32F4_H__
-#define __ADC_STM32F4_H__
+#ifndef __ADC_STM32F1_H__
+#define __ADC_STM32F1_H__
 
 #include <adc/adc.h>
 
@@ -52,7 +52,7 @@ extern "C" {
 #define ADC3_CH14_PIN     84
 #define ADC3_CH15_PIN     85
 
-struct stm32f4_adc_dev_cfg {
+struct stm32f1_adc_dev_cfg {
     uint8_t sac_chan_count;
     void *sac_chans;
     void *primarybuf;
@@ -61,10 +61,10 @@ struct stm32f4_adc_dev_cfg {
     ADC_HandleTypeDef *sac_adc_handle;
 };
 
-int stm32f4_adc_dev_init(struct os_dev *, void *);
+int stm32f1_adc_dev_init(struct os_dev *, void *);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __ADC_H__ */
+#endif /* __ADC_STM32F1_H__ */
