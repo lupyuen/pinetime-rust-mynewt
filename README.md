@@ -19,7 +19,7 @@
 #
 -->
 
-# Apache Mynewt Geolocation Application for STM32 Blue Pill
+# Apache Mynewt Geolocation Application for STM32 Blue Pill with ESP8266
 
 This program runs on an STM32 Blue Pill connected to ESP8266. It sends WiFi Access Point MAC Addresses and Signal Strength scanned by ESP8266 to a CoAP (UDP) server, such as thethings.io:
 
