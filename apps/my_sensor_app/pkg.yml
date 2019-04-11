@@ -30,12 +30,12 @@ pkg.deps:
     - "@apache-mynewt-core/sys/stats/stub"  #  Disable stats
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
-    - "@apache-mynewt-core/net/oic"        #  CoAP library
-    - "@apache-mynewt-core/encoding/json"  #  JSON encodng for CoAP
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
     - "libs/semihosting_console"           #  Semihosting Console
     - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
     - "libs/temp_stm32"                    #  Internal temperature sensor for STM32, based on ADC
+    - "libs/esp8266"                       #  ESP8266 driver
+    - "libs/sensor_coap"                   #  CoAP library for transmitting sensor data
 
 pkg.cflags:  #  C compiler flags
     - -DFLOAT_SUPPORT       #  For encoding floats in CoAP messages
