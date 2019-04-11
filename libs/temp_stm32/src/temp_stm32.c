@@ -27,31 +27,19 @@
 #include "sensor/temperature.h"
 #include "temp_stm32/temp_stm32.h"
 
-/* Exports for the sensor API */
+//  Exports for the sensor API
 static int temp_stm32_sensor_read(struct sensor *, sensor_type_t,
-        sensor_data_func_t, void *, uint32_t);
+    sensor_data_func_t, void *, uint32_t);
 static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t,
-        struct sensor_cfg *);
+    struct sensor_cfg *);
 
 static const struct sensor_driver g_temp_stm32_sensor_driver = {
     temp_stm32_sensor_read,
     temp_stm32_sensor_get_config
 };
 
-static int
-temp_stm32_default_cfg(struct temp_stm32_cfg *cfg)
-{
-    cfg->bc_iir = TEMP_STM32_FILTER_OFF;
-    cfg->bc_mode = TEMP_STM32_MODE_NORMAL;
-
-    cfg->bc_boc[0].boc_type = SENSOR_TYPE_AMBIENT_TEMPERATURE;
-    cfg->bc_boc[0].boc_oversample = TEMP_STM32_SAMPLING_NONE;
-    cfg->bc_boc[1].boc_type = SENSOR_TYPE_PRESSURE;
-    cfg->bc_boc[1].boc_oversample = TEMP_STM32_SAMPLING_NONE;
-    cfg->bc_boc[2].boc_type = SENSOR_TYPE_RELATIVE_HUMIDITY;
-    cfg->bc_boc[2].boc_oversample = TEMP_STM32_SAMPLING_NONE;
+static int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
     cfg->bc_s_mask = SENSOR_TYPE_ALL;
-
     return 0;
 }
 
@@ -63,191 +51,85 @@ temp_stm32_default_cfg(struct temp_stm32_cfg *cfg)
  *
  * @return 0 on success, non-zero error on failure.
  */
-int
-temp_stm32_init(struct os_dev *dev, void *arg)
-{
-    struct temp_stm32 *temp_stm32;
+int temp_stm32_init(struct os_dev *dev0, void *arg) {
+    struct temp_stm32 *dev;
     struct sensor *sensor;
     int rc;
+    if (!arg || !dev0) { rc = SYS_ENODEV; goto err; }
 
-    if (!arg || !dev) {
-        rc = SYS_ENODEV;
-        goto err;
-    }
+    dev = (struct temp_stm32 *) dev0;
+    rc = temp_stm32_default_cfg(&dev->cfg);
+    if (rc) { goto err; }
 
-    temp_stm32 = (struct temp_stm32 *) dev;
-
-    rc = temp_stm32_default_cfg(&temp_stm32->cfg);
-    if (rc) {
-        goto err;
-    }
-
-    sensor = &temp_stm32->sensor;
-
-    /* Initialise the stats entry */
-    rc = stats_init(
-        STATS_HDR(g_temp_stm32stats),
-        STATS_SIZE_INIT_PARMS(g_temp_stm32stats, STATS_SIZE_32),
-        STATS_NAME_INIT_PARMS(temp_stm32_stat_section));
-    SYSINIT_PANIC_ASSERT(rc == 0);
-    /* Register the entry with the stats registry */
-    rc = stats_register(dev->od_name, STATS_HDR(g_temp_stm32stats));
-    SYSINIT_PANIC_ASSERT(rc == 0);
-
+    sensor = &dev->sensor;
     rc = sensor_init(sensor, dev);
-    if (rc != 0) {
-        goto err;
-    }
+    if (rc != 0) { goto err; }
 
-    /* Add the driver with all the supported type */
-    rc = sensor_set_driver(sensor, SENSOR_TYPE_AMBIENT_TEMPERATURE |
-                           SENSOR_TYPE_PRESSURE            |
-                           SENSOR_TYPE_RELATIVE_HUMIDITY,
-                           (struct sensor_driver *) &g_temp_stm32_sensor_driver);
-    if (rc != 0) {
-        goto err;
-    }
+    //  Add the driver with all the supported type.
+    rc = sensor_set_driver(sensor, SENSOR_TYPE_AMBIENT_TEMPERATURE,
+        (struct sensor_driver *) &g_temp_stm32_sensor_driver);
+    if (rc != 0) { goto err; }
 
-    /* Set the interface */
+    //  Set the interface.
     rc = sensor_set_interface(sensor, arg);
-    if (rc) {
-        goto err;
-    }
+    if (rc) { goto err; }
 
+    //  Register with the Sensor Manager.
     rc = sensor_mgr_register(sensor);
-    if (rc != 0) {
-        goto err;
-    }
-
+    if (rc != 0) { goto err; }
     return (0);
 err:
     return (rc);
-
 }
 
-static int
-temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
-        sensor_data_func_t data_func, void *data_arg, uint32_t timeout)
-{
-    int32_t rawtemp;
-    int32_t rawpress;
-    int32_t rawhumid;
+static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
+    sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
     struct sensor_itf *itf;
-    struct temp_stm32 *temp_stm32;
+    struct temp_stm32 *dev;
     int rc;
-    union {
-        struct sensor_temp_data std;
-        struct sensor_press_data spd;
-        struct sensor_humid_data shd;
-    } databuf;
-
-    if (!(type & SENSOR_TYPE_PRESSURE)    &&
-        !(type & SENSOR_TYPE_AMBIENT_TEMPERATURE) &&
-        !(type & SENSOR_TYPE_RELATIVE_HUMIDITY)) {
+    int32_t rawtemp;
+    if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) {
         rc = SYS_EINVAL;
         goto err;
     }
-
     itf = SENSOR_GET_ITF(sensor);
-
-    temp_stm32 = (struct temp_stm32 *)SENSOR_GET_DEVICE(sensor);
+    dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor);
 
     /*
      * For forced mode the sensor goes to sleep after setting the sensor to
      * forced mode and grabbing sensor data
      */
-    if (temp_stm32->cfg.bc_mode == TEMP_STM32_MODE_FORCED) {
+    if (dev->cfg.bc_mode == TEMP_STM32_MODE_FORCED) {
         rc = temp_stm32_forced_mode_measurement(itf);
-        if (rc) {
-            goto err;
-        }
+        if (rc) { goto err; }
     }
 
-    rawtemp = rawpress = rawhumid = 0;
-
-    /* Get a new temperature sample always */
+    //  Get a new temperature sample always.
+    rawtemp = 0;
     rc = temp_stm32_get_temperature(itf, &rawtemp);
-    if (rc) {
-        goto err;
-    }
-    databuf.std.std_temp = temp_stm32_compensate_temperature(rawtemp, &(temp_stm32->pdd));
-
-    /* Get a new pressure sample */
-    if (type & SENSOR_TYPE_PRESSURE) {
-        rc = temp_stm32_get_pressure(itf, &rawpress);
-        if (rc) {
-            goto err;
-        }
-    }
-
-    /* Get a new relative humidity sample */
-    if (type & SENSOR_TYPE_RELATIVE_HUMIDITY) {
-        rc = temp_stm32_get_humidity(itf, &rawhumid);
-        if (rc) {
-            goto err;
-        }
-    }
+    if (rc) { goto err; }
 
     if (type & SENSOR_TYPE_AMBIENT_TEMPERATURE) {
         if (databuf.std.std_temp != NAN) {
             databuf.std.std_temp_is_valid = 1;
         }
-
         /* Call data function */
         rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
-        if (rc) {
-            goto err;
-        }
+        if (rc) { goto err; }
     }
-
-    if (type & SENSOR_TYPE_PRESSURE) {
-        databuf.spd.spd_press = temp_stm32_compensate_pressure(itf, rawpress, &(temp_stm32->pdd));
-
-        if (databuf.spd.spd_press != NAN) {
-            databuf.spd.spd_press_is_valid = 1;
-        }
-
-        /* Call data function */
-        rc = data_func(sensor, data_arg, &databuf.spd, SENSOR_TYPE_PRESSURE);
-        if (rc) {
-            goto err;
-        }
-    }
-
-    if (type & SENSOR_TYPE_RELATIVE_HUMIDITY) {
-        databuf.shd.shd_humid = temp_stm32_compensate_humidity(itf, rawhumid, &(temp_stm32->pdd));
-
-        if (databuf.shd.shd_humid != NAN) {
-            databuf.shd.shd_humid_is_valid = 1;
-        }
-
-        /* Call data function */
-        rc = data_func(sensor, data_arg, &databuf.shd, SENSOR_TYPE_RELATIVE_HUMIDITY);
-        if (rc) {
-            goto err;
-        }
-    }
-
     return 0;
 err:
     return rc;
 }
 
-static int
-temp_stm32_sensor_get_config(struct sensor *sensor, sensor_type_t type,
-        struct sensor_cfg *cfg)
-{
+static int temp_stm32_sensor_get_config(struct sensor *sensor, sensor_type_t type,
+    struct sensor_cfg *cfg) {
     int rc;
-
-    if (!(type & SENSOR_TYPE_PRESSURE)    ||
-        !(type & SENSOR_TYPE_AMBIENT_TEMPERATURE) ||
-        !(type & SENSOR_TYPE_RELATIVE_HUMIDITY)) {
+    if (!(type & SENSOR_TYPE_PRESSURE)) {
         rc = SYS_EINVAL;
         goto err;
     }
-
     cfg->sc_valtype = SENSOR_VALUE_TYPE_FLOAT;
-
     return (0);
 err:
     return (rc);
@@ -261,15 +143,13 @@ err:
  *
  * @return 0 on success, and non-zero error code on failure
  */
-int
-temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
-{
+int temp_stm32_config(struct temp_stm32 *dev, struct temp_stm32_cfg *cfg) {
     int rc;
     uint8_t id;
     uint8_t calibrating;
     struct sensor_itf *itf;
 
-    itf = SENSOR_GET_ITF(&(temp_stm32->sensor));
+    itf = SENSOR_GET_ITF(&(dev->sensor));
 
     /* Check if we can read the chip address */
     rc = temp_stm32_get_chipid(itf, &id);
@@ -307,7 +187,7 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
         }
     }
 
-    rc = temp_stm32_get_calibinfo(itf, &(temp_stm32->pdd.bcd));
+    rc = temp_stm32_get_calibinfo(itf, &(dev->pdd.bcd));
     if (rc) {
         goto err;
     }
@@ -319,7 +199,7 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
 
     os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
 
-    temp_stm32->cfg.bc_iir = cfg->bc_iir;
+    dev->cfg.bc_iir = cfg->bc_iir;
 
     rc = temp_stm32_set_mode(itf, cfg->bc_mode);
     if (rc) {
@@ -328,7 +208,7 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
 
     os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
 
-    temp_stm32->cfg.bc_mode = cfg->bc_mode;
+    dev->cfg.bc_mode = cfg->bc_mode;
 
     rc = temp_stm32_set_sby_duration(itf, cfg->bc_sby_dur);
     if (rc) {
@@ -337,7 +217,7 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
 
     os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
 
-    temp_stm32->cfg.bc_sby_dur = cfg->bc_sby_dur;
+    dev->cfg.bc_sby_dur = cfg->bc_sby_dur;
 
     if (cfg->bc_boc[0].boc_type) {
         rc = temp_stm32_set_oversample(itf, cfg->bc_boc[0].boc_type,
@@ -347,8 +227,8 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
         }
     }
 
-    temp_stm32->cfg.bc_boc[0].boc_type = cfg->bc_boc[0].boc_type;
-    temp_stm32->cfg.bc_boc[0].boc_oversample = cfg->bc_boc[0].boc_oversample;
+    dev->cfg.bc_boc[0].boc_type = cfg->bc_boc[0].boc_type;
+    dev->cfg.bc_boc[0].boc_oversample = cfg->bc_boc[0].boc_oversample;
 
     if (cfg->bc_boc[1].boc_type) {
         rc = temp_stm32_set_oversample(itf, cfg->bc_boc[1].boc_type,
@@ -358,8 +238,8 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
         }
     }
 
-    temp_stm32->cfg.bc_boc[1].boc_type = cfg->bc_boc[1].boc_type;
-    temp_stm32->cfg.bc_boc[1].boc_oversample = cfg->bc_boc[1].boc_oversample;
+    dev->cfg.bc_boc[1].boc_type = cfg->bc_boc[1].boc_type;
+    dev->cfg.bc_boc[1].boc_oversample = cfg->bc_boc[1].boc_oversample;
 
     if (cfg->bc_boc[2].boc_type) {
         rc = temp_stm32_set_oversample(itf, cfg->bc_boc[2].boc_type,
@@ -369,17 +249,15 @@ temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg)
         }
     }
 
-    temp_stm32->cfg.bc_boc[2].boc_type = cfg->bc_boc[2].boc_type;
-    temp_stm32->cfg.bc_boc[2].boc_oversample = cfg->bc_boc[2].boc_oversample;
+    dev->cfg.bc_boc[2].boc_type = cfg->bc_boc[2].boc_type;
+    dev->cfg.bc_boc[2].boc_oversample = cfg->bc_boc[2].boc_oversample;
 
     os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
 
-    rc = sensor_set_type_mask(&(temp_stm32->sensor),  cfg->bc_s_mask);
-    if (rc) {
-        goto err;
-    }
+    rc = sensor_set_type_mask(&(dev->sensor),  cfg->bc_s_mask);
+    if (rc) { goto err; }
 
-    temp_stm32->cfg.bc_s_mask = cfg->bc_s_mask;
+    dev->cfg.bc_s_mask = cfg->bc_s_mask;
 
     return 0;
 err:
@@ -394,9 +272,7 @@ err:
  *
  * @return 0 on success, and non-zero error code on failure
  */
-int
-temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp)
-{
+int temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp) {
     int rc;
     uint8_t tmp[3];
 
