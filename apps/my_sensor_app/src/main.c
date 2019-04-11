@@ -20,8 +20,6 @@
 #include <sysinit/sysinit.h>
 #include <os/os.h>
 #include <defs/error.h>
-#include <sensor/sensor.h>
-#include <sensor/temperature.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "sensor_coap.h"
 #include "esp8266_driver.h"

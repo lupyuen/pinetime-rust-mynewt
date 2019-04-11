@@ -703,6 +703,7 @@ err:
 static int
 stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 {
+    //  New implementation that actually blocks when reading a channel.
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
     int val = -1;
@@ -711,16 +712,20 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
 
+    //  Start reading ADC values and convert them by rank.
     HAL_ADC_Start(hadc);
-    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.
+
+    //  Wait for ADC conversion to be completed.
+    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.  TODO: Yield to task scheduler while waiting.
     if (rc != HAL_OK) { return rc; }  //  Exit in case of error.
 
+    //  Fetch the converted ADC value.
     val = HAL_ADC_GetValue(hadc);
     *result = val;
     return (OS_OK);
 }
 
-#ifdef NOTUSED
+#ifdef NOTUSED  //  Previous implementation of stm32f1_adc_read_channel(), which is not a blocking read.
     /**
      * Blocking read of an ADC channel, returns result as an integer.
      *
