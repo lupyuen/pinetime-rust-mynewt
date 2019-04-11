@@ -1,3 +1,66 @@
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f1xx_hal.h"
+#include <console/console.h>
+
+/* Private variables ---------------------------------------------------------*/
+extern UART_HandleTypeDef huart2;
+ADC_HandleTypeDef hadc1;
+
+/* Private function prototypes -----------------------------------------------*/
+static void MX_ADC1_Init(void);
+
+int init_temperature_sensor(void) {
+  /* Initialize all configured peripherals */
+  MX_ADC1_Init();
+
+  HAL_ADC_Start(&hadc1);
+
+  while (1) {
+    uint16_t rawValue;
+    float temp;
+
+    HAL_ADC_PollForConversion(&hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
+
+    rawValue = HAL_ADC_GetValue(&hadc1);
+    console_printf("rawValue: %d\n", rawValue);
+    console_flush();
+
+    temp = ((float)rawValue) / 4095 * 3300;
+    temp = ((temp - 760.0) / 2.5) + 25;
+  }
+  return 0;
+}
+
+/* ADC1 init function */
+void MX_ADC1_Init(void) {
+  ADC_ChannelConfTypeDef sConfig;
+
+  /* Enable ADC peripheral */
+  __HAL_RCC_ADC1_CLK_ENABLE();
+
+  /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
+   */
+  hadc1.Instance = ADC1;
+  // hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
+  // hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc1.Init.ScanConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  // hadc1.Init.DMAContinuousRequests = DISABLE;
+  // hadc1.Init.EOCSelection = ADC_EOC_SEQ_CONV;
+  HAL_ADC_Init(&hadc1);
+
+  /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+   */
+  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5; // ADC_SAMPLETIME_480CYCLES;
+  HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+}
+
+#ifdef NOTUSED
 ////  #if MYNEWT_VAL(ADC_1)
 
 //  Adapted from repos/apache-mynewt-core/hw/bsp/olimex_stm32-e407_devboard/src/hal_bsp.c
@@ -56,6 +119,13 @@ static ADC_HandleTypeDef adc1_handle = STM32F1_DEFAULT_ADC1_HANDLE;
 static struct stm32f1_adc_dev_cfg adc1_config = STM32F1_ADC1_DEFAULT_CONFIG;
 /*********************************************/
 
+//  Config for the temperature channel on ADC1.
+static ADC_ChannelConfTypeDef temp_config = {
+    .Channel      = ADC_CHANNEL_TEMPSENSOR,
+    .Rank         = ADC_REGULAR_RANK_16,
+    .SamplingTime = ADC_SAMPLETIME_239CYCLES_5,  //  Sampling time 239.5 ADC clock cycles
+};
+
 int init_temperature_sensor(void) {
     int rc = os_dev_create((struct os_dev *) &my_dev_adc1, "adc1",
         OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
@@ -63,7 +133,7 @@ int init_temperature_sensor(void) {
     assert(rc == 0);
 
     //  Setup ADC channel configuration for temperature sensor.
-    rc = adc_chan_config(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &adc1_config);
+    rc = adc_chan_config(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &temp_config);
     assert(rc == 0);
 
     //  Blocking read of ADC channel.
@@ -76,6 +146,7 @@ int init_temperature_sensor(void) {
 }
 
 ////  #endif  //  MYNEWT_VAL(ADC_1)
+#endif  //  NOTUSED
 
 #ifdef NOTUSED
     /*---------------------------------------------------------------------------*/

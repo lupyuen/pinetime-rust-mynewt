@@ -700,9 +700,9 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
     assert(dev != NULL && result != NULL);
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
-    for (i = 0; i < 100; i++)
+    for (i = 0; i < 1; i++)
     {
-        if (HAL_ADC_PollForConversion(hadc, 1000000) == HAL_OK) { break; }
+        if (HAL_ADC_PollForConversion(hadc, 10 * 1000) == HAL_OK) { break; }
     }
     val = HAL_ADC_GetValue(hadc);
     *result = val;
