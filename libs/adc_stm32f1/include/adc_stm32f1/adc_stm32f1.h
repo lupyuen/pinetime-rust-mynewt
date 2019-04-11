@@ -26,6 +26,9 @@
 extern "C" {
 #endif
 
+//  STM32F1 ADC1 device name
+#define STM32F1_ADC1_DEVICE "adc1"
+
 /* Mynewt HAL Port pin mapping */
 #define ADC123_CH0_PIN    0
 #define ADC123_CH1_PIN    1
@@ -61,7 +64,11 @@ struct stm32f1_adc_dev_cfg {
     ADC_HandleTypeDef *sac_adc_handle;
 };
 
-int stm32f1_adc_dev_init(struct os_dev *, void *);
+//  Create the STM32F1 ADC1 device.
+void stm32f1_adc_create(void);
+
+//  Initialise the STM32F1 ADC device with the configuration.
+int stm32f1_adc_dev_init(struct os_dev *dev, void *cfg);
 
 #ifdef __cplusplus
 }

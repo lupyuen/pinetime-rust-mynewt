@@ -30,21 +30,35 @@ extern "C" {
 
 #define TEMP_STM32_DEVICE "temp_stm32_0"
 
+struct adc_dev;  //  ADC device
+
+//  Configuration for the STM32 internal temperature sensor
 struct temp_stm32_cfg {
-    sensor_type_t bc_s_mask;
+    sensor_type_t bc_s_mask;  //  Sensor data types that will be returned i.e. temperature.
 };
 
+//  Device for the STM32 internal temperature sensor
 struct temp_stm32 {
-    struct os_dev dev;
-    struct sensor sensor;
-    struct temp_stm32_cfg cfg;
-    os_time_t last_read_time;
+    struct os_dev dev;     //  Mynewt device
+    struct sensor sensor;  //  Mynewt sensor
+    struct temp_stm32_cfg cfg;  //  Sensor configuration
+    os_time_t last_read_time;   //  Last time the sensor was read.
+    struct adc_dev *adc;        //  ADC device that will be used to access the sensor.
 };
 
 /**
  * Create the STM32 internal temperature sensor instance.
  */
 void temp_stm32_create(void);
+
+/**
+ * Return the default configuration for the STM32 internal temperature sensor.
+ *
+ * @param cfg  Pointer to the temp_stm32_cfg device config
+ *
+ * @return 0 on success, and non-zero error code on failure
+ */
+int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg);
 
 /**
  * Initialize the STM32 internal temperature sensor.
@@ -56,14 +70,14 @@ void temp_stm32_create(void);
 int temp_stm32_init(struct os_dev *dev, void *arg);
 
 /**
- * Get temperature from STM32 internal temperature sensor
+ * Get raw temperature from STM32 internal temperature sensor by reading from ADC. Will block until data is available.
  *
- * @param The sensor interface
- * @param temperature
+ * @param itf The sensor interface
+ * @param rawtemp Raw temperature
  *
  * @return 0 on success, and non-zero error code on failure
  */
-int temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp);
+int temp_stm32_get_raw_temperature(struct sensor_itf *itf, int32_t *rawtemp);
 
 /**
  * Configure STM32 internal temperature sensor
