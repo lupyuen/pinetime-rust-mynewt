@@ -60,30 +60,33 @@ struct esp8266 {
     struct os_dev dev;
     struct sensor sensor;
     struct esp8266_cfg cfg;
+    void *controller;  //  Pointer to controller instance (ESP8266 *)
 };
 
-int init_esp8266(void);  //  Init the Mynewt sensor device for ESP8266.
+int esp8266_create(void);  //  Init the Mynewt sensor device for ESP8266.
+int esp8266_default_cfg(struct esp8266_cfg *cfg);  //  Return the default config.
+int esp8266_init(struct os_dev *dev0, void *arg);  //  Configure the device and register with Sensor Manager.  Called by os_dev_create().
 
-int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg);  //  Configure the ESP8266 driver.
-int esp8266_scan(struct sensor_itf *itf, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);  //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
+int esp8266_config(struct esp8266 *dev, struct esp8266_cfg *cfg);  //  Configure the ESP8266 driver.
+int esp8266_scan(struct esp8266 *dev, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);  //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
 
-int esp8266_connect(struct sensor_itf *itf, const char *ssid, const char *pass);  //  Connect to the WiFi access point with the SSID and password.
-int esp8266_set_credentials(struct sensor_itf *itf, const char *ssid, const char *pass, nsapi_security_t security);      //  Save the credentials for the WiFi access point.
-int esp8266_disconnect(struct sensor_itf *itf);  //  Disconnect from the WiFi access point.
+int esp8266_connect(struct esp8266 *dev, const char *ssid, const char *pass);  //  Connect to the WiFi access point with the SSID and password.
+int esp8266_set_credentials(struct esp8266 *dev, const char *ssid, const char *pass, nsapi_security_t security);      //  Save the credentials for the WiFi access point.
+int esp8266_disconnect(struct esp8266 *dev);  //  Disconnect from the WiFi access point.
 
-const char *esp8266_get_ip_address(struct sensor_itf *itf);
-const char *esp8266_get_mac_address(struct sensor_itf *itf);
-const char *esp8266_get_gateway(struct sensor_itf *itf);
-const char *esp8266_get_netmask(struct sensor_itf *itf);
-int8_t esp8266_get_rssi(struct sensor_itf *itf);
+const char *esp8266_get_ip_address(struct esp8266 *dev);
+const char *esp8266_get_mac_address(struct esp8266 *dev);
+const char *esp8266_get_gateway(struct esp8266 *dev);
+const char *esp8266_get_netmask(struct esp8266 *dev);
+int8_t esp8266_get_rssi(struct esp8266 *dev);
 
-int esp8266_socket_open(struct sensor_itf *itf, void **handle, nsapi_protocol_t proto);
-int esp8266_socket_close(struct sensor_itf *itf, void *handle);
-int esp8266_socket_connect(struct sensor_itf *itf, void *handle, const char *host, uint16_t port);
-int esp8266_socket_send(struct sensor_itf *itf, void *handle, const void *data, unsigned size);
-int esp8266_socket_send_mbuf(struct sensor_itf *itf, void *handle, struct os_mbuf *m);
-int esp8266_socket_sendto(struct sensor_itf *itf, void *handle, const char *host, uint16_t port, const void *data, unsigned size);
-void esp8266_socket_attach(struct sensor_itf *itf, void *handle, void (*callback)(void *), void *data);
+int esp8266_socket_open(struct esp8266 *dev, void **handle, nsapi_protocol_t proto);
+int esp8266_socket_close(struct esp8266 *dev, void *handle);
+int esp8266_socket_connect(struct esp8266 *dev, void *handle, const char *host, uint16_t port);
+int esp8266_socket_send(struct esp8266 *dev, void *handle, const void *data, unsigned size);
+int esp8266_socket_send_mbuf(struct esp8266 *dev, void *handle, struct os_mbuf *m);
+int esp8266_socket_sendto(struct esp8266 *dev, void *handle, const char *host, uint16_t port, const void *data, unsigned size);
+void esp8266_socket_attach(struct esp8266 *dev, void *handle, void (*callback)(void *), void *data);
 
 #ifdef __cplusplus
 }

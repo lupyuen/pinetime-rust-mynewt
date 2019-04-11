@@ -16,30 +16,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-////  #if MYNEWT_VAL(ADC_1) && MYNEWT_VAL(TEMP_STM32_ONB)
+////  #if MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
-//  Create STM32 Internal Temperature sensor.  For STM32F1, the sensor is accessed via ADC1 channel 16.
+//  Create ESP8266 device
 #include "os/mynewt.h"
 #include "sensor/sensor.h"
-#include "temp_stm32/temp_stm32.h"  //  Specific to device
+#include "esp8266/esp8266.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
-#define DEVICE_NAME        TEMP_STM32_DEVICE  //  Name of device
-#define DEVICE_DEV         temp_stm32         //  Device type
-#define DEVICE_INSTANCE    temp_stm32_dev     //  Device instance
-#define DEVICE_CFG         temp_stm32_cfg     //  Device config
-#define DEVICE_CFG_DEFAULT temp_stm32_default_cfg  //  Device default config
-#define DEVICE_CFG_FUNC    temp_stm32_config  //  Device config function
-#define DEVICE_INIT        temp_stm32_init    //  Device init function
-#define DEVICE_CREATE      temp_stm32_create  //  Device create function
-#define DEVICE_ITF         adc_1_itf_temp_stm32   //  Device interface
+#define DEVICE_NAME        ESP8266_DEVICE  //  Name of device
+#define DEVICE_DEV         esp8266         //  Device type
+#define DEVICE_INSTANCE    esp8266         //  Device instance
+#define DEVICE_CFG         esp8266_cfg     //  Device config
+#define DEVICE_CFG_DEFAULT esp8266_default_cfg  //  Device default config
+#define DEVICE_CFG_FUNC    esp8266_config  //  Device config function
+#define DEVICE_INIT        esp8266_init    //  Device init function
+#define DEVICE_CREATE      esp8266_create  //  Device create function
+#define DEVICE_ITF         uart_0_itf_esp8266   //  Device interface
 
 static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
 
 static struct sensor_itf DEVICE_ITF = {    //  Global sensor interface for the device
-    .si_type = 0,  //  TODO: Should be ADC.
-    .si_num  = 0,
+    .si_type = SENSOR_ITF_UART, //  Sensor interface type: UART
+    .si_num  = 0,               //  Sensor interface number: 0   
 };
+
+/* Previously:
+static struct esp8266 esp8266;  //  Mynewt driver instance.
+const struct sensor_itf uart_0_itf = {        
+    SENSOR_ITF_UART, //  si_type: Sensor interface type
+    0,               //  si_num: Sensor interface number    
+}; */
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Generic Device Creator Code based on repos\apache-mynewt-core\hw\sensor\creator\src\sensor_creator.c
@@ -65,10 +72,10 @@ static int config_device(void) {
 }
 
 //  Create the device instance and configure it.
-void DEVICE_CREATE(void) {
+int DEVICE_CREATE(void) {
     //  Create the device.
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
-        OS_DEV_INIT_PRIMARY, 0, 
+        OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
         DEVICE_INIT, (void *) &DEVICE_ITF);
     assert(rc == 0);
 

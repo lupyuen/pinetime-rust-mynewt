@@ -3,7 +3,7 @@
 //  OIC implementation.  More about Mynewt OIC: https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html
 #include <os/os.h>
 #include <console/console.h>
-#include "esp8266_driver.h"
+#include "esp8266/esp8266.h"
 #include "esp8266_transport.h"
 
 static void oc_tx_ucast(struct os_mbuf *m);
