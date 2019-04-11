@@ -28,6 +28,8 @@
 extern "C" {
 #endif
 
+#define TEMP_STM32_DEVICE "temp_stm32_0"
+
 struct temp_stm32_cfg {
     sensor_type_t bc_s_mask;
 };
@@ -38,6 +40,11 @@ struct temp_stm32 {
     struct temp_stm32_cfg cfg;
     os_time_t last_read_time;
 };
+
+/**
+ * Create the STM32 internal temperature sensor instance.
+ */
+void temp_stm32_create(void);
 
 /**
  * Initialize the STM32 internal temperature sensor.
