@@ -66,33 +66,19 @@ int init_temperature_sensor(void) {
     rc = adc_chan_config(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &temp_config);
     assert(rc == 0);
 
-    /* Enable ADC peripheral */
-    __HAL_RCC_ADC1_CLK_ENABLE();
+    for (;;) {
+        //  Blocking read of ADC channel.
+        int rawValue = -1;
+        rc = adc_read_channel(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &rawValue);
+        assert(rc == 0);
+        assert(rawValue > 0);  //  If rawValue = 0, it means we haven't sampled any values.
 
-    ADC_HandleTypeDef *hadc1 = &adc1_handle;    
-    HAL_ADC_Start(hadc1);
-    while (1) {
-        uint16_t rawValue;
-        float temp;
+        console_printf("rawValue: %d\n", rawValue); console_flush(); ////
 
-        HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
-
-        rawValue = HAL_ADC_GetValue(hadc1);
-        console_printf("rawValue: %d\n", rawValue);
-        console_flush();
-
-        temp = ((float)rawValue) / 4095 * 3300;
+        float temp = ((float)rawValue) / 4095 * 3300;
         temp = ((temp - 760.0) / 2.5) + 25;
-        console_printf("temp: %d.%d\n", (int) temp, ((int) (temp * 10.0)) % 10);
-        console_flush();
+        console_printf("temp: %d.%d\n", (int) temp, ((int) (temp * 10.0)) % 10); console_flush(); ////
     }
-
-    //  Blocking read of ADC channel.
-    int val = -1;
-    rc = adc_read_channel(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &val);
-    assert(rc == 0);
-    assert(val > 0);  //  If val = 0, it means we haven't sampled any values.
-
     return 0;
 }
 

@@ -1,4 +1,10 @@
 //  Based on adc_stm32f4. We currently support blocking reads, not interrupts (marked by #ifdef TODO).
+//  HAL should be called in this sequence:
+//  __HAL_RCC_ADC1_CLK_ENABLE();
+//  HAL_ADC_Init(hadc1);
+//  HAL_ADC_ConfigChannel(hadc1, &temp_config);
+//  HAL_ADC_Start(hadc1);
+//  HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -695,15 +701,16 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 {
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
-    int i, val = -1;
+    int val = -1;
 
     assert(dev != NULL && result != NULL);
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
-    for (i = 0; i < 1; i++)
-    {
-        if (HAL_ADC_PollForConversion(hadc, 10 * 1000) == HAL_OK) { break; }
-    }
+
+    HAL_ADC_Start(hadc);
+    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.
+    if (rc != HAL_OK) { return rc; }  //  Exit in case of error.
+
     val = HAL_ADC_GetValue(hadc);
     *result = val;
     return (OS_OK);
@@ -808,6 +815,12 @@ stm32f1_adc_dev_init(struct os_dev *odev, void *arg)
 
     dev->ad_funcs = &stm32f1_adc_funcs;
 
+    __HAL_RCC_ADC1_CLK_ENABLE();  ////  TODO: Added enable ADC1
+
+    struct stm32f1_adc_dev_cfg *cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+    ADC_HandleTypeDef *hadc = cfg->sac_adc_handle;
+    HAL_StatusTypeDef rc = HAL_ADC_Init(hadc);  ////  Added HAL initalisation, which was missing from the STM32F4 code.
+    if (rc != HAL_OK) { return rc; }
+
     return (OS_OK);
 }
-
