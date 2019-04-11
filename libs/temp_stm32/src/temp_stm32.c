@@ -62,7 +62,7 @@ int temp_stm32_init(struct os_dev *dev0, void *arg) {
     if (rc) { goto err; }
 
     sensor = &dev->sensor;
-    rc = sensor_init(sensor, dev);
+    rc = sensor_init(sensor, dev0);
     if (rc != 0) { goto err; }
 
     //  Add the driver with all the supported type.
@@ -93,8 +93,8 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     } databuf;
 
     if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
-    itf = SENSOR_GET_ITF(sensor);
-    dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor);
+    itf = SENSOR_GET_ITF(sensor); assert(itf);
+    dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
 
     //  Get a new temperature sample always.
     rawtemp = 0;
@@ -137,12 +137,9 @@ err:
  * @return 0 on success, and non-zero error code on failure
  */
 int temp_stm32_config(struct temp_stm32 *dev, struct temp_stm32_cfg *cfg) {
-    int rc;
-    uint8_t id;
-    uint8_t calibrating;
     struct sensor_itf *itf;
-
-    itf = SENSOR_GET_ITF(&(dev->sensor));
+    int rc;
+    itf = SENSOR_GET_ITF(&(dev->sensor)); assert(itf);
     rc = sensor_set_type_mask(&(dev->sensor),  cfg->bc_s_mask);
     if (rc) { goto err; }
 
@@ -161,9 +158,9 @@ err:
  * @return 0 on success, and non-zero error code on failure
  */
 int temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp) {
-    int rc = 0;
+    // int rc = 0;
     *temp = 0;  //  TODO
     return 0;
-err:
-    return rc;
+// err:
+    // return rc;
 }
