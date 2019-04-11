@@ -576,6 +576,11 @@ stm32f1_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
     dev->ad_chans[cnum].c_configured = 1;
     dev->ad_chans[cnum].c_cnum = cnum;
 
+    //  Temperature and VREF channels don't use GPIO.  No need to init GPIO.
+    if (cnum == ADC_CHANNEL_TEMPSENSOR || cnum == ADC_CHANNEL_VREFINT) {
+        return OS_OK;
+    }
+
     if (stm32f1_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
         goto err;
     }
@@ -690,15 +695,43 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 {
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
+    int i, val = -1;
 
     assert(dev != NULL && result != NULL);
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
-
-    *result = HAL_ADC_GetValue(hadc);
-
+    for (i = 0; i < 100; i++)
+    {
+        if (HAL_ADC_PollForConversion(hadc, 1000000) == HAL_OK) { break; }
+    }
+    val = HAL_ADC_GetValue(hadc);
+    *result = val;
     return (OS_OK);
 }
+
+#ifdef NOTUSED
+    /**
+     * Blocking read of an ADC channel, returns result as an integer.
+     *
+     * @param1 ADC device structure
+     * @param2 channel number
+     * @param3 ADC result ptr
+     */
+    static int
+    stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
+    {
+        ADC_HandleTypeDef *hadc;
+        struct stm32f1_adc_dev_cfg *cfg;
+
+        assert(dev != NULL && result != NULL);
+        cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
+        hadc = cfg->sac_adc_handle;
+
+        *result = HAL_ADC_GetValue(hadc);
+
+        return (OS_OK);
+    }
+#endif //  NOTUSED
 
 static int
 stm32f1_adc_read_buffer(struct adc_dev *dev, void *buf, int buf_len, int off,
