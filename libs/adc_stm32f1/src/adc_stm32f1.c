@@ -28,8 +28,9 @@
 
 #include <hal/hal_bsp.h>
 #include <assert.h>
-#include "os/mynewt.h"
+#include <os/mynewt.h>
 #include <mcu/cmsis_nvic.h>
+#include <console/console.h>
 #include "stm32f1xx_hal_dma.h"
 #include "stm32f1xx_hal_adc.h"
 #include "stm32f1xx_hal_rcc.h"
@@ -486,6 +487,7 @@ stm32f1_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
 #endif  //  TODO
+    console_printf("stm32f1_adc_open\n");  ////
     struct adc_dev *dev;
     int rc;
 
@@ -532,6 +534,7 @@ err:
 static int
 stm32f1_adc_close(struct os_dev *odev)
 {
+    console_printf("stm32f1_adc_close\n");  ////
     struct adc_dev *dev;
 
     dev = (struct adc_dev *) odev;

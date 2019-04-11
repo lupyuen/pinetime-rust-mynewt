@@ -1,3 +1,7 @@
+//  Initialise the temperature sensor and poll it every 10 seconds.  We support 2 types of temperature sensors:
+//  (1)  Blue Pill internal temperature sensor, connected to port ADC1 on channel 16
+//  (2)  BME280 Temperature Sensor, connected to Blue Pill on port SPI1
+
 #include <os/os.h>
 #include <console/console.h>
 #include <sensor/sensor.h>
@@ -68,6 +72,7 @@ int init_temperature_sensor(void) {
     //  Set the listener function to be called every 10 seconds.
     rc = sensor_register_listener(my_sensor, &listener);
     assert(rc == 0);
+    return 0;
 }
 
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {

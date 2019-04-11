@@ -61,7 +61,7 @@ struct stm32f1_adc_dev_cfg {
     void *primarybuf;
     void *secondarybuf;
     int buflen;
-    ADC_HandleTypeDef *sac_adc_handle;
+    void *sac_adc_handle;  //  Actual type: ADC_HandleTypeDef *
 };
 
 //  Create the STM32F1 ADC1 device.

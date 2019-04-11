@@ -18,14 +18,12 @@
  */
 ////  #if MYNEWT_VAL(TEMP_STM32_ONB)
 
-#include <assert.h>
-#include <stdio.h>
-#include <errno.h>
 #include <string.h>
-
 #include "os/mynewt.h"
+#include "console/console.h"
 #include "sensor/sensor.h"
 #include "sensor/temperature.h"
+#include "stm32f1xx_hal_dma.h"
 #include "stm32f1xx_hal_adc.h"
 #include "adc_stm32f1/adc_stm32f1.h"
 #include "temp_stm32/temp_stm32.h"
@@ -35,7 +33,7 @@ static int temp_stm32_sensor_read(struct sensor *, sensor_type_t,
     sensor_data_func_t, void *, uint32_t);
 static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t,
     struct sensor_cfg *);
-static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int32_t *rawtemp);
+static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp);
 
 //  Global instance of the sensor driver
 static const struct sensor_driver g_temp_stm32_sensor_driver = {
@@ -52,7 +50,7 @@ static ADC_ChannelConfTypeDef temp_channel_config = {
 
 int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
     //  Return the default sensor configuration.
-    memset(&cfg, 0, sizeof(struct temp_stm32_cfg));  //  Zero the entire object.
+    memset(cfg, 0, sizeof(struct temp_stm32_cfg));  //  Zero the entire object.
     cfg->bc_s_mask = SENSOR_TYPE_ALL;  //  Return all sensor values, i.e. temperature.
     cfg->adc_dev_name = STM32F1_ADC1_DEVICE;    //  For STM32F1: adc1
     cfg->adc_channel = ADC_CHANNEL_TEMPSENSOR;  //  For STM32F1: 16
@@ -64,6 +62,7 @@ int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
 static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  Setup ADC channel configuration for temperature sensor.
     //  This locks the ADC channel until the sensor is closed.
+    console_printf("temp_stm32_open\n");  ////
     int rc = -1;
     struct temp_stm32 *dev;    
     struct temp_stm32_cfg *cfg;
@@ -92,6 +91,7 @@ err:
 
 static int temp_stm32_close(struct os_dev *dev0) {
     //  Close the sensor.  This unlocks the ADC channel.
+    console_printf("temp_stm32_close\n");  ////
     struct temp_stm32 *dev;    
     dev = (struct temp_stm32 *) dev0;
     if (dev->adc) {
@@ -154,15 +154,14 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     } databuf;
     struct sensor_itf *itf;
     struct temp_stm32 *dev;
-    int rc;
-    int32_t rawtemp;
+    int rc, rawtemp;
 
     //  We only allow reading of temperature values.
     if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
     itf = SENSOR_GET_ITF(sensor); assert(itf);
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
 
-    //  Get a new temperature sample always.
+    //  Get a new temperature sample from the temperature sensor channel of the ADC port.
     rawtemp = -1;
     rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
     if (rc) { goto err; }
@@ -191,7 +190,7 @@ err:
  *
  * @return 0 on success, and non-zero error code on failure
  */
-static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int32_t *rawtemp) {
+static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) {
     //  If adc_read_channel() fails to return a value, check that
     //  ExternalTrigConv is set to ADC_SOFTWARE_START for STM32F1.
     //  Also the STM32 HAL should be called in this sequence:
