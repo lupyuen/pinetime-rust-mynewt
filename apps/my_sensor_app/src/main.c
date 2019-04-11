@@ -27,7 +27,7 @@
 #include "esp8266_driver.h"
 #include "esp8266_transport.h"
 #include "geolocate.h"
-#include "sensor.h"
+#include "temp_sensor.h"
 
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 #define COAP_HOST   "coap.thethings.io"  //  CoAP hostname e.g. coap.thethings.io
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     sysinit();           
 
     //  Initialize the sensors. 
-    //  rc = init_sensors();  assert(rc == 0);
+    rc = init_temperature_sensor();  assert(rc == 0);
 
     //  Initialize the ESP8266 driver.
     rc = init_esp8266();  assert(rc == 0); 

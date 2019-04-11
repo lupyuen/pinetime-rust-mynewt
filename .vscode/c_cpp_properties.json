@@ -6,6 +6,7 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [
+                "ADC_1=1",
                 "APP_NAME=my_sensor_app",
                 "APP_my_sensor_app",
                 "ARCH_NAME=cortex_m3",
