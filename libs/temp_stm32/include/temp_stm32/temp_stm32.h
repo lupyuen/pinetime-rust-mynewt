@@ -32,7 +32,7 @@ struct temp_stm32_cfg {
     sensor_type_t bc_s_mask;
 };
 
-struct temp_stm32_dev {
+struct temp_stm32 {
     struct os_dev dev;
     struct sensor sensor;
     struct temp_stm32_cfg cfg;
@@ -49,7 +49,7 @@ struct temp_stm32_dev {
 int temp_stm32_init(struct os_dev *dev, void *arg);
 
 /**
- * Gets temperature
+ * Get temperature from STM32 internal temperature sensor
  *
  * @param The sensor interface
  * @param temperature
@@ -59,14 +59,14 @@ int temp_stm32_init(struct os_dev *dev, void *arg);
 int temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp);
 
 /**
- * Configure temp_stm32 sensor
+ * Configure STM32 internal temperature sensor
  *
- * @param Sensor device temp_stm32_dev structure
+ * @param Sensor device temp_stm32 structure
  * @param Sensor device temp_stm32_cfg config
  *
  * @return 0 on success, and non-zero error code on failure
  */
-int temp_stm32_config(struct temp_stm32_dev *temp_stm32, struct temp_stm32_cfg *cfg);
+int temp_stm32_config(struct temp_stm32 *temp_stm32, struct temp_stm32_cfg *cfg);
 
 #ifdef __cplusplus
 }
