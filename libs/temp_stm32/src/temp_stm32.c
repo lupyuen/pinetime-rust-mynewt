@@ -88,6 +88,10 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     struct temp_stm32 *dev;
     int rc;
     int32_t rawtemp;
+    union {
+        struct sensor_temp_data std;
+    } databuf;
+
     if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) {
         rc = SYS_EINVAL;
         goto err;
@@ -95,25 +99,14 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     itf = SENSOR_GET_ITF(sensor);
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor);
 
-    /*
-     * For forced mode the sensor goes to sleep after setting the sensor to
-     * forced mode and grabbing sensor data
-     */
-    if (dev->cfg.bc_mode == TEMP_STM32_MODE_FORCED) {
-        rc = temp_stm32_forced_mode_measurement(itf);
-        if (rc) { goto err; }
-    }
-
     //  Get a new temperature sample always.
     rawtemp = 0;
     rc = temp_stm32_get_temperature(itf, &rawtemp);
     if (rc) { goto err; }
 
     if (type & SENSOR_TYPE_AMBIENT_TEMPERATURE) {
-        if (databuf.std.std_temp != NAN) {
-            databuf.std.std_temp_is_valid = 1;
-        }
-        /* Call data function */
+        databuf.std.std_temp_is_valid = 1;
+        //  Call data function.
         rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
         if (rc) { goto err; }
     }
@@ -125,7 +118,7 @@ err:
 static int temp_stm32_sensor_get_config(struct sensor *sensor, sensor_type_t type,
     struct sensor_cfg *cfg) {
     int rc;
-    if (!(type & SENSOR_TYPE_PRESSURE)) {
+    if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) {
         rc = SYS_EINVAL;
         goto err;
     }
@@ -150,115 +143,10 @@ int temp_stm32_config(struct temp_stm32 *dev, struct temp_stm32_cfg *cfg) {
     struct sensor_itf *itf;
 
     itf = SENSOR_GET_ITF(&(dev->sensor));
-
-    /* Check if we can read the chip address */
-    rc = temp_stm32_get_chipid(itf, &id);
-    if (rc) {
-        goto err;
-    }
-
-    if (id != TEMP_STM32_CHIPID && id != BMP280_CHIPID) {
-        os_time_delay((OS_TICKS_PER_SEC * 100)/1000 + 1);
-
-        rc = temp_stm32_get_chipid(itf, &id);
-        if (rc) {
-            goto err;
-        }
-
-        if(id != TEMP_STM32_CHIPID && id != BMP280_CHIPID) {
-            rc = SYS_EINVAL;
-            goto err;
-        }
-    }
-
-    rc = temp_stm32_reset(itf);
-    if (rc) {
-        goto err;
-    }
-
-    os_time_delay((OS_TICKS_PER_SEC * 300)/1000 + 1);
-
-    calibrating = 1;
-
-    while(calibrating) {
-        rc = temp_stm32_is_calibrating(itf, &calibrating);
-        if (rc) {
-            goto err;
-        }
-    }
-
-    rc = temp_stm32_get_calibinfo(itf, &(dev->pdd.bcd));
-    if (rc) {
-        goto err;
-    }
-
-    rc = temp_stm32_set_iir(itf, cfg->bc_iir);
-    if (rc) {
-        goto err;
-    }
-
-    os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
-
-    dev->cfg.bc_iir = cfg->bc_iir;
-
-    rc = temp_stm32_set_mode(itf, cfg->bc_mode);
-    if (rc) {
-        goto err;
-    }
-
-    os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
-
-    dev->cfg.bc_mode = cfg->bc_mode;
-
-    rc = temp_stm32_set_sby_duration(itf, cfg->bc_sby_dur);
-    if (rc) {
-        goto err;
-    }
-
-    os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
-
-    dev->cfg.bc_sby_dur = cfg->bc_sby_dur;
-
-    if (cfg->bc_boc[0].boc_type) {
-        rc = temp_stm32_set_oversample(itf, cfg->bc_boc[0].boc_type,
-                                   cfg->bc_boc[0].boc_oversample);
-        if (rc) {
-            goto err;
-        }
-    }
-
-    dev->cfg.bc_boc[0].boc_type = cfg->bc_boc[0].boc_type;
-    dev->cfg.bc_boc[0].boc_oversample = cfg->bc_boc[0].boc_oversample;
-
-    if (cfg->bc_boc[1].boc_type) {
-        rc = temp_stm32_set_oversample(itf, cfg->bc_boc[1].boc_type,
-                                   cfg->bc_boc[1].boc_oversample);
-        if (rc) {
-            goto err;
-        }
-    }
-
-    dev->cfg.bc_boc[1].boc_type = cfg->bc_boc[1].boc_type;
-    dev->cfg.bc_boc[1].boc_oversample = cfg->bc_boc[1].boc_oversample;
-
-    if (cfg->bc_boc[2].boc_type) {
-        rc = temp_stm32_set_oversample(itf, cfg->bc_boc[2].boc_type,
-                                   cfg->bc_boc[2].boc_oversample);
-        if (rc) {
-            goto err;
-        }
-    }
-
-    dev->cfg.bc_boc[2].boc_type = cfg->bc_boc[2].boc_type;
-    dev->cfg.bc_boc[2].boc_oversample = cfg->bc_boc[2].boc_oversample;
-
-    os_time_delay((OS_TICKS_PER_SEC * 200)/1000 + 1);
-
     rc = sensor_set_type_mask(&(dev->sensor),  cfg->bc_s_mask);
     if (rc) { goto err; }
 
     dev->cfg.bc_s_mask = cfg->bc_s_mask;
-
     return 0;
 err:
     return (rc);
@@ -275,16 +163,12 @@ err:
 int temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp) {
     int rc;
     uint8_t tmp[3];
-
     rc = temp_stm32_readlen(itf, TEMP_STM32_REG_ADDR_TEMP, tmp, 3);
-    if (rc) {
-        goto err;
-    }
+    if (rc) { goto err; }
 
     *temp = (int32_t)((((uint32_t)(tmp[0])) << 12) |
                       (((uint32_t)(tmp[1])) <<  4) |
                        ((uint32_t)tmp[2] >> 4));
-
     return 0;
 err:
     return rc;
