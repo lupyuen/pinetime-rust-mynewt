@@ -92,10 +92,7 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
         struct sensor_temp_data std;
     } databuf;
 
-    if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) {
-        rc = SYS_EINVAL;
-        goto err;
-    }
+    if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
     itf = SENSOR_GET_ITF(sensor);
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor);
 
@@ -105,7 +102,10 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     if (rc) { goto err; }
 
     if (type & SENSOR_TYPE_AMBIENT_TEMPERATURE) {
+        float vtemp = rawtemp * 3300.0 / 4095.0;
+        databuf.std.std_temp = (1.43 - vtemp) / 4.5 + 25.00;
         databuf.std.std_temp_is_valid = 1;
+	    
         //  Call data function.
         rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
         if (rc) { goto err; }
@@ -156,19 +156,13 @@ err:
  * Get temperature from STM32 internal temperature sensor
  *
  * @param The sensor interface
- * @param temperature
+ * @param Raw temperature
  *
  * @return 0 on success, and non-zero error code on failure
  */
 int temp_stm32_get_temperature(struct sensor_itf *itf, int32_t *temp) {
-    int rc;
-    uint8_t tmp[3];
-    rc = temp_stm32_readlen(itf, TEMP_STM32_REG_ADDR_TEMP, tmp, 3);
-    if (rc) { goto err; }
-
-    *temp = (int32_t)((((uint32_t)(tmp[0])) << 12) |
-                      (((uint32_t)(tmp[1])) <<  4) |
-                       ((uint32_t)tmp[2] >> 4));
+    int rc = 0;
+    *temp = 0;  //  TODO
     return 0;
 err:
     return rc;

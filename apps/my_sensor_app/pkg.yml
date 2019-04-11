@@ -34,7 +34,8 @@ pkg.deps:
     - "@apache-mynewt-core/encoding/json"  #  JSON encodng for CoAP
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
     - "libs/semihosting_console"           #  Semihosting Console
-    - "libs/adc_stm32f1"                   #  ADC for STM32F1, for internal temperature sensor
+    - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
+    - "libs/temp_stm32"                    #  Internal temperature sensor for STM32, based on ADC
 
 pkg.cflags:  #  C compiler flags
     - -DFLOAT_SUPPORT       #  For encoding floats in CoAP messages
