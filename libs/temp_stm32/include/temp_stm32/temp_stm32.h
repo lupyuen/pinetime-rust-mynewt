@@ -34,7 +34,11 @@ struct adc_dev;  //  ADC device
 
 //  Configuration for the STM32 internal temperature sensor
 struct temp_stm32_cfg {
-    sensor_type_t bc_s_mask;  //  Sensor data types that will be returned i.e. temperature.
+    sensor_type_t bc_s_mask;   //  Sensor data types that will be returned, i.e. temperature.
+    const char *adc_dev_name;  //  Name of the ADC device that will be opened to access the sensor. For STM32F1: "adc1"
+    uint8_t adc_channel;       //  ADC channel that will be configured to access the sensor. For STM32F1: 16
+    void *adc_open_arg;        //  Argument that will be passed to os_dev_open() when opening ADC device.
+    void *adc_channel_cfg;     //  Argument that will be passed to adc_chan_config() when configuring ADC channel.
 };
 
 //  Device for the STM32 internal temperature sensor
@@ -68,16 +72,6 @@ int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg);
  * @return 0 on success, and non-zero error code on failure
  */
 int temp_stm32_init(struct os_dev *dev, void *arg);
-
-/**
- * Get raw temperature from STM32 internal temperature sensor by reading from ADC. Will block until data is available.
- *
- * @param itf The sensor interface
- * @param rawtemp Raw temperature
- *
- * @return 0 on success, and non-zero error code on failure
- */
-int temp_stm32_get_raw_temperature(struct sensor_itf *itf, int32_t *rawtemp);
 
 /**
  * Configure STM32 internal temperature sensor

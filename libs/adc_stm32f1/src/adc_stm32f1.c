@@ -1,12 +1,3 @@
-//  Based on adc_stm32f4. We currently support blocking reads, not interrupts (marked by #ifdef TODO).
-//  Tested OK with internal temparature sensor.
-//  ExternalTrigConv must be set to ADC_SOFTWARE_START for STM32F1.
-//  HAL should be called in this sequence:
-//    __HAL_RCC_ADC1_CLK_ENABLE();
-//    HAL_ADC_Init(hadc1);
-//    HAL_ADC_ConfigChannel(hadc1, &temp_config);
-//    HAL_ADC_Start(hadc1);
-//    HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -25,7 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+//  Based on adc_stm32f4. We currently support blocking reads, not interrupts (marked by #ifdef TODO).
+//  Tested OK with internal temparature sensor.
+//  ExternalTrigConv must be set to ADC_SOFTWARE_START for STM32F1.
+//  HAL should be called in this sequence:
+//    __HAL_RCC_ADC1_CLK_ENABLE();
+//    HAL_ADC_Init(hadc1);
+//    HAL_ADC_ConfigChannel(hadc1, &temp_config);
+//    HAL_ADC_Start(hadc1);
+//    HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
 
 #include <hal/hal_bsp.h>
 #include <assert.h>
@@ -451,14 +450,17 @@ stm32f1_adc_uninit(struct adc_dev *dev)
 
     ////  NVIC_DisableIRQ(stm32f1_resolve_adc_dma_irq(hdma));
 
-    if (stm32f1_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
-        goto err;
+    //  Temperature and VREF channels don't use GPIO.  No need to deinit GPIO.
+    if (cnum != ADC_CHANNEL_TEMPSENSOR && cnum != ADC_CHANNEL_VREFINT) {
+        //  Deinit the GPIO.
+        if (stm32f1_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
+            goto err;
+        }
+        if (hal_gpio_deinit_stm(gpio_td.Pin, &gpio_td)) {
+            goto err;
+        }
     }
-
-    if (hal_gpio_deinit_stm(gpio_td.Pin, &gpio_td)) {
-        goto err;
-    }
-
+    //  TODO: Call HAL_ADC_DeInit
 err:
     return;
 }
@@ -817,12 +819,14 @@ stm32f1_adc_dev_init(struct os_dev *odev, void *arg)
 
     dev->ad_funcs = &stm32f1_adc_funcs;
 
+#ifdef NOTUSED
+    //  TODO: Move to stm32f1_adc_open
     __HAL_RCC_ADC1_CLK_ENABLE();  ////  TODO: Added enable ADC1
 
     struct stm32f1_adc_dev_cfg *cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     ADC_HandleTypeDef *hadc = cfg->sac_adc_handle;
     HAL_StatusTypeDef rc = HAL_ADC_Init(hadc);  ////  Added HAL initalisation, which was missing from the STM32F4 code.
     if (rc != HAL_OK) { return rc; }
-
+#endif  //  NOTUSED
     return (OS_OK);
 }

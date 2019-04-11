@@ -35,6 +35,7 @@ static int temp_stm32_sensor_read(struct sensor *, sensor_type_t,
     sensor_data_func_t, void *, uint32_t);
 static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t,
     struct sensor_cfg *);
+static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int32_t *rawtemp);
 
 //  Global instance of the sensor driver
 static const struct sensor_driver g_temp_stm32_sensor_driver = {
@@ -43,7 +44,7 @@ static const struct sensor_driver g_temp_stm32_sensor_driver = {
 };
 
 //  Config for the temperature channel on ADC1.
-static ADC_ChannelConfTypeDef temp_config = {
+static ADC_ChannelConfTypeDef temp_channel_config = {
     .Channel      = ADC_CHANNEL_TEMPSENSOR,      //  Channel number of temperature sensor on ADC1.  For Blue Pill: 16
     .Rank         = ADC_REGULAR_RANK_1,          //  Every ADC1 channel must be assigned a rank to indicate which channel gets converted first.  Rank 1 is the first to be converted.
     .SamplingTime = ADC_SAMPLETIME_239CYCLES_5,  //  Sampling time 239.5 ADC clock cycles
@@ -53,27 +54,52 @@ int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
     //  Return the default sensor configuration.
     memset(&cfg, 0, sizeof(struct temp_stm32_cfg));  //  Zero the entire object.
     cfg->bc_s_mask = SENSOR_TYPE_ALL;  //  Return all sensor values, i.e. temperature.
+    cfg->adc_dev_name = STM32F1_ADC1_DEVICE;    //  For STM32F1: adc1
+    cfg->adc_channel = ADC_CHANNEL_TEMPSENSOR;  //  For STM32F1: 16
+    cfg->adc_open_arg = NULL;
+    cfg->adc_channel_cfg = &temp_channel_config;  //  Configure the temperature channel.
     return 0;
 }
 
-static int internal_init(struct temp_stm32 *dev) {
+static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  Setup ADC channel configuration for temperature sensor.
-    //  TODO: Move to temp_stm32_open.
+    //  This locks the ADC channel until the sensor is closed.
     int rc = -1;
-    dev->adc = (struct adc_dev *)os_dev_open(STM32F1_ADC1_DEVICE, 0, NULL);
+    struct temp_stm32 *dev;    
+    struct temp_stm32_cfg *cfg;
+    dev = (struct temp_stm32 *) dev0;  assert(dev);  
+    cfg = &dev->cfg; assert(cfg);
+
+    //  Open the ADC port.
+    assert(cfg->adc_dev_name);
+    dev->adc = (struct adc_dev *) os_dev_open(cfg->adc_dev_name, timeout, cfg->adc_open_arg);
     assert(dev->adc);
     if (!dev->adc) { goto err; }
 
-    rc = adc_chan_config(dev->adc, ADC_CHANNEL_TEMPSENSOR, &temp_config);
+    //  Configure the ADC channel for temperature sensor.
+    assert(cfg->adc_channel);  assert(cfg->adc_channel_cfg);
+    rc = adc_chan_config(dev->adc, cfg->adc_channel, cfg->adc_channel_cfg);
     assert(rc == 0);
     if (rc) { goto err; }
     return 0;
 err:
     return rc;
 }
+
 /* Previously: 
     struct adc_dev my_dev_adc1;
     rc = adc_chan_config(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &temp_config); */
+
+static int temp_stm32_close(struct os_dev *dev0) {
+    //  Close the sensor.  This unlocks the ADC channel.
+    struct temp_stm32 *dev;    
+    dev = (struct temp_stm32 *) dev0;
+    if (dev->adc) {
+        os_dev_close((struct os_dev *) dev->adc);
+        dev->adc = NULL;
+    }
+    return 0;
+}
 
 /**
  * Expects to be called back through os_dev_create().
@@ -113,12 +139,8 @@ int temp_stm32_init(struct os_dev *dev0, void *arg) {
     rc = sensor_mgr_register(sensor);
     if (rc != 0) { goto err; }
 
-    //  Configure the temperature sensor channel of the ADC driver.
-    rc = internal_init(dev);
-    if (rc != 0) { goto err; }
-
-    //  TODO: OS_DEV_SETHANDLERS(dev, temp_stm32_open, temp_stm32_close);
-
+    //  Set the handlers for opening and closing the device.
+    OS_DEV_SETHANDLERS(dev0, temp_stm32_open, temp_stm32_close);
     return (0);
 err:
     return (rc);
@@ -141,14 +163,17 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
 
     //  Get a new temperature sample always.
-    rawtemp = 0;
-    rc = temp_stm32_get_temperature(itf, &rawtemp);
+    rawtemp = -1;
+    rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
     if (rc) { goto err; }
+    console_printf("rawtemp: %d\n", rawtemp); console_flush(); ////
 
     //  Convert the raw temperature to actual temperature.
     float vtemp = rawtemp * 3300.0 / 4095.0;
-    databuf.std.std_temp = (1.43 - vtemp) / 4.5 + 25.00;
+    float temp = (1.43 - vtemp) / 4.5 + 25.00;
+    databuf.std.std_temp = temp;
     databuf.std.std_temp_is_valid = 1;
+    console_printf("temp: %d.%d\n", (int) temp, ((int) (temp * 10.0)) % 10); console_flush(); ////
     
     //  Call the user function to process the data.
     rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
@@ -161,23 +186,31 @@ err:
 /**
  * Get raw temperature from STM32 internal temperature sensor by reading from ADC. Will block until data is available.
  *
- * @param itf The sensor interface
+ * @param dev The temp_stm32 device
  * @param rawtemp Raw temperature
  *
  * @return 0 on success, and non-zero error code on failure
  */
-int temp_stm32_get_raw_temperature(struct sensor_itf *itf, int32_t *rawtemp) {
+static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int32_t *rawtemp) {
+    //  If adc_read_channel() fails to return a value, check that
+    //  ExternalTrigConv is set to ADC_SOFTWARE_START for STM32F1.
+    //  Also the STM32 HAL should be called in this sequence:
+    //    __HAL_RCC_ADC1_CLK_ENABLE();
+    //    HAL_ADC_Init(hadc1);
+    //    HAL_ADC_ConfigChannel(hadc1, &temp_config);
+    //    HAL_ADC_Start(hadc1);
+    //    HAL_ADC_PollForConversion(hadc1, 10 * 1000);
+    //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
     int rc = 0;
     *rawtemp = -1;
 
     //  Block until the temperature is read from the ADC channel.
-    struct temp_stm32 *dev = NULL;  //  TODO
-    rc = adc_read_channel(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, rawtemp);
+    assert(dev->adc);
+    rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, rawtemp);
     assert(rc == 0);
     if (rc) { goto err; }
 
-    assert(*rawtemp > 0);  //  If rawValue = 0, it means we haven't sampled any values.
-    console_printf("rawValue: %d\n", *rawtemp); console_flush(); ////
+    assert(*rawtemp > 0);  //  If rawValue = 0, it means we haven't sampled any values.  Check the above note.
     return 0;
 err:
     return rc;
