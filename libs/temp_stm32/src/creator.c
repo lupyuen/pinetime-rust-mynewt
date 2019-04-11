@@ -15,12 +15,20 @@
 #define DEVICE_CREATE    temp_stm32_create  //  Device create function
 #define DEVICE_ITF       adc_1_itf_temp_stm32   //  Device interface
 
+static struct DEVICE_DEV DEVICE_INSTANCE;
+
 static struct sensor_itf DEVICE_ITF = {
     .si_type = 0,  //  TODO: Should be ADC.
     .si_num  = 0,
 };
 
-static struct DEVICE_DEV DEVICE_INSTANCE;
+//  Init the config for the sensor.
+static void config_internal(struct DEVICE_CFG *cfg) {
+    cfg->bc_s_mask = SENSOR_TYPE_AMBIENT_TEMPERATURE;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Generic Sensor Creator Code
 
 //  Sensor default configuration.
 static int config_sensor(void) {
@@ -28,19 +36,21 @@ static int config_sensor(void) {
     struct os_dev *dev;
     struct DEVICE_CFG cfg;
 
+    //  Fetch the sensor device.
     dev = (struct os_dev *) os_dev_open(DEVICE_NAME, OS_TIMEOUT_NEVER, NULL);
     assert(dev != NULL);
 
+    //  Init the config for the sensor.
     memset(&cfg, 0, sizeof(cfg));
+    config_internal(&cfg);
 
-    //  Specific config for the sensor.
-    cfg.bc_s_mask = SENSOR_TYPE_AMBIENT_TEMPERATURE;
-
+    //  Apply the sensor config.
     rc = DEVICE_CFG_FUNC((struct DEVICE_DEV *)dev, &cfg);
     os_dev_close(dev);
     return rc;
 }
 
+//  Create the sensor device instance and configure it.
 void DEVICE_CREATE(void) {
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
         OS_DEV_INIT_PRIMARY, 0, 
@@ -51,4 +61,4 @@ void DEVICE_CREATE(void) {
     assert(rc == 0);
 }
 
-////#endif  //  MYNEWT_VAL(ADC_1) && MYNEWT_VAL(TEMP_STM32_ONB)
+////  #endif  //  MYNEWT_VAL(ADC_1) && MYNEWT_VAL(TEMP_STM32_ONB)
