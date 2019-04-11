@@ -1,10 +1,12 @@
 //  Based on adc_stm32f4. We currently support blocking reads, not interrupts (marked by #ifdef TODO).
+//  Tested OK with internal temparature sensor.
+//  ExternalTrigConv must be set to ADC_SOFTWARE_START for STM32F1.
 //  HAL should be called in this sequence:
-//  __HAL_RCC_ADC1_CLK_ENABLE();
-//  HAL_ADC_Init(hadc1);
-//  HAL_ADC_ConfigChannel(hadc1, &temp_config);
-//  HAL_ADC_Start(hadc1);
-//  HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
+//    __HAL_RCC_ADC1_CLK_ENABLE();
+//    HAL_ADC_Init(hadc1);
+//    HAL_ADC_ConfigChannel(hadc1, &temp_config);
+//    HAL_ADC_Start(hadc1);
+//    HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
