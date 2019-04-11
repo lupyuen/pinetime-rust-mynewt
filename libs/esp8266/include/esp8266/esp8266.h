@@ -1,19 +1,17 @@
-//  ESP8266 Driver for Apache Mynewt.  Functions for creating the driver instance and performing ESP8266 functions.
+//  ESP8266 Driver for Apache Mynewt.  Functions for creating the ESP8266 device instance and performing ESP8266 functions.
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
 #ifndef __ESP8266_DRIVER_H__
 #define __ESP8266_DRIVER_H__
 
-//// #include <os/os.h>
-//// #include <sensor/sensor.h>
-#include "esp8266/network.h"
-#include "esp8266/wifi.h"
+#include <esp8266/network.h>
+#include <esp8266/wifi.h>
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 #define ESP8266_DEVICE "esp8266_0"  //  Name of the ESP8266 device
-#define ESP8266_SOCKET_COUNT 2  //  Max number of concurrent TCP+UDP connections allowed.  Should be 5 or fewer, since ESP8266 supports up to 5 sockets.
+#define ESP8266_SOCKET_COUNT 2      //  Max number of concurrent TCP+UDP connections allowed.  Should be 5 or fewer, since ESP8266 supports up to 5 sockets.
 
 //  Use static buffers to avoid dynamic memory allocation (new, delete)
 #define ESP8266_TX_BUFFER_SIZE      400  //  Must be large enough to hold sensor and geolocation CoAP UDP messages.
@@ -55,7 +53,7 @@ struct esp8266_cfg {
     } _cbs[ESP8266_SOCKET_COUNT];
 };
 
-//  ESP8266 Driver Instance for Mynewt
+//  ESP8266 Device Instance for Mynewt
 struct esp8266 {
     struct os_dev dev;
     struct sensor sensor;
@@ -63,30 +61,62 @@ struct esp8266 {
     void *controller;  //  Pointer to controller instance (ESP8266 *)
 };
 
-int esp8266_create(void);  //  Init the Mynewt sensor device for ESP8266.
-int esp8266_default_cfg(struct esp8266_cfg *cfg);  //  Return the default config.
-int esp8266_init(struct os_dev *dev0, void *arg);  //  Configure the device and register with Sensor Manager.  Called by os_dev_create().
+//  Create the Mynewt device for ESP8266.  Use the default ESP8266 config.  Return 0 if successful.
+int esp8266_create(void);
 
-int esp8266_config(struct esp8266 *dev, struct esp8266_cfg *cfg);  //  Configure the ESP8266 driver.
-int esp8266_scan(struct esp8266 *dev, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);  //  Scan for WiFi access points. Assume that ESP8266::startup() has already been called.
+//  Copy the default ESP8266 config into cfg.  Returns 0.
+int esp8266_default_cfg(struct esp8266_cfg *cfg);
 
-int esp8266_connect(struct esp8266 *dev, const char *ssid, const char *pass);  //  Connect to the WiFi access point with the SSID and password.
-int esp8266_set_credentials(struct esp8266 *dev, const char *ssid, const char *pass, nsapi_security_t security);      //  Save the credentials for the WiFi access point.
-int esp8266_disconnect(struct esp8266 *dev);  //  Disconnect from the WiFi access point.
+//  Configure the ESP8266 driver.  Called by os_dev_create().  Return 0 if successful.
+int esp8266_init(struct os_dev *dev0, void *arg);
 
-const char *esp8266_get_ip_address(struct esp8266 *dev);
-const char *esp8266_get_mac_address(struct esp8266 *dev);
-const char *esp8266_get_gateway(struct esp8266 *dev);
-const char *esp8266_get_netmask(struct esp8266 *dev);
-int8_t esp8266_get_rssi(struct esp8266 *dev);
+//  Apply the ESP8266 driver configuration.  Return 0 if successful.
+int esp8266_config(struct esp8266 *dev, struct esp8266_cfg *cfg);  
 
-int esp8266_socket_open(struct esp8266 *dev, void **handle, nsapi_protocol_t proto);
-int esp8266_socket_close(struct esp8266 *dev, void *handle);
+//  Scan for WiFi access points and save into "res". Save up to "limit" number of access points.
+//  "filter_func" (if not null) will be called with the current access point, and the number of access points
+//  saved into "res".  If "filer_func" returns true, then the access point is saved into "res".
+//  Return the number of access points actually saved into "res".
+//  Assume that ESP8266::startup() has already been called.
+int esp8266_scan(struct esp8266 *dev, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);  
+
+//  Connect to the WiFi access point with the SSID and password.  Return 0 if successful.
+int esp8266_connect(struct esp8266 *dev, const char *ssid, const char *pass);  
+
+//  Save the credentials for the WiFi access point.  Return 0 if successful.
+int esp8266_set_credentials(struct esp8266 *dev, const char *ssid, const char *pass, nsapi_security_t security);      
+
+//  Disconnect from the WiFi access point.  Return 0 if successful.
+int esp8266_disconnect(struct esp8266 *dev);  
+
+//  Allocate a socket.  Return 0 if successful.
+int esp8266_socket_open(struct esp8266 *dev, void **handle, nsapi_protocol_t proto);  
+
+//  Close the socket.  Return 0 if successful.
+int esp8266_socket_close(struct esp8266 *dev, void *handle);  
+
+//  Connect the socket to the host and port via UDP or TCP.  Return 0 if successful.
+//  Note: Host must point to a static string that will never change.
 int esp8266_socket_connect(struct esp8266 *dev, void *handle, const char *host, uint16_t port);
+
+//  Send the byte buffer to the socket.  Return number of bytes sent.
 int esp8266_socket_send(struct esp8266 *dev, void *handle, const void *data, unsigned size);
+
+//  Send the chain of mbufs to the socket.  Return number of bytes sent.
 int esp8266_socket_send_mbuf(struct esp8266 *dev, void *handle, struct os_mbuf *m);
+
+//  Send the byte buffer to the host and port.  Return number of bytes sent.
+//  Note: Host must point to a static string that will never change.
 int esp8266_socket_sendto(struct esp8266 *dev, void *handle, const char *host, uint16_t port, const void *data, unsigned size);
+
+//  Attach a callback to a socket.
 void esp8266_socket_attach(struct esp8266 *dev, void *handle, void (*callback)(void *), void *data);
+
+const char *esp8266_get_ip_address(struct esp8266 *dev);   //  Get the client IP address.
+const char *esp8266_get_mac_address(struct esp8266 *dev);  //  Get the client MAC address.
+const char *esp8266_get_gateway(struct esp8266 *dev);  //  Get the gateway address.
+const char *esp8266_get_netmask(struct esp8266 *dev);  //  Get the netmask.
+int8_t esp8266_get_rssi(struct esp8266 *dev);          //  Get the WiFi signal strength.
 
 #ifdef __cplusplus
 }
