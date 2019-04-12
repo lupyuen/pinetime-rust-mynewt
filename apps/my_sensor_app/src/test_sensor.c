@@ -29,7 +29,7 @@ int test_sensor(void) {
 
   /* Initialize all configured peripherals */
   MX_ADC1_Init();
-  while(HAL_ADCEx_Calibration_Start(&hadc1) != HAL_OK);           // calibrate AD convertor
+  //  while(HAL_ADCEx_Calibration_Start(&hadc1) != HAL_OK);           // calibrate AD convertor
 
   while (1) {
     // uint16_t rawValue;
@@ -38,8 +38,8 @@ int test_sensor(void) {
     // adc_start_conversion_direct(ADC1);
     HAL_ADC_Start(&hadc1);
 
-    //  HAL_ADC_PollForConversion(&hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
-    while(HAL_ADC_PollForConversion(&hadc1, 1000000) != HAL_OK);  // wait for completing the conversion
+    HAL_ADC_PollForConversion(&hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
+    //  while(HAL_ADC_PollForConversion(&hadc1, 1000000) != HAL_OK);  // wait for completing the conversion
 
     uint16_t rawValue = HAL_ADC_GetValue(&hadc1);                        // read sensor's digital value
     HAL_ADC_Stop(&hadc1);
@@ -140,21 +140,26 @@ void MX_ADC1_Init(void) {
   //// hadc1.Init.Resolution = ADC_RESOLUTION_12B;
 
   // adc_disable_scan_mode(ADC1);
-  hadc1.Init.ScanConvMode = DISABLE;
+  hadc1.Init.ScanConvMode = DISABLE;  //  Disable scan conversion mode
 
   // adc_set_single_conversion_mode(ADC1);
-  hadc1.Init.ContinuousConvMode = DISABLE; //// ENABLE;
+  // hadc1.Init.ContinuousConvMode = DISABLE;  //  Disable continuous conversion mode
+  hadc1.Init.ContinuousConvMode = ENABLE;  //  Enable continuous conversion mode
+  //// Previously: ENABLE;
 
   // ???
   hadc1.Init.DiscontinuousConvMode = DISABLE;
 
   // adc_set_right_aligned(ADC1);
-  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;  //  Align the converted result right.
 
-  hadc1.Init.NbrOfConversion = 1;
+  hadc1.Init.NbrOfConversion = 1;  //  Number of channels of the regular group that will be converted in scan mode: Only 1 channel
+
   //// hadc1.Init.DMAContinuousRequests = DISABLE;
   //// hadc1.Init.EOCSelection = ADC_EOC_SEQ_CONV;
-  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;  ////
+
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;  //  Trigger the conversion by software.
+
   HAL_ADC_Init(&hadc1);
 
   /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
