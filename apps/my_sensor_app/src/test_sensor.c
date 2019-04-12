@@ -143,7 +143,7 @@ void MX_ADC1_Init(void) {
   hadc1.Init.ScanConvMode = DISABLE;  //  Disable scan conversion mode
 
   // adc_set_single_conversion_mode(ADC1);
-  hadc1.Init.ContinuousConvMode = DISABLE;  //  Disable continuous conversion mode
+  hadc1.Init.ContinuousConvMode = DISABLE;  //  Disable continuous conversion mode, because we start and stop the ADC at each poll.
   // hadc1.Init.ContinuousConvMode = ENABLE;  //  Enable continuous conversion mode
   //// Previously: ENABLE;
 

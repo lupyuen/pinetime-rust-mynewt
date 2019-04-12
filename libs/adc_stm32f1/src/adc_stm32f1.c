@@ -65,8 +65,31 @@ struct stm32f1_adc_stats {
 static struct stm32f1_adc_stats stm32f1_adc_stats;
 
 static void
+config_clk(void)
+{
+    //  Added to configure the ADC clock.  According to Blue Pill HAL: repos/apache-mynewt-core/hw/bsp/bluepill/src/hal_bsp.c
+    //    HSI Clock = 8 MHz
+    //    PLL Clock = (HSI / 2) * 16 = 64 MHz
+    //    ADC / APB2 / PCLK2 Clock = PLL / 4 = 16 MHz
+    //  which is too high - ADC clock must not exceed 14 MHz
+    //  So we slow down the clock:
+    //    ADC / APB2 / PCLK2 Clock = PLL / 8 = 8 MHz
+    RCC_ClkInitTypeDef clkinitstruct = { 0 };
+    console_printf("config adc clock\n");  ////
+
+    //  Set ADC / APB2 / PCLK2 = PLL / 8 = 8 MHz
+    clkinitstruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK2);
+    clkinitstruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;  //  Value 2
+    //  Previously: clkinitstruct.APB2CLKDivider = RCC_HCLK_DIV4;  //  Value 1280
+    clkinitstruct.APB2CLKDivider = RCC_HCLK_DIV8;  //  Value 1536
+    if (HAL_RCC_ClockConfig(&clkinitstruct, FLASH_LATENCY_2) != HAL_OK) { assert(0); }  //  Latency=2
+}
+
+static void
 stm32f1_adc_clk_enable(ADC_HandleTypeDef *hadc)
 {
+    config_clk();  ////  Added to configure the ADC clock.
+
     uintptr_t adc_addr = (uintptr_t)hadc->Instance;
 
     switch (adc_addr) {
@@ -719,7 +742,7 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
     HAL_ADC_Start(hadc);
 
     //  Wait for ADC conversion to be completed.
-    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.  TODO: Yield to task scheduler while waiting.
+    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 3 * 1000);  //  Wait up to 3 seconds.  TODO: Yield to task scheduler while waiting.
     if (rc != HAL_OK) { HAL_ADC_Stop(hadc); return rc; }  //  Exit in case of error.
 
     //  Fetch the converted ADC value.

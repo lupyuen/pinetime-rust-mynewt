@@ -44,8 +44,8 @@ static const struct sensor_driver g_temp_stm32_sensor_driver = {
 //  Config for the temperature channel on ADC1.
 static ADC_ChannelConfTypeDef temp_channel_config = {
     .Channel      = ADC_CHANNEL_TEMPSENSOR,      //  Channel number of temperature sensor on ADC1.  For Blue Pill: 16
-    .Rank         = ADC_REGULAR_RANK_1,          //  Every ADC1 channel must be assigned a rank to indicate which channel gets converted first.  Rank 1 is the first to be converted.
-    .SamplingTime = ADC_SAMPLETIME_239CYCLES_5,  //  Sampling time 239.5 ADC clock cycles
+    .Rank         = ADC_REGULAR_RANK_1,          //  Every ADC1 channel should be assigned a rank to indicate which channel gets converted first.  Rank 1 is the first to be converted.
+    .SamplingTime = ADC_SAMPLETIME_239CYCLES_5,  //  Sampling time 239.5 ADC clock cycles. ADC clock (APB2/PCLK2) runs at 8 MHz
 };
 
 int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
@@ -151,14 +151,13 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
         struct sensor_temp_data std;  //  Temperature sensor value.
     } databuf;
     struct temp_stm32 *dev;
-    int rc, rawtemp, vtemp;
+    int rc, rawtemp;
     float temp;
 
     //  We only allow reading of temperature values.
     if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
     rawtemp = -1;
-
     {   //  Begin ADC Lock: Open and lock port ADC1, configure channel 16.
         rc = temp_stm32_open((struct os_dev *) dev, 0, NULL);
         if (rc) { goto err; }
@@ -167,21 +166,18 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
         rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
 
         temp_stm32_close((struct os_dev *) dev);
-    }   //  End ADC Lock: Close and unlock port ADC1 port.
-    if (rc) { goto err; }  //  
-    console_printf("rawtemp: %d\n", rawtemp);  ////
+    }   //  End ADC Lock: Close and unlock port ADC1.
+    if (rc) { goto err; }  //  console_printf("rawtemp: %d\n", rawtemp);  ////
 
-    //  Convert the raw temperature to actual temperature.  From https://github.com/Apress/Beg-STM32-Devel-FreeRTOS-libopencm3-GCC/blob/master/rtos/adc/main.c
-    static const int v25 = 1365; 
-	vtemp = rawtemp * 3300 / 4095;
-	temp = (v25 - vtemp) * 1000 / 45 + 2500;
+    //  Convert the raw temperature to actual temperature.  From     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
+    temp = ((float) rawtemp) / 4095 * 3300;
+    temp = ((temp - 760.0) / 2.5) + 25;
 
     //  Save the temperature.
     databuf.std.std_temp = temp;
     databuf.std.std_temp_is_valid = 1;  //  console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
     
-    if (data_func) {
-        //  Call the listener function to process the data.
+    if (data_func) {  //  Call the listener function to process the sensor data.
         rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
         if (rc) { goto err; }
     }
@@ -207,7 +203,9 @@ static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) 
     //    HAL_ADC_ConfigChannel(hadc1, &temp_config);
     //    HAL_ADC_Start(hadc1);
     //    HAL_ADC_PollForConversion(hadc1, 10 * 1000);
+    //    HAL_ADC_Stop(hadc1);
     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
+    //  and https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
     console_printf("read temp sensor\n");  ////
     int rc = 0;
     *rawtemp = -1;

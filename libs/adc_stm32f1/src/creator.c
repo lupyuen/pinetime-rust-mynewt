@@ -1,5 +1,3 @@
-////  #if MYNEWT_VAL(ADC_1)
-
 //  Create STM32F1 ADC1 port driver. Adapted from repos/apache-mynewt-core/hw/bsp/olimex_stm32-e407_devboard/src/hal_bsp.c
 #include <stm32f1xx_hal.h>
 #include <stm32f1xx_hal_dma.h>
@@ -11,28 +9,28 @@
 
 #define STM32F1_ADC_DEFAULT_INIT_TD {\
     /* TODO: .ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2, */ \
-    /* TODO: .Resolution = ADC_RESOLUTION12b, */ \
-    .DataAlign = ADC_DATAALIGN_RIGHT,\
-    .ScanConvMode = DISABLE,\
+    /* TODO: .Resolution     = ADC_RESOLUTION12b, */ \
+    .DataAlign             = ADC_DATAALIGN_RIGHT, /* Align the converted result right */ \
+    .ScanConvMode          = DISABLE,             /* Disable scan conversion mode */ \
     /* TODO: .EOCSelection = DISABLE, */ \
-    .ContinuousConvMode = ENABLE,\
-    .NbrOfConversion = 1,\
+    .ContinuousConvMode    = ENABLE,              /* Disable continuous conversion mode, because we start and stop the ADC at each poll */ \
+    .NbrOfConversion       = 1,                   /* Number of channels of the regular group that will be converted in scan mode: Only 1 channel */ \
     .DiscontinuousConvMode = DISABLE,\
-    .NbrOfDiscConversion = 0,\
-    .ExternalTrigConv = ADC_SOFTWARE_START,\
-    /* TODO: .ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE, */ \
+    .NbrOfDiscConversion   = 0,\
+    .ExternalTrigConv      = ADC_SOFTWARE_START,  /* Trigger the conversion by software */ \
+    /* TODO: .ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE, */ \
     /* TODO: .DMAContinuousRequests = ENABLE */ \
 }
 
 /*****************ADC1 Config ***************/
 #define STM32F1_DEFAULT_ADC1_HANDLE {\
-    .Init = STM32F1_ADC_DEFAULT_INIT_TD,\
+    .Init     = STM32F1_ADC_DEFAULT_INIT_TD,\
     .Instance = ADC1,\
     /* TODO: .NbrOfCurrentConversionRank = 0, */ \
     .DMA_Handle = NULL, /* TODO: &adc1_dma00_handle, */ \
-    .Lock = HAL_UNLOCKED,\
-    .State = 0,\
-    .ErrorCode = 0\
+    .Lock       = HAL_UNLOCKED,\
+    .State      = 0,\
+    .ErrorCode  = 0\
 }
 
 static ADC_HandleTypeDef adc1_handle = STM32F1_DEFAULT_ADC1_HANDLE;
@@ -69,13 +67,3 @@ void DEVICE_CREATE(void) {
         DEVICE_INIT, (void *) &DEVICE_ITF);
     assert(rc == 0);
 }
-
-/* Previously:
-    struct adc_dev my_dev_adc1;
-    int rc = os_dev_create((struct os_dev *) &my_dev_adc1, "adc1",
-        OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
-        stm32f1_adc_dev_init, &adc1_config);
-    assert(rc == 0);
-*/
-
-////  #endif

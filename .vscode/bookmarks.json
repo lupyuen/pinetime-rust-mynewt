@@ -93,8 +93,18 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 65,
+				"line": 61,
 				"column": 3,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h",
+		"bookmarks": [
+			{
+				"line": 514,
+				"column": 12,
 				"label": ""
 			}
 		]
