@@ -4,10 +4,15 @@
 # Strings must be enclosed by '"..."'
 
 syscfg.vals:
-    COAP_HOST: '"coap.thethings.io"'
-    ADC_1: 1      # Enable port ADC1 for internal temperature sensor.
-    OC_CLIENT: 1  # Enable the CoAP client library.
-
-# For the first tutorial, add the following settings:
-#   BME280_OFB: 1   # Enable BME280 offboard sensor.
-#   SPI_0_MASTER: 1 # Enable port SPI1.
+    # Settings for Tutorial 2
+    # CoAP hostname e.g. coap.thethings.io
+    COAP_HOST:      '"coap.thethings.io"'
+    # CoAP UDP port, usually port 5683
+    COAP_PORT:      5683
+    # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
+    COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+    # Connect to the WiFi access point with this SSID
+    WIFI_SSID:      '"my_ssid"'
+    # Password for WiFi access point
+    WIFI_PASSWORD:  '"my_password"'
+    ADC_1:          1       # Enable port ADC1 for internal temperature sensor.

@@ -1,8 +1,18 @@
 # System Configuration Setting Definitions:
-# Below are the settings defined by this app and their default values. To change the settings, edit
-# targets/bluepill_my_sensor/syscfg.yml.  Strings must be enclosed by '"..."'
+#   Below are the settings defined by this app and their default values. To change the settings, 
+#   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
+#   Strings must be enclosed by '"..."'
 
 syscfg.defs:
+    # Overall Tutorial Settings. See syscfg.vals section below to set the tutorial settings.
+    TUTORIAL1:
+        description: 'Settings for Tutorial 1'
+        value:        0
+    TUTORIAL2:
+        description: 'Settings for Tutorial 2'
+        value:        0
+
+    # CoAP Connection Settings 
     COAP_HOST:
         description: 'CoAP hostname e.g. coap.thethings.io'
         value:       '"coap.thethings.io"'
@@ -12,6 +22,8 @@ syscfg.defs:
     COAP_URI:
         description: 'CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8'
         value:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
+    # ESP8266 WiFi Settings
     WIFI_SSID:
         description: 'Connect to the WiFi access point with this SSID'
         value:       '"my_ssid"'
@@ -19,12 +31,17 @@ syscfg.defs:
         description: 'Password for WiFi access point'
         value:       '"my_password"'
 
-
 # System Configuration Setting Values:
-# Below we override the driver and library settings. Settings defined in
-# targets/bluepill_my_sensor/syscfg.yml will override the settings below.
+#   Below we override the driver and library settings. Settings defined in
+#   targets/bluepill_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
+    # Overall Tutorial Settings. Only one of these settings should be uncommented.
+    # If you are running Tutorial 1, uncomment the following line:
+    # TUTORIAL1: 1
+    # If you are running Tutorial 2, uncomment the following line:
+    TUTORIAL2: 1
+
     # OIC Settings
     OC_SERVER: 0  # Disable the OIC (CoAP) server library.
     OC_TRANS_SECURITY: 0
@@ -36,6 +53,7 @@ syscfg.vals:
     OC_CONN_EV_CB_CNT: 2
     OC_MAX_PAYLOAD: 400
     OC_MAX_PAYLOAD_SIZE: 400
+
     # Settings below were chosen to minimise ROM size.
     CONSOLE_RTT: 0
     CONSOLE_UART: 0
@@ -47,3 +65,12 @@ syscfg.vals:
     SHELL_OS_MODULE: 0
     SHELL_TASK: 0
     STATS_CLI: 0
+
+# Settings for Tutorial 1
+syscfg.vals.TUTORIAL1:
+    SPI_0_MASTER:   1       # Enable port SPI1.
+    BME280_OFB:     1       # Enable BME280 offboard sensor.
+
+# Settings for Tutorial 2
+syscfg.vals.TUTORIAL2:
+    OC_CLIENT:      1       # Enable the CoAP client library.
