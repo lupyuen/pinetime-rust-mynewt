@@ -56,44 +56,49 @@ syscfg.defs:
 #   targets/bluepill_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
-    # Overall Tutorial Settings. Only one of these settings should be uncommented.
+    # Overall Tutorial Settings: Only one of these TUTORIAL1 / TUTORIAL2 / ... 
+    # settings should be uncommented.
 
     # If you are running Tutorial 1, uncomment the following line:
-    # TUTORIAL1: 1
+    # TUTORIAL1:      1  # Apply Tutorial 1 settings
 
     # If you are running Tutorial 2, uncomment the following line:
-    TUTORIAL2: 1
+    TUTORIAL2:        1  # Apply Tutorial 2 settings
 
-    # OIC Settings
-    OC_SERVER: 0  # Disable the OIC (CoAP) server library.
-    OC_TRANS_SECURITY: 0
-    OC_TRANSPORT_IPV6: 0
-    OC_CLIENT_DISCOVERY_ENABLE: 0
-    OC_NUM_REP_OBJECTS: 2
-    OC_CONCURRENT_REQUESTS: 2
-    OC_APP_RESOURCES: 2
-    OC_CONN_EV_CB_CNT: 2
-    OC_MAX_PAYLOAD: 400
-    OC_MAX_PAYLOAD_SIZE: 400
-
-    # Settings below were chosen to minimise ROM size.
-    CONSOLE_RTT: 0
-    CONSOLE_UART: 0
-    LOG_CLI: 0
-    LOG_LEVEL: 255
-    SENSOR_CLI: 0
-    SENSOR_OIC: 0
-    SHELL_CMD_HELP: 0
-    SHELL_OS_MODULE: 0
-    SHELL_TASK: 0
-    STATS_CLI: 0
+    # Common Settings: These settings were chosen to minimise ROM size
+    CONSOLE_RTT:      0  # Disable RTT Console
+    CONSOLE_UART:     0  # Disable UART Console
+    LOG_CLI:          0  # Disable logging command-line interface
+    LOG_LEVEL:      255  # Disable logs
+    SENSOR_CLI:       0  # Disable sensor command-line interface
+    SENSOR_OIC:       0  # Disable sensor OIC functions
+    SHELL_CMD_HELP:   0  # Disable shell help
+    SHELL_OS_MODULE:  0  # Disable shell module
+    SHELL_TASK:       0  # Disable shell task
+    STATS_CLI:        0  # Disable statistics command-line interface
 
 # Settings for Tutorial 1
 syscfg.vals.TUTORIAL1:
-    SPI_0_MASTER:   1       # Enable port SPI1.
-    BME280_OFB:     1       # Enable BME280 offboard sensor.
+    BME280_OFB:     1    # Enable BME280 offboard sensor
+    SPI_0_MASTER:   1    # Enable port SPI1 for BME280
 
 # Settings for Tutorial 2
 syscfg.vals.TUTORIAL2:
-    OC_CLIENT:      1       # Enable the CoAP client library.
-    ADC_1:          1       # Enable port ADC1 for internal temperature sensor.
+    TEMP_STM32:     1    # Enable Blue Pill internal temperature sensor
+    ADC_1:          1    # Enable port ADC1 for internal temperature sensor
+
+    # Uncomment this setting to enable WiFi Geolocation
+    # WIFI_GEOLOCATION:     1  # Enable WiFi Geolocation
+
+    # OIC Settings
+    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_SERVER:              0  # Disable the OIC (CoAP) server library
+    OC_TRANS_SECURITY:      0  # Disable TLS security
+    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
+    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
+    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
+    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
+    OC_APP_RESOURCES:       2  # Max number of server resources
+    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
+    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
+    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
