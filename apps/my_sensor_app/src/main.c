@@ -4,20 +4,46 @@
 #include <os/os.h>
 #include <defs/error.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
-#if MYNEWT_VAL(SENSOR_COAP)   //  If Sensor CoAP is enabled...
-#include <sensor_coap/sensor_coap.h>
-#endif  //  MYNEWT_VAL(SENSOR_COAP)
-#if MYNEWT_VAL(ESP8266)       //  If ESP8266 is enabled...
-#include <esp8266/esp8266.h>
-#endif  //  MYNEWT_VAL(ESP8266)
-#if MYNEWT_VAL(ESP8266) && MYNEWT_VAL(SENSOR_COAP)  //  If ESP8266 and Sensor CoAP are enabled...
-#include <esp8266/transport.h>
-#endif  //  MYNEWT_VAL(ESP8266) && MYNEWT_VAL(SENSOR_COAP)
-#if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
-#include "geolocate.h"
-#endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 #include "temp_sensor.h"
+#include "geolocate.h"
 
+#if MYNEWT_VAL(SENSOR_COAP)         //  If Sensor CoAP is enabled...
+#include <esp8266/esp8266.h>        //  Declare ESP8266 and CoAP functions.
+#include <esp8266/transport.h>
+#include <sensor_coap/sensor_coap.h>
+static int init_tasks(void);
+#endif  //  MYNEWT_VAL(SENSOR_COAP)
+
+///////////////////////////////////////////////////////////////////////////////
+//  Read Sensor Data from Temperature Sensor
+
+int main(int argc, char **argv) {
+    //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
+    int rc;
+    //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
+    sysinit();           
+
+#if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
+    //  Start the background tasks, including WiFi geolocation.
+    rc = init_tasks();  assert(rc == 0);
+#endif  //  MYNEWT_VAL(SENSOR_COAP)
+
+    //  Initialize the temperature sensor.  Start polling the sensor every 10 seconds.
+    rc = init_temperature_sensor();  assert(rc == 0);
+
+    //  Main event loop
+    while (true) {                //  Loop forever...
+        os_eventq_run(            //  Process events...
+            os_eventq_dflt_get()  //  From default event queue.
+        );
+    }
+    return 0;  //  Never comes here.
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Send Sensor Data to CoAP Server
+
+#if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
 static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
@@ -42,41 +68,9 @@ static uint8_t sensor_task_stack[sizeof(os_stack_t) * SENSOR_TASK_STACK_SIZE];  
 static struct os_task sensor_task;  //  Task object will be saved here.
 
 //  Static Functions
-static int init_tasks(void);
 static void sensor_task_func(void *arg);
 static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp);
 
-int main(int argc, char **argv) {
-    //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
-    int rc;
-    //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
-    sysinit();           
-
-#if MYNEWT_VAL(ESP8266) && MYNEWT_VAL(SENSOR_COAP)  //  If ESP8266 and Sensor CoAP are enabled...
-    //  TODO: Allocate device ID.
-
-    //  Initialize the ESP8266 driver.
-    ////  rc = esp8266_create();  assert(rc == 0); 
-    console_printf("esp8266_create=%x\n", (unsigned) esp8266_create);  ////
-
-    //  Start the background tasks, including WiFi geolocation.
-    ////  rc = init_tasks();  assert(rc == 0);
-    console_printf("init_tasks=%x\n", (unsigned) init_tasks);  ////
-#endif  //  MYNEWT_VAL(ESP8266) && MYNEWT_VAL(SENSOR_COAP)
-
-    //  Initialize the temperature sensor.  Start polling the sensor every 10 seconds.
-    rc = init_temperature_sensor();  assert(rc == 0);
-
-    //  Main event loop
-    while (true) {                //  Loop forever...
-        os_eventq_run(            //  Process events...
-            os_eventq_dflt_get()  //  From default event queue.
-        );
-    }
-    return 0;  //  Never comes here.
-}
-
-#if MYNEWT_VAL(ESP8266) && MYNEWT_VAL(SENSOR_COAP)  //  If ESP8266 and Sensor CoAP are enabled...
 static int init_tasks(void) {
     //  Start the sensor task that reads sensor data and sends to the server.
     int rc = os_task_init(  //  Create a new task and start it...
@@ -95,6 +89,12 @@ static int init_tasks(void) {
 static void sensor_task_func(void *arg) {
     //  Background task that reads sensor data and sends to the server.
     console_printf("sensor_task\n");
+
+    //  TODO: Allocate device ID.
+
+    //  Initialize the ESP8266 driver.
+    rc = esp8266_create();  assert(rc == 0);
+
     //  Find the ESP8266 device by name: "esp8266_0".
     struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
     assert(dev != NULL);
@@ -121,10 +121,11 @@ static void sensor_task_func(void *arg) {
         console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
         os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }
-}
-#endif  //  MYNEWT_VAL(ESP8266) && MYNEWT_VAL(SENSOR_COAP)
 
-#if MYNEWT_VAL(SENSOR_COAP)   //  If Sensor CoAP is enabled...
+    //  Never comes here.
+    os_dev_close((struct os_dev *) dev);
+}
+
 static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp) {
     //  Send the sensor data over CoAP to the specified thethings.io server and uri.
     //  The CoAP body should look like:
@@ -151,6 +152,9 @@ static void send_sensor_data(struct oc_server_handle *server, const char *uri, f
     console_printf("  > send sensor data tmp=%d.%d\n", (int) tmp, (int) (10.0 * tmp) % 10);
 }
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
+
+///////////////////////////////////////////////////////////////////////////////
+//  Other Functions
 
 int __wrap_coap_receive(/* struct os_mbuf **mp */) {
     //  We override the default coap_receive() with an empty function so that we will 

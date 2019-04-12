@@ -2,6 +2,7 @@
 //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
 #ifndef __GEOLOCATE_H__
 #define __GEOLOCATE_H__
+#if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.
@@ -20,4 +21,5 @@ int geolocate(struct esp8266 *dev, struct oc_server_handle *server, const char *
 }
 #endif
 
+#endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 #endif  //  __GEOLOCATE_H__
