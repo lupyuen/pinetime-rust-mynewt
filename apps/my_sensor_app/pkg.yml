@@ -1,29 +1,12 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-#
-
-pkg.name: "apps/my_sensor_app"
-pkg.type: app
+# Package Settings
+pkg.name:        "apps/my_sensor_app"
+pkg.type:        app
 pkg.description: "Description of your app"
-pkg.author: "You <you@you.org>"
-pkg.homepage: "http://your-url.org/"
+pkg.author:      "You <you@you.org>"
+pkg.homepage:    "http://your-url.org/"
 pkg.keywords:
 
+# Package Dependencies: Application is dependent on these drivers and libraries.
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"       #  Mynewt kernel
     - "@apache-mynewt-core/sys/log/stub"    #  Disable logging
@@ -31,16 +14,33 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
+
+# Library for Semihosting Console
+pkg.deps.SEMIHOSTING_CONSOLE:
     - "libs/semihosting_console"           #  Semihosting Console
-    - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
-    - "libs/temp_stm32"                    #  Internal temperature sensor for STM32, based on ADC
-    - "libs/esp8266"                       #  ESP8266 driver
+
+# CoAP library for transmitting sensor data to CoAP server
+pkg.deps.SENSOR_COAP:
     - "libs/sensor_coap"                   #  CoAP library for transmitting sensor data
 
-pkg.cflags:  #  C compiler flags
+# Sensor Driver for STM32 internal temperature sensor for STM32, based on ADC
+pkg.deps.TEMP_STM32:
+    - "libs/temp_stm32"                    #  Internal temperature sensor for STM32, based on ADC
+
+# STM32F1 ADC driver (for internal temperature sensor)
+pkg.deps.ADC_STM32F1:
+    - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
+
+# ESP8266 WiFi Driver
+pkg.deps.ESP8266:
+    - "libs/esp8266"                       #  ESP8266 WiFi driver
+
+#  C compiler flags
+pkg.cflags:
     - -DFLOAT_SUPPORT       #  For encoding floats in CoAP messages
     - -DCOAP_JSON_ENCODING  #  Use JSON to encode CoAP payload
 #   - -DCOAP_CBOR_ENCODING  #  Use CBOR to encode CoAP payload (not supported by thethings.io)
 
-pkg.lflags:  #  Linker flags
+#  Linker flags
+pkg.lflags:
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation

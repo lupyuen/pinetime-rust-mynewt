@@ -1,3 +1,10 @@
-target.app: apps/my_sensor_app
-target.bsp: "@apache-mynewt-core/hw/bsp/bluepill"
+# Target Settings
+
+# Application that will be targeted
+target.app:           apps/my_sensor_app
+
+# Board Support Package (BSP) for the target e.g. Blue Pill
+target.bsp:           "@apache-mynewt-core/hw/bsp/bluepill"
+
+# Build with debug info
 target.build_profile: debug
