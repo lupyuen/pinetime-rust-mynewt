@@ -1,3 +1,5 @@
+//  Compute geolocation by sending your WiFi access point info to Google Geolocation API.
+//  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
 #ifndef __GEOLOCATE_H__
 #define __GEOLOCATE_H__
 
