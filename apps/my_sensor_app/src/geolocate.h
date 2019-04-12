@@ -5,14 +5,14 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
-struct sensor_itf;
+struct esp8266;
 struct oc_server_handle;
 
 //  Scan for WiFi access points in your area.  Send the MAC Address and signal strength of
-//  the first 3 access points to thethings.io server and URI.  itf is the ESP8266 interface.
-//  Return the number of access points transmitted.
+//  the first 3 access points (or fewer) to thethings.io at the specified CoAP server and uri.  
+//  dev is the ESP8266 device.  Return the number of access points transmitted.
 //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
-int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const char *uri);
+int geolocate(struct esp8266 *dev, struct oc_server_handle *server, const char *uri);
 
 #ifdef __cplusplus
 }

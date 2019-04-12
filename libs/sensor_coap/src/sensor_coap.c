@@ -1,22 +1,22 @@
+/*
+// Copyright (c) 2016 Intel Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+*/
 //  Post sensor data to CoAP server with JSON or CBOR encoding.  We call the Mynewt OIC
 //  interface to encode and transmit CoAP messages.  For ESP8266, the OIC interface
-//  is implemented by esp8266_transport.h.  This is a simpler version of oc_client_api 
+//  is implemented by esp8266/transport.h.  This is a simpler version of oc_client_api 
 //  that supports sensors and JSON.  Original version: repos\apache-mynewt-core\net\oic\src\api\oc_client_api.c
-/*
-    // Copyright (c) 2016 Intel Corporation
-    //
-    // Licensed under the Apache License, Version 2.0 (the "License");
-    // you may not use this file except in compliance with the License.
-    // You may obtain a copy of the License at
-    //
-    //      http://www.apache.org/licenses/LICENSE-2.0
-    //
-    // Unless required by applicable law or agreed to in writing, software
-    // distributed under the License is distributed on an "AS IS" BASIS,
-    // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    // See the License for the specific language governing permissions and
-    // limitations under the License.
-*/
 
 #include <os/mynewt.h>
 #include <oic/port/mynewt/config.h>

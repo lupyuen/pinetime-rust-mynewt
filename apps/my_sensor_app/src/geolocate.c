@@ -2,8 +2,8 @@
 //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
 #include <os/os.h>
 #include <console/console.h>
-#include "sensor_coap.h"
-#include "esp8266_driver.h"
+#include <sensor_coap/sensor_coap.h>
+#include <esp8266/esp8266.h>
 #include "geolocate.h"
 
 #define MAX_WIFI_AP 3  //  Scan at most 3 WiFi access points.
@@ -27,19 +27,19 @@ static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count);
 static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern);
 static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]);
 
-int geolocate(struct sensor_itf *itf, struct oc_server_handle *server, const char *uri) {
+int geolocate(struct esp8266 *dev, struct oc_server_handle *server, const char *uri) {
     //  Scan for WiFi access points in your area.  Send the MAC Address and signal strength of
     //  the first 3 access points (or fewer) to thethings.io at the specified CoAP server and uri.  
-    //  itf is the ESP8266 interface.  Return the number of access points transmitted.
+    //  dev is the ESP8266 device.  Return the number of access points transmitted.
     //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
-    assert(itf);  assert(server);  assert(uri);
+    assert(dev);  assert(server);  assert(uri);
 
     //  Create a CoAP request.  This will call a semaphore to block other tasks from creating a CoAP request.
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
     //  Scan for nearby WiFi access points and take the first 3 (or fewer) access points.
     //  If ESP8266 is connected to a mobile hotspot, we should remove the mobile hotspot access point from the list.
-    rc = esp8266_scan(itf, wifi_aps, MAX_WIFI_AP, filter_func); assert(rc > 0 && rc <= MAX_WIFI_AP);
+    rc = esp8266_scan(dev, wifi_aps, MAX_WIFI_AP, filter_func); assert(rc > 0 && rc <= MAX_WIFI_AP);
 
     //  Send the first 3 access points (or fewer) to thethings.io, which will call Google Geolocation API.
     if (rc > 0) { write_wifi_access_points(wifi_aps, rc); }

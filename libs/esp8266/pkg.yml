@@ -29,4 +29,5 @@ pkg.deps:
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/hw/sensor"
-    - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
+    - "@apache-mynewt-core/net/oic"        #  OIC library
+    - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library. Needs vsscanf.c patch.
