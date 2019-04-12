@@ -51,7 +51,7 @@ struct temp_stm32 {
 };
 
 /**
- * Create the STM32 internal temperature sensor instance.
+ * Create the STM32 internal temperature sensor instance.  Implemented in creator.c, function DEVICE_CREATE().
  */
 void temp_stm32_create(void);
 

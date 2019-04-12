@@ -149,6 +149,7 @@ err:
 static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
     //  Read the sensor values depending on the sensor types specified in the sensor config.
+    console_printf("temp_stm32_sensor_read\n");  ////
     union {  //  Union that represents all possible sensor values.
         struct sensor_temp_data std;
     } databuf;
@@ -165,18 +166,20 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     rawtemp = -1;
     rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
     if (rc) { goto err; }
-    console_printf("rawtemp: %d\n", rawtemp); console_flush(); ////
+    console_printf("rawtemp: %d\n", rawtemp);  ////
 
     //  Convert the raw temperature to actual temperature.
     float vtemp = rawtemp * 3300.0 / 4095.0;
     float temp = (1.43 - vtemp) / 4.5 + 25.00;
     databuf.std.std_temp = temp;
     databuf.std.std_temp_is_valid = 1;
-    console_printf("temp: %d.%d\n", (int) temp, ((int) (temp * 10.0)) % 10); console_flush(); ////
+    console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
     
-    //  Call the user function to process the data.
-    rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
-    if (rc) { goto err; }
+    if (data_func) {
+        //  Call the user function to process the data.
+        rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
+        if (rc) { goto err; }
+    }
     return 0;
 err:
     return rc;

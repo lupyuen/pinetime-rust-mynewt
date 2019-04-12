@@ -64,7 +64,7 @@ struct stm32f1_adc_dev_cfg {
     void *sac_adc_handle;  //  Actual type: ADC_HandleTypeDef *
 };
 
-//  Create the STM32F1 ADC1 device.
+//  Create the STM32F1 ADC1 device.  Implemented in creator.c, function DEVICE_CREATE().
 void stm32f1_adc_create(void);
 
 //  Initialise the STM32F1 ADC device with the configuration.

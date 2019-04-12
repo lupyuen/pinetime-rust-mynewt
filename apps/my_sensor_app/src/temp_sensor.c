@@ -78,18 +78,18 @@ int init_temperature_sensor(void) {
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
     //  This listener function is called every 10 seconds.  Mynewt has fetched the temperature data,
     //  passed through databuf.
-    struct sensor_temp_data *temp;
+    struct sensor_temp_data *tempdata;
+    float temp;
 
     //  Check that the temperature data is valid.
     if (!databuf) { return SYS_EINVAL; }
-    temp = (struct sensor_temp_data *)databuf;
-    if (!temp->std_temp_is_valid) { return SYS_EINVAL; }
+    tempdata = (struct sensor_temp_data *)databuf;
+    if (!tempdata->std_temp_is_valid) { return SYS_EINVAL; }  //  Exit if not valid.
 
-    //  Temperature data is valid.  Display it and send to server.
-    console_printf(
-        "temp = %d.%d\n",
-        (int) (temp->std_temp),
-        (int) (10.0 * temp->std_temp) % 10
-    );
+    //  Temperature data is valid.  Display it.
+    temp = tempdata->std_temp;  //  Temperature in floating point.
+    console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+
+    //  TODO: Send temperature to CoAP server.
     return 0;
 }

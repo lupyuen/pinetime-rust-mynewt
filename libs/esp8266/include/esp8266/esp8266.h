@@ -64,6 +64,7 @@ struct esp8266 {
 };
 
 //  Create the Mynewt device for ESP8266.  Use the default ESP8266 config.  Return 0 if successful.
+//  Implemented in creator.c, function DEVICE_CREATE().
 int esp8266_create(void);
 
 //  Copy the default ESP8266 config into cfg.  Returns 0.

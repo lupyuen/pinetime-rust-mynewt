@@ -155,6 +155,13 @@ void console_printhex(uint8_t v) {
     console_buffer(buffer, strlen(buffer));
 }
 
+void console_printfloat(float f) {
+    //  Write a float to the output buffer, with 1 decimal place.
+    int i = (int) f;
+    int d = ((int) (10.0f * (f < 0 ? -f : f))) % 10;
+    console_printf("%d.%d", i, d);
+}
+
 void console_dump(const uint8_t *buffer, unsigned int len) {
 	//  Append "length" number of bytes from "buffer" to the output buffer in hex format.
 	for (int i = 0; i < len; i++) { console_printhex(buffer[i]); console_buffer(" ", 1); } 
