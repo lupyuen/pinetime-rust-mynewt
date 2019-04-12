@@ -63,12 +63,11 @@ int test_sensor(void) {
 }
 
 static void clock_config(void) {
-    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
-       clocks dividers */
+    //  Default clock:
     //  HSI = 8 MHz
     //  PLL = (HSI / 2) * 16 = 64 MHz
-    //  APB2 / PCLK2 = PLL DIV 4 = 16 mhz
-    //  ADC input clock APB2 / PCLK2 must not exceed 14 MHz
+    //  APB2 / PCLK2 = PLL DIV 4 = 16 MHz (too high, exceeded 14 MHz)
+    //  But APB2 / PCLK2 / ADC input clock must not exceed 14 MHz
 
     RCC_OscInitTypeDef oscinitstruct = { 0 };
     RCC_ClkInitTypeDef clkinitstruct = { 0 };
