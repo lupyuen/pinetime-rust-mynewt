@@ -17,6 +17,7 @@
 
 #include <assert.h>
 #include <console/console.h>
+#include "esp8266/network.h"
 #include "Controller.h"
 
 extern "C" int debug_vrecv;  ////
