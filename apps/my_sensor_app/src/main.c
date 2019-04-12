@@ -19,17 +19,18 @@ static int init_tasks(void);
 
 int main(int argc, char **argv) {
     //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
-    int rc;
     //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
     sysinit();           
 
 #if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
     //  Start the background tasks, including WiFi geolocation.
-    rc = init_tasks();  assert(rc == 0);
+    int rc1 = init_tasks();  assert(rc1 == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
+#ifdef MY_SENSOR_NAME        //  If either internal temperature sensor or BME280 is enabled...
     //  Initialize the temperature sensor.  Start polling the sensor every 10 seconds.
-    rc = init_temperature_sensor();  assert(rc == 0);
+    int rc2 = init_temperature_sensor();  assert(rc2 == 0);
+#endif  //  MY_SENSOR_NAME
 
     //  Main event loop
     while (true) {                //  Loop forever...
