@@ -1,5 +1,6 @@
-//  Main program for the sensor app that reads sensor data and sends to a CoAP server.
-#include <sysinit/sysinit.h>
+//  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server
+//  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
+#include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #include <os/os.h>
 #include <defs/error.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
@@ -9,18 +10,17 @@
 #include "geolocate.h"
 #include "temp_sensor.h"
 
-//  TODO: Move to config
-
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
-#define COAP_HOST   "coap.thethings.io"  //  CoAP hostname e.g. coap.thethings.io
-#define COAP_PORT   COAP_PORT_UNSECURED  //  CoAP port, usually UDP port 5683
-#define COAP_URI    "v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"  //  CoAP URI
+//  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
+static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
+static const int  COAP_PORT   = MYNEWT_VAL(COAP_PORT);  //  CoAP UDP port, usually 5683
+static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
-//  CoAP Server Configuration
+//  CoAP Server Configuration. 
 static struct esp8266_server coap_server = {
     .endpoint = {
         .host = COAP_HOST,  //  CoAP hostname e.g. coap.thethings.io
-        .port = COAP_PORT   //  CoAP port, usually UDP port 5683
+        .port = COAP_PORT,  //  CoAP port, usually UDP port 5683
     }
 };
 
