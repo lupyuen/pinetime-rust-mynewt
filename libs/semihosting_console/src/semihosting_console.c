@@ -156,10 +156,10 @@ void console_printhex(uint8_t v) {
 }
 
 void console_printfloat(float f) {
-    //  Write a float to the output buffer, with 1 decimal place.
+    //  Write a float to the output buffer, with 2 decimal places.
     int i = (int) f;
-    int d = ((int) (10.0f * (f < 0 ? -f : f))) % 10;
-    console_printf("%d.%d", i, d);
+    int d = ((int) (100.0f * (f < 0 ? -f : f))) % 100;
+    console_printf("%d.%02d", i, d);
 }
 
 void console_dump(const uint8_t *buffer, unsigned int len) {

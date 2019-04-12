@@ -27,10 +27,10 @@ int main(int argc, char **argv) {
     int rc1 = init_tasks();  assert(rc1 == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
-#ifdef MY_SENSOR_NAME        //  If either internal temperature sensor or BME280 is enabled...
+#if MYNEWT_VAL(TEMP_STM32) || MYNEWT_VAL(BME280_OFB)  //  If either internal temperature sensor or BME280 is enabled...
     //  Initialize the temperature sensor.  Start polling the sensor every 10 seconds.
     int rc2 = init_temperature_sensor();  assert(rc2 == 0);
-#endif  //  MY_SENSOR_NAME
+#endif  //  MYNEWT_VAL(TEMP_STM32) || MYNEWT_VAL(BME280_OFB)
 
     //  Main event loop
     while (true) {                //  Loop forever...

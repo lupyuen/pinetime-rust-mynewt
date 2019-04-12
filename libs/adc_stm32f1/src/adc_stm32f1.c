@@ -75,9 +75,9 @@ config_clk(void)
     //  So we slow down the clock:
     //    ADC / APB2 / PCLK2 Clock = PLL / 8 = 8 MHz
     RCC_ClkInitTypeDef clkinitstruct = { 0 };
-    console_printf("config adc clock\n");  ////
+    //  console_printf("config adc clock\n");  ////
 
-    //  Set ADC / APB2 / PCLK2 = PLL / 8 = 8 MHz
+    //  Set ADC / APB2 / PCLK2 Clock = PLL / 8 = 8 MHz
     clkinitstruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK2);
     clkinitstruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;  //  Value 2
     //  Previously: clkinitstruct.APB2CLKDivider = RCC_HCLK_DIV4;  //  Value 1280
@@ -738,11 +738,14 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
     cfg  = (struct stm32f1_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
 
+    while (HAL_ADCEx_Calibration_Start(hadc) != HAL_OK);  // Calibrate AD converter.
+
     //  Start reading ADC values and convert them by rank.
     HAL_ADC_Start(hadc);
 
     //  Wait for ADC conversion to be completed.
-    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 3 * 1000);  //  Wait up to 3 seconds.  TODO: Yield to task scheduler while waiting.
+    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.  TODO: Yield to task scheduler while waiting.
+    assert(rc == HAL_OK);
     if (rc != HAL_OK) { HAL_ADC_Stop(hadc); return rc; }  //  Exit in case of error.
 
     //  Fetch the converted ADC value.

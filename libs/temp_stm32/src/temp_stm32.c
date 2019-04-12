@@ -170,8 +170,9 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     if (rc) { goto err; }  //  console_printf("rawtemp: %d\n", rawtemp);  ////
 
     //  Convert the raw temperature to actual temperature.  From     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
-    temp = ((float) rawtemp) / 4095 * 3300;
-    temp = ((temp - 760.0) / 2.5) + 25;
+    temp = ((float) rawtemp) / 4095.0 * 3300.0;
+    temp = ((temp - 760.0) / 2.5) + 25.0;
+    temp = temp / 10.0;
 
     //  Save the temperature.
     databuf.std.std_temp = temp;

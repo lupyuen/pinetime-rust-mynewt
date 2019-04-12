@@ -8,7 +8,7 @@
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include "temp_sensor.h"
-#ifdef MY_SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
+////#ifdef MY_SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
 
 #define MY_SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
 #define LISTENER_CB         1  //  This is a listener callback.
@@ -96,4 +96,4 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
 #endif  //  MYNEWT_VAL(BME280_OFB)
 
-#endif  //  MY_SENSOR_DEVICE
+////#endif  //  MY_SENSOR_DEVICE
