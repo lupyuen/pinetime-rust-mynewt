@@ -720,11 +720,14 @@ stm32f1_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 
     //  Wait for ADC conversion to be completed.
     HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.  TODO: Yield to task scheduler while waiting.
-    if (rc != HAL_OK) { return rc; }  //  Exit in case of error.
+    if (rc != HAL_OK) { HAL_ADC_Stop(hadc); return rc; }  //  Exit in case of error.
 
     //  Fetch the converted ADC value.
     val = HAL_ADC_GetValue(hadc);
     *result = val;
+
+    //  Stop reading ADC values.
+    HAL_ADC_Stop(hadc);
     return (OS_OK);
 }
 

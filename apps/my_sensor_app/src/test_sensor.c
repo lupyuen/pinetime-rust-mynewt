@@ -32,8 +32,9 @@ int test_sensor(void) {
     HAL_ADC_Start(&hadc1);
     //  HAL_ADC_PollForConversion(&hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
     while(HAL_ADC_PollForConversion(&hadc1, 1000000) != HAL_OK);  // wait for completing the conversion
-
     uint16_t adcValue = HAL_ADC_GetValue(&hadc1);                        // read sensor's digital value
+    HAL_ADC_Stop(&hadc1);
+
     float vSense = adcValue * ADC_TO_VOLT;                            // convert sensor's digital value to voltage [V]
     /*
         * STM32F103xx Reference Manual:
@@ -94,7 +95,83 @@ void MX_ADC1_Init(void) {
 
 #ifdef NOTUSED
     PLL = 64 MHz
-    APB2 = PLL DIV 4 = 16 mhz
+    APB2 = PLL DIV 4 = 16 mhz    
+    ADC input clock must not exceed 14 MHz
+
+{
+  uint32_t DataAlign;             
+  /*!< Specifies ADC data alignment to right (MSB on register bit 11 and LSB on register bit 0) (default setting)
+  or to left (if regular group: MSB on register bit 15 and LSB on register bit 4, if injected group (MSB kept as signed value due to potential negative value after offset application): MSB on register bit 14 and LSB on register bit 3).
+  This parameter can be a value of @ref ADC_Data_align */
+
+  uint32_t ScanConvMode;          
+  /*!< Configures the sequencer of regular and injected groups.
+  This parameter can be associated to parameter 'DiscontinuousConvMode' to have main sequence subdivided in successive parts.
+  If disabled: Conversion is performed in single mode (one channel converted, the one defined in rank 1).
+              Parameters 'NbrOfConversion' and 'InjectedNbrOfConversion' are discarded (equivalent to set to 1).
+  If enabled:  Conversions are performed in sequence mode (multiple ranks defined by 'NbrOfConversion'/'InjectedNbrOfConversion' and each channel rank).
+              Scan direction is upward: from rank1 to rank 'n'.
+  This parameter can be a value of @ref ADC_Scan_mode
+  Note: For regular group, this parameter should be enabled in conversion either by polling (HAL_ADC_Start with Discontinuous mode and NbrOfDiscConversion=1)
+        or by DMA (HAL_ADC_Start_DMA), but not by interruption (HAL_ADC_Start_IT): in scan mode, interruption is triggered only on the
+        the last conversion of the sequence. All previous conversions would be overwritten by the last one.
+        Injected group used with scan mode has not this constraint: each rank has its own result register, no data is overwritten. */
+
+  uint32_t ContinuousConvMode;    
+  /*!< Specifies whether the conversion is performed in single mode (one conversion) or continuous mode for regular group,
+  after the selected trigger occurred (software start or external trigger).
+  This parameter can be set to ENABLE or DISABLE. */
+
+  uint32_t NbrOfConversion;       
+  /*!< Specifies the number of ranks that will be converted within the regular group sequencer.
+  To use regular group sequencer and convert several ranks, parameter 'ScanConvMode' must be enabled.
+  This parameter must be a number between Min_Data = 1 and Max_Data = 16. */
+
+  uint32_t DiscontinuousConvMode; 
+  /*!< Specifies whether the conversions sequence of regular group is performed in Complete-sequence/Discontinuous-sequence (main sequence subdivided in successive parts).
+  Discontinuous mode is used only if sequencer is enabled (parameter 'ScanConvMode'). If sequencer is disabled, this parameter is discarded.
+  Discontinuous mode can be enabled only if continuous mode is disabled. If continuous mode is enabled, this parameter setting is discarded.
+  This parameter can be set to ENABLE or DISABLE. */
+
+  uint32_t NbrOfDiscConversion;   
+  /*!< Specifies the number of discontinuous conversions in which the  main sequence of regular group (parameter NbrOfConversion) will be subdivided.
+  If parameter 'DiscontinuousConvMode' is disabled, this parameter is discarded.
+  This parameter must be a number between Min_Data = 1 and Max_Data = 8. */
+
+  uint32_t ExternalTrigConv;      
+  /*!< Selects the external event used to trigger the conversion start of regular group.
+  If set to ADC_SOFTWARE_START, external triggers are disabled.
+  If set to external trigger source, triggering is on event rising edge.
+  This parameter can be a value of @ref ADC_External_trigger_source_Regular */
+
+}ADC_InitTypeDef;
+
+  uint32_t Channel;                
+  /*!< Specifies the channel to configure into ADC regular group.
+  This parameter can be a value of @ref ADC_channels
+  Note: Depending on devices, some channels may not be available on package pins. Refer to device datasheet for channels availability.
+  Note: On STM32F1 devices with several ADC: Only ADC1 can access internal measurement channels (VrefInt/TempSensor) 
+  Note: On STM32F10xx8 and STM32F10xxB devices: A low-amplitude voltage glitch may be generated (on ADC input 0) on the PA0 pin, when the ADC is converting with injection trigger.
+        It is advised to distribute the analog channels so that Channel 0 is configured as an injected channel.
+        Refer to errata sheet of these devices for more details. */
+
+  uint32_t Rank;                   
+  /*!< Specifies the rank in the regular group sequencer 
+  This parameter can be a value of @ref ADC_regular_rank
+  Note: In case of need to disable a channel or change order of conversion sequencer, rank containing a previous channel setting can be overwritten by the new channel setting (or parameter number of conversions can be adjusted) */
+
+  uint32_t SamplingTime;           
+  /*!< Sampling time value to be set for the selected channel.
+  Unit: ADC clock cycles
+  Conversion time is the addition of sampling time and processing time (12.5 ADC clock cycles at ADC resolution 12 bits).
+  This parameter can be a value of @ref ADC_sampling_times
+  Caution: This parameter updates the parameter property of the channel, that can be used into regular and/or injected groups.
+            If this same channel has been previously configured in the other group (regular/injected), it will be updated to last setting.
+  Note: In case of usage of internal measurement channels (VrefInt/TempSensor),
+        sampling time constraints must be respected (sampling time can be adjusted in function of ADC clock frequency and sampling time setting)
+        Refer to device datasheet for timings values, parameters TS_vrefint, TS_temp (values rough order: 5us to 17.1us min). */
+
+}ADC_ChannelConfTypeDef;
 
     /* Configure PLL ------------------------------------------------------*/
     /* PLL configuration: PLLCLK = (HSI / 2) * PLLMUL = (8 / 2) * 16 = 64 MHz */
