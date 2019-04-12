@@ -40,7 +40,7 @@ static int esp8266_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
         esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
         esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
     );
-    drv(dev)->configure(dev->sensor.s_itf.si_num);  //  Configure the UART port.  0 means UART2.
+    drv(dev)->configure(cfg->uart);  //  Configure the UART port.  0 means UART2.
     drv(dev)->attach(&esp8266_event, dev);          //  Set the callback for ESP8266 events.
     return 0;
 }
@@ -56,7 +56,6 @@ static int esp8266_close(struct os_dev *dev0) {
 int esp8266_init(struct os_dev *dev0, void *arg) {
     //  Configure the ESP8266 driver.  Called by os_dev_create().  Return 0 if successful.
     struct esp8266 *dev;
-    struct sensor *sensor;
     int rc;
     if (!arg || !dev0) { rc = SYS_ENODEV; goto err; }
     dev = (struct esp8266 *) dev0;  assert(dev);
@@ -71,12 +70,13 @@ err:
 int esp8266_default_cfg(struct esp8266_cfg *cfg) {
     //  Copy the default ESP8266 config into cfg.  Returns 0.
     memset(cfg, 0, sizeof(struct esp8266_cfg));  //  Zero the entire object.
+    cfg->uart = 0;  //  Default to UART number 0, which is UART2.
     return 0;
 }
 
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
     //  Apply the ESP8266 driver configuration.  Return 0 if successful.
-    return 0;  //  Nothing to do.
+    return 0;  //  Nothing to do.  We will apply the config in esp8266_open().
 }
 
 /////////////////////////////////////////////////////////

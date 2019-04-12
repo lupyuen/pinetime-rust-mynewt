@@ -4,7 +4,7 @@
 #include <os/os.h>
 #include <console/console.h>
 #include "esp8266/esp8266.h"
-#include "esp8266_transport.h"
+#include "esp8266/transport.h"
 
 static void oc_tx_ucast(struct os_mbuf *m);
 static uint8_t oc_ep_size(const struct oc_endpoint *oe);

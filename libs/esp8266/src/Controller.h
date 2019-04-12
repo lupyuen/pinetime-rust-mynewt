@@ -18,7 +18,7 @@
 #ifndef ESP8266_H
 #define ESP8266_H
 
-#include "wifi.h"
+#include "esp8266/wifi.h"
 #include "ATParser.h"
 
 extern "C" {

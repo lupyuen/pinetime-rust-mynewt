@@ -24,7 +24,7 @@
 #include <oic/oc_buffer.h>
 #include <oic/oc_client_state.h>
 #include <console/console.h>
-#include "sensor_coap.h"
+#include "sensor_coap/sensor_coap.h"
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 

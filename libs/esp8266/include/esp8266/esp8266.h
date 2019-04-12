@@ -38,6 +38,9 @@ struct esp8266_socket {
 
 //  ESP8266 Configuration: SSID and socket configuration
 struct esp8266_cfg {
+    //  UART Configuration
+    int uart;
+    
     //  SSID Configuration
     char ap_ssid[33]; /* 32 is what 802.11 defines as longest possible name; +1 for the \0 */
     nsapi_security_t ap_sec;
@@ -56,7 +59,6 @@ struct esp8266_cfg {
 //  ESP8266 Device Instance for Mynewt
 struct esp8266 {
     struct os_dev dev;
-    struct sensor sensor;
     struct esp8266_cfg cfg;
     void *controller;  //  Pointer to controller instance (ESP8266 *)
 };

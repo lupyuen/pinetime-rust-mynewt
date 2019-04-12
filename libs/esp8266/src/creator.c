@@ -82,6 +82,7 @@ int DEVICE_CREATE(void) {
     //  Configure the device.
     rc = config_device();
     assert(rc == 0);
+    return 0;
 }
 
 ////  #endif

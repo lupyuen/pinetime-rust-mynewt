@@ -9,6 +9,8 @@
 #include "geolocate.h"
 #include "temp_sensor.h"
 
+//  TODO: Move to config
+
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 #define COAP_HOST   "coap.thethings.io"  //  CoAP hostname e.g. coap.thethings.io
 #define COAP_PORT   COAP_PORT_UNSECURED  //  CoAP port, usually UDP port 5683
@@ -41,15 +43,17 @@ int main(int argc, char **argv) {
 
     //  TODO: Allocate device ID.
 
-    //  TODO: Move down
+    //  Initialize the ESP8266 driver.
+    ////  rc = esp8266_create();  assert(rc == 0); 
+    console_printf("esp8266_create=%x\n", (unsigned) esp8266_create);  ////
+
+    //  Start the background tasks, including WiFi geolocation.
+    ////  rc = init_tasks();  assert(rc == 0);
+    console_printf("init_tasks=%x\n", (unsigned) init_tasks);  ////
+
     //  Initialize the temperature sensor.  Start polling the sensor every 10 seconds.
     rc = init_temperature_sensor();  assert(rc == 0);
-
-    //  Initialize the ESP8266 driver.
-    rc = esp8266_create();  assert(rc == 0); 
-
-    //  Start the background tasks.
-    rc = init_tasks();  assert(rc == 0);
+    ////  assert(init_temperature_sensor);  ////
 
     //  Main event loop
     while (true) {                //  Loop forever...
@@ -77,7 +81,7 @@ static int init_tasks(void) {
 
 static void sensor_task_func(void *arg) {
     //  Background task that reads sensor data and sends to the server.
-
+    console_printf("sensor_task\n");
     //  Find the ESP8266 device by name: "esp8266_0".
     struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
     assert(dev != NULL);
@@ -92,7 +96,7 @@ static void sensor_task_func(void *arg) {
     rc = init_sensor_coap();  assert(rc == 0);
 
     //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-    rc = geolocate(server, coap_server.handle, COAP_URI);  assert(rc > 0);
+    rc = geolocate(dev, coap_server.handle, COAP_URI);  assert(rc > 0);
 
     float tmp = 28.0;  //  Simulated sensor data.
     while (true) {  //  Loop forever...        
