@@ -76,10 +76,13 @@ static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 
     //  Configure port ADC1 channel 16 for temperature sensor.
     rc = adc_chan_config(dev->adc, cfg->adc_channel, cfg->adc_channel_cfg);
-    assert(rc == 0);
-    if (rc) { goto err; }
+    if (rc) { 
+        if (dev->adc) { os_dev_close((struct os_dev *) dev->adc); }
+        goto err; 
+    }
     return 0;
 err:
+    assert(rc == 0);
     return rc;
 }
 
@@ -148,7 +151,8 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
         struct sensor_temp_data std;  //  Temperature sensor value.
     } databuf;
     struct temp_stm32 *dev;
-    int rc, rawtemp;
+    int rc, rawtemp, vtemp;
+    float temp;
 
     //  We only allow reading of temperature values.
     if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
@@ -164,12 +168,13 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
 
         temp_stm32_close((struct os_dev *) dev);
     }   //  End ADC Lock: Close and unlock port ADC1 port.
-    if (rc) { goto err; }  //  console_printf("rawtemp: %d\n", rawtemp);  ////
+    if (rc) { goto err; }  //  
+    console_printf("rawtemp: %d\n", rawtemp);  ////
 
-    //  Convert the raw temperature to actual temperature.
-    float v25 = 143.0;
-    float temp100 = (v25 - rawtemp) / 45.0 + 2500.0;
-    float temp = temp100 / 100.0;
+    //  Convert the raw temperature to actual temperature.  From https://github.com/Apress/Beg-STM32-Devel-FreeRTOS-libopencm3-GCC/blob/master/rtos/adc/main.c
+    static const int v25 = 1365; 
+	vtemp = rawtemp * 3300 / 4095;
+	temp = (v25 - vtemp) * 1000 / 45 + 2500;
 
     //  Save the temperature.
     databuf.std.std_temp = temp;
