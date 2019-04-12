@@ -29,16 +29,19 @@ syscfg.defs:
         value:        1        
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
-        value:        1        
+        value:        0
+    WIFI_GEOLOCATION:
+        description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266'
+        value:        0
     ESP8266:
         description: 'Enable WiFi access with ESP8266'
-        value:        1        
+        value:        0        
     TEMP_STM32:
         description: 'Enable STM32 internal temperature sensor based on ADC'
-        value:        1        
-    ADC_STM32F1:
-        description: 'Enable ADC for STM32F1xx microcontrollers (blocking reads only, without DMA)'
-        value:        1        
+        value:        0        
+    ADC_1:
+        description: 'Enable port ADC1 for STM32F1xx microcontrollers (blocking reads only, without DMA)'
+        value:        0
     
     # Overall Tutorial Settings. See syscfg.vals section below to set the tutorial settings.
     TUTORIAL1:
@@ -93,3 +96,4 @@ syscfg.vals.TUTORIAL1:
 # Settings for Tutorial 2
 syscfg.vals.TUTORIAL2:
     OC_CLIENT:      1       # Enable the CoAP client library.
+    ADC_1:          1       # Enable port ADC1 for internal temperature sensor.

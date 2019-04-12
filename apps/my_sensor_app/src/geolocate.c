@@ -1,5 +1,9 @@
 //  Compute geolocation by sending your WiFi access point info to Google Geolocation API.
 //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
+
+#include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
+#if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
+
 #include <os/os.h>
 #include <console/console.h>
 #include <sensor_coap/sensor_coap.h>
@@ -127,3 +131,5 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
 }
+
+#endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)

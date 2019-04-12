@@ -15,4 +15,3 @@ syscfg.vals:
     WIFI_SSID:      '"my_ssid"'
     # Password for WiFi access point
     WIFI_PASSWORD:  '"my_password"'
-    ADC_1:          1       # Enable port ADC1 for internal temperature sensor.
