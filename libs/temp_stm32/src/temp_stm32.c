@@ -60,7 +60,7 @@ int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
 }
 
 static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
-    //  Setup ADC channel configuration for temperature sensor.
+    //  Setup ADC channel configuration for temperature sensor.  Return 0 if successful.
     //  This locks the ADC channel until the sensor is closed.
     console_printf("temp_stm32_open\n");  ////
     int rc = -1;
@@ -90,7 +90,7 @@ err:
     rc = adc_chan_config(&my_dev_adc1, ADC_CHANNEL_TEMPSENSOR, &temp_config); */
 
 static int temp_stm32_close(struct os_dev *dev0) {
-    //  Close the sensor.  This unlocks the ADC channel.
+    //  Close the sensor.  This unlocks the ADC channel.  Return 0 if successful.
     console_printf("temp_stm32_close\n");  ////
     struct temp_stm32 *dev;    
     dev = (struct temp_stm32 *) dev0;
@@ -151,20 +151,27 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     //  Read the sensor values depending on the sensor types specified in the sensor config.
     console_printf("temp_stm32_sensor_read\n");  ////
     union {  //  Union that represents all possible sensor values.
-        struct sensor_temp_data std;
+        struct sensor_temp_data std;  //  Temperature sensor value.
     } databuf;
-    struct sensor_itf *itf;
     struct temp_stm32 *dev;
     int rc, rawtemp;
 
     //  We only allow reading of temperature values.
     if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
-    itf = SENSOR_GET_ITF(sensor); assert(itf);
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
-
-    //  Get a new temperature sample from the temperature sensor channel of the ADC port.
     rawtemp = -1;
-    rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
+
+    {   //  Begin ADC Lock
+        rc = temp_stm32_open((struct os_dev *) dev, 0, NULL);  //  Open and lock the ADC port, configure the channel.
+        if (rc) { goto err; }
+
+        //  Get a new temperature sample from the temperature sensor channel of the ADC port.
+        rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
+
+        temp_stm32_close((struct os_dev *) dev);  //  Close and unlock the ADC port.
+    }   //  End ADC Lock
+
+    //  In case of error, quit.
     if (rc) { goto err; }
     console_printf("rawtemp: %d\n", rawtemp);  ////
 
