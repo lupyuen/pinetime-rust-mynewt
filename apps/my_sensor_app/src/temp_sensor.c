@@ -88,7 +88,10 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
     //  Temperature data is valid.  Display it.
     temp = tempdata->std_temp;  //  Temperature in floating point.
-    console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+    console_printf("**** temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+
+    ////
+    console_flush();  ////
 
     //  TODO: Send temperature to CoAP server.
     return 0;

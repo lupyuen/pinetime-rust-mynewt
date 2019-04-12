@@ -62,21 +62,20 @@ int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
 static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  Setup ADC channel configuration for temperature sensor.  Return 0 if successful.
     //  This locks the ADC channel until the sensor is closed.
-    console_printf("temp_stm32_open\n");  ////
     int rc = -1;
     struct temp_stm32 *dev;    
     struct temp_stm32_cfg *cfg;
     dev = (struct temp_stm32 *) dev0;  assert(dev);  
-    cfg = &dev->cfg; assert(cfg);
+    cfg = &dev->cfg; assert(cfg); assert(cfg->adc_channel);  assert(cfg->adc_channel_cfg);
 
     //  Open the ADC port.
     assert(cfg->adc_dev_name);
     dev->adc = (struct adc_dev *) os_dev_open(cfg->adc_dev_name, timeout, cfg->adc_open_arg);
     assert(dev->adc);
     if (!dev->adc) { goto err; }
+    console_printf("open adc1 channel 16\n");  ////
 
     //  Configure the ADC channel for temperature sensor.
-    assert(cfg->adc_channel);  assert(cfg->adc_channel_cfg);
     rc = adc_chan_config(dev->adc, cfg->adc_channel, cfg->adc_channel_cfg);
     assert(rc == 0);
     if (rc) { goto err; }
@@ -91,7 +90,7 @@ err:
 
 static int temp_stm32_close(struct os_dev *dev0) {
     //  Close the sensor.  This unlocks the ADC channel.  Return 0 if successful.
-    console_printf("temp_stm32_close\n");  ////
+    //  console_printf("close adc1 channel 16\n");  ////
     struct temp_stm32 *dev;    
     dev = (struct temp_stm32 *) dev0;
     if (dev->adc) {
@@ -149,7 +148,6 @@ err:
 static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
     //  Read the sensor values depending on the sensor types specified in the sensor config.
-    console_printf("temp_stm32_sensor_read\n");  ////
     union {  //  Union that represents all possible sensor values.
         struct sensor_temp_data std;  //  Temperature sensor value.
     } databuf;
@@ -161,29 +159,28 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
     rawtemp = -1;
 
-    {   //  Begin ADC Lock
-        rc = temp_stm32_open((struct os_dev *) dev, 0, NULL);  //  Open and lock the ADC port, configure the channel.
+    {   //  Begin ADC Lock: Open and lock port ADC1, configure channel 16.
+        rc = temp_stm32_open((struct os_dev *) dev, 0, NULL);
         if (rc) { goto err; }
 
-        //  Get a new temperature sample from the temperature sensor channel of the ADC port.
+        //  Get a new temperature sample from temperature sensor (channel 16 of port ADC1).
         rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
 
-        temp_stm32_close((struct os_dev *) dev);  //  Close and unlock the ADC port.
-    }   //  End ADC Lock
-
-    //  In case of error, quit.
-    if (rc) { goto err; }
-    console_printf("rawtemp: %d\n", rawtemp);  ////
+        temp_stm32_close((struct os_dev *) dev);
+    }   //  End ADC Lock: Close and unlock port ADC1 port.
+    if (rc) { goto err; }  //  console_printf("rawtemp: %d\n", rawtemp);  ////
 
     //  Convert the raw temperature to actual temperature.
-    float vtemp = rawtemp * 3300.0 / 4095.0;
-    float temp = (1.43 - vtemp) / 4.5 + 25.00;
+    float v25 = 143.0;
+    float temp100 = (v25 - rawtemp) / 45.0 + 2500.0;
+    float temp = temp100 / 100.0;
+
+    //  Save the temperature.
     databuf.std.std_temp = temp;
-    databuf.std.std_temp_is_valid = 1;
-    console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+    databuf.std.std_temp_is_valid = 1;  //  console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
     
     if (data_func) {
-        //  Call the user function to process the data.
+        //  Call the listener function to process the data.
         rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
         if (rc) { goto err; }
     }
@@ -210,6 +207,7 @@ static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) 
     //    HAL_ADC_Start(hadc1);
     //    HAL_ADC_PollForConversion(hadc1, 10 * 1000);
     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
+    console_printf("read temp sensor\n");  ////
     int rc = 0;
     *rawtemp = -1;
 
