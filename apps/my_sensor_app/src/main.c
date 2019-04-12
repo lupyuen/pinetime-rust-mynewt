@@ -7,6 +7,8 @@
 #include "temp_sensor.h"
 #include "geolocate.h"
 
+int test_sensor(void); ////
+
 #if MYNEWT_VAL(SENSOR_COAP)         //  If Sensor CoAP is enabled...
 #include <esp8266/esp8266.h>        //  Declare ESP8266 and CoAP functions.
 #include <esp8266/transport.h>
@@ -21,6 +23,8 @@ int main(int argc, char **argv) {
     //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
     //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
     sysinit();           
+
+    test_sensor(); ////
 
 #if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
     //  Start the background tasks, including WiFi geolocation.
