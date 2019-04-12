@@ -1,3 +1,7 @@
+//  https://raw.githubusercontent.com/cnoviello/mastering-stm32/master/nucleo-f446RE/src/ch12/main-ex1.c
+//  https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
+//  https://github.com/Apress/Beg-STM32-Devel-FreeRTOS-libopencm3-GCC/blob/master/rtos/adc/main.c
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
 #include <console/console.h>
@@ -8,6 +12,7 @@ ADC_HandleTypeDef hadc1;
 
 /* Private function prototypes -----------------------------------------------*/
 static void MX_ADC1_Init(void);
+static void clock_config(void);
 
 /* 
  * STM32F103x data-sheet:
@@ -20,6 +25,7 @@ const float         ADC_TO_VOLT = 3.3 / 4096;   // conversion coefficient of dig
                                                 // when using 3.3V ref. voltage at 12-bit resolution (2^12 = 4096)
 
 int test_sensor(void) {
+  clock_config();
 
   /* Initialize all configured peripherals */
   MX_ADC1_Init();
@@ -29,21 +35,18 @@ int test_sensor(void) {
     // uint16_t rawValue;
     float temp;
 
+    // adc_start_conversion_direct(ADC1);
     HAL_ADC_Start(&hadc1);
+
     //  HAL_ADC_PollForConversion(&hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
     while(HAL_ADC_PollForConversion(&hadc1, 1000000) != HAL_OK);  // wait for completing the conversion
-    uint16_t adcValue = HAL_ADC_GetValue(&hadc1);                        // read sensor's digital value
+
+    uint16_t rawValue = HAL_ADC_GetValue(&hadc1);                        // read sensor's digital value
     HAL_ADC_Stop(&hadc1);
 
-    float vSense = adcValue * ADC_TO_VOLT;                            // convert sensor's digital value to voltage [V]
-    /*
-        * STM32F103xx Reference Manual:
-        * 11.10 Temperature sensor
-        * Reading the temperature, Page 235
-        * Temperature (in °C) = {(V25 - Vsense) / Avg_Slope} + 25
-        */
-    temp = (V25 - vSense) / AVG_SLOPE + 25.0f;                  // convert sensor's output voltage to temperature [°C]
-    
+    temp = ((float)rawValue) / 4095 * 3300;
+    temp = ((temp - 760.0) / 2.5) + 25;
+
 #ifdef NOTUSED
     temp = __LL_ADC_CALC_TEMPERATURE_TYP_PARAMS(AVG_SLOPE,
                                              V25,
@@ -51,16 +54,63 @@ int test_sensor(void) {
                                              __VREFANALOG_VOLTAGE__,
                                              adcValue,
                                              LL_ADC_RESOLUTION_12B)   
-
-    rawValue = HAL_ADC_GetValue(&hadc1);
-    temp = ((float)rawValue) / 4095 * 3300;
-    temp = ((temp - 760.0) / 2.5) + 25;
 #endif
 
-    console_printf("rawtemp: %d\n", (int) adcValue);  ////
+    console_printf("rawtemp: %d / ", (int) rawValue);  ////
     console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
     console_flush();
   }
+}
+
+static void clock_config(void) {
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
+       clocks dividers */
+    //  HSI = 8 MHz
+    //  PLL = (HSI / 2) * 16 = 64 MHz
+    //  APB2 / PCLK2 = PLL DIV 4 = 16 mhz
+    //  ADC input clock APB2 / PCLK2 must not exceed 14 MHz
+
+    RCC_OscInitTypeDef oscinitstruct = { 0 };
+    RCC_ClkInitTypeDef clkinitstruct = { 0 };
+    uint32_t latency;
+
+    //  Set APB2 / PCLK2 = PLL DIV 8 = 8 mhz
+    clkinitstruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK2);
+    clkinitstruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;  //  2
+    //  Previously: clkinitstruct.APB2CLKDivider = RCC_HCLK_DIV4;  //  1280
+    clkinitstruct.APB2CLKDivider = RCC_HCLK_DIV8;  //  1536
+    if (HAL_RCC_ClockConfig(&clkinitstruct, FLASH_LATENCY_2) != HAL_OK) { assert(0); }  //  Latency=2
+
+    HAL_RCC_GetOscConfig(&oscinitstruct);
+    HAL_RCC_GetClockConfig(&clkinitstruct, &latency);
+    console_printf("OK\n"); console_flush();
+
+#ifdef NOTUSED
+    /* Configure PLL ------------------------------------------------------*/
+    /* PLL configuration: PLLCLK = (HSI / 2) * PLLMUL = (8 / 2) * 16 = 64 MHz */
+    /* PREDIV1 configuration: PREDIV1CLK = PLLCLK / HSEPredivValue = 64 / 1 = 64 MHz */
+    /* Enable HSI and activate PLL with HSi_DIV2 as source */
+    oscinitstruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;  //  2
+    oscinitstruct.HSEState = RCC_HSE_OFF;  //  0
+    oscinitstruct.LSEState = RCC_LSE_OFF;  //  0
+    oscinitstruct.HSIState = RCC_HSI_ON;   //  1
+    oscinitstruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;  //  16
+    oscinitstruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;  //  0
+    oscinitstruct.PLL.PLLState = RCC_PLL_ON;  //  2
+    oscinitstruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;  //  0
+    oscinitstruct.PLL.PLLMUL = RCC_PLL_MUL16;  //  3670016 (0x380000)
+    if (HAL_RCC_OscConfig(&oscinitstruct) != HAL_OK) { assert(0); }
+
+    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
+    clocks dividers */
+    clkinitstruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
+                               RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+    clkinitstruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;  //  2
+    clkinitstruct.AHBCLKDivider = RCC_SYSCLK_DIV1;  //  0
+    clkinitstruct.APB2CLKDivider = RCC_HCLK_DIV4;  //  1280
+    clkinitstruct.APB1CLKDivider = RCC_HCLK_DIV2;  //  1024 (0x400)
+    if (HAL_RCC_ClockConfig(&clkinitstruct, FLASH_LATENCY_2) != HAL_OK) { assert(0); }  //  Latency=2
+#endif  //  NOTUSED
 }
 
 /* ADC1 init function */
@@ -68,17 +118,40 @@ void MX_ADC1_Init(void) {
   ADC_ChannelConfTypeDef sConfig;
 
   /* Enable ADC peripheral */
+  // rcc_peripheral_enable_clock(&RCC_APB2ENR,RCC_APB2ENR_ADC1EN);
   __HAL_RCC_ADC1_CLK_ENABLE();
 
-  /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-   */
+// adc_power_off(ADC1);
+// rcc_peripheral_reset(&RCC_APB2RSTR,RCC_APB2RSTR_ADC1RST);
+// rcc_peripheral_clear_reset(&RCC_APB2RSTR,RCC_APB2RSTR_ADC1RST);
+
+// adc_set_dual_mode(ADC_CR1_DUALMOD_IND);		// Independent mode
+
+// adc_enable_temperature_sensor();
+// adc_power_on(ADC1);
+// adc_reset_calibration(ADC1);
+// adc_calibrate_async(ADC1);
+// while ( adc_is_calibrating(ADC1) );
+
+  //  Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
   hadc1.Instance = ADC1;
+
+  // ??? rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	// Set. 12MHz, Max. 14MHz
   //// hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
   //// hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+
+  // adc_disable_scan_mode(ADC1);
   hadc1.Init.ScanConvMode = DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;  ////  ENABLE;
+
+  // adc_set_single_conversion_mode(ADC1);
+  hadc1.Init.ContinuousConvMode = DISABLE; //// ENABLE;
+
+  // ???
   hadc1.Init.DiscontinuousConvMode = DISABLE;
+
+  // adc_set_right_aligned(ADC1);
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+
   hadc1.Init.NbrOfConversion = 1;
   //// hadc1.Init.DMAContinuousRequests = DISABLE;
   //// hadc1.Init.EOCSelection = ADC_EOC_SEQ_CONV;
@@ -87,8 +160,11 @@ void MX_ADC1_Init(void) {
 
   /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
    */
+  // adc_set_regular_sequence(ADC1,1,&channel);
   sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
   sConfig.Rank = 1;
+
+  // adc_set_sample_time(ADC1,channel,ADC_SMPR_SMP_239DOT5CYC);
   sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;  ////  ADC_SAMPLETIME_480CYCLES;
   HAL_ADC_ConfigChannel(&hadc1, &sConfig);
 }
@@ -97,6 +173,65 @@ void MX_ADC1_Init(void) {
     PLL = 64 MHz
     APB2 = PLL DIV 4 = 16 mhz    
     ADC input clock must not exceed 14 MHz
+
+ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
+ {
+         /* Enable internal high-speed oscillator. */
+         rcc_osc_on(RCC_HSI);
+         rcc_wait_for_osc_ready(RCC_HSI);
+ 
+         /* Select HSI as SYSCLK source. */
+         rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
+ 
+         /* Enable external high-speed oscillator 8MHz. */
+         rcc_osc_on(RCC_HSE);
+         rcc_wait_for_osc_ready(RCC_HSE);
+         rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
+ 
+         /*
+          * Set prescalers for AHB, ADC, ABP1, ABP2.
+          * Do this before touching the PLL (TODO: why?).
+          */
+         rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
+         rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);  /* Set.  9MHz Max. 14MHz */
+         rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
+         rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
+ 
+         /*
+          * Sysclk runs with 72MHz -> 2 waitstates.
+          * 0WS from 0-24MHz
+          * 1WS from 24-48MHz
+          * 2WS from 48-72MHz
+          */
+         flash_set_ws(FLASH_ACR_LATENCY_2WS);
+ 
+         /*
+          * Set the PLL multiplication factor to 9.
+          * 8MHz (external) * 9 (multiplier) = 72MHz
+          */
+         rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
+ 
+         /* Select HSE as PLL source. */
+         rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+ 
+         /*
+          * External frequency undivided before entering PLL
+          * (only valid/needed for HSE).
+          */
+         rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
+ 
+         /* Enable PLL oscillator and wait for it to stabilize. */
+         rcc_osc_on(RCC_PLL);
+         rcc_wait_for_osc_ready(RCC_PLL);
+ 
+         /* Select PLL as SYSCLK source. */
+         rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+ 
+         /* Set the peripheral clock frequencies used */
+         rcc_ahb_frequency = 72000000;
+         rcc_apb1_frequency = 36000000;
+         rcc_apb2_frequency = 72000000;
+ }
 
 {
   uint32_t DataAlign;             
