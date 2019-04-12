@@ -16,6 +16,10 @@ static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. c
 static const int  COAP_PORT   = MYNEWT_VAL(COAP_PORT);  //  CoAP UDP port, usually 5683
 static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
+//  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
+static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to the WiFi access point with this SSID e.g. my_ssid
+static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for WiFi access point e.g. my_password
+
 //  CoAP Server Configuration. 
 static struct esp8266_server coap_server = {
     .endpoint = {
@@ -35,8 +39,7 @@ static void sensor_task_func(void *arg);
 static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp);
 
 int main(int argc, char **argv) {
-    //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send
-    //  sensor data.
+    //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
     int rc;
     //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
     sysinit();           
@@ -87,7 +90,7 @@ static void sensor_task_func(void *arg) {
     assert(dev != NULL);
 
     //  Connect to WiFi access point.
-    int rc = esp8266_connect(dev, "my_ssid", "my_password_is_secret");  assert(rc == 0);
+    int rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
 
     //  Register the ESP8266 driver as the network transport for CoAP.
     rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);
