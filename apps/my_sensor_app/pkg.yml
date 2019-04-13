@@ -14,12 +14,11 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
-    # TODO: Move this
-    - "libs/hmac_prng"                     #  HMAC PRNG pseudorandom number generator
+    - "libs/semihosting_console"               #  Semihosting Console
 
 # Library for Semihosting Console
-pkg.deps.SEMIHOSTING_CONSOLE:
-    - "libs/semihosting_console"           #  Semihosting Console
+# pkg.deps.CONSOLE_SEMIHOSTING:
+#   - "libs/semihosting_console"           #  Semihosting Console
 
 # CoAP library for transmitting sensor data to CoAP server
 pkg.deps.SENSOR_COAP:
@@ -36,6 +35,10 @@ pkg.deps.ADC_1:
 # ESP8266 WiFi Driver
 pkg.deps.ESP8266:
     - "libs/esp8266"                       #  ESP8266 WiFi driver
+
+#  HMAC PRNG pseudorandom number generator library
+pkg.deps.HMAC_PRNG:
+    - "libs/hmac_prng"                     #  HMAC PRNG pseudorandom number generator
 
 #  C compiler flags
 pkg.cflags:
