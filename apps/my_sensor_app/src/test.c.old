@@ -1,0 +1,32 @@
+//  repos\apache-mynewt-core\crypto\tinycrypt\include\tinycrypt\hmac_prng.h
+#include <os/os.h>
+#include <tinycrypt/hmac_prng.h>
+
+static struct tc_hmac_prng_struct prng;
+static uint8_t hw_id[32];
+
+void test_random(void) {
+    //  int hal_bsp_hw_id_len(void);
+    //  int hal_bsp_hw_id(uint8_t * id, int max_len);
+
+    int hw_id_len = hal_bsp_hw_id_len();
+    assert(hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
+
+    hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));
+    assert(hw_id_len > 0);
+
+    //  int tc_hmac_prng_init(TCHmacPrng_t prng, const uint8_t *personalization, unsigned int plen);
+
+    tc_hmac_prng_init(&prng, hw_id, hw_id_len);
+
+    //  int tc_hmac_prng_reseed(TCHmacPrng_t prng, const uint8_t *seed,
+		//	unsigned int seedlen, const uint8_t *additional_input,
+		//	unsigned int additionallen);
+
+    //  MIN_SLEN must be >= 32;
+    tc_hmac_prng_reseed(&prng, seed, seedlen, NULL, 0);
+
+    //  int tc_hmac_prng_generate(uint8_t *out, unsigned int outlen, TCHmacPrng_t prng);
+
+    tc_hmac_prng_generate(out, outlen, &prng);
+}
