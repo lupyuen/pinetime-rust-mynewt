@@ -14,6 +14,8 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
+    # TODO: Move this
+    - "libs/hmac_prng"                     #  HMAC PRNG pseudorandom number generator
 
 # Library for Semihosting Console
 pkg.deps.SEMIHOSTING_CONSOLE:
