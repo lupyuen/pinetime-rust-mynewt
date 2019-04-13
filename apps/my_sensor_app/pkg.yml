@@ -14,11 +14,14 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
-    - "libs/semihosting_console"               #  Semihosting Console
+
+# Optional Dependencies: Application is dependent on these optional drivers and libraries.
+#   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
+#   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
 
 # Library for Semihosting Console
-# pkg.deps.CONSOLE_SEMIHOSTING:
-#   - "libs/semihosting_console"           #  Semihosting Console
+pkg.deps.SEMIHOSTING_CONSOLE:
+    - "libs/semihosting_console"           #  Semihosting Console
 
 # CoAP library for transmitting sensor data to CoAP server
 pkg.deps.SENSOR_COAP:
