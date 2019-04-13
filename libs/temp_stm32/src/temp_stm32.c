@@ -226,13 +226,13 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int
             uint8_t i2 = i >> 1;
             uint8_t b = diff + (lastdiff << 4);
             if (temp_diff) { temp_diff[i2] = b; }
-            console_printf("%02x, %02x / ", i2, b);
+            // console_printf("#%02x: %02x / ", i2, b);
         }
         temp_sum += rawtemp;
         lasttemp = rawtemp;
         lastdiff = diff;
     }
-    console_printf("\n");  ////
+    //  console_printf("\n");  ////
     return 0;
 err:
     return rc;

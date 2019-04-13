@@ -12,12 +12,18 @@ static int hw_id_len;      //  Actual length of hardware ID
 static uint8_t seed[32];   //  Seed must be >= 32 bytes long
 
 void test_random(void) {
+    int rc;
+#define ENTROPY
+#ifdef ENTROPY
     stm32f1_adc_create();
     temp_stm32_create();
     struct temp_stm32 *dev = (struct temp_stm32 *) os_dev_open(TEMP_STM32_DEVICE, OS_TIMEOUT_NEVER, NULL);
+    assert(dev);
     int rawtemp;
-    temp_stm32_get_raw_temperature(dev, sizeof(seed) * 2, &rawtemp, seed);
+    rc = temp_stm32_get_raw_temperature(dev, sizeof(seed) * 2, &rawtemp, seed);
+    assert(rc == 0);
     os_dev_close((struct os_dev *) dev);
+#endif  //  ENTROPY
 
     //  Personalise the random number generator with the hardware ID.
     hw_id_len = hal_bsp_hw_id_len();
@@ -29,13 +35,19 @@ void test_random(void) {
     console_printf("hw_id: "); console_dump(hw_id, hw_id_len); console_printf("\n"); console_flush(); ////
 
     //  int tc_hmac_prng_init(TCHmacPrng_t prng, const uint8_t *personalization, unsigned int plen);
-    int rc = tc_hmac_prng_init(&prng, hw_id, hw_id_len);
+    rc = tc_hmac_prng_init(&prng, hw_id, hw_id_len);
     assert(rc);
 
     //  int tc_hmac_prng_reseed(TCHmacPrng_t prng, const uint8_t *seed,
     //	unsigned int seedlen, const uint8_t *additional_input,
     //	unsigned int additionallen);
 
+#ifdef ENTROPY
+    console_printf("SEEDING WITH TEMPERATURE SENSOR ENTROPY:\n");
+    console_dump(seed, sizeof(seed)); console_printf("\n"); console_flush(); ////
+#else
+    console_printf("NO ENTROPY\n");
+#endif  //  ENTROPY
     //  Seed must be >= 32 bytes long.
     rc = tc_hmac_prng_reseed(&prng, seed, sizeof(seed), NULL, 0);
     assert(rc);
@@ -48,7 +60,9 @@ void test_random(void) {
         //  int tc_hmac_prng_generate(uint8_t *out, unsigned int outlen, TCHmacPrng_t prng);
         rc = tc_hmac_prng_generate(rnd, sizeof(rnd), &prng);
         assert(rc);
-        console_printf("#%d: ", i); console_dump(rnd, sizeof(rnd)); console_printf("\n"); ////
+        console_printf("#%d: ", i); console_dump(rnd, sizeof(rnd)); 
+        if (i % 2 == 0) { console_printf(" |  "); }
+        else { console_printf("\n"); } ////
     }
     console_flush();  ////
     for (;;) {}  ////

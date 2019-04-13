@@ -14,8 +14,6 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
-    # TODO: Move these dependencies
-    - "@apache-mynewt-core/crypto/tinycrypt"   #  TinyCrypt library for generating random numbers
 
 # Library for Semihosting Console
 pkg.deps.SEMIHOSTING_CONSOLE:
