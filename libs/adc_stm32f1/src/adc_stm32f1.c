@@ -25,6 +25,9 @@
 //    HAL_ADC_ConfigChannel(hadc1, &temp_config);
 //    HAL_ADC_Start(hadc1);
 //    HAL_ADC_PollForConversion(hadc1, 10 * 1000 /* HAL_MAX_DELAY */);
+//    HAL_ADC_Stop(hadc1);
+//  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
+//  and https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
 
 #include <hal/hal_bsp.h>
 #include <assert.h>
@@ -72,7 +75,7 @@ config_clk(void)
     //    PLL Clock = (HSI / 2) * 16 = 64 MHz
     //    ADC / APB2 / PCLK2 Clock = PLL / 4 = 16 MHz
     //  which is too high - ADC clock must not exceed 14 MHz
-    //  So we slow down the clock:
+    //  So we slow down the clock by changing the divider from 4 to 8:
     //    ADC / APB2 / PCLK2 Clock = PLL / 8 = 8 MHz
     RCC_ClkInitTypeDef clkinitstruct = { 0 };
     //  console_printf("config adc clock\n");  ////

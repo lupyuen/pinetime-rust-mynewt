@@ -29,11 +29,8 @@
 #include "temp_stm32/temp_stm32.h"
 
 //  Exports for the sensor API
-static int temp_stm32_sensor_read(struct sensor *, sensor_type_t,
-    sensor_data_func_t, void *, uint32_t);
-static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t,
-    struct sensor_cfg *);
-static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp);
+static int temp_stm32_sensor_read(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
+static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t, struct sensor_cfg *);
 
 //  Global instance of the sensor driver
 static const struct sensor_driver g_temp_stm32_sensor_driver = {
@@ -195,7 +192,7 @@ err:
  *
  * @return 0 on success, and non-zero error code on failure
  */
-static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) {
+int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) {
     //  If adc_read_channel() fails to return a value, check that
     //  ExternalTrigConv is set to ADC_SOFTWARE_START for STM32F1.
     //  Also the STM32 HAL should be called in this sequence:
@@ -208,16 +205,20 @@ static int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) 
     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
     //  and https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
     console_printf("read temp sensor\n");  ////
-    int rc = 0;
-    *rawtemp = -1;
-
-    //  Block until the temperature is read from the ADC channel.
+    int rc = 0, i, lasttemp = -1;
     assert(dev->adc);
-    rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, rawtemp);
-    assert(rc == 0);
-    if (rc) { goto err; }
 
-    assert(*rawtemp > 0);  //  If rawValue = 0, it means we haven't sampled any values.  Check the above note.
+    for (i = 0; i < 10; i++) {
+        *rawtemp = -1;
+        //  Block until the temperature is read from the ADC channel.
+        rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, rawtemp);
+        assert(rc == 0);
+        if (rc) { goto err; }
+        assert(*rawtemp > 0);  //  If rawValue = 0, it means we haven't sampled any values.  Check the above note.
+        if (lasttemp >= 0) { console_printf("%04d %02d / ", *rawtemp, *rawtemp - lasttemp); }
+        lasttemp = *rawtemp;
+    }
+    console_printf("\n");  ////
     return 0;
 err:
     return rc;

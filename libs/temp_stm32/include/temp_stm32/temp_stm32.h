@@ -83,6 +83,8 @@ int temp_stm32_init(struct os_dev *dev, void *arg);
  */
 int temp_stm32_config(struct temp_stm32 *temp_stm32, struct temp_stm32_cfg *cfg);
 
+int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp);
+
 #ifdef __cplusplus
 }
 #endif
