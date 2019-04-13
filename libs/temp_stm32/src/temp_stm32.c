@@ -208,7 +208,7 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) {
     int rc = 0, i, lasttemp = -1;
     assert(dev->adc);
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 50; i++) {
         *rawtemp = -1;
         //  Block until the temperature is read from the ADC channel.
         rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, rawtemp);
