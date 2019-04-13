@@ -160,7 +160,7 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
         if (rc) { goto err; }
 
         //  Get a new temperature sample from temperature sensor (channel 16 of port ADC1).
-        rc = temp_stm32_get_raw_temperature(dev, &rawtemp);
+        rc = temp_stm32_get_raw_temperature(dev, 1, &rawtemp, NULL);
 
         temp_stm32_close((struct os_dev *) dev);
     }   //  End ADC Lock: Close and unlock port ADC1.
@@ -188,11 +188,13 @@ err:
  * Get raw temperature from STM32 internal temperature sensor by reading from ADC. Will block until data is available.
  *
  * @param dev The temp_stm32 device
- * @param rawtemp Raw temperature
+ * @param num_readings How many readings to take
+ * @param temp_sum Pointer to an int. Will store the sum of the raw temperature readings. Each reading ranges from 0 to 4095.
+ * @param temp_diff An array of (num_readings / 2) uint8_t. If non-null, will store the array of temperature differences between each reading and the last one.  Each byte in the array consists of two difference values, 4 bits each.
  *
  * @return 0 on success, and non-zero error code on failure
  */
-int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) {
+int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int *temp_sum, uint8_t *temp_diff) {
     //  If adc_read_channel() fails to return a value, check that
     //  ExternalTrigConv is set to ADC_SOFTWARE_START for STM32F1.
     //  Also the STM32 HAL should be called in this sequence:
@@ -205,18 +207,30 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp) {
     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
     //  and https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
     console_printf("read temp sensor\n");  ////
-    int rc = 0, i, lasttemp = -1;
+    int rc = 0, i, rawtemp, lasttemp = 0;
+    uint8_t lastdiff = 0;
     assert(dev->adc);
+    assert(temp_sum);
+    *temp_sum = 0;
 
-    for (i = 0; i < 50; i++) {
-        *rawtemp = -1;
+    for (i = 0; i < num_readings; i++) {
+        rawtemp = -1;
         //  Block until the temperature is read from the ADC channel.
-        rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, rawtemp);
+        rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, &rawtemp);
         assert(rc == 0);
         if (rc) { goto err; }
-        assert(*rawtemp > 0);  //  If rawValue = 0, it means we haven't sampled any values.  Check the above note.
-        if (lasttemp >= 0) { console_printf("%04d %02d / ", *rawtemp, *rawtemp - lasttemp); }
-        lasttemp = *rawtemp;
+        assert(rawtemp > 0);  //  If equals 0, it means we haven't sampled any values.  Check the above note.
+
+        uint8_t diff = (rawtemp - lasttemp) & 0xf;  //  Diff between this and last reading, in 4 bits.
+        if (i % 2 == 1) {
+            uint8_t i2 = i >> 1;
+            uint8_t b = diff + (lastdiff << 4);
+            if (temp_diff) { temp_diff[i2] = b; }
+            console_printf("%02x, %02x / ", i2, b);
+        }
+        temp_sum += rawtemp;
+        lasttemp = rawtemp;
+        lastdiff = diff;
     }
     console_printf("\n");  ////
     return 0;

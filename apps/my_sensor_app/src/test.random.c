@@ -16,7 +16,7 @@ void test_random(void) {
     temp_stm32_create();
     struct temp_stm32 *dev = (struct temp_stm32 *) os_dev_open(TEMP_STM32_DEVICE, OS_TIMEOUT_NEVER, NULL);
     int rawtemp;
-    temp_stm32_get_raw_temperature(dev, &rawtemp);
+    temp_stm32_get_raw_temperature(dev, sizeof(seed) * 2, &rawtemp, seed);
     os_dev_close((struct os_dev *) dev);
 
     //  Personalise the random number generator with the hardware ID.

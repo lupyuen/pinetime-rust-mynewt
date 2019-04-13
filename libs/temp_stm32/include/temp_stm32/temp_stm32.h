@@ -83,7 +83,17 @@ int temp_stm32_init(struct os_dev *dev, void *arg);
  */
 int temp_stm32_config(struct temp_stm32 *temp_stm32, struct temp_stm32_cfg *cfg);
 
-int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int *rawtemp);
+/**
+ * Get raw temperature from STM32 internal temperature sensor by reading from ADC. Will block until data is available.
+ *
+ * @param dev The temp_stm32 device
+ * @param num_readings How many readings to take
+ * @param temp_sum Pointer to an int. Will store the sum of the raw temperature readings. Each reading ranges from 0 to 4095.
+ * @param temp_diff An array of (num_readings / 2) uint8_t. If non-null, will store the array of temperature differences between each reading and the last one.  Each byte in the array consists of two difference values, 4 bits each.
+ *
+ * @return 0 on success, and non-zero error code on failure
+ */
+int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int *temp_sum, uint8_t *temp_diff);
 
 #ifdef __cplusplus
 }
