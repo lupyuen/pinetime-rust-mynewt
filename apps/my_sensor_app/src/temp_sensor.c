@@ -29,7 +29,7 @@ int start_temperature_listener(void) {
     //  Poll the temperature sensor every 10 seconds.
     console_printf("poll temperature sensor " TEMP_SENSOR "\n");
 
-    //  Poll the sensor every 10 seconds.
+    //  Poll the sensor every 10 seconds.  TEMP_SENSOR is either "bme280_0" or "temp_stm32_0"
     int rc = sensor_set_poll_rate_ms(TEMP_SENSOR, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
@@ -37,7 +37,7 @@ int start_temperature_listener(void) {
     my_sensor = sensor_mgr_find_next_bydevname(TEMP_SENSOR, NULL);
     assert(my_sensor != NULL);
 
-    //  Set the listener function to be called every 10 seconds.
+    //  Set the listener function to be called every 10 seconds, with the polled sensor data.
     rc = sensor_register_listener(my_sensor, &listener);
     assert(rc == 0);
     return 0;

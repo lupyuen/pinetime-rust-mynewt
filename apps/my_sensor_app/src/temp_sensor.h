@@ -6,6 +6,8 @@
 #ifndef __TEMP_SENSOR_H__
 #define __TEMP_SENSOR_H__
 
+//  TEMP_SENSOR, the name of the temperature sensor device, will be set to "bme280_0" or "temp_stm32_0"
+
 #if MYNEWT_VAL(BME280_OFB)             //  If BME280 Temperature Sensor is enabled...
 #define TEMP_SENSOR "bme280_0"         //  Open sensor "bme280_0" as the temperature sensor
 

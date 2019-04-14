@@ -7,7 +7,7 @@
 #include "temp_sensor.h"
 #include "geolocate.h"
 
-#if MYNEWT_VAL(SENSOR_COAP)         //  If Sensor CoAP is enabled...
+#if MYNEWT_VAL(SENSOR_COAP)         //  If we are sending sensor data to CoAP server...
 #include <esp8266/esp8266.h>        //  Declare ESP8266 and CoAP functions.
 #include <esp8266/transport.h>
 #include <sensor_coap/sensor_coap.h>
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
     sysinit();           
 
-#if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
+#if MYNEWT_VAL(SENSOR_COAP)  //  If we are sending sensor data to CoAP server...
     //  Start the background tasks, including WiFi geolocation.
     int rc1 = init_tasks();  assert(rc1 == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 ///////////////////////////////////////////////////////////////////////////////
 //  Send Sensor Data to CoAP Server
 
-#if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
+#if MYNEWT_VAL(SENSOR_COAP)  //  If we are sending sensor data to CoAP server...
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
 static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
