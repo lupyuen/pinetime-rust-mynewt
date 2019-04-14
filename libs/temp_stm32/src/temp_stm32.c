@@ -186,7 +186,10 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     t100 = t100 / 10;    // (t / 10) becomes (t100 / 10), with integer division.  
     //  t100 must be between -2,790 (-27.9 deg C) and 10,406 (104.06 deg C). 
     //  Max error of t100 is 7.2 (0.072 deg C).  Avg error is 0.036 deg C.
-    temp = t100 / 100;
+    temp = t100 / 100.0f;
+
+    //  TODO: Compensate with the expected error: https://docs.google.com/spreadsheets/d/1O-4UyEO8UQmNkaZ0WB5iyUhZO5TalkRULxYF9busBLE/edit?usp=sharing
+    //  Return only 1 decimal place.    
 #endif  //  NOTUSED_FLOAT_TEMP
 
     //  Save the temperature.

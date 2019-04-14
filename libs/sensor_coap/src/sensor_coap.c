@@ -253,8 +253,8 @@ json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
             len = sprintf(
                 encoder->je_encode_buf,
                 "%d.%d",
-                (int) (jv->jv_val.fl),
-                (int) (10.0 * jv->jv_val.fl) % 10
+                (int) (jv->jv_val.fl),              //  Integer part
+                (int) (10.0f * jv->jv_val.fl) % 10  //  1 decimal place
             );
             encoder->je_write(encoder->je_arg, encoder->je_encode_buf, len);
             break;

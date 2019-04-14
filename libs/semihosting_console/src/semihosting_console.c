@@ -157,9 +157,12 @@ void console_printhex(uint8_t v) {
 
 void console_printfloat(float f) {
     //  Write a float to the output buffer, with 2 decimal places.
-    int i = (int) f;
-    int d = ((int) (100.0f * (f < 0 ? -f : f))) % 100;
-    console_printf("%d.%02d", i, d);
+    bool neg = (f < 0.0f);             //  True if f is negative
+    int f_abs = neg ? -f : f;          //  Absolute value of f
+    int i = (int) f;                   //  Integer part
+    if (neg && (i > 0)) { i = -i; }    //  If f is -0.x, preserve the negative sign
+    int d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+    console_printf("%d.%02d", i, d);   //  Combine the integer and decimal parts
 }
 
 void console_dump(const uint8_t *buffer, unsigned int len) {

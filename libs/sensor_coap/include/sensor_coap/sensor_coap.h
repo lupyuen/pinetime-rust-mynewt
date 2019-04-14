@@ -85,7 +85,7 @@ bool do_sensor_post(void);
     (__jv)->jv_type = JSON_VALUE_TYPE_EXT_FLOAT;  \
     (__jv)->jv_val.fl = (float) __v;
 
-    //  Encode a value into JSON: int, unsigned int, text, double, ...
+    //  Encode a value into JSON: int, unsigned int, double (actually float), text, ...
     #define rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
     #define rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
     #define rep_set_double(     object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }

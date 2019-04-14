@@ -112,7 +112,7 @@ static void sensor_task_func(void *arg) {
     float tmp = 28.0;  //  Simulated sensor data.
     while (true) {  //  Loop forever...        
         send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.1;                                           //  Simulate change in sensor data.
+        tmp += 0.1f;                                           //  Simulate change in sensor data.
         console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
         os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }

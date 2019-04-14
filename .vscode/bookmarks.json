@@ -100,31 +100,31 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.lst",
+		"path": "$ROOTPATH$\\apps\\my_sensor_app\\src\\main.c",
 		"bookmarks": [
 			{
-				"line": 39,
-				"column": 3,
+				"line": 19,
+				"column": 6,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.map",
+		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
-				"line": 0,
-				"column": 16,
+				"line": 26,
+				"column": 5,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h",
+		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
 		"bookmarks": [
 			{
-				"line": 14,
-				"column": 11,
+				"line": 4,
+				"column": 15,
 				"label": ""
 			}
 		]
