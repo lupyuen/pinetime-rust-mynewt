@@ -1,31 +1,21 @@
 [
 	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 26,
-				"column": 5,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/targets/bluepill_my_sensor/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 0,
+				"line": 67,
 				"column": 3,
-				"label": ""
+				"label": "main"
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c",
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
-				"line": 199,
-				"column": 37,
-				"label": ""
+				"line": 21,
+				"column": 11,
+				"label": "sysinit"
 			}
 		]
 	},
@@ -35,17 +25,27 @@
 			{
 				"line": 19,
 				"column": 11,
-				"label": ""
+				"label": "syscfg"
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/src/semihosting_console.c",
+		"path": "$ROOTPATH$/targets/bluepill_my_sensor/syscfg.yml",
 		"bookmarks": [
 			{
-				"line": 21,
-				"column": 11,
-				"label": ""
+				"line": 0,
+				"column": 3,
+				"label": "syscfg bluepill"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 26,
+				"column": 5,
+				"label": "pkg"
 			}
 		]
 	},
@@ -55,7 +55,17 @@
 			{
 				"line": 21,
 				"column": 9,
-				"label": ""
+				"label": "readme"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c",
+		"bookmarks": [
+			{
+				"line": 199,
+				"column": 37,
+				"label": "sensor creator"
 			}
 		]
 	},
@@ -65,7 +75,7 @@
 			{
 				"line": 21,
 				"column": 11,
-				"label": ""
+				"label": "semihosting console"
 			}
 		]
 	},
@@ -75,7 +85,7 @@
 			{
 				"line": 47,
 				"column": 8,
-				"label": ""
+				"label": "semihosting console fmt"
 			}
 		]
 	},
@@ -85,27 +95,7 @@
 			{
 				"line": 18,
 				"column": 15,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
-		"bookmarks": [
-			{
-				"line": 67,
-				"column": 3,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
-		"bookmarks": [
-			{
-				"line": 21,
-				"column": 11,
-				"label": ""
+				"label": "semihosting console declaration"
 			}
 		]
 	}
