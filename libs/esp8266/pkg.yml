@@ -15,12 +15,13 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
 
-pkg.name: libs/esp8266
+# Dependencies for this package
+
+pkg.name:        libs/esp8266
 pkg.description: Driver for ESP8266 WiFi transceiver, ported from mbed
-pkg.author: "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage: "https://github.com/lupyuen"
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
     - esp8266
     - wifi
@@ -31,3 +32,13 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/net/oic"        #  OIC library
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library. Needs vsscanf.c patch.
+
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+
+pkg.init:
+    # esp8266 should be initialised after hmac_prng (Stage 630)
+    esp8266_create: 640  # Call esp8266_create() to initialise the ESP8266 driver during startup

@@ -12,8 +12,8 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 struct oc_server_handle;
 
-//  Init the Sensor CoAP module. 
-int init_sensor_coap(void);
+//  Init the Sensor CoAP module. Called by sysinit() during startup, defined in pkg.yml.
+void init_sensor_coap(void);
 
 //  Return true if the Sensor CoAP is ready for sending sensor data.
 bool sensor_coap_ready(void);

@@ -8,8 +8,8 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 //  Init the pseudorandom number generator with hardware ID and internal temperature sensor entropy.  
-//  Assumes temp_stm32 driver is already started.  Return 0 if successful.
-int hmac_prng_init(void);
+//  Assumes temp_stm32 driver is already started.  Called by sysinit() during startup, defined in pkg.yml.
+void hmac_prng_init(void);
 
 //  Generate a random number of length rndlen bytes and save to rnd.  Return 0 if successful.
 int hmac_prng_generate(uint8_t *rnd, unsigned int rndlen);

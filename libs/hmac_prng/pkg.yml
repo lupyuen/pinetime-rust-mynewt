@@ -15,12 +15,13 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
 
-pkg.name: libs/hmac_prng
+# Dependencies for this package
+
+pkg.name:        libs/hmac_prng
 pkg.description: Pseudorandom number generator based on TinyCrypt HMAC PRNG with entropy from internal temperature sensor
-pkg.author: "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage: "https://github.com/lupyuen"
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
     - prng
 
@@ -30,4 +31,14 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
     - "@apache-mynewt-core/crypto/tinycrypt"   #  TinyCrypt library for HMAC PRNG
-    - "libs/temp_stm32"  #  STM32 internal temperature sensor
+    - "libs/temp_stm32"                        #  STM32 internal temperature sensor
+
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+
+pkg.init:
+    # hmac_prng should be initialised after temp_stm32 (Stage 620)
+    hmac_prng_init: 630  # Call hmac_prng_init() to initialise the pseudorandom number generator during startup

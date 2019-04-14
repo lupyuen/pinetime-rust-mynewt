@@ -13,9 +13,9 @@ static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len;      //  Actual length of hardware ID
 static uint8_t seed[32];   //  Seed must be >= 32 bytes long
 
-int hmac_prng_init(void) {
+void hmac_prng_init(void) {
     //  Init the pseudorandom number generator with hardware ID and internal temperature sensor entropy.  
-    //  Assumes temp_stm32 driver is already started.  Return 0 if successful.
+    //  Assumes temp_stm32 driver is already started.  Called by sysinit() during startup, defined in pkg.yml.
     int rc;
 #define ENTROPY
 #ifdef ENTROPY
@@ -49,7 +49,6 @@ int hmac_prng_init(void) {
     //  Use the temperature entropy data to seed the generator.  Seed must be >= 32 bytes long.
     rc = tc_hmac_prng_reseed(&prng, seed, sizeof(seed), NULL, 0);
     assert(rc);
-    return 0;
 }
 
 int hmac_prng_generate(uint8_t *rnd, unsigned int rndlen) {

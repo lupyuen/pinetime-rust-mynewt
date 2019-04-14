@@ -18,10 +18,10 @@
 
 # Dependencies for this package
 
-pkg.name: libs/adc_stm32f1
+pkg.name:        libs/adc_stm32f1
 pkg.description: ADC driver for the STM32F1 series of processors.
-pkg.author: "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage: "https://github.com/lupyuen"
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
 pkg.features:
     - ADC_STM32F1

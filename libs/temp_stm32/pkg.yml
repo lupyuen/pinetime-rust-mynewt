@@ -18,10 +18,10 @@
 
 # Dependencies for this package
 
-pkg.name: libs/temp_stm32
+pkg.name:        libs/temp_stm32
 pkg.description: Driver for the STM32 internal temperature sensor
-pkg.author: "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage: "https://github.com/lupyuen"
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
     - stm32
     - temperature
@@ -40,5 +40,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # temp_stm32 should be initialised after stm32f1_adc
+    # temp_stm32 should be initialised after stm32f1_adc (Stage 610)
     temp_stm32_create: 620  # Call temp_stm32_create() to initialise the internal temperature sensor driver during startup

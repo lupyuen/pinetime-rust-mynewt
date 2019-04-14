@@ -63,9 +63,9 @@ struct esp8266 {
     void *controller;  //  Pointer to controller instance (ESP8266 *)
 };
 
-//  Create the Mynewt device for ESP8266.  Use the default ESP8266 config.  Return 0 if successful.
-//  Implemented in creator.c, function DEVICE_CREATE().
-int esp8266_create(void);
+//  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
+//  Implemented in creator.c as function DEVICE_CREATE().
+void esp8266_create(void);
 
 //  Copy the default ESP8266 config into cfg.  Returns 0.
 int esp8266_default_cfg(struct esp8266_cfg *cfg);

@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-////  #if MYNEWT_VAL(UART_0) && MYNEWT_VAL(ESP8266_OFB)
 
 //  Create ESP8266 device
 #include "os/mynewt.h"
+#include "console/console.h"
 #include "sensor/sensor.h"
 #include "esp8266/esp8266.h"  //  Specific to device
 
@@ -33,6 +33,7 @@
 #define DEVICE_INIT        esp8266_init    //  Device init function
 #define DEVICE_CREATE      esp8266_create  //  Device create function
 #define DEVICE_ITF         uart_0_itf_esp8266   //  Device interface
+#define ENQUOTE(x)         #x                   //  ENQUOTE(x) expands to "x"
 
 static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
 
@@ -41,15 +42,25 @@ static struct sensor_itf DEVICE_ITF = {    //  Global sensor interface for the d
     .si_num  = 0,               //  Sensor interface number: 0   
 };
 
-/* Previously:
-static struct esp8266 esp8266;  //  Mynewt driver instance.
-const struct sensor_itf uart_0_itf = {        
-    SENSOR_ITF_UART, //  si_type: Sensor interface type
-    0,               //  si_num: Sensor interface number    
-}; */
-
 ///////////////////////////////////////////////////////////////////////////////
 //  Generic Device Creator Code based on repos\apache-mynewt-core\hw\sensor\creator\src\sensor_creator.c
+
+static int config_device(void);
+
+//  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
+void DEVICE_CREATE(void) {
+    console_printf(ENQUOTE(DEVICE_CREATE_QUOTE) ": create " DEVICE_NAME "\n");
+
+    //  Create the device.
+    int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
+        OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
+        DEVICE_INIT, (void *) &DEVICE_ITF);
+    assert(rc == 0);
+
+    //  Configure the device.
+    rc = config_device();
+    assert(rc == 0);
+}
 
 //  Device configuration
 static int config_device(void) {
@@ -70,19 +81,3 @@ static int config_device(void) {
     os_dev_close(dev);
     return rc;
 }
-
-//  Create the device instance and configure it.
-int DEVICE_CREATE(void) {
-    //  Create the device.
-    int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
-        OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
-        DEVICE_INIT, (void *) &DEVICE_ITF);
-    assert(rc == 0);
-
-    //  Configure the device.
-    rc = config_device();
-    assert(rc == 0);
-    return 0;
-}
-
-////  #endif

@@ -37,12 +37,11 @@ static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
 
-int init_sensor_coap(void) {
-    //  Init the Sensor CoAP module. 
+void init_sensor_coap(void) {
+    //  Init the Sensor CoAP module. Called by sysinit() during startup, defined in pkg.yml.
     os_error_t rc = os_sem_init(&oc_sem, 1);  //  Init to 1 token, so only 1 caller will be allowed.
     assert(rc == OS_OK);
     oc_sensor_coap_ready = true;
-    return 0;
 }
 
 bool sensor_coap_ready(void) {

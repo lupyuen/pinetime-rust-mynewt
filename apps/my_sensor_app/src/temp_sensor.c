@@ -8,7 +8,7 @@
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include "temp_sensor.h"
-#ifdef MY_SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
+#ifdef TEMP_SENSOR  //  If either internal temperature sensor or BME280 is enabled...
 
 #define MY_SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
 #define LISTENER_CB         1  //  This is a listener callback.
@@ -25,16 +25,16 @@ static struct sensor_listener listener = {
     .sl_arg         = (void *) LISTENER_CB,             //  Indicate to the listener function that this is a listener callback
 };
 
-int init_temperature_sensor(void) {
+int start_temperature_listener(void) {
     //  Poll the temperature sensor every 10 seconds.
-    console_printf("poll temperature sensor " MY_SENSOR_DEVICE "\n");
+    console_printf("poll temperature sensor " TEMP_SENSOR "\n");
 
     //  Poll the sensor every 10 seconds.
-    int rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
+    int rc = sensor_set_poll_rate_ms(TEMP_SENSOR, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
     //  Fetch the sensor.
-    my_sensor = sensor_mgr_find_next_bydevname(MY_SENSOR_DEVICE, NULL);
+    my_sensor = sensor_mgr_find_next_bydevname(TEMP_SENSOR, NULL);
     assert(my_sensor != NULL);
 
     //  Set the listener function to be called every 10 seconds.
@@ -62,4 +62,4 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     return 0;
 }
 
-#endif  //  MY_SENSOR_DEVICE
+#endif  //  TEMP_SENSOR

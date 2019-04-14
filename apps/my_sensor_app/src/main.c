@@ -27,10 +27,10 @@ int main(int argc, char **argv) {
     int rc1 = init_tasks();  assert(rc1 == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
-#ifdef MY_SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
-    //  Initialize the temperature sensor.  Start polling the sensor every 10 seconds.
-    int rc2 = init_temperature_sensor();  assert(rc2 == 0);
-#endif  //  MY_SENSOR_DEVICE
+#ifdef TEMP_SENSOR  //  If BME280 or internal temperature sensor is enabled...
+    //  Start polling the temperature sensor every 10 seconds.
+    int rc2 = start_temperature_listener();  assert(rc2 == 0);
+#endif  //  TEMP_SENSOR
 
     //  Main event loop
     while (true) {                //  Loop forever...
@@ -93,9 +93,6 @@ static void sensor_task_func(void *arg) {
 
     //  TODO: Allocate device ID.
 
-    //  Initialize the ESP8266 driver.
-    rc = esp8266_create();  assert(rc == 0);
-
     //  Find the ESP8266 device by name: "esp8266_0".
     struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
     assert(dev != NULL);
@@ -105,9 +102,6 @@ static void sensor_task_func(void *arg) {
 
     //  Register the ESP8266 driver as the network transport for CoAP.
     rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);
-
-    //  Init the Sensor CoAP module for composing CoAP requests.
-    rc = init_sensor_coap();  assert(rc == 0);
 
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
     //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.

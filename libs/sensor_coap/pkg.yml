@@ -15,12 +15,13 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
 
-pkg.name: libs/sensor_coap
+# Dependencies for this package
+
+pkg.name:        libs/sensor_coap
 pkg.description: CoAP library for transmitting sensor data
-pkg.author: "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage: "https://github.com/lupyuen"
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
     - coap
     - sensor
@@ -32,3 +33,13 @@ pkg.deps:
     - "@apache-mynewt-core/net/oic"        #  OIC library
     - "@apache-mynewt-core/encoding/json"  #  JSON encodng for CoAP
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
+
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+
+pkg.init:
+    # sensor_coap should be initialised after esp8266 (Stage 640)
+    init_sensor_coap: 650  # Call init_sensor_coap() to initialise the Sensor CoAP module during startup
