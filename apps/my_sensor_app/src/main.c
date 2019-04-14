@@ -11,6 +11,7 @@
 #include <esp8266/esp8266.h>        //  Declare ESP8266 and CoAP functions.
 #include <esp8266/transport.h>
 #include <sensor_coap/sensor_coap.h>
+#include <hmac_prng/hmac_prng.h>
 static int init_tasks(void);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
@@ -77,6 +78,9 @@ static struct esp8266_server coap_server = {
     }
 };
 
+//  Randomly assigned device ID that will be sent in every CoAP request.
+static uint8_t device_id[64];
+
 //  Storage for Sensor Task
 #define SENSOR_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units).
 static uint8_t sensor_task_stack[sizeof(os_stack_t) * SENSOR_TASK_STACK_SIZE];  //  Stack space.
@@ -107,7 +111,8 @@ static void sensor_task_func(void *arg) {
     int rc;
 
     //  Create a random device ID based on HMAC pseudorandom number generator.
-    
+    rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
+    console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
 
     //  Find the ESP8266 device by name: "esp8266_0".
     struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
