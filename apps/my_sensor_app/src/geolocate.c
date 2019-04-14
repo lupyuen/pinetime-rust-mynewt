@@ -91,7 +91,8 @@ static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]) {
     return false;
 }
 
-static char buf[20];  //  Buffer for JSON keys and values.  Long enough to hold a MAC address like "00:25:9c:cf:1c:ac"
+static char key_buf[10];    //  Buffer for JSON keys.  Long enough to hold a key like "ssid0"
+static char value_buf[20];  //  Buffer for JSON values.  Long enough to hold a MAC address like "00:25:9c:cf:1c:ac"
 
 static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int length) {
     //  Write the CoAP JSON payload with the list of WiFi access points (MAC Address and Signal Strength).  It should look like:
@@ -104,7 +105,8 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
     //    {"key":"rssi2", "value":-43.0}
     //  ]}
     //  We use float instead of int for rssi because int doesn't support negative values.
-    int i;
+    int i, len;
+#ifdef NOTUSED
     rep_start_root_object();                              //  Create the root.
         rep_set_array(root, values);                      //  Create "values" as an array of objects.
             for (i = 0; i < length; i++) {                //  Loop for the 3 access points (or fewer)...
@@ -130,6 +132,73 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
             }
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
+#else
+
+#define CP_ROOT(children) { \
+    rep_start_root_object();  \
+    { children; } \
+    rep_end_root_object(); \
+}
+
+#define CP_ARRAY(object, key, children) { \
+    rep_set_array(object, key);  \
+    { children; } \
+    rep_close_array(object, key); \
+}
+
+#define CP_ITEM(key, children) { \
+    rep_object_array_start_item(key);  \
+    { children; } \
+    rep_object_array_end_item(key); \
+}
+
+#define CP_ITEM_STR(object, key0, value0) { \
+    CP_ITEM(object, { \
+        rep_set_text_string(object, key, key0); \
+        rep_set_text_string(object, value, value0); \
+    }) \
+}
+
+#define CP_ITEM_FLOAT(object, key0, value0) { \
+    CP_ITEM(object, { \
+        rep_set_text_string(object, key, key0); \
+        rep_set_float(      object, value, value0); \
+    }) \
+}
+
+    CP_ROOT({  //  Create the root.
+        CP_ARRAY(root, values, {  //  Create "values" as an array of objects.
+            for (i = 0; i < length; i++) {             //  Loop for the 3 access points (or fewer)...
+                const nsapi_wifi_ap_t *ap = access_points + i;
+                //  Append to the "values" array 2 items:
+                //    {"key":"ssid0", "value":"00:25:9c:cf:1c:ac"}
+                //    {"key":"rssi0", "value":-43}
+
+                ///////////////////////////////////////
+                //  First Item: ssid...
+                len = sprintf(key_buf, "ssid%d", i);   //  Compose key "ssid0"
+                assert(len < sizeof(key_buf));       
+                len = sprintf(value_buf, 
+                    "%02x:%02x:%02x:%02x:%02x:%02x",   //  Compose value "00:25:9c:cf:1c:ac"
+                    ap->bssid[0], ap->bssid[1], ap->bssid[2],
+                    ap->bssid[3], ap->bssid[4], ap->bssid[5]);  assert(len < sizeof(value_buf));
+
+                //  Append to the "values" array: {"key":"ssid0", "value":"00:25:9c:cf:1c:ac"}
+                CP_ITEM_STR(values, key_buf, value_buf);
+
+                ///////////////////////////////////////
+                //  Second Item: rssi...
+                len = sprintf(key_buf, "rssi%d", i);  //  Compose key "rssi0"
+                assert(len < sizeof(key_buf));
+
+                //  Append to the "values" array: {"key":"rssi0", "value":-43}
+                CP_ITEM_FLOAT(values, key_buf, ap->rssi);  //  Can't use int because it doesn't support negative numbers.
+                
+            }  //  End For
+        });  //  End CP_ARRAY: Close the "values" array.
+    });  //  End CP_ROOT: Close the root.
+
+#endif  //  NOTUSED
 }
 
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)

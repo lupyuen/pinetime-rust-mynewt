@@ -3,7 +3,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 67,
+				"line": 88,
 				"column": 3,
 				"label": "main"
 			}
@@ -100,32 +100,32 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\apps\\my_sensor_app\\src\\main.c",
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.lst",
 		"bookmarks": [
 			{
-				"line": 32,
-				"column": 6,
-				"label": ""
+				"line": 39,
+				"column": 3,
+				"label": "assembly code"
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.map",
 		"bookmarks": [
 			{
-				"line": 26,
-				"column": 5,
-				"label": ""
+				"line": 0,
+				"column": 16,
+				"label": "memory map"
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h",
 		"bookmarks": [
 			{
-				"line": 4,
-				"column": 15,
-				"label": ""
+				"line": 14,
+				"column": 11,
+				"label": "syscfg"
 			}
 		]
 	}

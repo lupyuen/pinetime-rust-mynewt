@@ -155,13 +155,20 @@ void console_printhex(uint8_t v) {
     console_buffer(buffer, strlen(buffer));
 }
 
-void console_printfloat(float f) {
-    //  Write a float to the output buffer, with 2 decimal places.
+static void split_float(float f, int *i, int *d) {
+    //  Split the float f into two parts: the integer part i, and the decimal part d, with 2 decimal places.
     bool neg = (f < 0.0f);             //  True if f is negative
     int f_abs = neg ? -f : f;          //  Absolute value of f
-    int i = (int) f;                   //  Integer part
-    if (neg && (i > 0)) { i = -i; }    //  If f is -0.x, preserve the negative sign
-    int d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+    *i = (int) f;                      //  Integer part
+    if (neg && (*i > 0)) { *i = -(*i); }  //  If f is -0.x, preserve the negative sign
+    *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+    //  console_printf("splitFloat %d.%02d", *i, *d);  console_printf("\n");  ////
+}
+
+void console_printfloat(float f) {
+    //  Write a float to the output buffer, with 2 decimal places.
+    int i, d;
+    split_float(f, &i, &d);            //  Split the float into integer and decimal parts to 2 decimal places
     console_printf("%d.%02d", i, d);   //  Combine the integer and decimal parts
 }
 

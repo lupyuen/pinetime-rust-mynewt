@@ -79,7 +79,7 @@ static struct esp8266_server coap_server = {
 };
 
 //  Randomly assigned device ID that will be sent in every CoAP request.
-static uint8_t device_id[64];
+static uint8_t device_id[16];
 
 //  Storage for Sensor Task
 #define SENSOR_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units).
@@ -158,7 +158,7 @@ static void send_sensor_data(struct oc_server_handle *server, const char *uri, f
             rep_object_array_start_item(values);          //  Create a new item in the "values" array.
                 //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
                 rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                rep_set_double     (values, value, tmp);    //  Set the value.
+                rep_set_float      (values, value, tmp);    //  Set the value.
             rep_object_array_end_item(values);            //  Close the item in the "values" array.
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.

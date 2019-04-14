@@ -212,6 +212,7 @@ void json_rep_end_root_object(void) {
 }
 
 static int json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv);
+static void split_float(float f, int *i, int *d);
 
 int
 json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
@@ -249,12 +250,15 @@ json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
 
     switch (jv->jv_type) {
         case JSON_VALUE_TYPE_EXT_FLOAT: {
-            //  Encode the float with 1 decimal place.
+            //  Encode the float with 2 decimal places.
+            int i, d;
+            float f = jv->jv_val.fl;
+            split_float(f, &i, &d);  //  Split the float into integer and decimal parts (two decimal places)
             len = sprintf(
                 encoder->je_encode_buf,
-                "%d.%d",
-                (int) (jv->jv_val.fl),              //  Integer part
-                (int) (10.0f * jv->jv_val.fl) % 10  //  1 decimal place
+                "%d.%02d",
+                i, //  Integer part
+                d  //  2 decimal places
             );
             encoder->je_write(encoder->je_arg, encoder->je_encode_buf, len);
             break;
@@ -268,6 +272,18 @@ json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
     return (0);
 err:
     return (rc);
+}
+
+static void
+split_float(float f, int *i, int *d)
+{
+    //  Split the float f into two parts: the integer part i, and the decimal part d, with 2 decimal places.
+    bool neg = (f < 0.0f);             //  True if f is negative
+    int f_abs = neg ? -f : f;          //  Absolute value of f
+    *i = (int) f;                      //  Integer part
+    if (neg && (*i > 0)) { *i = -(*i); }  //  If f is -0.x, preserve the negative sign
+    *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+    console_printf("splitFloat %d.%02d", *i, *d);  console_printf("\n");  ////
 }
 
 #endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
