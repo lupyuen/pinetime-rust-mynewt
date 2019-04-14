@@ -114,8 +114,8 @@ static void sensor_task_func(void *arg) {
     rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
     console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
 
-    //  Find the ESP8266 device by name: "esp8266_0".
-    struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
+    //  Find the ESP8266 device by name "esp8266_0".
+    struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
     assert(dev != NULL);
 
     //  Connect to WiFi access point.
@@ -133,7 +133,7 @@ static void sensor_task_func(void *arg) {
     float tmp = 28.0;  //  Simulated sensor data.
     while (true) {  //  Loop forever...        
         send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.1f;                                           //  Simulate change in sensor data.
+        tmp += 0.01f;                                           //  Simulate change in sensor data.
         console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
         os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }
