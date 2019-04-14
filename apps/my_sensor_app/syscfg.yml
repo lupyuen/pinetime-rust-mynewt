@@ -16,19 +16,19 @@ syscfg.defs:
         value:        0
 
     WIFI_GEOLOCATION:
-        description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266'
+        description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266. Requires "esp8266" driver'
         value:        0
     ESP8266:
         description: 'Enable WiFi access with ESP8266'
         value:        0        
+    HMAC_PRNG:
+        description: 'Generate pseuorandom numbers with HMAC. Based on TinyCrypt HMAC PRNG. Requires "temp_stm32" driver for internal temperature sensor as source of entropy.'
+        value:        0
     TEMP_STM32:
         description: 'Enable STM32 internal temperature sensor based on ADC'
         value:        0        
     ADC_1:
         description: 'Enable port ADC1 for STM32F1xx microcontrollers (blocking reads only, without DMA)'
-        value:        0
-    HMAC_PRNG:
-        description: 'Generate pseuorandom numbers with HMAC.  Based on TinyCrypt HMAC PRNG.  Uses temp_stm32 internal temperature sensor as source of entropy.'
         value:        0
     SEMIHOSTING_CONSOLE:
         description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'

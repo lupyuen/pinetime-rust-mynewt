@@ -22,6 +22,16 @@ int main(int argc, char **argv) {
     //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
     sysinit();           
 
+#if MYNEWT_VAL(ADC_1)  //  If ADC1 is enabled...
+    //  Initialise the ADC1 port.
+    stm32f1_adc_create();
+#endif  //  MYNEWT_VAL(ADC_1)
+
+#if MYNEWT_VAL(TEMP_STM32)  //  If internal temperature sensor is enabled...
+    //  Initialise the internal temperature sensor channel on ADC1.
+    temp_stm32_create();
+#endif  //  MYNEWT_VAL(TEMP_STM32)
+
 #if MYNEWT_VAL(SENSOR_COAP)  //  If Sensor CoAP is enabled...
     //  Start the background tasks, including WiFi geolocation.
     int rc1 = init_tasks();  assert(rc1 == 0);

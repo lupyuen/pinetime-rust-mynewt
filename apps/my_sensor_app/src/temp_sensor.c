@@ -76,11 +76,6 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
     static int init_drivers(void) {
         //  Initialise the ADC1 port and channel 16 for the internal temperature sensor.
-
-        //  Initialise the ADC1 port.
-        stm32f1_adc_create();
-        //  Initialise the internal temperature sensor channel on ADC1.
-        temp_stm32_create();
         return 0;
     }
 

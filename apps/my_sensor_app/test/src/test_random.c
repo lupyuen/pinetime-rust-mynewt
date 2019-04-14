@@ -1,4 +1,4 @@
-//  repos\apache-mynewt-core\crypto\tinycrypt\include\tinycrypt\hmac_prng.h
+//  TODO: Use unit test convention
 #include <os/os.h>
 #include <console/console.h>
 #include <adc_stm32f1/adc_stm32f1.h>
@@ -22,5 +22,4 @@ void test_random(void) {
         else { console_printf("\n"); } ////
     }
     console_flush();  ////
-    for (;;) {}  ////
 }

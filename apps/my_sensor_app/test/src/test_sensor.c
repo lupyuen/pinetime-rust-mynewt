@@ -1,3 +1,5 @@
+//  TODO: Use unit test convention
+//  Based on:
 //  https://raw.githubusercontent.com/cnoviello/mastering-stm32/master/nucleo-f446RE/src/ch12/main-ex1.c
 //  https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
 //  https://github.com/Apress/Beg-STM32-Devel-FreeRTOS-libopencm3-GCC/blob/master/rtos/adc/main.c
