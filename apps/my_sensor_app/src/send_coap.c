@@ -101,9 +101,13 @@ static void network_task_func(void *arg) {
     //  Network Task terminates here.
 }
 
-void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp) {
-    //  Send the sensor data "tmp" to the specified CoAP server and URI.
-    //  If the CoAP server is thethings.io, the CoAP body should look like:
+int send_sensor_data(float tmp) {
+    //  Compose a CoAP message with sensor data "tmp" and send to the specified CoAP server
+    //  and URI.  The message will be enqueued for transmission by the OIC 
+    //  background task so this function will return without waiting for the message 
+    //  to be transmitted.  Return 0 if successful
+
+    //  For the CoAP server hosted at thethings.io, the CoAP payload should look like:
     //  {"values":[
     //    {"key":"tmp", "value":28.7},
     //    {"key":"...", "value":... },
@@ -139,6 +143,7 @@ void send_sensor_data(struct oc_server_handle *server, const char *uri, float tm
     //  Forward the CoAP message to the CoAP Background Task for transmission.  This releases a semaphore and unblocks other requests to create CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
+    return 0;
 }
 
 #endif  //  MYNEWT_VAL(SENSOR_COAP)

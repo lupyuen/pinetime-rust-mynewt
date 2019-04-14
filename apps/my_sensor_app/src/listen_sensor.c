@@ -53,7 +53,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     //  This listener function is called every 10 seconds.  Mynewt has fetched the temperature data,
     //  passed through databuf.  We send the sensor data to the CoAP server.  Return 0 if we have
     //  processed the sensor data successfully.
-    float temp;
+    float tmp;
     struct sensor_temp_data *tempdata = (struct sensor_temp_data *) databuf;
 
     //  Check that the temperature data is valid.
@@ -61,11 +61,19 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     if (!tempdata->std_temp_is_valid) { return SYS_EINVAL; }  //  Exit if data is not valid
 
     //  Temperature data is valid.  Fetch and display it.
-    temp = tempdata->std_temp;  //  Temperature in floating point.
-    console_printf("**** temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+    tmp = tempdata->std_temp;  //  Temperature in floating point.
+    console_printf("**** temp: ");  console_printfloat(tmp);  console_printf("\n");  ////
 
-    //  TODO: Send temperature to CoAP server.
-    return 0;
+#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
+    //  Compose a CoAP message with the temperature sensor data and send to the 
+    //  CoAP server.  The message will be enqueued for transmission by the OIC 
+    //  background task so this function will return without waiting for the message 
+    //  to be transmitted.
+    rc = send_sensor_data(tmp);
+    assert(rc == 0);
+#endif  //  MYNEWT_VAL(SENSOR_COAP)
+
+    return rc;
 }
 
 #endif  //  SENSOR_NAME

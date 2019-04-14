@@ -14,13 +14,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
 //  Return 0 if successful.
 int start_network_task(void);
 
-//  Send the sensor data "tmp" to the specified CoAP server and URI.
-//  For CoAP server hosted at thethings.io, the CoAP body should look like:
-//  {"values":[
-//    {"key":"tmp", "value":28.7},
-//    {"key":"...", "value":... },
-//    ... ]}
-void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp);
+//  Compose a CoAP message with sensor data "tmp" and send to the specified CoAP server
+//  and URI.  The message will be enqueued for transmission by the OIC 
+//  background task so this function will return without waiting for the message 
+//  to be transmitted.  Return 0 if successful
+int send_sensor_data(float tmp);
 
 #ifdef __cplusplus
 }
