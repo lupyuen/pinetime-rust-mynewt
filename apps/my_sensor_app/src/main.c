@@ -29,9 +29,12 @@ int main(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 
     //  and sending sensor data in the background.
 
-    //  Initialise the Mynewt packages and BME280 / TEMP_STM32 driver.  Start 
-    //  OIC background task to transmit CoAP messages.
-    sysinit();           
+    //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
+    //  Start the CoAP / OIC background task to transmit CoAP messages.  Any startup
+    //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
+    //  sysinit().  Here are the startup functions consolidated by Mynewt:
+    //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+    sysinit();
 
     test_semihosting_console();  ////
 

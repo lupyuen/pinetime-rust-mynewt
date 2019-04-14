@@ -35,7 +35,8 @@ static uint8_t device_id[16];
 //  Storage for Network Task
 #define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
 static uint8_t network_task_stack[sizeof(os_stack_t) * NETWORK_TASK_STACK_SIZE];  //  Stack space
-static struct os_task network_task;  //  Mynewt task object will be saved here
+static struct os_task network_task;    //  Mynewt task object will be saved here
+static bool network_is_ready = false;  //  Set to true when network tasks have been completed
 
 static void network_task_func(void *arg);  //  Defined below
 
@@ -68,24 +69,33 @@ static void network_task_func(void *arg) {
     int rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
     console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
 
-    //  Find the ESP8266 device by name "esp8266_0".
-    struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
-    assert(dev != NULL);
+    {
+        //  Find the ESP8266 device by name "esp8266_0".
+        struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
+        assert(dev != NULL);
+        //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
+        //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
+        //  to pass ESP8266 events to this function.
+        rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
 
-    //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
-    //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
-    //  to pass ESP8266 events to this function.
-    rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
-
-    //  Register the ESP8266 driver as the network transport for CoAP.
-    rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);
+        //  Register the ESP8266 driver as the network transport for CoAP.
+        rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);
 
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
-    //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-    rc = geolocate(dev, coap_server.handle, COAP_URI);  assert(rc > 0);
+        //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
+        rc = geolocate(dev, coap_server.handle, COAP_URI);  assert(rc >= 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
-#ifdef NOTUSED
+        //  Close the ESP8266 device when we are done sending.
+        os_dev_close((struct os_dev *) dev);
+    }
+    network_is_ready = true;  //  Indicate that network is ready.
+
+    //  Network Task terminates here. The Sensor Listener will still continue to
+    //  run in the background and send sensor data to the server.
+}
+
+#ifdef NOTUSED  //  Previously
     float tmp = 28.00f;  //  Simulated sensor data.
     while (true) {  //  Loop forever...        
         send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
@@ -95,26 +105,23 @@ static void network_task_func(void *arg) {
     }
 #endif  //  NOTUSED
 
-    //  Close the ESP8266 device when we are done sending.
-    os_dev_close((struct os_dev *) dev);
-
-    //  Network Task terminates here.
-}
-
 int send_sensor_data(float tmp) {
-    //  Compose a CoAP message with sensor data "tmp" and send to the specified CoAP server
-    //  and URI.  The message will be enqueued for transmission by the OIC 
-    //  background task so this function will return without waiting for the message 
-    //  to be transmitted.  Return 0 if successful
+    //  Compose a CoAP message with sensor data "tmp" and send to the CoAP server
+    //  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
+    //  Background Task so this function will return without waiting for the message 
+    //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+    if (!network_is_ready) { return SYS_EAGAIN; }
 
     //  For the CoAP server hosted at thethings.io, the CoAP payload should look like:
     //  {"values":[
     //    {"key":"tmp", "value":28.7},
     //    {"key":"...", "value":... },
     //    ... ]}
-
-    //  Create a CoAP message.  This will block other tasks from creating CoAP messages (through a semaphore).
     assert(server);  assert(uri);
+
+    //  Compose the CoAP message with the sensor data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
 #ifdef NOTUSED
@@ -140,7 +147,9 @@ int send_sensor_data(float tmp) {
     });                           //  End CP_ROOT:  Close the payload root
 #endif  //  NOTUSED
 
-    //  Forward the CoAP message to the CoAP Background Task for transmission.  This releases a semaphore and unblocks other requests to create CoAP messages.
+    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  message to the background task, we release a semaphore that unblocks other requests
+    //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
     return 0;

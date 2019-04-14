@@ -70,6 +70,10 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
     rc = send_sensor_data(tmp);
+
+    //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
+    //  We drop the message and send at the next poll.
+    if (rc == SYS_EAGAIN) { return 0; }
     assert(rc == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 

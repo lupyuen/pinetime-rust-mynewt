@@ -15,8 +15,8 @@ extern "C" {  //  Expose the types and functions below to C functions.
 int start_network_task(void);
 
 //  Compose a CoAP message with sensor data "tmp" and send to the specified CoAP server
-//  and URI.  The message will be enqueued for transmission by the OIC 
-//  background task so this function will return without waiting for the message 
+//  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
+//  Background Task so this function will return without waiting for the message 
 //  to be transmitted.  Return 0 if successful
 int send_sensor_data(float tmp);
 
