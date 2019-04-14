@@ -1,17 +1,15 @@
 //  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server
+
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #include <os/os.h>
 #include <defs/error.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "temp_sensor.h"
+#include "send_coap.h"
 #include "geolocate.h"
 
 #if MYNEWT_VAL(SENSOR_COAP)         //  If we are sending sensor data to CoAP server...
-#include <esp8266/esp8266.h>        //  Declare ESP8266 and CoAP functions.
-#include <esp8266/transport.h>
-#include <sensor_coap/sensor_coap.h>
-#include <hmac_prng/hmac_prng.h>
 static int init_tasks(void);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
@@ -56,135 +54,6 @@ int main(int argc, char **argv) {
     }
     return 0;  //  Never comes here.
 }
-
-///////////////////////////////////////////////////////////////////////////////
-//  Send Sensor Data to CoAP Server
-
-#if MYNEWT_VAL(SENSOR_COAP)  //  If we are sending sensor data to CoAP server...
-//  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
-//  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
-static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
-static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
-
-//  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
-static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to the WiFi access point with this SSID e.g. my_ssid
-static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for WiFi access point e.g. my_password
-
-//  CoAP Server Configuration. 
-static struct esp8266_server coap_server = {
-    .endpoint = {
-        .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
-        .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
-    }
-};
-
-//  Randomly assigned device ID that will be sent in every CoAP request.
-static uint8_t device_id[16];
-
-//  Storage for Sensor Task
-#define SENSOR_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units).
-static uint8_t sensor_task_stack[sizeof(os_stack_t) * SENSOR_TASK_STACK_SIZE];  //  Stack space.
-static struct os_task sensor_task;  //  Task object will be saved here.
-
-//  Static Functions
-static void sensor_task_func(void *arg);
-static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp);
-
-static int init_tasks(void) {
-    //  Start the sensor task that reads sensor data and sends to the server.
-    int rc = os_task_init(  //  Create a new task and start it...
-        &sensor_task,       //  Task object will be saved here.
-        "sensor",           //  Name of task.
-        sensor_task_func,   //  Function to execute when task starts.
-        NULL,               //  Argument to be passed to above function.
-        10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        OS_WAIT_FOREVER,    //  Don't do sanity / watchdog checking.
-        (os_stack_t *) sensor_task_stack,  //  Stack space for the task.
-        SENSOR_TASK_STACK_SIZE);           //  Size of the stack (in 4-byte units).
-    assert(rc == 0);
-    return rc;
-}
-
-static void sensor_task_func(void *arg) {
-    //  Background task that reads sensor data and sends to the server.
-    console_printf("sensor_task\n");
-    int rc;
-
-    //  Create a random device ID based on HMAC pseudorandom number generator.
-    rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
-    console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
-
-    //  Find the ESP8266 device by name "esp8266_0".
-    struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
-    assert(dev != NULL);
-
-    //  Connect to WiFi access point.
-    rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
-
-    //  Register the ESP8266 driver as the network transport for CoAP.
-    rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);
-
-#if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
-    //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-    rc = geolocate(dev, coap_server.handle, COAP_URI);  assert(rc > 0);
-#endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
-
-    ////  TODO
-    float tmp = 28.0;  //  Simulated sensor data.
-    while (true) {  //  Loop forever...        
-        send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.01f;                                           //  Simulate change in sensor data.
-        console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
-        os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
-    }
-
-    //  Never comes here.
-    os_dev_close((struct os_dev *) dev);
-}
-
-static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp) {
-    //  Send the sensor data over to the specified CoAP server and URI.
-    //  If the CoAP server is thethings.io, the CoAP body should look like:
-    //  {"values":[
-    //    {"key":"tmp", "value":28.7},
-    //    {"key":"...", "value":... },
-    //    ... ]}
-
-    //  Create a CoAP message.  This will block other tasks from creating CoAP messages (through a semaphore).
-    assert(server);  assert(uri);
-    int rc = init_sensor_post(server, uri);  assert(rc != 0);
-
-#ifdef NOTUSED
-    //  Previous code without the CP Macros
-    rep_start_root_object();                              //  Create the root.
-        rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            rep_object_array_start_item(values);          //  Create a new item in the "values" array.
-                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-                rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                rep_set_float      (values, value, tmp);    //  Set the value.
-            rep_object_array_end_item(values);            //  Close the item in the "values" array.
-        rep_close_array(root, values);                    //  Close the "values" array.
-    rep_end_root_object();                                //  Close the root.
-#else
-    //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
-    CP_ROOT({                     //  Create the payload root
-        CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
-
-            //  Append to the "values" array: {"key":"tmp", "value":28.7}
-            CP_ITEM_FLOAT(values, "tmp", tmp);
-
-            //  If there are more sensor values, add them here with
-            //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
-
-        });                       //  End CP_ARRAY: Close the "values" array
-    });                           //  End CP_ROOT:  Close the payload root
-#endif  //  NOTUSED
-
-    //  Forward the CoAP message to the CoAP Background Task for transmission.  This releases a semaphore and unblocks other requests to create CoAP messages.
-    rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
-}
-#endif  //  MYNEWT_VAL(SENSOR_COAP)
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Other Functions

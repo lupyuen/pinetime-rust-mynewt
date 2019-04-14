@@ -1,15 +1,5 @@
 [
 	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
-		"bookmarks": [
-			{
-				"line": 88,
-				"column": 3,
-				"label": "main"
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{

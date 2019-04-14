@@ -1,8 +1,9 @@
-//  Initialise the temperature sensor and poll it every 10 seconds.  We support 2 types of temperature sensors:
-//  (1)  BME280 Temperature Sensor, connected to Blue Pill on port SPI1
+//  Poll the temperature sensor every 10 seconds.  We support 2 types of temperature sensors:
+//  (1)  BME280 Temperature Sensor, connected to Blue Pill on port SPI1.
+//       This sensor is selected if BME280_OFB is defined in syscfg.yml.
 //  (2)  Blue Pill internal temperature sensor, connected to port ADC1 on channel 16
-//  BME280 is selected if BME280_OFB is defined in syscfg.yml.
-//  Blue Pill internal temperature sensor is selected if TEMP_STM32 is defined in syscfg.yml.
+//       This sensor is selected if TEMP_STM32 is defined in syscfg.yml.
+//  If sending to CoAP server is enabled, send the sensor data to the CoAP server after polling.
 #ifndef __TEMP_SENSOR_H__
 #define __TEMP_SENSOR_H__
 
