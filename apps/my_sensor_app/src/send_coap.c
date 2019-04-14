@@ -8,10 +8,11 @@
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
 
 #include <console/console.h>
-#include <esp8266/esp8266.h>  //  Declare ESP8266 and CoAP functions.
-#include <esp8266/transport.h>
-#include <sensor_coap/sensor_coap.h>
-#include <hmac_prng/hmac_prng.h>
+#include <esp8266/esp8266.h>    //  ESP8266 driver functions
+#include <esp8266/transport.h>  //  ESP8266 transport for CoAP
+#include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
+#include <hmac_prng/hmac_prng.h>      //  Pseudorandom number generator for device ID
+#include "geolocate.h"                //  For geolocate()
 #include "send_coap.h"
 
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
@@ -104,13 +105,15 @@ int send_sensor_data(float tmp) {
     //  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
     //  Background Task so this function will return without waiting for the message 
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-    if (!network_is_ready) { return SYS_EAGAIN; }
 
     //  For the CoAP server hosted at thethings.io, the CoAP payload should look like:
     //  {"values":[
     //    {"key":"tmp", "value":28.7},
     //    {"key":"...", "value":... },
     //    ... ]}
+    if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    struct oc_server_handle *server = coap_server.handle;
+    const char *uri = COAP_URI;
     assert(server);  assert(uri);
 
     //  Compose the CoAP message with the sensor data in the payload.  This will 
