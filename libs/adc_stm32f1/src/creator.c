@@ -60,8 +60,11 @@ static struct DEVICE_CFG DEVICE_ITF = STM32F1_ADC1_DEFAULT_CONFIG;
 ///////////////////////////////////////////////////////////////////////////////
 //  Generic Device Creator Code
 
-//  Create the device instance and configure it.
+#define DEVICE_CREATE_QUOTE #DEVICE_CREATE
+
+//  Create the device instance and configure it. Called by sysinit(), defined in pkg.yml.
 void DEVICE_CREATE(void) {
+    console_printf(DEVICE_CREATE_QUOTE ": creating " DEVICE_NAME "\n");
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
         OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
         DEVICE_INIT, (void *) &DEVICE_ITF);

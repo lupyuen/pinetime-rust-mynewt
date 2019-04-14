@@ -108,5 +108,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
+		"bookmarks": [
+			{
+				"line": 21,
+				"column": 7,
+				"label": ""
+			}
+		]
 	}
 ]

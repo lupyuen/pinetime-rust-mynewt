@@ -15,7 +15,8 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
+
+# Dependencies for this package
 
 pkg.name: libs/adc_stm32f1
 pkg.description: ADC driver for the STM32F1 series of processors.
@@ -32,3 +33,13 @@ pkg.deps.TEST:
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/hw/mcu/stm/stm32f1xx"
     - "@apache-mynewt-core/test/testutil"
+
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+
+pkg.init:
+    # stm32f1_adc should be initialised before temp_stm32
+    stm32f1_adc_create: 610  # Call stm32f1_adc_create() to initialise the STM32F1 ADC driver during startup
