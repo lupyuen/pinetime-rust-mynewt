@@ -7,6 +7,9 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
+//  Start the network tasks for ESP8266 WiFi transceiver, including WiFi geolocation.
+int start_network_tasks(void);
+
 //  Send the sensor data "tmp" to the specified CoAP server and URI.
 //  If the CoAP server is thethings.io, the CoAP body should look like:
 //  {"values":[

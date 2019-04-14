@@ -2,9 +2,9 @@
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
-#include <console/console.h>
-
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
+
+#include <console/console.h>
 #include <esp8266/esp8266.h>  //  Declare ESP8266 and CoAP functions.
 #include <esp8266/transport.h>
 #include <sensor_coap/sensor_coap.h>
@@ -39,8 +39,8 @@ static struct os_task sensor_task;  //  Task object will be saved here.
 //  Static Functions
 static void sensor_task_func(void *arg);
 
-static int init_tasks(void) {
-    //  Start the sensor task that reads sensor data and sends to the server.
+int start_network_tasks(void) {
+    //  Start the network tasks for ESP8266 WiFi transceiver, including WiFi geolocation.
     int rc = os_task_init(  //  Create a new task and start it...
         &sensor_task,       //  Task object will be saved here.
         "sensor",           //  Name of task.

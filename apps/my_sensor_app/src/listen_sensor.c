@@ -11,8 +11,9 @@
 #include <console/console.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
-#include "temp_sensor.h"
-#ifdef TEMP_SENSOR  //  If either internal temperature sensor or BME280 is enabled...
+#include "send_coap.h"        //  For send_sensor_data()
+#include "listen_sensor.h"
+#ifdef SENSOR_NAME  //  If either internal temperature sensor or BME280 is enabled...
 
 #define MY_SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
 #define LISTENER_CB         1  //  Indicate that this is a listener callback
@@ -29,16 +30,17 @@ static struct sensor_listener listener = {
     .sl_arg         = (void *) LISTENER_CB,             //  Indicate to the listener function that this is a listener callback
 };
 
-int start_temperature_listener(void) {
-    //  Poll the temperature sensor every 10 seconds.
-    console_printf("poll temperature sensor " TEMP_SENSOR "\n");
+int start_sensor_listener(void) {
+    //  Starting polling the temperature sensor every 10 seconds in the background.  
+    //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
+    console_printf("poll temperature sensor " SENSOR_NAME "\n");
 
-    //  Set the sensor polling time to 10 seconds.  TEMP_SENSOR is either "bme280_0" or "temp_stm32_0"
-    int rc = sensor_set_poll_rate_ms(TEMP_SENSOR, MY_SENSOR_POLL_TIME);
+    //  Set the sensor polling time to 10 seconds.  SENSOR_NAME is either "bme280_0" or "temp_stm32_0"
+    int rc = sensor_set_poll_rate_ms(SENSOR_NAME, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
     //  Open the sensor by name.
-    my_sensor = sensor_mgr_find_next_bydevname(TEMP_SENSOR, NULL);
+    my_sensor = sensor_mgr_find_next_bydevname(SENSOR_NAME, NULL);
     assert(my_sensor != NULL);
 
     //  Set the listener function to be called every 10 seconds, with the polled sensor data.
@@ -66,4 +68,4 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     return 0;
 }
 
-#endif  //  TEMP_SENSOR
+#endif  //  SENSOR_NAME

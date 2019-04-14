@@ -5,13 +5,9 @@
 #include <os/os.h>
 #include <defs/error.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
-#include "temp_sensor.h"
-#include "send_coap.h"
-#include "geolocate.h"
-
-#if MYNEWT_VAL(SENSOR_COAP)         //  If we are sending sensor data to CoAP server...
-static int init_tasks(void);
-#endif  //  MYNEWT_VAL(SENSOR_COAP)
+#include "listen_sensor.h"    //  For start_sensor_listener()
+#include "send_coap.h"        //  For send_sensor_data()
+#include "geolocate.h"        //  For geolocate()
 
 void test_semihosting_console(void) {  ////
     //  Test floats.
@@ -30,21 +26,26 @@ void test_semihosting_console(void) {  ////
 //  Read Sensor Data from Temperature Sensor
 
 int main(int argc, char **argv) {
-    //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
-    //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
+    //  Main program that initialises the sensor, network driver and starts reading 
+    //  and sending sensor data in the background.
+
+    //  Initialise the Mynewt packages and BME280 / TEMP_STM32 driver.  Start 
+    //  OIC background task to transmit CoAP messages.
     sysinit();           
 
     test_semihosting_console();  ////
 
 #if MYNEWT_VAL(SENSOR_COAP)  //  If we are sending sensor data to CoAP server...
-    //  Start the background tasks, including WiFi geolocation.
-    int rc1 = init_tasks();  assert(rc1 == 0);
+    //  Start the network tasks for ESP8266 WiFi transceiver, including WiFi geolocation.
+    int rc1 = start_network_tasks();
+    assert(rc1 == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
-#ifdef TEMP_SENSOR  //  If BME280 or internal temperature sensor is enabled...
-    //  Start polling the temperature sensor every 10 seconds.
-    int rc2 = start_temperature_listener();  assert(rc2 == 0);
-#endif  //  TEMP_SENSOR
+#ifdef SENSOR_NAME           //  If BME280 or internal temperature sensor is enabled...
+    //  Start polling the temperature sensor every 10 seconds in the background and send data to CoAP server.
+    int rc2 = start_sensor_listener();  
+    assert(rc2 == 0);
+#endif  //  SENSOR_NAME
 
     //  Main event loop
     while (true) {                //  Loop forever...
