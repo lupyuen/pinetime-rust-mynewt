@@ -5,6 +5,7 @@
 #define __TEMP_SENSOR_H__
 
 #if MYNEWT_VAL(TEMP_STM32)   //  If Blue Pill Internal Temperature Sensor is enabled...
+#include <adc_stm32f1/adc_stm32f1.h>
 #include <temp_stm32/temp_stm32.h>
 #define MY_SENSOR_DEVICE TEMP_STM32_DEVICE  //  Name of the internal temperature sensor is "temp_stm32_0"
 

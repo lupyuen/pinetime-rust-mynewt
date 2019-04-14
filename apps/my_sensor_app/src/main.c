@@ -58,7 +58,6 @@ int main(int argc, char **argv) {
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
 static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
-static const int  COAP_PORT   = MYNEWT_VAL(COAP_PORT);  //  CoAP UDP port, usually 5683
 static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
 //  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
@@ -68,8 +67,8 @@ static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for
 //  CoAP Server Configuration. 
 static struct esp8266_server coap_server = {
     .endpoint = {
-        .host = COAP_HOST,  //  CoAP hostname e.g. coap.thethings.io
-        .port = COAP_PORT,  //  CoAP port, usually UDP port 5683
+        .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
+        .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
     }
 };
 
