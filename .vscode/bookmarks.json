@@ -1,15 +1,5 @@
 [
 	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
-		"bookmarks": [
-			{
-				"line": 67,
-				"column": 3,
-				"label": "main"
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
@@ -100,7 +90,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\apps\\my_sensor_app\\src\\main.c",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\apps\\my_sensor_app\\src\\main.c",
 		"bookmarks": [
 			{
 				"line": 28,
@@ -110,7 +100,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
 				"line": 26,
@@ -120,7 +110,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
 		"bookmarks": [
 			{
 				"line": 4,

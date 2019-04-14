@@ -63,13 +63,13 @@ static void network_task_func(void *arg) {
     //  Network Task runs this function in the background to prepare the ESP8266 transceiver for
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-    console_printf("run network task\n");
+    console_printf("run network task\n");  assert(!network_is_ready);
 
     //  Create a random device ID based on HMAC pseudorandom number generator.
     int rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
     console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
 
-    {
+    {   //  Lock the ESP8266 driver
         //  Find the ESP8266 device by name "esp8266_0".
         struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
         assert(dev != NULL);
@@ -88,22 +88,14 @@ static void network_task_func(void *arg) {
 
         //  Close the ESP8266 device when we are done sending.
         os_dev_close((struct os_dev *) dev);
+        //  Unlock the ESP8266 driver
     }
+
     network_is_ready = true;  //  Indicate that network is ready.
 
     //  Network Task terminates here. The Sensor Listener will still continue to
     //  run in the background and send sensor data to the server.
 }
-
-#ifdef NOTUSED  //  Previously
-    float tmp = 28.00f;  //  Simulated sensor data.
-    while (true) {  //  Loop forever...        
-        send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.01f;                                         //  Simulate change in sensor data.
-        console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
-        os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
-    }
-#endif  //  NOTUSED
 
 int send_sensor_data(float tmp) {
     //  Compose a CoAP message with sensor data "tmp" and send to the CoAP server
@@ -124,7 +116,47 @@ int send_sensor_data(float tmp) {
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
-#ifdef NOTUSED
+    //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
+    CP_ROOT({                     //  Create the payload root
+        CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
+            //  Append to the "values" array: {"key":"tmp", "value":28.7}
+            CP_ITEM_FLOAT(values, "tmp", tmp);
+            //  If there are more sensor values, add them here with
+            //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
+        });                       //  End CP_ARRAY: Close the "values" array
+    });                           //  End CP_ROOT:  Close the payload root
+
+    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  message to the background task, we release a semaphore that unblocks other requests
+    //  to compose and post CoAP messages.
+    rc = do_sensor_post();  assert(rc != 0);
+    console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
+    return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Other Functions
+
+int __wrap_coap_receive(/* struct os_mbuf **mp */) {
+    //  We override the default coap_receive() with an empty function so that we will 
+    //  NOT link in any modules for receiving and parsing CoAP requests, to save ROM space.
+    //  We only need to transmit CoAP requests.  The overriding is done via the Linker Flag
+    //  "-Wl,-wrap,coap_receive" in apps/my_sensor_app/pkg.yml
+    console_printf("coap_receive NOT IMPLEMENTED\n");
+    return -1;
+}
+
+#endif  //  MYNEWT_VAL(SENSOR_COAP)
+
+#ifdef NOTUSED  //  Previously
+    float tmp = 28.00f;  //  Simulated sensor data.
+    while (true) {  //  Loop forever...        
+        send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
+        tmp += 0.01f;                                         //  Simulate change in sensor data.
+        console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
+        os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
+    }
+
     //  Previous code without the CP Macros
     rep_start_root_object();                              //  Create the root.
         rep_set_array(root, values);                      //  Create "values" as an array of objects.
@@ -135,24 +167,4 @@ int send_sensor_data(float tmp) {
             rep_object_array_end_item(values);            //  Close the item in the "values" array.
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
-#else
-    //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
-    CP_ROOT({                     //  Create the payload root
-        CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
-            //  Append to the "values" array: {"key":"tmp", "value":28.7}
-            CP_ITEM_FLOAT(values, "tmp", tmp);
-            //  If there are more sensor values, add them here with
-            //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
-        });                       //  End CP_ARRAY: Close the "values" array
-    });                           //  End CP_ROOT:  Close the payload root
 #endif  //  NOTUSED
-
-    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
-    //  message to the background task, we release a semaphore that unblocks other requests
-    //  to compose and post CoAP messages.
-    rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
-    return 0;
-}
-
-#endif  //  MYNEWT_VAL(SENSOR_COAP)

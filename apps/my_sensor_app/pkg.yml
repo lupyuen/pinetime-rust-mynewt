@@ -45,7 +45,7 @@ pkg.deps.HMAC_PRNG:
 
 #  C compiler flags
 pkg.cflags:
-    - -DFLOAT_SUPPORT       #  For encoding floats in CoAP messages
+    - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
 
 #  Linker flags
 pkg.lflags:

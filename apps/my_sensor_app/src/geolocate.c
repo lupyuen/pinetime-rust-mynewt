@@ -107,34 +107,6 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
     //  ]}
     //  We use float instead of int for rssi because int doesn't support negative values.
     int i, len;
-#ifdef NOTUSED
-    //  Previous code without the CP Macros
-    rep_start_root_object();                              //  Create the root.
-        rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            for (i = 0; i < length; i++) {                //  Loop for the 3 access points (or fewer)...
-                const nsapi_wifi_ap_t *ap = access_points + i;
-                //  Write the item {"key":"ssid1", "value":"00:25:9c:cf:1c:ac"}
-                rep_object_array_start_item(values);       //  Create a new item in the "values" array.
-                    sprintf(buf, "ssid%d", i);             //  e.g. ssid0
-                    rep_set_text_string(values, key, buf); //  Set the key.
-
-                    sprintf(buf, 
-                        "%02x:%02x:%02x:%02x:%02x:%02x",   //  e.g. 00:25:9c:cf:1c:ac
-                        ap->bssid[0], ap->bssid[1], ap->bssid[2],
-                        ap->bssid[3], ap->bssid[4], ap->bssid[5]);
-                    rep_set_text_string(values, value, buf); //  Set the value.
-                rep_object_array_end_item(values);         //  Close the item in the "values" array.
-
-                //  Write the item {"key":"rssi1", "value":-43}
-                rep_object_array_start_item(values);       //  Create a new item in the "values" array.
-                    sprintf(buf, "rssi%d", i);             //  e.g. rssi0
-                    rep_set_text_string(values, key, buf); //  Set the key.
-                    rep_set_double(values, value, ap->rssi);  //  Set the value, e.g. -43
-                rep_object_array_end_item(values);         //  Close the item in the "values" array.
-            }
-        rep_close_array(root, values);                    //  Close the "values" array.
-    rep_end_root_object();                                //  Close the root.
-#else
     //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
     CP_ROOT({                               //  Create the payload root
         CP_ARRAY(root, values, {            //  Create "values" as an array of items under the root
@@ -170,7 +142,35 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
         });     //  End CP_ARRAY: Close the "values" array
     });         //  End CP_ROOT:  Close the payload root
 
-#endif  //  NOTUSED
 }
 
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
+
+#ifdef NOTUSED
+    //  Previous code without the CP Macros
+    rep_start_root_object();                              //  Create the root.
+        rep_set_array(root, values);                      //  Create "values" as an array of objects.
+            for (i = 0; i < length; i++) {                //  Loop for the 3 access points (or fewer)...
+                const nsapi_wifi_ap_t *ap = access_points + i;
+                //  Write the item {"key":"ssid1", "value":"00:25:9c:cf:1c:ac"}
+                rep_object_array_start_item(values);       //  Create a new item in the "values" array.
+                    sprintf(buf, "ssid%d", i);             //  e.g. ssid0
+                    rep_set_text_string(values, key, buf); //  Set the key.
+
+                    sprintf(buf, 
+                        "%02x:%02x:%02x:%02x:%02x:%02x",   //  e.g. 00:25:9c:cf:1c:ac
+                        ap->bssid[0], ap->bssid[1], ap->bssid[2],
+                        ap->bssid[3], ap->bssid[4], ap->bssid[5]);
+                    rep_set_text_string(values, value, buf); //  Set the value.
+                rep_object_array_end_item(values);         //  Close the item in the "values" array.
+
+                //  Write the item {"key":"rssi1", "value":-43}
+                rep_object_array_start_item(values);       //  Create a new item in the "values" array.
+                    sprintf(buf, "rssi%d", i);             //  e.g. rssi0
+                    rep_set_text_string(values, key, buf); //  Set the key.
+                    rep_set_double(values, value, ap->rssi);  //  Set the value, e.g. -43
+                rep_object_array_end_item(values);         //  Close the item in the "values" array.
+            }
+        rep_close_array(root, values);                    //  Close the "values" array.
+    rep_end_root_object();                                //  Close the root.
+#endif  //  NOTUSED

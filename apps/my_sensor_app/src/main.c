@@ -1,4 +1,6 @@
-//  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server
+//  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server.
+//  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+//  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
@@ -6,8 +8,6 @@
 #include <defs/error.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "listen_sensor.h"    //  For start_sensor_listener()
-#include "send_coap.h"        //  For send_sensor_data()
-#include "geolocate.h"        //  For geolocate()
 
 void test_semihosting_console(void) {  ////
     //  Test floats.
@@ -64,14 +64,6 @@ int main(int argc, char **argv) {
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Other Functions
-
-int __wrap_coap_receive(/* struct os_mbuf **mp */) {
-    //  We override the default coap_receive() with an empty function so that we will 
-    //  NOT link in any modules for receiving and parse CoAP requests, to save ROM space.
-    //  We only need to transmit CoAP requests.
-    console_printf("coap_receive NOT IMPLEMENTED\n");
-    return -1;
-}
 
 //  Dummy destructor for global C++ objects, since our program never terminates.  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
 void* __dso_handle = NULL;
