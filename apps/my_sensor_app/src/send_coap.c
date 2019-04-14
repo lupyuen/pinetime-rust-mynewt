@@ -1,5 +1,7 @@
 //  Send sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
 //  The sensor data will be transmitted over WiFi via the ESP8266 transceiver.
+//  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+//  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"

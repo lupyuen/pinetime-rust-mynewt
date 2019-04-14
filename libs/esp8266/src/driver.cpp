@@ -1,5 +1,7 @@
 //  ESP8266 Driver for Apache Mynewt.  Functions for creating the driver instance and performing ESP8266 functions.
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
+//  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+//  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include <console/console.h>

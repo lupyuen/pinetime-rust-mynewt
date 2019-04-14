@@ -7,6 +7,7 @@
 #include <os/os.h>
 #include <defs/error.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
+#include "send_coap.h"        //  For start_network_task()
 #include "listen_sensor.h"    //  For start_sensor_listener()
 
 void test_semihosting_console(void) {  ////
