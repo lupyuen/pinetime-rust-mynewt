@@ -94,6 +94,7 @@ static int init_tasks(void) {
 static void sensor_task_func(void *arg) {
     //  Background task that reads sensor data and sends to the server.
     console_printf("sensor_task\n");
+    int rc;
 
     //  TODO: Allocate device ID.
 
@@ -105,7 +106,7 @@ static void sensor_task_func(void *arg) {
     assert(dev != NULL);
 
     //  Connect to WiFi access point.
-    int rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
+    rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
 
     //  Register the ESP8266 driver as the network transport for CoAP.
     rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);

@@ -4,14 +4,30 @@
 # Strings must be enclosed by '"..."'
 
 syscfg.vals:
+    # Overall Tutorial Settings: Only one of these TUTORIAL1 / TUTORIAL2 / ... 
+    # settings should be uncommented.
+
+    # If you are running Tutorial 1, uncomment the following line:
+    # TUTORIAL1:              1  # Apply Tutorial 1 settings
+
+    # If you are running Tutorial 2, uncomment the following line:
+    TUTORIAL2:                1  # Apply Tutorial 2 settings
+
+    # If you are running Tutorial 2, uncomment this setting to enable WiFi Geolocation:
+    # WIFI_GEOLOCATION:     1  # Enable WiFi Geolocation
+
     # Settings for Tutorial 2
     # CoAP hostname e.g. coap.thethings.io
     COAP_HOST:      '"coap.thethings.io"'
+
     # CoAP UDP port, usually port 5683
     COAP_PORT:      5683
+
     # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
     COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
     # Connect to the WiFi access point with this SSID
     WIFI_SSID:      '"my_ssid"'
+    
     # Password for WiFi access point
     WIFI_PASSWORD:  '"my_password"'
