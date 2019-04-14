@@ -134,48 +134,18 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
     rep_end_root_object();                                //  Close the root.
 #else
 
-#define CP_ROOT(children) { \
-    rep_start_root_object();  \
-    { children; } \
-    rep_end_root_object(); \
-}
+    CP_ROOT({                               //  Create the payload root.
+        CP_ARRAY(root, values, {            //  Create "values" as an array of objects.
+            for (i = 0; i < length; i++) {  //  For each of the 3 WiFi access points (or fewer)...
+                const nsapi_wifi_ap_t *ap = access_points + i;  //  Fetch the WiFi access point
 
-#define CP_ARRAY(object, key, children) { \
-    rep_set_array(object, key);  \
-    { children; } \
-    rep_close_array(object, key); \
-}
-
-#define CP_ITEM(key, children) { \
-    rep_object_array_start_item(key);  \
-    { children; } \
-    rep_object_array_end_item(key); \
-}
-
-#define CP_ITEM_STR(object, key0, value0) { \
-    CP_ITEM(object, { \
-        rep_set_text_string(object, key, key0); \
-        rep_set_text_string(object, value, value0); \
-    }) \
-}
-
-#define CP_ITEM_FLOAT(object, key0, value0) { \
-    CP_ITEM(object, { \
-        rep_set_text_string(object, key, key0); \
-        rep_set_float(      object, value, value0); \
-    }) \
-}
-
-    CP_ROOT({  //  Create the root.
-        CP_ARRAY(root, values, {  //  Create "values" as an array of objects.
-            for (i = 0; i < length; i++) {             //  Loop for the 3 access points (or fewer)...
-                const nsapi_wifi_ap_t *ap = access_points + i;
+                ///////////////////////////////////////
                 //  Append to the "values" array 2 items:
                 //    {"key":"ssid0", "value":"00:25:9c:cf:1c:ac"}
                 //    {"key":"rssi0", "value":-43}
 
                 ///////////////////////////////////////
-                //  First Item: ssid...
+                //  First Array Item: ssid
                 len = sprintf(key_buf, "ssid%d", i);   //  Compose key "ssid0"
                 assert(len < sizeof(key_buf));       
                 len = sprintf(value_buf, 
@@ -187,16 +157,16 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
                 CP_ITEM_STR(values, key_buf, value_buf);
 
                 ///////////////////////////////////////
-                //  Second Item: rssi...
-                len = sprintf(key_buf, "rssi%d", i);  //  Compose key "rssi0"
+                //  Second Array Item: rssi
+                len = sprintf(key_buf, "rssi%d", i);       //  Compose key "rssi0"
                 assert(len < sizeof(key_buf));
 
                 //  Append to the "values" array: {"key":"rssi0", "value":-43}
-                CP_ITEM_FLOAT(values, key_buf, ap->rssi);  //  Can't use int because it doesn't support negative numbers.
-                
-            }  //  End For
-        });  //  End CP_ARRAY: Close the "values" array.
-    });  //  End CP_ROOT: Close the root.
+                CP_ITEM_FLOAT(values, key_buf, ap->rssi);  //  Can't use int because it doesn't support negative numbers
+
+            }   //  End for each WiFi access point
+        });     //  End CP_ARRAY: Close the "values" array
+    });         //  End CP_ROOT: Close the root
 
 #endif  //  NOTUSED
 }
