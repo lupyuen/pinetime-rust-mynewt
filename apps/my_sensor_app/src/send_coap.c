@@ -1,4 +1,5 @@
 //  Send sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
+//  The sensor data will be transmitted over WiFi via the ESP8266 transceiver.
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
@@ -31,43 +32,49 @@ static struct esp8266_server coap_server = {
 //  Randomly assigned device ID that will be sent in every CoAP request.
 static uint8_t device_id[16];
 
-//  Storage for Sensor Task
-#define SENSOR_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units).
-static uint8_t sensor_task_stack[sizeof(os_stack_t) * SENSOR_TASK_STACK_SIZE];  //  Stack space.
-static struct os_task sensor_task;  //  Task object will be saved here.
+//  Storage for Network Task
+#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
+static uint8_t network_task_stack[sizeof(os_stack_t) * NETWORK_TASK_STACK_SIZE];  //  Stack space
+static struct os_task network_task;  //  Mynewt task object will be saved here
 
-//  Static Functions
-static void sensor_task_func(void *arg);
+static void network_task_func(void *arg);  //  Defined below
 
-int start_network_tasks(void) {
-    //  Start the network tasks for ESP8266 WiFi transceiver, including WiFi geolocation.
+int start_network_task(void) {
+    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
+    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
+    //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    //  Return 0 if successful.
+
     int rc = os_task_init(  //  Create a new task and start it...
-        &sensor_task,       //  Task object will be saved here.
+        &network_task,      //  Task object will be saved here.
         "sensor",           //  Name of task.
-        sensor_task_func,   //  Function to execute when task starts.
+        network_task_func,  //  Function to execute when task starts.
         NULL,               //  Argument to be passed to above function.
         10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
         OS_WAIT_FOREVER,    //  Don't do sanity / watchdog checking.
-        (os_stack_t *) sensor_task_stack,  //  Stack space for the task.
-        SENSOR_TASK_STACK_SIZE);           //  Size of the stack (in 4-byte units).
+        (os_stack_t *) network_task_stack,  //  Stack space for the task.
+        NETWORK_TASK_STACK_SIZE);           //  Size of the stack (in 4-byte units).
     assert(rc == 0);
     return rc;
 }
 
-static void sensor_task_func(void *arg) {
-    //  Background task that reads sensor data and sends to the server.
-    console_printf("sensor_task\n");
-    int rc;
+static void network_task_func(void *arg) {
+    //  Network Task runs this function in the background to prepare the ESP8266 transceiver for
+    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
+    //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    console_printf("run network task\n");
 
     //  Create a random device ID based on HMAC pseudorandom number generator.
-    rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
+    int rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
     console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
 
     //  Find the ESP8266 device by name "esp8266_0".
     struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
     assert(dev != NULL);
 
-    //  Connect to WiFi access point.
+    //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
+    //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
+    //  to pass ESP8266 events to this function.
     rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
 
     //  Register the ESP8266 driver as the network transport for CoAP.
@@ -78,17 +85,20 @@ static void sensor_task_func(void *arg) {
     rc = geolocate(dev, coap_server.handle, COAP_URI);  assert(rc > 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
-    ////  TODO
+#ifdef NOTUSED
     float tmp = 28.00f;  //  Simulated sensor data.
     while (true) {  //  Loop forever...        
         send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.01f;                                           //  Simulate change in sensor data.
+        tmp += 0.01f;                                         //  Simulate change in sensor data.
         console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
         os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
     }
+#endif  //  NOTUSED
 
-    //  Never comes here.
+    //  Close the ESP8266 device when we are done sending.
     os_dev_close((struct os_dev *) dev);
+
+    //  Network Task terminates here.
 }
 
 void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp) {
