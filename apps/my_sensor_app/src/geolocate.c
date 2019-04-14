@@ -107,6 +107,7 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
     //  We use float instead of int for rssi because int doesn't support negative values.
     int i, len;
 #ifdef NOTUSED
+    //  Previous code without the CP Macros
     rep_start_root_object();                              //  Create the root.
         rep_set_array(root, values);                      //  Create "values" as an array of objects.
             for (i = 0; i < length; i++) {                //  Loop for the 3 access points (or fewer)...
@@ -133,9 +134,9 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
 #else
-
-    CP_ROOT({                               //  Create the payload root.
-        CP_ARRAY(root, values, {            //  Create "values" as an array of objects.
+    //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
+    CP_ROOT({                               //  Create the payload root
+        CP_ARRAY(root, values, {            //  Create "values" as an array of items under the root
             for (i = 0; i < length; i++) {  //  For each of the 3 WiFi access points (or fewer)...
                 const nsapi_wifi_ap_t *ap = access_points + i;  //  Fetch the WiFi access point
 
@@ -166,7 +167,7 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
 
             }   //  End for each WiFi access point
         });     //  End CP_ARRAY: Close the "values" array
-    });         //  End CP_ROOT: Close the root
+    });         //  End CP_ROOT:  Close the payload root
 
 #endif  //  NOTUSED
 }

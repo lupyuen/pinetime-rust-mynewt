@@ -143,16 +143,19 @@ static void sensor_task_func(void *arg) {
 }
 
 static void send_sensor_data(struct oc_server_handle *server, const char *uri, float tmp) {
-    //  Send the sensor data over CoAP to the specified thethings.io server and uri.
-    //  The CoAP body should look like:
+    //  Send the sensor data over to the specified CoAP server and URI.
+    //  If the CoAP server is thethings.io, the CoAP body should look like:
     //  {"values":[
-    //    {"key":"tmp", "value":28.7}
-    //  ]}
-    //  Create a CoAP request.  This will call a semaphore to block other tasks from creating a CoAP request.
+    //    {"key":"tmp", "value":28.7},
+    //    {"key":"...", "value":... },
+    //    ... ]}
+
+    //  Create a CoAP message.  This will block other tasks from creating CoAP messages (through a semaphore).
     assert(server);  assert(uri);
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
-    //  Populate the CoAP request body in JSON format.
+#ifdef NOTUSED
+    //  Previous code without the CP Macros
     rep_start_root_object();                              //  Create the root.
         rep_set_array(root, values);                      //  Create "values" as an array of objects.
             rep_object_array_start_item(values);          //  Create a new item in the "values" array.
@@ -162,8 +165,22 @@ static void send_sensor_data(struct oc_server_handle *server, const char *uri, f
             rep_object_array_end_item(values);            //  Close the item in the "values" array.
         rep_close_array(root, values);                    //  Close the "values" array.
     rep_end_root_object();                                //  Close the root.
+#else
+    //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
+    CP_ROOT({                     //  Create the payload root
+        CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
 
-    //  Forward the CoAP request to the CoAP Background Task for transmission.  This will release a semaphore to allow other tasks to create CoAP requests.
+            //  Append to the "values" array: {"key":"tmp", "value":28.7}
+            CP_ITEM_FLOAT(values, "tmp", tmp);
+
+            //  If there are more sensor values, add them here with
+            //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
+
+        });                       //  End CP_ARRAY: Close the "values" array
+    });                           //  End CP_ROOT:  Close the payload root
+#endif  //  NOTUSED
+
+    //  Forward the CoAP message to the CoAP Background Task for transmission.  This releases a semaphore and unblocks other requests to create CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
 }

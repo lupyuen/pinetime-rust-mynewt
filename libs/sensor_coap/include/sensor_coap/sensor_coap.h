@@ -119,6 +119,7 @@ void json_rep_end_root_object(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CP Macros for composing CoAP Payloads in JSON and CBOR
+//  The format defined here is used by thethings.io for receiving sensor data
 
 //  Compose the payload root.
 #define CP_ROOT(children) { \
@@ -135,7 +136,7 @@ void json_rep_end_root_object(void);
 }
 
 //  Append an array item under the array named "array".  Add "children" as the item key and value.
-//    { "array": [ ..., { children } ], ... }
+//    { <array>: [ ..., { <children> } ], ... }
 #define CP_ITEM(array, children) { \
     rep_object_array_start_item(array);  \
     { children; } \
@@ -143,7 +144,7 @@ void json_rep_end_root_object(void);
 }
 
 //  Append a (key + int value) item to the array named "array":
-//    { "array": [ ..., {"key": key0, "value": value0} ], ... }
+//    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #define CP_ITEM_INT(array, key0, value0) { \
     CP_ITEM(array, { \
         rep_set_text_string(array, key, key0); \
@@ -152,7 +153,7 @@ void json_rep_end_root_object(void);
 }
 
 //  Append a (key + unsigned int value) item to the array named "array":
-//    { "array": [ ..., {"key": key0, "value": value0} ], ... }
+//    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #define CP_ITEM_UINT(array, key0, value0) { \
     CP_ITEM(array, { \
         rep_set_text_string(array, key, key0); \
@@ -161,7 +162,7 @@ void json_rep_end_root_object(void);
 }
 
 //  Append a (key + float value) item to the array named "array":
-//    { "array": [ ..., {"key": key0, "value": value0} ], ... }
+//    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #define CP_ITEM_FLOAT(array, key0, value0) { \
     CP_ITEM(array, { \
         rep_set_text_string(array, key, key0); \
@@ -170,7 +171,7 @@ void json_rep_end_root_object(void);
 }
 
 //  Append a (key + string value) item to the array named "array":
-//    { "array": [ ..., {"key": key0, "value": value0} ], ... }
+//    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #define CP_ITEM_STR(array, key0, value0) { \
     CP_ITEM(array, { \
         rep_set_text_string(array, key, key0); \
