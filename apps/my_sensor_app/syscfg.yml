@@ -4,7 +4,7 @@
 #   Strings must be enclosed by '"..."'
 
 syscfg.defs:
-    # Features
+    # List of Features. Will be selected automatically based on the tutorial setting.
     SEMIHOSTING_CONSOLE:
         description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'
         value:        1        
