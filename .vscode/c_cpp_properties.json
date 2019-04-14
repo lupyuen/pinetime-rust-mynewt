@@ -3,10 +3,11 @@
         {
             "name": "Mynewt",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/bin/targets/bluepill_my_sensor/generated/include",
+                "${workspaceFolder}/repos/apache-mynewt-core/sys/sysinit/include",
+                "${workspaceFolder}/repos/apache-mynewt-core/kernel/os/include"
             ],
             "defines": [
-                "ADC_1=1",
                 "APP_NAME=my_sensor_app",
                 "APP_my_sensor_app",
                 "ARCH_NAME=cortex_m3",

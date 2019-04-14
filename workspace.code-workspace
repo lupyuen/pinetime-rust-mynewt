@@ -42,7 +42,8 @@
 			"sysinit.h": "c",
 			"temp_stm32.h": "c",
 			"geolocate.h": "c",
-			"temp_sensor.h": "c"
+			"temp_sensor.h": "c",
+			"os.h": "c"
 		}
 	}
 }
