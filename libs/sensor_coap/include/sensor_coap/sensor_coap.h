@@ -24,7 +24,7 @@ bool init_sensor_post(struct oc_server_handle *server, const char *uri);
 //  Send the sensor post request to CoAP server.
 bool do_sensor_post(void);
 
-#ifdef COAP_JSON_ENCODING  //  If we are encoding the CoAP payload in JSON...
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON...
 
     #include <json/json.h>
     #define COAP_CONTENT_FORMAT APPLICATION_JSON   //  Specify JSON content type and accept type in the CoAP header.
@@ -91,9 +91,9 @@ bool do_sensor_post(void);
     #define rep_set_double(     object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
     #define rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
 
-#endif  //  COAP_JSON_ENCODING
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
 
-#ifdef COAP_CBOR_ENCODING  //  If we are encoding the CoAP payload in CBOR...
+#if MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in CBOR...
 
     #include <oic/oc_rep.h>  //  Use the default Mynewt encoding in CBOR.
     #define COAP_CONTENT_FORMAT APPLICATION_CBOR  //  Specify CBOR content type and accept type in the CoAP header.
@@ -116,7 +116,7 @@ bool do_sensor_post(void);
     #define rep_set_double(     object, key, value) oc_rep_set_double     (object, key, value)
     #define rep_set_text_string(object, key, value) oc_rep_set_text_string(object, key, value)
 
-#endif  //  COAP_CBOR_ENCODING
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING)
 
 #ifdef __cplusplus
 }

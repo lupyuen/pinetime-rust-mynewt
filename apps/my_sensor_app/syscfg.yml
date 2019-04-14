@@ -5,12 +5,16 @@
 
 syscfg.defs:
     # List of Features. Will be selected automatically based on the tutorial setting.
-    SEMIHOSTING_CONSOLE:
-        description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'
-        value:        1        
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
         value:        0
+    COAP_JSON_ENCODING:
+        description: 'Use JSON to encode CoAP payload'
+        value:        1  # Default CoAP encoding is JSON
+    COAP_CBOR_ENCODING:
+        description: 'Use CBOR to encode CoAP payload (not supported by thethings.io)'
+        value:        0
+
     WIFI_GEOLOCATION:
         description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266'
         value:        0
@@ -26,6 +30,9 @@ syscfg.defs:
     HMAC_PRNG:
         description: 'Generate pseuorandom numbers with HMAC.  Based on TinyCrypt HMAC PRNG.  Uses temp_stm32 internal temperature sensor as source of entropy.'
         value:        0
+    SEMIHOSTING_CONSOLE:
+        description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'
+        value:        1  # Default console is Arm Semihosting        
     
     # CoAP Connection Settings 
     COAP_HOST:

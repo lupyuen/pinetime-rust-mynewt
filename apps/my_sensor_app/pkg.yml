@@ -46,8 +46,6 @@ pkg.deps.HMAC_PRNG:
 #  C compiler flags
 pkg.cflags:
     - -DFLOAT_SUPPORT       #  For encoding floats in CoAP messages
-    - -DCOAP_JSON_ENCODING  #  Use JSON to encode CoAP payload
-#   - -DCOAP_CBOR_ENCODING  #  Use CBOR to encode CoAP payload (not supported by thethings.io)
 
 #  Linker flags
 pkg.lflags:

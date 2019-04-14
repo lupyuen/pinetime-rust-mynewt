@@ -13,7 +13,6 @@
                 "ARCH_cortex_m3",
                 "BSP_NAME=bluepill",
                 "BSP_bluepill",
-                "COAP_JSON_ENCODING",
                 "FLOAT_SUPPORT",
                 "MYNEWT=1",
                 "SECURE=0",

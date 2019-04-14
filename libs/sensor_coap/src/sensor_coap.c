@@ -159,7 +159,7 @@ do_sensor_post(void)
     return dispatch_coap_request();
 }
 
-#ifdef COAP_JSON_ENCODING  //  If we are encoding the CoAP payload in JSON...
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON...
 
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON Encoding Functions
@@ -271,4 +271,4 @@ err:
     return (rc);
 }
 
-#endif  //  COAP_JSON_ENCODING
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
