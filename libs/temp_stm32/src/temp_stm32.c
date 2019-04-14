@@ -166,10 +166,28 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     }   //  End ADC Lock: Close and unlock port ADC1.
     if (rc) { goto err; }  //  console_printf("rawtemp: %d\n", rawtemp);  ////
 
-    //  Convert the raw temperature to actual temperature.  From     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
+    //  Convert the raw temperature to actual temperature. From https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
+#ifdef NOTUSED_FLOAT_TEMP
+    //  Original floating point code, which is not efficient on microcontrollers.
     temp = ((float) rawtemp) / 4095.0 * 3300.0;
     temp = ((temp - 760.0) / 2.5) + 25.0;
     temp = temp / 10.0;
+#else
+    //  We use this updated code, which uses only integer computations.
+    int32_t t = rawtemp;  //  rawtemp must be between 0 and 4,095 (based on 12-bit ADC)
+    t = t * 3300;  //  t must be between 0 and 13,513,500. Will not overflow 32-bit int (2,147,483,647)
+    t = t >> 12;   //  Integer version of (t / 4,096), instead of original version (t / 4,095). Max error is 1
+                   //  t must be between 0 and 3,299
+    t = t - 760;   //  t must be between -760 and 2,539. Max error is 1
+    //  Instead of computing the float (t / 2.5), we compute it 100 times: (t * 100 / 2.5) = (t * 40)
+    //  We name (t * 100) as t100. t100 must be between -30,400 and 101,560.  Max error of t100 is 40.
+    int32_t t100 = t * 40;
+    t100 = t100 + 2500;  // (t + 25) becomes (t100 + 2500).  t100 must be between -27,900 and 104,060. Max error of t100 is 40.
+    t100 = t100 / 10;    // (t / 10) becomes (t100 / 10), with integer division.  
+    //  t100 must be between -2,790 (-27.9 deg C) and 10,406 (104.06 deg C). 
+    //  Max error of t100 is 4 (0.04 deg C).  Avg error is 0.02 deg C, for the midpoint (38 deg C).
+    temp = t100 / 100;
+#endif  //  NOTUSED_FLOAT_TEMP
 
     //  Save the temperature.
     databuf.std.std_temp = temp;

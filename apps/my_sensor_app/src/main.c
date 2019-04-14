@@ -144,7 +144,7 @@ static void send_sensor_data(struct oc_server_handle *server, const char *uri, f
 
     //  Forward the CoAP request to the CoAP Background Task for transmission.  This will release a semaphore to allow other tasks to create CoAP requests.
     rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send sensor data tmp=%d.%d\n", (int) tmp, (int) (10.0 * tmp) % 10);
+    console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
 }
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
