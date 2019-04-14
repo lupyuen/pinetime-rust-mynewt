@@ -52,6 +52,7 @@ static ADC_HandleTypeDef adc1_handle = STM32F1_DEFAULT_ADC1_HANDLE;
 #define DEVICE_CREATE    stm32f1_adc_create   //  Device create function
 #define DEVICE_ITF       adc1_config          //  Device interface
 //  #define DEVICE_CFG_FUNC  stm32f1_adc1_config  //  Device config function
+#define ENQUOTE(x)       #x                   //  ENQUOTE(x) expands to "x"
 
 static struct DEVICE_DEV DEVICE_INSTANCE;
 
@@ -60,11 +61,10 @@ static struct DEVICE_CFG DEVICE_ITF = STM32F1_ADC1_DEFAULT_CONFIG;
 ///////////////////////////////////////////////////////////////////////////////
 //  Generic Device Creator Code
 
-#define DEVICE_CREATE_QUOTE #DEVICE_CREATE
-
-//  Create the device instance and configure it. Called by sysinit(), defined in pkg.yml.
+//  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf(DEVICE_CREATE_QUOTE ": creating " DEVICE_NAME "\n");
+    console_printf(ENQUOTE(DEVICE_CREATE_QUOTE) ": create " DEVICE_NAME "\n");
+
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
         OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
         DEVICE_INIT, (void *) &DEVICE_ITF);

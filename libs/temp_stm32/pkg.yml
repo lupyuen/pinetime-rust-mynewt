@@ -15,7 +15,8 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
+
+# Dependencies for this package
 
 pkg.name: libs/temp_stm32
 pkg.description: Driver for the STM32 internal temperature sensor
@@ -31,3 +32,13 @@ pkg.deps:
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/hw/sensor"
     - "libs/adc_stm32f1"  # Temperature sensor depends on STM32F1 ADC driver
+
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+
+pkg.init:
+    # temp_stm32 should be initialised after stm32f1_adc
+    temp_stm32_create: 620  # Call temp_stm32_create() to initialise the internal temperature sensor driver during startup

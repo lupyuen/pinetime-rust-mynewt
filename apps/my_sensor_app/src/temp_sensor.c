@@ -8,32 +8,29 @@
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include "temp_sensor.h"
-////#ifdef MY_SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
+#ifdef MY_SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
 
 #define MY_SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
 #define LISTENER_CB         1  //  This is a listener callback.
 #define READ_CB             2  //  This is a sensor read callback.
 
-static int init_drivers(void);
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
-static struct sensor *my_sensor;
+static struct sensor *my_sensor;  //  Handle of the temperature sensor.
 
+//  Define the listener function to be called after polling the temperature sensor.
 static struct sensor_listener listener = {
-    .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
-    .sl_func = read_temperature,
-    .sl_arg = (void *) LISTENER_CB,
+    .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,  //  Type of sensor: ambient temperature
+    .sl_func        = read_temperature,                 //  Listener function to be called with the sensor data
+    .sl_arg         = (void *) LISTENER_CB,             //  Indicate to the listener function that this is a listener callback
 };
 
 int init_temperature_sensor(void) {
-    //  Initialise the temperature sensor.  Poll the sensor every 10 seconds.
-    int rc;
-
-    //  Initialise the sensor drivers.
-    init_drivers();
+    //  Poll the temperature sensor every 10 seconds.
+    console_printf("poll temperature sensor " MY_SENSOR_DEVICE "\n");
 
     //  Poll the sensor every 10 seconds.
-    rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
+    int rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
     //  Fetch the sensor.
@@ -65,27 +62,4 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     return 0;
 }
 
-#if MYNEWT_VAL(TEMP_STM32)  //  If Blue Pill Internal Temperature Sensor is enabled...
-
-    ///////////////////////////////////////////////////////////////////////////////
-    //  Blue Pill Internal Temperature Sensor
-
-    //  Initialise the Blue Pill internal temperature sensor that is connected to port ADC1 on channel 16.
-    #include <adc_stm32f1/adc_stm32f1.h>
-    #include <temp_stm32/temp_stm32.h>
-
-    static int init_drivers(void) {
-        //  Initialise the ADC1 port and channel 16 for the internal temperature sensor.
-        return 0;
-    }
-
-#elif MYNEWT_VAL(BME280_OFB)  //  If BME280 Temperature Sensor is enabled...
-
-    ///////////////////////////////////////////////////////////////////////////////
-    //  BME280 Temperature Sensor
-
-    static int init_drivers(void) { return 0; }  //  BME280 driver already initialised by Sensor Creator.
-
-#endif  //  MYNEWT_VAL(BME280_OFB)
-
-////#endif  //  MY_SENSOR_DEVICE
+#endif  //  MY_SENSOR_DEVICE
