@@ -14,6 +14,19 @@
 static int init_tasks(void);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 
+void test_semihosting_console(void) {  ////
+    //  Test floats.
+    console_printf("12.34=");  console_printfloat(12.34f);  console_printf("\n");
+    console_printf("9.87=");   console_printfloat(9.87f);   console_printf("\n");
+    console_printf("0.89=");   console_printfloat(0.89f);   console_printf("\n");
+    console_printf("0.12=");   console_printfloat(0.12f);   console_printf("\n");
+    console_printf("-0.12=");  console_printfloat(-0.12f);  console_printf("\n");
+    console_printf("-0.89=");  console_printfloat(-0.89f);  console_printf("\n");
+    console_printf("-9.87=");  console_printfloat(-9.87f);  console_printf("\n");
+    console_printf("-12.34="); console_printfloat(-12.34f); console_printf("\n");
+    console_flush();
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor
 
@@ -21,6 +34,8 @@ int main(int argc, char **argv) {
     //  Main program that creates sensors, ESP8266 drivers and starts the task to read and send sensor data.
     //  Initialize all packages.  Create the BME280 driver instance.  Start background task for OIC to transmit CoAP requests.
     sysinit();           
+
+    test_semihosting_console();  ////
 
 #if MYNEWT_VAL(SENSOR_COAP)  //  If we are sending sensor data to CoAP server...
     //  Start the background tasks, including WiFi geolocation.
@@ -91,7 +106,8 @@ static void sensor_task_func(void *arg) {
     console_printf("sensor_task\n");
     int rc;
 
-    //  TODO: Allocate device ID.
+    //  Create a random device ID based on HMAC pseudorandom number generator.
+    
 
     //  Find the ESP8266 device by name: "esp8266_0".
     struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);
