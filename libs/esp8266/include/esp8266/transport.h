@@ -26,9 +26,9 @@ struct esp8266_server {
     struct oc_server_handle *handle;   //  Points back to itself.  Set here for convenience.
 };
 
-//  Register the ESP8266 device as the transport for the specifed CoAP server.  Assumes that the caller
-//  has locked the ESP8266 driver for exclusive use.  Return 0 if successful.
-int esp8266_register_transport(struct esp8266 *dev, struct esp8266_server *server);  
+//  Register the ESP8266 device as the transport for the specifed CoAP server.  
+//  network_device is the ESP8266 device name e.g. "esp8266_0".  Return 0 if successful.
+int esp8266_register_transport(const char *network_device, struct esp8266_server *server0);
 
 //  Init the endpoint before use.  Returns 0.
 int init_esp8266_endpoint(struct esp8266_endpoint *endpoint);  

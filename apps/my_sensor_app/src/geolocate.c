@@ -32,27 +32,52 @@ static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count);
 static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern);
 static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]);
 
-int geolocate(struct esp8266 *dev, struct oc_server_handle *server, const char *uri) {
+int geolocate(const char *network_device, struct oc_server_handle *server, const char *uri) {
     //  Scan for WiFi access points in your area.  Send the MAC Address and signal strength of
     //  the first 3 access points (or fewer) to thethings.io at the specified CoAP server and uri.  
-    //  dev is the ESP8266 device.  Return the number of access points transmitted.
-    //  The caller must have locked the ESP8266 driver via os_dev_open() to prevent concurrent access.
-    //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
-    assert(dev);  assert(server);  assert(uri);
+    //  network_device is the ESP8266 device name e.g. "esp8266_0".  Return the number of access 
+    //  points transmitted.  Note: Don't enable WIFI_GEOLOCATION unless you understand the privacy 
+    //  implications. Your location may be accessible by others.
+    assert(network_device);  assert(server);  assert(uri);  int rc;
 
-    //  Create a CoAP request.  This will call a semaphore to block other tasks from creating a CoAP request.
-    int rc = init_sensor_post(server, uri);  assert(rc != 0);
+    {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
+        struct esp8266 *dev = (struct esp8266 *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
+        assert(dev != NULL);
 
-    //  Scan for nearby WiFi access points and take the first 3 (or fewer) access points.
-    //  If ESP8266 is connected to a mobile hotspot, we should remove the mobile hotspot access point from the list.
-    rc = esp8266_scan(dev, wifi_aps, MAX_WIFI_AP, filter_func); assert(rc > 0 && rc <= MAX_WIFI_AP);
+        //  Scan for nearby WiFi access points and take the first 3 (or fewer) access points.
+        //  The filter_func() should reject access points that have very similar MAC address (probably same router).
+        //  It should also reject mobile access points that are not suitable for geolocation.
+        rc = esp8266_scan(dev, wifi_aps, MAX_WIFI_AP, filter_func); assert(rc >= 0 && rc <= MAX_WIFI_AP);    
 
-    //  Send the first 3 access points (or fewer) to thethings.io, which will call Google Geolocation API.
+        //  Close the ESP8266 device when we are done.
+        os_dev_close((struct os_dev *) dev);
+        //  Unlock the ESP8266 driver for exclusive use.
+    }
+
+    if (rc == 0) { return 0; }  //  No access points to send.
+
+    //  Start composing the CoAP message with the WiFi access point data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    rc = init_sensor_post(server, uri);  assert(rc != 0);
+
+    //  Compose the CoAP Payload in JSON with the first 3 access points or fewer, depending on how many
+    //  access points were actually stored during the call to esp8266_scan() above.
     if (rc > 0) { write_wifi_access_points(wifi_aps, rc); }
 
-    //  Forward the CoAP request to the CoAP Background Task for transmission.  This will release a semaphore to allow other tasks to create CoAP requests.
+    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  message to the background task, we release a semaphore that unblocks other requests
+    //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send wifi ap\n");
+
+    //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
+    //  transmit the message: libs/esp8266/src/transport.cpp
+
+    //  When thethings.io receives the access point data, it will call the Google Geolocation API
+    //  to compute the latitude and longitude.  The geolocation will be shown on a map.  See
+    //  https://github.com/lupyuen/thethingsio-wifi-geolocation
+    //  https://github.com/lupyuen/gcloud-wifi-geolocation
     return rc;
 }
 

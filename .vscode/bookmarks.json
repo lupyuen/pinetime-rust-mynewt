@@ -118,5 +118,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/geolocate.c",
+		"bookmarks": [
+			{
+				"line": 20,
+				"column": 91,
+				"label": ""
+			}
+		]
 	}
 ]

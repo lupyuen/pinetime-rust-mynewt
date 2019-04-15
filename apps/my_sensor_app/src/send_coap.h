@@ -2,7 +2,12 @@
 //  The sensor data will be transmitted over WiFi via the ESP8266 transceiver.
 #ifndef __SEND_COAP_H__
 #define __SEND_COAP_H__
-#if MYNEWT_VAL(SENSOR_COAP)  //  If we are sending sensor data to CoAP server...
+#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
+#include <esp8266/esp8266.h>  //  For ESP8266_DEVICE
+
+//  NETWORK_DEVICE, the name of the network transceiver device to be used for sending CoAP messages,
+//  will be set to "esp8266_0"
+#define NETWORK_DEVICE ESP8266_DEVICE
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.

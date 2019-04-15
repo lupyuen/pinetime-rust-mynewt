@@ -74,30 +74,32 @@ static void network_task_func(void *arg) {
 
     {   //  Lock the ESP8266 driver for exclusive use.
         //  Find the ESP8266 device by name "esp8266_0".
-        struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
+        struct esp8266 *dev = (struct esp8266 *) os_dev_open(NETWORK_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  NETWORK_DEVICE is "esp8266_0"
         assert(dev != NULL);
+
         //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
         //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
         //  to pass ESP8266 events to this function.
-        rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  assert(rc == 0);
+        rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  
+        assert(rc == 0);
 
-        //  Register the ESP8266 driver as the network transport for CoAP.
-        rc = esp8266_register_transport(dev, &coap_server);  assert(rc == 0);
-
-#if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
-        //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-        rc = geolocate(dev, coap_server.handle, COAP_URI);  assert(rc >= 0);
-#endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
-
-        //  Close the ESP8266 device when we are done sending.
+        //  Close the ESP8266 device when we are done.
         os_dev_close((struct os_dev *) dev);
         //  Unlock the ESP8266 driver for exclusive use.
     }
 
-    network_is_ready = true;  //  Indicate that network is ready.
+    //  Register the ESP8266 driver as the network transport for CoAP.
+    rc = esp8266_register_transport(NETWORK_DEVICE, &coap_server);  
+    assert(rc == 0);
+
+#if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
+    //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
+    rc = geolocate(NETWORK_DEVICE, coap_server.handle, COAP_URI);  assert(rc >= 0);
+#endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
     //  Network Task terminates here. The Sensor Listener will still continue to
     //  run in the background and send sensor data to the server.
+    network_is_ready = true;  //  Indicate that network is ready.
 }
 
 int send_sensor_data(float tmp) {
@@ -116,7 +118,7 @@ int send_sensor_data(float tmp) {
     const char *uri = COAP_URI;
     assert(server);  assert(uri);
 
-    //  Compose the CoAP message with the sensor data in the payload.  This will 
+    //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
@@ -128,6 +130,7 @@ int send_sensor_data(float tmp) {
             CP_ITEM_FLOAT(values, "tmp", tmp);
             //  If there are more sensor values, add them here with
             //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
+            //  Check geolocate() for a more complex payload: apps/my_sensor_app/src/geolocate.c
         });                       //  End CP_ARRAY: Close the "values" array
     });                           //  End CP_ROOT:  Close the payload root
 

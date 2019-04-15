@@ -7,14 +7,15 @@
 #ifndef __LISTEN_SENSOR_H__
 #define __LISTEN_SENSOR_H__
 
-//  SENSOR_NAME, the name of the temperature sensor device, will be set to "bme280_0" or "temp_stm32_0"
+//  SENSOR_DEVICE, the name of the temperature sensor device to be used to reading sensor data, 
+//  will be set to "bme280_0" or "temp_stm32_0"
 
 #if MYNEWT_VAL(BME280_OFB)             //  If BME280 Temperature Sensor is enabled...
-#define SENSOR_NAME "bme280_0"         //  We will open sensor "bme280_0" as the temperature sensor
+#define SENSOR_DEVICE "bme280_0"         //  We will open sensor "bme280_0" as the temperature sensor
 
 #elif MYNEWT_VAL(TEMP_STM32)           //  Else if Blue Pill Internal Temperature Sensor is enabled...
 #include <temp_stm32/temp_stm32.h>     //  Get sensor name
-#define SENSOR_NAME TEMP_STM32_DEVICE  //  We will open internal temperature sensor "temp_stm32_0"
+#define SENSOR_DEVICE TEMP_STM32_DEVICE  //  We will open internal temperature sensor "temp_stm32_0"
 
 #endif  //  MYNEWT_VAL(BME280_OFB), MYNEWT_VAL(TEMP_STM32)
 

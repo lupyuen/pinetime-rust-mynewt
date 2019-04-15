@@ -13,7 +13,7 @@
 #include <sensor/temperature.h>
 #include "send_coap.h"        //  For send_sensor_data()
 #include "listen_sensor.h"
-#ifdef SENSOR_NAME  //  If either internal temperature sensor or BME280 is enabled...
+#ifdef SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
 
 #define MY_SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
 #define LISTENER_CB         1  //  Indicate that this is a listener callback
@@ -33,14 +33,14 @@ static struct sensor_listener listener = {
 int start_sensor_listener(void) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
-    console_printf("poll temperature sensor " SENSOR_NAME "\n");
+    console_printf("poll temperature sensor " SENSOR_DEVICE "\n");
 
-    //  Set the sensor polling time to 10 seconds.  SENSOR_NAME is either "bme280_0" or "temp_stm32_0"
-    int rc = sensor_set_poll_rate_ms(SENSOR_NAME, MY_SENSOR_POLL_TIME);
+    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
+    int rc = sensor_set_poll_rate_ms(SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
     //  Open the sensor by name.
-    my_sensor = sensor_mgr_find_next_bydevname(SENSOR_NAME, NULL);
+    my_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE, NULL);
     assert(my_sensor != NULL);
 
     //  Set the listener function to be called every 10 seconds, with the polled sensor data.
@@ -80,4 +80,4 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     return rc;
 }
 
-#endif  //  SENSOR_NAME
+#endif  //  SENSOR_DEVICE

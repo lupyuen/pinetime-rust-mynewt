@@ -14,9 +14,9 @@ static int oc_init(void);
 static void oc_shutdown(void);
 //  static void oc_event(struct os_event *ev);
 
+static const char *network_device;     //  Name of the ESP8266 device that will be used for transmitting CoAP messages e.g. "esp8266_0" 
 static struct esp8266_server *server;  //  CoAP Server host and port.  We only support 1 server.
 static void *socket;                   //  Reusable UDP socket connection to the CoAP server.  Never closed.
-static struct esp8266 *driver;         //  Driver interface for ESP8266.  Will be called to perform ESP8266 functions.
 static uint8_t transport_id = -1;      //  Will contain the Transport ID allocated by Mynewt OIC.
 
 //  Definition of ESP8266 driver as a transport for CoAP.  Only 1 ESP8266 driver instance supported.
@@ -32,23 +32,40 @@ static const struct oc_transport transport = {
     oc_shutdown,  //  void (*ot_shutdown)(void);
 };
 
-int esp8266_register_transport(struct esp8266 *dev, struct esp8266_server *server0) {
-    //  Register the ESP8266 device as the transport for the specifed CoAP server.  Assumes that the caller
-    //  has locked the ESP8266 driver for exclusive use.  Return 0 if successful.
-    assert(dev);  assert(server0);
-    transport_id = oc_transport_register(&transport);
-    driver = dev;
-    server = server0;
+int esp8266_register_transport(const char *network_device0, struct esp8266_server *server0) {
+    //  Register the ESP8266 device as the transport for the specifed CoAP server.  
+    //  network_device is the ESP8266 device name e.g. "esp8266_0".  Return 0 if successful.
+    assert(network_device0);  assert(server0);
 
-    //  Init the server endpoint before use.
-    int rc = init_esp8266_server(server);  assert(rc == 0);
+    {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
+        struct esp8266 *dev = (struct esp8266 *) os_dev_open(network_device0, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
+        assert(dev != NULL);
 
-    //  Allocate a new UDP socket for the CoAP server.  The socket will be always connected to the server and cannot be changed or closed.
-    rc = esp8266_socket_open(driver, &socket, NSAPI_UDP);  assert(rc == 0);
+        //  Register ESP8266 with Mynewt OIC to get Transport ID.
+        transport_id = oc_transport_register(&transport);
+        assert(transport_id >= 0);  //  Registration failed.
 
-    //  Connect the socket to the UDP address and port.  Command looks like: AT+CIPSTART=0,"UDP","coap.thethings.io",5683
-    //  The CoAP UDP message will be transmitted at the next call to oc_tx_ucast().
-    rc = esp8266_socket_connect(driver, socket, server->endpoint.host, server->endpoint.port);  assert(rc == 0);
+        //  Init the server endpoint before use.
+        int rc = init_esp8266_server(server0);
+        assert(rc == 0);
+
+        //  Allocate a new UDP socket for the CoAP server.  The socket will be always connected to the server and cannot be changed or closed.
+        rc = esp8266_socket_open(dev, &socket, NSAPI_UDP);
+        assert(rc == 0);
+
+        //  Connect the socket to the UDP address and port.  Command looks like: AT+CIPSTART=0,"UDP","coap.thethings.io",5683
+        //  The CoAP UDP message will be transmitted at the next call to oc_tx_ucast().
+        rc = esp8266_socket_connect(dev, socket, server0->endpoint.host, server0->endpoint.port);
+        assert(rc == 0);
+
+        //  ESP8266 registered.  Remember the details.
+        network_device = network_device0;
+        server = server0;
+
+        //  Close the ESP8266 device when we are done.
+        os_dev_close((struct os_dev *) dev);
+        //  Unlock the ESP8266 driver for exclusive use.
+    }
     return 0;
 }
 
@@ -79,11 +96,22 @@ static void oc_tx_ucast(struct os_mbuf *m) {
 
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
-    assert(driver);  assert(socket);
-    console_printf("  > send udp packet\n");
+    assert(network_device);  assert(socket);
+    int rc;
 
-    //  Send the consolidated buffer via UDP.
-    int rc = esp8266_socket_send_mbuf(driver, socket, m);  assert(rc > 0);
+    {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
+        struct esp8266 *dev = (struct esp8266 *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
+        assert(dev != NULL);
+        console_printf("  > send udp packet\n");
+
+        //  Send the consolidated buffer via UDP.
+        rc = esp8266_socket_send_mbuf(dev, socket, m);  
+        assert(rc > 0);
+
+        //  Close the ESP8266 device when we are done.
+        os_dev_close((struct os_dev *) dev);
+        //  Unlock the ESP8266 driver for exclusive use.
+    }
 
     //  After sending, free the chain of mbufs.
     rc = os_mbuf_free_chain(m);  assert(rc == 0);

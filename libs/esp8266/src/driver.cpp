@@ -99,7 +99,9 @@ int esp8266_scan(struct esp8266 *dev, nsapi_wifi_ap_t *res, unsigned limit, filt
 }
 
 int esp8266_connect(struct esp8266 *dev, const char *ssid, const char *pass) {
-    //  Connect to the WiFi access point with the SSID and password.  Return 0 if successful.
+    //  Connect to the WiFi access point with the SSID and password.  
+    //  Assumes that the caller has locked the ESP8266 driver for exclusive use.
+    //  Return 0 if successful.
     assert(dev);  assert(ssid);  assert(pass);
     esp8266_set_credentials(dev, ssid, pass, NSAPI_SECURITY_UNKNOWN);  //  Save the credentials.
     return internal_connect(dev);  //  Connect with the saved credentials.
