@@ -33,7 +33,11 @@ static struct esp8266_server coap_server = {
 };
 
 //  Randomly assigned device ID that will be sent in every CoAP request.
-static uint8_t device_id[16];
+#define DEVICE_ID_LENGTH      16                          //  16 random bytes in binary device ID
+#define DEVICE_ID_TEXT_LENGTH (1 + DEVICE_ID_LENGTH * 2)  //  33 bytes in the text device ID (including terminating null)
+static uint8_t device_id     [DEVICE_ID_LENGTH];          //  Binary device ID e.g. 0xab 0xcd 0xef ...
+static char    device_id_text[DEVICE_ID_TEXT_LENGTH];     //  Text version of the binary device ID, 2 hex digits per byte
+                                                          //  e.g. abcdef...
 
 //  Storage for Network Task
 #define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
@@ -68,9 +72,16 @@ static void network_task_func(void *arg) {
     //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
     console_printf("run network task\n");  assert(!network_is_ready);
 
-    //  Create a random device ID based on HMAC pseudorandom number generator.
-    int rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
-    console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
+    //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
+    int rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
+    char *s = device_id_text; int i;
+    //  Convert to text e.g. abcdef...
+    for (i = 0; i < DEVICE_ID_LENGTH; i++) {
+        sprintf(s, "%02x", device_id[i]);
+        s += 2;
+    }
+    device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
+    console_printf("random device_id: %s\n", device_id_text);
 
     {   //  Lock the ESP8266 driver for exclusive use.
         //  Find the ESP8266 device by name "esp8266_0".
@@ -94,7 +105,7 @@ static void network_task_func(void *arg) {
 
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
     //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-    rc = geolocate(NETWORK_DEVICE, coap_server.handle, COAP_URI);  assert(rc >= 0);
+    rc = geolocate(NETWORK_DEVICE, coap_server.handle, COAP_URI, device_id_text);  assert(rc >= 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
     //  Network Task terminates here. The Sensor Listener will still continue to
@@ -110,13 +121,15 @@ int send_sensor_data(float tmp) {
 
     //  For the CoAP server hosted at thethings.io, the CoAP payload should look like:
     //  {"values":[
-    //    {"key":"tmp", "value":28.7},
-    //    {"key":"...", "value":... },
+    //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+    //    {"key":"tmp",    "value":28.7},
+    //    {"key":"...",    "value":... },
     //    ... ]}
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     struct oc_server_handle *server = coap_server.handle;
     const char *uri = COAP_URI;
-    assert(server);  assert(uri);
+    const char *device = device_id_text;
+    assert(server);  assert(uri);  assert(device);
 
     //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -126,11 +139,18 @@ int send_sensor_data(float tmp) {
     //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
     CP_ROOT({                     //  Create the payload root
         CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
-            //  Append to the "values" array: {"key":"tmp", "value":28.7}
+            //  Append to the "values" array:
+            //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+            //  CP_ITEM_STR(values, "device", device);
+
+            //  Append to the "values" array:
+            //    {"key":"tmp", "value":28.7}
             CP_ITEM_FLOAT(values, "tmp", tmp);
+
             //  If there are more sensor values, add them here with
             //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
             //  Check geolocate() for a more complex payload: apps/my_sensor_app/src/geolocate.c
+
         });                       //  End CP_ARRAY: Close the "values" array
     });                           //  End CP_ROOT:  Close the payload root
 

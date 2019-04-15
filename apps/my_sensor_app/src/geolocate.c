@@ -27,17 +27,17 @@ static mac_pattern skip_ssid[] = {
 
 static nsapi_wifi_ap_t wifi_aps[MAX_WIFI_AP];  //  List of scanned WiFi access points.
 
-static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int length);
+static void write_wifi_access_points(const char *device, const nsapi_wifi_ap_t *access_points, int length);
 static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count);
 static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern);
 static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]);
 
-int geolocate(const char *network_device, struct oc_server_handle *server, const char *uri) {
+int geolocate(const char *network_device, struct oc_server_handle *server, const char *uri, const char *device) {
     //  Scan for WiFi access points in your area.  Send the MAC Address and signal strength of
     //  the first 3 access points (or fewer) to thethings.io at the specified CoAP server and uri.  
-    //  network_device is the ESP8266 device name e.g. "esp8266_0".  Return the number of access 
-    //  points transmitted.  Note: Don't enable WIFI_GEOLOCATION unless you understand the privacy 
-    //  implications. Your location may be accessible by others.
+    //  network_device is the ESP8266 device name e.g. "esp8266_0".  "device" is the random device ID string.
+    //  Return the number of access points transmitted.  Note: Don't enable WIFI_GEOLOCATION unless you 
+    //  understand the privacy implications. Your location may be accessible by others.
     assert(network_device);  assert(server);  assert(uri);  int rc;
 
     {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
@@ -63,7 +63,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
 
     //  Compose the CoAP Payload in JSON with the first 3 access points or fewer, depending on how many
     //  access points were actually stored during the call to esp8266_scan() above.
-    if (rc > 0) { write_wifi_access_points(wifi_aps, rc); }
+    if (rc > 0) { write_wifi_access_points(device, wifi_aps, rc); }
 
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
@@ -121,21 +121,30 @@ static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]) {
 static char key_buf[10];    //  Buffer for JSON keys.  Long enough to hold a key like "ssid0"
 static char value_buf[20];  //  Buffer for JSON values.  Long enough to hold a MAC address like "00:25:9c:cf:1c:ac"
 
-static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int length) {
-    //  Write the CoAP JSON payload with the list of WiFi access points (MAC Address and Signal Strength).  It should look like:
+static void write_wifi_access_points(const char *device, const nsapi_wifi_ap_t *access_points, int length) {
+    //  Write the CoAP JSON payload with the device ID and the list of WiFi access points (MAC Address and Signal Strength).  
+    //  Length is the number of entries populated in "access_points".
+    //  It should look like:
     //  {"values":[
-    //    {"key":"ssid0", "value":"00:25:9c:cf:1c:ac"},
-    //    {"key":"rssi0", "value":-43.0},
-    //    {"key":"ssid1", "value":"00:25:9c:cf:1c:ad"},
-    //    {"key":"rssi1", "value":-43.0},
-    //    {"key":"ssid2", "value":"00:25:9c:cf:1c:ae"},
-    //    {"key":"rssi2", "value":-43.0}
+    //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+    //    {"key":"ssid0",  "value":"00:25:9c:cf:1c:ac"},
+    //    {"key":"rssi0",  "value":-43.0},
+    //    {"key":"ssid1",  "value":"00:25:9c:cf:1c:ad"},
+    //    {"key":"rssi1",  "value":-43.0},
+    //    {"key":"ssid2",  "value":"00:25:9c:cf:1c:ae"},
+    //    {"key":"rssi2",  "value":-43.0}
     //  ]}
     //  We use float instead of int for rssi because int doesn't support negative values.
     int i, len;
     //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
     CP_ROOT({                               //  Create the payload root
         CP_ARRAY(root, values, {            //  Create "values" as an array of items under the root
+
+            ///////////////////////////////////////
+            //  Append to the "values" array:
+            //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}
+            //  CP_ITEM_STR(values, "device", device);
+
             for (i = 0; i < length; i++) {  //  For each of the 3 WiFi access points (or fewer)...
                 const nsapi_wifi_ap_t *ap = access_points + i;  //  Fetch the WiFi access point
 
@@ -145,7 +154,7 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
                 //    {"key":"rssi0", "value":-43}
 
                 ///////////////////////////////////////
-                //  First Array Item: ssid
+                //  First Array Item: ssidX
                 len = sprintf(key_buf, "ssid%d", i);   //  Compose key "ssid0"
                 assert(len < sizeof(key_buf));       
                 len = sprintf(value_buf, 
@@ -157,7 +166,7 @@ static void write_wifi_access_points(const nsapi_wifi_ap_t *access_points, int l
                 CP_ITEM_STR(values, key_buf, value_buf);
 
                 ///////////////////////////////////////
-                //  Second Array Item: rssi
+                //  Second Array Item: rssiX
                 len = sprintf(key_buf, "rssi%d", i);       //  Compose key "rssi0"
                 assert(len < sizeof(key_buf));
 
