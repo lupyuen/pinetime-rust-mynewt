@@ -91,7 +91,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     //  Transmit the chain of mbufs to the network over UDP.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
 
     //  Find the endpoint header.  Should be the end of the packet header of the first packet.
-    assert(OS_MBUF_USRHDR_LEN(m) >= sizeof(struct esp8266_endpoint));
+    assert(m);  assert(OS_MBUF_USRHDR_LEN(m) >= sizeof(struct esp8266_endpoint));
     struct esp8266_endpoint *endpoint = (struct esp8266_endpoint *) OC_MBUF_ENDPOINT(m);
 
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.

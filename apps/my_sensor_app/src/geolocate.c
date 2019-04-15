@@ -39,7 +39,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  Return the number of access points transmitted.  Note: Don't enable WIFI_GEOLOCATION unless you 
     //  understand the privacy implications. Your location may be accessible by others.
     console_printf("geolocate\n");  ////
-    assert(network_device);  assert(server);  assert(uri);  assert(device_str);  int rc;
+    assert(network_device);  assert(server);  assert(uri);  assert(device_str);  int rc, count;
 
     {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
         struct esp8266 *dev = (struct esp8266 *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
@@ -48,14 +48,14 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
         //  Scan for nearby WiFi access points and take the first 3 (or fewer) access points.
         //  The filter_func() should reject access points that have very similar MAC address (probably same router).
         //  It should also reject mobile access points that are not suitable for geolocation.
-        rc = esp8266_scan(dev, wifi_aps, MAX_WIFI_AP, filter_func); assert(rc >= 0 && rc <= MAX_WIFI_AP);    
+        count = esp8266_scan(dev, wifi_aps, MAX_WIFI_AP, filter_func); assert(count >= 0 && count <= MAX_WIFI_AP);    
 
         //  Close the ESP8266 device when we are done.
         os_dev_close((struct os_dev *) dev);
         //  Unlock the ESP8266 driver for exclusive use.
     }
 
-    if (rc == 0) { return 0; }  //  No access points to send.
+    if (count == 0) { return 0; }  //  Exit if no access points to send.
 
     //  Start composing the CoAP message with the WiFi access point data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -64,7 +64,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
 
     //  Compose the CoAP Payload in JSON with the first 3 access points or fewer, depending on how many
     //  access points were actually stored during the call to esp8266_scan() above.
-    if (rc > 0) { write_wifi_access_points(device_str, wifi_aps, rc); }
+    write_wifi_access_points(device_str, wifi_aps, count);
 
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests

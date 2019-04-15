@@ -63,6 +63,13 @@ dispatch_coap_request(void)
     int response_length = rep_finalize();
 
     if (response_length) {
+        console_printf("coap "); 
+        struct os_mbuf *m = oc_c_rsp;
+        while (m) {
+            console_dump(m->om_databuf, m->om_len); console_printf("\n");
+            m = m->om_next.sle_next;
+        }
+        console_flush(); ////
         oc_c_request->payload_m = oc_c_rsp;
         oc_c_request->payload_len = response_length;
         coap_set_header_content_format(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
@@ -171,7 +178,7 @@ int json_write_mbuf(void *buf, char *data, int len) {
     //  Write the JSON to the mbuf for the outgoing CoAP message.
     assert(coap_json_mbuf);
     assert(data);
-    //  console_printf("JSON: "); console_buffer(data, len); console_printf("\n");  ////
+    //  console_printf("json "); console_buffer(data, len); console_printf("\n");  ////
     int rc = os_mbuf_append(coap_json_mbuf, data, len);  assert(rc == 0);
     if (rc) { return -1; }
     return 0;
