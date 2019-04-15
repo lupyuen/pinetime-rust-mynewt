@@ -62,7 +62,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
     //  Temperature data is valid.  Fetch and display it.
     tmp = tempdata->std_temp;  //  Temperature in floating point.
-    console_printf("**** temp: ");  console_printfloat(tmp);  console_printf("\n");  ////
+    console_printf(">>> tmp: ");  console_printfloat(tmp);  console_printf("\n");  ////
 
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
     //  Compose a CoAP message with the temperature sensor data and send to the 
@@ -72,8 +72,11 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     int rc = send_sensor_data(tmp);
 
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
-    //  We drop the message and send at the next poll.
-    if (rc == SYS_EAGAIN) { return 0; }
+    //  We drop the sensor data and send at the next poll.
+    if (rc == SYS_EAGAIN) {
+        console_printf("network not ready\n");
+        return 0; 
+    }
     assert(rc == 0);
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
 

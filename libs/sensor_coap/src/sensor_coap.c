@@ -212,7 +212,7 @@ void json_rep_end_root_object(void) {
 }
 
 static int json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv);
-static void split_float(float f, int *i, int *d);
+static void split_float(float f, bool *neg, int *i, int *d);
 
 int
 json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
@@ -251,12 +251,13 @@ json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
     switch (jv->jv_type) {
         case JSON_VALUE_TYPE_EXT_FLOAT: {
             //  Encode the float with 2 decimal places.
-            int i, d;
+            bool neg; int i, d;
             float f = jv->jv_val.fl;
-            split_float(f, &i, &d);  //  Split the float into integer and decimal parts (two decimal places)
+            split_float(f, &neg, &i, &d);  //  Split the float into neg, integer and decimal parts (two decimal places)
             len = sprintf(
                 encoder->je_encode_buf,
-                "%d.%02d",
+                "%s%d.%02d",
+                neg ? "-" : "",  //  Sign
                 i, //  Integer part
                 d  //  2 decimal places
             );
@@ -274,16 +275,12 @@ err:
     return (rc);
 }
 
-static void
-split_float(float f, int *i, int *d)
-{
-    //  Split the float f into two parts: the integer part i, and the decimal part d, with 2 decimal places.
-    bool neg = (f < 0.0f);             //  True if f is negative
-    int f_abs = neg ? -f : f;          //  Absolute value of f
-    *i = (int) f;                      //  Integer part
-    if (neg && (*i > 0)) { *i = -(*i); }  //  If f is -0.x, preserve the negative sign
+static void split_float(float f, bool *neg, int *i, int *d) {
+    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
+    *neg = (f < 0.0f);                    //  True if f is negative
+    float f_abs = *neg ? -f : f;          //  Absolute value of f
+    *i = (int) f_abs;                     //  Integer part
     *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
-    console_printf("splitFloat %d.%02d", *i, *d);  console_printf("\n");  ////
 }
 
 #endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)

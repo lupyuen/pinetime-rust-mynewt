@@ -33,7 +33,6 @@
 #define DEVICE_INIT        temp_stm32_init    //  Device init function
 #define DEVICE_CREATE      temp_stm32_create  //  Device create function
 #define DEVICE_ITF         adc_1_itf_temp_stm32   //  Device interface
-#define ENQUOTE(x)         #x                     //  ENQUOTE(x) expands to "x"
 
 static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
 
@@ -67,7 +66,7 @@ static int config_device(void) {
 
 //  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf(ENQUOTE(DEVICE_CREATE_QUOTE) ": create " DEVICE_NAME "\n");
+    console_printf("create " DEVICE_NAME "\n");
 
     //  Create the device.
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
