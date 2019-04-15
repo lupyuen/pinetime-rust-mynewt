@@ -44,7 +44,8 @@
 			"geolocate.h": "c",
 			"temp_sensor.h": "c",
 			"os.h": "c",
-			"sensor_coap.h": "c"
+			"sensor_coap.h": "c",
+			"json.h": "c"
 		}
 	}
 }

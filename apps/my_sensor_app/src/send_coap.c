@@ -128,8 +128,8 @@ int send_sensor_data(float tmp) {
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     struct oc_server_handle *server = coap_server.handle;
     const char *uri = COAP_URI;
-    const char *device = device_id_text;
-    assert(server);  assert(uri);  assert(device);
+    const char *device_str = device_id_text;
+    assert(server);  assert(uri);  assert(device_str);
 
     //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -141,7 +141,7 @@ int send_sensor_data(float tmp) {
         CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
             //  Append to the "values" array:
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-            //  CP_ITEM_STR(values, "device", device);
+            CP_ITEM_STR(values, "device", device_str);
 
             //  Append to the "values" array:
             //    {"key":"tmp", "value":28.7}

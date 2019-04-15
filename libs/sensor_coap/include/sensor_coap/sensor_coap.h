@@ -85,10 +85,10 @@ void json_rep_end_root_object(void);
 (__jv)->jv_val.fl = (float) __v;
 
 //  Encode a value into JSON: int, unsigned int, float, text, ...
-#define rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#define rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#define rep_set_float(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
-#define rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define rep_set_float(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+#define rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
 #endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -122,60 +122,60 @@ void json_rep_end_root_object(void);
 //  The format defined here is used by thethings.io for receiving sensor data
 
 //  Compose the payload root.
-#define CP_ROOT(children) { \
+#define CP_ROOT(children0) { \
     rep_start_root_object();  \
-    { children; } \
+    { children0; } \
     rep_end_root_object(); \
 }
 
 //  Compose an array under "object", named as "key".  Add "children" as array elements.
-#define CP_ARRAY(object, key, children) { \
-    rep_set_array(object, key);  \
-    { children; } \
-    rep_close_array(object, key); \
+#define CP_ARRAY(object0, key0, children0) { \
+    rep_set_array(object0, key0);  \
+    { children0; } \
+    rep_close_array(object0, key0); \
 }
 
 //  Append an array item under the array named "array".  Add "children" as the item key and value.
 //    { <array>: [ ..., { <children> } ], ... }
-#define CP_ITEM(array, children) { \
-    rep_object_array_start_item(array);  \
-    { children; } \
-    rep_object_array_end_item(array); \
+#define CP_ITEM(array0, children0) { \
+    rep_object_array_start_item(array0);  \
+    { children0; } \
+    rep_object_array_end_item(array0); \
 }
 
 //  Append a (key + int value) item to the array named "array":
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
-#define CP_ITEM_INT(array, key0, value0) { \
-    CP_ITEM(array, { \
-        rep_set_text_string(array, key, key0); \
-        rep_set_int(        array, value, value0); \
+#define CP_ITEM_INT(array0, key0, value0) { \
+    CP_ITEM(array0, { \
+        rep_set_text_string(array0, key, key0); \
+        rep_set_int(        array0, value, value0); \
     }) \
 }
 
 //  Append a (key + unsigned int value) item to the array named "array":
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
-#define CP_ITEM_UINT(array, key0, value0) { \
-    CP_ITEM(array, { \
-        rep_set_text_string(array, key, key0); \
-        rep_set_uint(       array, value, value0); \
+#define CP_ITEM_UINT(array0, key0, value0) { \
+    CP_ITEM(array0, { \
+        rep_set_text_string(array0, key, key0); \
+        rep_set_uint(       array0, value, value0); \
     }) \
 }
 
 //  Append a (key + float value) item to the array named "array":
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
-#define CP_ITEM_FLOAT(array, key0, value0) { \
-    CP_ITEM(array, { \
-        rep_set_text_string(array, key, key0); \
-        rep_set_float(      array, value, value0); \
+#define CP_ITEM_FLOAT(array0, key0, value0) { \
+    CP_ITEM(array0, { \
+        rep_set_text_string(array0, key, key0); \
+        rep_set_float(      array0, value, value0); \
     }) \
 }
 
 //  Append a (key + string value) item to the array named "array":
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
-#define CP_ITEM_STR(array, key0, value0) { \
-    CP_ITEM(array, { \
-        rep_set_text_string(array, key, key0); \
-        rep_set_text_string(array, value, value0); \
+#define CP_ITEM_STR(array0, key0, value0) { \
+    CP_ITEM(array0, { \
+        rep_set_text_string(array0, key, key0); \
+        rep_set_text_string(array0, value, value0); \
     }) \
 }
 
