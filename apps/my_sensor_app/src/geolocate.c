@@ -38,7 +38,8 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  network_device is the ESP8266 device name e.g. "esp8266_0".  "device_str" is the random device ID string.
     //  Return the number of access points transmitted.  Note: Don't enable WIFI_GEOLOCATION unless you 
     //  understand the privacy implications. Your location may be accessible by others.
-    assert(network_device);  assert(server);  assert(uri);  int rc;
+    console_printf("geolocate\n");  ////
+    assert(network_device);  assert(server);  assert(uri);  assert(device_str);  int rc;
 
     {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
         struct esp8266 *dev = (struct esp8266 *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
@@ -135,6 +136,7 @@ static void write_wifi_access_points(const char *device_str, const nsapi_wifi_ap
     //    {"key":"rssi2",  "value":-43.0}
     //  ]}
     //  We use float instead of int for rssi because int doesn't support negative values.
+    assert(device_str);  assert(access_points);  assert(length > 0);
     int i, len;
     //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
     CP_ROOT({                               //  Create the payload root
