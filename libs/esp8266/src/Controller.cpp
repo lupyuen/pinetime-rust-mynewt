@@ -120,7 +120,7 @@ bool ESP8266::connect(const char *ap, const char *passPhrase)
 {
     bool ret = _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
         && _parser.recv("OK");
-    console_printf(ret ? "ESP connect OK\n" : "ESP connect FAILED\n");  console_flush();
+    console_printf(ret ? "ESP connect OK\n" : "ESP connect FAILED\n*** Check WIFI_SSID and WIFI_PASSWORD in targets/bluepill_my_sensor/syscfg.yml\n");  console_flush();
     return ret;
 }
 

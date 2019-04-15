@@ -513,7 +513,7 @@ stm32f1_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
     ADC_HandleTypeDef *hadc;
     struct stm32f1_adc_dev_cfg *cfg;
 #endif  //  TODO
-    console_printf("open adc1\n");  ////
+    //  console_printf("open adc1\n");  ////
     struct adc_dev *dev;
     int rc;
 

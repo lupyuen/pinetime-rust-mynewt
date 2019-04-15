@@ -81,7 +81,7 @@ static void network_task_func(void *arg) {
         s += 2;
     }
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
-    console_printf("random device_id: %s\n", device_id_text);
+    console_printf("random device id %s\n", device_id_text);
 
     {   //  Lock the ESP8266 driver for exclusive use.
         //  Find the ESP8266 device by name "esp8266_0".

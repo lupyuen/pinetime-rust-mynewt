@@ -36,12 +36,11 @@ void hmac_prng_init(void) {
 
     //  Personalise the random number generator with the hardware ID.
     //  TinyCrypt uses the hardware ID to prevent generating similar random numbers across microcontrollers.
-    console_printf("personalise random number generator with\n");  ////
-    console_printf("hw_id: "); console_dump(hw_id, hw_id_len); console_printf("\n"); console_flush(); ////
+    console_printf("personalise random number generator with hw id "); console_dump(hw_id, hw_id_len); console_printf("\n"); console_flush(); ////
     rc = tc_hmac_prng_init(&prng, hw_id, hw_id_len);  assert(rc);
 
 #ifdef ENTROPY
-    console_printf("seed with temp sensor entropy:\n"); console_dump(seed, sizeof(seed)); console_printf("\n"); console_flush(); ////
+    console_printf("seed with temp sensor entropy "); console_dump(seed, sizeof(seed)); console_printf("\n"); console_flush(); ////
 #else
     console_printf("NO ENTROPY\n");
 #endif  //  ENTROPY
