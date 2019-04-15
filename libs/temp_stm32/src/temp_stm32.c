@@ -67,7 +67,7 @@ static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     dev->adc = (struct adc_dev *) os_dev_open(cfg->adc_dev_name, timeout, cfg->adc_open_arg);
     assert(dev->adc);
     if (!dev->adc) { goto err; }
-    console_printf("open adc1 channel 16\n");  ////
+    console_printf("ADC open ch 16\n");  ////
 
     //  Configure port ADC1 channel 16 for temperature sensor.
     rc = adc_chan_config(dev->adc, cfg->adc_channel, cfg->adc_channel_cfg);

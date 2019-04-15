@@ -66,7 +66,7 @@ static int config_device(void) {
 
 //  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf("create " DEVICE_NAME "\n");
+    console_printf("TMP create " DEVICE_NAME "\n");
 
     //  Create the device.
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,

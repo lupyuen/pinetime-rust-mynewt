@@ -108,9 +108,15 @@ static void network_task_func(void *arg) {
     rc = geolocate(NETWORK_DEVICE, coap_server.handle, COAP_URI, device_id_text);  assert(rc >= 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
-    //  Network Task terminates here. The Sensor Listener will still continue to
+    //  Network Task has successfully started the ESP8266 transceiver. The Sensor Listener will still continue to
     //  run in the background and send sensor data to the server.
+
     network_is_ready = true;  //  Indicate that network is ready.
+
+    while (true) {  //  Loop forever...        
+        console_printf("  ? free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
+        os_time_delay(10 * OS_TICKS_PER_SEC);                      //  Wait 10 seconds before repeating.
+    }
 }
 
 int send_sensor_data(float tmp) {
@@ -158,7 +164,7 @@ int send_sensor_data(float tmp) {
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
+    console_printf("  > send sensor data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp

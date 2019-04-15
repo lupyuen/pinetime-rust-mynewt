@@ -63,13 +63,6 @@ dispatch_coap_request(void)
     int response_length = rep_finalize();
 
     if (response_length) {
-        console_printf("coap "); 
-        struct os_mbuf *m = oc_c_rsp;
-        while (m) {
-            console_dump(m->om_databuf, m->om_len); console_printf("\n");
-            m = m->om_next.sle_next;
-        }
-        console_flush(); ////
         oc_c_request->payload_m = oc_c_rsp;
         oc_c_request->payload_len = response_length;
         coap_set_header_content_format(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
@@ -202,6 +195,15 @@ int json_rep_finalize(void) {
     //  Finalise the payload and return the payload size.
     assert(coap_json_mbuf);
     int size = OS_MBUF_PKTLEN(coap_json_mbuf);
+#define DUMP_COAP
+#ifdef DUMP_COAP
+    console_printf("  > coap payload size %d\n", size); struct os_mbuf *m = coap_json_mbuf;
+    while (m) {
+        console_buffer((const char *) (m->om_databuf + m->om_pkthdr_len), m->om_len);
+        m = m->om_next.sle_next;
+    } console_printf("\n");
+#endif  //  DUMP_COAP
+
     json_rep_reset();
     return size;
 }

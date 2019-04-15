@@ -25,9 +25,9 @@ static esp8266_cfg *cfg(struct esp8266 *dev) { return &dev->cfg; }              
 
 static int esp8266_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  If first time we are opening the driver: Prepare the ESP8266 transceiver for use.  Lock the UART port.
-    if (!first_open) { console_printf("esp8266 already open\n"); return 0; }
+    if (!first_open) { console_printf("ESP reopen\n"); return 0; }
     first_open = false;
-    console_printf("open esp8266\n");  ////
+    console_printf("ESP open\n");  ////
     assert(dev0);
     struct esp8266 *dev = (struct esp8266 *) dev0;
     struct esp8266_cfg *cfg = &dev->cfg;
@@ -53,7 +53,7 @@ static int esp8266_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 static int esp8266_close(struct os_dev *dev0) {
     //  Shutdown the ESP8266 transceiver.  Unlock the UART port.
     //  TODO: Undo driver.init(), driver.configure() and driver.attach()
-    console_printf("close esp8266\n");  ////
+    console_printf("ESP close\n");  ////
     assert(dev0);
     return 0;
 }
