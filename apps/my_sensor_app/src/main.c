@@ -10,19 +10,6 @@
 #include "send_coap.h"        //  For start_network_task()
 #include "listen_sensor.h"    //  For start_sensor_listener()
 
-void test_semihosting_console(void) {  ////
-    //  Test floats.
-    console_printf("12.34=");  console_printfloat(12.34f);  console_printf("\n");
-    console_printf("9.87=");   console_printfloat(9.87f);   console_printf("\n");
-    console_printf("0.89=");   console_printfloat(0.89f);   console_printf("\n");
-    console_printf("0.12=");   console_printfloat(0.12f);   console_printf("\n");
-    console_printf("-0.12=");  console_printfloat(-0.12f);  console_printf("\n");
-    console_printf("-0.89=");  console_printfloat(-0.89f);  console_printf("\n");
-    console_printf("-9.87=");  console_printfloat(-9.87f);  console_printf("\n");
-    console_printf("-12.34="); console_printfloat(-12.34f); console_printf("\n");
-    console_flush();
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor
 
@@ -31,28 +18,23 @@ int main(int argc, char **argv) {
     //  and sending sensor data in the background.
 
     //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
-    //  Start the CoAP / OIC background task to transmit CoAP messages.  Any startup
+    //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
-    sysinit();
-    console_flush();
-
-    test_semihosting_console();  console_flush(); ////
+    sysinit();  console_flush();
 
 #ifdef NETWORK_DEVICE  //  If the ESP8266 WiFi transceiver is enabled...
     //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-    int rc1 = start_network_task();
-    assert(rc1 == 0);
+    int rc1 = start_network_task();  assert(rc1 == 0);
 #endif  //  NETWORK_DEVICE
 
 #ifdef SENSOR_DEVICE   //  If BME280 or internal temperature sensor is enabled...
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
-    int rc2 = start_sensor_listener();  
-    assert(rc2 == 0);
+    int rc2 = start_sensor_listener();  assert(rc2 == 0);
 #endif  //  SENSOR_DEVICE
 
     //  Main event loop
@@ -67,7 +49,8 @@ int main(int argc, char **argv) {
 ///////////////////////////////////////////////////////////////////////////////
 //  Other Functions
 
-//  Dummy destructor for global C++ objects, since our program never terminates.  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
+//  Dummy destructor for global C++ objects, since our program never terminates.  
+//  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
 void* __dso_handle = NULL;
 void _fini(void) { }
 int __aeabi_atexit(void *object, void (*destructor)(void *), void *dso_handle) { return 0; }
