@@ -12,6 +12,7 @@ static ESP8266 controller;  //  The single ESP8266 controller instance.  TODO: S
 static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
 static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
 static char esp8266_parser_buffer[ESP8266_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
+static bool first_open = true;  //  True if this is the first time opening the driver.
 
 /////////////////////////////////////////////////////////
 //  Device Creation Functions
@@ -23,8 +24,10 @@ static ESP8266 *drv(struct esp8266 *dev) { return (ESP8266 *)(dev->controller); 
 static esp8266_cfg *cfg(struct esp8266 *dev) { return &dev->cfg; }                 //  Return the ESP8266 Config
 
 static int esp8266_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
-    //  Prepare the ESP8266 transceiver for use.  Lock the UART port.
-    console_printf("esp8266_open\n");  ////
+    //  If first time we are opening the driver: Prepare the ESP8266 transceiver for use.  Lock the UART port.
+    if (!first_open) { console_printf("esp8266 already open\n"); return 0; }
+    first_open = false;
+    console_printf("open esp8266\n");  ////
     assert(dev0);
     struct esp8266 *dev = (struct esp8266 *) dev0;
     struct esp8266_cfg *cfg = &dev->cfg;
@@ -42,15 +45,15 @@ static int esp8266_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
         esp8266_rx_buffer, ESP8266_RX_BUFFER_SIZE,
         esp8266_parser_buffer, ESP8266_PARSER_BUFFER_SIZE
     );
-    drv(dev)->configure(cfg->uart);  //  Configure the UART port.  0 means UART2.
-    drv(dev)->attach(&esp8266_event, dev);          //  Set the callback for ESP8266 events.
+    drv(dev)->configure(cfg->uart);         //  Configure the UART port.  0 means UART2.
+    drv(dev)->attach(&esp8266_event, dev);  //  Set the callback for ESP8266 events.
     return 0;
 }
 
 static int esp8266_close(struct os_dev *dev0) {
     //  Shutdown the ESP8266 transceiver.  Unlock the UART port.
     //  TODO: Undo driver.init(), driver.configure() and driver.attach()
-    console_printf("esp8266_close\n");  ////
+    console_printf("close esp8266\n");  ////
     assert(dev0);
     return 0;
 }

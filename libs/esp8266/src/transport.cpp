@@ -33,7 +33,8 @@ static const struct oc_transport transport = {
 };
 
 int esp8266_register_transport(struct esp8266 *dev, struct esp8266_server *server0) {
-    //  Register the ESP8266 device as the transport for the specifed CoAP server.  Return 0 if successful.
+    //  Register the ESP8266 device as the transport for the specifed CoAP server.  Assumes that the caller
+    //  has locked the ESP8266 driver for exclusive use.  Return 0 if successful.
     assert(dev);  assert(server0);
     transport_id = oc_transport_register(&transport);
     driver = dev;
@@ -46,6 +47,7 @@ int esp8266_register_transport(struct esp8266 *dev, struct esp8266_server *serve
     rc = esp8266_socket_open(driver, &socket, NSAPI_UDP);  assert(rc == 0);
 
     //  Connect the socket to the UDP address and port.  Command looks like: AT+CIPSTART=0,"UDP","coap.thethings.io",5683
+    //  The CoAP UDP message will be transmitted at the next call to oc_tx_ucast().
     rc = esp8266_socket_connect(driver, socket, server->endpoint.host, server->endpoint.port);  assert(rc == 0);
     return 0;
 }

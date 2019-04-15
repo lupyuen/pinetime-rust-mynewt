@@ -17,7 +17,7 @@ int start_network_task(void);
 //  Compose a CoAP message with sensor data "tmp" and send to the specified CoAP server
 //  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
 //  Background Task so this function will return without waiting for the message 
-//  to be transmitted.  Return 0 if successful
+//  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 int send_sensor_data(float tmp);
 
 #ifdef __cplusplus

@@ -8,8 +8,8 @@
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
 
 #include <console/console.h>
-#include <esp8266/esp8266.h>    //  ESP8266 driver functions
-#include <esp8266/transport.h>  //  ESP8266 transport for CoAP
+#include <esp8266/esp8266.h>          //  ESP8266 driver functions
+#include <esp8266/transport.h>        //  ESP8266 transport for CoAP
 #include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
 #include <hmac_prng/hmac_prng.h>      //  Pseudorandom number generator for device ID
 #include "geolocate.h"                //  For geolocate()
@@ -72,7 +72,7 @@ static void network_task_func(void *arg) {
     int rc = hmac_prng_generate(device_id, sizeof(device_id));  assert(rc == 0);
     console_printf("device_id: "); console_dump(device_id, sizeof(device_id)); console_printf("\n");
 
-    {   //  Lock the ESP8266 driver
+    {   //  Lock the ESP8266 driver for exclusive use.
         //  Find the ESP8266 device by name "esp8266_0".
         struct esp8266 *dev = (struct esp8266 *) os_dev_open(ESP8266_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
         assert(dev != NULL);
@@ -91,7 +91,7 @@ static void network_task_func(void *arg) {
 
         //  Close the ESP8266 device when we are done sending.
         os_dev_close((struct os_dev *) dev);
-        //  Unlock the ESP8266 driver
+        //  Unlock the ESP8266 driver for exclusive use.
     }
 
     network_is_ready = true;  //  Indicate that network is ready.
@@ -136,6 +136,9 @@ int send_sensor_data(float tmp) {
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
     console_printf("  > send sensor data tmp="); console_printfloat(tmp); console_printf("\n");  ////
+
+    //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
+    //  transmit the message: libs/esp8266/src/transport.cpp
     return 0;
 }
 
