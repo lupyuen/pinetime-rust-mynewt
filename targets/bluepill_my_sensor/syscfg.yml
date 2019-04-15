@@ -31,4 +31,4 @@ syscfg.vals:
     WIFI_SSID:      '"my_ssid"'
     
     # Password for WiFi access point
-    WIFI_PASSWORD:  '"my_password"'
+    WIFI_PASSWORD:  '"my_password_is_secret"'

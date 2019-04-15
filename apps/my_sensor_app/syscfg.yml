@@ -51,7 +51,7 @@ syscfg.defs:
         value:       '"my_ssid"'
     WIFI_PASSWORD:
         description: 'Password for WiFi access point'
-        value:       '"my_password"'
+        value:       '"my_password_is_secret"'
 
     # Overall Tutorial Settings. Edit targets/bluepill_my_sensor/syscfg.yml to set the tutorial settings.
     TUTORIAL1:

@@ -1,20 +1,10 @@
 [
 	{
-		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
+		"path": "$ROOTPATH$/apps/my_sensor_app/syscfg.yml",
 		"bookmarks": [
 			{
-				"line": 21,
-				"column": 11,
-				"label": "sysinit"
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 19,
-				"column": 11,
+				"line": 5,
+				"column": 3,
 				"label": "syscfg"
 			}
 		]
@@ -36,6 +26,16 @@
 				"line": 26,
 				"column": 5,
 				"label": "pkg"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
+		"bookmarks": [
+			{
+				"line": 21,
+				"column": 11,
+				"label": "sysinit"
 			}
 		]
 	},
@@ -70,42 +70,12 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/libs/semihosting_console/src/console_fmt.c",
-		"bookmarks": [
-			{
-				"line": 47,
-				"column": 8,
-				"label": "semihosting console fmt"
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/libs/semihosting_console/include/console/console.h",
-		"bookmarks": [
-			{
-				"line": 18,
-				"column": 15,
-				"label": "semihosting console declaration"
-			}
-		]
-	},
-	{
 		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\apps\\my_sensor_app\\src\\main.c",
 		"bookmarks": [
 			{
 				"line": 28,
 				"column": 6,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
-		"bookmarks": [
-			{
-				"line": 26,
-				"column": 5,
-				"label": ""
+				"label": "main"
 			}
 		]
 	},
@@ -115,7 +85,17 @@
 			{
 				"line": 4,
 				"column": 15,
-				"label": ""
+				"label": "syscfg"
+			}
+		]
+	},
+	{
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
+		"bookmarks": [
+			{
+				"line": 26,
+				"column": 5,
+				"label": "sysinit"
 			}
 		]
 	},
@@ -123,9 +103,9 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/geolocate.c",
 		"bookmarks": [
 			{
-				"line": 20,
-				"column": 91,
-				"label": ""
+				"line": 0,
+				"column": 17,
+				"label": "geolocate"
 			}
 		]
 	},
@@ -135,7 +115,17 @@
 			{
 				"line": 7,
 				"column": 5,
-				"label": ""
+				"label": "disassembly"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/esp8266/src/ATParser.cpp",
+		"bookmarks": [
+			{
+				"line": 236,
+				"column": 18,
+				"label": "AT response mismatch"
 			}
 		]
 	}
