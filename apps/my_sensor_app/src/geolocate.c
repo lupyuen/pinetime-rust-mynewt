@@ -83,20 +83,29 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
 }
 
 static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count) {
-    //  Filter function will be called with the current AP and saved row count.  Return true if the AP should be saved.
-    //  (1) We skip the SSID MAC if it matches any skip_ssid pattern.
+    //  Filter function will be called with the current access point and the number of saved access points so far.  
+    //  Return true if the access point should be saved.
+    //  (1) We skip the SSID MAC if it matches any skip_ssid pattern.  This skips mobile hotspots, which are
+    //      not useful for geolocation
     //  (2) We skip SSID MACs that look similar, e.g. they differ only in the first and last bytes.  Similar SSID MACs
-    //  probably belong to the same WiFi router configured with multiple addresses.
+    //      probably belong to the same WiFi router configured with multiple addresses.
     int i;
     for (i = 0; ; i++) {  //  Match against all skip_ssid patterns...
         mac_pattern *pattern = &skip_ssid[i];
         if (!pattern[0][0] && !pattern[0][1] && !pattern[0][2] && !pattern[0][3] && !pattern[0][4] && !pattern[0][5]) { break; }  //  LAST_MAC_PATTERN
-        if (mac_matches_pattern(ap->bssid, pattern)) { return false; }  //  Matches the skip_ssid pattern, don't save.
+        if (mac_matches_pattern(ap->bssid, pattern)) {  //  Matches the skip_ssid pattern, don't save.
+            console_printf("    skip match   %s\n", ap->ssid); ////
+            return false; 
+        }
     }
     for (i = 0; i < count; i++) {  //  Compare with all saved SSID MAC addresses...
         uint8_t *saved_bssid = wifi_aps[i].bssid;
-        if (similar_mac(ap->bssid, saved_bssid)) { return false; }  //  Similar to a saved SSID MAC address, don't save.
+        if (similar_mac(ap->bssid, saved_bssid)) {  //  Similar to a saved SSID MAC address, don't save.
+            console_printf("    skip similar %s\n", ap->ssid); ////
+            return false; 
+        }
     }
+    console_printf("    save         %s\n", ap->ssid); ////
     return true;  //  Save this AP since it doesn't match any skip_ssid and it's not similar to saved APs.
 }
 
