@@ -33,7 +33,7 @@ static struct sensor_listener listener = {
 int start_sensor_listener(void) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
-    console_printf("poll temperature sensor " SENSOR_DEVICE "\n");
+    console_printf("poll sensor " SENSOR_DEVICE "\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
     int rc = sensor_set_poll_rate_ms(SENSOR_DEVICE, MY_SENSOR_POLL_TIME);

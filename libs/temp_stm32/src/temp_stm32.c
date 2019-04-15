@@ -16,8 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-////  #if MYNEWT_VAL(TEMP_STM32_ONB)
-
 #include <string.h>
 #include "os/mynewt.h"
 #include "console/console.h"
@@ -176,13 +174,14 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     //  We use this updated code, which uses only integer computations.
     int32_t t = rawtemp;  //  rawtemp must be between 0 and 4,095 (based on 12-bit ADC)
     t = t * 3300;  //  t must be between 0 and 13,513,500. Will not overflow 32-bit int (2,147,483,647)
-    t = t >> 12;   //  Integer version of (t / 4,096), instead of original version (t / 4,095). Max error is 1.8
-                   //  t must be between 0 and 3,299
-    t = t - 760;   //  t must be between -760 and 2,539. Max error is 1
+    t = t >> 12;   //  Integer version of (t / 4,096), instead of original version (t / 4,095).
+                   //  t must be between 0 and 3,299. Max error due to truncation is 1.8
+    t = t - 760;   //  t must be between -760 and 2,539. Max error is 1.8
+
     //  Instead of computing the float (t / 2.5), we compute it 100 times: (t * 100 / 2.5) = (t * 40)
-    //  We name (t * 100) as t100. t100 must be between -30,400 and 101,560.  Max error of t100 is 72.
+    //  We name (t * 100) as t100. t100 must be between -30,400 and 101,560.  Max error of t100 is 72
     int32_t t100 = t * 40;
-    t100 = t100 + 2500;  // (t + 25) becomes (t100 + 2500).  t100 must be between -27,900 and 104,060. Max error of t100 is 7.2.
+    t100 = t100 + 2500;  // (t + 25) becomes (t100 + 2500).  t100 must be between -27,900 and 104,060. Max error of t100 is 72
     t100 = t100 / 10;    // (t / 10) becomes (t100 / 10), with integer division.  
     //  t100 must be between -2,790 (-27.9 deg C) and 10,406 (104.06 deg C). 
     //  Max error of t100 is 7.2 (0.072 deg C).  Avg error is 0.036 deg C.
@@ -227,14 +226,32 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int
     //    HAL_ADC_Stop(hadc1);
     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
     //  and https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
-    console_printf("read temp sensor\n");  ////
-    int rc = 0, i, rawtemp, lasttemp = 0;
-    uint8_t lastdiff = 0;
-    assert(dev->adc);
-    assert(temp_sum);
+    console_printf("read int temp sensor\n");  ////
+    assert(dev->adc);  assert(temp_sum);
+    int rc = 0, i;
+    int rawtemp;           //  Raw temperature read from the 12-bit ADC, i.e. 0 to 4095
+    int lasttemp = 0;      //  Previous raw temperature
+    uint8_t lastdiff = 0;  //  Delta between current raw temperature and previous raw temperature
     *temp_sum = 0;
 
-    for (i = 0; i < num_readings; i++) {
+    //  When called with num_readings = 1:  This function returns a valid raw temperature value (0 to 4095)
+    //  When called with num_readings = 64: This function is used to generate 32 noisy bytes as the entropy 
+    //    seed for the pseudorandom number generator "hmac_prng": libs/hmac_prng/src/hmac_prng.c
+
+    //  How do we generate random numbers on a simple microcontroller like Blue Pill, without connecting 
+    //  to an external sensor to create the noisy seed?  The internal temperature sensor is actually 
+    //  sufficient for generating the noisy seed.  But it needs some coaxing to make it sufficiently noisy...
+    //
+    //  (1) Take 64 (num_readings) integer samples from the internal temperature sensor. Each sample is 12 bits (0 to 4095)
+    //
+    //  (2) Compute the delta (difference) between successive samples. The deltas are usually very small: 
+    //      mostly 0, some +/- 1, +/- 2, occasionally some odd ones like 88.
+    //
+    //  (3) To prevent the seed from becoming all zeros, keep only the lower 4 bits of each delta.  
+    //      Combine 64 deltas of 4 bits each, and we get the 32-byte seed.  This is written into temp_diff.
+
+    for (i = 0; i < num_readings; i++) {  //  For each sample to be read...
+        //  Read the ADC value: rawtemp will be in the range 0 to 4095.
         rawtemp = -1;
         //  Block until the temperature is read from the ADC channel.
         rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, &rawtemp);
@@ -242,18 +259,17 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int
         if (rc) { goto err; }
         assert(rawtemp > 0);  //  If equals 0, it means we haven't sampled any values.  Check the above note.
 
-        uint8_t diff = (rawtemp - lasttemp) & 0xf;  //  Diff between this and last reading, in 4 bits.
+        //  Populate the temp_diff array with the deltas.
+        uint8_t diff = (rawtemp - lasttemp) & 0xf;  //  Delta between this and last reading, keeping lower 4 bits.
         if (i % 2 == 1) {
-            uint8_t i2 = i >> 1;
-            uint8_t b = diff + (lastdiff << 4);
-            if (temp_diff) { temp_diff[i2] = b; }
-            // console_printf("#%02x: %02x / ", i2, b);
+            uint8_t i2 = i >> 1;  //  i2 is (i / 2)
+            uint8_t b = diff + (lastdiff << 4);    //  Combine current delta (4 bits) and previous delta (4 bits) to make 8 bits.
+            if (temp_diff) { temp_diff[i2] = b; }  //  Save the combined delta into temp_diff as entropy.
         }
-        temp_sum += rawtemp;
-        lasttemp = rawtemp;
+        *temp_sum += rawtemp;  //  Accumulate the raw temperature.
+        lasttemp = rawtemp;    //  Remember the previous raw temperature and previous delta.
         lastdiff = diff;
     }
-    //  console_printf("\n");  ////
     return 0;
 err:
     return rc;
@@ -293,5 +309,3 @@ int temp_stm32_config(struct temp_stm32 *dev, struct temp_stm32_cfg *cfg) {
 err:
     return (rc);
 }
-
-////  #endif  //  MYNEWT_VAL(TEMP_STM32_ONB)
