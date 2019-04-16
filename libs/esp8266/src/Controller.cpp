@@ -236,7 +236,7 @@ bool ESP8266::open(const char *type, int id, const char* addr, int port)
     if(id > 4) {
         return false;
     }
-
+    console_printf("ESP open...\n");  console_flush();
     bool ret = _parser.send("AT+CIPSTART=%d,\"%s\",\"%s\",%d", id, type, addr, port)
         && _parser.recv("OK");
     console_printf(ret ? "ESP open OK\n" : "ESP open FAILED\n");  console_flush();

@@ -226,7 +226,7 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int
     //    HAL_ADC_Stop(hadc1);
     //  See https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
     //  and https://os.mbed.com/users/hudakz/code/Internal_Temperature_F103RB/file/f5c604b5eceb/main.cpp/
-    console_printf("read int temp sensor\n");  ////
+    console_printf("STM read int temp sensor\n");  ////
     assert(dev->adc);  assert(temp_sum);
     int rc = 0, i;
     int rawtemp;           //  Raw temperature read from the 12-bit ADC, i.e. 0 to 4095
