@@ -53,7 +53,7 @@ static int esp8266_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 static int esp8266_close(struct os_dev *dev0) {
     //  Shutdown the ESP8266 transceiver.  Unlock the UART port.
     //  TODO: Undo driver.init(), driver.configure() and driver.attach()
-    console_printf("]\n");  ////
+    console_printf("]\n");  console_flush();  ////
     assert(dev0);
     return 0;
 }
