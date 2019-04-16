@@ -20,11 +20,11 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/syscfg.yml",
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/syscfg.yml",
 		"bookmarks": [
 			{
-				"line": 0,
-				"column": 4,
+				"line": 19,
+				"column": 11,
 				"label": "syscfg"
 			}
 		]
@@ -35,7 +35,7 @@
 			{
 				"line": 0,
 				"column": 3,
-				"label": "syscfg target"
+				"label": "syscfg bluepill"
 			}
 		]
 	},
@@ -46,26 +46,6 @@
 				"line": 26,
 				"column": 5,
 				"label": "pkg"
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.lst",
-		"bookmarks": [
-			{
-				"line": 1,
-				"column": 3,
-				"label": "assembly"
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.map",
-		"bookmarks": [
-			{
-				"line": 0,
-				"column": 2,
-				"label": "memory map"
 			}
 		]
 	},
@@ -120,11 +100,41 @@
 		]
 	},
 	{
-		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
+		"bookmarks": [
+			{
+				"line": 1,
+				"column": 18,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
 		"bookmarks": [
 			{
 				"line": 4,
 				"column": 15,
+				"label": "syscfg generated"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\targets\\bluepill_my_sensor\\syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 3,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\apps\\my_sensor_app\\syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 13,
 				"label": "syscfg"
 			}
 		]
