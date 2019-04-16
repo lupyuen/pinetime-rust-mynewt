@@ -50,6 +50,26 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.lst",
+		"bookmarks": [
+			{
+				"line": 1,
+				"column": 3,
+				"label": "assembly"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.map",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 2,
+				"label": "memory map"
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/README.md",
 		"bookmarks": [
 			{
@@ -100,7 +120,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
 		"bookmarks": [
 			{
 				"line": 4,
