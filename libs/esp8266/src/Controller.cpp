@@ -46,6 +46,7 @@ void packet_handler(void *arg) {
 
 bool ESP8266::setEcho(bool echoEnabled) {
     //  Turn command echoing on or off.
+    console_printf("ESP setEcho %s\n", echoEnabled ? "on" : "off"); console_flush(); 
     for (int i = 0; i < 2; i++) {  //  Try twice in case of error...
         if (
             _parser.send(       //  Send echo on or off command.
@@ -83,6 +84,7 @@ bool ESP8266::reset(void)
 {
     //  debug_vrecv = 1;  ////    
     bool ret = false;
+    console_printf("ESP reset...\n"); console_flush(); 
     for (int i = 0; i < 2; i++) {
         if (
             _parser.send("\r\nAT+RST")
@@ -118,6 +120,7 @@ bool ESP8266::dhcp(bool enabled, int mode)
 
 bool ESP8266::connect(const char *ap, const char *passPhrase)
 {
+    console_printf("ESP connect...\n");  console_flush();
     bool ret = _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
         && _parser.recv("OK");
     console_printf(ret ? "ESP connect OK\n" : "ESP connect FAILED\n*** Check WIFI_SSID and WIFI_PASSWORD in targets/bluepill_my_sensor/syscfg.yml\n");  console_flush();
@@ -202,6 +205,7 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_fu
 {
     unsigned cnt = 0;
     nsapi_wifi_ap_t ap;
+    console_printf("ESP scan...\n"); console_flush();  ////
     if (!_parser.send("AT+CWLAP")) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
@@ -242,16 +246,17 @@ bool ESP8266::open(const char *type, int id, const char* addr, int port)
 bool ESP8266::send(int id, const void *data, uint32_t amount)
 {
     //  May take a second try if device is busy
+    console_printf("ESP send %u...\n", (unsigned) amount);  console_flush();
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
             && _parser.recv(">")
             && _parser.write((char*)data, (int)amount) >= 0 
             && _parser.recv("SEND OK")) {
-            console_printf("ESP send OK: %u\n", (unsigned) amount);  console_flush();
+            console_printf("ESP send OK\n"); console_flush();
             return true;
         }
     }
-    console_printf("ESP send FAILED: %u\n", (unsigned) amount);  console_flush();
+    console_printf("ESP send FAILED\n"); console_flush();
     return false;
 }
 
@@ -259,6 +264,7 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
 {
     //  Send the chain of mbufs.
     uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
+    console_printf("ESP send mbuf %u...\n", (unsigned) amount);  console_flush();
     //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
@@ -277,11 +283,11 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
             }
             if (failed) { break; }
             if (!_parser.recv("SEND OK")) { break; }
-            console_printf("ESP send mbuf OK: %u\n", (unsigned) amount);  console_flush();
+            console_printf("ESP send mbuf OK\n");  console_flush();
             return true;
         }
     }
-    console_printf("ESP send mbuf FAILED: %u\n", (unsigned) amount);  console_flush();
+    console_printf("ESP send mbuf FAILED\n");  console_flush();
     return false;
 }
 
