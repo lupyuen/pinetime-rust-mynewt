@@ -20,16 +20,6 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 19,
-				"column": 11,
-				"label": "syscfg"
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/targets/bluepill_my_sensor/syscfg.yml",
 		"bookmarks": [
 			{
@@ -80,52 +70,12 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/libs/semihosting_console/src/console_fmt.c",
-		"bookmarks": [
-			{
-				"line": 47,
-				"column": 8,
-				"label": "semihosting console fmt"
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/libs/semihosting_console/include/console/console.h",
-		"bookmarks": [
-			{
-				"line": 18,
-				"column": 15,
-				"label": "semihosting console declaration"
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
 				"line": 1,
 				"column": 18,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
-		"bookmarks": [
-			{
-				"line": 4,
-				"column": 15,
-				"label": "syscfg generated"
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$\\targets\\bluepill_my_sensor\\syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 0,
-				"column": 3,
-				"label": ""
+				"label": "sysinit"
 			}
 		]
 	},
@@ -136,6 +86,26 @@
 				"line": 0,
 				"column": 13,
 				"label": "syscfg"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\targets\\bluepill_my_sensor\\syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 3,
+				"label": "syscfg target"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"bookmarks": [
+			{
+				"line": 4,
+				"column": 15,
+				"label": "syscfg generated"
 			}
 		]
 	}
