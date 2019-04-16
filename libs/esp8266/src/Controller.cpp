@@ -46,7 +46,7 @@ void packet_handler(void *arg) {
 
 bool ESP8266::setEcho(bool echoEnabled) {
     //  Turn command echoing on or off.
-    console_printf("ESP setEcho %s\n", echoEnabled ? "on" : "off"); console_flush(); 
+    console_printf("ESP setEcho %s...\n", echoEnabled ? "on" : "off"); console_flush(); 
     for (int i = 0; i < 2; i++) {  //  Try twice in case of error...
         if (
             _parser.send(       //  Send echo on or off command.
