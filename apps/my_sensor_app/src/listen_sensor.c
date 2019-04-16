@@ -33,7 +33,7 @@ static struct sensor_listener listener = {
 int start_sensor_listener(void) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
-    console_printf("  > poll sensor " SENSOR_DEVICE "\n");
+    console_printf("TMP poll " SENSOR_DEVICE "\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
     int rc = sensor_set_poll_rate_ms(SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
@@ -62,7 +62,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
     //  Temperature data is valid.  Fetch and display it.
     tmp = tempdata->std_temp;  //  Temperature in floating point.
-    console_printf("  > poll sensor data: tmp ");  console_printfloat(tmp);  console_printf("\n");  ////
+    console_printf("TMP poll data: tmp ");  console_printfloat(tmp);  console_printf("\n");  ////
 
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
     //  Compose a CoAP message with the temperature sensor data and send to the 
@@ -74,7 +74,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
     if (rc == SYS_EAGAIN) {
-        console_printf("  < network not ready\n");
+        console_printf("TMP network not ready\n");
         return 0; 
     }
     assert(rc == 0);

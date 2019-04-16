@@ -55,7 +55,7 @@ int start_network_task(void) {
 
     int rc = os_task_init(  //  Create a new task and start it...
         &network_task,      //  Task object will be saved here.
-        "sensor",           //  Name of task.
+        "network",          //  Name of task.
         network_task_func,  //  Function to execute when task starts.
         NULL,               //  Argument to be passed to above function.
         10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
@@ -70,7 +70,7 @@ static void network_task_func(void *arg) {
     //  Network Task runs this function in the background to prepare the ESP8266 transceiver for
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-    console_printf("run network task\n");  assert(!network_is_ready);
+    console_printf("NET start\n");  assert(!network_is_ready);
 
     //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
     int rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
@@ -81,7 +81,7 @@ static void network_task_func(void *arg) {
         s += 2;
     }
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
-    console_printf("random device id %s\n", device_id_text);
+    console_printf("NET random device id %s\n", device_id_text);
 
     {   //  Lock the ESP8266 driver for exclusive use.
         //  Find the ESP8266 device by name "esp8266_0".
@@ -110,13 +110,13 @@ static void network_task_func(void *arg) {
 
     //  Network Task has successfully started the ESP8266 transceiver. The Sensor Listener will still continue to
     //  run in the background and send sensor data to the server.
-
     network_is_ready = true;  //  Indicate that network is ready.
 
     while (true) {  //  Loop forever...        
-        console_printf("  ? free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
+        console_printf("NET free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
         os_time_delay(10 * OS_TICKS_PER_SEC);                      //  Wait 10 seconds before repeating.
     }
+    assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
 int send_sensor_data(float tmp) {
@@ -164,7 +164,7 @@ int send_sensor_data(float tmp) {
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send sensor data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
+    console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
@@ -184,24 +184,3 @@ int __wrap_coap_receive(/* struct os_mbuf **mp */) {
 }
 
 #endif  //  MYNEWT_VAL(SENSOR_COAP)
-
-#ifdef NOTUSED  //  Previously
-    float tmp = 28.00f;  //  Simulated sensor data.
-    while (true) {  //  Loop forever...        
-        send_sensor_data(coap_server.handle, COAP_URI, tmp);  //  Send sensor data to server via CoAP.
-        tmp += 0.01f;                                         //  Simulate change in sensor data.
-        console_printf("  ? free mbuf: %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch memory leaks.
-        os_time_delay(10 * OS_TICKS_PER_SEC);                 //  Wait 10 seconds before repeating.
-    }
-
-    //  Previous code without the CP Macros
-    rep_start_root_object();                              //  Create the root.
-        rep_set_array(root, values);                      //  Create "values" as an array of objects.
-            rep_object_array_start_item(values);          //  Create a new item in the "values" array.
-                //  Each child of "values" is an object like {"key":"tmp","value":28.7}.
-                rep_set_text_string(values, key,   "tmp");  //  Set the key.
-                rep_set_float      (values, value, tmp);    //  Set the value.
-            rep_object_array_end_item(values);            //  Close the item in the "values" array.
-        rep_close_array(root, values);                    //  Close the "values" array.
-    rep_end_root_object();                                //  Close the root.
-#endif  //  NOTUSED
