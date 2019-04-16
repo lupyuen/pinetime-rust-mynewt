@@ -38,7 +38,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  network_device is the ESP8266 device name e.g. "esp8266_0".  "device_str" is the random device ID string.
     //  Return the number of access points transmitted.  Note: Don't enable WIFI_GEOLOCATION unless you 
     //  understand the privacy implications. Your location may be accessible by others.
-    console_printf("geolocate\n");  ////
+    console_printf("GEO start\n");  ////
     assert(network_device);  assert(server);  assert(uri);  assert(device_str);  int rc, count;
 
     {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
@@ -70,7 +70,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
-    console_printf("  > send wifi ap\n");
+    console_printf("GEO view your geolocation at https://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
@@ -94,18 +94,18 @@ static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count) {
         mac_pattern *pattern = &skip_ssid[i];
         if (!pattern[0][0] && !pattern[0][1] && !pattern[0][2] && !pattern[0][3] && !pattern[0][4] && !pattern[0][5]) { break; }  //  LAST_MAC_PATTERN
         if (mac_matches_pattern(ap->bssid, pattern)) {  //  Matches the skip_ssid pattern, don't save.
-            console_printf("    skip match   %s\n", ap->ssid); ////
+            console_printf("GEO skip match   %s\n", ap->ssid); ////
             return false; 
         }
     }
     for (i = 0; i < count; i++) {  //  Compare with all saved SSID MAC addresses...
         uint8_t *saved_bssid = wifi_aps[i].bssid;
         if (similar_mac(ap->bssid, saved_bssid)) {  //  Similar to a saved SSID MAC address, don't save.
-            console_printf("    skip similar %s\n", ap->ssid); ////
+            console_printf("GEO skip similar %s\n", ap->ssid); ////
             return false; 
         }
     }
-    console_printf("    save         %s\n", ap->ssid); ////
+    console_printf("GEO save #%d      %s\n", count, ap->ssid); ////
     return true;  //  Save this AP since it doesn't match any skip_ssid and it's not similar to saved APs.
 }
 
