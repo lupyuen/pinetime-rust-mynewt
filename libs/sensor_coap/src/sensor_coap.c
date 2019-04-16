@@ -197,7 +197,7 @@ int json_rep_finalize(void) {
     int size = OS_MBUF_PKTLEN(coap_json_mbuf);
 #define DUMP_COAP
 #ifdef DUMP_COAP
-    console_printf("  > coap payload size %d\n", size); struct os_mbuf *m = coap_json_mbuf;
+    console_printf("CP> payload size %d\n", size); struct os_mbuf *m = coap_json_mbuf;
     while (m) {
         console_buffer((const char *) (m->om_databuf + m->om_pkthdr_len), m->om_len);
         m = m->om_next.sle_next;

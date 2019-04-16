@@ -70,7 +70,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
-    console_printf("GEO view your geolocation at https://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
+    console_printf("GEO view your geolocation at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp

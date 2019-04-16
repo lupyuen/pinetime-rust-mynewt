@@ -164,7 +164,7 @@ int send_sensor_data(float tmp) {
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
-    console_printf("NET view your sensor at https://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
+    console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 

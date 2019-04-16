@@ -102,7 +102,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     {   //  Lock the ESP8266 driver for exclusive use.  Find the ESP8266 device by name.
         struct esp8266 *dev = (struct esp8266 *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  ESP8266_DEVICE is "esp8266_0"
         assert(dev != NULL);
-        console_printf("  > send udp packet\n");
+        console_printf("ESP send udp\n");
 
         //  Send the consolidated buffer via UDP.
         rc = esp8266_socket_send_mbuf(dev, socket, m);  
