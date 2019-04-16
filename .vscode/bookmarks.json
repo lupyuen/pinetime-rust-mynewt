@@ -20,11 +20,11 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/sys/console/full/syscfg.yml",
+		"path": "$ROOTPATH$/apps/my_sensor_app/syscfg.yml",
 		"bookmarks": [
 			{
-				"line": 19,
-				"column": 11,
+				"line": 0,
+				"column": 4,
 				"label": "syscfg"
 			}
 		]
@@ -35,7 +35,7 @@
 			{
 				"line": 0,
 				"column": 3,
-				"label": "syscfg bluepill"
+				"label": "syscfg target"
 			}
 		]
 	},
