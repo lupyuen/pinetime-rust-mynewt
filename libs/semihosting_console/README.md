@@ -1,12 +1,8 @@
-# Sample Package Definition
+# `semihosting_console`
 
-This is a basic definition of a sample Mynewt package.
+Mynewt Library that implements the `console` interface for displaying
+messages on the Arm Semihosting console. It works with Blue Pill connected
+via STLink V2 and OpenOCD.
 
-The source files are located in the src/ directory.
-
-Header files are located in include/ 
-
-pkg.yml contains the base definition of the package.
-
-Any questions?  Please refer to the documentation at 
-http://mynewt.apache.org/ or ask questions on dev@mynewt.apache.org
+All messages are cached in memory until `console_flush()` is called,
+or when the console enters blocking mode.

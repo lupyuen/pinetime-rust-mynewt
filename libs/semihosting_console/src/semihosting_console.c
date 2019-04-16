@@ -29,10 +29,16 @@
 static struct hal_timer semihosting_timer;
 #endif
 
-static bool logEnabled = true;  //  Logging is on by default.
+#define OUTPUT_BUFFER_SIZE 2048  //  Use a larger buffer size so that we don't affect interrupt processing.
+static char output_buffer[OUTPUT_BUFFER_SIZE + 1] = { 0 };  //  Buffer to hold output before flushing.
+static volatile uint16_t output_buffer_length = 0;         //  Number of bytes in buffer.
+static bool log_enabled = true;     //  Logging is on by default.
+static bool buffer_enabled = true;  //  Buffering is on by default.
 
-void enable_log(void) { logEnabled = true; }
-void disable_log(void) { logEnabled = false; }
+void enable_log(void)  { log_enabled = true; }
+void disable_log(void) { log_enabled = false; }
+void enable_buffer(void) { buffer_enabled = true; }  //  Enable buffering.
+void disable_buffer(void) { buffer_enabled = false; console_flush(); }  //  Disable buffering.
 
 //  ARM Semihosting code from 
 //  http://www.keil.com/support/man/docs/ARMCC/armcc_pge1358787046598.htm
@@ -43,12 +49,12 @@ void disable_log(void) { logEnabled = false; }
 static int __semihost(int command, void* message) {
 	//  Send an ARM Semihosting command to the debugger, e.g. to print a message.
 	//  To see the message you need to run opencd:
-	//    openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/connect.ocd
+	//    openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/debug.ocd
 
 	//  Warning: This code will trigger a breakpoint and hang unless a debugger is connected.
 	//  That's how ARM Semihosting sends a command to the debugger to print a message.
 	//  This code MUST be disabled on production devices.
-    if (!logEnabled) return -1;
+    if (!log_enabled) return -1;
     __asm( 
       "mov r0, %[cmd] \n"
       "mov r1, %[msg] \n" 
@@ -92,160 +98,106 @@ static int semihost_write(uint32_t fh, const unsigned char *buffer, unsigned int
     return __semihost(SYS_WRITE, args);
 }
 
-#if MYNEWT_VAL(CONSOLE_SEMIHOSTING_RETRY_COUNT) > 0
+void console_flush(void) {
+    //  Flush output buffer to the console log.  This will be slow.
+    if (!log_enabled) { output_buffer_length = 0; return; }  //  Skip if log not enabled.
+    if (output_buffer_length == 0) { return; }  //  Buffer is empty, nothing to write.
+    if (os_arch_in_isr()) { return; }  //  Don't flush if we are called during an interrupt.
+	semihost_write(SEMIHOST_HANDLE, (const unsigned char *) output_buffer, output_buffer_length);
+    output_buffer[0] = 0;
+    output_buffer_length = 0;
+}
 
-static void
-semihosting_console_wait_for_retry(void)
-{
-    uint32_t ticks;
-
-    if (os_arch_in_isr()) {
-#if MYNEWT_VAL(CONSOLE_SEMIHOSTING_RETRY_IN_ISR)
-        os_cputime_delay_usecs(MYNEWT_VAL(CONSOLE_SEMIHOSTING_RETRY_DELAY_MS) * 1000);
-#endif
-    } else {
-        ticks = max(1, os_time_ms_to_ticks32(MYNEWT_VAL(CONSOLE_SEMIHOSTING_RETRY_DELAY_MS)));
-        os_time_delay(ticks);
+void console_buffer(const char *buffer, unsigned int length) {
+    //  Append "length" number of bytes from "buffer" to the output buffer.
+    if (!buffer_enabled) { 
+        semihost_write(SEMIHOST_HANDLE, (const unsigned char *) buffer, length);
+        return; 
     }
-}
-
-static void
-semihosting_console_write_ch(char c)
-{
-    static int semihosting_console_retries_left = MYNEWT_VAL(CONSOLE_SEMIHOSTING_RETRY_COUNT);
-    os_sr_t sr;
-    int ret;
-
-    while (1) {
-        OS_ENTER_CRITICAL(sr);
-        //  Previously: SEGGER_RTT_WriteNoLock(0, &c, 1);
-        semihost_write(SEMIHOST_HANDLE, (const unsigned char *) &c, 1);
-        //  Set ret to 1 to indicate success.
-        ret = 1;
-        OS_EXIT_CRITICAL(sr);
-
-        /*
-         * In case write failed we can wait a bit and retry to allow host pull
-         * some data from buffer. However, in case there is no host connected
-         * we should not spend time retrying over and over again so need to be
-         * smarter here:
-         * - each successful write resets retry counter to predefined value
-         * - each failed write will retry until success or retry counter drops
-         *   to zero
-         * This means that if we failed to write some character after number of
-         * retries (which means that most likely there is no host connected to
-         * read data), we stop retrying until successful write (which means that
-         * host is reading data).
-         */
-
-        if (ret) {
-            semihosting_console_retries_left = MYNEWT_VAL(CONSOLE_SEMIHOSTING_RETRY_COUNT);
-            break;
-        }
-
-        if (!semihosting_console_retries_left) {
-            break;
-        }
-
-        semihosting_console_wait_for_retry();
-        semihosting_console_retries_left--;
+    if (length >= OUTPUT_BUFFER_SIZE) { return; }  //  Don't allow logging of very long messages.
+#ifdef AUTO_FLUSH_CONSOLE
+    if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is full...
+        console_flush();  //  Display the output buffer.
     }
+#endif  //  AUTO_FLUSH_CONSOLE
+    if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is still full...
+        //  Erase the entire buffer.  Latest log is more important than old log.
+        strcpy(output_buffer, "[DROPPED]");
+        output_buffer_length = 9;
+        //  Still can't fit after clearing.  Quit.
+        if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) { return; }
+    }
+    //  Else append to the buffer.
+    memcpy(&output_buffer[output_buffer_length], buffer, length);
+    output_buffer_length += length;
 }
 
-#else
-
-static void
-semihosting_console_write_ch(char c)
-{
-    os_sr_t sr;
-
-    OS_ENTER_CRITICAL(sr);
-    //  Previously: SEGGER_RTT_WriteNoLock(0, &c, 1);
-    semihost_write(SEMIHOST_HANDLE, (const unsigned char *) &c, 1);
-    OS_EXIT_CRITICAL(sr);
+void console_printhex(uint8_t v) {
+    //  Write a char in hexadecimal to the output buffer.
+    #define MAX_BYTE_LENGTH 2
+    char buffer[MAX_BYTE_LENGTH + 1];
+    int size = MAX_BYTE_LENGTH + 1;
+    bool prefixByZero = true;
+    int length = 0;
+    for(uint8_t divisor = 16; divisor >= 1; divisor = divisor / 16) {
+        char digit = '0' + (char)(v / divisor);
+        if (digit > '9') { digit = digit - 10 - '0' + 'a'; }
+        if (digit > '0' || length > 0 || prefixByZero) {
+            if (length < size) {
+                buffer[length++] = digit;
+            }
+        }
+        v = v % divisor;
+    }
+    if (length == 0) { buffer[length++] = '0'; };
+    if (length < size) buffer[length] = 0;
+    buffer[size - 1] = 0;  //  Terminate in case of overflow.
+    console_buffer(buffer, strlen(buffer));
 }
 
-#endif
+static void split_float(float f, bool *neg, int *i, int *d) {
+    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
+    *neg = (f < 0.0f);                    //  True if f is negative
+    float f_abs = *neg ? -f : f;          //  Absolute value of f
+    *i = (int) f_abs;                     //  Integer part
+    *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+}
 
-int
-console_out_nolock(int character)
-{
+void console_printfloat(float f) {
+    //  Write a float to the output buffer, with 2 decimal places.
+    bool neg; int i, d;
+    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 2 decimal places
+    console_printf("%s%d.%02d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
+}
+
+void console_dump(const uint8_t *buffer, unsigned int len) {
+	//  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+	for (int i = 0; i < len; i++) { console_printhex(buffer[i]); console_buffer(" ", 1); } 
+}
+
+static void semihosting_console_write_ch(char c) {
+    if (c == '\r') { return; }  //  Don't display \r.
+    console_buffer(&c, 1);  //  Append the char to the output buffer.
+    //  if (c == '\n') { console_flush(); }  //  If we see a newline, flush the buffer.
+}
+
+int console_out_nolock(int character) {
     char c = (char)character;
-
-    if (g_silence_console) {
-        return c;
-    }
-
+    if (g_silence_console) { return c; }
     if ('\n' == c) {
         semihosting_console_write_ch('\r');
         console_is_midline = 0;
     } else {
         console_is_midline = 1;
     }
-
     semihosting_console_write_ch(c);
-
     return character;
 }
 
-void
-console_rx_restart(void)
-{
-#if MYNEWT_VAL(CONSOLE_INPUT)
-    os_cputime_timer_relative(&semihosting_timer, 0);
-#endif  //  MYNEWT_VAL(CONSOLE_INPUT)
-}
+void console_rx_restart(void) {}
 
-#if MYNEWT_VAL(CONSOLE_INPUT)
+int semihosting_console_is_init(void) { return 1; }
 
-#define SEMIHOSTING_INPUT_POLL_INTERVAL_MIN     10 /* ms */
-#define SEMIHOSTING_INPUT_POLL_INTERVAL_STEP    10 /* ms */
-#define SEMIHOSTING_INPUT_POLL_INTERVAL_MAX     MYNEWT_VAL(CONSOLE_SEMIHOSTING_INPUT_POLL_INTERVAL_MAX)
-
-static void
-semihosting_console_poll_func(void *arg)
-{
-    static uint32_t itvl_ms = SEMIHOSTING_INPUT_POLL_INTERVAL_MIN;
-    static int key = -1;
-    int ret;
-
-    if (key < 0) {
-        //  TODO: key = SEGGER_RTT_GetKey();
-    }
-
-    if (key < 0) {
-        itvl_ms += SEMIHOSTING_INPUT_POLL_INTERVAL_STEP;
-        itvl_ms = min(itvl_ms, SEMIHOSTING_INPUT_POLL_INTERVAL_MAX);
-    } else {
-        while (key >= 0) {
-            ret = console_handle_char((char)key);
-            if (ret < 0) {
-                return;
-            }
-            //  TODO: key = SEGGER_RTT_GetKey();
-        }
-        itvl_ms = SEMIHOSTING_INPUT_POLL_INTERVAL_MIN;
-    }
-
-    os_cputime_timer_relative(&semihosting_timer, itvl_ms * 1000);
-}
-#endif
-
-int
-semihosting_console_is_init(void)
-{
-    return 1;
-}
-
-int
-semihosting_console_init(void)
-{
-#if MYNEWT_VAL(CONSOLE_INPUT)
-    os_cputime_timer_init(&semihosting_timer, semihosting_console_poll_func, NULL);
-    /* start after a second */
-    os_cputime_timer_relative(&semihosting_timer, 1000000);
-#endif
-    return 0;
-}
+int semihosting_console_init(void) { return 0; }
 
 #endif /* MYNEWT_VAL(CONSOLE_SEMIHOSTING) */

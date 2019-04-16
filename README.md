@@ -19,9 +19,17 @@
 #
 -->
 
-# Apache Mynewt Sensor Application for STM32 Blue Pill
+# Apache Mynewt Geolocation Application for STM32 Blue Pill with ESP8266
 
-Check out the article...
+This program runs on an STM32 Blue Pill connected to ESP8266. It sends WiFi Access Point MAC Addresses and Signal Strength scanned by ESP8266 to a CoAP (UDP) server, such as thethings.io:
+
+https://github.com/lupyuen/thethingsio-wifi-geolocation
+
+thethings.io will call the Google Geolocation API to compute the latitude and longitude based on the WiFi data.  For public display, the computed geolocation is pushed to a web application hosted on Google Cloud App Engine:
+
+https://github.com/lupyuen/gcloud-wifi-geolocation
+
+More details will be revealed in my upcoming article.  Check out the earlier article...
 
 https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725
 

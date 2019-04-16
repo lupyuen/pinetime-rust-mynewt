@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "name": "Mynewt",
+            "includePath": [
+                "${workspaceFolder}/bin/targets/bluepill_my_sensor/generated/include",
+                "${workspaceFolder}/repos/apache-mynewt-core/sys/sysinit/include",
+                "${workspaceFolder}/repos/apache-mynewt-core/kernel/os/include"
+            ],
+            "defines": [
+                "APP_NAME=my_sensor_app",
+                "APP_my_sensor_app",
+                "ARCH_NAME=cortex_m3",
+                "ARCH_cortex_m3",
+                "BSP_NAME=bluepill",
+                "BSP_bluepill",
+                "FLOAT_SUPPORT",
+                "MYNEWT=1",
+                "SECURE=0",
+                "STM32F103xB",
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "OC_CLIENT"
+            ],
+            "windowsSdkVersion": "10.0.10586.0",
+            "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

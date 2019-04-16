@@ -1,49 +1,61 @@
-#include "sysinit/sysinit.h"
-#include "os/os.h"
+//  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server.
+//  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+//  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
+
+//  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
+#include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
+#include <os/os.h>
 #include <defs/error.h>
-#include <sensor/sensor.h>
-#include <sensor/temperature.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
+#include "send_coap.h"        //  For start_network_task()
+#include "listen_sensor.h"    //  For start_sensor_listener()
 
-static struct sensor *my_sensor;
+///////////////////////////////////////////////////////////////////////////////
+//  Read Sensor Data from Temperature Sensor
 
-#define MY_SENSOR_DEVICE "bme280_0"
-#define MY_SENSOR_POLL_TIME 2000
-#define LISTENER_CB 1
-#define READ_CB 2
+int main(int argc, char **argv) {
+    //  Main program that initialises the sensor, network driver and starts reading 
+    //  and sending sensor data in the background.
 
-static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
+    //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
+    //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
+    //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
+    //  sysinit().  Here are the startup functions consolidated by Mynewt:
+    //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+    sysinit();  console_flush();
 
-static struct sensor_listener listener = {
-   .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE,
-   .sl_func = read_temperature,
-   .sl_arg = (void *)LISTENER_CB,
-};
+#ifdef NETWORK_DEVICE  //  If the ESP8266 WiFi transceiver is enabled...
+    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
+    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
+    //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    int rc1 = start_network_task();  assert(rc1 == 0);
+#endif  //  NETWORK_DEVICE
 
-static int
-read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-    struct sensor_temp_data *temp;
-    if (!databuf) { return SYS_EINVAL; }
-    temp = (struct sensor_temp_data *)databuf;
-    if (!temp->std_temp_is_valid) {
-        return SYS_EINVAL;
+#ifdef SENSOR_DEVICE   //  If BME280 or internal temperature sensor is enabled...
+    //  Starting polling the temperature sensor every 10 seconds in the background.  
+    //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
+    int rc2 = start_sensor_listener();  assert(rc2 == 0);
+#endif  //  SENSOR_DEVICE
+
+    //  Main event loop
+    while (true) {                //  Loop forever...
+        os_eventq_run(            //  Process events...
+            os_eventq_dflt_get()  //  From default event queue.
+        );
     }
-#ifdef NOTUSED
-    console_printf("%s: [ secs: %ld usecs: %d cputime: %u ]\n",
-                   ((int)arg == LISTENER_CB) ? "LISTENER_CB" : "READ_CB",
-                   (long int)sensor->s_sts.st_ostv.tv_sec,
-                   (int)sensor->s_sts.st_ostv.tv_usec,
-                   (unsigned int)sensor->s_sts.st_cputime);
-#endif  //  NOTUSED
-    console_printf(
-        "temp = %d.%d\n",
-        (int) (temp->std_temp),
-        (int) (10.0 * temp->std_temp) % 10
-    );
-    return 0;
+    return 0;  //  Never comes here.
 }
 
-/**
+///////////////////////////////////////////////////////////////////////////////
+//  Other Functions
+
+//  Dummy destructor for global C++ objects, since our program never terminates.  
+//  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
+void* __dso_handle = NULL;
+void _fini(void) { }
+int __aeabi_atexit(void *object, void (*destructor)(void *), void *dso_handle) { return 0; }
+
+/** About directory "my_sensor_app" for BSP "bluepill" and MCU "stm32f1xx"...
  * Depending on the type of package, there are different
  * compilation rules for this directory.  This comment applies
  * to packages of type "app."  For other types of packages,
@@ -61,29 +73,3 @@ read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t 
  *
  * Architecture is set by the BSP/MCU combination.
  */
-
-
-
-int
-main(int argc, char **argv)
-{
-    int rc;    
-#ifdef ARCH_sim
-    mcu_sim_parse_args(argc, argv);  //  Perform some extra setup if we're running in the simulator.
-#endif
-    sysinit();  //  Initialize all packages.  Create the sensors.
-
-    rc = sensor_set_poll_rate_ms(MY_SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
-    assert(rc == 0);
-
-    my_sensor = sensor_mgr_find_next_bydevname(MY_SENSOR_DEVICE, NULL);
-    assert(my_sensor != NULL);
-
-    rc = sensor_register_listener(my_sensor, &listener);
-    assert(rc == 0);
-        
-    while (1) {  //  As the last thing, process events from default event queue.
-        os_eventq_run(os_eventq_dflt_get());
-    }
-    return 0;  //  Never comes here.
-}
