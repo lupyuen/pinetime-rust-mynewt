@@ -14,7 +14,7 @@ syscfg.vals:
     TUTORIAL2:                1  # Apply Tutorial 2 settings
 
     # If you are running Tutorial 2, uncomment this setting to enable WiFi Geolocation:
-    #### WIFI_GEOLOCATION:     1  # Enable WiFi Geolocation
+    # WIFI_GEOLOCATION:       1  # Enable WiFi Geolocation
 
     # Settings for Tutorial 2
     # CoAP hostname e.g. coap.thethings.io
