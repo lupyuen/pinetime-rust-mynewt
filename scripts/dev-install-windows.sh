@@ -53,19 +53,8 @@ go version  #  Should show "go1.10.1" or later.
 
 ############################################
 
-#  Remove development version of newt installed during Tutorial 1.
-if [ -e /usr/bin/newt ]; then
-    newtver=`/usr/bin/newt version`
-    echo $newtver
-    case "$newtver" in
-        #  Found development version of newt. Remove it.
-        *1.6.0-dev* ) sudo rm /usr/bin/newt ;;
-        #  Development version of newt not found.  Skip.
-        * ) echo "newt is not dev version, skipping" ;;
-    esac
-fi
-
-#  Install latest official release of newt.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html
+#  Install latest official release of newt.  If dev version from Tutorial 1 is installed, it will be overwritten.
+#  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html
 wget -qO - https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master/mynewt.gpg.key | sudo apt-key add -
 sudo tee /etc/apt/sources.list.d/mynewt.list <<EOF
 deb https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main
@@ -103,3 +92,16 @@ fi
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
+
+
+#  Remove development version of newt installed during Tutorial 1.
+# if [ -e /usr/bin/newt ]; then
+#     newtver=`/usr/bin/newt version`
+#     echo $newtver
+#     case "$newtver" in
+#         #  Found development version of newt. Remove it.
+#         *1.6.0-dev* ) sudo rm /usr/bin/newt ;;
+#         #  Development version of newt not found.  Skip.
+#         * ) echo "newt is not dev version, skipping" ;;
+#     esac
+# fi
