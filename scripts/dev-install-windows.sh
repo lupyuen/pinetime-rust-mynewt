@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+#  Install Apache Mynewt for Windows.  Based on https://mynewt.apache.org/latest/newt/install/newt_windows.html.  
+#  Except we use Ubuntu on Windows instead of MinGW because it provides a cleaner, Linux build environment.
+#  gdb and openocd will run under Windows not Ubuntu because the ST Link USB driver only works under Windows.
+
+echo "Installing Apache Mynewt for Windows..."
+set -e  #  Exit when any command fails.
+set -x  #  Echo all commands.
+#  echo $PATH
+
+#  Install OpenOCD into the ./openocd folder.
+if [ ! -e openocd/bin/openocd.exe ]; then
+    sudo apt install wget unzip -y
+    wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
+    unzip -q gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip -d openocd
+    rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
+    mv "openocd/GNU MCU Eclipse/OpenOCD/"*/* openocd
+    rm -rf "openocd/GNU MCU Eclipse"
+fi
+
+#  Install npm.
+if [ ! -e /usr/bin/npm ]; then
+    sudo apt update  -y  #  Update all Ubuntu packages.
+    sudo apt upgrade -y  #  Upgrade all Ubuntu packages.
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+    sudo apt install nodejs -y
+    node --version
+fi
+
+#  Install Arm Toolchain into $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/. From https://gnu-mcu-eclipse.github.io/toolchain/arm/install/
+if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
+    sudo npm install --global xpm
+    sudo xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc
+    gccpath=`ls -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/bin`
+    echo export PATH=$gccpath:\$PATH >> ~/.bashrc
+    echo export PATH=$gccpath:\$PATH >> ~/.profile
+    export PATH=$gccpath:$PATH
+fi
+arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
+
+#  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
+golangpath=/usr/lib/go-1.10/bin
+if [ ! -e $golangpath/go ]; then
+    sudo apt install golang-1.10 -y
+    echo export PATH=$golangpath:\$PATH >> ~/.bashrc
+    echo export PATH=$golangpath:\$PATH >> ~/.profile
+    echo export GOROOT= >> ~/.bashrc
+    echo export GOROOT= >> ~/.profile
+    export PATH=$golangpath:$PATH
+    export GOROOT=
+fi
+go version  #  Should show "go1.10.1" or later.
+
+############################################
+
+#  Remove development version of newt installed during Tutorial 1.
+if [ -e /usr/bin/newt ]; then
+    newtver=`/usr/bin/newt version`
+    echo $newtver
+    case "$newtver" in
+        #  Found development version of newt. Remove it.
+        *1.6.0-dev* ) sudo rm /usr/bin/newt ;;
+        #  Development version of newt not found.  Skip.
+        * ) echo "newt is not dev version, skipping" ;;
+    esac
+fi
+
+#  Install latest official release of newt.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html
+wget -qO - https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master/mynewt.gpg.key | sudo apt-key add -
+sudo tee /etc/apt/sources.list.d/mynewt.list <<EOF
+deb https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main
+EOF
+sudo apt update -y
+sudo apt install newt -y
+which newt    #  Should show "/usr/bin/newt"
+newt version  #  Should show "Version: 1.6.0" or later.  Should NOT show "...-dev".
+
+#  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
+sudo add-apt-repository ppa:git-core/ppa -y
+sudo apt update -y
+sudo apt install git -y
+git --version  #  Should show "git version 2.21.0" or later.
+
+exit 0  ####
+############################################
+
+#  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
+if [ -d repos ]; then
+    rm -rf repos
+fi
+if [ -d .git ]; then
+    mv .git git-backup
+fi
+newt install -v
+if [ -d git-backup ]; then
+    mv git-backup .git
+fi
+
+#  Should show: "Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git"
+#  "apache-mynewt-nimble successfully installed version 0.0.0"
+#  If you see "Error: Unknown subcommand: get-url"
+#  then upgrade git as shown above.
+
+set +x  #  Stop echoing all commands.
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
