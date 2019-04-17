@@ -70,7 +70,6 @@ sudo apt update -y
 sudo apt install git -y
 git --version  #  Should show "git version 2.21.0" or later.
 
-exit 0  ####
 ############################################
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
