@@ -39,7 +39,7 @@ int start_sensor_listener(void) {
     int rc = sensor_set_poll_rate_ms(SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
     assert(rc == 0);
 
-    //  Open the sensor by name.
+    //  Fetch the sensor by name, without locking the driver for exclusive access.
     my_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE, NULL);
     assert(my_sensor != NULL);
 
