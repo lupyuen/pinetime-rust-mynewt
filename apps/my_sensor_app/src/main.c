@@ -11,7 +11,7 @@
 #include "listen_sensor.h"    //  For start_sensor_listener()
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Read Sensor Data from Temperature Sensor
+//  Read Sensor Data from Temperature Sensor and Send to CoAP Server
 
 int main(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 
