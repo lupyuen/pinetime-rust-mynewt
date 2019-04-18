@@ -110,6 +110,7 @@ echo "***** Installing newt..."
 if [ ! -e "${brewdir}"/bin/newt ]; then
     # Add the Mynewt brew package repository.
     brew tap JuulLabs-OSS/mynewt
+    brew update
     # Install latest release which has Blue Pill support.
     brew install mynewt-newt -f
 fi
