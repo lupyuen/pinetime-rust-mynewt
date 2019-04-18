@@ -63,8 +63,9 @@ if [ ! -e $golangpath/go ]; then
     echo export GOROOT= >> ~/.bashrc
     echo export GOROOT= >> ~/.profile
     export PATH=$golangpath:$PATH
-    export GOROOT=
 fi
+#  Prevent mismatch library errors when building newt.
+export GOROOT=
 go version  #  Should show "go1.10.1" or later.
 
 echo "***** Fixing ownership..."
