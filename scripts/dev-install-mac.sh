@@ -109,8 +109,8 @@ if [ -e "${brewdir}"/bin/newt ]; then
     brew uninstall mynewt-newt -f
 fi
 
-#  Build newt mynewt_1_6_0_tag in /tmp/mynewt.
-if [ ! -e /usr/bin/newt ]; then
+#  Build newt mynewt_1_6_0_tag in /tmp/mynewt. Copy to /usr/local/bin.
+if [ ! -e /usr/local/bin/newt ]; then
     mynewtpath=/tmp/mynewt
     if [ -d $mynewtpath ]; then
         rm -rf $mynewtpath
@@ -125,7 +125,7 @@ if [ ! -e /usr/bin/newt ]; then
     #  "Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt"
     #  If you see "Error: go 1.10 or later is required (detected version: 1.2.X)"
     #  then install go 1.10 as shown above.
-    sudo mv newt/newt /usr/bin
+    sudo mv newt/newt /usr/local/bin
     popd
 fi
 
