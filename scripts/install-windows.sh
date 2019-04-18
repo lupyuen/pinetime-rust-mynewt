@@ -67,6 +67,11 @@ if [ ! -e $golangpath/go ]; then
 fi
 go version  #  Should show "go1.10.1" or later.
 
+echo "***** Fixing ownership..."
+
+#  Change owner from root back to user for the installed packages.
+sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
+
 echo "***** Installing newt..."
 
 #  Install latest official release of newt.  If dev version from Tutorial 1 is installed, it will be overwritten.
@@ -81,9 +86,6 @@ sudo apt install newt -y
 which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.6.0" or later.  Should NOT show "...-dev".
 
-#  Change owner from root back to user for the installed packages.
-sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
-
 echo "***** Installing mynewt..."
 
 #  Remove the existing Mynewt OS in "repos"
@@ -92,11 +94,16 @@ if [ -d repos ]; then
 fi
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder.
-set +e  #  TODO: Remove this when newt install is fixed
-newt install -v -f
-set -e  #  TODO: Remove this when newt install is fixed
+set +e              #  TODO: Remove this when newt install is fixed
+newt install -v -f  #  TODO: "git checkout" fails due to uncommitted files
+set -e              #  TODO: Remove this when newt install is fixed
 
-#  TODO: newt install fails due to dirty files. Need to check out manually.
+#  If you see "Error: Unknown subcommand: get-url"
+#  then upgrade git as shown above.
+
+echo "***** Reparing mynewt..."
+
+#  TODO: newt install fails due to uncommitted files. Need to check out manually.
 
 #  Check out core mynewt_1_6_0_tag.
 if [ -d repos/apache-mynewt-core ]; then
@@ -122,15 +129,12 @@ if [ ! -d repos/apache-mynewt-core ]; then
     echo "***** newt install failed"
     exit 1
 fi
+
+#  If apache-mynewt-nimble is missing, then the installation failed.
 if [ ! -d repos/apache-mynewt-nimble ]; then
     echo "***** newt install failed"
     exit 1
 fi
-
-#  Should show: "Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git"
-#  "apache-mynewt-nimble successfully installed version 0.0.0"
-#  If you see "Error: Unknown subcommand: get-url"
-#  then upgrade git as shown above.
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
