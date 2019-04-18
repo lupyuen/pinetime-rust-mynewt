@@ -104,16 +104,42 @@ go version  #  Should show "go1.12.1" or later.
 
 echo "***** Installing newt..."
 
-#  Install latest official release of newt.
-#  Based on https://mynewt.apache.org/latest/newt/install/newt_mac.html
-
-if [ ! -e "${brewdir}"/bin/newt ]; then
-    # Add the Mynewt brew package repository.
-    brew tap JuulLabs-OSS/mynewt
-    brew update
-    # Install latest release which has Blue Pill support.
-    brew install mynewt-newt -f
+#  Uninstall the brew version of newt.
+if [ -e "${brewdir}"/bin/newt ]; then
+    brew uninstall mynewt-newt -f
 fi
+
+#  Build newt mynewt_1_6_0_tag in /tmp/mynewt.
+if [ ! -e /usr/bin/newt ]; then
+    mynewtpath=/tmp/mynewt
+    if [ -d $mynewtpath ]; then
+        rm -rf $mynewtpath
+    fi
+    mkdir $mynewtpath
+    pushd $mynewtpath
+
+    git clone --branch mynewt_1_6_0_tag https://github.com/apache/mynewt-newt/
+    cd mynewt-newt/
+    ./build.sh
+    #  Should show: "Building newt.  This may take a minute..."
+    #  "Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt"
+    #  If you see "Error: go 1.10 or later is required (detected version: 1.2.X)"
+    #  then install go 1.10 as shown above.
+    sudo mv newt/newt /usr/bin
+    popd
+fi
+
+#  Install latest official release of newt from brew.
+#  Based on https://mynewt.apache.org/latest/newt/install/newt_mac.html
+#  NOTUSED because brew currently has version 1.5.0 only 
+# if [ ! -e "${brewdir}"/bin/newt ]; then
+#     # Add the Mynewt brew package repository.
+#     brew tap JuulLabs-OSS/mynewt
+#     brew update
+#     # Install latest release which has Blue Pill support.
+#     brew install mynewt-newt -f
+# fi
+
 which newt    #  Should show "/usr/local/bin/newt"
 newt version  #  Should show "Version: 1.6.0" or later.  Should NOT show "...-dev".
 
