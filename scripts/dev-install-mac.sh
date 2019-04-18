@@ -98,10 +98,9 @@ if [ ! -e $golangpath/go ]; then
 fi
 go version  #  Should show "go1.12.1" or later.
 
-echo "***** Fixing ownership..."
-
+#  echo "***** Fixing ownership..."
 #  Change owner from root back to user for the installed packages.
-sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
+#  sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
 
 echo "***** Installing newt..."
 
