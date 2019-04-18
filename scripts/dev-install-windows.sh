@@ -95,7 +95,9 @@ if [ -d repos ]; then
 fi
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder.
-newt install -v
+set +e  #  TODO: Remove this when newt install is fixed
+newt install -v -f
+set -e  #  TODO: Remove this when newt install is fixed
 
 #  TODO: newt install fails due to dirty files. Need to check out manually.
 if [ -d repos/apache-mynewt-core ]; then
@@ -107,6 +109,12 @@ fi
 #  Restore .git.
 if [ -d git-backup ]; then
     mv git-backup .git
+fi
+
+#  If apache-mynewt-core is missing, then the installation failed.
+if [ ! -d repos/apache-mynewt-core ]; then
+    echo "***** newt install failed"
+    exit 1
 fi
 
 #  Should show: "Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git"
