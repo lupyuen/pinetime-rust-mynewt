@@ -8,6 +8,8 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 #  echo $PATH
 
+echo "***** Installing openocd..."
+
 #  Install OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd.exe ]; then
     sudo apt install wget unzip -y
@@ -18,6 +20,8 @@ if [ ! -e openocd/bin/openocd.exe ]; then
     rm -rf "openocd/GNU MCU Eclipse"
 fi
 
+echo "***** Installing npm..."
+
 #  Install npm.
 if [ ! -e /usr/bin/npm ]; then
     sudo apt update  -y  #  Update all Ubuntu packages.
@@ -26,6 +30,8 @@ if [ ! -e /usr/bin/npm ]; then
     sudo apt install nodejs -y
     node --version
 fi
+
+echo "***** Installing Arm Toolchain..."
 
 #  Install Arm Toolchain into $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/. From https://gnu-mcu-eclipse.github.io/toolchain/arm/install/
 if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
@@ -37,6 +43,8 @@ if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
     export PATH=$gccpath:$PATH
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
+
+echo "***** Installing go..."
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
 golangpath=/usr/lib/go-1.10/bin
@@ -51,10 +59,11 @@ if [ ! -e $golangpath/go ]; then
 fi
 go version  #  Should show "go1.10.1" or later.
 
-############################################
+echo "***** Installing newt..."
 
 #  Install latest official release of newt.  If dev version from Tutorial 1 is installed, it will be overwritten.
 #  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html
+
 wget -qO - https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master/mynewt.gpg.key | sudo apt-key add -
 sudo tee /etc/apt/sources.list.d/mynewt.list <<EOF
 deb https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main
@@ -73,16 +82,29 @@ git --version  #  Should show "git version 2.21.0" or later.
 #  Change owner from root back to user for the installed packages.
 sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
 
-############################################
+echo "***** Installing mynewt..."
 
-#  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
-if [ -d repos ]; then
-    rm -rf repos
-fi
+#  Before installing Mynewt OS, need to rename .git else the installation will fail.
 if [ -d .git ]; then
     mv .git git-backup
 fi
+
+#  Remove the existing Mynewt OS in "repos"
+if [ -d repos ]; then
+    rm -rf repos
+fi
+
+#  Download Mynewt OS into the current project folder, under "repos" subfolder.
 newt install -v
+
+#  TODO: newt install fails due to dirty files. Need to check out manually.
+if [ -d repos/apache-mynewt-core ]; then
+    pushd repos/apache-mynewt-core
+    git checkout mynewt_1_6_0_tag -f
+    popd
+fi
+
+#  Restore .git.
 if [ -d git-backup ]; then
     mv git-backup .git
 fi
