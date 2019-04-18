@@ -27,6 +27,6 @@ project.repositories:
 #
 repository.apache-mynewt-core:
     type: github
-    vers: 0-dev
+    vers: 1.6.0
     user: apache
     repo: mynewt-core
