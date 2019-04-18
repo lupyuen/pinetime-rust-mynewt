@@ -1,3 +1,5 @@
+# Patched for stm32bluepill-mynewt-sensor to reduce bootloader size
+# https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/patch/bluepill.ld
 # repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
 #
 # Licensed to the Apache Software Foundation (ASF) under one

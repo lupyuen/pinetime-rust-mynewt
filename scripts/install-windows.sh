@@ -137,5 +137,11 @@ if [ ! -d repos/apache-mynewt-nimble ]; then
     exit 1
 fi
 
+echo "***** Patching mynewt with custom files..."
+
+#  Change the ROM layout to reduce bootloader size. Move application image to lower 64 KB ROM.
+cp patch/bluepill.ld repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
+cp patch/bsp.yml     repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
+
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
