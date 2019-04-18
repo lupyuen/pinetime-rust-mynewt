@@ -8,6 +8,14 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 #  echo $PATH
 
+echo "***** Installing git..."
+
+#  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
+sudo add-apt-repository ppa:git-core/ppa -y
+sudo apt update -y
+sudo apt install git -y
+git --version  #  Should show "git version 2.21.0" or later.
+
 echo "***** Installing openocd..."
 
 #  Install OpenOCD into the ./openocd folder.
@@ -73,21 +81,10 @@ sudo apt install newt -y
 which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.6.0" or later.  Should NOT show "...-dev".
 
-#  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
-sudo add-apt-repository ppa:git-core/ppa -y
-sudo apt update -y
-sudo apt install git -y
-git --version  #  Should show "git version 2.21.0" or later.
-
 #  Change owner from root back to user for the installed packages.
 sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
 
 echo "***** Installing mynewt..."
-
-#  Before installing Mynewt OS, need to rename .git else the installation will fail.
-# if [ -d .git ]; then
-#    mv .git git-backup
-# fi
 
 #  Remove the existing Mynewt OS in "repos"
 if [ -d repos ]; then
@@ -119,11 +116,6 @@ if [ -d repos/mcuboot ]; then
     git checkout v1.3.0 -f
     popd
 fi
-
-#  Restore .git.
-# if [ -d git-backup ]; then
-#    mv git-backup .git
-# fi
 
 #  If apache-mynewt-core is missing, then the installation failed.
 if [ ! -d repos/apache-mynewt-core ]; then
