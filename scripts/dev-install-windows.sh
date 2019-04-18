@@ -70,6 +70,9 @@ sudo apt update -y
 sudo apt install git -y
 git --version  #  Should show "git version 2.21.0" or later.
 
+#  Change owner from root back to user for the installed packages.
+sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
+
 ############################################
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder. We must rename and recover .git else newt will get confused.
