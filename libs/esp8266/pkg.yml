@@ -42,3 +42,14 @@ pkg.deps:
 pkg.init:
     # esp8266 should be initialised after hmac_prng (Stage 630)
     esp8266_create: 640  # Call esp8266_create() to initialise the ESP8266 driver during startup
+
+# C compiler flags: To suppress C++ type errors:
+# Error: In file included from repos/apache-mynewt-core/kernel/os/include/os/os.h:132,
+# from libs/esp8266/src/BufferedSerial.cpp:26:
+# repos/apache-mynewt-core/kernel/os/include/os/os_mutex.h: In function 'os_error_t os_mutex_get_level(os_mutex*)':
+# repos/apache-mynewt-core/kernel/os/include/os/os_mutex.h:122:16: error: invalid conversion from 'uint16_t' 
+# {aka 'short unsigned int'} to 'os_error_t' {aka 'os_error'} [-fpermissive]
+#     return mu->mu_level;
+
+pkg.cflags:
+    - -fpermissive       # Suppress C++ type errors
