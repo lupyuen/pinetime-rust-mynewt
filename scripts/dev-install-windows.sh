@@ -85,9 +85,9 @@ sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
 echo "***** Installing mynewt..."
 
 #  Before installing Mynewt OS, need to rename .git else the installation will fail.
-if [ -d .git ]; then
-    mv .git git-backup
-fi
+# if [ -d .git ]; then
+#    mv .git git-backup
+# fi
 
 #  Remove the existing Mynewt OS in "repos"
 if [ -d repos ]; then
@@ -100,25 +100,30 @@ newt install -v -f
 set -e  #  TODO: Remove this when newt install is fixed
 
 #  TODO: newt install fails due to dirty files. Need to check out manually.
+
+#  Check out core mynewt_1_6_0_tag.
 if [ -d repos/apache-mynewt-core ]; then
-    #  Check out core.
     pushd repos/apache-mynewt-core
     git checkout mynewt_1_6_0_tag -f
     popd
-    #  Create nimble directory.
-    if [ -d repos/apache-mynewt-nimble ]; then
-        mkdir -p repos/apache-mynewt-nimble
-    fi
-    #  Check out nimble 1_1_0_dev, which matches mynewt_1_6_0_tag.
+fi
+#  Check out nimble nimble_1_1_0_tag, which matches mynewt_1_6_0_tag.
+if [ -d repos/apache-mynewt-nimble ]; then
     pushd repos/apache-mynewt-nimble
-    git checkout 1_1_0_dev -f
+    git checkout nimble_1_1_0_tag -f
+    popd
+fi
+#  Check out mcuboot v1.3.0, which matches mynewt_1_6_0_tag.
+if [ -d repos/mcuboot ]; then
+    pushd repos/mcuboot
+    git checkout v1.3.0 -f
     popd
 fi
 
 #  Restore .git.
-if [ -d git-backup ]; then
-    mv git-backup .git
-fi
+# if [ -d git-backup ]; then
+#    mv git-backup .git
+# fi
 
 #  If apache-mynewt-core is missing, then the installation failed.
 if [ ! -d repos/apache-mynewt-core ]; then
