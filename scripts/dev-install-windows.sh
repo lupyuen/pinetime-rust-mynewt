@@ -101,8 +101,17 @@ set -e  #  TODO: Remove this when newt install is fixed
 
 #  TODO: newt install fails due to dirty files. Need to check out manually.
 if [ -d repos/apache-mynewt-core ]; then
+    #  Check out core.
     pushd repos/apache-mynewt-core
     git checkout mynewt_1_6_0_tag -f
+    popd
+    #  Create nimble directory.
+    if [ -d repos/apache-mynewt-nimble ]; then
+        mkdir -p repos/apache-mynewt-nimble
+    fi
+    #  Check out nimble 1_1_0_dev, which matches mynewt_1_6_0_tag.
+    pushd repos/apache-mynewt-nimble
+    git checkout 1_1_0_dev -f
     popd
 fi
 
@@ -113,6 +122,10 @@ fi
 
 #  If apache-mynewt-core is missing, then the installation failed.
 if [ ! -d repos/apache-mynewt-core ]; then
+    echo "***** newt install failed"
+    exit 1
+fi
+if [ ! -d repos/apache-mynewt-nimble ]; then
     echo "***** newt install failed"
     exit 1
 fi
