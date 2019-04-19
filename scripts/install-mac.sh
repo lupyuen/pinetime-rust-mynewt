@@ -197,14 +197,14 @@ fi
 echo "***** Patching mynewt with custom files..."
 
 #  Change the ROM layout to reduce bootloader size. Move application image to lower 64 KB ROM.
-if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld ]; then
+if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old ]; then
     cp repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld \
        repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old
 fi
 cp patch/bluepill.ld \
        repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
 
-if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld ]; then
+if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old ]; then
     cp repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml \
        repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old
 fi
