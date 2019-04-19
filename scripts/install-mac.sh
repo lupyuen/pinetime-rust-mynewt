@@ -197,8 +197,19 @@ fi
 echo "***** Patching mynewt with custom files..."
 
 #  Change the ROM layout to reduce bootloader size. Move application image to lower 64 KB ROM.
-cp patch/bluepill.ld repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
-cp patch/bsp.yml     repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
+if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld ]; then
+    cp repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld \
+       repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old
+fi
+cp patch/bluepill.ld \
+       repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
+
+if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld ]; then
+    cp repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml \
+       repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old
+fi
+cp patch/bsp.yml \
+       repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
