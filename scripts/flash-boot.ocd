@@ -39,3 +39,4 @@ reset halt
 echo ""
 
 echo "**** Done!"
+exit
