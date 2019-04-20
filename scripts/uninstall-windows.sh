@@ -3,6 +3,7 @@
 
 set -x  #  Echo all commands.
 
+sudo apt uninstall newt
 sudo rm /usr/bin/newt
 rm -rf /tmp/mynewt
 
@@ -13,5 +14,7 @@ sudo rm -rf ~/opt/xPacks
 sudo npm uninstall --global xpm
 
 sudo apt remove nodejs -y
+
+rm openocd/bin/openocd.exe
 
 sudo apt autoremove -y
