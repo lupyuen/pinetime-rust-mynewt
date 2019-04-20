@@ -101,7 +101,15 @@ go version  #  Should show "go1.12.1" or later.
 
 #  echo "***** Fixing ownership..."
 #  Change owner from root back to user for the installed packages.
-#  sudo chown -R $USER:$USER "$HOME/.caches" "$HOME/.config" "$HOME/opt"
+# if [ -d "$HOME/.caches" ]; then
+#     sudo chown -R $USER:$USER "$HOME/.caches"
+# fi
+# if [ -d "$HOME/.config" ]; then
+#     sudo chown -R $USER:$USER "$HOME/.config"
+# fi
+# if [ -d "$HOME/opt" ]; then
+#     sudo chown -R $USER:$USER "$HOME/opt"
+# fi
 
 echo "***** Installing newt..."
 
