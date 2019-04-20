@@ -3,7 +3,7 @@
 
 set -x  #  Echo all commands.
 
-sudo apt uninstall newt
+sudo apt remove newt -y
 sudo rm /usr/bin/newt
 rm -rf /tmp/mynewt
 
