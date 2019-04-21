@@ -19,4 +19,6 @@ rm -r openocd
 
 sudo apt remove openocd -y
 
+sudo rm /etc/udev/rules.d/99-platformio-udev.rules
+
 sudo apt autoremove -y
