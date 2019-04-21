@@ -6,6 +6,13 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 #  echo $PATH
 
+echo "***** Installing ST-Link V2 driver..."
+
+#  Install the ST-Link V2 driver: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
+if [ ! -e /etc/udev/rules.d/99-platformio-udev.rules ]; then
+    curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+fi
+
 echo "***** Installing git..."
 
 #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
