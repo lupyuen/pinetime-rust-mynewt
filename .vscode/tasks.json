@@ -141,6 +141,13 @@
                     " scripts/install-ext-mac.sh "
                 ]
             },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/install-ext-linux.sh "
+                ]
+            },
             "problemMatcher": []
         },
         {
