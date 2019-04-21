@@ -1,0 +1,443 @@
+Installing Apache Mynewt for Windows...
++ echo '***** Installing git...'
+***** Installing git...
++ sudo add-apt-repository ppa:git-core/ppa -y
+[sudo] password for user:
+Get:1 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease [1794 B]Hit:2 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Hit:3 https://deb.nodesource.com/node_10.x bionic InRelease
+Hit:4 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+Fetched 1794 B in 18s (97 B/s)
+Reading package lists... Done
++ sudo apt update -y
+Get:1 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease [1794 B]
+Hit:2 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Hit:3 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease
+Hit:4 https://deb.nodesource.com/node_10.x bionic InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+Fetched 1794 B in 18s (101 B/s)
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
++ sudo apt install git -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+git is already the newest version (1:2.21.0-0ppa1~ubuntu18.04.1).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
++ git --version
+git version 2.21.0
++ echo '***** Installing openocd...'    
+***** Installing openocd...
++ '[' '!' -e openocd/bin/openocd.exe ']'
++ echo '***** Installing npm...'        
+***** Installing npm...
++ '[' '!' -e /usr/bin/npm ']'
++ sudo apt update -y
+Get:1 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease [1794 B]
+Hit:2 https://deb.nodesource.com/node_10.x bionic InRelease
+Hit:3 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Hit:4 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+Fetched 1794 B in 19s (94 B/s)
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
++ sudo apt upgrade -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+
+## Installing the NodeSource Node.js 10.x repo...
+
+
+## Populating apt-get cache...
+
++ apt-get update
+Hit:1 https://deb.nodesource.com/node_10.x bionic InRelease
+Get:2 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease [1794 B]Hit:3 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Hit:4 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+Fetched 1794 B in 18s (98 B/s)
+Reading package lists... Done
+
+## Confirming "bionic" is supported...
+
++ curl -sLf -o /dev/null 'https://deb.nodesource.com/node_10.x/dists/bionic/Release'
+
+## Adding the NodeSource signing key to your keyring...
+
++ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+OK
+
+## Creating apt sources list file for the NodeSource Node.js 10.x repo...
+
++ echo 'deb https://deb.nodesource.com/node_10.x bionic main' > /etc/apt/sources.list.d/nodesource.list
++ echo 'deb-src https://deb.nodesource.com/node_10.x bionic main' >> /etc/apt/sources.list.d/nodesource.list
+## Running `apt-get update` for you...Get:5 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython2.7-stdlib amd64 2.7.15~rc1-1ubuntu0.1 [1912 kB] 
+Get:6 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python2.7 amd64 2.7.15~rc1-1ubuntu0.1 [238 kB]
+Get:7 http://archive.ubuntu.com/ubuntu bionic/main amd64 libpython-stdlib amd64 2.7.15~rc1-1 [7620 B]
+Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 python amd64 2.7.15~rc1-1 [140 kB]
+Fetched 19.0 MB in 7s (2656 kB/s)
+Selecting previously unselected package libpython2.7-minimal:amd64.(Reading database ... 34157 files and directories currently installed.)
+Preparing to unpack .../0-libpython2.7-minimal_2.7.15~rc1-1ubuntu0.1_amd64.deb ...
+Unpacking libpython2.7-minimal:amd64 (2.7.15~rc1-1ubuntu0.1) ...
+Selecting previously unselected package python2.7-minimal.
+Preparing to unpack .../1-python2.7-minimal_2.7.15~rc1-1ubuntu0.1_amd64.deb ...
+Unpacking python2.7-minimal (2.7.15~rc1-1ubuntu0.1) ...
+Selecting previously unselected package python-minimal.
+Preparing to unpack .../2-python-minimal_2.7.15~rc1-1_amd64.deb ...
+Unpacking python-minimal (2.7.15~rc1-1) ...
+Selecting previously unselected package libpython2.7-stdlib:amd64.
+Preparing to unpack .../3-libpython2.7-stdlib_2.7.15~rc1-1ubuntu0.1_amd64.deb ...
+Unpacking libpython2.7-stdlib:amd64 (2.7.15~rc1-1ubuntu0.1) ...
+Selecting previously unselected package python2.7.
+Preparing to unpack .../4-python2.7_2.7.15~rc1-1ubuntu0.1_amd64.deb ...
+Unpacking python2.7 (2.7.15~rc1-1ubuntu0.1) ...
+Selecting previously unselected package libpython-stdlib:amd64.
+Preparing to unpack .../5-libpython-stdlib_2.7.15~rc1-1_amd64.deb ...
+Unpacking libpython-stdlib:amd64 (2.7.15~rc1-1) ...
+Setting up libpython2.7-minimal:amd64 (2.7.15~rc1-1ubuntu0.1) ...
+Setting up python2.7-minimal (2.7.15~rc1-1ubuntu0.1) ...
+Linking and byte-compiling packages for runtime python2.7...
+Setting up python-minimal (2.7.15~rc1-1) ...
+Selecting previously unselected package python.
+(Reading database ... 34902 files and directories currently installed.)
+Preparing to unpack .../python_2.7.15~rc1-1_amd64.deb ...
+Unpacking python (2.7.15~rc1-1) ...
+Selecting previously unselected package nodejs.
+Preparing to unpack .../nodejs_10.15.3-1nodesource1_amd64.deb ...
+Unpacking nodejs (10.15.3-1nodesource1) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+Setting up nodejs (10.15.3-1nodesource1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Setting up libpython2.7-stdlib:amd64 (2.7.15~rc1-1ubuntu0.1) ...
+Setting up python2.7 (2.7.15~rc1-1ubuntu0.1) ...
+Setting up libpython-stdlib:amd64 (2.7.15~rc1-1) ...
+Setting up python (2.7.15~rc1-1) ...
++ node --version
+v10.15.3
++ echo '***** Installing Arm Toolchain...'
+***** Installing Arm Toolchain...
++ '[' '!' -d /home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ']'
++ sudo npm install --global xpm
+/usr/bin/xpm -> /usr/lib/node_modules/xpm/bin/xpm.js
++ xpm@0.5.0
+added 262 packages from 147 contributors in 31.326s
++ sudo xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc
+xPack manager - install package(s)
+
+Processing @gnu-mcu-eclipse/arm-none-eabi-gcc@8.2.1-1.4.1...
+Installing globally in '/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1'...
+Extracting 'gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-centos64.tgz'...
+3243 files extracted.
+
+'xpm install' completed in 23.293 sec.
+++ ls -d /home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin
++ gccpath=/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin
++ echo export 'PATH=/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:$PATH'
++ echo export 'PATH=/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:$PATH'
++ export 'PATH=/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Users/guppy/.platformio/penv/Scripts:/mnt/c/Users/guppy/.platformio/penv:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files (x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Go/bin:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/guppy/AppData/Roaming/local/bin:/mnt/c/Users/guppy/.cargo/bin:/mnt/c/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin:/mnt/c/Users/guppy/AppData/Local/hyper/app-2.0.0/resources/bin:/mnt/c/Users/guppy/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/guppy/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files (x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program 
+Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Go/bin:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/guppy/AppData/Roaming/local/bin:/mnt/c/Users/guppy/.cargo/bin:/mnt/c/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin:/mnt/c/Users/guppy/AppData/Local/hyper/app-2.0.0/resources/bin:/mnt/c/Users/guppy/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/guppy/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin'
++ PATH='/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Users/guppy/.platformio/penv/Scripts:/mnt/c/Users/guppy/.platformio/penv:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files (x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocola  golang-1.10-doc golang-1.10-go golang-1.10-race-detector-runtime golang-1.10-src pkg-configSuggested packages:  bzr mercurial subversionThe following NEW packages will be installed:  golang-1.10 golang-1.10-doc golang-1.10-go golang-1.10-race-detector-runtime golang-1.10-src pkg-config0 upgraded, 6 newly installed, 0 to remove and 0 not upgraded.Need to get 42.7 MB of archives.After this operation, 229 MB of additional disk space will be used.Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10-src amd64 1.10.4-2ubuntu1~18.04.1 [11.1 MB]   Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10-go amd64 1.10.4-2ubuntu1~18.04.1 [28.6 MB]    Get:3 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10-doc all 1.10.4-2ubuntu1~18.04.1 [2419 kB]     Get:4 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10 all 1.10.4-2ubuntu1~18.04.1 [11.2 kB]
+Get:5 http://archive.ubuntu.com/ubuntu bionic/main amd64 golang-1.10-race-detector-runtime amd64 0.0+svn285455-0ubuntu1 [478 kB]Get:6 http://archive.ubuntu.com/ubuntu bionic/main amd64 pkg-config amd64 0.29.1-0ubuntu2 [45.0 kB]Fetched 42.7 MB in 42s (1022 kB/s)Selecting previously unselected package golang-1.10-src.(Reading database ... 38851 files and directories currently installed.)Preparing to unpack .../0-golang-1.10-src_1.10.4-2ubuntu1~18.04.1_amd64.deb ...Unpacking golang-1.10-src (1.10.4-2ubuntu1~18.04.1) ...Selecting previously unselected package golang-1.10-go.Preparing to unpack .../1-golang-1.10-go_1.10.4-2ubuntu1~18.04.1_amd64.deb ...Unpacking golang-1.10-go (1.10.4-2ubuntu1~18.04.1) ...Selecting previously unselected package golang-1.10-doc.Preparing to unpack .../2-golang-1.10-doc_1.10.4-2ubuntu1~18.04.1_all.deb ...Unpacking golang-1.10-doc (1.10.4-2ubuntu1~18.04.1) ...Selecting previously unselected package golang-1.10.Preparing to unpack .../3-golang-1.10_1.10.4-2ubuntu1~18.04.1_all.deb ...Unpacking golang-1.10 (1.10.4-2ubuntu1~18.04.1) ...Selecting previously unselected package golang-1.10-race-detector-runtime.Preparing to unpack .../4-golang-1.10-race-detector-runtime_0.0+svn285455-0ubuntu1_amd64.deb ...Unpacking golang-1.10-race-detector-runtime (0.0+svn285455-0ubuntu1) ...Selecting previously unselected package pkg-config.Preparing to unpack .../5-pkg-config_0.29.1-0ubuntu2_amd64.deb ...Unpacking pkg-config (0.29.1-0ubuntu2) ...Setting up golang-1.10-race-detector-runtime (0.0+svn285455-0ubuntu1) ...Setting up pkg-config (0.29.1-0ubuntu2) ...Setting up golang-1.10-src (1.10.4-2ubuntu1~18.04.1) ...Processing triggers for man-db (2.8.3-2ubuntu0.1) ...Setting up golang-1.10-go (1.10.4-2ubuntu1~18.04.1) ...Setting up golang-1.10-doc (1.10.4-2ubuntu1~18.04.1) ...
+Setting up golang-1.10 (1.10.4-2ubuntu1~18.04.1) ...
++ echo export 'PATH=/usr/lib/go-1.10/bin:$PATH'
++ echo export 'PATH=/usr/lib/go-1.10/bin:$PATH'
++ echo export GOROOT=
++ echo export GOROOT=
++ export 'PATH=/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Users/guppy/.platformio/penv/Scripts:/mnt/c/Users/guppy/.platformio/penv:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files (x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Go/bin:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/guppy/AppData/Roaming/local/bin:/mnt/c/Users/guppy/.cargo/bin:/mnt/c/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin:/mnt/c/Users/guppy/AppData/Local/hyper/app-2.0.0/resources/bin:/mnt/c/Users/guppy/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/guppy/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared 
+Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program 
+Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files 
+(x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Go/bin:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/guppy/AppData/Roaming/local/bin:/mnt/c/Users/guppy/.cargo/bin:/mnt/c/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin:/mnt/c/Users/guppy/AppData/Local/hyper/app-2.0.0/resources/bin:/mnt/c/Users/guppy/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/guppy/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin'
++ PATH='/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/lib/go-1.10/bin:/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Users/guppy/.platformio/penv/Scripts:/mnt/c/Users/guppy/.platformio/penv:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files (x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Go/bin:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/guppy/AppData/Roaming/local/bin:/mnt/c/Users/guppy/.cargo/bin:/mnt/c/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin:/mnt/c/Users/guppy/AppData/Local/hyper/app-2.0.0/resources/bin:/mnt/c/Users/guppy/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/guppy/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Microsoft/Web Platform Installer/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program Files (x86)/QuickTime/QTSystem/:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Go/bin:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Users/guppy/AppData/Roaming/local/bin:/mnt/c/Users/guppy/.cargo/bin:/mnt/c/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin:/mnt/c/Users/guppy/AppData/Local/hyper/app-2.0.0/resources/bin:/mnt/c/Users/guppy/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/guppy/AppData/Local/Programs/Microsoft VS 
+Code/bin:/snap/bin'
++ '[' -d /home/user/.caches ']'
++ sudo chown -R user:user /home/user/.caches
++ '[' -d /home/user/.config ']'
++ sudo chown -R user:user /home/user/.config
++ '[' -d /home/user/opt ']'
++ sudo chown -R user:user /home/user/opt
++ echo '***** Installing newt...'
+***** Installing newt...
++ wget -qO - https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master/mynewt.gpg.key
++ sudo apt-key add -
+OK
++ sudo tee /etc/apt/sources.list.d/mynewt.list
+deb https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main
++ sudo apt update -y
+Hit:1 https://deb.nodesource.com/node_10.x bionic InRelease
+Get:2 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease [1794 B]
+Hit:3 http://security.ubuntu.com/ubuntu bionic-security InRelease                                                          
+Hit:4 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:6 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+Fetched 1794 B in 18s (97 B/s)                                                                                             
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+All packages are up to date.
++ sudo apt install newt -y
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  newt
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1647 kB of archives.
+After this operation, 5950 kB of additional disk space will be used.
+Get:1 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest/main amd64 newt amd64 1.6.0-1 [1647 kB]   
+Fetched 1647 kB in 1s (1118 kB/s)
+Selecting previously unselected package newt.
+(Reading database ... 47370 files and directories currently installed.)
+Preparing to unpack .../newt_1.6.0-1_amd64.deb ...
+Unpacking newt (1.6.0-1) ...
+Setting up newt (1.6.0-1) ...
++ which newt
+/usr/bin/newt
++ newt version
+Apache Newt
+   Version: 1.6.0
+  Git Hash: unknown
+Build Date: 2019-04-10_14:35
++ echo '***** Installing mynewt...'
+***** Installing mynewt...
++ '[' -d repos ']'
++ rm -rf repos
++ set +e
++ newt install -v -f
+[apache-mynewt-core]:
+Downloading repository description
+Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
+Cloning into '/tmp/newt-repo712381834'...
+remote: Enumerating objects: 51, done.
+remote: Counting objects: 100% (51/51), done.
+remote: Compressing objects: 100% (38/38), done.
+remote: Total 104155 (delta 16), reused 30 (delta 10), pack-reused 104104
+Receiving objects: 100% (104155/104155), 157.90 MiB | 12.75 MiB/s, done.
+Resolving deltas: 100% (63378/63378), done.
+Checking out files: 100% (5605/5605), done.
+Will checkout origin/master
+Fetching repo mynewt-core
+Download of "repository.yml" from repo:apache-mynewt-core commit:master successful
+[apache-mynewt-nimble]:
+Downloading repository description
+Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+Cloning into '/tmp/newt-repo714260833'...
+remote: Enumerating objects: 27, done.
+remote: Counting objects: 100% (27/27), done.
+remote: Compressing objects: 100% (25/25), done.
+remote: Total 33978 (delta 8), reused 10 (delta 2), pack-reused 33951
+Receiving objects: 100% (33978/33978), 9.66 MiB | 4.96 MiB/s, done.
+Resolving deltas: 100% (20080/20080), done.
+Checking out files: 100% (565/565), done.
+Will checkout origin/master
+Fetching repo mynewt-nimble
+Download of "repository.yml" from repo:apache-mynewt-nimble commit:master successful
+[mcuboot]:
+Downloading repository description
+Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
+Cloning into '/tmp/newt-repo784379212'...
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (29/29), done.
+remote: Total 6174 (delta 1), reused 26 (delta 1), pack-reused 6144
+Receiving objects: 100% (6174/6174), 2.51 MiB | 2.33 MiB/s, done.
+Resolving deltas: 100% (3762/3762), done.
+Checking out files: 100% (323/323), done.
+Will checkout origin/master
+Fetching repo mcuboot
+Download of "repository.yml" from repo:mcuboot commit:master successful
+Making the following changes to the project:
+    reinstall apache-mynewt-core (1.6.0)
+    reinstall apache-mynewt-nimble (1.1.0)
+Will checkout mynewt_1_6_0_tag
+Will checkout mynewt_1_6_0_tag
+Error: Error updating "apache-mynewt-core": error: Your local changes to the following files would be overwritten by checkout:
+        .mailmap
+        .rat-excludes
+        .travis.yml
+        README.md
+        RELEASE_NOTES.md
+        apps/bleprph_oic/pkg.yml
+        apps/blesplit/pkg.yml
+        apps/bleuart/pkg.yml
+        apps/bsnprph/pkg.yml
+        apps/iptest/pkg.yml
+        apps/loraping/pkg.yml
+        apps/sensors_test/pkg.yml
+        apps/slinky/pkg.yml
+        apps/slinky_oic/pkg.yml
+        apps/splitty/pkg.yml
+        apps/testbench/pkg.yml
+        crypto/mbedtls/include/mbedtls/gcm.h
+        crypto/mbedtls/src/gcm.c
+        docs/os/modules/console/console.rst
+        hw/bsp/ble400/syscfg.yml
+        hw/bsp/dialog_da1469x-dk-pro/bsp.yml
+        hw/bsp/dialog_da1469x-dk-pro/include/bsp/bsp.h
+        hw/bsp/dialog_da1469x-dk-pro/pkg.yml
+        hw/bsp/dialog_da1469x-dk-pro/src/arch/cortex_m33/gcc_startup_da1469x.S
+        hw/bsp/dialog_da1469x-dk-pro/src/hal_bsp.c
+        hw/bsp/dialog_da1469x-dk-pro/src/sbrk.c
+        hw/bsp/dialog_da1469x-dk-pro/syscfg.yml
+        hw/bsp/dwm1001-dev/syscfg.yml
+        hw/bsp/nucleo-f103rb/boot-nucleo_f103rb.ld
+        hw/bsp/nucleo-f103rb/bsp.yml
+        hw/bsp/nucleo-f103rb/include/bsp/bsp.h
+        hw/bsp/nucleo-f103rb/include/bsp/stm32f1xx_hal_conf.h
+        hw/bsp/nucleo-f103rb/nucleo_f103rb.ld
+        hw/bsp/nucleo-f103rb/pkg.yml
+        hw/bsp/nucleo-f103rb/src/arch/cortex_m3/startup_stm32f103xb.s
+        hw/bsp/nucleo-f103rb/src/hal_bsp.c
+        hw/bsp/nucleo-f103rb/src/system_stm32f1xx.c
+        hw/bsp/nucleo-f103rb/syscfg.yml
+        hw/drivers/adc/gpadc_da1469x/include/gpadc_da1469x/gpadc_da1469x.h
+        hw/drivers/adc/gpadc_da1469x/pkg.yml
+        hw/drivers/adc/gpadc_da1469x/src/gpadc_da1469x.c
+        hw/drivers/adc/sdadc_da1469x/include/sdadc_da1469x/sdadc_da1469x.h
+        hw/drivers/adc/sdadc_da1469x/pkg.yml
+        hw/drivers/adc/sdadc_da1469x/src/sdadc_da1469x.c
+        hw/drivers/chg_ctrl/adp5061/include/adp5061/adp5061.h
+        hw/drivers/flash/spiflash/include/spiflash/spiflash.h
+        hw/drivers/flash/spiflash/src/spiflash.c
+        hw/drivers/flash/spiflash/syscfg.yml
+        hw/drivers/pwm/pwm_da1469x/pkg.yml
+        hw/drivers/pwm/pwm_da1469x/src/pwm_da1469x.c
+        hw/drivers/sensors/lis2de12/include/lis2de12/lis2de12.h
+        hw/drivers/sensors/lis2de12/pkg.yml
+        hw/drivers/sensors/lis2de12/src/lis2de12.c
+        hw/drivers/sensors/lis2de12/src/lis2de12_priv.h
+        hw/drivers/sensors/lis2de12/src/lis2de12_shell.c
+        hw/drivers/sensors/lis2de12/syscfg.yml
+        hw/drivers/trng/trng_da1469x/include/trng_da1469x.h
+        hw/drivers/trng/trng_da1469x/pkg.yml
+        hw/drivers/trng/trng_da1469x/src/trng_da1469x.c
+        hw/hal/include/hal/hal_system.h
+        hw/mcu/dialog/da1469x/da1469x.ld
+        hw/mcu/dialog/da1469x/da1469x_ram_resident.ld
+        hw/mcu/dialog/da1469x/include/mcu/cmsis_nvic.h
+        hw/mcu/dialog/da1469x/include/mcu/cortex_m33.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_clock.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_cmac.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_dma.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_pd.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_pdc.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_periph.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_prail.h
+        hw/mcu/dialog/da1469x/include/mcu/da1469x_retreg.h
+        hw/mcu/dialog/da1469x/include/mcu/mcu.h
+        hw/mcu/dialog/da1469x/pkg.yml
+        hw/mcu/dialog/da1469x/src/arch/cortex_m33/da1469x_m33_sleep.S
+        hw/mcu/dialog/da1469x/src/da1469x_clock.c
+        hw/mcu/dialog/da1469x/src/da1469x_cmac.c
+        hw/mcu/dialog/da1469x/src/da1469x_dma.c
+        hw/mcu/dialog/da1469x/src/da1469x_pd.c
+        hw/mcu/dialog/da1469x/src/da1469x_pdc.c
+        hw/mcu/dialog/da1469x/src/da1469x_periph.c
+        hw/mcu/dialog/da1469x/src/da1469x_prail.c
+        hw/mcu/dialog/da1469x/src/da1469x_retreg.c
+        hw/mcu/dialog/da1469x/src/da1469x_sleep.c
+        hw/mcu/dialog/da1469x/src/hal_flash.c
+        hw/mcu/dialog/da1469x/src/hal_gpio.c
+        hw/mcu/dialog/da1469x/src/hal_i2c.c
+        hw/mcu/dialog/da1469x/src/hal_os_tick.c
+        hw/mcu/dialog/da1469x/src/hal_spi.c
+        hw/mcu/dialog/da1469x/src/hal_system.c
+        hw/mcu/dialog/da1469x/src/hal_system_start.c
+        hw/mcu/dialog/da1469x/src/hal_timer.c
+        hw/mcu/dialog/da1469x/src/hal_uart.c
+        hw/mcu/dialog/da1469x/src/hal_watchdog.c
+        hw/mcu/dialog/da1469x/src/system_da1469x.c
+        hw/mcu/dialog/da1469x/syscfg.yml
+        hw/mcu/dialog/include/DA1469xAB.h
+        hw/mcu/dialog/include/system_DA1469x.h
+        hw/mcu/dialog/pkg.yml
+        hw/mcu/nordic/nrf51xxx/src/hal_reset_cause.c
+        hw/mcu/nordic/nrf52xxx/src/hal_reset_cause.c
+        kernel
+Aborting
+
++ set -e
++ echo '***** Reparing mynewt...'
+***** Reparing mynewt...
++ '[' -d repos/apache-mynewt-core ']'
++ pushd repos/apache-mynewt-core
+/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core /mnt/c/stm32bluepill-mynewt-sensor
++ git checkout mynewt_1_6_0_tag -f
+Checking out files: 100% (5698/5698), done.
+Note: checking out 'mynewt_1_6_0_tag'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at eb1d3ec0f [STM32] Fix nucleo-f401re SPI pinout
++ popd
+/mnt/c/stm32bluepill-mynewt-sensor
++ '[' -d repos/apache-mynewt-nimble ']'
++ pushd repos/apache-mynewt-nimble
+/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble /mnt/c/stm32bluepill-mynewt-sensor
++ git checkout nimble_1_1_0_tag -f
+Checking out files: 100% (570/570), done.
+Note: checking out 'nimble_1_1_0_tag'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 223714cb host: Wake up stalled conns when a conn is dropped
++ popd
+/mnt/c/stm32bluepill-mynewt-sensor
++ '[' -d repos/mcuboot ']'
++ pushd repos/mcuboot
+/mnt/c/stm32bluepill-mynewt-sensor/repos/mcuboot /mnt/c/stm32bluepill-mynewt-sensor
++ git checkout v1.3.0 -f
+Checking out files: 100% (348/348), done.
+Note: checking out 'v1.3.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at adf5782 Bump to release v1.3.0
++ popd
+/mnt/c/stm32bluepill-mynewt-sensor
++ '[' '!' -d repos/apache-mynewt-core ']'
++ '[' '!' -d repos/apache-mynewt-nimble ']'
++ echo '***** Patching mynewt with custom files...'
+***** Patching mynewt with custom files...
++ '[' '!' -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old ']'
++ cp repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old
++ cp patch/bluepill.ld repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
++ '[' '!' -e repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old ']'
++ cp repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old
++ cp patch/bsp.yml repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
++ set +x
+✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
