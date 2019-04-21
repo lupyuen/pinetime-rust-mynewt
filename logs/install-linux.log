@@ -1,0 +1,453 @@
+> Executing task in folder stm32bluepill-mynewt-sensor: bash -c -l ' scripts/install-linux.sh ' <
+
+Installing Apache Mynewt for Linux...
++ echo '***** Installing git...'
+***** Installing git...
++ sudo add-apt-repository ppa:git-core/ppa -y
+[sudo] password for luppy: 
+Ign:1 http://dl.google.com/linux/chrome-remote-desktop/deb stable InRelease
+Ign:2 http://dl.google.com/linux/chrome/deb stable InRelease                                     
+Hit:3 http://dl.google.com/linux/chrome-remote-desktop/deb stable Release                        
+Hit:4 http://dl.google.com/linux/chrome/deb stable Release                                                     
+Hit:5 http://packages.microsoft.com/repos/vscode stable InRelease                                              
+Get:7 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]                                    
+Hit:9 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease                                            
+Hit:10 http://id.archive.ubuntu.com/ubuntu bionic InRelease                                                
+Get:11 http://id.archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]                              
+Hit:12 http://ppa.launchpad.net/yktooo/ppa/ubuntu bionic InRelease                    
+Get:13 http://id.archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]       
+Fetched 252 kB in 4s (62.4 kB/s)                               
+Reading package lists... Done
++ sudo apt update -y
+Ign:1 http://dl.google.com/linux/chrome-remote-desktop/deb stable InRelease
+Hit:2 http://packages.microsoft.com/repos/vscode stable InRelease                   
+Ign:3 http://dl.google.com/linux/chrome/deb stable InRelease                                            
+Hit:4 http://dl.google.com/linux/chrome-remote-desktop/deb stable Release                                      
+Hit:5 http://dl.google.com/linux/chrome/deb stable Release                                                     
+Hit:6 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease                            
+Get:7 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]                  
+Hit:8 http://id.archive.ubuntu.com/ubuntu bionic InRelease                                              
+Get:10 http://id.archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]                            
+Hit:12 http://ppa.launchpad.net/yktooo/ppa/ubuntu bionic InRelease                                             
+Get:13 http://id.archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]                                
+Fetched 252 kB in 4s (65.8 kB/s)                                
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
++ sudo apt install git -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+git is already the newest version (1:2.21.0-0ppa1~ubuntu18.04.1).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
++ git --version
+git version 2.21.0
++ echo '***** Installing openocd...'
+***** Installing openocd...
++ '[' '!' -e openocd/bin/openocd ']'
++ sudo apt install openocd -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  libftdi1-2 libhidapi-hidraw0 libjaylink0 libjim0.77 libusb-0.1-4
+The following NEW packages will be installed:
+  libftdi1-2 libhidapi-hidraw0 libjaylink0 libjim0.77 libusb-0.1-4 openocd
+0 upgraded, 6 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2,302 kB of archives.
+After this operation, 6,461 kB of additional disk space will be used.
+Get:1 http://id.archive.ubuntu.com/ubuntu bionic/universe amd64 libftdi1-2 amd64 1.4-1build1 [25.5 kB]
+Get:2 http://id.archive.ubuntu.com/ubuntu bionic/universe amd64 libjaylink0 amd64 0.1.0-1 [17.0 kB]
+Get:3 http://id.archive.ubuntu.com/ubuntu bionic/main amd64 libusb-0.1-4 amd64 2:0.1.12-31 [17.1 kB]
+Get:4 http://id.archive.ubuntu.com/ubuntu bionic/universe amd64 libhidapi-hidraw0 amd64 0.8.0~rc1+git20140818.d17db57+dfsg-2 [10.4 kB]
+Get:5 http://id.archive.ubuntu.com/ubuntu bionic/universe amd64 libjim0.77 amd64 0.77+dfsg0-2 [115 kB]
+Get:6 http://id.archive.ubuntu.com/ubuntu bionic/universe amd64 openocd amd64 0.10.0-4 [2,117 kB]
+Fetched 2,302 kB in 6s (399 kB/s)    
+Selecting previously unselected package libftdi1-2:amd64.
+(Reading database ... 190726 files and directories currently installed.)
+Preparing to unpack .../0-libftdi1-2_1.4-1build1_amd64.deb ...
+Unpacking libftdi1-2:amd64 (1.4-1build1) ...
+Selecting previously unselected package libjaylink0.
+Preparing to unpack .../1-libjaylink0_0.1.0-1_amd64.deb ...
+Unpacking libjaylink0 (0.1.0-1) ...
+Selecting previously unselected package libusb-0.1-4:amd64.
+Preparing to unpack .../2-libusb-0.1-4_2%3a0.1.12-31_amd64.deb ...
+Unpacking libusb-0.1-4:amd64 (2:0.1.12-31) ...
+Selecting previously unselected package libhidapi-hidraw0:amd64.
+Preparing to unpack .../3-libhidapi-hidraw0_0.8.0~rc1+git20140818.d17db57+dfsg-2_amd64.deb ...
+Unpacking libhidapi-hidraw0:amd64 (0.8.0~rc1+git20140818.d17db57+dfsg-2) ...
+Selecting previously unselected package libjim0.77:amd64.
+Preparing to unpack .../4-libjim0.77_0.77+dfsg0-2_amd64.deb ...
+Unpacking libjim0.77:amd64 (0.77+dfsg0-2) ...
+Selecting previously unselected package openocd.
+Preparing to unpack .../5-openocd_0.10.0-4_amd64.deb ...
+Unpacking openocd (0.10.0-4) ...
+Setting up libjaylink0 (0.1.0-1) ...
+Setting up libftdi1-2:amd64 (1.4-1build1) ...
+Processing triggers for install-info (6.5.0.dfsg.1-2) ...
+Setting up libhidapi-hidraw0:amd64 (0.8.0~rc1+git20140818.d17db57+dfsg-2) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Setting up libusb-0.1-4:amd64 (2:0.1.12-31) ...
+Setting up libjim0.77:amd64 (0.77+dfsg0-2) ...
+Setting up openocd (0.10.0-4) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
++ '[' '!' -d openocd/bin ']'
++ mkdir -p openocd/bin
++ ln -s /usr/bin/openocd openocd/bin/openocd
++ echo '***** Installing npm...'
+***** Installing npm...
++ '[' '!' -e /usr/bin/npm ']'
++ sudo apt update -y
+Hit:1 http://packages.microsoft.com/repos/vscode stable InRelease
+Ign:2 http://dl.google.com/linux/chrome-remote-desktop/deb stable InRelease                                    
+Ign:3 http://dl.google.com/linux/chrome/deb stable InRelease                                                   
+Hit:4 http://dl.google.com/linux/chrome-remote-desktop/deb stable Release                                      
+Hit:5 http://dl.google.com/linux/chrome/deb stable Release                                                     
+Get:6 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]                                    
+Hit:7 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease                                     
+Hit:9 http://id.archive.ubuntu.com/ubuntu bionic InRelease                                               
+Get:10 http://id.archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]                            
+Hit:12 http://ppa.launchpad.net/yktooo/ppa/ubuntu bionic InRelease                                             
+Get:13 http://id.archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]                                
+Fetched 252 kB in 3s (72.3 kB/s)                                
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
++ sudo apt upgrade -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
++ curl -sL https://deb.nodesource.com/setup_10.x
++ sudo bash -
+
+## Installing the NodeSource Node.js 10.x repo...
+
+
+## Populating apt-get cache...
+
++ apt-get update
+Ign:1 http://dl.google.com/linux/chrome-remote-desktop/deb stable InRelease
+Ign:2 http://dl.google.com/linux/chrome/deb stable InRelease                                                   
+Hit:3 http://packages.microsoft.com/repos/vscode stable InRelease                                              
+Hit:4 http://dl.google.com/linux/chrome-remote-desktop/deb stable Release                 
+Hit:5 http://dl.google.com/linux/chrome/deb stable Release                                                     
+Get:6 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]                                    
+Hit:7 http://id.archive.ubuntu.com/ubuntu bionic InRelease                                              
+Hit:8 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease                                     
+Get:10 http://id.archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]                                  
+Hit:12 http://ppa.launchpad.net/yktooo/ppa/ubuntu bionic InRelease                                             
+Get:13 http://id.archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]                                
+Fetched 252 kB in 3s (73.6 kB/s)                                
+Reading package lists... Done
+
+## Confirming "bionic" is supported...
+
++ curl -sLf -o /dev/null 'https://deb.nodesource.com/node_10.x/dists/bionic/Release'
+
+## Adding the NodeSource signing key to your keyring...
+
++ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+OK
+
+## Creating apt sources list file for the NodeSource Node.js 10.x repo...
+
++ echo 'deb https://deb.nodesource.com/node_10.x bionic main' > /etc/apt/sources.list.d/nodesource.list
++ echo 'deb-src https://deb.nodesource.com/node_10.x bionic main' >> /etc/apt/sources.list.d/nodesource.list
+
+## Running `apt-get update` for you...
+
++ apt-get update
+Ign:1 http://dl.google.com/linux/chrome-remote-desktop/deb stable InRelease
+Ign:2 http://dl.google.com/linux/chrome/deb stable InRelease                                                   
+Hit:3 http://packages.microsoft.com/repos/vscode stable InRelease                                              
+Hit:4 http://dl.google.com/linux/chrome-remote-desktop/deb stable Release                                 
+Hit:5 http://dl.google.com/linux/chrome/deb stable Release                                                     
+Get:6 https://deb.nodesource.com/node_10.x bionic InRelease [4,584 B]                                          
+Hit:7 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease                                            
+Get:8 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]                  
+Hit:10 http://id.archive.ubuntu.com/ubuntu bionic InRelease                                              
+Get:12 http://id.archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]                              
+Hit:13 http://ppa.launchpad.net/yktooo/ppa/ubuntu bionic InRelease                                             
+Get:14 https://deb.nodesource.com/node_10.x bionic/main amd64 Packages [767 B]                                 
+Get:15 http://id.archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]                                
+Fetched 257 kB in 4s (67.9 kB/s)                                
+Reading package lists... Done
+
+## Run `sudo apt-get install -y nodejs` to install Node.js 10.x and npm
+## You may also need development tools to build native addons:
+     sudo apt-get install gcc g++ make
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt-get update && sudo apt-get install yarn
+
+
++ sudo apt install nodejs -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  nodejs
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 15.0 MB of archives.
+After this operation, 71.9 MB of additional disk space will be used.
+Get:1 https://deb.nodesource.com/node_10.x bionic/main amd64 nodejs amd64 10.15.3-1nodesource1 [15.0 MB]
+Fetched 15.0 MB in 1s (12.1 MB/s)  
+Selecting previously unselected package nodejs.
+(Reading database ... 191611 files and directories currently installed.)
+Preparing to unpack .../nodejs_10.15.3-1nodesource1_amd64.deb ...
+Unpacking nodejs (10.15.3-1nodesource1) ...
+Setting up nodejs (10.15.3-1nodesource1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
++ node --version
+v10.15.3
++ echo '***** Installing Arm Toolchain...'
+***** Installing Arm Toolchain...
++ '[' '!' -d /home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ']'
++ sudo npm install --global xpm
+/usr/bin/xpm -> /usr/lib/node_modules/xpm/bin/xpm.js
++ xpm@0.5.0
+added 262 packages from 147 contributors in 30.095s
++ sudo xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc
+xPack manager - install package(s)
+
+Processing @gnu-mcu-eclipse/arm-none-eabi-gcc@8.2.1-1.4.1...
+Installing globally in '/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1'...
+Downloading https://github.com/gnu-mcu-eclipse/arm-none-eabi-gcc/releases/download/v8.2.1-1.4/gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-centos64.tgz...
+Extracting 'gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-centos64.tgz'...
+3243 files extracted.
+
+'xpm install' completed in 147.810 sec.
+++ ls -d /home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin
++ gccpath=/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin
++ echo export 'PATH=/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:$PATH'
++ echo export 'PATH=/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:$PATH'
++ export PATH=/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/home/luppy/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/home/luppy/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ arm-none-eabi-gcc --version
+arm-none-eabi-gcc (GNU MCU Eclipse ARM Embedded GCC, 64-bit) 8.2.1 20181213 (release) [gcc-8-branch revision 267074]
+Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
++ echo '***** Installing go...'
+***** Installing go...
++ golangpath=/usr/lib/go-1.10/bin
++ '[' '!' -e /usr/lib/go-1.10/bin/go ']'
++ sudo apt install golang-1.10 -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  golang-1.10-doc golang-1.10-go golang-1.10-race-detector-runtime golang-1.10-src
+Suggested packages:
+  bzr mercurial subversion
+The following NEW packages will be installed:
+  golang-1.10 golang-1.10-doc golang-1.10-go golang-1.10-race-detector-runtime golang-1.10-src
+0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 42.7 MB of archives.
+After this operation, 229 MB of additional disk space will be used.
+Get:1 http://id.archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10-src amd64 1.10.4-2ubuntu1~18.04.1 [11.1 MB]
+Get:2 http://id.archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10-go amd64 1.10.4-2ubuntu1~18.04.1 [28.6 MB]
+Get:3 http://id.archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10-doc all 1.10.4-2ubuntu1~18.04.1 [2,419 kB]
+Get:4 http://id.archive.ubuntu.com/ubuntu bionic-updates/main amd64 golang-1.10 all 1.10.4-2ubuntu1~18.04.1 [11.2 kB]
+Get:5 http://id.archive.ubuntu.com/ubuntu bionic/main amd64 golang-1.10-race-detector-runtime amd64 0.0+svn285455-0ubuntu1 [478 kB]
+Fetched 42.7 MB in 30s (1,411 kB/s)                                                                            
+Selecting previously unselected package golang-1.10-src.
+(Reading database ... 195505 files and directories currently installed.)
+Preparing to unpack .../golang-1.10-src_1.10.4-2ubuntu1~18.04.1_amd64.deb ...
+Unpacking golang-1.10-src (1.10.4-2ubuntu1~18.04.1) ...
+Selecting previously unselected package golang-1.10-go.
+Preparing to unpack .../golang-1.10-go_1.10.4-2ubuntu1~18.04.1_amd64.deb ...
+Unpacking golang-1.10-go (1.10.4-2ubuntu1~18.04.1) ...
+Selecting previously unselected package golang-1.10-doc.
+Preparing to unpack .../golang-1.10-doc_1.10.4-2ubuntu1~18.04.1_all.deb ...
+Unpacking golang-1.10-doc (1.10.4-2ubuntu1~18.04.1) ...
+Selecting previously unselected package golang-1.10.
+Preparing to unpack .../golang-1.10_1.10.4-2ubuntu1~18.04.1_all.deb ...
+Unpacking golang-1.10 (1.10.4-2ubuntu1~18.04.1) ...
+Selecting previously unselected package golang-1.10-race-detector-runtime.
+Preparing to unpack .../golang-1.10-race-detector-runtime_0.0+svn285455-0ubuntu1_amd64.deb ...
+Unpacking golang-1.10-race-detector-runtime (0.0+svn285455-0ubuntu1) ...
+Setting up golang-1.10-race-detector-runtime (0.0+svn285455-0ubuntu1) ...
+Setting up golang-1.10-src (1.10.4-2ubuntu1~18.04.1) ...
+Setting up golang-1.10-go (1.10.4-2ubuntu1~18.04.1) ...
+Setting up golang-1.10-doc (1.10.4-2ubuntu1~18.04.1) ...
+Setting up golang-1.10 (1.10.4-2ubuntu1~18.04.1) ...
++ echo export 'PATH=/usr/lib/go-1.10/bin:$PATH'
++ echo export 'PATH=/usr/lib/go-1.10/bin:$PATH'
++ echo export GOROOT=
++ echo export GOROOT=
++ export PATH=/usr/lib/go-1.10/bin:/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/home/luppy/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/usr/lib/go-1.10/bin:/home/luppy/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/bin:/home/luppy/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ export GOROOT=
++ GOROOT=
++ go version
+go version go1.10.4 linux/amd64
++ echo '***** Fixing ownership...'
+***** Fixing ownership...
++ '[' -d /home/luppy/.caches ']'
++ sudo chown -R luppy:luppy /home/luppy/.caches
++ '[' -d /home/luppy/.config ']'
++ sudo chown -R luppy:luppy /home/luppy/.config
++ '[' -d /home/luppy/opt ']'
++ sudo chown -R luppy:luppy /home/luppy/opt
++ echo '***** Installing newt...'
+***** Installing newt...
++ sudo apt-key add -
++ wget -qO - https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master/mynewt.gpg.key
+OK
++ sudo tee /etc/apt/sources.list.d/mynewt.list
+deb https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main
++ sudo apt update -y
+Ign:1 http://dl.google.com/linux/chrome-remote-desktop/deb stable InRelease
+Ign:2 http://dl.google.com/linux/chrome/deb stable InRelease                                                   
+Hit:3 http://dl.google.com/linux/chrome-remote-desktop/deb stable Release                                      
+Hit:4 http://dl.google.com/linux/chrome/deb stable Release                                                     
+Hit:5 https://deb.nodesource.com/node_10.x bionic InRelease                                                    
+Hit:6 http://packages.microsoft.com/repos/vscode stable InRelease                                              
+Get:7 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease [1,794 B]           
+Hit:8 http://id.archive.ubuntu.com/ubuntu bionic InRelease                                                     
+Hit:10 http://ppa.launchpad.net/git-core/ppa/ubuntu bionic InRelease                         
+Get:11 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]                 
+Get:12 http://id.archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]                            
+Hit:14 http://ppa.launchpad.net/yktooo/ppa/ubuntu bionic InRelease                                             
+Get:15 http://id.archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]                                
+Get:16 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest/main amd64 Packages [534 B]
+Fetched 254 kB in 4s (58.3 kB/s)                           
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
+N: Skipping acquire of configured file 'main/binary-i386/Packages' as repository 'https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest InRelease' doesn't support architecture 'i386'
++ sudo apt install newt -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  newt
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1,647 kB of archives.
+After this operation, 5,950 kB of additional disk space will be used.
+Get:1 https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest/main amd64 newt amd64 1.6.0-1 [1,647 kB]
+Fetched 1,647 kB in 2s (946 kB/s)
+Selecting previously unselected package newt.
+(Reading database ... 204008 files and directories currently installed.)
+Preparing to unpack .../newt_1.6.0-1_amd64.deb ...
+Unpacking newt (1.6.0-1) ...
+Setting up newt (1.6.0-1) ...
++ which newt
+/usr/bin/newt
++ newt version
+Apache Newt
+   Version: 1.6.0
+  Git Hash: unknown
+Build Date: 2019-04-10_14:35
++ echo '***** Installing mynewt...'
+***** Installing mynewt...
++ '[' -d repos ']'
++ set +e
++ newt install -v -f
+[apache-mynewt-core]:
+Downloading repository description
+Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
+Cloning into '/tmp/newt-repo758247514'...
+remote: Enumerating objects: 51, done.
+remote: Counting objects: 100% (51/51), done.
+remote: Compressing objects: 100% (38/38), done.
+remote: Total 104155 (delta 16), reused 30 (delta 10), pack-reused 104104
+Receiving objects: 100% (104155/104155), 157.90 MiB | 10.46 MiB/s, done.
+Resolving deltas: 100% (63378/63378), done.
+Checking out files: 100% (5605/5605), done.
+Will checkout origin/master
+Fetching repo mynewt-core
+Download of "repository.yml" from repo:apache-mynewt-core commit:master successful
+[apache-mynewt-nimble]:
+Downloading repository description
+Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+Cloning into '/tmp/newt-repo867542513'...
+remote: Enumerating objects: 27, done.
+remote: Counting objects: 100% (27/27), done.
+remote: Compressing objects: 100% (25/25), done.
+remote: Total 33978 (delta 8), reused 10 (delta 2), pack-reused 33951
+Receiving objects: 100% (33978/33978), 9.66 MiB | 3.79 MiB/s, done.
+Resolving deltas: 100% (20080/20080), done.
+Will checkout origin/master
+Fetching repo mynewt-nimble
+Download of "repository.yml" from repo:apache-mynewt-nimble commit:master successful
+[mcuboot]:
+Downloading repository description
+Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
+Cloning into '/tmp/newt-repo109563548'...
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (29/29), done.
+remote: Total 6174 (delta 1), reused 26 (delta 1), pack-reused 6144
+Receiving objects: 100% (6174/6174), 2.51 MiB | 1.28 MiB/s, done.
+Resolving deltas: 100% (3762/3762), done.
+Will checkout origin/master
+Fetching repo mcuboot
+Download of "repository.yml" from repo:mcuboot commit:master successful
+Making the following changes to the project:
+    reinstall apache-mynewt-core (1.6.0)
+    reinstall apache-mynewt-nimble (1.1.0)
+Will checkout mynewt_1_6_0_tag
+Merging changes from mynewt_1_6_0_tag
+Will checkout mynewt_1_6_0_tag
+apache-mynewt-core successfully installed version 1.6.0
+Will checkout nimble_1_1_0_tag
+Merging changes from nimble_1_1_0_tag
+Will checkout nimble_1_1_0_tag
+apache-mynewt-nimble successfully installed version 1.1.0
++ set -e
++ echo '***** Reparing mynewt...'
+***** Reparing mynewt...
++ '[' -d repos/apache-mynewt-core ']'
++ pushd repos/apache-mynewt-core
+~/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core ~/stm32bluepill-mynewt-sensor
++ git checkout mynewt_1_6_0_tag -f
+HEAD is now at eb1d3ec0f [STM32] Fix nucleo-f401re SPI pinout
++ popd
+~/stm32bluepill-mynewt-sensor
++ '[' -d repos/apache-mynewt-nimble ']'
++ pushd repos/apache-mynewt-nimble
+~/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble ~/stm32bluepill-mynewt-sensor
++ git checkout nimble_1_1_0_tag -f
+HEAD is now at 223714cb host: Wake up stalled conns when a conn is dropped
++ popd
+~/stm32bluepill-mynewt-sensor
++ '[' -d repos/mcuboot ']'
++ pushd repos/mcuboot
+~/stm32bluepill-mynewt-sensor/repos/mcuboot ~/stm32bluepill-mynewt-sensor
++ git checkout v1.3.0 -f
+Note: checking out 'v1.3.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at adf5782 Bump to release v1.3.0
++ popd
+~/stm32bluepill-mynewt-sensor
++ '[' '!' -d repos/apache-mynewt-core ']'
++ '[' '!' -d repos/apache-mynewt-nimble ']'
++ echo '***** Patching mynewt with custom files...'
+***** Patching mynewt with custom files...
++ '[' '!' -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old ']'
++ cp repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old
++ cp patch/bluepill.ld repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
++ '[' '!' -e repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old ']'
++ cp repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old
++ cp patch/bsp.yml repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
++ set +x
+✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
