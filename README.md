@@ -33,7 +33,23 @@ Check out the tutorials...
 
 1.  [_Create your IoT gadget with Apache Mynewt and STM32 Blue Pill_](https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725?source=friends_link&sk=d511426d5a2217ebd06789b3eef7df54)
 
-2.  [_Connect STM32 Blue Pill to ESP8266 with Apache Mynewt_](https://medium.com/@ly.lee/connect-stm32-blue-pill-to-esp8266-with-apache-mynewt-7edceb9e3b8d?source=friends_link&sk=df729a82533d817ec6b2d9b626b6f66b)
+1.  [_Connect STM32 Blue Pill to ESP8266 with Apache Mynewt_](https://medium.com/@ly.lee/connect-stm32-blue-pill-to-esp8266-with-apache-mynewt-7edceb9e3b8d?source=friends_link&sk=df729a82533d817ec6b2d9b626b6f66b)
+
+# Install Apache Mynewt for Ubuntu Linux
+
+1.  Launch Video Studio Code
+
+1.  Click `Terminal → Run Task`
+
+1.  Select `[0] Install Apache Mynewt`
+
+1.  When prompted, click on the `Terminal` pane and enter the `sudo` password. The password only needs to be entered once.
+
+1.  The [setup script](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/scripts/install-linux.sh) will take a few minutes to download and install the build tools.  When it’s done, we should see Done!
+
+1.  Exit and restart Visual Studio Code. This activates the installed extensions.
+
+In case of problems, compare your log with this [setup log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/logs/install-linux.log).
 
 
 # Installation, Build, Flash and Debug Logs
