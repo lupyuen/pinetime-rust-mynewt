@@ -29,7 +29,7 @@ thethings.io will call the Google Geolocation API to compute the latitude and lo
 
 https://github.com/lupyuen/gcloud-wifi-geolocation
 
-Check out the tutorials...
+To install Apache Mynewt for Windows and macOS, refer to the tutorials...
 
 1.  [_Create your IoT gadget with Apache Mynewt and STM32 Blue Pill_](https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725?source=friends_link&sk=d511426d5a2217ebd06789b3eef7df54)
 
