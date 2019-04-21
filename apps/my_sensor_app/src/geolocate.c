@@ -22,6 +22,7 @@ typedef int16_t mac_pattern[6];  //  MAC address pattern for filtering out unwan
 static mac_pattern skip_ssid[] = {
     { 0xfc, 0xe9, 0x98, ANY, ANY, ANY },  //  Exclude my iPhone hotspot, which has address fc:39:98:*:*:*
     { 0x00, 0x87, 0x01, ANY, ANY, ANY },  //  Exclude Samsung mobile hotspots, which have address 00:87:01:*:*:*
+    { 0x2c, 0x4d, 0x54, ANY, ANY, ANY },  //  Exclude Asus mobile hotspots
     LAST_MAC_PATTERN
 };
 
