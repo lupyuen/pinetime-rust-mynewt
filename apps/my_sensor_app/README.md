@@ -1,12 +1,7 @@
-# Sample App Definition
+# my_sensor_app
 
-This is a basic definition of a sample Mynewt app package.
+This application reads sensor data from a temperature sensor every 10 seconds and sends the sensor data to a CoAP server.
+The temperature sensors supported are BME280 and Blue Pill's internal temperature sensor (`temp_stm32`).
 
-The source files are located in the src/ directory.
-
-pkg.yml contains the base definition of the app.
-
-syscfg.yml contains setting definitions and overrides.
-
-Any questions?  Please refer to the documentation at 
-http://mynewt.apache.org/ or ask questions on dev@mynewt.apache.org
+Note that we are using a patched version of `apps/my_sensor_app/src/vsscanf.c` that
+fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
