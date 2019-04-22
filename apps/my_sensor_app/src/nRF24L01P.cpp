@@ -234,15 +234,6 @@ bme280_readlen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
 {
     int rc;
 
-#if MYNEWT_VAL(BUS_DRIVER_PRESENT)
-    /* XXX this is only required for SPI, but apparently device has no problem
-     * with this being set also for I2C so let's leave it for now since there's
-     * no API now to figure out bus type for node
-     */
-    addr |= BME280_SPI_READ_CMD_BIT;
-
-    rc = bus_node_simple_write_read_transact(itf->si_dev, &addr, 1, payload, len);
-#else
     int i;
     uint16_t retval;
 
@@ -279,8 +270,6 @@ bme280_readlen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
 err:
     /* De-select the device */
     hal_gpio_write(itf->si_cs_pin, 1);
-#endif
-
     return rc;
 }
 
@@ -298,27 +287,6 @@ bme280_writelen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
                 uint8_t len)
 {
     int rc;
-
-#if MYNEWT_VAL(BUS_DRIVER_PRESENT)
-    struct os_dev *dev = itf->si_dev;
-
-    rc = bus_node_lock(dev, OS_TIMEOUT_NEVER);
-    if (rc) {
-        return SYS_EINVAL;
-    }
-
-    addr &= ~BME280_SPI_READ_CMD_BIT;
-
-    rc = bus_node_write(dev, &addr, 1, OS_TIMEOUT_NEVER, BUS_F_NOSTOP);
-    if (rc) {
-        goto done;
-    }
-
-    rc = bus_node_simple_write(dev, payload, len);
-
-done:
-    (void)bus_node_unlock(dev);
-#else
     int i;
 
     /* Select the device */
@@ -352,9 +320,7 @@ done:
 err:
     /* De-select the device */
     hal_gpio_write(itf->si_cs_pin, 1);
-#endif
     os_time_delay((OS_TICKS_PER_SEC * 30)/1000 + 1);
-
     return rc;
 }
 #endif  //  NOTUSED

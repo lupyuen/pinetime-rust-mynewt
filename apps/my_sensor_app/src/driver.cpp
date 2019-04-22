@@ -65,13 +65,24 @@ err:
 
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
+    assert(cfg);
     memset(cfg, 0, sizeof(struct nrf24l01_cfg));  //  Zero the entire object.
-    cfg->uart = 0;  //  Default to UART number 0, which is UART2.
+
+    //  Return default SPI settings.
+    cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;
+    cfg->spi_settings.data_mode  = HAL_SPI_MODE0;  //  ClockPhase = 0, ClockPolarity = 0
+    cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE / 5;  //  2Mbit, 1/5th the maximum transfer rate for the SPI bus
+    cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;
+    cfg->spi_num            = //  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
+    cfg->spi_cfg            = NULL;  //  TODO
+    cfg->ss_pin             = //  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
     return 0;
 }
 
 int nrf24l01_config(struct nrf24l01 *drv, struct nrf24l01_cfg *cfg) {
     //  Apply the nrf24l01 driver configuration.  Return 0 if successful.
-    //  TODO: Copy the config
+    assert(drv);  assert(cfg);
+    //  Copy the config.
+    memcpy(&drv->cfg, cfg, sizeof(struct nrf24l01_cfg));
     return 0;  //  Nothing to do.  We will apply the config in nrf24l01_open().
 }

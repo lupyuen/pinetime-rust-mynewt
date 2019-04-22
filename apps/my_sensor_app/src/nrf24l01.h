@@ -2,7 +2,8 @@
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
 #ifndef __NRF24L01_DRIVER_H__
 #define __NRF24L01_DRIVER_H__
-#include <os/os_dev.h>  //  For os_dev
+#include <os/os_dev.h>    //  For os_dev
+#include <os/os_mutex.h>  //  For os_mutex
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.
@@ -12,6 +13,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 //  Device Configuration
 struct nrf24l01_cfg {
+    struct hal_spi_settings spi_settings;
+    int spi_num;
+    void *spi_cfg;                  /** Low-level MCU SPI config */
+    int ss_pin;
+    //  TODO: IRQ
 };
 
 //  Device Instance
@@ -19,6 +25,7 @@ struct nrf24l01 {
     struct os_dev dev;
     struct nrf24l01_cfg cfg;
     void *controller;  //  Pointer to controller instance (nRF24L01P *)
+    struct os_mutex lock;
 };
 
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
