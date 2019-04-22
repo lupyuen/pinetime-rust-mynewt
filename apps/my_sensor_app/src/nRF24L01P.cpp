@@ -1,3 +1,4 @@
+//  Ported to Mynewt from https://os.mbed.com/users/Owen/code/nRF24L01P/file/8ae48233b4e4/nRF24L01P.cpp/
 /**
  * @file nRF24L01P.cpp
  *
@@ -195,44 +196,6 @@ bme280_init(struct os_dev *dev, void *arg)
         goto err;
     }
 
-    sensor = &bme280->sensor;
-
-    /* Initialise the stats entry */
-    rc = stats_init(
-        STATS_HDR(g_bme280stats),
-        STATS_SIZE_INIT_PARMS(g_bme280stats, STATS_SIZE_32),
-        STATS_NAME_INIT_PARMS(bme280_stat_section));
-    SYSINIT_PANIC_ASSERT(rc == 0);
-    /* Register the entry with the stats registry */
-    rc = stats_register(dev->od_name, STATS_HDR(g_bme280stats));
-    SYSINIT_PANIC_ASSERT(rc == 0);
-
-    rc = sensor_init(sensor, dev);
-    if (rc != 0) {
-        goto err;
-    }
-
-    /* Add the driver with all the supported type */
-    rc = sensor_set_driver(sensor, SENSOR_TYPE_AMBIENT_TEMPERATURE |
-                           SENSOR_TYPE_PRESSURE            |
-                           SENSOR_TYPE_RELATIVE_HUMIDITY,
-                           (struct sensor_driver *) &g_bme280_sensor_driver);
-    if (rc != 0) {
-        goto err;
-    }
-
-    /* Set the interface */
-    rc = sensor_set_interface(sensor, arg);
-    if (rc) {
-        goto err;
-    }
-
-    rc = sensor_mgr_register(sensor);
-    if (rc != 0) {
-        goto err;
-    }
-
-#if !MYNEWT_VAL(BUS_DRIVER_PRESENT)
     rc = hal_spi_config(sensor->s_itf.si_num, &spi_bme280_settings);
     if (rc == EINVAL) {
         /* If spi is already enabled, for nrf52, it returns -1, We should not
@@ -250,8 +213,6 @@ bme280_init(struct os_dev *dev, void *arg)
     if (rc) {
         goto err;
     }
-#endif
-
     return (0);
 err:
     return (rc);
