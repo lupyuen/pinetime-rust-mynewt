@@ -167,6 +167,237 @@ typedef enum {
 #define _NRF24L01P_TIMING_Tpd2stby_us        4500   // 4.5mS worst case
 #define _NRF24L01P_TIMING_Tpece2csn_us          4   //   4uS
 
+#ifdef NOTUSED
+/**
+ * Expects to be called back through os_dev_create().
+ *
+ * @param The device object associated with bme280
+ * @param Argument passed to OS device init, unused
+ *
+ * @return 0 on success, non-zero error on failure.
+ */
+int
+bme280_init(struct os_dev *dev, void *arg)
+{
+    struct bme280 *bme280;
+    struct sensor *sensor;
+    int rc;
+
+    if (!arg || !dev) {
+        rc = SYS_ENODEV;
+        goto err;
+    }
+
+    bme280 = (struct bme280 *) dev;
+
+    rc = bme280_default_cfg(&bme280->cfg);
+    if (rc) {
+        goto err;
+    }
+
+    sensor = &bme280->sensor;
+
+    /* Initialise the stats entry */
+    rc = stats_init(
+        STATS_HDR(g_bme280stats),
+        STATS_SIZE_INIT_PARMS(g_bme280stats, STATS_SIZE_32),
+        STATS_NAME_INIT_PARMS(bme280_stat_section));
+    SYSINIT_PANIC_ASSERT(rc == 0);
+    /* Register the entry with the stats registry */
+    rc = stats_register(dev->od_name, STATS_HDR(g_bme280stats));
+    SYSINIT_PANIC_ASSERT(rc == 0);
+
+    rc = sensor_init(sensor, dev);
+    if (rc != 0) {
+        goto err;
+    }
+
+    /* Add the driver with all the supported type */
+    rc = sensor_set_driver(sensor, SENSOR_TYPE_AMBIENT_TEMPERATURE |
+                           SENSOR_TYPE_PRESSURE            |
+                           SENSOR_TYPE_RELATIVE_HUMIDITY,
+                           (struct sensor_driver *) &g_bme280_sensor_driver);
+    if (rc != 0) {
+        goto err;
+    }
+
+    /* Set the interface */
+    rc = sensor_set_interface(sensor, arg);
+    if (rc) {
+        goto err;
+    }
+
+    rc = sensor_mgr_register(sensor);
+    if (rc != 0) {
+        goto err;
+    }
+
+#if !MYNEWT_VAL(BUS_DRIVER_PRESENT)
+    rc = hal_spi_config(sensor->s_itf.si_num, &spi_bme280_settings);
+    if (rc == EINVAL) {
+        /* If spi is already enabled, for nrf52, it returns -1, We should not
+         * fail if the spi is already enabled
+         */
+        goto err;
+    }
+
+    rc = hal_spi_enable(sensor->s_itf.si_num);
+    if (rc) {
+        goto err;
+    }
+
+    rc = hal_gpio_init_out(sensor->s_itf.si_cs_pin, 1);
+    if (rc) {
+        goto err;
+    }
+#endif
+
+    return (0);
+err:
+    return (rc);
+
+}
+
+/**
+ * Read multiple length data from BME280 sensor over SPI
+ *
+ * @param register address
+ * @param variable length payload
+ * @param length of the payload to read
+ *
+ * @return 0 on success, non-zero on failure
+ */
+int
+bme280_readlen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
+               uint8_t len)
+{
+    int rc;
+
+#if MYNEWT_VAL(BUS_DRIVER_PRESENT)
+    /* XXX this is only required for SPI, but apparently device has no problem
+     * with this being set also for I2C so let's leave it for now since there's
+     * no API now to figure out bus type for node
+     */
+    addr |= BME280_SPI_READ_CMD_BIT;
+
+    rc = bus_node_simple_write_read_transact(itf->si_dev, &addr, 1, payload, len);
+#else
+    int i;
+    uint16_t retval;
+
+    rc = 0;
+
+    /* Select the device */
+    hal_gpio_write(itf->si_cs_pin, 0);
+
+    /* Send the address */
+    retval = hal_spi_tx_val(itf->si_num, addr | BME280_SPI_READ_CMD_BIT);
+    if (retval == 0xFFFF) {
+        rc = SYS_EINVAL;
+        BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
+                   itf->si_num, addr);
+        STATS_INC(g_bme280stats, read_errors);
+        goto err;
+    }
+
+    for (i = 0; i < len; i++) {
+        /* Read data */
+        retval = hal_spi_tx_val(itf->si_num, 0);
+        if (retval == 0xFFFF) {
+            rc = SYS_EINVAL;
+            BME280_LOG(ERROR, "SPI_%u read failed addr:0x%02X\n",
+                       itf->si_num, addr);
+            STATS_INC(g_bme280stats, read_errors);
+            goto err;
+        }
+        payload[i] = retval;
+    }
+
+    rc = 0;
+
+err:
+    /* De-select the device */
+    hal_gpio_write(itf->si_cs_pin, 1);
+#endif
+
+    return rc;
+}
+
+/**
+ * Write multiple length data to BME280 sensor over SPI
+ *
+ * @param register address
+ * @param variable length payload
+ * @param length of the payload to write
+ *
+ * @return 0 on success, non-zero on failure
+ */
+int
+bme280_writelen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
+                uint8_t len)
+{
+    int rc;
+
+#if MYNEWT_VAL(BUS_DRIVER_PRESENT)
+    struct os_dev *dev = itf->si_dev;
+
+    rc = bus_node_lock(dev, OS_TIMEOUT_NEVER);
+    if (rc) {
+        return SYS_EINVAL;
+    }
+
+    addr &= ~BME280_SPI_READ_CMD_BIT;
+
+    rc = bus_node_write(dev, &addr, 1, OS_TIMEOUT_NEVER, BUS_F_NOSTOP);
+    if (rc) {
+        goto done;
+    }
+
+    rc = bus_node_simple_write(dev, payload, len);
+
+done:
+    (void)bus_node_unlock(dev);
+#else
+    int i;
+
+    /* Select the device */
+    hal_gpio_write(itf->si_cs_pin, 0);
+
+    /* Send the address */
+    rc = hal_spi_tx_val(itf->si_num, addr & ~BME280_SPI_READ_CMD_BIT);
+    if (rc == 0xFFFF) {
+        rc = SYS_EINVAL;
+        BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
+                   itf->si_num, addr);
+        STATS_INC(g_bme280stats, write_errors);
+        goto err;
+    }
+
+    for (i = 0; i < len; i++) {
+        /* Read data */
+        rc = hal_spi_tx_val(itf->si_num, payload[i]);
+        if (rc == 0xFFFF) {
+            rc = SYS_EINVAL;
+            BME280_LOG(ERROR, "SPI_%u write failed addr:0x%02X:0x%02X\n",
+                       itf->si_num, addr);
+            STATS_INC(g_bme280stats, write_errors);
+            goto err;
+        }
+    }
+
+
+    rc = 0;
+
+err:
+    /* De-select the device */
+    hal_gpio_write(itf->si_cs_pin, 1);
+#endif
+    os_time_delay((OS_TICKS_PER_SEC * 30)/1000 + 1);
+
+    return rc;
+}
+#endif  //  NOTUSED
+
 /**
  * Methods
  */

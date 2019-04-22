@@ -38,7 +38,6 @@
 /**
  * Includes
  */
-#include "mbed.h"
 
 /**
  * Defines
