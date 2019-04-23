@@ -6,6 +6,7 @@
 #include "nrf24l01.h"
 #include "nRF24L01P.h"
 
+extern "C" void test_nrf24l01(void);
 static void test_tx_rx(struct nrf24l01 *dev);
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
 
@@ -42,20 +43,20 @@ static int hw_id_len;      //  Actual length of hardware ID
 static void test_tx_rx(struct nrf24l01 *dev) {
     //  Fetch the hardware ID.  This is unique across all microcontrollers.  
     hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
-    assert(hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
+    assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
     hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
 
-    int txDataCnt = 0;
+    //  int txDataCnt = 0;
     int rxDataCnt = 0;
 
     drv(dev)->powerUp();
 
     // Display the (default) setup of the nRF24L01+ chip
-    pc.printf( "nRF24L01+ Frequency    : %d MHz\r\n",  drv(dev)->getRfFrequency() );
-    pc.printf( "nRF24L01+ Output power : %d dBm\r\n",  drv(dev)->getRfOutputPower() );
-    pc.printf( "nRF24L01+ Data Rate    : %d kbps\r\n", drv(dev)->getAirDataRate() );
-    pc.printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
-    pc.printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress() );
+    console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",  drv(dev)->getRfFrequency() );
+    console_printf( "nRF24L01+ Output power : %d dBm\r\n",  drv(dev)->getRfOutputPower() );
+    console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n", drv(dev)->getAirDataRate() );
+    console_printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
+    console_printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress() );
 
     drv(dev)->setTransferSize( TRANSFER_SIZE );
 
@@ -66,7 +67,7 @@ static void test_tx_rx(struct nrf24l01 *dev) {
         if (i % 11 == 0) {
             // Send the transmitbuffer via the nRF24L01+
             console_printf("tx "); console_dump(hw_id, TRANSFER_SIZE); console_printf("\n"); console_flush(); ////
-            drv(dev)->write( NRF24L01P_PIPE_P0, hw_id, TRANSFER_SIZE );
+            drv(dev)->write( NRF24L01P_PIPE_P0, (char *) hw_id, TRANSFER_SIZE );
             hw_id[i % TRANSFER_SIZE]++;
         }
 
@@ -77,7 +78,7 @@ static void test_tx_rx(struct nrf24l01 *dev) {
             rxDataCnt = drv(dev)->read( NRF24L01P_PIPE_P0, rxData, sizeof( rxData ) );
         
             // Display the receive buffer contents
-            console_printf("rx "); console_dump(rxData, rxDataCnt); console_printf("\n"); console_flush(); ////
+            console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); console_flush(); ////
         }
 
         os_time_delay(1 * OS_TICKS_PER_SEC);  //  Sleep 1 second

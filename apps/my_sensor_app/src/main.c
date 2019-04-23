@@ -10,6 +10,8 @@
 #include "send_coap.h"        //  For start_network_task()
 #include "listen_sensor.h"    //  For start_sensor_listener()
 
+void test_nrf24l01(void);  //   TODO
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor and Send to CoAP Server
 
@@ -23,6 +25,8 @@ int main(int argc, char **argv) {
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
     sysinit();  console_flush();
+
+    test_nrf24l01();  ////
 
 #ifdef NETWORK_DEVICE  //  If the ESP8266 WiFi transceiver is enabled...
     //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
