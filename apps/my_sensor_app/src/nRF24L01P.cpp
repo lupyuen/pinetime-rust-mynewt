@@ -174,12 +174,29 @@ typedef enum {
 #define _NRF24L01P_TIMING_Tpd2stby_us        4500   // 4.5mS worst case
 #define _NRF24L01P_TIMING_Tpece2csn_us          4   //   4uS
 
+//  Number of microseconds per tick
+//  #define USEC_PER_OS_TICK        1000000 / OS_TICKS_PER_SEC
+//  #define USEC_PER_OS_TICK_LOG2   log(USEC_PER_OS_TICK) / log(2)  //  Log Base 2 of USEC_PER_OS_TICK
+
+//  Approximate Log Base 2 of USEC_PER_OS_TICK. Truncate to integer so that (microsecs >> USEC_PER_OS_TICK_LOG2) will give a higher wait time.
+#if (OS_TICKS_PER_SEC == 1000)
+#define USEC_PER_OS_TICK        1000
+#define USEC_PER_OS_TICK_LOG2   9  //  log(1000) / log(2) = 9.9, truncate to 9
+#else
+#error Missing definition for USEC_PER_OS_TICK_LOG2
+#endif  //  OS_TICKS_PER_SEC
+
 //  Halt upon error.
 #define error(fmt, arg) { console_printf(fmt, arg); console_flush(); assert(0); }
 
 static void wait_us(uint32_t microsecs) {
     //  Wait for the number of microseconds.
-    os_time_delay(microsecs * OS_TICKS_PER_SEC / 1000000);
+    //  Originally: os_time_delay(microsecs * OS_TICKS_PER_SEC / 1000000)
+    //  Rewritten as: os_time_delay(microsecs / USEC_PER_OS_TICK)
+    //  Approximate with Log Base 2.
+    uint32_t ticks = microsecs >> USEC_PER_OS_TICK_LOG2;
+    console_printf("wait %u ticks\n", ticks);
+    os_time_delay(ticks);
 }
 
 #ifdef NOTUSED
