@@ -189,169 +189,169 @@ typedef enum {
 
 static void wait_us(uint32_t microsecs) {
     //  Wait for the number of microseconds.
-    //  Originally: os_time_delay(microsecs * OS_TICKS_PER_SEC / 1000000)
-    //  Rewritten as: os_time_delay(microsecs / USEC_PER_OS_TICK)
-    //  Approximate with Log Base 2.
+    //  Originally:    microsecs * OS_TICKS_PER_SEC / 1000000
+    //  Equivalent to: microsecs / USEC_PER_OS_TICK
+    //  Here we approximate with Log Base 2 to avoid division.  Always approximate to give higher not lower number of ticks.
     uint32_t ticks = microsecs >> USEC_PER_OS_TICK_LOG2;
     console_printf("wait %u ticks\n", (unsigned) ticks);
     os_time_delay(ticks);
 }
 
 #ifdef NOTUSED
-/**
- * Expects to be called back through os_dev_create().
- *
- * @param The device object associated with bme280
- * @param Argument passed to OS device init, unused
- *
- * @return 0 on success, non-zero error on failure.
- */
-int
-bme280_init(struct os_dev *dev, void *arg)
-{
-    struct bme280 *bme280;
-    struct sensor *sensor;
-    int rc;
+    /**
+     * Expects to be called back through os_dev_create().
+     *
+     * @param The device object associated with bme280
+     * @param Argument passed to OS device init, unused
+     *
+     * @return 0 on success, non-zero error on failure.
+     */
+    int
+    bme280_init(struct os_dev *dev, void *arg)
+    {
+        struct bme280 *bme280;
+        struct sensor *sensor;
+        int rc;
 
-    if (!arg || !dev) {
-        rc = SYS_ENODEV;
-        goto err;
+        if (!arg || !dev) {
+            rc = SYS_ENODEV;
+            goto err;
+        }
+
+        bme280 = (struct bme280 *) dev;
+
+        rc = bme280_default_cfg(&bme280->cfg);
+        if (rc) {
+            goto err;
+        }
+
+        rc = hal_spi_config(sensor->s_itf.si_num, &spi_bme280_settings);
+        if (rc == EINVAL) {
+            /* If spi is already enabled, for nrf52, it returns -1, We should not
+            * fail if the spi is already enabled
+            */
+            goto err;
+        }
+
+        rc = hal_spi_enable(sensor->s_itf.si_num);
+        if (rc) {
+            goto err;
+        }
+
+        rc = hal_gpio_init_out(sensor->s_itf.si_cs_pin, 1);
+        if (rc) {
+            goto err;
+        }
+        return (0);
+    err:
+        return (rc);
+
     }
 
-    bme280 = (struct bme280 *) dev;
+    /**
+     * Read multiple length data from BME280 sensor over SPI
+     *
+     * @param register address
+     * @param variable length payload
+     * @param length of the payload to read
+     *
+     * @return 0 on success, non-zero on failure
+     */
+    int
+    bme280_readlen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
+                uint8_t len)
+    {
+        int rc;
 
-    rc = bme280_default_cfg(&bme280->cfg);
-    if (rc) {
-        goto err;
-    }
+        int i;
+        uint16_t retval;
 
-    rc = hal_spi_config(sensor->s_itf.si_num, &spi_bme280_settings);
-    if (rc == EINVAL) {
-        /* If spi is already enabled, for nrf52, it returns -1, We should not
-         * fail if the spi is already enabled
-         */
-        goto err;
-    }
+        rc = 0;
 
-    rc = hal_spi_enable(sensor->s_itf.si_num);
-    if (rc) {
-        goto err;
-    }
+        /* Select the device */
+        hal_gpio_write(itf->si_cs_pin, 0);
 
-    rc = hal_gpio_init_out(sensor->s_itf.si_cs_pin, 1);
-    if (rc) {
-        goto err;
-    }
-    return (0);
-err:
-    return (rc);
-
-}
-
-/**
- * Read multiple length data from BME280 sensor over SPI
- *
- * @param register address
- * @param variable length payload
- * @param length of the payload to read
- *
- * @return 0 on success, non-zero on failure
- */
-int
-bme280_readlen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
-               uint8_t len)
-{
-    int rc;
-
-    int i;
-    uint16_t retval;
-
-    rc = 0;
-
-    /* Select the device */
-    hal_gpio_write(itf->si_cs_pin, 0);
-
-    /* Send the address */
-    retval = hal_spi_tx_val(itf->si_num, addr | BME280_SPI_READ_CMD_BIT);
-    if (retval == 0xFFFF) {
-        rc = SYS_EINVAL;
-        BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
-                   itf->si_num, addr);
-        STATS_INC(g_bme280stats, read_errors);
-        goto err;
-    }
-
-    for (i = 0; i < len; i++) {
-        /* Read data */
-        retval = hal_spi_tx_val(itf->si_num, 0);
+        /* Send the address */
+        retval = hal_spi_tx_val(itf->si_num, addr | BME280_SPI_READ_CMD_BIT);
         if (retval == 0xFFFF) {
             rc = SYS_EINVAL;
-            BME280_LOG(ERROR, "SPI_%u read failed addr:0x%02X\n",
-                       itf->si_num, addr);
+            BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
+                    itf->si_num, addr);
             STATS_INC(g_bme280stats, read_errors);
             goto err;
         }
-        payload[i] = retval;
+
+        for (i = 0; i < len; i++) {
+            /* Read data */
+            retval = hal_spi_tx_val(itf->si_num, 0);
+            if (retval == 0xFFFF) {
+                rc = SYS_EINVAL;
+                BME280_LOG(ERROR, "SPI_%u read failed addr:0x%02X\n",
+                        itf->si_num, addr);
+                STATS_INC(g_bme280stats, read_errors);
+                goto err;
+            }
+            payload[i] = retval;
+        }
+
+        rc = 0;
+
+    err:
+        /* De-select the device */
+        hal_gpio_write(itf->si_cs_pin, 1);
+        return rc;
     }
 
-    rc = 0;
+    /**
+     * Write multiple length data to BME280 sensor over SPI
+     *
+     * @param register address
+     * @param variable length payload
+     * @param length of the payload to write
+     *
+     * @return 0 on success, non-zero on failure
+     */
+    int
+    bme280_writelen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
+                    uint8_t len)
+    {
+        int rc;
+        int i;
 
-err:
-    /* De-select the device */
-    hal_gpio_write(itf->si_cs_pin, 1);
-    return rc;
-}
+        /* Select the device */
+        hal_gpio_write(itf->si_cs_pin, 0);
 
-/**
- * Write multiple length data to BME280 sensor over SPI
- *
- * @param register address
- * @param variable length payload
- * @param length of the payload to write
- *
- * @return 0 on success, non-zero on failure
- */
-int
-bme280_writelen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
-                uint8_t len)
-{
-    int rc;
-    int i;
-
-    /* Select the device */
-    hal_gpio_write(itf->si_cs_pin, 0);
-
-    /* Send the address */
-    rc = hal_spi_tx_val(itf->si_num, addr & ~BME280_SPI_READ_CMD_BIT);
-    if (rc == 0xFFFF) {
-        rc = SYS_EINVAL;
-        BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
-                   itf->si_num, addr);
-        STATS_INC(g_bme280stats, write_errors);
-        goto err;
-    }
-
-    for (i = 0; i < len; i++) {
-        /* Read data */
-        rc = hal_spi_tx_val(itf->si_num, payload[i]);
+        /* Send the address */
+        rc = hal_spi_tx_val(itf->si_num, addr & ~BME280_SPI_READ_CMD_BIT);
         if (rc == 0xFFFF) {
             rc = SYS_EINVAL;
-            BME280_LOG(ERROR, "SPI_%u write failed addr:0x%02X:0x%02X\n",
-                       itf->si_num, addr);
+            BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
+                    itf->si_num, addr);
             STATS_INC(g_bme280stats, write_errors);
             goto err;
         }
+
+        for (i = 0; i < len; i++) {
+            /* Read data */
+            rc = hal_spi_tx_val(itf->si_num, payload[i]);
+            if (rc == 0xFFFF) {
+                rc = SYS_EINVAL;
+                BME280_LOG(ERROR, "SPI_%u write failed addr:0x%02X:0x%02X\n",
+                        itf->si_num, addr);
+                STATS_INC(g_bme280stats, write_errors);
+                goto err;
+            }
+        }
+
+
+        rc = 0;
+
+    err:
+        /* De-select the device */
+        hal_gpio_write(itf->si_cs_pin, 1);
+        os_time_delay((OS_TICKS_PER_SEC * 30)/1000 + 1);
+        return rc;
     }
-
-
-    rc = 0;
-
-err:
-    /* De-select the device */
-    hal_gpio_write(itf->si_cs_pin, 1);
-    os_time_delay((OS_TICKS_PER_SEC * 30)/1000 + 1);
-    return rc;
-}
 #endif  //  NOTUSED
 
 /**

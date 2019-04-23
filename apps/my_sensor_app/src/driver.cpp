@@ -6,24 +6,6 @@
 #include "nRF24L01P.h"
 #include "nrf24l01.h"
 
-//  TODO: Move the test
-void test_nrf24l01(void) {
-    //  int rc;
-    nrf24l01_create();
-    {   //  Lock the nRF24L01 driver for exclusive use.
-        //  Find the nRF24L01 device by name "nrf24l01_0".
-        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
-        assert(dev != NULL);
-
-        //  Close the nRF24L01 device when we are done.
-        os_dev_close((struct os_dev *) dev);
-        //  Unlock the nRF24L01 driver for exclusive use.
-    }
-
-    console_flush();  ////
-    for (;;) {} ////
-}
-
 #define _NRF24L01P_SPI_MAX_DATA_RATE     10000000
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
