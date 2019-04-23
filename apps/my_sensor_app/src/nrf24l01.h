@@ -4,6 +4,7 @@
 #define __NRF24L01_DRIVER_H__
 #include <os/os_dev.h>    //  For os_dev
 #include <os/os_mutex.h>  //  For os_mutex
+#include <hal/hal_spi.h>  //  For hal_spi_settings
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.

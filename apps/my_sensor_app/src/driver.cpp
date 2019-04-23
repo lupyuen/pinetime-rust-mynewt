@@ -3,7 +3,7 @@
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include <console/console.h>
-#include "Controller.h"
+#include "nRF24L01P.h"
 #include "nrf24l01.h"
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
@@ -27,23 +27,14 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  Assign the controller.
     dev->controller = &controller;
 
-    //  Erase the socket info.
-    memset(cfg->_ids, 0, sizeof(cfg->_ids));
-    memset(cfg->_cbs, 0, sizeof(cfg->_cbs));
-
-    //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
-    drv(dev)->init(
-        nrf24l01_tx_buffer, nrf24l01_TX_BUFFER_SIZE,
-        nrf24l01_rx_buffer, nrf24l01_RX_BUFFER_SIZE,
-        nrf24l01_parser_buffer, nrf24l01_PARSER_BUFFER_SIZE
-    );
-    drv(dev)->configure(cfg->uart);         //  Configure the UART port.  0 means UART2.
+    //  Initialise the controller.
+    drv(dev)->init(&cfg->spi_settings, cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin);
     return 0;
 }
 
 static int nrf24l01_close(struct os_dev *dev0) {
     //  Shutdown the nrf24l01 transceiver.  Unlock the port.
-    //  TODO: Undo driver.init(), driver.configure() and driver.attach()
+    //  TODO: Undo driver.init().
     console_printf("]\n");  console_flush();  ////
     assert(dev0);
     return 0;
