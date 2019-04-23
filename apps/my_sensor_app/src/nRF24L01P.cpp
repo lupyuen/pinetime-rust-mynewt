@@ -36,9 +36,12 @@
 /**
  * Includes
  */
+#include <assert.h>
+#include <errno.h>
 #include "os/mynewt.h"
 #include "hal/hal_spi.h"
 #include "hal/hal_gpio.h"
+#include "console/console.h"
 #include "nRF24L01P.h"
 
 /**
@@ -170,6 +173,14 @@ typedef enum {
 #define _NRF24L01P_TIMING_Thce_us              10   //  10uS
 #define _NRF24L01P_TIMING_Tpd2stby_us        4500   // 4.5mS worst case
 #define _NRF24L01P_TIMING_Tpece2csn_us          4   //   4uS
+
+//  Halt upon error.
+#define error(fmt, arg) { console_printf(fmt, arg); console_flush(); assert(0); }
+
+static void wait_us(uint32_t microsecs) {
+    //  Wait for the number of microseconds.
+    os_time_delay(microsecs * OS_TICKS_PER_SEC / 1000000);
+}
 
 #ifdef NOTUSED
 /**
