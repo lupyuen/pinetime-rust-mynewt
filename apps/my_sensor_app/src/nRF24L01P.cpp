@@ -813,6 +813,7 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, cn);
+    assert(status != 0xFFFF);
 
     while ( width-- > 0 ) {
 
@@ -890,6 +891,7 @@ void nRF24L01P::setTxAddress(unsigned long long address, int width) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, cn);
+    assert(status != 0xFFFF);
 
     while ( width-- > 0 ) {
 
@@ -956,6 +958,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, cn);
+    assert(status != 0xFFFF);
 
     for ( int i=0; i<width; i++ ) {
 
@@ -1012,6 +1015,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, cn);
+    assert(status != 0xFFFF);
 
     for ( int i=0; i<width; i++ ) {
 
@@ -1064,6 +1068,7 @@ int nRF24L01P::write(int pipe, char *data, int count) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_WR_TX_PAYLOAD);
+    assert(status != 0xFFFF);
 
     for ( int i = 0; i < count; i++ ) {
 
@@ -1122,6 +1127,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
         select();  //  Set CS Pin to low.
 
         int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_R_RX_PL_WID);
+        assert(status != 0xFFFF);
 
         int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
         
@@ -1134,8 +1140,10 @@ int nRF24L01P::read(int pipe, char *data, int count) {
             select();  //  Set CS Pin to low.
     
             int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
+            assert(status != 0xFFFF);
     
             int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+            assert(rxPayloadWidth != 0xFFFF);
             
             deselect();  //  Set CS Pin to high.
             
@@ -1151,6 +1159,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
             select();  //  Set CS Pin to low.
         
             int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_RD_RX_PAYLOAD);
+            assert(status != 0xFFFF);
         
             for ( int i = 0; i < count; i++ ) {
         
@@ -1200,6 +1209,7 @@ void nRF24L01P::setRegister(int regAddress, int regData) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, cn);
+    assert(status != 0xFFFF);
 
     hal_spi_tx_val(spi_num, regData & 0xFF);
 
@@ -1219,8 +1229,10 @@ int nRF24L01P::getRegister(int regAddress) {
     select();  //  Set CS Pin to low.
 
     int status = hal_spi_tx_val(spi_num, cn);
+    assert(status != 0xFFFF);
 
     int dn = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+    assert(dn != 0xFFFF);
 
     deselect();  //  Set CS Pin to high.
 
