@@ -1,21 +1,36 @@
-//  From https://os.mbed.com/users/Owen/code/nRF24L01P_Hello_World/file/5be2682710c6/main.cpp/
-#include "mbed.h"
+//  Ported to Mynewt from https://os.mbed.com/users/Owen/code/nRF24L01P_Hello_World/file/5be2682710c6/main.cpp/
+#include <os/os.h>
+#include <console/console.h>
+#include "nrf24l01.h"
 #include "nRF24L01P.h"
 
-Serial pc(USBTX, USBRX); // tx, rx
+static void test_tx_rx(struct nrf24l01 *dev);
 
-nRF24L01P my_nrf24l01p(p5, p6, p7, p8, p9, p10);    // mosi, miso, sck, csn, ce, irq
+void test_nrf24l01(void) {
+    //  int rc;
+    nrf24l01_create();
+    {   //  Lock the nRF24L01 driver for exclusive use.
+        //  Find the nRF24L01 device by name "nrf24l01_0".
+        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
+        assert(dev != NULL);
 
-DigitalOut myled1(LED1);
-DigitalOut myled2(LED2);
+        test_tx_rx(dev);
 
-int main() {
+        //  Close the nRF24L01 device when we are done.
+        os_dev_close((struct os_dev *) dev);
+        //  Unlock the nRF24L01 driver for exclusive use.
+    }
+
+    console_flush();  ////
+    for (;;) {} ////
+}
 
 // The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
 //  "Nordic Serial Interface Board" (http://www.sparkfun.com/products/9019)
 //  only handles 4 byte transfers in the ATMega code.
 #define TRANSFER_SIZE   4
 
+static void test_tx_rx(struct nrf24l01 *dev) {
     char txData[TRANSFER_SIZE], rxData[TRANSFER_SIZE];
     int txDataCnt = 0;
     int rxDataCnt = 0;
@@ -116,24 +131,6 @@ int main() {
 
         // preload payload with initial data
         // radio.writeAckPayload(1, &remoteNodeData, sizeof(remoteNodeData));
-    }
-
-    void test_nrf24l01(void) {
-        //  int rc;
-        nrf24l01_create();
-        {   //  Lock the nRF24L01 driver for exclusive use.
-            //  Find the nRF24L01 device by name "nrf24l01_0".
-            struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
-            assert(dev != NULL);
-
-
-            //  Close the nRF24L01 device when we are done.
-            os_dev_close((struct os_dev *) dev);
-            //  Unlock the nRF24L01 driver for exclusive use.
-        }
-
-        console_flush();  ////
-        for (;;) {} ////
     }
 
 #endif  //  NOTUSED
