@@ -349,6 +349,7 @@ private:
     int cs_pin;     //  Default is PB2
     int ce_pin;     //  Default is PB0
     int irq_pin;    //  Default is PA15
+    int ce_value;   //  Current value of CE Pin
 
     int mode;
 

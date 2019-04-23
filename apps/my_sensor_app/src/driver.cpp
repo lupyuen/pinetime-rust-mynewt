@@ -1,10 +1,12 @@
 //  nRF24L01 Driver for Apache Mynewt.  Functions for creating the device instance and performing device functions.
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
 #include <os/os.h>
-#include <sensor/sensor.h>
+#include <bsp/bsp.h>
 #include <console/console.h>
 #include "nRF24L01P.h"
 #include "nrf24l01.h"
+
+#define _NRF24L01P_SPI_MAX_DATA_RATE     10000000
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
 static bool first_open = true;  //  True if this is the first time opening the driver.
@@ -13,7 +15,7 @@ static bool first_open = true;  //  True if this is the first time opening the d
 //  Device Creation Functions
 
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
-static nrf24l01_cfg *cfg(struct nrf24l01 *dev) { return &dev->cfg; }                 //  Return the device config
+// static nrf24l01_cfg *cfg(struct nrf24l01 *dev) { return &dev->cfg; }                    //  Return the device config
 
 static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  If first time we are opening the driver: Prepare the nrf24l01 transceiver for use.  Lock the port.

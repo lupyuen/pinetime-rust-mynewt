@@ -71,8 +71,6 @@ typedef enum {
 #define _NRF24L01P_TX_FIFO_SIZE   32
 #define _NRF24L01P_RX_FIFO_SIZE   32
 
-#define _NRF24L01P_SPI_MAX_DATA_RATE     10000000
-
 #define _NRF24L01P_SPI_CMD_RD_REG            0x00
 #define _NRF24L01P_SPI_CMD_WR_REG            0x20
 #define _NRF24L01P_SPI_CMD_RD_RX_PAYLOAD     0x61   
@@ -195,7 +193,7 @@ static void wait_us(uint32_t microsecs) {
     //  Rewritten as: os_time_delay(microsecs / USEC_PER_OS_TICK)
     //  Approximate with Log Base 2.
     uint32_t ticks = microsecs >> USEC_PER_OS_TICK_LOG2;
-    console_printf("wait %u ticks\n", ticks);
+    console_printf("wait %u ticks\n", (unsigned) ticks);
     os_time_delay(ticks);
 }
 
@@ -486,7 +484,8 @@ void nRF24L01P::setTransmitMode(void) {
 
 void nRF24L01P::enable(void) {
 
-    hal_gpio_write(ce_pin, 1);  //  Set CE Pin to high.
+    ce_value = 1;
+    hal_gpio_write(ce_pin, ce_value);  //  Set CE Pin to high.
     wait_us( _NRF24L01P_TIMING_Tpece2csn_us );
 
 }
@@ -494,7 +493,8 @@ void nRF24L01P::enable(void) {
 
 void nRF24L01P::disable(void) {
 
-    hal_gpio_write(ce_pin, 0);  //  Set CE Pin to low.
+    ce_value = 0;
+    hal_gpio_write(ce_pin, ce_value);  //  Set CE Pin to low.
 
 }
 
@@ -1051,8 +1051,8 @@ int nRF24L01P::write(int pipe, char *data, int count) {
     //
     // Save the CE state
     //
-    int originalCe = ce_;
-    disable();
+    int originalCe = ce_value;
+    disable();  //  Set CE Pin to low.
 
     if ( count <= 0 ) return 0;
 
@@ -1076,9 +1076,9 @@ int nRF24L01P::write(int pipe, char *data, int count) {
     int originalMode = mode;
     setTransmitMode();
 
-    enable();
+    enable();  //  Set CE Pin to high.
     wait_us(_NRF24L01P_TIMING_Thce_us);
-    disable();
+    disable();  //  Set CE Pin to low.
 
     while ( !( getStatusRegister() & _NRF24L01P_STATUS_TX_DS ) ) {
 
@@ -1095,7 +1095,8 @@ int nRF24L01P::write(int pipe, char *data, int count) {
 
     }
 
-    ce_ = originalCe;
+    if (originalCe) { enable(); }   //  Set CE Pin to high.
+    else { disable(); }             //  Set CE Pin to low.
     wait_us( _NRF24L01P_TIMING_Tpece2csn_us );
 
     return count;
@@ -1191,7 +1192,7 @@ void nRF24L01P::setRegister(int regAddress, int regData) {
     //
     // Save the CE state
     //
-    int originalCe = ce_;
+    int originalCe = ce_value;
     disable();
 
     int cn = (_NRF24L01P_SPI_CMD_WR_REG | (regAddress & _NRF24L01P_REG_ADDRESS_MASK));
@@ -1204,7 +1205,8 @@ void nRF24L01P::setRegister(int regAddress, int regData) {
 
     deselect();  //  Set CS Pin to high.
 
-    ce_ = originalCe;
+    if (originalCe) { enable(); }   //  Set CE Pin to high.
+    else { disable(); }             //  Set CE Pin to low.
     wait_us( _NRF24L01P_TIMING_Tpece2csn_us );
 
 }
