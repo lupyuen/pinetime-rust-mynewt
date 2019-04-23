@@ -1,10 +1,13 @@
 //  Ported to Mynewt from https://os.mbed.com/users/Owen/code/nRF24L01P_Hello_World/file/5be2682710c6/main.cpp/
+#include <assert.h>
 #include <os/os.h>
 #include <console/console.h>
+#include <hal/hal_bsp.h>
 #include "nrf24l01.h"
 #include "nRF24L01P.h"
 
 static void test_tx_rx(struct nrf24l01 *dev);
+static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
 
 void test_nrf24l01(void) {
     //  int rc;
@@ -25,68 +28,59 @@ void test_nrf24l01(void) {
     for (;;) {} ////
 }
 
-// The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
+//  The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
 //  "Nordic Serial Interface Board" (http://www.sparkfun.com/products/9019)
 //  only handles 4 byte transfers in the ATMega code.
 #define TRANSFER_SIZE   4
 
+//  static char txData[TRANSFER_SIZE];
+static char rxData[TRANSFER_SIZE];
+
+static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
+static int hw_id_len;      //  Actual length of hardware ID
+
 static void test_tx_rx(struct nrf24l01 *dev) {
-    char txData[TRANSFER_SIZE], rxData[TRANSFER_SIZE];
+    //  Fetch the hardware ID.  This is unique across all microcontrollers.  
+    hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
+    assert(hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
+    hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
+
     int txDataCnt = 0;
     int rxDataCnt = 0;
 
-    my_nrf24l01p.powerUp();
+    drv(dev)->powerUp();
 
     // Display the (default) setup of the nRF24L01+ chip
-    pc.printf( "nRF24L01+ Frequency    : %d MHz\r\n",  my_nrf24l01p.getRfFrequency() );
-    pc.printf( "nRF24L01+ Output power : %d dBm\r\n",  my_nrf24l01p.getRfOutputPower() );
-    pc.printf( "nRF24L01+ Data Rate    : %d kbps\r\n", my_nrf24l01p.getAirDataRate() );
-    pc.printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", my_nrf24l01p.getTxAddress() );
-    pc.printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", my_nrf24l01p.getRxAddress() );
+    pc.printf( "nRF24L01+ Frequency    : %d MHz\r\n",  drv(dev)->getRfFrequency() );
+    pc.printf( "nRF24L01+ Output power : %d dBm\r\n",  drv(dev)->getRfOutputPower() );
+    pc.printf( "nRF24L01+ Data Rate    : %d kbps\r\n", drv(dev)->getAirDataRate() );
+    pc.printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
+    pc.printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress() );
 
-    pc.printf( "Type keys to test transfers:\r\n  (transfers are grouped into %d characters)\r\n", TRANSFER_SIZE );
+    drv(dev)->setTransferSize( TRANSFER_SIZE );
 
-    my_nrf24l01p.setTransferSize( TRANSFER_SIZE );
+    drv(dev)->setReceiveMode();
+    drv(dev)->enable();
 
-    my_nrf24l01p.setReceiveMode();
-    my_nrf24l01p.enable();
-
-    while (1) {
-
-        // If we've received anything over the host serial link...
-        if ( pc.readable() ) {
-
-            // ...add it to the transmit buffer
-            txData[txDataCnt++] = pc.getc();
-
-            // If the transmit buffer is full
-            if ( txDataCnt >= sizeof( txData ) ) {
-
-                // Send the transmitbuffer via the nRF24L01+
-                my_nrf24l01p.write( NRF24L01P_PIPE_P0, txData, txDataCnt );
-
-                txDataCnt = 0;
-            }
-
-            // Toggle LED1 (to help debug Host -> nRF24L01+ communication)
-            myled1 = !myled1;
+    for (int i = 0; ; i++) {
+        if (i % 11 == 0) {
+            // Send the transmitbuffer via the nRF24L01+
+            console_printf("tx "); console_dump(hw_id, TRANSFER_SIZE); console_printf("\n"); console_flush(); ////
+            drv(dev)->write( NRF24L01P_PIPE_P0, hw_id, TRANSFER_SIZE );
+            hw_id[i % TRANSFER_SIZE]++;
         }
 
         // If we've received anything in the nRF24L01+...
-        if ( my_nrf24l01p.readable() ) {
+        if ( drv(dev)->readable() ) {
 
             // ...read the data into the receive buffer
-            rxDataCnt = my_nrf24l01p.read( NRF24L01P_PIPE_P0, rxData, sizeof( rxData ) );
-
-            // Display the receive buffer contents via the host serial link
-            for ( int i = 0; rxDataCnt > 0; rxDataCnt--, i++ ) {
-
-                pc.putc( rxData[i] );
-            }
-
-            // Toggle LED2 (to help debug nRF24L01+ -> Host communication)
-            myled2 = !myled2;
+            rxDataCnt = drv(dev)->read( NRF24L01P_PIPE_P0, rxData, sizeof( rxData ) );
+        
+            // Display the receive buffer contents
+            console_printf("rx "); console_dump(rxData, rxDataCnt); console_printf("\n"); console_flush(); ////
         }
+
+        os_time_delay(1 * OS_TICKS_PER_SEC);  //  Sleep 1 second
     }
 }
 
