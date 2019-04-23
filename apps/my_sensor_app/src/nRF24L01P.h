@@ -100,7 +100,9 @@ public:
      * @param ce mbed pin to use for the chip enable line.
      * @param irq mbed pin to use for the interrupt request line.
      */
-    nRF24L01P(PinName mosi, PinName miso, PinName sck, PinName csn, PinName ce, PinName irq = NC);
+    nRF24L01P();
+
+    int init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0);
 
     /**
      * Set the RF frequency.
@@ -340,10 +342,13 @@ private:
      */
     int getStatusRegister(void);
 
-    SPI         spi_;
-    DigitalOut  nCS_;
-    DigitalOut  ce_;
-    InterruptIn nIRQ_;
+    void select(void);  //  Set CS Pin to low.
+    void deselect(void);  //  Set CS Pin to high.
+
+    int spi_num;    //  0 means SPI1, 1 means SPI2
+    int cs_pin;     //  Default is PB2
+    int ce_pin;     //  Default is PB0
+    int irq_pin;    //  Default is PA15
 
     int mode;
 

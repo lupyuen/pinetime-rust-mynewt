@@ -36,6 +36,9 @@
 /**
  * Includes
  */
+#include "os/mynewt.h"
+#include "hal/hal_spi.h"
+#include "hal/hal_gpio.h"
 #include "nRF24L01P.h"
 
 /**
@@ -329,21 +332,39 @@ err:
  * Methods
  */
 
-nRF24L01P::nRF24L01P(PinName mosi, 
-                     PinName miso, 
-                     PinName sck, 
-                     PinName csn,
-                     PinName ce,
-                     PinName irq) : spi_(mosi, miso, sck), nCS_(csn), ce_(ce), nIRQ_(irq) {
+nRF24L01P::nRF24L01P() {
+    mode = _NRF24L01P_MODE_UNKNOWN;
+}
+
+int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0) {
+    int rc;
+    assert(spi_settings);
+    if (!spi_settings) { rc = SYS_ENODEV; goto err; }
 
     mode = _NRF24L01P_MODE_UNKNOWN;
+    spi_num = spi_num0;
+    cs_pin = cs_pin0;
+    ce_pin = ce_pin0;
+    irq_pin = irq_pin0;
 
-    disable();
+    rc = hal_gpio_init_out(cs_pin, 1);
+    assert(rc == 0);
+    if (rc) { goto err; }
 
-    nCS_ = 1;
+    rc = hal_gpio_init_out(ce_pin, 1);
+    assert(rc == 0);
+    if (rc) { goto err; }
 
-    spi_.frequency(_NRF24L01P_SPI_MAX_DATA_RATE/5);     // 2Mbit, 1/5th the maximum transfer rate for the SPI bus
-    spi_.format(8,0);                                   // 8-bit, ClockPhase = 0, ClockPolarity = 0
+    disable();   //  Set CE Pin to low.
+    deselect();  //  Set CS Pin to high.
+
+    rc = hal_spi_config(spi_num, spi_settings);
+    assert(rc == 0);
+    if (rc == EINVAL) { goto err; }
+
+    rc = hal_spi_enable(spi_num);
+    assert(rc == 0);
+    if (rc) { goto err; }
 
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
 
@@ -367,6 +388,9 @@ nRF24L01P::nRF24L01P(PinName mosi,
 
     mode = _NRF24L01P_MODE_POWER_DOWN;
 
+    return (0);
+err:
+    return (rc);
 }
 
 
@@ -404,7 +428,7 @@ void nRF24L01P::powerDown(void) {
 
 void nRF24L01P::setReceiveMode(void) {
 
-    if ( _NRF24L01P_MODE_POWER_DOWN == mode ) powerUp();
+    if ( _NRF24L01P_MODE_POWER_DOWN == mode ) { powerUp(); }
 
     int config = getRegister(_NRF24L01P_REG_CONFIG);
 
@@ -419,7 +443,7 @@ void nRF24L01P::setReceiveMode(void) {
 
 void nRF24L01P::setTransmitMode(void) {
 
-    if ( _NRF24L01P_MODE_POWER_DOWN == mode ) powerUp();
+    if ( _NRF24L01P_MODE_POWER_DOWN == mode ) { powerUp(); }
 
     int config = getRegister(_NRF24L01P_REG_CONFIG);
 
@@ -434,7 +458,7 @@ void nRF24L01P::setTransmitMode(void) {
 
 void nRF24L01P::enable(void) {
 
-    ce_ = 1;
+    hal_gpio_write(ce_pin, 1);  //  Set CE Pin to high.
     wait_us( _NRF24L01P_TIMING_Tpece2csn_us );
 
 }
@@ -442,7 +466,7 @@ void nRF24L01P::enable(void) {
 
 void nRF24L01P::disable(void) {
 
-    ce_ = 0;
+    hal_gpio_write(ce_pin, 0);  //  Set CE Pin to low.
 
 }
 
@@ -758,7 +782,7 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
 
     int cn = (_NRF24L01P_SPI_CMD_WR_REG | (rxAddrPxRegister & _NRF24L01P_REG_ADDRESS_MASK));
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(cn);
 
@@ -772,7 +796,7 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
 
     }
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     int enRxAddr = getRegister(_NRF24L01P_REG_EN_RXADDR);
 
@@ -835,7 +859,7 @@ void nRF24L01P::setTxAddress(unsigned long long address, int width) {
 
     int cn = (_NRF24L01P_SPI_CMD_WR_REG | (_NRF24L01P_REG_TX_ADDR & _NRF24L01P_REG_ADDRESS_MASK));
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(cn);
 
@@ -849,7 +873,7 @@ void nRF24L01P::setTxAddress(unsigned long long address, int width) {
 
     }
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
 }
 
@@ -901,7 +925,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     unsigned long long address = 0;
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(cn);
 
@@ -914,7 +938,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     }
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     if ( !( ( pipe == NRF24L01P_PIPE_P0 ) || ( pipe == NRF24L01P_PIPE_P1 ) ) ) {
 
@@ -957,7 +981,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 
     unsigned long long address = 0;
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(cn);
 
@@ -970,7 +994,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 
     }
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     return address;
 }
@@ -1009,7 +1033,7 @@ int nRF24L01P::write(int pipe, char *data, int count) {
     // Clear the Status bit
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_TX_DS);
 	
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(_NRF24L01P_SPI_CMD_WR_TX_PAYLOAD);
 
@@ -1019,7 +1043,7 @@ int nRF24L01P::write(int pipe, char *data, int count) {
 
     }
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     int originalMode = mode;
     setTransmitMode();
@@ -1066,25 +1090,25 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
     if ( readable(pipe) ) {
 
-        nCS_ = 0;
+        select();  //  Set CS Pin to low.
 
         int status = spi_.write(_NRF24L01P_SPI_CMD_R_RX_PL_WID);
 
         int rxPayloadWidth = spi_.write(_NRF24L01P_SPI_CMD_NOP);
         
-        nCS_ = 1;
+        deselect();  //  Set CS Pin to high.
 
         if ( ( rxPayloadWidth < 0 ) || ( rxPayloadWidth > _NRF24L01P_RX_FIFO_SIZE ) ) {
     
             // Received payload error: need to flush the FIFO
 
-            nCS_ = 0;
+            select();  //  Set CS Pin to low.
     
             int status = spi_.write(_NRF24L01P_SPI_CMD_FLUSH_RX);
     
             int rxPayloadWidth = spi_.write(_NRF24L01P_SPI_CMD_NOP);
             
-            nCS_ = 1;
+            deselect();  //  Set CS Pin to high.
             
             //
             // At this point, we should retry the reception,
@@ -1095,7 +1119,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
             if ( rxPayloadWidth < count ) count = rxPayloadWidth;
 
-            nCS_ = 0;
+            select();  //  Set CS Pin to low.
         
             int status = spi_.write(_NRF24L01P_SPI_CMD_RD_RX_PAYLOAD);
         
@@ -1105,7 +1129,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
         
             }
 
-            nCS_ = 1;
+            deselect();  //  Set CS Pin to high.
 
             // Clear the Status bit
             setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_RX_DR);
@@ -1144,13 +1168,13 @@ void nRF24L01P::setRegister(int regAddress, int regData) {
 
     int cn = (_NRF24L01P_SPI_CMD_WR_REG | (regAddress & _NRF24L01P_REG_ADDRESS_MASK));
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(cn);
 
     spi_.write(regData & 0xFF);
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     ce_ = originalCe;
     wait_us( _NRF24L01P_TIMING_Tpece2csn_us );
@@ -1162,13 +1186,13 @@ int nRF24L01P::getRegister(int regAddress) {
 
     int cn = (_NRF24L01P_SPI_CMD_RD_REG | (regAddress & _NRF24L01P_REG_ADDRESS_MASK));
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(cn);
 
     int dn = spi_.write(_NRF24L01P_SPI_CMD_NOP);
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     return dn;
 
@@ -1176,12 +1200,20 @@ int nRF24L01P::getRegister(int regAddress) {
 
 int nRF24L01P::getStatusRegister(void) {
 
-    nCS_ = 0;
+    select();  //  Set CS Pin to low.
 
     int status = spi_.write(_NRF24L01P_SPI_CMD_NOP);
 
-    nCS_ = 1;
+    deselect();  //  Set CS Pin to high.
 
     return status;
 
+}
+
+void nRF24L01P::select(void) {
+    hal_gpio_write(cs_pin, 0);  //  Select the module.
+}
+
+void nRF24L01P::deselect(void) {
+    hal_gpio_write(cs_pin, 1);  //  Deselect the module.
 }

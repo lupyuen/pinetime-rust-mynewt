@@ -53,7 +53,7 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Configure the nrf24l01 driver.  Called by os_dev_create().  Return 0 if successful.
     struct nrf24l01 *dev;
     int rc;
-    if (!arg || !dev0) { rc = SYS_ENODEV; goto err; }
+    if (!dev0) { rc = SYS_ENODEV; goto err; }
     dev = (struct nrf24l01 *) dev0;  assert(dev);
 
     //  Register the handlers for opening and closing the device.
@@ -73,9 +73,11 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->spi_settings.data_mode  = HAL_SPI_MODE0;  //  ClockPhase = 0, ClockPolarity = 0
     cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE / 5;  //  2Mbit, 1/5th the maximum transfer rate for the SPI bus
     cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;
-    cfg->spi_num            = //  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
-    cfg->spi_cfg            = NULL;  //  TODO
-    cfg->ss_pin             = //  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
+    cfg->spi_num = 0;     //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
+    cfg->spi_cfg = NULL;  //  TODO
+    cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
+    cfg->ce_pin = MCU_GPIO_PORTB(0);  //  PB0
+    cfg->irq_pin = MCU_GPIO_PORTA(15);  //  PA15
     return 0;
 }
 

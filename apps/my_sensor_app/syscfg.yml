@@ -81,6 +81,8 @@ syscfg.vals:
     OS_SYSVIEW_TRACE_EVENTQ:  0  # Disable trace of event queues
     OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
     OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores
+    # TODO: Move to nrf24l01 driver
+    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
 
 # Settings for Tutorial 1
 syscfg.vals.TUTORIAL1:

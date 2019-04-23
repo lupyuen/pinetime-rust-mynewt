@@ -14,10 +14,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
 //  Device Configuration
 struct nrf24l01_cfg {
     struct hal_spi_settings spi_settings;
-    int spi_num;
-    void *spi_cfg;                  /** Low-level MCU SPI config */
-    int ss_pin;
-    //  TODO: IRQ
+    int spi_num;    //  0 means SPI1, 1 means SPI2
+    void *spi_cfg;  //  Low-level MCU SPI config
+    int cs_pin;     //  Default is PB2
+    int ce_pin;     //  Default is PB0
+    int irq_pin;    //  Default is PA15
 };
 
 //  Device Instance
