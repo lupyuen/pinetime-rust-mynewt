@@ -102,7 +102,7 @@ public:
      */
     nRF24L01P();
 
-    int init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0);
+    int init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0);
 
     /**
      * Set the RF frequency.

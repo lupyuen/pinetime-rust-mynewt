@@ -192,9 +192,8 @@ static void wait_us(uint32_t microsecs) {
     //  Originally:    microsecs * OS_TICKS_PER_SEC / 1000000
     //  Equivalent to: microsecs / USEC_PER_OS_TICK
     //  Here we approximate with Log Base 2 to avoid division.  Always approximate to give higher not lower number of ticks.
-    //  uint32_t ticks = (microsecs >> USEC_PER_OS_TICK_LOG2) + 1;  //  Add 1 to avoid 0 ticks.
-    uint32_t ticks = 1 + (OS_TICKS_PER_SEC / 1000000.0) * microsecs;
-    console_printf("wait %u ticks\n", (unsigned) ticks);
+    uint32_t ticks = (microsecs >> USEC_PER_OS_TICK_LOG2) + 1;  //  Add 1 to avoid 0 ticks.
+    //  console_printf("wait %u ticks\n", (unsigned) ticks);
     os_time_delay(ticks);
 }
 
@@ -363,45 +362,20 @@ nRF24L01P::nRF24L01P() {
     mode = _NRF24L01P_MODE_UNKNOWN;
 }
 
-int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0) {
-    int rc;
-    assert(spi_settings);
-    if (!spi_settings) { rc = SYS_ENODEV; goto err; }
-
+int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0) {
     mode = _NRF24L01P_MODE_UNKNOWN;
     spi_num = spi_num0;
     cs_pin = cs_pin0;
     ce_pin = ce_pin0;
     irq_pin = irq_pin0;
 
-#ifdef NOTUSED
-    rc = hal_spi_config(spi_num, spi_settings);
-    assert(rc == 0);
-    if (rc == EINVAL) { goto err; }
-
-    rc = hal_spi_enable(spi_num);
-    assert(rc == 0);
-    if (rc) { goto err; }
-
-    rc = hal_gpio_init_out(cs_pin, 1);
-    assert(rc == 0);
-    if (rc) { goto err; }
-
-    rc = hal_gpio_init_out(ce_pin, 1);
-    assert(rc == 0);
-    if (rc) { goto err; }
-#endif  //  NOTUSED
+    //  SPI and GPIO already initialised previously in nrf24l01_init().
 
     console_printf("power on reset\n"); ////
-    wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset  ////
+    wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
 
     disable();   //  Set CE Pin to low.
-
-    wait_us(100 * 1000);  ////delay(100);  
-
     deselect();  //  Set CS Pin to high.
-
-    wait_us(5 * 1000);  //// delay( 5 ) ;
 
     console_printf("power on reset\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
@@ -438,8 +412,8 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     mode = _NRF24L01P_MODE_POWER_DOWN;
 
     return (0);
-err:
-    return (rc);
+// err:
+    // return (rc);
 }
 
 

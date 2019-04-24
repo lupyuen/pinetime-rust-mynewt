@@ -102,7 +102,7 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     assert(dev);  assert(cfg);
 
     //  Initialise the controller.
-    int rc = drv(dev)->init(&cfg->spi_settings, cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin);
+    int rc = drv(dev)->init(cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin);
     assert(rc == 0);
     return rc;
 }
