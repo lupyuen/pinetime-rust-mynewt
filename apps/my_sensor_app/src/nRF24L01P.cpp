@@ -192,8 +192,8 @@ static void wait_us(uint32_t microsecs) {
     //  Originally:    microsecs * OS_TICKS_PER_SEC / 1000000
     //  Equivalent to: microsecs / USEC_PER_OS_TICK
     //  Here we approximate with Log Base 2 to avoid division.  Always approximate to give higher not lower number of ticks.
-    //  uint32_t ticks = (microsecs >> USEC_PER_OS_TICK_LOG2) + 10;  //  Add 10 to avoid 0 ticks.
-    uint32_t ticks = 100 + (OS_TICKS_PER_SEC / 1000000.0) * microsecs;
+    //  uint32_t ticks = (microsecs >> USEC_PER_OS_TICK_LOG2) + 1;  //  Add 1 to avoid 0 ticks.
+    uint32_t ticks = 1 + (OS_TICKS_PER_SEC / 1000000.0) * microsecs;
     console_printf("wait %u ticks\n", (unsigned) ticks);
     os_time_delay(ticks);
 }
@@ -382,9 +382,6 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     assert(rc == 0);
     if (rc) { goto err; }
 
-    disable();   //  Set CE Pin to low.
-    deselect();  //  Set CS Pin to high.
-
     rc = hal_spi_config(spi_num, spi_settings);
     assert(rc == 0);
     if (rc == EINVAL) { goto err; }
@@ -393,11 +390,31 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     assert(rc == 0);
     if (rc) { goto err; }
 
+    console_printf("power on reset\n"); ////
+    wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset  ////
+
+    disable();   //  Set CE Pin to low.
+
+    wait_us(100 * 1000);  ////delay(100);  
+
+    deselect();  //  Set CS Pin to high.
+
+    wait_us(5 * 1000);  //// delay( 5 ) ;
+
+    console_printf("power on reset\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
 
+    console_printf("power down\n"); ////
     setRegister(_NRF24L01P_REG_CONFIG, 0); // Power Down
 
+    console_printf("clear interrupts\n"); ////
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_MAX_RT|_NRF24L01P_STATUS_TX_DS|_NRF24L01P_STATUS_RX_DR);   // Clear any pending interrupts
+
+    //// TEST
+    setTxAddress();
+    getTxAddress();
+    for (;;) {} ////
+    //// END TEST
 
     //
     // Setup default configuration
@@ -729,7 +746,7 @@ int nRF24L01P::getTransferSize(int pipe) {
 
 
 void nRF24L01P::disableAllRxPipes(void) {
-
+    console_printf("disable all rx\n"); ////
     setRegister(_NRF24L01P_REG_EN_RXADDR, _NRF24L01P_EN_RXADDR_NONE);
 
 }
@@ -862,7 +879,7 @@ void nRF24L01P::setTxAddress(unsigned long msb_address, unsigned long lsb_addres
 
 
 void nRF24L01P::setTxAddress(unsigned long long address, int width) {
-
+    console_printf("set tx addr\n"); ////
     int setupAw = getRegister(_NRF24L01P_REG_SETUP_AW) & ~_NRF24L01P_SETUP_AW_AW_MASK;
 
     switch ( width ) {
@@ -984,7 +1001,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     
 unsigned long long nRF24L01P::getTxAddress(void) {
-
+    console_printf("get tx addr\n"); ////
     int setupAw = getRegister(_NRF24L01P_REG_SETUP_AW) & _NRF24L01P_SETUP_AW_AW_MASK;
 
     int width;
