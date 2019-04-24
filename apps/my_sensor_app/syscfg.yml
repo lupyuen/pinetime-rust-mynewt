@@ -115,8 +115,8 @@ syscfg.vals.TUTORIAL2:
 syscfg.vals.TUTORIAL3:
     SENSOR_COAP:            0  # Send sensor data to CoAP server
     ESP8266:                0  # Enable WiFi access with ESP8266
-    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
-    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
+    TEMP_STM32:             0  # Enable Blue Pill internal temperature sensor
+    ADC_1:                  0  # Enable port ADC1 for internal temperature sensor
     HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
     # TODO: Move to nrf24l01 driver
     SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01

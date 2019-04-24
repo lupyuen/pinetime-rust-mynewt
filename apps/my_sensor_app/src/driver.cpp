@@ -65,13 +65,15 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Return default SPI settings.
     cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;  //  Data order
     cfg->spi_settings.data_mode  = HAL_SPI_MODE0;      //  Data mode of SPI driver: ClockPhase = 0, ClockPolarity = 0
-    cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Baudrate in kHz: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
+    //  cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Baudrate in kHz: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
+    cfg->spi_settings.baudrate   = 200;  //  Baudrate in kHz: 200 kHz (slow)
     cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;  //  Word size of the SPI transaction
     cfg->spi_num = 0;     //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
     cfg->spi_cfg = NULL;  //  TODO
     cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
     cfg->ce_pin = MCU_GPIO_PORTB(0);  //  PB0
     cfg->irq_pin = MCU_GPIO_PORTA(15);  //  PA15
+    console_printf("spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
     return 0;
 }
 
