@@ -374,19 +374,19 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     ce_pin = ce_pin0;
     irq_pin = irq_pin0;
 
-    rc = hal_gpio_init_out(cs_pin, 1);
-    assert(rc == 0);
-    if (rc) { goto err; }
-
-    rc = hal_gpio_init_out(ce_pin, 1);
-    assert(rc == 0);
-    if (rc) { goto err; }
-
     rc = hal_spi_config(spi_num, spi_settings);
     assert(rc == 0);
     if (rc == EINVAL) { goto err; }
 
     rc = hal_spi_enable(spi_num);
+    assert(rc == 0);
+    if (rc) { goto err; }
+
+    rc = hal_gpio_init_out(cs_pin, 1);
+    assert(rc == 0);
+    if (rc) { goto err; }
+
+    rc = hal_gpio_init_out(ce_pin, 1);
     assert(rc == 0);
     if (rc) { goto err; }
 
