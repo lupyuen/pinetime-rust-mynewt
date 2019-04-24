@@ -49,6 +49,7 @@ static void test_tx_rx(struct nrf24l01 *dev) {
     //  int txDataCnt = 0;
     int rxDataCnt = 0;
 
+    drv(dev)->setRfOutputPower(-18);  ////
     drv(dev)->powerUp();
 
     // Display the (default) setup of the nRF24L01+ chip
@@ -76,6 +77,7 @@ static void test_tx_rx(struct nrf24l01 *dev) {
 
             // ...read the data into the receive buffer
             rxDataCnt = drv(dev)->read( NRF24L01P_PIPE_P0, rxData, sizeof( rxData ) );
+            assert(rxDataCnt > 0);
         
             // Display the receive buffer contents
             console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); console_flush(); ////

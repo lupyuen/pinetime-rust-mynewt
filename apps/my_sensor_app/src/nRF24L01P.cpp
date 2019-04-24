@@ -418,7 +418,7 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0) {
 
 
 void nRF24L01P::powerUp(void) {
-
+    console_printf("power up\n"); ////
     int config = getRegister(_NRF24L01P_REG_CONFIG);
 
     config |= _NRF24L01P_CONFIG_PWR_UP;
