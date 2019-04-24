@@ -11,12 +11,15 @@ syscfg.vals:
     # TUTORIAL1:              1  # Apply Tutorial 1 settings
 
     # If you are running Tutorial 2, uncomment the following line:
-    TUTORIAL2:                1  # Apply Tutorial 2 settings
+    # TUTORIAL2:              1  # Apply Tutorial 2 settings
+
+    # If you are running Tutorial 3, uncomment the following line:
+    TUTORIAL3:                1  # Apply Tutorial 3 settings
 
     # If you are running Tutorial 2, uncomment this setting to enable WiFi Geolocation:
     # WIFI_GEOLOCATION:       1  # Enable WiFi Geolocation
 
-    # Settings for Tutorial 2
+    # Settings for Tutorial 2 and 3
     # CoAP hostname e.g. coap.thethings.io
     COAP_HOST:      '"coap.thethings.io"'
 

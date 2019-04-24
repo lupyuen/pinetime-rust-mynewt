@@ -53,6 +53,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     //  This listener function is called every 10 seconds.  Mynewt has fetched the temperature data,
     //  passed through databuf.  We send the sensor data to the CoAP server.  Return 0 if we have
     //  processed the sensor data successfully.
+    int rc = 0;
     float tmp;
     struct sensor_temp_data *tempdata = (struct sensor_temp_data *) databuf;
 
@@ -69,7 +70,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     //  CoAP server.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    int rc = send_sensor_data(tmp);
+    rc = send_sensor_data(tmp);
 
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
