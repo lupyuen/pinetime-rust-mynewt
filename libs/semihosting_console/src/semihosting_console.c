@@ -172,6 +172,7 @@ void console_printfloat(float f) {
 
 void console_dump(const uint8_t *buffer, unsigned int len) {
 	//  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+    if (buffer == NULL || len == 0) { return; }
 	for (int i = 0; i < len; i++) { console_printhex(buffer[i]); console_buffer(" ", 1); } 
 }
 

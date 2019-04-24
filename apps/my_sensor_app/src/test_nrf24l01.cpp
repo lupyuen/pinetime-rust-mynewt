@@ -7,26 +7,39 @@
 #include "nRF24L01P.h"
 
 extern "C" void test_nrf24l01(void);
-static void test_tx_rx(struct nrf24l01 *dev);
+static void start_txrx(struct nrf24l01 *dev);
+static void tx_timer_callback(struct os_event *ev);
+static void rx_timer_callback(struct os_event *ev);
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
+
+static struct os_callout tx_callout;
+static struct os_callout rx_callout;
 
 void test_nrf24l01(void) {
     //  int rc;
+
+    //  Create the device.
     nrf24l01_create();
+
     {   //  Lock the nRF24L01 driver for exclusive use.
         //  Find the nRF24L01 device by name "nrf24l01_0".
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
-        test_tx_rx(dev);
+        start_txrx(dev);
 
         //  Close the nRF24L01 device when we are done.
-        os_dev_close((struct os_dev *) dev);
-        //  Unlock the nRF24L01 driver for exclusive use.
-    }
+        os_dev_close((struct os_dev *) dev);        
+    }   //  Unlock the nRF24L01 driver for exclusive use.
+
+    os_callout_init(&tx_callout, os_eventq_dflt_get(), tx_timer_callback, NULL);
+    os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
+
+    os_event ev;
+    tx_timer_callback(&ev);  //  Start the tx timer.
+    rx_timer_callback(&ev);  //  Start the rx timer.
 
     console_flush();  ////
-    for (;;) {} ////
 }
 
 //  The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
@@ -40,14 +53,11 @@ static char rxData[TRANSFER_SIZE];
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len;      //  Actual length of hardware ID
 
-static void test_tx_rx(struct nrf24l01 *dev) {
+static void start_txrx(struct nrf24l01 *dev) {
     //  Fetch the hardware ID.  This is unique across all microcontrollers.  
     hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
     assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
     hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
-
-    //  int txDataCnt = 0;
-    int rxDataCnt = 0;
 
     drv(dev)->setRfOutputPower(-18);  ////
     drv(dev)->powerUp();
@@ -65,27 +75,62 @@ static void test_tx_rx(struct nrf24l01 *dev) {
     drv(dev)->enable();
 
     console_flush();  ////
-    for (int i = 0; ; i++) {
-        if (i % 11 == 0) {
-            // Send the transmitbuffer via the nRF24L01+
-            console_printf("tx "); console_dump(hw_id, TRANSFER_SIZE); console_printf("\n"); console_flush(); ////
-            drv(dev)->write( NRF24L01P_PIPE_P0, (char *) hw_id, TRANSFER_SIZE );
-            hw_id[i % TRANSFER_SIZE]++;
-        }
+}
 
-        // If we've received anything in the nRF24L01+...
-        if ( drv(dev)->readable() ) {
+static int tx_count = 0;
 
+static void tx_timer_callback(struct os_event *ev) {
+    // Send the transmitbuffer via the nRF24L01+
+    assert(ev != NULL);
+    int rc = 0;
+
+    {   //  Lock the nRF24L01 driver for exclusive use.
+        //  Find the nRF24L01 device by name "nrf24l01_0".
+        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
+        assert(dev != NULL);
+
+        //  Transmit the hardware ID.
+        rc = drv(dev)->write( NRF24L01P_PIPE_P0, (char *) hw_id, TRANSFER_SIZE );
+
+        //  Close the nRF24L01 device when we are done.
+        os_dev_close((struct os_dev *) dev);        
+    }   //  Unlock the nRF24L01 driver for exclusive use.
+
+    assert(rc == TRANSFER_SIZE);
+    hw_id[tx_count++ % TRANSFER_SIZE]++;
+    console_printf("tx "); console_dump(hw_id, TRANSFER_SIZE); console_printf("\n"); 
+    console_flush(); ////
+
+    os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
+}
+
+static void rx_timer_callback(struct os_event *ev) {
+    //  Quit if nothing to read.
+    assert(ev != NULL);
+    int rxDataCnt = 0;
+
+    {   //  Lock the nRF24L01 driver for exclusive use.
+        //  Find the nRF24L01 device by name "nrf24l01_0".
+        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
+        assert(dev != NULL);
+
+        if ( drv(dev)->readable( NRF24L01P_PIPE_P0 ) ) {
             // ...read the data into the receive buffer
-            rxDataCnt = drv(dev)->read( NRF24L01P_PIPE_P0, rxData, sizeof( rxData ) );
-            assert(rxDataCnt > 0);
-        
-            // Display the receive buffer contents
-            console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); console_flush(); ////
+            rxDataCnt = drv(dev)->read( NRF24L01P_PIPE_P0, rxData, TRANSFER_SIZE );
+            assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
         }
 
-        os_time_delay(1 * OS_TICKS_PER_SEC);  //  Sleep 1 second
+        //  Close the nRF24L01 device when we are done.
+        os_dev_close((struct os_dev *) dev);        
+    }   //  Unlock the nRF24L01 driver for exclusive use.
+
+    if (rxDataCnt > 0) { 
+        // Display the receive buffer contents
+        console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
     }
+    console_flush(); ////
+
+    os_callout_reset(&rx_callout, 1 * OS_TICKS_PER_SEC);   //  rx every 1 sec
 }
 
 #ifdef NOTUSED

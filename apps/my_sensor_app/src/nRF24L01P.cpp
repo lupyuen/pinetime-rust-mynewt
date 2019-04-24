@@ -1030,7 +1030,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 
 
 bool nRF24L01P::readable(int pipe) {
-
+    //  console_printf("rd?\n");  ////
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
         error( "nRF24L01P: Invalid readable pipe number %d\r\n", pipe );
