@@ -21,7 +21,7 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  If first time we are opening the driver: Prepare the nrf24l01 transceiver for use.  Lock the port.
     if (!first_open) { console_printf("{\n"); return 0; }  ////
     first_open = false;
-    console_printf("}\n");  ////
+    console_printf("{\n");  ////
     assert(dev0);
     struct nrf24l01 *dev = (struct nrf24l01 *) dev0;
     struct nrf24l01_cfg *cfg = &dev->cfg;
@@ -37,7 +37,7 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 static int nrf24l01_close(struct os_dev *dev0) {
     //  Shutdown the nrf24l01 transceiver.  Unlock the port.
     //  TODO: Undo driver.init().
-    console_printf("]\n");  console_flush();  ////
+    console_printf("}\n");  console_flush();  ////
     assert(dev0);
     return 0;
 }

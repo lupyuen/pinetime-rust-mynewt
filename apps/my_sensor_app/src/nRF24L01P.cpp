@@ -192,7 +192,7 @@ static void wait_us(uint32_t microsecs) {
     //  Originally:    microsecs * OS_TICKS_PER_SEC / 1000000
     //  Equivalent to: microsecs / USEC_PER_OS_TICK
     //  Here we approximate with Log Base 2 to avoid division.  Always approximate to give higher not lower number of ticks.
-    uint32_t ticks = microsecs >> USEC_PER_OS_TICK_LOG2;
+    uint32_t ticks = (microsecs >> USEC_PER_OS_TICK_LOG2) + 10;  //  Add 10 to avoid 0 ticks.
     console_printf("wait %u ticks\n", (unsigned) ticks);
     os_time_delay(ticks);
 }
