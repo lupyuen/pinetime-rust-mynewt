@@ -64,6 +64,7 @@ static void test_tx_rx(struct nrf24l01 *dev) {
     drv(dev)->setReceiveMode();
     drv(dev)->enable();
 
+    console_flush();  ////
     for (int i = 0; ; i++) {
         if (i % 11 == 0) {
             // Send the transmitbuffer via the nRF24L01+
