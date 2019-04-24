@@ -6,7 +6,8 @@
 #include "nRF24L01P.h"
 #include "nrf24l01.h"
 
-#define _NRF24L01P_SPI_MAX_DATA_RATE     10000000
+#define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
+#define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
 static bool first_open = true;  //  True if this is the first time opening the driver.
@@ -62,10 +63,10 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     memset(cfg, 0, sizeof(struct nrf24l01_cfg));  //  Zero the entire object.
 
     //  Return default SPI settings.
-    cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;
-    cfg->spi_settings.data_mode  = HAL_SPI_MODE0;  //  ClockPhase = 0, ClockPolarity = 0
-    cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE / 5;  //  2Mbit, 1/5th the maximum transfer rate for the SPI bus
-    cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;
+    cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;  //  Data order
+    cfg->spi_settings.data_mode  = HAL_SPI_MODE0;      //  Data mode of SPI driver: ClockPhase = 0, ClockPolarity = 0
+    cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Baudrate in kHz: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
+    cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;  //  Word size of the SPI transaction
     cfg->spi_num = 0;     //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
     cfg->spi_cfg = NULL;  //  TODO
     cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
