@@ -55,9 +55,15 @@ static int config_device(void);
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
     console_printf("NRF create " DEVICE_NAME "\n");
+    int rc;
+
+    ////  Get the default config for the device.
+    rc = DEVICE_CFG_DEFAULT(&DEVICE_INSTANCE.cfg);
+    assert(rc == 0);
+    ////
 
     //  Create the device.
-    int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
+    rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
         OS_DEV_INIT_PRIMARY, 0,  //  For BSP: OS_DEV_INIT_KERNEL, OS_DEV_INIT_PRIO_DEFAULT,
         DEVICE_INIT, DEVICE_ITF_PTR);
     assert(rc == 0);
@@ -70,19 +76,23 @@ void DEVICE_CREATE(void) {
 //  Device configuration
 static int config_device(void) {
     int rc;
-    struct os_dev *dev;
-    struct DEVICE_CFG cfg;
+    struct os_dev *dev0; ////
+    struct DEVICE_DEV *dev; ////
+    struct DEVICE_CFG *cfg; ////
 
     //  Fetch the device.
-    dev = (struct os_dev *) os_dev_open(DEVICE_NAME, OS_TIMEOUT_NEVER, NULL);
-    assert(dev != NULL);
+    dev0 = (struct os_dev *) os_dev_open(DEVICE_NAME, OS_TIMEOUT_NEVER, NULL);
+    assert(dev0 != NULL);
+    dev = (struct DEVICE_DEV *) dev0;
+    cfg = &dev->cfg;
+    assert(cfg != NULL);
 
     //  Get the default config for the device.
-    rc = DEVICE_CFG_DEFAULT(&cfg);
-    assert(rc == 0);
+    ////rc = DEVICE_CFG_DEFAULT(&cfg);
+    ////assert(rc == 0);
 
     //  Apply the device config.
-    rc = DEVICE_CFG_FUNC((struct DEVICE_DEV *)dev, &cfg);
-    os_dev_close(dev);
+    rc = DEVICE_CFG_FUNC(dev, cfg); ////
+    os_dev_close(dev0);
     return rc;
 }

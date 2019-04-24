@@ -1,7 +1,9 @@
 //  nRF24L01 Driver for Apache Mynewt.  Functions for creating the device instance and performing device functions.
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
+#include <errno.h>
 #include <os/os.h>
 #include <bsp/bsp.h>
+#include <hal/hal_gpio.h>
 #include <console/console.h>
 #include "nRF24L01P.h"
 #include "nrf24l01.h"
@@ -24,14 +26,6 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     first_open = false;
     console_printf("{\n");  ////
     assert(dev0);
-    struct nrf24l01 *dev = (struct nrf24l01 *) dev0;
-    struct nrf24l01_cfg *cfg = &dev->cfg;
-
-    //  Assign the controller.
-    dev->controller = &controller;
-
-    //  Initialise the controller.
-    drv(dev)->init(&cfg->spi_settings, cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin);
     return 0;
 }
 
@@ -45,10 +39,34 @@ static int nrf24l01_close(struct os_dev *dev0) {
 
 int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Configure the nrf24l01 driver.  Called by os_dev_create().  Return 0 if successful.
+    console_printf("nrf init\n");  console_flush();  ////
     struct nrf24l01 *dev;
+    struct nrf24l01_cfg *cfg;
     int rc;
     if (!dev0) { rc = SYS_ENODEV; goto err; }
     dev = (struct nrf24l01 *) dev0;  assert(dev);
+    cfg = &dev->cfg;  assert(cfg);
+
+    //  Assign the controller.
+    dev->controller = &controller;
+
+    //  Configure the SPI port.
+    rc = hal_spi_config(cfg->spi_num, &cfg->spi_settings);
+    assert(rc == 0);
+    if (rc == EINVAL) { goto err; }
+
+    rc = hal_spi_enable(cfg->spi_num);
+    assert(rc == 0);
+    if (rc) { goto err; }
+
+    //  Configure the GPIOs for CS and CE.
+    rc = hal_gpio_init_out(cfg->cs_pin, 1);
+    assert(rc == 0);
+    if (rc) { goto err; }
+
+    rc = hal_gpio_init_out(cfg->ce_pin, 1);
+    assert(rc == 0);
+    if (rc) { goto err; }
 
     //  Register the handlers for opening and closing the device.
     OS_DEV_SETHANDLERS(dev0, nrf24l01_open, nrf24l01_close);
@@ -59,6 +77,7 @@ err:
 
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
+    console_printf("nrf defcfg\n");  console_flush();  ////
     assert(cfg);
     memset(cfg, 0, sizeof(struct nrf24l01_cfg));  //  Zero the entire object.
 
@@ -73,14 +92,17 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
     cfg->ce_pin = MCU_GPIO_PORTB(0);  //  PB0
     cfg->irq_pin = MCU_GPIO_PORTA(15);  //  PA15
-    console_printf("spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
+    console_printf("nrf spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
     return 0;
 }
 
-int nrf24l01_config(struct nrf24l01 *drv, struct nrf24l01_cfg *cfg) {
+int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     //  Apply the nrf24l01 driver configuration.  Return 0 if successful.
-    assert(drv);  assert(cfg);
-    //  Copy the config.
-    memcpy(&drv->cfg, cfg, sizeof(struct nrf24l01_cfg));
-    return 0;  //  Nothing to do.  We will apply the config in nrf24l01_open().
+    console_printf("nrf config\n");  console_flush();  ////
+    assert(dev);  assert(cfg);
+
+    //  Initialise the controller.
+    int rc = drv(dev)->init(&cfg->spi_settings, cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin);
+    assert(rc == 0);
+    return rc;
 }

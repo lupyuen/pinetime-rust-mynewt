@@ -374,6 +374,7 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     ce_pin = ce_pin0;
     irq_pin = irq_pin0;
 
+#ifdef NOTUSED
     rc = hal_spi_config(spi_num, spi_settings);
     assert(rc == 0);
     if (rc == EINVAL) { goto err; }
@@ -389,6 +390,7 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     rc = hal_gpio_init_out(ce_pin, 1);
     assert(rc == 0);
     if (rc) { goto err; }
+#endif  //  NOTUSED
 
     console_printf("power on reset\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset  ////
@@ -410,11 +412,14 @@ int nRF24L01P::init(struct hal_spi_settings *spi_settings, int spi_num0, int cs_
     console_printf("clear interrupts\n"); ////
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_MAX_RT|_NRF24L01P_STATUS_TX_DS|_NRF24L01P_STATUS_RX_DR);   // Clear any pending interrupts
 
+#ifdef NOTUSED
     //// TEST
     setTxAddress();
     getTxAddress();
+    console_flush();
     for (;;) {} ////
     //// END TEST
+#endif  //  NOTUSED
 
     //
     // Setup default configuration
