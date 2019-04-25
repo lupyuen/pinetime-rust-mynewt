@@ -226,8 +226,8 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
 
     //  Assume SPI and GPIO already initialised previously in nrf24l01_init().
 
-    console_printf("power down\n"); ////
-    powerDown();
+    //  console_printf("power down\n"); ////
+    //  powerDown();  //  TODO: Does this fix Collector Node not receiving packets?
 
     console_printf("power on reset\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
@@ -245,7 +245,7 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
     console_printf("clear interrupts\n"); ////
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_MAX_RT|_NRF24L01P_STATUS_TX_DS|_NRF24L01P_STATUS_RX_DR);   // Clear any pending interrupts
 
-    // Setup configuration.
+    //  Setup configuration.
     disableAllRxPipes();
     setRfFrequency(freq);
     setRfOutputPower(power);
@@ -341,6 +341,23 @@ void nRF24L01P::setTransmitMode(void) {
 
 }
 
+void nRF24L01P::enableRxInterrupt(void) {
+    //  Enable rx interrupts.
+    console_printf("enable rx int\n"); ////
+    int config = getRegister(_NRF24L01P_REG_CONFIG);
+
+    config &= ~_NRF24L01P_CONFIG_MASK_RX_DR;
+    setRegister(_NRF24L01P_REG_CONFIG, config);
+}
+
+void nRF24L01P::disableRxInterrupt(void) {
+    //  Disable rx interrupts.
+    console_printf("disable rx int\n"); ////
+    int config = getRegister(_NRF24L01P_REG_CONFIG);
+
+    config |= _NRF24L01P_CONFIG_MASK_RX_DR;
+    setRegister(_NRF24L01P_REG_CONFIG, config);
+}
 
 void nRF24L01P::enable(void) {
 

@@ -255,6 +255,12 @@ public:
      */
     void setTransmitMode(void);
 
+    //  Enable rx interrupts.
+    void enableRxInterrupt(void);
+
+    //  Disable rx interrupts.
+    void disableRxInterrupt(void);
+
     /**
      * Power up the nRF24L01+ into Standby mode
      */

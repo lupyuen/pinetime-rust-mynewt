@@ -148,6 +148,8 @@ static void rx_timer_callback(struct os_event *ev) {
             assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
         }
 
+        //  TODO:  read FIFO_STATUS to check if there are more payloads available in RX FIFO
+
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
     }   //  Unlock the nRF24L01 driver for exclusive use.
