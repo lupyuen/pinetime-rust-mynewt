@@ -467,7 +467,7 @@ void nRF24L01P::powerDown(void) {
 
 
 void nRF24L01P::setReceiveMode(void) {
-
+    console_printf("rx mode\n"); ////
     if ( _NRF24L01P_MODE_POWER_DOWN == mode ) { powerUp(); }
 
     int config = getRegister(_NRF24L01P_REG_CONFIG);
@@ -482,7 +482,7 @@ void nRF24L01P::setReceiveMode(void) {
 
 
 void nRF24L01P::setTransmitMode(void) {
-
+    console_printf("tx mode\n"); ////
     if ( _NRF24L01P_MODE_POWER_DOWN == mode ) { powerUp(); }
 
     int config = getRegister(_NRF24L01P_REG_CONFIG);

@@ -28,6 +28,11 @@ static struct os_callout rx_callout;
 void test_nrf24l01(void) {
     //  int rc;
 
+    //  Fetch the hardware ID.  This is unique across all microcontrollers.  
+    hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
+    assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
+    hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
+
     //  Create the device.
     nrf24l01_create();
 
@@ -56,65 +61,6 @@ static void start_txrx(struct nrf24l01 *dev) {
     //  Settings based on https://github.com/nRF24/RF24/blob/master/examples/GettingStarted/GettingStarted.ino
     //  See the docs at https://maniacbug.github.io/RF24/classRF24.html
 
-    //  Fetch the hardware ID.  This is unique across all microcontrollers.  
-    hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
-    assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
-    hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
-
-#ifdef NOTUSED
-    if (hw_id[0] != 0x57) { 
-        is_master = true; 
-        console_printf("*** master node\n");
-    }
-
-    //  Power up before setting config.
-    ////drv(dev)->powerUp();
-
-    //  Set the config after powering up.
-
-    //  Set tx power.
-    ////drv(dev)->setRfOutputPower(NRF24L01P_TX_PWR_ZERO_DB);  //  Highest power in production
-    drv(dev)->setRfOutputPower(NRF24L01P_TX_PWR_MINUS_12_DB);  //  Test with lowest power in case of power issues
-
-    //  Set data rate.
-    ////drv(dev)->setAirDataRate(NRF24L01P_DATARATE_250_KBPS);  //  Slowest, longest range, but only supported by nRF24L01+
-    drv(dev)->setAirDataRate(NRF24L01P_DATARATE_1_MBPS);    //  Slowest rate supported by both nRF24L01 and nRF24L01+
-
-    //  Set the transfer size for tx.
-    drv(dev)->setTransferSize( TRANSFER_SIZE, NRF24L01P_PIPE_P0 );
-
-    //  Set the transfer size for rx.
-    drv(dev)->setTransferSize( TRANSFER_SIZE, NRF24L01P_PIPE_P1 );
-    //  On Master: Repeat for Pipes 2, 3, 4, 5.
-
-    if (is_master) { 
-        //  Master will receive data from Slave.
-        //  On Master: Open Pipe 0 for writing to Slave.
-        //  radio.openWritingPipe(addresses[0]);
-        //  drv(dev)->setTxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH);
-
-        //  On Master: Open Pipes 1-5 for reading from Slaves.  Pipes 1-5 should share the first 32 bits. Only the least significant byte should be unique.
-        //  radio.openReadingPipe(1,addresses[1]);
-        drv(dev)->setRxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH, NRF24L01P_PIPE_P1);
-        //  Repeat for Pipes 2, 3, 4, 5.
-
-        //  Start listening.
-        drv(dev)->setReceiveMode(); 
-    } else { 
-        //  Slave will transmit data to Master.
-        //  On Slave: Open Pipe 0 for writing to Master.
-        //  radio.openWritingPipe(addresses[1]);
-        drv(dev)->setTxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH);
-
-        //  On Slave: Open Pipe 1 for reading from Master.
-        //  radio.openReadingPipe(1,addresses[0]);
-        //  drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, NRF24L01P_PIPE_P1);
-
-        //  Start transmitting.
-        drv(dev)->setTransmitMode(); 
-    }
-#endif  //  NOTUSED
-
     //  Display the setup of the nRF24L01+ chip
     console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
     console_printf( "nRF24L01+ Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
@@ -133,8 +79,13 @@ static void start_txrx(struct nrf24l01 *dev) {
     //  Power up after setting config.
     drv(dev)->powerUp();
 
-    //  Start listening.
-    drv(dev)->setReceiveMode(); 
+    if (nrf24l01_collector_node()) {
+        //  For Collector Node: Start listening.
+        drv(dev)->setReceiveMode(); 
+    } else {
+        //  For Sensor Node: Start transmitting.
+        drv(dev)->setTransmitMode(); 
+    }
 
     //  Set CE Pin to high.    
     drv(dev)->enable();
@@ -159,13 +110,13 @@ static void tx_timer_callback(struct os_event *ev) {
         assert(dev != NULL);
 
         //  Stop listening so we can transmit.
-        drv(dev)->setTransmitMode(); 
+        ////drv(dev)->setTransmitMode(); 
 
-        //  On Slave: Transmit the data to Master.
+        //  On Sensor Node: Transmit the data to Collector Node.
         rc = drv(dev)->write( NRF24L01P_PIPE_P0 /* Ignored */, txData, TRANSFER_SIZE );
 
         //  Start listening again.
-        drv(dev)->setReceiveMode(); 
+        ////drv(dev)->setReceiveMode(); 
 
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
@@ -189,15 +140,13 @@ static void rx_timer_callback(struct os_event *ev) {
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
-        //  On Master: Check Pipes 1-5 for received data.
-        for (int i = 0; i < 5; i++) {
-            int pipe = NRF24L01P_PIPE_P1 + i;
+        //  On Collector Node: Check Pipes 1-5 for received data.
+        for (int pipe = NRF24L01P_PIPE_P1; pipe <= NRF24L01P_PIPE_P5; pipe++) {
             if ( drv(dev)->readable( pipe ) ) {
                 // ...read the data into the receive buffer
                 rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
                 assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
             }
-            //  Repeat for Pipes 2, 3, 4, 5.
         }
 
         //  Close the nRF24L01 device when we are done.
