@@ -374,7 +374,7 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
     const unsigned long long *rx_addresses,  //  Pipes 1 to 5
     uint8_t rx_addresses_len
     ) {
-    assert(rx_addresses);  assert(rx_addresses_len <= 4);
+    assert(rx_addresses);  assert(rx_addresses_len <= 5);
     mode = _NRF24L01P_MODE_UNKNOWN;
     spi_num = spi_num0;
     cs_pin = cs_pin0;

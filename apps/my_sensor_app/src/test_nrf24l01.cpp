@@ -22,7 +22,6 @@ static char rxData[TRANSFER_SIZE];
 
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len;      //  Actual length of hardware ID
-static bool is_master = false;
 static struct os_callout tx_callout;
 static struct os_callout rx_callout;
 
@@ -47,21 +46,11 @@ void test_nrf24l01(void) {
     os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
 
     os_event ev;
-    if (is_master) { rx_timer_callback(&ev); }  //  Master starts the rx timer.
-    else { tx_timer_callback(&ev); }            //  Slave starts the tx timer.
+    if (nrf24l01_collector_node()) { rx_timer_callback(&ev); }  //  Collector Node starts the rx timer.
+    else { tx_timer_callback(&ev); }            //  Sensor Node starts the tx timer.
 
     console_flush();  ////
 }
-
-#define MASTER_ADDRESS (DEFAULT_NRF24L01P_ADDRESS + 1)
-#define SLAVE_ADDRESS  (DEFAULT_NRF24L01P_ADDRESS + 2)
-
-#define MASTER_ADDRESS_WIDTH DEFAULT_NRF24L01P_ADDRESS_WIDTH
-#define SLAVE_ADDRESS_WIDTH  DEFAULT_NRF24L01P_ADDRESS_WIDTH
-
-//  Only pipes 0 and 1 have 5-byte addresses.
-#define MASTER_PIPE NRF24L01P_PIPE_P0
-#define SLAVE_PIPE NRF24L01P_PIPE_P1
 
 static void start_txrx(struct nrf24l01 *dev) {
     //  Settings based on https://github.com/nRF24/RF24/blob/master/examples/GettingStarted/GettingStarted.ino
@@ -137,7 +126,7 @@ static void start_txrx(struct nrf24l01 *dev) {
         console_printf( "nRF24L01+ P%d Address   : 0x%010llX\r\n", i, 
             (i == 0) 
                 ? drv(dev)->getTxAddress()
-                : drv(dev)->getRxAddress(NRF24L01P_PIPE_P1 + i)
+                : drv(dev)->getRxAddress(NRF24L01P_PIPE_P0 + i)
         );
     }
 
