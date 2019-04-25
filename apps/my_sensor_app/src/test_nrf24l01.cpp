@@ -76,9 +76,27 @@ static void start_txrx(struct nrf24l01 *dev) {
         console_printf("*** master node\n");
     }
 
-    //  Set the config before powering up.
+    //  Power up before setting config.
+    drv(dev)->powerUp();
+
+    //  Set the config after powering up.
     drv(dev)->setTransferSize( TRANSFER_SIZE, TX_PIPE );
     drv(dev)->setTransferSize( TRANSFER_SIZE, RX_PIPE );
+
+    if (is_master) { 
+        //  Master will receive data from Slave.
+        //  radio.openWritingPipe(addresses[0]);
+        drv(dev)->setTxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH);
+        //  radio.openReadingPipe(1,addresses[1]);
+        drv(dev)->setRxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH, RX_PIPE);
+    }
+    else { 
+        //  Slave will transmit data to Master.
+        //  radio.openWritingPipe(addresses[1]);
+        drv(dev)->setTxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH);
+        //  radio.openReadingPipe(1,addresses[0]);
+        drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, RX_PIPE);
+    }
 
     //  Set tx power.
     ////drv(dev)->setRfOutputPower(NRF24L01P_TX_PWR_ZERO_DB);  //  Highest power in production
@@ -88,27 +106,10 @@ static void start_txrx(struct nrf24l01 *dev) {
     ////drv(dev)->setAirDataRate(NRF24L01P_DATARATE_250_KBPS);  //  Slowest, longest range, but only supported by nRF24L01+
     drv(dev)->setAirDataRate(NRF24L01P_DATARATE_1_MBPS);    //  Slowest rate supported by both nRF24L01 and nRF24L01+
 
-    if (is_master) { 
-        //  radio.openWritingPipe(addresses[0]);
-        drv(dev)->setTxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH);
-        //  radio.openReadingPipe(1,addresses[1]);
-        drv(dev)->setRxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH, RX_PIPE);
-        //  Master will receive data from Slave.
-        drv(dev)->setReceiveMode(); 
-    }
-    else { 
-        //  radio.openWritingPipe(addresses[1]);
-        drv(dev)->setTxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH);
-        //  radio.openReadingPipe(1,addresses[0]);
-        drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, RX_PIPE);
-        //  Slave will transmit data to Master.
-        drv(dev)->setTransmitMode(); 
-    }
+    //  Start listening.
+    drv(dev)->setReceiveMode(); 
     
-    //  Don't change config after powering up.
-    drv(dev)->powerUp();
-
-    //  Display the (default) setup of the nRF24L01+ chip
+    //  Display the setup of the nRF24L01+ chip
     console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
     console_printf( "nRF24L01+ Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
     console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
@@ -117,7 +118,7 @@ static void start_txrx(struct nrf24l01 *dev) {
     console_printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
     console_printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress(RX_PIPE) );
 
-    //  Enable the module.    
+    //  Set CE Pin to high.    
     drv(dev)->enable();
 
     console_flush();  ////
@@ -139,8 +140,14 @@ static void tx_timer_callback(struct os_event *ev) {
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
+        //  Stop listening so we can transmit.
+        drv(dev)->setTransmitMode(); 
+
         //  Transmit the data.
-        rc = drv(dev)->write( TX_PIPE, txData, TRANSFER_SIZE );
+        rc = drv(dev)->write( TX_PIPE /* Ignored */, txData, TRANSFER_SIZE );
+
+        //  Start listening again.
+        drv(dev)->setReceiveMode(); 
 
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
