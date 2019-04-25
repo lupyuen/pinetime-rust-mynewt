@@ -5,6 +5,10 @@
 
 syscfg.defs:
     # List of Features. Will be selected automatically based on the tutorial setting.
+    NRF24L01:
+        description: 'Enable wireless Collector and Sensor Nodes with nRF24L01 transceiver'
+        value:        0        
+
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
         value:        0
@@ -113,10 +117,27 @@ syscfg.vals.TUTORIAL2:
 
 # Settings for Tutorial 3
 syscfg.vals.TUTORIAL3:
-    SENSOR_COAP:            0  # Send sensor data to CoAP server
+    # TODO: Move to nrf24l01 driver
+    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
+    COAP_JSON_ENCODING:     0  # TODO: Use JSON to encode CoAP payload for forwarding to thethings.io
+    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
+
+    # Previous Settings
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
     ESP8266:                0  # Enable WiFi access with ESP8266
     TEMP_STM32:             0  # Enable Blue Pill internal temperature sensor
     ADC_1:                  0  # Enable port ADC1 for internal temperature sensor
     HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
-    # TODO: Move to nrf24l01 driver
-    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
+
+    # OIC Settings
+    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_SERVER:              0  # Disable the OIC (CoAP) server library
+    OC_TRANS_SECURITY:      0  # Disable TLS security
+    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
+    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
+    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
+    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
+    OC_APP_RESOURCES:       2  # Max number of server resources
+    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
+    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
+    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size

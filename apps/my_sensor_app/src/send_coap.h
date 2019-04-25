@@ -3,11 +3,18 @@
 #ifndef __SEND_COAP_H__
 #define __SEND_COAP_H__
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
-#include <esp8266/esp8266.h>  //  For ESP8266_DEVICE
 
-//  NETWORK_DEVICE, the name of the network transceiver device to be used for sending CoAP messages,
-//  will be set to "esp8266_0"
-#define NETWORK_DEVICE ESP8266_DEVICE
+//  Define NETWORK_DEVICE, the name of the network transceiver device to be used for sending CoAP messages,
+
+#if MYNEWT_VAL(ESP8266)       //  If ESP8266 WiFi is enabled...
+#include <esp8266/esp8266.h>  //  For ESP8266_DEVICE
+#define NETWORK_DEVICE ESP8266_DEVICE  //  Will be set to "esp8266_0"
+#endif  //  MYNEWT_VAL(ESP8266)
+
+#if MYNEWT_VAL(NRF24L01)       //  If NRF24L01 Wireless Network is enabled...
+#include <nrf24l01.h>          //  For NRF24L01_DEVICE
+#define NETWORK_DEVICE NRF24L01_DEVICE  //  Will be set to "nrf24l01_0"
+#endif  //  MYNEWT_VAL(NRF24L01)
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.
