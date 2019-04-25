@@ -12,6 +12,17 @@ static void tx_timer_callback(struct os_event *ev);
 static void rx_timer_callback(struct os_event *ev);
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
 
+//  The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
+//  "Nordic Serial Interface Board" (http://www.sparkfun.com/products/9019)
+//  only handles 4 byte transfers in the ATMega code.
+#define TRANSFER_SIZE   4
+
+//  static char txData[TRANSFER_SIZE];
+static char rxData[TRANSFER_SIZE];
+
+static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
+static int hw_id_len;      //  Actual length of hardware ID
+static bool is_master = false;
 static struct os_callout tx_callout;
 static struct os_callout rx_callout;
 
@@ -36,22 +47,11 @@ void test_nrf24l01(void) {
     os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
 
     os_event ev;
-    tx_timer_callback(&ev);  //  Start the tx timer.
-    rx_timer_callback(&ev);  //  Start the rx timer.
+    if (is_master) { rx_timer_callback(&ev); }  //  Master starts the rx timer.
+    else { tx_timer_callback(&ev); }            //  Slave starts the tx timer.
 
     console_flush();  ////
 }
-
-//  The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
-//  "Nordic Serial Interface Board" (http://www.sparkfun.com/products/9019)
-//  only handles 4 byte transfers in the ATMega code.
-#define TRANSFER_SIZE   4
-
-//  static char txData[TRANSFER_SIZE];
-static char rxData[TRANSFER_SIZE];
-
-static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
-static int hw_id_len;      //  Actual length of hardware ID
 
 static void start_txrx(struct nrf24l01 *dev) {
     //  Fetch the hardware ID.  This is unique across all microcontrollers.  
@@ -59,19 +59,25 @@ static void start_txrx(struct nrf24l01 *dev) {
     assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
     hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
 
+    if (hw_id[0] == 0x57) { 
+        is_master = true; 
+        console_printf("*** master node\n");
+    }
+
     drv(dev)->setRfOutputPower(-18);  ////
     drv(dev)->powerUp();
+    drv(dev)->setTransferSize( TRANSFER_SIZE );
 
+    if (is_master) { drv(dev)->setReceiveMode(); }
+    else { drv(dev)->setTransmitMode(); }
+ 
     // Display the (default) setup of the nRF24L01+ chip
     console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",  drv(dev)->getRfFrequency() );
     console_printf( "nRF24L01+ Output power : %d dBm\r\n",  drv(dev)->getRfOutputPower() );
     console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n", drv(dev)->getAirDataRate() );
-    console_printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
-    console_printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress() );
-
-    drv(dev)->setTransferSize( TRANSFER_SIZE );
-
-    drv(dev)->setReceiveMode();
+    if (is_master) { console_printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress() ); }
+    else { console_printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() ); }
+    
     drv(dev)->enable();
 
     console_flush();  ////
@@ -97,10 +103,10 @@ static void tx_timer_callback(struct os_event *ev) {
     }   //  Unlock the nRF24L01 driver for exclusive use.
 
     assert(rc == TRANSFER_SIZE);
-    hw_id[tx_count++ % TRANSFER_SIZE]++;
     console_printf("tx "); console_dump(hw_id, TRANSFER_SIZE); console_printf("\n"); 
     console_flush(); ////
 
+    hw_id[tx_count++ % TRANSFER_SIZE]++;
     os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
 }
 
