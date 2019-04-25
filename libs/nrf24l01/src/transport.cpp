@@ -80,6 +80,7 @@ int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint) {
 static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *m) {
     //  Transmit the mbuf: CoAP Payload only, not the CoAP Header.  Return the number of bytes transmitted.
     int rc = 0;
+    //  TODO
     return rc;
 }
 

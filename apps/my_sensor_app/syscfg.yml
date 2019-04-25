@@ -127,7 +127,7 @@ syscfg.vals.TUTORIAL3:
     ESP8266:                0  # TODO: Enable WiFi access with ESP8266
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
     ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+    HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
 
     # OIC Settings
     OC_CLIENT:              1  # Enable the OIC (CoAP) client library

@@ -7,19 +7,19 @@
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
 
-#if MYNEWT_VAL(ESP8266)         //  If ESP8266 WiFi is enabled...
-#include <esp8266/esp8266.h>    //  ESP8266 driver functions
-#include <esp8266/transport.h>  //  ESP8266 transport for CoAP
+#if MYNEWT_VAL(ESP8266)          //  If ESP8266 WiFi is enabled...
+#include <esp8266/esp8266.h>     //  ESP8266 driver functions
+#include <esp8266/transport.h>   //  ESP8266 transport for CoAP
+#include <hmac_prng/hmac_prng.h> //  Pseudorandom number generator for device ID
 #endif  //  MYNEWT_VAL(ESP8266)
 
-#if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
-#include <nrf24l01/nrf24l01.h>  //  nRF24L01 driver functions
-#include <nrf24l01/transport.h> //  nRF24L01 transport for CoAP
+#if MYNEWT_VAL(NRF24L01)         //  If nRF24L01 Wireless Network is enabled...
+#include <nrf24l01/nrf24l01.h>   //  nRF24L01 driver functions
+#include <nrf24l01/transport.h>  //  nRF24L01 transport for CoAP
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 #include <console/console.h>
 #include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
-#include <hmac_prng/hmac_prng.h>      //  Pseudorandom number generator for device ID
 #include "geolocate.h"                //  For geolocate()
 #include "send_coap.h"
 
@@ -93,9 +93,11 @@ static void network_task_func(void *arg) {
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
     console_printf("NET start\n");  assert(!network_is_ready);
+    int rc = 0;
 
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
-    int rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
+    rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
     char *s = device_id_text; int i;
     //  Convert to text e.g. abcdef...
     for (i = 0; i < DEVICE_ID_LENGTH; i++) {
@@ -104,6 +106,10 @@ static void network_task_func(void *arg) {
     }
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
     console_printf("NET random device id %s\n", device_id_text);
+#else  //  If ESP8266 WiFi is NOT enabled...
+    device_id_text[0] = 0;  //  Don't need device ID since we are transmitting locally.
+    device_id[0] = 0;
+#endif  //  MYNEWT_VAL(ESP8266)
 
     {   //  Lock the ESP8266 or nRF24L01 driver for exclusive use.
         //  Find the ESP8266 or nRF24L01 device by name e.g. "esp8266_0", "nrf24l01_0"
@@ -196,8 +202,11 @@ int send_sensor_data(float tmp) {
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
+
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
+#endif  //  MYNEWT_VAL(ESP8266)
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
