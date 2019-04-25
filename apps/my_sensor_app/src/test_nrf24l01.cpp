@@ -72,7 +72,7 @@ static void start_txrx(struct nrf24l01 *dev) {
     assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
     hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
 
-    if (hw_id[0] == 0x57) { 
+    if (hw_id[0] != 0x57) { 
         is_master = true; 
         console_printf("*** master node\n");
     }
