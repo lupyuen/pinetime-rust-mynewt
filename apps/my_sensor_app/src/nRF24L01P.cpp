@@ -793,7 +793,8 @@ void nRF24L01P::enableDynamicPayload(int pipe) {
  void nRF24L01P::disableDynamicPayload(void) {
     //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/    
     int feature = getRegister(_NRF24L01P_REG_FEATURE);
-    feature &= !( 1 << 2 );
+    //  Previously: feature &= !( 1 << 2 );
+    feature &= ~( 1 << 2 );
     setRegister(_NRF24L01P_REG_FEATURE, feature);
 }
 
@@ -1333,10 +1334,10 @@ uint8_t nRF24L01P::getRSSI(void) {
 void nRF24L01P::flushRx(void) {
     //  Flush rx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
-    status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
+    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
     assert(status != 0xFFFF);
 
-    int rxPayloadWidth = spi_.write(_NRF24L01P_SPI_CMD_NOP);
+    int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
     assert(rxPayloadWidth != 0xFFFF);
     deselect();  //  Set CS Pin to high.
 }
@@ -1347,7 +1348,7 @@ void nRF24L01P::flushTx(void) {
     int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
     assert(status != 0xFFFF);
 
-    int rxPayloadWidth = spi_.write(_NRF24L01P_SPI_CMD_NOP);
+    int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
     assert(rxPayloadWidth != 0xFFFF);
     deselect();  //  Set CS Pin to high.
 }

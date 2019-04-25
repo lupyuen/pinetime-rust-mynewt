@@ -239,6 +239,13 @@ public:
     bool getRPD(void);
 
     /**
+     * Get the ARC_CNT register value
+     *
+     * @return number of retransmissions
+     */
+    int getRetrCount(void);
+    
+    /**
      * Put the nRF24L01+ into Receive mode
      */
     void setReceiveMode(void);
@@ -328,7 +335,9 @@ public:
      */
     void enableAutoRetransmit(int delay, int count);
 
-    bool getRPD(void);
+    void enableDynamicPayload(int pipe);
+
+    void disableDynamicPayload(void);
 
     uint8_t getRSSI(void);
 
@@ -373,7 +382,7 @@ private:
     int ce_value;   //  Current value of CE Pin
 
     int mode;
-
+    bool a_retr_enabled;
 };
 
 #endif /* __NRF24L01P_H__ */
