@@ -328,6 +328,14 @@ public:
      */
     void enableAutoRetransmit(int delay, int count);
 
+    bool getRPD(void);
+
+    uint8_t getRSSI(void);
+
+    void flushRx(void);
+
+    void flushTx(void);
+
 private:
 
     /**

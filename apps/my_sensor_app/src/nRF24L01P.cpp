@@ -425,8 +425,16 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
         setTransferSize(tx_size, pipe);
         if (auto_ack) { enableAutoAcknowledge(pipe); }
     }
-    mode = _NRF24L01P_MODE_POWER_DOWN;
 
+    //  Flush tx and rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    select();  //  Set CS Pin to low.
+    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
+    assert(status != 0xFFFF);
+    status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
+    assert(status != 0xFFFF);
+    deselect();  //  Set CS Pin to high.
+
+    mode = _NRF24L01P_MODE_POWER_DOWN;
     return (0);
 // err:
     // return (rc);
@@ -996,7 +1004,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     
 unsigned long long nRF24L01P::getTxAddress(void) {
-    console_printf("get tx addr\n"); ////
+    // console_printf("get tx addr\n"); ////
     int setupAw = getRegister(_NRF24L01P_REG_SETUP_AW) & _NRF24L01P_SETUP_AW_AW_MASK;
 
     int width;
@@ -1271,4 +1279,37 @@ void nRF24L01P::select(void) {
 
 void nRF24L01P::deselect(void) {
     hal_gpio_write(cs_pin, 1);  //  Deselect the module.
+}
+
+bool nRF24L01P::getRPD(void) {
+    //  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    uint8_t rpd = getRegister(_NRF24L01P_REG_RPD);
+    return (rpd>0);
+}
+ 
+uint8_t nRF24L01P::getRSSI(void) {
+    //  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    uint8_t rssi =0;
+    for(int i=0; i<256; i++){
+        rssi += getRPD();
+        wait_us(50 * 1000);  //  50 milliseconds
+        flushRx();
+    }
+    return rssi;
+}
+
+void nRF24L01P::flushRx(void) {
+    //  Flush rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    select();  //  Set CS Pin to low.
+    status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
+    assert(status != 0xFFFF);
+    deselect();  //  Set CS Pin to high.
+}
+ 
+void nRF24L01P::flushTx(void) {
+    //  Flush tx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    select();  //  Set CS Pin to low.
+    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
+    assert(status != 0xFFFF);
+    deselect();  //  Set CS Pin to high.
 }
