@@ -78,7 +78,7 @@ static void start_txrx(struct nrf24l01 *dev) {
     }
 
     //  Power up before setting config.
-    drv(dev)->powerUp();
+    ////drv(dev)->powerUp();
 
     //  Set the config after powering up.
 
@@ -118,6 +118,9 @@ static void start_txrx(struct nrf24l01 *dev) {
         //  radio.openReadingPipe(1,addresses[0]);
         drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, NRF24L01P_PIPE_P1);
     }
+
+    //  Power up after setting config.
+    drv(dev)->powerUp();
 
     //  Start listening.
     drv(dev)->setReceiveMode(); 
