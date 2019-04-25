@@ -47,11 +47,6 @@ static void nrf24l01_irq_handler(void *arg) {
 	os_eventq_put(os_eventq_dflt_get(), &nrf24l01_event);  //  This triggers nrf24l01_callback().
 }
 
-static void nrf24l01_callback(struct os_event *ev) {
-    //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
-    console_printf("nrf event\n");  console_flush();  ////
-}
-
 int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Configure the nrf24l01 driver.  Called by os_dev_create().  Return 0 if successful.
     console_printf("nrf init\n");  console_flush();  ////
@@ -176,7 +171,7 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     } else {  //  Sensor Node
         int node = 0;  //  TODO: Allocate node ID according to hardware ID.
         sensor_node_address = sensor_node_addresses[node];
-        
+
         cfg->irq_pin = MCU_GPIO_PIN_NONE;  //  Sensor Nodes don't need rx interrupts.
         cfg->tx_address = sensor_node_address;
         cfg->rx_addresses = &sensor_node_address;

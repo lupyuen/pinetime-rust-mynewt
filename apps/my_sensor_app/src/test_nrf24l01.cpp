@@ -10,7 +10,6 @@
 extern "C" void test_nrf24l01(void);
 static void start_txrx(struct nrf24l01 *dev);
 static void tx_timer_callback(struct os_event *ev);
-static void rx_timer_callback(struct os_event *ev);
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
 
 //  The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
@@ -24,7 +23,6 @@ static char rxData[TRANSFER_SIZE];
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len;      //  Actual length of hardware ID
 static struct os_callout tx_callout;
-static struct os_callout rx_callout;
 
 void test_nrf24l01(void) {
     //  int rc;
@@ -48,12 +46,13 @@ void test_nrf24l01(void) {
         os_dev_close((struct os_dev *) dev);        
     }   //  Unlock the nRF24L01 driver for exclusive use.
 
-    os_callout_init(&tx_callout, os_eventq_dflt_get(), tx_timer_callback, NULL);
-    os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
-
     os_event ev;
-    if (nrf24l01_collector_node()) { rx_timer_callback(&ev); }  //  Collector Node starts the rx timer.
-    else { tx_timer_callback(&ev); }            //  Sensor Node starts the tx timer.
+    os_callout_init(&tx_callout, os_eventq_dflt_get(), tx_timer_callback, NULL);
+    if (!nrf24l01_collector_node()) { tx_timer_callback(&ev); }  //  Sensor Node starts the tx timer.
+
+    //  Not needed because rx processing is triggered by interrupt, not polling.
+    //  os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
+    //  if (nrf24l01_collector_node()) { rx_timer_callback(&ev); }  //  Collector Node starts the rx timer.
 
     console_flush();  ////
 }
@@ -135,15 +134,15 @@ static void tx_timer_callback(struct os_event *ev) {
     os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
 }
 
-static void rx_timer_callback(struct os_event *ev) {
-    //  Quit if nothing to read.
-    assert(ev != NULL);
-    int rxDataCnt = 0;
-
+void nrf24l01_callback(struct os_event *ev) {
+    //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
+    //  TODO: Move to config.
+    console_printf("nrf event\n");  console_flush();  ////
     //  On Collector Node: Check Pipes 1-5 for received data.
     for (;;) {
-        //  Keep checking until there are no more data to process.
+        //  Keep checking until there is no more data to process.
         int pipe = -1;
+        int rxDataCnt = 0;
         {   //  Lock the nRF24L01 driver for exclusive use.
             //  Find the nRF24L01 device by name "nrf24l01_0".
             struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
@@ -169,52 +168,14 @@ static void rx_timer_callback(struct os_event *ev) {
             console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
         }
     }
-
     console_flush(); ////
-    os_callout_reset(&rx_callout, 1 * OS_TICKS_PER_SEC);   //  rx every 1 sec
 }
 
 #ifdef NOTUSED
-    //  Based on https://medium.com/@benjamindavidfraser/arduino-nrf24l01-communications-947e1acb33fb
-    //  and https://github.com/TMRh20/RF24/archive/master.zip
-
-    // setup radio pipe address for remote sensor node
-    const byte nodeAddress[] = {'N','O','D','E','1'};
-    // integer array for slave node data:[node_id, returned_count]
-    int remoteNodeData[] = {1, 1};
-
-    void test_master(struct nrf24l01 *dev) {    
-        // begin radio object
-        // radio.begin();
-
-        // set power level of the radio
-        // radio.setPALevel(RF24_PA_LOW);
-
-        // set RF datarate - lowest rate for longest range capability
-        // radio.setDataRate(RF24_250KBPS);
-
-        // set radio channel to use - ensure all slaves match this
-        // radio.setChannel(0x66);
-
-        // set time between retries and max no. of retries
-        // radio.setRetries(4, 10);
-
-        // enable ackpayload - enables each slave to reply with data 
-        // radio.enableAckPayload();
-
-        // setup write pipe to remote node - must match node listen address
-        // radio.openWritingPipe(nodeAddress);
+    static void rx_timer_callback(struct os_event *ev) {
+        //  Quit if nothing to read.
+        assert(ev != NULL);
+        nrf24l01_callback(ev);
+        os_callout_reset(&rx_callout, 1 * OS_TICKS_PER_SEC);   //  rx every 1 sec
     }
-
-    void test_slave(struct nrf24l01 *dev) {
-        // open a reading pipe on the chosen address - matches the master tx
-        // radio.openReadingPipe(1, nodeAddress);
-
-        // enable ack payload - slave replies with data using this feature
-        // radio.enableAckPayload();
-
-        // preload payload with initial data
-        // radio.writeAckPayload(1, &remoteNodeData, sizeof(remoteNodeData));
-    }
-
 #endif  //  NOTUSED
