@@ -140,33 +140,37 @@ static void rx_timer_callback(struct os_event *ev) {
     assert(ev != NULL);
     int rxDataCnt = 0;
 
-    {   //  Lock the nRF24L01 driver for exclusive use.
-        //  Find the nRF24L01 device by name "nrf24l01_0".
-        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
-        assert(dev != NULL);
+    //  On Collector Node: Check Pipes 1-5 for received data.
+    for (;;) {
+        //  Keep checking until there are no more data to process.
+        int pipe = -1;
+        {   //  Lock the nRF24L01 driver for exclusive use.
+            //  Find the nRF24L01 device by name "nrf24l01_0".
+            struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
+            assert(dev != NULL);
 
-        //  On Collector Node: Check Pipes 1-5 for received data.
-        for (;;) {
-            //  Keep checking until there are no more data to process.
-            int pipe = drv(dev)->readablePipe();
-            if (pipe <= 0) { break; }  //  No data available.
+            //  Get a pipe that has data to receive.
+            pipe = drv(dev)->readablePipe();
+            if (pipe > 0) {
+                //  Read the data into the receive buffer
+                rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
+                assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
+            }
+            //  Close the nRF24L01 device when we are done.
+            os_dev_close((struct os_dev *) dev);
+        }   //  Unlock the nRF24L01 driver for exclusive use.
 
-            //  Read the data into the receive buffer
-            rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
-            assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
-            //  TODO: Process the received data.
+        //  If no data available, quit.
+        if (pipe <= 0) { break; }
+
+        //  TODO: Process the received data.
+        if (rxDataCnt > 0) { 
+            // Display the receive buffer contents
+            console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
         }
-
-        //  Close the nRF24L01 device when we are done.
-        os_dev_close((struct os_dev *) dev);        
-    }   //  Unlock the nRF24L01 driver for exclusive use.
-
-    if (rxDataCnt > 0) { 
-        // Display the receive buffer contents
-        console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
     }
-    console_flush(); ////
 
+    console_flush(); ////
     os_callout_reset(&rx_callout, 1 * OS_TICKS_PER_SEC);   //  rx every 1 sec
 }
 
