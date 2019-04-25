@@ -134,10 +134,11 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
 
     cfg->freq = 2476;  //  2,476 kHz (channel 76)
 
-    ////cfg->power = NRF24L01P_TX_PWR_ZERO_DB;  //  Highest power in production
-    cfg->power = NRF24L01P_TX_PWR_MINUS_12_DB;  //  Test with lowest power in case of power issues
-    ////cfg->data_rate = NRF24L01P_DATARATE_250_KBPS;  //  Slowest, longest range, but only supported by nRF24L01+
-    cfg->data_rate = NRF24L01P_DATARATE_1_MBPS;    //  Slowest rate supported by both nRF24L01 and nRF24L01+
+    cfg->power = NRF24L01P_TX_PWR_ZERO_DB;  //  Highest power in production
+    //  cfg->power = NRF24L01P_TX_PWR_MINUS_12_DB;  //  Test with lowest power in case of power issues
+
+    cfg->data_rate = NRF24L01P_DATARATE_250_KBPS;  //  Slowest, longest range, but only supported by nRF24L01+
+    //  cfg->data_rate = NRF24L01P_DATARATE_1_MBPS;    //  Slowest rate supported by both nRF24L01 and nRF24L01+
 
     cfg->crc_width = NRF24L01P_CRC_8_BIT;
     cfg->tx_size = 4;
