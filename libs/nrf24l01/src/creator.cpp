@@ -21,7 +21,7 @@
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
-#include "nrf24l01.h"  //  Specific to device
+#include "nrf24l01/nrf24l01.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
 #define DEVICE_NAME        NRF24L01_DEVICE  //  Name of device

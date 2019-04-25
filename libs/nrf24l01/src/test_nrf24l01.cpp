@@ -4,8 +4,8 @@
 #include <console/console.h>
 #include <hal/hal_bsp.h>
 #include <hal/hal_gpio.h>
-#include "nrf24l01.h"
 #include "nRF24L01P.h"
+#include "nrf24l01/nrf24l01.h"
 
 extern "C" void test_nrf24l01(void);
 static void start_txrx(struct nrf24l01 *dev);

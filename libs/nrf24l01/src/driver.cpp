@@ -7,7 +7,7 @@
 #include <hal/hal_gpio.h>
 #include <console/console.h>
 #include "nRF24L01P.h"
-#include "nrf24l01.h"
+#include "nrf24l01/nrf24l01.h"
 
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz

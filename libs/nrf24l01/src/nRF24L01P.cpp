@@ -1,4 +1,3 @@
-#ifdef NOTUSED  //  Moved to /libs/nrf24l01/src
 //  Ported to Mynewt from https://os.mbed.com/users/Owen/code/nRF24L01P/file/8ae48233b4e4/nRF24L01P.cpp/
 /**
  * @file nRF24L01P.cpp
@@ -1233,4 +1232,3 @@ uint8_t nRF24L01P::spiWrite(uint8_t val) {
     assert(status != 0xffff);  //  SPI configured wrongly as slave.
     return status & 0xff;      //  Return only 8 bits.
 }
-#endif  //  NOTUSED

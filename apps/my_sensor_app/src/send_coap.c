@@ -7,9 +7,16 @@
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
 
+#if MYNEWT_VAL(ESP8266)         //  If ESP8266 WiFi is enabled...
+#include <esp8266/esp8266.h>    //  ESP8266 driver functions
+#include <esp8266/transport.h>  //  ESP8266 transport for CoAP
+#endif  //  MYNEWT_VAL(ESP8266)
+
+#if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
+#include <nrf24l01.h>           //  nRF24L01 driver functions
+#endif  //  MYNEWT_VAL(NRF24L01)
+
 #include <console/console.h>
-#include <esp8266/esp8266.h>          //  ESP8266 driver functions
-#include <esp8266/transport.h>        //  ESP8266 transport for CoAP
 #include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
 #include <hmac_prng/hmac_prng.h>      //  Pseudorandom number generator for device ID
 #include "geolocate.h"                //  For geolocate()

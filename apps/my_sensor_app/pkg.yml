@@ -19,6 +19,10 @@ pkg.deps:
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
 #   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
 
+# nRF24L01 Wireless Transceiver Driver
+pkg.deps.NRF24L01:
+    - "libs/nrf24l01"                      #  nRF24L01 Wireless Transceiver Driver
+
 # Library for Semihosting Console
 pkg.deps.SEMIHOSTING_CONSOLE:
     - "libs/semihosting_console"           #  Semihosting Console
