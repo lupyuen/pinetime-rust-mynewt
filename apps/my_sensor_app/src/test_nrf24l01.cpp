@@ -3,6 +3,7 @@
 #include <os/os.h>
 #include <console/console.h>
 #include <hal/hal_bsp.h>
+#include <hal/hal_gpio.h>
 #include "nrf24l01.h"
 #include "nRF24L01P.h"
 
@@ -88,7 +89,7 @@ static void start_txrx(struct nrf24l01 *dev) {
     }
 
     //  Enable or disable the interrupt.
-    if (dev->cfg.irq_pin == MCU_GPIO_PIN_NONE) { drv(dev)->disableRxInterrupt(); }
+    if (dev->cfg.irq_pin == 0xffff) { drv(dev)->disableRxInterrupt(); }
     else { drv(dev)->enableRxInterrupt(); }
 
     //  Set CE Pin to high.    
