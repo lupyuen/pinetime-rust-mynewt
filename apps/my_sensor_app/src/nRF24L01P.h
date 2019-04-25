@@ -374,7 +374,7 @@ private:
 
     void select(void);  //  Set CS Pin to low.
     void deselect(void);  //  Set CS Pin to high.
-    uint8_t nRF24L01P::spiWrite(uint8_t val);
+    uint8_t spiWrite(uint8_t val);
 
     int spi_num;    //  0 means SPI1, 1 means SPI2
     int cs_pin;     //  Default is PB2

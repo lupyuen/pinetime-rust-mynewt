@@ -709,7 +709,7 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
 
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(cn);
+    spiWrite(cn);
 
     while ( width-- > 0 ) {
 
@@ -786,7 +786,7 @@ void nRF24L01P::setTxAddress(unsigned long long address, int width) {
 
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(cn);
+    spiWrite(cn);
 
     while ( width-- > 0 ) {
 
@@ -852,7 +852,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(cn);
+    spiWrite(cn);
 
     for ( int i=0; i<width; i++ ) {
 
@@ -908,7 +908,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(cn);
+    spiWrite(cn);
 
     for ( int i=0; i<width; i++ ) {
 
@@ -959,7 +959,7 @@ int nRF24L01P::write(int pipe, char *data, int count) {
 	
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(_NRF24L01P_SPI_CMD_WR_TX_PAYLOAD);
+    spiWrite(_NRF24L01P_SPI_CMD_WR_TX_PAYLOAD);
 
     for ( int i = 0; i < count; i++ ) {
 
@@ -1017,7 +1017,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
         select();  //  Set CS Pin to low.
 
-        int status = spiWrite(_NRF24L01P_SPI_CMD_R_RX_PL_WID);
+        spiWrite(_NRF24L01P_SPI_CMD_R_RX_PL_WID);
 
         int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
         
@@ -1029,9 +1029,9 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
             select();  //  Set CS Pin to low.
     
-            int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
+            spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
     
-            int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
+            spiWrite(_NRF24L01P_SPI_CMD_NOP);
             
             deselect();  //  Set CS Pin to high.
             
@@ -1046,7 +1046,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
             select();  //  Set CS Pin to low.
         
-            int status = spiWrite(_NRF24L01P_SPI_CMD_RD_RX_PAYLOAD);
+            spiWrite(_NRF24L01P_SPI_CMD_RD_RX_PAYLOAD);
         
             for ( int i = 0; i < count; i++ ) {
         
@@ -1095,7 +1095,7 @@ void nRF24L01P::setRegister(int regAddress, int regData) {
 
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(cn);
+    spiWrite(cn);
 
     spiWrite(regData & 0xFF);
 
@@ -1114,7 +1114,7 @@ int nRF24L01P::getRegister(int regAddress) {
 
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(cn);
+    spiWrite(cn);
 
     int dn = spiWrite(_NRF24L01P_SPI_CMD_NOP);
 
@@ -1164,18 +1164,18 @@ uint8_t nRF24L01P::getRSSI(void) {
 void nRF24L01P::flushRx(void) {
     //  Flush rx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
-    int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
+    spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
 
-    int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
+    spiWrite(_NRF24L01P_SPI_CMD_NOP);
     deselect();  //  Set CS Pin to high.
 }
  
 void nRF24L01P::flushTx(void) {
     //  Flush tx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
-    int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
+    spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
 
-    int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
+    spiWrite(_NRF24L01P_SPI_CMD_NOP);
     deselect();  //  Set CS Pin to high.
 }
 
@@ -1183,13 +1183,13 @@ void nRF24L01P::flushTxRx(void) {
     //  Flush tx and rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/ and https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
 
-    int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
+    spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
 
-    int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
+    spiWrite(_NRF24L01P_SPI_CMD_NOP);
     
-    status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
+    spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
 
-    rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
+    spiWrite(_NRF24L01P_SPI_CMD_NOP);
     
     deselect();  //  Set CS Pin to high.
 }
