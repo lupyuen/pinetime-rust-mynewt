@@ -38,6 +38,20 @@ static int nrf24l01_close(struct os_dev *dev0) {
     return 0;
 }
 
+//  Event that will be forwarded to the Event Queue when an interrupt is triggered.
+static struct os_event nrf24l01_event;
+
+static void nrf24l01_irq_handler(void *arg) {
+    //  Interrupt service routine for the driver.  We forward to an Event Queue for deferred processing.  Don't do any processing here.
+	nrf24l01_event.ev_arg = arg;
+	os_eventq_put(os_eventq_dflt_get(), &nrf24l01_event);  //  This triggers nrf24l01_callback().
+}
+
+static void nrf24l01_callback(struct os_event *ev) {
+    //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
+    console_printf("nrf event\n");  console_flush();  ////
+}
+
 int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Configure the nrf24l01 driver.  Called by os_dev_create().  Return 0 if successful.
     console_printf("nrf init\n");  console_flush();  ////
@@ -69,13 +83,19 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
     assert(rc == 0);
     if (rc) { goto err; }
 
-    //  Configure the interrupt.
-    if (cfg->irq_pin != MCU_GPIO_PIN_NONE) {
-        //  TODO
-    }
-
     //  Register the handlers for opening and closing the device.
     OS_DEV_SETHANDLERS(dev0, nrf24l01_open, nrf24l01_close);
+
+    //  Configure the rx interrupt, which is active when low.
+    if (cfg->irq_pin != MCU_GPIO_PIN_NONE) {
+        console_printf("nrf enable irq\n");  console_flush();  ////
+        //  Initialize the event with the callback function.
+        nrf24l01_event.ev_cb = nrf24l01_callback;
+        hal_gpio_irq_init(cfg->irq_pin, nrf24l01_irq_handler, NULL,
+		    HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
+	    hal_gpio_irq_enable(cfg->irq_pin);
+    }
+
     return (OS_OK);
 err:
     return rc;
