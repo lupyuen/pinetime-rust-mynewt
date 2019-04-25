@@ -85,8 +85,8 @@ static void start_txrx(struct nrf24l01 *dev) {
     drv(dev)->setRfOutputPower(NRF24L01P_TX_PWR_MINUS_12_DB);  //  Test with lowest power in case of power issues
 
     //  Set data rate.
-    drv(dev)->setAirDataRate(NRF24L01P_DATARATE_250_KBPS);  //  Slowest, longest range, but only supported by nRF24L01+
-    //  drv(dev)->setAirDataRate(NRF24L01P_DATARATE_1_MBPS);    //  Slowest rate supported by both nRF24L01 and nRF24L01+
+    ////drv(dev)->setAirDataRate(NRF24L01P_DATARATE_250_KBPS);  //  Slowest, longest range, but only supported by nRF24L01+
+    drv(dev)->setAirDataRate(NRF24L01P_DATARATE_1_MBPS);    //  Slowest rate supported by both nRF24L01 and nRF24L01+
 
     if (is_master) { 
         //  radio.openWritingPipe(addresses[0]);
@@ -164,7 +164,7 @@ static void rx_timer_callback(struct os_event *ev) {
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
-        if ( drv(dev)->readable( NRF24L01P_PIPE_P0 ) ) {
+        if ( drv(dev)->readable( RX_PIPE ) ) {
             // ...read the data into the receive buffer
             rxDataCnt = drv(dev)->read( RX_PIPE, rxData, TRANSFER_SIZE );
             assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
