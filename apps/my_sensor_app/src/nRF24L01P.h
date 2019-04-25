@@ -75,7 +75,7 @@
 * Default setup for the nRF24L01+, based on the Sparkfun "Nordic Serial Interface Board"
 *  for evaluation (http://www.sparkfun.com/products/9019)
 */
-#define DEFAULT_NRF24L01P_ADDRESS       ((unsigned long long) 0xE7E7E7E7E7 )
+#define DEFAULT_NRF24L01P_ADDRESS        0xE7E7E7E7E7ull
 #define DEFAULT_NRF24L01P_ADDRESS_WIDTH  5
 #define DEFAULT_NRF24L01P_CRC            NRF24L01P_CRC_8_BIT
 #define DEFAULT_NRF24L01P_RF_FREQUENCY  (NRF24L01P_MIN_RF_FREQUENCY + 2)

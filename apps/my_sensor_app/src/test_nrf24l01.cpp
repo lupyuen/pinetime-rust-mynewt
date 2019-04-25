@@ -53,7 +53,19 @@ void test_nrf24l01(void) {
     console_flush();  ////
 }
 
+#define MASTER_ADDRESS (DEFAULT_NRF24L01P_ADDRESS + 1)
+#define SLAVE_ADDRESS  (DEFAULT_NRF24L01P_ADDRESS + 2)
+
+#define MASTER_ADDRESS_WIDTH DEFAULT_NRF24L01P_ADDRESS_WIDTH
+#define SLAVE_ADDRESS_WIDTH  DEFAULT_NRF24L01P_ADDRESS_WIDTH
+
+//  Only pipes 0 and 1 have 5-byte addresses.
+#define TX_PIPE NRF24L01P_PIPE_P0
+#define RX_PIPE NRF24L01P_PIPE_P1
+
 static void start_txrx(struct nrf24l01 *dev) {
+    //  Settings based on https://github.com/nRF24/RF24/blob/master/examples/GettingStarted/GettingStarted.ino
+
     //  Fetch the hardware ID.  This is unique across all microcontrollers.  
     hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
     assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
@@ -64,20 +76,48 @@ static void start_txrx(struct nrf24l01 *dev) {
         console_printf("*** master node\n");
     }
 
-    drv(dev)->setRfOutputPower(-18);  ////
-    drv(dev)->powerUp();
-    drv(dev)->setTransferSize( TRANSFER_SIZE );
+    //  Set the config before powering up.
+    drv(dev)->setTransferSize( TRANSFER_SIZE, TX_PIPE );
+    drv(dev)->setTransferSize( TRANSFER_SIZE, RX_PIPE );
 
-    if (is_master) { drv(dev)->setReceiveMode(); }
-    else { drv(dev)->setTransmitMode(); }
- 
-    // Display the (default) setup of the nRF24L01+ chip
-    console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",  drv(dev)->getRfFrequency() );
-    console_printf( "nRF24L01+ Output power : %d dBm\r\n",  drv(dev)->getRfOutputPower() );
-    console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n", drv(dev)->getAirDataRate() );
-    if (is_master) { console_printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress() ); }
-    else { console_printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() ); }
+    //  Set tx power.
+    ////drv(dev)->setRfOutputPower(-18);  //  Highest power
+    drv(dev)->setRfOutputPower(0);  //  Use lowest power in case of power issues
+
+    //  Set data rate.
+    drv(dev)->setAirDataRate(NRF24L01P_DATARATE_250_KBPS);  //  Slowest, longest range, but only supported by nRF24L01+
+    //  drv(dev)->setAirDataRate(NRF24L01P_DATARATE_1_MBPS);    //  Slowest rate supported by both nRF24L01 and nRF24L01+
+
+    if (is_master) { 
+        //  radio.openWritingPipe(addresses[0]);
+        drv(dev)->setTxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH);
+        //  radio.openReadingPipe(1,addresses[1]);
+        drv(dev)->setRxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH, RX_PIPE);
+        //  Master will receive data from Slave.
+        drv(dev)->setReceiveMode(); 
+    }
+    else { 
+        //  radio.openWritingPipe(addresses[1]);
+        drv(dev)->setTxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH);
+        //  radio.openReadingPipe(1,addresses[0]);
+        drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, RX_PIPE);
+        //  Slave will transmit data to Master.
+        drv(dev)->setTransmitMode(); 
+    }
     
+    //  Don't change config after powering up.
+    drv(dev)->powerUp();
+
+    //  Display the (default) setup of the nRF24L01+ chip
+    console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
+    console_printf( "nRF24L01+ Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
+    console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
+    console_printf( "nRF24L01+ TX Size      : %d bytes\r\n",  drv(dev)->getTransferSize(TX_PIPE) );
+    console_printf( "nRF24L01+ RX Size      : %d bytes\r\n",  drv(dev)->getTransferSize(RX_PIPE) );
+    console_printf( "nRF24L01+ TX Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
+    console_printf( "nRF24L01+ RX Address   : 0x%010llX\r\n", drv(dev)->getRxAddress(RX_PIPE) );
+
+    //  Enable the module.    
     drv(dev)->enable();
 
     console_flush();  ////
@@ -90,23 +130,27 @@ static void tx_timer_callback(struct os_event *ev) {
     assert(ev != NULL);
     int rc = 0;
 
+    //  Transmit the hardware ID.
+    char *txData = (char *) hw_id;
+    assert(txData);
+
     {   //  Lock the nRF24L01 driver for exclusive use.
         //  Find the nRF24L01 device by name "nrf24l01_0".
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
-        //  Transmit the hardware ID.
-        rc = drv(dev)->write( NRF24L01P_PIPE_P0, (char *) hw_id, TRANSFER_SIZE );
+        //  Transmit the data.
+        rc = drv(dev)->write( TX_PIPE, txData, TRANSFER_SIZE );
 
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
     }   //  Unlock the nRF24L01 driver for exclusive use.
 
     assert(rc == TRANSFER_SIZE);
-    console_printf("tx "); console_dump(hw_id, TRANSFER_SIZE); console_printf("\n"); 
+    console_printf("tx "); console_dump((const uint8_t *) txData, TRANSFER_SIZE); console_printf("\n"); 
     console_flush(); ////
 
-    hw_id[tx_count++ % TRANSFER_SIZE]++;
+    hw_id[tx_count++ % TRANSFER_SIZE]++;  //  Change the tx message
     os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
 }
 
@@ -122,7 +166,7 @@ static void rx_timer_callback(struct os_event *ev) {
 
         if ( drv(dev)->readable( NRF24L01P_PIPE_P0 ) ) {
             // ...read the data into the receive buffer
-            rxDataCnt = drv(dev)->read( NRF24L01P_PIPE_P0, rxData, TRANSFER_SIZE );
+            rxDataCnt = drv(dev)->read( RX_PIPE, rxData, TRANSFER_SIZE );
             assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
         }
 
