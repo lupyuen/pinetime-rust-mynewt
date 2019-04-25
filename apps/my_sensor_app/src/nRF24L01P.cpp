@@ -224,7 +224,10 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
     ce_pin = ce_pin0;
     irq_pin = irq_pin0;
 
-    //  SPI and GPIO already initialised previously in nrf24l01_init().
+    //  Assume SPI and GPIO already initialised previously in nrf24l01_init().
+
+    console_printf("power down\n"); ////
+    powerDown();
 
     console_printf("power on reset\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
