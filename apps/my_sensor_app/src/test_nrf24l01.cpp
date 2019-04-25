@@ -146,14 +146,16 @@ static void rx_timer_callback(struct os_event *ev) {
         assert(dev != NULL);
 
         //  On Collector Node: Check Pipes 1-5 for received data.
-        int pipe = drv(dev)->readablePipe();
-        if (pipe > 0) {
-            // ...read the data into the receive buffer
+        for (;;) {
+            //  Keep checking until there are no more data to process.
+            int pipe = drv(dev)->readablePipe();
+            if (pipe <= 0) { break; }  //  No data available.
+
+            //  Read the data into the receive buffer
             rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
             assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
+            //  TODO: Process the received data.
         }
-
-        //  TODO:  read FIFO_STATUS to check if there are more payloads available in RX FIFO
 
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
