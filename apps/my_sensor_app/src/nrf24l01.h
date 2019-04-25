@@ -19,7 +19,7 @@ struct nrf24l01_cfg {
     void *spi_cfg;  //  Low-level MCU SPI config
     int cs_pin;     //  Default is PB2
     int ce_pin;     //  Default is PB0
-    int irq_pin;    //  Default is PA15
+    int irq_pin;    //  Default is PA15.  Set to MCU_GPIO_PIN_NONE to disable interrupt.
     int freq;       //  Frequency in kHz. Default is 2,476 kHz (channel 76)
     int power;
     int data_rate;

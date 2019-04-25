@@ -69,6 +69,11 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
     assert(rc == 0);
     if (rc) { goto err; }
 
+    //  Configure the interrupt.
+    if (cfg->irq_pin != MCU_GPIO_PIN_NONE) {
+        //  TODO
+    }
+
     //  Register the handlers for opening and closing the device.
     OS_DEV_SETHANDLERS(dev0, nrf24l01_open, nrf24l01_close);
     return (OS_OK);

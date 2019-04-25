@@ -87,6 +87,10 @@ static void start_txrx(struct nrf24l01 *dev) {
         drv(dev)->setTransmitMode(); 
     }
 
+    //  Enable or disable the interrupt.
+    if (dev->cfg.irq_pin == MCU_GPIO_PIN_NONE) { drv(dev)->disableRxInterrupt(); }
+    else { drv(dev)->enableRxInterrupt(); }
+
     //  Set CE Pin to high.    
     drv(dev)->enable();
 
