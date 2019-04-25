@@ -155,7 +155,6 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->spi_cfg = NULL;  //  TODO
     cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
     cfg->ce_pin = MCU_GPIO_PORTB(0);  //  PB0
-    cfg->irq_pin = MCU_GPIO_PORTA(15);  //  PA15
 
     cfg->freq = 2476;  //  2,476 kHz (channel 76)
 
@@ -170,12 +169,15 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->auto_ack = 0;
     cfg->auto_retransmit = 0;
     if (nrf24l01_collector_node()) {  //  Collector Node
+        cfg->irq_pin = MCU_GPIO_PORTA(15);  //  Collector Node gets rx interrupts on PA15
         cfg->tx_address = COLLECTOR_NODE_ADDRESS;
         cfg->rx_addresses = sensor_node_addresses;
         cfg->rx_addresses_len = SENSOR_NETWORK_SIZE;
     } else {  //  Sensor Node
-        int node = 0;  //  TODO
+        int node = 0;  //  TODO: Allocate node ID according to hardware ID.
         sensor_node_address = sensor_node_addresses[node];
+        
+        cfg->irq_pin = MCU_GPIO_PIN_NONE;  //  Sensor Nodes don't need rx interrupts.
         cfg->tx_address = sensor_node_address;
         cfg->rx_addresses = &sensor_node_address;
         cfg->rx_addresses_len = 1;
