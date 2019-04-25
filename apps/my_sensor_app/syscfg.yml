@@ -117,7 +117,7 @@ syscfg.vals.TUTORIAL2:
 
 # Settings for Tutorial 3
 syscfg.vals.TUTORIAL3:
-    # TODO: Move to nrf24l01 driver
+    NRF24L01:               1  # Enable nRF24L01 driver
     SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
     COAP_JSON_ENCODING:     0  # TODO: Use JSON to encode CoAP payload for forwarding to thethings.io
     COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node

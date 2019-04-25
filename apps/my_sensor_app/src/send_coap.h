@@ -12,7 +12,7 @@
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01)       //  If nRF24L01 Wireless Network is enabled...
-#include <nrf24l01.h>          //  For NRF24L01_DEVICE
+#include <nrf24l01/nrf24l01.h>          //  For NRF24L01_DEVICE
 #define NETWORK_DEVICE NRF24L01_DEVICE  //  Will be set to "nrf24l01_0"
 #endif  //  MYNEWT_VAL(NRF24L01)
 

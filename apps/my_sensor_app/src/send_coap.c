@@ -13,7 +13,8 @@
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
-#include <nrf24l01.h>           //  nRF24L01 driver functions
+#include <nrf24l01/nrf24l01.h>  //  nRF24L01 driver functions
+#include <nrf24l01/transport.h> //  nRF24L01 transport for CoAP
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 #include <console/console.h>
@@ -27,17 +28,31 @@
 static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
 static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
 //  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
 static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to the WiFi access point with this SSID e.g. my_ssid
 static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for WiFi access point e.g. my_password
+#endif  //  MYNEWT_VAL(ESP8266)
 
 //  CoAP Server Configuration. 
+
+#if MYNEWT_VAL(ESP8266)         //  If ESP8266 WiFi is enabled...
 static struct esp8266_server coap_server = {
     .endpoint = {
         .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
         .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
     }
 };
+#endif  //  MYNEWT_VAL(ESP8266)
+
+#if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
+static struct nrf24l01_server coap_server = {
+    .endpoint = {
+        .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
+        .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
+    }
+};
+#endif  //  MYNEWT_VAL(NRF24L01)
 
 //  Randomly assigned device ID that will be sent in every CoAP request.
 #define DEVICE_ID_LENGTH      16                          //  16 random bytes in binary device ID
@@ -90,25 +105,35 @@ static void network_task_func(void *arg) {
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
     console_printf("NET random device id %s\n", device_id_text);
 
-    {   //  Lock the ESP8266 driver for exclusive use.
-        //  Find the ESP8266 device by name "esp8266_0".
-        struct esp8266 *dev = (struct esp8266 *) os_dev_open(NETWORK_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  NETWORK_DEVICE is "esp8266_0"
-        assert(dev != NULL);
+    {   //  Lock the ESP8266 or nRF24L01 driver for exclusive use.
+        //  Find the ESP8266 or nRF24L01 device by name e.g. "esp8266_0", "nrf24l01_0"
+        struct os_dev *dev0 = os_dev_open(NETWORK_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  NETWORK_DEVICE is "esp8266_0" or "nrf24l01_0"
+        assert(dev0 != NULL);
 
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
         //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
         //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
         //  to pass ESP8266 events to this function.
+        struct esp8266 *dev = (struct esp8266 *) dev0;
         rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  
         assert(rc == 0);
+#endif  //  MYNEWT_VAL(ESP8266)
 
-        //  Close the ESP8266 device when we are done.
-        os_dev_close((struct os_dev *) dev);
-        //  Unlock the ESP8266 driver for exclusive use.
-    }
+        //  Close the ESP8266 or nRF24L01 device when we are done.
+        os_dev_close(dev0);
+    }  //  Unlock the ESP8266 or nRF24L01 driver for exclusive use.
 
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     //  Register the ESP8266 driver as the network transport for CoAP.
     rc = esp8266_register_transport(NETWORK_DEVICE, &coap_server);  
     assert(rc == 0);
+#endif  //  MYNEWT_VAL(ESP8266)
+
+#if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
+    //  Register the nRF24L01 driver as the network transport for CoAP.
+    rc = nrf24l01_register_transport(NETWORK_DEVICE, &coap_server);  
+    assert(rc == 0);
+#endif  //  MYNEWT_VAL(NRF24L01)
 
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
     //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
