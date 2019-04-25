@@ -197,163 +197,6 @@ static void wait_us(uint32_t microsecs) {
     os_time_delay(ticks);
 }
 
-#ifdef NOTUSED
-    /**
-     * Expects to be called back through os_dev_create().
-     *
-     * @param The device object associated with bme280
-     * @param Argument passed to OS device init, unused
-     *
-     * @return 0 on success, non-zero error on failure.
-     */
-    int
-    bme280_init(struct os_dev *dev, void *arg)
-    {
-        struct bme280 *bme280;
-        struct sensor *sensor;
-        int rc;
-
-        if (!arg || !dev) {
-            rc = SYS_ENODEV;
-            goto err;
-        }
-
-        bme280 = (struct bme280 *) dev;
-
-        rc = bme280_default_cfg(&bme280->cfg);
-        if (rc) {
-            goto err;
-        }
-
-        rc = hal_spi_config(sensor->s_itf.si_num, &spi_bme280_settings);
-        if (rc == EINVAL) {
-            /* If spi is already enabled, for nrf52, it returns -1, We should not
-            * fail if the spi is already enabled
-            */
-            goto err;
-        }
-
-        rc = hal_spi_enable(sensor->s_itf.si_num);
-        if (rc) {
-            goto err;
-        }
-
-        rc = hal_gpio_init_out(sensor->s_itf.si_cs_pin, 1);
-        if (rc) {
-            goto err;
-        }
-        return (0);
-    err:
-        return (rc);
-
-    }
-
-    /**
-     * Read multiple length data from BME280 sensor over SPI
-     *
-     * @param register address
-     * @param variable length payload
-     * @param length of the payload to read
-     *
-     * @return 0 on success, non-zero on failure
-     */
-    int
-    bme280_readlen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
-                uint8_t len)
-    {
-        int rc;
-
-        int i;
-        uint16_t retval;
-
-        rc = 0;
-
-        /* Select the device */
-        hal_gpio_write(itf->si_cs_pin, 0);
-
-        /* Send the address */
-        retval = hal_spi_tx_val(itf->si_num, addr | BME280_SPI_READ_CMD_BIT);
-        if (retval == 0xFFFF) {
-            rc = SYS_EINVAL;
-            BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
-                    itf->si_num, addr);
-            STATS_INC(g_bme280stats, read_errors);
-            goto err;
-        }
-
-        for (i = 0; i < len; i++) {
-            /* Read data */
-            retval = hal_spi_tx_val(itf->si_num, 0);
-            if (retval == 0xFFFF) {
-                rc = SYS_EINVAL;
-                BME280_LOG(ERROR, "SPI_%u read failed addr:0x%02X\n",
-                        itf->si_num, addr);
-                STATS_INC(g_bme280stats, read_errors);
-                goto err;
-            }
-            payload[i] = retval;
-        }
-
-        rc = 0;
-
-    err:
-        /* De-select the device */
-        hal_gpio_write(itf->si_cs_pin, 1);
-        return rc;
-    }
-
-    /**
-     * Write multiple length data to BME280 sensor over SPI
-     *
-     * @param register address
-     * @param variable length payload
-     * @param length of the payload to write
-     *
-     * @return 0 on success, non-zero on failure
-     */
-    int
-    bme280_writelen(struct sensor_itf *itf, uint8_t addr, uint8_t *payload,
-                    uint8_t len)
-    {
-        int rc;
-        int i;
-
-        /* Select the device */
-        hal_gpio_write(itf->si_cs_pin, 0);
-
-        /* Send the address */
-        rc = hal_spi_tx_val(itf->si_num, addr & ~BME280_SPI_READ_CMD_BIT);
-        if (rc == 0xFFFF) {
-            rc = SYS_EINVAL;
-            BME280_LOG(ERROR, "SPI_%u register write failed addr:0x%02X\n",
-                    itf->si_num, addr);
-            STATS_INC(g_bme280stats, write_errors);
-            goto err;
-        }
-
-        for (i = 0; i < len; i++) {
-            /* Read data */
-            rc = hal_spi_tx_val(itf->si_num, payload[i]);
-            if (rc == 0xFFFF) {
-                rc = SYS_EINVAL;
-                BME280_LOG(ERROR, "SPI_%u write failed addr:0x%02X:0x%02X\n",
-                        itf->si_num, addr);
-                STATS_INC(g_bme280stats, write_errors);
-                goto err;
-            }
-        }
-
-
-        rc = 0;
-
-    err:
-        /* De-select the device */
-        hal_gpio_write(itf->si_cs_pin, 1);
-        os_time_delay((OS_TICKS_PER_SEC * 30)/1000 + 1);
-        return rc;
-    }
-#endif  //  NOTUSED
-
 /**
  * Methods
  */
@@ -866,15 +709,14 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, cn);
-    assert(status != 0xFFFF);
+    int status = spiWrite(cn);
 
     while ( width-- > 0 ) {
 
         //
         // LSByte first
         //
-        hal_spi_tx_val(spi_num, (int) (address & 0xFF));
+        spiWrite((int) (address & 0xFF));
         address >>= 8;
 
     }
@@ -944,15 +786,14 @@ void nRF24L01P::setTxAddress(unsigned long long address, int width) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, cn);
-    assert(status != 0xFFFF);
+    int status = spiWrite(cn);
 
     while ( width-- > 0 ) {
 
         //
         // LSByte first
         //
-        hal_spi_tx_val(spi_num, (int) (address & 0xFF));
+        spiWrite((int) (address & 0xFF));
         address >>= 8;
 
     }
@@ -1011,15 +852,14 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, cn);
-    assert(status != 0xFFFF);
+    int status = spiWrite(cn);
 
     for ( int i=0; i<width; i++ ) {
 
         //
         // LSByte first
         //
-        address |= ( ( (unsigned long long)( hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP) & 0xFF ) ) << (i*8) );
+        address |= ( ( (unsigned long long)( spiWrite(_NRF24L01P_SPI_CMD_NOP) & 0xFF ) ) << (i*8) );
 
     }
 
@@ -1068,15 +908,14 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, cn);
-    assert(status != 0xFFFF);
+    int status = spiWrite(cn);
 
     for ( int i=0; i<width; i++ ) {
 
         //
         // LSByte first
         //
-        address |= ( ( (unsigned long long)( hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP) & 0xFF ) ) << (i*8) );
+        address |= ( ( (unsigned long long)( spiWrite(_NRF24L01P_SPI_CMD_NOP) & 0xFF ) ) << (i*8) );
 
     }
 
@@ -1087,7 +926,6 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 
 
 bool nRF24L01P::readable(int pipe) {
-    //  console_printf("rd?\n");  ////
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
         error( "nRF24L01P: Invalid readable pipe number %d\r\n", pipe );
@@ -1096,7 +934,7 @@ bool nRF24L01P::readable(int pipe) {
     }
 
     int status = getStatusRegister();
-
+    console_printf("rd %x\n", status);  ////
     return ( ( status & _NRF24L01P_STATUS_RX_DR ) && ( ( ( status & _NRF24L01P_STATUS_RX_P_NO ) >> 1 ) == ( pipe & 0x7 ) ) );
 
 }
@@ -1121,12 +959,11 @@ int nRF24L01P::write(int pipe, char *data, int count) {
 	
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_WR_TX_PAYLOAD);
-    assert(status != 0xFFFF);
+    int status = spiWrite(_NRF24L01P_SPI_CMD_WR_TX_PAYLOAD);
 
     for ( int i = 0; i < count; i++ ) {
 
-        hal_spi_tx_val(spi_num, *data++);
+        spiWrite(*data++);
 
     }
 
@@ -1180,24 +1017,21 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
         select();  //  Set CS Pin to low.
 
-        int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_R_RX_PL_WID);
-        assert(status != 0xFFFF);
+        int status = spiWrite(_NRF24L01P_SPI_CMD_R_RX_PL_WID);
 
-        int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+        int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
         
         deselect();  //  Set CS Pin to high.
-
+        console_printf("rx %d\n", rxPayloadWidth);
         if ( ( rxPayloadWidth < 0 ) || ( rxPayloadWidth > _NRF24L01P_RX_FIFO_SIZE ) ) {
     
             // Received payload error: need to flush the FIFO
 
             select();  //  Set CS Pin to low.
     
-            int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
-            assert(status != 0xFFFF);
+            int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
     
-            int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
-            assert(rxPayloadWidth != 0xFFFF);
+            int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
             
             deselect();  //  Set CS Pin to high.
             
@@ -1212,12 +1046,11 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
             select();  //  Set CS Pin to low.
         
-            int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_RD_RX_PAYLOAD);
-            assert(status != 0xFFFF);
+            int status = spiWrite(_NRF24L01P_SPI_CMD_RD_RX_PAYLOAD);
         
             for ( int i = 0; i < count; i++ ) {
         
-                *data++ = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+                *data++ = spiWrite(_NRF24L01P_SPI_CMD_NOP);
         
             }
 
@@ -1262,10 +1095,9 @@ void nRF24L01P::setRegister(int regAddress, int regData) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, cn);
-    assert(status != 0xFFFF);
+    int status = spiWrite(cn);
 
-    hal_spi_tx_val(spi_num, regData & 0xFF);
+    spiWrite(regData & 0xFF);
 
     deselect();  //  Set CS Pin to high.
 
@@ -1282,11 +1114,9 @@ int nRF24L01P::getRegister(int regAddress) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, cn);
-    assert(status != 0xFFFF);
+    int status = spiWrite(cn);
 
-    int dn = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
-    assert(dn != 0xFFFF);
+    int dn = spiWrite(_NRF24L01P_SPI_CMD_NOP);
 
     deselect();  //  Set CS Pin to high.
 
@@ -1298,7 +1128,7 @@ int nRF24L01P::getStatusRegister(void) {
 
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+    int status = spiWrite(_NRF24L01P_SPI_CMD_NOP);
 
     deselect();  //  Set CS Pin to high.
 
@@ -1334,22 +1164,18 @@ uint8_t nRF24L01P::getRSSI(void) {
 void nRF24L01P::flushRx(void) {
     //  Flush rx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
-    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
-    assert(status != 0xFFFF);
+    int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
 
-    int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
-    assert(rxPayloadWidth != 0xFFFF);
+    int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
     deselect();  //  Set CS Pin to high.
 }
  
 void nRF24L01P::flushTx(void) {
     //  Flush tx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
-    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
-    assert(status != 0xFFFF);
+    int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
 
-    int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
-    assert(rxPayloadWidth != 0xFFFF);
+    int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
     deselect();  //  Set CS Pin to high.
 }
 
@@ -1357,17 +1183,23 @@ void nRF24L01P::flushTxRx(void) {
     //  Flush tx and rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/ and https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
 
-    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
-    assert(status != 0xFFFF);
+    int status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
 
-    int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
-    assert(rxPayloadWidth != 0xFFFF);
+    int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
     
-    status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
-    assert(status != 0xFFFF);
+    status = spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
 
-    rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
-    assert(rxPayloadWidth != 0xFFFF);
+    rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
     
     deselect();  //  Set CS Pin to high.
+}
+
+uint8_t nRF24L01P::spiWrite(uint8_t val) {
+    //  Write 8-bit val to the SPI port.  Return the result of the write.  
+    //  Fail with an assertion error if SPI port was configured as slave.
+    //  Need to provide this wrapper because hal_spi_tx_val() returns 16-bit 
+    //  values that need to be truncated to 8 bits.
+    uint16_t status = hal_spi_tx_val(spi_num, val);
+    assert(status != 0xffff);  //  SPI configured wrongly as slave.
+    return status & 0xff;      //  Return only 8 bits.
 }
