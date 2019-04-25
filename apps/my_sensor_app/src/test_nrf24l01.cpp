@@ -72,6 +72,7 @@ static void start_txrx(struct nrf24l01 *dev) {
     assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
     hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
 
+#ifdef NOTUSED
     if (hw_id[0] != 0x57) { 
         is_master = true; 
         console_printf("*** master node\n");
@@ -101,14 +102,16 @@ static void start_txrx(struct nrf24l01 *dev) {
         //  Master will receive data from Slave.
         //  On Master: Open Pipe 0 for writing to Slave.
         //  radio.openWritingPipe(addresses[0]);
-        drv(dev)->setTxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH);
+        //  drv(dev)->setTxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH);
 
         //  On Master: Open Pipes 1-5 for reading from Slaves.  Pipes 1-5 should share the first 32 bits. Only the least significant byte should be unique.
         //  radio.openReadingPipe(1,addresses[1]);
         drv(dev)->setRxAddress(SLAVE_ADDRESS, SLAVE_ADDRESS_WIDTH, NRF24L01P_PIPE_P1);
         //  Repeat for Pipes 2, 3, 4, 5.
-    }
-    else { 
+
+        //  Start listening.
+        drv(dev)->setReceiveMode(); 
+    } else { 
         //  Slave will transmit data to Master.
         //  On Slave: Open Pipe 0 for writing to Master.
         //  radio.openWritingPipe(addresses[1]);
@@ -116,7 +119,26 @@ static void start_txrx(struct nrf24l01 *dev) {
 
         //  On Slave: Open Pipe 1 for reading from Master.
         //  radio.openReadingPipe(1,addresses[0]);
-        drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, NRF24L01P_PIPE_P1);
+        //  drv(dev)->setRxAddress(MASTER_ADDRESS, MASTER_ADDRESS_WIDTH, NRF24L01P_PIPE_P1);
+
+        //  Start transmitting.
+        drv(dev)->setTransmitMode(); 
+    }
+#endif  //  NOTUSED
+
+    //  Display the setup of the nRF24L01+ chip
+    console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
+    console_printf( "nRF24L01+ Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
+    console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
+    for (int i = 0; i < 6; i++) {
+        console_printf( "nRF24L01+ P%d Tx Size   : %d bytes\r\n",  i, drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i) );
+    }
+    for (int i = 0; i < 6; i++) {
+        console_printf( "nRF24L01+ P%d Address   : 0x%010llX\r\n", i, 
+            (i == 0) 
+                ? drv(dev)->getTxAddress()
+                : drv(dev)->getRxAddress(NRF24L01P_PIPE_P1 + i)
+        );
     }
 
     //  Power up after setting config.
@@ -124,15 +146,6 @@ static void start_txrx(struct nrf24l01 *dev) {
 
     //  Start listening.
     drv(dev)->setReceiveMode(); 
-    
-    //  Display the setup of the nRF24L01+ chip
-    console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
-    console_printf( "nRF24L01+ Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
-    console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
-    console_printf( "nRF24L01+ P0 Tx Size   : %d bytes\r\n",  drv(dev)->getTransferSize(NRF24L01P_PIPE_P0) );
-    console_printf( "nRF24L01+ P1 Tx Size   : %d bytes\r\n",  drv(dev)->getTransferSize(NRF24L01P_PIPE_P1) );
-    console_printf( "nRF24L01+ P0 Address   : 0x%010llX\r\n", drv(dev)->getTxAddress() );
-    console_printf( "nRF24L01+ P1 Address   : 0x%010llX\r\n", drv(dev)->getRxAddress(NRF24L01P_PIPE_P1) );
 
     //  Set CE Pin to high.    
     drv(dev)->enable();
@@ -188,13 +201,15 @@ static void rx_timer_callback(struct os_event *ev) {
         assert(dev != NULL);
 
         //  On Master: Check Pipes 1-5 for received data.
-        int pipe = NRF24L01P_PIPE_P1;
-        if ( drv(dev)->readable( pipe ) ) {
-            // ...read the data into the receive buffer
-            rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
-            assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
+        for (int i = 0; i < 5; i++) {
+            int pipe = NRF24L01P_PIPE_P1 + i;
+            if ( drv(dev)->readable( pipe ) ) {
+                // ...read the data into the receive buffer
+                rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
+                assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
+            }
+            //  Repeat for Pipes 2, 3, 4, 5.
         }
-        //  Repeat for Pipes 2, 3, 4, 5.
 
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        

@@ -20,6 +20,18 @@ struct nrf24l01_cfg {
     int cs_pin;     //  Default is PB2
     int ce_pin;     //  Default is PB0
     int irq_pin;    //  Default is PA15
+    int freq;       //  Frequency in kHz. Default is 2,476 kHz (channel 76)
+    int power;
+    int data_rate;
+    int crc_width;  //  Default is NRF24L01P_CRC_8_BIT
+    //  These settings apply for all pipes.
+    int tx_size;
+    uint8_t auto_ack;
+    uint8_t auto_retransmit;
+    //  List of pipes.
+    unsigned long long tx_address;     //  Pipe 0
+    const unsigned long long *rx_addresses;  //  Pipes 1 to 5
+    uint8_t rx_addresses_len;
 };
 
 //  Device Instance
@@ -42,6 +54,9 @@ int nrf24l01_init(struct os_dev *dev0, void *arg);
 
 //  Apply the device configuration.  Return 0 if successful.
 int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg);
+
+//  Return true if this is the collector node.
+bool nrf24l01_collector_node(void);
 
 #ifdef __cplusplus
 }

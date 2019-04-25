@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <os/os.h>
 #include <bsp/bsp.h>
+#include <hal/hal_bsp.h>
 #include <hal/hal_gpio.h>
 #include <console/console.h>
 #include "nRF24L01P.h"
@@ -75,6 +76,43 @@ err:
     return rc;
 }
 
+static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
+static int hw_id_len = 0;  //  Actual length of hardware ID
+static unsigned long long sensor_node_address = 0;
+
+//  ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
+#define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
+
+//  Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
+#define COLLECTOR_NODE_ADDRESS 0x7878787878ull  //  Collector Node (Pipe 0)
+#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull    //  Sensor Nodes have address 0xB3B4B5B6??  (Pipes 1 and onwards)
+#define SENSOR_NETWORK_SIZE    5                //  5 Sensor Nodes in the Sensor Network (Pipes 1 to 5)
+
+//  Addresses of the 5 Sensor Nodes
+static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
+    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
+    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
+};
+
+bool nrf24l01_collector_node(void) {
+    //  Return true if this is the collector node.
+    //  Fetch the hardware ID.  This is unique across all microcontrollers.
+    if (hw_id_len == 0) {
+        hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
+        assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
+        hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
+    }  
+    if (hw_id[0] == 0x57) { 
+        console_printf("*** collector node\n");
+        return true; 
+    }
+    console_printf("sensor node\n");
+    return false; 
+}
+
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
     console_printf("nrf defcfg\n");  console_flush();  ////
@@ -92,6 +130,30 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
     cfg->ce_pin = MCU_GPIO_PORTB(0);  //  PB0
     cfg->irq_pin = MCU_GPIO_PORTA(15);  //  PA15
+
+    cfg->freq = 2476;  //  2,476 kHz (channel 76)
+
+    ////cfg->power = NRF24L01P_TX_PWR_ZERO_DB;  //  Highest power in production
+    cfg->power = NRF24L01P_TX_PWR_MINUS_12_DB;  //  Test with lowest power in case of power issues
+    ////cfg->data_rate = NRF24L01P_DATARATE_250_KBPS;  //  Slowest, longest range, but only supported by nRF24L01+
+    cfg->data_rate = NRF24L01P_DATARATE_1_MBPS;    //  Slowest rate supported by both nRF24L01 and nRF24L01+
+
+    cfg->crc_width = NRF24L01P_CRC_8_BIT;
+    cfg->tx_size = 4;
+    cfg->auto_ack = 0;
+    cfg->auto_retransmit = 0;
+    if (nrf24l01_collector_node()) {  //  Collector Node
+        cfg->tx_address = COLLECTOR_NODE_ADDRESS;
+        cfg->rx_addresses = sensor_node_addresses;
+        cfg->rx_addresses_len = SENSOR_NETWORK_SIZE;
+    } else {  //  Sensor Node
+        int node = 0;  //  TODO
+        sensor_node_address = sensor_node_addresses[node];
+        cfg->tx_address = sensor_node_address;
+        cfg->rx_addresses = &sensor_node_address;
+        cfg->rx_addresses_len = 1;
+    }
+
     console_printf("nrf spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
     return 0;
 }
@@ -102,7 +164,10 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     assert(dev);  assert(cfg);
 
     //  Initialise the controller.
-    int rc = drv(dev)->init(cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin);
+    int rc = drv(dev)->init(cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin,
+        cfg->freq, cfg->power, cfg->data_rate, cfg->crc_width, 
+        cfg->tx_size, cfg->auto_ack, cfg->auto_retransmit, 
+        cfg->tx_address, cfg->rx_addresses, cfg->rx_addresses_len);
     assert(rc == 0);
     return rc;
 }

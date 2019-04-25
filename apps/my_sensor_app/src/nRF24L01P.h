@@ -102,7 +102,18 @@ public:
      */
     nRF24L01P();
 
-    int init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0);
+    int init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
+        int freq,       //  Frequency in kHz. Default is 2,476 kHz (channel 76)
+        int power,
+        int data_rate,
+        int crc_width,  //  Default is NRF24L01P_CRC_8_BIT
+        int tx_size,
+        uint8_t auto_ack,
+        uint8_t auto_retransmit,
+        unsigned long long tx_address,     //  Pipe 0
+        const unsigned long long *rx_addresses,  //  Pipes 1 to 5
+        uint8_t rx_addresses_len
+    );
 
     /**
      * Set the RF frequency.

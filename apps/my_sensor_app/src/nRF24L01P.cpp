@@ -362,7 +362,19 @@ nRF24L01P::nRF24L01P() {
     mode = _NRF24L01P_MODE_UNKNOWN;
 }
 
-int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0) {
+int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
+    int freq,       //  Frequency in kHz. Default is 2,476 kHz (channel 76)
+    int power,
+    int data_rate,
+    int crc_width,  //  Default is NRF24L01P_CRC_8_BIT
+    int tx_size,
+    uint8_t auto_ack,
+    uint8_t auto_retransmit,
+    unsigned long long tx_address,     //  Pipe 0
+    const unsigned long long *rx_addresses,  //  Pipes 1 to 5
+    uint8_t rx_addresses_len
+    ) {
+    assert(rx_addresses);  assert(rx_addresses_len <= 4);
     mode = _NRF24L01P_MODE_UNKNOWN;
     spi_num = spi_num0;
     cs_pin = cs_pin0;
@@ -377,38 +389,42 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0) {
     disable();   //  Set CE Pin to low.
     deselect();  //  Set CS Pin to high.
 
-    console_printf("power on reset\n"); ////
+    console_printf("power on reset 2\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
 
     console_printf("power down\n"); ////
     setRegister(_NRF24L01P_REG_CONFIG, 0); // Power Down
+    wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-down
 
     console_printf("clear interrupts\n"); ////
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_MAX_RT|_NRF24L01P_STATUS_TX_DS|_NRF24L01P_STATUS_RX_DR);   // Clear any pending interrupts
-
-#ifdef NOTUSED
-    //// TEST
-    setTxAddress();
-    getTxAddress();
-    console_flush();
-    for (;;) {} ////
-    //// END TEST
-#endif  //  NOTUSED
 
     //
     // Setup default configuration
     //
     disableAllRxPipes();
-    setRfFrequency();
-    setRfOutputPower();
-    setAirDataRate();
-    setCrcWidth();
-    setTxAddress();
-    setRxAddress();
-    disableAutoAcknowledge();
-    disableAutoRetransmit();
-    setTransferSize();
+    setRfFrequency(freq);
+    setRfOutputPower(power);
+    setAirDataRate(data_rate);
+    setCrcWidth(crc_width);
 
+    //  Pipe 0 for tx.
+    setTxAddress(tx_address, DEFAULT_NRF24L01P_ADDRESS_WIDTH);
+    setTransferSize(tx_size, NRF24L01P_PIPE_P0);
+
+    if (auto_ack) { enableAutoAcknowledge(NRF24L01P_PIPE_P0); }
+    else { disableAutoAcknowledge(); }
+
+    if (auto_retransmit) { assert(0); /* TODO: enableAutoRetransmit(4000, 3); */ }
+    else { disableAutoRetransmit(); }
+
+    //  Pipes 1 to 5 for rx.
+    for (int i = 0; i < rx_addresses_len; i++) {
+        int pipe = NRF24L01P_PIPE_P1 + i;  //  rx pipes start at 1.
+        setRxAddress(rx_addresses[i], DEFAULT_NRF24L01P_ADDRESS_WIDTH, pipe);
+        setTransferSize(tx_size, pipe);
+        if (auto_ack) { enableAutoAcknowledge(pipe); }
+    }
     mode = _NRF24L01P_MODE_POWER_DOWN;
 
     return (0);
