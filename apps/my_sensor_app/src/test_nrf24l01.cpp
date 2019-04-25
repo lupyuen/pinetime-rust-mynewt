@@ -81,8 +81,8 @@ static void start_txrx(struct nrf24l01 *dev) {
     drv(dev)->setTransferSize( TRANSFER_SIZE, RX_PIPE );
 
     //  Set tx power.
-    ////drv(dev)->setRfOutputPower(-18);  //  Highest power
-    drv(dev)->setRfOutputPower(0);  //  Use lowest power in case of power issues
+    ////drv(dev)->setRfOutputPower(NRF24L01P_TX_PWR_ZERO_DB);  //  Highest power in production
+    drv(dev)->setRfOutputPower(NRF24L01P_TX_PWR_MINUS_12_DB);  //  Test with lowest power in case of power issues
 
     //  Set data rate.
     drv(dev)->setAirDataRate(NRF24L01P_DATARATE_250_KBPS);  //  Slowest, longest range, but only supported by nRF24L01+
