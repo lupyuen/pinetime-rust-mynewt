@@ -399,16 +399,14 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
     console_printf("clear interrupts\n"); ////
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_MAX_RT|_NRF24L01P_STATUS_TX_DS|_NRF24L01P_STATUS_RX_DR);   // Clear any pending interrupts
 
-    //
-    // Setup default configuration
-    //
+    // Setup configuration.
     disableAllRxPipes();
     setRfFrequency(freq);
     setRfOutputPower(power);
     setAirDataRate(data_rate);
     setCrcWidth(crc_width);
 
-    //  Pipe 0 for tx.
+    //  Set Pipe 0 for tx.
     setTxAddress(tx_address, DEFAULT_NRF24L01P_ADDRESS_WIDTH);
     setTransferSize(tx_size, NRF24L01P_PIPE_P0);
 
@@ -418,7 +416,7 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
     if (auto_retransmit) { assert(0); /* TODO: enableAutoRetransmit(4000, 3); */ }
     else { disableAutoRetransmit(); }
 
-    //  Pipes 1 to 5 for rx.
+    //  Set Pipes 1 to 5 for rx.
     for (int i = 0; i < rx_addresses_len; i++) {
         int pipe = NRF24L01P_PIPE_P1 + i;  //  rx pipes start at 1.
         setRxAddress(rx_addresses[i], DEFAULT_NRF24L01P_ADDRESS_WIDTH, pipe);
@@ -426,13 +424,8 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
         if (auto_ack) { enableAutoAcknowledge(pipe); }
     }
 
-    //  Flush tx and rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
-    select();  //  Set CS Pin to low.
-    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
-    assert(status != 0xFFFF);
-    status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
-    assert(status != 0xFFFF);
-    deselect();  //  Set CS Pin to high.
+    //  Flush rx and tx.
+    flushTxRx();
 
     mode = _NRF24L01P_MODE_POWER_DOWN;
     return (0);
@@ -761,7 +754,6 @@ void nRF24L01P::disableAutoAcknowledge(void) {
 
 }
 
-
 void nRF24L01P::enableAutoAcknowledge(int pipe) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
@@ -779,11 +771,51 @@ void nRF24L01P::enableAutoAcknowledge(int pipe) {
 
 }
 
+void nRF24L01P::enableDynamicPayload(int pipe) {
+    //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/ 
+    if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
+ 
+        error( "nRF24L01P: Invalid Enable AutoAcknowledge pipe number %d\r\n", pipe );
+        return;
+ 
+    }
+    
+    int feature = getRegister(_NRF24L01P_REG_FEATURE);
+    feature |= ( 1 << 2 );
+    setRegister(_NRF24L01P_REG_FEATURE, feature);
+ 
+    int dynpd = getRegister(_NRF24L01P_REG_DYNPD);
+    dynpd |= ( 1 << (pipe - NRF24L01P_PIPE_P0) );
+    setRegister(_NRF24L01P_REG_DYNPD, dynpd);
+ 
+}
+ 
+ void nRF24L01P::disableDynamicPayload(void) {
+    //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/    
+    int feature = getRegister(_NRF24L01P_REG_FEATURE);
+    feature &= !( 1 << 2 );
+    setRegister(_NRF24L01P_REG_FEATURE, feature);
+}
 
 void nRF24L01P::disableAutoRetransmit(void) {
-
+    //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/    
     setRegister(_NRF24L01P_REG_SETUP_RETR, _NRF24L01P_SETUP_RETR_NONE);
+    a_retr_enabled = false;
+}
 
+void nRF24L01P::enableAutoRetransmit(int delay, int count) {
+    //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/    
+    delay = (0x00F0 & (delay << 4));
+    count = (0x000F & count);
+ 
+    setRegister(_NRF24L01P_REG_SETUP_RETR, delay|count);
+    a_retr_enabled = true;
+ 
+}
+ 
+int nRF24L01P::getRetrCount(){
+    //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/    
+    return getRegister(_NRF24L01P_REG_OBSERVE_TX) & 0x0F;
 }
 
 void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
@@ -1299,17 +1331,42 @@ uint8_t nRF24L01P::getRSSI(void) {
 }
 
 void nRF24L01P::flushRx(void) {
-    //  Flush rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    //  Flush rx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
     status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
     assert(status != 0xFFFF);
+
+    int rxPayloadWidth = spi_.write(_NRF24L01P_SPI_CMD_NOP);
+    assert(rxPayloadWidth != 0xFFFF);
     deselect();  //  Set CS Pin to high.
 }
  
 void nRF24L01P::flushTx(void) {
-    //  Flush tx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/
+    //  Flush tx.  From https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
     select();  //  Set CS Pin to low.
     int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
     assert(status != 0xFFFF);
+
+    int rxPayloadWidth = spi_.write(_NRF24L01P_SPI_CMD_NOP);
+    assert(rxPayloadWidth != 0xFFFF);
+    deselect();  //  Set CS Pin to high.
+}
+
+void nRF24L01P::flushTxRx(void) {
+    //  Flush tx and rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/ and https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
+    select();  //  Set CS Pin to low.
+
+    int status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_TX);
+    assert(status != 0xFFFF);
+
+    int rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+    assert(rxPayloadWidth != 0xFFFF);
+    
+    status = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_FLUSH_RX);
+    assert(status != 0xFFFF);
+
+    rxPayloadWidth = hal_spi_tx_val(spi_num, _NRF24L01P_SPI_CMD_NOP);
+    assert(rxPayloadWidth != 0xFFFF);
+    
     deselect();  //  Set CS Pin to high.
 }

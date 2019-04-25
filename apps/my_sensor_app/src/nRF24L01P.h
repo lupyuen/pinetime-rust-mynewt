@@ -336,6 +336,8 @@ public:
 
     void flushTx(void);
 
+    void flushTxRx(void);
+
 private:
 
     /**
