@@ -303,6 +303,9 @@ public:
      */
     bool readable(int pipe = NRF24L01P_PIPE_P0);
 
+    //  Return a pipe number that is readable now.  Return -1 if none are readable.
+    int readablePipe(void);
+    
     /**
      * Disable all receive pipes
      *

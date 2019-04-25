@@ -141,12 +141,11 @@ static void rx_timer_callback(struct os_event *ev) {
         assert(dev != NULL);
 
         //  On Collector Node: Check Pipes 1-5 for received data.
-        for (int pipe = NRF24L01P_PIPE_P1; pipe <= NRF24L01P_PIPE_P5; pipe++) {
-            if ( drv(dev)->readable( pipe ) ) {
-                // ...read the data into the receive buffer
-                rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
-                assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
-            }
+        int pipe = drv(dev)->readablePipe();
+        if (pipe > 0) {
+            // ...read the data into the receive buffer
+            rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
+            assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
         }
 
         //  Close the nRF24L01 device when we are done.

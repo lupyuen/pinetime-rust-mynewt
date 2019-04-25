@@ -940,6 +940,15 @@ bool nRF24L01P::readable(int pipe) {
 }
 
 
+int nRF24L01P::readablePipe(void) {
+    //  Return a pipe number that is readable now.  Return -1 if none are readable.
+    int status = getStatusRegister();
+    //  console_printf("rd %x\n", status);  ////
+    if (! (status & _NRF24L01P_STATUS_RX_DR) ) { return -1; }  //  Nothing to read now.
+    return ( status & _NRF24L01P_STATUS_RX_P_NO ) >> 1;  //  Return the pipe number.
+}
+
+
 int nRF24L01P::write(int pipe, char *data, int count) {
 
     // Note: the pipe number is ignored in a Transmit / write
