@@ -33,6 +33,11 @@ static struct sensor_listener listener = {
 int start_sensor_listener(void) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
+
+#if MYNEWT_VAL(NRF24L01)                          //  If nRF24L01 Wireless Network is enabled...
+    if (nrf24l01_collector_node()) { return 0; }  //  And this is not a Sensor Node, then don't start the sensor.
+#endif  //  MYNEWT_VAL(NRF24L01)
+
     console_printf("TMP poll " SENSOR_DEVICE "\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"

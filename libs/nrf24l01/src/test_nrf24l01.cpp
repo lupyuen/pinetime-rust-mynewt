@@ -12,13 +12,7 @@ static void start_txrx(struct nrf24l01 *dev);
 static void tx_timer_callback(struct os_event *ev);
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
 
-//  The nRF24L01+ supports transfers from 1 to 32 bytes, but Sparkfun's
-//  "Nordic Serial Interface Board" (http://www.sparkfun.com/products/9019)
-//  only handles 4 byte transfers in the ATMega code.
-#define TRANSFER_SIZE   4
-
-//  static char txData[TRANSFER_SIZE];
-static char rxData[TRANSFER_SIZE];
+static char rxData[NRF24L01_TRANSFER_SIZE];
 
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len;      //  Actual length of hardware ID
@@ -117,7 +111,7 @@ static void tx_timer_callback(struct os_event *ev) {
         ////drv(dev)->setTransmitMode(); 
 
         //  On Sensor Node: Transmit the data to Collector Node.
-        rc = drv(dev)->write( NRF24L01P_PIPE_P0 /* Ignored */, txData, TRANSFER_SIZE );
+        rc = drv(dev)->write( NRF24L01P_PIPE_P0 /* Ignored */, txData, NRF24L01_TRANSFER_SIZE );
 
         //  Start listening again.
         ////drv(dev)->setReceiveMode(); 
@@ -126,11 +120,11 @@ static void tx_timer_callback(struct os_event *ev) {
         os_dev_close((struct os_dev *) dev);        
     }   //  Unlock the nRF24L01 driver for exclusive use.
 
-    assert(rc == TRANSFER_SIZE);
-    console_printf("tx "); console_dump((const uint8_t *) txData, TRANSFER_SIZE); console_printf("\n"); 
+    assert(rc == NRF24L01_TRANSFER_SIZE);
+    console_printf("tx "); console_dump((const uint8_t *) txData, NRF24L01_TRANSFER_SIZE); console_printf("\n"); 
     console_flush(); ////
 
-    hw_id[tx_count++ % TRANSFER_SIZE]++;  //  Change the tx message
+    hw_id[tx_count++ % NRF24L01_TRANSFER_SIZE]++;  //  Change the tx message
     os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
 }
 
@@ -152,8 +146,8 @@ void nrf24l01_callback(struct os_event *ev) {
             pipe = drv(dev)->readablePipe();
             if (pipe > 0) {
                 //  Read the data into the receive buffer
-                rxDataCnt = drv(dev)->read( pipe, rxData, TRANSFER_SIZE );
-                assert(rxDataCnt > 0 && rxDataCnt <= TRANSFER_SIZE);
+                rxDataCnt = drv(dev)->read( pipe, rxData, NRF24L01_TRANSFER_SIZE );
+                assert(rxDataCnt > 0 && rxDataCnt <= NRF24L01_TRANSFER_SIZE);
             }
             //  Close the nRF24L01 device when we are done.
             os_dev_close((struct os_dev *) dev);

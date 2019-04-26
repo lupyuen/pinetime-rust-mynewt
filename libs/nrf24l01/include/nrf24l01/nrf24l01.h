@@ -11,6 +11,7 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 #define NRF24L01_DEVICE "nrf24l01_0"  //  Name of the device
+#define NRF24L01_TRANSFER_SIZE   12   //  Each packet will have 12 bytes. This value ranges from 1 to 32.
 
 //  Device Configuration
 struct nrf24l01_cfg {
@@ -60,6 +61,9 @@ bool nrf24l01_collector_node(void);
 
 //  TODO: Should be part of config.
 void nrf24l01_callback(struct os_event *ev);
+
+//  Transmit the data.
+int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size);
 
 #ifdef __cplusplus
 }

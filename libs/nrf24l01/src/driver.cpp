@@ -100,23 +100,6 @@ static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len = 0;  //  Actual length of hardware ID
 static unsigned long long sensor_node_address = 0;
 
-//  ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
-#define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
-
-//  Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
-#define COLLECTOR_NODE_ADDRESS 0x7878787878ull  //  Collector Node (Pipe 0)
-#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull    //  Sensor Nodes have address 0xB3B4B5B6??  (Pipes 1 and onwards)
-#define SENSOR_NETWORK_SIZE    5                //  5 Sensor Nodes in the Sensor Network (Pipes 1 to 5)
-
-//  Addresses of the 5 Sensor Nodes
-static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
-};
-
 bool nrf24l01_collector_node(void) {
     //  Return true if this is the collector node.
     //  Fetch the hardware ID.  This is unique across all microcontrollers.
@@ -134,48 +117,75 @@ bool nrf24l01_collector_node(void) {
     return false; 
 }
 
+//  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
+
+#define COLLECTOR_NODE_ADDRESS 0x7878787878ull  //  Collector Node Address (Pipe 0)
+#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull    //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
+#define SENSOR_NETWORK_SIZE    5                //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
+
+//  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
+#define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
+
+//  Addresses of the 5 Sensor Nodes
+static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1 e.g. 0xB3B4B5B6f1
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
+    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
+    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
+};
+
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
-    console_printf("nrf defcfg\n");  console_flush();  ////
-    assert(cfg);
+    assert(cfg);  console_printf("nrf defcfg\n");  console_flush();  ////    
     memset(cfg, 0, sizeof(struct nrf24l01_cfg));  //  Zero the entire object.
 
-    //  Return default SPI settings.
-    cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;  //  Data order
-    cfg->spi_settings.data_mode  = HAL_SPI_MODE0;      //  Data mode of SPI driver: ClockPhase = 0, ClockPolarity = 0
-    //  cfg->spi_settings.baudrate   = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Baudrate in kHz: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
-    cfg->spi_settings.baudrate   = 200;  //  Baudrate in kHz: 200 kHz (slow)
+    //  SPI Port Settings
+    cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;       //  Data order
+    cfg->spi_settings.data_mode  = HAL_SPI_MODE0;           //  Data mode of SPI driver: ClockPhase = 0, ClockPolarity = 0
     cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;  //  Word size of the SPI transaction
-    cfg->spi_num = 0;     //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
-    cfg->spi_cfg = NULL;  //  TODO
-    cfg->cs_pin = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
-    cfg->ce_pin = MCU_GPIO_PORTB(0);  //  PB0
+    cfg->spi_settings.baudrate   = 200;                     //  Baudrate in kHz: 200 kHz (slow, for testing)
+    //  cfg->spi_settings.baudrate = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Baudrate in kHz: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
 
-    cfg->freq = 2476;  //  2,476 kHz (channel 76)
+    //  SPI Pins: Derived from the "Super Blue Pill" design https://docs.google.com/presentation/d/1WU_erkN-fPBfNYVX5BOHhjfHLPkTgSwOKEL8rYcAIrI/edit#slide=id.p
+    cfg->spi_num    = 0;                  //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
+    cfg->spi_cfg    = NULL;               //  Not used
+    cfg->cs_pin     = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
+    cfg->ce_pin     = MCU_GPIO_PORTB(0);  //  PB0
 
-    cfg->power = NRF24L01P_TX_PWR_ZERO_DB;  //  Highest power in production
-    //  cfg->power = NRF24L01P_TX_PWR_MINUS_12_DB;  //  Test with lowest power in case of power issues
+    //  Tx Frequency
+    cfg->freq           = 2476;                           //  2,476 kHz (channel 76)
 
-    cfg->data_rate = NRF24L01P_DATARATE_250_KBPS;  //  Slowest, longest range, but only supported by nRF24L01+
-    //  cfg->data_rate = NRF24L01P_DATARATE_1_MBPS;    //  Slowest rate supported by both nRF24L01 and nRF24L01+
+    //  Tx Power
+    cfg->power          = NRF24L01P_TX_PWR_ZERO_DB;       //  Highest power in production
+    //  cfg->power      = NRF24L01P_TX_PWR_MINUS_12_DB;   //  Test with lowest power in case of power issues
 
-    cfg->crc_width = NRF24L01P_CRC_8_BIT;
-    cfg->tx_size = 4;
-    cfg->auto_ack = 0;
+    //  Tx Data Rate
+    cfg->data_rate      = NRF24L01P_DATARATE_250_KBPS;    //  Slowest, longest range, but only supported by nRF24L01+
+    //  cfg->data_rate  = NRF24L01P_DATARATE_1_MBPS;      //  Slowest rate supported by both nRF24L01 and nRF24L01+
+
+    //  Tx Settings
+    cfg->crc_width       = NRF24L01P_CRC_8_BIT;
+    cfg->tx_size         = NRF24L01_TRANSFER_SIZE;        //  Each packet has this size
+    cfg->auto_ack        = 0;                             //  No acknowledgements
     cfg->auto_retransmit = 0;
-    if (nrf24l01_collector_node()) {  //  Collector Node
-        cfg->irq_pin = MCU_GPIO_PORTA(15);  //  Collector Node gets rx interrupts on PA15
-        cfg->tx_address = COLLECTOR_NODE_ADDRESS;
-        cfg->rx_addresses = sensor_node_addresses;
-        cfg->rx_addresses_len = SENSOR_NETWORK_SIZE;
-    } else {  //  Sensor Node
-        int node = 0;  //  TODO: Allocate node ID according to hardware ID.
+
+    //  Tx and Rx Addresses: Depends whether this is Collector Node or Sensor Node
+
+    if (nrf24l01_collector_node()) {                      //  If this is the Collector Node...
+        cfg->irq_pin            = MCU_GPIO_PORTA(15);     //  Collector Node gets rx interrupts on PA15
+        cfg->tx_address         = COLLECTOR_NODE_ADDRESS; //  Collector Node address
+        cfg->rx_addresses       = sensor_node_addresses;  //  Listen to all Sensor Nodes
+        cfg->rx_addresses_len   = SENSOR_NETWORK_SIZE;    //  Number of Sensor Nodes to listen
+
+    } else {                                              //  If this is a Sensor Node...
+        int node = 0;                                     //  TODO: Allocate node ID according to hardware ID
         sensor_node_address = sensor_node_addresses[node];
 
-        cfg->irq_pin = MCU_GPIO_PIN_NONE;  //  Sensor Nodes don't need rx interrupts.
-        cfg->tx_address = sensor_node_address;
-        cfg->rx_addresses = &sensor_node_address;
-        cfg->rx_addresses_len = 1;
+        cfg->irq_pin            = MCU_GPIO_PIN_NONE;      //  Disable rx interrupts for Sensor Nodes
+        cfg->tx_address         = sensor_node_address;    //  Sensor Node address
+        cfg->rx_addresses       = &sensor_node_address;   //  Listen to itself only. For handling acknowledgements in future
+        cfg->rx_addresses_len   = 1;
     }
 
     console_printf("nrf spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
@@ -188,10 +198,17 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     assert(dev);  assert(cfg);
 
     //  Initialise the controller.
-    int rc = drv(dev)->init(cfg->spi_num, cfg->cs_pin, cfg->ce_pin, cfg->irq_pin,
-        cfg->freq, cfg->power, cfg->data_rate, cfg->crc_width, 
-        cfg->tx_size, cfg->auto_ack, cfg->auto_retransmit, 
-        cfg->tx_address, cfg->rx_addresses, cfg->rx_addresses_len);
+    int rc = drv(dev)->init(cfg->spi_num,       cfg->cs_pin,        cfg->ce_pin,    cfg->irq_pin,
+        cfg->freq,          cfg->power,         cfg->data_rate,     cfg->crc_width, 
+        cfg->tx_size,       cfg->auto_ack,      cfg->auto_retransmit, 
+        cfg->tx_address,    cfg->rx_addresses,  cfg->rx_addresses_len);
     assert(rc == 0);
+    return rc;
+}
+
+int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size) {
+    //  Transmit the data.
+    assert(dev);  assert(buf);  assert(size > 0);
+    int rc = drv(dev)->write(NRF24L01P_PIPE_P0 /* Ignored */, (char *) buf, size);
     return rc;
 }

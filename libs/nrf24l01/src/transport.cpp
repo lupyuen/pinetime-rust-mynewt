@@ -17,6 +17,7 @@ static void oc_shutdown(void);
 static const char *network_device;     //  Name of the nRF24L01 device that will be used for transmitting CoAP messages e.g. "nrf24l01_0" 
 static struct nrf24l01_server *server;  //  CoAP Server host and port.  We only support 1 server.
 static uint8_t transport_id = -1;      //  Will contain the Transport ID allocated by Mynewt OIC.
+static uint8_t nrf24l01_tx_buffer[NRF24L01_TRANSFER_SIZE];
 
 //  Definition of nRF24L01 driver as a transport for CoAP.  Only 1 nRF24L01 driver instance supported.
 static const struct oc_transport transport = {
@@ -82,13 +83,27 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
     //  TODO: Set packet size
     int rc = 0;
     struct os_mbuf *m = mbuf;
+    int mbuf_num = 0;
     while (m) {  //  For each mbuf in the list...
         const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
         int size = m->om_len;  //  Fetch the size.
-        console_printf("nrf mbuf len %d\n", size);
+        console_printf("nrf %s len %d\n", (mbuf_num == 0 ? "header" : "payload"), size);
         console_dump((const uint8_t *) data, size); console_printf("\n");
+        if (mbuf_num == 1) {  //  If this is the second mbuf, i.e. the payload...
+            //  Transmit the mbuf.
+            if (size <= 0 || size > NRF24L01_TRANSFER_SIZE) { rc = 0; break; }  //  Too small or too big, quit.
+
+            //  Zero the buffer.  Copy into the buffer.
+            memset(nrf24l01_tx_buffer, 0, NRF24L01_TRANSFER_SIZE);
+            memcpy(nrf24l01_tx_buffer, data, size);
+
+            //  On Sensor Node: Transmit the data to Collector Node.
+            rc = nrf24l01_send(dev, nrf24l01_tx_buffer, NRF24L01_TRANSFER_SIZE);
+            assert(rc != -1);
+            break;
+        }
+        mbuf_num++;
         m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
-        rc = size;
     }
     console_flush();
     return rc;
