@@ -81,18 +81,25 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
     //  TODO: First mbuf is CoAP Header, skip it.  Transmit the second mbuf with the CoAP Payload.
     //  TODO: Set packet size
     int rc = 0;
-    //  int size = OS_MBUF_PKTLEN(mbuf);
     struct os_mbuf *m = mbuf;
-    while (m) {
-        rc = m->om_len;
-        console_printf("nrf mbuf len %d\n", m->om_len);
-        console_dump(m->om_databuf + m->om_pkthdr_len, m->om_len);
-        console_printf("\n");
-        m = m->om_next.sle_next;
+    while (m) {  //  For each mbuf in the list...
+        const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
+        int size = m->om_len;  //  Fetch the size.
+        console_printf("nrf mbuf len %d\n", size);
+        console_dump((const uint8_t *) data, size); console_printf("\n");
+        m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
+        rc = size;
     }
     console_flush();
     return rc;
 }
+
+/* mbuf should contain:
+Header:
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+Payload:
+bf 63 22 74 22 19 0f a0 ff 
+*/
 
 static void oc_tx_ucast(struct os_mbuf *m) {
     //  Transmit the chain of mbufs to the network.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
