@@ -77,10 +77,18 @@ int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint) {
 ///////////////////////////////////////////////////////////////////////////////
 //  OIC Callback Functions
 
-static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *m) {
-    //  Transmit the mbuf: CoAP Payload only, not the CoAP Header.  Return the number of bytes transmitted.
+static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
+    //  Transmit the mbuf chain: CoAP Payload only, not the CoAP Header.  Return the number of bytes transmitted.
+    //  TODO: First mbuf is CoAP Header, skip it.  Transmit the second mbuf with the CoAP Payload.
     int rc = 0;
-    //  TODO
+    //  int size = OS_MBUF_PKTLEN(mbuf);
+    struct os_mbuf *m = mbuf;
+    while (m) {
+        console_printf("nrf mbuf len %d\n", m->om_len);
+        console_dump(m->om_databuf + m->om_pkthdr_len, m->om_len);
+        console_printf("\n");
+        m = m->om_next.sle_next;
+    }
     return rc;
 }
 
