@@ -97,6 +97,9 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
             memset(nrf24l01_tx_buffer, 0, NRF24L01_TRANSFER_SIZE);
             memcpy(nrf24l01_tx_buffer, data, size);
 
+            //  TODO Remove: Set the tx counter in last byte.
+            static uint8_t tx_count = 0;  nrf24l01_tx_buffer[NRF24L01_TRANSFER_SIZE - 1] = tx_count++;  ////
+
             //  On Sensor Node: Transmit the data to Collector Node.
             rc = nrf24l01_send(dev, nrf24l01_tx_buffer, NRF24L01_TRANSFER_SIZE);
             assert(rc != -1);
