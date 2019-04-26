@@ -9,18 +9,13 @@
 
 extern "C" void test_nrf24l01(void);
 static void start_txrx(struct nrf24l01 *dev);
-static void tx_timer_callback(struct os_event *ev);
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
-
-static char rxData[NRF24L01_TRANSFER_SIZE];
 
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len;      //  Actual length of hardware ID
-static struct os_callout tx_callout;
+static char rxData[NRF24L01_TRANSFER_SIZE];
 
 void test_nrf24l01(void) {
-    //  int rc;
-
     //  Fetch the hardware ID.  This is unique across all microcontrollers.  
     hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
     assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
@@ -40,9 +35,11 @@ void test_nrf24l01(void) {
         os_dev_close((struct os_dev *) dev);        
     }   //  Unlock the nRF24L01 driver for exclusive use.
 
+#ifdef NOTUSED
     os_event ev;
     os_callout_init(&tx_callout, os_eventq_dflt_get(), tx_timer_callback, NULL);
     if (!nrf24l01_collector_node()) { tx_timer_callback(&ev); }  //  Sensor Node starts the tx timer.
+#endif  //  NOTUSED
 
     //  Not needed because rx processing is triggered by interrupt, not polling.
     //  os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
@@ -91,43 +88,6 @@ static void start_txrx(struct nrf24l01 *dev) {
     console_flush();  ////
 }
 
-static int tx_count = 0;
-
-static void tx_timer_callback(struct os_event *ev) {
-    // Send the transmitbuffer via the nRF24L01+
-    assert(ev != NULL);
-    int rc = 0;
-
-    //  Transmit the hardware ID.
-    char *txData = (char *) hw_id;
-    assert(txData);
-
-    {   //  Lock the nRF24L01 driver for exclusive use.
-        //  Find the nRF24L01 device by name "nrf24l01_0".
-        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
-        assert(dev != NULL);
-
-        //  Stop listening so we can transmit.
-        ////drv(dev)->setTransmitMode(); 
-
-        //  On Sensor Node: Transmit the data to Collector Node.
-        rc = drv(dev)->write( NRF24L01P_PIPE_P0 /* Ignored */, txData, NRF24L01_TRANSFER_SIZE );
-
-        //  Start listening again.
-        ////drv(dev)->setReceiveMode(); 
-
-        //  Close the nRF24L01 device when we are done.
-        os_dev_close((struct os_dev *) dev);        
-    }   //  Unlock the nRF24L01 driver for exclusive use.
-
-    assert(rc == NRF24L01_TRANSFER_SIZE);
-    console_printf("tx "); console_dump((const uint8_t *) txData, NRF24L01_TRANSFER_SIZE); console_printf("\n"); 
-    console_flush(); ////
-
-    hw_id[tx_count++ % NRF24L01_TRANSFER_SIZE]++;  //  Change the tx message
-    os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
-}
-
 void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
     //  TODO: Move to config.
@@ -166,6 +126,38 @@ void nrf24l01_callback(struct os_event *ev) {
 }
 
 #ifdef NOTUSED
+
+    static int tx_count = 0;
+
+    static void tx_timer_callback(struct os_event *ev) {
+        // Send the transmitbuffer via the nRF24L01+
+        assert(ev != NULL);
+        int rc = 0;
+
+        //  Transmit the hardware ID.
+        char *txData = (char *) hw_id;
+        assert(txData);
+
+        {   //  Lock the nRF24L01 driver for exclusive use.
+            //  Find the nRF24L01 device by name "nrf24l01_0".
+            struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
+            assert(dev != NULL);
+
+            //  On Sensor Node: Transmit the data to Collector Node.
+            rc = nrf24l01_send(dev, txData, NRF24L01_TRANSFER_SIZE);
+
+            //  Close the nRF24L01 device when we are done.
+            os_dev_close((struct os_dev *) dev);        
+        }   //  Unlock the nRF24L01 driver for exclusive use.
+
+        assert(rc == NRF24L01_TRANSFER_SIZE);
+        console_printf("tx "); console_dump((const uint8_t *) txData, NRF24L01_TRANSFER_SIZE); console_printf("\n"); 
+        console_flush(); ////
+
+        hw_id[tx_count++ % NRF24L01_TRANSFER_SIZE]++;  //  Change the tx message
+        os_callout_reset(&tx_callout, 10 * OS_TICKS_PER_SEC);  //  tx every 10 secs
+    }
+
     static void rx_timer_callback(struct os_event *ev) {
         //  Quit if nothing to read.
         assert(ev != NULL);

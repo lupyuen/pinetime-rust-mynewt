@@ -96,6 +96,9 @@ err:
     return rc;
 }
 
+//  #define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
+#define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
+
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len = 0;  //  Actual length of hardware ID
 static unsigned long long sensor_node_address = 0;
@@ -108,8 +111,7 @@ bool nrf24l01_collector_node(void) {
         assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
         hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
     }  
-    //  if (hw_id[0] == 0x38) {  //  Win
-    if (hw_id[0] == 0x57) {  //  Mac
+    if (hw_id[0] == COLLECTOR_NODE_HWID) {
         console_printf("*** collector node\n");
         return true; 
     }
@@ -209,6 +211,7 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
 int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size) {
     //  Transmit the data.
     assert(dev);  assert(buf);  assert(size > 0);
+    console_printf("nrf >> "); console_dump(buf, size); console_printf("\n");
     int rc = drv(dev)->write(NRF24L01P_PIPE_P0 /* Ignored */, (char *) buf, size);
     return rc;
 }

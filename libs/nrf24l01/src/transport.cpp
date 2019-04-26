@@ -87,7 +87,7 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
     while (m) {  //  For each mbuf in the list...
         const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
         int size = m->om_len;  //  Fetch the size.
-        console_printf("nrf %s len %d\n", (mbuf_num == 0 ? "header" : "payload"), size);
+        console_printf("nrf %s len %02d: ", (mbuf_num == 0 ? "header" : "payload"), size);
         console_dump((const uint8_t *) data, size); console_printf("\n");
         if (mbuf_num == 1) {  //  If this is the second mbuf, i.e. the payload...
             //  Transmit the mbuf.
