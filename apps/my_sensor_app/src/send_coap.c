@@ -61,6 +61,9 @@ static uint8_t device_id     [DEVICE_ID_LENGTH];          //  Binary device ID e
 static char    device_id_text[DEVICE_ID_TEXT_LENGTH];     //  Text version of the binary device ID, 2 hex digits per byte
                                                           //  e.g. abcdef...
 
+///////////////////////////////////////////////////////////////////////////////
+//  Network Task
+
 //  Storage for Network Task
 #define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
 static uint8_t network_task_stack[sizeof(os_stack_t) * NETWORK_TASK_STACK_SIZE];  //  Stack space
@@ -111,23 +114,23 @@ static void network_task_func(void *arg) {
     device_id[0] = 0;
 #endif  //  MYNEWT_VAL(ESP8266)
 
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     {   //  Lock the ESP8266 or nRF24L01 driver for exclusive use.
         //  Find the ESP8266 or nRF24L01 device by name e.g. "esp8266_0", "nrf24l01_0"
         struct os_dev *dev0 = os_dev_open(NETWORK_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  NETWORK_DEVICE is "esp8266_0" or "nrf24l01_0"
         assert(dev0 != NULL);
 
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
         //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
         //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
         //  to pass ESP8266 events to this function.
         struct esp8266 *dev = (struct esp8266 *) dev0;
         rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  
         assert(rc == 0);
-#endif  //  MYNEWT_VAL(ESP8266)
 
         //  Close the ESP8266 or nRF24L01 device when we are done.
         os_dev_close(dev0);
     }  //  Unlock the ESP8266 or nRF24L01 driver for exclusive use.
+#endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     //  Register the ESP8266 driver as the network transport for CoAP.
@@ -146,7 +149,7 @@ static void network_task_func(void *arg) {
     rc = geolocate(NETWORK_DEVICE, coap_server.handle, COAP_URI, device_id_text);  assert(rc >= 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
-    //  Network Task has successfully started the ESP8266 transceiver. The Sensor Listener will still continue to
+    //  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
     //  run in the background and send sensor data to the server.
     network_is_ready = true;  //  Indicate that network is ready.
 
@@ -157,13 +160,63 @@ static void network_task_func(void *arg) {
     assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+//  Send Sensor Data for nRF24L01
+
+#if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
+
+int send_sensor_data(uint16_t raw_tmp) {
+    //  Compose a CoAP CBOR message with sensor data "raw_tmp" (raw temperature) and 
+    //  transmit to the Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
+    //  Background Task so this function will return without waiting for the message 
+    //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+    //  "raw_tmp" has values between 0 to 4095.
+
+    //  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
+    //    { "t": 2870 }
+    if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    struct oc_server_handle *server = coap_server.handle;
+    const char *uri = COAP_URI;
+    const char *device_str = device_id_text;
+    assert(server);  assert(uri);  assert(device_str);
+
+    //  Start composing the CoAP message with the sensor data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    int rc = init_sensor_post(server, uri);  assert(rc != 0);
+
+    //  Compose the CoAP Payload in CBOR using the CP macros.
+    CP_ROOT({  //  Create the payload root
+        rep_set_uint(root, "t", raw_tmp);  //  TODO: Wrap with CP macro.
+    });  //  End CP_ROOT:  Close the payload root
+
+    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  message to the background task, we release a semaphore that unblocks other requests
+    //  to compose and post CoAP messages.
+    rc = do_sensor_post();  assert(rc != 0);
+
+    console_printf("NET send data: raw_tmp %d\n", raw_tmp);  ////
+
+    //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
+    //  transmit the message: libs/nrf24l01/src/transport.cpp
+    return 0;
+}
+
+#endif  //  MYNEWT_VAL(NRF24L01)
+
+///////////////////////////////////////////////////////////////////////////////
+//  Send Sensor Data for ESP8266
+
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
+
 int send_sensor_data(float tmp) {
-    //  Compose a CoAP message with sensor data "tmp" and send to the CoAP server
+    //  Compose a CoAP JSON message with sensor data "tmp" and send to the CoAP server
     //  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
     //  Background Task so this function will return without waiting for the message 
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 
-    //  For the CoAP server hosted at thethings.io, the CoAP payload should look like:
+    //  For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
     //  {"values":[
     //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
     //    {"key":"tmp",    "value":28.7},
@@ -203,15 +256,15 @@ int send_sensor_data(float tmp) {
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
 
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
-#endif  //  MYNEWT_VAL(ESP8266)
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
     return 0;
 }
+
+#endif  //  MYNEWT_VAL(ESP8266)
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Other Functions
