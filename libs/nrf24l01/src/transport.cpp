@@ -16,7 +16,6 @@ static void oc_shutdown(void);
 
 static const char *network_device;     //  Name of the nRF24L01 device that will be used for transmitting CoAP messages e.g. "nrf24l01_0" 
 static struct nrf24l01_server *server;  //  CoAP Server host and port.  We only support 1 server.
-static void *socket;                   //  Reusable UDP socket connection to the CoAP server.  Never closed.
 static uint8_t transport_id = -1;      //  Will contain the Transport ID allocated by Mynewt OIC.
 
 //  Definition of nRF24L01 driver as a transport for CoAP.  Only 1 nRF24L01 driver instance supported.
@@ -80,20 +79,23 @@ int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint) {
 static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
     //  Transmit the mbuf chain: CoAP Payload only, not the CoAP Header.  Return the number of bytes transmitted.
     //  TODO: First mbuf is CoAP Header, skip it.  Transmit the second mbuf with the CoAP Payload.
+    //  TODO: Set packet size
     int rc = 0;
     //  int size = OS_MBUF_PKTLEN(mbuf);
     struct os_mbuf *m = mbuf;
     while (m) {
+        rc = m->om_len;
         console_printf("nrf mbuf len %d\n", m->om_len);
         console_dump(m->om_databuf + m->om_pkthdr_len, m->om_len);
         console_printf("\n");
         m = m->om_next.sle_next;
     }
+    console_flush();
     return rc;
 }
 
 static void oc_tx_ucast(struct os_mbuf *m) {
-    //  Transmit the chain of mbufs to the network over UDP.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
+    //  Transmit the chain of mbufs to the network.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
 
     //  Find the endpoint header.  Should be the end of the packet header of the first packet.
     assert(m);  assert(OS_MBUF_USRHDR_LEN(m) >= sizeof(struct nrf24l01_endpoint));
@@ -101,7 +103,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
 
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
-    assert(network_device);  assert(socket);
+    assert(network_device);
     int rc;
 
     {   //  Lock the nRF24L01 driver for exclusive use.  Find the nRF24L01 device by name.

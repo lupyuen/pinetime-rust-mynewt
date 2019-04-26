@@ -188,7 +188,7 @@ int send_sensor_data(uint16_t raw_tmp) {
 
     //  Compose the CoAP Payload in CBOR using the CP macros.
     CP_ROOT({  //  Create the payload root
-        rep_set_uint(root, "t", raw_tmp);  //  TODO: Wrap with CP macro.
+        oc_rep_set_uint(root, t, raw_tmp);  //  TODO: Wrap with CP macro.
     });  //  End CP_ROOT:  Close the payload root
 
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the

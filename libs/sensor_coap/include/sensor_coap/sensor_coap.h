@@ -99,8 +99,8 @@ void json_rep_end_root_object(void);
 #define COAP_CONTENT_FORMAT APPLICATION_CBOR  //  Specify CBOR content type and accept type in the CoAP header.
 
 #define rep_new(mbuf)                           oc_rep_new(mbuf)
-#define rep_reset()                             oc_rep_reset()
-#define rep_finalize()                          oc_rep_finalize()
+#define rep_reset(mbuf)                         oc_rep_reset(mbuf)
+#define rep_finalize(mbuf)                      oc_rep_finalize(mbuf)
 
 #define rep_start_root_object()                 oc_rep_start_root_object()
 #define rep_end_root_object()                   oc_rep_end_root_object()
