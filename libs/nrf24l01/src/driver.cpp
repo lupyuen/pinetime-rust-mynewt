@@ -9,6 +9,27 @@
 #include "nRF24L01P.h"
 #include "nrf24l01/nrf24l01.h"
 
+//  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
+
+#define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
+//  #define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
+
+#define COLLECTOR_NODE_ADDRESS 0x7878787878ull  //  Collector Node Address (Pipe 0)
+#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull    //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
+#define SENSOR_NETWORK_SIZE    5                //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
+
+//  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
+#define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
+
+//  Addresses of the 5 Sensor Nodes
+static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1 e.g. 0xB3B4B5B6f1
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
+    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
+    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
+    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
+};
+
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
 
@@ -134,9 +155,6 @@ err:
     return rc;
 }
 
-//  #define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
-#define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
-
 static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
 static int hw_id_len = 0;  //  Actual length of hardware ID
 static unsigned long long sensor_node_address = 0;
@@ -156,24 +174,6 @@ bool nrf24l01_collector_node(void) {
     console_printf("sensor node\n");
     return false; 
 }
-
-//  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
-
-#define COLLECTOR_NODE_ADDRESS 0x7878787878ull  //  Collector Node Address (Pipe 0)
-#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull    //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
-#define SENSOR_NETWORK_SIZE    5                //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
-
-//  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
-#define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
-
-//  Addresses of the 5 Sensor Nodes
-static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1 e.g. 0xB3B4B5B6f1
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
-};
 
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
