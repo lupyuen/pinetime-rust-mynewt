@@ -29,8 +29,6 @@ void test_nrf24l01(void) {
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
-        start_txrx(dev);
-
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
     }   //  Unlock the nRF24L01 driver for exclusive use.
@@ -44,46 +42,6 @@ void test_nrf24l01(void) {
     //  Not needed because rx processing is triggered by interrupt, not polling.
     //  os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_timer_callback, NULL);
     //  if (nrf24l01_collector_node()) { rx_timer_callback(&ev); }  //  Collector Node starts the rx timer.
-
-    console_flush();  ////
-}
-
-static void start_txrx(struct nrf24l01 *dev) {
-    //  Settings based on https://github.com/nRF24/RF24/blob/master/examples/GettingStarted/GettingStarted.ino
-    //  See the docs at https://maniacbug.github.io/RF24/classRF24.html
-
-    //  Display the setup of the nRF24L01+ chip
-    console_printf( "nRF24L01+ Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
-    console_printf( "nRF24L01+ Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
-    console_printf( "nRF24L01+ Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
-    for (int i = 0; i < 6; i++) {
-        console_printf( "nRF24L01+ P%d Tx Size   : %d bytes\r\n",  i, drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i) );
-    }
-    for (int i = 0; i < 6; i++) {
-        console_printf( "nRF24L01+ P%d Address   : 0x%010llX\r\n", i, 
-            (i == 0) 
-                ? drv(dev)->getTxAddress()
-                : drv(dev)->getRxAddress(NRF24L01P_PIPE_P0 + i)
-        );
-    }
-
-    //  Power up after setting config.
-    drv(dev)->powerUp();
-
-    if (nrf24l01_collector_node()) {
-        //  For Collector Node: Start listening.
-        drv(dev)->setReceiveMode(); 
-    } else {
-        //  For Sensor Node: Start transmitting.
-        drv(dev)->setTransmitMode(); 
-    }
-
-    //  Enable or disable the interrupt.
-    if (dev->cfg.irq_pin == 0xffff) { drv(dev)->disableRxInterrupt(); }
-    else { drv(dev)->enableRxInterrupt(); }
-
-    //  Set CE Pin to high.    
-    drv(dev)->enable();
 
     console_flush();  ////
 }

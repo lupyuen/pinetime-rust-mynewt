@@ -39,5 +39,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # nrf24l01 should be initialised after hmac_prng (Stage 630)
-    #### nrf24l01_create: 640  # Call nrf24l01_create() to initialise the nRF24L01 driver during startup
+    # nrf24l01 has no dependencies so we start early.
+    nrf24l01_create: 605  # Call nrf24l01_create() to initialise the nRF24L01 driver during startup

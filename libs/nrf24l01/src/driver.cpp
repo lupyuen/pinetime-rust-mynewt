@@ -27,6 +27,39 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     first_open = false;
     console_printf("{\n");  ////
     assert(dev0);
+    struct nrf24l01 *dev = (struct nrf24l01 *) dev0;
+
+    //  Display the setup of the nRF24L01 module.
+    console_printf( "nrf Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
+    console_printf( "nrf Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
+    console_printf( "nrf Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
+    for (int i = 0; i < 6; i++) {
+        console_printf( "nrf P%d Tx Size   : %d bytes\r\n",  i, drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i) );
+    }
+    for (int i = 0; i < 6; i++) {
+        console_printf( "nrf P%d Address   : 0x%010llX\r\n", i, 
+            (i == 0) 
+                ? drv(dev)->getTxAddress()
+                : drv(dev)->getRxAddress(NRF24L01P_PIPE_P0 + i)
+        );
+    }
+    //  Power up after setting config.
+    drv(dev)->powerUp();
+
+    if (nrf24l01_collector_node()) {
+        //  For Collector Node: Start listening.
+        drv(dev)->setReceiveMode(); 
+    } else {
+        //  For Sensor Node: Start transmitting.
+        drv(dev)->setTransmitMode(); 
+    }
+
+    //  Enable or disable the interrupt.
+    if (dev->cfg.irq_pin == MCU_GPIO_PIN_NONE) { drv(dev)->disableRxInterrupt(); }
+    else { drv(dev)->enableRxInterrupt(); }
+
+    //  Set CE Pin to high.    
+    drv(dev)->enable();
     return 0;
 }
 
@@ -189,8 +222,7 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
         cfg->rx_addresses       = &sensor_node_address;   //  Listen to itself only. For handling acknowledgements in future
         cfg->rx_addresses_len   = 1;
     }
-
-    console_printf("nrf spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
+    //  console_printf("nrf spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
     return 0;
 }
 
@@ -208,10 +240,27 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     return rc;
 }
 
+/////////////////////////////////////////////////////////
+//  Transmit / Receive Functions
+
 int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size) {
     //  Transmit the data.
     assert(dev);  assert(buf);  assert(size > 0);
     console_printf("nrf >> "); console_dump(buf, size); console_printf("\n");
     int rc = drv(dev)->write(NRF24L01P_PIPE_P0 /* Ignored */, (char *) buf, size);
+    return rc;
+}
+
+int nrf24l01_receive(struct nrf24l01 *dev, int pipe, uint8_t *buf, uint8_t size) {
+    //  Receive data from the pipe.
+    assert(dev);  assert(pipe > 0);  assert(buf);  assert(size > 0);
+    int rc = drv(dev)->read(pipe, (char *) buf, size);
+    return rc;
+}
+
+int nrf24l01_readable_pipe(struct nrf24l01 *dev) {
+    //  Return the pipe number that has received data.  -1 if no data received.
+    assert(dev);
+    int rc = drv(dev)->readablePipe();
     return rc;
 }

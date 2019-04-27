@@ -65,6 +65,12 @@ void nrf24l01_callback(struct os_event *ev);
 //  Transmit the data.
 int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size);
 
+//  Receive data from the pipe.
+int nrf24l01_receive(struct nrf24l01 *dev, int pipe, uint8_t *buf, uint8_t size);
+
+//  Return the pipe number that has received data.  -1 if no data received.
+int nrf24l01_readable_pipe(struct nrf24l01 *dev);
+
 #ifdef __cplusplus
 }
 #endif

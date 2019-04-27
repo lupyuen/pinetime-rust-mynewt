@@ -225,24 +225,15 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
     irq_pin = irq_pin0;
 
     //  Assume SPI and GPIO already initialised previously in nrf24l01_init().
-
-    //  console_printf("power down\n"); ////
-    //  powerDown();  //  TODO: Does this fix Collector Node not receiving packets?
-
-    console_printf("power on reset\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
 
     disable();   //  Set CE Pin to low.
     deselect();  //  Set CS Pin to high.
-
-    console_printf("power on reset 2\n"); ////
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-on reset
 
-    console_printf("power down\n"); ////
-    setRegister(_NRF24L01P_REG_CONFIG, 0); // Power Down
+    setRegister(_NRF24L01P_REG_CONFIG, 0);      // Power Down
     wait_us(_NRF24L01P_TIMING_Tundef2pd_us);    // Wait for Power-down
 
-    console_printf("clear interrupts\n"); ////
     setRegister(_NRF24L01P_REG_STATUS, _NRF24L01P_STATUS_MAX_RT|_NRF24L01P_STATUS_TX_DS|_NRF24L01P_STATUS_RX_DR);   // Clear any pending interrupts
 
     //  Setup configuration.
@@ -275,10 +266,7 @@ int nRF24L01P::init(int spi_num0, int cs_pin0, int ce_pin0, int irq_pin0,
 
     mode = _NRF24L01P_MODE_POWER_DOWN;
     return (0);
-// err:
-    // return (rc);
 }
-
 
 void nRF24L01P::powerUp(void) {
     console_printf("power up\n"); ////
