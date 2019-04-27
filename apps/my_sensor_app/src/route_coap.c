@@ -2,9 +2,31 @@
 #include <assert.h>
 #include <os/os.h>
 #include <console/console.h>
+
+////#if MYNEWT_VAL(NRF24L01) && MYNEWT_VAL(ESP8266)  //  If both nRF24L01 and ESP8266 are enabled...
+#if MYNEWT_VAL(NRF24L01)
+
 #include <nrf24l01/nrf24l01.h>
 
-static uint8_t rxData[NRF24L01_TRANSFER_SIZE];
+static uint8_t rxData[NRF24L01_TRANSFER_SIZE];  //  Buffer for received data.
+
+int start_coap_router(void) {
+    //  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
+    //  and forwards them to CoAP server via ESP8266 WiFi. Return 0 if successful.
+    
+    //  Open the nRF24L01 driver to start listening.
+    {   //  Lock the nRF24L01 driver for exclusive use.
+        //  Find the nRF24L01 device by name "nrf24l01_0".
+        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
+        assert(dev != NULL);
+
+        //  At this point the nRF24L01 driver will start listening.
+
+        //  Close the nRF24L01 device when we are done.
+        os_dev_close((struct os_dev *) dev);        
+    }   //  Unlock the nRF24L01 driver for exclusive use.
+    return 0;
+}
 
 void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
@@ -41,3 +63,5 @@ void nrf24l01_callback(struct os_event *ev) {
         }
     }
 }
+
+#endif  //  MYNEWT_VAL(NRF24L01) && MYNEWT_VAL(ESP8266)

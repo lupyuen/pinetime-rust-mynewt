@@ -10,6 +10,8 @@
 #include "send_coap.h"        //  For start_network_task()
 #include "listen_sensor.h"    //  For start_sensor_listener()
 
+int start_coap_router(void);  ////  TODO: Move to lib
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor and Send to CoAP Server
 
@@ -36,6 +38,12 @@ int main(int argc, char **argv) {
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
     int rc2 = start_sensor_listener();  assert(rc2 == 0);
 #endif  //  SENSOR_DEVICE
+
+#if MYNEWT_VAL(NRF24L01) //// && MYNEWT_VAL(ESP8266)  //  If both nRF24L01 and ESP8266 are enabled...
+    //  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
+    //  and forwards them to CoAP server via ESP8266 WiFi.
+    int rc3 = start_coap_router();  assert(rc3 == 0);
+#endif  //  MYNEWT_VAL(NRF24L01) && MYNEWT_VAL(ESP8266)
 
     //  Main event loop
     while (true) {                //  Loop forever...

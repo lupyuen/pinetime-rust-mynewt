@@ -139,16 +139,6 @@ static void network_task_func(void *arg) {
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
-    //  Open the driver to start the network.
-    {   //  Lock the nRF24L01 driver for exclusive use.
-        //  Find the nRF24L01 device by name "nrf24l01_0".
-        struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
-        assert(dev != NULL);
-
-        //  Close the nRF24L01 device when we are done.
-        os_dev_close((struct os_dev *) dev);        
-    }   //  Unlock the nRF24L01 driver for exclusive use.
-
     //  Register the nRF24L01 driver as the network transport for CoAP.
     rc = nrf24l01_register_transport(NETWORK_DEVICE, &coap_server);  
     assert(rc == 0);
