@@ -15,7 +15,7 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 //  Device Configuration
 struct nrf24l01_cfg {
-    struct hal_spi_settings spi_settings;
+    struct hal_spi_settings spi_settings;  //  SPI settings
     int spi_num;    //  0 means SPI1, 1 means SPI2
     void *spi_cfg;  //  Low-level MCU SPI config
     int cs_pin;     //  Default is PB2
@@ -39,8 +39,8 @@ struct nrf24l01_cfg {
 struct nrf24l01 {
     struct os_dev dev;
     struct nrf24l01_cfg cfg;
-    void *controller;  //  Pointer to controller instance (nRF24L01P *)
-    struct os_mutex lock;
+    uint8_t is_configured;  //  0 means not configured
+    void *controller;       //  Pointer to controller instance (nRF24L01P *)
 };
 
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.

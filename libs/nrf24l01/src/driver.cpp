@@ -19,15 +19,19 @@ static bool first_open = true;  //  True if this is the first time opening the d
 //  Device Creation Functions
 
 static nRF24L01P *drv(struct nrf24l01 *dev) { return (nRF24L01P *)(dev->controller); }  //  Return the controller instance
-// static nrf24l01_cfg *cfg(struct nrf24l01 *dev) { return &dev->cfg; }                    //  Return the device config
 
 static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  If first time we are opening the driver: Prepare the nrf24l01 transceiver for use.  Lock the port.
-    if (!first_open) { console_printf("{\n"); return 0; }  ////
-    first_open = false;
-    console_printf("{\n");  ////
     assert(dev0);
     struct nrf24l01 *dev = (struct nrf24l01 *) dev0;
+    console_printf("{\n");  ////
+   
+    //  If not configured, this must be the first call to configure. Return.
+    if (!dev->is_configured) { return 0; }
+
+    //  If device is already prepared, return.
+    if (!first_open) { return 0; }
+    first_open = false;
 
     //  Display the setup of the nRF24L01 module.
     console_printf( "nrf Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
@@ -66,7 +70,7 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 static int nrf24l01_close(struct os_dev *dev0) {
     //  Shutdown the nrf24l01 transceiver.  Unlock the port.
     //  TODO: Undo driver.init().
-    console_printf("}\n");  console_flush();  ////
+    console_printf("}\n");
     assert(dev0);
     return 0;
 }
@@ -82,12 +86,13 @@ static void nrf24l01_irq_handler(void *arg) {
 
 int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Configure the nrf24l01 driver.  Called by os_dev_create().  Return 0 if successful.
-    console_printf("nrf init\n");  console_flush();  ////
+    console_printf("nrf init\n");
     struct nrf24l01 *dev;
     struct nrf24l01_cfg *cfg;
     int rc;
     if (!dev0) { rc = SYS_ENODEV; goto err; }
     dev = (struct nrf24l01 *) dev0;  assert(dev);
+    dev->is_configured = 0;
     cfg = &dev->cfg;  assert(cfg);
 
     //  Assign the controller.
@@ -116,7 +121,7 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
 
     //  Configure the rx interrupt, which is active when low.
     if (cfg->irq_pin != MCU_GPIO_PIN_NONE) {
-        console_printf("nrf enable irq\n");  console_flush();  ////
+        console_printf("nrf enable irq\n");
         //  Initialize the event with the callback function.
         nrf24l01_event.ev_cb = nrf24l01_callback;
         hal_gpio_irq_init(cfg->irq_pin, nrf24l01_irq_handler, NULL,
@@ -172,7 +177,7 @@ static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
 
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
-    assert(cfg);  console_printf("nrf defcfg\n");  console_flush();  ////    
+    assert(cfg);  console_printf("nrf defcfg\n");
     memset(cfg, 0, sizeof(struct nrf24l01_cfg));  //  Zero the entire object.
 
     //  SPI Port Settings
@@ -228,7 +233,7 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
 
 int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     //  Apply the nrf24l01 driver configuration.  Return 0 if successful.
-    console_printf("nrf config\n");  console_flush();  ////
+    console_printf("nrf config\n");
     assert(dev);  assert(cfg);
 
     //  Initialise the controller.
@@ -237,6 +242,7 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
         cfg->tx_size,       cfg->auto_ack,      cfg->auto_retransmit, 
         cfg->tx_address,    cfg->rx_addresses,  cfg->rx_addresses_len);
     assert(rc == 0);
+    dev->is_configured = 1;
     return rc;
 }
 
