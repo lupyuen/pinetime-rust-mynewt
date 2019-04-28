@@ -12,12 +12,6 @@ syscfg.defs:
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
         value:        0
-    COAP_JSON_ENCODING:
-        description: 'Use JSON to encode CoAP payload'
-        value:        1  # Default CoAP encoding is JSON
-    COAP_CBOR_ENCODING:
-        description: 'Use CBOR to encode CoAP payload (not supported by thethings.io)'
-        value:        0
 
     WIFI_GEOLOCATION:
         description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266. Requires "esp8266" driver'

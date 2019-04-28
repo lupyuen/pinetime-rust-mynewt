@@ -71,6 +71,9 @@ int nrf24l01_receive(struct nrf24l01 *dev, int pipe, uint8_t *buf, uint8_t size)
 //  Return the pipe number that has received data.  -1 if no data received.
 int nrf24l01_readable_pipe(struct nrf24l01 *dev);
 
+//  Return the rx address of the pipe (1 to 5).
+unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe);
+
 #ifdef __cplusplus
 }
 #endif

@@ -45,7 +45,9 @@
 			"temp_sensor.h": "c",
 			"os.h": "c",
 			"sensor_coap.h": "c",
-			"json.h": "c"
+			"json.h": "c",
+			"oc_rep.h": "c",
+			"cbor.h": "c"
 		}
 	}
 }

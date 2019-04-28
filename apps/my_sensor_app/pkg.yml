@@ -14,6 +14,8 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
+    ## Move to lib
+    - "@apache-mynewt-core/encoding/tinycbor"  #  CBOR decoding for CoAP
 
 # Optional Dependencies: Application is dependent on these optional drivers and libraries.
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
@@ -22,10 +24,6 @@ pkg.deps:
 # nRF24L01 Wireless Transceiver Driver
 pkg.deps.NRF24L01:
     - "libs/nrf24l01"                      #  nRF24L01 Wireless Transceiver Driver
-
-# Library for Semihosting Console
-pkg.deps.SEMIHOSTING_CONSOLE:
-    - "libs/semihosting_console"           #  Semihosting Console
 
 # CoAP library for transmitting sensor data to CoAP server
 pkg.deps.SENSOR_COAP:
@@ -46,6 +44,11 @@ pkg.deps.ESP8266:
 #  HMAC PRNG pseudorandom number generator library
 pkg.deps.HMAC_PRNG:
     - "libs/hmac_prng"                     #  HMAC PRNG pseudorandom number generator
+
+# Library for Semihosting Console
+pkg.deps.SEMIHOSTING_CONSOLE:
+    - "libs/semihosting_console"           #  Semihosting Console
+
 
 #  C compiler flags
 pkg.cflags:

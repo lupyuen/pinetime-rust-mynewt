@@ -21,3 +21,9 @@
 # SOFTWARE.
 
 syscfg.defs:
+    COAP_JSON_ENCODING:
+        description: 'Use JSON to encode CoAP payload'
+        value:        1  # Default CoAP encoding is JSON
+    COAP_CBOR_ENCODING:
+        description: 'Use CBOR to encode CoAP payload (not supported by thethings.io)'
+        value:        0

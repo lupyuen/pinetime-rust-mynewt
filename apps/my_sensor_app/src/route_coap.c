@@ -7,6 +7,8 @@
 ////#if MYNEWT_VAL(NRF24L01) && MYNEWT_VAL(ESP8266)  //  If both nRF24L01 and ESP8266 are enabled...
 #if MYNEWT_VAL(NRF24L01)
 
+#include <os/os_mbuf.h>
+#include <oic/oc_rep.h>
 #include <nrf24l01/nrf24l01.h>
 
 static uint8_t rxData[NRF24L01_TRANSFER_SIZE];  //  Buffer for received data.
@@ -30,25 +32,71 @@ int start_coap_router(void) {
     return 0;
 }
 
-void process_coap_message(uint8_t *data, uint8_t size0) {
-    //  Process the incoming CoAP message.  Last byte is sequence number.  Between the CoAP payload
-    //  and the last byte, all bytes are 0 and should be discarded before decoding.
+int decode_coap_payload(uint8_t *data, uint8_t size, oc_rep_t **out_rep) {
+    //  Decode CoAP Payload in CBOR format from the "data" buffer with "size" bytes.  
+    //  Decoded payload will be written to out_rep.  Payload contains {field1: val1, field2: val2, ...}
+    //  Return 0 if successful.
+    
+    //  Convert data buffer to mbuf, since oc_parse_rep() only accepts mbuf.
+    int rc;
+    struct os_mbuf *om;
+
+    //  Get a packet header mbuf.
+    om = os_mbuf_get_pkthdr(&g_mbuf_pool, sizeof(struct user_hdr));
+    assert(om);
+    if (!om) { return -1; }
+
+    //  Copy data buffer into mbuf.
+    rc = os_mbuf_copyinto(om, 0, mydata, len);
+    if (rc) { rc = -2; goto exit; }  //  Out of mbufs.
+
+    //  Parse the mbuf.
+    rc = oc_parse_rep(om, 0, size, out_rep);
+    assert(rc == 0)
+
+exit:
+    //  Free the mbuf.
+    os_mbuf_free_chain(om);
+    return om;
+}
+
+int process_coap_message(unsigned long long addr, uint8_t *data, uint8_t size0) {
+    //  Process the incoming CoAP payload.  Payload contains {field1: val1, field2: val2, ...} in CBOR format.
+    //  Last byte is sequence number.  Between the CoAP payload and the last byte, all bytes are 0 
+    //  and should be discarded before decoding.  Return 0 if successful.
     //  TODO: Get sender.
     assert(data);  assert(size0 > 0);
     uint8_t size = size0;
     data[size - 1] = 0;  //  Erase sequence number.
     while (size > 0 && data[size - 1] == 0) { size--; }  //  Discard trailing zeroes.
 
-    //  TODO: Decode CBOR.
+    //  Decode CoAP Payload (CBOR).
+    oc_rep_t *rep = NULL;
+    int rc = decode_coap_payload(data, size, &rep);
+    assert(rc == 0);
+    oc_rep_t *first_rep = rep;
 
-    //  Trigger read event to Remote Sensor.  This causes the sensor to be read.
-    const char *devname = "temp_stm32_0";  //  TODO
-    sensor_type_t type = SENSOR_TYPE_TEMPERATURE;  //  TODO    
+    //  For each field in the payload...
+    while(rep) {
+        //  Convert the field name to sensor type, e.g. "t" -> SENSOR_TYPE_TEMPERATURE
+        ////rep->name;
+        ////oc_rep_value_type_t type;
+        const char *devname = "temp_stm32_0";  //  addr  //  TODO: Sensor Node Address
+        sensor_type_t type = SENSOR_TYPE_TEMPERATURE;  //  TODO    
 
-    struct sensor_type_traits *stt = NULL;
-    struct sensor *snsr = sensor_get_type_traits_byname(devname, &stt, type);
-    assert(stt);  assert(snsr);
-    sensor_mgr_put_read_evt(stt);
+        //  Fetch the Sensor Type Traits for the Remote Sensor.
+        struct sensor_type_traits *stt = NULL;
+        struct sensor *snsr = sensor_get_type_traits_byname(devname, &stt, type);
+        assert(stt);  assert(snsr);
+
+        //  Trigger read event to Remote Sensor.  This causes the sensor to be read.
+        sensor_mgr_put_read_evt(stt);
+
+        //  Move to next field.
+        rep = rep->next;
+    }
+    //  Free the decoded representation.
+    oc_free_rep(first_rep);
 }
 
 #ifdef NOTUSED
@@ -114,6 +162,7 @@ void nrf24l01_callback(struct os_event *ev) {
         //  Keep checking until there is no more data to process.
         int pipe = -1;
         int rxDataCnt = 0;
+        unsigned long long addr = 0;
         {   //  Lock the nRF24L01 driver for exclusive use.
             //  Find the nRF24L01 device by name "nrf24l01_0".
             struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
@@ -125,6 +174,8 @@ void nrf24l01_callback(struct os_event *ev) {
                 //  Read the data into the receive buffer
                 rxDataCnt = nrf24l01_receive(dev, pipe, rxData, NRF24L01_TRANSFER_SIZE);
                 assert(rxDataCnt > 0 && rxDataCnt <= NRF24L01_TRANSFER_SIZE);
+                //  Get the rx (sender) address.
+                addr = nrf24l01_get_rx_address();
             }
             //  Close the nRF24L01 device when we are done.
             os_dev_close((struct os_dev *) dev);
@@ -135,9 +186,10 @@ void nrf24l01_callback(struct os_event *ev) {
 
         //  TODO: Process the received data.
         if (rxDataCnt > 0) { 
-            // Display the receive buffer contents
+            //  Display the receive buffer contents
             console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
-            process_coap_message(rxData, rxDataCnt);
+            int rc = process_coap_message(addr, rxData, rxDataCnt);
+            assert(rc == 0);
         }
     }
 }

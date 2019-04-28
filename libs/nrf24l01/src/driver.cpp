@@ -254,13 +254,16 @@ int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size) {
     assert(dev);  assert(buf);  assert(size > 0);
     console_printf("nrf >> "); console_dump(buf, size); console_printf("\n");
     int rc = drv(dev)->write(NRF24L01P_PIPE_P0 /* Ignored */, (char *) buf, size);
+    assert(rc == size);
     return rc;
 }
 
 int nrf24l01_receive(struct nrf24l01 *dev, int pipe, uint8_t *buf, uint8_t size) {
     //  Receive data from the pipe.
-    assert(dev);  assert(pipe > 0);  assert(buf);  assert(size > 0);
+    assert(dev);  assert(pipe > 0);  assert(pipe <= 5);  assert(buf);  assert(size > 0);
     int rc = drv(dev)->read(pipe, (char *) buf, size);
+    assert(rc > 0)
+    drv(dev)->getRxAddress
     return rc;
 }
 
@@ -269,4 +272,11 @@ int nrf24l01_readable_pipe(struct nrf24l01 *dev) {
     assert(dev);
     int rc = drv(dev)->readablePipe();
     return rc;
+}
+
+unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe) {
+    //  Return the rx address of the pipe (1 to 5).
+    assert(dev);  assert(pipe > 0);  assert(pipe <= 5);
+    unsigned long long ret = drv(dev)->getRxAddress(pipe);
+    return ret;
 }
