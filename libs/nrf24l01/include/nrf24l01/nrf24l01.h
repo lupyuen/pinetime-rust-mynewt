@@ -1,5 +1,11 @@
 //  nRF24L01 Driver for Apache Mynewt.  Functions for creating the device instance and performing device functions.
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
+
+//  Each nRF24L01 module has 1 pipe for transmitting data and 5 pipes for receiving data.
+//  The Collector Node will receive sensor data from 5 Sensor Nodes, each node connected to a pipe.
+//  Each pipe is identified by a unique address e.g. 0xB3B4B5B6f1
+//  All Sensor Nodes must belong to the same subnet e.g. 0xB3B4B5B6??
+
 #ifndef __NRF24L01_DRIVER_H__
 #define __NRF24L01_DRIVER_H__
 #include <os/os_dev.h>    //  For os_dev
@@ -12,7 +18,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 #define NRF24L01_DEVICE "nrf24l01_0"  //  Name of the device
 #define NRF24L01_TRANSFER_SIZE   12   //  Each packet will have 12 bytes. This value ranges from 1 to 32.
+#define NRL24L01_MAX_RX_PIPES     5   //  Max 5 pipes for receiving data
 
+//  Names (text addresses e.g. B3B4B5B6f1) of the Sensor Nodes, exported to remote_sensor_create() for setting the device name.
+extern const char *nrf24l01_sensor_node_names[NRL24L01_MAX_RX_PIPES];
+ 
 //  Device Configuration
 struct nrf24l01_cfg {
     struct hal_spi_settings spi_settings;  //  SPI settings

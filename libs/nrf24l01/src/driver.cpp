@@ -14,9 +14,9 @@
 #define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
 //  #define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
 
-#define COLLECTOR_NODE_ADDRESS 0x7878787878ull  //  Collector Node Address (Pipe 0)
-#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull    //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
-#define SENSOR_NETWORK_SIZE    5                //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
+#define COLLECTOR_NODE_ADDRESS 0x7878787878ull       //  Collector Node Address (Pipe 0)
+#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull         //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
+#define SENSOR_NETWORK_SIZE    NRL24L01_MAX_RX_PIPES //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
 
 //  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
 #define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
@@ -28,6 +28,18 @@ static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
     ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
     ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
     ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
+};
+
+#define NODE_NAME_LENGTH 11  //  Enough for "B3B4B5B6f1" and terminating null.
+static char sensor_node_names_buf[SENSOR_NETWORK_SIZE * NODE_NAME_LENGTH];  //  Buffer for node names.
+
+//  Names (text addresses e.g. B3B4B5B6f1) of the Sensor Nodes, exported to remote_sensor_create() for setting the device name.
+const char *nrf24l01_sensor_node_names[SENSOR_NETWORK_SIZE] = {
+    sensor_node_names_buf,
+    sensor_node_names_buf + NODE_NAME_LENGTH,
+    sensor_node_names_buf + 2 * NODE_NAME_LENGTH,
+    sensor_node_names_buf + 3 * NODE_NAME_LENGTH,
+    sensor_node_names_buf + 4 * NODE_NAME_LENGTH,
 };
 
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
@@ -235,6 +247,12 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     //  Apply the nrf24l01 driver configuration.  Return 0 if successful.
     console_printf("nrf config\n");
     assert(dev);  assert(cfg);
+
+    //  Set the Sensor Node names for remote_sensor_create().
+    for (int i = 0; i < SENSOR_NETWORK_SIZE; i++) {
+        int len = sprintf(nrf24l01_sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
+        assert(len + 1 <= NODE_NAME_LENGTH);
+    }
 
     //  Initialise the controller.
     int rc = drv(dev)->init(cfg->spi_num,       cfg->cs_pin,        cfg->ce_pin,    cfg->irq_pin,

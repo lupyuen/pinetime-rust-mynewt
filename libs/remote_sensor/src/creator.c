@@ -17,14 +17,15 @@
  * under the License.
  */
 
-//  Create STM32 Internal Temperature sensor.  For STM32F1, the sensor is accessed via ADC1 channel 16.
+//  Create Remote Sensor
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
+#include "nrf24l01/nrf24l01.h"
 #include "remote_sensor/remote_sensor.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
-#define DEVICE_NAME        REMOTE_SENSOR_DEVICE  //  Name of device
+#define DEVICE_NAME        nrf24l01_sensor_node_names  //  Name of device
 #define DEVICE_DEV         remote_sensor         //  Device type
 #define DEVICE_INSTANCE    remote_sensor_dev     //  Device instance
 #define DEVICE_CFG         remote_sensor_cfg     //  Device config
@@ -33,25 +34,25 @@
 #define DEVICE_INIT        remote_sensor_init    //  Device init function
 #define DEVICE_CREATE      remote_sensor_create  //  Device create function
 #define DEVICE_ITF         itf_remote_sensor     //  Device interface
+#define DEVICE_COUNT       NRL24L01_MAX_RX_PIPES //  Number of instances
 
-static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
+static struct DEVICE_DEV DEVICE_INSTANCE[DEVICE_COUNT];  //  Global instances of the device
 
-static struct sensor_itf DEVICE_ITF = {    //  Global sensor interface for the device
-    .si_type = 0,  //  The driver uses nRF24L01
-    .si_num  = 0,
-};
+static struct sensor_itf DEVICE_ITF[DEVICE_COUNT];   //  Global sensor interfaces for the device, init to 0
+//  {.si_type = 0, .si_num  = 0};  //  Interface Type should be nRF24L01
+    
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Generic Device Creator Code based on repos\apache-mynewt-core\hw\sensor\creator\src\sensor_creator.c
 
 //  Device configuration
-static int config_device(void) {
+static int config_device(const char *name) {
     int rc;
     struct os_dev *dev;
     struct DEVICE_CFG cfg;
 
     //  Fetch the device.
-    dev = (struct os_dev *) os_dev_open(DEVICE_NAME, OS_TIMEOUT_NEVER, NULL);
+    dev = (struct os_dev *) os_dev_open(name, OS_TIMEOUT_NEVER, NULL);
     assert(dev != NULL);
 
     //  Get the default config for the device.
@@ -66,15 +67,17 @@ static int config_device(void) {
 
 //  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf("RSN create " DEVICE_NAME "\n");
+    for (int i = 0; i < DEVICE_COUNT; i++) {
+        console_printf("RSN create %s\n", DEVICE_NAME[i]);  ////
 
-    //  Create the device.
-    int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,
-        OS_DEV_INIT_PRIMARY, 0, 
-        DEVICE_INIT, (void *) &DEVICE_ITF);
-    assert(rc == 0);
+        //  Create the device.
+        int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE[i], DEVICE_NAME[i],
+            OS_DEV_INIT_PRIMARY, 0, 
+            DEVICE_INIT, (void *) &DEVICE_ITF[i]);
+        assert(rc == 0);
 
-    //  Configure the device.
-    rc = config_device();
-    assert(rc == 0);
+        //  Configure the device.
+        rc = config_device(DEVICE_NAME[i]);
+        assert(rc == 0);
+    }
 }

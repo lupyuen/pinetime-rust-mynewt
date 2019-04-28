@@ -3,10 +3,6 @@
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include <console/console.h>
-
-////#if MYNEWT_VAL(NRF24L01) && MYNEWT_VAL(ESP8266)  //  If both nRF24L01 and ESP8266 are enabled...
-#if MYNEWT_VAL(NRF24L01)
-
 #include <os/os_mbuf.h>
 #include <oic/oc_rep.h>
 #include <nrf24l01/nrf24l01.h>
@@ -60,12 +56,11 @@ exit:
     return rc;
 }
 
-int process_coap_message(unsigned long long addr, uint8_t *data, uint8_t size0) {
+int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
     //  Process the incoming CoAP payload.  Payload contains {field1: val1, field2: val2, ...} in CBOR format.
     //  Last byte is sequence number.  Between the CoAP payload and the last byte, all bytes are 0 
     //  and should be discarded before decoding.  Return 0 if successful.
-    //  TODO: Get sender.
-    assert(data);  assert(size0 > 0);
+    assert(name);  assert(data);  assert(size0 > 0);
     uint8_t size = size0;
     data[size - 1] = 0;  //  Erase sequence number.
     while (size > 0 && data[size - 1] == 0) { size--; }  //  Discard trailing zeroes.
@@ -81,12 +76,11 @@ int process_coap_message(unsigned long long addr, uint8_t *data, uint8_t size0) 
         //  Convert the field name to sensor type, e.g. "t" -> SENSOR_TYPE_TEMPERATURE
         ////rep->name;
         ////oc_rep_value_type_t type;
-        const char *devname = "temp_stm32_0";  //  addr  //  TODO: Sensor Node Address
         sensor_type_t type = SENSOR_TYPE_TEMPERATURE;  //  TODO    
 
         //  Fetch the Sensor Type Traits for the Remote Sensor.
         struct sensor_type_traits *stt = NULL;
-        struct sensor *snsr = sensor_get_type_traits_byname(devname, &stt, type);
+        struct sensor *snsr = sensor_get_type_traits_byname(name, &stt, type);
         assert(stt);  assert(snsr);
 
         //  Trigger read event to Remote Sensor.  This causes the sensor to be read.
@@ -163,7 +157,7 @@ void nrf24l01_callback(struct os_event *ev) {
         //  Keep checking until there is no more data to process.
         int pipe = -1;
         int rxDataCnt = 0;
-        unsigned long long addr = 0;
+        const char *name = NULL;
         {   //  Lock the nRF24L01 driver for exclusive use.
             //  Find the nRF24L01 device by name "nrf24l01_0".
             struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
@@ -176,7 +170,7 @@ void nrf24l01_callback(struct os_event *ev) {
                 rxDataCnt = nrf24l01_receive(dev, pipe, rxData, NRF24L01_TRANSFER_SIZE);
                 assert(rxDataCnt > 0 && rxDataCnt <= NRF24L01_TRANSFER_SIZE);
                 //  Get the rx (sender) address for the pipe.
-                addr = nrf24l01_get_rx_address(dev, pipe);
+                name = nrf24l01_sensor_node_names[pipe - 1];
             }
             //  Close the nRF24L01 device when we are done.
             os_dev_close((struct os_dev *) dev);
@@ -189,10 +183,8 @@ void nrf24l01_callback(struct os_event *ev) {
         if (rxDataCnt > 0) { 
             //  Display the receive buffer contents
             console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
-            int rc = process_coap_message(addr, rxData, rxDataCnt);
+            int rc = process_coap_message(name, rxData, rxDataCnt);
             assert(rc == 0);
         }
     }
 }
-
-#endif  //  MYNEWT_VAL(NRF24L01) && MYNEWT_VAL(ESP8266)
