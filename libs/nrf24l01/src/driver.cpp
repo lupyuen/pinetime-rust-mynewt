@@ -262,8 +262,7 @@ int nrf24l01_receive(struct nrf24l01 *dev, int pipe, uint8_t *buf, uint8_t size)
     //  Receive data from the pipe.
     assert(dev);  assert(pipe > 0);  assert(pipe <= 5);  assert(buf);  assert(size > 0);
     int rc = drv(dev)->read(pipe, (char *) buf, size);
-    assert(rc > 0)
-    drv(dev)->getRxAddress
+    assert(rc > 0);
     return rc;
 }
 

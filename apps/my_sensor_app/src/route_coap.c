@@ -42,22 +42,22 @@ int decode_coap_payload(uint8_t *data, uint8_t size, oc_rep_t **out_rep) {
     struct os_mbuf *om;
 
     //  Get a packet header mbuf.
-    om = os_mbuf_get_pkthdr(&g_mbuf_pool, sizeof(struct user_hdr));
+    om = os_msys_get_pkthdr(NRF24L01_TRANSFER_SIZE, 4);
     assert(om);
     if (!om) { return -1; }
 
     //  Copy data buffer into mbuf.
-    rc = os_mbuf_copyinto(om, 0, mydata, len);
+    rc = os_mbuf_copyinto(om, 0, data, size);
     if (rc) { rc = -2; goto exit; }  //  Out of mbufs.
 
     //  Parse the mbuf.
     rc = oc_parse_rep(om, 0, size, out_rep);
-    assert(rc == 0)
+    assert(rc == 0);
 
 exit:
     //  Free the mbuf.
     os_mbuf_free_chain(om);
-    return om;
+    return rc;
 }
 
 int process_coap_message(unsigned long long addr, uint8_t *data, uint8_t size0) {
@@ -97,6 +97,7 @@ int process_coap_message(unsigned long long addr, uint8_t *data, uint8_t size0) 
     }
     //  Free the decoded representation.
     oc_free_rep(first_rep);
+    return 0;
 }
 
 #ifdef NOTUSED
@@ -174,8 +175,8 @@ void nrf24l01_callback(struct os_event *ev) {
                 //  Read the data into the receive buffer
                 rxDataCnt = nrf24l01_receive(dev, pipe, rxData, NRF24L01_TRANSFER_SIZE);
                 assert(rxDataCnt > 0 && rxDataCnt <= NRF24L01_TRANSFER_SIZE);
-                //  Get the rx (sender) address.
-                addr = nrf24l01_get_rx_address();
+                //  Get the rx (sender) address for the pipe.
+                addr = nrf24l01_get_rx_address(dev, pipe);
             }
             //  Close the nRF24L01 device when we are done.
             os_dev_close((struct os_dev *) dev);
