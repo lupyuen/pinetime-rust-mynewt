@@ -193,26 +193,55 @@ static int sensor_close(struct os_dev *dev0) {
 /////////////////////////////////////////////////////////
 //  Read Sensor Functions
 
-static int sensor_read(struct sensor *sensor, sensor_type_t type,
-    sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
+//  Received sensor data
+struct rx_sensor_data {
+    sensor_type_t type;
+    void *val;
+    sensor_data_func_t data_func;
+    void *data_arg;
+    uint32_t timeout;
+};
+
+int remote_sensor_enqueue_sensor_data(struct sensor *sensor, sensor_type_t type,
+    void *val, sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
+    //  Enqueue the sensor data into the sensor's sensor data queue. 
+    //  sensor_read() will send the data to the Listener Function.
+    assert(sensor); assert(type); assert(data_func); assert(data_arg);
+
+}
+
+static int sensor_read(struct sensor *sensor, sensor_type_t type0,
+    sensor_data_func_t data_func0, void *data_arg0, uint32_t timeout0) {
     //  Read the sensor value depending on the sensor type specified in the sensor config.
-    //  Call the Listener Function with the sensor value.
-    assert(sensor); assert(data_func);
-    sensor_data_t data;  struct remote_sensor *dev;
-    const sensor_type_descriptor *st = sensor_types;
-    int rc = SYS_EINVAL;
-    while (st->type) {          //  We only allow reading of supported Sensor Types.
-        if (type & st->type) {  //  This Sensor Type is supported.
-            void *d = st->save_func(&data, val);  //  Save the value.
-            //  Call the Listener Function to process the sensor data.
-            rc = data_func(sensor, data_arg, d, type);
-            assert(!rc);
-            if (rc) { goto err; }
-            return 0;
+    //  Call the Listener Function (may be NULL) with the sensor value.
+    assert(sensor);
+
+    int rc = 0;
+    //  Repeat until no more received sensor data enqueued...
+    for (;;) {
+        struct remote_sensor *dev = (struct remote_sensor *) sensor->s_dev;  assert(dev);
+        struct os_event* evt = os_eventq_get_no_wait(&dev->sensor_data_queue);
+        if (evt == NULL) { break; }  //  No more data to read.
+
+        //  Look for the Listener Function for the Sensor Type.
+        rx_sensor_data *rx = (rx_sensor_data *) evt->ev_arg;  assert(rx);  
+        const sensor_type_descriptor *st = sensor_types;
+        rc = SYS_EINVAL;
+        while (st->type) {               //  For all supported Sensor Types...
+            if (rx->type == st->type) {  //  Find the matching type.
+                sensor_data_t data;
+                void *d = st->save_func(&data, rx->val);  //  Save the value.
+                //  Call the Listener Function to process the sensor data.
+                rc = (rx->data_func)(rx->sensor, rx->data_arg, d, rx->type);
+                assert(rc == 0);
+                if (rc) { goto err; }
+                break;
+            }
+            st++; 
         }
-        st++; 
+        if (rc) { goto err; }  //  Sensor Type not supported.
     }
-    return SYS_EINVAL;  //  Sensor Type not supported.
+    return 0;
 err:
     return rc;
 }

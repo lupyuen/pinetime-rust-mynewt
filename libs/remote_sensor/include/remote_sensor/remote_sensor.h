@@ -40,7 +40,7 @@ struct remote_sensor {
     struct sensor sensor;  //  Mynewt sensor
     struct remote_sensor_cfg cfg;  //  Sensor configuration
     os_time_t last_read_time;   //  Last time the sensor was read.
-    struct os_eventq rx_queue;  //  Received sensor data to be processed.
+    struct os_eventq sensor_data_queue;  //  Received sensor data to be processed.
 };
 
 /**
