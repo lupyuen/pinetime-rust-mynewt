@@ -250,7 +250,7 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
 
     //  Set the Sensor Node names for remote_sensor_create().
     for (int i = 0; i < SENSOR_NETWORK_SIZE; i++) {
-        int len = sprintf(nrf24l01_sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
+        int len = sprintf((char *) nrf24l01_sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
         assert(len + 1 <= NODE_NAME_LENGTH);
     }
 

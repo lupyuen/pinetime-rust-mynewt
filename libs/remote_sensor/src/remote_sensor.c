@@ -21,13 +21,22 @@
 #include "console/console.h"
 #include "sensor/sensor.h"
 #include "sensor/temperature.h"
+#include "sensor/pressure.h"
+#include "sensor/humidity.h"
 #include "remote_sensor/remote_sensor.h"
 
-static void *save_temp(sensor_data_t *data, void *val);
-static void *save_temp_raw(sensor_data_t *data, void *val);
-static void *save_press(sensor_data_t *data, void *val);
-static void *save_humid(sensor_data_t *data, void *val);
+static int sensor_read_internal(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
+static int sensor_get_config_internal(struct sensor *, sensor_type_t, struct sensor_cfg *);
+static int sensor_open(struct os_dev *dev0, uint32_t timeout, void *arg);
+static int sensor_close(struct os_dev *dev0);
 
+//  Global instance of the sensor driver
+static const struct sensor_driver g_sensor_driver = {
+    sensor_read,
+    sensor_get_config
+};
+
+/////////////////////////////////////////////////////////
 //  Custom Sensor Data Definitions
 
 //  Raw Temperature Sensor
@@ -37,13 +46,29 @@ struct sensor_temp_raw_data {   //  Represents a single temperature sensor raw v
     uint8_t  strd_temp_raw_is_valid:1;  //  1 if data is valid
 } __attribute__((packed));
 
+/////////////////////////////////////////////////////////
+//  Sensor Data Union
+
+typedef union {  //  Union that represents all possible sensor values
+    struct sensor_temp_data std;       //  Temperature sensor value
+    struct sensor_temp_raw_data strd;  //  Temperature sensor raw value
+    struct sensor_press_data spd;      //  Pressure sensor value
+    struct sensor_humid_data shd;      //  Humidity sensor value
+} sensor_data_union;
+
+static void *save_temp(sensor_data_union *data, void *val);
+static void *save_temp_raw(sensor_data_union *data, void *val);
+static void *save_press(sensor_data_union *data, void *val);
+static void *save_humid(sensor_data_union *data, void *val);
+
+/////////////////////////////////////////////////////////
 //  Supported Sensor Types
 
 struct sensor_type_descriptor {  //  Describes a Sensor Type
     const char *name;  //  Sensor Name in CoAP Payload CBOR e.g. "t"
     int type;          //  Sensor Type e.g. SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
     int valtype;       //  Sensor Value Type e.g. SENSOR_VALUE_TYPE_INT32
-    void *(*save_func)(sensor_data_t *data, void *val);  //  Save the sensor value into data.
+    void *(*save_func)(sensor_data_union *data, void *val);  //  Save the sensor value into data.
 };
 
 static const struct sensor_type_descriptor sensor_types[] = {  
@@ -51,27 +76,8 @@ static const struct sensor_type_descriptor sensor_types[] = {
     { "tf", SENSOR_TYPE_AMBIENT_TEMPERATURE,      SENSOR_VALUE_TYPE_FLOAT,    save_temp },
     { "t",  SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,  SENSOR_VALUE_TYPE_INT32,    save_temp_raw },
     { "p",  SENSOR_TYPE_PRESSURE,                 SENSOR_VALUE_TYPE_FLOAT,    save_press },
-    { "h",  SENSOR_TYPE_RELATIVE_HUMIDITY,        SENSOR_VALUE_TYPE_FLOAT,    save_humid }
+    { "h",  SENSOR_TYPE_RELATIVE_HUMIDITY,        SENSOR_VALUE_TYPE_FLOAT,    save_humid },
     { NULL, 0, 0, NULL }  //  Ends with 0
-};
-
-typedef union {  //  Union that represents all possible sensor values
-    struct sensor_temp_data std;       //  Temperature sensor value
-    struct sensor_temp_raw_data strd;  //  Temperature sensor raw value
-    struct sensor_press_data spd;      //  Pressure sensor value
-    struct sensor_humid_data shd;      //  Humidity sensor value
-} sensor_data_t;
-
-//  Exports for the sensor API
-static int sensor_read(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
-static int sensor_get_config(struct sensor *, sensor_type_t, struct sensor_cfg *);
-static int sensor_open(struct os_dev *dev0, uint32_t timeout, void *arg);
-static int sensor_close(struct os_dev *dev0);
-
-//  Global instance of the sensor driver
-static const struct sensor_driver g_sensor_driver = {
-    sensor_read,
-    sensor_get_config
 };
 
 /////////////////////////////////////////////////////////
@@ -102,7 +108,7 @@ int remote_sensor_init(struct os_dev *dev0, void *arg) {
     if (rc != 0) { goto err; }
 
     //  Add the driver with all the supported sensor data types.
-    int all_types = 0;  const int *st = sensor_types;
+    int all_types = 0;  const struct sensor_type_descriptor *st = sensor_types;
     while (st->type) { all_types |= st->type; st++; }
 
     rc = sensor_set_driver(sensor, all_types,
@@ -124,10 +130,10 @@ err:
     return (rc);
 }
 
-static int sensor_get_config(struct sensor *sensor, sensor_type_t type,
+static int sensor_get_config_internal(struct sensor *sensor, sensor_type_t type,
     struct sensor_cfg *cfg) {
     //  Return the type of the sensor value returned by the sensor.    
-    const sensor_type_descriptor *st = sensor_types;
+    const struct sensor_type_descriptor *st = sensor_types;
     while (st->type) { 
         if (type & st->type) {
             cfg->sc_valtype = st->valtype;
@@ -171,84 +177,48 @@ int remote_sensor_default_cfg(struct remote_sensor_cfg *cfg) {
 
 static int sensor_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  Setup the sensor.  Return 0 if successful.
-    int rc = -1;
     struct remote_sensor *dev;    
     struct remote_sensor_cfg *cfg;
     dev = (struct remote_sensor *) dev0;  assert(dev);  
     cfg = &dev->cfg; assert(cfg);
-
     return 0;
-err:
-    assert(rc == 0);
-    return rc;
 }
 
 static int sensor_close(struct os_dev *dev0) {
     //  Close the sensor.  Return 0 if successful.
-    struct remote_sensor *dev;    
-    dev = (struct remote_sensor *) dev0;
     return 0;
 }
 
 /////////////////////////////////////////////////////////
 //  Read Sensor Functions
 
-//  Received sensor data
-struct rx_sensor_data {
-    sensor_type_t type;
-    void *val;
-    sensor_data_func_t data_func;
-    void *data_arg;
-    uint32_t timeout;
-};
-
-int remote_sensor_enqueue_sensor_data(struct sensor *sensor, sensor_type_t type,
-    void *val, sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
-    //  Enqueue the sensor data into the sensor's sensor data queue. 
-    //  sensor_read() will send the data to the Listener Function.
-    assert(sensor); assert(type); assert(data_func); assert(data_arg);
-
-}
-
-static int sensor_read(struct sensor *sensor, sensor_type_t type0,
-    sensor_data_func_t data_func0, void *data_arg0, uint32_t timeout0) {
+static int sensor_read_internal(struct sensor *sensor, sensor_type_t type,
+    sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
     //  Read the sensor value depending on the sensor type specified in the sensor config.
     //  Call the Listener Function (may be NULL) with the sensor value.
     assert(sensor);
+    if (!data_func) { return 0; }  //  If no Listener Function, then don't need continue.
 
-    int rc = 0;
-    //  Repeat until no more received sensor data enqueued...
-    for (;;) {
-        struct remote_sensor *dev = (struct remote_sensor *) sensor->s_dev;  assert(dev);
-        struct os_event* evt = os_eventq_get_no_wait(&dev->sensor_data_queue);
-        if (evt == NULL) { break; }  //  No more data to read.
-
-        //  Look for the Listener Function for the Sensor Type.
-        rx_sensor_data *rx = (rx_sensor_data *) evt->ev_arg;  assert(rx);  
-        const sensor_type_descriptor *st = sensor_types;
-        rc = SYS_EINVAL;
-        while (st->type) {               //  For all supported Sensor Types...
-            if (rx->type == st->type) {  //  Find the matching type.
-                sensor_data_t data;
-                void *d = st->save_func(&data, rx->val);  //  Save the value.
-                //  Call the Listener Function to process the sensor data.
-                rc = (rx->data_func)(rx->sensor, rx->data_arg, d, rx->type);
-                assert(rc == 0);
-                if (rc) { goto err; }
-                break;
-            }
-            st++; 
+    //  Look for the Listener Function for the Sensor Type.
+    const struct sensor_type_descriptor *st = sensor_types;
+    int rc = SYS_EINVAL;
+    while (st->type) {               //  For all supported Sensor Types...
+        if (type == st->type) {  //  Find the matching type.
+            sensor_data_union data;
+            void *d = st->save_func(&data, val);  //  Save the value.
+            //  Call the Listener Function to process the sensor data.
+            rc = data_func(sensor, data_arg, d, type);
+            assert(rc == 0);
+            if (rc) { goto err; }
+            break;
         }
-        if (rc) { goto err; }  //  Sensor Type not supported.
+        st++; 
     }
+    if (rc) { goto err; }  //  Sensor Type not supported.
     return 0;
 err:
     return rc;
 }
-
-//  void os_eventq_init(struct os_eventq  *)
-//  void os_eventq_put(struct os_eventq  *, struct os_event  *)
-//  struct os_event* os_eventq_get_no_wait(struct os_eventq * evq)
 
 /////////////////////////////////////////////////////////
 //  Sensor Data Functions
@@ -256,7 +226,7 @@ err:
 sensor_type_t remote_sensor_lookup_type(const char *name) {
     //  Return the Sensor Type given the CoAP Payload CBOR name.  Return 0 if not found.
     assert(name);
-    const sensor_type_descriptor *st = sensor_types;
+    const struct sensor_type_descriptor *st = sensor_types;
     while (st->type) {
         assert(st->name);
         if (strcmp(name, st->name) == 0) { return st->type; }
@@ -266,7 +236,7 @@ sensor_type_t remote_sensor_lookup_type(const char *name) {
 }
 
 //  Save temperature.
-static void *save_temp(sensor_data_t *data, void *val) {
+static void *save_temp(sensor_data_union *data, void *val) {
     sensor_temp_data *d = data->std;
     d->std_temp = (float) val;
     d->std_temp_is_valid = 1;
@@ -274,7 +244,7 @@ static void *save_temp(sensor_data_t *data, void *val) {
 }
 
 //  Save raw temperature.
-static void *save_temp_raw(sensor_data_t *data, void *val) {
+static void *save_temp_raw(sensor_data_union *data, void *val) {
     sensor_temp_raw_data *d = data->strd;
     d->strd_temp = (int) val;
     d->strd_temp_is_valid = 1;
@@ -282,7 +252,7 @@ static void *save_temp_raw(sensor_data_t *data, void *val) {
 }
 
 //  Save pressure.
-static void *save_press(sensor_data_t *data, void *val) {
+static void *save_press(sensor_data_union *data, void *val) {
     sensor_press_data *d = data->spd;
     d->spd_press = (float) val;
     d->spd_press_is_valid = 1;
@@ -290,7 +260,7 @@ static void *save_press(sensor_data_t *data, void *val) {
 }
 
 //  Save humidity.
-static void *save_humid(sensor_data_t *data, void *val) {
+static void *save_humid(sensor_data_union *data, void *val) {
     sensor_humid_data *d = data->shd;
     d->shd_humid = (float) val;
     d->shd_humid_is_valid = 1;

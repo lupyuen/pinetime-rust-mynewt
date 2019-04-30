@@ -4,15 +4,16 @@
 #   Strings must be enclosed by '"..."'
 
 syscfg.defs:
-    # List of Features. Will be selected automatically based on the tutorial setting.
+    # List of Features. Will be selected automatically based on the tutorial setting.    
     NRF24L01:
         description: 'Enable wireless Collector and Sensor Nodes with nRF24L01 transceiver'
         value:        0        
-
+    REMOTE_SENSOR:
+        description: 'Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP'
+        value:        0        
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
         value:        0
-
     WIFI_GEOLOCATION:
         description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266. Requires "esp8266" driver'
         value:        0
@@ -111,7 +112,8 @@ syscfg.vals.TUTORIAL2:
 
 # Settings for Tutorial 3
 syscfg.vals.TUTORIAL3:
-    NRF24L01:               1  # Enable nRF24L01 driver
+    NRF24L01:               1  # Enable nRF24L01 driver    
+    REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
     SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
     COAP_JSON_ENCODING:     0  # TODO: Use JSON to encode CoAP payload for forwarding to thethings.io
     COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node

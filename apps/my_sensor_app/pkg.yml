@@ -14,8 +14,6 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
-    ## Move to lib
-    - "@apache-mynewt-core/encoding/tinycbor"  #  CBOR decoding for CoAP
 
 # Optional Dependencies: Application is dependent on these optional drivers and libraries.
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
@@ -24,6 +22,10 @@ pkg.deps:
 # nRF24L01 Wireless Transceiver Driver
 pkg.deps.NRF24L01:
     - "libs/nrf24l01"                      #  nRF24L01 Wireless Transceiver Driver
+
+# Driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
+pkg.deps.REMOTE_SENSOR:
+    - "libs/remote_sensor"                 #  Driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
 
 # CoAP library for transmitting sensor data to CoAP server
 pkg.deps.SENSOR_COAP:

@@ -19,7 +19,7 @@
 # Dependencies for this package
 
 pkg.name:        libs/remote_sensor
-pkg.description: Driver for Remote Sensor driver that receives sensor data via nRF24L01 and CoAP
+pkg.description: Driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
@@ -31,7 +31,8 @@ pkg.deps:
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/hw/sensor"
-    - "libs/nrf24l01"                      #  nRF24L01 Wireless Transceiver Driver
+    - "@apache-mynewt-core/encoding/tinycbor"  #  CBOR decoding for CoAP
+    - "libs/nrf24l01"                          #  nRF24L01 Wireless Transceiver Driver
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
