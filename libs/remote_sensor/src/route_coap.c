@@ -81,8 +81,10 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
         struct sensor *snsr = sensor_get_type_traits_byname(name, &stt, type);
         assert(stt);  assert(snsr);
 
-        //  Trigger read event to Remote Sensor.  This causes the sensor to be read.
-        sensor_mgr_put_read_evt(stt);
+        //  Send the read request to Remote Sensor.  This causes the sensor to be read.
+        //  sensor_mgr_put_read_evt(stt);
+        rc = sensor_read(snsr, type, NULL, NULL, 0);
+        assert(rc == 0);
 
         //  Move to next field.
         rep = rep->next;
