@@ -79,6 +79,10 @@ int remote_sensor_config(struct remote_sensor *remote_sensor, struct remote_sens
 //  Return the Sensor Type given the CoAP Payload CBOR name.  Return 0 if not found.
 sensor_type_t remote_sensor_lookup_type(const char *name);
 
+//  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
+//  and forwards them to CoAP server via ESP8266 WiFi. Return 0 if successful.
+int remote_sensor_start(void);
+
 #ifdef __cplusplus
 }
 #endif

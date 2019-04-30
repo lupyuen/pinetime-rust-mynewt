@@ -6,10 +6,11 @@
 #include <os/os_mbuf.h>
 #include <oic/oc_rep.h>
 #include <nrf24l01/nrf24l01.h>
+#include "remote_sensor/remote_sensor.h"
 
 static uint8_t rxData[NRF24L01_TRANSFER_SIZE];  //  Buffer for received data.
 
-int start_coap_router(void) {
+int remote_sensor_start(void) {
     //  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
     //  and forwards them to CoAP server via ESP8266 WiFi. Return 0 if successful.
     if (!nrf24l01_collector_node()) { return 0; }  //  Only start for Collector Nodes, not Sensor Nodes.
@@ -74,7 +75,7 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
     //  For each field in the payload...
     while(rep) {
         //  Convert the field name to sensor type, e.g. "t" -> SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-        sensor_type_t type = remote_sensor_lookup_type(rep->name);  //  TODO    
+        sensor_type_t type = remote_sensor_lookup_type(oc_string(rep->name));  
 
         //  Fetch the Sensor Type Traits for the Remote Sensor.
         struct sensor_type_traits *stt = NULL;
@@ -83,7 +84,7 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
 
         //  Send the read request to Remote Sensor.  This causes the sensor to be read.
         //  sensor_mgr_put_read_evt(stt);
-        rc = sensor_read(snsr, type, NULL, NULL, 0);
+        rc = sensor_read(snsr, type, NULL, rep, 0);
         assert(rc == 0);
 
         //  Move to next field.

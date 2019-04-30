@@ -33,6 +33,7 @@
 #define DEVICE_CFG_FUNC    remote_sensor_config  //  Device config function
 #define DEVICE_INIT        remote_sensor_init    //  Device init function
 #define DEVICE_CREATE      remote_sensor_create  //  Device create function
+#define DEVICE_START       remote_sensor_start   //  Device start function, called after device creation
 #define DEVICE_ITF         itf_remote_sensor     //  Device interface
 #define DEVICE_COUNT       NRL24L01_MAX_RX_PIPES //  Number of instances
 
@@ -80,4 +81,8 @@ void DEVICE_CREATE(void) {
         rc = config_device(DEVICE_NAME[i]);
         assert(rc == 0);
     }
+#ifdef DEVICE_START
+    //  Start the device after creation.
+    DEVICE_START();
+#endif  //  DEVICE_START
 }
