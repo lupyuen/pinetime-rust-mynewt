@@ -31,7 +31,7 @@ extern "C" {
 //  Custom Sensor Data Definitions
 
 //  Raw Temperature Sensor
-#define SENSOR_TYPE_TEMPERATURE_RAW SENSOR_TYPE_USER_DEFINED_1
+#define SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW SENSOR_TYPE_USER_DEFINED_1
 struct sensor_temp_raw_data {   //  Represents a single temperature sensor raw value
     uint32_t strd_temp_raw;     //  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     uint8_t  strd_temp_raw_is_valid:1;  //  1 if data is valid
@@ -49,6 +49,7 @@ struct remote_sensor {
     struct sensor sensor;  //  Mynewt sensor
     struct remote_sensor_cfg cfg;  //  Sensor configuration
     os_time_t last_read_time;   //  Last time the sensor was read.
+    struct os_eventq rx_queue;  //  Received sensor data to be processed.
 };
 
 /**
@@ -83,6 +84,9 @@ int remote_sensor_init(struct os_dev *dev, void *arg);
  * @return 0 on success, and non-zero error code on failure
  */
 int remote_sensor_config(struct remote_sensor *remote_sensor, struct remote_sensor_cfg *cfg);
+
+//  Return the Sensor Type given the CoAP Payload CBOR name.  Return 0 if not found.
+sensor_type_t remote_sensor_lookup_type(const char *name);
 
 #ifdef __cplusplus
 }
