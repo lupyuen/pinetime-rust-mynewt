@@ -26,6 +26,9 @@ syscfg.defs:
     TEMP_STM32:
         description: 'Enable STM32 internal temperature sensor based on ADC'
         value:        0        
+    RAW_TEMP:
+        description: 'Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size'
+        value:        0        
     ADC_1:
         description: 'Enable port ADC1 for STM32F1xx microcontrollers (blocking reads only, without DMA)'
         value:        0
@@ -113,6 +116,7 @@ syscfg.vals.TUTORIAL2:
 # Settings for Tutorial 3
 syscfg.vals.TUTORIAL3:
     NRF24L01:               1  # Enable nRF24L01 driver    
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
     REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
     SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
     COAP_JSON_ENCODING:     0  # TODO: Use JSON to encode CoAP payload for forwarding to thethings.io
