@@ -24,6 +24,7 @@
 #include "sensor/temperature.h"
 #include "sensor/pressure.h"
 #include "sensor/humidity.h"
+#include "custom_sensor/custom_sensor.h"  //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
 #include "remote_sensor/remote_sensor.h"
 
 static int sensor_read_internal(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);

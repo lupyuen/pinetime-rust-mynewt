@@ -30,16 +30,6 @@ extern "C" {
 
 #define TEMP_STM32_DEVICE "temp_stm32_0"
 
-/////////////////////////////////////////////////////////
-//  Custom Sensor Data Definitions
-
-//  Raw Temperature Sensor
-#define SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW SENSOR_TYPE_USER_DEFINED_1
-struct sensor_temp_raw_data {   //  Represents a single temperature sensor raw value
-    uint32_t strd_temp_raw;     //  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
-    uint8_t  strd_temp_raw_is_valid:1;  //  1 if data is valid
-} __attribute__((packed));
-
 struct adc_dev;  //  ADC device
 
 //  Configuration for the STM32 internal temperature sensor

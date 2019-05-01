@@ -28,8 +28,9 @@
 
 //  Define Sensor Type and Sensor Value Type
 #if MYNEWT_VAL(RAW_TEMP)                                      //  If we are returning raw temperature (integers)...
+#include "custom_sensor/custom_sensor.h"                      //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
 #define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW  //  Set to raw sensor type.
-#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_INT          //  Return integer sensor values.
+#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_INT32        //  Return integer sensor values.
 #else                                                         //  If we are returning computed temperature (floating-point)...
 #define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE      //  Set to floating-point sensor type.
 #define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
@@ -188,7 +189,7 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     //  Save the raw temperature.
     struct sensor_temp_raw_data *temp_data = &databuf.strd;
     temp_data->strd_temp_raw = rawtemp;  //  rawtemp must be between 0 and 4,095 (based on 12-bit ADC)
-    temp_data->strd_temp_is_valid = 1;
+    temp_data->strd_temp_raw_is_valid = 1;
 
 #else  //  If we are returning computed temperature (floating-point)...
     //  We use this updated code, which uses only integer computations.
