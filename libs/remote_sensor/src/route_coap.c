@@ -1,4 +1,6 @@
 //  Route CoAP sensor data from nRF24L01 to ESP8266
+#define CBOR_IMPLEMENTATION  //  Define the TinyCBOR functions here.
+#include <tinycbor/cbor.h>
 #include <assert.h>
 #include <os/os.h>
 #include <sensor/sensor.h>

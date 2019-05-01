@@ -50,64 +50,70 @@ extern "C" {
 #endif
 
 ////  TODO: Don't compile TinyCBOR inline, to reduce ROM size.
-#define CBOR_INLINE inline
-#define CBOR_INLINE_API static inline
+#ifdef CBOR_IMPLEMENTATION
+    #define CBOR_INLINE
+    #define CBOR_INLINE_API
+#else
+    #define CBOR_INLINE inline
+    #define CBOR_INLINE_API static inline
 
-#define _ADDCOUNTER( prefix ) JOIN( NOTUSED_, prefix )
+    #define _ADDCOUNTER( prefix ) JOIN( NOTUSED_, prefix )
 
-//#define _ADDCOUNTER( prefix ) JOIN( prefix, __COUNTER__ )
-#define JOIN( symbol1, symbol2 ) _DO_JOIN( symbol1, symbol2 )
-#define _DO_JOIN( symbol1, symbol2 ) symbol1##symbol2
+    //#define _ADDCOUNTER( prefix ) JOIN( prefix, __COUNTER__ )
+    #define JOIN( symbol1, symbol2 ) _DO_JOIN( symbol1, symbol2 )
+    #define _DO_JOIN( symbol1, symbol2 ) symbol1##symbol2
 
-#undef assert
-#define assert(x) {}
+    //#undef assert
+    //#define assert(x) {}
 
-#define cbor_encode_text_stringz _ADDCOUNTER(cbor_encode_text_stringz)  ////
-#define cbor_encode_bytes_written _ADDCOUNTER(cbor_encode_bytes_written)  ////
-#define cbor_encode_boolean _ADDCOUNTER(cbor_encode_boolean)  ////
-#define cbor_encode_null _ADDCOUNTER(cbor_encode_null)  ////
-#define cbor_encode_undefined _ADDCOUNTER(cbor_encode_undefined)  ////
-#define cbor_encode_half_float _ADDCOUNTER(cbor_encode_half_float)  ////
-#define cbor_encode_float _ADDCOUNTER(cbor_encode_float)  ////
-#define cbor_encode_double _ADDCOUNTER(cbor_encode_double)  ////
-#define cbor_value_at_end _ADDCOUNTER(cbor_value_at_end)  ////
-#define cbor_value_is_container _ADDCOUNTER(cbor_value_is_container)  ////
-#define _cbor_value_extract_int64_helper _ADDCOUNTER(_cbor_value_extract_int64_helper)  ////
-#define cbor_value_is_valid _ADDCOUNTER(cbor_value_is_valid)  ////
-#define cbor_value_get_type _ADDCOUNTER(cbor_value_get_type)  ////
-#define cbor_value_is_null _ADDCOUNTER(cbor_value_is_null)  ////
-#define cbor_value_is_undefined _ADDCOUNTER(cbor_value_is_undefined)  ////
-#define cbor_value_is_boolean _ADDCOUNTER(cbor_value_is_boolean)  ////
-#define cbor_value_get_boolean _ADDCOUNTER(cbor_value_get_boolean)  ////
-#define cbor_value_is_simple_type _ADDCOUNTER(cbor_value_is_simple_type)  ////
-#define cbor_value_get_simple_type _ADDCOUNTER(cbor_value_get_simple_type)  ////
-#define cbor_value_is_integer _ADDCOUNTER(cbor_value_is_integer)  ////
-#define cbor_value_is_unsigned_integer _ADDCOUNTER(cbor_value_is_unsigned_integer)  ////
-#define cbor_value_is_negative_integer _ADDCOUNTER(cbor_value_is_negative_integer)  ////
-#define cbor_value_get_raw_integer _ADDCOUNTER(cbor_value_get_raw_integer)  ////
-#define cbor_value_get_uint64 _ADDCOUNTER(cbor_value_get_uint64)  ////
-#define cbor_value_get_int64 _ADDCOUNTER(cbor_value_get_int64)  ////
-#define cbor_value_get_int _ADDCOUNTER(cbor_value_get_int)  ////
-#define cbor_value_is_length_known _ADDCOUNTER(cbor_value_is_length_known)  ////
-#define cbor_value_is_tag _ADDCOUNTER(cbor_value_is_tag)  ////
-#define cbor_value_get_tag _ADDCOUNTER(cbor_value_get_tag)  ////
-#define cbor_value_is_byte_string _ADDCOUNTER(cbor_value_is_byte_string)  ////
-#define cbor_value_is_text_string _ADDCOUNTER(cbor_value_is_text_string)  ////
-#define cbor_value_get_string_length _ADDCOUNTER(cbor_value_get_string_length)  ////
-#define cbor_value_copy_text_string _ADDCOUNTER(cbor_value_copy_text_string)  ////
-#define cbor_value_copy_byte_string _ADDCOUNTER(cbor_value_copy_byte_string)  ////
-#define cbor_value_dup_text_string _ADDCOUNTER(cbor_value_dup_text_string)  ////
-#define cbor_value_dup_byte_string _ADDCOUNTER(cbor_value_dup_byte_string)  ////
-#define cbor_value_is_array _ADDCOUNTER(cbor_value_is_array)  ////
-#define cbor_value_is_map _ADDCOUNTER(cbor_value_is_map)  ////
-#define cbor_value_get_array_length _ADDCOUNTER(cbor_value_get_array_length)  ////
-#define cbor_value_get_map_length _ADDCOUNTER(cbor_value_get_map_length)  ////
-#define cbor_value_is_half_float _ADDCOUNTER(cbor_value_is_half_float)  ////
-#define cbor_value_is_float _ADDCOUNTER(cbor_value_is_float)  ////
-#define cbor_value_get_float _ADDCOUNTER(cbor_value_get_float)  ////
-#define cbor_value_is_double _ADDCOUNTER(cbor_value_is_double)  ////
-#define cbor_value_get_double _ADDCOUNTER(cbor_value_get_double)  ////
-#define cbor_value_to_pretty _ADDCOUNTER(cbor_value_to_pretty)  ////
+    #define cbor_encode_text_stringz _ADDCOUNTER(cbor_encode_text_stringz)  ////
+    #define cbor_encode_bytes_written _ADDCOUNTER(cbor_encode_bytes_written)  ////
+    #define cbor_encode_boolean _ADDCOUNTER(cbor_encode_boolean)  ////
+    #define cbor_encode_null _ADDCOUNTER(cbor_encode_null)  ////
+    #define cbor_encode_undefined _ADDCOUNTER(cbor_encode_undefined)  ////
+    #define cbor_encode_half_float _ADDCOUNTER(cbor_encode_half_float)  ////
+    #define cbor_encode_float _ADDCOUNTER(cbor_encode_float)  ////
+    #define cbor_encode_double _ADDCOUNTER(cbor_encode_double)  ////
+    #define cbor_value_at_end _ADDCOUNTER(cbor_value_at_end)  ////
+    #define cbor_value_is_container _ADDCOUNTER(cbor_value_is_container)  ////
+    #define _cbor_value_extract_int64_helper _ADDCOUNTER(_cbor_value_extract_int64_helper)  ////
+    #define cbor_value_is_valid _ADDCOUNTER(cbor_value_is_valid)  ////
+    #define cbor_value_get_type _ADDCOUNTER(cbor_value_get_type)  ////
+    #define cbor_value_is_null _ADDCOUNTER(cbor_value_is_null)  ////
+    #define cbor_value_is_undefined _ADDCOUNTER(cbor_value_is_undefined)  ////
+    #define cbor_value_is_boolean _ADDCOUNTER(cbor_value_is_boolean)  ////
+    #define cbor_value_get_boolean _ADDCOUNTER(cbor_value_get_boolean)  ////
+    #define cbor_value_is_simple_type _ADDCOUNTER(cbor_value_is_simple_type)  ////
+    #define cbor_value_get_simple_type _ADDCOUNTER(cbor_value_get_simple_type)  ////
+    #define cbor_value_is_integer _ADDCOUNTER(cbor_value_is_integer)  ////
+    #define cbor_value_is_unsigned_integer _ADDCOUNTER(cbor_value_is_unsigned_integer)  ////
+    #define cbor_value_is_negative_integer _ADDCOUNTER(cbor_value_is_negative_integer)  ////
+    #define cbor_value_get_raw_integer _ADDCOUNTER(cbor_value_get_raw_integer)  ////
+    #define cbor_value_get_uint64 _ADDCOUNTER(cbor_value_get_uint64)  ////
+    #define cbor_value_get_int64 _ADDCOUNTER(cbor_value_get_int64)  ////
+    #define cbor_value_get_int _ADDCOUNTER(cbor_value_get_int)  ////
+    #define cbor_value_is_length_known _ADDCOUNTER(cbor_value_is_length_known)  ////
+    #define cbor_value_is_tag _ADDCOUNTER(cbor_value_is_tag)  ////
+    #define cbor_value_get_tag _ADDCOUNTER(cbor_value_get_tag)  ////
+    #define cbor_value_is_byte_string _ADDCOUNTER(cbor_value_is_byte_string)  ////
+    #define cbor_value_is_text_string _ADDCOUNTER(cbor_value_is_text_string)  ////
+    #define cbor_value_get_string_length _ADDCOUNTER(cbor_value_get_string_length)  ////
+    #define cbor_value_copy_text_string _ADDCOUNTER(cbor_value_copy_text_string)  ////
+    #define cbor_value_copy_byte_string _ADDCOUNTER(cbor_value_copy_byte_string)  ////
+    #define cbor_value_dup_text_string _ADDCOUNTER(cbor_value_dup_text_string)  ////
+    #define cbor_value_dup_byte_string _ADDCOUNTER(cbor_value_dup_byte_string)  ////
+    #define cbor_value_is_array _ADDCOUNTER(cbor_value_is_array)  ////
+    #define cbor_value_is_map _ADDCOUNTER(cbor_value_is_map)  ////
+    #define cbor_value_get_array_length _ADDCOUNTER(cbor_value_get_array_length)  ////
+    #define cbor_value_get_map_length _ADDCOUNTER(cbor_value_get_map_length)  ////
+    #define cbor_value_is_half_float _ADDCOUNTER(cbor_value_is_half_float)  ////
+    #define cbor_value_is_float _ADDCOUNTER(cbor_value_is_float)  ////
+    #define cbor_value_get_float _ADDCOUNTER(cbor_value_get_float)  ////
+    #define cbor_value_is_double _ADDCOUNTER(cbor_value_is_double)  ////
+    #define cbor_value_get_double _ADDCOUNTER(cbor_value_get_double)  ////
+    #define cbor_value_to_pretty _ADDCOUNTER(cbor_value_to_pretty)  ////
+#endif  //  CBOR_IMPLEMENTATION
+
 ////
 
 
@@ -567,112 +573,118 @@ struct mgmt_cbuf {
 
 ////
 
-#undef assert
-#define assert(x) ((x) ? (void)0 : OS_CRASH())
+#ifdef CBOR_IMPLEMENTATION
+    #define CBOR_INLINE
+    #define CBOR_INLINE_API
+#else
+    //#undef assert
+    //#define assert(x) ((x) ? (void)0 : OS_CRASH())
 
-#undef CBOR_INLINE
-#undef CBOR_INLINE_API
+    #undef CBOR_INLINE
+    #undef CBOR_INLINE_API
 
-#define CBOR_INLINE
-#define CBOR_INLINE_API
+    #define CBOR_INLINE
+    #define CBOR_INLINE_API
 
-#undef cbor_encode_text_stringz
-#undef cbor_encode_bytes_written
-#undef cbor_encode_boolean
-#undef cbor_encode_null
-#undef cbor_encode_undefined
-#undef cbor_encode_half_float
-#undef cbor_encode_float
-#undef cbor_encode_double
-#undef cbor_value_at_end
-#undef cbor_value_is_container
-#undef _cbor_value_extract_int64_helper
-#undef cbor_value_is_valid
-#undef cbor_value_get_type
-#undef cbor_value_is_null
-#undef cbor_value_is_undefined
-#undef cbor_value_is_boolean
-#undef cbor_value_get_boolean
-#undef cbor_value_is_simple_type
-#undef cbor_value_get_simple_type
-#undef cbor_value_is_integer
-#undef cbor_value_is_unsigned_integer
-#undef cbor_value_is_negative_integer
-#undef cbor_value_get_raw_integer
-#undef cbor_value_get_uint64
-#undef cbor_value_get_int64
-#undef cbor_value_get_int
-#undef cbor_value_is_length_known
-#undef cbor_value_is_tag
-#undef cbor_value_get_tag
-#undef cbor_value_is_byte_string
-#undef cbor_value_is_text_string
-#undef cbor_value_get_string_length
-#undef cbor_value_copy_text_string
-#undef cbor_value_copy_byte_string
-#undef cbor_value_dup_text_string
-#undef cbor_value_dup_byte_string
-#undef cbor_value_is_array
-#undef cbor_value_is_map
-#undef cbor_value_get_array_length
-#undef cbor_value_get_map_length
-#undef cbor_value_is_half_float
-#undef cbor_value_is_float
-#undef cbor_value_get_float
-#undef cbor_value_is_double
-#undef cbor_value_get_double
-#undef cbor_value_to_pretty
+    #undef cbor_encode_text_stringz
+    #undef cbor_encode_bytes_written
+    #undef cbor_encode_boolean
+    #undef cbor_encode_null
+    #undef cbor_encode_undefined
+    #undef cbor_encode_half_float
+    #undef cbor_encode_float
+    #undef cbor_encode_double
+    #undef cbor_value_at_end
+    #undef cbor_value_is_container
+    #undef _cbor_value_extract_int64_helper
+    #undef cbor_value_is_valid
+    #undef cbor_value_get_type
+    #undef cbor_value_is_null
+    #undef cbor_value_is_undefined
+    #undef cbor_value_is_boolean
+    #undef cbor_value_get_boolean
+    #undef cbor_value_is_simple_type
+    #undef cbor_value_get_simple_type
+    #undef cbor_value_is_integer
+    #undef cbor_value_is_unsigned_integer
+    #undef cbor_value_is_negative_integer
+    #undef cbor_value_get_raw_integer
+    #undef cbor_value_get_uint64
+    #undef cbor_value_get_int64
+    #undef cbor_value_get_int
+    #undef cbor_value_is_length_known
+    #undef cbor_value_is_tag
+    #undef cbor_value_get_tag
+    #undef cbor_value_is_byte_string
+    #undef cbor_value_is_text_string
+    #undef cbor_value_get_string_length
+    #undef cbor_value_copy_text_string
+    #undef cbor_value_copy_byte_string
+    #undef cbor_value_dup_text_string
+    #undef cbor_value_dup_byte_string
+    #undef cbor_value_is_array
+    #undef cbor_value_is_map
+    #undef cbor_value_get_array_length
+    #undef cbor_value_get_map_length
+    #undef cbor_value_is_half_float
+    #undef cbor_value_is_float
+    #undef cbor_value_get_float
+    #undef cbor_value_is_double
+    #undef cbor_value_get_double
+    #undef cbor_value_to_pretty
 
-CBOR_INLINE_API CborError cbor_encode_text_stringz(CborEncoder *encoder, const char *string);
-CBOR_INLINE_API CborError cbor_encode_bytes_written(CborEncoder *encoder);
-CBOR_INLINE_API CborError cbor_encode_boolean(CborEncoder *encoder, bool value);
-CBOR_INLINE_API CborError cbor_encode_null(CborEncoder *encoder);
-CBOR_INLINE_API CborError cbor_encode_undefined(CborEncoder *encoder);
-CBOR_INLINE_API CborError cbor_encode_half_float(CborEncoder *encoder, const void *value);
-CBOR_INLINE_API CborError cbor_encode_float(CborEncoder *encoder, float value);
-CBOR_INLINE_API CborError cbor_encode_double(CborEncoder *encoder, double value);
-CBOR_INLINE_API bool cbor_value_at_end(const CborValue *it);
-CBOR_INLINE_API bool cbor_value_is_container(const CborValue *it);
-CBOR_INLINE_API uint64_t _cbor_value_extract_int64_helper(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_valid(const CborValue *value);
-CBOR_INLINE_API CborType cbor_value_get_type(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_null(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_undefined(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_boolean(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_boolean(const CborValue *value, bool *result);
-CBOR_INLINE_API bool cbor_value_is_simple_type(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_simple_type(const CborValue *value, uint8_t *result);
-CBOR_INLINE_API bool cbor_value_is_integer(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_unsigned_integer(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_negative_integer(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_raw_integer(const CborValue *value, uint64_t *result);
-CBOR_INLINE_API CborError cbor_value_get_uint64(const CborValue *value, uint64_t *result);
-CBOR_INLINE_API CborError cbor_value_get_int64(const CborValue *value, int64_t *result);
-CBOR_INLINE_API CborError cbor_value_get_int(const CborValue *value, int *result);
-CBOR_INLINE_API bool cbor_value_is_length_known(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_tag(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_tag(const CborValue *value, CborTag *result);
-CBOR_INLINE_API bool cbor_value_is_byte_string(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_text_string(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_string_length(const CborValue *value, size_t *length);
-CBOR_INLINE_API CborError cbor_value_copy_text_string(const CborValue *value, char *buffer,
-                                                      size_t *buflen, CborValue *next);
-CBOR_INLINE_API CborError cbor_value_copy_byte_string(const CborValue *value, uint8_t *buffer,
-                                                      size_t *buflen, CborValue *next);
-CBOR_INLINE_API CborError cbor_value_dup_text_string(const CborValue *value, char **buffer,
-                                                     size_t *buflen, CborValue *next);
-CBOR_INLINE_API CborError cbor_value_dup_byte_string(const CborValue *value, uint8_t **buffer,
-                                                     size_t *buflen, CborValue *next);
-CBOR_INLINE_API bool cbor_value_is_array(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_map(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_array_length(const CborValue *value, size_t *length);
-CBOR_INLINE_API CborError cbor_value_get_map_length(const CborValue *value, size_t *length);
-CBOR_INLINE_API bool cbor_value_is_half_float(const CborValue *value);
-CBOR_INLINE_API bool cbor_value_is_float(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_float(const CborValue *value, float *result);
-CBOR_INLINE_API bool cbor_value_is_double(const CborValue *value);
-CBOR_INLINE_API CborError cbor_value_get_double(const CborValue *value, double *result);
-CBOR_INLINE_API CborError cbor_value_to_pretty(FILE *out, const CborValue *value);
+    CBOR_INLINE_API CborError cbor_encode_text_stringz(CborEncoder *encoder, const char *string);
+    CBOR_INLINE_API CborError cbor_encode_bytes_written(CborEncoder *encoder);
+    CBOR_INLINE_API CborError cbor_encode_boolean(CborEncoder *encoder, bool value);
+    CBOR_INLINE_API CborError cbor_encode_null(CborEncoder *encoder);
+    CBOR_INLINE_API CborError cbor_encode_undefined(CborEncoder *encoder);
+    CBOR_INLINE_API CborError cbor_encode_half_float(CborEncoder *encoder, const void *value);
+    CBOR_INLINE_API CborError cbor_encode_float(CborEncoder *encoder, float value);
+    CBOR_INLINE_API CborError cbor_encode_double(CborEncoder *encoder, double value);
+    CBOR_INLINE_API bool cbor_value_at_end(const CborValue *it);
+    CBOR_INLINE_API bool cbor_value_is_container(const CborValue *it);
+    CBOR_INLINE_API uint64_t _cbor_value_extract_int64_helper(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_valid(const CborValue *value);
+    CBOR_INLINE_API CborType cbor_value_get_type(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_null(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_undefined(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_boolean(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_boolean(const CborValue *value, bool *result);
+    CBOR_INLINE_API bool cbor_value_is_simple_type(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_simple_type(const CborValue *value, uint8_t *result);
+    CBOR_INLINE_API bool cbor_value_is_integer(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_unsigned_integer(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_negative_integer(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_raw_integer(const CborValue *value, uint64_t *result);
+    CBOR_INLINE_API CborError cbor_value_get_uint64(const CborValue *value, uint64_t *result);
+    CBOR_INLINE_API CborError cbor_value_get_int64(const CborValue *value, int64_t *result);
+    CBOR_INLINE_API CborError cbor_value_get_int(const CborValue *value, int *result);
+    CBOR_INLINE_API bool cbor_value_is_length_known(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_tag(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_tag(const CborValue *value, CborTag *result);
+    CBOR_INLINE_API bool cbor_value_is_byte_string(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_text_string(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_string_length(const CborValue *value, size_t *length);
+    CBOR_INLINE_API CborError cbor_value_copy_text_string(const CborValue *value, char *buffer,
+                                                        size_t *buflen, CborValue *next);
+    CBOR_INLINE_API CborError cbor_value_copy_byte_string(const CborValue *value, uint8_t *buffer,
+                                                        size_t *buflen, CborValue *next);
+    CBOR_INLINE_API CborError cbor_value_dup_text_string(const CborValue *value, char **buffer,
+                                                        size_t *buflen, CborValue *next);
+    CBOR_INLINE_API CborError cbor_value_dup_byte_string(const CborValue *value, uint8_t **buffer,
+                                                        size_t *buflen, CborValue *next);
+    CBOR_INLINE_API bool cbor_value_is_array(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_map(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_array_length(const CborValue *value, size_t *length);
+    CBOR_INLINE_API CborError cbor_value_get_map_length(const CborValue *value, size_t *length);
+    CBOR_INLINE_API bool cbor_value_is_half_float(const CborValue *value);
+    CBOR_INLINE_API bool cbor_value_is_float(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_float(const CborValue *value, float *result);
+    CBOR_INLINE_API bool cbor_value_is_double(const CborValue *value);
+    CBOR_INLINE_API CborError cbor_value_get_double(const CborValue *value, double *result);
+    CBOR_INLINE_API CborError cbor_value_to_pretty(FILE *out, const CborValue *value);
+#endif  //  CBOR_IMPLEMENTATION
+
 ////
 
 
