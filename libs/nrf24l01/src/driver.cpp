@@ -11,8 +11,8 @@
 
 //  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
 
-#define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
-//  #define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
+//  #define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
+#define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
 
 #define COLLECTOR_NODE_ADDRESS 0x7878787878ull       //  Collector Node Address (Pipe 0)
 #define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull         //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)

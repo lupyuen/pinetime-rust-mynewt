@@ -24,6 +24,7 @@
 #include "custom_sensor/custom_sensor.h"                      //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
 #define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW  //  Set to raw sensor type.
 #define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_INT32        //  Return integer sensor values.
+
 #else                                                         //  If we are returning computed temperature (floating-point)...
 #define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE      //  Set to floating-point sensor type.
 #define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
