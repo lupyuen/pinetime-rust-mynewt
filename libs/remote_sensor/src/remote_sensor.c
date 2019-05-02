@@ -187,11 +187,13 @@ static int sensor_read_internal(struct sensor *sensor, sensor_type_t type,
     sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
     //  Read the sensor value depending on the sensor type specified in the sensor config.
     //  Call the Listener Function (may be NULL) with the sensor value.
-    //  data_arg is an (oc_rep_t *) with type and value passed by process_coap_message().
+    //  data_arg is a sensor_read_ctx whose user_arg is an (oc_rep_t *) with type and value passed by process_coap_message().
     assert(sensor);
-    if (!data_func) { return 0; }  //  If no Listener Function, then don't need continue.
+    if (!data_func) { return 0; }  //  If no Listener Function, then don't continue.
     assert(data_arg);
-    oc_rep_t *rep = (oc_rep_t *) data_arg;  //  Contains type and value.
+    struct sensor_read_ctx *src = (struct sensor_read_ctx *) data_arg;
+    oc_rep_t *rep = (oc_rep_t *) src->user_arg;  //  Contains type and value.
+    assert(rep);
     int rc = 0;
 
     //  Find the Sensor Type.
