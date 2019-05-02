@@ -60,9 +60,12 @@ exit:
 }
 
 int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
-    //  Process the incoming CoAP payload.  Payload contains {field1: val1, field2: val2, ...} in CBOR format.
+    //  Process the incoming CoAP payload in "data".  Trigger a request request to the Sensor Framework
+    //  that will send the sensor data into the Listener Function for the Remote Sensor.
+    //  Payload contains {field1: val1, field2: val2, ...} in CBOR format.
     //  Last byte is sequence number.  Between the CoAP payload and the last byte, all bytes are 0 
-    //  and should be discarded before decoding.  Return 0 if successful.
+    //  and should be discarded before decoding.  "name" is the Sensor Node Address like "b3b4b5b6f1".
+    //  Return 0 if successful.
     assert(name);  assert(data);  assert(size0 > 0);
     uint8_t size = size0;
     data[size - 1] = 0;  //  Erase sequence number.
@@ -80,13 +83,11 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
         sensor_type_t type = remote_sensor_lookup_type(oc_string(rep->name));  
         assert(type);  //  Unknown field name
 
-        //  Fetch the Sensor Type Traits for the Remote Sensor.
-        struct sensor_type_traits *stt = NULL;
-        struct sensor *snsr = sensor_get_type_traits_byname(name, &stt, type);
-        assert(stt);  assert(snsr);
+        //  Fetch the Remote Sensor by name.  "name" looks like "b3b4b5b6f1", the Sensor Node Address.
+        struct sensor *snsr = sensor_mgr_find_next_bydevname(name, NULL);
+        assert(snsr);  //  Sensor not found
 
-        //  Send the read request to Remote Sensor.  This causes the sensor to be read.
-        //  sensor_mgr_put_read_evt(stt);
+        //  Send the read request to Remote Sensor.  This causes the sensor to be read and Listener Function to be called.
         rc = sensor_read(snsr, type, NULL, rep, 0);
         assert(rc == 0);
 
