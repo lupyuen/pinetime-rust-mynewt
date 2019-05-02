@@ -76,8 +76,9 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
 
     //  For each field in the payload...
     while(rep) {
-        //  Convert the field name to sensor type, e.g. "t" -> SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
+        //  Convert the field name to sensor type, e.g. t -> SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
         sensor_type_t type = remote_sensor_lookup_type(oc_string(rep->name));  
+        assert(type);  //  Unknown field name
 
         //  Fetch the Sensor Type Traits for the Remote Sensor.
         struct sensor_type_traits *stt = NULL;
