@@ -1,10 +1,19 @@
 //  nRF24L01 Driver for Apache Mynewt.  Functions for creating the device instance and performing device functions.
 //  More about Mynewt Drivers: https://mynewt.apache.org/latest/os/modules/drivers/driver.html
 
-//  Each nRF24L01 module has 1 pipe for transmitting data and 5 pipes for receiving data.
-//  The Collector Node will receive sensor data from 5 Sensor Nodes, each node connected to a pipe.
+//  nRF24L01 provides a simple localised network that connects nearby devices and their sensors over 2.4 GHz.
+//  In this driver we assume a Star Topology for the network:
+//  -- 1 to 5 Sensor Nodes that transmit sensor data
+//  -- 1 Collector Node that receives and aggregates sensor data from the Sensor Nodes
+
+//  Each nRF24L01 module can have 1 outgoing pipe for transmitting data and 5 incoming pipes for receiving data
+//  -- Collector Node: Will have 5 incoming pipes connected to 5 Sensor Nodes
+//  -- Sensor Node: Will have 1 outgoing pipe connected to Collector Node (plus 1 incoming pipe to support acknowledgements in future)
+
 //  Each pipe is identified by a unique address e.g. 0xB3B4B5B6f1
-//  All Sensor Nodes must belong to the same subnet e.g. 0xB3B4B5B6??
+//  All Sensor Nodes must belong to the same 4-byte subnet e.g. 0xB3B4B5B6??
+//  Collector Node is allowed to have a different address e.g. 0x7878787878
+//  See libs/nrf24l01/src/driver.cpp for actual addresses.
 
 #ifndef __NRF24L01_DRIVER_H__
 #define __NRF24L01_DRIVER_H__

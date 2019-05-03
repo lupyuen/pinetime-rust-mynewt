@@ -1,4 +1,4 @@
-//  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server.
+//  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
 //  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
 //  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
 
