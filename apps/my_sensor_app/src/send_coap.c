@@ -238,8 +238,8 @@ int send_sensor_data(uint16_t raw_tmp) {
     //    { t: 2870 }
 
     if (nrf24l01_collector_node()) {  //  If this is a Collector Node...
-        console_printf("RSN remote sensor recv: rawtmp %d\n", raw_tmp);  ////
-        console_printf("NET send to coap svr: rawtmp %d\n", raw_tmp);  ////
+        console_printf("RSN remote sensor rx: rawtmp %d\n", raw_tmp);  ////
+        console_printf("ESP send to coap svr: rawtmp %d\n", raw_tmp);  ////
         console_flush();  ////
         return 0;  //  TODO: Transmit to CoAP Server.
     }
@@ -265,7 +265,7 @@ int send_sensor_data(uint16_t raw_tmp) {
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
 
-    console_printf("NET send to collector: rawtmp %d\n", raw_tmp);  ////
+    console_printf("NRF send to collector: rawtmp %d\n", raw_tmp);  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
     //  transmit the message: libs/nrf24l01/src/transport.cpp

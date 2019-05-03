@@ -102,7 +102,7 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
 void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
     //  TODO: Move to config.
-    console_printf("nrf event\n");
+    console_printf("NRF rx interrupt\n");
     //  On Collector Node: Check Pipes 1-5 for received data.
     for (;;) {
         //  Keep checking until there is no more data to process.

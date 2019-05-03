@@ -148,7 +148,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
     //  Temperature data is valid.  Fetch and display it.
     rawtemp = rawtempdata->strd_temp_raw;  //  Raw Temperature in integer (0 to 4095)
-    console_printf("TMP poll data: rawtmp %d\n", rawtemp);  ////
+    console_printf("TMP listener got rawtmp %d\n", rawtemp);  ////
 
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
     //  Compose a CoAP message with the temperature sensor data and send to the 

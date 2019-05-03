@@ -942,7 +942,7 @@ bool nRF24L01P::readable(int pipe) {
     }
 
     int status = getStatusRegister();
-    console_printf("rd %x\n", status);  ////
+    //  console_printf("rd %x\n", status);  ////
     return ( ( status & _NRF24L01P_STATUS_RX_DR ) && ( ( ( status & _NRF24L01P_STATUS_RX_P_NO ) >> 1 ) == ( pipe & 0x7 ) ) );
 
 }
@@ -1039,7 +1039,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
         int rxPayloadWidth = spiWrite(_NRF24L01P_SPI_CMD_NOP);
         
         deselect();  //  Set CS Pin to high.
-        console_printf("rx %d\n", rxPayloadWidth);
+        //  console_printf("rx %d\n", rxPayloadWidth);
         if ( ( rxPayloadWidth < 0 ) || ( rxPayloadWidth > _NRF24L01P_RX_FIFO_SIZE ) ) {
     
             // Received payload error: need to flush the FIFO
