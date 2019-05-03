@@ -41,10 +41,8 @@
 #define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
 #endif  //  MYNEWT_VAL(RAW_TEMP)
 
-static int start_remote_sensor_listeners(void);
-static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
-
 static struct sensor *my_sensor;  //  Will store the opened handle of the temperature sensor.
+static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
 //  Define the listener function to be called after polling the temperature sensor.
 static struct sensor_listener listener = {
@@ -52,6 +50,13 @@ static struct sensor_listener listener = {
     .sl_func        = read_temperature,      //  Listener function to be called with the sensor data
     .sl_arg         = (void *) LISTENER_CB,  //  Indicate to the listener function that this is a listener callback
 };
+
+#if MYNEWT_VAL(NRF24L01)                         //  If nRF24L01 Wireless Network is enabled...
+static int start_remote_sensor_listeners(void);  //  Listen to remote sensors instead of local sensors.
+#endif                                           //  MYNEWT_VAL(NRF24L01)
+
+/////////////////////////////////////////////////////////
+//  Listen To Local Sensor
 
 int start_sensor_listener(void) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
@@ -81,21 +86,31 @@ int start_sensor_listener(void) {
     return 0;
 }
 
+/////////////////////////////////////////////////////////
+//  Listen To Remote Sensors Connected Via nRF24L01
+
+#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
+
 static int start_remote_sensor_listeners(void) {
     //  Listen for sensor data transmitted by Sensor Nodes.  Transmit the received data to the CoAP server.
 
     //  For every Sensor Node Address like "b3b4b5b6f1"...
-    const char *name = "b3b4b5b6f1";  //  TODO
+    for (int i = 0; i < NRL24L01_MAX_SENSOR_NODE_NAMES; i++) {
+        //  Fetch the Sensor Node Address e.g. "b3b4b5b6f1"
+        const char *name = nrf24l01_sensor_node_names[i];
 
-    //  Fetch the Remote Sensor by name, which is the Sensor Node Address e.g. "b3b4b5b6f1"
-    struct sensor *remote_sensor = sensor_mgr_find_next_bydevname(name, NULL);
-    assert(remote_sensor != NULL);
+        //  Fetch the Remote Sensor by name, which is the Sensor Node Address e.g. "b3b4b5b6f1"
+        struct sensor *remote_sensor = sensor_mgr_find_next_bydevname(name, NULL);
+        assert(remote_sensor != NULL);
 
-    //  Set the listener function to be called upon receiving any sensor data.
-    int rc = sensor_register_listener(remote_sensor, &listener);
-    assert(rc == 0);
+        //  Set the listener function to be called upon receiving any sensor data.
+        int rc = sensor_register_listener(remote_sensor, &listener);  //  Remote Sensors may be used the same way as local sensors.
+        assert(rc == 0);
+    }
     return 0;
 }
+
+#endif  //  MYNEWT_VAL(NRF24L01)
 
 /////////////////////////////////////////////////////////
 //  Process Computed Temperature (Floating-Point)
@@ -145,9 +160,11 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 #if MYNEWT_VAL(RAW_TEMP)  //  If we are returning raw temperature (integers)...
 
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-    //  This listener function is called every 10 seconds.  Mynewt has fetched the raw temperature data,
-    //  passed through databuf.  We send the sensor data to the CoAP server.  Return 0 if we have
-    //  processed the sensor data successfully.
+    //  This listener function is called every 10 seconds (for local sensors) or when sensor data is received
+    //  (for Remote Sensors).  Mynewt has fetched the raw temperature data, passed through databuf.
+    //  If this is a Sensor Node, we send the sensor data to the Collector Node.
+    //  If this is a Collector Node, we send the sensor data to the CoAP server.  
+    //  Return 0 if we have processed the sensor data successfully.
     assert(type == SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW);  //  We only handle raw temperature (integer) here, not computed temperature.
     int rc = 0;
     int rawtemp = 0;
@@ -161,9 +178,9 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
     rawtemp = rawtempdata->strd_temp_raw;  //  Raw Temperature in integer (0 to 4095)
     console_printf("TMP listener got rawtmp %d\n", rawtemp);  ////
 
-#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
+#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
     //  Compose a CoAP message with the temperature sensor data and send to the 
-    //  CoAP server.  The message will be enqueued for transmission by the OIC 
+    //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
     rc = send_sensor_data(rawtemp);

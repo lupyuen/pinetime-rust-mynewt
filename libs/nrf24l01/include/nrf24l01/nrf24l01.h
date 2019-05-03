@@ -20,8 +20,9 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #define NRF24L01_TRANSFER_SIZE   12   //  Each packet will have 12 bytes. This value ranges from 1 to 32.
 #define NRL24L01_MAX_RX_PIPES     5   //  Max 5 pipes for receiving data
 
-//  Names (text addresses e.g. B3B4B5B6f1) of the Sensor Nodes, exported to remote_sensor_create() for setting the device name.
-extern const char *nrf24l01_sensor_node_names[NRL24L01_MAX_RX_PIPES];
+//  Names (text addresses) of the Sensor Nodes, e.g. "b3b4b5b6f1".  These are also the Remote Sensor names.
+#define NRL24L01_MAX_SENSOR_NODE_NAMES NRL24L01_MAX_RX_PIPES  //  Number of Sensor Node names
+extern const char *nrf24l01_sensor_node_names[NRL24L01_MAX_SENSOR_NODE_NAMES];
  
 //  Device Configuration
 struct nrf24l01_cfg {
