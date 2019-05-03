@@ -7,9 +7,9 @@
 
 //  Temperature sensor values may be Computed or Raw:
 //  Computed Temperature Sensor Value (default): Sensor values are in degrees Celsius with 2 decimal places.
-//    Slower and harder to process. Requires more ROM.
+//    Slower and harder to process. Requires more ROM. Used for the ESP8266 tutorial.
 //  Raw Temperature Sensor Value (if RAW_TEMP=1 in syscfg.yml): Sensor values are integers from 0 to 4095.
-//    Faster and easier to process. Requires less ROM.
+//    Faster and easier to process. Requires less ROM. Used for the nRF24L01 tutorial. Generally the preferred way.
 
 //  We also support Remote Sensors.  The temperature sensor may be connected to a Sensor Node with nRF24L01.
 //  The Sensor Node will transmit the sensor data to the Collector Node via nRF24L01.  The Collector Node
