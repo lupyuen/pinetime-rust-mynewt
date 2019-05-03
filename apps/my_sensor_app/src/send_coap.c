@@ -162,50 +162,6 @@ static void network_task_func(void *arg) {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Send Sensor Data for nRF24L01
-
-#if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
-
-int send_sensor_data(uint16_t raw_tmp) {
-    //  Compose a CoAP CBOR message with sensor data "raw_tmp" (raw temperature) and 
-    //  transmit to the Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
-    //  Background Task so this function will return without waiting for the message 
-    //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-    //  "raw_tmp" has values between 0 to 4095.
-
-    //  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
-    //    { "t": 2870 }
-    if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    struct oc_server_handle *server = coap_server.handle;
-    const char *uri = COAP_URI;
-    const char *device_str = device_id_text;
-    assert(server);  assert(uri);  assert(device_str);
-
-    //  Start composing the CoAP message with the sensor data in the payload.  This will 
-    //  block other tasks from composing and posting CoAP messages (through a semaphore).
-    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    int rc = init_sensor_post(server, uri);  assert(rc != 0);
-
-    //  Compose the CoAP Payload in CBOR using the CP macros.
-    CP_ROOT({  //  Create the payload root
-        rep_set_uint(root, t, raw_tmp);  //  TODO: Wrap with CP macro.
-    });  //  End CP_ROOT:  Close the payload root
-
-    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
-    //  message to the background task, we release a semaphore that unblocks other requests
-    //  to compose and post CoAP messages.
-    rc = do_sensor_post();  assert(rc != 0);
-
-    console_printf("NET send data: raw_tmp %d\n", raw_tmp);  ////
-
-    //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
-    //  transmit the message: libs/nrf24l01/src/transport.cpp
-    return 0;
-}
-
-#endif  //  MYNEWT_VAL(NRF24L01)
-
-///////////////////////////////////////////////////////////////////////////////
 //  Send Sensor Data for ESP8266
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
@@ -265,6 +221,58 @@ int send_sensor_data(float tmp) {
 }
 
 #endif  //  MYNEWT_VAL(ESP8266)
+
+///////////////////////////////////////////////////////////////////////////////
+//  Send Sensor Data for nRF24L01
+
+#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
+
+int send_sensor_data(uint16_t raw_tmp) {
+    //  Compose a CoAP CBOR message with sensor data "raw_tmp" (raw temperature) and 
+    //  transmit to the Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
+    //  Background Task so this function will return without waiting for the message 
+    //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+    //  "raw_tmp" has values between 0 to 4095.
+
+    //  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
+    //    { t: 2870 }
+
+    if (nrf24l01_collector_node()) {  //  If this is a Collector Node...
+        console_printf("RSN remote sensor recv: rawtmp %d\n", raw_tmp);  ////
+        console_printf("NET send to coap svr: rawtmp %d\n", raw_tmp);  ////
+        console_flush();  ////
+        return 0;  //  TODO: Transmit to CoAP Server.
+    }
+
+    if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    struct oc_server_handle *server = coap_server.handle;
+    const char *uri = COAP_URI;
+    const char *device_str = device_id_text;
+    assert(server);  assert(uri);  assert(device_str);
+
+    //  Start composing the CoAP message with the sensor data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    int rc = init_sensor_post(server, uri);  assert(rc != 0);
+
+    //  Compose the CoAP Payload in CBOR using the CP macros.
+    CP_ROOT({  //  Create the payload root
+        rep_set_uint(root, t, raw_tmp);  //  TODO: Wrap with CP macro.
+    });  //  End CP_ROOT:  Close the payload root
+
+    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  message to the background task, we release a semaphore that unblocks other requests
+    //  to compose and post CoAP messages.
+    rc = do_sensor_post();  assert(rc != 0);
+
+    console_printf("NET send to collector: rawtmp %d\n", raw_tmp);  ////
+
+    //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
+    //  transmit the message: libs/nrf24l01/src/transport.cpp
+    return 0;
+}
+
+#endif  //  MYNEWT_VAL(NRF24L01)
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Other Functions

@@ -30,6 +30,7 @@
 #define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
 #endif  //  MYNEWT_VAL(RAW_TEMP)
 
+static int start_remote_sensor_listeners(void);
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
 static struct sensor *my_sensor;  //  Will store the opened handle of the temperature sensor.
@@ -43,12 +44,16 @@ static struct sensor_listener listener = {
 
 int start_sensor_listener(void) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
-    //  After polling the sensor, call the listener function to send the sensor data to the CoAP server.
+    //  After polling the sensor, call the listener function to send the sensor data 
+    //  to the CoAP server (if ESP8266 is present) or Collector Node (if nRF24L01 is present).
 
 #if MYNEWT_VAL(NRF24L01)                          //  If nRF24L01 Wireless Network is enabled...
-    if (nrf24l01_collector_node()) { return 0; }  //  And this is not a Sensor Node, then don't start the sensor.
+    if (nrf24l01_collector_node()) {              //  And this is a Collector Node...
+        return start_remote_sensor_listeners();   //  Start the Listener for every Remote Sensor.
+    }
 #endif  //  MYNEWT_VAL(NRF24L01)
 
+    //  Otherwise this is a single Sensor Node with ESP8266, or a Sensor Node connected to Collector Node via nRF24L01.
     console_printf("TMP poll " SENSOR_DEVICE "\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
@@ -61,6 +66,22 @@ int start_sensor_listener(void) {
 
     //  Set the listener function to be called every 10 seconds, with the polled sensor data.
     rc = sensor_register_listener(my_sensor, &listener);
+    assert(rc == 0);
+    return 0;
+}
+
+static int start_remote_sensor_listeners(void) {
+    //  Listen for sensor data transmitted by Sensor Nodes.  Transmit the received data to the CoAP server.
+
+    //  For every Sensor Node Address like "b3b4b5b6f1"...
+    const char *name = "b3b4b5b6f1";  //  TODO
+
+    //  Fetch the Remote Sensor by name, which is the Sensor Node Address e.g. "b3b4b5b6f1"
+    struct sensor *remote_sensor = sensor_mgr_find_next_bydevname(name, NULL);
+    assert(remote_sensor != NULL);
+
+    //  Set the listener function to be called upon receiving any sensor data.
+    int rc = sensor_register_listener(remote_sensor, &listener);
     assert(rc == 0);
     return 0;
 }

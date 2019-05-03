@@ -84,74 +84,20 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
         assert(type);  //  Unknown field name
 
         //  Fetch the Remote Sensor by name.  "name" looks like "b3b4b5b6f1", the Sensor Node Address.
-        struct sensor *snsr = sensor_mgr_find_next_bydevname(name, NULL);
-        assert(snsr);  //  Sensor not found
+        struct sensor *remote_sensor = sensor_mgr_find_next_bydevname(name, NULL);
+        assert(remote_sensor);  //  Sensor not found
 
         //  Send the read request to Remote Sensor.  This causes the sensor to be read and Listener Function to be called.
-        rc = sensor_read(snsr, type, NULL, rep, 0);
+        rc = sensor_read(remote_sensor, type, NULL, rep, 0);
         assert(rc == 0);
 
-        //  Move to next field.
+        //  Move to next field in the payload.
         rep = rep->next;
     }
     //  Free the decoded representation.
     oc_free_rep(first_rep);
     return 0;
 }
-
-#ifdef NOTUSED
-    /**
-     * Puts read event on the sensor manager evq
-     *
-     * @param arg Event argument
-     */
-    void
-    sensor_mgr_put_read_evt(void *arg)
-    {
-        sensor_read_event.ev_arg = arg;
-        os_eventq_put(sensor_mgr_evq_get(), &sensor_read_event);
-    }
-
-    static void
-    sensor_read_ev_cb(struct os_event *ev)
-    {
-        int rc;
-        struct sensor_type_traits *stt;
-
-        stt = ev->ev_arg;
-        rc = sensor_read(stt->stt_sensor, stt->stt_sensor_type, NULL, NULL,
-                        OS_TIMEOUT_NEVER);
-        assert(rc == 0);
-    }
-
-    /**
-     * Get the type traits for a sensor
-     *
-     * @param name of the sensor
-     * @param Ptr to sensor types trait struct
-     * @param type of sensor
-     *
-     * @return NULL on failure, sensor struct on success
-     */
-    struct sensor *
-    sensor_get_type_traits_byname(const char *devname,
-                                struct sensor_type_traits **stt,
-                                sensor_type_t type)
-    {
-        struct sensor *sensor;
-
-        sensor = sensor_mgr_find_next_bydevname(devname, NULL);
-        if (!sensor) {
-            goto err;
-        }
-
-        *stt = sensor_get_type_traits_bytype(type, sensor);
-
-    err:
-        return sensor;
-    }
-
-#endif  //  NOTUSED
 
 void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
