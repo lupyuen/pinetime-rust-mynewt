@@ -1,9 +1,20 @@
 //  Poll the temperature sensor every 10 seconds.  We support 2 types of temperature sensors:
 //  (1)  BME280 Temperature Sensor, connected to Blue Pill on port SPI1.
-//       This sensor is selected if BME280_OFB is defined in syscfg.yml.
+//       This sensor is selected if BME280_OFB=1 in syscfg.yml.
 //  (2)  Blue Pill internal temperature sensor, connected to port ADC1 on channel 16
-//       This sensor is selected if TEMP_STM32 is defined in syscfg.yml.
-//  If sending to CoAP server is enabled, send the sensor data to the CoAP server after polling.
+//       This sensor is selected if TEMP_STM32=1 in syscfg.yml.
+//  If sending to CoAP server is enabled, transmit the sensor data to the CoAP server after polling.
+
+//  Temperature sensor values may be Computed or Raw:
+//  Computed Temperature Sensor Value (default): Sensor values are in degrees Celsius with 2 decimal places.
+//    Slower and harder to process. Requires more ROM.
+//  Raw Temperature Sensor Value (if RAW_TEMP=1 in syscfg.yml): Sensor values are integers from 0 to 4095.
+//    Faster and easier to process. Requires less ROM.
+
+//  We also support Remote Sensors.  The temperature sensor may be connected to a Sensor Node with nRF24L01.
+//  The Sensor Node will transmit the sensor data to the Collector Node via nRF24L01.  The Collector Node
+//  will use a Listener Function to process the sensor data as though it were a local sensor.  In this demo
+//  the Collector Node forwards the sensor data to a CoAP Server via ESP8266.  See start_remote_sensor_listeners().
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
