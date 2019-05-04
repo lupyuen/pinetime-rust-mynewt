@@ -187,6 +187,16 @@ bool nrf24l01_collector_node(void) {
     return false; 
 }
 
+bool nrf24l01_sensor_node(void) {
+    //  Return true if this is a Sensor Node.
+    return !nrf24l01_collector_node();
+}
+
+bool nrf24l01_standalone_node(void) {
+    //  Return true if this is a Standalone Node, i.e. not connected to any Collector and Sensor Nodes.
+    return false;  //  TODO
+}
+
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
     assert(cfg);  console_printf("nrf defcfg\n");

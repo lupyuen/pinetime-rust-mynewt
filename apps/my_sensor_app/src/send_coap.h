@@ -26,20 +26,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
 //  Return 0 if successful.
 int start_network_task(void);
 
-//  Compose a CoAP message with sensor data "tmp" or "raw_tmp" and send to the specified CoAP server
-//  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
+//  Compose a CoAP message with sensor value in val and send to the specified CoAP server
+//  and URI or Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
 //  Background Task so this function will return without waiting for the message 
 //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-//  "tmp" is the actual temperature in deg C.  "raw_tmp" is the raw temperature value, 0 to 4095.
-//  nRF24L01 Sensor Nodes send the raw temperature to the Collector Node to fit into the small packets.
-
-#if MYNEWT_VAL(ESP8266)       //  If ESP8266 WiFi is enabled...
-int send_sensor_data(float tmp);
-#endif  //  MYNEWT_VAL(ESP8266)
-
-#if MYNEWT_VAL(NRF24L01)       //  If nRF24L01 Wireless Network is enabled...
-int send_sensor_data(uint16_t raw_tmp);
-#endif  //  MYNEWT_VAL(NRF24L01)
+int send_sensor_data(struct sensor_value *val);
 
 #ifdef __cplusplus
 }

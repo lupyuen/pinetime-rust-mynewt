@@ -79,8 +79,14 @@ int nrf24l01_init(struct os_dev *dev0, void *arg);
 //  Apply the device configuration.  Return 0 if successful.
 int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg);
 
-//  Return true if this is the collector node.
+//  Return true if this is the Collector Node.
 bool nrf24l01_collector_node(void);
+
+//  Return true if this is a Sensor Node.
+bool nrf24l01_sensor_node(void);
+
+//  Return true if this is a Standalone Node, i.e. not connected to any Collector and Sensor Nodes.
+bool nrf24l01_standalone_node(void);
 
 //  TODO: Should be part of config.
 void nrf24l01_callback(struct os_event *ev);

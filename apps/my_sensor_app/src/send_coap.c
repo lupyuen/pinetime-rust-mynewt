@@ -15,11 +15,13 @@
 #include <esp8266/esp8266.h>     //  ESP8266 driver functions
 #include <esp8266/transport.h>   //  ESP8266 transport for CoAP
 #include <hmac_prng/hmac_prng.h> //  Pseudorandom number generator for device ID
+static int send_sensor_data_to_server(struct sensor_value *val);
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01)         //  If nRF24L01 Wireless Network is enabled...
 #include <nrf24l01/nrf24l01.h>   //  nRF24L01 driver functions
 #include <nrf24l01/transport.h>  //  nRF24L01 transport for CoAP
+static int send_sensor_data_to_collector(struct sensor_value *val);
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 #include <console/console.h>
@@ -38,11 +40,11 @@ static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to t
 static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for WiFi access point e.g. my_password
 #endif  //  MYNEWT_VAL(ESP8266)
 
-//  CoAP Server Configuration. 
+//  CoAP Server and Collector Configuration
 
 #if MYNEWT_VAL(ESP8266)         //  If ESP8266 WiFi is enabled...
 static struct esp8266_server coap_server = {
-    .endpoint = {
+    .endpoint = {                       //  CoAP Server that will receive sensor data from this Collector Node or Standalone Node
         .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
         .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
     }
@@ -50,10 +52,10 @@ static struct esp8266_server coap_server = {
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
-static struct nrf24l01_server coap_server = {
-    .endpoint = {
-        .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
-        .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
+static struct nrf24l01_server coap_collector = {
+    .endpoint = {                       //  CoAP Collector Node that will receive sensor data from the Sensor Node
+        .host = COAP_HOST,              //  TODO Remove: CoAP hostname e.g. coap.thethings.io
+        .port = MYNEWT_VAL(COAP_PORT),  //  TODO Remove: CoAP port, usually UDP port 5683
     }
 };
 #endif  //  MYNEWT_VAL(NRF24L01)
@@ -164,13 +166,32 @@ static void network_task_func(void *arg) {
     assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
+int send_sensor_data(struct sensor_value *val) {
+    //  Compose a CoAP message with sensor value in val and send to the specified CoAP server
+    //  and URI or Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
+    //  Background Task so this function will return without waiting for the message 
+    //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+
+#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
+    //  For Collector Node: Send to CoAP Server.
+    if (nrf24l01_collector_node()) { return send_sensor_data_to_server(val); }
+    //  For Sensor Node: Send to Collector Node.
+    else if (nrf24l01_sensor_node()) { return send_sensor_data_to_collector(val); }
+    assert(0);  //  Don't know how to send sensor data
+#endif  //  MYNEWT_VAL(NRF24L01)
+
+#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
+    //  For Standalone Node: Send to CoAP Server.
+    return send_sensor_data_to_server(val);
+#endif  //  MYNEWT_VAL(ESP8266)
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Send Sensor Data for ESP8266
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
 
-int send_sensor_data_to_server(struct sensor_value *val) {
+static int send_sensor_data_to_server(struct sensor_value *val) {
     //  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
     //  and send to the CoAP server and URI.  The Sensor Value may be integer or float.
     //  For temperature, the Sensor Key is either "t" for raw temperature (integer, from 0 to 4095) 
@@ -248,7 +269,7 @@ int send_sensor_data_to_server(struct sensor_value *val) {
 
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
 
-int send_sensor_data_to_collector(struct sensor_value *val) {
+static int send_sensor_data_to_collector(struct sensor_value *val) {
     //  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
     //  transmit to the Collector Node.  The Sensor Value should be integer not float since
     //  we transmit integers only to the Collector Node.

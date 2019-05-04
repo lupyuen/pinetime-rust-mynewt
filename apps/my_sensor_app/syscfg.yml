@@ -119,15 +119,15 @@ syscfg.vals.TUTORIAL3:
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
     REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
     SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
-    COAP_JSON_ENCODING:     0  # TODO: Use JSON to encode CoAP payload for forwarding to thethings.io
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
     COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
 
     # Previous Settings
     SENSOR_COAP:            1  # Send sensor data to CoAP server
-    ESP8266:                0  # TODO: Enable WiFi access with ESP8266
+    ESP8266:                1  # TODO: Enable WiFi access with ESP8266
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
     ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
+    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
 
     # OIC Settings
     OC_CLIENT:              1  # Enable the OIC (CoAP) client library
