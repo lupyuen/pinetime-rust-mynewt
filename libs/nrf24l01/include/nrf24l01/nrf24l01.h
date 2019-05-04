@@ -15,6 +15,9 @@
 //  Collector Node is allowed to have a different address e.g. 0x7878787878
 //  See libs/nrf24l01/src/driver.cpp for actual addresses.
 
+//  We use "Standalone Node" to refer to a node that sends sensor data directly to the CoAP Server
+//  via ESP8266, without forwarding to a Collector Node.
+
 #ifndef __NRF24L01_DRIVER_H__
 #define __NRF24L01_DRIVER_H__
 #include <os/os_dev.h>    //  For os_dev

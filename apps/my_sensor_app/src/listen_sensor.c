@@ -30,18 +30,7 @@
 #define LISTENER_CB         1            //  Indicate that this is a listener callback
 #define READ_CB             2            //  Indicate that this is a sensor read callback
 
-//  Define Sensor Type and Sensor Value Type
-#if MYNEWT_VAL(RAW_TEMP)                                      //  If we are returning raw temperature (integers)...
-#include "custom_sensor/custom_sensor.h"                      //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-#define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW  //  Set to raw sensor type.
-#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_INT32        //  Return integer sensor values.
-
-#else                                                         //  If we are returning computed temperature (floating-point)...
-#define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE      //  Set to floating-point sensor type.
-#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
-#endif  //  MYNEWT_VAL(RAW_TEMP)
-
-static struct sensor *my_sensor;  //  Will store the opened handle of the temperature sensor.
+static int get_temperature(void *sensor_data, sensor_type_t type, struct sensor_value *return_value);
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
 
 //  Define the listener function to be called after polling the temperature sensor.
@@ -77,11 +66,11 @@ int start_sensor_listener(void) {
     assert(rc == 0);
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    my_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE, NULL);
+    struct sensor *listen_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE, NULL);
     assert(my_sensor != NULL);
 
     //  Set the listener function to be called every 10 seconds, with the polled sensor data.
-    rc = sensor_register_listener(my_sensor, &listener);
+    rc = sensor_register_listener(listen_sensor, &listener);
     assert(rc == 0);
     return 0;
 }
@@ -113,77 +102,30 @@ static int start_remote_sensor_listeners(void) {
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 /////////////////////////////////////////////////////////
-//  Process Computed Temperature (Floating-Point)
+//  Process Temperature Sensor Value (Raw and Computed)
 
-#if !MYNEWT_VAL(RAW_TEMP)  //  If we are returning computed temperature (floating-point)...
-
-static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
-    //  This listener function is called every 10 seconds.  Mynewt has fetched the temperature data,
-    //  passed through databuf.  We send the sensor data to the CoAP server.  Return 0 if we have
-    //  processed the sensor data successfully.
-    assert(type == SENSOR_TYPE_AMBIENT_TEMPERATURE);  //  We only handle computed temperature (floating-point) here, not raw temperature.
-    int rc = 0;
-    float tmp = 0;
-    struct sensor_temp_data *tempdata = (struct sensor_temp_data *) databuf;
-
-    //  Check that the temperature data is valid.
-    if (tempdata == NULL) { return SYS_EINVAL; }              //  Exit if data is missing
-    if (!tempdata->std_temp_is_valid) { return SYS_EINVAL; }  //  Exit if data is not valid
-
-    //  Temperature data is valid.  Fetch and display it.
-    tmp = tempdata->std_temp;  //  Temperature in floating point.
-    console_printf("TMP poll data: tmp ");  console_printfloat(tmp);  console_printf("\n");  ////
-
-#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
-    //  Compose a CoAP message with the temperature sensor data and send to the 
-    //  CoAP server.  The message will be enqueued for transmission by the OIC 
-    //  background task so this function will return without waiting for the message 
-    //  to be transmitted.
-    rc = send_sensor_data(tmp);
-
-    //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
-    //  We drop the sensor data and send at the next poll.
-    if (rc == SYS_EAGAIN) {
-        console_printf("TMP network not ready\n");
-        return 0; 
-    }
-    assert(rc == 0);
-#endif  //  MYNEWT_VAL(SENSOR_COAP)
-
-    return rc;
-}
-#endif  //  !MYNEWT_VAL(RAW_TEMP)
-
-/////////////////////////////////////////////////////////
-//  Process Raw Temperature (Integer)
-
-#if MYNEWT_VAL(RAW_TEMP)  //  If we are returning raw temperature (integers)...
-
-static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type) {
+static int read_temperature(struct sensor* sensor, void *arg, void *sensor_data, sensor_type_t type) {
     //  This listener function is called every 10 seconds (for local sensors) or when sensor data is received
-    //  (for Remote Sensors).  Mynewt has fetched the raw temperature data, passed through databuf.
+    //  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through sensor_data.
     //  If this is a Sensor Node, we send the sensor data to the Collector Node.
-    //  If this is a Collector Node, we send the sensor data to the CoAP server.  
+    //  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
     //  Return 0 if we have processed the sensor data successfully.
-    assert(type == SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW);  //  We only handle raw temperature (integer) here, not computed temperature.
-    int rc = 0;
-    int rawtemp = 0;
-    struct sensor_temp_raw_data *rawtempdata = (struct sensor_temp_raw_data *) databuf;
 
     //  Check that the temperature data is valid.
-    if (rawtempdata == NULL) { return SYS_EINVAL; }              //  Exit if data is missing
-    if (!rawtempdata->strd_temp_raw_is_valid) { return SYS_EINVAL; }  //  Exit if data is not valid
+    if (sensor_data == NULL) { return SYS_EINVAL; }  //  Exit if data is missing
 
-    //  Temperature data is valid.  Fetch and display it.
-    rawtemp = rawtempdata->strd_temp_raw;  //  Raw Temperature in integer (0 to 4095)
-    console_printf("TMP listener got rawtmp %d\n", rawtemp);  ////
+    //  Get the temperature sensor value. It could be raw or computed.
+    struct sensor_value temp_sensor_value;
+    int rc = get_temperature(sensor_data, type, &temp_sensor_value);
+    assert(rc == 0);
+    if (rc) { return rc; }
 
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
     //  Compose a CoAP message with the temperature sensor data and send to the 
     //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    rc = send_sensor_data(rawtemp);
+    rc = send_sensor_data(&temp_sensor_value);
 
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
@@ -196,6 +138,51 @@ static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sen
 
     return rc;
 }
-#endif  //  MYNEWT_VAL(RAW_TEMP)
+
+static int get_temperature(void *sensor_data, sensor_type_t type, struct sensor_value *return_value) {
+    //  Get the temperature value, raw or computed.  sensor_data contains the raw or computed temperature. 
+    //  type indicates whether sensor_data contains raw or computed temperature.  Upon return, we populate return_value
+    //  with the raw or computed temperature, as well as the key and value type.
+    //  Return 0 if we have fetched the temperature value successfully.
+    assert(sensor_data); assert(return_value);
+    memset(return_value, 0, sizeof(struct sensor_value));  //  Zero the return value for safety.
+
+    switch(type) {                                   //  Is this raw or computed temperature?
+        case SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: {  //  If this is raw temperature...
+            //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
+            struct sensor_temp_raw_data *rawtempdata = (struct sensor_temp_raw_data *) sensor_data;
+
+            //  Check that the raw temperature data is valid.
+            if (!rawtempdata->strd_temp_raw_is_valid) { return SYS_EINVAL; }  //  Exit if data is not valid
+
+            //  Raw temperature data is valid.  Copy and display it.
+            return_value->int_val = rawtempdata->strd_temp_raw;  //  Raw Temperature in integer (0 to 4095)
+            console_printf("TMP listener got rawtmp %d\n", return_value->int_val);  ////
+            break;
+        }
+        case SENSOR_TYPE_AMBIENT_TEMPERATURE: {      //  If this is computed temperature...
+            //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
+            struct sensor_temp_data *tempdata = (struct sensor_temp_data *) sensor_data;
+
+            //  Check that the computed temperature data is valid.
+            if (!tempdata->std_temp_is_valid) { return SYS_EINVAL; }  //  Exit if data is not valid
+
+            //  Computed temperature data is valid.  Copy and display it.
+            return_value->float_val = tempdata->std_temp;  //  Temperature in floating point.
+#if !MYNEWT_VAL(RAW_TEMP)  //  The following line contains floating-point code. We should compile only if we are not using raw temp.
+            console_printf("TMP poll data: tmp ");  console_printfloat(return_value->float_val);  console_printf("\n");  ////
+#endif  //  !MYNEWT_VAL(RAW_TEMP)
+            break;
+        }
+        default: {
+            assert(0);  //  Unknown temperature sensor type
+            return -1;
+        }
+    }
+    //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
+    return_value->key = TEMP_SENSOR_KEY;
+    return_value->val_type = TEMP_SENSOR_VALUE_TYPE;
+    return 0;
+}
 
 #endif  //  SENSOR_DEVICE
