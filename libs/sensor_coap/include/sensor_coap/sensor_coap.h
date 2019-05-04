@@ -94,10 +94,10 @@ void json_rep_end_root_object(void);
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR Encoding Macros
 
-#if MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in CBOR...
+#if MYNEWT_VAL(COAP_CBOR_ENCODING) && !MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in CBOR only...
 #include <oic/oc_rep.h>             //  Use the default Mynewt encoding in CBOR.
-#define COAP_CONTENT_FORMAT APPLICATION_CBOR  //  Specify CBOR content type and accept type in the CoAP header.
 
+#define COAP_CONTENT_FORMAT APPLICATION_CBOR  //  Specify CBOR content type and accept type in the CoAP header.
 #define rep_new(mbuf)                           oc_rep_new(mbuf)
 #define rep_reset(mbuf)                         oc_rep_reset(mbuf)
 #define rep_finalize(mbuf)                      oc_rep_finalize(mbuf)
@@ -115,7 +115,42 @@ void json_rep_end_root_object(void);
 #define rep_set_uint(       object, key, value) oc_rep_set_uint       (object, key, value)
 #define rep_set_float(      object, key, value) oc_rep_set_double     (object, key, value)
 #define rep_set_text_string(object, key, value) oc_rep_set_text_string(object, key, value)
-#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING)
+
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && !MYNEWT_VAL(COAP_JSON_ENCODING)
+
+///////////////////////////////////////////////////////////////////////////////
+//  CBOR and JSON Coexistence Encoding Macros
+
+#if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in CBOR and JSON...
+#include <oic/oc_rep.h>             //  Import Mynewt's CBOR encoding functions.
+
+#undef COAP_CONTENT_FORMAT  //  Must manually specify content type and accept type in the CoAP header: CBOR or JSON
+#define cbor_new(mbuf)                           oc_rep_new(mbuf)
+#define cbor_reset(mbuf)                         oc_rep_reset(mbuf)
+#define cbor_finalize(mbuf)                      oc_rep_finalize(mbuf)
+
+#define cbor_start_root_object()                 oc_rep_start_root_object()
+#define cbor_end_root_object()                   oc_rep_end_root_object()
+
+#define cbor_set_array(object, key)              oc_rep_set_array(object, key)
+#define cbor_close_array(object, key)            oc_rep_close_array(object, key)
+
+#define cbor_object_array_start_item(key)        oc_rep_object_array_start_item(key)
+#define cbor_object_array_end_item(key)          oc_rep_object_array_end_item(key)
+
+#define cbor_set_int(        object, key, value) oc_rep_set_int        (object, key, value)
+#define cbor_set_uint(       object, key, value) oc_rep_set_uint       (object, key, value)
+#define cbor_set_float(      object, key, value) oc_rep_set_double     (object, key, value)
+#define cbor_set_text_string(object, key, value) oc_rep_set_text_string(object, key, value)
+
+//  Compose the CBOR payload root.
+#define CBOR_ROOT(children0) { \
+    cbor_start_root_object();  \
+    { children0; } \
+    cbor_end_root_object(); \
+}
+
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CP Macros for composing CoAP Payloads in JSON and CBOR

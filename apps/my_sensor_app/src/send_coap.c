@@ -170,9 +170,12 @@ static void network_task_func(void *arg) {
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
 
-int send_sensor_data(float tmp) {
-    //  Compose a CoAP JSON message with sensor data "tmp" and send to the CoAP server
-    //  and URI.  The message will be enqueued for transmission by the CoAP / OIC 
+int send_sensor_data_to_server(struct sensor_value *val) {
+    //  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
+    //  and send to the CoAP server and URI.  The Sensor Value may be integer or float.
+    //  For temperature, the Sensor Key is either "t" for raw temperature (integer, from 0 to 4095) 
+    //  or "tmp" for computed temperature (float).
+    //  The message will be enqueued for transmission by the CoAP / OIC 
     //  Background Task so this function will return without waiting for the message 
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 
@@ -182,11 +185,20 @@ int send_sensor_data(float tmp) {
     //    {"key":"tmp",    "value":28.7},
     //    {"key":"...",    "value":... },
     //    ... ]}
+    assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     struct oc_server_handle *server = coap_server.handle;
     const char *uri = COAP_URI;
     const char *device_str = device_id_text;
     assert(server);  assert(uri);  assert(device_str);
+
+#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
+    if (nrf24l01_collector_node()) {  //  If this is a Collector Node...
+        console_printf("RSN remote sensor rx: rawtmp %d\n", raw_tmp);  ////
+        console_printf("ESP send to coap svr: rawtmp %d\n", raw_tmp);  ////
+        console_flush();  ////
+    }
+#endif  //  MYNEWT_VAL(NRF24L01)
 
     //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -200,9 +212,14 @@ int send_sensor_data(float tmp) {
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
             CP_ITEM_STR(values, "device", device_str);
 
-            //  Append to the "values" array:
-            //    {"key":"tmp", "value":28.7}
-            CP_ITEM_FLOAT(values, "tmp", tmp);
+            //  Append to the "values" array the key and value:
+            //    {"key":"t",   "value":2870} for raw temperature
+            //    {"key":"tmp", "value":28.7} for computed temperature
+            if (val->val_type == SENSOR_VALUE_TYPE_INT32) {
+                CP_ITEM_INT(values, val->key, val->int_val);      //  Raw temperature (integer)
+            } else if (val->val_type == SENSOR_VALUE_TYPE_FLOAT) {
+                CP_ITEM_FLOAT(values, val->key, val->float_val);  //  Computed temperature (float)
+            } else { assert(0); }  //  Unknown sensor value type.
 
             //  If there are more sensor values, add them here with
             //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
@@ -231,23 +248,17 @@ int send_sensor_data(float tmp) {
 
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
 
-int send_sensor_data(uint16_t raw_tmp) {
-    //  Compose a CoAP CBOR message with sensor data "raw_tmp" (raw temperature) and 
-    //  transmit to the Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
+int send_sensor_data_to_collector(struct sensor_value *val) {
+    //  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
+    //  transmit to the Collector Node.  The Sensor Value should be integer not float since
+    //  we transmit integers only to the Collector Node.
+    //  For temperature, the Sensor Key is "t" for raw temperature (integer, from 0 to 4095).
+    //  The message will be enqueued for transmission by the CoAP / OIC 
     //  Background Task so this function will return without waiting for the message 
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-    //  "raw_tmp" has values between 0 to 4095.
-
     //  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
     //    { t: 2870 }
-
-    if (nrf24l01_collector_node()) {  //  If this is a Collector Node...
-        console_printf("RSN remote sensor rx: rawtmp %d\n", raw_tmp);  ////
-        console_printf("ESP send to coap svr: rawtmp %d\n", raw_tmp);  ////
-        console_flush();  ////
-        return 0;  //  TODO: Transmit to CoAP Server.
-    }
-
+    assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     struct oc_server_handle *server = coap_server.handle;
     const char *uri = COAP_URI;
@@ -259,10 +270,12 @@ int send_sensor_data(uint16_t raw_tmp) {
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     int rc = init_sensor_post(server, uri);  assert(rc != 0);
 
-    //  Compose the CoAP Payload in CBOR using the CP macros.
-    CP_ROOT({  //  Create the payload root
-        rep_set_uint(root, t, raw_tmp);  //  TODO: Wrap with CP macro.
-    });  //  End CP_ROOT:  Close the payload root
+    //  Compose the CoAP Payload in CBOR using the CBOR macros.
+    CBOR_ROOT({  //  Create the payload root
+        //  Insert the sensor key and value, e.g. t: 2870
+        assert(val_type == SENSOR_VALUE_TYPE_INT32);  //  We only send raw sensor values (integer), not computed values.
+        cbor_set_int(root, val->key, val->int_val);   //  Insert the sensor key and value.
+    });  //  End CBOR_ROOT:  Close the payload root
 
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
