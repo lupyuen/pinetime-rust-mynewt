@@ -33,6 +33,7 @@ static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
 static coap_packet_t oc_c_request[1]; //  CoAP request.
 static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
 static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready for sending sensor data.
+static int oc_content_format = 0;          //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
@@ -60,12 +61,16 @@ dispatch_coap_request(void)
     //  Serialise the CoAP request and payload into the final mbuf format for transmitting.
     //  Forward the serialised mbuf to the background transmit task for transmitting.
     bool ret = false;
-    int response_length = rep_finalize();
+    assert(oc_content_format);
+    int response_length = 
+        (oc_content_format == APPLICATION_JSON) ? json_rep_finalize() :
+        (oc_content_format == APPLICATION_CBOR) ? oc_rep_finalize() :
+        assert(0);  //  Unknown CoAP content format.
 
     if (response_length) {
         oc_c_request->payload_m = oc_c_rsp;
         oc_c_request->payload_len = response_length;
-        coap_set_header_content_format(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
+        coap_set_header_content_format(oc_c_request, oc_content_format);  //  Either JSON or CBOR.
     } else {
         os_mbuf_free_chain(oc_c_rsp);
     }
@@ -104,7 +109,10 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
     if (!oc_c_message) {
         goto free_rsp;
     }
-    rep_new(oc_c_rsp);
+    
+    if (oc_content_format == APPLICATION_JSON) { json_rep_new(oc_c_rsp); }
+    else if (oc_content_format == APPLICATION_CBOR) { oc_rep_new(oc_c_rsp); }
+    else { assert(0); }  //  Unknown CoAP content format.
 
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
     coap_set_header_accept(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
@@ -129,13 +137,21 @@ free_rsp:
 }
 
 bool
-init_sensor_post(struct oc_server_handle *server, const char *uri)
+init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
 {
     //  Create a new sensor post request to send to CoAP server.
     assert(oc_sensor_coap_ready);  assert(server);  assert(uri);
+#ifdef COAP_CONTENT_FORMAT
+    //  If content format is not specified, select the default.
+    if (coap_content_format == 0) { coap_content_format = COAP_CONTENT_FORMAT; }
+#endif  //  COAP_CONTENT_FORMAT
+    assert(coap_content_format != 0);  //  CoAP Content Format not specified
+
+    //  Lock the semaphore for preparing the CoAP request.
     os_error_t rc = os_sem_pend(&oc_sem, OS_TIMEOUT_NEVER);  //  Allow only 1 task to be creating a sensor request at any time.
     assert(rc == OS_OK);
 
+    oc_content_format = coap_content_format;
     oc_qos_t qos = LOW_QOS;  //  Default to low QoS, no transactions.
     oc_response_handler_t handler = handle_coap_response;
     oc_client_cb_t *cb;

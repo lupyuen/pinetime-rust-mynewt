@@ -31,8 +31,9 @@ void init_sensor_coap(void);
 //  Return true if the Sensor CoAP is ready for sending sensor data.
 bool sensor_coap_ready(void);
 
-//  Create a new sensor post request to send to CoAP server.
-bool init_sensor_post(struct oc_server_handle *server, const char *uri);
+//  Create a new sensor post request to send to CoAP server.  coap_content_format is 
+//  APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
+bool init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
 
 //  Send the sensor post request to CoAP server.
 bool do_sensor_post(void);
@@ -60,10 +61,6 @@ void json_rep_start_root_object(void);
 //  End the JSON representation.  Assume top level is object.
 //  {... --> {...}
 void json_rep_end_root_object(void);
-
-#define rep_new(mbuf)           json_rep_new(mbuf)
-#define rep_reset(mbuf)         json_rep_reset(mbuf)
-#define rep_finalize(mbuf)      json_rep_finalize(mbuf)
 
 //  Start the JSON representation.  Assume top level is object.
 //  --> {
@@ -108,9 +105,6 @@ void json_rep_end_root_object(void);
 #include <oic/oc_rep.h>             //  Use the default Mynewt encoding in CBOR.
 
 #define COAP_CONTENT_FORMAT APPLICATION_CBOR  //  Specify CBOR content type and accept type in the CoAP header.
-#define rep_new(mbuf)                           oc_rep_new(mbuf)
-#define rep_reset(mbuf)                         oc_rep_reset(mbuf)
-#define rep_finalize(mbuf)                      oc_rep_finalize(mbuf)
 
 #define rep_start_root_object()                 oc_rep_start_root_object()
 #define rep_end_root_object()                   oc_rep_end_root_object()
@@ -135,9 +129,6 @@ void json_rep_end_root_object(void);
 #include <oic/oc_rep.h>             //  Import Mynewt's CBOR encoding functions.
 
 #undef COAP_CONTENT_FORMAT  //  Must manually specify content type and accept type in the CoAP header: CBOR or JSON
-#define cbor_new(mbuf)                           oc_rep_new(mbuf)
-#define cbor_reset(mbuf)                         oc_rep_reset(mbuf)
-#define cbor_finalize(mbuf)                      oc_rep_finalize(mbuf)
 
 #define cbor_start_root_object()                 oc_rep_start_root_object()
 #define cbor_end_root_object()                   oc_rep_end_root_object()
