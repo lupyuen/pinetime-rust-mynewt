@@ -21,6 +21,8 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
+struct sensor_value;
+
 //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
 //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
 //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.

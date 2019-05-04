@@ -22,7 +22,8 @@
 #include <console/console.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
-#include "send_coap.h"        //  For send_sensor_data()
+#include <sensor_coap/sensor_coap.h>  //  For sensor_value
+#include "send_coap.h"                //  For send_sensor_data()
 #include "listen_sensor.h"
 #ifdef SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
 

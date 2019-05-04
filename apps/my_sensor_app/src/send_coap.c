@@ -11,6 +11,12 @@
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
 
+#include <sensor/sensor.h>            //  For SENSOR_VALUE_TYPE_INT32
+#include <console/console.h>
+#include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
+#include "geolocate.h"                //  For geolocate()
+#include "send_coap.h"
+
 #if MYNEWT_VAL(ESP8266)          //  If ESP8266 WiFi is enabled...
 #include <esp8266/esp8266.h>     //  ESP8266 driver functions
 #include <esp8266/transport.h>   //  ESP8266 transport for CoAP
@@ -23,11 +29,6 @@ static int send_sensor_data_to_server(struct sensor_value *val);
 #include <nrf24l01/transport.h>  //  nRF24L01 transport for CoAP
 static int send_sensor_data_to_collector(struct sensor_value *val);
 #endif  //  MYNEWT_VAL(NRF24L01)
-
-#include <console/console.h>
-#include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
-#include "geolocate.h"                //  For geolocate()
-#include "send_coap.h"
 
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
@@ -139,14 +140,14 @@ static void network_task_func(void *arg) {
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-    //  Register the ESP8266 driver as the network transport for CoAP.
+    //  Register the ESP8266 driver as the network transport for CoAP Server.
     rc = esp8266_register_transport(SERVER_NETWORK_INTERFACE, &coap_server);  
     assert(rc == 0);
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
-    //  Register the nRF24L01 driver as the network transport for CoAP.
-    rc = nrf24l01_register_transport(SENSOR_NETWORK_INTERFACE, &coap_server);  
+    //  Register the nRF24L01 driver as the network transport for CoAP Collector.
+    rc = nrf24l01_register_transport(SENSOR_NETWORK_INTERFACE, &coap_collector);  
     assert(rc == 0);
 #endif  //  MYNEWT_VAL(NRF24L01)
 
@@ -215,8 +216,8 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
 
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
     if (nrf24l01_collector_node()) {  //  If this is a Collector Node...
-        console_printf("RSN remote sensor rx: rawtmp %d\n", raw_tmp);  ////
-        console_printf("ESP send to coap svr: rawtmp %d\n", raw_tmp);  ////
+        console_printf("RSN remote sensor rx: rawtmp %d\n", val->int_val);  ////
+        console_printf("ESP send to coap svr: rawtmp %d\n", val->int_val);  ////
         console_flush();  ////
     }
 #endif  //  MYNEWT_VAL(NRF24L01)
@@ -294,7 +295,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     //  Compose the CoAP Payload in CBOR using the CBOR macros.
     CBOR_ROOT({  //  Create the payload root
         //  Insert the sensor key and value, e.g. t: 2870
-        assert(val_type == SENSOR_VALUE_TYPE_INT32);  //  We only send raw sensor values (integer), not computed values.
+        assert(val->val_type == SENSOR_VALUE_TYPE_INT32);  //  We only send raw sensor values (integer), not computed values.
         cbor_set_int(root, val->key, val->int_val);   //  Insert the sensor key and value.
     });  //  End CBOR_ROOT:  Close the payload root
 
@@ -303,7 +304,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     //  to compose and post CoAP messages.
     rc = do_sensor_post();  assert(rc != 0);
 
-    console_printf("NRF send to collector: rawtmp %d\n", raw_tmp);  ////
+    console_printf("NRF send to collector: rawtmp %d\n", val->int_val);  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
     //  transmit the message: libs/nrf24l01/src/transport.cpp

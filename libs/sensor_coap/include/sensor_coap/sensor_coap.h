@@ -8,6 +8,16 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
+//  sensor_value represents a decoded sensor data value. Since temperature may be integer (raw)
+//  or float (computed), we use the struct to return both integer and float values.
+//  val_type indicates whether it's an integer or float.
+struct sensor_value {
+    const char *key;        //  "t" for raw temp, "tmp" for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
+    int         val_type;   //  The type of the sensor value. SENSOR_VALUE_TYPE_INT32 for int, SENSOR_VALUE_TYPE_FLOAT for float.
+    uint16_t    int_val;    //  For raw temp, contains the raw temp integer value
+    float       float_val;  //  For computed temp, contains the computed temp float value
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Sensor CoAP Functions
 
