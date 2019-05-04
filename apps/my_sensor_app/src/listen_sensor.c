@@ -67,7 +67,7 @@ int start_sensor_listener(void) {
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     struct sensor *listen_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE, NULL);
-    assert(my_sensor != NULL);
+    assert(listen_sensor != NULL);
 
     //  Set the listener function to be called every 10 seconds, with the polled sensor data.
     rc = sensor_register_listener(listen_sensor, &listener);

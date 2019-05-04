@@ -4,16 +4,17 @@
 #define __SEND_COAP_H__
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
 
-//  Define NETWORK_DEVICE, the name of the network transceiver device to be used for sending CoAP messages,
+//  Define SERVER_NETWORK_INTERFACE, the network interface for transmitting to CoAP Server (via ESP8266)
+//  and SENSOR_NETWORK_INTERFACE, the network interface for transmitting to Collector Node (via nRF24L01)
 
 #if MYNEWT_VAL(ESP8266)       //  If ESP8266 WiFi is enabled...
 #include <esp8266/esp8266.h>  //  For ESP8266_DEVICE
-#define NETWORK_DEVICE ESP8266_DEVICE  //  Will be set to "esp8266_0"
+#define SERVER_NETWORK_INTERFACE ESP8266_DEVICE  //  Will be set to "esp8266_0"
 #endif  //  MYNEWT_VAL(ESP8266)
 
-#if MYNEWT_VAL(NRF24L01)       //  If nRF24L01 Wireless Network is enabled...
-#include <nrf24l01/nrf24l01.h>          //  For NRF24L01_DEVICE
-#define NETWORK_DEVICE NRF24L01_DEVICE  //  Will be set to "nrf24l01_0"
+#if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
+#include <nrf24l01/nrf24l01.h>  //  For NRF24L01_DEVICE
+#define SENSOR_NETWORK_INTERFACE NRF24L01_DEVICE  //  Will be set to "nrf24l01_0"
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 #ifdef __cplusplus

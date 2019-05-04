@@ -123,7 +123,7 @@ static void network_task_func(void *arg) {
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     {   //  Lock the ESP8266 or nRF24L01 driver for exclusive use.
         //  Find the ESP8266 or nRF24L01 device by name e.g. "esp8266_0", "nrf24l01_0"
-        struct os_dev *dev0 = os_dev_open(NETWORK_DEVICE, OS_TIMEOUT_NEVER, NULL);  //  NETWORK_DEVICE is "esp8266_0" or "nrf24l01_0"
+        struct os_dev *dev0 = os_dev_open(SERVER_NETWORK_INTERFACE, OS_TIMEOUT_NEVER, NULL);  //  SERVER_NETWORK_INTERFACE is "esp8266_0" or "nrf24l01_0"
         assert(dev0 != NULL);
 
         //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
@@ -140,19 +140,19 @@ static void network_task_func(void *arg) {
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     //  Register the ESP8266 driver as the network transport for CoAP.
-    rc = esp8266_register_transport(NETWORK_DEVICE, &coap_server);  
+    rc = esp8266_register_transport(SERVER_NETWORK_INTERFACE, &coap_server);  
     assert(rc == 0);
 #endif  //  MYNEWT_VAL(ESP8266)
 
 #if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
     //  Register the nRF24L01 driver as the network transport for CoAP.
-    rc = nrf24l01_register_transport(NETWORK_DEVICE, &coap_server);  
+    rc = nrf24l01_register_transport(SENSOR_NETWORK_INTERFACE, &coap_server);  
     assert(rc == 0);
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
     //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-    rc = geolocate(NETWORK_DEVICE, coap_server.handle, COAP_URI, device_id_text);  assert(rc >= 0);
+    rc = geolocate(SERVER_NETWORK_INTERFACE, coap_server.handle, COAP_URI, device_id_text);  assert(rc >= 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
     //  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
