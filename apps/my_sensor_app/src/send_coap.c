@@ -174,7 +174,7 @@ int send_sensor_data(struct sensor_value *val) {
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
-    //  For Collector Node: Send to CoAP Server.
+    //  For Collector Node: Send to CoAP Server.  Requires ESP8266.
     if (nrf24l01_collector_node()) { return send_sensor_data_to_server(val); }
     //  For Sensor Node: Send to Collector Node.
     else if (nrf24l01_sensor_node()) { return send_sensor_data_to_collector(val); }
