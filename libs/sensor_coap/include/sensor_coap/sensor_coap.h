@@ -41,7 +41,7 @@ bool do_sensor_post(void);
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON Encoding Macros
 
-#if MYNEWT_VAL(COAP_JSON_ENCODING) && !MYNEWT_VAL(COAP_CBOR_ENCODING)   //  If we are encoding the CoAP payload in JSON only...
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON...
 #include <json/json.h>
 #define COAP_CONTENT_FORMAT APPLICATION_JSON   //  Specify JSON content type and accept type in the CoAP header.
 #define JSON_VALUE_TYPE_EXT_FLOAT (6)          //  For custom encoding of floats.
@@ -96,7 +96,7 @@ void json_rep_end_root_object(void);
 #define rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
 #define rep_set_float(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
 #define rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING) && !MYNEWT_VAL(COAP_CBOR_ENCODING)
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR Encoding Macros

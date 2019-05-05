@@ -290,7 +290,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    int rc = init_sensor_post(server, uri);  assert(rc != 0);
+    int rc = init_sensor_post(server, uri, 0);  assert(rc != 0);
 
     //  Compose the CoAP Payload in CBOR using the CBOR macros.
     CBOR_ROOT({  //  Create the payload root
