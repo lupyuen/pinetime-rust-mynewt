@@ -123,5 +123,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c",
+		"bookmarks": [
+			{
+				"line": 339,
+				"column": 11,
+				"label": ""
+			}
+		]
 	}
 ]

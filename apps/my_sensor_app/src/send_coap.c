@@ -209,7 +209,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     //    ... ]}
     assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    struct oc_server_handle *server = coap_server.handle;
+    struct oc_server_handle *server = coap_collector.handle;
     const char *uri = COAP_URI;
     const char *device_str = device_id_text;
     assert(server);  assert(uri);  assert(device_str);
