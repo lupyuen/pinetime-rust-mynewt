@@ -237,11 +237,15 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
             //  Append to the "values" array the key and value:
             //    {"key":"t",   "value":2870} for raw temperature
             //    {"key":"tmp", "value":28.7} for computed temperature
-            if (val->val_type == SENSOR_VALUE_TYPE_INT32) {
-                CP_ITEM_INT(values, val->key, val->int_val);      //  Raw temperature (integer)
-            } else if (val->val_type == SENSOR_VALUE_TYPE_FLOAT) {
-                CP_ITEM_FLOAT(values, val->key, val->float_val);  //  Computed temperature (float)
-            } else { assert(0); }  //  Unknown sensor value type.
+
+#if MYNEWT_VAL(RAW_TEMP)  //  If we are transmitting raw temperature (integer)...
+            assert(val->val_type == SENSOR_VALUE_TYPE_INT32);
+            CP_ITEM_INT(values, val->key, val->int_val);      //  Raw temperature (integer)
+            
+#else  //  If we are transmitting computed temperature (float)
+            assert(val->val_type == SENSOR_VALUE_TYPE_FLOAT);
+            CP_ITEM_FLOAT(values, val->key, val->float_val);  //  Computed temperature (float)
+#endif  //  MYNEWT_VAL(RAW_TEMP) 
 
             //  If there are more sensor values, add them here with
             //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
