@@ -51,7 +51,8 @@
 			"oc_constants.h": "c",
 			"oc_helpers.h": "c",
 			"cbor_mbuf_writer.h": "c",
-			"assert.h": "c"
+			"assert.h": "c",
+			"oc_assert.h": "c"
 		}
 	}
 }

@@ -125,11 +125,21 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/api/oc_rep.c",
+		"bookmarks": [
+			{
+				"line": 143,
+				"column": 12,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c",
 		"bookmarks": [
 			{
 				"line": 339,
-				"column": 11,
+				"column": 19,
 				"label": ""
 			}
 		]

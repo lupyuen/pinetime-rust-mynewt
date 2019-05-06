@@ -87,10 +87,34 @@ syscfg.vals:
     OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
     OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores
 
-# Settings for Tutorial 1
-syscfg.vals.TUTORIAL1:
-    BME280_OFB:             1  # Enable BME280 offboard sensor
-    SPI_0_MASTER:           1  # Enable port SPI1 for BME280
+# Settings for Tutorial 3
+syscfg.vals.TUTORIAL3:
+    NRF24L01:               1  # Enable nRF24L01 driver    
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
+    REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
+    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
+
+    # Previous Settings
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    ESP8266:                1  # Enable WiFi access with ESP8266
+    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
+    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
+    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+
+    # OIC Settings
+    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_SERVER:              0  # Disable the OIC (CoAP) server library
+    OC_TRANS_SECURITY:      0  # Disable TLS security
+    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
+    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
+    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
+    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
+    OC_APP_RESOURCES:       2  # Max number of server resources
+    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
+    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
+    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
 
 # Settings for Tutorial 2
 syscfg.vals.TUTORIAL2:
@@ -113,31 +137,7 @@ syscfg.vals.TUTORIAL2:
     OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
     OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
 
-# Settings for Tutorial 3
-syscfg.vals.TUTORIAL3:
-    NRF24L01:               1  # Enable nRF24L01 driver    
-    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
-    REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
-    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
-    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
-    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
-
-    # Previous Settings
-    SENSOR_COAP:            1  # Send sensor data to CoAP server
-    ESP8266:                1  # TODO: Enable WiFi access with ESP8266
-    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
-    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
-
-    # OIC Settings
-    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
-    OC_SERVER:              0  # Disable the OIC (CoAP) server library
-    OC_TRANS_SECURITY:      0  # Disable TLS security
-    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
-    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
-    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
-    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
-    OC_APP_RESOURCES:       2  # Max number of server resources
-    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
-    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
-    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
+# Settings for Tutorial 1
+syscfg.vals.TUTORIAL1:
+    BME280_OFB:             1  # Enable BME280 offboard sensor
+    SPI_0_MASTER:           1  # Enable port SPI1 for BME280
