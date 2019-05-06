@@ -27,9 +27,9 @@
 #include "listen_sensor.h"
 #ifdef SENSOR_DEVICE  //  If either internal temperature sensor or BME280 is enabled...
 
-#define MY_SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
-#define LISTENER_CB         1            //  Indicate that this is a listener callback
-#define READ_CB             2            //  Indicate that this is a sensor read callback
+#define SENSOR_POLL_TIME (10 * 1000)  //  Poll every 10,000 milliseconds (10 seconds)  
+#define LISTENER_CB      1            //  Indicate that this is a listener callback
+#define READ_CB          2            //  Indicate that this is a sensor read callback
 
 static int get_temperature(void *sensor_data, sensor_type_t type, struct sensor_value *return_value);
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
@@ -63,7 +63,7 @@ int start_sensor_listener(void) {
     console_printf("TMP poll " SENSOR_DEVICE "\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-    int rc = sensor_set_poll_rate_ms(SENSOR_DEVICE, MY_SENSOR_POLL_TIME);
+    int rc = sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME);
     assert(rc == 0);
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
