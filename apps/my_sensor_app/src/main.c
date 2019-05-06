@@ -24,10 +24,10 @@ int main(int argc, char **argv) {
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
     sysinit();  console_flush();
 
-#ifdef NETWORK_DEVICE  //  If the ESP8266 WiFi transceiver is enabled...
-    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
+#if defined(SERVER_NETWORK_INTERFACE) || defined(SENSOR_NETWORK_INTERFACE)  //  If the ESP8266 or nRF24L01 is enabled...
+    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
-    //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
     int rc1 = start_network_task();  assert(rc1 == 0);
 #endif  //  NETWORK_DEVICE
 
