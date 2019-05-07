@@ -36,7 +36,7 @@ void *_estack;  //  End of stack, defined in Linker Script.
 //  Second word contains address of entry point (Reset_Handler)
 static uint32_t img_start[2] = {
     (uint32_t) &_estack,  //  ORIGIN (RAM) + LENGTH (RAM) = 0x20005000
-    0x8000000 +  0x412c,  //  TODO
+    0x8001000 + 0x412c,  //  TODO
 };
 
 int
