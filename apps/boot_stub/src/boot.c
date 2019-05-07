@@ -26,18 +26,17 @@
 #include <hal/hal_system.h>
 #include <hal/hal_flash.h>
 #include <console/console.h>
+#include <sysflash/sysflash.h>
 
 #define BOOT_AREA_DESC_MAX  (256)
 #define AREA_DESC_MAX       (BOOT_AREA_DESC_MAX)
 
 void *_estack;  //  End of stack, defined in Linker Script.
+extern const struct flash_area sysflash_map_dflt[];  //  Contains addresses of flash sections. Defined in bin/targets/bluepill_boot/generated/src/bluepill_boot-sysflash.c
 
 //  First word contains initial MSP value
 //  Second word contains address of entry point (Reset_Handler)
-static uint32_t img_start[2] = {
-    (uint32_t) &_estack,  //  ORIGIN (RAM) + LENGTH (RAM) = 0x20005000
-    0x8001000 + 0x412c,  //  TODO
-};
+static uint32_t img_start[2];
 
 int
 main(void)
@@ -50,8 +49,15 @@ main(void)
     //  Previously: rc = boot_go(&rsp);
 
     //  First word contains initial MSP value
+    img_start[0] = (uint32_t) &_estack;  //  ORIGIN (RAM) + LENGTH (RAM) = 0x20005000
+
     //  Second word contains address of entry point (Reset_Handler)
+    img_start[1] = sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x08001000
+        + 0x12c;  //  Offset of Reset_Handler from start of image
+
+    //  Jump to Reset_Handler of the application.
     hal_system_start((void *) img_start);
 
+    //  Should never come here.
     return 0;
 }

@@ -53,7 +53,9 @@
 			"cbor_mbuf_writer.h": "c",
 			"assert.h": "c",
 			"oc_assert.h": "c",
-			"send_coap.h": "c"
+			"send_coap.h": "c",
+			"sysflash.h": "c",
+			"flash_map.h": "c"
 		}
 	}
 }
