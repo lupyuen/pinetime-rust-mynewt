@@ -25,3 +25,4 @@ syscfg.vals:
     SYSINIT_CONSTRAIN_INIT: 0
     OS_SCHEDULING: 0
     MSYS_1_BLOCK_COUNT: 0
+    UART_0: 0  # Disable UART port to reduce ROM size
