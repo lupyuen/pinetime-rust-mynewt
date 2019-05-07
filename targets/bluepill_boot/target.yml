@@ -1,3 +1,3 @@
 target.app: "apps/boot_stub"
 target.bsp: "@apache-mynewt-core/hw/bsp/bluepill"
-target.build_profile: debug
+target.build_profile: optimized

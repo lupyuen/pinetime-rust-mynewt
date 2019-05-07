@@ -30,10 +30,12 @@
 #define BOOT_AREA_DESC_MAX  (256)
 #define AREA_DESC_MAX       (BOOT_AREA_DESC_MAX)
 
+void *_estack;  //  End of stack, defined in Linker Script.
+
 //  First word contains initial MSP value
 //  Second word contains address of entry point (Reset_Handler)
 static uint32_t img_start[2] = {
-    0x20005000,           //  _estack = (ORIGIN (RAM) + LENGTH (RAM))
+    (uint32_t) &_estack,  //  ORIGIN (RAM) + LENGTH (RAM) = 0x20005000
     0x8000000 +  0x412c,  //  TODO
 };
 
