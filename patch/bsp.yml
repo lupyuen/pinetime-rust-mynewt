@@ -39,18 +39,18 @@ bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/bluepill/bluepill_debug.cmd"
 
 bsp.flash_map:
     areas:
-        # System areas in lower 64 KB ROM.
+        # Bootloader Stub and Application located in lower 64 KB ROM.
         FLASH_AREA_BOOTLOADER:
             device: 0
             offset: 0x08000000
-            size: 16kB
+            size: 4kB
         FLASH_AREA_IMAGE_0:
             # Must sync with scripts/flash-app.ocd, repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
             device: 0
-            offset: 0x08004000 
-            size: 48kB
+            offset: 0x08001000 
+            size: 60kB
 
-        # User areas in upper 64 KB ROM.
+        # Log and Filesystem located in upper 64 KB ROM.
         FLASH_AREA_REBOOT_LOG:
             user_id: 0
             device: 0
