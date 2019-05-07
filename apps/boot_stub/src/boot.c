@@ -21,36 +21,35 @@
 #include <stddef.h>
 #include <inttypes.h>
 #include "os/mynewt.h"
-#include <flash_map/flash_map.h>
 
 #include <hal/hal_bsp.h>
 #include <hal/hal_system.h>
 #include <hal/hal_flash.h>
 #include <console/console.h>
-#include "bootutil/image.h"
-#include "bootutil/bootutil.h"
 
 #define BOOT_AREA_DESC_MAX  (256)
 #define AREA_DESC_MAX       (BOOT_AREA_DESC_MAX)
 
+//  First word contains initial MSP value
+//  Second word contains address of entry point (Reset_Handler)
+static uint32_t img_start[2] = {
+    0x20005000,           //  _estack = (ORIGIN (RAM) + LENGTH (RAM))
+    0x8000000 +  0x412c,  //  TODO
+};
+
 int
 main(void)
 {
-    struct boot_rsp rsp;
-    int rc;
-
+    //  This is a stub bootloader for Blue Pill.  We jump straight into the application.
+    //  This simple bootloader allows the application to take up more ROM space.
     hal_bsp_init();
 
-#if MYNEWT_VAL(BOOT_SERIAL)
-    sysinit();
-#else
-    flash_map_init();
-#endif
+    //  Previously: flash_map_init();
+    //  Previously: rc = boot_go(&rsp);
 
-    rc = boot_go(&rsp);
-    assert(rc == 0);
-
-    hal_system_start((void *)(rsp.br_image_addr + rsp.br_hdr->ih_hdr_size));
+    //  First word contains initial MSP value
+    //  Second word contains address of entry point (Reset_Handler)
+    hal_system_start((void *) img_start);
 
     return 0;
 }
