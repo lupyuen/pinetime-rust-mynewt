@@ -209,7 +209,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     //    ... ]}
     assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    struct oc_server_handle *server = coap_collector.handle;
+    struct oc_server_handle *server = coap_server.handle;
     const char *uri = COAP_URI;
     const char *device_str = device_id_text;
     assert(server);  assert(uri);  assert(device_str);
@@ -241,7 +241,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
 #if MYNEWT_VAL(RAW_TEMP)  //  If we are transmitting raw temperature (integer)...
             assert(val->val_type == SENSOR_VALUE_TYPE_INT32);
             CP_ITEM_INT(values, val->key, val->int_val);      //  Raw temperature (integer)
-            
+
 #else  //  If we are transmitting computed temperature (float)
             assert(val->val_type == SENSOR_VALUE_TYPE_FLOAT);
             CP_ITEM_FLOAT(values, val->key, val->float_val);  //  Computed temperature (float)
@@ -286,7 +286,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     //    { t: 2870 }
     assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    struct oc_server_handle *server = coap_server.handle;
+    struct oc_server_handle *server = coap_collector.handle;
     const char *uri = COAP_URI;
     const char *device_str = device_id_text;
     assert(server);  assert(uri);  assert(device_str);
