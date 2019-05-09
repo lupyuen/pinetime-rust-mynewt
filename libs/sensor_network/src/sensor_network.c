@@ -31,7 +31,7 @@
 /////////////////////////////////////////////////////////
 //  Hardware IDs To Identify Collector Node and Sensor Nodes
 
-#define HARDWARE_ID_LENGTH 12  //  Hardware ID is 12 bytes for STM32
+#define HARDWARE_ID_LENGTH      12  //  Hardware ID is 12 bytes for STM32
 static const uint8_t COLLECTOR_NODE_HW_ID[HARDWARE_ID_LENGTH] = { 0x57 };  //  TODO: Mac
 static const uint8_t SENSOR_NODE_HW_IDS[SENSOR_NETWORK_SIZE][HARDWARE_ID_LENGTH] = { 
     { 0x38 },  //  TODO: Windows
@@ -49,7 +49,6 @@ static const uint8_t SENSOR_NODE_HW_IDS[SENSOR_NETWORK_SIZE][HARDWARE_ID_LENGTH]
 
 #define COLLECTOR_NODE_ADDRESS 0x7878787878ull //  Collector Node Address (Pipe 0)
 #define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull   //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
-#define SENSOR_NETWORK_SIZE    5               //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
 
 //  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
 #define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
@@ -63,17 +62,24 @@ static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
     ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
 };
 
+static unsigned long long sensor_node_address = 0;
+
 #define NODE_NAME_LENGTH 11  //  Enough for "B3B4B5B6f1" and terminating null.
 static char sensor_node_names_buf[SENSOR_NETWORK_SIZE * NODE_NAME_LENGTH];  //  Buffer for node names.
 
 //  Names (text addresses e.g. B3B4B5B6f1) of the Sensor Nodes, exported to remote_sensor_create() for setting the device name.
-const char *sensor_node_names[SENSOR_NETWORK_SIZE] = {
+static const char *sensor_node_names[SENSOR_NETWORK_SIZE] = {
     sensor_node_names_buf,
     sensor_node_names_buf + NODE_NAME_LENGTH,
     sensor_node_names_buf + 2 * NODE_NAME_LENGTH,
     sensor_node_names_buf + 3 * NODE_NAME_LENGTH,
     sensor_node_names_buf + 4 * NODE_NAME_LENGTH,
 };
+
+unsigned long long get_collector_node_address(void) { return COLLECTOR_NODE_ADDRESS; }
+unsigned long long get_sensor_node_address(void) { return sensor_node_address; }
+const unsigned long long *get_sensor_node_addresses(void) { return sensor_node_addresses; }
+const char **get_sensor_node_names(void) { return sensor_node_names; }
 
 /////////////////////////////////////////////////////////
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
@@ -196,7 +202,6 @@ bool do_collector_post(void) {
 
 static uint8_t hw_id[HARDWARE_ID_LENGTH];
 static int hw_id_len = 0;  //  Actual length of hardware ID
-static unsigned long long sensor_node_address = 0;
 
 const uint8_t *get_hardware_id(void) {
     //  Return the Hardware ID, which is unique across all microcontrollers.

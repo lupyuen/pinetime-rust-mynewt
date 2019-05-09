@@ -22,6 +22,7 @@
 #include <console/console.h>
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
+#include <sensor_network/sensor_network.h>  //  For Sensor Network Library
 #include <sensor_coap/sensor_coap.h>  //  For sensor_value
 #include "send_coap.h"                //  For send_sensor_data()
 #include "listen_sensor.h"
@@ -53,11 +54,9 @@ int start_sensor_listener(void) {
     //  After polling the sensor, call the listener function to send the sensor data 
     //  to the CoAP server (if ESP8266 is present) or Collector Node (if nRF24L01 is present).
 
-#if MYNEWT_VAL(NRF24L01)                          //  If nRF24L01 Wireless Network is enabled...
-    if (nrf24l01_collector_node()) {              //  And this is a Collector Node...
+    if (is_collector_node()) {                    //  If this is a Collector Node...
         return start_remote_sensor_listeners();   //  Start the Listener for every Remote Sensor.
     }
-#endif  //  MYNEWT_VAL(NRF24L01)
 
     //  Otherwise this is a single Sensor Node with ESP8266, or a Sensor Node connected to Collector Node via nRF24L01.
     console_printf("TMP poll " SENSOR_DEVICE "\n");
@@ -83,11 +82,14 @@ int start_sensor_listener(void) {
 
 static int start_remote_sensor_listeners(void) {
     //  Listen for sensor data transmitted by Sensor Nodes.  Transmit the received data to the CoAP server.
-
+    const char **sensor_node_names = get_sensor_node_names();
+    assert(sensor_node_names);
+    
     //  For every Sensor Node Address like "b3b4b5b6f1"...
-    for (int i = 0; i < NRL24L01_MAX_SENSOR_NODE_NAMES; i++) {
+    for (int i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         //  Fetch the Sensor Node Address e.g. "b3b4b5b6f1"
-        const char *name = nrf24l01_sensor_node_names[i];
+        const char *name = sensor_node_names[i];
+        assert(name);
 
         //  Fetch the Remote Sensor by name, which is the Sensor Node Address e.g. "b3b4b5b6f1"
         struct sensor *remote_sensor = sensor_mgr_find_next_bydevname(name, NULL);

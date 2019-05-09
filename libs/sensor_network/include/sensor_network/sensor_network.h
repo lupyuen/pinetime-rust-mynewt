@@ -48,6 +48,7 @@ extern "C" {
 #define COLLECTOR_INTERFACE_TYPE    1
 #define MAX_INTERFACE_TYPES         2
 #define MAX_ENDPOINT_SIZE           16
+#define SENSOR_NETWORK_SIZE         5   //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
 
 struct sensor_network_interface {
     uint8_t iface_type;          //  Interface Type: Server or Collector
@@ -75,6 +76,11 @@ bool is_sensor_node(void);
 bool is_standalone_node(void);
 bool should_send_to_collector(struct sensor_value *val);
 const char *get_device_id(void);
+
+unsigned long long get_collector_node_address(void);
+unsigned long long get_sensor_node_address(void);
+const unsigned long long *get_sensor_node_addresses(void);
+const char **get_sensor_node_names(void);
 
 void sensor_network_init(void);
 int sensor_network_register_interface(const struct sensor_network_interface *iface);

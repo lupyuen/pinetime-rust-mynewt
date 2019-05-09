@@ -21,11 +21,12 @@
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
+#include "sensor_network/sensor_network.h"
 #include "nrf24l01/nrf24l01.h"
 #include "remote_sensor/remote_sensor.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
-#define DEVICE_NAME        nrf24l01_sensor_node_names  //  Name of device
+#define DEVICE_NAME        get_sensor_node_names()  //  Name of device
 #define DEVICE_DEV         remote_sensor         //  Device type
 #define DEVICE_INSTANCE    remote_sensor_dev     //  Device instance
 #define DEVICE_CFG         remote_sensor_cfg     //  Device config

@@ -18,6 +18,7 @@ static int register_transport(const char *network_device, void *server_endpoint,
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
 static bool first_open = true;  //  True if this is the first time opening the driver.
+static unsigned long long sensor_node_address = 0;
 
 //  Definition of nRF24L01 Sensor Network Interface
 static const struct sensor_network_interface network_iface = {
@@ -62,7 +63,7 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     //  Power up after setting config.
     drv(dev)->powerUp();
 
-    if (nrf24l01_collector_node()) {
+    if (is_collector_node()) {
         //  For Collector Node: Start listening.
         drv(dev)->setReceiveMode(); 
     } else {
@@ -187,16 +188,14 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
 
     //  Tx and Rx Addresses: Depends whether this is Collector Node or Sensor Node
 
-    if (nrf24l01_collector_node()) {                      //  If this is the Collector Node...
+    if (is_collector_node()) {                            //  If this is the Collector Node...
         cfg->irq_pin            = MCU_GPIO_PORTA(15);     //  Collector Node gets rx interrupts on PA15
-        cfg->tx_address         = COLLECTOR_NODE_ADDRESS; //  Collector Node address
-        cfg->rx_addresses       = sensor_node_addresses;  //  Listen to all Sensor Nodes
+        cfg->tx_address         = get_collector_node_address(); //  Collector Node address
+        cfg->rx_addresses       = get_sensor_node_addresses();  //  Listen to all Sensor Nodes
         cfg->rx_addresses_len   = SENSOR_NETWORK_SIZE;    //  Number of Sensor Nodes to listen
 
     } else {                                              //  If this is a Sensor Node...
-        int node = 0;                                     //  TODO: Allocate node ID according to hardware ID
-        sensor_node_address = sensor_node_addresses[node];
-
+        sensor_node_address = get_sensor_node_address();
         cfg->irq_pin            = MCU_GPIO_PIN_NONE;      //  Disable rx interrupts for Sensor Nodes
         cfg->tx_address         = sensor_node_address;    //  Sensor Node address
         cfg->rx_addresses       = &sensor_node_address;   //  Listen to itself only. For handling acknowledgements in future

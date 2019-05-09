@@ -7,6 +7,7 @@
 #include <console/console.h>
 #include <os/os_mbuf.h>
 #include <oic/oc_rep.h>
+#include <sensor_network/sensor_network.h>
 #include <nrf24l01/nrf24l01.h>
 #include "remote_sensor/remote_sensor.h"
 
@@ -15,7 +16,7 @@ static uint8_t rxData[NRF24L01_TRANSFER_SIZE];  //  Buffer for received data.
 int remote_sensor_start(void) {
     //  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
     //  and forwards them to CoAP server via ESP8266 WiFi. Return 0 if successful.
-    if (!nrf24l01_collector_node()) { return 0; }  //  Only start for Collector Nodes, not Sensor Nodes.
+    if (!is_collector_node()) { return 0; }  //  Only start for Collector Nodes, not Sensor Nodes.
     
     //  Open the nRF24L01 driver to start listening.
     {   //  Lock the nRF24L01 driver for exclusive use.
@@ -103,6 +104,8 @@ void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
     //  TODO: Move to config.
     console_printf("NRF rx interrupt\n");
+    const char **sensor_node_names = get_sensor_node_names();
+    assert(sensor_node_names);
     //  On Collector Node: Check Pipes 1-5 for received data.
     for (;;) {
         //  Keep checking until there is no more data to process.
@@ -121,7 +124,7 @@ void nrf24l01_callback(struct os_event *ev) {
                 rxDataCnt = nrf24l01_receive(dev, pipe, rxData, NRF24L01_TRANSFER_SIZE);
                 assert(rxDataCnt > 0 && rxDataCnt <= NRF24L01_TRANSFER_SIZE);
                 //  Get the rx (sender) address for the pipe.
-                name = nrf24l01_sensor_node_names[pipe - 1];
+                name = sensor_node_names[pipe - 1];
             }
             //  Close the nRF24L01 device when we are done.
             os_dev_close((struct os_dev *) dev);
