@@ -32,17 +32,16 @@
 //  Hardware IDs To Identify Collector Node and Sensor Nodes
 
 #define HARDWARE_ID_LENGTH      12  //  Hardware ID is 12 bytes for STM32
-static const uint8_t COLLECTOR_NODE_HW_ID[HARDWARE_ID_LENGTH] = { 0x57 };  //  TODO: Mac
+static const uint8_t COLLECTOR_NODE_HW_ID[HARDWARE_ID_LENGTH] = {
+    0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67,  //  ESP8266 + nRF24L01 Collector Node
+};
 static const uint8_t SENSOR_NODE_HW_IDS[SENSOR_NETWORK_SIZE][HARDWARE_ID_LENGTH] = { 
-    { 0x38 },  //  TODO: Windows
-    { 0x38 },
-    { 0x38 },
-    { 0x38 },
-    { 0x38 },
-};  //  TODO
-
-//#define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
-//#define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
+    { 0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43 },  //  nRF24L01 Sensor Node 1
+    { 0xff },  //  TODO: nRF24L01 Sensor Node 2
+    { 0xff },  //  TODO: nRF24L01 Sensor Node 3
+    { 0xff },  //  TODO: nRF24L01 Sensor Node 4
+    { 0xff },  //  TODO: nRF24L01 Sensor Node 5
+};
 
 /////////////////////////////////////////////////////////
 //  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
@@ -219,7 +218,6 @@ bool is_collector_node(void) {
     //  This is the Collector Node if the Hardware ID matches the Collector Node Hardware ID.
     //  Fetch the hardware ID.  This is unique across all microcontrollers.
     const uint8_t *hardware_id = get_hardware_id();
-    assert(false);  ////  TODO
     if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, HARDWARE_ID_LENGTH) == 0) {
         console_printf("*** collector node\n");
         return true; 
@@ -231,11 +229,10 @@ bool is_sensor_node(void) {
     //  Return true if this is a Sensor Node.
     //  This is the Collector Node if the Hardware ID matches the Sensor Node Hardware ID.
     const uint8_t *hardware_id = get_hardware_id();
-    assert(false);  ////  TODO
     int i;
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
-            console_printf("*** sensor node %d\n", i);
+            console_printf("*** sensor node %d\n", i + 1);
             return true; 
         }
     }
@@ -272,12 +269,13 @@ void sensor_network_init(void) {
         assert(len + 1 <= NODE_NAME_LENGTH);
     }
     //  Get Sensor Node address if applicable.
+    //  TODO: Sync with above
     const uint8_t *hardware_id = get_hardware_id();
     int i;
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
             sensor_node_address = sensor_node_addresses[i];
-            console_printf("*** sensor node %d\n", i);
+            console_printf("*** sensor node %d\n", i + 1);
             break;
         }
     }
