@@ -9,64 +9,11 @@
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
-#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server...
+#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP Server or Collector Node...
 
-#include <sensor/sensor.h>            //  For SENSOR_VALUE_TYPE_INT32
-#include <console/console.h>
-#include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
-#include "geolocate.h"                //  For geolocate()
+#include <sensor_network/sensor_network.h>  //  For Sensor Network library
+#include "geolocate.h"                      //  For geolocate()
 #include "send_coap.h"
-
-#if MYNEWT_VAL(ESP8266)          //  If ESP8266 WiFi is enabled...
-#include <esp8266/esp8266.h>     //  ESP8266 driver functions
-#include <esp8266/transport.h>   //  ESP8266 transport for CoAP
-#include <hmac_prng/hmac_prng.h> //  Pseudorandom number generator for device ID
-static int send_sensor_data_to_server(struct sensor_value *val);
-#endif  //  MYNEWT_VAL(ESP8266)
-
-#if MYNEWT_VAL(NRF24L01)         //  If nRF24L01 Wireless Network is enabled...
-#include <nrf24l01/nrf24l01.h>   //  nRF24L01 driver functions
-#include <nrf24l01/transport.h>  //  nRF24L01 transport for CoAP
-static int send_sensor_data_to_collector(struct sensor_value *val);
-#endif  //  MYNEWT_VAL(NRF24L01)
-
-//  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
-//  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
-static const char COAP_HOST[] = MYNEWT_VAL(COAP_HOST);  //  CoAP hostname e.g. coap.thethings.io
-static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
-
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-//  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
-static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to the WiFi access point with this SSID e.g. my_ssid
-static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for WiFi access point e.g. my_password
-#endif  //  MYNEWT_VAL(ESP8266)
-
-//  CoAP Server and Collector Configuration
-
-#if MYNEWT_VAL(ESP8266)         //  If ESP8266 WiFi is enabled...
-static struct esp8266_server coap_server = {
-    .endpoint = {                       //  CoAP Server that will receive sensor data from this Collector Node or Standalone Node
-        .host = COAP_HOST,              //  CoAP hostname e.g. coap.thethings.io
-        .port = MYNEWT_VAL(COAP_PORT),  //  CoAP port, usually UDP port 5683
-    }
-};
-#endif  //  MYNEWT_VAL(ESP8266)
-
-#if MYNEWT_VAL(NRF24L01)        //  If nRF24L01 Wireless Network is enabled...
-static struct nrf24l01_server coap_collector = {
-    .endpoint = {                       //  CoAP Collector Node that will receive sensor data from the Sensor Node
-        .host = COAP_HOST,              //  TODO Remove: CoAP hostname e.g. coap.thethings.io
-        .port = MYNEWT_VAL(COAP_PORT),  //  TODO Remove: CoAP port, usually UDP port 5683
-    }
-};
-#endif  //  MYNEWT_VAL(NRF24L01)
-
-//  Randomly assigned device ID that will be sent in every CoAP request.
-#define DEVICE_ID_LENGTH      16                          //  16 random bytes in binary device ID
-#define DEVICE_ID_TEXT_LENGTH (1 + DEVICE_ID_LENGTH * 2)  //  33 bytes in the text device ID (including terminating null)
-static uint8_t device_id     [DEVICE_ID_LENGTH];          //  Binary device ID e.g. 0xab 0xcd 0xef ...
-static char    device_id_text[DEVICE_ID_TEXT_LENGTH];     //  Text version of the binary device ID, 2 hex digits per byte
-                                                          //  e.g. abcdef...
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
@@ -100,60 +47,27 @@ int start_network_task(void) {
 
 static void network_task_func(void *arg) {
     //  Network Task runs this function in the background to prepare the ESP8266 transceiver for
-    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
-    //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    //  sending CoAP messages.  For Standalone Node and Collector Node, we connect the ESP8266 to 
+    //  the WiFi access point and register the ESP8266 driver as the network transport for CoAP Server.  
+    //  For Collector Node and Sensor Nodes, we register the nRF24L01 driver as the network transport for 
+    //  CoAP Collector.  Also perform WiFi Geolocation if it is enabled.
     console_printf("NET start\n");  assert(!network_is_ready);
     int rc = 0;
 
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-    //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
-    rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
-    char *s = device_id_text; int i;
-    //  Convert to text e.g. abcdef...
-    for (i = 0; i < DEVICE_ID_LENGTH; i++) {
-        sprintf(s, "%02x", device_id[i]);
-        s += 2;
+    //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+    if (is_standalone_node() || is_collector_node()) {
+        rc = register_server_transport();  assert(rc == 0);
     }
-    device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
-    console_printf("NET random device id %s\n", device_id_text);
-#else  //  If ESP8266 WiFi is NOT enabled...
-    device_id_text[0] = 0;  //  Don't need device ID since we are transmitting locally.
-    device_id[0] = 0;
-#endif  //  MYNEWT_VAL(ESP8266)
 
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-    {   //  Lock the ESP8266 or nRF24L01 driver for exclusive use.
-        //  Find the ESP8266 or nRF24L01 device by name e.g. "esp8266_0", "nrf24l01_0"
-        struct os_dev *dev0 = os_dev_open(SERVER_NETWORK_INTERFACE, OS_TIMEOUT_NEVER, NULL);  //  SERVER_NETWORK_INTERFACE is "esp8266_0" or "nrf24l01_0"
-        assert(dev0 != NULL);
-
-        //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
-        //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
-        //  to pass ESP8266 events to this function.
-        struct esp8266 *dev = (struct esp8266 *) dev0;
-        rc = esp8266_connect(dev, WIFI_SSID, WIFI_PASSWORD);  
-        assert(rc == 0);
-
-        //  Close the ESP8266 or nRF24L01 device when we are done.
-        os_dev_close(dev0);
-    }  //  Unlock the ESP8266 or nRF24L01 driver for exclusive use.
-#endif  //  MYNEWT_VAL(ESP8266)
-
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-    //  Register the ESP8266 driver as the network transport for CoAP Server.
-    rc = esp8266_register_transport(SERVER_NETWORK_INTERFACE, &coap_server);  
-    assert(rc == 0);
-#endif  //  MYNEWT_VAL(ESP8266)
-
-#if MYNEWT_VAL(NRF24L01) //  If nRF24L01 Wireless Network is enabled...
-    //  Register the nRF24L01 driver as the network transport for CoAP Collector.
-    rc = nrf24l01_register_transport(SENSOR_NETWORK_INTERFACE, &coap_collector);  
-    assert(rc == 0);
-#endif  //  MYNEWT_VAL(NRF24L01)
+    //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+    if (is_collector_node() || is_sensor_node()) {
+        rc = register_collector_transport();  assert(rc == 0);
+    }
 
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
     //  Geolocate the device by sending WiFi Access Point info.  Returns number of access points sent.
-    rc = geolocate(SERVER_NETWORK_INTERFACE, coap_server.handle, COAP_URI, device_id_text);  assert(rc >= 0);
+    const char *device_id = get_device_id();  assert(device_id);
+    rc = geolocate(SERVER_NETWORK_INTERFACE, NULL, device_id);  assert(rc >= 0);
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
 
     //  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
@@ -173,18 +87,8 @@ int send_sensor_data(struct sensor_value *val) {
     //  Background Task so this function will return without waiting for the message 
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 
-#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
-    //  For Collector Node: Send to CoAP Server.  Requires ESP8266.
-    if (nrf24l01_collector_node()) { return send_sensor_data_to_server(val); }
-    //  For Sensor Node: Send to Collector Node.
-    else if (nrf24l01_sensor_node()) { return send_sensor_data_to_collector(val); }
-    assert(0);  //  Don't know how to send sensor data
-#endif  //  MYNEWT_VAL(NRF24L01)
-
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-    //  For Standalone Node: Send to CoAP Server.
+    if (should_send_to_collector(val)) { return send_sensor_data_to_collector(val); }
     return send_sensor_data_to_server(val);
-#endif  //  MYNEWT_VAL(ESP8266)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -209,30 +113,19 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     //    ... ]}
     assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    struct oc_server_handle *server = coap_server.handle;
-    const char *uri = COAP_URI;
-    const char *device_str = device_id_text;
-    assert(server);  assert(uri);  assert(device_str);
-
-#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
-    if (nrf24l01_collector_node()) {  //  If this is a Collector Node...
-        console_printf("RSN remote sensor rx: rawtmp %d\n", val->int_val);  ////
-        console_printf("ESP send to coap svr: rawtmp %d\n", val->int_val);  ////
-        console_flush();  ////
-    }
-#endif  //  MYNEWT_VAL(NRF24L01)
+    const char *device_id = get_device_id();  assert(device_id);
 
     //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    int rc = init_sensor_post(server, uri, 0);  assert(rc != 0);
+    int rc = init_server_post(NULL);  assert(rc != 0);
 
     //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
     CP_ROOT({                     //  Create the payload root
         CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
             //  Append to the "values" array:
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-            CP_ITEM_STR(values, "device", device_str);
+            CP_ITEM_STR(values, "device", device_id);
 
             //  Append to the "values" array the key and value:
             //    {"key":"t",   "value":2870} for raw temperature
@@ -257,7 +150,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    rc = do_sensor_post();  assert(rc != 0);
+    rc = do_server_post();  assert(rc != 0);
 
     console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
@@ -286,15 +179,11 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     //    { t: 2870 }
     assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    struct oc_server_handle *server = coap_collector.handle;
-    const char *uri = COAP_URI;
-    const char *device_str = device_id_text;
-    assert(server);  assert(uri);  assert(device_str);
 
     //  Start composing the CoAP message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    int rc = init_sensor_post(server, uri, 0);  assert(rc != 0);
+    int rc = init_collector_post();  assert(rc != 0);
 
     //  Compose the CoAP Payload in CBOR using the CBOR macros.
     CBOR_ROOT({  //  Create the payload root
@@ -306,7 +195,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    rc = do_sensor_post();  assert(rc != 0);
+    rc = do_collector_post();  assert(rc != 0);
 
     console_printf("NRF send to collector: rawtmp %d\n", val->int_val);  ////
 

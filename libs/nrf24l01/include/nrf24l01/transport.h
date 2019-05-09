@@ -28,13 +28,13 @@ struct nrf24l01_server {
 
 //  Register the nRF24L01 device as the transport for the specifed CoAP server.  
 //  network_device is the nRF24L01 device name e.g. "nrf24l01_0".  Return 0 if successful.
-int nrf24l01_register_transport(const char *network_device, struct nrf24l01_server *server0);
+int nrf24l01_register_transport(const char *network_device, struct nrf24l01_server *server0, const char *host, uint16_t port);
 
 //  Init the endpoint before use.  Returns 0.
-int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint);  
+int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint, const char *host, uint16_t port);  
 
 //  Init the server endpoint before use.  Returns 0.
-int init_nrf24l01_server(struct nrf24l01_server *server);        
+int init_nrf24l01_server(struct nrf24l01_server *server, const char *host, uint16_t port);        
 
 #ifdef __cplusplus
 }

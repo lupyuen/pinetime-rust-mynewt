@@ -32,6 +32,7 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/net/oic"        #  OIC library
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library. Needs vsscanf.c patch.
+    - "libs/sensor_network"                #  Sensor Network library
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
@@ -40,5 +41,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # esp8266 should be initialised after hmac_prng (Stage 630)
-    esp8266_create: 640  # Call esp8266_create() to initialise the ESP8266 driver during startup
+    # esp8266 should be initialised after rf24l01 (Stage 640)
+    esp8266_create: 650  # Call esp8266_create() to initialise the ESP8266 driver during startup

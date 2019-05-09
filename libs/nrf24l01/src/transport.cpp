@@ -3,6 +3,7 @@
 //  OIC implementation.  More about Mynewt OIC: https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html
 #include <os/os.h>
 #include <console/console.h>
+#include <sensor_network/sensor_network.h>
 #include "nrf24l01/nrf24l01.h"
 #include "nrf24l01/transport.h"
 
@@ -12,7 +13,6 @@ static int oc_ep_has_conn(const struct oc_endpoint *);
 static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *);
 static int oc_init(void);
 static void oc_shutdown(void);
-//  static void oc_event(struct os_event *ev);
 
 static const char *network_device;     //  Name of the nRF24L01 device that will be used for transmitting CoAP messages e.g. "nrf24l01_0" 
 static struct nrf24l01_server *server;  //  CoAP Server host and port.  We only support 1 server.
@@ -32,7 +32,7 @@ static const struct oc_transport transport = {
     oc_shutdown,  //  void (*ot_shutdown)(void);
 };
 
-int nrf24l01_register_transport(const char *network_device0, struct nrf24l01_server *server0) {
+int nrf24l01_register_transport(const char *network_device0, struct nrf24l01_server *server0, const char *host, uint16_t port) {
     //  Register the nRF24L01 device as the transport for the specifed CoAP server.  
     //  network_device is the nRF24L01 device name e.g. "nrf24l01_0".  Return 0 if successful.
     assert(network_device0);  assert(server0);
@@ -46,7 +46,7 @@ int nrf24l01_register_transport(const char *network_device0, struct nrf24l01_ser
         assert(transport_id >= 0);  //  Registration failed.
 
         //  Init the server endpoint before use.
-        int rc = init_nrf24l01_server(server0);
+        int rc = init_nrf24l01_server(server0, host, port);
         assert(rc == 0);
 
         //  nRF24L01 registered.  Remember the details.
@@ -59,18 +59,22 @@ int nrf24l01_register_transport(const char *network_device0, struct nrf24l01_ser
     return 0;
 }
 
-int init_nrf24l01_server(struct nrf24l01_server *server) {
+int init_nrf24l01_server(struct nrf24l01_server *server, const char *host, uint16_t port) {
     //  Init the server endpoint before use.  Returns 0.
-    int rc = init_nrf24l01_endpoint(&server->endpoint);  assert(rc == 0);
+    int rc = init_nrf24l01_endpoint(&server->endpoint, host, port));  assert(rc == 0);
     server->handle = (struct oc_server_handle *) server;
     return 0;
 }
 
-int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint) {
+int init_nrf24l01_endpoint(struct nrf24l01_endpoint *endpoint, const char *host, uint16_t port) {
     //  Init the endpoint before use.  Returns 0.
     assert(transport_id >= 0);  //  Transport ID must be allocated by OIC.
     endpoint->ep.oe_type = transport_id;  //  Populate our transport ID so that OIC will call our functions.
     endpoint->ep.oe_flags = 0;
+    if (host) { 
+        endpoint->host = host;
+        endpoint->port = port;
+    }
     return 0;
 }
 

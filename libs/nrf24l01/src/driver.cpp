@@ -6,47 +6,25 @@
 #include <hal/hal_bsp.h>
 #include <hal/hal_gpio.h>
 #include <console/console.h>
+#include <sensor_network/sensor_network.h>
 #include "nRF24L01P.h"
 #include "nrf24l01/nrf24l01.h"
-
-//  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
-
-//#define COLLECTOR_NODE_HWID 0x57  //  My Mac is Collector Node
-#define COLLECTOR_NODE_HWID 0x38  //  My Windows is Collector Node
-
-#define COLLECTOR_NODE_ADDRESS 0x7878787878ull       //  Collector Node Address (Pipe 0)
-#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull         //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
-#define SENSOR_NETWORK_SIZE    NRL24L01_MAX_RX_PIPES //  5 Sensor Nodes in the Sensor Network  (Pipes 1 to 5)
-
-//  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
-#define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
-
-//  Addresses of the 5 Sensor Nodes
-static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1 e.g. 0xB3B4B5B6f1
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
-};
-
-#define NODE_NAME_LENGTH 11  //  Enough for "B3B4B5B6f1" and terminating null.
-static char sensor_node_names_buf[SENSOR_NETWORK_SIZE * NODE_NAME_LENGTH];  //  Buffer for node names.
-
-//  Names (text addresses e.g. B3B4B5B6f1) of the Sensor Nodes, exported to remote_sensor_create() for setting the device name.
-const char *nrf24l01_sensor_node_names[SENSOR_NETWORK_SIZE] = {
-    sensor_node_names_buf,
-    sensor_node_names_buf + NODE_NAME_LENGTH,
-    sensor_node_names_buf + 2 * NODE_NAME_LENGTH,
-    sensor_node_names_buf + 3 * NODE_NAME_LENGTH,
-    sensor_node_names_buf + 4 * NODE_NAME_LENGTH,
-};
 
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
 
+static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
+
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
 static bool first_open = true;  //  True if this is the first time opening the driver.
+
+//  Definition of nRF24L01 Sensor Network Interface
+static const struct sensor_network_interface network_iface = {
+    COLLECTOR_INTERFACE_TYPE,        //  uint8_t iface_type; Interface Type: Server or Collector
+    NRF24L01_DEVICE,                 //  const char *network_device; Network device name.  Must be a static string.
+    sizeof(struct nrf24l01_server),  //  uint8_t server_endpoint_size; Server Endpoint size
+    register_transport,              //  int (*register_transport_func)(const char *network_device0, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);  //  Register transport function
+};
 
 /////////////////////////////////////////////////////////
 //  Device Creation Functions
@@ -162,39 +140,13 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
 	    hal_gpio_irq_enable(cfg->irq_pin);
     }
 
+    //  Register the Sensor Network Interface.
+    rc = sensor_network_register_interface(&network_iface);
+    assert(rc == 0);
+    
     return (OS_OK);
 err:
     return rc;
-}
-
-static uint8_t hw_id[12];  //  Hardware ID is 12 bytes for STM32
-static int hw_id_len = 0;  //  Actual length of hardware ID
-static unsigned long long sensor_node_address = 0;
-
-bool nrf24l01_collector_node(void) {
-    //  Return true if this is the collector node.
-    //  Fetch the hardware ID.  This is unique across all microcontrollers.
-    if (hw_id_len == 0) {
-        hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
-        assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
-        hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
-    }  
-    if (hw_id[0] == COLLECTOR_NODE_HWID) {
-        console_printf("*** collector node\n");
-        return true; 
-    }
-    console_printf("sensor node\n");
-    return false; 
-}
-
-bool nrf24l01_sensor_node(void) {
-    //  Return true if this is a Sensor Node.
-    return !nrf24l01_collector_node();
-}
-
-bool nrf24l01_standalone_node(void) {
-    //  Return true if this is a Standalone Node, i.e. not connected to any Collector and Sensor Nodes.
-    return false;  //  TODO
 }
 
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
@@ -258,12 +210,6 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     console_printf("nrf config\n");
     assert(dev);  assert(cfg);
 
-    //  Set the Sensor Node names for remote_sensor_create().
-    for (int i = 0; i < SENSOR_NETWORK_SIZE; i++) {
-        int len = sprintf((char *) nrf24l01_sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
-        assert(len + 1 <= NODE_NAME_LENGTH);
-    }
-
     //  Initialise the controller.
     int rc = drv(dev)->init(cfg->spi_num,       cfg->cs_pin,        cfg->ce_pin,    cfg->irq_pin,
         cfg->freq,          cfg->power,         cfg->data_rate,     cfg->crc_width, 
@@ -271,6 +217,13 @@ int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
         cfg->tx_address,    cfg->rx_addresses,  cfg->rx_addresses_len);
     assert(rc == 0);
     dev->is_configured = 1;
+    return rc;
+}
+
+static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {
+    //  Called by Sensor Network Interface to register the transport.
+    assert(server_endpoint_size >= sizeof(struct nrf24l01_server));  //  Server Endpoint too small
+    int rc = nrf24l01_register_transport(network_device, (struct nrf24l01_server *) server_endpoint, host, port);
     return rc;
 }
 

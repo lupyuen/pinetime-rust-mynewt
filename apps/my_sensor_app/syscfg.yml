@@ -11,6 +11,9 @@ syscfg.defs:
     REMOTE_SENSOR:
         description: 'Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP'
         value:        0        
+    SENSOR_NETWORK:
+        description: 'Enable Sensor Network library'
+        value:        0
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
         value:        0
@@ -92,6 +95,7 @@ syscfg.vals.TUTORIAL3:
     NRF24L01:               1  # Enable nRF24L01 driver    
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
     REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
     SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
     COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
     COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
@@ -118,6 +122,7 @@ syscfg.vals.TUTORIAL3:
 
 # Settings for Tutorial 2
 syscfg.vals.TUTORIAL2:
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
     SENSOR_COAP:            1  # Send sensor data to CoAP server
     ESP8266:                1  # Enable WiFi access with ESP8266
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor

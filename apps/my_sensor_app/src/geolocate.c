@@ -33,7 +33,7 @@ static bool filter_func(nsapi_wifi_ap_t *ap, unsigned count);
 static bool mac_matches_pattern(uint8_t bssid[6], mac_pattern *pattern);
 static bool similar_mac(uint8_t bssid1[6], uint8_t bssid2[6]);
 
-int geolocate(const char *network_device, struct oc_server_handle *server, const char *uri, const char *device_str) {
+int geolocate(const char *network_device, const char *uri, const char *device_str) {
     //  Scan for WiFi access points in your area.  Send the MAC Address and signal strength of
     //  the first 3 access points (or fewer) to thethings.io at the specified CoAP server and uri.  
     //  network_device is the ESP8266 device name e.g. "esp8266_0".  "device_str" is the random device ID string.
@@ -61,7 +61,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  Start composing the CoAP message with the WiFi access point data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    rc = init_sensor_post(server, uri);  assert(rc != 0);
+    rc = init_server_post(NULL);  assert(rc != 0);
 
     //  Compose the CoAP Payload in JSON with the first 3 access points or fewer, depending on how many
     //  access points were actually stored during the call to esp8266_scan() above.
@@ -70,7 +70,7 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    rc = do_sensor_post();  assert(rc != 0);
+    rc = do_server_post();  assert(rc != 0);
     console_printf("GEO view your geolocation at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 

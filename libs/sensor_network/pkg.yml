@@ -18,20 +18,18 @@
 
 # Dependencies for this package
 
-pkg.name:        libs/nrf24l01
-pkg.description: Driver for Nordic Semiconductor nRF24L01 and nRF24L01+ wireless transceiver, ported from mbed
+pkg.name:        libs/sensor_network
+pkg.description: Sensor Network library
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - nrf24l01
-    - nrf24l01+
+    - sensor
+    - network
 
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/hw/hal"
-    - "@apache-mynewt-core/net/oic"        #  OIC library
-    - "@apache-mynewt-core/libc/baselibc" 
-    - "libs/sensor_network"                #  Sensor Network library
+    - "@apache-mynewt-core/hw/sensor"
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
@@ -40,5 +38,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # nrf24l01 should be initialised after sensor_network (Stage 640)
-    nrf24l01_create: 650  # Call nrf24l01_create() to initialise the nRF24L01 driver during startup
+    # sensor_network should be initialised after hmac_prng (Stage 630)
+    sensor_network_init: 640  # Call sensor_network_init() to initialise the Sensor Network (Collector Node and Sensor Nodes)

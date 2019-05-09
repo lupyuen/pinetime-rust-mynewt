@@ -33,7 +33,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
 		"bookmarks": [
 			{
-				"line": 32,
+				"line": 36,
 				"column": 5,
 				"label": "pkg"
 			}

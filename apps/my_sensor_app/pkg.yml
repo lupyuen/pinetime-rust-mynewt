@@ -27,6 +27,10 @@ pkg.deps.NRF24L01:
 pkg.deps.REMOTE_SENSOR:
     - "libs/remote_sensor"                 #  Driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
 
+# Sensor Network library
+pkg.deps.SENSOR_NETWORK:
+    - "libs/sensor_network"                #  Sensor Network library
+
 # CoAP library for transmitting sensor data to CoAP server
 pkg.deps.SENSOR_COAP:
     - "libs/sensor_coap"                   #  CoAP library for transmitting sensor data
