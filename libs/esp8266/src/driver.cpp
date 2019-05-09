@@ -5,8 +5,10 @@
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include <console/console.h>
+#include <sensor_network/sensor_network.h>
 #include "Controller.h"
 #include "esp8266/esp8266.h"
+#include "esp8266/transport.h"
 
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
@@ -112,25 +114,6 @@ static int register_transport(const char *network_device, void *server_endpoint,
 
 /////////////////////////////////////////////////////////
 //  ESP8266 Driver Interface based on https://os.mbed.com/teams/ESP8266/code/esp8266-driver/file/6946b0b9e323/ESP8266Interface.cpp/
-
-//  TODO
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
-    {   //  Lock the ESP8266 or nRF24L01 driver for exclusive use.
-        //  Find the ESP8266 or nRF24L01 device by name e.g. "esp8266_0", "nrf24l01_0"
-        struct os_dev *dev0 = os_dev_open(SERVER_NETWORK_INTERFACE, OS_TIMEOUT_NEVER, NULL);  //  SERVER_NETWORK_INTERFACE is "esp8266_0" or "nrf24l01_0"
-        assert(dev0 != NULL);
-
-        //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
-        //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
-        //  to pass ESP8266 events to this function.
-        struct esp8266 *dev = (struct esp8266 *) dev0;
-        rc = esp8266_connect(dev, NULL, NULL);  
-        assert(rc == 0);
-
-        //  Close the ESP8266 or nRF24L01 device when we are done.
-        os_dev_close(dev0);
-    }  //  Unlock the ESP8266 or nRF24L01 driver for exclusive use.
-#endif  //  MYNEWT_VAL(ESP8266)
 
 int esp8266_scan(struct esp8266 *dev, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func) {
     //  Scan for WiFi access points and save into "res". Save up to "limit" number of access points.

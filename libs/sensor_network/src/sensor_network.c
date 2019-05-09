@@ -19,7 +19,10 @@
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
+#include <bsp/bsp.h>
+#include <hal/hal_bsp.h>
 #include <sensor/sensor.h>            //  For SENSOR_VALUE_TYPE_INT32
+#include <oic/messaging/coap/coap.h>  //  For APPLICATION_JSON
 #include <console/console.h>
 #include <hmac_prng/hmac_prng.h>      //  Pseudorandom number generator for device ID
 #include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
@@ -64,7 +67,7 @@ static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
 static char sensor_node_names_buf[SENSOR_NETWORK_SIZE * NODE_NAME_LENGTH];  //  Buffer for node names.
 
 //  Names (text addresses e.g. B3B4B5B6f1) of the Sensor Nodes, exported to remote_sensor_create() for setting the device name.
-const char *nrf24l01_sensor_node_names[SENSOR_NETWORK_SIZE] = {
+const char *sensor_node_names[SENSOR_NETWORK_SIZE] = {
     sensor_node_names_buf,
     sensor_node_names_buf + NODE_NAME_LENGTH,
     sensor_node_names_buf + 2 * NODE_NAME_LENGTH,
@@ -87,7 +90,7 @@ struct sensor_network_endpoint {  //  Represents one Server Endpoint e.g. ESP826
 
 static struct sensor_network_interface sensor_network_interfaces[MAX_INTERFACE_TYPES];  //  All Network Interfaces
 static struct sensor_network_endpoint sensor_network_endpoints[MAX_INTERFACE_TYPES];    //  All Server Endpoints
-static struct int sensor_network_encoding[MAX_INTERFACE_TYPES] = {                      //  Encoding for each Network Interface
+static int sensor_network_encoding[MAX_INTERFACE_TYPES] = {                      //  Encoding for each Network Interface
     APPLICATION_JSON,  //  Send to Server: JSON encoding for payload
     APPLICATION_CBOR,  //  Send to Collector: CBOR encoding for payload
 };
@@ -99,7 +102,7 @@ int sensor_network_register_interface(const struct sensor_network_interface *ifa
     assert(iface->network_device);  assert(iface->server_endpoint_size);  assert(iface->register_transport_func);
     assert(iface->server_endpoint_size <= MAX_ENDPOINT_SIZE);     //  Need to increase MAX_ENDPOINT_SIZE.
     assert(sensor_network_interfaces[i].network_device == NULL);  //  Interface already registered.
-    memcpy(&sensor_network_interfaces[i], iface, sizeof(sensor_network_interface));  //  Copy the interface.
+    memcpy(&sensor_network_interfaces[i], iface, sizeof(struct sensor_network_interface));  //  Copy the interface.
     sensor_network_interfaces[i].transport_registered = 0;        //  We defer the registration of the transport till first use.
     console_printf("SN %s %s\n", (i == 0) ? "svr" : "col", sensor_network_interfaces[i].network_device);
     return 0;
@@ -107,7 +110,7 @@ int sensor_network_register_interface(const struct sensor_network_interface *ifa
 
 bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     if (uri == NULL) { uri = COAP_URI; }
-    assert(server);  assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
+    assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     assert(iface->network_device);  assert(iface->register_transport_func);
     void *endpoint = &sensor_network_endpoints[iface_type];
@@ -164,15 +167,15 @@ bool sensor_network_do_post(uint8_t iface_type) {
 
 bool init_server_post(const char *uri) {
     uint8_t i = SERVER_INTERFACE_TYPE;
-    bool status = sensor_network_init_post(i, &sensor_network_endpoints[i], uri);
+    bool status = sensor_network_init_post(i, uri);
     assert(status);
     return status;
 }
 
 bool init_collector_post(void) {
     uint8_t i = COLLECTOR_INTERFACE_TYPE;
-    const char *url = NULL;
-    bool status = sensor_network_init_post(i, &sensor_network_endpoints[i], uri);
+    const char *uri = NULL;
+    bool status = sensor_network_init_post(i, uri);
     assert(status);
     return status;
 }
@@ -226,7 +229,7 @@ bool is_sensor_node(void) {
     int i;
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
-            console_printf("*** sensor node\n");
+            console_printf("*** sensor node %d\n", i);
             return true; 
         }
     }
@@ -262,13 +265,23 @@ void sensor_network_init(void) {
         int len = sprintf((char *) sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
         assert(len + 1 <= NODE_NAME_LENGTH);
     }
+    //  Get Sensor Node address if applicable.
+    const uint8_t *hardware_id = get_hardware_id();
+    int i;
+    for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
+        if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
+            sensor_node_address = sensor_node_addresses[i];
+            console_printf("*** sensor node %d\n", i);
+            break;
+        }
+    }
 }
 
 const char *get_device_id(void) {
     if (device_id_text[0]) { return device_id_text; }
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
-    rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
+    int rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
     char *s = device_id_text; int i;
     //  Convert to text e.g. abcdef...
     for (i = 0; i < DEVICE_ID_LENGTH; i++) {

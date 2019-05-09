@@ -61,7 +61,7 @@ int nrf24l01_register_transport(const char *network_device0, struct nrf24l01_ser
 
 int init_nrf24l01_server(struct nrf24l01_server *server, const char *host, uint16_t port) {
     //  Init the server endpoint before use.  Returns 0.
-    int rc = init_nrf24l01_endpoint(&server->endpoint, host, port));  assert(rc == 0);
+    int rc = init_nrf24l01_endpoint(&server->endpoint, host, port);  assert(rc == 0);
     server->handle = (struct oc_server_handle *) server;
     return 0;
 }

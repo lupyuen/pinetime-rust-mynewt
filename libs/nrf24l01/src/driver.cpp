@@ -9,6 +9,7 @@
 #include <sensor_network/sensor_network.h>
 #include "nRF24L01P.h"
 #include "nrf24l01/nrf24l01.h"
+#include "nrf24l01/transport.h"
 
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
@@ -143,7 +144,7 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Register the Sensor Network Interface.
     rc = sensor_network_register_interface(&network_iface);
     assert(rc == 0);
-    
+
     return (OS_OK);
 err:
     return rc;
