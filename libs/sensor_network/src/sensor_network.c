@@ -81,33 +81,35 @@ static const char COAP_URI[]  = MYNEWT_VAL(COAP_URI);   //  CoAP URI e.g. v2/thi
 /////////////////////////////////////////////////////////
 //  Sensor Networks: Interfaces, Endpoints and Encoding
 
-struct sensor_network_endpoint {
+struct sensor_network_endpoint {  //  Represents one Server Endpoint e.g. ESP8266, nRF24L01
     uint8_t endpoint[MAX_ENDPOINT_SIZE];
 };
 
-static struct sensor_network_interface sensor_network_interfaces[MAX_INTERFACE_TYPES];
-static struct sensor_network_endpoint sensor_network_endpoints[MAX_INTERFACE_TYPES];
-static struct int sensor_network_encoding[MAX_INTERFACE_TYPES] = {
+static struct sensor_network_interface sensor_network_interfaces[MAX_INTERFACE_TYPES];  //  All Network Interfaces
+static struct sensor_network_endpoint sensor_network_endpoints[MAX_INTERFACE_TYPES];    //  All Server Endpoints
+static struct int sensor_network_encoding[MAX_INTERFACE_TYPES] = {                      //  Encoding for each Network Interface
     APPLICATION_JSON,  //  Send to Server: JSON encoding for payload
     APPLICATION_CBOR,  //  Send to Collector: CBOR encoding for payload
 };
 
 int sensor_network_register_interface(const struct sensor_network_interface *iface) {
+    //  Register the Network Interface (e.g. ESP8266, nRF24L01) for the Sensor Network.
     assert(iface);
     uint8_t i = iface->iface_type;  assert(i >= 0 && i < MAX_INTERFACE_TYPES);
     assert(iface->network_device);  assert(iface->server_endpoint_size);  assert(iface->register_transport_func);
-    assert(iface->server_endpoint_size <= MAX_ENDPOINT_SIZE);  //  Need to increase MAX_ENDPOINT_SIZE.
+    assert(iface->server_endpoint_size <= MAX_ENDPOINT_SIZE);     //  Need to increase MAX_ENDPOINT_SIZE.
     assert(sensor_network_interfaces[i].network_device == NULL);  //  Interface already registered.
     memcpy(&sensor_network_interfaces[i], iface, sizeof(sensor_network_interface));  //  Copy the interface.
-    sensor_network_interfaces[i].transport_registered = 0;
+    sensor_network_interfaces[i].transport_registered = 0;        //  We defer the registration of the transport till first use.
+    console_printf("SN %s %s\n", (i == 0) ? "svr" : "col", sensor_network_interfaces[i].network_device);
     return 0;
 }
 
 bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
-    //  int esp8266_register_transport(const char *network_device0, struct esp8266_server *server0, const char *host, uint16_t port)
     if (uri == NULL) { uri = COAP_URI; }
     assert(server);  assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
+    assert(iface->network_device);  assert(iface->register_transport_func);
     void *endpoint = &sensor_network_endpoints[iface_type];
     int encoding = sensor_network_encoding[iface_type];
     if (!iface->transport_registered) {
@@ -233,7 +235,10 @@ bool is_sensor_node(void) {
 
 bool is_standalone_node(void) {
     //  Return true if this is a Standalone Node, i.e. not a Collector or Sensor Node.
-    if (!is_collector_node() && !is_sensor_node()) { return true; }
+    if (!is_collector_node() && !is_sensor_node()) { 
+        console_printf("*** standalone node\n");
+        return true; 
+    }
     return false;
 }
 

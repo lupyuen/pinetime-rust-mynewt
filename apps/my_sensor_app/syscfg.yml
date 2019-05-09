@@ -39,25 +39,6 @@ syscfg.defs:
         description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'
         value:        1  # Default console is Arm Semihosting        
     
-    # CoAP Connection Settings 
-    COAP_HOST:
-        description: 'CoAP hostname e.g. coap.thethings.io'
-        value:       '"coap.thethings.io"'
-    COAP_PORT:
-        description: 'CoAP UDP port, usually port 5683'
-        value:       5683
-    COAP_URI:
-        description: 'CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8'
-        value:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
-
-    # ESP8266 WiFi Settings
-    WIFI_SSID:
-        description: 'Connect to the WiFi access point with this SSID'
-        value:       '"my_ssid"'
-    WIFI_PASSWORD:
-        description: 'Password for WiFi access point'
-        value:       '"my_password_is_secret"'
-
     # Overall Tutorial Settings. Edit targets/bluepill_my_sensor/syscfg.yml to set the tutorial settings.
     TUTORIAL1:
         description: 'Settings for Tutorial 1'
