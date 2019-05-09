@@ -57,6 +57,8 @@ struct sensor_network_interface {
     uint8_t transport_registered;    //  For internal use: Set to non-zero if transport has been registered.
 };
 
+struct sensor_value;
+
 int register_server_transport(void);
 int register_collector_transport(void);
 int sensor_network_register_transport(uint8_t iface_type);
@@ -71,7 +73,7 @@ bool sensor_network_do_post(uint8_t iface_type);
 bool is_collector_node(void);
 bool is_sensor_node(void);
 bool is_standalone_node(void);
-bool should_send_to_collector(void);
+bool should_send_to_collector(struct sensor_value *val);
 const char *get_device_id(void);
 
 void sensor_network_init(void);

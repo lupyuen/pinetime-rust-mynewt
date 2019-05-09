@@ -242,8 +242,9 @@ bool is_standalone_node(void) {
     return false;
 }
 
-bool should_send_to_collector(void) {
+bool should_send_to_collector(struct sensor_value *val) {
     //  Return true if this node should send to a Collector Node.  Which means this must be a Sensor Node.
+    assert(val);
     if (is_sensor_node()) { return true; }
     return false;
 }

@@ -11,9 +11,14 @@
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP Server or Collector Node...
 
+#include <console/console.h>
 #include <sensor_network/sensor_network.h>  //  For Sensor Network library
+#include <sensor_coap/sensor_coap.h>        //  For Sensor CoAP library
 #include "geolocate.h"                      //  For geolocate()
 #include "send_coap.h"
+
+static int send_sensor_data_to_server(struct sensor_value *val);
+static int send_sensor_data_to_collector(struct sensor_value *val);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
@@ -152,7 +157,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     //  to compose and post CoAP messages.
     rc = do_server_post();  assert(rc != 0);
 
-    console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_str);
+    console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_id);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
