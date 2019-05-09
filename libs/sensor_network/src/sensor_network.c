@@ -209,6 +209,7 @@ const uint8_t *get_hardware_id(void) {
         hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
         assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
         hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
+        console_printf("hwid ");  console_dump(hw_id, hw_id_len);  console_printf("\n");
     }
     return hw_id;
 }

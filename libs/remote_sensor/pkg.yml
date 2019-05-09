@@ -42,5 +42,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # remote_sensor should be initialised after nrf24l01 (Stage 605)
-    remote_sensor_create: 607  # Call remote_sensor_create() to initialise the driver during startup
+    # remote_sensor should be initialised after sensor_coap (Stage 660)
+    remote_sensor_create: 670  # Call remote_sensor_create() to initialise the driver during startup

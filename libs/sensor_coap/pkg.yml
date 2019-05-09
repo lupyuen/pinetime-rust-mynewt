@@ -52,5 +52,5 @@ pkg.deps.COAP_CBOR_ENCODING:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # sensor_coap should be initialised after esp8266 (Stage 640)
-    init_sensor_coap: 650  # Call init_sensor_coap() to initialise the Sensor CoAP module during startup
+    # sensor_coap should be initialised after esp8266 (Stage 650)
+    init_sensor_coap: 660  # Call init_sensor_coap() to initialise the Sensor CoAP module during startup
