@@ -132,21 +132,16 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
             CP_ITEM_STR(values, "device", device_id);
 
-            //  Append to the "values" array the key and value:
-            //    {"key":"t",   "value":2870} for raw temperature
-            //    {"key":"tmp", "value":28.7} for computed temperature
-
-#if MYNEWT_VAL(RAW_TEMP)  //  If we are transmitting raw temperature (integer)...
-            assert(val->val_type == SENSOR_VALUE_TYPE_INT32);
-            CP_ITEM_INT(values, val->key, val->int_val);      //  Raw temperature (integer)
-
-#else  //  If we are transmitting computed temperature (float)
-            assert(val->val_type == SENSOR_VALUE_TYPE_FLOAT);
-            CP_ITEM_FLOAT(values, val->key, val->float_val);  //  Computed temperature (float)
-#endif  //  MYNEWT_VAL(RAW_TEMP) 
+#if MYNEWT_VAL(RAW_TEMP)  
+            //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
+            //    {"key":"t",   "value":2870} for raw temperature (integer)
+            CP_ITEM_INT_VAL(values, val);
+#else       //    {"key":"tmp", "value":28.7} for computed temperature (float)
+            CP_ITEM_FLOAT_VAL(values, val);
+#endif  //  MYNEWT_VAL(RAW_TEMP)
 
             //  If there are more sensor values, add them here with
-            //  CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
+            //  CP_ITEM_VAL, CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
             //  Check geolocate() for a more complex payload: apps/my_sensor_app/src/geolocate.c
 
         });                       //  End CP_ARRAY: Close the "values" array
@@ -192,10 +187,9 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
 
     //  Compose the CoAP Payload in CBOR using the CBOR macros.
     CP_ROOT({  //  Create the payload root
-        //  Insert the sensor key and value, e.g. t: 2870
-        assert(val->val_type == SENSOR_VALUE_TYPE_INT32);  //  We only send raw sensor values (integer), not computed values.
-        CP_SET_INT(root, val->key, val->int_val);   //  Insert the sensor key and value.
-    });  //  End CBOR_ROOT:  Close the payload root
+        //  Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
+        CP_SET_INT_VAL(root, val);
+    });  //  End CP_ROOT:  Close the payload root
 
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests

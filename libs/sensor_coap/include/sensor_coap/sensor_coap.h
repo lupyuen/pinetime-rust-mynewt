@@ -62,14 +62,6 @@ void json_rep_start_root_object(void);
 //  {... --> {...}
 void json_rep_end_root_object(void);
 
-//  Start the JSON representation.  Assume top level is object.
-//  --> {
-#define rep_start_root_object() json_rep_start_root_object()
-
-//  End the JSON represengtation.  Assume top level is object.
-//  {... --> {...}
-#define rep_end_root_object()   json_rep_end_root_object()
-
 //  Assume we are writing an object now.  Write the key name and start a child array.
 //  {a:b --> {a:b, key:[
 #define json_rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
@@ -104,7 +96,10 @@ void json_rep_end_root_object(void);
 
 #if MYNEWT_VAL(COAP_JSON_ENCODING) && !MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in JSON only...
 
-//  Define the generic rep* macros as json_rep*
+//  Alias the generic rep* macros as json_rep*
+#define rep_start_root_object() json_rep_start_root_object()
+#define rep_end_root_object()   json_rep_end_root_object()
+
 #define rep_set_array(  object, key) json_rep_set_array(  object, key)
 #define rep_close_array(object, key) json_rep_close_array(object, key)
 
@@ -157,6 +152,33 @@ void json_rep_end_root_object(void);
 extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
 #define JSON_ENC (oc_content_format == APPLICATION_JSON)  //  True if encoding format is JSON
 
+//  From repos\apache-mynewt-core\net\oic\include\oic\oc_rep.h
+//  Changed "#key" to "key" so that the key won't be stringified.
+
+#define oc_rep_set_int_k(object, key, value)                                     \
+  do {                                                                         \
+    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
+    g_err |= cbor_encode_int(&object##_map, value);                            \
+  } while (0)
+
+#define oc_rep_set_uint_k(object, key, value)                                    \
+  do {                                                                         \
+    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
+    g_err |= cbor_encode_uint(&object##_map, value);                           \
+  } while (0)
+
+#define oc_rep_set_float_k(object, key, value)                                    \
+  do {                                                                         \
+    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
+    g_err |= cbor_encode_float(&object##_map, value);                           \
+  } while (0)
+
+#define oc_rep_set_text_string_k(object, key, value)                             \
+  do {                                                                         \
+    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
+    g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));     \
+  } while (0)
+
 #define rep_start_root_object()                 oc_rep_start_root_object(); \
                                                   if (JSON_ENC) { json_rep_start_root_object(); }
 
@@ -183,35 +205,12 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
 
 #define rep_set_int(object, key, value)    { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int(object, key, value); } }
 #define rep_set_uint(object, key, value)   { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint(object, key, value); } }
-#define rep_set_float(object, key, value)  { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_float(object, key, value); } }
+#define rep_set_float(object, key, value)  { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double(object, key, value); } }
 #define rep_set_text_string(object, key, value)  { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string(object, key, value); } }
 
-//  From repos\apache-mynewt-core\net\oic\include\oic\oc_rep.h
-//  Changed #key to key
-
-#define oc_rep_set_int_k(object, key, value)                                     \
-  do {                                                                         \
-    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
-    g_err |= cbor_encode_int(&object##_map, value);                            \
-  } while (0)
-
-#define oc_rep_set_uint_k(object, key, value)                                    \
-  do {                                                                         \
-    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
-    g_err |= cbor_encode_uint(&object##_map, value);                           \
-  } while (0)
-
-#define oc_rep_set_float_k(object, key, value)                                    \
-  do {                                                                         \
-    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
-    g_err |= cbor_encode_float(&object##_map, value);                           \
-  } while (0)
-
-#define oc_rep_set_text_string_k(object, key, value)                             \
-  do {                                                                         \
-    g_err |= cbor_encode_text_string(&object##_map, key, strlen(key));       \
-    g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));     \
-  } while (0)
+//  Same as above, except that the key is not stringified.
+#define rep_set_int_k(object, key, value)    { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int_k(object, key, value); } }
+//  TODO
 
 #endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 
@@ -224,6 +223,15 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
     rep_start_root_object();  \
     { children0; } \
     rep_end_root_object(); \
+}
+
+#define CP_SET_INT_VAL(parent0, val0) { \
+    assert(val0->val_type == SENSOR_VALUE_TYPE_INT32); \
+    rep_set_int_k(parent0, val0->key, val0->int_val); \
+}
+
+#define CP_SET_INT(parent0, key0, value0) { \
+    rep_set_int(parent0, key0, value0); \
 }
 
 #define CP_ITEM_VAL(parent0, val0) { \
@@ -242,15 +250,6 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
 #define CP_ITEM_FLOAT_VAL(parent0, val0) { \
     assert(val0->val_type == SENSOR_VALUE_TYPE_FLOAT); \
     CP_ITEM_FLOAT(parent0, val0->key, val0->float_val); \
-}
-
-#define CP_SET_INT_VAL(parent0, val0) { \
-    assert(val0->val_type == SENSOR_VALUE_TYPE_INT32); \
-    rep_set_int(parent0, val0->key, val0->int_val); \
-}
-
-#define CP_SET_INT(parent0, key0, value0) { \
-    rep_set_int(parent0, key0, value0); \
 }
 
 //  Compose an array under "object", named as "key".  Add "children" as array elements.
