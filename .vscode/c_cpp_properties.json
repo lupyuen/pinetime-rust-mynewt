@@ -5,11 +5,13 @@
             "includePath": [
                 "${workspaceFolder}/bin/targets/bluepill_my_sensor/generated/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/encoding/json/include",
+                "${workspaceFolder}/repos/apache-mynewt-core/encoding/tinycbor/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/hw/hal/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/hw/sensor/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/kernel/os/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/kernel/os/include/os/arch/cortex_m3",
+                "${workspaceFolder}/repos/apache-mynewt-core/net/oic/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/sys/flash_map/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/sys/sysdown/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/sys/sysinit/include",
