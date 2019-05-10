@@ -33,7 +33,7 @@ static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
 static coap_packet_t oc_c_request[1]; //  CoAP request.
 static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
 static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready for sending sensor data.
-static int oc_content_format = 0;          //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
+int oc_content_format = 0;            //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions

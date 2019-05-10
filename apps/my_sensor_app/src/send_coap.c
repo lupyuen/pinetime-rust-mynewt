@@ -191,10 +191,10 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     int rc = init_collector_post();  assert(rc != 0);
 
     //  Compose the CoAP Payload in CBOR using the CBOR macros.
-    CBOR_ROOT({  //  Create the payload root
+    CP_ROOT({  //  Create the payload root
         //  Insert the sensor key and value, e.g. t: 2870
         assert(val->val_type == SENSOR_VALUE_TYPE_INT32);  //  We only send raw sensor values (integer), not computed values.
-        cbor_set_int(root, val->key, val->int_val);   //  Insert the sensor key and value.
+        CP_SET_INT(root, val->key, val->int_val);   //  Insert the sensor key and value.
     });  //  End CBOR_ROOT:  Close the payload root
 
     //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the

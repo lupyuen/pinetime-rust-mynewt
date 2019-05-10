@@ -18,18 +18,22 @@
  */
 
 //  The Sensor Network Library simplifies the coding of Sensor Networks.
-//  Instead of referring to specific network interfaces like ESP8266 and nRF24L01,
+
+//  Generic Functions: Instead of referring to specific network interfaces like ESP8266 and nRF24L01,
 //  we may now use call generic functions like init_server_post() and init_collector_post().
 //  This also prevents complicated macros like
 //  #if MYNEWT_VAL(ESP8266) && !MYNEWT_VAL(NRF24L01) ...
 
-//  The Sensor Network Library does not depend on ESP8266 and nRF24L01 drivers.
+//  Network Drivers: The Sensor Network Library does not depend on ESP8266 and nRF24L01 drivers.
 //  Instead, the ESP8266 and nRF24L01 drivers register themselves as Network Interfaces
 //  to the Sensor Network Library.  So the drivers may be easily replaced.
 
-//  The Sensor Network Library also allocates Collector Node Address and Sensor Node Address
+//  Address Allocation: The Sensor Network Library also allocates Collector Node Address and Sensor Node Address
 //  to the Collector and Sensor Nodes, based on the unique Hardware ID.  This allows the same
 //  compiled firmware to run on multiple nodes, to simplify deployment.
+
+//  Message Encoding: JSON encoding is automatically selected for CoAP Server messages. CBOR encoding is
+//  automatically selected for Collector Node messages.
 
 #ifndef __SENSOR_NETWORK_H__
 #define __SENSOR_NETWORK_H__

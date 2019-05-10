@@ -72,19 +72,19 @@ void json_rep_end_root_object(void);
 
 //  Assume we are writing an object now.  Write the key name and start a child array.
 //  {a:b --> {a:b, key:[
-#define rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
+#define json_rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
 
 //  End the child array and resume writing the parent object.
 //  {a:b, key:[... --> {a:b, key:[...]
-#define rep_close_array(object, key) json_encode_array_finish(&coap_json_encoder)
+#define json_rep_close_array(object, key) json_encode_array_finish(&coap_json_encoder)
 
 //  Assume we have called set_array.  Start an array item, assumed to be an object.
 //  [... --> [...,
-#define rep_object_array_start_item(key) { json_encode_object_start(&coap_json_encoder); }
+#define json_rep_object_array_start_item(key) { json_encode_object_start(&coap_json_encoder); }
 
 //  End an array item, assumed to be an object.
 //  [... --> [...,
-#define rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }   
+#define json_rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }   
 
 //  Define a float JSON value.
 #define JSON_VALUE_EXT_FLOAT(__jv, __v)       \
@@ -92,10 +92,23 @@ void json_rep_end_root_object(void);
 (__jv)->jv_val.fl = (float) __v;
 
 //  Encode a value into JSON: int, unsigned int, float, text, ...
-#define rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#define rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#define rep_set_float(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
-#define rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_float(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+
+//  Define the generic rep* macros as json_rep*
+#define rep_set_array(  object, key) json_rep_set_array(  object, key)
+#define rep_close_array(object, key) json_rep_close_array(object, key)
+
+#define rep_object_array_start_item(key) json_rep_object_array_start_item(key)
+#define rep_object_array_end_item(key)   json_rep_object_array_end_item(key)
+
+#define rep_set_int(        object, key, value) json_rep_set_int(        object, key, value)
+#define rep_set_uint(       object, key, value) json_rep_set_uint(       object, key, value)
+#define rep_set_float(      object, key, value) json_rep_set_float(      object, key, value)
+#define rep_set_text_string(object, key, value) json_rep_set_text_string(object, key, value)
+
 #endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -115,20 +128,55 @@ void json_rep_end_root_object(void);
 #define rep_object_array_start_item(key)        oc_rep_object_array_start_item(key)
 #define rep_object_array_end_item(key)          oc_rep_object_array_end_item(key)
 
-#define rep_set_int(        object, key, value) oc_rep_set_int        (object, key, value)
-#define rep_set_uint(       object, key, value) oc_rep_set_uint       (object, key, value)
-#define rep_set_float(      object, key, value) oc_rep_set_double     (object, key, value)
+#define rep_set_int(        object, key, value) oc_rep_set_int(        object, key, value)
+#define rep_set_uint(       object, key, value) oc_rep_set_uint(       object, key, value)
+#define rep_set_float(      object, key, value) oc_rep_set_double(     object, key, value)
 #define rep_set_text_string(object, key, value) oc_rep_set_text_string(object, key, value)
 
 #endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && !MYNEWT_VAL(COAP_JSON_ENCODING)
 
 ///////////////////////////////////////////////////////////////////////////////
-//  CBOR and JSON Coexistence Encoding Macros
+//  JSON and CBOR Coexistence Encoding Macros
 
 #if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in CBOR and JSON...
-#include <oic/oc_rep.h>             //  Import Mynewt's CBOR encoding functions.
 
-#undef COAP_CONTENT_FORMAT  //  Must manually specify content type and accept type in the CoAP header: CBOR or JSON
+//  JSON or CBOR encoding will be selected by the Sensor Network, which depends on whether we're sending
+//  to CoAP Server (JSON) or Collector Node (CBOR)
+
+#include <oic/oc_rep.h>        //  Import Mynewt's CBOR encoding functions.
+#include <oic/messaging/coap/constants.h>  //  For APPLICATION_JSON
+
+#undef COAP_CONTENT_FORMAT     //  Must manually specify CoAP Payload encoding format
+extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
+#define JSON_ENC (oc_content_format == APPLICATION_JSON)  //  True if encoding format is JSON
+
+////
+#undef rep_start_root_object
+#undef rep_end_root_object
+#undef rep_set_array
+#undef rep_close_array
+#undef rep_object_array_start_item
+#undef rep_object_array_end_item
+
+#define rep_start_root_object()                 oc_rep_start_root_object(); \
+                                                  json_rep_start_root_object();
+
+#define rep_end_root_object()                     json_rep_end_root_object(); \
+                                                oc_rep_end_root_object();
+
+#define rep_set_array(object, key)              oc_rep_set_array(object, key); \
+                                                  json_rep_set_array(object, key);
+
+#define rep_close_array(object, key)              json_rep_close_array(object, key); \
+                                                oc_rep_close_array(object, key);
+
+#define rep_object_array_start_item(key)        oc_rep_object_array_start_item(key); \
+                                                  json_rep_object_array_start_item(key);
+
+#define rep_object_array_end_item(key)            json_rep_object_array_end_item(key); \
+                                                oc_rep_object_array_end_item(key);
+
+////
 
 #define cbor_start_root_object()                 oc_rep_start_root_object()
 #define cbor_end_root_object()                   oc_rep_end_root_object()
@@ -139,9 +187,20 @@ void json_rep_end_root_object(void);
 #define cbor_object_array_start_item(key)        oc_rep_object_array_start_item(key)
 #define cbor_object_array_end_item(key)          oc_rep_object_array_end_item(key)
 
-#define cbor_set_int(        object, key, value) oc_rep_set_int        (object, key, value)
-#define cbor_set_uint(       object, key, value) oc_rep_set_uint       (object, key, value)
-#define cbor_set_float(      object, key, value) oc_rep_set_double     (object, key, value)
+//  oc_rep_set_int(object, key, value)
+//  -> cbor_encode_text_string(&object##_map, #key, strlen(#key));
+//     cbor_encode_int(&object##_map, value);      
+//  oc_rep_set_key(parent, key)
+//  -> cbor_encode_text_string(&parent, key, strlen(key))
+
+////
+#undef rep_set_int
+#define rep_set_int(object, key, value)  { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int(object, key, value); } }
+////
+
+#define cbor_set_int(        object, key, value) oc_rep_set_int(object, key, value)
+#define cbor_set_uint(       object, key, value) oc_rep_set_uint(object, key, value)
+#define cbor_set_float(      object, key, value) oc_rep_set_double(object, key, value)
 #define cbor_set_text_string(object, key, value) oc_rep_set_text_string(object, key, value)
 
 //  Compose the CBOR payload root.
@@ -186,6 +245,10 @@ void json_rep_end_root_object(void);
         rep_set_text_string(array0, key, key0); \
         rep_set_int(        array0, value, value0); \
     }) \
+}
+
+#define CP_SET_INT(parent0, key0, value0) { \
+    rep_set_int(parent0, key0, value0); \
 }
 
 //  Append a (key + unsigned int value) item to the array named "array":

@@ -95,6 +95,8 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
         console_dump((const uint8_t *) data, size); console_printf("\n");
         if (mbuf_num == 1) {  //  If this is the second mbuf, i.e. the payload...
             //  Transmit the mbuf.
+            assert(size > 0);
+            ////assert(size <= NRF24L01_TRANSFER_SIZE);  //  mbuf too big to transmit
             if (size <= 0 || size > NRF24L01_TRANSFER_SIZE) { rc = 0; break; }  //  Too small or too big, quit.
 
             //  Zero the buffer.  Copy into the buffer.
