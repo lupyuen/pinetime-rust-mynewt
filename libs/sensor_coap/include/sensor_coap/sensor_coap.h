@@ -159,21 +159,21 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
 #undef rep_object_array_end_item
 
 #define rep_start_root_object()                 oc_rep_start_root_object(); \
-                                                  json_rep_start_root_object();
+                                                  if (JSON_ENC) { json_rep_start_root_object(); }
 
-#define rep_end_root_object()                     json_rep_end_root_object(); \
+#define rep_end_root_object()                     if (JSON_ENC) { json_rep_end_root_object(); } \
                                                 oc_rep_end_root_object();
 
 #define rep_set_array(object, key)              oc_rep_set_array(object, key); \
-                                                  json_rep_set_array(object, key);
+                                                  if (JSON_ENC) { json_rep_set_array(object, key); }
 
-#define rep_close_array(object, key)              json_rep_close_array(object, key); \
+#define rep_close_array(object, key)              if (JSON_ENC) { json_rep_close_array(object, key); } \
                                                 oc_rep_close_array(object, key);
 
 #define rep_object_array_start_item(key)        oc_rep_object_array_start_item(key); \
-                                                  json_rep_object_array_start_item(key);
+                                                  if (JSON_ENC) { json_rep_object_array_start_item(key); }
 
-#define rep_object_array_end_item(key)            json_rep_object_array_end_item(key); \
+#define rep_object_array_end_item(key)            if (JSON_ENC) { json_rep_object_array_end_item(key); } \
                                                 oc_rep_object_array_end_item(key);
 
 ////

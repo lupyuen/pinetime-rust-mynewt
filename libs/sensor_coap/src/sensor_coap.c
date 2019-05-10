@@ -245,6 +245,7 @@ json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
         struct json_value *val)
 {
     //  Extended version of json_encode_object_entry that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
+    assert(encoder); assert(key); assert(val);
     int rc;
 
     if (encoder->je_wr_commas) {
@@ -271,6 +272,7 @@ static int
 json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
 {
     //  Extended version of json_encode_value_ext that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
+    assert(encoder);  assert(jv);
     int rc;
     int len;
 
