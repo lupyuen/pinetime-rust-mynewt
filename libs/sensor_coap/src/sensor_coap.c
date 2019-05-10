@@ -185,6 +185,7 @@ static struct os_mbuf *coap_json_mbuf;  //  The mbuf that contains the outgoing 
 
 int json_write_mbuf(void *buf, char *data, int len) {
     //  Write the JSON to the mbuf for the outgoing CoAP message.
+    if (oc_content_format != APPLICATION_JSON) { return 0; }  //  Exit if we are encoding CBOR, not JSON.
     assert(coap_json_mbuf);
     assert(data);
     //  console_printf("json "); console_buffer(data, len); console_printf("\n");  ////
