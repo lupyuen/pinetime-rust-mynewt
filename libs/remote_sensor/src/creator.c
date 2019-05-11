@@ -70,7 +70,7 @@ static int config_device(const char *name) {
 //  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
     for (int i = 0; i < DEVICE_COUNT; i++) {
-        console_printf("RSN create %s\n", DEVICE_NAME[i]);  ////
+        console_printf("RSN listen %s\n", DEVICE_NAME[i]);  ////
 
         //  Create the device.
         int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE[i], DEVICE_NAME[i],
