@@ -1,11 +1,13 @@
-//  Send sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
-//  The sensor data will be transmitted over WiFi via the ESP8266 transceiver.
+//  Send sensor data to a CoAP Server or a Collector Node.  The CoAP payload will be encoded as JSON
+//  for CoAP Server and CBOR for Collector Node.  The sensor data will be transmitted to 
+//  CoAP Server over WiFi via the ESP8266 transceiver, and to Collector Node via nRF24L01 transceiver.
+
+//  This enables transmission of Sensor Data to a local Sensor Network (via nRF24L01)
+//  and to the internet (via ESP8266).  For sending to Collector Node we use raw temperature (integer) 
+//  instead of computed temperature (floating-point) to make the encoding simpler and faster.
+
 //  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
 //  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
-
-//  We also support Remote Sensors. A Sensor Node will transmit sensor data to a Collector Node over
-//  nRF24L01.  Due to limited space, we encode the CoAP payload as CBOR.  Also we use raw temperature
-//  (integer) instead of computed temperature (floating-point) to make the encoding simpler and faster.
 
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
