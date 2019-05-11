@@ -120,7 +120,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     const char *device_id = get_device_id();  assert(device_id);
 
-    //  Start composing the CoAP message with the sensor data in the payload.  This will 
+    //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     int rc = init_server_post(NULL);  assert(rc != 0);
@@ -147,7 +147,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
         });                       //  End CP_ARRAY: Close the "values" array
     });                           //  End CP_ROOT:  Close the payload root
 
-    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_server_post();  assert(rc != 0);
@@ -180,7 +180,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
     assert(val);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
-    //  Start composing the CoAP message with the sensor data in the payload.  This will 
+    //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     int rc = init_collector_post();  assert(rc != 0);
@@ -191,7 +191,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val) {
         CP_SET_INT_VAL(root, val);
     });  //  End CP_ROOT:  Close the payload root
 
-    //  Post the CoAP message to the CoAP Background Task for transmission.  After posting the
+    //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     rc = do_collector_post();  assert(rc != 0);

@@ -227,7 +227,7 @@ bool is_collector_node(void) {
 
 bool is_sensor_node(void) {
     //  Return true if this is a Sensor Node.
-    //  This is the Collector Node if the Hardware ID matches the Sensor Node Hardware ID.
+    //  This is a Sensor Node if the Hardware ID matches one of the Sensor Node Hardware IDs.
     const uint8_t *hardware_id = get_hardware_id();
     int i;
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
@@ -249,7 +249,7 @@ bool is_standalone_node(void) {
 }
 
 bool should_send_to_collector(struct sensor_value *val) {
-    //  Return true if this node should send to a Collector Node.  Which means this must be a Sensor Node.
+    //  Return true if this node should send to a Collector Node instead of CoAP Server.  Which means this must be a Sensor Node.
     assert(val);
     if (is_sensor_node()) { return true; }
     return false;
