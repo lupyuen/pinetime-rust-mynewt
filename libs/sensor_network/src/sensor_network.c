@@ -99,6 +99,10 @@ static int sensor_network_encoding[MAX_INTERFACE_TYPES] = {                     
     APPLICATION_JSON,  //  Send to Server: JSON encoding for payload
     APPLICATION_CBOR,  //  Send to Collector: CBOR encoding for payload
 };
+static const char *sensor_network_shortname[MAX_INTERFACE_TYPES] = {
+    "svr",
+    "col",
+};
 
 int sensor_network_register_interface(const struct sensor_network_interface *iface) {
     //  Register the Network Interface (e.g. ESP8266, nRF24L01) for the Sensor Network.
@@ -109,7 +113,7 @@ int sensor_network_register_interface(const struct sensor_network_interface *ifa
     assert(sensor_network_interfaces[i].network_device == NULL);  //  Interface already registered.
     memcpy(&sensor_network_interfaces[i], iface, sizeof(struct sensor_network_interface));  //  Copy the interface.
     sensor_network_interfaces[i].transport_registered = 0;        //  We defer the registration of the transport till first use.
-    console_printf("SN %s %s\n", (i == 0) ? "svr" : "col", sensor_network_interfaces[i].network_device);
+    console_printf("SN %s %s\n", sensor_network_shortname[i], sensor_network_interfaces[i].network_device);
     return 0;
 }
 
@@ -156,7 +160,7 @@ int sensor_network_register_transport(uint8_t iface_type) {
     //  If endpoint has not been created, register the transport for the interface and create the endpoint.
     assert(iface->network_device);  assert(iface->register_transport_func);
     const char *network_device = iface->network_device;
-    console_printf("TRN %s %s\n", (iface_type == 0) ? "svr" : "col", network_device);
+    console_printf("TRN %s %s\n", sensor_network_shortname[iface_type], network_device);
 
     //  TODO: Host and port are not needed for Collector.
     int rc = iface->register_transport_func(network_device, endpoint, COAP_HOST, MYNEWT_VAL(COAP_PORT), MAX_ENDPOINT_SIZE);
@@ -230,14 +234,7 @@ bool is_collector_node(void) {
 bool is_sensor_node(void) {
     //  Return true if this is a Sensor Node.
     //  This is a Sensor Node if the Hardware ID matches one of the Sensor Node Hardware IDs.
-    const uint8_t *hardware_id = get_hardware_id();
-    int i;
-    for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
-        if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
-            console_printf("*** sensor node %d\n", i + 1);
-            return true; 
-        }
-    }
+    if (sensor_node_address) { return true; }  //  sensor_node_address is set in sensor_network_init().
     return false;
 }
 

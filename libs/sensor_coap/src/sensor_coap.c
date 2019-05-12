@@ -13,9 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-//  Post sensor data to CoAP server with JSON or CBOR encoding.  We call the Mynewt OIC
-//  interface to encode and transmit CoAP messages.  For ESP8266, the OIC interface
-//  is implemented by esp8266/transport.h.  This is a simpler version of oc_client_api 
+//  Post sensor data to CoAP Server or Collector Node with JSON or CBOR encoding.  We call the Mynewt OIC
+//  interface to encode and transmit CoAP messages.  For ESP8266 and nRF24L01, the OIC interface
+//  is implemented by esp8266/transport.h and nrf24l01/transport.h.  This is a simpler version of oc_client_api 
 //  that supports sensors and JSON.  Original version: repos\apache-mynewt-core\net\oic\src\api\oc_client_api.c
 
 #include <os/mynewt.h>

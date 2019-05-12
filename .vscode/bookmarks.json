@@ -143,5 +143,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c",
+		"bookmarks": [
+			{
+				"line": 241,
+				"column": 17,
+				"label": ""
+			}
+		]
 	}
 ]
