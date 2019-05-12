@@ -156,6 +156,8 @@ int sensor_network_register_transport(uint8_t iface_type) {
     //  If endpoint has not been created, register the transport for the interface and create the endpoint.
     assert(iface->network_device);  assert(iface->register_transport_func);
     const char *network_device = iface->network_device;
+    console_printf("TRN %s %s\n", (iface_type == 0) ? "svr" : "col", network_device);
+
     //  TODO: Host and port are not needed for Collector.
     int rc = iface->register_transport_func(network_device, endpoint, COAP_HOST, MYNEWT_VAL(COAP_PORT), MAX_ENDPOINT_SIZE);
     assert(rc == 0);
