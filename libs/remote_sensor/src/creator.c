@@ -69,6 +69,7 @@ static int config_device(const char *name) {
 
 //  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
+    if (!is_collector_node()) { return; }  //  Remote Sensors are applicable only for Collector Node.
     for (int i = 0; i < DEVICE_COUNT; i++) {
         console_printf("RSN listen %s\n", DEVICE_NAME[i]);  ////
 
