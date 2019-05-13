@@ -25,6 +25,10 @@
 #include <oic/oc_client_state.h>
 #include <console/console.h>
 #include "sensor_coap/sensor_coap.h"
+#if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  For coexistence of CBOR and JSON encoding...
+#include "tinycbor/cbor_cnt_writer.h"
+static struct CborCntWriter cnt_writer;  //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
@@ -34,6 +38,7 @@ static coap_packet_t oc_c_request[1]; //  CoAP request.
 static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
 static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready for sending sensor data.
 int oc_content_format = 0;            //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
@@ -63,8 +68,12 @@ dispatch_coap_request(void)
     bool ret = false;
     assert(oc_content_format);
     int response_length = 
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON..
         (oc_content_format == APPLICATION_JSON) ? json_rep_finalize() :
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
+#if MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in CBOR..
         (oc_content_format == APPLICATION_CBOR) ? oc_rep_finalize() :
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING)
         0;  //  Unknown CoAP content format.
 
     if (response_length) {
@@ -110,8 +119,16 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
         goto free_rsp;
     }
     
-    if (oc_content_format == APPLICATION_JSON) { json_rep_new(oc_c_rsp); }
-    else if (oc_content_format == APPLICATION_CBOR) { oc_rep_new(oc_c_rsp); }
+    if (oc_content_format == APPLICATION_JSON) { 
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON..
+        json_rep_new(oc_c_rsp); 
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
+    }
+    else if (oc_content_format == APPLICATION_CBOR) { 
+#if MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in CBOR..
+        oc_rep_new(oc_c_rsp); 
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING)
+    }
     else { assert(0); }  //  Unknown CoAP content format.
 
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
@@ -199,6 +216,12 @@ void json_rep_new(struct os_mbuf *m) {
     assert(m);
     json_rep_reset();  //  Erase the JSON encoder.
     coap_json_mbuf = m;
+
+#if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  For coexistence of CBOR and JSON encoding...
+    //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected.
+    cbor_cnt_writer_init(&cnt_writer);
+    cbor_encoder_init(&g_encoder, &cnt_writer.enc, 0);
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 }
 
 void json_rep_reset(void) {

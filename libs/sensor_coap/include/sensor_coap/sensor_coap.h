@@ -210,7 +210,9 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
 
 //  Same as above, except that the key is not stringified.
 #define rep_set_int_k(object, key, value)    { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int_k(object, key, value); } }
-//  TODO
+#define rep_set_uint_k(object, key, value)   { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint_k(object, key, value); } }
+#define rep_set_float_k(object, key, value)  { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double_k(object, key, value); } }
+#define rep_set_text_string_k(object, key, value)  { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string_k(object, key, value); } }
 
 #endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 
@@ -225,15 +227,30 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
     rep_end_root_object(); \
 }
 
+//  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
 #define CP_SET_INT_VAL(parent0, val0) { \
     assert(val0->val_type == SENSOR_VALUE_TYPE_INT32); \
     rep_set_int_k(parent0, val0->key, val0->int_val); \
 }
 
+//  Given an object parent and a float Sensor Value val, set the val's key/value in the object.
+#define CP_SET_FLOAT_VAL(parent0, val0) { \
+    assert(val0->val_type == SENSOR_VALUE_TYPE_FLOAT); \
+    rep_set_int_k(parent0, val0->key, val0->float_val); \
+}
+
+//  Set the key/value (integer) in the parent object.
 #define CP_SET_INT(parent0, key0, value0) { \
     rep_set_int(parent0, key0, value0); \
 }
 
+//  Set the key/value (float) in the parent object.
+#define CP_SET_FLOAT(parent0, key0, value0) { \
+    rep_set_float(parent0, key0, value0); \
+}
+
+//  Create a new Item object in the parent array and set the Sensor Value's key/value.
+//  Note: This macro is NOT recommended because it bloats the ROM size with float functions.  Call CP_ITEM_INT_VAL and CP_ITEM_FLOAT_VAL instead.
 #define CP_ITEM_VAL(parent0, val0) { \
     switch (val0->val_type) { \
         case SENSOR_VALUE_TYPE_INT32: { CP_ITEM_INT_VAL(parent0, val0); break; } \
@@ -242,11 +259,13 @@ extern int oc_content_format;  //  CoAP Payload encoding format: APPLICATION_JSO
     } \
 }
 
+//  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
 #define CP_ITEM_INT_VAL(parent0, val0) { \
     assert(val0->val_type == SENSOR_VALUE_TYPE_INT32); \
     CP_ITEM_INT(parent0, val0->key, val0->int_val); \
 }
 
+//  Create a new Item object in the parent array and set the Sensor Value's key/value (float).
 #define CP_ITEM_FLOAT_VAL(parent0, val0) { \
     assert(val0->val_type == SENSOR_VALUE_TYPE_FLOAT); \
     CP_ITEM_FLOAT(parent0, val0->key, val0->float_val); \
