@@ -368,7 +368,7 @@ void nRF24L01P::setRfFrequency(int frequency) {
 
     if ( ( frequency < NRF24L01P_MIN_RF_FREQUENCY ) || ( frequency > NRF24L01P_MAX_RF_FREQUENCY ) ) {
 
-        error( "%sbad RF Frequency setting %d\r\n", _nrf, frequency );
+        error( "%sbad freq %d\r\n", _nrf, frequency );
         return;
 
     }
@@ -412,7 +412,7 @@ void nRF24L01P::setRfOutputPower(int power) {
             break;
 
         default:
-            error( "%sbad RF Output Power setting %d\r\n", _nrf, power );
+            error( "%sbad power %d\r\n", _nrf, power );
             return;
 
     }
@@ -441,7 +441,7 @@ int nRF24L01P::getRfOutputPower(void) {
             return NRF24L01P_TX_PWR_MINUS_18_DB;
 
         default:
-            error( "%sbad RF Output Power value %d\r\n", _nrf, rfPwr );
+            error( "%sbad power %d\r\n", _nrf, rfPwr );
             return 0;
 
     }
@@ -467,7 +467,7 @@ void nRF24L01P::setAirDataRate(int rate) {
             break;
 
         default:
-            error( "%sbad Air Data Rate setting %d\r\n", _nrf, rate );
+            error( "%sbad data rate %d\r\n", _nrf, rate );
             return;
 
     }
@@ -493,7 +493,7 @@ int nRF24L01P::getAirDataRate(void) {
             return NRF24L01P_DATARATE_2_MBPS;
 
         default:
-            error( "%sbad Air Data Rate value %d\r\n", _nrf, rfDataRate );
+            error( "%sbad data rate %d\r\n", _nrf, rfDataRate );
             return 0;
 
     }
@@ -519,7 +519,7 @@ void nRF24L01P::setCrcWidth(int width) {
             break;
 
         default:
-            error( "%sbad CRC Width setting %d\r\n", _nrf, width );
+            error( "%sbad crc width %d\r\n", _nrf, width );
             return;
 
     }
@@ -545,7 +545,7 @@ int nRF24L01P::getCrcWidth(void) {
             return NRF24L01P_CRC_16_BIT;
 
         default:
-            error( "%sbad CRC Width value %d\r\n", _nrf, crcWidth );
+            error( "%sbad crc width %d\r\n", _nrf, crcWidth );
             return 0;
 
     }
@@ -556,14 +556,14 @@ void nRF24L01P::setTransferSize(int size, int pipe) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad Transfer Size pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad tx size %d\r\n", _nrf, pipe );
         return;
 
     }
 
     if ( ( size < 0 ) || ( size > _NRF24L01P_RX_FIFO_SIZE ) ) {
 
-        error( "%sbad Transfer Size setting %d\r\n", _nrf, size );
+        error( "%sbad tx size %d\r\n", _nrf, size );
         return;
 
     }
@@ -579,7 +579,7 @@ int nRF24L01P::getTransferSize(int pipe) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad Transfer Size pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad pipe %d\r\n", _nrf, pipe );
         return 0;
 
     }
@@ -610,7 +610,7 @@ void nRF24L01P::enableAutoAcknowledge(int pipe) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad Enable AutoAcknowledge pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad ack pipe %d\r\n", _nrf, pipe );
         return;
 
     }
@@ -627,7 +627,7 @@ void nRF24L01P::enableDynamicPayload(int pipe) {
     //  From https://os.mbed.com/teams/JNP3_IOT_2016Z/code/nRF24L01P/file/a7764d1566f7/nRF24L01P.cpp/ 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
  
-        error( "%sbad Enable AutoAcknowledge pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad ack pipe %d\r\n", _nrf, pipe );
         return;
  
     }
@@ -675,7 +675,7 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad setRxAddress pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad rx pipe %d\r\n", _nrf, pipe );
         return;
 
     }
@@ -699,7 +699,7 @@ void nRF24L01P::setRxAddress(unsigned long long address, int width, int pipe) {
                 break;
     
             default:
-                error( "%sbad setRxAddress width setting %d\r\n", _nrf, width );
+                error( "%sbad rx pipe %d\r\n", _nrf, width );
                 return;
     
         }
@@ -784,7 +784,7 @@ void nRF24L01P::setTxAddress(unsigned long long address, int width) {
             break;
 
         default:
-            error( "%sbad setTxAddress width setting %d\r\n", _nrf, width );
+            error( "%sbad tx addr width %d\r\n", _nrf, width );
             return;
 
     }
@@ -816,7 +816,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad setRxAddress pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad rx pipe %d\r\n", _nrf, pipe );
         return 0;
 
     }
@@ -842,7 +842,7 @@ unsigned long long nRF24L01P::getRxAddress(int pipe) {
                 break;
 
             default:
-                error( "%sbad getRxAddress width value %d\r\n", _nrf, setupAw );
+                error( "%sbad rx addr width %d\r\n", _nrf, setupAw );
                 return 0;
 
         }
@@ -906,7 +906,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
             break;
 
         default:
-            error( "%sbad getTxAddress width value %d\r\n", _nrf, setupAw );
+            error( "%sbad tx addr width %d\r\n", _nrf, setupAw );
             return 0;
 
     }
@@ -937,7 +937,7 @@ unsigned long long nRF24L01P::getTxAddress(void) {
 bool nRF24L01P::readable(int pipe) {
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad readable pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad readable pipe %d\r\n", _nrf, pipe );
         return false;
 
     }
@@ -1022,7 +1022,7 @@ int nRF24L01P::read(int pipe, char *data, int count) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
-        error( "%sbad read pipe number %d\r\n", _nrf, pipe );
+        error( "%sbad rx pipe %d\r\n", _nrf, pipe );
         return -1;
 
     }
