@@ -9,10 +9,13 @@ extern "C" {
 ///////////////////////////////////////////////////////////////////////////////
 //  Logging Functions: Common strings here to reduce space
 
-extern "C" const char *_esp;  //  Trailer for console output: "ESP "
-
 //  Return " OK\n" if ok, else return " FAILED\n".
 const char *_okfailed(int ok);
+
+//  Log a message to the console like: "ESP func OK" or "ESP func failed". Flush the console after logging.
+void _log(const char *func, int ok);
+
+extern const char *_esp;  //  Trailer for console output: "ESP "
 
 #ifdef __cplusplus
 }

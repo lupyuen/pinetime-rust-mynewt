@@ -58,10 +58,11 @@ bool ESP8266::setEcho(bool echoEnabled) {
             ) &&
             _parser.recv("OK")  //  Wait for OK response.
         ) {
-            console_printf("%s%s%s", _esp, _f, _okfailed(true)); console_flush(); return true; 
+            _log(_f, true);
+            return true; 
         }
     }
-    console_printf("%s%s%s", _esp, _f, _okfailed(false)); console_flush(); 
+    _log(_f, false);
     return false;
 }
 
@@ -105,7 +106,7 @@ bool ESP8266::reset(void)
             break;
         }
     }
-    console_printf("%s%s%s", _esp, _f, _okfailed(ret)); console_flush(); 
+    _log(_f, ret);
     //  debug_vrecv = 0;  ////    
     return true;
 }
@@ -127,7 +128,7 @@ bool ESP8266::connect(const char *ap, const char *passPhrase)
     console_printf("%s%s...\n", _esp, _f);  console_flush();
     bool ret = _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
         && _parser.recv("OK");
-    console_printf("%s%s%s", _esp, _f, _okfailed(ret));  
+    _log(_f, ret);  
     if (!ret) { console_printf("*** Check WIFI_SSID and WIFI_PASSWORD in targets/bluepill_my_sensor/syscfg.yml\n"); }
     console_flush();
     return ret;
@@ -233,7 +234,7 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_fu
     //  Wait for the end of the response.
     if (!_parser.recv("OK\r\n")) { cnt = 0; }
     //  debug_vrecv = 0;  ////
-    console_printf("%s%s%s", _esp, _f, _okfailed(cnt > 0)); console_flush();  ////
+    _log(_f, cnt > 0);
     return cnt;
 }
 
@@ -247,7 +248,7 @@ bool ESP8266::open(const char *type, int id, const char* addr, int port)
     console_printf("%s%s...\n", _esp, _f);  console_flush();
     bool ret = _parser.send("AT+CIPSTART=%d,\"%s\",\"%s\",%d", id, type, addr, port)
         && _parser.recv("OK");
-    console_printf("%s%s%s", _esp, _f, _okfailed(ret));  console_flush();
+    _log(_f, ret);
     return ret;
 }
 
@@ -261,11 +262,11 @@ bool ESP8266::send(int id, const void *data, uint32_t amount)
             && _parser.recv(">")
             && _parser.write((char*)data, (int)amount) >= 0 
             && _parser.recv("SEND OK")) {
-            console_printf("%s%s%s", _esp, _f, _okfailed(true));  console_flush();
+            _log(_f, true);
             return true;
         }
     }
-    console_printf("%s%s%s", _esp, _f, _okfailed(false));  console_flush();
+    _log(_f, false);
     return false;
 }
 
@@ -293,11 +294,11 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
             }
             if (failed) { break; }
             if (!_parser.recv("SEND OK")) { break; }
-            console_printf("%s%s%s", _esp, _f, _okfailed(true));  console_flush();
+            _log(_f, true);  console_flush();
             return true;
         }
     }
-    console_printf("%s%s%s", _esp, _f, _okfailed(false));  console_flush();
+    _log(_f, false);
     return false;
 }
 
