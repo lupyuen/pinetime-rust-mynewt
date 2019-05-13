@@ -21,6 +21,7 @@
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
+#include "util.h"
 #include "esp8266/esp8266.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
@@ -48,7 +49,7 @@ static int config_device(void);
 
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf("ESP create " DEVICE_NAME "\n");
+    console_printf("%screate " DEVICE_NAME "\n", _esp);
 
     //  Create the device.
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,

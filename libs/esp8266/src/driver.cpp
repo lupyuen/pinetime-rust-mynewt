@@ -16,7 +16,7 @@ static ESP8266 controller;  //  The single ESP8266 controller instance.  TODO: S
 static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
 static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
 static char esp8266_parser_buffer[ESP8266_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
-static bool first_open = true;  //  True if this is the first time opening the driver.
+static bool first_open = true;  //  True if this is the first time opening the driver
 
 //  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
 static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to the WiFi access point with this SSID e.g. my_ssid
