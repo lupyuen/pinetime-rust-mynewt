@@ -134,7 +134,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
             CP_ITEM_STR(values, "device", device_id);
 
-#if MYNEWT_VAL(RAW_TEMP)  
+#if MYNEWT_VAL(RAW_TEMP)  //  If we are using raw temperature (integer) instead of computed temperature (float)...
             //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
             //    {"key":"t",   "value":2870} for raw temperature (integer)
             CP_ITEM_INT_VAL(values, val);
