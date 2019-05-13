@@ -161,13 +161,13 @@ static uint8_t oc_ep_size(const struct oc_endpoint *oe) {
 
 static int oc_ep_has_conn(const struct oc_endpoint *oe) {
     //  Return true if the endpoint is connected.  We always return false.
-    console_printf("oc_ep_has_conn\n");
+    //  console_printf("oc_ep_has_conn\n");
     return 0;
 }
 
 static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *oe) {
     //  Log the endpoint message.
-    console_printf("oc_ep_str\n");
+    console_printf("nrfstr\n");
 #ifdef NOTUSED
     const struct oc_endpoint_ip *oe_ip = (const struct oc_endpoint_ip *)oe;
     int len;
@@ -182,11 +182,11 @@ static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *oe) {
 
 static int oc_init(void) {
     //  Init the endpoint.
-    console_printf("oc_init\n");
+    //  console_printf("oc_init\n");
     return 0;
 }
 
 static void oc_shutdown(void) {
     //  Shutdown the endpoint.
-    console_printf("oc_shutdown\n");
+    //  console_printf("oc_shutdown\n");
 }
