@@ -113,7 +113,7 @@ int sensor_network_register_interface(const struct sensor_network_interface *ifa
     assert(sensor_network_interfaces[i].network_device == NULL);  //  Interface already registered.
     memcpy(&sensor_network_interfaces[i], iface, sizeof(struct sensor_network_interface));  //  Copy the interface.
     sensor_network_interfaces[i].transport_registered = 0;        //  We defer the registration of the transport till first use.
-    console_printf("SN %s %s\n", sensor_network_shortname[i], sensor_network_interfaces[i].network_device);
+    console_printf("NET %s %s\n", sensor_network_shortname[i], sensor_network_interfaces[i].network_device);
     return 0;
 }
 
@@ -160,7 +160,7 @@ int sensor_network_register_transport(uint8_t iface_type) {
     //  If endpoint has not been created, register the transport for the interface and create the endpoint.
     assert(iface->network_device);  assert(iface->register_transport_func);
     const char *network_device = iface->network_device;
-    console_printf("TRN %s %s\n", sensor_network_shortname[iface_type], network_device);
+    console_printf("NET %s %s\n", sensor_network_shortname[iface_type], network_device);
 
     //  TODO: Host and port are not needed for Collector.
     int rc = iface->register_transport_func(network_device, endpoint, COAP_HOST, MYNEWT_VAL(COAP_PORT), MAX_ENDPOINT_SIZE);
@@ -214,7 +214,7 @@ const uint8_t *get_hardware_id(void) {
         hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
         assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
         hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
-        console_printf("hwid ");  console_dump(hw_id, hw_id_len);  console_printf("\n");
+        console_printf("NET hwid ");  console_dump(hw_id, hw_id_len);  console_printf("\n");
     }
     return hw_id;
 }
@@ -225,7 +225,7 @@ bool is_collector_node(void) {
     //  Fetch the hardware ID.  This is unique across all microcontrollers.
     const uint8_t *hardware_id = get_hardware_id();
     if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, HARDWARE_ID_LENGTH) == 0) {
-        console_printf("*** collector node\n");
+        console_printf("NET collector node\n");
         return true; 
     }
     return false; 
@@ -241,7 +241,7 @@ bool is_sensor_node(void) {
 bool is_standalone_node(void) {
     //  Return true if this is a Standalone Node, i.e. not a Collector or Sensor Node.
     if (!is_collector_node() && !is_sensor_node()) { 
-        console_printf("*** standalone node\n");
+        console_printf("NET standalone node\n");
         return true; 
     }
     return false;
@@ -274,7 +274,7 @@ void sensor_network_init(void) {
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
             sensor_node_address = sensor_node_addresses[i];
-            console_printf("*** sensor node %d\n", i + 1);
+            console_printf("NET sensor node %d\n", i + 1);
             break;
         }
     }
