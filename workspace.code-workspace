@@ -55,7 +55,8 @@
 			"oc_assert.h": "c",
 			"send_coap.h": "c",
 			"sysflash.h": "c",
-			"flash_map.h": "c"
+			"flash_map.h": "c",
+			"os_mbuf.h": "c"
 		}
 	}
 }
