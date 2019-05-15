@@ -45,19 +45,19 @@ static const uint8_t SENSOR_NODE_HW_IDS[SENSOR_NETWORK_SIZE][HARDWARE_ID_LENGTH]
 /////////////////////////////////////////////////////////
 //  Collector Node + Sensor Nodes Configuration: Follows page 13 of https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
 
-#define COLLECTOR_NODE_ADDRESS 0x7878787878ull //  Collector Node Address (Pipe 0)
-#define SENSOR_NETWORK_ADDRESS 0xB3B4B5B6ull   //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
+#define COLLECTOR_NODE_ADDRESS MYNEWT_VAL(COLLECTOR_NODE_ADDRESS)   //  Collector Node Address (Pipe 0)
+#define SENSOR_NETWORK_ADDRESS MYNEWT_VAL(SENSOR_NETWORK_ADDRESS)   //  Sensor Nodes have addresses 0xB3B4B5B6??  (Pipes 1 to 5)
 
 //  Map a Sensor Network Address + Node ID to Sensor Node Address e.g. ADDR(0xB3B4B5B6, 0xf1) = 0xB3B4B5B6f1
 #define ADDR(network_addr, node_id) (node_id + (network_addr << 8))
 
 //  Addresses of the 5 Sensor Nodes
 static const unsigned long long sensor_node_addresses[SENSOR_NETWORK_SIZE] = {
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xf1),  //  Pipe 1 e.g. 0xB3B4B5B6f1
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xcd),  //  Pipe 2
-    ADDR(SENSOR_NETWORK_ADDRESS, 0xa3),  //  Pipe 3
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x0f),  //  Pipe 4
-    ADDR(SENSOR_NETWORK_ADDRESS, 0x05),  //  Pipe 5
+    ADDR(SENSOR_NETWORK_ADDRESS, MYNEWT_VAL(SENSOR_NODE_OFFSET_1)),  //  Pipe 1 e.g. 0xB3B4B5B6f1
+    ADDR(SENSOR_NETWORK_ADDRESS, MYNEWT_VAL(SENSOR_NODE_OFFSET_2)),  //  Pipe 2
+    ADDR(SENSOR_NETWORK_ADDRESS, MYNEWT_VAL(SENSOR_NODE_OFFSET_3)),  //  Pipe 3
+    ADDR(SENSOR_NETWORK_ADDRESS, MYNEWT_VAL(SENSOR_NODE_OFFSET_4)),  //  Pipe 4
+    ADDR(SENSOR_NETWORK_ADDRESS, MYNEWT_VAL(SENSOR_NODE_OFFSET_5)),  //  Pipe 5
 };
 
 static unsigned long long sensor_node_address = 0;
