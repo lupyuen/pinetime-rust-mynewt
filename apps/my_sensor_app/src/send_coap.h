@@ -33,7 +33,7 @@ int start_network_task(void);
 //  and URI or Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
 //  Background Task so this function will return without waiting for the message 
 //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-int send_sensor_data(struct sensor_value *val);
+int send_sensor_data(struct sensor_value *val, const char *device_name);
 
 #ifdef __cplusplus
 }

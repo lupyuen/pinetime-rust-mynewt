@@ -19,8 +19,8 @@
 #include "geolocate.h"                      //  For geolocate()
 #include "send_coap.h"
 
-static int send_sensor_data_to_server(struct sensor_value *val);
-static int send_sensor_data_to_collector(struct sensor_value *val);
+static int send_sensor_data_to_server(struct sensor_value *val, const char *device_name);
+static int send_sensor_data_to_collector(struct sensor_value *val, const char *device_name);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
@@ -88,14 +88,16 @@ static void network_task_func(void *arg) {
     assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
-int send_sensor_data(struct sensor_value *val) {
+int send_sensor_data(struct sensor_value *val, const char *device_name) {
     //  Compose a CoAP message with sensor value in val and send to the specified CoAP server
     //  and URI or Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
     //  Background Task so this function will return without waiting for the message 
     //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 
-    if (should_send_to_collector(val)) { return send_sensor_data_to_collector(val); }
-    return send_sensor_data_to_server(val);
+    if (should_send_to_collector(val, device_name)) { 
+        return send_sensor_data_to_collector(val, device_name); 
+    }
+    return send_sensor_data_to_server(val, device_name);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -103,7 +105,7 @@ int send_sensor_data(struct sensor_value *val) {
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
 
-static int send_sensor_data_to_server(struct sensor_value *val) {
+static int send_sensor_data_to_server(struct sensor_value *val, const char *node_id) {
     //  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
     //  and send to the CoAP server and URI.  The Sensor Value may be integer or float.
     //  For temperature, the Sensor Key is either "t" for raw temperature (integer, from 0 to 4095) 
@@ -118,7 +120,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
     //    {"key":"tmp",    "value":28.7},
     //    {"key":"...",    "value":... },
     //    ... ]}
-    assert(val);
+    assert(val);  assert(node_id);
     if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     const char *device_id = get_device_id();  assert(device_id);
 
@@ -133,6 +135,9 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
             //  Append to the "values" array:
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
             CP_ITEM_STR(values, "device", device_id);
+
+            //    {"key":"node", "value":"b3b4b5b6f1"},
+            CP_ITEM_STR(values, "node", node_id);
 
 #if MYNEWT_VAL(RAW_TEMP)  //  If we are using raw temperature (integer) instead of computed temperature (float)...
             //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
@@ -169,7 +174,7 @@ static int send_sensor_data_to_server(struct sensor_value *val) {
 
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
 
-static int send_sensor_data_to_collector(struct sensor_value *val) {
+static int send_sensor_data_to_collector(struct sensor_value *val, const char *node_id) {
     //  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
     //  transmit to the Collector Node.  The Sensor Value should be integer not float since
     //  we transmit integers only to the Collector Node.

@@ -117,6 +117,12 @@ static int read_temperature(struct sensor* sensor, void *arg, void *sensor_data,
     //  Check that the temperature data is valid.
     if (sensor_data == NULL) { return SYS_EINVAL; }  //  Exit if data is missing
 
+    //  Get the device name of the sensor.
+    assert(sensor);
+    struct os_dev *device = SENSOR_GET_DEVICE(sensor);
+    const char *device_name = device->od_name;
+    assert(device_name);  //  console_printf("device_name %s\n", device_name);
+
     //  Get the temperature sensor value. It could be raw or computed.
     struct sensor_value temp_sensor_value;
     int rc = get_temperature(sensor_data, type, &temp_sensor_value);
@@ -128,7 +134,7 @@ static int read_temperature(struct sensor* sensor, void *arg, void *sensor_data,
     //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    rc = send_sensor_data(&temp_sensor_value);
+    rc = send_sensor_data(&temp_sensor_value, device_name);
 
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.

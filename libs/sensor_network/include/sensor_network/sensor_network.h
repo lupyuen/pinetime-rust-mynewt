@@ -130,7 +130,7 @@ bool is_sensor_node(void);
 bool is_standalone_node(void);
 
 //  Return true if this node should send to a Collector Node instead of CoAP Server.  Which means this must be a Sensor Node.
-bool should_send_to_collector(struct sensor_value *val);
+bool should_send_to_collector(struct sensor_value *val, const char *device_name);
 
 /////////////////////////////////////////////////////////
 //  Sensor Network Addresses
