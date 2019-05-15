@@ -28,6 +28,9 @@
 #include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
 #include "sensor_network/sensor_network.h"
 
+static const char *_net = "NET ";     //  Prefix for console messages
+static const char *_node = " node ";  //  Common string
+
 /////////////////////////////////////////////////////////
 //  Hardware IDs To Identify Collector Node and Sensor Nodes
 
@@ -112,7 +115,7 @@ int sensor_network_register_interface(const struct sensor_network_interface *ifa
     assert(sensor_network_interfaces[i].network_device == NULL);  //  Interface already registered.
     memcpy(&sensor_network_interfaces[i], iface, sizeof(struct sensor_network_interface));  //  Copy the interface.
     sensor_network_interfaces[i].transport_registered = 0;        //  We defer the registration of the transport till first use.
-    console_printf("NET %s %s\n", sensor_network_shortname[i], sensor_network_interfaces[i].network_device);
+    console_printf("%s%s %s\n", _net, sensor_network_shortname[i], sensor_network_interfaces[i].network_device);
     return 0;
 }
 
@@ -159,7 +162,7 @@ int sensor_network_register_transport(uint8_t iface_type) {
     //  If endpoint has not been created, register the transport for the interface and create the endpoint.
     assert(iface->network_device);  assert(iface->register_transport_func);
     const char *network_device = iface->network_device;
-    console_printf("NET %s %s\n", sensor_network_shortname[iface_type], network_device);
+    console_printf("%s%s %s\n", _net, sensor_network_shortname[iface_type], network_device);
 
     //  TODO: Host and port are not needed for Collector.
     int rc = iface->register_transport_func(network_device, endpoint, COAP_HOST, MYNEWT_VAL(COAP_PORT), MAX_ENDPOINT_SIZE);
@@ -213,7 +216,7 @@ const uint8_t *get_hardware_id(void) {
         hw_id_len = hal_bsp_hw_id_len();     //  Fetch the length, i.e. 12
         assert((unsigned) hw_id_len >= sizeof(hw_id));  //  Hardware ID too short.
         hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id));  assert(hw_id_len > 0);  //  Get the hardware ID.
-        console_printf("NET hwid ");  console_dump(hw_id, hw_id_len);  console_printf("\n");
+        console_printf("%shwid ", _net);  console_dump(hw_id, hw_id_len);  console_printf("\n");
     }
     return hw_id;
 }
@@ -224,7 +227,7 @@ bool is_collector_node(void) {
     //  Fetch the hardware ID.  This is unique across all microcontrollers.
     const uint8_t *hardware_id = get_hardware_id();
     if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, HARDWARE_ID_LENGTH) == 0) {
-        console_printf("NET collector node\n");
+        console_printf("%scollector%s\n", _net, _node);
         return true; 
     }
     return false; 
@@ -240,7 +243,7 @@ bool is_sensor_node(void) {
 bool is_standalone_node(void) {
     //  Return true if this is a Standalone Node, i.e. not a Collector or Sensor Node.
     if (!is_collector_node() && !is_sensor_node()) { 
-        console_printf("NET standalone node\n");
+        console_printf("%sstandalone%s\n", _net, _node);
         return true; 
     }
     return false;
@@ -273,7 +276,7 @@ void sensor_network_init(void) {
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
             sensor_node_address = sensor_node_addresses[i];
-            console_printf("NET sensor node %d\n", i + 1);
+            console_printf("%ssensor%s%d\n", _net, _node, i + 1);
             break;
         }
     }
@@ -291,7 +294,7 @@ const char *get_device_id(void) {
         s += 2;
     }
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
-    console_printf("NET random device id %s\n", device_id_text);
+    console_printf("%srandom device id %s\n", _net, device_id_text);
 #else  //  If ESP8266 WiFi is NOT enabled...
     device_id_text[0] = 0;  //  Don't need device ID since we are transmitting locally.
     device_id[0] = 0;
