@@ -35,24 +35,26 @@ syscfg.defs:
         description: 'Hardware ID of Sensor Node 5 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x05'
         value:       '"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x05"'
 
+    # nRF24L01 Addresses of the Collector Node and Sensor Nodes: Addresses shall be assigned to the nodes by matching the Hardware IDs above.
+    # Derived from the sample network here: https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
     COLLECTOR_NODE_ADDRESS:
-        description: ''
+        description: 'nRF24L01 Address (5 bytes) of the Collector Node e.g. 0x7878787878ull. May be different from the Sensor Node Addresses'
         value:       0x7878787878ull
     SENSOR_NETWORK_ADDRESS:
-        description: ''
-        value:       0xB3B4B5B6ull
+        description: 'nRF24L01 Address (first 4 bytes) of the Sensor Nodes e.g. 0xb3b4b5b6ull. All Sensor Node Addresses will be prefixed by these 4 bytes, like b3b4b5b6XX'
+        value:       0xb3b4b5b6ull
     SENSOR_NODE_OFFSET_1:
-        description: ''
+        description: 'nRF24L01 Address (last byte) of Sensor Node 1 e.g. 0xf1. Sensor Node Address looks like b3b4b5b6f1'
         value:       0xf1
     SENSOR_NODE_OFFSET_2:
-        description: ''
+        description: 'nRF24L01 Address (last byte) of Sensor Node 2 e.g. 0xcd. Sensor Node Address looks like b3b4b5b6cd'
         value:       0xcd
     SENSOR_NODE_OFFSET_3:
-        description: ''
+        description: 'nRF24L01 Address (last byte) of Sensor Node 3 e.g. 0xa3. Sensor Node Address looks like b3b4b5b6a3'
         value:       0xa3
     SENSOR_NODE_OFFSET_4:
-        description: ''
+        description: 'nRF24L01 Address (last byte) of Sensor Node 4 e.g. 0x0f. Sensor Node Address looks like b3b4b5b60f'
         value:       0x0f
     SENSOR_NODE_OFFSET_5:
-        description: ''
+        description: 'nRF24L01 Address (last byte) of Sensor Node 5 e.g. 0x05. Sensor Node Address looks like b3b4b5b605'
         value:       0x05
