@@ -10,6 +10,7 @@
 #include "nRF24L01P.h"
 #include "nrf24l01/nrf24l01.h"
 #include "nrf24l01/transport.h"
+#include "util.h"
 
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
@@ -47,14 +48,14 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     first_open = false;
 
     //  Display the setup of the nRF24L01 module.
-    console_printf( "nrf Frequency    : %d MHz\r\n",    drv(dev)->getRfFrequency() );
-    console_printf( "nrf Output power : %d dBm\r\n",    drv(dev)->getRfOutputPower() );
-    console_printf( "nrf Data Rate    : %d kbps\r\n",   drv(dev)->getAirDataRate() );
+    console_printf( "%sfreq: %d MHz\r\n",         _nrf, drv(dev)->getRfFrequency() );
+    console_printf( "%spwr: %d dBm\r\n",          _nrf, drv(dev)->getRfOutputPower() );
+    console_printf( "%sdata rate: %d kbps\r\n",   _nrf, drv(dev)->getAirDataRate() );
     for (int i = 0; i < 6; i++) {
-        console_printf( "nrf P%d Tx Size   : %d bytes\r\n",  i, drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i) );
+        console_printf( "%sP%d tx size: %d bytes\r\n", _nrf, i, drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i) );
     }
     for (int i = 0; i < 6; i++) {
-        console_printf( "nrf P%d Address   : 0x%010llX\r\n", i, 
+        console_printf( "%sP%d addr: 0x%010llX\r\n", _nrf, i, 
             (i == 0) 
                 ? drv(dev)->getTxAddress()
                 : drv(dev)->getRxAddress(NRF24L01P_PIPE_P0 + i)
@@ -99,7 +100,7 @@ static void nrf24l01_irq_handler(void *arg) {
 
 int nrf24l01_init(struct os_dev *dev0, void *arg) {
     //  Configure the nrf24l01 driver.  Called by os_dev_create().  Return 0 if successful.
-    console_printf("nrf init\n");
+    console_printf("%sinit\n", _nrf);
     struct nrf24l01 *dev;
     struct nrf24l01_cfg *cfg;
     int rc;
@@ -134,7 +135,7 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
 
     //  Configure the rx interrupt, which is active when low.
     if (cfg->irq_pin != MCU_GPIO_PIN_NONE) {
-        console_printf("nrf enable irq\n");
+        console_printf("%senable irq\n", _nrf);
         //  Initialize the event with the callback function.
         nrf24l01_event.ev_cb = nrf24l01_callback;
         hal_gpio_irq_init(cfg->irq_pin, nrf24l01_irq_handler, NULL,
@@ -153,7 +154,7 @@ err:
 
 int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     //  Copy the default nrf24l01 config into cfg.  Returns 0.
-    assert(cfg);  console_printf("nrf defcfg\n");
+    assert(cfg);  console_printf("%sdefcfg\n", _nrf);
     memset(cfg, 0, sizeof(struct nrf24l01_cfg));  //  Zero the entire object.
 
     //  SPI Port Settings
@@ -207,7 +208,7 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
 
 int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg) {
     //  Apply the nrf24l01 driver configuration.  Return 0 if successful.
-    console_printf("nrf config\n");
+    console_printf("%sconfig\n", _nrf);
     assert(dev);  assert(cfg);
 
     //  Initialise the controller.
@@ -233,7 +234,7 @@ static int register_transport(const char *network_device, void *server_endpoint,
 int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size) {
     //  Transmit the data.
     assert(dev);  assert(buf);  assert(size > 0);
-    console_printf("nrf >> "); console_dump(buf, size); console_printf("\n");
+    console_printf("%s>> ", _nrf); console_dump(buf, size); console_printf("\n");
     int rc = drv(dev)->write(NRF24L01P_PIPE_P0 /* Ignored */, (char *) buf, size);
     assert(rc == size);
     return rc;
