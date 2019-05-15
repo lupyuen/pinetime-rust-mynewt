@@ -35,11 +35,11 @@
 static const uint8_t COLLECTOR_NODE_HW_ID[HARDWARE_ID_LENGTH] = MYNEWT_VAL(COLLECTOR_NODE_HW_ID);  //  Hardware ID of Collector Node (ESP8266 + nRF24L01) e.g. \x57\xff\x6a\x06\x78\x78\x54\x50\x49\x29\x24\x67
 
 static const uint8_t SENSOR_NODE_HW_IDS[SENSOR_NETWORK_SIZE][HARDWARE_ID_LENGTH] = { 
-    MYNEWT_VAL(SENSOR_NODE_HW_ID_1),  //  nRF24L01 Sensor Node 1
-    MYNEWT_VAL(SENSOR_NODE_HW_ID_2),  //  nRF24L01 Sensor Node 2
-    MYNEWT_VAL(SENSOR_NODE_HW_ID_3),  //  nRF24L01 Sensor Node 3
-    MYNEWT_VAL(SENSOR_NODE_HW_ID_4),  //  nRF24L01 Sensor Node 4
-    MYNEWT_VAL(SENSOR_NODE_HW_ID_5),  //  nRF24L01 Sensor Node 5
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_1),  //  Hardware ID of Sensor Node 1 (nRF24L01) e.g. \x38\xff\x6d\x06\x4e\x57\x34\x36\x25\x58\x08\x43
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_2),  //  Hardware ID of Sensor Node 2 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x02
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_3),  //  Hardware ID of Sensor Node 3 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x03
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_4),  //  Hardware ID of Sensor Node 4 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x04
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_5),  //  Hardware ID of Sensor Node 5 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x05
 };
 
 /////////////////////////////////////////////////////////
