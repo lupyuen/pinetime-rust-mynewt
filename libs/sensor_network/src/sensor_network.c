@@ -32,15 +32,14 @@
 //  Hardware IDs To Identify Collector Node and Sensor Nodes
 
 #define HARDWARE_ID_LENGTH      12  //  Hardware ID is 12 bytes for STM32
-static const uint8_t COLLECTOR_NODE_HW_ID[HARDWARE_ID_LENGTH] = {
-    0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67,  //  ESP8266 + nRF24L01 Collector Node
-};
+static const uint8_t COLLECTOR_NODE_HW_ID[HARDWARE_ID_LENGTH] = MYNEWT_VAL(COLLECTOR_NODE_HW_ID);  //  Hardware ID of Collector Node (ESP8266 + nRF24L01) e.g. \x57\xff\x6a\x06\x78\x78\x54\x50\x49\x29\x24\x67
+
 static const uint8_t SENSOR_NODE_HW_IDS[SENSOR_NETWORK_SIZE][HARDWARE_ID_LENGTH] = { 
-    { 0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43 },  //  nRF24L01 Sensor Node 1
-    { 0xff },  //  TODO: nRF24L01 Sensor Node 2
-    { 0xff },  //  TODO: nRF24L01 Sensor Node 3
-    { 0xff },  //  TODO: nRF24L01 Sensor Node 4
-    { 0xff },  //  TODO: nRF24L01 Sensor Node 5
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_1),  //  nRF24L01 Sensor Node 1
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_2),  //  nRF24L01 Sensor Node 2
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_3),  //  nRF24L01 Sensor Node 3
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_4),  //  nRF24L01 Sensor Node 4
+    MYNEWT_VAL(SENSOR_NODE_HW_ID_5),  //  nRF24L01 Sensor Node 5
 };
 
 /////////////////////////////////////////////////////////
