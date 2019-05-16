@@ -45,7 +45,18 @@
 			"temp_sensor.h": "c",
 			"os.h": "c",
 			"sensor_coap.h": "c",
-			"json.h": "c"
+			"json.h": "c",
+			"oc_rep.h": "c",
+			"cbor.h": "c",
+			"oc_constants.h": "c",
+			"oc_helpers.h": "c",
+			"cbor_mbuf_writer.h": "c",
+			"assert.h": "c",
+			"oc_assert.h": "c",
+			"send_coap.h": "c",
+			"sysflash.h": "c",
+			"flash_map.h": "c",
+			"os_mbuf.h": "c"
 		}
 	}
 }

@@ -3,6 +3,8 @@
 //  OIC implementation.  More about Mynewt OIC: https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html
 #include <os/os.h>
 #include <console/console.h>
+#include <sensor_network/sensor_network.h>
+#include "util.h"
 #include "esp8266/esp8266.h"
 #include "esp8266/transport.h"
 
@@ -32,7 +34,7 @@ static const struct oc_transport transport = {
     oc_shutdown,  //  void (*ot_shutdown)(void);
 };
 
-int esp8266_register_transport(const char *network_device0, struct esp8266_server *server0) {
+int esp8266_register_transport(const char *network_device0, struct esp8266_server *server0, const char *host, uint16_t port) {
     //  Register the ESP8266 device as the transport for the specifed CoAP server.  
     //  network_device is the ESP8266 device name e.g. "esp8266_0".  Return 0 if successful.
     assert(network_device0);  assert(server0);
@@ -46,7 +48,13 @@ int esp8266_register_transport(const char *network_device0, struct esp8266_serve
         assert(transport_id >= 0);  //  Registration failed.
 
         //  Init the server endpoint before use.
-        int rc = init_esp8266_server(server0);
+        int rc = init_esp8266_server(server0, host, port);
+        assert(rc == 0);
+
+        //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
+        //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
+        //  to pass ESP8266 events to this function.
+        rc = esp8266_connect(dev, NULL, NULL);  
         assert(rc == 0);
 
         //  Allocate a new UDP socket for the CoAP server.  The socket will be always connected to the server and cannot be changed or closed.
@@ -69,18 +77,22 @@ int esp8266_register_transport(const char *network_device0, struct esp8266_serve
     return 0;
 }
 
-int init_esp8266_server(struct esp8266_server *server) {
+int init_esp8266_server(struct esp8266_server *server, const char *host, uint16_t port) {
     //  Init the server endpoint before use.  Returns 0.
-    int rc = init_esp8266_endpoint(&server->endpoint);  assert(rc == 0);
+    int rc = init_esp8266_endpoint(&server->endpoint, host, port);  assert(rc == 0);
     server->handle = (struct oc_server_handle *) server;
     return 0;
 }
 
-int init_esp8266_endpoint(struct esp8266_endpoint *endpoint) {
+int init_esp8266_endpoint(struct esp8266_endpoint *endpoint, const char *host, uint16_t port) {
     //  Init the endpoint before use.  Returns 0.
     assert(transport_id >= 0);  //  Transport ID must be allocated by OIC.
     endpoint->ep.oe_type = transport_id;  //  Populate our transport ID so that OIC will call our functions.
     endpoint->ep.oe_flags = 0;
+    if (host) { 
+        endpoint->host = host;
+        endpoint->port = port;
+    }
     return 0;
 }
 
@@ -124,13 +136,13 @@ static uint8_t oc_ep_size(const struct oc_endpoint *oe) {
 
 static int oc_ep_has_conn(const struct oc_endpoint *oe) {
     //  Return true if the endpoint is connected.  We always return false.
-    console_printf("oc_ep_has_conn\n");
+    //  console_printf("oc_ep_has_conn\n");
     return 0;
 }
 
 static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *oe) {
     //  Log the endpoint message.
-    console_printf("oc_ep_str\n");
+    console_printf("ESP str\n");
 #ifdef NOTUSED
     const struct oc_endpoint_ip *oe_ip = (const struct oc_endpoint_ip *)oe;
     int len;
@@ -145,11 +157,11 @@ static char *oc_ep_str(char *ptr, int maxlen, const struct oc_endpoint *oe) {
 
 static int oc_init(void) {
     //  Init the endpoint.
-    console_printf("oc_init\n");
+    //  console_printf("oc_init\n");
     return 0;
 }
 
 static void oc_shutdown(void) {
     //  Shutdown the endpoint.
-    console_printf("oc_shutdown\n");
+    //  console_printf("oc_shutdown\n");
 }

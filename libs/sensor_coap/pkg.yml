@@ -30,9 +30,20 @@ pkg.deps:
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/hw/sensor"
-    - "@apache-mynewt-core/net/oic"        #  OIC library
-    - "@apache-mynewt-core/encoding/json"  #  JSON encodng for CoAP
-    - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
+    - "@apache-mynewt-core/net/oic"            #  OIC library
+    - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
+
+# Optional Dependencies: Application is dependent on these optional drivers and libraries.
+#   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
+#   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
+
+# JSON encodng for CoAP
+pkg.deps.COAP_JSON_ENCODING:
+    - "@apache-mynewt-core/encoding/json"      #  JSON encodng for CoAP
+
+# CBOR encodng for CoAP
+pkg.deps.COAP_CBOR_ENCODING:
+    - "@apache-mynewt-core/encoding/tinycbor"  #  CBOR encoding for CoAP
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
@@ -41,5 +52,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # sensor_coap should be initialised after esp8266 (Stage 640)
-    init_sensor_coap: 650  # Call init_sensor_coap() to initialise the Sensor CoAP module during startup
+    # sensor_coap should be initialised after esp8266 (Stage 650)
+    init_sensor_coap: 660  # Call init_sensor_coap() to initialise the Sensor CoAP module during startup

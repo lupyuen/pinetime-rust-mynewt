@@ -26,6 +26,17 @@
 #include "adc_stm32f1/adc_stm32f1.h"
 #include "temp_stm32/temp_stm32.h"
 
+//  Define Sensor Type and Sensor Value Type
+#if MYNEWT_VAL(RAW_TEMP)                                      //  If we are returning raw temperature (integers)...
+#include "custom_sensor/custom_sensor.h"                      //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
+#define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW  //  Set to raw sensor type.
+#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_INT32        //  Return integer sensor values.
+
+#else                                                         //  If we are returning computed temperature (floating-point)...
+#define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE      //  Set to floating-point sensor type.
+#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
+#endif  //  MYNEWT_VAL(RAW_TEMP)
+
 //  Exports for the sensor API
 static int temp_stm32_sensor_read(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
 static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t, struct sensor_cfg *);
@@ -46,11 +57,11 @@ static ADC_ChannelConfTypeDef temp_channel_config = {
 int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
     //  Return the default sensor configuration.
     memset(cfg, 0, sizeof(struct temp_stm32_cfg));  //  Zero the entire object.
-    cfg->bc_s_mask = SENSOR_TYPE_ALL;  //  Return all sensor values, i.e. temperature.
-    cfg->adc_dev_name = STM32F1_ADC1_DEVICE;    //  For STM32F1: adc1
-    cfg->adc_channel = ADC_CHANNEL_TEMPSENSOR;  //  For STM32F1: 16
-    cfg->adc_open_arg = NULL;
-    cfg->adc_channel_cfg = &temp_channel_config;  //  Configure the temperature channel.
+    cfg->bc_s_mask       = SENSOR_TYPE_ALL;         //  Return all sensor values, i.e. temperature.
+    cfg->adc_dev_name    = STM32F1_ADC1_DEVICE;     //  For STM32F1: adc1
+    cfg->adc_channel     = ADC_CHANNEL_TEMPSENSOR;  //  For STM32F1: 16
+    cfg->adc_open_arg    = NULL;
+    cfg->adc_channel_cfg = &temp_channel_config;    //  Configure the temperature channel.
     return 0;
 }
 
@@ -120,7 +131,7 @@ int temp_stm32_init(struct os_dev *dev0, void *arg) {
     if (rc != 0) { goto err; }
 
     //  Add the driver with all the supported sensor data types.
-    rc = sensor_set_driver(sensor, SENSOR_TYPE_AMBIENT_TEMPERATURE,
+    rc = sensor_set_driver(sensor, TEMP_SENSOR_TYPE,
         (struct sensor_driver *) &g_temp_stm32_sensor_driver);
     if (rc != 0) { goto err; }
 
@@ -143,14 +154,17 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
     //  Read the sensor values depending on the sensor types specified in the sensor config.
     union {  //  Union that represents all possible sensor values.
-        struct sensor_temp_data std;  //  Temperature sensor value.
+#if MYNEWT_VAL(RAW_TEMP)                   //  If we are returning raw temperature (integers)...
+        struct sensor_temp_raw_data strd;  //  For passing raw temperature sensor value
+#else                                      //  If we are returning computed temperature (floating-point)...
+        struct sensor_temp_data std;       //  For passing computed temperature sensor value
+#endif  //  MYNEWT_VAL(RAW_TEMP)
     } databuf;
     struct temp_stm32 *dev;
-    int rc, rawtemp;
-    float temp;
+    int rc = 0, rawtemp;
 
     //  We only allow reading of temperature values.
-    if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) { rc = SYS_EINVAL; goto err; }
+    if (!(type & TEMP_SENSOR_TYPE)) { rc = SYS_EINVAL; goto err; }
     dev = (struct temp_stm32 *) SENSOR_GET_DEVICE(sensor); assert(dev);
     rawtemp = -1;
     {   //  Begin ADC Lock: Open and lock port ADC1, configure channel 16.
@@ -170,7 +184,15 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     temp = (((float) rawtemp) / 4095.0) * 3300.0;
     temp = ((temp - 760.0) / 2.5) + 25.0;
     temp = temp / 10.0;
-#else
+#endif  //  NOTUSED_FLOAT_TEMP
+
+#if MYNEWT_VAL(RAW_TEMP)  //  If we are returning raw temperature (integers)...    
+    //  Save the raw temperature.
+    struct sensor_temp_raw_data *temp_data = &databuf.strd;
+    temp_data->strd_temp_raw = rawtemp;  //  rawtemp must be between 0 and 4,095 (based on 12-bit ADC)
+    temp_data->strd_temp_raw_is_valid = 1;
+
+#else  //  If we are returning computed temperature (floating-point)...
     //  We use this updated code, which uses only integer computations.
     int32_t t = rawtemp;  //  rawtemp must be between 0 and 4,095 (based on 12-bit ADC)
     t = t * 3300;  //  t must be between 0 and 13,513,500. Will not overflow 32-bit int (2,147,483,647)
@@ -185,18 +207,19 @@ static int temp_stm32_sensor_read(struct sensor *sensor, sensor_type_t type,
     t100 = t100 / 10;    // (t / 10) becomes (t100 / 10), with integer division.  
     //  t100 must be between -2,790 (-27.9 deg C) and 10,406 (104.06 deg C). 
     //  Max error of t100 is 7.2 (0.072 deg C).  Avg error is 0.036 deg C.
-    temp = t100 / 100.0f;
+    float temp = t100 / 100.0f;
 
     //  TODO: Compensate with the expected error: https://docs.google.com/spreadsheets/d/1O-4UyEO8UQmNkaZ0WB5iyUhZO5TalkRULxYF9busBLE/edit?usp=sharing
     //  Return only 1 decimal place.    
-#endif  //  NOTUSED_FLOAT_TEMP
 
-    //  Save the temperature.
-    databuf.std.std_temp = temp;
-    databuf.std.std_temp_is_valid = 1;  //  console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+    //  Save the floating-point temperature.
+    struct sensor_temp_data *temp_data = &databuf.std;
+    temp_data->std_temp = temp;
+    temp_data->std_temp_is_valid = 1;  //  console_printf("temp: ");  console_printfloat(temp);  console_printf("\n");  ////
+#endif  //  MYNEWT_VAL(RAW_TEMP)
     
-    if (data_func) {  //  Call the listener function to process the sensor data.
-        rc = data_func(sensor, data_arg, &databuf.std, SENSOR_TYPE_AMBIENT_TEMPERATURE);
+    if (data_func) {  //  Call the Listener Function to process the sensor data.
+        rc = data_func(sensor, data_arg, temp_data, TEMP_SENSOR_TYPE);
         if (rc) { goto err; }
     }
     return 0;
@@ -279,11 +302,11 @@ static int temp_stm32_sensor_get_config(struct sensor *sensor, sensor_type_t typ
     struct sensor_cfg *cfg) {
     //  Return the type of the sensor value returned by the sensor.
     int rc;
-    if (!(type & SENSOR_TYPE_AMBIENT_TEMPERATURE)) {
+    if (!(type & TEMP_SENSOR_TYPE)) {
         rc = SYS_EINVAL;
         goto err;
     }
-    cfg->sc_valtype = SENSOR_VALUE_TYPE_FLOAT;  //  We return float.
+    cfg->sc_valtype = TEMP_SENSOR_VALUE_TYPE;  //  We return float (computed values) or int (raw values).
     return (0);
 err:
     return (rc);

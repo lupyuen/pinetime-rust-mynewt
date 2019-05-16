@@ -19,9 +19,17 @@ pkg.deps:
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
 #   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
 
-# Library for Semihosting Console
-pkg.deps.SEMIHOSTING_CONSOLE:
-    - "libs/semihosting_console"           #  Semihosting Console
+# nRF24L01 Wireless Transceiver Driver
+pkg.deps.NRF24L01:
+    - "libs/nrf24l01"                      #  nRF24L01 Wireless Transceiver Driver
+
+# Driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
+pkg.deps.REMOTE_SENSOR:
+    - "libs/remote_sensor"                 #  Driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
+
+# Sensor Network library
+pkg.deps.SENSOR_NETWORK:
+    - "libs/sensor_network"                #  Sensor Network library
 
 # CoAP library for transmitting sensor data to CoAP server
 pkg.deps.SENSOR_COAP:
@@ -43,9 +51,15 @@ pkg.deps.ESP8266:
 pkg.deps.HMAC_PRNG:
     - "libs/hmac_prng"                     #  HMAC PRNG pseudorandom number generator
 
+# Library for Semihosting Console
+pkg.deps.SEMIHOSTING_CONSOLE:
+    - "libs/semihosting_console"           #  Semihosting Console
+
+
 #  C compiler flags
 pkg.cflags:
     - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
+#   - -Os                     #  Optimise for smallest size
 
 #  Linker flags
 pkg.lflags:

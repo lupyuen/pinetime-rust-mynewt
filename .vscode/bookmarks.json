@@ -3,7 +3,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
 		"bookmarks": [
 			{
-				"line": 67,
+				"line": 68,
 				"column": 3,
 				"label": "main"
 			}
@@ -33,7 +33,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
 		"bookmarks": [
 			{
-				"line": 26,
+				"line": 36,
 				"column": 5,
 				"label": "pkg"
 			}
@@ -56,6 +56,11 @@
 				"line": 199,
 				"column": 37,
 				"label": "sensor creator"
+			},
+			{
+				"line": 459,
+				"column": 12,
+				"label": ""
 			}
 		]
 	},
@@ -70,7 +75,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
 				"line": 1,
@@ -80,7 +85,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\apps\\my_sensor_app\\syscfg.yml",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\apps\\my_sensor_app\\syscfg.yml",
 		"bookmarks": [
 			{
 				"line": 0,
@@ -90,7 +95,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\targets\\bluepill_my_sensor\\syscfg.yml",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\targets\\bluepill_my_sensor\\syscfg.yml",
 		"bookmarks": [
 			{
 				"line": 0,
@@ -100,12 +105,52 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
 		"bookmarks": [
 			{
 				"line": 4,
 				"column": 15,
 				"label": "syscfg generated"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/sensors/bme280/src/bme280.c",
+		"bookmarks": [
+			{
+				"line": 694,
+				"column": 9,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/api/oc_rep.c",
+		"bookmarks": [
+			{
+				"line": 143,
+				"column": 12,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c",
+		"bookmarks": [
+			{
+				"line": 339,
+				"column": 19,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c",
+		"bookmarks": [
+			{
+				"line": 241,
+				"column": 17,
+				"label": ""
 			}
 		]
 	}

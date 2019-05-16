@@ -23,7 +23,7 @@
 MEMORY
 {
   /*  Must sync with scripts/flash-app.ocd, repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml  */
-  FLASH (rx) :  ORIGIN = 0x08004000, LENGTH = 48K /* First image slot moved from 0x8008000 to 0x8004000. */
+  FLASH (rx) :  ORIGIN = 0x08001000, LENGTH = 60K /* First image slot moved from 0x8008000 to 0x8001000. */
   RAM (rwx) :   ORIGIN = 0x20000000, LENGTH = 20K
 }
 

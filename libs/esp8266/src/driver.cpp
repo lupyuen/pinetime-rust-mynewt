@@ -5,14 +5,30 @@
 #include <os/os.h>
 #include <sensor/sensor.h>
 #include <console/console.h>
+#include <sensor_network/sensor_network.h>
 #include "Controller.h"
 #include "esp8266/esp8266.h"
+#include "esp8266/transport.h"
+
+static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
 static ESP8266 controller;  //  The single ESP8266 controller instance.  TODO: Support multiple ESP8266 instances.
 static char esp8266_tx_buffer[ESP8266_TX_BUFFER_SIZE];  //  TX Buffer
 static char esp8266_rx_buffer[ESP8266_RX_BUFFER_SIZE];  //  RX Buffer
 static char esp8266_parser_buffer[ESP8266_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
-static bool first_open = true;  //  True if this is the first time opening the driver.
+static bool first_open = true;  //  True if this is the first time opening the driver
+
+//  ESP8266 WiFi Connection Settings, defined in targets/bluepill_my_sensor/syscfg.yml
+static const char WIFI_SSID[]     = MYNEWT_VAL(WIFI_SSID);      //  Connect to the WiFi access point with this SSID e.g. my_ssid
+static const char WIFI_PASSWORD[] = MYNEWT_VAL(WIFI_PASSWORD);  //  Password for WiFi access point e.g. my_password
+
+//  Definition of ESP8266 Sensor Network Interface
+static const struct sensor_network_interface network_iface = {
+    SERVER_INTERFACE_TYPE,           //  uint8_t iface_type; Interface Type: Server or Collector
+    ESP8266_DEVICE,                  //  const char *network_device; Network device name.  Must be a static string.
+    sizeof(struct esp8266_server),   //  uint8_t server_endpoint_size; Server Endpoint size
+    register_transport,              //  int (*register_transport_func)(const char *network_device0, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);  //  Register transport function
+};
 
 /////////////////////////////////////////////////////////
 //  Device Creation Functions
@@ -67,6 +83,11 @@ int esp8266_init(struct os_dev *dev0, void *arg) {
 
     //  Register the handlers for opening and closing the device.
     OS_DEV_SETHANDLERS(dev0, esp8266_open, esp8266_close);
+
+    //  Register the Sensor Network Interface.
+    rc = sensor_network_register_interface(&network_iface);
+    assert(rc == 0);
+
     return (OS_OK);
 err:
     return rc;
@@ -82,6 +103,13 @@ int esp8266_default_cfg(struct esp8266_cfg *cfg) {
 int esp8266_config(struct esp8266 *drv, struct esp8266_cfg *cfg) {
     //  Apply the ESP8266 driver configuration.  Return 0 if successful.
     return 0;  //  Nothing to do.  We will apply the config in esp8266_open().
+}
+
+static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {
+    //  Called by Sensor Network Interface to register the transport.
+    assert(server_endpoint_size >= sizeof(struct esp8266_server));  //  Server Endpoint too small
+    int rc = esp8266_register_transport(network_device, (struct esp8266_server *) server_endpoint, host, port);
+    return rc;
 }
 
 /////////////////////////////////////////////////////////
@@ -102,6 +130,8 @@ int esp8266_connect(struct esp8266 *dev, const char *ssid, const char *pass) {
     //  Connect to the WiFi access point with the SSID and password.  
     //  Assumes that the caller has locked the ESP8266 driver for exclusive use.
     //  Return 0 if successful.
+    if (!ssid) { ssid = WIFI_SSID; }
+    if (!pass) { pass = WIFI_PASSWORD; }
     assert(dev);  assert(ssid);  assert(pass);
     esp8266_set_credentials(dev, ssid, pass, NSAPI_SECURITY_UNKNOWN);  //  Save the credentials.
     return internal_connect(dev);  //  Connect with the saved credentials.

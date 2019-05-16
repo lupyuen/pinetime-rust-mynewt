@@ -17,9 +17,10 @@
  * under the License.
  */
 
-#include "os/mynewt.h"
+#include <os/mynewt.h>
 
 #if MYNEWT_VAL(CONSOLE_SEMIHOSTING)
+#include <os/os_mbuf.h>
 #include <ctype.h>
 
 #include "console/console.h"
@@ -30,8 +31,6 @@ static struct hal_timer semihosting_timer;
 #endif
 
 #define OUTPUT_BUFFER_SIZE 2048  //  Use a larger buffer size so that we don't affect interrupt processing.
-static char output_buffer[OUTPUT_BUFFER_SIZE + 1] = { 0 };  //  Buffer to hold output before flushing.
-static volatile uint16_t output_buffer_length = 0;         //  Number of bytes in buffer.
 static bool log_enabled = true;     //  Logging is on by default.
 static bool buffer_enabled = true;  //  Buffering is on by default.
 
@@ -98,38 +97,41 @@ static int semihost_write(uint32_t fh, const unsigned char *buffer, unsigned int
     return __semihost(SYS_WRITE, args);
 }
 
+static struct os_mbuf *semihost_mbuf = NULL;
+
 void console_flush(void) {
     //  Flush output buffer to the console log.  This will be slow.
-    if (!log_enabled) { output_buffer_length = 0; return; }  //  Skip if log not enabled.
-    if (output_buffer_length == 0) { return; }  //  Buffer is empty, nothing to write.
+    if (!log_enabled) { return; }  //  Skip if log not enabled.
+    if (!semihost_mbuf) { return; }  //  Buffer is empty, nothing to write.
     if (os_arch_in_isr()) { return; }  //  Don't flush if we are called during an interrupt.
-	semihost_write(SEMIHOST_HANDLE, (const unsigned char *) output_buffer, output_buffer_length);
-    output_buffer[0] = 0;
-    output_buffer_length = 0;
+
+    //  Swap mbufs first to prevent concurrency problems.
+    struct os_mbuf *old = semihost_mbuf;
+    semihost_mbuf = NULL;
+
+    struct os_mbuf *m = old;
+    while (m) {  //  For each mbuf in the chain...
+        const unsigned char *data = OS_MBUF_DATA(m, const unsigned char *);  //  Fetch the data.
+        int size = m->om_len;                         //  Fetch the size.
+        semihost_write(SEMIHOST_HANDLE, data, size);  //  Write the data to Semihosting output.
+        m = m->om_next.sle_next;                      //  Fetch next mbuf in the chain.
+    }
+    os_mbuf_free_chain(old);  //  Deallocate the old chain.
 }
 
 void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
-    if (!buffer_enabled) { 
-        semihost_write(SEMIHOST_HANDLE, (const unsigned char *) buffer, length);
-        return; 
+    int rc;
+    if (!log_enabled) { return; }  //  Skip if log not enabled.
+    if (!semihost_mbuf) {  //  Allocate mbuf if not already allocated.
+        semihost_mbuf = os_msys_get_pkthdr(length, 0);
+        if (!semihost_mbuf) { return; }  //  If out of memory, quit.
     }
-    if (length >= OUTPUT_BUFFER_SIZE) { return; }  //  Don't allow logging of very long messages.
-#ifdef AUTO_FLUSH_CONSOLE
-    if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is full...
-        console_flush();  //  Display the output buffer.
-    }
-#endif  //  AUTO_FLUSH_CONSOLE
-    if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) {  //  If output buffer is still full...
-        //  Erase the entire buffer.  Latest log is more important than old log.
-        strcpy(output_buffer, "[DROPPED]");
-        output_buffer_length = 9;
-        //  Still can't fit after clearing.  Quit.
-        if (output_buffer_length + length >= OUTPUT_BUFFER_SIZE) { return; }
-    }
-    //  Else append to the buffer.
-    memcpy(&output_buffer[output_buffer_length], buffer, length);
-    output_buffer_length += length;
+    //  Limit the buffer size.  Quit if too big.
+    if (os_mbuf_len(semihost_mbuf) + length >= OUTPUT_BUFFER_SIZE) { return; }
+    //  Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
+    rc = os_mbuf_append(semihost_mbuf, buffer, length);
+    if (rc) { return; }  //  If out of memory, quit.
 }
 
 void console_printhex(uint8_t v) {
@@ -172,6 +174,7 @@ void console_printfloat(float f) {
 
 void console_dump(const uint8_t *buffer, unsigned int len) {
 	//  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+    if (buffer == NULL || len == 0) { return; }
 	for (int i = 0; i < len; i++) { console_printhex(buffer[i]); console_buffer(" ", 1); } 
 }
 

@@ -28,13 +28,13 @@ struct esp8266_server {
 
 //  Register the ESP8266 device as the transport for the specifed CoAP server.  
 //  network_device is the ESP8266 device name e.g. "esp8266_0".  Return 0 if successful.
-int esp8266_register_transport(const char *network_device, struct esp8266_server *server0);
+int esp8266_register_transport(const char *network_device, struct esp8266_server *server0, const char *host, uint16_t port);
 
 //  Init the endpoint before use.  Returns 0.
-int init_esp8266_endpoint(struct esp8266_endpoint *endpoint);  
+int init_esp8266_endpoint(struct esp8266_endpoint *endpoint, const char *host, uint16_t port);  
 
 //  Init the server endpoint before use.  Returns 0.
-int init_esp8266_server(struct esp8266_server *server);        
+int init_esp8266_server(struct esp8266_server *server, const char *host, uint16_t port);        
 
 #ifdef __cplusplus
 }

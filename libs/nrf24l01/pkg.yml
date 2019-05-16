@@ -1,0 +1,44 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# Dependencies for this package
+
+pkg.name:        libs/nrf24l01
+pkg.description: Driver for Nordic Semiconductor nRF24L01 and nRF24L01+ wireless transceiver, ported from mbed
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
+pkg.keywords:
+    - nrf24l01
+    - nrf24l01+
+
+pkg.deps:
+    - "@apache-mynewt-core/kernel/os"
+    - "@apache-mynewt-core/hw/hal"
+    - "@apache-mynewt-core/net/oic"        #  OIC library
+    - "@apache-mynewt-core/libc/baselibc" 
+    - "libs/sensor_network"                #  Sensor Network library
+
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+
+pkg.init:
+    # nrf24l01 should be initialised after sensor_network (Stage 640)
+    nrf24l01_create: 650  # Call nrf24l01_create() to initialise the nRF24L01 driver during startup

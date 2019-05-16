@@ -18,9 +18,10 @@
 #include <assert.h>
 #include <console/console.h>
 #include "esp8266/network.h"
+#include "util.h"
 #include "Controller.h"
 
-extern "C" int debug_vrecv;  ////
+extern "C" int debug_vrecv;
 
 void ESP8266::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug)
@@ -46,7 +47,8 @@ void packet_handler(void *arg) {
 
 bool ESP8266::setEcho(bool echoEnabled) {
     //  Turn command echoing on or off.
-    console_printf("ESP setEcho %s...\n", echoEnabled ? "on" : "off"); console_flush(); 
+    const char *_f = "setEcho";
+    console_printf("%s%s %s...\n", _esp, _f, echoEnabled ? "on" : "off"); console_flush(); 
     for (int i = 0; i < 2; i++) {  //  Try twice in case of error...
         if (
             _parser.send(       //  Send echo on or off command.
@@ -56,10 +58,11 @@ bool ESP8266::setEcho(bool echoEnabled) {
             ) &&
             _parser.recv("OK")  //  Wait for OK response.
         ) {
-            console_printf("ESP setEcho OK\n"); console_flush(); return true; 
+            _log(_f, true);
+            return true; 
         }
     }
-    console_printf("ESP setEcho FAILED\n"); console_flush(); 
+    _log(_f, false);
     return false;
 }
 
@@ -82,9 +85,10 @@ bool ESP8266::startup(int mode)
 
 bool ESP8266::reset(void)
 {
-    //  debug_vrecv = 1;  ////    
+    //  debug_vrecv = 1;  ////
+    const char *_f = "reset";    
     bool ret = false;
-    console_printf("ESP reset...\n"); console_flush(); 
+    console_printf("%s%s...\n", _esp, _f); console_flush(); 
     for (int i = 0; i < 2; i++) {
         if (
             _parser.send("\r\nAT+RST")
@@ -102,7 +106,7 @@ bool ESP8266::reset(void)
             break;
         }
     }
-    console_printf(ret ? "ESP reset OK\n" : "ESP reset FAILED\n"); console_flush(); 
+    _log(_f, ret);
     //  debug_vrecv = 0;  ////    
     return true;
 }
@@ -120,10 +124,13 @@ bool ESP8266::dhcp(bool enabled, int mode)
 
 bool ESP8266::connect(const char *ap, const char *passPhrase)
 {
-    console_printf("ESP connect...\n");  console_flush();
+    const char *_f = "connect";
+    console_printf("%s%s...\n", _esp, _f);  console_flush();
     bool ret = _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
         && _parser.recv("OK");
-    console_printf(ret ? "ESP connect OK\n" : "ESP connect FAILED\n*** Check WIFI_SSID and WIFI_PASSWORD in targets/bluepill_my_sensor/syscfg.yml\n");  console_flush();
+    _log(_f, ret);  
+    if (!ret) { console_printf("*** Check WIFI_SSID and WIFI_PASSWORD in targets/bluepill_my_sensor/syscfg.yml\n"); }
+    console_flush();
     return ret;
 }
 
@@ -205,7 +212,8 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_fu
 {
     unsigned cnt = 0;
     nsapi_wifi_ap_t ap;
-    console_printf("ESP scan...\n"); console_flush();  ////
+    const char *_f = "scan";
+    console_printf("%s%s...\n", _esp, _f); console_flush();  ////
     if (!_parser.send("AT+CWLAP")) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
@@ -226,37 +234,39 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_fu
     //  Wait for the end of the response.
     if (!_parser.recv("OK\r\n")) { cnt = 0; }
     //  debug_vrecv = 0;  ////
-    console_printf(cnt > 0 ? "ESP scan OK\n" : "ESP scan FAILED\n"); console_flush();  ////
+    _log(_f, cnt > 0);
     return cnt;
 }
 
 bool ESP8266::open(const char *type, int id, const char* addr, int port)
 {
+    const char *_f = "open";
     //IDs only 0-4
     if(id > 4) {
         return false;
     }
-    console_printf("ESP open...\n");  console_flush();
+    console_printf("%s%s...\n", _esp, _f);  console_flush();
     bool ret = _parser.send("AT+CIPSTART=%d,\"%s\",\"%s\",%d", id, type, addr, port)
         && _parser.recv("OK");
-    console_printf(ret ? "ESP open OK\n" : "ESP open FAILED\n");  console_flush();
+    _log(_f, ret);
     return ret;
 }
 
 bool ESP8266::send(int id, const void *data, uint32_t amount)
 {
     //  May take a second try if device is busy
-    console_printf("ESP send %u...\n", (unsigned) amount);  console_flush();
+    const char *_f = "send";
+    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
             && _parser.recv(">")
             && _parser.write((char*)data, (int)amount) >= 0 
             && _parser.recv("SEND OK")) {
-            console_printf("ESP send OK\n"); console_flush();
+            _log(_f, true);
             return true;
         }
     }
-    console_printf("ESP send FAILED\n"); console_flush();
+    _log(_f, false);
     return false;
 }
 
@@ -264,7 +274,8 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
 {
     //  Send the chain of mbufs.
     uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
-    console_printf("ESP send mbuf %u...\n", (unsigned) amount);  console_flush();
+    const char *_f = "send mbuf";
+    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
     //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
@@ -283,11 +294,11 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
             }
             if (failed) { break; }
             if (!_parser.recv("SEND OK")) { break; }
-            console_printf("ESP send mbuf OK\n");  console_flush();
+            _log(_f, true);  console_flush();
             return true;
         }
     }
-    console_printf("ESP send mbuf FAILED\n");  console_flush();
+    _log(_f, false);
     return false;
 }
 
@@ -404,7 +415,7 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
                             &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
     ap->channel = (uint8_t) channel;
     ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
-    console_printf(ret ? "" /* "ESP ap OK\n" */ : "ESP ap FAILED\n");  //  Don't flush here, we are still receiving data.
+    console_printf(ret ? "" /* "ESP ap OK\n" */ : "%sap%s", _esp, _okfailed(false));  //  Don't flush here, we are still receiving data.
     return ret;
 }
 

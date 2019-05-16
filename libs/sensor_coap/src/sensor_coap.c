@@ -13,9 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-//  Post sensor data to CoAP server with JSON or CBOR encoding.  We call the Mynewt OIC
-//  interface to encode and transmit CoAP messages.  For ESP8266, the OIC interface
-//  is implemented by esp8266/transport.h.  This is a simpler version of oc_client_api 
+//  Post sensor data to CoAP Server or Collector Node with JSON or CBOR encoding.  We call the Mynewt OIC
+//  interface to encode and transmit CoAP messages.  For ESP8266 and nRF24L01, the OIC interface
+//  is implemented by esp8266/transport.h and nrf24l01/transport.h.  This is a simpler version of oc_client_api 
 //  that supports sensors and JSON.  Original version: repos\apache-mynewt-core\net\oic\src\api\oc_client_api.c
 
 #include <os/mynewt.h>
@@ -25,6 +25,10 @@
 #include <oic/oc_client_state.h>
 #include <console/console.h>
 #include "sensor_coap/sensor_coap.h"
+#if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  For coexistence of CBOR and JSON encoding...
+#include "tinycbor/cbor_cnt_writer.h"
+static struct CborCntWriter cnt_writer;  //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
@@ -33,6 +37,8 @@ static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
 static coap_packet_t oc_c_request[1]; //  CoAP request.
 static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
 static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready for sending sensor data.
+int oc_content_format = 0;            //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
@@ -60,12 +66,20 @@ dispatch_coap_request(void)
     //  Serialise the CoAP request and payload into the final mbuf format for transmitting.
     //  Forward the serialised mbuf to the background transmit task for transmitting.
     bool ret = false;
-    int response_length = rep_finalize();
+    assert(oc_content_format);
+    int response_length = 
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON..
+        (oc_content_format == APPLICATION_JSON) ? json_rep_finalize() :
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
+#if MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in CBOR..
+        (oc_content_format == APPLICATION_CBOR) ? oc_rep_finalize() :
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING)
+        0;  //  Unknown CoAP content format.
 
     if (response_length) {
         oc_c_request->payload_m = oc_c_rsp;
         oc_c_request->payload_len = response_length;
-        coap_set_header_content_format(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
+        coap_set_header_content_format(oc_c_request, oc_content_format);  //  Either JSON or CBOR.
     } else {
         os_mbuf_free_chain(oc_c_rsp);
     }
@@ -104,10 +118,21 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
     if (!oc_c_message) {
         goto free_rsp;
     }
-    rep_new(oc_c_rsp);
+    
+    if (oc_content_format == APPLICATION_JSON) { 
+#if MYNEWT_VAL(COAP_JSON_ENCODING)  //  If we are encoding the CoAP payload in JSON..
+        json_rep_new(oc_c_rsp); 
+#endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
+    }
+    else if (oc_content_format == APPLICATION_CBOR) { 
+#if MYNEWT_VAL(COAP_CBOR_ENCODING)  //  If we are encoding the CoAP payload in CBOR..
+        oc_rep_new(oc_c_rsp); 
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING)
+    }
+    else { assert(0); }  //  Unknown CoAP content format.
 
     coap_init_message(oc_c_request, type, cb->method, cb->mid);
-    coap_set_header_accept(oc_c_request, COAP_CONTENT_FORMAT);  //  Either JSON or CBOR.
+    coap_set_header_accept(oc_c_request, oc_content_format);  //  Either JSON or CBOR.
     coap_set_token(oc_c_request, cb->token, cb->token_len);
     coap_set_header_uri_path(oc_c_request, oc_string(cb->uri));
     if (cb->observe_seq != -1) {
@@ -129,13 +154,21 @@ free_rsp:
 }
 
 bool
-init_sensor_post(struct oc_server_handle *server, const char *uri)
+init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
 {
     //  Create a new sensor post request to send to CoAP server.
     assert(oc_sensor_coap_ready);  assert(server);  assert(uri);
+#ifdef COAP_CONTENT_FORMAT
+    //  If content format is not specified, select the default.
+    if (coap_content_format == 0) { coap_content_format = COAP_CONTENT_FORMAT; }
+#endif  //  COAP_CONTENT_FORMAT
+    assert(coap_content_format != 0);  //  CoAP Content Format not specified
+
+    //  Lock the semaphore for preparing the CoAP request.
     os_error_t rc = os_sem_pend(&oc_sem, OS_TIMEOUT_NEVER);  //  Allow only 1 task to be creating a sensor request at any time.
     assert(rc == OS_OK);
 
+    oc_content_format = coap_content_format;
     oc_qos_t qos = LOW_QOS;  //  Default to low QoS, no transactions.
     oc_response_handler_t handler = handle_coap_response;
     oc_client_cb_t *cb;
@@ -169,6 +202,7 @@ static struct os_mbuf *coap_json_mbuf;  //  The mbuf that contains the outgoing 
 
 int json_write_mbuf(void *buf, char *data, int len) {
     //  Write the JSON to the mbuf for the outgoing CoAP message.
+    if (oc_content_format != APPLICATION_JSON) { return 0; }  //  Exit if we are encoding CBOR, not JSON.
     assert(coap_json_mbuf);
     assert(data);
     //  console_printf("json "); console_buffer(data, len); console_printf("\n");  ////
@@ -182,6 +216,12 @@ void json_rep_new(struct os_mbuf *m) {
     assert(m);
     json_rep_reset();  //  Erase the JSON encoder.
     coap_json_mbuf = m;
+
+#if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  For coexistence of CBOR and JSON encoding...
+    //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected.
+    cbor_cnt_writer_init(&cnt_writer);
+    cbor_encoder_init(&g_encoder, &cnt_writer.enc, 0);
+#endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 }
 
 void json_rep_reset(void) {
@@ -197,7 +237,7 @@ int json_rep_finalize(void) {
     int size = OS_MBUF_PKTLEN(coap_json_mbuf);
 #define DUMP_COAP
 #ifdef DUMP_COAP
-    console_printf("CP> payload size %d\n", size); struct os_mbuf *m = coap_json_mbuf;
+    console_printf("NET payload size %d\n", size); struct os_mbuf *m = coap_json_mbuf;
     while (m) {
         console_buffer((const char *) (m->om_databuf + m->om_pkthdr_len), m->om_len);
         m = m->om_next.sle_next;
@@ -228,6 +268,7 @@ json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
         struct json_value *val)
 {
     //  Extended version of json_encode_object_entry that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
+    assert(encoder); assert(key); assert(val);
     int rc;
 
     if (encoder->je_wr_commas) {
@@ -254,6 +295,7 @@ static int
 json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
 {
     //  Extended version of json_encode_value_ext that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
+    assert(encoder);  assert(jv);
     int rc;
     int len;
 

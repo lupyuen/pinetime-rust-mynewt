@@ -4,17 +4,19 @@
 #   Strings must be enclosed by '"..."'
 
 syscfg.defs:
-    # List of Features. Will be selected automatically based on the tutorial setting.
+    # List of Features. Will be selected automatically based on the tutorial setting.    
+    NRF24L01:
+        description: 'Enable wireless Collector and Sensor Nodes with nRF24L01 transceiver'
+        value:        0        
+    REMOTE_SENSOR:
+        description: 'Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP'
+        value:        0        
+    SENSOR_NETWORK:
+        description: 'Enable Sensor Network library'
+        value:        0
     SENSOR_COAP:
         description: 'Send sensor data to CoAP server'
         value:        0
-    COAP_JSON_ENCODING:
-        description: 'Use JSON to encode CoAP payload'
-        value:        1  # Default CoAP encoding is JSON
-    COAP_CBOR_ENCODING:
-        description: 'Use CBOR to encode CoAP payload (not supported by thethings.io)'
-        value:        0
-
     WIFI_GEOLOCATION:
         description: 'Compute latitude / longitude based on WiFi access points scanned by ESP8266. Requires "esp8266" driver'
         value:        0
@@ -27,6 +29,9 @@ syscfg.defs:
     TEMP_STM32:
         description: 'Enable STM32 internal temperature sensor based on ADC'
         value:        0        
+    RAW_TEMP:
+        description: 'Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size'
+        value:        0        
     ADC_1:
         description: 'Enable port ADC1 for STM32F1xx microcontrollers (blocking reads only, without DMA)'
         value:        0
@@ -34,31 +39,15 @@ syscfg.defs:
         description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'
         value:        1  # Default console is Arm Semihosting        
     
-    # CoAP Connection Settings 
-    COAP_HOST:
-        description: 'CoAP hostname e.g. coap.thethings.io'
-        value:       '"coap.thethings.io"'
-    COAP_PORT:
-        description: 'CoAP UDP port, usually port 5683'
-        value:       5683
-    COAP_URI:
-        description: 'CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8'
-        value:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
-
-    # ESP8266 WiFi Settings
-    WIFI_SSID:
-        description: 'Connect to the WiFi access point with this SSID'
-        value:       '"my_ssid"'
-    WIFI_PASSWORD:
-        description: 'Password for WiFi access point'
-        value:       '"my_password_is_secret"'
-
     # Overall Tutorial Settings. Edit targets/bluepill_my_sensor/syscfg.yml to set the tutorial settings.
     TUTORIAL1:
         description: 'Settings for Tutorial 1'
         value:        0
     TUTORIAL2:
         description: 'Settings for Tutorial 2'
+        value:        0
+    TUTORIAL3:
+        description: 'Settings for Tutorial 3'
         value:        0
 
 # System Configuration Setting Values:
@@ -82,13 +71,17 @@ syscfg.vals:
     OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
     OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores
 
-# Settings for Tutorial 1
-syscfg.vals.TUTORIAL1:
-    BME280_OFB:             1  # Enable BME280 offboard sensor
-    SPI_0_MASTER:           1  # Enable port SPI1 for BME280
+# Settings for Tutorial 3
+syscfg.vals.TUTORIAL3:
+    NRF24L01:               1  # Enable nRF24L01 driver    
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
+    REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
+    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
 
-# Settings for Tutorial 2
-syscfg.vals.TUTORIAL2:
+    # Previous Settings
     SENSOR_COAP:            1  # Send sensor data to CoAP server
     ESP8266:                1  # Enable WiFi access with ESP8266
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
@@ -107,3 +100,30 @@ syscfg.vals.TUTORIAL2:
     OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
     OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
     OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
+
+# Settings for Tutorial 2
+syscfg.vals.TUTORIAL2:
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    ESP8266:                1  # Enable WiFi access with ESP8266
+    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
+    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
+    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+
+    # OIC Settings
+    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_SERVER:              0  # Disable the OIC (CoAP) server library
+    OC_TRANS_SECURITY:      0  # Disable TLS security
+    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
+    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
+    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
+    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
+    OC_APP_RESOURCES:       2  # Max number of server resources
+    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
+    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
+    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
+
+# Settings for Tutorial 1
+syscfg.vals.TUTORIAL1:
+    BME280_OFB:             1  # Enable BME280 offboard sensor
+    SPI_0_MASTER:           1  # Enable port SPI1 for BME280
