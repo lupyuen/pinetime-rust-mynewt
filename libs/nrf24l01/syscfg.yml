@@ -1,23 +1,59 @@
-# The BSD License (BSD)
-#
-# Copyright (c) 2016 Adafruit Industries
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# System Configuration Setting Definitions:
+#   Below are the settings defined by this app and their default values. To change the settings, 
+#   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
+#   Strings must be enclosed by '"..."'
 
 syscfg.defs:
+    # nRF24L01 Settings
+    
+    NRF24L01_SPI_BAUDRATE:
+        description: 'SPI Baudrate in kHz e.g. 200.  200 is low speed, good for testing'
+        value:       200
+
+    NRF24L01_SPI_NUM:
+        description: 'SPI Port Number (0 means SPI1, 1 means SPI2) e.g. 0'
+        value:       0
+
+    NRF24L01_CS_PIN:
+        description: 'SPI Chip Select Pin e.g. MCU_GPIO_PORTB(2), which means Pin PB2'
+        value:       MCU_GPIO_PORTB(2)
+
+    NRF24L01_CE_PIN:
+        description: 'Chip Enable Pin e.g. MCU_GPIO_PORTB(0), which means Pin PB0'
+        value:       MCU_GPIO_PORTB(0)
+
+    NRF24L01_IRQ_PIN:
+        description: 'Interrupt Pin e.g. MCU_GPIO_PORTA(15), which means Pin PA15'
+        value:       MCU_GPIO_PORTA(15)
+
+    NRF24L01_TX_SIZE:
+        description: 'Transfer size in bytes (1 to 32) e.g. 12, which is a reasonable mid size. All messages transmitted will have this fixed size'
+        value:       12
+
+    NRF24L01_FREQ:
+        description: 'Transmission frequency (2400, 2401, 2402, ... to 2525) e.g. 2476, which is channel 76'
+        value:       2476
+
+    NRF24L01_POWER:
+        description: 'Transmission power (0, -6, -12 or -18 dB) e.g. 0, which is the highest power'
+        value:       0
+        # Set to -12 to test with lowest power, if we suspect power issues
+        # value:     -12
+
+    NRF24L01_DATA_RATE:
+        description: 'Transmission data rate (250, 1000 or 2000 kbps) e.g. 250, which is the slowest, longest range, but only supported by nRF24L01+'
+        value:       250
+        # Set to 1000 for the slowest rate supported by both nRF24L01 and nRF24L01+
+        # value:     1000
+
+    NRF24L01_CRC_WIDTH:
+        description: 'CRC Error Checking (0 for no CRC, 8 for 8-bit CRC, 16 for 16-bit CRC) e.g. 8'
+        value:       8
+
+    NRF24L01_AUTO_ACK:
+        description: 'Auto acknowledgement (0 to disable, 1 to enable) e.g. 0'
+        value:       0
+
+    NRF24L01_AUTO_RETRANSMIT:
+        description: 'Auto retransmission (0 to disable, 1 to enable) e.g. 0'
+        value:       0

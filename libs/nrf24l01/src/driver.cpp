@@ -161,36 +161,34 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->spi_settings.data_order = HAL_SPI_MSB_FIRST;       //  Data order
     cfg->spi_settings.data_mode  = HAL_SPI_MODE0;           //  Data mode of SPI driver: ClockPhase = 0, ClockPolarity = 0
     cfg->spi_settings.word_size  = HAL_SPI_WORD_SIZE_8BIT;  //  Word size of the SPI transaction
-    cfg->spi_settings.baudrate   = 200;                     //  Baudrate in kHz: 200 kHz (slow, for testing)
-    //  cfg->spi_settings.baudrate = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Baudrate in kHz: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
+    cfg->spi_settings.baudrate   = MYNEWT_VAL(NRF24L01_SPI_BAUDRATE);  //  Baudrate in kHz e.g. 200 kHz (slow, for testing)
+    //  cfg->spi_settings.baudrate = _NRF24L01P_SPI_MAX_DATA_RATE_HZ * _KHZ / 5;  //  Optimal Baudrate: 2000 kHz, 1/5th the maximum transfer rate for the SPI bus
 
     //  SPI Pins: Derived from the "Super Blue Pill" design https://docs.google.com/presentation/d/1WU_erkN-fPBfNYVX5BOHhjfHLPkTgSwOKEL8rYcAIrI/edit#slide=id.p
-    cfg->spi_num    = 0;                  //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
-    cfg->spi_cfg    = NULL;               //  Not used
-    cfg->cs_pin     = MCU_GPIO_PORTB(2);  //  PB2  TODO: MYNEWT_VAL(SPIFLASH_SPI_CS_PIN);
-    cfg->ce_pin     = MCU_GPIO_PORTB(0);  //  PB0
+    cfg->spi_num    = MYNEWT_VAL(NRF24L01_SPI_NUM);  //  0 means SPI1, 1 means SPI2  TODO: MYNEWT_VAL(SPIFLASH_SPI_NUM);
+    cfg->spi_cfg    = NULL;                          //  Not used
+    cfg->cs_pin     = MYNEWT_VAL(NRF24L01_CS_PIN);   //  e.g. PB2
+    cfg->ce_pin     = MYNEWT_VAL(NRF24L01_CE_PIN);   //  e.g. PB0
 
     //  Tx Frequency
-    cfg->freq           = 2476;                           //  2,476 kHz (channel 76)
+    cfg->freq           = MYNEWT_VAL(NRF24L01_FREQ);             //  e.g. 2,476 kHz (channel 76)
 
     //  Tx Power
-    cfg->power          = NRF24L01P_TX_PWR_ZERO_DB;       //  Highest power in production
-    //  cfg->power      = NRF24L01P_TX_PWR_MINUS_12_DB;   //  Test with lowest power in case of power issues
+    cfg->power          = MYNEWT_VAL(NRF24L01_POWER);       //  e.g. 0 dB, Highest power in production
 
     //  Tx Data Rate
-    cfg->data_rate      = NRF24L01P_DATARATE_250_KBPS;    //  Slowest, longest range, but only supported by nRF24L01+
-    //  cfg->data_rate  = NRF24L01P_DATARATE_1_MBPS;      //  Slowest rate supported by both nRF24L01 and nRF24L01+
+    cfg->data_rate      = MYNEWT_VAL(NRF24L01_DATA_RATE);    //  e.g. 250 kbps, Slowest, longest range, but only supported by nRF24L01+
 
     //  Tx Settings
-    cfg->crc_width       = NRF24L01P_CRC_8_BIT;
-    cfg->tx_size         = NRF24L01_TRANSFER_SIZE;        //  Each packet has this size
-    cfg->auto_ack        = 0;                             //  No acknowledgements
-    cfg->auto_retransmit = 0;
+    cfg->crc_width       = MYNEWT_VAL(NRF24L01_CRC_WIDTH);   //  e.g. 8 bits for CRC
+    cfg->tx_size         = MYNEWT_VAL(NRF24L01_TX_SIZE);        //  e.g. 12 bytes. Each packet has this size
+    cfg->auto_ack        = MYNEWT_VAL(NRF24L01_AUTO_ACK);                             //  e.g. 0 for No acknowledgements
+    cfg->auto_retransmit = MYNEWT_VAL(NRF24L01_AUTO_RETRANSMIT);                    //  e.g. 0 for No retransmission
 
     //  Tx and Rx Addresses: Depends whether this is Collector Node or Sensor Node
 
     if (is_collector_node()) {                            //  If this is the Collector Node...
-        cfg->irq_pin            = MCU_GPIO_PORTA(15);     //  Collector Node gets rx interrupts on PA15
+        cfg->irq_pin            = MYNEWT_VAL(NRF24L01_IRQ_PIN);     //  e.g. MCU_GPIO_PORTA(15) means Collector Node gets rx interrupts on PA15
         cfg->tx_address         = get_collector_node_address(); //  Collector Node address
         cfg->rx_addresses       = get_sensor_node_addresses();  //  Listen to all Sensor Nodes
         cfg->rx_addresses_len   = SENSOR_NETWORK_SIZE;    //  Number of Sensor Nodes to listen

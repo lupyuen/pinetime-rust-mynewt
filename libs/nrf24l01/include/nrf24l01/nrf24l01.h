@@ -29,7 +29,6 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 #define NRF24L01_DEVICE "nrf24l01_0"  //  Name of the device
-#define NRF24L01_TRANSFER_SIZE   12   //  Each packet will have 12 bytes. This value ranges from 1 to 32.
 #define NRL24L01_MAX_RX_PIPES     5   //  Max 5 pipes for receiving data
 
 //  Names (text addresses) of the Sensor Nodes, e.g. "b3b4b5b6f1".  These are also the Remote Sensor names.

@@ -11,7 +11,7 @@
 #include <nrf24l01/nrf24l01.h>
 #include "remote_sensor/remote_sensor.h"
 
-static uint8_t rxData[NRF24L01_TRANSFER_SIZE];  //  Buffer for received data.
+static uint8_t rxData[MYNEWT_VAL(NRF24L01_TX_SIZE)];  //  Buffer for received data.
 
 int remote_sensor_start(void) {
     //  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
@@ -42,7 +42,7 @@ int decode_coap_payload(uint8_t *data, uint8_t size, oc_rep_t **out_rep) {
     struct os_mbuf *om;
 
     //  Get a packet header mbuf.
-    om = os_msys_get_pkthdr(NRF24L01_TRANSFER_SIZE, 4);
+    om = os_msys_get_pkthdr(MYNEWT_VAL(NRF24L01_TX_SIZE), 4);
     assert(om);
     if (!om) { return -1; }
 
@@ -121,8 +121,8 @@ void nrf24l01_callback(struct os_event *ev) {
             pipe = nrf24l01_readable_pipe(dev);
             if (pipe > 0) {
                 //  Read the data into the receive buffer
-                rxDataCnt = nrf24l01_receive(dev, pipe, rxData, NRF24L01_TRANSFER_SIZE);
-                assert(rxDataCnt > 0 && rxDataCnt <= NRF24L01_TRANSFER_SIZE);
+                rxDataCnt = nrf24l01_receive(dev, pipe, rxData, MYNEWT_VAL(NRF24L01_TX_SIZE));
+                assert(rxDataCnt > 0 && rxDataCnt <= MYNEWT_VAL(NRF24L01_TX_SIZE));
                 //  Get the rx (sender) address for the pipe.
                 name = sensor_node_names[pipe - 1];
             }

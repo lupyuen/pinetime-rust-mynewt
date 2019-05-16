@@ -17,7 +17,7 @@ static void oc_shutdown(void);
 static const char *network_device;     //  Name of the nRF24L01 device that will be used for transmitting CoAP messages e.g. "nrf24l01_0" 
 static struct nrf24l01_server *server;  //  CoAP Server host and port.  We only support 1 server.
 static uint8_t transport_id = -1;      //  Will contain the Transport ID allocated by Mynewt OIC.
-static uint8_t nrf24l01_tx_buffer[NRF24L01_TRANSFER_SIZE];
+static uint8_t nrf24l01_tx_buffer[MYNEWT_VAL(NRF24L01_TX_SIZE)];
 
 //  Definition of nRF24L01 driver as a transport for CoAP.  Only 1 nRF24L01 driver instance supported.
 static const struct oc_transport transport = {
@@ -96,18 +96,18 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
         if (mbuf_num == 1) {  //  If this is the second mbuf, i.e. the payload...
             //  Transmit the mbuf.
             assert(size > 0);
-            ////assert(size <= NRF24L01_TRANSFER_SIZE);  //  mbuf too big to transmit
-            if (size <= 0 || size > NRF24L01_TRANSFER_SIZE) { rc = 0; break; }  //  Too small or too big, quit.
+            ////assert(size <= MYNEWT_VAL(NRF24L01_TX_SIZE));  //  mbuf too big to transmit
+            if (size <= 0 || size > MYNEWT_VAL(NRF24L01_TX_SIZE)) { rc = 0; break; }  //  Too small or too big, quit.
 
             //  Zero the buffer.  Copy into the buffer.
-            memset(nrf24l01_tx_buffer, 0, NRF24L01_TRANSFER_SIZE);
+            memset(nrf24l01_tx_buffer, 0, MYNEWT_VAL(NRF24L01_TX_SIZE));
             memcpy(nrf24l01_tx_buffer, data, size);
 
             //  TODO Remove: Set the tx counter in last byte.
-            static uint8_t tx_count = 0;  nrf24l01_tx_buffer[NRF24L01_TRANSFER_SIZE - 1] = tx_count++;  ////
+            static uint8_t tx_count = 0;  nrf24l01_tx_buffer[MYNEWT_VAL(NRF24L01_TX_SIZE) - 1] = tx_count++;  ////
 
             //  On Sensor Node: Transmit the data to Collector Node.
-            rc = nrf24l01_send(dev, nrf24l01_tx_buffer, NRF24L01_TRANSFER_SIZE);
+            rc = nrf24l01_send(dev, nrf24l01_tx_buffer, MYNEWT_VAL(NRF24L01_TX_SIZE));
             assert(rc != -1);
             break;
         }
