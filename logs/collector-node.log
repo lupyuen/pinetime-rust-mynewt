@@ -1,0 +1,494 @@
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+none separate
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.251817
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+target halted due to debug-request, current mode: Handler HardFault
+xPSR: 0x01000003 pc: 0x08000168 msp: 0x20004fe0
+Info : device id = 0x20036410
+Info : flash size = 64kbytes
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+Info : Padding image section 0 at 0x0800fe0e with 2 bytes
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000003a msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+Info : halted: PC: 0x0800010e
+Info : halted: PC: 0x0800112e
+Info : halted: PC: 0x0800121c
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+ADC open ch 16
+STM read int temp sensor
+RND personalise with hw id 57 ff 6a 06 78 78 54 50 49 29 24 67 
+RND seed with temp entropy 01 00 00 0f 01 0f 1f 10 f1 0f 10 00 00 00 f1 f1 1e 00 10 00 1f 00 00 00 00 00 00 f0 1f 10 f1 f0 
+NET hwid 57 ff 6a 06 78 78 54 50 49 29 24 67 
+ESP create esp8266_0
+NET svr esp8266_0
+[
+]
+NRF create nrf24l01_0
+NRF defcfg
+NET collector node 
+NRF init
+NRF enable irq
+NET col nrf24l01_0
+{
+NRF config
+NRF disable rx
+NRF set tx addr
+}
+NET collector node 
+RSN listen b3b4b5b6f1
+RSN listen b3b4b5b6cd
+RSN listen b3b4b5b6a3
+RSN listen b3b4b5b60f
+RSN listen b3b4b5b605
+NET collector node 
+{
+NRF freq: 2476 MHz
+NRF pwr: 0 dBm
+NRF data rate: 250 kbps
+NRF P0 tx size: 12 bytes
+NRF P1 tx size: 12 bytes
+NRF P2 tx size: 12 bytes
+NRF P3 tx size: 12 bytes
+NRF P4 tx size: 12 bytes
+NRF P5 tx size: 12 bytes
+NRF P0 addr: 0x7878787878
+NRF P1 addr: 0xB3B4B5B6F1
+NRF P2 addr: 0xB3B4B5B6CD
+NRF P3 addr: 0xB3B4B5B6A3
+NRF P4 addr: 0xB3B4B5B60F
+NRF P5 addr: 0xB3B4B5B605
+NRF power up
+NET collector node 
+NRF rx mode
+NRF enable int
+}
+NET start
+NET collector node 
+NET collector node 
+NET svr esp8266_0
+[
+ESP reset...
+AT> 
+AT+RST
+NET collector node 
+AT< �
+AT< ERROR
+AT< AT+RST
+AT= OK
+AT< WIFI DISCONNECT
+AT<  ets Jan  8 2013,rst cause:1, boot mode:(3,7)
+AT< load 0x40100000, len 2408, room 16 
+AT< tail 8
+AT< chksum 0xe5
+AT< load 0x3ffe8000, len 776, room 0 
+AT< tail 8
+AT< chksum 0x84
+AT< load 0x3ffe8310, len 632, room 0 
+AT< tail 8
+AT< chksum 0xd8
+AT< csum 0xd8
+AT< 2nd boot version : 1.6
+AT<   SPI Speed      : 40MHz
+AT<   SPI Mode       : QIO
+AT<   SPI Flash Size & Map: 8Mbit(512KB+512KB)
+AT< jump to run user1 @ 1000
+AT< ����n�r��n|���|sl��s�l�l�l`��r�l�l�l`��s�l��AT= ready
+AT= 
+ESP reset OK
+ESP setEcho off...
+AT> 
+ATE0
+AT< ERROR
+AT< ATE0
+AT= OK
+ESP setEcho OK
+AT> AT+CWMODE=3
+AT= OK
+AT> AT+CIPMUX=1
+AT= OK
+AT> AT+CWDHCP=1,1
+AT= OK
+ESP connect...
+AT> AT+CWJAP="my_ssid","my_password_is_secret"
+AT< WIFI CONNECTED
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 4e 
+TMP listener got rawtmp 1728
+TMP network not ready
+{
+}
+AT< WIFI GOT IP
+AT= OK
+ESP connect OK
+AT> AT+CIFSR
+AT< +CIFSR:APIP,"192.168.4.1"
+AT< +CIFSR:APMAC,"ce:50:e3:09:08:aa"
+AT= +CIFSR:STAIP,"192.168.1.174"
+AT< +CIFSR:STAMAC,"cc:50:e3:09:08:aa"
+AT= OK
+ESP open...
+AT> AT+CIPSTART=0,"UDP","coap.thethings.io",5683
+AT< 0,CONNECT
+AT= OK
+ESP open OK
+]
+NET collector node 
+NET col nrf24l01_0
+{
+}
+NET free mbuf 11
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 4f 
+TMP listener got rawtmp 1728
+NET random device id e2a119550c688b425e9d9b2ef964b047
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 50 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 bf ff 00 00 00 00 51 
+TMP listener got rawtmp 1727
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1727}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 03 9c 8d da df 79 ca f1 c4 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 37 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 bf ff 00 00 00 00 52 
+TMP listener got rawtmp 1727
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1727}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 04 29 fa 69 2d 5d 19 00 a9 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 37 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 bf ff 00 00 00 00 53 
+TMP listener got rawtmp 1727
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1727}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 05 7e bb df cc 1e 53 31 53 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 37 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 54 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 06 1c 24 2a 0e 4c 1c e1 a5 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 55 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 07 ff 26 9e 27 6f c0 53 e1 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 56 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 08 ba bf 02 e5 ab e8 18 26 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 57 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 09 30 82 c5 f5 0e d3 8a 7b b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 bf ff 00 00 00 00 58 
+TMP listener got rawtmp 1727
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1727}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 0a ec 2b 4e ac 7a 74 72 7c b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 37 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 bf ff 00 00 00 00 59 
+TMP listener got rawtmp 1727
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1727}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 0b 1e b1 71 20 2a 8f c9 eb b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 37 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 5a 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 0c 33 df fd c6 e2 67 9c 93 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+NET free mbuf 12
+NRF rx interrupt
+{
+}
+rx bf 61 74 19 06 c0 ff 00 00 00 00 5b 
+TMP listener got rawtmp 1728
+NET payload size 140
+{"values": [{"key": "device","value": "e2a119550c688b425e9d9b2ef964b047"},{"key": "node","value": "b3b4b5b6f1"},{"key": "t","value": 1728}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=e2a119550c688b425e9d9b2ef964b047
+{
+}
+[
+ESP send udp
+ESP send mbuf 212...
+AT> AT+CIPSEND=0,212
+AT< OK
+AT= >
+58 02 00 0d 0f 4f 72 b0 b7 63 08 f0 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 65 32 61 31 31 39 35 35 30 63 36 38 38 62 34 32 35 65 39 64 39 62 32 65 66 39 36 34 62 30 34 37 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 6e 6f 64 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 62 33 62 34 62 35 62 36 66 31 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 32 38 7d 5d 7d 
+AT<  
+AT< Recv 212 bytes
+AT= SEND OK
+ESP send mbuf OK
+]
+shutdown command invoked
+gdb-detach
