@@ -19,7 +19,56 @@
 #
 -->
 
-# Apache Mynewt Geolocation Application for STM32 Blue Pill with ESP8266
+# Apache Mynewt Sensor Network Application for STM32 Blue Pill with ESP8266 and nRF24L01 (includes Geolocation)
+
+<b>Requirements:</b> STM32 Blue Pill (or Super Blue Pill) with ESP8266 or nRF24L01 or both
+
+The program runs in 3 modes:
+
+<b>1️⃣ Standalone Node (Blue Pill with ESP8266):</b> The program polls the 
+Blue Pill internal temperature sensor every 10 seconds and transmits the 
+sensor data (JSON format) to a CoAP (UDP) Server, such as thethings.io.  
+Edit the settings in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
+
+```yml
+syscfg.vals:
+    TUTORIAL1: 0
+    TUTORIAL2: 1
+    TUTORIAL3: 0
+    ...
+```
+
+<b>2️⃣ Sensor Node (Blue Pill with nRF24L01):</b> The program polls the 
+Blue Pill internal temperature sensor every 10 seconds and transmits the 
+sensor data (CBOR format) to the Collector Node.  Edit the settings 
+in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
+
+```yml
+syscfg.vals:
+    TUTORIAL1: 0
+    TUTORIAL2: 0
+    TUTORIAL3: 1
+    ...
+```
+
+Set `SENSOR_NODE_HW_ID_1` to the Hardware ID of the Blue Pill.
+
+<b>3️⃣ Collector Node (Blue Pill with nRF24L01 and ESP8266):</b> The program polls the 
+Blue Pill internal temperature sensor every 10 seconds and transmits the 
+sensor data (CBOR format) to a Collector Node.  Edit the settings 
+in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
+
+```yml
+syscfg.vals:
+    TUTORIAL1: 0
+    TUTORIAL2: 0
+    TUTORIAL3: 1
+    ...
+```
+
+Set `COLLECTOR_NODE_HW_ID` to the Hardware ID of the Blue Pill.
+
+
 
 This program runs on an STM32 Blue Pill connected to ESP8266. It sends WiFi Access Point MAC Addresses and Signal Strength scanned by ESP8266 to a CoAP (UDP) server, such as thethings.io:
 

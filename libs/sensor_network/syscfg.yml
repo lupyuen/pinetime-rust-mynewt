@@ -15,7 +15,7 @@ syscfg.defs:
         description: 'CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8'
         value:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
 
-    # Hardware IDs (12 bytes) of the Collector Node and Sensor Nodes: We shall decide whether this node is a Collector or Sensor Node by matching these Hardware IDs
+    # Hardware IDs (12 bytes) of the Collector Node and Sensor Nodes: We shall decide whether this node is a Collector or Sensor Node by matching these Hardware IDs.
     COLLECTOR_NODE_HW_ID:
         description: 'Hardware ID of Collector Node (ESP8266 + nRF24L01) e.g. \x57\xff\x6a\x06\x78\x78\x54\x50\x49\x29\x24\x67'
         value:       '"\x57\xff\x6a\x06\x78\x78\x54\x50\x49\x29\x24\x67"'
@@ -36,12 +36,13 @@ syscfg.defs:
         value:       '"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x05"'
 
     # nRF24L01 Addresses of the Collector Node and Sensor Nodes: Addresses shall be assigned to the nodes by matching the Hardware IDs above.
+    # These addresses don't need to be changed unless there is another nRF24L01 network using these addresses.
     # Derived from the sample network here: https://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf
     COLLECTOR_NODE_ADDRESS:
-        description: 'nRF24L01 Address (5 bytes) of the Collector Node e.g. 0x7878787878ull. May be different from the Sensor Node Addresses'
+        description: 'nRF24L01 Address (5 bytes) of the Collector Node e.g. 0x7878787878ull. May be different from the Sensor Node Addresses. "ull" is required because this is an unsigned long long number.'
         value:       0x7878787878ull
     SENSOR_NETWORK_ADDRESS:
-        description: 'nRF24L01 Address (first 4 bytes) of the Sensor Nodes e.g. 0xb3b4b5b6ull. All Sensor Node Addresses will be prefixed by these 4 bytes, like b3b4b5b6XX'
+        description: 'nRF24L01 Address (first 4 bytes) of the Sensor Nodes e.g. 0xb3b4b5b6ull. All Sensor Node Addresses will be prefixed by these 4 bytes, like b3b4b5b6XX. "ull" is required because this is an unsigned long long number.'
         value:       0xb3b4b5b6ull
     SENSOR_NODE_OFFSET_1:
         description: 'nRF24L01 Address (last byte) of Sensor Node 1 e.g. 0xf1. Sensor Node Address looks like b3b4b5b6f1'
