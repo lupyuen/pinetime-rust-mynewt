@@ -21,7 +21,7 @@ syscfg.vals:
     # WIFI_GEOLOCATION:       1  # Enable WiFi Geolocation
 
     ###########################################################################
-    # CoAP Server Settings
+    # CoAP Server Connection Settings: Collector Node and Standalone Node will send sensor data to this server
 
     # CoAP hostname e.g. coap.thethings.io
     COAP_HOST:      '"coap.thethings.io"'
