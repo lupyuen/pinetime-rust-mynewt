@@ -1,0 +1,874 @@
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-18-11:42)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+none separate
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.238882
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+Info : device id = 0x20036410
+Info : flash size = 64kbytes
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+Info : Padding image section 0 at 0x0800fce6 with 2 bytes
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000003a msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+Info : halted: PC: 0x0800010e
+Info : halted: PC: 0x0800112e
+Info : halted: PC: 0x0800121c
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+ADC open ch 16
+STM read int temp sensor
+RND personalise with hw id 38 ff 6d 06 4e 57 34 36 25 58 08 43 
+RND seed with temp entropy 00 00 00 00 00 00 00 00 0f 10 00 f1 f1 f1 00 00 00 00 00 00 00 00 0f 10 00 f1 00 00 f1 0f 10 00 
+NET hwid 38 ff 6d 06 4e 57 34 36 25 58 08 43 
+NET sensor node 1
+ESP create esp8266_0
+NET svr esp8266_0
+[
+]
+NRF create nrf24l01_0
+NRF defcfg
+NRF init
+NET col nrf24l01_0
+{
+NRF config
+NRF disable rx
+NRF set tx addr
+}
+NET start
+NET col nrf24l01_0
+{
+NRF freq: 2476 MHz
+NRF pwr: 0 dBm
+NRF data rate: 250 kbps
+NRF P0 tx size: 12 bytes
+NRF P1 tx size: 12 bytes
+NRF P2 tx size: 0 bytes
+NRF P3 tx size: 0 bytes
+NRF P4 tx size: 0 bytes
+NRF P5 tx size: 0 bytes
+NRF P0 addr: 0xB4B5B6F1000000B3
+NRF P1 addr: 0xB4B5B6F120000210
+NRF P2 addr: 0xB4B5B6C320000210
+NRF P3 addr: 0xB4B5B6C420000210
+NRF P4 addr: 0xB4B5B6C520000210
+NRF P5 addr: 0xB4B5B6C620000210
+NRF power up
+TMP poll temp_stm32_0
+NRF tx mode
+NRF disable int
+}
+NET free mbuf 10
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1726
+NRF send to collector: rawtmp 1726
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 be ff 
+NRF >> bf 61 74 19 06 be ff 00 00 00 00 00 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 01 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 03 9c 8d da df 79 ca f1 c4 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 02 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 04 29 fa 69 2d 5d 19 00 a9 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 03 
+NRF tx mode
+NET free mbuf 8
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 05 7e bb df cc 1e 53 31 53 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 04 
+NRF tx mode
+NET free mbuf 8
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 06 1c 24 2a 0e 4c 1c e1 a5 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 05 
+NRF tx mode
+NET free mbuf 8
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 07 ff 26 9e 27 6f c0 53 e1 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 06 
+NRF tx mode
+NET free mbuf 8
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 08 ba bf 02 e5 ab e8 18 26 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 07 
+NRF tx mode
+NET free mbuf 8
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 09 30 82 c5 f5 0e d3 8a 7b b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 08 
+NRF tx mode
+NET free mbuf 8
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 0a ec 2b 4e ac 7a 74 72 7c b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 09 
+NRF tNET free mbuf 8
+x mode
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 0b 1e b1 71 20 2a 8f c9 eb b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 0a 
+NET free mbuf 8
+NRF tx mode
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 0c 33 df fd c6 e2 67 9c 93 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63NET free mbuf 8
+ 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 0b 
+NRF tx mode
+}
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collectorNET free mbuf 9
+: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 0d 0f 4f 72 b0 b7 63 08 f0 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 0c 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 0e ea 00 d0 c0 78 78 65 48 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 0d 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 0f c4 9b 8a 52 b8 f9 80 f8 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 0e 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 10 86 ea 9a d6 79 ec 00 cc b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 0f 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 11 b7 d0 ae 23 77 ab e9 6d b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 10 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 12 d7 90 80 46 0e 46 3f 0e b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 11 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 13 5c de 43 c5 c8 a3 c2 7f b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 12 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 14 46 d5 39 68 87 16 d8 2f b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 13 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 15 61 91 61 b9 4c a5 89 7a b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 14 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 16 17 bf 4e 8d a1 f9 a4 fc b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 15 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 17 ef 1f 13 07 a9 79 fe a5 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 16 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 18 a6 9c 5b a9 c2 b8 da 6d b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 17 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 19 e8 1e 95 26 d4 08 64 ab b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 18 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 1a ab 0c 4c c2 39 96 58 34 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 19 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 1b 29 df 94 35 49 18 c0 83 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 1a 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 1c 78 ef a0 28 80 c0 da 4a b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 1b 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 1d c7 32 71 73 4e b2 17 ee b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 1c 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 1e 37 40 a9 77 7c ed 40 90 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 1d 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 1f 53 9a 7e 05 36 35 b4 6d b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 1e 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 20 2e d6 c9 5d b9 1d cc 69 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 1f 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 21 18 da 3e 03 9a 0a 5f d0 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 20 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 22 fc 0d b7 2c b0 87 61 6d b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 21 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 23 59 f7 a9 ca 9f 06 a6 3c b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 22 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 24 db 5a b7 31 02 ab c5 13 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 23 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 25 95 9d 65 9c 34 6f 17 c8 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 24 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 26 de bf e5 d5 bb 8b df 72 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 25 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 27 c5 eb 0d 80 52 ab 83 95 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 26 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 28 32 31 6a 86 92 15 f9 ff b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 27 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 29 9a a9 6e 70 3c 9a 3d 7b b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 28 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 2a 5e dd c4 64 25 a7 fe 59 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 29 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 2b c1 e4 c4 cf be 92 59 31 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 2a 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 2c 84 5e 02 bf 3f c5 bc 1b b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 2b 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 2d 20 f6 01 24 70 0a ed 07 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 2c 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 2e a0 d3 05 50 14 f6 23 b6 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 2d 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 2f 18 ef 06 1b f2 e4 52 25 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 2e 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 30 c5 e1 c1 47 81 c4 84 52 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 2f 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 31 c3 6e e8 d6 2f 6b 63 4c b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 30 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 32 65 9d 79 1b 4e eb d3 bc b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 31 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 33 34 df 2c 82 9c ea bc 2a b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 32 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 34 87 5b 05 1e 6d a8 e5 55 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 33 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1725
+NRF send to collector: rawtmp 1725
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 35 bc 1a 0a 2c 77 fc fc 2e b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bd ff 
+NRF >> bf 61 74 19 06 bd ff 00 00 00 00 34 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 36 10 6b 0f e0 3a 38 b2 0d b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 35 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 37 20 79 ad ec 0a 75 03 e7 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 36 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 38 fd b5 51 58 ba 78 93 65 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 37 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 39 e6 44 70 51 e7 fa 34 e6 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 38 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 3a a4 4a d8 d3 de b4 84 7a b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 39 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1724
+NRF send to collector: rawtmp 1724
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 3b 87 98 22 11 2b 46 b3 33 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bc ff 
+NRF >> bf 61 74 19 06 bc ff 00 00 00 00 3a 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 3c f8 cc 44 ae bf 97 63 17 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 3b 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 3d bb a3 43 08 bd 07 a8 40 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 3c 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 3e c4 cf 05 d2 e1 47 2f cf b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 3d 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 3f b2 58 44 7d 8d 78 7a 66 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 3e 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 40 ec 15 9f 00 72 aa 49 1f b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 3f 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1722
+NRF send to collector: rawtmp 1722
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 41 57 81 ca ac d7 90 15 ed b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 ba ff 
+NRF >> bf 61 74 19 06 ba ff 00 00 00 00 40 
+NRF tx mode
+}
+NET free mbuf 11
+ADC open ch 16
+STM read int temp sensor
+TMP listener got rawtmp 1723
+NRF send to collector: rawtmp 1723
+{
+nrf tx mbuf
+nrf header len 72: 58 02 00 42 b1 bb e6 e2 89 ce b5 99 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+nrf payload len 07: bf 61 74 19 06 bb ff 
+NRF >> bf 61 74 19 06 bb ff 00 00 00 00 41 
+NRF tx mode
