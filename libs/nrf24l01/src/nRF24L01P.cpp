@@ -1198,18 +1198,9 @@ void nRF24L01P::flushTx(void) {
 }
 
 void nRF24L01P::flushTxRx(void) {
-    //  Flush tx and rx.  From https://os.mbed.com/users/khuang/code/nRF24L01/file/b3ea38f27b69/nRF24L01P.cpp/ and https://os.mbed.com/users/Christilut/code/nRF24L01P/file/054a50936ab6/nRF24L01P.cpp/
-    select();  //  Set CS Pin to low.
-
-    spiWrite(_NRF24L01P_SPI_CMD_FLUSH_TX);
-
-    spiWrite(_NRF24L01P_SPI_CMD_NOP);
-    
-    spiWrite(_NRF24L01P_SPI_CMD_FLUSH_RX);
-
-    spiWrite(_NRF24L01P_SPI_CMD_NOP);
-    
-    deselect();  //  Set CS Pin to high.
+    //  Flush tx and rx.
+    flushTx();
+    flushRx();
 }
 
 uint8_t nRF24L01P::spiWrite(uint8_t val) {

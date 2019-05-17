@@ -65,6 +65,9 @@ struct nrf24l01 {
     void *controller;       //  Pointer to controller instance (nRF24L01P *)
 };
 
+/////////////////////////////////////////////////////////
+//  Device Creation Functions
+
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
 //  Implemented in creator.c as function DEVICE_CREATE().
 void nrf24l01_create(void);
@@ -78,17 +81,8 @@ int nrf24l01_init(struct os_dev *dev0, void *arg);
 //  Apply the device configuration.  Return 0 if successful.
 int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg);
 
-//  Return true if this is the Collector Node.
-bool nrf24l01_collector_node(void);
-
-//  Return true if this is a Sensor Node.
-bool nrf24l01_sensor_node(void);
-
-//  Return true if this is a Standalone Node, i.e. not connected to any Collector and Sensor Nodes.
-bool nrf24l01_standalone_node(void);
-
-//  TODO: Should be part of config.
-void nrf24l01_callback(struct os_event *ev);
+/////////////////////////////////////////////////////////
+//  Transmit / Receive Functions
 
 //  Transmit the data.
 int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size);
@@ -101,6 +95,21 @@ int nrf24l01_readable_pipe(struct nrf24l01 *dev);
 
 //  Return the rx address of the pipe (1 to 5).
 unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe);
+
+/////////////////////////////////////////////////////////
+//  Other Functions
+
+//  Flush the transmit buffer.  Return 0 if successful.
+int nrf24l01_flush_tx(struct nrf24l01 *dev);
+
+//  Flush the receive buffer.  Return 0 if successful.
+int nrf24l01_flush_rx(struct nrf24l01 *dev);
+
+//  Flush the transmit and receive buffers.  Return 0 if successful.
+int nrf24l01_flush_txrx(struct nrf24l01 *dev);
+
+//  TODO: Should be part of config.
+void nrf24l01_callback(struct os_event *ev);
 
 #ifdef __cplusplus
 }

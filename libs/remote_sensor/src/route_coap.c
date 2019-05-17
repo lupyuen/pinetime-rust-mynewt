@@ -12,6 +12,7 @@
 #include "remote_sensor/remote_sensor.h"
 
 static uint8_t rxData[MYNEWT_VAL(NRF24L01_TX_SIZE)];  //  Buffer for received data.
+static const char *_nrf = "NRF ";
 
 int remote_sensor_start(void) {
     //  Start the CoAP Router that receives CoAP messages from nRF24L01 Sensor Nodes
@@ -102,8 +103,7 @@ int process_coap_message(const char *name, uint8_t *data, uint8_t size0) {
 
 void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
-    //  TODO: Move to config.
-    console_printf("NRF rx interrupt\n");
+    //  console_printf("%srx interrupt\n", _nrf);
     const char **sensor_node_names = get_sensor_node_names();
     assert(sensor_node_names);
     //  On Collector Node: Check Pipes 1-5 for received data.
@@ -133,11 +133,11 @@ void nrf24l01_callback(struct os_event *ev) {
         //  If no data available, quit.
         if (pipe <= 0) { break; }
 
-        //  TODO: Process the received data.
+        //  Process the received data.
         if (rxDataCnt > 0) { 
             //  Display the receive buffer contents
-            console_printf("rx "); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
-            int rc = process_coap_message(name, rxData, rxDataCnt);
+            console_printf("%srx ", _nrf); console_dump((const uint8_t *) rxData, rxDataCnt); console_printf("\n"); 
+            int rc = process_coap_message(name, rxData, rxDataCnt);  //  Process the incoming message and trigger the Remote Sensor.
             assert(rc == 0);
         }
     }

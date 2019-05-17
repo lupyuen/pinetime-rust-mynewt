@@ -259,3 +259,28 @@ unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe) {
     unsigned long long ret = drv(dev)->getRxAddress(pipe);
     return ret;
 }
+
+/////////////////////////////////////////////////////////
+//  Other Functions
+
+int nrf24l01_flush_tx(struct nrf24l01 *dev) {
+    //  Flush the transmit buffer.  Return 0 if successful.
+    assert(dev);
+    drv(dev)->flushTx();
+    return 0;
+}
+
+int nrf24l01_flush_rx(struct nrf24l01 *dev) {
+    //  Flush the receive buffer.  Return 0 if successful.
+    assert(dev);
+    drv(dev)->flushRx();
+    return 0;
+}
+
+int nrf24l01_flush_txrx(struct nrf24l01 *dev) {
+    //  Flush the transmit and receive buffers.  Return 0 if successful.
+    assert(dev);
+    drv(dev)->flushTx();
+    drv(dev)->flushRx();
+    return 0;
+}

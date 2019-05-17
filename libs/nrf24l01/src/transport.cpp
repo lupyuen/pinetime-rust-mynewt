@@ -49,6 +49,10 @@ int nrf24l01_register_transport(const char *network_device0, struct nrf24l01_ser
         int rc = init_nrf24l01_server(server0, host, port);
         assert(rc == 0);
 
+        //  Flush the transmit and receive buffers in case the transceiver was stopped during last transmit/receive.
+        rc = nrf24l01_flush_txrx(dev);
+        assert(rc == 0);
+
         //  nRF24L01 registered.  Remember the details.
         network_device = network_device0;
         server = server0;
