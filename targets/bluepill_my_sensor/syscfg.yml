@@ -88,3 +88,46 @@ syscfg.vals:
 
     # nRF24L01 Address (last byte) of Sensor Node 5 e.g. 0x05. Sensor Node Address looks like b3b4b5b605
     SENSOR_NODE_OFFSET_5:   0x05
+
+    ###########################################################################
+    # nRF24L01 Settings
+    
+    # SPI Baudrate in kHz e.g. 200.  200 is low speed, good for testing
+    NRF24L01_SPI_BAUDRATE:  200
+
+    # SPI Port Number (0 means SPI1, 1 means SPI2) e.g. 0
+    NRF24L01_SPI_NUM:       0
+
+    # SPI Chip Select Pin e.g. MCU_GPIO_PORTB(2), which means Pin PB2
+    NRF24L01_CS_PIN:        MCU_GPIO_PORTB(2)
+
+    # Chip Enable Pin e.g. MCU_GPIO_PORTB(0), which means Pin PB0
+    NRF24L01_CE_PIN:        MCU_GPIO_PORTB(0)
+
+    # Interrupt Pin e.g. MCU_GPIO_PORTA(15), which means Pin PA15
+    NRF24L01_IRQ_PIN:       MCU_GPIO_PORTA(15)
+
+    # Transfer size in bytes (1 to 32) e.g. 12, which is a reasonable mid size. All messages transmitted will have this fixed size
+    NRF24L01_TX_SIZE:       12
+
+    # Transmission frequency (2400, 2401, 2402, ... to 2525) e.g. 2476, which is channel 76
+    NRF24L01_FREQ:          2476
+
+    # Transmission power (0, -6, -12 or -18 dB) e.g. 0, which is the highest power
+    NRF24L01_POWER:         0
+    # Set to -12 to test with lowest power, if we suspect power issues
+    # NRF24L01_POWER:       -12
+
+    # Transmission data rate (250, 1000 or 2000 kbps) e.g. 250, which is the slowest, longest range, but only supported by nRF24L01+
+    NRF24L01_DATA_RATE:     250
+    # Set to 1000 for the slowest rate supported by both nRF24L01 and nRF24L01+
+    # NRF24L01_DATA_RATE:   1000
+
+    # CRC Error Checking (0 for no CRC, 8 for 8-bit CRC, 16 for 16-bit CRC) e.g. 8
+    NRF24L01_CRC_WIDTH:     8
+
+    # Auto acknowledgement (0 to disable, 1 to enable) e.g. 0
+    NRF24L01_AUTO_ACK:      0
+
+    # Auto retransmission (0 to disable, 1 to enable) e.g. 0
+    NRF24L01_AUTO_RETRANSMIT:   0
