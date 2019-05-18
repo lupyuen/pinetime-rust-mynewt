@@ -219,7 +219,7 @@ err:
 //  Sensor Data Functions
 
 sensor_type_t remote_sensor_lookup_type(const char *name) {
-    //  Return the Sensor Type given the CoAP Payload CBOR name.  Return 0 if not found.
+    //  Return the Sensor Type given the CBOR field name.  Return 0 if not found.
     assert(name);
     const struct sensor_type_descriptor *st = sensor_types;
     while (st->type) {

@@ -108,7 +108,9 @@ int nrf24l01_flush_rx(struct nrf24l01 *dev);
 //  Flush the transmit and receive buffers.  Return 0 if successful.
 int nrf24l01_flush_txrx(struct nrf24l01 *dev);
 
-//  TODO: Should be part of config.
+//  Callback that is triggered when we receive an nRF24L01 message.
+//  This callback is triggered by the nRF24L01 receive interrupt,
+//  which is forwarded to the Event Queue.
 void nrf24l01_callback(struct os_event *ev);
 
 #ifdef __cplusplus
