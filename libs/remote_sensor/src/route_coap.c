@@ -49,8 +49,9 @@ static void receive_callback(struct os_event *ev) {
     const char **sensor_node_names = get_sensor_node_names();
     assert(sensor_node_names);
     //  On Collector Node: Check Pipes 1-5 for received data.
-    for (;;) {
-        //  Keep checking until there is no more data to process.
+    int i;
+    for (i = 0; i < NRL24L01_MAX_RX_PIPES * 2; i++) {
+        //  Keep checking until there is no more data to process.  For safety, stop after 10 iterations.
         int pipe = -1;
         int rxDataCnt = 0;
         const char *name = NULL;
