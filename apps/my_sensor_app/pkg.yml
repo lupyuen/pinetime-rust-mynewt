@@ -61,6 +61,11 @@ pkg.cflags:
     - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
 #   - -Os                     #  Optimise for smallest size
 
+#  To test expansion of macros, enable both options below.  Expanded source code will appear at "bin" folder,
+#  like bin\targets\bluepill_my_sensor\app\libs\remote_sensor\libs\remote_sensor\src\remote_sensor.o
+#   - -E 
+#   - -dD
+
 #  Linker flags
 pkg.lflags:
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation

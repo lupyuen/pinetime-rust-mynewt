@@ -57,7 +57,8 @@
 			"sysflash.h": "c",
 			"flash_map.h": "c",
 			"os_mbuf.h": "c",
-			"nrf24l01.h": "c"
+			"nrf24l01.h": "c",
+			"custom_sensor.h": "c"
 		}
 	}
 }

@@ -21,3 +21,29 @@
 # SOFTWARE.
 
 syscfg.defs:
+  SENSOR_VALUE_1__NAME:
+    description: ''
+    value: 'temp_raw'
+
+  SENSOR_VALUE_1__FIELD:
+    value: '"t"'
+
+  SENSOR_VALUE_1__UNION:
+    value: 'strd'
+
+  SENSOR_VALUE_1__TYPE:
+    value: 'int'
+
+  # Custom Sensor Value Type
+  SENSOR_VALUE_1__TYPE_UPPER:
+    value: 'INT'
+
+  # Sensor Framework Type
+  SENSOR_VALUE_1__TYPE_UPPER2:
+    value: 'INT32'
+
+  SENSOR_VALUE_1__SENSOR_TYPE:
+    value: 'AMBIENT_TEMPERATURE_RAW'
+
+  TEST_HEX:
+    value: 0x12, 0x13, 0x14

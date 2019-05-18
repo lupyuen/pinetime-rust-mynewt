@@ -27,6 +27,58 @@
 #include "custom_sensor/custom_sensor.h"  //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
 #include "remote_sensor/remote_sensor.h"
 
+#ifdef NOTUSED
+#define SENSOR_VALUE_NAME (temp_raw)
+#define SENSOR_VALUE_FIELD (t)
+#define SENSOR_VALUE_UNION (strd)
+#define SENSOR_VALUE_TYPE (int)
+#define SENSOR_VALUE_TYPE_UPPER (INT)     //  Custom Sensor Value Type
+#define SENSOR_VALUE_TYPE_UPPER2 (INT32)  //  Sensor Framework Type
+#define SENSOR_VALUE_SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
+#endif  //  NOTUSED
+
+//  Identity macro, which expands the value of x if x is a macro:
+//  _ID (abc) = abc
+#define _ID(x) x
+
+//  Convert token x to a string: _STR(abc) = "abc"
+#define _STR(x) # x
+
+//  _SENSOR_DATA((abc)) = sensor_abc_data
+#define _SENSOR_DATA(x)  _SENSOR_DATA0 x
+#define _SENSOR_DATA0(x) sensor_ ## x ## _data
+
+//  _SENSOR_TYPE((abc)) = SENSOR_TYPE_abc
+#define _SENSOR_TYPE(x)  _SENSOR_TYPE0 x
+#define _SENSOR_TYPE0(x) SENSOR_TYPE_ ## x
+
+//  _SENSOR_VALUE_TYPE((abc)) = SENSOR_VALUE_TYPE_abc
+#define _SENSOR_VALUE_TYPE(x)  _SENSOR_VALUE_TYPE0 x
+#define _SENSOR_VALUE_TYPE0(x) SENSOR_VALUE_TYPE_ ## x
+
+//  _SAVE((abc)) = save_abc
+#define _SAVE(x)  _SAVE0 x
+#define _SAVE0(x) save_ ## x
+
+//  _VALUE_TYPE((abc)) = value_abc
+#define _VALUE_TYPE(x)  _VALUE_TYPE0 x
+#define _VALUE_TYPE0(x) value_ ## x
+
+//  _CONCAT((abc), (def)) = abc_def
+#define _CONCAT(x, y)  _CONCAT1(_ID x, _ID y)
+#define _CONCAT1(x, y) _CONCAT2(x, y)
+#define _CONCAT2(x, y) x##_##y
+
+//  _IS_VALID((abc), (def)) = abc_def_is_valid
+#define _IS_VALID(x, y)  _IS_VALID1(_ID x, _ID y)
+#define _IS_VALID1(x, y) _IS_VALID2(x, y)
+#define _IS_VALID2(x, y) x##_##y##_is_valid
+
+//  Test Hex
+#define _ID3(a,b,c) {a,b,c}
+#define _HEX3(x) _ID(_ID3 x)
+const uint8_t _test_hex[3] = _HEX3(MYNEWT_VAL(TEST_HEX));
+
 static int sensor_read_internal(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
 static int sensor_get_config_internal(struct sensor *, sensor_type_t, struct sensor_cfg *);
 static int sensor_open_internal(struct os_dev *dev0, uint32_t timeout, void *arg);
@@ -41,32 +93,91 @@ static const struct sensor_driver g_sensor_driver = {
 /////////////////////////////////////////////////////////
 //  Sensor Data Union
 
+//  For temp_raw, generates: struct sensor_temp_raw_data strd
+#define _SENSOR_DATA_UNION(_name, _union) \
+    struct _SENSOR_DATA(_name) _ID _union
+
 typedef union {  //  Union that represents all possible sensor values
+    //  For temp_raw, generates: struct sensor_temp_raw_data strd
+    _SENSOR_DATA_UNION(
+        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, NAME),
+        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, UNION)
+    );
+
     struct sensor_temp_data     std;   //  Temperature sensor value
-    struct sensor_temp_raw_data strd;  //  Temperature sensor raw value
     struct sensor_press_data    spd;   //  Pressure sensor value
     struct sensor_humid_data    shd;   //  Humidity sensor value
 } sensor_data_union;
 
-static void *save_temp(sensor_data_union *data, oc_rep_t *rep);
-static void *save_temp_raw(sensor_data_union *data, oc_rep_t *rep);
-static void *save_press(sensor_data_union *data, oc_rep_t *rep);
-static void *save_humid(sensor_data_union *data, oc_rep_t *rep);
-
 /////////////////////////////////////////////////////////
-//  Supported Sensor Types
+//  Sensor Type Descriptor
 
-struct sensor_type_descriptor {  //  Describes a Sensor Type
+struct sensor_type_descriptor {  //  Describes a Sensor Type e.g. raw temperature sensor
     const char *name;  //  Sensor Name in CoAP Payload CBOR e.g. "t"
     int type;          //  Sensor Type e.g. SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
     int valtype;       //  Sensor Value Type e.g. SENSOR_VALUE_TYPE_INT32
     void *(*save_func)(sensor_data_union *data, oc_rep_t *rep);  //  Save the sensor value from the oc_rep_t into data.
 };
 
+/////////////////////////////////////////////////////////
+//  Sensor Values
+
+//  For each Sensor Type: Define the function to read the parsed CBOR sensor value in "r" and 
+//  save into the sensor_data_union "data".
+//  Return the sensor_data_union field that is specfic fpr the sensor value.
+
+/*  For temp_raw, this macro generates:
+static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
+    struct sensor_temp_raw_data *d = &data->strd;
+    assert(r->type == INT);
+    d->strd_temp_raw = r->value_int;
+    d->strd_temp_raw_is_valid = 1;
+    return d;
+} */
+#define _SAVE_SENSOR_VALUE(_name, _type, _type_upper, _union) \
+    static void *_SAVE(_name)(sensor_data_union *data, oc_rep_t *r) { \
+        struct _SENSOR_DATA(_name) *d = &data->_ID _union; \
+        assert(r->type == _ID _type_upper); \
+        d->_CONCAT(_union, _name) = r->_VALUE_TYPE(_type); \
+        d->_IS_VALID(_union, _name) = 1; \
+        return d; \
+    }
+
+_SAVE_SENSOR_VALUE(
+    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, NAME),
+    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, TYPE),
+    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, TYPE_UPPER),
+    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, UNION)    
+);
+
+////  static void *save_temp_raw(sensor_data_union *data, oc_rep_t *rep);
+static void *save_temp(sensor_data_union *data, oc_rep_t *rep);
+static void *save_press(sensor_data_union *data, oc_rep_t *rep);
+static void *save_humid(sensor_data_union *data, oc_rep_t *rep);
+
+/////////////////////////////////////////////////////////
+//  Supported Sensor Types
+
+//  For temp_raw, generates { "t", SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW, SENSOR_VALUE_TYPE_INT32, save_temp_raw }
+#define _SENSOR_TYPE_DESC(_name, _field, _type_upper2, _stype) \
+    { \
+        _field, \
+        _SENSOR_TYPE(_stype), \
+        _SENSOR_VALUE_TYPE(_type_upper2), \
+        _SAVE(_name) \
+    }
+
 static const struct sensor_type_descriptor sensor_types[] = {  
     //  Sensor Types that we support
+    _SENSOR_TYPE_DESC(
+        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, NAME), 
+        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, FIELD), 
+        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, TYPE_UPPER2), 
+        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, SENSOR_TYPE)
+    ),
+
+    ////  { "t",  SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,  SENSOR_VALUE_TYPE_INT32,    save_temp_raw },
     { "tf", SENSOR_TYPE_AMBIENT_TEMPERATURE,      SENSOR_VALUE_TYPE_FLOAT,    save_temp },
-    { "t",  SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,  SENSOR_VALUE_TYPE_INT32,    save_temp_raw },
     { "p",  SENSOR_TYPE_PRESSURE,                 SENSOR_VALUE_TYPE_FLOAT,    save_press },
     { "h",  SENSOR_TYPE_RELATIVE_HUMIDITY,        SENSOR_VALUE_TYPE_FLOAT,    save_humid },
     { NULL, 0, 0, NULL }  //  Ends with 0
@@ -236,15 +347,6 @@ static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
     assert(r->type == DOUBLE);
     d->std_temp = (float) r->value_double;
     d->std_temp_is_valid = 1;
-    return d;
-}
-
-static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
-    //  Save raw temperature into the sensor data union.
-    struct sensor_temp_raw_data *d = &data->strd;
-    assert(r->type == INT);
-    d->strd_temp_raw = r->value_int;
-    d->strd_temp_raw_is_valid = 1;
     return d;
 }
 
