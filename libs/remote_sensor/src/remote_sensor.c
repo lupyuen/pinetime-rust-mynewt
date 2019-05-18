@@ -230,8 +230,8 @@ sensor_type_t remote_sensor_lookup_type(const char *name) {
     return 0;
 }
 
-//  Save temperature.
 static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
+    //  Save computed temperature into the sensor data union.
     struct sensor_temp_data *d = &data->std;
     assert(r->type == DOUBLE);
     d->std_temp = (float) r->value_double;
@@ -239,8 +239,8 @@ static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
     return d;
 }
 
-//  Save raw temperature.
 static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
+    //  Save raw temperature into the sensor data union.
     struct sensor_temp_raw_data *d = &data->strd;
     assert(r->type == INT);
     d->strd_temp_raw = r->value_int;
@@ -248,8 +248,8 @@ static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
     return d;
 }
 
-//  Save pressure.
 static void *save_press(sensor_data_union *data, oc_rep_t *r) {
+    //  Save pressure into the sensor data union.
     struct sensor_press_data *d = &data->spd;
     assert(r->type == DOUBLE);
     d->spd_press = r->value_double;
@@ -257,8 +257,8 @@ static void *save_press(sensor_data_union *data, oc_rep_t *r) {
     return d;
 }
 
-//  Save humidity.
 static void *save_humid(sensor_data_union *data, oc_rep_t *r) {
+    //  Save humidity into the sensor data union.
     struct sensor_humid_data *d = &data->shd;
     assert(r->type == DOUBLE);
     d->shd_humid = r->value_double;
