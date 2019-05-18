@@ -163,29 +163,23 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
     cfg->cs_pin     = MYNEWT_VAL(NRF24L01_CS_PIN);   //  e.g. PB2
     cfg->ce_pin     = MYNEWT_VAL(NRF24L01_CE_PIN);   //  e.g. PB0
 
-    //  Tx Frequency
-    cfg->freq           = MYNEWT_VAL(NRF24L01_FREQ);             //  e.g. 2,476 kHz (channel 76)
-
-    //  Tx Power
+    //  Tx Frequency, Tx Power, Tx Data Rate
+    cfg->freq           = MYNEWT_VAL(NRF24L01_FREQ);        //  e.g. 2,476 kHz (channel 76)
     cfg->power          = MYNEWT_VAL(NRF24L01_POWER);       //  e.g. 0 dB, Highest power in production
-
-    //  Tx Data Rate
-    cfg->data_rate      = MYNEWT_VAL(NRF24L01_DATA_RATE);    //  e.g. 250 kbps, Slowest, longest range, but only supported by nRF24L01+
+    cfg->data_rate      = MYNEWT_VAL(NRF24L01_DATA_RATE);   //  e.g. 250 kbps, Slowest, longest range, but only supported by nRF24L01+
 
     //  Tx Settings
     cfg->crc_width       = MYNEWT_VAL(NRF24L01_CRC_WIDTH);   //  e.g. 8 bits for CRC
-    cfg->tx_size         = MYNEWT_VAL(NRF24L01_TX_SIZE);        //  e.g. 12 bytes. Each packet has this size
-    cfg->auto_ack        = MYNEWT_VAL(NRF24L01_AUTO_ACK);                             //  e.g. 0 for No acknowledgements
-    cfg->auto_retransmit = MYNEWT_VAL(NRF24L01_AUTO_RETRANSMIT);                    //  e.g. 0 for No retransmission
+    cfg->tx_size         = MYNEWT_VAL(NRF24L01_TX_SIZE);     //  e.g. 12 bytes. Each packet has this size
+    cfg->auto_ack        = MYNEWT_VAL(NRF24L01_AUTO_ACK);    //  e.g. 0 for No acknowledgements
+    cfg->auto_retransmit = MYNEWT_VAL(NRF24L01_AUTO_RETRANSMIT);  //  e.g. 0 for No retransmission
 
     //  Tx and Rx Addresses: Depends whether this is Collector Node or Sensor Node
-
-    if (is_collector_node()) {                            //  If this is the Collector Node...
-        cfg->irq_pin            = MYNEWT_VAL(NRF24L01_IRQ_PIN);     //  e.g. MCU_GPIO_PORTA(15) means Collector Node gets rx interrupts on PA15
+    if (is_collector_node()) {                                  //  If this is the Collector Node...
+        cfg->irq_pin            = MYNEWT_VAL(NRF24L01_IRQ_PIN); //  e.g. MCU_GPIO_PORTA(15) means Collector Node gets rx interrupts on PA15
         cfg->tx_address         = get_collector_node_address(); //  Collector Node address
         cfg->rx_addresses       = get_sensor_node_addresses();  //  Listen to all Sensor Nodes
         cfg->rx_addresses_len   = SENSOR_NETWORK_SIZE;    //  Number of Sensor Nodes to listen
-
     } else {                                              //  If this is a Sensor Node...
         sensor_node_address = get_sensor_node_address();
         cfg->irq_pin            = MCU_GPIO_PIN_NONE;      //  Disable rx interrupts for Sensor Nodes
