@@ -5,7 +5,7 @@
 syscfg.defs:
 
   ###########################################################################
-  # Remote Sensor Type 1: Raw Temperature (Used by STM32 Internal Temperature Sensor)
+  # Remote Sensor Type 1: Raw Temperature (From STM32 Internal Temperature Sensor)
 
   REMOTE_SENSOR_TYPE_1__NAME:
     description: ''
@@ -57,6 +57,60 @@ syscfg.defs:
 
   REMOTE_SENSOR_TYPE_2__SENSOR_TYPE:
     value: AMBIENT_TEMPERATURE
+
+  ###########################################################################
+  # Remote Sensor Type 3: Pressure (From Mynewt Sensor Framework)
+
+  REMOTE_SENSOR_TYPE_3__NAME:
+    description: ''
+    value: press
+
+  REMOTE_SENSOR_TYPE_3__FIELD:
+    value: '"p"'
+
+  REMOTE_SENSOR_TYPE_3__UNION:
+    value: spd
+
+  REMOTE_SENSOR_TYPE_3__TYPE:
+    value: double
+
+  REMOTE_SENSOR_TYPE_3__TYPE_UPPER:
+    description: 'Custom Sensor Value Type'
+    value: DOUBLE
+
+  REMOTE_SENSOR_TYPE_3__TYPE_UPPER2:
+    description: 'Mynewt Sensor Framework Type'
+    value: FLOAT
+
+  REMOTE_SENSOR_TYPE_3__SENSOR_TYPE:
+    value: PRESSURE
+
+  ###########################################################################
+  # Remote Sensor Type 4: Humidity (From Mynewt Sensor Framework)
+
+  REMOTE_SENSOR_TYPE_4__NAME:
+    description: ''
+    value: humid
+
+  REMOTE_SENSOR_TYPE_4__FIELD:
+    value: '"h"'
+
+  REMOTE_SENSOR_TYPE_4__UNION:
+    value: shd
+
+  REMOTE_SENSOR_TYPE_4__TYPE:
+    value: double
+
+  REMOTE_SENSOR_TYPE_4__TYPE_UPPER:
+    description: 'Custom Sensor Value Type'
+    value: DOUBLE
+
+  REMOTE_SENSOR_TYPE_4__TYPE_UPPER2:
+    description: 'Mynewt Sensor Framework Type'
+    value: FLOAT
+
+  REMOTE_SENSOR_TYPE_4__SENSOR_TYPE:
+    value: RELATIVE_HUMIDITY
 
   # Testing
   TEST_HEX:

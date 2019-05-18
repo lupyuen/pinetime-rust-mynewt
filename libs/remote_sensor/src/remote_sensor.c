@@ -96,7 +96,7 @@ typedef union {  //  Union that represents all possible sensor values
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)
     );
-#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME)
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD
 
 #ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
     //  For temp, the macro generates: 
@@ -105,10 +105,30 @@ typedef union {  //  Union that represents all possible sensor values
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, UNION)
     );
-#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME)
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD
 
-    struct sensor_press_data    spd;   //  Pressure sensor value
-    struct sensor_humid_data    shd;   //  Humidity sensor value
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type 3 is configured...
+    //  For press, the macro generates: 
+    //  struct sensor_press_data spd
+    _SENSOR_DATA_UNION(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, UNION)
+    );
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type 4 is configured...
+    //  For humid, the macro generates: 
+    //  struct sensor_humid_data shd
+    _SENSOR_DATA_UNION(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, UNION)
+    );
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type 5 is configured...
+#error _SENSOR_DATA_UNION() not defined for Remote Sensor Type 5
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
+
 } sensor_data_union;
 
 /////////////////////////////////////////////////////////
@@ -152,7 +172,7 @@ static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)    
     );
-#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME)
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD
 
 #ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
     _SAVE_SENSOR_VALUE(
@@ -161,7 +181,29 @@ static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, TYPE_UPPER),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, UNION)    
     );
-#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME)
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type 3 is configured...
+    _SAVE_SENSOR_VALUE(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, TYPE),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, TYPE_UPPER),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, UNION)    
+    );
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type 4 is configured...
+    _SAVE_SENSOR_VALUE(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, TYPE),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, TYPE_UPPER),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, UNION)    
+    );
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type 5 is configured...
+#error _SAVE_SENSOR_VALUE() not defined for Remote Sensor Type 5
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
 
 /* static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
     //  Save computed temperature into the sensor data union.
@@ -172,23 +214,23 @@ static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
     return d;
 } */
 
-static void *save_press(sensor_data_union *data, oc_rep_t *r) {
+/* static void *save_press(sensor_data_union *data, oc_rep_t *r) {
     //  Save pressure into the sensor data union.
     struct sensor_press_data *d = &data->spd;
     assert(r->type == DOUBLE);
     d->spd_press = r->value_double;
     d->spd_press_is_valid = 1;
     return d;
-}
+} */
 
-static void *save_humid(sensor_data_union *data, oc_rep_t *r) {
+/* static void *save_humid(sensor_data_union *data, oc_rep_t *r) {
     //  Save humidity into the sensor data union.
     struct sensor_humid_data *d = &data->shd;
     assert(r->type == DOUBLE);
     d->shd_humid = r->value_double;
     d->shd_humid_is_valid = 1;
     return d;
-}
+} */
 
 /////////////////////////////////////////////////////////
 //  Supported Sensor Types
@@ -214,7 +256,7 @@ static const struct sensor_type_descriptor sensor_types[] = {
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER2), 
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, SENSOR_TYPE)
     ),
-#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME)
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD
 
 #ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
     //  For temp, the macro generates:
@@ -225,10 +267,34 @@ static const struct sensor_type_descriptor sensor_types[] = {
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, TYPE_UPPER2), 
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, SENSOR_TYPE)
     ),
-#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME)
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD
 
-    { "p",  SENSOR_TYPE_PRESSURE,                 SENSOR_VALUE_TYPE_FLOAT,    save_press },
-    { "h",  SENSOR_TYPE_RELATIVE_HUMIDITY,        SENSOR_VALUE_TYPE_FLOAT,    save_humid },
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type 3 is configured...
+    //  For press, the macro generates:
+    //  { "p", SENSOR_TYPE_PRESSURE, SENSOR_VALUE_TYPE_FLOAT, save_press },
+    _SENSOR_TYPE_DESC(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, NAME), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, FIELD), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, TYPE_UPPER2), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, SENSOR_TYPE)
+    ),
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type 4 is configured...
+    //  For humid, the macro generates:
+    //  { "h", SENSOR_TYPE_RELATIVE_HUMIDITY, SENSOR_VALUE_TYPE_FLOAT, save_humid },
+    _SENSOR_TYPE_DESC(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, NAME), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, FIELD), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, TYPE_UPPER2), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, SENSOR_TYPE)
+    ),
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type 5 is configured...
+#error _SENSOR_TYPE_DESC() not defined for Remote Sensor Type 5
+#endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
+
     { NULL, 0, 0, NULL }  //  Ends with 0
 };
 
