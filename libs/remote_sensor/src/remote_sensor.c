@@ -27,16 +27,6 @@
 #include "custom_sensor/custom_sensor.h"  //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
 #include "remote_sensor/remote_sensor.h"
 
-#ifdef NOTUSED
-#define SENSOR_VALUE_NAME (temp_raw)
-#define SENSOR_VALUE_FIELD (t)
-#define SENSOR_VALUE_UNION (strd)
-#define SENSOR_VALUE_TYPE (int)
-#define SENSOR_VALUE_TYPE_UPPER (INT)     //  Custom Sensor Value Type
-#define SENSOR_VALUE_TYPE_UPPER2 (INT32)  //  Sensor Framework Type
-#define SENSOR_VALUE_SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
-#endif  //  NOTUSED
-
 //  Identity macro, which expands the value of x if x is a macro:
 //  _ID (abc) = abc
 #define _ID(x) x
@@ -93,18 +83,30 @@ static const struct sensor_driver g_sensor_driver = {
 /////////////////////////////////////////////////////////
 //  Sensor Data Union
 
-//  For temp_raw, generates: struct sensor_temp_raw_data strd
+//  For temp_raw, the macro generates: struct sensor_temp_raw_data strd
 #define _SENSOR_DATA_UNION(_name, _union) \
     struct _SENSOR_DATA(_name) _ID _union
 
 typedef union {  //  Union that represents all possible sensor values
-    //  For temp_raw, generates: struct sensor_temp_raw_data strd
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
+    //  For temp_raw, the macro generates: 
+    //  struct sensor_temp_raw_data strd
     _SENSOR_DATA_UNION(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)
     );
+#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME)
 
-    struct sensor_temp_data     std;   //  Temperature sensor value
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
+    //  For temp, the macro generates: 
+    //  struct sensor_temp_data std
+    _SENSOR_DATA_UNION(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, UNION)
+    );
+#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME)
+
     struct sensor_press_data    spd;   //  Pressure sensor value
     struct sensor_humid_data    shd;   //  Humidity sensor value
 } sensor_data_union;
@@ -113,9 +115,9 @@ typedef union {  //  Union that represents all possible sensor values
 //  Sensor Type Descriptor
 
 struct sensor_type_descriptor {  //  Describes a Sensor Type e.g. raw temperature sensor
-    const char *name;  //  Sensor Name in CoAP Payload CBOR e.g. "t"
+    const char *name;  //  Sensor Name in CBOR Payload e.g. "t"
     int type;          //  Sensor Type e.g. SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-    int valtype;       //  Sensor Value Type e.g. SENSOR_VALUE_TYPE_INT32
+    int valtype;       //  Sensor Value Type e.g. SENSOR_VALUE_TYPE_INT32 (from Mynewt Sensor Framework)
     void *(*save_func)(sensor_data_union *data, oc_rep_t *rep);  //  Save the sensor value from the oc_rep_t into data.
 };
 
@@ -143,22 +145,55 @@ static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
         return d; \
     }
 
-_SAVE_SENSOR_VALUE(
-    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
-    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE),
-    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER),
-    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)    
-);
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
+    _SAVE_SENSOR_VALUE(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)    
+    );
+#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME)
 
-////  static void *save_temp_raw(sensor_data_union *data, oc_rep_t *rep);
-static void *save_temp(sensor_data_union *data, oc_rep_t *rep);
-static void *save_press(sensor_data_union *data, oc_rep_t *rep);
-static void *save_humid(sensor_data_union *data, oc_rep_t *rep);
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
+    _SAVE_SENSOR_VALUE(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, TYPE),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, TYPE_UPPER),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, UNION)    
+    );
+#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME)
+
+/* static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
+    //  Save computed temperature into the sensor data union.
+    struct sensor_temp_data *d = &data->std;
+    assert(r->type == DOUBLE);
+    d->std_temp = (float) r->value_double;
+    d->std_temp_is_valid = 1;
+    return d;
+} */
+
+static void *save_press(sensor_data_union *data, oc_rep_t *r) {
+    //  Save pressure into the sensor data union.
+    struct sensor_press_data *d = &data->spd;
+    assert(r->type == DOUBLE);
+    d->spd_press = r->value_double;
+    d->spd_press_is_valid = 1;
+    return d;
+}
+
+static void *save_humid(sensor_data_union *data, oc_rep_t *r) {
+    //  Save humidity into the sensor data union.
+    struct sensor_humid_data *d = &data->shd;
+    assert(r->type == DOUBLE);
+    d->shd_humid = r->value_double;
+    d->shd_humid_is_valid = 1;
+    return d;
+}
 
 /////////////////////////////////////////////////////////
 //  Supported Sensor Types
 
-//  For temp_raw, generates { "t", SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW, SENSOR_VALUE_TYPE_INT32, save_temp_raw }
+//  For temp_raw, the macro generates { "t", SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW, SENSOR_VALUE_TYPE_INT32, save_temp_raw }
 #define _SENSOR_TYPE_DESC(_name, _field, _type_upper2, _stype) \
     { \
         _field, \
@@ -170,6 +205,7 @@ static void *save_humid(sensor_data_union *data, oc_rep_t *rep);
 static const struct sensor_type_descriptor sensor_types[] = {  
     //  List of Sensor Types that Remote Sensor supports
 
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
     //  For temp_raw, the macro generates:
     //  { "t", SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW, SENSOR_VALUE_TYPE_INT32, save_temp_raw }
     _SENSOR_TYPE_DESC(
@@ -178,12 +214,73 @@ static const struct sensor_type_descriptor sensor_types[] = {
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER2), 
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, SENSOR_TYPE)
     ),
+#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME)
 
-    { "tf", SENSOR_TYPE_AMBIENT_TEMPERATURE,      SENSOR_VALUE_TYPE_FLOAT,    save_temp },
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
+    //  For temp, the macro generates:
+    //  { "tf", SENSOR_TYPE_AMBIENT_TEMPERATURE, SENSOR_VALUE_TYPE_FLOAT, save_temp },
+    _SENSOR_TYPE_DESC(
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, FIELD), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, TYPE_UPPER2), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, SENSOR_TYPE)
+    ),
+#endif  //  MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME)
+
     { "p",  SENSOR_TYPE_PRESSURE,                 SENSOR_VALUE_TYPE_FLOAT,    save_press },
     { "h",  SENSOR_TYPE_RELATIVE_HUMIDITY,        SENSOR_VALUE_TYPE_FLOAT,    save_humid },
     { NULL, 0, 0, NULL }  //  Ends with 0
 };
+
+/////////////////////////////////////////////////////////
+//  Read Sensor Functions
+
+static int sensor_read_internal(struct sensor *sensor, sensor_type_t type,
+    sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
+    //  Read the sensor value depending on the sensor type specified in the sensor config.
+    //  Call the Listener Function (may be NULL) with the sensor value.
+    //  data_arg is a sensor_read_ctx whose user_arg is an (oc_rep_t *) with type and value passed by process_coap_message().
+    assert(sensor);
+    if (!data_func) { return 0; }  //  If no Listener Function, then don't continue.
+    assert(data_arg);
+    struct sensor_read_ctx *src = (struct sensor_read_ctx *) data_arg;
+    oc_rep_t *rep = (oc_rep_t *) src->user_arg;  //  Contains type and value.
+    assert(rep);
+    int rc = 0;
+
+    //  Find the Sensor Type.
+    const struct sensor_type_descriptor *st = sensor_types;
+    while (st->type && type != st->type) { st++; }
+    if (type != st->type) { rc = SYS_EINVAL; goto err; }
+
+    //  Convert the value.
+    sensor_data_union data;
+    void *d = st->save_func(&data, rep);  
+    
+    //  Save the value.
+    //  Call the Listener Function to process the sensor data.
+    rc = data_func(sensor, data_arg, d, type);
+    assert(rc == 0);
+    if (rc) { goto err; }
+    return 0;
+err:
+    return rc;
+}
+
+/////////////////////////////////////////////////////////
+//  Sensor Data Functions
+
+sensor_type_t remote_sensor_lookup_type(const char *name) {
+    //  Return the Sensor Type given the CBOR field name.  Return 0 if not found.
+    assert(name);
+    const struct sensor_type_descriptor *st = sensor_types;
+    while (st->type) {
+        assert(st->name);
+        if (strcmp(name, st->name) == 0) { return st->type; }
+        st++; 
+    }    
+    return 0;
+}
 
 /////////////////////////////////////////////////////////
 //  Device Creation Functions
@@ -293,79 +390,12 @@ static int sensor_close_internal(struct os_dev *dev0) {
     return 0;
 }
 
-/////////////////////////////////////////////////////////
-//  Read Sensor Functions
-
-static int sensor_read_internal(struct sensor *sensor, sensor_type_t type,
-    sensor_data_func_t data_func, void *data_arg, uint32_t timeout) {
-    //  Read the sensor value depending on the sensor type specified in the sensor config.
-    //  Call the Listener Function (may be NULL) with the sensor value.
-    //  data_arg is a sensor_read_ctx whose user_arg is an (oc_rep_t *) with type and value passed by process_coap_message().
-    assert(sensor);
-    if (!data_func) { return 0; }  //  If no Listener Function, then don't continue.
-    assert(data_arg);
-    struct sensor_read_ctx *src = (struct sensor_read_ctx *) data_arg;
-    oc_rep_t *rep = (oc_rep_t *) src->user_arg;  //  Contains type and value.
-    assert(rep);
-    int rc = 0;
-
-    //  Find the Sensor Type.
-    const struct sensor_type_descriptor *st = sensor_types;
-    while (st->type && type != st->type) { st++; }
-    if (type != st->type) { rc = SYS_EINVAL; goto err; }
-
-    //  Convert the value.
-    sensor_data_union data;
-    void *d = st->save_func(&data, rep);  
-    
-    //  Save the value.
-    //  Call the Listener Function to process the sensor data.
-    rc = data_func(sensor, data_arg, d, type);
-    assert(rc == 0);
-    if (rc) { goto err; }
-    return 0;
-err:
-    return rc;
-}
-
-/////////////////////////////////////////////////////////
-//  Sensor Data Functions
-
-sensor_type_t remote_sensor_lookup_type(const char *name) {
-    //  Return the Sensor Type given the CBOR field name.  Return 0 if not found.
-    assert(name);
-    const struct sensor_type_descriptor *st = sensor_types;
-    while (st->type) {
-        assert(st->name);
-        if (strcmp(name, st->name) == 0) { return st->type; }
-        st++; 
-    }    
-    return 0;
-}
-
-static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
-    //  Save computed temperature into the sensor data union.
-    struct sensor_temp_data *d = &data->std;
-    assert(r->type == DOUBLE);
-    d->std_temp = (float) r->value_double;
-    d->std_temp_is_valid = 1;
-    return d;
-}
-
-static void *save_press(sensor_data_union *data, oc_rep_t *r) {
-    //  Save pressure into the sensor data union.
-    struct sensor_press_data *d = &data->spd;
-    assert(r->type == DOUBLE);
-    d->spd_press = r->value_double;
-    d->spd_press_is_valid = 1;
-    return d;
-}
-
-static void *save_humid(sensor_data_union *data, oc_rep_t *r) {
-    //  Save humidity into the sensor data union.
-    struct sensor_humid_data *d = &data->shd;
-    assert(r->type == DOUBLE);
-    d->shd_humid = r->value_double;
-    d->shd_humid_is_valid = 1;
-    return d;
-}
+#ifdef NOTUSED  //  Test data
+    #define SENSOR_VALUE_NAME (temp_raw)
+    #define SENSOR_VALUE_FIELD ("t")
+    #define SENSOR_VALUE_UNION (strd)
+    #define SENSOR_VALUE_TYPE (int)
+    #define SENSOR_VALUE_TYPE_UPPER (INT)     //  Custom Sensor Value Type
+    #define SENSOR_VALUE_TYPE_UPPER2 (INT32)  //  Sensor Framework Type
+    #define SENSOR_VALUE_SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
+#endif  //  NOTUSED

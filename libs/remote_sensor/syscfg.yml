@@ -3,6 +3,10 @@
 #   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
 
 syscfg.defs:
+
+  ###########################################################################
+  # Remote Sensor Type 1: Raw Temperature (Used by STM32 Internal Temperature Sensor)
+
   REMOTE_SENSOR_TYPE_1__NAME:
     description: ''
     value: temp_raw
@@ -16,14 +20,44 @@ syscfg.defs:
   REMOTE_SENSOR_TYPE_1__TYPE:
     value: int
 
-  REMOTE_SENSOR_TYPE_1__TYPE_UPPER:   # Custom Sensor Value Type
+  REMOTE_SENSOR_TYPE_1__TYPE_UPPER:
+    description: 'Custom Sensor Value Type'
     value: INT
 
-  REMOTE_SENSOR_TYPE_1__TYPE_UPPER2:  # Sensor Framework Type
+  REMOTE_SENSOR_TYPE_1__TYPE_UPPER2:
+    description: 'Mynewt Sensor Framework Type'
     value: INT32
 
   REMOTE_SENSOR_TYPE_1__SENSOR_TYPE:
-    value: 'AMBIENT_TEMPERATURE_RAW'
+    value: AMBIENT_TEMPERATURE_RAW
 
+  ###########################################################################
+  # Remote Sensor Type 2: Temperature (From Mynewt Sensor Framework)
+
+  REMOTE_SENSOR_TYPE_2__NAME:
+    description: ''
+    value: temp
+
+  REMOTE_SENSOR_TYPE_2__FIELD:
+    value: '"tf"'
+
+  REMOTE_SENSOR_TYPE_2__UNION:
+    value: std
+
+  REMOTE_SENSOR_TYPE_2__TYPE:
+    value: double
+
+  REMOTE_SENSOR_TYPE_2__TYPE_UPPER:
+    description: 'Custom Sensor Value Type'
+    value: DOUBLE
+
+  REMOTE_SENSOR_TYPE_2__TYPE_UPPER2:
+    description: 'Mynewt Sensor Framework Type'
+    value: FLOAT
+
+  REMOTE_SENSOR_TYPE_2__SENSOR_TYPE:
+    value: AMBIENT_TEMPERATURE
+
+  # Testing
   TEST_HEX:
     value: 0x12, 0x13, 0x14
