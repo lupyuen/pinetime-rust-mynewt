@@ -56,7 +56,8 @@
 			"send_coap.h": "c",
 			"sysflash.h": "c",
 			"flash_map.h": "c",
-			"os_mbuf.h": "c"
+			"os_mbuf.h": "c",
+			"nrf24l01.h": "c"
 		}
 	}
 }

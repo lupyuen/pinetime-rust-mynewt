@@ -16,6 +16,7 @@
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
 
 static void nrf24l01_irq_handler(void *arg);
+static void default_callback(struct os_event *ev);
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
@@ -53,10 +54,11 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     console_printf( "%sfreq: %d MHz\r\n",         _nrf, drv(dev)->getRfFrequency() );
     console_printf( "%spwr: %d dBm\r\n",          _nrf, drv(dev)->getRfOutputPower() );
     console_printf( "%sdata rate: %d kbps\r\n",   _nrf, drv(dev)->getAirDataRate() );
-    for (int i = 0; i < 6; i++) {
-        console_printf( "%sP%d tx size: %d bytes\r\n", _nrf, i, drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i) );
+    for (int i = 0; i <= NRL24L01_MAX_RX_PIPES; i++) {
+        console_printf( "%sP%d tx size: %d bytes\r\n", _nrf, i, 
+            drv(dev)->getTransferSize(NRF24L01P_PIPE_P0 + i));
     }
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i <= NRL24L01_MAX_RX_PIPES; i++) {
         console_printf( "%sP%d addr: 0x%010llX\r\n", _nrf, i, 
             (i == 0) 
                 ? drv(dev)->getTxAddress()
@@ -65,7 +67,7 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     }
     //  Power up after setting config.
     drv(dev)->powerUp();
-
+    //  Start listening or transmitting.
     if (is_collector_node()) {
         //  For Collector Node: Start listening.
         drv(dev)->setReceiveMode(); 
@@ -73,11 +75,9 @@ static int nrf24l01_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
         //  For Sensor Node: Start transmitting.
         drv(dev)->setTransmitMode(); 
     }
-
     //  Enable or disable the interrupt.
     if (dev->cfg.irq_pin == MCU_GPIO_PIN_NONE) { drv(dev)->disableRxInterrupt(); }
     else { drv(dev)->enableRxInterrupt(); }
-
     //  Set CE Pin to high.    
     drv(dev)->enable();
     return 0;
@@ -130,7 +130,7 @@ int nrf24l01_init(struct os_dev *dev0, void *arg) {
     if (cfg->irq_pin != MCU_GPIO_PIN_NONE) {
         console_printf("%senable irq\n", _nrf);
         //  Initialize the event with the callback function.
-        nrf24l01_event.ev_cb = nrf24l01_callback;
+        nrf24l01_event.ev_cb = default_callback;
         hal_gpio_irq_init(cfg->irq_pin, nrf24l01_irq_handler, NULL,
 		    HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
 	    hal_gpio_irq_enable(cfg->irq_pin);
@@ -247,11 +247,26 @@ unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe) {
     return ret;
 }
 
+int nrf24l01_set_rx_callback(struct nrf24l01 *dev, void (*callback)(struct os_event *ev)) {
+    //  Set the callback function that will be triggered when we receive 
+    //  an nRF24L01 message. This callback is triggered by the nRF24L01 
+    //  receive interrupt, which is forwarded to the Default Event Queue.
+    //  Return 0 if successful.
+    assert(callback);
+    nrf24l01_event.ev_cb = callback;
+    return 0;
+}
+
 static void nrf24l01_irq_handler(void *arg) {
     //  Interrupt service routine for the driver, triggered when a message is received.  
     //  We forward to the Default Event Queue for deferred processing.  Don't do any processing here.
 	nrf24l01_event.ev_arg = arg;
-	os_eventq_put(os_eventq_dflt_get(), &nrf24l01_event);  //  This triggers nrf24l01_callback().
+	os_eventq_put(os_eventq_dflt_get(), &nrf24l01_event);  //  This triggers the callback function.
+}
+
+static void default_callback(struct os_event *ev) {
+    //  Default receive callback that does nothing.
+    console_printf("%sno callback\n", _nrf);
 }
 
 /////////////////////////////////////////////////////////

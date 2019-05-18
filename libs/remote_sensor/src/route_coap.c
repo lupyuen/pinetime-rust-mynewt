@@ -11,6 +11,7 @@
 #include <nrf24l01/nrf24l01.h>
 #include "remote_sensor/remote_sensor.h"
 
+static void receive_callback(struct os_event *ev);
 static int process_coap_message(const char *name, uint8_t *data, uint8_t size0);
 static int decode_coap_payload(uint8_t *data, uint8_t size, oc_rep_t **out_rep);
 
@@ -29,8 +30,10 @@ int remote_sensor_start(void) {
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(NRF24L01_DEVICE, OS_TIMEOUT_NEVER, NULL);
         assert(dev != NULL);
 
-        //  At this point the nRF24L01 driver will start listening.
-        //  nrf24l01_callback() below will be called when a CBOR message is received.
+        //  At this point the nRF24L01 driver will start listening for messages.
+        //  Set the callback that will be called when a CBOR message is received.
+        int rc = nrf24l01_set_rx_callback(dev, receive_callback);
+        assert(rc == 0);
 
         //  Close the nRF24L01 device when we are done.
         os_dev_close((struct os_dev *) dev);        
@@ -38,11 +41,10 @@ int remote_sensor_start(void) {
     return 0;
 }
 
-
-void nrf24l01_callback(struct os_event *ev) {
+static void receive_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an nRF24L01 message.
     //  This callback is triggered by the nRF24L01 receive interrupt,
-    //  which is forwarded to the Event Queue.
+    //  which is forwarded to the Default Event Queue.
     //  console_printf("%srx interrupt\n", _nrf);
     const char **sensor_node_names = get_sensor_node_names();
     assert(sensor_node_names);

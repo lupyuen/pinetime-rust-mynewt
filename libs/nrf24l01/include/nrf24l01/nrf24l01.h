@@ -96,6 +96,12 @@ int nrf24l01_readable_pipe(struct nrf24l01 *dev);
 //  Return the rx address of the pipe (1 to 5).
 unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe);
 
+//  Set the callback function that will be triggered when we receive 
+//  an nRF24L01 message. This callback is triggered by the nRF24L01 
+//  receive interrupt, which is forwarded to the Default Event Queue.
+//  Return 0 if successful.
+int nrf24l01_set_rx_callback(struct nrf24l01 *dev, void (*callback)(struct os_event *ev));
+
 /////////////////////////////////////////////////////////
 //  Other Functions
 
@@ -107,11 +113,6 @@ int nrf24l01_flush_rx(struct nrf24l01 *dev);
 
 //  Flush the transmit and receive buffers.  Return 0 if successful.
 int nrf24l01_flush_txrx(struct nrf24l01 *dev);
-
-//  Callback that is triggered when we receive an nRF24L01 message.
-//  This callback is triggered by the nRF24L01 receive interrupt,
-//  which is forwarded to the Event Queue.
-void nrf24l01_callback(struct os_event *ev);
 
 #ifdef __cplusplus
 }
