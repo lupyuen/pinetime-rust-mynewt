@@ -17,7 +17,9 @@
  * under the License.
  */
 
-//  Create Remote Sensor
+//  Create Remote Sensor. We create a Remote Sensor device for each Sensor Node.
+//  When a message is received from a Sensor Node, we trigger the Listener Function
+//  for the associated Remote Sensor device.
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
