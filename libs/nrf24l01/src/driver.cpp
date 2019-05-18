@@ -15,11 +15,13 @@
 #define _NRF24L01P_SPI_MAX_DATA_RATE_HZ     10 * 1000 * 1000  //  10 MHz, maximum transfer rate for the SPI bus
 #define _KHZ                                1 / 1000          //  Convert Hz to kHz: 1000 Hz = 1 kHz
 
+static void nrf24l01_irq_handler(void *arg);
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
 static nRF24L01P controller;    //  The single controller instance.  TODO: Support multiple instances.
 static bool first_open = true;  //  True if this is the first time opening the driver.
-static unsigned long long sensor_node_address = 0;
+static unsigned long long sensor_node_address = 0;  //  Address of this node, if this is a Sensor Node.
+static struct os_event nrf24l01_event;  //  Event that will be forwarded to the Event Queue when a receive interrupt is triggered.
 
 //  Definition of nRF24L01 Sensor Network Interface
 static const struct sensor_network_interface network_iface = {
@@ -87,15 +89,6 @@ static int nrf24l01_close(struct os_dev *dev0) {
     console_printf("}\n");
     assert(dev0);
     return 0;
-}
-
-//  Event that will be forwarded to the Event Queue when an interrupt is triggered.
-static struct os_event nrf24l01_event;
-
-static void nrf24l01_irq_handler(void *arg) {
-    //  Interrupt service routine for the driver.  We forward to an Event Queue for deferred processing.  Don't do any processing here.
-	nrf24l01_event.ev_arg = arg;
-	os_eventq_put(os_eventq_dflt_get(), &nrf24l01_event);  //  This triggers nrf24l01_callback().
 }
 
 int nrf24l01_init(struct os_dev *dev0, void *arg) {
@@ -258,6 +251,13 @@ unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe) {
     assert(dev);  assert(pipe > 0);  assert(pipe <= 5);
     unsigned long long ret = drv(dev)->getRxAddress(pipe);
     return ret;
+}
+
+static void nrf24l01_irq_handler(void *arg) {
+    //  Interrupt service routine for the driver, triggered when a message is received.  
+    //  We forward to the Default Event Queue for deferred processing.  Don't do any processing here.
+	nrf24l01_event.ev_arg = arg;
+	os_eventq_put(os_eventq_dflt_get(), &nrf24l01_event);  //  This triggers nrf24l01_callback().
 }
 
 /////////////////////////////////////////////////////////
