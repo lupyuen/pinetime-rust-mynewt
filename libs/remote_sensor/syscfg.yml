@@ -1,48 +1,28 @@
-# The BSD License (BSD)
-#
-# Copyright (c) 2016 Adafruit Industries
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# System Configuration Setting Definitions:
+#   Below are the settings defined by this driver and their default values. To change the settings, 
+#   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
 
 syscfg.defs:
-  SENSOR_VALUE_1__NAME:
+  REMOTE_SENSOR_TYPE_1__NAME:
     description: ''
-    value: 'temp_raw'
+    value: temp_raw
 
-  SENSOR_VALUE_1__FIELD:
+  REMOTE_SENSOR_TYPE_1__FIELD:
     value: '"t"'
 
-  SENSOR_VALUE_1__UNION:
-    value: 'strd'
+  REMOTE_SENSOR_TYPE_1__UNION:
+    value: strd
 
-  SENSOR_VALUE_1__TYPE:
-    value: 'int'
+  REMOTE_SENSOR_TYPE_1__TYPE:
+    value: int
 
-  # Custom Sensor Value Type
-  SENSOR_VALUE_1__TYPE_UPPER:
-    value: 'INT'
+  REMOTE_SENSOR_TYPE_1__TYPE_UPPER:   # Custom Sensor Value Type
+    value: INT
 
-  # Sensor Framework Type
-  SENSOR_VALUE_1__TYPE_UPPER2:
-    value: 'INT32'
+  REMOTE_SENSOR_TYPE_1__TYPE_UPPER2:  # Sensor Framework Type
+    value: INT32
 
-  SENSOR_VALUE_1__SENSOR_TYPE:
+  REMOTE_SENSOR_TYPE_1__SENSOR_TYPE:
     value: 'AMBIENT_TEMPERATURE_RAW'
 
   TEST_HEX:

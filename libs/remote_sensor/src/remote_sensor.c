@@ -100,8 +100,8 @@ static const struct sensor_driver g_sensor_driver = {
 typedef union {  //  Union that represents all possible sensor values
     //  For temp_raw, generates: struct sensor_temp_raw_data strd
     _SENSOR_DATA_UNION(
-        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, NAME),
-        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, UNION)
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)
     );
 
     struct sensor_temp_data     std;   //  Temperature sensor value
@@ -144,10 +144,10 @@ static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
     }
 
 _SAVE_SENSOR_VALUE(
-    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, NAME),
-    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, TYPE),
-    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, TYPE_UPPER),
-    MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, UNION)    
+    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
+    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE),
+    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER),
+    MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)    
 );
 
 ////  static void *save_temp_raw(sensor_data_union *data, oc_rep_t *rep);
@@ -168,15 +168,17 @@ static void *save_humid(sensor_data_union *data, oc_rep_t *rep);
     }
 
 static const struct sensor_type_descriptor sensor_types[] = {  
-    //  Sensor Types that we support
+    //  List of Sensor Types that Remote Sensor supports
+
+    //  For temp_raw, the macro generates:
+    //  { "t", SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW, SENSOR_VALUE_TYPE_INT32, save_temp_raw }
     _SENSOR_TYPE_DESC(
-        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, NAME), 
-        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, FIELD), 
-        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, TYPE_UPPER2), 
-        MYNEWT_VAL_CHOICE(SENSOR_VALUE_1, SENSOR_TYPE)
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, FIELD), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE_UPPER2), 
+        MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, SENSOR_TYPE)
     ),
 
-    ////  { "t",  SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,  SENSOR_VALUE_TYPE_INT32,    save_temp_raw },
     { "tf", SENSOR_TYPE_AMBIENT_TEMPERATURE,      SENSOR_VALUE_TYPE_FLOAT,    save_temp },
     { "p",  SENSOR_TYPE_PRESSURE,                 SENSOR_VALUE_TYPE_FLOAT,    save_press },
     { "h",  SENSOR_TYPE_RELATIVE_HUMIDITY,        SENSOR_VALUE_TYPE_FLOAT,    save_humid },
