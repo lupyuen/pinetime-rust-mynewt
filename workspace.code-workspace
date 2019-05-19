@@ -58,7 +58,10 @@
 			"flash_map.h": "c",
 			"os_mbuf.h": "c",
 			"nrf24l01.h": "c",
-			"custom_sensor.h": "c"
+			"custom_sensor.h": "c",
+			"sensor_data_union.h": "c",
+			"save_sensor_value.h": "c",
+			"sensor_type_desc.h": "c"
 		}
 	}
 }

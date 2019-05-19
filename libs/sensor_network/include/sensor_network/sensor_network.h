@@ -42,7 +42,7 @@
 #include "sensor/sensor.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 /////////////////////////////////////////////////////////
