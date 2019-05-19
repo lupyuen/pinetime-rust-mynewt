@@ -25,27 +25,7 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 /////////////////////////////////////////////////////////
-//  Sensor Type Descriptor
-
-struct sensor_type_descriptor {  //  Describes a Sensor Type e.g. raw temperature sensor
-    const char *name;  //  Sensor Name in CBOR Payload e.g. "t"
-    int type;          //  Sensor Type e.g. SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-    int valtype;       //  Sensor Value Type e.g. SENSOR_VALUE_TYPE_INT32 (from Mynewt Sensor Framework)
-    void *(*save_func)(sensor_data_union *data, oc_rep_t *rep);  //  Save the sensor value from the oc_rep_t into data.
-};
-
-/////////////////////////////////////////////////////////
 //  Supported Sensor Types
-
-//  For temp_raw, the macro generates:
-//  { "t", SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW, SENSOR_VALUE_TYPE_INT32, save_temp_raw }
-#define _SENSOR_TYPE_DESC(_name, _field, _type_upper2, _stype) \
-    { \
-        _field, \
-        _SENSOR_TYPE(_stype), \
-        _SENSOR_VALUE_TYPE(_type_upper2), \
-        _SAVE(_name) \
-    }
 
 //  List of Sensor Types that Remote Sensor supports
 static const struct sensor_type_descriptor sensor_types[] = {  

@@ -27,11 +27,7 @@ extern "C" {  //  Expose the types and functions below to C functions.
 /////////////////////////////////////////////////////////
 //  Sensor Data Union
 
-//  For temp_raw, the macro generates: struct sensor_temp_raw_data strd
-#define _SENSOR_DATA_UNION(_name, _union) \
-    struct _SENSOR_DATA(_name) _ID _union
-
-typedef union {  //  Union that represents all possible sensor values
+union sensor_data_union {  //  Union that represents all possible sensor values
 
 #ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
     //  For temp_raw, the macro generates: 
@@ -73,7 +69,7 @@ typedef union {  //  Union that represents all possible sensor values
 #error _SENSOR_DATA_UNION() not defined for Remote Sensor Type 5
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
 
-} sensor_data_union;
+};
 
 #ifdef __cplusplus
 }

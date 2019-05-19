@@ -31,23 +31,6 @@ extern "C" {  //  Expose the types and functions below to C functions.
 //  save into the sensor_data_union "data".
 //  Return the sensor_data_union field that is specfic fpr the sensor value.
 
-/*  For temp_raw, this macro generates:
-static void *save_temp_raw(sensor_data_union *data, oc_rep_t *r) {
-    struct sensor_temp_raw_data *d = &data->strd;
-    assert(r->type == INT);
-    d->strd_temp_raw = r->value_int;
-    d->strd_temp_raw_is_valid = 1;
-    return d;
-} */
-#define _SAVE_SENSOR_VALUE(_name, _type, _type_upper, _union) \
-    static void *_SAVE(_name)(sensor_data_union *data, oc_rep_t *r) { \
-        struct _SENSOR_DATA(_name) *d = &data->_ID _union; \
-        assert(r->type == _ID _type_upper); \
-        d->_CONCAT(_union, _name) = r->_VALUE_TYPE(_type); \
-        d->_IS_VALID(_union, _name) = 1; \
-        return d; \
-    }
-
 #ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
     _SAVE_SENSOR_VALUE(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),

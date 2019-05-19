@@ -8,109 +8,159 @@ syscfg.defs:
   # Remote Sensor Type 1: Raw Temperature (From STM32 Internal Temperature Sensor)
 
   REMOTE_SENSOR_TYPE_1__NAME:
-    description: ''
-    value: temp_raw
+    description:  'Name of Remote Sensor Type'
+    value:        temp_raw
 
   REMOTE_SENSOR_TYPE_1__FIELD:
-    value: '"t"'
+    description:  'Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by ''"..."'' because "t" is interpreted as 1'
+    value:        '"t"'
 
   REMOTE_SENSOR_TYPE_1__UNION:
-    value: strd
-
-  REMOTE_SENSOR_TYPE_1__TYPE:
-    value: int
-
-  REMOTE_SENSOR_TYPE_1__TYPE_UPPER:
-    description: 'Custom Sensor Value Type'
-    value: INT
-
-  REMOTE_SENSOR_TYPE_1__TYPE_UPPER2:
-    description: 'Mynewt Sensor Framework Type'
-    value: INT32
+    description:  'Sensor Data Union that stores the Sensor Data Value'
+    value:        strd
 
   REMOTE_SENSOR_TYPE_1__SENSOR_TYPE:
-    value: AMBIENT_TEMPERATURE_RAW
+    description:  'Mynewt Sensor Framework Sensor Type'
+    value:        AMBIENT_TEMPERATURE_RAW
+
+  REMOTE_SENSOR_TYPE_1__INT:
+    description:  'Value Type is int'
+    value:        1
+
+  REMOTE_SENSOR_TYPE_1__DOUBLE:
+    description:  'Value Type is double'
+    value:        0
+
+  # REMOTE_SENSOR_TYPE_1__TYPE:
+  #   description:  'Value Type of Remote Sensor Type (int or double)'
+  #   value:        int
+
+  # REMOTE_SENSOR_TYPE_1__TYPE_UPPER:
+  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
+  #   value: INT
+
+  # REMOTE_SENSOR_TYPE_1__TYPE_UPPER2:
+  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
+  #   value: INT32
 
   ###########################################################################
   # Remote Sensor Type 2: Temperature (From Mynewt Sensor Framework)
 
   REMOTE_SENSOR_TYPE_2__NAME:
-    description: ''
-    value: temp
+    description:  'Name of Remote Sensor Type'
+    value:        temp
 
   REMOTE_SENSOR_TYPE_2__FIELD:
-    value: '"tf"'
+    description:  'Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by ''"..."'' because "t" is interpreted as 1'
+    value:        '"tf"'
 
   REMOTE_SENSOR_TYPE_2__UNION:
-    value: std
-
-  REMOTE_SENSOR_TYPE_2__TYPE:
-    value: double
-
-  REMOTE_SENSOR_TYPE_2__TYPE_UPPER:
-    description: 'Custom Sensor Value Type'
-    value: DOUBLE
-
-  REMOTE_SENSOR_TYPE_2__TYPE_UPPER2:
-    description: 'Mynewt Sensor Framework Type'
-    value: FLOAT
+    description:  'Sensor Data Union that stores the Sensor Data Value'
+    value:        std
 
   REMOTE_SENSOR_TYPE_2__SENSOR_TYPE:
-    value: AMBIENT_TEMPERATURE
+    description:  'Mynewt Sensor Framework Sensor Type'
+    value:        AMBIENT_TEMPERATURE
+
+  REMOTE_SENSOR_TYPE_2__INT:
+    description:  'Value Type is int'
+    value:        0
+
+  REMOTE_SENSOR_TYPE_2__DOUBLE:
+    description:  'Value Type is double'
+    value:        1
+
+  # REMOTE_SENSOR_TYPE_2__TYPE:
+  #   description:  'Value Type of Remote Sensor Type (int or double)'
+  #   value:        double
+
+  # REMOTE_SENSOR_TYPE_2__TYPE_UPPER:
+  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
+  #   value: DOUBLE
+
+  # REMOTE_SENSOR_TYPE_2__TYPE_UPPER2:
+  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
+  #   value: FLOAT
 
   ###########################################################################
   # Remote Sensor Type 3: Pressure (From Mynewt Sensor Framework)
 
   REMOTE_SENSOR_TYPE_3__NAME:
-    description: ''
-    value: press
+    description:  'Name of Remote Sensor Type'
+    value:        press
 
   REMOTE_SENSOR_TYPE_3__FIELD:
-    value: '"p"'
+    description:  'Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by ''"..."'' because "t" is interpreted as 1'
+    value:        '"p"'
 
   REMOTE_SENSOR_TYPE_3__UNION:
-    value: spd
-
-  REMOTE_SENSOR_TYPE_3__TYPE:
-    value: double
-
-  REMOTE_SENSOR_TYPE_3__TYPE_UPPER:
-    description: 'Custom Sensor Value Type'
-    value: DOUBLE
-
-  REMOTE_SENSOR_TYPE_3__TYPE_UPPER2:
-    description: 'Mynewt Sensor Framework Type'
-    value: FLOAT
+    description:  'Sensor Data Union that stores the Sensor Data Value'
+    value:        spd
 
   REMOTE_SENSOR_TYPE_3__SENSOR_TYPE:
-    value: PRESSURE
+    description:  'Mynewt Sensor Framework Sensor Type'
+    value:        PRESSURE
+
+  REMOTE_SENSOR_TYPE_3__INT:
+    description:  'Value Type is int'
+    value:        0
+
+  REMOTE_SENSOR_TYPE_3__DOUBLE:
+    description:  'Value Type is double'
+    value:        1
+
+  # REMOTE_SENSOR_TYPE_3__TYPE:
+  #   description:  'Value Type of Remote Sensor Type (int or double)'
+  #   value:        double
+
+  # REMOTE_SENSOR_TYPE_3__TYPE_UPPER:
+  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
+  #   value: DOUBLE
+
+  # REMOTE_SENSOR_TYPE_3__TYPE_UPPER2:
+  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
+  #   value: FLOAT
 
   ###########################################################################
   # Remote Sensor Type 4: Humidity (From Mynewt Sensor Framework)
 
   REMOTE_SENSOR_TYPE_4__NAME:
-    description: ''
-    value: humid
+    description:  'Name of Remote Sensor Type'
+    value:        humid
 
   REMOTE_SENSOR_TYPE_4__FIELD:
-    value: '"h"'
+    description:  'Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by ''"..."'' because "t" is interpreted as 1'
+    value:        '"h"'
 
   REMOTE_SENSOR_TYPE_4__UNION:
-    value: shd
-
-  REMOTE_SENSOR_TYPE_4__TYPE:
-    value: double
-
-  REMOTE_SENSOR_TYPE_4__TYPE_UPPER:
-    description: 'Custom Sensor Value Type'
-    value: DOUBLE
-
-  REMOTE_SENSOR_TYPE_4__TYPE_UPPER2:
-    description: 'Mynewt Sensor Framework Type'
-    value: FLOAT
+    description:  'Sensor Data Union that stores the Sensor Data Value'
+    value:        shd
 
   REMOTE_SENSOR_TYPE_4__SENSOR_TYPE:
-    value: RELATIVE_HUMIDITY
+    description:  'Mynewt Sensor Framework Sensor Type'
+    value:        RELATIVE_HUMIDITY
 
-  # When we add Remote Sensor Type 5, remember to duplicate the macros in libs/remote_sensor/src/remote_sensor.c
+  REMOTE_SENSOR_TYPE_4__INT:
+    description:  'Value Type is int'
+    value:        0
+
+  REMOTE_SENSOR_TYPE_4__DOUBLE:
+    description:  'Value Type is double'
+    value:        1
+
+  # REMOTE_SENSOR_TYPE_4__TYPE:
+  #   description:  'Value Type of Remote Sensor Type (int or double)'
+  #   value:        double
+
+  # REMOTE_SENSOR_TYPE_4__TYPE_UPPER:
+  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
+  #   value: DOUBLE
+
+  # REMOTE_SENSOR_TYPE_4__TYPE_UPPER2:
+  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
+  #   value: FLOAT
+
+  # When we add Remote Sensor Type 5, remember to replicate the macros in 
+  # libs/remote_sensor/src/save_sensor_value.h, sensor_data_union.h,
+  # sensor_type_desc.h, sensor_value_type.h
   

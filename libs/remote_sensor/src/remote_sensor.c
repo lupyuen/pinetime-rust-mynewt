@@ -29,7 +29,8 @@
 
 //  Macros for Remote Sensors
 #include "remote_sensor_macros.h"  //  Define macros
-#include "sensor_data_union.h"     //  Instances of sensor daua union
+#include "sensor_value_type.h"     //  Instances of sensor value types
+#include "sensor_data_union.h"     //  Instances of sensor data union
 #include "save_sensor_value.h"     //  Instances of save sensor value functions
 #include "sensor_type_desc.h"      //  Instances of sensor type descriptors
 
@@ -66,7 +67,7 @@ static int sensor_read_internal(struct sensor *sensor, sensor_type_t type,
     if (type != st->type) { rc = SYS_EINVAL; goto err; }
 
     //  Convert the value.
-    sensor_data_union data;
+    union sensor_data_union data;
     void *d = st->save_func(&data, rep);  
     
     //  Call the Listener Function to process the sensor data.
