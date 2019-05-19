@@ -10,3 +10,5 @@ for the associated Remote Sensor device.
 A Remote Sensor behaves like a local sensor, so Mynewt sensor listeners will work.
 
 With Remote Sensor we may build a sensor data router on the Collector Node that receives sensor data from Sensor Nodes and transmits to a CoAP Server.
+
+Remote Sensor Types (like `temp_raw`) are defined in `syscfg.yml`

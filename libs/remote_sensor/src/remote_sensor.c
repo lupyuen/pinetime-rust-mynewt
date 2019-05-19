@@ -69,7 +69,6 @@ static int sensor_read_internal(struct sensor *sensor, sensor_type_t type,
     sensor_data_union data;
     void *d = st->save_func(&data, rep);  
     
-    //  Save the value.
     //  Call the Listener Function to process the sensor data.
     rc = data_func(sensor, data_arg, d, type);
     assert(rc == 0);
