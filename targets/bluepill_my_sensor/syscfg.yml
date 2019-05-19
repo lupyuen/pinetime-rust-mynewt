@@ -131,3 +131,87 @@ syscfg.vals:
 
     # Auto retransmission (0 to disable, 1 to enable) e.g. 0
     NRF24L01_AUTO_RETRANSMIT:   0
+
+    ###########################################################################
+    # Remote Sensor Type 1: Raw Temperature (From STM32 Internal Temperature Sensor)
+
+    # Name of Remote Sensor Type
+    REMOTE_SENSOR_TYPE_1__NAME:         temp_raw
+
+    # Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by '"..."' because "t" is interpreted as 1
+    REMOTE_SENSOR_TYPE_1__FIELD:        '"t"'
+
+    # Sensor Data Union that stores the Sensor Data Value
+    REMOTE_SENSOR_TYPE_1__UNION:        strd
+
+    # Mynewt Sensor Framework Sensor Type
+    REMOTE_SENSOR_TYPE_1__SENSOR_TYPE:  AMBIENT_TEMPERATURE_RAW
+
+    # Value Type is int
+    REMOTE_SENSOR_TYPE_1__INT:          1
+
+    # Value Type is double
+    REMOTE_SENSOR_TYPE_1__DOUBLE:       0
+
+    ###########################################################################
+    # Remote Sensor Type 2: Temperature (From Mynewt Sensor Framework)
+
+    # Name of Remote Sensor Type
+    REMOTE_SENSOR_TYPE_2__NAME:         temp
+
+    # Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by '"..."' because "t" is interpreted as 1
+    REMOTE_SENSOR_TYPE_2__FIELD:        '"tf"'
+
+    # Sensor Data Union that stores the Sensor Data Value
+    REMOTE_SENSOR_TYPE_2__UNION:        std
+
+    # Mynewt Sensor Framework Sensor Type
+    REMOTE_SENSOR_TYPE_2__SENSOR_TYPE:  AMBIENT_TEMPERATURE
+
+    # Value Type is int
+    REMOTE_SENSOR_TYPE_2__INT:          0
+
+    # Value Type is double
+    REMOTE_SENSOR_TYPE_2__DOUBLE:       1
+
+    ###########################################################################
+    # Remote Sensor Type 3: Pressure (From Mynewt Sensor Framework)
+
+    # Name of Remote Sensor Type
+    REMOTE_SENSOR_TYPE_3__NAME:         press
+
+    # Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by '"..."' because "t" is interpreted as 1
+    REMOTE_SENSOR_TYPE_3__FIELD:        '"p"'
+
+    # Sensor Data Union that stores the Sensor Data Value
+    REMOTE_SENSOR_TYPE_3__UNION:        spd
+
+    # Mynewt Sensor Framework Sensor Type
+    REMOTE_SENSOR_TYPE_3__SENSOR_TYPE:  PRESSURE
+
+    # Value Type is int
+    REMOTE_SENSOR_TYPE_3__INT:          0
+
+    # Value Type is double
+    REMOTE_SENSOR_TYPE_3__DOUBLE:       1
+
+    ###########################################################################
+    # Remote Sensor Type 4: Humidity (From Mynewt Sensor Framework)
+
+    # Name of Remote Sensor Type
+    REMOTE_SENSOR_TYPE_4__NAME:         humid
+
+    # Field Name of Remote Sensor Type in the CBOR message. Must be enclosed by '"..."' because "t" is interpreted as 1
+    REMOTE_SENSOR_TYPE_4__FIELD:        '"h"'
+
+    # Sensor Data Union that stores the Sensor Data Value
+    REMOTE_SENSOR_TYPE_4__UNION:        shd
+
+    # Mynewt Sensor Framework Sensor Type
+    REMOTE_SENSOR_TYPE_4__SENSOR_TYPE:  RELATIVE_HUMIDITY
+
+    # Value Type is int
+    REMOTE_SENSOR_TYPE_4__INT:          0
+
+    # Value Type is double
+    REMOTE_SENSOR_TYPE_4__DOUBLE:       1
