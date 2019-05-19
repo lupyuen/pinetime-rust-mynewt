@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+//  Sensor Data Union: Union that represents all possible Sensor Value Types
+
 #ifndef __SENSOR_DATA_UNION_H__
 #define __SENSOR_DATA_UNION_H__
 #include "remote_sensor_macros.h"  //  Define macros
@@ -24,49 +27,57 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
-/////////////////////////////////////////////////////////
-//  Sensor Data Union
-
 union sensor_data_union {  //  Union that represents all possible sensor values
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
-    //  For temp_raw, the macro generates: 
-    //  struct sensor_temp_raw_data strd
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #1: Sensor Data Union
+//  For temp_raw: struct sensor_temp_raw_data strd
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type #1 is configured...
     _SENSOR_DATA_UNION(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, UNION)
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
-    //  For temp, the macro generates: 
-    //  struct sensor_temp_data std
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #2: Sensor Data Union
+//  For temp: struct sensor_temp_data std
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type #2 is configured...
     _SENSOR_DATA_UNION(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, UNION)
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type 3 is configured...
-    //  For press, the macro generates: 
-    //  struct sensor_press_data spd
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #3: Sensor Data Union
+//  For press: struct sensor_press_data spd
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type #3 is configured...
     _SENSOR_DATA_UNION(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, UNION)
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type 4 is configured...
-    //  For humid, the macro generates: 
-    //  struct sensor_humid_data shd
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #4: Sensor Data Union
+//  For humid: struct sensor_humid_data shd
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type #4 is configured...
     _SENSOR_DATA_UNION(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, UNION)
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type 5 is configured...
-#error _SENSOR_DATA_UNION() not defined for Remote Sensor Type 5
+/////////////////////////////////////////////////////////
+//  Check Limit
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type #5 is configured...
+    #error _SENSOR_DATA_UNION() not defined for Remote Sensor Type 5
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
 
 };

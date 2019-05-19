@@ -31,18 +31,6 @@ syscfg.defs:
     description:  'Value Type is double'
     value:        0
 
-  # REMOTE_SENSOR_TYPE_1__TYPE:
-  #   description:  'Value Type of Remote Sensor Type (int or double)'
-  #   value:        int
-
-  # REMOTE_SENSOR_TYPE_1__TYPE_UPPER:
-  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
-  #   value: INT
-
-  # REMOTE_SENSOR_TYPE_1__TYPE_UPPER2:
-  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
-  #   value: INT32
-
   ###########################################################################
   # Remote Sensor Type 2: Temperature (From Mynewt Sensor Framework)
 
@@ -69,18 +57,6 @@ syscfg.defs:
   REMOTE_SENSOR_TYPE_2__DOUBLE:
     description:  'Value Type is double'
     value:        1
-
-  # REMOTE_SENSOR_TYPE_2__TYPE:
-  #   description:  'Value Type of Remote Sensor Type (int or double)'
-  #   value:        double
-
-  # REMOTE_SENSOR_TYPE_2__TYPE_UPPER:
-  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
-  #   value: DOUBLE
-
-  # REMOTE_SENSOR_TYPE_2__TYPE_UPPER2:
-  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
-  #   value: FLOAT
 
   ###########################################################################
   # Remote Sensor Type 3: Pressure (From Mynewt Sensor Framework)
@@ -109,18 +85,6 @@ syscfg.defs:
     description:  'Value Type is double'
     value:        1
 
-  # REMOTE_SENSOR_TYPE_3__TYPE:
-  #   description:  'Value Type of Remote Sensor Type (int or double)'
-  #   value:        double
-
-  # REMOTE_SENSOR_TYPE_3__TYPE_UPPER:
-  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
-  #   value: DOUBLE
-
-  # REMOTE_SENSOR_TYPE_3__TYPE_UPPER2:
-  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
-  #   value: FLOAT
-
   ###########################################################################
   # Remote Sensor Type 4: Humidity (From Mynewt Sensor Framework)
 
@@ -147,18 +111,6 @@ syscfg.defs:
   REMOTE_SENSOR_TYPE_4__DOUBLE:
     description:  'Value Type is double'
     value:        1
-
-  # REMOTE_SENSOR_TYPE_4__TYPE:
-  #   description:  'Value Type of Remote Sensor Type (int or double)'
-  #   value:        double
-
-  # REMOTE_SENSOR_TYPE_4__TYPE_UPPER:
-  #   description: 'Custom Sensor Value Type (INT or DOUBLE)'
-  #   value: DOUBLE
-
-  # REMOTE_SENSOR_TYPE_4__TYPE_UPPER2:
-  #   description: 'Mynewt Sensor Framework Type (INT32 or FLOAT)'
-  #   value: FLOAT
 
   # When we add Remote Sensor Type 5, remember to replicate the macros in 
   # libs/remote_sensor/src/save_sensor_value.h, sensor_data_union.h,

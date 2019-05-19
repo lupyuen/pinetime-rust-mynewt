@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+//  Define Sensor Value Types: TYPE, TYPE_UPPER and TYPE_UPPER2 
+
 #ifndef __SENSOR_VALUE_TYPE_H__
 #define __SENSOR_VALUE_TYPE_H__
 #include "remote_sensor_macros.h"  //  Define macros
@@ -25,9 +28,10 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 /////////////////////////////////////////////////////////
-//  Sensor Value Type: Map Value Type to TYPE, TYPE_UPPER and TYPE_UPPER2 
+//  Remote Sensor Type #1: Sensor Value Type
+//  For temp_raw, we define the values (int, INT, INT32)
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type #1 is configured...
   #if MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, INT)        //  If type is int...
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__TYPE         (int)
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__TYPE_UPPER   (INT)
@@ -41,7 +45,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
   #endif
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #2: Sensor Value Type
+//  For temp, we define the values (double, DOUBLE, FLOAT)
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type #2 is configured...
   #if MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, INT)        //  If type is int...
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__TYPE         (int)
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__TYPE_UPPER   (INT)
@@ -55,7 +63,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
   #endif
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type 3 is configured...
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #3: Sensor Value Type
+//  For press, we define the values (double, DOUBLE, FLOAT)
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type #3 is configured...
   #if MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, INT)        //  If type is int...
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__TYPE         (int)
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__TYPE_UPPER   (INT)
@@ -69,7 +81,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
   #endif
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type 4 is configured...
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #4: Sensor Value Type
+//  For humid, we define the values (double, DOUBLE, FLOAT)
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type #4 is configured...
   #if MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, INT)        //  If type is int...
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__TYPE         (int)
     #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__TYPE_UPPER   (INT)
@@ -83,7 +99,10 @@ extern "C" {  //  Expose the types and functions below to C functions.
   #endif
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type 5 is configured...
+/////////////////////////////////////////////////////////
+//  Check Limit
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type #5 is configured...
   #error Sensor Type Map not defined for Remote Sensor Type 5
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
 

@@ -16,22 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+//  Save Sensor Value: For each Remote Sensor Type, define the function to read the parsed CBOR 
+//  sensor value in "r" and save into the sensor_data_union "data".  Return the sensor_data_union 
+//  field that is specfic for the sensor value.
+
 #ifndef __SAVE_SENSOR_VALUE_H__
 #define __SAVE_SENSOR_VALUE_H__
 #include "remote_sensor_macros.h"  //  Define macros
+#include "sensor_value_type.h"     //  Define TYPE, TYPE_UPPER
 
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 /////////////////////////////////////////////////////////
-//  Save Sensor Value
+//  Remote Sensor Type #1: Save Sensor Value
 
-//  For each Sensor Type: Define the function to read the parsed CBOR sensor value in "r" and 
-//  save into the sensor_data_union "data".
-//  Return the sensor_data_union field that is specfic fpr the sensor value.
-
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type 1 is configured...
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD  //  If Remote Sensor Type #1 is configured...
     _SAVE_SENSOR_VALUE(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_1, TYPE),
@@ -40,7 +42,10 @@ extern "C" {  //  Expose the types and functions below to C functions.
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type 2 is configured...
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #2: Save Sensor Value
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD  //  If Remote Sensor Type #2 is configured...
     _SAVE_SENSOR_VALUE(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_2, TYPE),
@@ -49,7 +54,10 @@ extern "C" {  //  Expose the types and functions below to C functions.
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type 3 is configured...
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #3: Save Sensor Value
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD  //  If Remote Sensor Type #3 is configured...
     _SAVE_SENSOR_VALUE(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_3, TYPE),
@@ -58,7 +66,10 @@ extern "C" {  //  Expose the types and functions below to C functions.
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type 4 is configured...
+/////////////////////////////////////////////////////////
+//  Remote Sensor Type #4: Save Sensor Value
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD  //  If Remote Sensor Type #4 is configured...
     _SAVE_SENSOR_VALUE(
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, NAME),
         MYNEWT_VAL_CHOICE(REMOTE_SENSOR_TYPE_4, TYPE),
@@ -67,8 +78,11 @@ extern "C" {  //  Expose the types and functions below to C functions.
     );
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD
 
-#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type 5 is configured...
-#error _SAVE_SENSOR_VALUE() not defined for Remote Sensor Type 5
+/////////////////////////////////////////////////////////
+//  Check Limit
+
+#ifdef MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD  //  If Remote Sensor Type #5 is configured...
+    #error _SAVE_SENSOR_VALUE() not defined for Remote Sensor Type 5
 #endif  //  MYNEWT_VAL_REMOTE_SENSOR_TYPE_5__FIELD
 
 /* Previously: static void *save_temp(sensor_data_union *data, oc_rep_t *r) {
