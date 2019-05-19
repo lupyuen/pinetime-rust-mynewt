@@ -35,33 +35,33 @@ syscfg.vals:
     ###########################################################################
     # WiFi Settings
 
-    # Connect to the WiFi access point with this SSID
+    # TODO: Connect to the WiFi access point with this SSID
     WIFI_SSID:      '"my_ssid"'
     
-    # Password for WiFi access point
+    # TODO: Password for WiFi access point
     WIFI_PASSWORD:  '"my_password_is_secret"'
 
     ###########################################################################
     # Hardware IDs (12 bytes) of the Collector Node and Sensor Nodes: We shall decide whether this node is a Collector or Sensor Node by matching these Hardware IDs.
     # Change these Hardware IDs to match the Hardware IDs of your Blue Pills.
 
-    # Hardware ID of Collector Node (ESP8266 + nRF24L01) e.g. \x57\xff\x6a\x06\x78\x78\x54\x50\x49\x29\x24\x67
-    COLLECTOR_NODE_HW_ID:   '"\x57\xff\x6a\x06\x78\x78\x54\x50\x49\x29\x24\x67"'
+    # TODO: Hardware ID of Collector Node (ESP8266 + nRF24L01) e.g. 0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67
+    COLLECTOR_NODE_HW_ID:   0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67
 
-    # Hardware ID of Sensor Node 1 (nRF24L01) e.g. \x38\xff\x6d\x06\x4e\x57\x34\x36\x25\x58\x08\x43
-    SENSOR_NODE_HW_ID_1:    '"\x38\xff\x6d\x06\x4e\x57\x34\x36\x25\x58\x08\x43"'
+    # TODO: Hardware ID of Sensor Node 1 (nRF24L01) e.g. 0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43
+    SENSOR_NODE_HW_ID_1:    0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43
 
-    # Hardware ID of Sensor Node 2 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x02
-    SENSOR_NODE_HW_ID_2:    '"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x02"'
+    # TODO: Hardware ID of Sensor Node 2 (nRF24L01) e.g. 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x02
+    SENSOR_NODE_HW_ID_2:    0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x02
 
-    # Hardware ID of Sensor Node 3 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x03
-    SENSOR_NODE_HW_ID_3:    '"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x03"'
+    # TODO: Hardware ID of Sensor Node 3 (nRF24L01) e.g. 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x03
+    SENSOR_NODE_HW_ID_3:    0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x03
 
-    # Hardware ID of Sensor Node 4 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x04
-    SENSOR_NODE_HW_ID_4:    '"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x04"'
+    # TODO: Hardware ID of Sensor Node 4 (nRF24L01) e.g. 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x04
+    SENSOR_NODE_HW_ID_4:    0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x04
 
-    # Hardware ID of Sensor Node 5 (nRF24L01) e.g. \x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x05
-    SENSOR_NODE_HW_ID_5:    '"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x05"'
+    # TODO: Hardware ID of Sensor Node 5 (nRF24L01) e.g. 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x05
+    SENSOR_NODE_HW_ID_5:    0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x05
 
     ###########################################################################
     # nRF24L01 Addresses of the Collector Node and Sensor Nodes: Addresses shall be assigned to the nodes by matching the Hardware IDs above.

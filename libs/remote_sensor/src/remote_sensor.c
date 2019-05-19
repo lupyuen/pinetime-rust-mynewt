@@ -64,11 +64,6 @@
 #define _IS_VALID1(x, y) _IS_VALID2(x, y)
 #define _IS_VALID2(x, y) x##_##y##_is_valid
 
-//  Test Hex
-#define _ID3(a,b,c) {a,b,c}
-#define _HEX3(x) _ID(_ID3 x)
-const uint8_t _test_hex[3] = _HEX3(MYNEWT_VAL(TEST_HEX));
-
 static int sensor_read_internal(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
 static int sensor_get_config_internal(struct sensor *, sensor_type_t, struct sensor_cfg *);
 static int sensor_open_internal(struct os_dev *dev0, uint32_t timeout, void *arg);

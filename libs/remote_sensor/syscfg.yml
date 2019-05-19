@@ -112,6 +112,5 @@ syscfg.defs:
   REMOTE_SENSOR_TYPE_4__SENSOR_TYPE:
     value: RELATIVE_HUMIDITY
 
-  # Testing
-  TEST_HEX:
-    value: 0x12, 0x13, 0x14
+  # When we add Remote Sensor Type 5, remember to duplicate the macros in libs/remote_sensor/src/remote_sensor.c
+  
