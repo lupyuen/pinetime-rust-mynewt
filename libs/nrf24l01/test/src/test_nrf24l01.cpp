@@ -49,7 +49,7 @@ void test_nrf24l01(void) {
 void nrf24l01_callback(struct os_event *ev) {
     //  Callback that is triggered when we receive an interrupt that is forwarded to the Event Queue.
     //  TODO: Move to config.
-    console_printf("nrf event\n");  console_flush();  ////
+    console_printf("%sevent\n", _nrf);  console_flush();  ////
     //  On Collector Node: Check Pipes 1-5 for received data.
     for (;;) {
         //  Keep checking until there is no more data to process.

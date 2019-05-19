@@ -6,6 +6,7 @@
 #include <sensor_network/sensor_network.h>
 #include "nrf24l01/nrf24l01.h"
 #include "nrf24l01/transport.h"
+#include "util.h"
 
 static void oc_tx_ucast(struct os_mbuf *m);
 static uint8_t oc_ep_size(const struct oc_endpoint *oe);
@@ -95,7 +96,7 @@ static int nrf24l01_tx_mbuf(struct nrf24l01 *dev, struct os_mbuf *mbuf) {
     while (m) {  //  For each mbuf in the list...
         const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
         int size = m->om_len;  //  Fetch the size.
-        console_printf("nrf %s len %02d: ", (mbuf_num == 0 ? "header" : "payload"), size);
+        console_printf("%s%s len %02d: ", _nrf, (mbuf_num == 0 ? "header" : "payload"), size);
         console_dump((const uint8_t *) data, size); console_printf("\n");
         if (mbuf_num == 1) {  //  If this is the second mbuf, i.e. the payload...
             //  Transmit the mbuf.
@@ -144,7 +145,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     {   //  Lock the nRF24L01 driver for exclusive use.  Find the nRF24L01 device by name.
         struct nrf24l01 *dev = (struct nrf24l01 *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  network_device is "nrf24l01_0"
         assert(dev != NULL);
-        console_printf("nrf tx mbuf\n");
+        console_printf("%stx mbuf\n", _nrf);
 
         //  Transmit the CoAP Payload only, not the CoAP Header.
         rc = nrf24l01_tx_mbuf(dev, m);  

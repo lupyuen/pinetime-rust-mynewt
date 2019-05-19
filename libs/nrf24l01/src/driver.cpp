@@ -187,7 +187,7 @@ int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg) {
         cfg->rx_addresses       = &sensor_node_address;   //  Listen to itself only. For handling acknowledgements in future
         cfg->rx_addresses_len   = 1;
     }
-    //  console_printf("nrf spi baud: %u kHz\n", (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
+    //  console_printf("%sspi baud: %u kHz\n", _nrf, (unsigned) cfg->spi_settings.baudrate);  console_flush();  ////
     return 0;
 }
 
