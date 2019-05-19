@@ -235,10 +235,8 @@ bool is_collector_node(void) {
     //  This is the Collector Node if the Hardware ID matches the Collector Node Hardware ID.
     //  Fetch the hardware ID.  This is unique across all microcontrollers.
     const uint8_t *hardware_id = get_hardware_id();
-    if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, HARDWARE_ID_LENGTH) == 0) {
-        console_printf("%scollector%s\n", _net, _node);
-        return true; 
-    }
+    //  if the Hardware ID matches the Collector Node Hardware ID...
+    if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, HARDWARE_ID_LENGTH) == 0) { return true; }
     return false; 
 }
 
@@ -251,10 +249,7 @@ bool is_sensor_node(void) {
 
 bool is_standalone_node(void) {
     //  Return true if this is a Standalone Node, i.e. not a Collector or Sensor Node.
-    if (!is_collector_node() && !is_sensor_node()) { 
-        console_printf("%sstandalone%s\n", _net, _node);
-        return true; 
-    }
+    if (!is_collector_node() && !is_sensor_node()) { return true; }
     return false;
 }
 
@@ -279,16 +274,18 @@ void sensor_network_init(void) {
         assert(len + 1 <= NODE_NAME_LENGTH);
     }
     //  Get Sensor Node address if applicable.
-    //  TODO: Sync with above
     const uint8_t *hardware_id = get_hardware_id();
     int i;
     for (i = 0; i < SENSOR_NETWORK_SIZE; i++) {
         if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], HARDWARE_ID_LENGTH) == 0) {
             sensor_node_address = sensor_node_addresses[i];
-            console_printf("%ssensor%s%d\n", _net, _node, i + 1);
+            console_printf("%ssensor%s#%d\n", _net, _node, i + 1);
             break;
         }
     }
+    //  Display the type of node.
+    if (is_collector_node()) { console_printf("%scollector%s\n", _net, _node); }
+    else if (is_standalone_node()) { console_printf("%sstandalone%s\n", _net, _node); }
 }
 
 const char *get_device_id(void) {
