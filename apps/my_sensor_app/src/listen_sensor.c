@@ -47,15 +47,17 @@ static struct sensor_listener listener = {
 //  Listen To Local Sensor
 
 int start_sensor_listener(void) {
-    //  Starting polling the temperature sensor every 10 seconds in the background.  
-    //  After polling the sensor, call the listener function to send the sensor data 
-    //  to the CoAP server (if ESP8266 is present) or Collector Node (if nRF24L01 is present).
+    //  For Sensor Node and Standalone Node: Starting polling the temperature sensor 
+    //  every 10 seconds in the background.  After polling the sensor, call the 
+    //  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
+    //  or CoAP Server (is this is a Standalone Node).
+    //  For Collector Node: Start the Listeners for Remote Sensor 
 
     if (is_collector_node()) {                    //  If this is a Collector Node...
         return start_remote_sensor_listeners();   //  Start the Listener for every Remote Sensor.
     }
 
-    //  Otherwise this is a single Sensor Node with ESP8266, or a Sensor Node connected to Collector Node via nRF24L01.
+    //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
     console_printf("TMP poll " SENSOR_DEVICE "\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
@@ -66,7 +68,7 @@ int start_sensor_listener(void) {
     struct sensor *listen_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE, NULL);
     assert(listen_sensor != NULL);
 
-    //  Set the listener function to be called every 10 seconds, with the polled sensor data.
+    //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
     rc = sensor_register_listener(listen_sensor, &listener);
     assert(rc == 0);
     return 0;
@@ -78,8 +80,8 @@ int start_sensor_listener(void) {
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled (Collector Node)...
 
 static int start_remote_sensor_listeners(void) {
-    //  Start the Listeners for Remote Sensor.  Listen for CBOR sensor data messages transmitted 
-    //  by Sensor Nodes.  Transmit the received data to the CoAP Server.
+    //  For Collector Node Only: Start the Listeners for Remote Sensor.  Listen for CBOR sensor 
+    //  data messages transmitted by Sensor Nodes.  Transmit the received data to the CoAP Server.
     const char **sensor_node_names = get_sensor_node_names();
     assert(sensor_node_names);
     
@@ -93,15 +95,15 @@ static int start_remote_sensor_listeners(void) {
         struct sensor *remote_sensor = sensor_mgr_find_next_bydevname(name, NULL);
         assert(remote_sensor != NULL);
 
-        //  Set the listener function to be called upon receiving any sensor data.
+        //  Set the Listener Function to be called upon receiving any sensor data.
         int rc = sensor_register_listener(remote_sensor, &listener);  //  Remote Sensors may be used the same way as local sensors.
         assert(rc == 0);
     }
     return 0;
 }
 
-#else
-static int start_remote_sensor_listeners(void) {}  //  Don't start Remote Sensor for Sensor Node and Standalone Node
+#else   //  If nRF24L01 Wireless Network is disabled (Standalone Node)...
+static int start_remote_sensor_listeners(void) {}  //  Don't start Remote Sensor for Standalone Node
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 /////////////////////////////////////////////////////////
