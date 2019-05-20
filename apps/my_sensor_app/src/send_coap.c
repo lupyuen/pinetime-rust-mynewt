@@ -111,7 +111,7 @@ int send_sensor_data(struct sensor_value *val, const char *sensor_node) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Send Sensor Data for ESP8266
+//  For Collector Node or Standalone Node: Send Sensor Data to CoAP Server (ESP8266)
 
 #if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
 
@@ -180,7 +180,7 @@ static int send_sensor_data_to_server(struct sensor_value *val, const char *node
 #endif  //  MYNEWT_VAL(ESP8266)
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Send Sensor Data for nRF24L01
+//  For Sensor Node: Send Sensor Data to Collector Node (nRF24L01)
 
 #if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
 
