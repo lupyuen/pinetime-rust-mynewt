@@ -198,13 +198,13 @@ bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
         int rc = sensor_network_register_transport(iface_type);
         assert(rc == 0);
     }
-    //  Start composing the CoAP message with the sensor data in the payload.  This will 
-    //  block other tasks from composing and posting CoAP messages (through a semaphore).
-    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     bool status = init_sensor_post(endpoint, uri, encoding);
     assert(status);
     return status;
 }
+
+
+
 
 /////////////////////////////////////////////////////////
 //  Post CoAP Messages
