@@ -135,7 +135,10 @@ bool should_send_to_collector(struct sensor_value *val, const char *device_name)
 /////////////////////////////////////////////////////////
 //  Sensor Network Addresses
 
-//  Get the randomly-generated device ID.  Changes upon restart.
+//  Return the Hardware ID, which is unique across all microcontrollers.
+const uint8_t *get_hardware_id(void);
+
+//  Get the randomly-generated Device ID that will be sent in every CoAP Server message.  Changes upon restart.
 const char *get_device_id(void);
 
 //  Return the Collector Node address for this Sensor Network.

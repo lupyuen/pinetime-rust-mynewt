@@ -24,11 +24,11 @@ syscfg.defs:
     value:        AMBIENT_TEMPERATURE_RAW
 
   REMOTE_SENSOR_TYPE_1__INT:
-    description:  'Value Type is int'
+    description:  'Is Sensor Value Type int?'
     value:        1
 
   REMOTE_SENSOR_TYPE_1__DOUBLE:
-    description:  'Value Type is double'
+    description:  'Is Sensor Value Type double?'
     value:        0
 
   ###########################################################################
@@ -51,11 +51,11 @@ syscfg.defs:
     value:        AMBIENT_TEMPERATURE
 
   REMOTE_SENSOR_TYPE_2__INT:
-    description:  'Value Type is int'
+    description:  'Is Sensor Value Type int?'
     value:        0
 
   REMOTE_SENSOR_TYPE_2__DOUBLE:
-    description:  'Value Type is double'
+    description:  'Is Sensor Value Type double?'
     value:        1
 
   ###########################################################################
@@ -78,11 +78,11 @@ syscfg.defs:
     value:        PRESSURE
 
   REMOTE_SENSOR_TYPE_3__INT:
-    description:  'Value Type is int'
+    description:  'Is Sensor Value Type int?'
     value:        0
 
   REMOTE_SENSOR_TYPE_3__DOUBLE:
-    description:  'Value Type is double'
+    description:  'Is Sensor Value Type double?'
     value:        1
 
   ###########################################################################
@@ -105,11 +105,11 @@ syscfg.defs:
     value:        RELATIVE_HUMIDITY
 
   REMOTE_SENSOR_TYPE_4__INT:
-    description:  'Value Type is int'
+    description:  'Is Sensor Value Type int?'
     value:        0
 
   REMOTE_SENSOR_TYPE_4__DOUBLE:
-    description:  'Value Type is double'
+    description:  'Is Sensor Value Type double?'
     value:        1
 
   # When we add Remote Sensor Type 5, remember to replicate the macros in 

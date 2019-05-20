@@ -61,7 +61,8 @@
 			"custom_sensor.h": "c",
 			"sensor_data_union.h": "c",
 			"save_sensor_value.h": "c",
-			"sensor_type_desc.h": "c"
+			"sensor_type_desc.h": "c",
+			"sensor_network.h": "c"
 		}
 	}
 }

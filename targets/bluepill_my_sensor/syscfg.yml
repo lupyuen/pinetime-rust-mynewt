@@ -147,10 +147,10 @@ syscfg.vals:
     # Mynewt Sensor Framework Sensor Type
     REMOTE_SENSOR_TYPE_1__SENSOR_TYPE:  AMBIENT_TEMPERATURE_RAW
 
-    # Value Type is int
+    # Is Sensor Value Type int?
     REMOTE_SENSOR_TYPE_1__INT:          1
 
-    # Value Type is double
+    # Is Sensor Value Type double?
     REMOTE_SENSOR_TYPE_1__DOUBLE:       0
 
     ###########################################################################
@@ -168,10 +168,10 @@ syscfg.vals:
     # Mynewt Sensor Framework Sensor Type
     REMOTE_SENSOR_TYPE_2__SENSOR_TYPE:  AMBIENT_TEMPERATURE
 
-    # Value Type is int
+    # Is Sensor Value Type int?
     REMOTE_SENSOR_TYPE_2__INT:          0
 
-    # Value Type is double
+    # Is Sensor Value Type double?
     REMOTE_SENSOR_TYPE_2__DOUBLE:       1
 
     ###########################################################################
@@ -189,10 +189,10 @@ syscfg.vals:
     # Mynewt Sensor Framework Sensor Type
     REMOTE_SENSOR_TYPE_3__SENSOR_TYPE:  PRESSURE
 
-    # Value Type is int
+    # Is Sensor Value Type int?
     REMOTE_SENSOR_TYPE_3__INT:          0
 
-    # Value Type is double
+    # Is Sensor Value Type double?
     REMOTE_SENSOR_TYPE_3__DOUBLE:       1
 
     ###########################################################################
@@ -210,8 +210,8 @@ syscfg.vals:
     # Mynewt Sensor Framework Sensor Type
     REMOTE_SENSOR_TYPE_4__SENSOR_TYPE:  RELATIVE_HUMIDITY
 
-    # Value Type is int
+    # Is Sensor Value Type int?
     REMOTE_SENSOR_TYPE_4__INT:          0
 
-    # Value Type is double
+    # Is Sensor Value Type double?
     REMOTE_SENSOR_TYPE_4__DOUBLE:       1
