@@ -19,8 +19,8 @@
 #include "geolocate.h"                      //  For geolocate()
 #include "send_coap.h"
 
-static int send_sensor_data_to_server(struct sensor_value *val, const char *device_name);
-static int send_sensor_data_to_collector(struct sensor_value *val, const char *device_name);
+static int send_sensor_data_to_server(struct sensor_value *val, const char *sensor_node);
+static int send_sensor_data_to_collector(struct sensor_value *val, const char *sensor_node);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
@@ -34,10 +34,10 @@ static bool network_is_ready = false;  //  Set to true when network tasks have b
 static void network_task_func(void *arg);  //  Defined below
 
 int start_network_task(void) {
-    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
-    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
-    //  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-    //  Return 0 if successful.
+    //  Start the Network Task in the background.  The Network Task to prepare the network drivers
+    //  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
+    //  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+    //  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 
     int rc = os_task_init(  //  Create a new task and start it...
         &network_task,      //  Task object will be saved here.
@@ -53,15 +53,18 @@ int start_network_task(void) {
 }
 
 static void network_task_func(void *arg) {
-    //  Network Task runs this function in the background to prepare the ESP8266 transceiver for
-    //  sending CoAP messages.  For Standalone Node and Collector Node, we connect the ESP8266 to 
-    //  the WiFi access point and register the ESP8266 driver as the network transport for CoAP Server.  
-    //  For Collector Node and Sensor Nodes, we register the nRF24L01 driver as the network transport for 
-    //  CoAP Collector.  Also perform WiFi Geolocation if it is enabled.
+    //  Network Task runs this function in the background to prepare the network drivers
+    //  (ESP8266 and nRF24L01) for transmitting sensor data messages.  Also perform WiFi Geolocation if it is enabled.
+    //  For Collector Node and Standalone Node: We connect the ESP8266 to the WiFi access point. 
+    //  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+    //  Register the ESP8266 driver as the network transport for CoAP Server.  
+    //  For Collector Node and Sensor Nodes: We register the nRF24L01 driver as the network transport for 
+    //  CoAP Collector.
     console_printf("NET start\n");  assert(!network_is_ready);
     int rc = 0;
 
     //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+    //  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
     if (is_standalone_node() || is_collector_node()) {
         rc = register_server_transport();  assert(rc == 0);
     }
@@ -88,16 +91,23 @@ static void network_task_func(void *arg) {
     assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
-int send_sensor_data(struct sensor_value *val, const char *device_name) {
-    //  Compose a CoAP message with sensor value in val and send to the specified CoAP server
-    //  and URI or Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
-    //  Background Task so this function will return without waiting for the message 
-    //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+int send_sensor_data(struct sensor_value *val, const char *sensor_node) {
+    //  Compose a CoAP message (CBOR or JSON) with the sensor value in val and transmit to the
+    //  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
+    //  or Standalone Node).  
+    //  For Sensor Node or Standalone Node: sensor_node is the sensor name ("bme280_0" or "temp_stm32_0")
+    //  For Collector Node: sensor_node is the Sensor Node Address of the Sensor Node that transmitted
+    //  the sensor data (like "b3b4b5b6f1")
+    //  The message will be enqueued for transmission by the CoAP / OIC Background Task 
+    //  so this function will return without waiting for the message to be transmitted.  
+    //  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 
-    if (should_send_to_collector(val, device_name)) { 
-        return send_sensor_data_to_collector(val, device_name); 
+    //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
+    if (should_send_to_collector(val, sensor_node)) { 
+        return send_sensor_data_to_collector(val, sensor_node); 
     }
-    return send_sensor_data_to_server(val, device_name);
+    //  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
+    return send_sensor_data_to_server(val, sensor_node);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

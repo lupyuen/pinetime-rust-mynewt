@@ -23,16 +23,21 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 struct sensor_value;
 
-//  Start the Network Task in the background.  The Network Task prepares the ESP8266 transceiver for
-//  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
-//  the ESP8266 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-//  Return 0 if successful.
+//  Start the Network Task in the background.  The Network Task to prepare the network drivers
+//  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
+//  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+//  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 int start_network_task(void);
 
-//  Compose a CoAP message with sensor value in val and send to the specified CoAP server
-//  and URI or Collector Node.  The message will be enqueued for transmission by the CoAP / OIC 
-//  Background Task so this function will return without waiting for the message 
-//  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+//  Compose a CoAP message (CBOR or JSON) with the sensor value in val and transmit to the
+//  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
+//  or Standalone Node).  
+//  For Sensor Node or Standalone Node: sensor_node is the sensor name ("bme280_0" or "temp_stm32_0")
+//  For Collector Node: sensor_node is the Sensor Node Address of the Sensor Node that transmitted
+//  the sensor data (like "b3b4b5b6f1")
+//  The message will be enqueued for transmission by the CoAP / OIC Background Task 
+//  so this function will return without waiting for the message to be transmitted.  
+//  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 int send_sensor_data(struct sensor_value *val, const char *device_name);
 
 #ifdef __cplusplus

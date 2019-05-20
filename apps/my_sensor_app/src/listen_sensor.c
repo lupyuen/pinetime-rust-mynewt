@@ -47,7 +47,7 @@ static struct sensor_listener listener = {
 //  Listen To Local Sensor
 
 int start_sensor_listener(void) {
-    //  For Sensor Node and Standalone Node: Starting polling the temperature sensor 
+    //  For Sensor Node and Standalone Node: Start polling the temperature sensor 
     //  every 10 seconds in the background.  After polling the sensor, call the 
     //  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
     //  or CoAP Server (is this is a Standalone Node).
