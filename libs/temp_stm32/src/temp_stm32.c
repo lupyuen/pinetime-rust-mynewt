@@ -26,17 +26,6 @@
 #include "adc_stm32f1/adc_stm32f1.h"
 #include "temp_stm32/temp_stm32.h"
 
-//  Define Sensor Type and Sensor Value Type
-#if MYNEWT_VAL(RAW_TEMP)                                      //  If we are returning raw temperature (integers)...
-#include "custom_sensor/custom_sensor.h"                      //  For SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-#define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW  //  Set to raw sensor type.
-#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_INT32        //  Return integer sensor values.
-
-#else                                                         //  If we are returning computed temperature (floating-point)...
-#define TEMP_SENSOR_TYPE SENSOR_TYPE_AMBIENT_TEMPERATURE      //  Set to floating-point sensor type.
-#define TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT        //  Return floating-point sensor values.
-#endif  //  MYNEWT_VAL(RAW_TEMP)
-
 //  Exports for the sensor API
 static int temp_stm32_sensor_read(struct sensor *, sensor_type_t, sensor_data_func_t, void *, uint32_t);
 static int temp_stm32_sensor_get_config(struct sensor *, sensor_type_t, struct sensor_cfg *);
