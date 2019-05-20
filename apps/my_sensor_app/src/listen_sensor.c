@@ -118,9 +118,10 @@ static int read_temperature(struct sensor* sensor, void *arg, void *sensor_data,
 
     //  Check that the temperature data is valid.
     if (sensor_data == NULL) { return SYS_EINVAL; }  //  Exit if data is missing
-
-    //  Get the device name of the sensor.
     assert(sensor);
+
+    //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
+    //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
     struct os_dev *device = SENSOR_GET_DEVICE(sensor);
     const char *device_name = device->od_name;
     assert(device_name);  //  console_printf("device_name %s\n", device_name);
