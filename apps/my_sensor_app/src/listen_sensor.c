@@ -34,6 +34,7 @@
 
 static int get_temperature(void *sensor_data, sensor_type_t type, struct sensor_value *return_value);
 static int read_temperature(struct sensor* sensor, void *arg, void *databuf, sensor_type_t type);
+static int start_remote_sensor_listeners(void);
 
 //  Define the listener function to be called after polling the temperature sensor.
 static struct sensor_listener listener = {
@@ -41,10 +42,6 @@ static struct sensor_listener listener = {
     .sl_func        = read_temperature,      //  Listener function to be called with the sensor data
     .sl_arg         = (void *) LISTENER_CB,  //  Indicate to the listener function that this is a listener callback
 };
-
-#if MYNEWT_VAL(NRF24L01)                         //  If nRF24L01 Wireless Network is enabled...
-static int start_remote_sensor_listeners(void);  //  Listen to remote sensors instead of local sensors.
-#endif                                           //  MYNEWT_VAL(NRF24L01)
 
 /////////////////////////////////////////////////////////
 //  Listen To Local Sensor
@@ -78,10 +75,11 @@ int start_sensor_listener(void) {
 /////////////////////////////////////////////////////////
 //  Listen To Remote Sensors Connected Via nRF24L01
 
-#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled...
+#if MYNEWT_VAL(NRF24L01)  //  If nRF24L01 Wireless Network is enabled (Collector Node)...
 
 static int start_remote_sensor_listeners(void) {
-    //  Listen for sensor data transmitted by Sensor Nodes.  Transmit the received data to the CoAP server.
+    //  Start the Listeners for Remote Sensor.  Listen for CBOR sensor data messages transmitted 
+    //  by Sensor Nodes.  Transmit the received data to the CoAP Server.
     const char **sensor_node_names = get_sensor_node_names();
     assert(sensor_node_names);
     
@@ -102,6 +100,8 @@ static int start_remote_sensor_listeners(void) {
     return 0;
 }
 
+#else
+static int start_remote_sensor_listeners(void) {}  //  Don't start Remote Sensor for Sensor Node and Standalone Node
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 /////////////////////////////////////////////////////////
