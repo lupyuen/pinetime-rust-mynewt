@@ -29,7 +29,7 @@ Check the tutorial...
 
 This repository contains...
 
-1. [Sensor Network Application](apps/my_sensor_app)
+1. [`my_sensor_app`](apps/my_sensor_app): Sensor Network Application
 
 # Requirements
 
