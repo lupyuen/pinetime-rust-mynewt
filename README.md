@@ -25,7 +25,19 @@ Check the tutorial...
 
 [_Build Your IoT Sensor Network — STM32 Blue Pill + nRF24L01 + ESP8266 + Apache Mynewt + thethings.io_](https://medium.com/@ly.lee/build-your-iot-sensor-network-stm32-blue-pill-nrf24l01-esp8266-apache-mynewt-thethings-io-ca7486523f5d)
 
-<b>Requirements:</b> STM32 Blue Pill (or Super Blue Pill) with ESP8266 or nRF24L01 or both
+# Contents
+
+This repository contains...
+
+1. [Sensor Network Application](apps/my_sensor_app)
+
+# Requirements
+
+1. STM32 Blue Pill or [_Super Blue Pill_](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
+
+1. ESP8266 or nRF24L01 or both
+
+# Configuration
 
 The program runs in 4 modes:
 
