@@ -31,6 +31,28 @@ This repository contains...
 
 1. [`my_sensor_app`](apps/my_sensor_app): Sensor Network Application
 
+1. [`boot_stub`](apps/boot_stub): Mynewt Bootloader Stub
+
+1. [`adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32F1
+
+1. [`custom_sensor`](libs/custom_sensor): Custom Sensor Definitions
+
+1. [`esp8266`](libs/esp8266): Mynewt Driver for ESP8266
+
+1. [`hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
+
+1. [`nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
+
+1. [`remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
+
+1. [`semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
+
+1. [`sensor_coap`](libs/sensor_coap): Sensor CoAP Library
+
+1. [`sensor_network`](libs/sensor_network): Sensor Network Library
+
+1. [`temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
+
 # Requirements
 
 1. STM32 Blue Pill or [_Super Blue Pill_](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
