@@ -10,20 +10,22 @@ extern crate panic_halt; // you can put a breakpoint on `rust_begin_unwind` to c
 // use cortex_m::asm;
 use cortex_m_rt::entry;
 
-extern crate libc;
-use libc::{c_int, size_t};
-
 #[link(name = "libs_semihosting_console")]
 extern {
     // void console_buffer(const char *buffer, unsigned int length);  //  Add the string to the output buffer.
-    // void console_printhex(uint8_t v);  //  Write a char in hexadecimal to the output buffer.
-    // void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
-    // void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
-    // void console_flush(void);  //  Flush the output buffer to the console.
+    fn console_buffer(buffer: *const u8, length: u32);  //  Add the string to the output buffer.
 
-    fn console_buffer(buffer: *const u8, 
-        length: c_int) -> c_int;  //  Add the string to the output buffer.
-    fn console_flush() -> c_int;  //  Flush the output buffer to the console.
+    // void console_printhex(uint8_t v);  //  Write a char in hexadecimal to the output buffer.
+    fn console_printhex(v: u8);  //  Write a char in hexadecimal to the output buffer.
+
+    // void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
+    //  fn console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
+
+    // void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+    fn console_dump(buffer: *const u8, len: u32);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+
+    // void console_flush(void);  //  Flush the output buffer to the console.
+    fn console_flush();  //  Flush the output buffer to the console.
 
     /*
     fn snappy_compress(input: *const u8,
