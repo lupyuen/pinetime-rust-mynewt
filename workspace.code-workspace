@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/Users/Luppy/.cargo"
+		},
+		{
+			"path": "/Users/Luppy/rust/app"
 		}
 	],
 	"settings": {

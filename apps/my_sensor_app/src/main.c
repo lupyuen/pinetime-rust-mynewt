@@ -13,7 +13,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor and Send to CoAP Server or Collector Node
 
-int main(int argc, char **argv) {
+int main2(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 
     //  and sending sensor data in the background.
 
