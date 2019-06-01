@@ -33,3 +33,9 @@ tags
 openocd
 repos
 project.state
+**/*.rs.bk
+# .#*
+# .gdb_history
+Cargo.lock
+target/
+OLDrust
