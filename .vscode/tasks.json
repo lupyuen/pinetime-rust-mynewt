@@ -30,7 +30,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                " rm bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf ; newt build -v bluepill_my_sensor && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
             ],
             "group": {
                 "kind": "build",
