@@ -70,6 +70,8 @@ pkg.cflags:
 #  Linker flags
 pkg.lflags:
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation
+    - -Wl,--require-defined=rust_sysinit
     - target/thumbv7m-none-eabi/debug/libmylib.rlib
+    #- -Wl,--require-defined=main
     #- bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs_mynewt_rust.a
     #- bin/targets/bluepill_my_sensor/generated/bin/bluepill_my_sensor-sysinit-app.a
