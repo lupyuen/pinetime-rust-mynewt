@@ -28,6 +28,11 @@ extern {
     fn console_flush();  //  Flush the output buffer to the console.
 }
 
+#[link(name = "main")]
+extern {
+    fn rust_sysinit();  
+}
+
 #[entry]
 fn main() -> ! {
     // asm::nop(); // To not have main optimize to abort in release mode, remove when you add code
@@ -37,6 +42,9 @@ fn main() -> ! {
     let len = buf.len();
 
     unsafe {
+        rust_sysinit();  
+        console_flush();
+
         console_buffer(buf.as_ptr(), len as u32);
         console_flush();
     }
