@@ -31,6 +31,8 @@ Check the tutorial...
 
 cargo build && arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.elf ; arm-none-eabi-objdump -t -S target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.S
 
+arm-none-eabi-ar t target/thumbv7m-none-eabi/debug/libmylib.rlib
+
 arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/generated/bin/bluepill_my_sensor-sysinit-app.a >bluepill_my_sensor-sysinit-app.S
 
 arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs_mynewt_rust.a >libs_mynewt_rust.S
