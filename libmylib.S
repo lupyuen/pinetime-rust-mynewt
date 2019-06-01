@@ -111,10 +111,10 @@ SYMBOL TABLE:
 Disassembly of section .text.main:
 
 00000000 <main>:
-#[link(name = "libs_mynewt_rust")]
-extern {
-    fn rust_sysinit();  
+    fn sysinit_app();
+    fn sysinit_end();
 }
+*/
 
 #[entry]
    0:	b08a      	sub	sp, #40	; 0x28
@@ -147,9 +147,12 @@ fn main() -> ! {
   2e:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h2f0f6af234e01f66E>
   32:	9005      	str	r0, [sp, #20]
   34:	e7ff      	b.n	36 <main+0x36>
-
     unsafe {
-        rust_sysinit();  
+        // sysinit_start();
+        // sysinit_app();
+        // sysinit_end();
+
+        rust_sysinit();
   36:	f7ff fffe 	bl	0 <rust_sysinit>
   3a:	e7ff      	b.n	2 <console_flush+0x2>
         console_flush();

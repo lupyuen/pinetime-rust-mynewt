@@ -25,6 +25,47 @@ Check the tutorial...
 
 [_Build Your IoT Sensor Network — STM32 Blue Pill + nRF24L01 + ESP8266 + Apache Mynewt + thethings.io_](https://medium.com/@ly.lee/build-your-iot-sensor-network-stm32-blue-pill-nrf24l01-esp8266-apache-mynewt-thethings-io-ca7486523f5d)
 
+# TODO: Hosting Rust Apps on Apache Mynewt
+
+```
+
+cargo build && arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.elf ; arm-none-eabi-objdump -t -S target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.S
+
+arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/generated/bin/bluepill_my_sensor-sysinit-app.a >bluepill_my_sensor-sysinit-app.S
+
+arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs_mynewt_rust.a >libs_mynewt_rust.S
+
+arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o >mynewt_rust.S
+
+-----
+Install rustup by following the instructions at https://rustup.rs.
+
+rustc -V
+rustc 1.36.0-nightly (50a0defd5 2019-05-21)
+or later
+
+rustup target add thumbv7m-none-eabi
+
+
+-----
+error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'
+
+check
+https://rust-lang.github.io/rustup-components-history/
+rls: Last available - 2019-05-22
+
+cd /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor
+
+rustup update
+
+rustup override set nightly-2019-05-22
+
+info: override toolchain for '/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor' set to 'nightly-2019-05-22-x86_64-apple-darwin'
+
+rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
+
+```
+
 # Contents
 
 This repository contains...
