@@ -111,54 +111,54 @@ SYMBOL TABLE:
 Disassembly of section .text.main:
 
 00000000 <main>:
-    fn sysinit_app();
-    fn sysinit_end();
+#[link(name = "libs_mynewt_rust")]
+extern {
+    fn rust_sysinit();  
 }
-*/
 
 #[entry]
    0:	b08a      	sub	sp, #40	; 0x28
 fn main() -> ! {
-    // asm::nop(); // To not have main optimize to abort in release mode, remove when you add code
-
-    let msg = "Testing 123\n";
-   2:	f240 0000 	movw	r0, #0
-   6:	f2c0 0000 	movt	r0, #0
-   a:	9001      	str	r0, [sp, #4]
-   c:	200c      	movs	r0, #12
-   e:	9002      	str	r0, [sp, #8]
-    let buf = msg.as_bytes();
-  10:	9801      	ldr	r0, [sp, #4]
-  12:	9902      	ldr	r1, [sp, #8]
-  14:	9006      	str	r0, [sp, #24]
-  16:	9107      	str	r1, [sp, #28]
-  18:	9806      	ldr	r0, [sp, #24]
-  1a:	9907      	ldr	r1, [sp, #28]
-  1c:	9008      	str	r0, [sp, #32]
-  1e:	9109      	str	r1, [sp, #36]	; 0x24
-  20:	9808      	ldr	r0, [sp, #32]
-  22:	9909      	ldr	r1, [sp, #36]	; 0x24
-  24:	9104      	str	r1, [sp, #16]
-  26:	9003      	str	r0, [sp, #12]
-  28:	e7ff      	b.n	2a <main+0x2a>
-    let len = buf.len();
-  2a:	9803      	ldr	r0, [sp, #12]
-  2c:	9904      	ldr	r1, [sp, #16]
-  2e:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h2f0f6af234e01f66E>
-  32:	9005      	str	r0, [sp, #20]
-  34:	e7ff      	b.n	36 <main+0x36>
+    //  Init Mynewt system.
     unsafe {
-        // sysinit_start();
-        // sysinit_app();
-        // sysinit_end();
-
         rust_sysinit();
-  36:	f7ff fffe 	bl	0 <rust_sysinit>
-  3a:	e7ff      	b.n	2 <console_flush+0x2>
+   2:	f7ff fffe 	bl	0 <rust_sysinit>
+   6:	e7ff      	b.n	2 <console_flush+0x2>
         console_flush();
-  3c:	f7ff fffe 	bl	0 <console_flush>
+   8:	f7ff fffe 	bl	0 <console_flush>
+   c:	e7ff      	b.n	2 <main+0x2>
+    }
+
+    //  Message to be displayed.
+    let msg = "Testing 123\n";
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	9001      	str	r0, [sp, #4]
+  18:	200c      	movs	r0, #12
+  1a:	9002      	str	r0, [sp, #8]
+    let buf = msg.as_bytes();
+  1c:	9801      	ldr	r0, [sp, #4]
+  1e:	9902      	ldr	r1, [sp, #8]
+  20:	9006      	str	r0, [sp, #24]
+  22:	9107      	str	r1, [sp, #28]
+  24:	9806      	ldr	r0, [sp, #24]
+  26:	9907      	ldr	r1, [sp, #28]
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9109      	str	r1, [sp, #36]	; 0x24
+  2c:	9808      	ldr	r0, [sp, #32]
+  2e:	9909      	ldr	r1, [sp, #36]	; 0x24
+  30:	9104      	str	r1, [sp, #16]
+  32:	9003      	str	r0, [sp, #12]
+  34:	e7ff      	b.n	36 <main+0x36>
+    let len = buf.len();
+  36:	9803      	ldr	r0, [sp, #12]
+  38:	9904      	ldr	r1, [sp, #16]
+  3a:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h2f0f6af234e01f66E>
+  3e:	9005      	str	r0, [sp, #20]
   40:	e7ff      	b.n	42 <main+0x42>
 
+    //  Display message on Arm Semihosting console (openocd).
+    unsafe {
         console_buffer(buf.as_ptr(), len as u32);
   42:	9803      	ldr	r0, [sp, #12]
   44:	9904      	ldr	r1, [sp, #16]

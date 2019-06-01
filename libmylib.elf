@@ -250,11 +250,11 @@ There is no dynamic section in this file.
 
 Relocation section '.rel.text.main' at offset 0x7d8 contains 8 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000002  00001a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.fad58de7366495db4650cfefac2fcd61.0
-00000006  00001a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.fad58de7366495db4650cfefac2fcd61.0
-0000002e  0000200a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h2f0f6af234e01f66E
-00000036  0000250a R_ARM_THM_CALL         00000000   rust_sysinit
-0000003c  0000230a R_ARM_THM_CALL         00000000   console_flush
+00000002  0000250a R_ARM_THM_CALL         00000000   rust_sysinit
+00000008  0000230a R_ARM_THM_CALL         00000000   console_flush
+0000000e  00001a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.fad58de7366495db4650cfefac2fcd61.0
+00000012  00001a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.fad58de7366495db4650cfefac2fcd61.0
+0000003a  0000200a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h2f0f6af234e01f66E
 00000046  0000210a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hab484211479aaa78E
 00000052  0000220a R_ARM_THM_CALL         00000000   console_buffer
 00000058  0000230a R_ARM_THM_CALL         00000000   console_flush

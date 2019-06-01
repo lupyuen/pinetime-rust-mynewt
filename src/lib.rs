@@ -33,31 +33,21 @@ extern {
     fn rust_sysinit();  
 }
 
-/*
-#[link(name = "bluepill_my_sensor-sysinit-app")]
-extern {
-    fn sysinit_start();
-    fn sysinit_app();
-    fn sysinit_end();
-}
-*/
-
 #[entry]
 fn main() -> ! {
-    // asm::nop(); // To not have main optimize to abort in release mode, remove when you add code
+    //  Init Mynewt system.
+    unsafe {
+        rust_sysinit();
+        console_flush();
+    }
 
+    //  Message to be displayed.
     let msg = "Testing 123\n";
     let buf = msg.as_bytes();
     let len = buf.len();
 
+    //  Display message on Arm Semihosting console (openocd).
     unsafe {
-        // sysinit_start();
-        // sysinit_app();
-        // sysinit_end();
-
-        rust_sysinit();
-        console_flush();
-
         console_buffer(buf.as_ptr(), len as u32);
         console_flush();
     }
