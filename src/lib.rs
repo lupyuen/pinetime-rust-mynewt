@@ -28,7 +28,7 @@ extern {
     fn console_flush();  //  Flush the output buffer to the console.
 }
 
-#[link(name = "main")]
+#[link(name = "libs_mynewt_rust")]
 extern {
     fn rust_sysinit();  
 }

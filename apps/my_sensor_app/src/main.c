@@ -10,11 +10,6 @@
 #include "send_coap.h"        //  For start_network_task()
 #include "listen_sensor.h"    //  For start_sensor_listener()
 
-////
-void rust_sysinit() {
-    sysinit();
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor and Send to CoAP Server or Collector Node
 
