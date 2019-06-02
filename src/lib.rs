@@ -19,7 +19,7 @@ extern {
     // fn console_printhex(v: u8);  //  Write a char in hexadecimal to the output buffer.
 
     // void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
-    //  fn console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
+    // fn console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
 
     // void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
     // fn console_dump(buffer: *const u8, len: u32);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
