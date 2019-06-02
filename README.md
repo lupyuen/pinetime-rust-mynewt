@@ -42,7 +42,18 @@ arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/
 -----
 Install rustup by following the instructions at https://rustup.rs.
 
+macOS:
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+
+Windows: 
+rustup‑init.exe, run anyway
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+
 rustc -V
+rustc 1.35.0 (3c235d560 2019-05-20)
+or
 rustc 1.36.0-nightly (50a0defd5 2019-05-21)
 or later
 
@@ -56,9 +67,8 @@ check
 https://rust-lang.github.io/rustup-components-history/
 rls: Last available - 2019-05-22
 
-cd /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor
-
-rustup update
+cd $HOME/stm32bluepill-mynewt-sensor
+cd /mnt/c/stm32bluepill-mynewt-sensor
 
 rustup override set nightly-2019-05-22
 
