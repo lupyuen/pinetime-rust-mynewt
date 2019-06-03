@@ -32,7 +32,7 @@ struct os_dev *sensor_get_device(struct sensor *s) {
 //  Return the name for the device.  Assumes name is non-null.
 const char *device_get_name(struct os_dev *device) {
     assert(device);
-    const char *name = device.od_name;
+    const char *name = device->od_name;
     assert(name);
     return name;
 }
@@ -41,7 +41,7 @@ const char *device_get_name(struct os_dev *device) {
 struct sensor *null_sensor(void) { return NULL; }
 
 //  Return non-zero if sensor is NULL.
-int is_null_sensor(struct sensor *p) { return p ? 0 : 1 }
+int is_null_sensor(struct sensor *p) { return p ? 0 : 1; }
 
 //  Return non-zero if sensor data is NULL.
-int is_null_sensor_data(void *p) { return p ? 0 : 1 }
+int is_null_sensor_data(void *p) { return p ? 0 : 1; }
