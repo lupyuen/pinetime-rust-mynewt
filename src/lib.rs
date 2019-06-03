@@ -1,5 +1,4 @@
 #![no_std]
-// #![no_main]
 
 // pick a panicking behavior
 extern crate panic_halt; // you can put a breakpoint on `rust_begin_unwind` to catch panics
@@ -7,31 +6,14 @@ extern crate panic_halt; // you can put a breakpoint on `rust_begin_unwind` to c
 // extern crate panic_itm; // logs messages over ITM; requires ITM support
 // extern crate panic_semihosting; // logs messages to the host stderr; requires a debugger
 
-// use cortex_m::asm;
+mod base;
+mod listen_sensor;
+mod send_coap;
+
 use cortex_m_rt::entry;
-
-#[link(name = "libs_semihosting_console")]
-extern {
-    // void console_buffer(const char *buffer, unsigned int length);  //  Add the string to the output buffer.
-    fn console_buffer(buffer: *const u8, length: u32);  //  Add the string to the output buffer.
-
-    // void console_printhex(uint8_t v);  //  Write a char in hexadecimal to the output buffer.
-    // fn console_printhex(v: u8);  //  Write a char in hexadecimal to the output buffer.
-
-    // void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
-    // fn console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
-
-    // void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
-    // fn console_dump(buffer: *const u8, len: u32);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
-
-    // void console_flush(void);  //  Flush the output buffer to the console.
-    fn console_flush();  //  Flush the output buffer to the console.
-}
-
-#[link(name = "libs_mynewt_rust")]
-extern {
-    fn rust_sysinit();  
-}
+use crate::base::*;
+use crate::listen_sensor::*;
+use crate::send_coap::*;
 
 #[entry]
 fn main() -> ! {
@@ -39,8 +21,32 @@ fn main() -> ! {
     unsafe {
         rust_sysinit();
         console_flush();
-    }
 
+        //#if defined(SERVER_NETWORK_INTERFACE) || defined(SENSOR_NETWORK_INTERFACE)  //  If the ESP8266 or nRF24L01 is enabled...
+        //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
+        //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
+        //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+        let rc1 = start_network_task();  assert!(rc1 == 0);
+        //#endif  //  NETWORK_DEVICE
+
+        //#ifdef SENSOR_DEVICE   //  If BME280 or internal temperature sensor is enabled...
+        //  Starting polling the temperature sensor every 10 seconds in the background.  
+        //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
+        //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
+        let rc2 = start_sensor_listener();  assert!(rc2 == 0);
+        //#endif  //  SENSOR_DEVICE
+
+        //  Main event loop
+        loop {                //  Loop forever...
+            os_eventq_run(            //  Process events...
+                os_eventq_dflt_get()  //  From default event queue.
+            );
+        }
+    }
+    //  Never comes here.
+}
+
+/*
     //  Message to be displayed.
     let msg = "Testing 123\n";
     let buf = msg.as_bytes();
@@ -51,8 +57,4 @@ fn main() -> ! {
         console_buffer(buf.as_ptr(), len as u32);
         console_flush();
     }
-
-    loop {
-        // your code goes here
-    }
-}
+*/

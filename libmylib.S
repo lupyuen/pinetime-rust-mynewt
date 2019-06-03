@@ -111,32 +111,32 @@ SYMBOL TABLE:
 Disassembly of section .text.main:
 
 00000000 <main>:
+    // fn console_printhex(v: u8);  //  Write a char in hexadecimal to the output buffer.
+
+    // void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
+    // fn console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
+
+    // void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+   0:	b08a      	sub	sp, #40	; 0x28
+    // fn console_dump(buffer: *const u8, len: u32);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+
+    // void console_flush(void);  //  Flush the output buffer to the console.
+    fn console_flush();  //  Flush the output buffer to the console.
+   2:	f7ff fffe 	bl	0 <rust_sysinit>
+   6:	e7ff      	b.n	2 <console_flush+0x2>
+}
+   8:	f7ff fffe 	bl	0 <console_flush>
+   c:	e7ff      	b.n	2 <main+0x2>
+
 #[link(name = "libs_mynewt_rust")]
 extern {
     fn rust_sysinit();  
-}
-
-#[entry]
-   0:	b08a      	sub	sp, #40	; 0x28
-fn main() -> ! {
-    //  Init Mynewt system.
-    unsafe {
-        rust_sysinit();
-   2:	f7ff fffe 	bl	0 <rust_sysinit>
-   6:	e7ff      	b.n	2 <console_flush+0x2>
-        console_flush();
-   8:	f7ff fffe 	bl	0 <console_flush>
-   c:	e7ff      	b.n	2 <main+0x2>
-    }
-
-    //  Message to be displayed.
-    let msg = "Testing 123\n";
    e:	f240 0000 	movw	r0, #0
   12:	f2c0 0000 	movt	r0, #0
   16:	9001      	str	r0, [sp, #4]
   18:	200c      	movs	r0, #12
   1a:	9002      	str	r0, [sp, #8]
-    let buf = msg.as_bytes();
+}
   1c:	9801      	ldr	r0, [sp, #4]
   1e:	9902      	ldr	r1, [sp, #8]
   20:	9006      	str	r0, [sp, #24]
@@ -150,16 +150,16 @@ fn main() -> ! {
   30:	9104      	str	r1, [sp, #16]
   32:	9003      	str	r0, [sp, #12]
   34:	e7ff      	b.n	36 <main+0x36>
-    let len = buf.len();
+
   36:	9803      	ldr	r0, [sp, #12]
   38:	9904      	ldr	r1, [sp, #16]
   3a:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h2f0f6af234e01f66E>
   3e:	9005      	str	r0, [sp, #20]
   40:	e7ff      	b.n	42 <main+0x42>
-
-    //  Display message on Arm Semihosting console (openocd).
+#[entry]
+fn main() -> ! {
+    //  Init Mynewt system.
     unsafe {
-        console_buffer(buf.as_ptr(), len as u32);
   42:	9803      	ldr	r0, [sp, #12]
   44:	9904      	ldr	r1, [sp, #16]
   46:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hab484211479aaa78E>
@@ -169,10 +169,10 @@ fn main() -> ! {
   50:	9800      	ldr	r0, [sp, #0]
   52:	f7ff fffe 	bl	0 <console_buffer>
   56:	e7ff      	b.n	2 <console_flush+0x2>
-        console_flush();
+        rust_sysinit();
   58:	f7ff fffe 	bl	0 <console_flush>
   5c:	e7ff      	b.n	5e <main+0x5e>
+        console_flush();
     }
-
-    loop {
+    /*
   5e:	e7fe      	b.n	5e <main+0x5e>
