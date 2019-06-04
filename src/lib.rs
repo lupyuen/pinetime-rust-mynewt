@@ -1,5 +1,4 @@
 #![no_std]          //  Don't link with standard Rust library
-#![no_main]         //  Disable all Rust-level entry points
 
 mod base;           //  Import base.rs
 mod listen_sensor;  //  Import listen_sensor.rs
