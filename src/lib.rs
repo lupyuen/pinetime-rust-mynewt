@@ -1,29 +1,19 @@
 #![no_std]          //  Don't link with standard Rust library
-#![no_core]
-
-//#![no_stdsimd]      //  Don't link with SIMD module from libcore
-//#![no_simd_arch]    //  Don't link with SIMD module from libcore
-
-extern crate panic_halt;            // Put a breakpoint on `rust_begin_unwind` to catch panics
-// extern crate panic_abort;        // Requires nightly
-// extern crate panic_itm;          // Logs messages over ITM; requires ITM support
-// extern crate panic_semihosting;  // Logs messages to the host stderr; requires a debugger
+#![no_main]         //  Disable all Rust-level entry points
 
 mod base;           //  Import base.rs
 mod listen_sensor;  //  Import listen_sensor.rs
 mod send_coap;      //  Import send_coap.rs
 
-//use cortex_m_rt::entry;
-use core::panicking::panic;
+use core::panic::PanicInfo;
 use crate::base::*;             //  Import base.rs
 use crate::listen_sensor::*;    //  Import listen_sensor.rs
 use crate::send_coap::*;        //  Import send_coap.rs
 
-//#[entry]
 #[no_mangle]
-pub extern "C" fn main() -> ! {
-    //  Init Mynewt system.
+pub extern "C" fn main() -> ! {  //  main() will be called at Mynewt startup
     unsafe {
+        //  Init Mynewt system.
         rust_sysinit();
         console_flush();
 
@@ -49,6 +39,12 @@ pub extern "C" fn main() -> ! {
         }
     }
     //  Never comes here.
+}
+
+#[panic_handler]
+fn panic(_info: &PanicInfo) -> ! {
+    //  This function is called on panic. From https://os.phil-opp.com/freestanding-rust-binary/
+    loop {}
 }
 
 /*
