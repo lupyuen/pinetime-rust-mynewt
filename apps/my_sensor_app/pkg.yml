@@ -70,6 +70,6 @@ pkg.cflags:
 #  Linker flags
 pkg.lflags:
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation
-    - -Wl,--require-defined=rust_sysinit # TODO
-    - -Wl,--require-defined=null_sensor # TODO
-    - target/thumbv7m-none-eabi/debug/libmylib.rlib # Compiled Rust application
+    - -Wl,--require-defined=rust_sysinit  # TODO
+    - -Wl,--require-defined=null_sensor   # TODO
+    - target/thumbv7m-none-eabi/debug/libmylib.rlib  # Compiled Rust application, containing main()
