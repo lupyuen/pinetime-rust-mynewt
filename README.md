@@ -76,6 +76,12 @@ info: override toolchain for '/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor' s
 
 rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
 
+-----
+
+libcore
+
+copy from ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/thumbv7m-none-eabi/lib
+
 ```
 
 # Contents
