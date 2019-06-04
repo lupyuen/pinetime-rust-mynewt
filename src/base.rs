@@ -193,8 +193,11 @@ pub const SYS_EREMOTEIO   : i32 = -14;
 pub const SYS_EDONE       : i32 = -15;
 pub const SYS_EPERUSER : i32 = -65535;
 
-pub fn console_print(msg: String) {
-    let buf = msg.as_bytes();
+pub fn console_print(msg: &[u8]) {
+    //  TODO
+    /*
+    let buf = CStr::from_bytes_with_nul(msg);
     let len = buf.len();
     console_buffer(buf.as_ptr(), len as u32);
+    */
 }

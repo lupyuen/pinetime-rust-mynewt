@@ -22,7 +22,7 @@ pub fn start_sensor_listener() -> i32 {
         } */
 
         //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-        console_print("TMP poll \n");  //  SENSOR_DEVICE "\n";
+        console_print(b"TMP poll \n\0");  //  SENSOR_DEVICE "\n";
 
         //  Define the listener function to be called after polling the temperature sensor.
         let listener = SensorListener {
@@ -80,7 +80,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
         assert!(temp_sensor_value.val_type != 0);
         if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
 
-    //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
+        //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
         //  Compose a CoAP message with the temperature sensor data and send to the 
         //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
         //  background task so this function will return without waiting for the message 
@@ -90,15 +90,11 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
         //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
         //  We drop the sensor data and send at the next poll.
         if rc == SYS_EAGAIN {
-            //  console_printf("TMP network not ready\n");
-            let msg = "TMP network not ready\n";
-            let buf = msg.as_bytes();
-            let len = buf.len();
-            console_buffer(buf.as_ptr(), len as u32);
+            console_print(b"TMP network not ready\n\0");
             return 0; 
         }
         assert!(rc == 0);
-    //#endif  //  MYNEWT_VAL(SENSOR_COAP)
+        //#endif  //  MYNEWT_VAL(SENSOR_COAP)
     }
     0
 }
@@ -130,11 +126,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
 
                 //  Raw temperature data is valid.  Copy and display it.
                 return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
-                //  TODO: console_printf("TMP listener got rawtmp %d\n", return_value->int_val);  ////
-                let msg = "TMP listener got rawtmp \n";
-                let buf = msg.as_bytes();
-                let len = buf.len();
-                console_buffer(buf.as_ptr(), len as u32);
+                console_print(b"TMP listener got rawtmp \n\0");  // return_value->int_val);
             },
             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
                 //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
@@ -150,11 +142,11 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
 
                 //  Computed temperature data is valid.  Copy and display it.
                 return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
-    /*
-    #if !MYNEWT_VAL(RAW_TEMP)  //  The following line contains floating-point code. We should compile only if we are not using raw temp.
-                console_printf("TMP poll data: tmp ");  console_printfloat(return_value->float_val);  console_printf("\n");  ////
-    #endif  //  !MYNEWT_VAL(RAW_TEMP)
-    */
+                /*
+                #if !MYNEWT_VAL(RAW_TEMP)  //  The following line contains floating-point code. We should compile only if we are not using raw temp.
+                            console_printf("TMP poll data: tmp ");  console_printfloat(return_value->float_val);  console_printf("\n");  ////
+                #endif  //  !MYNEWT_VAL(RAW_TEMP)
+                */
             },
             _ => {
                 assert!(false);  //  Unknown temperature sensor type
