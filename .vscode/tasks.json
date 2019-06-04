@@ -30,7 +30,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " rm bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf ; set -e -x ; cargo build ; set +e ; arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.elf ; arm-none-eabi-objdump -t -S target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.S ; set -e ; newt build -v -p bluepill_my_sensor ; newt size -v bluepill_my_sensor ; echo ✅ ◾ ️Done! "
+                " rm bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf ; set -e -x ; cargo build -v ; set +e ; arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.elf ; arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.S ; set -e ; newt build -v -p bluepill_my_sensor ; newt size -v bluepill_my_sensor ; echo ✅ ◾ ️Done! "
             ],
             "group": {
                 "kind": "build",

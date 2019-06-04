@@ -1,6 +1,5 @@
 #![no_std]
 
-// pick a panicking behavior
 extern crate panic_halt; // you can put a breakpoint on `rust_begin_unwind` to catch panics
 // extern crate panic_abort; // requires nightly
 // extern crate panic_itm; // logs messages over ITM; requires ITM support
@@ -10,13 +9,14 @@ mod base;
 mod listen_sensor;
 mod send_coap;
 
-use cortex_m_rt::entry;
+//use cortex_m_rt::entry;
 use crate::base::*;
 use crate::listen_sensor::*;
 use crate::send_coap::*;
 
-#[entry]
-fn main() -> ! {
+//#[entry]
+#[no_mangle]
+pub extern "C" fn main() -> ! {
     //  Init Mynewt system.
     unsafe {
         rust_sysinit();
