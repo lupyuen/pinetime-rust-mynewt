@@ -6,7 +6,7 @@ name = "myapp"
 version = "0.1.0"
 
 [dependencies]
-rust-libcore = "0.0.3" # Must use libcore when linking with gcc
+##rust-libcore = "0.0.3" # Must use libcore when linking with gcc
 ##cortex-m = "0.5.8"
 ##cortex-m-rt = "0.6.5"
 ##cortex-m-semihosting = "0.3.2"
@@ -15,6 +15,11 @@ cty = "0.2.0"
 cstr_core = "0.1.2"
 # panic-itm = "0.4.0"       # Uncomment for the panic example.
 # alloc-cortex-m = "0.3.5"  # Uncomment for the allocator example.
+
+[dependencies.rust-libcore]
+version = "0.0.3" # Must use libcore when linking with gcc
+default-features = false # do not include the default features
+features = []
 
 [lib]
 name = "mylib"

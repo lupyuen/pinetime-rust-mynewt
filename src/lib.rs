@@ -1,18 +1,23 @@
-#![no_std]
+#![no_std]          //  Don't link with standard Rust library
+#![no_core]
 
-extern crate panic_halt; // you can put a breakpoint on `rust_begin_unwind` to catch panics
-// extern crate panic_abort; // requires nightly
-// extern crate panic_itm; // logs messages over ITM; requires ITM support
-// extern crate panic_semihosting; // logs messages to the host stderr; requires a debugger
+//#![no_stdsimd]      //  Don't link with SIMD module from libcore
+//#![no_simd_arch]    //  Don't link with SIMD module from libcore
 
-mod base;
-mod listen_sensor;
-mod send_coap;
+extern crate panic_halt;            // Put a breakpoint on `rust_begin_unwind` to catch panics
+// extern crate panic_abort;        // Requires nightly
+// extern crate panic_itm;          // Logs messages over ITM; requires ITM support
+// extern crate panic_semihosting;  // Logs messages to the host stderr; requires a debugger
+
+mod base;           //  Import base.rs
+mod listen_sensor;  //  Import listen_sensor.rs
+mod send_coap;      //  Import send_coap.rs
 
 //use cortex_m_rt::entry;
-use crate::base::*;
-use crate::listen_sensor::*;
-use crate::send_coap::*;
+use core::panicking::panic;
+use crate::base::*;             //  Import base.rs
+use crate::listen_sensor::*;    //  Import listen_sensor.rs
+use crate::send_coap::*;        //  Import send_coap.rs
 
 //#[entry]
 #[no_mangle]
