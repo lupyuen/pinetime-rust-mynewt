@@ -22,11 +22,7 @@ pub fn start_sensor_listener() -> i32 {
         } */
 
         //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-        //  console_printf("TMP poll " SENSOR_DEVICE "\n");
-        let msg = "TMP poll \n";  //  SENSOR_DEVICE "\n";
-        let buf = msg.as_bytes();
-        let len = buf.len();
-        console_buffer(buf.as_ptr(), len as u32);
+        console_print("TMP poll \n");  //  SENSOR_DEVICE "\n";
 
         //  Define the listener function to be called after polling the temperature sensor.
         let listener = SensorListener {
