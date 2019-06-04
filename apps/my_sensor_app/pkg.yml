@@ -15,6 +15,8 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
     - "libs/mynewt_rust"  # TODO: Rust interop layer for Mynewt
+    - "libs/rust_app"  # TODO: Rust Application Stub
+    - "libs/rust_libcore"  # TODO: Rust Library Stub for libcore
 
 # Optional Dependencies: Application is dependent on these optional drivers and libraries.
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
