@@ -3,3 +3,4 @@
 void rust_sysinit() {
     sysinit();
 }
+
