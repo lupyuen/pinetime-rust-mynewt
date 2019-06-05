@@ -29,17 +29,6 @@ Check the tutorial...
 
 ```
 
-cargo build && arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.elf ; arm-none-eabi-objdump -t -S target/thumbv7m-none-eabi/debug/libmylib.rlib >libmylib.S
-
-arm-none-eabi-ar t target/thumbv7m-none-eabi/debug/libmylib.rlib
-
-arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/generated/bin/bluepill_my_sensor-sysinit-app.a >bluepill_my_sensor-sysinit-app.S
-
-arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs_mynewt_rust.a >libs_mynewt_rust.S
-
-arm-none-eabi-objdump -t -S bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o >mynewt_rust.S
-
------
 Install rustup by following the instructions at https://rustup.rs.
 
 macOS:
@@ -80,7 +69,19 @@ rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
 
 libcore
 
-copy from ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/thumbv7m-none-eabi/lib
+target/.rustc_info.json
+<<
+        "16168332780710089770": [
+            "___\nlib___.rlib\nlib___.a\n/Users/Luppy/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin\ndebug_assertions\nproc_macro\ntarget_arch=\"arm\"\ntarget_endian=\"little\"\ntarget_env=\"\"\ntarget_feature=\"mclass\"\ntarget_feature=\"v5te\"\ntarget_feature=\"v6\"\ntarget_feature=\"v6k\"\ntarget_feature=\"v6t2\"\ntarget_feature=\"v7\"\ntarget_has_atomic=\"16\"\ntarget_has_atomic=\"32\"\ntarget_has_atomic=\"8\"\ntarget_has_atomic=\"cas\"\ntarget_has_atomic=\"ptr\"\ntarget_os=\"none\"\ntarget_pointer_width=\"32\"\ntarget_vendor=\"\"\n",
+            "warning: dropping unsupported crate type `dylib` for target `thumbv7m-none-eabi`\n\nwarning: dropping unsupported crate type `cdylib` for target `thumbv7m-none-eabi`\n\nwarning: dropping unsupported crate type `proc-macro` for target `thumbv7m-none-eabi`\n\n"
+        ],
+>>
+
+copy libcore*.rlib from 
+~/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin/lib/rustlib/thumbv7m-none-eabi/lib
+~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/thumbv7m-none-eabi/lib
+to
+libs/rust_libcore/src
 
 ```
 

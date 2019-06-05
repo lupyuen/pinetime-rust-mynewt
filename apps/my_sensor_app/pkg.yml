@@ -75,6 +75,7 @@ pkg.lflags:
     #- -Wl,--require-defined=rust_sysinit  # TODO
     #- -Wl,--require-defined=null_sensor   # TODO
     #- -Wl,--require-defined=_ZN4core9panicking5panic17h5137ce59069236b2E  # TODO: core::panicking::panic 
+    - -Wl,--require-defined=_ZN9cstr_core4CStr8from_ptr17ha5d4992c233d069bE
     #- target/thumbv7m-none-eabi/debug/libmylib.rlib  # Compiled Rust application, containing main()
     #- src/libcore-8010f7064010be9c.rlib              # Rust Core library
     #- src/libcompiler_builtins-26b11cd3df3b5c44.rlib # Rust Compiler Builtins library

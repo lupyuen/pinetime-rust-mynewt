@@ -70,9 +70,8 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
         //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
         //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
         let device = sensor_get_device(sensor);
-        let c_buf: *const c_char = unsafe { device_get_name(device) };
-        let device_name: &CStr = unsafe { CStr::from_ptr(c_buf) };
-        //let device_name: &str = c_str.to_str().unwrap();
+        let c_buf: *const c_char = device_get_name(device);
+        let device_name: &CStr = CStr::from_ptr(c_buf);
         //assert!(device_name.len() > 0);  //  console_printf("device_name %s\n", device_name);
         
         //  Get the temperature sensor value. It could be raw or computed.
