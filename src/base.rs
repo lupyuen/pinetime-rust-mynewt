@@ -193,5 +193,6 @@ pub fn console_print(msg: &[u8]) {
     let len = msg.len();
     unsafe {
         console_buffer(msg.as_ptr(), len as u32);
+        console_flush(); ////
     }
 }

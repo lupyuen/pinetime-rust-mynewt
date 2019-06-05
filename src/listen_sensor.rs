@@ -22,7 +22,7 @@ pub fn start_sensor_listener() -> i32 {
         } */
 
         //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-        console_print(b"TMP poll \n\0");  //  SENSOR_DEVICE "\n";
+        console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
         //  Define the listener function to be called after polling the temperature sensor.
         let listener = SensorListener {
@@ -38,7 +38,7 @@ pub fn start_sensor_listener() -> i32 {
 
         //  Fetch the sensor by name, without locking the driver for exclusive access.
         let listen_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE(), null_sensor());
-        assert!(is_null_sensor(listen_sensor));
+        assert!(!is_null_sensor(listen_sensor));
 
         //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
         let rc = sensor_register_listener(listen_sensor, &listener);
@@ -89,7 +89,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
         //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
         //  We drop the sensor data and send at the next poll.
         if rc == SYS_EAGAIN {
-            console_print(b"TMP network not ready\n\0");
+            console_print(b"TMP network not ready\n");
             return 0; 
         }
         assert!(rc == 0);
@@ -125,7 +125,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
 
                 //  Raw temperature data is valid.  Copy and display it.
                 return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
-                console_print(b"TMP listener got rawtmp \n\0");  // return_value->int_val);
+                console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
             },
             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
                 //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
