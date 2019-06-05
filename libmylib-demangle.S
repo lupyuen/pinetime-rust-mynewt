@@ -229,8 +229,8 @@ pub fn console_print(msg: &[u8]) {
   2a:	9800      	ldr	r0, [sp, #0]
   2c:	f7ff fffe 	bl	0 <console_buffer>
   30:	e7ff      	b.n	32 <mylib::base::console_print+0x32>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:197
-    }
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:1
+#![no_std]          //  Don't link with standard Rust library
   32:	b006      	add	sp, #24
   34:	bd80      	pop	{r7, pc}
 
@@ -827,6 +827,7 @@ mylib-50794855a3f9698d.509tcgk6983yrx6c.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 509tcgk6983yrx6c
 00000318 l       .debug_str	00000000 
+000003a5 l       .debug_str	00000000 
 000003bf l       .debug_str	00000000 
 0000041d l       .debug_str	00000000 
 00000428 l       .debug_str	00000000 
@@ -935,14 +936,14 @@ SYMBOL TABLE:
 0000035b l       .debug_str	00000000 
 0000037f l       .debug_str	00000000 
 0000039b l       .debug_str	00000000 
-000003a5 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.2
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.4
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0	00000005 .Lanon.3ed011473997af99b525cde47c9eaaac.0
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.3
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.5
 00000000 l    d  .text.main	00000000 .text.main
 00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
-00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0
 00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1
-00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3
+00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2
+00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
@@ -950,9 +951,10 @@ SYMBOL TABLE:
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 core::panicking::panic
 00000000         *UND*	00000000 .hidden mylib::listen_sensor::start_sensor_listener
+00000000         *UND*	00000000 .hidden mylib::base::console_print
 00000000         *UND*	00000000 .hidden mylib::send_coap::start_network_task
 00000000         *UND*	00000000 console_flush
-00000000 g     F .text.main	0000005e main
+00000000 g     F .text.main	00000074 main
 00000000         *UND*	00000000 os_eventq_dflt_get
 00000000         *UND*	00000000 os_eventq_run
 00000000 g     F .text.rust_begin_unwind	0000000c rust_begin_unwind
@@ -981,69 +983,81 @@ pub extern "C" fn main() -> ! {  //  main() will be called at Mynewt startup
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:17
         console_flush();
    8:	f7ff fffe 	bl	0 <console_flush>
-   c:	e7ff      	b.n	2 <mylib::send_coap::start_network_task+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:23
+   c:	e7ff      	b.n	2 <main+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:19
+
+        console_print(b"abc\n\0");
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	2105      	movs	r1, #5
+  18:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  1c:	e7ff      	b.n	2 <console_flush+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:20
+        console_flush();
+  1e:	f7ff fffe 	bl	0 <console_flush>
+  22:	e7ff      	b.n	2 <mylib::send_coap::start_network_task+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:26
 
         //#if defined(SERVER_NETWORK_INTERFACE) || defined(SENSOR_NETWORK_INTERFACE)  //  If the ESP8266 or nRF24L01 is enabled...
         //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
         //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
         //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
         let rc1 = start_network_task();  assert!(rc1 == 0);
-   e:	f7ff fffe 	bl	0 <mylib::send_coap::start_network_task>
-  12:	9002      	str	r0, [sp, #8]
-  14:	e7ff      	b.n	16 <main+0x16>
-  16:	9802      	ldr	r0, [sp, #8]
-  18:	2800      	cmp	r0, #0
-  1a:	d007      	beq.n	2c <main+0x2c>
-  1c:	e7ff      	b.n	1e <main+0x1e>
-  1e:	f240 0000 	movw	r0, #0
-  22:	f2c0 0000 	movt	r0, #0
-  26:	f7ff fffe 	bl	0 <core::panicking::panic>
-  2a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:30
+  24:	f7ff fffe 	bl	0 <mylib::send_coap::start_network_task>
+  28:	9002      	str	r0, [sp, #8]
+  2a:	e7ff      	b.n	2c <main+0x2c>
+  2c:	9802      	ldr	r0, [sp, #8]
+  2e:	2800      	cmp	r0, #0
+  30:	d007      	beq.n	42 <main+0x42>
+  32:	e7ff      	b.n	34 <main+0x34>
+  34:	f240 0000 	movw	r0, #0
+  38:	f2c0 0000 	movt	r0, #0
+  3c:	f7ff fffe 	bl	0 <core::panicking::panic>
+  40:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:33
 
         //#ifdef SENSOR_DEVICE   //  If BME280 or internal temperature sensor is enabled...
         //  Starting polling the temperature sensor every 10 seconds in the background.  
         //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
         //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
         let rc2 = start_sensor_listener();  assert!(rc2 == 0);
-  2c:	f7ff fffe 	bl	0 <mylib::listen_sensor::start_sensor_listener>
-  30:	9003      	str	r0, [sp, #12]
-  32:	e7ff      	b.n	34 <main+0x34>
-  34:	9803      	ldr	r0, [sp, #12]
-  36:	2800      	cmp	r0, #0
-  38:	d007      	beq.n	4a <main+0x4a>
-  3a:	e7ff      	b.n	3c <main+0x3c>
-  3c:	f240 0000 	movw	r0, #0
-  40:	f2c0 0000 	movt	r0, #0
-  44:	f7ff fffe 	bl	0 <core::panicking::panic>
-  48:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:34
+  42:	f7ff fffe 	bl	0 <mylib::listen_sensor::start_sensor_listener>
+  46:	9003      	str	r0, [sp, #12]
+  48:	e7ff      	b.n	4a <main+0x4a>
+  4a:	9803      	ldr	r0, [sp, #12]
+  4c:	2800      	cmp	r0, #0
+  4e:	d007      	beq.n	60 <main+0x60>
+  50:	e7ff      	b.n	52 <main+0x52>
+  52:	f240 0000 	movw	r0, #0
+  56:	f2c0 0000 	movt	r0, #0
+  5a:	f7ff fffe 	bl	0 <core::panicking::panic>
+  5e:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:37
         //#endif  //  SENSOR_DEVICE
 
         //  Main event loop
         loop {                //  Loop forever...
-  4a:	e7ff      	b.n	4c <main+0x4c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:36
+  60:	e7ff      	b.n	62 <main+0x62>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:39
             os_eventq_run(            //  Process events...
                 os_eventq_dflt_get()  //  From default event queue.
-  4c:	f7ff fffe 	bl	0 <os_eventq_dflt_get>
-  50:	9001      	str	r0, [sp, #4]
-  52:	e7ff      	b.n	54 <main+0x54>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:35
+  62:	f7ff fffe 	bl	0 <os_eventq_dflt_get>
+  66:	9001      	str	r0, [sp, #4]
+  68:	e7ff      	b.n	6a <main+0x6a>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:38
             os_eventq_run(            //  Process events...
-  54:	9801      	ldr	r0, [sp, #4]
-  56:	f7ff fffe 	bl	0 <os_eventq_run>
-  5a:	e7ff      	b.n	5c <main+0x5c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:34
+  6a:	9801      	ldr	r0, [sp, #4]
+  6c:	f7ff fffe 	bl	0 <os_eventq_run>
+  70:	e7ff      	b.n	72 <main+0x72>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:37
         loop {                //  Loop forever...
-  5c:	e7f6      	b.n	4c <main+0x4c>
+  72:	e7f6      	b.n	62 <main+0x62>
 
 Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:44
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:47
     }
     //  Never comes here.
 }
@@ -1055,7 +1069,7 @@ fn panic(_info: &PanicInfo) -> ! {
    4:	9001      	str	r0, [sp, #4]
    6:	9100      	str	r1, [sp, #0]
    8:	e7ff      	b.n	a <rust_begin_unwind+0xa>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:46
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:49
     //  This function is called on panic. From https://os.phil-opp.com/freestanding-rust-binary/
     loop {}
    a:	e7fe      	b.n	a <rust_begin_unwind+0xa>

@@ -16,6 +16,9 @@ pub extern "C" fn main() -> ! {  //  main() will be called at Mynewt startup
         rust_sysinit();
         console_flush();
 
+        console_print(b"abc\n\0");
+        console_flush();
+
         //#if defined(SERVER_NETWORK_INTERFACE) || defined(SENSOR_NETWORK_INTERFACE)  //  If the ESP8266 or nRF24L01 is enabled...
         //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
         //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
