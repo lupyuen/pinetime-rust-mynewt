@@ -10,11 +10,35 @@ fi
 
 cargo build -v
 
-#  Copy Rust app.
-if [ -e bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a ]; then
-    cp target/thumbv7m-none-eabi/debug/libmylib.rlib bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
-    touch bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
+if [ -d tmprustlib ]; then
+    rm -r tmprustlib
 fi
+if [ ! -d tmprustlib ]; then
+    mkdir tmprustlib
+fi
+pushd tmprustlib
+FILES=../target/thumbv7m-none-eabi/debug/deps/*.rlib
+for f in $FILES
+do
+    arm-none-eabi-ar x $f
+done
+arm-none-eabi-ar r rustlib.a *.o
+
+if [ -e ../bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a ]; then
+    cp rustlib.a ../bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
+    touch ../bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
+fi
+
+arm-none-eabi-objdump -t -S            --line-numbers --wide rustlib.a >rustlib.S 2>&1
+arm-none-eabi-objdump -t -S --demangle --line-numbers --wide rustlib.a >rustlib-demangle.S 2>&1
+
+popd
+
+#  Copy Rust app.
+# if [ -e bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a ]; then
+#     cp target/thumbv7m-none-eabi/debug/libmylib.rlib bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
+#     touch bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
+# fi
 
 #  Copy Rust libcore.
 if [ -e bin/targets/bluepill_my_sensor/app/libs/rust_libcore/libs_rust_libcore.a ]; then
