@@ -6,14 +6,10 @@ name = "myapp"
 version = "0.1.0"
 
 [dependencies]
-##rust-libcore = "0.0.3" # Must use libcore when linking with gcc
 cty = "0.2.0"
 cstr_core = "0.1.2"
-
-# [dependencies.rust-libcore]
-# version = "0.0.3" # Must use libcore when linking with gcc
-# default-features = false # do not include the default features
-# features = []
+# Reduces the ROM size. See https://github.com/BurntSushi/rust-memchr
+memchr = { version = "2", default-features = false }
 
 [lib]
 name = "mylib"
@@ -22,14 +18,14 @@ bench = false
 
 # For `cargo build`
 [profile.dev]
-panic = "abort" # disable stack unwinding on panic
+panic = "abort"     # disable stack unwinding on panic
 
 # For `cargo build --release`
 [profile.release]
-panic = "abort" # disable stack unwinding on panic
-codegen-units = 1 # better optimizations
-debug = true # symbols are nice and they don't increase the size on Flash
-lto = true # better optimizations
+panic = "abort"     # disable stack unwinding on panic
+codegen-units = 1   # better optimizations
+debug = true        # symbols are nice and they don't increase the size on Flash
+lto = true          # better optimizations
 
 # For `cargo fix`
 #[[bin]]
