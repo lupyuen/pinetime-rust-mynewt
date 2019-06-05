@@ -103,7 +103,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
     //  type indicates whether sensor_data contains raw or computed temperature.  We return 
     //  the raw or computed temperature, as well as the key and value type.
     let mut return_value = SensorValue {
-        key: CStr::from_bytes_with_nul(b"\0").unwrap().as_ptr(),
+        key: b"\0".as_ptr(),
         val_type: 0,
         int_val: 0,
         float_val: 0.0,

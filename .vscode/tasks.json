@@ -30,7 +30,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " scripts/build-app.sh"
+                " scripts/build-app.sh && echo ✅ ◾ ️Done! "
             ],
             "group": {
                 "kind": "build",

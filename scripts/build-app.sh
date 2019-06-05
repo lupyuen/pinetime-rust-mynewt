@@ -61,5 +61,3 @@ set -e
 #newt build -v -p bluepill_my_sensor
 newt build bluepill_my_sensor
 newt size -v bluepill_my_sensor
-
-echo ✅ ◾ ️Done! 

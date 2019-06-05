@@ -219,55 +219,56 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          3800 (bytes into file)
+  Start of section headers:          3912 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
   Number of program headers:         0
   Size of section headers:           40 (bytes)
-  Number of section headers:         38
+  Number of section headers:         39
   Section header string table index: 1
 
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 000b00 0003d5 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 000b40 000405 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E PROGBITS        00000000 000034 000012 00  AX  0   0  2
-  [ 4] .rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 000900 000008 08     37   3  4
+  [ 4] .rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 000938 000008 08     38   3  4
   [ 5] .ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E ARM_EXIDX       00000000 000048 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 000908 000008 08     37   5  4
-  [ 7] .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE PROGBITS        00000000 000050 000034 00  AX  0   0  2
-  [ 8] .rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 000910 000028 08     37   7  4
-  [ 9] .ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE ARM_EXIDX       00000000 000084 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 000938 000008 08     37   9  4
-  [11] .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E PROGBITS        00000000 00008c 000034 00  AX  0   0  2
-  [12] .rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 000940 000028 08     37  11  4
-  [13] .ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E ARM_EXIDX       00000000 0000c0 000008 00  AL 11   0  4
-  [14] .rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 000968 000008 08     37  13  4
-  [15] .text._ZN5mylib4base13console_print17h7239bde54deb9f31E PROGBITS        00000000 0000c8 000012 00  AX  0   0  2
-  [16] .ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E ARM_EXIDX       00000000 0000dc 000008 00  AL 15   0  4
-  [17] .rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 000970 000008 08     37  16  4
-  [18] .rodata..Lanon.3c7544aca6e1f15c8854b110a4791f88.0 PROGBITS        00000000 0000e4 00000d 00   A  0   0  1
-  [19] .rodata..Lanon.3c7544aca6e1f15c8854b110a4791f88.1 PROGBITS        00000000 0000f1 000002 00   A  0   0  1
-  [20] .debug_str        PROGBITS        00000000 0000f3 0001c0 01  MS  0   0  1
-  [21] .debug_abbrev     PROGBITS        00000000 0002b3 000083 00      0   0  1
-  [22] .debug_info       PROGBITS        00000000 000336 0000d7 00      0   0  1
-  [23] .rel.debug_info   REL             00000000 000978 0000d8 08     37  22  4
-  [24] .debug_ranges     PROGBITS        00000000 00040d 000028 00      0   0  1
-  [25] .rel.debug_ranges REL             00000000 000a50 000040 08     37  24  4
-  [26] .debug_macinfo    PROGBITS        00000000 000435 000001 00      0   0  1
-  [27] .debug_pubnames   PROGBITS        00000000 000436 000073 00      0   0  1
-  [28] .rel.debug_pubnames REL             00000000 000a90 000008 08     37  27  4
-  [29] .debug_pubtypes   PROGBITS        00000000 0004a9 00003b 00      0   0  1
-  [30] .rel.debug_pubtypes REL             00000000 000a98 000008 08     37  29  4
-  [31] .note.GNU-stack   PROGBITS        00000000 0004e4 000000 00      0   0  1
-  [32] .ARM.attributes   ARM_ATTRIBUTES  00000000 0004e4 000032 00      0   0  1
-  [33] .debug_frame      PROGBITS        00000000 000518 00007c 00      0   0  4
-  [34] .rel.debug_frame  REL             00000000 000aa0 000040 08     37  33  4
-  [35] .debug_line       PROGBITS        00000000 000594 0000a9 00      0   0  1
-  [36] .rel.debug_line   REL             00000000 000ae0 000020 08     37  35  4
-  [37] .symtab           SYMTAB          00000000 000640 0002c0 10      1  38  4
+  [ 6] .rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 000940 000008 08     38   5  4
+  [ 7] .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE PROGBITS        00000000 000050 00001c 00  AX  0   0  2
+  [ 8] .rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 000948 000018 08     38   7  4
+  [ 9] .ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE ARM_EXIDX       00000000 00006c 000008 00  AL  7   0  4
+  [10] .rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 000960 000008 08     38   9  4
+  [11] .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E PROGBITS        00000000 000074 00001c 00  AX  0   0  2
+  [12] .rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 000968 000018 08     38  11  4
+  [13] .ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E ARM_EXIDX       00000000 000090 000008 00  AL 11   0  4
+  [14] .rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 000980 000008 08     38  13  4
+  [15] .text._ZN5mylib4base13console_print17h7239bde54deb9f31E PROGBITS        00000000 000098 000036 00  AX  0   0  2
+  [16] .rel.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 000988 000018 08     38  15  4
+  [17] .ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E ARM_EXIDX       00000000 0000d0 000008 00  AL 15   0  4
+  [18] .rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 0009a0 000008 08     38  17  4
+  [19] .rodata..Lanon.3c7544aca6e1f15c8854b110a4791f88.0 PROGBITS        00000000 0000d8 00000d 00   A  0   0  1
+  [20] .rodata..Lanon.3c7544aca6e1f15c8854b110a4791f88.1 PROGBITS        00000000 0000e5 000002 00   A  0   0  1
+  [21] .debug_str        PROGBITS        00000000 0000e7 0001c4 01  MS  0   0  1
+  [22] .debug_abbrev     PROGBITS        00000000 0002ab 00009b 00      0   0  1
+  [23] .debug_info       PROGBITS        00000000 000346 0000ef 00      0   0  1
+  [24] .rel.debug_info   REL             00000000 0009a8 0000e8 08     38  23  4
+  [25] .debug_ranges     PROGBITS        00000000 000435 000028 00      0   0  1
+  [26] .rel.debug_ranges REL             00000000 000a90 000040 08     38  25  4
+  [27] .debug_macinfo    PROGBITS        00000000 00045d 000001 00      0   0  1
+  [28] .debug_pubnames   PROGBITS        00000000 00045e 000073 00      0   0  1
+  [29] .rel.debug_pubnames REL             00000000 000ad0 000008 08     38  28  4
+  [30] .debug_pubtypes   PROGBITS        00000000 0004d1 00003b 00      0   0  1
+  [31] .rel.debug_pubtypes REL             00000000 000ad8 000008 08     38  30  4
+  [32] .note.GNU-stack   PROGBITS        00000000 00050c 000000 00      0   0  1
+  [33] .ARM.attributes   ARM_ATTRIBUTES  00000000 00050c 000032 00      0   0  1
+  [34] .debug_frame      PROGBITS        00000000 000540 000084 00      0   0  4
+  [35] .rel.debug_frame  REL             00000000 000ae0 000040 08     38  34  4
+  [36] .debug_line       PROGBITS        00000000 0005c4 0000a3 00      0   0  1
+  [37] .rel.debug_line   REL             00000000 000b20 000020 08     38  36  4
+  [38] .symtab           SYMTAB          00000000 000668 0002d0 10      1  39  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -280,516 +281,180 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x900 contains 1 entry:
+Relocation section '.rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x938 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000004  00001c0a R_ARM_THM_CALL         00000001   _ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+00000004  00001d0a R_ARM_THM_CALL         00000001   _ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x908 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x940 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00001d2a R_ARM_PREL31           00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+00000000  00001e2a R_ARM_PREL31           00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
 
-Relocation section '.rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x910 contains 5 entries:
+Relocation section '.rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x948 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000004  00001a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
-00000008  00001a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
-00000010  00002a0a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr19from_bytes_with_nul17h7d4b1272f9f27478E
-00000018  0000260a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000026  00002b0a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
+00000004  00001b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
+00000008  00001b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
+0000000e  0000280a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x938 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x960 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00001e2a R_ARM_PREL31           00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+00000000  00001f2a R_ARM_PREL31           00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
 
-Relocation section '.rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x940 contains 5 entries:
+Relocation section '.rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x968 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000004  00001b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
-00000008  00001b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
-00000010  00002a0a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr19from_bytes_with_nul17h7d4b1272f9f27478E
-00000018  0000260a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000026  00002b0a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
+00000004  00001c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
+00000008  00001c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
+0000000e  0000280a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x968 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x980 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00001f2a R_ARM_PREL31           00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+00000000  0000202a R_ARM_PREL31           00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x970 contains 1 entry:
+Relocation section '.rel.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x988 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000202a R_ARM_PREL31           00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+00000014  0000270a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h63f985867d9f263fE
+00000020  0000280a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
+0000002c  00002c0a R_ARM_THM_CALL         00000000   console_buffer
 
-Relocation section '.rel.debug_info' at offset 0x978 contains 27 entries:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x9a0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00002102 R_ARM_ABS32            00000000   .debug_abbrev
+00000000  0000212a R_ARM_PREL31           00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+
+Relocation section '.rel.debug_info' at offset 0x9a8 contains 29 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000006  00002202 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00000d02 R_ARM_ABS32            00000000   
 00000012  00000e02 R_ARM_ABS32            00000041   
-00000016  00002502 R_ARM_ABS32            00000000   .debug_line
+00000016  00002602 R_ARM_ABS32            00000000   .debug_line
 0000001a  00000f02 R_ARM_ABS32            0000004c   
-00000022  00002302 R_ARM_ABS32            00000000   .debug_ranges
+00000022  00002402 R_ARM_ABS32            00000000   .debug_ranges
 00000027  00001002 R_ARM_ABS32            0000007c   
 0000002c  00001102 R_ARM_ABS32            00000082   
-00000031  00001d02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+00000031  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
 0000003b  00001202 R_ARM_ABS32            00000087   
 0000003f  00001302 R_ARM_ABS32            000000b9   
-0000004a  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
-00000054  00000302 R_ARM_ABS32            000000d4   
-00000058  00000402 R_ARM_ABS32            0000010a   
-00000063  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
-0000006d  00000502 R_ARM_ABS32            0000011c   
-00000071  00000602 R_ARM_ABS32            00000150   
-0000007c  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
-00000086  00000702 R_ARM_ABS32            00000160   
-0000008a  00000802 R_ARM_ABS32            00000192   
-00000094  00000202 R_ARM_ABS32            000001a0   
-000000a6  00001502 R_ARM_ABS32            000000ca   
-000000ab  00001402 R_ARM_ABS32            000000c7   
-000000b2  00000a02 R_ARM_ABS32            000001ba   
-000000b9  00000902 R_ARM_ABS32            000001a4   
-000000c4  00000c02 R_ARM_ABS32            000001ad   
-000000d0  00000b02 R_ARM_ABS32            000001b4   
+0000004a  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+00000054  00001602 R_ARM_ABS32            000000d4   
+00000058  00000302 R_ARM_ABS32            0000010a   
+00000063  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+0000006d  00000402 R_ARM_ABS32            0000011c   
+00000071  00000502 R_ARM_ABS32            00000150   
+0000007c  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+00000086  00000602 R_ARM_ABS32            00000160   
+0000008a  00000702 R_ARM_ABS32            00000192   
+00000094  00000802 R_ARM_ABS32            000001a0   
+0000009f  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+000000ab  00000a02 R_ARM_ABS32            000001c0   
+000000be  00001502 R_ARM_ABS32            000000ca   
+000000c3  00001402 R_ARM_ABS32            000000c7   
+000000ca  00000b02 R_ARM_ABS32            000001ba   
+000000d1  00000202 R_ARM_ABS32            000001a4   
+000000dc  00000902 R_ARM_ABS32            000001ad   
+000000e8  00000c02 R_ARM_ABS32            000001b4   
 
-Relocation section '.rel.debug_ranges' at offset 0xa50 contains 8 entries:
+Relocation section '.rel.debug_ranges' at offset 0xa90 contains 8 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00001d02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-00000004  00001d02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-00000008  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
-0000000c  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
-00000010  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
-00000014  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
-00000018  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
-0000001c  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+00000000  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+00000004  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+00000008  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+0000000c  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+00000010  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+00000014  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+00000018  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+0000001c  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 
-Relocation section '.rel.debug_pubnames' at offset 0xa90 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0xad0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00002202 R_ARM_ABS32            00000000   .debug_info
+00000006  00002302 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0xa98 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0xad8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00002202 R_ARM_ABS32            00000000   .debug_info
+00000006  00002302 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0xaa0 contains 8 entries:
+Relocation section '.rel.debug_frame' at offset 0xae0 contains 8 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000018  00002402 R_ARM_ABS32            00000000   .debug_frame
-0000001c  00001d02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-00000034  00002402 R_ARM_ABS32            00000000   .debug_frame
-00000038  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
-00000050  00002402 R_ARM_ABS32            00000000   .debug_frame
-00000054  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
-0000006c  00002402 R_ARM_ABS32            00000000   .debug_frame
-00000070  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+00000018  00002502 R_ARM_ABS32            00000000   .debug_frame
+0000001c  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+00000034  00002502 R_ARM_ABS32            00000000   .debug_frame
+00000038  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+00000050  00002502 R_ARM_ABS32            00000000   .debug_frame
+00000054  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+0000006c  00002502 R_ARM_ABS32            00000000   .debug_frame
+00000070  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 
-Relocation section '.rel.debug_line' at offset 0xae0 contains 4 entries:
+Relocation section '.rel.debug_line' at offset 0xb20 contains 4 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-0000003a  00001d02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-00000052  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
-00000075  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
-00000098  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
+0000003a  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+00000052  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+0000006b  00002002 R_ARM_ABS32            00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+00000084  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 
 Unwind section '.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x48 contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x84 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x6c contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0xc0 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x90 contains 1 entry:
 
 0x0 <_ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E>: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0xdc contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0xd0 contains 1 entry:
 
 0x0 <_ZN5mylib4base13console_print17h7239bde54deb9f31E>: 0x1 [cantunwind]
 
 
-Symbol table '.symtab' contains 44 entries:
+Symbol table '.symtab' contains 45 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 2bwhitp1kuocnn5l
-     2: 000001a0     0 NOTYPE  LOCAL  DEFAULT   20 
-     3: 000000d4     0 NOTYPE  LOCAL  DEFAULT   20 
-     4: 0000010a     0 NOTYPE  LOCAL  DEFAULT   20 
-     5: 0000011c     0 NOTYPE  LOCAL  DEFAULT   20 
-     6: 00000150     0 NOTYPE  LOCAL  DEFAULT   20 
-     7: 00000160     0 NOTYPE  LOCAL  DEFAULT   20 
-     8: 00000192     0 NOTYPE  LOCAL  DEFAULT   20 
-     9: 000001a4     0 NOTYPE  LOCAL  DEFAULT   20 
-    10: 000001ba     0 NOTYPE  LOCAL  DEFAULT   20 
-    11: 000001b4     0 NOTYPE  LOCAL  DEFAULT   20 
-    12: 000001ad     0 NOTYPE  LOCAL  DEFAULT   20 
-    13: 00000000     0 NOTYPE  LOCAL  DEFAULT   20 
-    14: 00000041     0 NOTYPE  LOCAL  DEFAULT   20 
-    15: 0000004c     0 NOTYPE  LOCAL  DEFAULT   20 
-    16: 0000007c     0 NOTYPE  LOCAL  DEFAULT   20 
-    17: 00000082     0 NOTYPE  LOCAL  DEFAULT   20 
-    18: 00000087     0 NOTYPE  LOCAL  DEFAULT   20 
-    19: 000000b9     0 NOTYPE  LOCAL  DEFAULT   20 
-    20: 000000c7     0 NOTYPE  LOCAL  DEFAULT   20 
-    21: 000000ca     0 NOTYPE  LOCAL  DEFAULT   20 
-    22: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
-    23: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
-    24: 00000000     0 NOTYPE  LOCAL  DEFAULT   11 $t.2
-    25: 00000000     0 NOTYPE  LOCAL  DEFAULT   15 $t.3
-    26: 00000000    13 OBJECT  LOCAL  DEFAULT   18 .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
-    27: 00000000     2 OBJECT  LOCAL  DEFAULT   19 .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
-    28: 00000001    52 FUNC    LOCAL  DEFAULT    7 _ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
-    29: 00000000     0 SECTION LOCAL  DEFAULT    3 
-    30: 00000000     0 SECTION LOCAL  DEFAULT    7 
-    31: 00000000     0 SECTION LOCAL  DEFAULT   11 
-    32: 00000000     0 SECTION LOCAL  DEFAULT   15 
-    33: 00000000     0 SECTION LOCAL  DEFAULT   21 
+     2: 000001a4     0 NOTYPE  LOCAL  DEFAULT   21 
+     3: 0000010a     0 NOTYPE  LOCAL  DEFAULT   21 
+     4: 0000011c     0 NOTYPE  LOCAL  DEFAULT   21 
+     5: 00000150     0 NOTYPE  LOCAL  DEFAULT   21 
+     6: 00000160     0 NOTYPE  LOCAL  DEFAULT   21 
+     7: 00000192     0 NOTYPE  LOCAL  DEFAULT   21 
+     8: 000001a0     0 NOTYPE  LOCAL  DEFAULT   21 
+     9: 000001ad     0 NOTYPE  LOCAL  DEFAULT   21 
+    10: 000001c0     0 NOTYPE  LOCAL  DEFAULT   21 
+    11: 000001ba     0 NOTYPE  LOCAL  DEFAULT   21 
+    12: 000001b4     0 NOTYPE  LOCAL  DEFAULT   21 
+    13: 00000000     0 NOTYPE  LOCAL  DEFAULT   21 
+    14: 00000041     0 NOTYPE  LOCAL  DEFAULT   21 
+    15: 0000004c     0 NOTYPE  LOCAL  DEFAULT   21 
+    16: 0000007c     0 NOTYPE  LOCAL  DEFAULT   21 
+    17: 00000082     0 NOTYPE  LOCAL  DEFAULT   21 
+    18: 00000087     0 NOTYPE  LOCAL  DEFAULT   21 
+    19: 000000b9     0 NOTYPE  LOCAL  DEFAULT   21 
+    20: 000000c7     0 NOTYPE  LOCAL  DEFAULT   21 
+    21: 000000ca     0 NOTYPE  LOCAL  DEFAULT   21 
+    22: 000000d4     0 NOTYPE  LOCAL  DEFAULT   21 
+    23: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
+    24: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
+    25: 00000000     0 NOTYPE  LOCAL  DEFAULT   11 $t.2
+    26: 00000000     0 NOTYPE  LOCAL  DEFAULT   15 $t.3
+    27: 00000000    13 OBJECT  LOCAL  DEFAULT   19 .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
+    28: 00000000     2 OBJECT  LOCAL  DEFAULT   20 .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
+    29: 00000001    28 FUNC    LOCAL  DEFAULT    7 _ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
+    30: 00000000     0 SECTION LOCAL  DEFAULT    3 
+    31: 00000000     0 SECTION LOCAL  DEFAULT    7 
+    32: 00000000     0 SECTION LOCAL  DEFAULT   11 
+    33: 00000000     0 SECTION LOCAL  DEFAULT   15 
     34: 00000000     0 SECTION LOCAL  DEFAULT   22 
-    35: 00000000     0 SECTION LOCAL  DEFAULT   24 
-    36: 00000000     0 SECTION LOCAL  DEFAULT   33 
-    37: 00000000     0 SECTION LOCAL  DEFAULT   35 
-    38: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-    39: 00000001    18 FUNC    GLOBAL HIDDEN     3 _ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-    40: 00000001    18 FUNC    GLOBAL HIDDEN    15 _ZN5mylib4base13console_print17h7239bde54deb9f31E
-    41: 00000001    52 FUNC    GLOBAL HIDDEN    11 _ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
-    42: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN9cstr_core4CStr19from_bytes_with_nul17h7d4b1272f9f27478E
-    43: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-
-No version information found in this file.
-Attribute Section: aeabi
-File Attributes
-  Tag_conformance: "2.09"
-  Tag_CPU_arch: v7
-  Tag_CPU_arch_profile: Microcontroller
-  Tag_ARM_ISA_use: No
-  Tag_THUMB_ISA_use: Thumb-2
-  Tag_ABI_PCS_R9_use: V6
-  Tag_ABI_PCS_GOT_use: direct
-  Tag_ABI_FP_denormal: Needed
-  Tag_ABI_FP_exceptions: Needed
-  Tag_ABI_FP_number_model: IEEE 754
-  Tag_ABI_align_needed: 8-byte
-  Tag_ABI_align_preserved: 8-byte, except leaf SP
-  Tag_ABI_optimization_goals: Prefer Debug
-  Tag_CPU_unaligned_access: v6
-  Tag_ABI_FP_16bit_format: IEEE 754
-
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.3c1f576kwx5k1d0.rcgu.o)
-ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
-  Class:                             ELF32
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  ABI Version:                       0
-  Type:                              REL (Relocatable file)
-  Machine:                           ARM
-  Version:                           0x1
-  Entry point address:               0x0
-  Start of program headers:          0 (bytes into file)
-  Start of section headers:          6936 (bytes into file)
-  Flags:                             0x5000000, Version5 EABI
-  Size of this header:               52 (bytes)
-  Size of program headers:           0 (bytes)
-  Number of program headers:         0
-  Size of section headers:           40 (bytes)
-  Number of section headers:         22
-  Section header string table index: 1
-
-Section Headers:
-  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
-  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 001a04 000113 00      0   0  1
-  [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
-  [ 3] .text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E PROGBITS        00000000 000034 00004c 00  AX  0   0  2
-  [ 4] .ARM.exidx.text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E ARM_EXIDX       00000000 000080 000008 00  AL  3   0  4
-  [ 5] .rel.ARM.exidx.text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E REL             00000000 0015ac 000008 08     21   4  4
-  [ 6] .debug_str        PROGBITS        00000000 000088 000451 01  MS  0   0  1
-  [ 7] .debug_abbrev     PROGBITS        00000000 0004d9 0000fa 00      0   0  1
-  [ 8] .debug_info       PROGBITS        00000000 0005d3 000528 00      0   0  1
-  [ 9] .rel.debug_info   REL             00000000 0015b4 000428 08     21   8  4
-  [10] .debug_macinfo    PROGBITS        00000000 000afb 000001 00      0   0  1
-  [11] .debug_pubnames   PROGBITS        00000000 000afc 00007c 00      0   0  1
-  [12] .rel.debug_pubnames REL             00000000 0019dc 000008 08     21  11  4
-  [13] .debug_pubtypes   PROGBITS        00000000 000b78 000303 00      0   0  1
-  [14] .rel.debug_pubtypes REL             00000000 0019e4 000008 08     21  13  4
-  [15] .note.GNU-stack   PROGBITS        00000000 000e7b 000000 00      0   0  1
-  [16] .ARM.attributes   ARM_ATTRIBUTES  00000000 000e7b 000032 00      0   0  1
-  [17] .debug_frame      PROGBITS        00000000 000eb0 000034 00      0   0  4
-  [18] .rel.debug_frame  REL             00000000 0019ec 000010 08     21  17  4
-  [19] .debug_line       PROGBITS        00000000 000ee4 000098 00      0   0  1
-  [20] .rel.debug_line   REL             00000000 0019fc 000008 08     21  19  4
-  [21] .symtab           SYMTAB          00000000 000f7c 000630 10      1  98  4
-Key to Flags:
-  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
-  L (link order), O (extra OS processing required), G (group), T (TLS),
-  C (compressed), x (unknown), o (OS specific), E (exclude),
-  y (purecode), p (processor specific)
-
-There are no section groups in this file.
-
-There are no program headers in this file.
-
-There is no dynamic section in this file.
-
-Relocation section '.rel.ARM.exidx.text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E' at offset 0x15ac contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00005d2a R_ARM_PREL31           00000000   .text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-
-Relocation section '.rel.debug_info' at offset 0x15b4 contains 133 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00005e02 R_ARM_ABS32            00000000   .debug_abbrev
-0000000c  00000902 R_ARM_ABS32            00000000   
-00000012  00000a02 R_ARM_ABS32            00000041   
-00000016  00006102 R_ARM_ABS32            00000000   .debug_line
-0000001a  00000b02 R_ARM_ABS32            0000004c   
-0000001e  00005d02 R_ARM_ABS32            00000000   .text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-00000027  00000c02 R_ARM_ABS32            0000007c   
-0000002c  00000d02 R_ARM_ABS32            00000081   
-00000031  00000e02 R_ARM_ABS32            00000085   
-00000036  00000f02 R_ARM_ABS32            00000088   
-0000003f  00001502 R_ARM_ABS32            000000a8   
-00000046  00001102 R_ARM_ABS32            0000008e   
-0000004c  00001202 R_ARM_ABS32            00000093   
-00000052  00001302 R_ARM_ABS32            00000099   
-00000058  00001402 R_ARM_ABS32            000000a0   
-0000005f  00003702 R_ARM_ABS32            0000018e   
-00000066  00002502 R_ARM_ABS32            00000117   
-00000071  00002a02 R_ARM_ABS32            00000135   
-0000007d  00002902 R_ARM_ABS32            0000012c   
-00000092  00002602 R_ARM_ABS32            00000120   
-000000a0  00002702 R_ARM_ABS32            00000125   
-000000ad  00002602 R_ARM_ABS32            00000120   
-000000b4  00002702 R_ARM_ABS32            00000125   
-000000bb  00002802 R_ARM_ABS32            00000128   
-000000c8  00003602 R_ARM_ABS32            00000183   
-000000cf  00002b02 R_ARM_ABS32            0000013c   
-000000da  00002d02 R_ARM_ABS32            00000146   
-000000e5  00002e02 R_ARM_ABS32            0000014c   
-000000f0  00002f02 R_ARM_ABS32            00000152   
-000000fb  00003502 R_ARM_ABS32            0000017d   
-00000107  00003402 R_ARM_ABS32            00000177   
-0000011c  00003002 R_ARM_ABS32            0000015c   
-0000012a  00003102 R_ARM_ABS32            0000015f   
-00000138  00003202 R_ARM_ABS32            00000165   
-00000146  00003302 R_ARM_ABS32            0000016f   
-00000153  00003002 R_ARM_ABS32            0000015c   
-0000015a  00002802 R_ARM_ABS32            00000128   
-00000166  00003102 R_ARM_ABS32            0000015f   
-0000016d  00002802 R_ARM_ABS32            00000128   
-00000179  00003202 R_ARM_ABS32            00000165   
-00000180  00003302 R_ARM_ABS32            0000016f   
-0000018a  00000602 R_ARM_ABS32            0000040e   
-00000191  00001a02 R_ARM_ABS32            000000c7   
-0000019c  00000d02 R_ARM_ABS32            00000081   
-000001a7  00003d02 R_ARM_ABS32            00000207   
-000001b2  00005d02 R_ARM_ABS32            00000000   .text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-000001bc  00000702 R_ARM_ABS32            00000418   
-000001c0  00000802 R_ARM_ABS32            0000044a   
-000001cf  00001a02 R_ARM_ABS32            000000c7   
-000001dd  00003d02 R_ARM_ABS32            00000207   
-000001ea  00000302 R_ARM_ABS32            000003cd   
-000001f1  00003e02 R_ARM_ABS32            0000020c   
-000001fc  00000202 R_ARM_ABS32            000002b0   
-00000208  00004c02 R_ARM_ABS32            0000029a   
-0000020f  00003f02 R_ARM_ABS32            00000212   
-0000021a  00004102 R_ARM_ABS32            0000021b   
-00000226  00005902 R_ARM_ABS32            0000034b   
-0000022d  00002e02 R_ARM_ABS32            0000014c   
-00000238  00002b02 R_ARM_ABS32            0000013c   
-00000243  00002d02 R_ARM_ABS32            00000146   
-0000024e  00003502 R_ARM_ABS32            0000017d   
-00000259  00002f02 R_ARM_ABS32            00000152   
-00000264  00004f02 R_ARM_ABS32            000002c8   
-0000026f  00005102 R_ARM_ABS32            000002d7   
-0000027a  00003d02 R_ARM_ABS32            00000207   
-00000286  00005002 R_ARM_ABS32            000002cc   
-0000028d  00004502 R_ARM_ABS32            0000023e   
-00000298  00004702 R_ARM_ABS32            0000024e   
-000002a5  00001602 R_ARM_ABS32            000000b2   
-000002ae  00001902 R_ARM_ABS32            000000c0   
-000002b5  00001702 R_ARM_ABS32            000000b9   
-000002bb  00001802 R_ARM_ABS32            000000bc   
-000002c3  00002202 R_ARM_ABS32            00000107   
-000002c8  00003c02 R_ARM_ABS32            000001e0   
-000002dd  00002402 R_ARM_ABS32            00000112   
-000002ea  00003b02 R_ARM_ABS32            000001db   
-000002f7  00002402 R_ARM_ABS32            00000112   
-00000302  00003a02 R_ARM_ABS32            000001d9   
-00000308  00003b02 R_ARM_ABS32            000001db   
-0000030f  00002802 R_ARM_ABS32            00000128   
-0000031e  00003a02 R_ARM_ABS32            000001d9   
-00000325  00004e02 R_ARM_ABS32            000002ba   
-0000033a  00002402 R_ARM_ABS32            00000112   
-00000348  00003b02 R_ARM_ABS32            000001db   
-00000355  00002402 R_ARM_ABS32            00000112   
-00000360  00003a02 R_ARM_ABS32            000001d9   
-00000366  00003b02 R_ARM_ABS32            000001db   
-0000036d  00002802 R_ARM_ABS32            00000128   
-0000037c  00003a02 R_ARM_ABS32            000001d9   
-00000384  00004202 R_ARM_ABS32            0000022a   
-00000389  00004b02 R_ARM_ABS32            00000281   
-00000394  00003a02 R_ARM_ABS32            000001d9   
-0000039a  00005702 R_ARM_ABS32            0000030b   
-000003a5  00003a02 R_ARM_ABS32            000001d9   
-000003ac  00004302 R_ARM_ABS32            00000231   
-000003b1  00004402 R_ARM_ABS32            00000235   
-000003b6  00004a02 R_ARM_ABS32            00000275   
-000003bd  00004502 R_ARM_ABS32            0000023e   
-000003c8  00004702 R_ARM_ABS32            0000024e   
-000003d6  00005202 R_ARM_ABS32            000002de   
-000003db  00005802 R_ARM_ABS32            0000032f   
-000003e2  00005302 R_ARM_ABS32            000002e4   
-000003ed  00005402 R_ARM_ABS32            000002e8   
-000003f8  00005502 R_ARM_ABS32            000002ec   
-00000407  00003a02 R_ARM_ABS32            000001d9   
-0000040f  00001002 R_ARM_ABS32            0000008b   
-00000416  00002102 R_ARM_ABS32            000000ff   
-0000041d  00001b02 R_ARM_ABS32            000000ce   
-00000428  00001d02 R_ARM_ABS32            000000e1   
-00000438  00002002 R_ARM_ABS32            000000f3   
-0000043d  00001f02 R_ARM_ABS32            000000ee   
-00000444  00001b02 R_ARM_ABS32            000000ce   
-0000044f  00001d02 R_ARM_ABS32            000000e1   
-0000045f  00001c02 R_ARM_ABS32            000000d7   
-00000464  00001e02 R_ARM_ABS32            000000e8   
-0000046b  00002302 R_ARM_ABS32            0000010e   
-00000472  00003902 R_ARM_ABS32            000001ba   
-00000479  00001b02 R_ARM_ABS32            000000ce   
-00000484  00001d02 R_ARM_ABS32            000000e1   
-00000494  00003802 R_ARM_ABS32            00000197   
-00000499  00002c02 R_ARM_ABS32            00000141   
-000004a0  00000502 R_ARM_ABS32            000003f5   
-000004a7  00001b02 R_ARM_ABS32            000000ce   
-000004b2  00001d02 R_ARM_ABS32            000000e1   
-000004c2  00000402 R_ARM_ABS32            000003d8   
-000004cb  00004d02 R_ARM_ABS32            0000029f   
-000004d0  00004002 R_ARM_ABS32            00000218   
-000004db  00004602 R_ARM_ABS32            00000246   
-000004e4  00004902 R_ARM_ABS32            00000269   
-000004f6  00004802 R_ARM_ABS32            00000255   
-00000501  00005b02 R_ARM_ABS32            0000036f   
-0000051a  00005a02 R_ARM_ABS32            00000355   
-00000523  00005602 R_ARM_ABS32            000002f4   
-
-Relocation section '.rel.debug_pubnames' at offset 0x19dc contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00005f02 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_pubtypes' at offset 0x19e4 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00005f02 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_frame' at offset 0x19ec contains 2 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000018  00006002 R_ARM_ABS32            00000000   .debug_frame
-0000001c  00005d02 R_ARM_ABS32            00000000   .text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-
-Relocation section '.rel.debug_line' at offset 0x19fc contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000079  00005d02 R_ARM_ABS32            00000000   .text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-
-Unwind section '.ARM.exidx.text._ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E' at offset 0x80 contains 1 entry:
-
-0x0 <_ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E>: 0x1 [cantunwind]
-
-
-Symbol table '.symtab' contains 99 entries:
-   Num:    Value  Size Type    Bind   Vis      Ndx Name
-     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 3c1f576kwx5k1d0
-     2: 000002b0     0 NOTYPE  LOCAL  DEFAULT    6 
-     3: 000003cd     0 NOTYPE  LOCAL  DEFAULT    6 
-     4: 000003d8     0 NOTYPE  LOCAL  DEFAULT    6 
-     5: 000003f5     0 NOTYPE  LOCAL  DEFAULT    6 
-     6: 0000040e     0 NOTYPE  LOCAL  DEFAULT    6 
-     7: 00000418     0 NOTYPE  LOCAL  DEFAULT    6 
-     8: 0000044a     0 NOTYPE  LOCAL  DEFAULT    6 
-     9: 00000000     0 NOTYPE  LOCAL  DEFAULT    6 
-    10: 00000041     0 NOTYPE  LOCAL  DEFAULT    6 
-    11: 0000004c     0 NOTYPE  LOCAL  DEFAULT    6 
-    12: 0000007c     0 NOTYPE  LOCAL  DEFAULT    6 
-    13: 00000081     0 NOTYPE  LOCAL  DEFAULT    6 
-    14: 00000085     0 NOTYPE  LOCAL  DEFAULT    6 
-    15: 00000088     0 NOTYPE  LOCAL  DEFAULT    6 
-    16: 0000008b     0 NOTYPE  LOCAL  DEFAULT    6 
-    17: 0000008e     0 NOTYPE  LOCAL  DEFAULT    6 
-    18: 00000093     0 NOTYPE  LOCAL  DEFAULT    6 
-    19: 00000099     0 NOTYPE  LOCAL  DEFAULT    6 
-    20: 000000a0     0 NOTYPE  LOCAL  DEFAULT    6 
-    21: 000000a8     0 NOTYPE  LOCAL  DEFAULT    6 
-    22: 000000b2     0 NOTYPE  LOCAL  DEFAULT    6 
-    23: 000000b9     0 NOTYPE  LOCAL  DEFAULT    6 
-    24: 000000bc     0 NOTYPE  LOCAL  DEFAULT    6 
-    25: 000000c0     0 NOTYPE  LOCAL  DEFAULT    6 
-    26: 000000c7     0 NOTYPE  LOCAL  DEFAULT    6 
-    27: 000000ce     0 NOTYPE  LOCAL  DEFAULT    6 
-    28: 000000d7     0 NOTYPE  LOCAL  DEFAULT    6 
-    29: 000000e1     0 NOTYPE  LOCAL  DEFAULT    6 
-    30: 000000e8     0 NOTYPE  LOCAL  DEFAULT    6 
-    31: 000000ee     0 NOTYPE  LOCAL  DEFAULT    6 
-    32: 000000f3     0 NOTYPE  LOCAL  DEFAULT    6 
-    33: 000000ff     0 NOTYPE  LOCAL  DEFAULT    6 
-    34: 00000107     0 NOTYPE  LOCAL  DEFAULT    6 
-    35: 0000010e     0 NOTYPE  LOCAL  DEFAULT    6 
-    36: 00000112     0 NOTYPE  LOCAL  DEFAULT    6 
-    37: 00000117     0 NOTYPE  LOCAL  DEFAULT    6 
-    38: 00000120     0 NOTYPE  LOCAL  DEFAULT    6 
-    39: 00000125     0 NOTYPE  LOCAL  DEFAULT    6 
-    40: 00000128     0 NOTYPE  LOCAL  DEFAULT    6 
-    41: 0000012c     0 NOTYPE  LOCAL  DEFAULT    6 
-    42: 00000135     0 NOTYPE  LOCAL  DEFAULT    6 
-    43: 0000013c     0 NOTYPE  LOCAL  DEFAULT    6 
-    44: 00000141     0 NOTYPE  LOCAL  DEFAULT    6 
-    45: 00000146     0 NOTYPE  LOCAL  DEFAULT    6 
-    46: 0000014c     0 NOTYPE  LOCAL  DEFAULT    6 
-    47: 00000152     0 NOTYPE  LOCAL  DEFAULT    6 
-    48: 0000015c     0 NOTYPE  LOCAL  DEFAULT    6 
-    49: 0000015f     0 NOTYPE  LOCAL  DEFAULT    6 
-    50: 00000165     0 NOTYPE  LOCAL  DEFAULT    6 
-    51: 0000016f     0 NOTYPE  LOCAL  DEFAULT    6 
-    52: 00000177     0 NOTYPE  LOCAL  DEFAULT    6 
-    53: 0000017d     0 NOTYPE  LOCAL  DEFAULT    6 
-    54: 00000183     0 NOTYPE  LOCAL  DEFAULT    6 
-    55: 0000018e     0 NOTYPE  LOCAL  DEFAULT    6 
-    56: 00000197     0 NOTYPE  LOCAL  DEFAULT    6 
-    57: 000001ba     0 NOTYPE  LOCAL  DEFAULT    6 
-    58: 000001d9     0 NOTYPE  LOCAL  DEFAULT    6 
-    59: 000001db     0 NOTYPE  LOCAL  DEFAULT    6 
-    60: 000001e0     0 NOTYPE  LOCAL  DEFAULT    6 
-    61: 00000207     0 NOTYPE  LOCAL  DEFAULT    6 
-    62: 0000020c     0 NOTYPE  LOCAL  DEFAULT    6 
-    63: 00000212     0 NOTYPE  LOCAL  DEFAULT    6 
-    64: 00000218     0 NOTYPE  LOCAL  DEFAULT    6 
-    65: 0000021b     0 NOTYPE  LOCAL  DEFAULT    6 
-    66: 0000022a     0 NOTYPE  LOCAL  DEFAULT    6 
-    67: 00000231     0 NOTYPE  LOCAL  DEFAULT    6 
-    68: 00000235     0 NOTYPE  LOCAL  DEFAULT    6 
-    69: 0000023e     0 NOTYPE  LOCAL  DEFAULT    6 
-    70: 00000246     0 NOTYPE  LOCAL  DEFAULT    6 
-    71: 0000024e     0 NOTYPE  LOCAL  DEFAULT    6 
-    72: 00000255     0 NOTYPE  LOCAL  DEFAULT    6 
-    73: 00000269     0 NOTYPE  LOCAL  DEFAULT    6 
-    74: 00000275     0 NOTYPE  LOCAL  DEFAULT    6 
-    75: 00000281     0 NOTYPE  LOCAL  DEFAULT    6 
-    76: 0000029a     0 NOTYPE  LOCAL  DEFAULT    6 
-    77: 0000029f     0 NOTYPE  LOCAL  DEFAULT    6 
-    78: 000002ba     0 NOTYPE  LOCAL  DEFAULT    6 
-    79: 000002c8     0 NOTYPE  LOCAL  DEFAULT    6 
-    80: 000002cc     0 NOTYPE  LOCAL  DEFAULT    6 
-    81: 000002d7     0 NOTYPE  LOCAL  DEFAULT    6 
-    82: 000002de     0 NOTYPE  LOCAL  DEFAULT    6 
-    83: 000002e4     0 NOTYPE  LOCAL  DEFAULT    6 
-    84: 000002e8     0 NOTYPE  LOCAL  DEFAULT    6 
-    85: 000002ec     0 NOTYPE  LOCAL  DEFAULT    6 
-    86: 000002f4     0 NOTYPE  LOCAL  DEFAULT    6 
-    87: 0000030b     0 NOTYPE  LOCAL  DEFAULT    6 
-    88: 0000032f     0 NOTYPE  LOCAL  DEFAULT    6 
-    89: 0000034b     0 NOTYPE  LOCAL  DEFAULT    6 
-    90: 00000355     0 NOTYPE  LOCAL  DEFAULT    6 
-    91: 0000036f     0 NOTYPE  LOCAL  DEFAULT    6 
-    92: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
-    93: 00000000     0 SECTION LOCAL  DEFAULT    3 
-    94: 00000000     0 SECTION LOCAL  DEFAULT    7 
-    95: 00000000     0 SECTION LOCAL  DEFAULT    8 
-    96: 00000000     0 SECTION LOCAL  DEFAULT   17 
-    97: 00000000     0 SECTION LOCAL  DEFAULT   19 
-    98: 00000001    76 FUNC    GLOBAL HIDDEN     3 _ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
+    35: 00000000     0 SECTION LOCAL  DEFAULT   23 
+    36: 00000000     0 SECTION LOCAL  DEFAULT   25 
+    37: 00000000     0 SECTION LOCAL  DEFAULT   34 
+    38: 00000000     0 SECTION LOCAL  DEFAULT   36 
+    39: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h63f985867d9f263fE
+    40: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
+    41: 00000001    18 FUNC    GLOBAL HIDDEN     3 _ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
+    42: 00000001    54 FUNC    GLOBAL HIDDEN    15 _ZN5mylib4base13console_print17h7239bde54deb9f31E
+    43: 00000001    28 FUNC    GLOBAL HIDDEN    11 _ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+    44: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND console_buffer
 
 No version information found in this file.
 Attribute Section: aeabi
@@ -823,7 +488,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          10656 (bytes into file)
+  Start of section headers:          10468 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -835,63 +500,63 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 0020d0 0008cd 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 002078 00086c 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE PROGBITS        00000000 000034 0000be 00  AX  0   0  2
-  [ 4] .rel.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE REL             00000000 0019b8 0000a8 08     57   3  4
+  [ 4] .rel.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE REL             00000000 001970 0000a8 08     57   3  4
   [ 5] .ARM.exidx.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE ARM_EXIDX       00000000 0000f4 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE REL             00000000 001a60 000008 08     57   5  4
+  [ 6] .rel.ARM.exidx.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE REL             00000000 001a18 000008 08     57   5  4
   [ 7] .text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E PROGBITS        00000000 0000fc 00010a 00  AX  0   0  2
-  [ 8] .rel.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E REL             00000000 001a68 000098 08     57   7  4
+  [ 8] .rel.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E REL             00000000 001a20 000098 08     57   7  4
   [ 9] .ARM.exidx.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E ARM_EXIDX       00000000 000208 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E REL             00000000 001b00 000008 08     57   9  4
-  [11] .text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE PROGBITS        00000000 000210 000158 00  AX  0   0  2
-  [12] .rel.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE REL             00000000 001b08 000088 08     57  11  4
-  [13] .ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE ARM_EXIDX       00000000 000368 000008 00  AL 11   0  4
-  [14] .rel.ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE REL             00000000 001b90 000008 08     57  13  4
-  [15] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.0 PROGBITS        00000000 000370 00000b 00   A  0   0  1
-  [16] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1 PROGBITS        00000000 00037b 000019 00   A  0   0  1
-  [17] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2 PROGBITS        00000000 000394 000014 00   A  0   0  1
-  [18] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3 PROGBITS        00000000 0003a8 000018 00   A  0   0  4
-  [19] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3 REL             00000000 001b98 000010 08     57  18  4
-  [20] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.4 PROGBITS        00000000 0003c0 00002f 00   A  0   0  1
-  [21] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5 PROGBITS        00000000 0003f0 000018 00   A  0   0  4
-  [22] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5 REL             00000000 001ba8 000010 08     57  21  4
-  [23] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.6 PROGBITS        00000000 000408 000018 00   A  0   0  4
-  [24] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.6 REL             00000000 001bb8 000010 08     57  23  4
-  [25] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.7 PROGBITS        00000000 000420 000028 00   A  0   0  1
-  [26] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8 PROGBITS        00000000 000448 000018 00   A  0   0  4
-  [27] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8 REL             00000000 001bc8 000010 08     57  26  4
-  [28] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.9 PROGBITS        00000000 000460 000031 00   A  0   0  1
-  [29] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10 PROGBITS        00000000 000494 000018 00   A  0   0  4
-  [30] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10 REL             00000000 001bd8 000010 08     57  29  4
-  [31] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.11 PROGBITS        00000000 0004ac 000017 00   A  0   0  1
-  [32] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.12 PROGBITS        00000000 0004c4 000018 00   A  0   0  4
-  [33] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.12 REL             00000000 001be8 000010 08     57  32  4
-  [34] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.13 PROGBITS        00000000 0004dc 000001 00   A  0   0  1
-  [35] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.14 PROGBITS        00000000 0004e0 000018 00   A  0   0  4
-  [36] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.14 REL             00000000 001bf8 000010 08     57  35  4
-  [37] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.15 PROGBITS        00000000 0004f8 000018 00   A  0   0  4
-  [38] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.15 REL             00000000 001c08 000010 08     57  37  4
-  [39] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.16 PROGBITS        00000000 000510 00001a 00   A  0   0  1
-  [40] .debug_str        PROGBITS        00000000 00052a 0003ca 01  MS  0   0  1
-  [41] .debug_abbrev     PROGBITS        00000000 0008f4 0000d1 00      0   0  1
-  [42] .debug_info       PROGBITS        00000000 0009c5 000367 00      0   0  1
-  [43] .rel.debug_info   REL             00000000 001c18 0002b0 08     57  42  4
-  [44] .debug_ranges     PROGBITS        00000000 000d2c 000138 00      0   0  1
-  [45] .rel.debug_ranges REL             00000000 001ec8 0001b0 08     57  44  4
-  [46] .debug_macinfo    PROGBITS        00000000 000e64 000001 00      0   0  1
-  [47] .debug_pubnames   PROGBITS        00000000 000e65 000088 00      0   0  1
-  [48] .rel.debug_pubnames REL             00000000 002078 000008 08     57  47  4
-  [49] .debug_pubtypes   PROGBITS        00000000 000eed 000132 00      0   0  1
-  [50] .rel.debug_pubtypes REL             00000000 002080 000008 08     57  49  4
-  [51] .note.GNU-stack   PROGBITS        00000000 00101f 000000 00      0   0  1
-  [52] .ARM.attributes   ARM_ATTRIBUTES  00000000 00101f 000032 00      0   0  1
-  [53] .debug_frame      PROGBITS        00000000 001054 00006c 00      0   0  4
-  [54] .rel.debug_frame  REL             00000000 002088 000030 08     57  53  4
-  [55] .debug_line       PROGBITS        00000000 0010c0 000215 00      0   0  1
-  [56] .rel.debug_line   REL             00000000 0020b8 000018 08     57  55  4
-  [57] .symtab           SYMTAB          00000000 0012d8 0006e0 10      1  90  4
+  [10] .rel.ARM.exidx.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E REL             00000000 001ab8 000008 08     57   9  4
+  [11] .text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE PROGBITS        00000000 000210 00013e 00  AX  0   0  2
+  [12] .rel.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE REL             00000000 001ac0 000078 08     57  11  4
+  [13] .ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE ARM_EXIDX       00000000 000350 000008 00  AL 11   0  4
+  [14] .rel.ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE REL             00000000 001b38 000008 08     57  13  4
+  [15] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.0 PROGBITS        00000000 000358 00000b 00   A  0   0  1
+  [16] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1 PROGBITS        00000000 000363 000019 00   A  0   0  1
+  [17] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2 PROGBITS        00000000 00037c 000014 00   A  0   0  1
+  [18] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3 PROGBITS        00000000 000390 000018 00   A  0   0  4
+  [19] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3 REL             00000000 001b40 000010 08     57  18  4
+  [20] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.4 PROGBITS        00000000 0003a8 00002f 00   A  0   0  1
+  [21] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5 PROGBITS        00000000 0003d8 000018 00   A  0   0  4
+  [22] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5 REL             00000000 001b50 000010 08     57  21  4
+  [23] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.6 PROGBITS        00000000 0003f0 000018 00   A  0   0  4
+  [24] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.6 REL             00000000 001b60 000010 08     57  23  4
+  [25] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.7 PROGBITS        00000000 000408 000028 00   A  0   0  1
+  [26] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8 PROGBITS        00000000 000430 000018 00   A  0   0  4
+  [27] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8 REL             00000000 001b70 000010 08     57  26  4
+  [28] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.9 PROGBITS        00000000 000448 000031 00   A  0   0  1
+  [29] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10 PROGBITS        00000000 00047c 000018 00   A  0   0  4
+  [30] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10 REL             00000000 001b80 000010 08     57  29  4
+  [31] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.11 PROGBITS        00000000 000494 000017 00   A  0   0  1
+  [32] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.12 PROGBITS        00000000 0004ac 000018 00   A  0   0  4
+  [33] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.12 REL             00000000 001b90 000010 08     57  32  4
+  [34] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.13 PROGBITS        00000000 0004c4 000001 00   A  0   0  1
+  [35] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.14 PROGBITS        00000000 0004c8 000018 00   A  0   0  4
+  [36] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.14 REL             00000000 001ba0 000010 08     57  35  4
+  [37] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.15 PROGBITS        00000000 0004e0 000018 00   A  0   0  4
+  [38] .rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.15 REL             00000000 001bb0 000010 08     57  37  4
+  [39] .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.16 PROGBITS        00000000 0004f8 00001a 00   A  0   0  1
+  [40] .debug_str        PROGBITS        00000000 000512 0003ca 01  MS  0   0  1
+  [41] .debug_abbrev     PROGBITS        00000000 0008dc 0000d1 00      0   0  1
+  [42] .debug_info       PROGBITS        00000000 0009ad 000363 00      0   0  1
+  [43] .rel.debug_info   REL             00000000 001bc0 0002b0 08     57  42  4
+  [44] .debug_ranges     PROGBITS        00000000 000d10 000138 00      0   0  1
+  [45] .rel.debug_ranges REL             00000000 001e70 0001b0 08     57  44  4
+  [46] .debug_macinfo    PROGBITS        00000000 000e48 000001 00      0   0  1
+  [47] .debug_pubnames   PROGBITS        00000000 000e49 000088 00      0   0  1
+  [48] .rel.debug_pubnames REL             00000000 002020 000008 08     57  47  4
+  [49] .debug_pubtypes   PROGBITS        00000000 000ed1 000132 00      0   0  1
+  [50] .rel.debug_pubtypes REL             00000000 002028 000008 08     57  49  4
+  [51] .note.GNU-stack   PROGBITS        00000000 001003 000000 00      0   0  1
+  [52] .ARM.attributes   ARM_ATTRIBUTES  00000000 001003 000032 00      0   0  1
+  [53] .debug_frame      PROGBITS        00000000 001038 00006c 00      0   0  4
+  [54] .rel.debug_frame  REL             00000000 002030 000030 08     57  53  4
+  [55] .debug_line       PROGBITS        00000000 0010a4 00020a 00      0   0  1
+  [56] .rel.debug_line   REL             00000000 002060 000018 08     57  55  4
+  [57] .symtab           SYMTAB          00000000 0012b0 0006c0 10      1  90  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -904,7 +569,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE' at offset 0x19b8 contains 21 entries:
+Relocation section '.rel.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE' at offset 0x1970 contains 21 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00003f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.0
 00000008  00003f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.0
@@ -912,36 +577,36 @@ Relocation section '.rel.text._ZN5mylib13listen_sensor21start_sensor_listener17h
 0000001a  00004c2f R_ARM_THM_MOVW_ABS_NC  00000001   _ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
 0000001e  00004c30 R_ARM_THM_MOVT_ABS     00000001   _ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
 0000002c  00005d0a R_ARM_THM_CALL         00000000   _ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-0000003a  00006d0a R_ARM_THM_CALL         00000000   sensor_set_poll_rate_ms
+0000003a  00006b0a R_ARM_THM_CALL         00000000   sensor_set_poll_rate_ms
 0000004a  0000472f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.3
 0000004e  00004730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.3
 00000052  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 00000058  00005d0a R_ARM_THM_CALL         00000000   _ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
-00000060  0000690a R_ARM_THM_CALL         00000000   null_sensor
-0000006c  00006b0a R_ARM_THM_CALL         00000000   sensor_mgr_find_next_bydevname
-00000076  0000670a R_ARM_THM_CALL         00000000   is_null_sensor
+00000060  0000670a R_ARM_THM_CALL         00000000   null_sensor
+0000006c  0000690a R_ARM_THM_CALL         00000000   sensor_mgr_find_next_bydevname
+00000076  0000650a R_ARM_THM_CALL         00000000   is_null_sensor
 00000088  0000482f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.5
 0000008c  00004830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.5
 00000090  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-0000009a  00006c0a R_ARM_THM_CALL         00000000   sensor_register_listener
+0000009a  00006a0a R_ARM_THM_CALL         00000000   sensor_register_listener
 000000aa  0000492f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.6
 000000ae  00004930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.6
 000000b2  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE' at offset 0x1a60 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE' at offset 0x1a18 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00004d2a R_ARM_PREL31           00000000   .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE
 
-Relocation section '.rel.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E' at offset 0x1a68 contains 19 entries:
+Relocation section '.rel.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E' at offset 0x1a20 contains 19 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000022  0000680a R_ARM_THM_CALL         00000000   is_null_sensor_data
-00000044  0000670a R_ARM_THM_CALL         00000000   is_null_sensor
+00000022  0000660a R_ARM_THM_CALL         00000000   is_null_sensor_data
+00000044  0000650a R_ARM_THM_CALL         00000000   is_null_sensor
 00000056  00004a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.8
 0000005a  00004a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.8
 0000005e  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-00000066  00006a0a R_ARM_THM_CALL         00000000   sensor_get_device
-00000070  0000640a R_ARM_THM_CALL         00000000   device_get_name
-0000007a  0000630a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr8from_ptr17ha5d4992c233d069bE
+00000066  0000680a R_ARM_THM_CALL         00000000   sensor_get_device
+00000070  0000620a R_ARM_THM_CALL         00000000   device_get_name
+0000007a  0000610a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr8from_ptr17ha5d4992c233d069bE
 00000092  00004b0a R_ARM_THM_CALL         00000001   _ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
 000000a0  0000402f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.10
 000000a4  00004030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.10
@@ -954,75 +619,73 @@ Relocation section '.rel.text._ZN5mylib13listen_sensor16read_temperature17hfd042
 000000fa  00004230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.12
 000000fe  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E' at offset 0x1b00 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E' at offset 0x1ab8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00004e2a R_ARM_PREL31           00000000   .text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
 
-Relocation section '.rel.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE' at offset 0x1b08 contains 17 entries:
+Relocation section '.rel.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE' at offset 0x1ac0 contains 15 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000000c  0000432f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.13
 00000010  00004330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.13
-00000026  0000610a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr19from_bytes_with_nul17h7d4b1272f9f27478E
-0000002e  00005a0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-0000003c  0000620a R_ARM_THM_CALL         00000000   _ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-00000068  0000660a R_ARM_THM_CALL         00000000   get_temp_raw_data
-00000078  0000452f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.15
-0000007c  00004530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.15
-00000080  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-000000ba  0000462f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.16
-000000be  00004630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.16
-000000c4  00005e0a R_ARM_THM_CALL         00000000   _ZN5mylib4base13console_print17h7239bde54deb9f31E
-000000dc  0000650a R_ARM_THM_CALL         00000000   get_temp_data
-000000ec  0000442f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.14
-000000f0  00004430 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.14
-000000f4  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-00000128  00005f0a R_ARM_THM_CALL         00000000   _ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
+00000022  00005a0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
+0000004e  0000640a R_ARM_THM_CALL         00000000   get_temp_raw_data
+0000005e  0000452f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.15
+00000062  00004530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.15
+00000066  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000000a0  0000462f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.16
+000000a4  00004630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.16
+000000aa  00005e0a R_ARM_THM_CALL         00000000   _ZN5mylib4base13console_print17h7239bde54deb9f31E
+000000c2  0000630a R_ARM_THM_CALL         00000000   get_temp_data
+000000d2  0000442f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.14
+000000d6  00004430 R_ARM_THM_MOVT_ABS     00000000   .Lanon.0b256f51abc682f8d65b4afaed11e7f9.14
+000000da  00005b0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000010e  00005f0a R_ARM_THM_CALL         00000000   _ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE' at offset 0x1b90 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE' at offset 0x1b38 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00004f2a R_ARM_PREL31           00000000   .text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3' at offset 0x1b98 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3' at offset 0x1b40 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005002 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5' at offset 0x1ba8 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5' at offset 0x1b50 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005202 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.4
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.6' at offset 0x1bb8 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.6' at offset 0x1b60 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005002 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8' at offset 0x1bc8 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8' at offset 0x1b70 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005302 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.7
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10' at offset 0x1bd8 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10' at offset 0x1b80 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005402 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.9
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.12' at offset 0x1be8 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.12' at offset 0x1b90 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005002 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.14' at offset 0x1bf8 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.14' at offset 0x1ba0 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005002 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.15' at offset 0x1c08 contains 2 entries:
+Relocation section '.rel.rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.15' at offset 0x1bb0 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005002 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1
 00000008  00005102 R_ARM_ABS32            00000000   .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 
-Relocation section '.rel.debug_info' at offset 0x1c18 contains 86 entries:
+Relocation section '.rel.debug_info' at offset 0x1bc0 contains 86 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00005502 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00002102 R_ARM_ABS32            00000000   
@@ -1088,30 +751,30 @@ Relocation section '.rel.debug_info' at offset 0x1c18 contains 86 entries:
 0000025a  00005702 R_ARM_ABS32            00000000   .debug_ranges
 00000262  00001702 R_ARM_ABS32            00000327   
 0000026d  00005702 R_ARM_ABS32            00000000   .debug_ranges
-00000276  00001802 R_ARM_ABS32            00000334   
-00000281  00005702 R_ARM_ABS32            00000000   .debug_ranges
-0000028a  00000a02 R_ARM_ABS32            0000029c   
-00000297  00005702 R_ARM_ABS32            00000000   .debug_ranges
-000002a0  00001c02 R_ARM_ABS32            00000377   
-000002ab  00005702 R_ARM_ABS32            00000000   .debug_ranges
-000002b4  00001d02 R_ARM_ABS32            00000397   
-000002bf  00005702 R_ARM_ABS32            00000000   .debug_ranges
-000002c8  00000a02 R_ARM_ABS32            0000029c   
-000002da  00002602 R_ARM_ABS32            00000087   
-000002e1  00002d02 R_ARM_ABS32            0000010d   
-000002ec  00003402 R_ARM_ABS32            000001b6   
-000002f1  00003302 R_ARM_ABS32            000001b3   
-000002f8  00003702 R_ARM_ABS32            000001d1   
-000002ff  00003902 R_ARM_ABS32            000001df   
-0000030a  00000602 R_ARM_ABS32            00000229   
-0000032d  00000502 R_ARM_ABS32            0000020f   
-00000336  00001502 R_ARM_ABS32            00000304   
-0000033b  00001102 R_ARM_ABS32            000002db   
-00000340  00001402 R_ARM_ABS32            000002ff   
-00000347  00001202 R_ARM_ABS32            000002e5   
-00000360  00001302 R_ARM_ABS32            000002eb   
+00000275  00001802 R_ARM_ABS32            00000334   
+00000280  00005702 R_ARM_ABS32            00000000   .debug_ranges
+00000288  00000a02 R_ARM_ABS32            0000029c   
+00000295  00005702 R_ARM_ABS32            00000000   .debug_ranges
+0000029d  00001c02 R_ARM_ABS32            00000377   
+000002a8  00005702 R_ARM_ABS32            00000000   .debug_ranges
+000002b0  00001d02 R_ARM_ABS32            00000397   
+000002bb  00005702 R_ARM_ABS32            00000000   .debug_ranges
+000002c4  00000a02 R_ARM_ABS32            0000029c   
+000002d6  00002602 R_ARM_ABS32            00000087   
+000002dd  00002d02 R_ARM_ABS32            0000010d   
+000002e8  00003402 R_ARM_ABS32            000001b6   
+000002ed  00003302 R_ARM_ABS32            000001b3   
+000002f4  00003702 R_ARM_ABS32            000001d1   
+000002fb  00003902 R_ARM_ABS32            000001df   
+00000306  00000602 R_ARM_ABS32            00000229   
+00000329  00000502 R_ARM_ABS32            0000020f   
+00000332  00001502 R_ARM_ABS32            00000304   
+00000337  00001102 R_ARM_ABS32            000002db   
+0000033c  00001402 R_ARM_ABS32            000002ff   
+00000343  00001202 R_ARM_ABS32            000002e5   
+0000035c  00001302 R_ARM_ABS32            000002eb   
 
-Relocation section '.rel.debug_ranges' at offset 0x1ec8 contains 54 entries:
+Relocation section '.rel.debug_ranges' at offset 0x1e70 contains 54 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00004e02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
 00000004  00004e02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
@@ -1168,15 +831,15 @@ Relocation section '.rel.debug_ranges' at offset 0x1ec8 contains 54 entries:
 00000128  00004f02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
 0000012c  00004f02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
 
-Relocation section '.rel.debug_pubnames' at offset 0x2078 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0x2020 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00005602 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0x2080 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0x2028 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00005602 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0x2088 contains 6 entries:
+Relocation section '.rel.debug_frame' at offset 0x2030 contains 6 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00005802 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00004d02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE
@@ -1185,7 +848,7 @@ Relocation section '.rel.debug_frame' at offset 0x2088 contains 6 entries:
 00000054  00005802 R_ARM_ABS32            00000000   .debug_frame
 00000058  00004f02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
 
-Relocation section '.rel.debug_line' at offset 0x20b8 contains 3 entries:
+Relocation section '.rel.debug_line' at offset 0x2060 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000043  00004d02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE
 000000a9  00004e02 R_ARM_ABS32            00000000   .text._ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
@@ -1201,12 +864,12 @@ Unwind section '.ARM.exidx.text._ZN5mylib13listen_sensor16read_temperature17hfd0
 0x0 <_ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E>: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE' at offset 0x368 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE' at offset 0x350 contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Symbol table '.symtab' contains 110 entries:
+Symbol table '.symtab' contains 108 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 3k67uemb1cshb4cs
@@ -1283,7 +946,7 @@ Symbol table '.symtab' contains 110 entries:
     72: 00000000    24 OBJECT  LOCAL  DEFAULT   21 .Lanon.0b256f51abc682f8d65b4afaed11e7f9.5
     73: 00000000    24 OBJECT  LOCAL  DEFAULT   23 .Lanon.0b256f51abc682f8d65b4afaed11e7f9.6
     74: 00000000    24 OBJECT  LOCAL  DEFAULT   26 .Lanon.0b256f51abc682f8d65b4afaed11e7f9.8
-    75: 00000001   344 FUNC    LOCAL  DEFAULT   11 _ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
+    75: 00000001   318 FUNC    LOCAL  DEFAULT   11 _ZN5mylib13listen_sensor15get_temperature17h2775eda8de5dec0bE
     76: 00000001   266 FUNC    LOCAL  DEFAULT    7 _ZN5mylib13listen_sensor16read_temperature17hfd042900baa70649E
     77: 00000000     0 SECTION LOCAL  DEFAULT    3 
     78: 00000000     0 SECTION LOCAL  DEFAULT    7 
@@ -1298,494 +961,24 @@ Symbol table '.symtab' contains 110 entries:
     87: 00000000     0 SECTION LOCAL  DEFAULT   44 
     88: 00000000     0 SECTION LOCAL  DEFAULT   53 
     89: 00000000     0 SECTION LOCAL  DEFAULT   55 
-    90: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
+    90: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
     91: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking5panic17h53ca63c6ac6312f8E
     92: 00000001   190 FUNC    GLOBAL HIDDEN     3 _ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE
     93: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
     94: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN5mylib4base13console_print17h7239bde54deb9f31E
     95: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
     96: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN5mylib9send_coap16send_sensor_data17h981b71f6817e0654E
-    97: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN9cstr_core4CStr19from_bytes_with_nul17h7d4b1272f9f27478E
-    98: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-    99: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN9cstr_core4CStr8from_ptr17ha5d4992c233d069bE
-   100: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND device_get_name
-   101: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND get_temp_data
-   102: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND get_temp_raw_data
-   103: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor
-   104: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor_data
-   105: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND null_sensor
-   106: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_get_device
-   107: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_mgr_find_next_bydevname
-   108: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_register_listener
-   109: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_set_poll_rate_ms
-
-No version information found in this file.
-Attribute Section: aeabi
-File Attributes
-  Tag_conformance: "2.09"
-  Tag_CPU_arch: v7
-  Tag_CPU_arch_profile: Microcontroller
-  Tag_ARM_ISA_use: No
-  Tag_THUMB_ISA_use: Thumb-2
-  Tag_ABI_PCS_R9_use: V6
-  Tag_ABI_PCS_GOT_use: direct
-  Tag_ABI_FP_denormal: Needed
-  Tag_ABI_FP_exceptions: Needed
-  Tag_ABI_FP_number_model: IEEE 754
-  Tag_ABI_align_needed: 8-byte
-  Tag_ABI_align_preserved: 8-byte, except leaf SP
-  Tag_ABI_optimization_goals: Prefer Debug
-  Tag_CPU_unaligned_access: v6
-  Tag_ABI_FP_16bit_format: IEEE 754
-
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.3ksiz0oe1f34lits.rcgu.o)
-ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
-  Class:                             ELF32
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  ABI Version:                       0
-  Type:                              REL (Relocatable file)
-  Machine:                           ARM
-  Version:                           0x1
-  Entry point address:               0x0
-  Start of program headers:          0 (bytes into file)
-  Start of section headers:          5972 (bytes into file)
-  Flags:                             0x5000000, Version5 EABI
-  Size of this header:               52 (bytes)
-  Size of program headers:           0 (bytes)
-  Number of program headers:         0
-  Size of section headers:           40 (bytes)
-  Number of section headers:         39
-  Section header string table index: 1
-
-Section Headers:
-  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
-  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 001298 0004bc 00      0   0  1
-  [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
-  [ 3] .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E PROGBITS        00000000 000034 000094 00  AX  0   0  2
-  [ 4] .rel.text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E REL             00000000 000f78 000060 08     38   3  4
-  [ 5] .ARM.exidx.text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E ARM_EXIDX       00000000 0000c8 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E REL             00000000 000fd8 000008 08     38   5  4
-  [ 7] .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E PROGBITS        00000000 0000d0 00005e 00  AX  0   0  2
-  [ 8] .rel.text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E REL             00000000 000fe0 000018 08     38   7  4
-  [ 9] .ARM.exidx.text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E ARM_EXIDX       00000000 000130 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E REL             00000000 000ff8 000008 08     38   9  4
-  [11] .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.0 PROGBITS        00000000 000138 000000 00   A  0   0  1
-  [12] .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.1 PROGBITS        00000000 000138 000002 00   A  0   0  1
-  [13] .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.2 PROGBITS        00000000 00013c 000010 00   A  0   0  4
-  [14] .rel.rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.2 REL             00000000 001000 000010 08     38  13  4
-  [15] .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.3 PROGBITS        00000000 00014c 000015 00   A  0   0  1
-  [16] .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.4 PROGBITS        00000000 000164 000010 00   A  0   0  4
-  [17] .rel.rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.4 REL             00000000 001010 000008 08     38  16  4
-  [18] .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.5 PROGBITS        00000000 000174 00002b 00   A  0   0  1
-  [19] .debug_str        PROGBITS        00000000 00019f 0002ae 01  MS  0   0  1
-  [20] .debug_loc        PROGBITS        00000000 00044d 000014 00      0   0  1
-  [21] .rel.debug_loc    REL             00000000 001018 000010 08     38  20  4
-  [22] .debug_abbrev     PROGBITS        00000000 000461 000111 00      0   0  1
-  [23] .debug_info       PROGBITS        00000000 000572 000268 00      0   0  1
-  [24] .rel.debug_info   REL             00000000 001028 0001f0 08     38  23  4
-  [25] .debug_ranges     PROGBITS        00000000 0007da 000030 00      0   0  1
-  [26] .rel.debug_ranges REL             00000000 001218 000040 08     38  25  4
-  [27] .debug_macinfo    PROGBITS        00000000 00080a 000001 00      0   0  1
-  [28] .debug_pubnames   PROGBITS        00000000 00080b 0000a6 00      0   0  1
-  [29] .rel.debug_pubnames REL             00000000 001258 000008 08     38  28  4
-  [30] .debug_pubtypes   PROGBITS        00000000 0008b1 00010d 00      0   0  1
-  [31] .rel.debug_pubtypes REL             00000000 001260 000008 08     38  30  4
-  [32] .note.GNU-stack   PROGBITS        00000000 0009be 000000 00      0   0  1
-  [33] .ARM.attributes   ARM_ATTRIBUTES  00000000 0009be 000032 00      0   0  1
-  [34] .debug_frame      PROGBITS        00000000 0009f0 00003c 00      0   0  4
-  [35] .rel.debug_frame  REL             00000000 001268 000020 08     38  34  4
-  [36] .debug_line       PROGBITS        00000000 000a2c 00010b 00      0   0  1
-  [37] .rel.debug_line   REL             00000000 001288 000010 08     38  36  4
-  [38] .symtab           SYMTAB          00000000 000b38 000440 10      1  60  4
-Key to Flags:
-  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
-  L (link order), O (extra OS processing required), G (group), T (TLS),
-  C (compressed), x (unknown), o (OS specific), E (exclude),
-  y (purecode), p (processor specific)
-
-There are no section groups in this file.
-
-There are no program headers in this file.
-
-There is no dynamic section in this file.
-
-Relocation section '.rel.text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E' at offset 0xf78 contains 12 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000024  00003c2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-00000028  00003c30 R_ARM_THM_MOVT_ABS     00000000   _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-00000038  00003e0a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-00000044  0000432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN69_$LT$cstr_core..FromBytesWithNulError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbdb2b74657df673cE
-00000048  00004330 R_ARM_THM_MOVT_ABS     00000000   _ZN69_$LT$cstr_core..FromBytesWithNulError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbdb2b74657df673cE
-0000004c  00003d0a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-00000070  00002e2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.cdeb35a13307d7ebaa6095ab68090442.2
-00000074  00002e30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.cdeb35a13307d7ebaa6095ab68090442.2
-0000007e  00003f0a R_ARM_THM_CALL         00000000   _ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-00000084  00002f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.cdeb35a13307d7ebaa6095ab68090442.4
-00000088  00002f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.cdeb35a13307d7ebaa6095ab68090442.4
-0000008e  0000420a R_ARM_THM_CALL         00000000   _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
-
-Relocation section '.rel.ARM.exidx.text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E' at offset 0xfd8 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000312a R_ARM_PREL31           00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-
-Relocation section '.rel.text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E' at offset 0xfe0 contains 3 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000044  0000302f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.cdeb35a13307d7ebaa6095ab68090442.5
-00000048  00003030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.cdeb35a13307d7ebaa6095ab68090442.5
-0000004e  0000400a R_ARM_THM_CALL         00000001   _ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-
-Relocation section '.rel.ARM.exidx.text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E' at offset 0xff8 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000322a R_ARM_PREL31           00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-
-Relocation section '.rel.rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.2' at offset 0x1000 contains 2 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00003302 R_ARM_ABS32            00000000   .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.0
-00000008  00003402 R_ARM_ABS32            00000000   .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.1
-
-Relocation section '.rel.rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.4' at offset 0x1010 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00003502 R_ARM_ABS32            00000000   .rodata..Lanon.cdeb35a13307d7ebaa6095ab68090442.3
-
-Relocation section '.rel.debug_loc' at offset 0x1018 contains 2 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000004  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-
-Relocation section '.rel.debug_info' at offset 0x1028 contains 62 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00003702 R_ARM_ABS32            00000000   .debug_abbrev
-0000000c  00001302 R_ARM_ABS32            00000000   
-00000012  00001402 R_ARM_ABS32            00000041   
-00000016  00003b02 R_ARM_ABS32            00000000   .debug_line
-0000001a  00001502 R_ARM_ABS32            0000004c   
-00000022  00003902 R_ARM_ABS32            00000000   .debug_ranges
-00000027  00001602 R_ARM_ABS32            0000007c   
-0000002c  00001702 R_ARM_ABS32            00000081   
-00000031  00003102 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-0000003b  00002b02 R_ARM_ABS32            0000016b   
-0000003f  00000302 R_ARM_ABS32            0000019e   
-0000004e  00000702 R_ARM_ABS32            0000024a   
-0000005c  00000b02 R_ARM_ABS32            0000026d   
-00000067  00003102 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-00000074  00000c02 R_ARM_ABS32            00000273   
-00000083  00000e02 R_ARM_ABS32            0000027e   
-00000093  00002802 R_ARM_ABS32            0000012a   
-00000099  00002a02 R_ARM_ABS32            00000130   
-000000ae  00001902 R_ARM_ABS32            0000008c   
-000000bc  00002902 R_ARM_ABS32            0000012c   
-000000c9  00001902 R_ARM_ABS32            0000008c   
-000000d0  00001a02 R_ARM_ABS32            0000008f   
-000000df  00002102 R_ARM_ABS32            000000d0   
-000000e8  00002802 R_ARM_ABS32            0000012a   
-000000ee  00002902 R_ARM_ABS32            0000012c   
-000000f5  00001a02 R_ARM_ABS32            0000008f   
-00000104  00002102 R_ARM_ABS32            000000d0   
-0000010d  00002802 R_ARM_ABS32            0000012a   
-00000113  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-0000011d  00000502 R_ARM_ABS32            000001d0   
-00000121  00000602 R_ARM_ABS32            00000210   
-0000012d  00003602 R_ARM_ABS32            00000000   .debug_loc
-00000131  00001202 R_ARM_ABS32            000002a9   
-0000013c  00003902 R_ARM_ABS32            00000000   .debug_ranges
-00000144  00001002 R_ARM_ABS32            000002a5   
-00000150  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-0000015c  00001102 R_ARM_ABS32            000002a7   
-0000016e  00002102 R_ARM_ABS32            000000d0   
-00000177  00002802 R_ARM_ABS32            0000012a   
-00000180  00001802 R_ARM_ABS32            00000088   
-0000018b  00002002 R_ARM_ABS32            000000bf   
-00000190  00001b02 R_ARM_ABS32            00000093   
-00000195  00001f02 R_ARM_ABS32            000000ba   
-0000019c  00001c02 R_ARM_ABS32            0000009d   
-000001a8  00002702 R_ARM_ABS32            00000114   
-000001af  00002202 R_ARM_ABS32            000000d2   
-000001bb  00002602 R_ARM_ABS32            000000fa   
-000001d0  00002302 R_ARM_ABS32            000000d7   
-000001de  00002502 R_ARM_ABS32            000000e9   
-000001eb  00002302 R_ARM_ABS32            000000d7   
-000001f2  00001a02 R_ARM_ABS32            0000008f   
-000001fe  00002502 R_ARM_ABS32            000000e9   
-00000213  00001d02 R_ARM_ABS32            000000a3   
-0000021a  00001e02 R_ARM_ABS32            000000a6   
-00000221  00002402 R_ARM_ABS32            000000e3   
-00000228  00000402 R_ARM_ABS32            000001ce   
-0000022f  00000202 R_ARM_ABS32            00000268   
-00000236  00000802 R_ARM_ABS32            0000024e   
-00000241  00000a02 R_ARM_ABS32            00000261   
-00000251  00000902 R_ARM_ABS32            00000257   
-0000025a  00000d02 R_ARM_ABS32            00000278   
-00000263  00000f02 R_ARM_ABS32            00000283   
-
-Relocation section '.rel.debug_ranges' at offset 0x1218 contains 8 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000004  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000008  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-0000000c  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000018  00003102 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-0000001c  00003102 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-00000020  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-00000024  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-
-Relocation section '.rel.debug_pubnames' at offset 0x1258 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00003802 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_pubtypes' at offset 0x1260 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00003802 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_frame' at offset 0x1268 contains 4 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000018  00003a02 R_ARM_ABS32            00000000   .debug_frame
-0000001c  00003102 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-0000002c  00003a02 R_ARM_ABS32            00000000   .debug_frame
-00000030  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-
-Relocation section '.rel.debug_line' at offset 0x1288 contains 2 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000085  00003102 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-000000d9  00003202 R_ARM_ABS32            00000000   .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-
-Unwind section '.ARM.exidx.text._ZN4core6result13unwrap_failed17h3d14a933509b39f2E' at offset 0xc8 contains 1 entry:
-
-0x0: 0x1 [cantunwind]
-
-
-Unwind section '.ARM.exidx.text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E' at offset 0x130 contains 1 entry:
-
-0x0 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E>: 0x1 [cantunwind]
-
-
-Symbol table '.symtab' contains 68 entries:
-   Num:    Value  Size Type    Bind   Vis      Ndx Name
-     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 3ksiz0oe1f34lits
-     2: 00000268     0 NOTYPE  LOCAL  DEFAULT   19 
-     3: 0000019e     0 NOTYPE  LOCAL  DEFAULT   19 
-     4: 000001ce     0 NOTYPE  LOCAL  DEFAULT   19 
-     5: 000001d0     0 NOTYPE  LOCAL  DEFAULT   19 
-     6: 00000210     0 NOTYPE  LOCAL  DEFAULT   19 
-     7: 0000024a     0 NOTYPE  LOCAL  DEFAULT   19 
-     8: 0000024e     0 NOTYPE  LOCAL  DEFAULT   19 
-     9: 00000257     0 NOTYPE  LOCAL  DEFAULT   19 
-    10: 00000261     0 NOTYPE  LOCAL  DEFAULT   19 
-    11: 0000026d     0 NOTYPE  LOCAL  DEFAULT   19 
-    12: 00000273     0 NOTYPE  LOCAL  DEFAULT   19 
-    13: 00000278     0 NOTYPE  LOCAL  DEFAULT   19 
-    14: 0000027e     0 NOTYPE  LOCAL  DEFAULT   19 
-    15: 00000283     0 NOTYPE  LOCAL  DEFAULT   19 
-    16: 000002a5     0 NOTYPE  LOCAL  DEFAULT   19 
-    17: 000002a7     0 NOTYPE  LOCAL  DEFAULT   19 
-    18: 000002a9     0 NOTYPE  LOCAL  DEFAULT   19 
-    19: 00000000     0 NOTYPE  LOCAL  DEFAULT   19 
-    20: 00000041     0 NOTYPE  LOCAL  DEFAULT   19 
-    21: 0000004c     0 NOTYPE  LOCAL  DEFAULT   19 
-    22: 0000007c     0 NOTYPE  LOCAL  DEFAULT   19 
-    23: 00000081     0 NOTYPE  LOCAL  DEFAULT   19 
-    24: 00000088     0 NOTYPE  LOCAL  DEFAULT   19 
-    25: 0000008c     0 NOTYPE  LOCAL  DEFAULT   19 
-    26: 0000008f     0 NOTYPE  LOCAL  DEFAULT   19 
-    27: 00000093     0 NOTYPE  LOCAL  DEFAULT   19 
-    28: 0000009d     0 NOTYPE  LOCAL  DEFAULT   19 
-    29: 000000a3     0 NOTYPE  LOCAL  DEFAULT   19 
-    30: 000000a6     0 NOTYPE  LOCAL  DEFAULT   19 
-    31: 000000ba     0 NOTYPE  LOCAL  DEFAULT   19 
-    32: 000000bf     0 NOTYPE  LOCAL  DEFAULT   19 
-    33: 000000d0     0 NOTYPE  LOCAL  DEFAULT   19 
-    34: 000000d2     0 NOTYPE  LOCAL  DEFAULT   19 
-    35: 000000d7     0 NOTYPE  LOCAL  DEFAULT   19 
-    36: 000000e3     0 NOTYPE  LOCAL  DEFAULT   19 
-    37: 000000e9     0 NOTYPE  LOCAL  DEFAULT   19 
-    38: 000000fa     0 NOTYPE  LOCAL  DEFAULT   19 
-    39: 00000114     0 NOTYPE  LOCAL  DEFAULT   19 
-    40: 0000012a     0 NOTYPE  LOCAL  DEFAULT   19 
-    41: 0000012c     0 NOTYPE  LOCAL  DEFAULT   19 
-    42: 00000130     0 NOTYPE  LOCAL  DEFAULT   19 
-    43: 0000016b     0 NOTYPE  LOCAL  DEFAULT   19 
-    44: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
-    45: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
-    46: 00000000    16 OBJECT  LOCAL  DEFAULT   13 .Lanon.cdeb35a13307d7ebaa6095ab68090442.2
-    47: 00000000    16 OBJECT  LOCAL  DEFAULT   16 .Lanon.cdeb35a13307d7ebaa6095ab68090442.4
-    48: 00000000    43 OBJECT  LOCAL  DEFAULT   18 .Lanon.cdeb35a13307d7ebaa6095ab68090442.5
-    49: 00000000     0 SECTION LOCAL  DEFAULT    3 
-    50: 00000000     0 SECTION LOCAL  DEFAULT    7 
-    51: 00000000     0 SECTION LOCAL  DEFAULT   11 
-    52: 00000000     0 SECTION LOCAL  DEFAULT   12 
-    53: 00000000     0 SECTION LOCAL  DEFAULT   15 
-    54: 00000000     0 SECTION LOCAL  DEFAULT   20 
-    55: 00000000     0 SECTION LOCAL  DEFAULT   22 
-    56: 00000000     0 SECTION LOCAL  DEFAULT   23 
-    57: 00000000     0 SECTION LOCAL  DEFAULT   25 
-    58: 00000000     0 SECTION LOCAL  DEFAULT   34 
-    59: 00000000     0 SECTION LOCAL  DEFAULT   36 
-    60: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-    61: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-    62: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-    63: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN4core3fmt9Arguments6new_v117h2cd5f5618ed3a724E
-    64: 00000001   148 FUNC    GLOBAL DEFAULT    3 _ZN4core6result13unwrap_failed17h3d14a933509b39f2E
-    65: 00000001    94 FUNC    GLOBAL DEFAULT    7 _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hdc77bba9f1804906E
-    66: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
-    67: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN69_$LT$cstr_core..FromBytesWithNulError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbdb2b74657df673cE
-
-No version information found in this file.
-Attribute Section: aeabi
-File Attributes
-  Tag_conformance: "2.09"
-  Tag_CPU_arch: v7
-  Tag_CPU_arch_profile: Microcontroller
-  Tag_ARM_ISA_use: No
-  Tag_THUMB_ISA_use: Thumb-2
-  Tag_ABI_PCS_R9_use: V6
-  Tag_ABI_PCS_GOT_use: direct
-  Tag_ABI_FP_denormal: Needed
-  Tag_ABI_FP_exceptions: Needed
-  Tag_ABI_FP_number_model: IEEE 754
-  Tag_ABI_align_needed: 8-byte
-  Tag_ABI_align_preserved: 8-byte, except leaf SP
-  Tag_ABI_optimization_goals: Prefer Debug
-  Tag_CPU_unaligned_access: v6
-  Tag_ABI_FP_16bit_format: IEEE 754
-
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.4rbgthf0iiiywcr9.rcgu.o)
-ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
-  Class:                             ELF32
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  ABI Version:                       0
-  Type:                              REL (Relocatable file)
-  Machine:                           ARM
-  Version:                           0x1
-  Entry point address:               0x0
-  Start of program headers:          0 (bytes into file)
-  Start of section headers:          1972 (bytes into file)
-  Flags:                             0x5000000, Version5 EABI
-  Size of this header:               52 (bytes)
-  Size of program headers:           0 (bytes)
-  Number of program headers:         0
-  Size of section headers:           40 (bytes)
-  Number of section headers:         23
-  Section header string table index: 1
-
-Section Headers:
-  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
-  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 000620 000191 00      0   0  1
-  [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
-  [ 3] .text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E PROGBITS        00000000 000034 000022 00  AX  0   0  2
-  [ 4] .rel.text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E REL             00000000 000560 000008 08     22   3  4
-  [ 5] .ARM.exidx.text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E ARM_EXIDX       00000000 000058 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E REL             00000000 000568 000008 08     22   5  4
-  [ 7] .debug_str        PROGBITS        00000000 000060 0000fd 01  MS  0   0  1
-  [ 8] .debug_abbrev     PROGBITS        00000000 00015d 00008b 00      0   0  1
-  [ 9] .debug_info       PROGBITS        00000000 0001e8 000095 00      0   0  1
-  [10] .rel.debug_info   REL             00000000 000570 000088 08     22   9  4
-  [11] .debug_macinfo    PROGBITS        00000000 00027d 000001 00      0   0  1
-  [12] .debug_pubnames   PROGBITS        00000000 00027e 00002b 00      0   0  1
-  [13] .rel.debug_pubnames REL             00000000 0005f8 000008 08     22  12  4
-  [14] .debug_pubtypes   PROGBITS        00000000 0002a9 000045 00      0   0  1
-  [15] .rel.debug_pubtypes REL             00000000 000600 000008 08     22  14  4
-  [16] .note.GNU-stack   PROGBITS        00000000 0002ee 000000 00      0   0  1
-  [17] .ARM.attributes   ARM_ATTRIBUTES  00000000 0002ee 000032 00      0   0  1
-  [18] .debug_frame      PROGBITS        00000000 000320 000030 00      0   0  4
-  [19] .rel.debug_frame  REL             00000000 000608 000010 08     22  18  4
-  [20] .debug_line       PROGBITS        00000000 000350 00009e 00      0   0  1
-  [21] .rel.debug_line   REL             00000000 000618 000008 08     22  20  4
-  [22] .symtab           SYMTAB          00000000 0003f0 000170 10      1  21  4
-Key to Flags:
-  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
-  L (link order), O (extra OS processing required), G (group), T (TLS),
-  C (compressed), x (unknown), o (OS specific), E (exclude),
-  y (purecode), p (processor specific)
-
-There are no section groups in this file.
-
-There are no program headers in this file.
-
-There is no dynamic section in this file.
-
-Relocation section '.rel.text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E' at offset 0x560 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000014  0000150a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
-
-Relocation section '.rel.ARM.exidx.text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E' at offset 0x568 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000102a R_ARM_PREL31           00000000   .text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-
-Relocation section '.rel.debug_info' at offset 0x570 contains 17 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00001102 R_ARM_ABS32            00000000   .debug_abbrev
-0000000c  00000302 R_ARM_ABS32            00000000   
-00000012  00000402 R_ARM_ABS32            00000041   
-00000016  00001402 R_ARM_ABS32            00000000   .debug_line
-0000001a  00000502 R_ARM_ABS32            0000004c   
-0000001e  00001002 R_ARM_ABS32            00000000   .text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-00000027  00000602 R_ARM_ABS32            0000007c   
-0000002c  00000b02 R_ARM_ABS32            000000a3   
-00000033  00000702 R_ARM_ABS32            00000086   
-0000003e  00001002 R_ARM_ABS32            00000000   .text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-00000048  00000c02 R_ARM_ABS32            000000a8   
-0000004c  00000d02 R_ARM_ABS32            000000d6   
-0000005b  00000902 R_ARM_ABS32            000000e7   
-00000075  00000802 R_ARM_ABS32            0000008c   
-0000007c  00000a02 R_ARM_ABS32            0000008f   
-00000087  00000e02 R_ARM_ABS32            000000dd   
-00000090  00000202 R_ARM_ABS32            000000ec   
-
-Relocation section '.rel.debug_pubnames' at offset 0x5f8 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00001202 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_pubtypes' at offset 0x600 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00001202 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_frame' at offset 0x608 contains 2 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000018  00001302 R_ARM_ABS32            00000000   .debug_frame
-0000001c  00001002 R_ARM_ABS32            00000000   .text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-
-Relocation section '.rel.debug_line' at offset 0x618 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-0000008a  00001002 R_ARM_ABS32            00000000   .text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
-
-Unwind section '.ARM.exidx.text._ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E' at offset 0x58 contains 1 entry:
-
-0x0 <_ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E>: 0x1 [cantunwind]
-
-
-Symbol table '.symtab' contains 23 entries:
-   Num:    Value  Size Type    Bind   Vis      Ndx Name
-     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 4rbgthf0iiiywcr9
-     2: 000000ec     0 NOTYPE  LOCAL  DEFAULT    7 
-     3: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 
-     4: 00000041     0 NOTYPE  LOCAL  DEFAULT    7 
-     5: 0000004c     0 NOTYPE  LOCAL  DEFAULT    7 
-     6: 0000007c     0 NOTYPE  LOCAL  DEFAULT    7 
-     7: 00000086     0 NOTYPE  LOCAL  DEFAULT    7 
-     8: 0000008c     0 NOTYPE  LOCAL  DEFAULT    7 
-     9: 000000e7     0 NOTYPE  LOCAL  DEFAULT    7 
-    10: 0000008f     0 NOTYPE  LOCAL  DEFAULT    7 
-    11: 000000a3     0 NOTYPE  LOCAL  DEFAULT    7 
-    12: 000000a8     0 NOTYPE  LOCAL  DEFAULT    7 
-    13: 000000d6     0 NOTYPE  LOCAL  DEFAULT    7 
-    14: 000000dd     0 NOTYPE  LOCAL  DEFAULT    7 
-    15: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
-    16: 00000000     0 SECTION LOCAL  DEFAULT    3 
-    17: 00000000     0 SECTION LOCAL  DEFAULT    8 
-    18: 00000000     0 SECTION LOCAL  DEFAULT    9 
-    19: 00000000     0 SECTION LOCAL  DEFAULT   18 
-    20: 00000000     0 SECTION LOCAL  DEFAULT   20 
-    21: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
-    22: 00000001    34 FUNC    GLOBAL HIDDEN     3 _ZN9cstr_core4CStr6as_ptr17h45a320e0c342fa37E
+    97: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN9cstr_core4CStr8from_ptr17ha5d4992c233d069bE
+    98: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND device_get_name
+    99: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND get_temp_data
+   100: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND get_temp_raw_data
+   101: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor
+   102: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor_data
+   103: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND null_sensor
+   104: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_get_device
+   105: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_mgr_find_next_bydevname
+   106: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_register_listener
+   107: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND sensor_set_poll_rate_ms
 
 No version information found in this file.
 Attribute Section: aeabi
@@ -2272,383 +1465,6 @@ File Attributes
   Tag_CPU_unaligned_access: v6
   Tag_ABI_FP_16bit_format: IEEE 754
 
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.cedsy2cozi6z7y9.rcgu.o)
-ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
-  Class:                             ELF32
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  ABI Version:                       0
-  Type:                              REL (Relocatable file)
-  Machine:                           ARM
-  Version:                           0x1
-  Entry point address:               0x0
-  Start of program headers:          0 (bytes into file)
-  Start of section headers:          7932 (bytes into file)
-  Flags:                             0x5000000, Version5 EABI
-  Size of this header:               52 (bytes)
-  Size of program headers:           0 (bytes)
-  Number of program headers:         0
-  Size of section headers:           40 (bytes)
-  Number of section headers:         31
-  Section header string table index: 1
-
-Section Headers:
-  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
-  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 001c8c 00026d 00      0   0  1
-  [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
-  [ 3] .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E PROGBITS        00000000 000034 000034 00  AX  0   0  2
-  [ 4] .rel.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E REL             00000000 00184c 000008 08     30   3  4
-  [ 5] .ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E ARM_EXIDX       00000000 000068 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E REL             00000000 001854 000008 08     30   5  4
-  [ 7] .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E PROGBITS        00000000 000070 000032 00  AX  0   0  2
-  [ 8] .ARM.exidx.text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E ARM_EXIDX       00000000 0000a4 000008 00  AL  7   0  4
-  [ 9] .rel.ARM.exidx.text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E REL             00000000 00185c 000008 08     30   8  4
-  [10] .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E PROGBITS        00000000 0000ac 000032 00  AX  0   0  2
-  [11] .ARM.exidx.text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E ARM_EXIDX       00000000 0000e0 000008 00  AL 10   0  4
-  [12] .rel.ARM.exidx.text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E REL             00000000 001864 000008 08     30  11  4
-  [13] .debug_str        PROGBITS        00000000 0000e8 000574 01  MS  0   0  1
-  [14] .debug_abbrev     PROGBITS        00000000 00065c 0000fe 00      0   0  1
-  [15] .debug_info       PROGBITS        00000000 00075a 000475 00      0   0  1
-  [16] .rel.debug_info   REL             00000000 00186c 000398 08     30  15  4
-  [17] .debug_ranges     PROGBITS        00000000 000bcf 000020 00      0   0  1
-  [18] .rel.debug_ranges REL             00000000 001c04 000030 08     30  17  4
-  [19] .debug_macinfo    PROGBITS        00000000 000bef 000001 00      0   0  1
-  [20] .debug_pubnames   PROGBITS        00000000 000bf0 0000d1 00      0   0  1
-  [21] .rel.debug_pubnames REL             00000000 001c34 000008 08     30  20  4
-  [22] .debug_pubtypes   PROGBITS        00000000 000cc1 00036a 00      0   0  1
-  [23] .rel.debug_pubtypes REL             00000000 001c3c 000008 08     30  22  4
-  [24] .note.GNU-stack   PROGBITS        00000000 00102b 000000 00      0   0  1
-  [25] .ARM.attributes   ARM_ATTRIBUTES  00000000 00102b 000032 00      0   0  1
-  [26] .debug_frame      PROGBITS        00000000 001060 000058 00      0   0  4
-  [27] .rel.debug_frame  REL             00000000 001c44 000030 08     30  26  4
-  [28] .debug_line       PROGBITS        00000000 0010b8 0000e3 00      0   0  1
-  [29] .rel.debug_line   REL             00000000 001c74 000018 08     30  28  4
-  [30] .symtab           SYMTAB          00000000 00119c 0006b0 10      1 103  4
-Key to Flags:
-  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
-  L (link order), O (extra OS processing required), G (group), T (TLS),
-  C (compressed), x (unknown), o (OS specific), E (exclude),
-  y (purecode), p (processor specific)
-
-There are no section groups in this file.
-
-There are no program headers in this file.
-
-There is no dynamic section in this file.
-
-Relocation section '.rel.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E' at offset 0x184c contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000022  0000670a R_ARM_THM_CALL         00000000   _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE
-
-Relocation section '.rel.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E' at offset 0x1854 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00005f2a R_ARM_PREL31           00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-
-Relocation section '.rel.ARM.exidx.text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E' at offset 0x185c contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000602a R_ARM_PREL31           00000000   .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-
-Relocation section '.rel.ARM.exidx.text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E' at offset 0x1864 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000612a R_ARM_PREL31           00000000   .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-
-Relocation section '.rel.debug_info' at offset 0x186c contains 115 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00006202 R_ARM_ABS32            00000000   .debug_abbrev
-0000000c  00000e02 R_ARM_ABS32            00000000   
-00000012  00000f02 R_ARM_ABS32            00000041   
-00000016  00006602 R_ARM_ABS32            00000000   .debug_line
-0000001a  00001002 R_ARM_ABS32            0000004c   
-00000022  00006402 R_ARM_ABS32            00000000   .debug_ranges
-00000027  00001102 R_ARM_ABS32            0000007c   
-0000002c  00001202 R_ARM_ABS32            00000081   
-00000035  00001602 R_ARM_ABS32            00000092   
-0000003c  00001402 R_ARM_ABS32            0000008b   
-00000042  00001502 R_ARM_ABS32            0000008e   
-0000004a  00001702 R_ARM_ABS32            00000099   
-0000004f  00001802 R_ARM_ABS32            0000009d   
-00000054  00001902 R_ARM_ABS32            000000a0   
-0000005d  00001e02 R_ARM_ABS32            000000bd   
-00000064  00001a02 R_ARM_ABS32            000000a3   
-0000006a  00001b02 R_ARM_ABS32            000000a8   
-00000070  00001c02 R_ARM_ABS32            000000ae   
-00000076  00001d02 R_ARM_ABS32            000000b5   
-0000007f  00001f02 R_ARM_ABS32            000000c7   
-00000084  00005f02 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-0000008e  00005302 R_ARM_ABS32            00000331   
-00000092  00000202 R_ARM_ABS32            0000037b   
-000000a1  00000702 R_ARM_ABS32            00000481   
-000000af  00000902 R_ARM_ABS32            0000048c   
-000000be  00002e02 R_ARM_ABS32            0000014b   
-000000c5  00005102 R_ARM_ABS32            00000323   
-000000cc  00002002 R_ARM_ABS32            000000d0   
-000000d7  00003202 R_ARM_ABS32            0000017c   
-000000e2  00006002 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-000000ec  00005a02 R_ARM_ABS32            000003e0   
-000000f0  00005b02 R_ARM_ABS32            00000411   
-000000ff  00000a02 R_ARM_ABS32            0000048e   
-0000010d  00000902 R_ARM_ABS32            0000048c   
-0000011c  00002e02 R_ARM_ABS32            0000014b   
-00000122  00006102 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-0000012c  00000502 R_ARM_ABS32            00000446   
-00000130  00000602 R_ARM_ABS32            00000477   
-0000013f  00000a02 R_ARM_ABS32            0000048e   
-0000014d  00000902 R_ARM_ABS32            0000048c   
-0000015c  00002e02 R_ARM_ABS32            0000014b   
-00000163  00003002 R_ARM_ABS32            00000166   
-0000016a  00002102 R_ARM_ABS32            000000d6   
-00000175  00002302 R_ARM_ABS32            000000df   
-00000181  00004e02 R_ARM_ABS32            000002a1   
-00000188  00003302 R_ARM_ABS32            00000186   
-00000193  00003502 R_ARM_ABS32            00000190   
-0000019e  00003702 R_ARM_ABS32            0000019a   
-000001a9  00003802 R_ARM_ABS32            000001a0   
-000001b4  00003e02 R_ARM_ABS32            000001c9   
-000001bf  00003f02 R_ARM_ABS32            000001d3   
-000001ca  00004102 R_ARM_ABS32            000001e2   
-000001d5  00004a02 R_ARM_ABS32            00000273   
-000001e1  00004002 R_ARM_ABS32            000001d7   
-000001e8  00002702 R_ARM_ABS32            00000102   
-000001f3  00002902 R_ARM_ABS32            00000112   
-00000200  00002402 R_ARM_ABS32            000000ee   
-00000205  00002f02 R_ARM_ABS32            0000014d   
-00000210  00002e02 R_ARM_ABS32            0000014b   
-00000216  00004802 R_ARM_ABS32            00000233   
-00000221  00002e02 R_ARM_ABS32            0000014b   
-00000228  00002502 R_ARM_ABS32            000000f5   
-0000022d  00002602 R_ARM_ABS32            000000f9   
-00000232  00002d02 R_ARM_ABS32            0000013f   
-00000239  00002702 R_ARM_ABS32            00000102   
-00000244  00002902 R_ARM_ABS32            00000112   
-00000252  00003902 R_ARM_ABS32            000001a6   
-00000257  00003d02 R_ARM_ABS32            000001bb   
-0000026c  00003a02 R_ARM_ABS32            000001ad   
-0000027a  00003b02 R_ARM_ABS32            000001b2   
-00000287  00003a02 R_ARM_ABS32            000001ad   
-00000292  00002e02 R_ARM_ABS32            0000014b   
-00000298  00003b02 R_ARM_ABS32            000001b2   
-0000029f  00003c02 R_ARM_ABS32            000001b7   
-000002ae  00002e02 R_ARM_ABS32            0000014b   
-000002b6  00004202 R_ARM_ABS32            000001e9   
-000002bb  00004902 R_ARM_ABS32            00000257   
-000002c2  00004302 R_ARM_ABS32            000001ef   
-000002cd  00004502 R_ARM_ABS32            00000210   
-000002d8  00004602 R_ARM_ABS32            00000214   
-000002e7  00002e02 R_ARM_ABS32            0000014b   
-000002ef  00001302 R_ARM_ABS32            00000088   
-000002fa  00003102 R_ARM_ABS32            0000016b   
-000002ff  00002202 R_ARM_ABS32            000000dc   
-0000030a  00002802 R_ARM_ABS32            0000010a   
-00000313  00002c02 R_ARM_ABS32            00000133   
-00000325  00002a02 R_ARM_ABS32            00000119   
-0000032c  00002b02 R_ARM_ABS32            0000011f   
-00000337  00005002 R_ARM_ABS32            000002c5   
-00000350  00004f02 R_ARM_ABS32            000002ab   
-00000355  00003402 R_ARM_ABS32            0000018c   
-0000035c  00003602 R_ARM_ABS32            00000195   
-00000367  00004402 R_ARM_ABS32            000001f3   
-00000370  00004702 R_ARM_ABS32            0000021c   
-00000375  00004d02 R_ARM_ABS32            00000288   
-0000037c  00004b02 R_ARM_ABS32            00000278   
-00000387  00004c02 R_ARM_ABS32            00000281   
-0000039f  00005202 R_ARM_ABS32            0000032e   
-000003a6  00005402 R_ARM_ABS32            00000384   
-000003ab  00005902 R_ARM_ABS32            000003ca   
-000003b2  00005502 R_ARM_ABS32            0000038e   
-000003be  00005802 R_ARM_ABS32            000003b0   
-000003d3  00005602 R_ARM_ABS32            00000393   
-000003e1  00005702 R_ARM_ABS32            0000039f   
-000003ee  00005602 R_ARM_ABS32            00000393   
-000003f5  00003c02 R_ARM_ABS32            000001b7   
-00000401  00005702 R_ARM_ABS32            0000039f   
-0000040a  00000402 R_ARM_ABS32            00000441   
-00000411  00004b02 R_ARM_ABS32            00000278   
-0000041c  00004c02 R_ARM_ABS32            00000281   
-0000042c  00000302 R_ARM_ABS32            00000437   
-00000435  00000802 R_ARM_ABS32            00000486   
-0000043e  00000b02 R_ARM_ABS32            00000490   
-00000447  00000c02 R_ARM_ABS32            000004b2   
-00000460  00000d02 R_ARM_ABS32            00000521   
-
-Relocation section '.rel.debug_ranges' at offset 0x1c04 contains 6 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  00005f02 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-00000004  00005f02 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-00000008  00006002 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-0000000c  00006002 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-00000010  00006102 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-00000014  00006102 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-
-Relocation section '.rel.debug_pubnames' at offset 0x1c34 contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00006302 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_pubtypes' at offset 0x1c3c contains 1 entry:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  00006302 R_ARM_ABS32            00000000   .debug_info
-
-Relocation section '.rel.debug_frame' at offset 0x1c44 contains 6 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000018  00006502 R_ARM_ABS32            00000000   .debug_frame
-0000001c  00005f02 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-00000034  00006502 R_ARM_ABS32            00000000   .debug_frame
-00000038  00006002 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-00000048  00006502 R_ARM_ABS32            00000000   .debug_frame
-0000004c  00006102 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-
-Relocation section '.rel.debug_line' at offset 0x1c74 contains 3 entries:
- Offset     Info    Type                Sym. Value  Symbol's Name
-00000079  00005f02 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-00000098  00006002 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-000000bf  00006102 R_ARM_ABS32            00000000   .text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-
-Unwind section '.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E' at offset 0x68 contains 1 entry:
-
-0x0: 0x1 [cantunwind]
-
-
-Unwind section '.ARM.exidx.text._ZN4core3fmt10ArgumentV13new17h821424890ffbea49E' at offset 0xa4 contains 1 entry:
-
-0x0 <_ZN4core3fmt10ArgumentV13new17h821424890ffbea49E>: 0x1 [cantunwind]
-
-
-Unwind section '.ARM.exidx.text._ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E' at offset 0xe0 contains 1 entry:
-
-0x0 <_ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E>: 0x1 [cantunwind]
-
-
-Symbol table '.symtab' contains 107 entries:
-   Num:    Value  Size Type    Bind   Vis      Ndx Name
-     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS cedsy2cozi6z7y9
-     2: 0000037b     0 NOTYPE  LOCAL  DEFAULT   13 
-     3: 00000437     0 NOTYPE  LOCAL  DEFAULT   13 
-     4: 00000441     0 NOTYPE  LOCAL  DEFAULT   13 
-     5: 00000446     0 NOTYPE  LOCAL  DEFAULT   13 
-     6: 00000477     0 NOTYPE  LOCAL  DEFAULT   13 
-     7: 00000481     0 NOTYPE  LOCAL  DEFAULT   13 
-     8: 00000486     0 NOTYPE  LOCAL  DEFAULT   13 
-     9: 0000048c     0 NOTYPE  LOCAL  DEFAULT   13 
-    10: 0000048e     0 NOTYPE  LOCAL  DEFAULT   13 
-    11: 00000490     0 NOTYPE  LOCAL  DEFAULT   13 
-    12: 000004b2     0 NOTYPE  LOCAL  DEFAULT   13 
-    13: 00000521     0 NOTYPE  LOCAL  DEFAULT   13 
-    14: 00000000     0 NOTYPE  LOCAL  DEFAULT   13 
-    15: 00000041     0 NOTYPE  LOCAL  DEFAULT   13 
-    16: 0000004c     0 NOTYPE  LOCAL  DEFAULT   13 
-    17: 0000007c     0 NOTYPE  LOCAL  DEFAULT   13 
-    18: 00000081     0 NOTYPE  LOCAL  DEFAULT   13 
-    19: 00000088     0 NOTYPE  LOCAL  DEFAULT   13 
-    20: 0000008b     0 NOTYPE  LOCAL  DEFAULT   13 
-    21: 0000008e     0 NOTYPE  LOCAL  DEFAULT   13 
-    22: 00000092     0 NOTYPE  LOCAL  DEFAULT   13 
-    23: 00000099     0 NOTYPE  LOCAL  DEFAULT   13 
-    24: 0000009d     0 NOTYPE  LOCAL  DEFAULT   13 
-    25: 000000a0     0 NOTYPE  LOCAL  DEFAULT   13 
-    26: 000000a3     0 NOTYPE  LOCAL  DEFAULT   13 
-    27: 000000a8     0 NOTYPE  LOCAL  DEFAULT   13 
-    28: 000000ae     0 NOTYPE  LOCAL  DEFAULT   13 
-    29: 000000b5     0 NOTYPE  LOCAL  DEFAULT   13 
-    30: 000000bd     0 NOTYPE  LOCAL  DEFAULT   13 
-    31: 000000c7     0 NOTYPE  LOCAL  DEFAULT   13 
-    32: 000000d0     0 NOTYPE  LOCAL  DEFAULT   13 
-    33: 000000d6     0 NOTYPE  LOCAL  DEFAULT   13 
-    34: 000000dc     0 NOTYPE  LOCAL  DEFAULT   13 
-    35: 000000df     0 NOTYPE  LOCAL  DEFAULT   13 
-    36: 000000ee     0 NOTYPE  LOCAL  DEFAULT   13 
-    37: 000000f5     0 NOTYPE  LOCAL  DEFAULT   13 
-    38: 000000f9     0 NOTYPE  LOCAL  DEFAULT   13 
-    39: 00000102     0 NOTYPE  LOCAL  DEFAULT   13 
-    40: 0000010a     0 NOTYPE  LOCAL  DEFAULT   13 
-    41: 00000112     0 NOTYPE  LOCAL  DEFAULT   13 
-    42: 00000119     0 NOTYPE  LOCAL  DEFAULT   13 
-    43: 0000011f     0 NOTYPE  LOCAL  DEFAULT   13 
-    44: 00000133     0 NOTYPE  LOCAL  DEFAULT   13 
-    45: 0000013f     0 NOTYPE  LOCAL  DEFAULT   13 
-    46: 0000014b     0 NOTYPE  LOCAL  DEFAULT   13 
-    47: 0000014d     0 NOTYPE  LOCAL  DEFAULT   13 
-    48: 00000166     0 NOTYPE  LOCAL  DEFAULT   13 
-    49: 0000016b     0 NOTYPE  LOCAL  DEFAULT   13 
-    50: 0000017c     0 NOTYPE  LOCAL  DEFAULT   13 
-    51: 00000186     0 NOTYPE  LOCAL  DEFAULT   13 
-    52: 0000018c     0 NOTYPE  LOCAL  DEFAULT   13 
-    53: 00000190     0 NOTYPE  LOCAL  DEFAULT   13 
-    54: 00000195     0 NOTYPE  LOCAL  DEFAULT   13 
-    55: 0000019a     0 NOTYPE  LOCAL  DEFAULT   13 
-    56: 000001a0     0 NOTYPE  LOCAL  DEFAULT   13 
-    57: 000001a6     0 NOTYPE  LOCAL  DEFAULT   13 
-    58: 000001ad     0 NOTYPE  LOCAL  DEFAULT   13 
-    59: 000001b2     0 NOTYPE  LOCAL  DEFAULT   13 
-    60: 000001b7     0 NOTYPE  LOCAL  DEFAULT   13 
-    61: 000001bb     0 NOTYPE  LOCAL  DEFAULT   13 
-    62: 000001c9     0 NOTYPE  LOCAL  DEFAULT   13 
-    63: 000001d3     0 NOTYPE  LOCAL  DEFAULT   13 
-    64: 000001d7     0 NOTYPE  LOCAL  DEFAULT   13 
-    65: 000001e2     0 NOTYPE  LOCAL  DEFAULT   13 
-    66: 000001e9     0 NOTYPE  LOCAL  DEFAULT   13 
-    67: 000001ef     0 NOTYPE  LOCAL  DEFAULT   13 
-    68: 000001f3     0 NOTYPE  LOCAL  DEFAULT   13 
-    69: 00000210     0 NOTYPE  LOCAL  DEFAULT   13 
-    70: 00000214     0 NOTYPE  LOCAL  DEFAULT   13 
-    71: 0000021c     0 NOTYPE  LOCAL  DEFAULT   13 
-    72: 00000233     0 NOTYPE  LOCAL  DEFAULT   13 
-    73: 00000257     0 NOTYPE  LOCAL  DEFAULT   13 
-    74: 00000273     0 NOTYPE  LOCAL  DEFAULT   13 
-    75: 00000278     0 NOTYPE  LOCAL  DEFAULT   13 
-    76: 00000281     0 NOTYPE  LOCAL  DEFAULT   13 
-    77: 00000288     0 NOTYPE  LOCAL  DEFAULT   13 
-    78: 000002a1     0 NOTYPE  LOCAL  DEFAULT   13 
-    79: 000002ab     0 NOTYPE  LOCAL  DEFAULT   13 
-    80: 000002c5     0 NOTYPE  LOCAL  DEFAULT   13 
-    81: 00000323     0 NOTYPE  LOCAL  DEFAULT   13 
-    82: 0000032e     0 NOTYPE  LOCAL  DEFAULT   13 
-    83: 00000331     0 NOTYPE  LOCAL  DEFAULT   13 
-    84: 00000384     0 NOTYPE  LOCAL  DEFAULT   13 
-    85: 0000038e     0 NOTYPE  LOCAL  DEFAULT   13 
-    86: 00000393     0 NOTYPE  LOCAL  DEFAULT   13 
-    87: 0000039f     0 NOTYPE  LOCAL  DEFAULT   13 
-    88: 000003b0     0 NOTYPE  LOCAL  DEFAULT   13 
-    89: 000003ca     0 NOTYPE  LOCAL  DEFAULT   13 
-    90: 000003e0     0 NOTYPE  LOCAL  DEFAULT   13 
-    91: 00000411     0 NOTYPE  LOCAL  DEFAULT   13 
-    92: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
-    93: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
-    94: 00000000     0 NOTYPE  LOCAL  DEFAULT   10 $t.2
-    95: 00000000     0 SECTION LOCAL  DEFAULT    3 
-    96: 00000000     0 SECTION LOCAL  DEFAULT    7 
-    97: 00000000     0 SECTION LOCAL  DEFAULT   10 
-    98: 00000000     0 SECTION LOCAL  DEFAULT   14 
-    99: 00000000     0 SECTION LOCAL  DEFAULT   15 
-   100: 00000000     0 SECTION LOCAL  DEFAULT   17 
-   101: 00000000     0 SECTION LOCAL  DEFAULT   26 
-   102: 00000000     0 SECTION LOCAL  DEFAULT   28 
-   103: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE
-   104: 00000001    52 FUNC    GLOBAL DEFAULT    3 _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h5ae69f23802c6b24E
-   105: 00000001    50 FUNC    GLOBAL DEFAULT    7 _ZN4core3fmt10ArgumentV13new17h821424890ffbea49E
-   106: 00000001    50 FUNC    GLOBAL DEFAULT   10 _ZN4core3fmt10ArgumentV13new17hd1cbdb343c272a01E
-
-No version information found in this file.
-Attribute Section: aeabi
-File Attributes
-  Tag_conformance: "2.09"
-  Tag_CPU_arch: v7
-  Tag_CPU_arch_profile: Microcontroller
-  Tag_ARM_ISA_use: No
-  Tag_THUMB_ISA_use: Thumb-2
-  Tag_ABI_PCS_R9_use: V6
-  Tag_ABI_PCS_GOT_use: direct
-  Tag_ABI_FP_denormal: Needed
-  Tag_ABI_FP_exceptions: Needed
-  Tag_ABI_FP_number_model: IEEE 754
-  Tag_ABI_align_needed: 8-byte
-  Tag_ABI_align_preserved: 8-byte, except leaf SP
-  Tag_ABI_optimization_goals: Prefer Debug
-  Tag_CPU_unaligned_access: v6
-  Tag_ABI_FP_16bit_format: IEEE 754
-
 File: target/thumbv7m-none-eabi/debug/libmylib.rlib(rust.metadata.bin)
 readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
 
@@ -2658,20 +1474,8 @@ readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
 File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.2bwhitp1kuocnn5l.rcgu.bc.z)
 readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
 
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.3c1f576kwx5k1d0.rcgu.bc.z)
-readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
-
 File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.3k67uemb1cshb4cs.rcgu.bc.z)
 readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
 
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.3ksiz0oe1f34lits.rcgu.bc.z)
-readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
-
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.4rbgthf0iiiywcr9.rcgu.bc.z)
-readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
-
 File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.509tcgk6983yrx6c.rcgu.bc.z)
-readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
-
-File: target/thumbv7m-none-eabi/debug/libmylib.rlib(mylib-50794855a3f9698d.cedsy2cozi6z7y9.rcgu.bc.z)
 readelf: Error: Not an ELF file - it has the wrong magic bytes at the start

@@ -83,7 +83,16 @@ copy libcore*.rlib from
 to
 libs/rust_libcore/src
 
+-----
+
 ```
+
+# panic_immediate_abort
+
+To remote core::fmt for panic:
+
+https://github.com/rust-lang/rust/blob/master/src/libcore/panicking.rs
+
 
 # Contents
 

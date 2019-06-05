@@ -10,6 +10,7 @@ cty = "0.2.0"
 cstr_core = "0.1.2"
 # Reduces the ROM size. See https://github.com/BurntSushi/rust-memchr
 memchr = { version = "2", default-features = false }
+#std = { default-features=false, features=["panic_immediate_abort"] }
 
 [lib]
 name = "mylib"

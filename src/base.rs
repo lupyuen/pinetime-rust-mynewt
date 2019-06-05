@@ -79,17 +79,13 @@ extern {
 
 //  Must sync with apps/my_sensor_app/src/listen_sensor.h
 pub fn SENSOR_DEVICE() -> *const u8 { TEMP_STM32_DEVICE() }  //  We will open internal temperature sensor "temp_stm32_0"
-pub fn TEMP_STM32_DEVICE() -> *const u8 { CStr::from_bytes_with_nul(
-    b"temp_stm32_0\0"
-    ).unwrap().as_ptr() }
+pub fn TEMP_STM32_DEVICE() -> *const u8 { b"temp_stm32_0\0".as_ptr() }
 
 //  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
 //  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...
 pub const TEMP_SENSOR_TYPE: i32       = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;  //  Set to raw sensor type
 pub const TEMP_SENSOR_VALUE_TYPE: i32 = SENSOR_VALUE_TYPE_INT32;         //  Return integer sensor values
-pub fn TEMP_SENSOR_KEY() -> *const u8 { CStr::from_bytes_with_nul(
-    b"t\0"  //  Use key (field name) "t" to transmit raw temperature to CoAP Server or Collector Node
-    ).unwrap().as_ptr() }
+pub fn TEMP_SENSOR_KEY() -> *const u8 { b"t\0".as_ptr() }  //  Use key (field name) "t" to transmit raw temperature to CoAP Server or Collector Node
 
 //  #else                                                          //  If we are returning computed temperature (floating-point)...
 //  pub const TEMP_SENSOR_TYPE       SENSOR_TYPE_AMBIENT_TEMPERATURE //  Set to floating-point sensor type
@@ -194,10 +190,8 @@ pub const SYS_EDONE       : i32 = -15;
 pub const SYS_EPERUSER : i32 = -65535;
 
 pub fn console_print(msg: &[u8]) {
-    //  TODO
-    /*
-    let buf = CStr::from_bytes_with_nul(msg);
-    let len = buf.len();
-    console_buffer(buf.as_ptr(), len as u32);
-    */
+    let len = msg.len();
+    unsafe {
+        console_buffer(msg.as_ptr(), len as u32);
+    }
 }
