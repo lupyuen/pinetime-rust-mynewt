@@ -252,8 +252,8 @@ pub fn console_print(msg: &[u8]) {
         console_flush(); ////
   32:	f7ff fffe 	bl	0 <console_flush>
   36:	e7ff      	b.n	38 <_ZN5mylib4base13console_print17h7239bde54deb9f31E+0x38>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:1
-#![no_std]          //  Don't link with standard Rust library
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:198
+    }
   38:	b006      	add	sp, #24
   3a:	bd80      	pop	{r7, pc}
 

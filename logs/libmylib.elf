@@ -238,7 +238,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          3960 (bytes into file)
+  Start of section headers:          3952 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -250,44 +250,44 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 000b64 000413 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 000b5c 000413 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E PROGBITS        00000000 000034 000012 00  AX  0   0  2
-  [ 4] .rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 000954 000008 08     38   3  4
+  [ 4] .rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 00094c 000008 08     38   3  4
   [ 5] .ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E ARM_EXIDX       00000000 000048 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 00095c 000008 08     38   5  4
+  [ 6] .rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E REL             00000000 000954 000008 08     38   5  4
   [ 7] .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE PROGBITS        00000000 000050 00001c 00  AX  0   0  2
-  [ 8] .rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 000964 000018 08     38   7  4
+  [ 8] .rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 00095c 000018 08     38   7  4
   [ 9] .ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE ARM_EXIDX       00000000 00006c 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 00097c 000008 08     38   9  4
+  [10] .rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE REL             00000000 000974 000008 08     38   9  4
   [11] .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E PROGBITS        00000000 000074 00001c 00  AX  0   0  2
-  [12] .rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 000984 000018 08     38  11  4
+  [12] .rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 00097c 000018 08     38  11  4
   [13] .ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E ARM_EXIDX       00000000 000090 000008 00  AL 11   0  4
-  [14] .rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 00099c 000008 08     38  13  4
+  [14] .rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E REL             00000000 000994 000008 08     38  13  4
   [15] .text._ZN5mylib4base13console_print17h7239bde54deb9f31E PROGBITS        00000000 000098 00003c 00  AX  0   0  2
-  [16] .rel.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 0009a4 000020 08     38  15  4
+  [16] .rel.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 00099c 000020 08     38  15  4
   [17] .ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E ARM_EXIDX       00000000 0000d4 000008 00  AL 15   0  4
-  [18] .rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 0009c4 000008 08     38  17  4
+  [18] .rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E REL             00000000 0009bc 000008 08     38  17  4
   [19] .rodata..Lanon.3c7544aca6e1f15c8854b110a4791f88.0 PROGBITS        00000000 0000dc 00000d 00   A  0   0  1
   [20] .rodata..Lanon.3c7544aca6e1f15c8854b110a4791f88.1 PROGBITS        00000000 0000e9 000002 00   A  0   0  1
   [21] .debug_str        PROGBITS        00000000 0000eb 0001c4 01  MS  0   0  1
   [22] .debug_abbrev     PROGBITS        00000000 0002af 00009b 00      0   0  1
   [23] .debug_info       PROGBITS        00000000 00034a 0000ef 00      0   0  1
-  [24] .rel.debug_info   REL             00000000 0009cc 0000e8 08     38  23  4
+  [24] .rel.debug_info   REL             00000000 0009c4 0000e8 08     38  23  4
   [25] .debug_ranges     PROGBITS        00000000 000439 000028 00      0   0  1
-  [26] .rel.debug_ranges REL             00000000 000ab4 000040 08     38  25  4
+  [26] .rel.debug_ranges REL             00000000 000aac 000040 08     38  25  4
   [27] .debug_macinfo    PROGBITS        00000000 000461 000001 00      0   0  1
   [28] .debug_pubnames   PROGBITS        00000000 000462 000073 00      0   0  1
-  [29] .rel.debug_pubnames REL             00000000 000af4 000008 08     38  28  4
+  [29] .rel.debug_pubnames REL             00000000 000aec 000008 08     38  28  4
   [30] .debug_pubtypes   PROGBITS        00000000 0004d5 00003b 00      0   0  1
-  [31] .rel.debug_pubtypes REL             00000000 000afc 000008 08     38  30  4
+  [31] .rel.debug_pubtypes REL             00000000 000af4 000008 08     38  30  4
   [32] .note.GNU-stack   PROGBITS        00000000 000510 000000 00      0   0  1
   [33] .ARM.attributes   ARM_ATTRIBUTES  00000000 000510 000032 00      0   0  1
   [34] .debug_frame      PROGBITS        00000000 000544 000084 00      0   0  4
-  [35] .rel.debug_frame  REL             00000000 000b04 000040 08     38  34  4
-  [36] .debug_line       PROGBITS        00000000 0005c8 0000a9 00      0   0  1
-  [37] .rel.debug_line   REL             00000000 000b44 000020 08     38  36  4
-  [38] .symtab           SYMTAB          00000000 000674 0002e0 10      1  39  4
+  [35] .rel.debug_frame  REL             00000000 000afc 000040 08     38  34  4
+  [36] .debug_line       PROGBITS        00000000 0005c8 0000a4 00      0   0  1
+  [37] .rel.debug_line   REL             00000000 000b3c 000020 08     38  36  4
+  [38] .symtab           SYMTAB          00000000 00066c 0002e0 10      1  39  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -300,46 +300,46 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x954 contains 1 entry:
+Relocation section '.rel.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x94c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00001d0a R_ARM_THM_CALL         00000001   _ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x95c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E' at offset 0x954 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00001e2a R_ARM_PREL31           00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
 
-Relocation section '.rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x964 contains 3 entries:
+Relocation section '.rel.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x95c contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00001b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
 00000008  00001b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.0
 0000000e  0000280a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x97c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE' at offset 0x974 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00001f2a R_ARM_PREL31           00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
 
-Relocation section '.rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x984 contains 3 entries:
+Relocation section '.rel.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x97c contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00001c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
 00000008  00001c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3c7544aca6e1f15c8854b110a4791f88.1
 0000000e  0000280a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x99c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E' at offset 0x994 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0000202a R_ARM_PREL31           00000000   .text._ZN5mylib4base15TEMP_SENSOR_KEY17h0450714b2dc58f00E
 
-Relocation section '.rel.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x9a4 contains 4 entries:
+Relocation section '.rel.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x99c contains 4 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000014  0000270a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h63f985867d9f263fE
 00000020  0000280a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hd0263209417be61aE
 0000002c  00002c0a R_ARM_THM_CALL         00000000   console_buffer
 00000032  00002d0a R_ARM_THM_CALL         00000000   console_flush
 
-Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x9c4 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN5mylib4base13console_print17h7239bde54deb9f31E' at offset 0x9bc contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0000212a R_ARM_PREL31           00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 
-Relocation section '.rel.debug_info' at offset 0x9cc contains 29 entries:
+Relocation section '.rel.debug_info' at offset 0x9c4 contains 29 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00002202 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00000d02 R_ARM_ABS32            00000000   
@@ -371,7 +371,7 @@ Relocation section '.rel.debug_info' at offset 0x9cc contains 29 entries:
 000000dc  00000902 R_ARM_ABS32            000001ad   
 000000e8  00000c02 R_ARM_ABS32            000001b4   
 
-Relocation section '.rel.debug_ranges' at offset 0xab4 contains 8 entries:
+Relocation section '.rel.debug_ranges' at offset 0xaac contains 8 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
 00000004  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
@@ -382,15 +382,15 @@ Relocation section '.rel.debug_ranges' at offset 0xab4 contains 8 entries:
 00000018  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 0000001c  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 
-Relocation section '.rel.debug_pubnames' at offset 0xaf4 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0xaec contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00002302 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0xafc contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0xaf4 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00002302 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0xb04 contains 8 entries:
+Relocation section '.rel.debug_frame' at offset 0xafc contains 8 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00002502 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
@@ -401,7 +401,7 @@ Relocation section '.rel.debug_frame' at offset 0xb04 contains 8 entries:
 0000006c  00002502 R_ARM_ABS32            00000000   .debug_frame
 00000070  00002102 R_ARM_ABS32            00000000   .text._ZN5mylib4base13console_print17h7239bde54deb9f31E
 
-Relocation section '.rel.debug_line' at offset 0xb44 contains 4 entries:
+Relocation section '.rel.debug_line' at offset 0xb3c contains 4 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000003a  00001e02 R_ARM_ABS32            00000000   .text._ZN5mylib4base13SENSOR_DEVICE17hbdc0eeffd5237ae2E
 00000052  00001f02 R_ARM_ABS32            00000000   .text._ZN5mylib4base17TEMP_STM32_DEVICE17h8b7032cac622da1eE
