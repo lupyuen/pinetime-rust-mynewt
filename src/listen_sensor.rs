@@ -7,6 +7,14 @@ const SENSOR_POLL_TIME: u32  = (10 * 1000);  //  Poll every 10,000 milliseconds 
 const LISTENER_CB: SensorArg = 1;            //  Indicate that this is a listener callback
 const READ_CB: SensorArg     = 2;            //  Indicate that this is a sensor read callback
 
+//  Define the listener function to be called after polling the temperature sensor.
+static mut LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
+    sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
+    sl_func       : read_temperature,      //  Listener function to be called with the sensor data
+    sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
+    sl_next       : 0,
+};
+
 /////////////////////////////////////////////////////////
 //  Listen To Local Sensor
 
@@ -24,14 +32,6 @@ pub fn start_sensor_listener() -> i32 {
         //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
         console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
-        //  Define the listener function to be called after polling the temperature sensor.
-        let listener = SensorListener {
-            sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
-            sl_func       : read_temperature,      //  Listener function to be called with the sensor data
-            sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
-            sl_next       : 0,
-        };
-
         //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
         let rc = sensor_set_poll_rate_ms(SENSOR_DEVICE(), SENSOR_POLL_TIME);
         assert!(rc == 0);
@@ -41,7 +41,7 @@ pub fn start_sensor_listener() -> i32 {
         assert!(!is_null_sensor(listen_sensor));
 
         //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-        let rc = sensor_register_listener(listen_sensor, &listener);
+        let rc = sensor_register_listener(listen_sensor, &LISTENER);
         assert!(rc == 0);
     }
     0
@@ -62,6 +62,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
     //  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
     //  Return 0 if we have processed the sensor data successfully.
     unsafe {
+        console_print(b"read_temperature\n");
         //  Check that the temperature data is valid.
         //  TODO
         if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
