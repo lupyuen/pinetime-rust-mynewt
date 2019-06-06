@@ -119,8 +119,8 @@ Disassembly of section .text._ZN5mylib13listen_sensor21start_sensor_listener17hf
 
 00000000 <_ZN5mylib13listen_sensor21start_sensor_listener17hfc870be3f3518a85E>:
 _ZN5mylib13listen_sensor21start_sensor_listener17hfc870be3f3518a85E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:22
-
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:21
+};
 
 /////////////////////////////////////////////////////////
 //  Listen To Local Sensor
@@ -128,7 +128,7 @@ _ZN5mylib13listen_sensor21start_sensor_listener17hfc870be3f3518a85E():
 pub fn start_sensor_listener() -> i32 {
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:34
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:33
         /* if (is_collector_node()) {                    //  If this is a Collector Node...
             return start_remote_sensor_listeners();   //  Start the Listener for every Remote Sensor.
         } */
@@ -140,7 +140,7 @@ pub fn start_sensor_listener() -> i32 {
    c:	210a      	movs	r1, #10
    e:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h4cf9cc516f96f871E>
   12:	e7ff      	b.n	2 <_ZN5mylib4base13SENSOR_DEVICE17h98f99a5c4336ac0cE+0x2>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:37
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:36
 
         //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
         let rc = sensor_set_poll_rate_ms(SENSOR_DEVICE(), SENSOR_POLL_TIME);
@@ -152,7 +152,7 @@ pub fn start_sensor_listener() -> i32 {
   22:	f7ff fffe 	bl	0 <sensor_set_poll_rate_ms>
   26:	9005      	str	r0, [sp, #20]
   28:	e7ff      	b.n	2a <_ZN5mylib13listen_sensor21start_sensor_listener17hfc870be3f3518a85E+0x2a>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:38
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:37
         assert!(rc == 0);
   2a:	9805      	ldr	r0, [sp, #20]
   2c:	2800      	cmp	r0, #0
@@ -162,7 +162,7 @@ pub fn start_sensor_listener() -> i32 {
   36:	f2c0 0000 	movt	r0, #0
   3a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   3e:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:41
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:40
 
         //  Fetch the sensor by name, without locking the driver for exclusive access.
         let listen_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE(), null_sensor());
@@ -177,7 +177,7 @@ pub fn start_sensor_listener() -> i32 {
   54:	f7ff fffe 	bl	0 <sensor_mgr_find_next_bydevname>
   58:	9006      	str	r0, [sp, #24]
   5a:	e7ff      	b.n	5c <_ZN5mylib13listen_sensor21start_sensor_listener17hfc870be3f3518a85E+0x5c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:42
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:41
         assert!(!is_null_sensor(listen_sensor));
   5c:	9806      	ldr	r0, [sp, #24]
   5e:	f7ff fffe 	bl	0 <is_null_sensor>
@@ -192,7 +192,7 @@ pub fn start_sensor_listener() -> i32 {
   74:	f2c0 0000 	movt	r0, #0
   78:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   7c:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:45
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:44
 
         //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
         let rc = sensor_register_listener(listen_sensor, &LISTENER);
@@ -202,7 +202,7 @@ pub fn start_sensor_listener() -> i32 {
   88:	f7ff fffe 	bl	0 <sensor_register_listener>
   8c:	9007      	str	r0, [sp, #28]
   8e:	e7ff      	b.n	90 <_ZN5mylib13listen_sensor21start_sensor_listener17hfc870be3f3518a85E+0x90>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:46
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:45
         assert!(rc == 0);
   90:	9807      	ldr	r0, [sp, #28]
   92:	2800      	cmp	r0, #0
@@ -213,7 +213,7 @@ pub fn start_sensor_listener() -> i32 {
   a0:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   a4:	defe      	udf	#254	; 0xfe
   a6:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:49
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:48
     }
     0
 }
@@ -224,7 +224,7 @@ Disassembly of section .text._ZN5mylib13listen_sensor16read_temperature17hfd8de5
 
 00000000 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE>:
 _ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:59
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:58
 //  TODO
 
 /////////////////////////////////////////////////////////
@@ -243,7 +243,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   14:	9209      	str	r2, [sp, #36]	; 0x24
   16:	930b      	str	r3, [sp, #44]	; 0x2c
   18:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:66
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:65
     //  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through sensor_data.
     //  If this is a Sensor Node, we send the sensor data to the Collector Node.
     //  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
@@ -258,7 +258,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   2c:	9504      	str	r5, [sp, #16]
   2e:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h4cf9cc516f96f871E>
   32:	e7ff      	b.n	34 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x34>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:69
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:68
         //  Check that the temperature data is valid.
         //  TODO
         if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
@@ -274,13 +274,13 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   48:	f06f 0001 	mvn.w	r0, #1
   4c:	900c      	str	r0, [sp, #48]	; 0x30
   4e:	e004      	b.n	5a <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x5a>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:70
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:69
         assert!(!is_null_sensor(sensor));
   50:	9807      	ldr	r0, [sp, #28]
   52:	f7ff fffe 	bl	0 <is_null_sensor>
   56:	9002      	str	r0, [sp, #8]
   58:	e002      	b.n	60 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x60>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:101
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:100
         }
         assert!(rc == 0);
         //#endif  //  MYNEWT_VAL(SENSOR_COAP)
@@ -290,7 +290,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   5a:	980c      	ldr	r0, [sp, #48]	; 0x30
   5c:	b016      	add	sp, #88	; 0x58
   5e:	bdb0      	pop	{r4, r5, r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:70
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:69
         assert!(!is_null_sensor(sensor));
   60:	9802      	ldr	r0, [sp, #8]
   62:	07c1      	lsls	r1, r0, #31
@@ -301,19 +301,19 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   6e:	f2c0 0000 	movt	r0, #0
   72:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   76:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:74
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:73
         let device = sensor_get_device(sensor);
   78:	9807      	ldr	r0, [sp, #28]
   7a:	f7ff fffe 	bl	0 <sensor_get_device>
   7e:	900d      	str	r0, [sp, #52]	; 0x34
   80:	e7ff      	b.n	82 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x82>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:75
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:74
         let c_buf: *const c_char = device_get_name(device);
   82:	980d      	ldr	r0, [sp, #52]	; 0x34
   84:	f7ff fffe 	bl	0 <device_get_name>
   88:	900e      	str	r0, [sp, #56]	; 0x38
   8a:	e7ff      	b.n	8c <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x8c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:76
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:75
         let device_name: &CStr = CStr::from_ptr(c_buf);
   8c:	980e      	ldr	r0, [sp, #56]	; 0x38
   8e:	f7ff fffe 	bl	0 <_ZN9cstr_core4CStr8from_ptr17h8527c89e75313763E>
@@ -324,7 +324,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   9a:	900f      	str	r0, [sp, #60]	; 0x3c
   9c:	9900      	ldr	r1, [sp, #0]
   9e:	9110      	str	r1, [sp, #64]	; 0x40
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:80
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:79
         let temp_sensor_value = get_temperature(sensor_data, sensor_type);
   a0:	9909      	ldr	r1, [sp, #36]	; 0x24
   a2:	9a0a      	ldr	r2, [sp, #40]	; 0x28
@@ -332,7 +332,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   a6:	a811      	add	r0, sp, #68	; 0x44
   a8:	f7ff fffe 	bl	0 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE>
   ac:	e7ff      	b.n	ae <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0xae>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:81
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:80
         assert!(temp_sensor_value.val_type != 0);
   ae:	9812      	ldr	r0, [sp, #72]	; 0x48
   b0:	2800      	cmp	r0, #0
@@ -342,7 +342,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   ba:	f2c0 0000 	movt	r0, #0
   be:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   c2:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:82
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:81
         if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
   c4:	9812      	ldr	r0, [sp, #72]	; 0x48
   c6:	2800      	cmp	r0, #0
@@ -351,7 +351,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   cc:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
   d0:	900c      	str	r0, [sp, #48]	; 0x30
   d2:	e006      	b.n	e2 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0xe2>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:89
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:88
         let rc = send_sensor_data(&temp_sensor_value, device_name);
   d4:	990f      	ldr	r1, [sp, #60]	; 0x3c
   d6:	9a10      	ldr	r2, [sp, #64]	; 0x40
@@ -359,45 +359,45 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
   da:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap16send_sensor_data17h6fc3d2337e381536E>
   de:	9015      	str	r0, [sp, #84]	; 0x54
   e0:	e000      	b.n	e4 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0xe4>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:82
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:81
         if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
   e2:	e7ba      	b.n	5a <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x5a>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:93
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:92
         if rc == SYS_EAGAIN {
   e4:	9815      	ldr	r0, [sp, #84]	; 0x54
   e6:	3006      	adds	r0, #6
   e8:	2800      	cmp	r0, #0
   ea:	d108      	bne.n	fe <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0xfe>
   ec:	e7ff      	b.n	ee <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0xee>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:94
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:93
             console_print(b"TMP network not ready\n");
   ee:	f240 0000 	movw	r0, #0
   f2:	f2c0 0000 	movt	r0, #0
   f6:	2116      	movs	r1, #22
   f8:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h4cf9cc516f96f871E>
   fc:	e003      	b.n	106 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x106>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:97
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:96
         assert!(rc == 0);
   fe:	9815      	ldr	r0, [sp, #84]	; 0x54
  100:	2800      	cmp	r0, #0
  102:	d103      	bne.n	10c <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x10c>
  104:	e009      	b.n	11a <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x11a>
  106:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:95
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:94
             return 0; 
  108:	900c      	str	r0, [sp, #48]	; 0x30
  10a:	e7ea      	b.n	e2 <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0xe2>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:97
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:96
         assert!(rc == 0);
  10c:	f240 0000 	movw	r0, #0
  110:	f2c0 0000 	movt	r0, #0
  114:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
  118:	defe      	udf	#254	; 0xfe
  11a:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:100
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:99
     0
  11c:	900c      	str	r0, [sp, #48]	; 0x30
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:101
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:100
 }
  11e:	e79c      	b.n	5a <_ZN5mylib13listen_sensor16read_temperature17hfd8de5ce0258286cE+0x5a>
 
@@ -405,7 +405,7 @@ Disassembly of section .text._ZN5mylib13listen_sensor15get_temperature17hc17d0de
 
 00000000 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E>:
 _ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:103
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:102
 
 fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
    0:	b510      	push	{r4, lr}
@@ -416,7 +416,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
    a:	9107      	str	r1, [sp, #28]
    c:	9309      	str	r3, [sp, #36]	; 0x24
    e:	9208      	str	r2, [sp, #32]
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:108
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
     //  Get the temperature value, raw or computed.  sensor_data contains the raw or computed temperature. 
     //  type indicates whether sensor_data contains raw or computed temperature.  We return 
     //  the raw or computed temperature, as well as the key and value type.
@@ -434,7 +434,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   2a:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hc31f543c13b561c2E>
   2e:	9002      	str	r0, [sp, #8]
   30:	e7ff      	b.n	32 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0x32>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:106
     let mut return_value = SensorValue {
   32:	9802      	ldr	r0, [sp, #8]
   34:	900b      	str	r0, [sp, #44]	; 0x2c
@@ -442,7 +442,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   38:	910c      	str	r1, [sp, #48]	; 0x30
   3a:	f8ad 1034 	strh.w	r1, [sp, #52]	; 0x34
   3e:	910e      	str	r1, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:116
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
         float_val: 0.0,
     };
     unsafe {
@@ -457,12 +457,12 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   4c:	d138      	bne.n	c0 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xc0>
   4e:	e7ff      	b.n	50 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0x50>
   50:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:118
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:117
                 //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
                 let mut rawtempdata = SensorTempRawData {
   52:	900f      	str	r0, [sp, #60]	; 0x3c
   54:	f88d 0040 	strb.w	r0, [sp, #64]	; 0x40
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:121
                     strd_temp_raw: 0,
                     strd_temp_raw_is_valid: 0,
                 };
@@ -472,7 +472,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   5c:	f7ff fffe 	bl	0 <get_temp_raw_data>
   60:	9011      	str	r0, [sp, #68]	; 0x44
   62:	e7ff      	b.n	64 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0x64>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:123
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
                 assert!(rc == 0);
   64:	9811      	ldr	r0, [sp, #68]	; 0x44
   66:	2800      	cmp	r0, #0
@@ -482,7 +482,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   70:	f2c0 0000 	movt	r0, #0
   74:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   78:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:126
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:125
 
                 //  Check that the raw temperature data is valid.
                 if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
@@ -500,20 +500,20 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   98:	f8cc 1004 	str.w	r1, [ip, #4]
   9c:	f8cc 0000 	str.w	r0, [ip]
   a0:	e00c      	b.n	bc <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xbc>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:128
 
                 //  Raw temperature data is valid.  Copy and display it.
                 return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
   a2:	980f      	ldr	r0, [sp, #60]	; 0x3c
   a4:	f8ad 0034 	strh.w	r0, [sp, #52]	; 0x34
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:130
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
                 console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
   a8:	f240 0000 	movw	r0, #0
   ac:	f2c0 0000 	movt	r0, #0
   b0:	2119      	movs	r1, #25
   b2:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h4cf9cc516f96f871E>
   b6:	e002      	b.n	be <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xbe>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:162
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:161
         //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
         return_value.key = TEMP_SENSOR_KEY();
         return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
@@ -522,31 +522,31 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
 }
   b8:	b018      	add	sp, #96	; 0x60
   ba:	bd10      	pop	{r4, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:126
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:125
                 if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
   bc:	e7fc      	b.n	b8 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xb8>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:114
         match sensor_type {                                //  Is this raw or computed temperature?
   be:	e02f      	b.n	120 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0x120>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:132
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:131
             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
   c0:	9808      	ldr	r0, [sp, #32]
   c2:	9909      	ldr	r1, [sp, #36]	; 0x24
   c4:	9113      	str	r1, [sp, #76]	; 0x4c
   c6:	9012      	str	r0, [sp, #72]	; 0x48
   c8:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:134
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:133
                 let mut tempdata = SensorTempData {
   ca:	9015      	str	r0, [sp, #84]	; 0x54
   cc:	f88d 0058 	strb.w	r0, [sp, #88]	; 0x58
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:138
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:137
                 let rc = get_temp_data(sensor_data, &mut tempdata);
   d0:	9807      	ldr	r0, [sp, #28]
   d2:	a915      	add	r1, sp, #84	; 0x54
   d4:	f7ff fffe 	bl	0 <get_temp_data>
   d8:	9017      	str	r0, [sp, #92]	; 0x5c
   da:	e7ff      	b.n	dc <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xdc>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:139
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:138
                 assert!(rc == 0);
   dc:	9817      	ldr	r0, [sp, #92]	; 0x5c
   de:	2800      	cmp	r0, #0
@@ -556,7 +556,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   e8:	f2c0 0000 	movt	r0, #0
   ec:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h5137ce59069236b2E>
   f0:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:142
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:141
                 if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
   f2:	f89d 0058 	ldrb.w	r0, [sp, #88]	; 0x58
   f6:	2800      	cmp	r0, #0
@@ -572,14 +572,14 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  110:	f8cc 1004 	str.w	r1, [ip, #4]
  114:	f8cc 0000 	str.w	r0, [ip]
  118:	e7d0      	b.n	bc <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xbc>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:145
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:144
                 return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
  11a:	9815      	ldr	r0, [sp, #84]	; 0x54
  11c:	900e      	str	r0, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:114
         match sensor_type {                                //  Is this raw or computed temperature?
  11e:	e7ff      	b.n	120 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0x120>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:158
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:157
         return_value.key = TEMP_SENSOR_KEY();
  120:	f7ff fffe 	bl	0 <_ZN5mylib4base15TEMP_SENSOR_KEY17he45b46d508b17b55E>
  124:	9001      	str	r0, [sp, #4]
@@ -587,10 +587,10 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  128:	9801      	ldr	r0, [sp, #4]
  12a:	900b      	str	r0, [sp, #44]	; 0x2c
  12c:	2101      	movs	r1, #1
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:159
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:158
         return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
  12e:	910c      	str	r1, [sp, #48]	; 0x30
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:161
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:160
     return_value
  130:	990b      	ldr	r1, [sp, #44]	; 0x2c
  132:	9a0c      	ldr	r2, [sp, #48]	; 0x30
@@ -601,7 +601,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  142:	f8ce 3008 	str.w	r3, [lr, #8]
  146:	f8ce 2004 	str.w	r2, [lr, #4]
  14a:	f8ce 1000 	str.w	r1, [lr]
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:162
+/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:161
 }
  14e:	e7b3      	b.n	b8 <_ZN5mylib13listen_sensor15get_temperature17hc17d0de891fbd996E+0xb8>
 
