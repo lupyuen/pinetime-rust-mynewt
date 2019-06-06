@@ -487,7 +487,7 @@ _ZN5mylib13listen_sensor16read_temperature17h3a67ac1111c16949E():
 /////////////////////////////////////////////////////////
 //  Process Temperature Sensor Value (Raw and Computed)
 
-extern "C" fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
+extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	b096      	sub	sp, #88	; 0x58
    4:	9b1b      	ldr	r3, [sp, #108]	; 0x6c

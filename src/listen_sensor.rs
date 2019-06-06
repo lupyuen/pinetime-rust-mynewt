@@ -55,7 +55,7 @@ pub fn start_sensor_listener() -> i32 {
 /////////////////////////////////////////////////////////
 //  Process Temperature Sensor Value (Raw and Computed)
 
-extern "C" fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
+extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
     //  This listener function is called every 10 seconds (for local sensors) or when sensor data is received
     //  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through sensor_data.
     //  If this is a Sensor Node, we send the sensor data to the Collector Node.
