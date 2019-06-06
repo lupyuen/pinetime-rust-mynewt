@@ -55,7 +55,7 @@ pub fn start_sensor_listener() -> i32 {
 /////////////////////////////////////////////////////////
 //  Process Temperature Sensor Value (Raw and Computed)
 
-extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
+extern "C" fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
     //  This listener function is called every 10 seconds (for local sensors) or when sensor data is received
     //  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through sensor_data.
     //  If this is a Sensor Node, we send the sensor data to the Collector Node.
@@ -66,7 +66,7 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
         //  Check that the temperature data is valid.
         //  TODO
         if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
-        assert!(is_null_sensor(sensor));
+        assert!(!is_null_sensor(sensor));
 
         //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
         //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"

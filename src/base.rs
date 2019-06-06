@@ -83,7 +83,7 @@ pub fn TEMP_STM32_DEVICE() -> *const u8 { b"temp_stm32_0\0".as_ptr() }
 
 //  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
 //  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...
-pub const TEMP_SENSOR_TYPE: i32       = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;  //  Set to raw sensor type
+pub const TEMP_SENSOR_TYPE: SensorType = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;  //  Set to raw sensor type
 pub const TEMP_SENSOR_VALUE_TYPE: i32 = SENSOR_VALUE_TYPE_INT32;         //  Return integer sensor values
 pub fn TEMP_SENSOR_KEY() -> *const u8 { b"t\0".as_ptr() }  //  Use key (field name) "t" to transmit raw temperature to CoAP Server or Collector Node
 
@@ -94,10 +94,10 @@ pub fn TEMP_SENSOR_KEY() -> *const u8 { b"t\0".as_ptr() }  //  Use key (field na
 //  #endif  //  MYNEWT_VAL(RAW_TEMP)
 
 //  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
-pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: i32 = SENSOR_TYPE_USER_DEFINED_1;
+pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: SensorType = SENSOR_TYPE_USER_DEFINED_1;
 
 //  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-const SENSOR_TYPE_USER_DEFINED_1: i32 = (1 << 26);
+const SENSOR_TYPE_USER_DEFINED_1: SensorType = (1 << 26);
 
 //  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
 pub const SENSOR_VALUE_TYPE_OPAQUE: i32 = 0;
@@ -117,7 +117,7 @@ pub struct SensorListener {
     pub sl_func: SensorDataFunc,
 
     /* Argument for the sensor listener */
-    pub sl_arg: SensorArg,
+    pub sl_arg: i32, // SensorArg,
 
     /* Next item in the sensor listener list.  The head of this list is
      * contained within the sensor object.
@@ -161,7 +161,7 @@ pub enum CVoid {
 
 //  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
 pub type SensorDataFunc = extern fn(SensorPtr, SensorArg, SensorDataPtr, SensorType) -> i32;
-pub type SensorType = i32;
+pub type SensorType = i64;
 pub type SensorArg = i32;
 pub type SensorPtr = *const CVoid;
 pub type SensorMutPtr = *mut CVoid;
