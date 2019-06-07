@@ -6,53 +6,44 @@ use crate::base::*;
 ///  For more information on the type of callbacks available, see the documentation
 ///  for the sensor listener structure.
 ///
-///  `sensor` is the sensor to register a listener on.
-///  `listener` is the listener to register onto the sensor.
+///  `sensor`: The sensor to register a listener on.
+///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
 pub fn register_listener(sensor: SensorPtr, listener: &SensorListener) -> i32 {    
     //  Make an unsafe call to the Mynewt API.
     unsafe { sensor_register_listener(sensor, listener) }
 }
 
-///  Declare the Mynewt Sensor API for C.
+///  Import the Mynewt Sensor API for C.
 ///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
 #[link(name = "hw_sensor")]
 extern {
-    /**
-     * Set the sensor poll rate
-     *
-     * @param devname Name of the sensor
-     * @param poll_rate The poll rate in milli seconds
-     */
+    ///  Set the sensor poll rate.
+    ///  `devname`: Name of the sensor.
+    ///  `poll_rate`: The poll rate in milli seconds.
     pub fn sensor_set_poll_rate_ms(devname: *const u8, poll_rate: u32) -> i32;
 
-    /**
-     * Search the sensor list and find the next sensor that corresponds
-     * to a given device name.
-     *
-     * @param devname The device name to search for
-     * @param sensor The previous sensor found with this device name
-     *
-     * @return 0 on success, non-zero error code on failure
-     */
+    ///  Search the sensor list and find the next sensor that corresponds
+    ///  to a given device name.
+    ///  `devname`: The device name to search for.
+    ///  `sensor`: The previous sensor found with this device name.
+    ///  Return 0 on success, non-zero error code on failure
     pub fn sensor_mgr_find_next_bydevname(devname: *const u8, prev_cursor: SensorPtr) -> SensorPtr;
 
-    /**
-     * Register a sensor listener. This allows a calling application to receive
-     * callbacks for data from a given sensor object.
-     *
-     * For more information on the type of callbacks available, see the documentation
-     * for the sensor listener structure.
-     *
-     * @param sensor The sensor to register a listener on
-     * @param listener The listener to register onto the sensor
-     *
-     * @return 0 on success, non-zero error code on failure.
-     */
+    ///  Register a sensor listener. This allows a calling application to receive
+    ///  callbacks for data from a given sensor object.
+    ///
+    ///  For more information on the type of callbacks available, see the documentation
+    ///  for the sensor listener structure.
+    ///
+    ///  `sensor`: The sensor to register a listener on.
+    ///  `listener`: The listener to register onto the sensor.
+    ///  Return 0 on success, non-zero error code on failure.
     pub fn sensor_register_listener(sensor: SensorPtr, listener: *const SensorListener) -> i32;
 }
 
-//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
+///  Import the Mynewt SensorListener struct for C, which defines the listener function to be called after polling a sensor.
+///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
 #[repr(C)]  //  This struct is shared by C and Rust, tell Rust not to reorder the fields.
 pub struct SensorListener {
     ///  The type of sensor data to listen for, this is interpreted as a

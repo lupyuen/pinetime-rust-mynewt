@@ -1,38 +1,40 @@
-#![no_std]          //  Don't link with standard Rust library
+//!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
+//!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+//!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
+//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/main.c`
 
-mod base;           //  Import base.rs
-mod sensor;         //  Import sensor.rs
-mod listen_sensor;  //  Import listen_sensor.rs
-mod send_coap;      //  Import send_coap.rs
+#![no_std]          //  Don't link with standard Rust library, which is not compatible with embedded systems
 
-use core::panic::PanicInfo;
-use crate::base::*;             //  Import base.rs
-use crate::listen_sensor::*;    //  Import listen_sensor.rs
-use crate::send_coap::*;        //  Import send_coap.rs
+mod base;           //  Declare base.rs as Rust module `base`
+mod sensor;         //  Declare sensor.rs as Rust module `sensor`
+mod listen_sensor;  //  Declare listen_sensor.rs as Rust module `listen_sensor`
+mod send_coap;      //  Declare send_coap.rs as Rust module `send_coap`
 
-#[no_mangle]
-pub extern "C" fn main() -> ! {  //  main() will be called at Mynewt startup
+use core::panic::PanicInfo;     //  Import the PanicInfo type which is used by panic() below
+use crate::base::*;             //  Import base.rs for common declarations
+use crate::listen_sensor::*;    //  Import listen_sensor.rs for polling the temperature sensor
+use crate::send_coap::*;        //  Import send_coap.rs for sending sensor data
+
+///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
+#[no_mangle]                     //  Don't mangle the name "main"
+pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
     unsafe {
         //  Init Mynewt system.
         rust_sysinit();
         console_flush();
 
-        //#if defined(SERVER_NETWORK_INTERFACE) || defined(SENSOR_NETWORK_INTERFACE)  //  If the ESP8266 or nRF24L01 is enabled...
         //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
         //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
         //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
         let rc1 = start_network_task();  assert!(rc1 == 0);
-        //#endif  //  NETWORK_DEVICE
 
-        //#ifdef SENSOR_DEVICE   //  If BME280 or internal temperature sensor is enabled...
         //  Starting polling the temperature sensor every 10 seconds in the background.  
         //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
         //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
         let rc2 = start_sensor_listener();  assert!(rc2 == 0);
-        //#endif  //  SENSOR_DEVICE
 
         //  Main event loop
-        loop {                //  Loop forever...
+        loop {                        //  Loop forever...
             os_eventq_run(            //  Process events...
                 os_eventq_dflt_get()  //  From default event queue.
             );
@@ -41,8 +43,8 @@ pub extern "C" fn main() -> ! {  //  main() will be called at Mynewt startup
     //  Never comes here.
 }
 
+///  This function is called on panic. Set a breakpoint here to see the panic details. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
-    //  This function is called on panic. From https://os.phil-opp.com/freestanding-rust-binary/
     loop {}
 }

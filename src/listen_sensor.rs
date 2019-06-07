@@ -1,31 +1,43 @@
-use cty::*;
-use cstr_core::CStr;
-use crate::base::*;
-use crate::sensor::*;
-use crate::send_coap::send_sensor_data;
+//!  Poll the temperature sensor every 10 seconds.  We support 2 types of temperature sensors:
+//!  (1)  BME280 Temperature Sensor, connected to Blue Pill on port SPI1.
+//!       This sensor is selected if BME280_OFB is defined in syscfg.yml.
+//!  (2)  Blue Pill internal temperature sensor, connected to port ADC1 on channel 16
+//!       This sensor is selected if TEMP_STM32 is defined in syscfg.yml.
+//!  If this is the Collector Node, send the sensor data to the CoAP Server after polling.
+//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
 
-const SENSOR_POLL_TIME: u32  = (10 * 1000);  //  Poll every 10,000 milliseconds (10 seconds)  
-const LISTENER_CB: SensorArg = 1;            //  Indicate that this is a listener callback
-const READ_CB: SensorArg     = 2;            //  Indicate that this is a sensor read callback
+use cty::*;                             //  Import string utilities from cty library: https://crates.io/crates/cty
+use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
+use crate::base::*;                     //  Import base.rs for common declarations
+use crate::sensor::*;                   //  Import sensor.rs for Mynewt Sensor API
+use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sensor data
 
-//  Define the listener function to be called after polling the temperature sensor.
+///  Poll every 10,000 milliseconds (10 seconds)  
+const SENSOR_POLL_TIME: u32  = (10 * 1000);  
+///  Indicate that this is a listener callback
+const LISTENER_CB: SensorArg = 1;           
+///  Indicate that this is a sensor read callback 
+const READ_CB: SensorArg     = 2;           
+
+///  Define the listener function to be called after polling the temperature sensor.
 static LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
     sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
     sl_func       : read_temperature,      //  Listener function to be called with the sensor data
     sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
-    sl_next       : 0,
+    sl_next       : 0,                     //  Must be 0
 };
 
 /////////////////////////////////////////////////////////
 //  Listen To Local Sensor
 
+///  For Sensor Node and Standalone Node: Start polling the temperature sensor 
+///  every 10 seconds in the background.  After polling the sensor, call the 
+///  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
+///  or CoAP Server (is this is a Standalone Node).
+///  For Collector Node: Start the Listeners for Remote Sensor 
+///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
+///  Return 0 if successful.
 pub fn start_sensor_listener() -> i32 {
-    //  For Sensor Node and Standalone Node: Start polling the temperature sensor 
-    //  every 10 seconds in the background.  After polling the sensor, call the 
-    //  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
-    //  or CoAP Server (is this is a Standalone Node).
-    //  For Collector Node: Start the Listeners for Remote Sensor 
-    //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
@@ -40,6 +52,7 @@ pub fn start_sensor_listener() -> i32 {
     let rc = register_listener(listen_sensor, &LISTENER);
     assert!(rc == 0);
 
+    //  Return 0 to indicate success.  This line should not end with a semicolon (;).
     0
 }
 
@@ -51,12 +64,12 @@ pub fn start_sensor_listener() -> i32 {
 /////////////////////////////////////////////////////////
 //  Process Temperature Sensor Value (Raw and Computed)
 
-extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
-    //  This listener function is called every 10 seconds (for local sensors) or when sensor data is received
-    //  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through sensor_data.
-    //  If this is a Sensor Node, we send the sensor data to the Collector Node.
-    //  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
-    //  Return 0 if we have processed the sensor data successfully.
+///  This listener function is called by Mynewt every 10 seconds (for local sensors) or when sensor data is received
+///  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through `sensor_data`.
+///  If this is a Sensor Node, we send the sensor data to the Collector Node.
+///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
+///  Return 0 if we have processed the sensor data successfully.
+extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
     unsafe {
         console_print(b"read_temperature\n");
         //  Check that the temperature data is valid.
@@ -95,10 +108,10 @@ extern fn read_temperature(sensor: SensorPtr, arg: SensorArg, sensor_data: Senso
     0
 }
 
+///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
+///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
+///  the raw or computed temperature, as well as the key and value type.
 fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
-    //  Get the temperature value, raw or computed.  sensor_data contains the raw or computed temperature. 
-    //  type indicates whether sensor_data contains raw or computed temperature.  We return 
-    //  the raw or computed temperature, as well as the key and value type.
     let mut return_value = SensorValue {
         key: b"\0".as_ptr(),
         val_type: 0,

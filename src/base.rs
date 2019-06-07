@@ -10,6 +10,7 @@ pub fn console_print(msg: &[u8]) {
     }
 }
 
+///  Import the custom interop helper library
 #[link(name = "libs_mynewt_rust")]
 extern {
     pub fn rust_sysinit();  
@@ -25,24 +26,29 @@ extern {
     pub fn is_null_sensor_data(sensor_data: SensorDataPtr) -> bool;
 }
 
+///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD)
 #[link(name = "libs_semihosting_console")]
 extern {
-    // void console_buffer(const char *buffer, unsigned int length);  //  Add the string to the output buffer.
-    pub fn console_buffer(buffer: *const u8, length: u32);  //  Add the string to the output buffer.
+    ///  Add the string to the output buffer.
+    ///  C API: `void console_buffer(const char *buffer, unsigned int length)`
+    pub fn console_buffer(buffer: *const u8, length: u32);  
 
-    // void console_printhex(uint8_t v);  //  Write a char in hexadecimal to the output buffer.
-    pub fn console_printhex(v: u8);  //  Write a char in hexadecimal to the output buffer.
+    ///  Write a byte in hexadecimal to the output buffer.
+    ///  C API: `void console_printhex(uint8_t v)`
+    pub fn console_printhex(v: u8);  
 
-    // void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
-    pub fn console_printfloat(f: f32);  //  Write a float to the output buffer, with 1 decimal place.
+    ///  Write a float to the output buffer, with 1 decimal place.
+    ///  C API: `void console_printfloat(float f)`
+    pub fn console_printfloat(f: f32);
 
-    // void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
-    pub fn console_dump(buffer: *const u8, len: u32);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+    ///  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+    ///  C API: `void console_dump(const uint8_t *buffer, unsigned int len)`
+    pub fn console_dump(buffer: *const u8, len: u32);  
 
-    // void console_flush(void);  //  Flush the output buffer to the console.
+    ///  Flush the output buffer to the console.
+    ///  C API: `void console_flush(void)`
     pub fn console_flush();  //  Flush the output buffer to the console.
 }
-
 
 #[link(name = "kernel_os")]
 extern {
