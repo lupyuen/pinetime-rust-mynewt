@@ -25651,10 +25651,10 @@ Disassembly of section .text._ZN5mylib4base13SENSOR_DEVICE17h98f99a5c4336ac0cE:
 
 00000000 <mylib::base::SENSOR_DEVICE>:
 _ZN5mylib4base13SENSOR_DEVICE17h98f99a5c4336ac0cE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:56
+/mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:54
+    pub fn os_eventq_run(evq: *const CVoid);
+    pub fn os_eventq_dflt_get() -> *const CVoid;
 }
-
-//  Sensor definitions are in sensor.rs
 
 //  Must sync with apps/my_sensor_app/src/listen_sensor.h
 pub fn SENSOR_DEVICE() -> *const u8 { TEMP_STM32_DEVICE() }  //  We will open internal temperature sensor "temp_stm32_0"
@@ -25671,7 +25671,7 @@ Disassembly of section .text._ZN5mylib4base17TEMP_STM32_DEVICE17he0d632b0d91af01
 
 00000000 <mylib::base::TEMP_STM32_DEVICE>:
 _ZN5mylib4base17TEMP_STM32_DEVICE17he0d632b0d91af018E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:57
+/mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:55
 pub fn TEMP_STM32_DEVICE() -> *const u8 { b"temp_stm32_0\0".as_ptr() }
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
@@ -25689,7 +25689,7 @@ Disassembly of section .text._ZN5mylib4base15TEMP_SENSOR_KEY17he45b46d508b17b55E
 
 00000000 <mylib::base::TEMP_SENSOR_KEY>:
 _ZN5mylib4base15TEMP_SENSOR_KEY17he45b46d508b17b55E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:63
+/mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:61
 
 //  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
 //  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...
@@ -26451,12 +26451,12 @@ Disassembly of section .text._ZN5mylib4base13SENSOR_DEVICE17h4cd0da7054df39c4E:
 00000000 <mylib::base::SENSOR_DEVICE>:
 _ZN5mylib4base13SENSOR_DEVICE17h4cd0da7054df39c4E():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:81
-//  or float (computed), we use the struct to return both integer and float values.
-//  val_type indicates whether it's an integer or float.
 #[repr(C)]
 pub struct SensorValue {
     pub key: *const u8,  //  "t" for raw temp, "tmp" for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
     pub val_type: i32,   //  The type of the sensor value. SENSOR_VALUE_TYPE_INT32 for int, SENSOR_VALUE_TYPE_FLOAT for float.
+    pub int_val: u16,    //  For raw temp, contains the raw temp integer value
+    pub float_val: f32,  //  For computed temp, contains the computed temp float value
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	f7ff fffe 	bl	0 <mylib::base::SENSOR_DEVICE>
@@ -26471,7 +26471,7 @@ Disassembly of section .text._ZN5mylib4base17TEMP_STM32_DEVICE17h7b05625cb22c95f
 00000000 <mylib::base::TEMP_STM32_DEVICE>:
 _ZN5mylib4base17TEMP_STM32_DEVICE17h7b05625cb22c95f4E():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:82
-    pub int_val: u16,    //  For raw temp, contains the raw temp integer value
+}
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
    4:	f240 0100 	movw	r1, #0
@@ -26491,8 +26491,8 @@ _ZN5mylib4base17TEMP_STM32_DEVICE17h7b05625cb22c95f4E():
   2a:	9000      	str	r0, [sp, #0]
   2c:	e7ff      	b.n	2e <mylib::base::TEMP_STM32_DEVICE+0x2e>
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:84
-    pub float_val: f32,  //  For computed temp, contains the computed temp float value
-}
+
+//  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
   2e:	9800      	ldr	r0, [sp, #0]
   30:	b006      	add	sp, #24
   32:	bd80      	pop	{r7, pc}
@@ -26502,12 +26502,12 @@ Disassembly of section .text._ZN5mylib4base15TEMP_SENSOR_KEY17h936b38882cd6f6d9E
 00000000 <mylib::base::TEMP_SENSOR_KEY>:
 _ZN5mylib4base15TEMP_SENSOR_KEY17h936b38882cd6f6d9E():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:90
-
-//  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 #[repr(C, packed)]
 pub struct SensorTempRawData {   //  Represents a single temperature sensor raw value
     pub strd_temp_raw: u32,          //  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     pub strd_temp_raw_is_valid: u8,  //  1 if data is valid
+}
+
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
    4:	f240 0100 	movw	r1, #0
@@ -26527,8 +26527,8 @@ pub struct SensorTempRawData {   //  Represents a single temperature sensor raw 
   2a:	9000      	str	r0, [sp, #0]
   2c:	e7ff      	b.n	2e <mylib::base::TEMP_SENSOR_KEY+0x2e>
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:92
-}
-
+//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/temperature.h
+#[repr(C, packed)]
   2e:	9800      	ldr	r0, [sp, #0]
   30:	b006      	add	sp, #24
   32:	bd80      	pop	{r7, pc}
@@ -28003,12 +28003,12 @@ Disassembly of section .text._ZN5mylib4base13SENSOR_DEVICE17ha023f69e40ed219eE:
 00000000 <mylib::base::SENSOR_DEVICE>:
 _ZN5mylib4base13SENSOR_DEVICE17ha023f69e40ed219eE():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:81
-//  or float (computed), we use the struct to return both integer and float values.
-//  val_type indicates whether it's an integer or float.
 #[repr(C)]
 pub struct SensorValue {
     pub key: *const u8,  //  "t" for raw temp, "tmp" for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
     pub val_type: i32,   //  The type of the sensor value. SENSOR_VALUE_TYPE_INT32 for int, SENSOR_VALUE_TYPE_FLOAT for float.
+    pub int_val: u16,    //  For raw temp, contains the raw temp integer value
+    pub float_val: f32,  //  For computed temp, contains the computed temp float value
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	f7ff fffe 	bl	0 <mylib::base::SENSOR_DEVICE>
@@ -28023,7 +28023,7 @@ Disassembly of section .text._ZN5mylib4base17TEMP_STM32_DEVICE17he029a4f6cb4943d
 00000000 <mylib::base::TEMP_STM32_DEVICE>:
 _ZN5mylib4base17TEMP_STM32_DEVICE17he029a4f6cb4943d2E():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:82
-    pub int_val: u16,    //  For raw temp, contains the raw temp integer value
+}
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
    4:	f240 0100 	movw	r1, #0
@@ -28043,8 +28043,8 @@ _ZN5mylib4base17TEMP_STM32_DEVICE17he029a4f6cb4943d2E():
   2a:	9000      	str	r0, [sp, #0]
   2c:	e7ff      	b.n	2e <mylib::base::TEMP_STM32_DEVICE+0x2e>
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:84
-    pub float_val: f32,  //  For computed temp, contains the computed temp float value
-}
+
+//  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
   2e:	9800      	ldr	r0, [sp, #0]
   30:	b006      	add	sp, #24
   32:	bd80      	pop	{r7, pc}
@@ -28054,12 +28054,12 @@ Disassembly of section .text._ZN5mylib4base15TEMP_SENSOR_KEY17h154dd95eae05183cE
 00000000 <mylib::base::TEMP_SENSOR_KEY>:
 _ZN5mylib4base15TEMP_SENSOR_KEY17h154dd95eae05183cE():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:90
-
-//  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 #[repr(C, packed)]
 pub struct SensorTempRawData {   //  Represents a single temperature sensor raw value
     pub strd_temp_raw: u32,          //  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     pub strd_temp_raw_is_valid: u8,  //  1 if data is valid
+}
+
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
    4:	f240 0100 	movw	r1, #0
@@ -28079,8 +28079,8 @@ pub struct SensorTempRawData {   //  Represents a single temperature sensor raw 
   2a:	9000      	str	r0, [sp, #0]
   2c:	e7ff      	b.n	2e <mylib::base::TEMP_SENSOR_KEY+0x2e>
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:92
-}
-
+//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/temperature.h
+#[repr(C, packed)]
   2e:	9800      	ldr	r0, [sp, #0]
   30:	b006      	add	sp, #24
   32:	bd80      	pop	{r7, pc}
@@ -31128,12 +31128,12 @@ Disassembly of section .text._ZN5mylib4base13SENSOR_DEVICE17h5697080833de32eaE:
 00000000 <mylib::base::SENSOR_DEVICE>:
 _ZN5mylib4base13SENSOR_DEVICE17h5697080833de32eaE():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:81
-//  or float (computed), we use the struct to return both integer and float values.
-//  val_type indicates whether it's an integer or float.
 #[repr(C)]
 pub struct SensorValue {
     pub key: *const u8,  //  "t" for raw temp, "tmp" for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
     pub val_type: i32,   //  The type of the sensor value. SENSOR_VALUE_TYPE_INT32 for int, SENSOR_VALUE_TYPE_FLOAT for float.
+    pub int_val: u16,    //  For raw temp, contains the raw temp integer value
+    pub float_val: f32,  //  For computed temp, contains the computed temp float value
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	f7ff fffe 	bl	0 <mylib::base::SENSOR_DEVICE>
@@ -31148,7 +31148,7 @@ Disassembly of section .text._ZN5mylib4base17TEMP_STM32_DEVICE17h203cd04059ede1b
 00000000 <mylib::base::TEMP_STM32_DEVICE>:
 _ZN5mylib4base17TEMP_STM32_DEVICE17h203cd04059ede1b7E():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:82
-    pub int_val: u16,    //  For raw temp, contains the raw temp integer value
+}
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
    4:	f240 0100 	movw	r1, #0
@@ -31168,8 +31168,8 @@ _ZN5mylib4base17TEMP_STM32_DEVICE17h203cd04059ede1b7E():
   2a:	9000      	str	r0, [sp, #0]
   2c:	e7ff      	b.n	2e <mylib::base::TEMP_STM32_DEVICE+0x2e>
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:84
-    pub float_val: f32,  //  For computed temp, contains the computed temp float value
-}
+
+//  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
   2e:	9800      	ldr	r0, [sp, #0]
   30:	b006      	add	sp, #24
   32:	bd80      	pop	{r7, pc}
@@ -31179,12 +31179,12 @@ Disassembly of section .text._ZN5mylib4base15TEMP_SENSOR_KEY17hb58aa4f7fa723f5bE
 00000000 <mylib::base::TEMP_SENSOR_KEY>:
 _ZN5mylib4base15TEMP_SENSOR_KEY17hb58aa4f7fa723f5bE():
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:90
-
-//  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 #[repr(C, packed)]
 pub struct SensorTempRawData {   //  Represents a single temperature sensor raw value
     pub strd_temp_raw: u32,          //  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     pub strd_temp_raw_is_valid: u8,  //  1 if data is valid
+}
+
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
    4:	f240 0100 	movw	r1, #0
@@ -31204,8 +31204,8 @@ pub struct SensorTempRawData {   //  Represents a single temperature sensor raw 
   2a:	9000      	str	r0, [sp, #0]
   2c:	e7ff      	b.n	2e <mylib::base::TEMP_SENSOR_KEY+0x2e>
 /mnt/c/stm32bluepill-mynewt-sensor/src/base.rs:92
-}
-
+//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/temperature.h
+#[repr(C, packed)]
   2e:	9800      	ldr	r0, [sp, #0]
   30:	b006      	add	sp, #24
   32:	bd80      	pop	{r7, pc}

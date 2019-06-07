@@ -50,8 +50,6 @@ extern {
     pub fn os_eventq_dflt_get() -> *const CVoid;
 }
 
-//  Sensor definitions are in sensor.rs
-
 //  Must sync with apps/my_sensor_app/src/listen_sensor.h
 pub fn SENSOR_DEVICE() -> *const u8 { TEMP_STM32_DEVICE() }  //  We will open internal temperature sensor "temp_stm32_0"
 pub fn TEMP_STM32_DEVICE() -> *const u8 { b"temp_stm32_0\0".as_ptr() }
@@ -126,3 +124,5 @@ pub const SYS_EUNKNOWN    : i32 = -13;
 pub const SYS_EREMOTEIO   : i32 = -14;
 pub const SYS_EDONE       : i32 = -15;
 pub const SYS_EPERUSER : i32 = -65535;
+
+//  Sensor definitions are in sensor.rs

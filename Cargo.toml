@@ -1,3 +1,4 @@
+# Info about this package.
 [package]
 authors = ["Lee Lup Yuen <luppy@appkaki.com>"]
 edition = "2018"
@@ -5,13 +6,14 @@ readme = "README.md"
 name = "myapp"
 version = "0.1.0"
 
+# External Rust libraries used by this module.  See crates.io.
 [dependencies]
 cty = "0.2.0"
 cstr_core = "0.1.2"
 # Reduces the ROM size. See https://github.com/BurntSushi/rust-memchr
 memchr = { version = "2", default-features = false }
-#std = { default-features=false, features=["panic_immediate_abort"] }
 
+# Build this module as a Rust library, not a Rust application.
 [lib]
 name = "mylib"
 test = false
@@ -27,9 +29,3 @@ panic = "abort"     # disable stack unwinding on panic
 codegen-units = 1   # better optimizations
 debug = true        # symbols are nice and they don't increase the size on Flash
 lto = true          # better optimizations
-
-# For `cargo fix`
-#[[bin]]
-#name = "myapp"
-#test = false
-#bench = false
