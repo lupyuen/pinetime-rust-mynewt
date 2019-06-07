@@ -1,6 +1,16 @@
 //!  Import the Mynewt Sensor API and export the safe version of the API. Based on
 //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
+///  Define the listener function to be called after polling the temperature sensor.
+static mut LISTENER_INTERNAL: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
+    sl_sensor_type: 0,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
+    sl_func       : null_sensor_data_func,      //  Listener function to be called with the sensor data
+    sl_arg        : 0,           //  Indicate to the listener function that this is a listener callback
+    sl_next       : 0,                     //  Must be 0
+};
+
+extern fn null_sensor_data_func(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 { 0 }
+
 ///  Register a sensor listener. This allows a calling application to receive
 ///  callbacks for data from a given sensor object. This is the safe version of sensor_register_listener().
 ///
@@ -10,9 +20,13 @@
 ///  `sensor`: The sensor to register a listener on.
 ///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
-pub fn register_listener(sensor: SensorPtr, listener: &mut SensorListener) -> i32 {    
-    //  Make an unsafe call to the Mynewt API.
-    unsafe { sensor_register_listener(sensor, listener) }
+pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {    
+    unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
+    //  Copy the caller's listener to the internal listener.
+    //  LISTENER_INTERNAL = SensorListener { .. listener };
+    unsafe { LISTENER_INTERNAL = listener };
+    //  Pass the internal listener to the unsafe Mynewt API.
+    unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) }
 }
 
 ///  Import the Mynewt Sensor API for C.

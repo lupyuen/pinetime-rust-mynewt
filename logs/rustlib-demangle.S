@@ -13159,66 +13159,65 @@ mylib-50794855a3f9698d.3k67uemb1cshb4cs.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 3k67uemb1cshb4cs
-0000030a l       .debug_str	00000000 
-0000023f l       .debug_str	00000000 
-00000250 l       .debug_str	00000000 
-0000028e l       .debug_str	00000000 
-0000029e l       .debug_str	00000000 
-000002a3 l       .debug_str	00000000 
-000002a7 l       .debug_str	00000000 
-000002aa l       .debug_str	00000000 
-000002b4 l       .debug_str	00000000 
-000002bd l       .debug_str	00000000 
-000002c5 l       .debug_str	00000000 
-000002c9 l       .debug_str	00000000 
-000002d3 l       .debug_str	00000000 
-000002d7 l       .debug_str	00000000 
-000002e3 l       .debug_str	00000000 
+000002d4 l       .debug_str	00000000 
+000001e6 l       .debug_str	00000000 
+000001ea l       .debug_str	00000000 
+000001f6 l       .debug_str	00000000 
+000001f9 l       .debug_str	00000000 
+00000215 l       .debug_str	00000000 
+0000021e l       .debug_str	00000000 
+0000022d l       .debug_str	00000000 
+00000231 l       .debug_str	00000000 
+00000239 l       .debug_str	00000000 
+00000292 l       .debug_str	00000000 
+00000299 l       .debug_str	00000000 
+000002a1 l       .debug_str	00000000 
+000002b0 l       .debug_str	00000000 
+000002b5 l       .debug_str	00000000 
+000002c1 l       .debug_str	00000000 
+000002cd l       .debug_str	00000000 
+000002da l       .debug_str	00000000 
 000002e6 l       .debug_str	00000000 
-000002eb l       .debug_str	00000000 
-000002f7 l       .debug_str	00000000 
-00000303 l       .debug_str	00000000 
-00000310 l       .debug_str	00000000 
-0000031c l       .debug_str	00000000 
-00000326 l       .debug_str	00000000 
-0000032c l       .debug_str	00000000 
-00000340 l       .debug_str	00000000 
-00000345 l       .debug_str	00000000 
-00000356 l       .debug_str	00000000 
-00000368 l       .debug_str	00000000 
-00000375 l       .debug_str	00000000 
-00000381 l       .debug_str	00000000 
-0000038f l       .debug_str	00000000 
-000003a6 l       .debug_str	00000000 
-000003b8 l       .debug_str	00000000 
-000003d8 l       .debug_str	00000000 
-000003e1 l       .debug_str	00000000 
-000003ea l       .debug_str	00000000 
-000003fc l       .debug_str	00000000 
+000002f0 l       .debug_str	00000000 
+000002f6 l       .debug_str	00000000 
+0000030a l       .debug_str	00000000 
+0000030f l       .debug_str	00000000 
+00000320 l       .debug_str	00000000 
+00000332 l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+0000034b l       .debug_str	00000000 
+00000359 l       .debug_str	00000000 
+00000370 l       .debug_str	00000000 
+00000382 l       .debug_str	00000000 
+000003a2 l       .debug_str	00000000 
+000003ab l       .debug_str	00000000 
+000003b4 l       .debug_str	00000000 
+000003c6 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 0000004c l       .debug_str	00000000 
 0000007c l       .debug_str	00000000 
 00000082 l       .debug_str	00000000 
-00000090 l       .debug_str	00000000 
-00000099 l       .debug_str	00000000 
-000000a0 l       .debug_str	00000000 
-000000af l       .debug_str	00000000 
-000000b3 l       .debug_str	00000000 
-000000bb l       .debug_str	00000000 
-000000bf l       .debug_str	00000000 
-000000c3 l       .debug_str	00000000 
-000000cd l       .debug_str	00000000 
-000000d7 l       .debug_str	00000000 
-000000dd l       .debug_str	00000000 
+00000089 l       .debug_str	00000000 
+0000008d l       .debug_str	00000000 
+00000097 l       .debug_str	00000000 
+000000a1 l       .debug_str	00000000 
+000000a7 l       .debug_str	00000000 
+000000b5 l       .debug_str	00000000 
 000000f9 l       .debug_str	00000000 
+0000010f l       .debug_str	00000000 
+00000113 l       .debug_str	00000000 
 00000152 l       .debug_str	00000000 
-00000159 l       .debug_str	00000000 
-00000161 l       .debug_str	00000000 
-00000170 l       .debug_str	00000000 
-000001a6 l       .debug_str	00000000 
-000001ea l       .debug_str	00000000 
-00000200 l       .debug_str	00000000 
+00000163 l       .debug_str	00000000 
+000001a1 l       .debug_str	00000000 
+000001b1 l       .debug_str	00000000 
+000001b6 l       .debug_str	00000000 
+000001ba l       .debug_str	00000000 
+000001bd l       .debug_str	00000000 
+000001c7 l       .debug_str	00000000 
+000001d0 l       .debug_str	00000000 
+000001d8 l       .debug_str	00000000 
+000001dc l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.0	0000000a .Lanon.0b256f51abc682f8d65b4afaed11e7f9.0
 00000000 l     O .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.1	0000000d .Lanon.0b256f51abc682f8d65b4afaed11e7f9.1
 00000000 l     O .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.10	00000018 .Lanon.0b256f51abc682f8d65b4afaed11e7f9.10
@@ -13236,11 +13235,9 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.8	00000011 .Lanon.0b256f51abc682f8d65b4afaed11e7f9.8
 00000000 l     F .text._ZN5mylib13listen_sensor15get_temperature17h42fabeac78d97520E	0000014c mylib::listen_sensor::get_temperature
 00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17h53480a57fcc5ca50E	00000120 mylib::listen_sensor::read_temperature
-00000000 l     O .data._ZN5mylib13listen_sensor8LISTENER17h92a89e023daa9f84E	00000018 mylib::listen_sensor::LISTENER
 00000000 l    d  .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE	00000000 .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE
 00000000 l    d  .text._ZN5mylib13listen_sensor16read_temperature17h53480a57fcc5ca50E	00000000 .text._ZN5mylib13listen_sensor16read_temperature17h53480a57fcc5ca50E
 00000000 l    d  .text._ZN5mylib13listen_sensor15get_temperature17h42fabeac78d97520E	00000000 .text._ZN5mylib13listen_sensor15get_temperature17h42fabeac78d97520E
-00000000 l    d  .data._ZN5mylib13listen_sensor8LISTENER17h92a89e023daa9f84E	00000000 .data._ZN5mylib13listen_sensor8LISTENER17h92a89e023daa9f84E
 00000000 l    d  .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2	00000000 .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.2
 00000000 l    d  .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3	00000000 .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.3
 00000000 l    d  .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5	00000000 .rodata..Lanon.0b256f51abc682f8d65b4afaed11e7f9.5
@@ -13253,8 +13250,9 @@ SYMBOL TABLE:
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 core::slice::<impl [T]>::as_ptr
 00000000         *UND*	00000000 core::panicking::panic
-00000000 g     F .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE	000000a8 .hidden mylib::listen_sensor::start_sensor_listener
+00000000 g     F .text._ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE	000000ca .hidden mylib::listen_sensor::start_sensor_listener
 00000000         *UND*	00000000 .hidden mylib::base::console_print
+00000000         *UND*	00000000 .hidden mylib::sensor::register_listener
 00000000         *UND*	00000000 .hidden mylib::send_coap::send_sensor_data
 00000000         *UND*	00000000 cstr_core::CStr::from_ptr
 00000000         *UND*	00000000 device_get_name
@@ -13265,7 +13263,6 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 null_sensor
 00000000         *UND*	00000000 sensor_get_device
 00000000         *UND*	00000000 sensor_mgr_find_next_bydevname
-00000000         *UND*	00000000 sensor_register_listener
 00000000         *UND*	00000000 sensor_set_poll_rate_ms
 
 
@@ -13281,8 +13278,8 @@ _ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE():
 ///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
 ///  Return 0 if successful.
 pub fn start_sensor_listener() -> i32 {
-   0:	b580      	push	{r7, lr}
-   2:	b086      	sub	sp, #24
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	b093      	sub	sp, #76	; 0x4c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:39
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
    4:	f240 0000 	movw	r0, #0
@@ -13298,11 +13295,11 @@ pub fn start_sensor_listener() -> i32 {
   18:	f2c0 0000 	movt	r0, #0
   1c:	f242 7110 	movw	r1, #10000	; 0x2710
   20:	f7ff fffe 	bl	0 <sensor_set_poll_rate_ms>
-  24:	9003      	str	r0, [sp, #12]
+  24:	9002      	str	r0, [sp, #8]
   26:	e7ff      	b.n	28 <mylib::listen_sensor::start_sensor_listener+0x28>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:43
     assert!(rc == 0);
-  28:	9803      	ldr	r0, [sp, #12]
+  28:	9802      	ldr	r0, [sp, #8]
   2a:	2800      	cmp	r0, #0
   2c:	d007      	beq.n	3e <mylib::listen_sensor::start_sensor_listener+0x3e>
   2e:	e7ff      	b.n	30 <mylib::listen_sensor::start_sensor_listener+0x30>
@@ -13315,21 +13312,21 @@ pub fn start_sensor_listener() -> i32 {
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
   3e:	f7ff fffe 	bl	0 <null_sensor>
-  42:	9002      	str	r0, [sp, #8]
+  42:	9001      	str	r0, [sp, #4]
   44:	e7ff      	b.n	46 <mylib::listen_sensor::start_sensor_listener+0x46>
   46:	f240 0000 	movw	r0, #0
   4a:	f2c0 0000 	movt	r0, #0
-  4e:	9902      	ldr	r1, [sp, #8]
+  4e:	9901      	ldr	r1, [sp, #4]
   50:	f7ff fffe 	bl	0 <sensor_mgr_find_next_bydevname>
-  54:	9004      	str	r0, [sp, #16]
+  54:	9003      	str	r0, [sp, #12]
   56:	e7ff      	b.n	58 <mylib::listen_sensor::start_sensor_listener+0x58>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:47
     assert!(!unsafe{ is_null_sensor(listen_sensor) });
-  58:	9804      	ldr	r0, [sp, #16]
+  58:	9803      	ldr	r0, [sp, #12]
   5a:	f7ff fffe 	bl	0 <is_null_sensor>
-  5e:	9001      	str	r0, [sp, #4]
+  5e:	9000      	str	r0, [sp, #0]
   60:	e7ff      	b.n	62 <mylib::listen_sensor::start_sensor_listener+0x62>
-  62:	9801      	ldr	r0, [sp, #4]
+  62:	9800      	ldr	r0, [sp, #0]
   64:	07c1      	lsls	r1, r0, #31
   66:	2900      	cmp	r1, #0
   68:	d007      	beq.n	7a <mylib::listen_sensor::start_sensor_listener+0x7a>
@@ -13338,40 +13335,63 @@ pub fn start_sensor_listener() -> i32 {
   70:	f2c0 0000 	movt	r0, #0
   74:	f7ff fffe 	bl	0 <core::panicking::panic>
   78:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:50
+  7a:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:52
 
     //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-    let rc = unsafe { sensor_register_listener(listen_sensor, &mut LISTENER) };
-  7a:	9804      	ldr	r0, [sp, #16]
-  7c:	f240 0100 	movw	r1, #0
-  80:	f2c0 0100 	movt	r1, #0
-  84:	f7ff fffe 	bl	0 <sensor_register_listener>
-  88:	9005      	str	r0, [sp, #20]
-  8a:	e7ff      	b.n	8c <mylib::listen_sensor::start_sensor_listener+0x8c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:51
+    ////let rc = unsafe { sensor_register_listener(listen_sensor, &mut LISTENER) };
+     
+    let listener = SensorListener {
+  7c:	9005      	str	r0, [sp, #20]
+  7e:	f04f 6180 	mov.w	r1, #67108864	; 0x4000000
+  82:	9104      	str	r1, [sp, #16]
+  84:	f240 0100 	movw	r1, #0
+  88:	f2c0 0100 	movt	r1, #0
+  8c:	9106      	str	r1, [sp, #24]
+  8e:	2101      	movs	r1, #1
+  90:	9107      	str	r1, [sp, #28]
+  92:	9008      	str	r0, [sp, #32]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:58
+        sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
+        sl_func       : read_temperature,      //  Listener function to be called with the sensor data
+        sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
+        sl_next       : 0,                     //  Must be 0
+    };
+    let rc = register_listener(listen_sensor, listener);
+  94:	9803      	ldr	r0, [sp, #12]
+  96:	a904      	add	r1, sp, #16
+  98:	aa0c      	add	r2, sp, #48	; 0x30
+  9a:	4613      	mov	r3, r2
+  9c:	e891 50f0 	ldmia.w	r1, {r4, r5, r6, r7, ip, lr}
+  a0:	e883 50f0 	stmia.w	r3, {r4, r5, r6, r7, ip, lr}
+  a4:	4611      	mov	r1, r2
+  a6:	f7ff fffe 	bl	0 <mylib::sensor::register_listener>
+  aa:	900b      	str	r0, [sp, #44]	; 0x2c
+  ac:	e7ff      	b.n	ae <mylib::listen_sensor::start_sensor_listener+0xae>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:59
     assert!(rc == 0);
-  8c:	9805      	ldr	r0, [sp, #20]
-  8e:	2800      	cmp	r0, #0
-  90:	d007      	beq.n	a2 <mylib::listen_sensor::start_sensor_listener+0xa2>
-  92:	e7ff      	b.n	94 <mylib::listen_sensor::start_sensor_listener+0x94>
-  94:	f240 0000 	movw	r0, #0
-  98:	f2c0 0000 	movt	r0, #0
-  9c:	f7ff fffe 	bl	0 <core::panicking::panic>
-  a0:	defe      	udf	#254	; 0xfe
-  a2:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:55
+  ae:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  b0:	2800      	cmp	r0, #0
+  b2:	d007      	beq.n	c4 <mylib::listen_sensor::start_sensor_listener+0xc4>
+  b4:	e7ff      	b.n	b6 <mylib::listen_sensor::start_sensor_listener+0xb6>
+  b6:	f240 0000 	movw	r0, #0
+  ba:	f2c0 0000 	movt	r0, #0
+  be:	f7ff fffe 	bl	0 <core::panicking::panic>
+  c2:	defe      	udf	#254	; 0xfe
+  c4:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:63
 
     //  Return 0 to indicate success.  This line should not end with a semicolon (;).
     0
 }
-  a4:	b006      	add	sp, #24
-  a6:	bd80      	pop	{r7, pc}
+  c6:	b013      	add	sp, #76	; 0x4c
+  c8:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
 Disassembly of section .text._ZN5mylib13listen_sensor16read_temperature17h53480a57fcc5ca50E:
 
 00000000 <mylib::listen_sensor::read_temperature>:
 _ZN5mylib13listen_sensor16read_temperature17h53480a57fcc5ca50E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:78
 ///  This listener function is called by Mynewt every 10 seconds (for local sensors) or when sensor data is received
 ///  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through `sensor_data`.
 ///  If this is a Sensor Node, we send the sensor data to the Collector Node.
@@ -13390,7 +13410,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   14:	9209      	str	r2, [sp, #36]	; 0x24
   16:	930b      	str	r3, [sp, #44]	; 0x2c
   18:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:72
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:80
     unsafe {
         console_print(b"read_temperature\n");
   1c:	f240 0000 	movw	r0, #0
@@ -13401,7 +13421,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   2c:	9504      	str	r5, [sp, #16]
   2e:	f7ff fffe 	bl	0 <mylib::base::console_print>
   32:	e7ff      	b.n	34 <mylib::listen_sensor::read_temperature+0x34>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:75
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:83
         //  Check that the temperature data is valid.
         //  TODO
         if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
@@ -13417,7 +13437,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   48:	f06f 0001 	mvn.w	r0, #1
   4c:	900c      	str	r0, [sp, #48]	; 0x30
   4e:	e7ff      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
         }
         assert!(rc == 0);
         //#endif  //  MYNEWT_VAL(SENSOR_COAP)
@@ -13427,7 +13447,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   50:	980c      	ldr	r0, [sp, #48]	; 0x30
   52:	b016      	add	sp, #88	; 0x58
   54:	bdb0      	pop	{r4, r5, r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:84
         assert!(!is_null_sensor(sensor));
   56:	9807      	ldr	r0, [sp, #28]
   58:	f7ff fffe 	bl	0 <is_null_sensor>
@@ -13442,19 +13462,19 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   6e:	f2c0 0000 	movt	r0, #0
   72:	f7ff fffe 	bl	0 <core::panicking::panic>
   76:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:88
         let device = sensor_get_device(sensor);
   78:	9807      	ldr	r0, [sp, #28]
   7a:	f7ff fffe 	bl	0 <sensor_get_device>
   7e:	900d      	str	r0, [sp, #52]	; 0x34
   80:	e7ff      	b.n	82 <mylib::listen_sensor::read_temperature+0x82>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:81
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:89
         let c_buf: *const c_char = device_get_name(device);
   82:	980d      	ldr	r0, [sp, #52]	; 0x34
   84:	f7ff fffe 	bl	0 <device_get_name>
   88:	900e      	str	r0, [sp, #56]	; 0x38
   8a:	e7ff      	b.n	8c <mylib::listen_sensor::read_temperature+0x8c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:82
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:90
         let device_name: &CStr = CStr::from_ptr(c_buf);
   8c:	980e      	ldr	r0, [sp, #56]	; 0x38
   8e:	f7ff fffe 	bl	0 <cstr_core::CStr::from_ptr>
@@ -13465,7 +13485,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   9a:	900f      	str	r0, [sp, #60]	; 0x3c
   9c:	9900      	ldr	r1, [sp, #0]
   9e:	9110      	str	r1, [sp, #64]	; 0x40
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:86
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:94
         let temp_sensor_value = get_temperature(sensor_data, sensor_type);
   a0:	9909      	ldr	r1, [sp, #36]	; 0x24
   a2:	9a0a      	ldr	r2, [sp, #40]	; 0x28
@@ -13473,7 +13493,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   a6:	a811      	add	r0, sp, #68	; 0x44
   a8:	f7ff fffe 	bl	0 <mylib::listen_sensor::read_temperature>
   ac:	e7ff      	b.n	ae <mylib::listen_sensor::read_temperature+0xae>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:87
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:95
         assert!(temp_sensor_value.val_type != 0);
   ae:	9812      	ldr	r0, [sp, #72]	; 0x48
   b0:	2800      	cmp	r0, #0
@@ -13483,7 +13503,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   ba:	f2c0 0000 	movt	r0, #0
   be:	f7ff fffe 	bl	0 <core::panicking::panic>
   c2:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:88
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:96
         if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
   c4:	9812      	ldr	r0, [sp, #72]	; 0x48
   c6:	2800      	cmp	r0, #0
@@ -13493,7 +13513,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   d0:	900c      	str	r0, [sp, #48]	; 0x30
   d2:	e7ff      	b.n	d4 <mylib::listen_sensor::read_temperature+0xd4>
   d4:	e7bc      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:95
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:103
         let rc = send_sensor_data(&temp_sensor_value, device_name);
   d6:	990f      	ldr	r1, [sp, #60]	; 0x3c
   d8:	9a10      	ldr	r2, [sp, #64]	; 0x40
@@ -13501,14 +13521,14 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   dc:	f7ff fffe 	bl	0 <mylib::send_coap::send_sensor_data>
   e0:	9015      	str	r0, [sp, #84]	; 0x54
   e2:	e7ff      	b.n	e4 <mylib::listen_sensor::read_temperature+0xe4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
         if rc == SYS_EAGAIN {
   e4:	9815      	ldr	r0, [sp, #84]	; 0x54
   e6:	3006      	adds	r0, #6
   e8:	2800      	cmp	r0, #0
   ea:	d10b      	bne.n	104 <mylib::listen_sensor::read_temperature+0x104>
   ec:	e7ff      	b.n	ee <mylib::listen_sensor::read_temperature+0xee>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:100
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:108
             console_print(b"TMP network not ready\n");
   ee:	f240 0000 	movw	r0, #0
   f2:	f2c0 0000 	movt	r0, #0
@@ -13516,11 +13536,11 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   f8:	f7ff fffe 	bl	0 <mylib::base::console_print>
   fc:	e7ff      	b.n	fe <mylib::listen_sensor::read_temperature+0xfe>
   fe:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:109
             return 0; 
  100:	900c      	str	r0, [sp, #48]	; 0x30
  102:	e7e7      	b.n	d4 <mylib::listen_sensor::read_temperature+0xd4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:103
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:111
         assert!(rc == 0);
  104:	9815      	ldr	r0, [sp, #84]	; 0x54
  106:	2800      	cmp	r0, #0
@@ -13531,10 +13551,10 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
  114:	f7ff fffe 	bl	0 <core::panicking::panic>
  118:	defe      	udf	#254	; 0xfe
  11a:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:114
     0
  11c:	900c      	str	r0, [sp, #48]	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
 }
  11e:	e797      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
 
@@ -13542,7 +13562,7 @@ Disassembly of section .text._ZN5mylib13listen_sensor15get_temperature17h42fabea
 
 00000000 <mylib::listen_sensor::get_temperature>:
 _ZN5mylib13listen_sensor15get_temperature17h42fabeac78d97520E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:112
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:120
 
 ///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
 ///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
@@ -13556,7 +13576,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
    a:	9105      	str	r1, [sp, #20]
    c:	9307      	str	r3, [sp, #28]
    e:	9206      	str	r2, [sp, #24]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:114
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
     let mut return_value = SensorValue {
         key: b"\0".as_ptr(),
   10:	f240 0100 	movw	r1, #0
@@ -13571,7 +13591,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   2a:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
   2e:	9000      	str	r0, [sp, #0]
   30:	e7ff      	b.n	32 <mylib::listen_sensor::get_temperature+0x32>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:113
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:121
     let mut return_value = SensorValue {
   32:	9800      	ldr	r0, [sp, #0]
   34:	9009      	str	r0, [sp, #36]	; 0x24
@@ -13579,7 +13599,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   38:	910a      	str	r1, [sp, #40]	; 0x28
   3a:	f8ad 102c 	strh.w	r1, [sp, #44]	; 0x2c
   3e:	910c      	str	r1, [sp, #48]	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:130
         float_val: 0.0,
     };
     unsafe {
@@ -13594,12 +13614,12 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   4c:	d138      	bne.n	c0 <mylib::listen_sensor::get_temperature+0xc0>
   4e:	e7ff      	b.n	50 <mylib::listen_sensor::get_temperature+0x50>
   50:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:124
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:132
                 //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
                 let mut rawtempdata = SensorTempRawData {
   52:	900d      	str	r0, [sp, #52]	; 0x34
   54:	f88d 0038 	strb.w	r0, [sp, #56]	; 0x38
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:128
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:136
                     strd_temp_raw: 0,
                     strd_temp_raw_is_valid: 0,
                 };
@@ -13609,7 +13629,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   5c:	f7ff fffe 	bl	0 <get_temp_raw_data>
   60:	900f      	str	r0, [sp, #60]	; 0x3c
   62:	e7ff      	b.n	64 <mylib::listen_sensor::get_temperature+0x64>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:137
                 assert!(rc == 0);
   64:	980f      	ldr	r0, [sp, #60]	; 0x3c
   66:	2800      	cmp	r0, #0
@@ -13619,7 +13639,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   70:	f2c0 0000 	movt	r0, #0
   74:	f7ff fffe 	bl	0 <core::panicking::panic>
   78:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:132
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:140
 
                 //  Check that the raw temperature data is valid.
                 if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
@@ -13637,7 +13657,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   98:	f8cc 1004 	str.w	r1, [ip, #4]
   9c:	f8cc 0000 	str.w	r0, [ip]
   a0:	e001      	b.n	a6 <mylib::listen_sensor::get_temperature+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:168
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:176
         //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
         return_value.key = TEMP_SENSOR_KEY;
         return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
@@ -13646,42 +13666,42 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
 }
   a2:	b016      	add	sp, #88	; 0x58
   a4:	bd10      	pop	{r4, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:132
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:140
                 if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
   a6:	e7fc      	b.n	a2 <mylib::listen_sensor::get_temperature+0xa2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:143
                 return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
   a8:	980d      	ldr	r0, [sp, #52]	; 0x34
   aa:	f8ad 002c 	strh.w	r0, [sp, #44]	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:136
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:144
                 console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
   ae:	f240 0000 	movw	r0, #0
   b2:	f2c0 0000 	movt	r0, #0
   b6:	2119      	movs	r1, #25
   b8:	f7ff fffe 	bl	0 <mylib::base::console_print>
   bc:	e7ff      	b.n	be <mylib::listen_sensor::get_temperature+0xbe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:121
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
         match sensor_type {                                //  Is this raw or computed temperature?
   be:	e02f      	b.n	120 <mylib::listen_sensor::get_temperature+0x120>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:138
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:146
             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
   c0:	9806      	ldr	r0, [sp, #24]
   c2:	9907      	ldr	r1, [sp, #28]
   c4:	9111      	str	r1, [sp, #68]	; 0x44
   c6:	9010      	str	r0, [sp, #64]	; 0x40
   c8:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:140
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:148
                 let mut tempdata = SensorTempData {
   ca:	9013      	str	r0, [sp, #76]	; 0x4c
   cc:	f88d 0050 	strb.w	r0, [sp, #80]	; 0x50
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:144
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:152
                 let rc = get_temp_data(sensor_data, &mut tempdata);
   d0:	9805      	ldr	r0, [sp, #20]
   d2:	a913      	add	r1, sp, #76	; 0x4c
   d4:	f7ff fffe 	bl	0 <get_temp_data>
   d8:	9015      	str	r0, [sp, #84]	; 0x54
   da:	e7ff      	b.n	dc <mylib::listen_sensor::get_temperature+0xdc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:145
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:153
                 assert!(rc == 0);
   dc:	9815      	ldr	r0, [sp, #84]	; 0x54
   de:	2800      	cmp	r0, #0
@@ -13691,7 +13711,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   e8:	f2c0 0000 	movt	r0, #0
   ec:	f7ff fffe 	bl	0 <core::panicking::panic>
   f0:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:148
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:156
                 if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
   f2:	f89d 0050 	ldrb.w	r0, [sp, #80]	; 0x50
   f6:	2800      	cmp	r0, #0
@@ -13707,23 +13727,23 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  110:	f8cc 1004 	str.w	r1, [ip, #4]
  114:	f8cc 0000 	str.w	r0, [ip]
  118:	e7c5      	b.n	a6 <mylib::listen_sensor::get_temperature+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:151
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:159
                 return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
  11a:	9813      	ldr	r0, [sp, #76]	; 0x4c
  11c:	900c      	str	r0, [sp, #48]	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:121
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
         match sensor_type {                                //  Is this raw or computed temperature?
  11e:	e7ff      	b.n	120 <mylib::listen_sensor::get_temperature+0x120>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:164
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:172
         return_value.key = TEMP_SENSOR_KEY;
  120:	f240 0000 	movw	r0, #0
  124:	f2c0 0000 	movt	r0, #0
  128:	9009      	str	r0, [sp, #36]	; 0x24
  12a:	2001      	movs	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:165
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:173
         return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
  12c:	900a      	str	r0, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:167
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:175
     return_value
  12e:	9809      	ldr	r0, [sp, #36]	; 0x24
  130:	990a      	ldr	r1, [sp, #40]	; 0x28
@@ -13734,7 +13754,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  13e:	f8cc 2008 	str.w	r2, [ip, #8]
  142:	f8cc 1004 	str.w	r1, [ip, #4]
  146:	f8cc 0000 	str.w	r0, [ip]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:168
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:176
 }
  14a:	e7aa      	b.n	a2 <mylib::listen_sensor::get_temperature+0xa2>
 
@@ -14072,3 +14092,143 @@ fn panic(info: &PanicInfo) -> ! {
     loop {}
   ae:	e7ff      	b.n	b0 <rust_begin_unwind+0xb0>
   b0:	e7fe      	b.n	b0 <rust_begin_unwind+0xb0>
+
+mylib-50794855a3f9698d.5a1h7zdwutkmx5k9.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 5a1h7zdwutkmx5k9
+000001a3 l       .debug_str	00000000 
+0000025c l       .debug_str	00000000 
+0000015c l       .debug_str	00000000 
+0000016b l       .debug_str	00000000 
+000001df l       .debug_str	00000000 
+00000250 l       .debug_str	00000000 
+00000244 l       .debug_str	00000000 
+0000023f l       .debug_str	00000000 
+0000022d l       .debug_str	00000000 
+000001f5 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000082 l       .debug_str	00000000 
+00000089 l       .debug_str	00000000 
+0000009b l       .debug_str	00000000 
+000000aa l       .debug_str	00000000 
+000000ae l       .debug_str	00000000 
+000000b6 l       .debug_str	00000000 
+000000ba l       .debug_str	00000000 
+000000be l       .debug_str	00000000 
+000000c8 l       .debug_str	00000000 
+000000d2 l       .debug_str	00000000 
+000000d8 l       .debug_str	00000000 
+000000f4 l       .debug_str	00000000 
+0000014d l       .debug_str	00000000 
+00000154 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.263f19d5ea96f7cf1b022ce280a83ceb.2	00000018 .Lanon.263f19d5ea96f7cf1b022ce280a83ceb.2
+00000000 l     O .data._ZN5mylib6sensor17LISTENER_INTERNAL17h134e9abd08047957E	00000018 mylib::sensor::LISTENER_INTERNAL
+00000000 l     F .text._ZN5mylib6sensor21null_sensor_data_func17h8e594dd52cb73506E	0000002a mylib::sensor::null_sensor_data_func
+00000000 l    d  .text._ZN5mylib6sensor21null_sensor_data_func17h8e594dd52cb73506E	00000000 .text._ZN5mylib6sensor21null_sensor_data_func17h8e594dd52cb73506E
+00000000 l    d  .text._ZN5mylib6sensor17register_listener17h4d59b765a06cf618E	00000000 .text._ZN5mylib6sensor17register_listener17h4d59b765a06cf618E
+00000000 l    d  .data._ZN5mylib6sensor17LISTENER_INTERNAL17h134e9abd08047957E	00000000 .data._ZN5mylib6sensor17LISTENER_INTERNAL17h134e9abd08047957E
+00000000 l    d  .rodata..Lanon.263f19d5ea96f7cf1b022ce280a83ceb.0	00000000 .rodata..Lanon.263f19d5ea96f7cf1b022ce280a83ceb.0
+00000000 l    d  .rodata..Lanon.263f19d5ea96f7cf1b022ce280a83ceb.1	00000000 .rodata..Lanon.263f19d5ea96f7cf1b022ce280a83ceb.1
+00000000 l    d  .debug_loc	00000000 .debug_loc
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN5mylib6sensor17register_listener17h4d59b765a06cf618E	0000005e .hidden mylib::sensor::register_listener
+00000000         *UND*	00000000 sensor_register_listener
+
+
+
+Disassembly of section .text._ZN5mylib6sensor21null_sensor_data_func17h8e594dd52cb73506E:
+
+00000000 <mylib::sensor::null_sensor_data_func>:
+_ZN5mylib6sensor21null_sensor_data_func17h8e594dd52cb73506E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:12
+    sl_func       : null_sensor_data_func,      //  Listener function to be called with the sensor data
+    sl_arg        : 0,           //  Indicate to the listener function that this is a listener callback
+    sl_next       : 0,                     //  Must be 0
+};
+
+extern fn null_sensor_data_func(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 { 0 }
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	9b0d      	ldr	r3, [sp, #52]	; 0x34
+   6:	f8dd c030 	ldr.w	ip, [sp, #48]	; 0x30
+   a:	4696      	mov	lr, r2
+   c:	460c      	mov	r4, r1
+   e:	4605      	mov	r5, r0
+  10:	9003      	str	r0, [sp, #12]
+  12:	9104      	str	r1, [sp, #16]
+  14:	9205      	str	r2, [sp, #20]
+  16:	9307      	str	r3, [sp, #28]
+  18:	f8cd c018 	str.w	ip, [sp, #24]
+  1c:	2000      	movs	r0, #0
+  1e:	f8cd e008 	str.w	lr, [sp, #8]
+  22:	9401      	str	r4, [sp, #4]
+  24:	9500      	str	r5, [sp, #0]
+  26:	b008      	add	sp, #32
+  28:	bdb0      	pop	{r4, r5, r7, pc}
+
+Disassembly of section .text._ZN5mylib6sensor17register_listener17h4d59b765a06cf618E:
+
+00000000 <mylib::sensor::register_listener>:
+_ZN5mylib6sensor17register_listener17h4d59b765a06cf618E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:23
+///  for the sensor listener structure.
+///
+///  `sensor`: The sensor to register a listener on.
+///  `listener`: The listener to register onto the sensor.
+///  Return 0 on success, non-zero error code on failure.
+pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {    
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4602      	mov	r2, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:24
+    unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
+   8:	f240 0000 	movw	r0, #0
+   c:	f2c0 0000 	movt	r0, #0
+  10:	6803      	ldr	r3, [r0, #0]
+  12:	6840      	ldr	r0, [r0, #4]
+  14:	4318      	orrs	r0, r3
+  16:	2800      	cmp	r0, #0
+  18:	9102      	str	r1, [sp, #8]
+  1a:	9201      	str	r2, [sp, #4]
+  1c:	d007      	beq.n	2e <mylib::sensor::register_listener+0x2e>
+  1e:	e7ff      	b.n	20 <mylib::sensor::register_listener+0x20>
+  20:	f240 0000 	movw	r0, #0
+  24:	f2c0 0000 	movt	r0, #0
+  28:	f7ff fffe 	bl	0 <core::panicking::panic>
+  2c:	defe      	udf	#254	; 0xfe
+  2e:	a804      	add	r0, sp, #16
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:27
+    //  Copy the caller's listener to the internal listener.
+    //  LISTENER_INTERNAL = SensorListener { .. listener };
+    unsafe { LISTENER_INTERNAL = listener };
+  30:	9902      	ldr	r1, [sp, #8]
+  32:	4602      	mov	r2, r0
+  34:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
+  38:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+  3c:	f240 0100 	movw	r1, #0
+  40:	f2c0 0100 	movt	r1, #0
+  44:	460a      	mov	r2, r1
+  46:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
+  4a:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:29
+    //  Pass the internal listener to the unsafe Mynewt API.
+    unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) }
+  4e:	9803      	ldr	r0, [sp, #12]
+  50:	f7ff fffe 	bl	0 <sensor_register_listener>
+  54:	9000      	str	r0, [sp, #0]
+  56:	e7ff      	b.n	58 <mylib::sensor::register_listener+0x58>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:30
+}
+  58:	9800      	ldr	r0, [sp, #0]
+  5a:	b00a      	add	sp, #40	; 0x28
+  5c:	bd70      	pop	{r4, r5, r6, pc}
