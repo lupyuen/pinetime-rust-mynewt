@@ -10,7 +10,7 @@
 ///  `sensor`: The sensor to register a listener on.
 ///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
-pub fn register_listener(sensor: SensorPtr, listener: &SensorListener) -> i32 {    
+pub fn register_listener(sensor: SensorPtr, listener: &mut SensorListener) -> i32 {    
     //  Make an unsafe call to the Mynewt API.
     unsafe { sensor_register_listener(sensor, listener) }
 }
@@ -40,7 +40,7 @@ extern {
     ///  `sensor`: The sensor to register a listener on.
     ///  `listener`: The listener to register onto the sensor.
     ///  Return 0 on success, non-zero error code on failure.
-    pub fn sensor_register_listener(sensor: SensorPtr, listener: *const SensorListener) -> i32;
+    pub fn sensor_register_listener(sensor: SensorPtr, listener: *mut SensorListener) -> i32;
 }
 
 ///  Import the Mynewt SensorListener struct for C, which defines the listener function to be called after polling a sensor.

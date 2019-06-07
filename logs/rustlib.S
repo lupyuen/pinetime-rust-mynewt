@@ -13341,7 +13341,7 @@ pub fn start_sensor_listener() -> i32 {
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:50
 
     //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-    let rc = unsafe { sensor_register_listener(listen_sensor, &LISTENER) };
+    let rc = unsafe { sensor_register_listener(listen_sensor, &mut LISTENER) };
   7a:	9804      	ldr	r0, [sp, #16]
   7c:	f240 0100 	movw	r1, #0
   80:	f2c0 0100 	movt	r1, #0

@@ -47,7 +47,7 @@ pub fn start_sensor_listener() -> i32 {
     assert!(!unsafe{ is_null_sensor(listen_sensor) });
 
     //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-    let rc = unsafe { sensor_register_listener(listen_sensor, &LISTENER) };
+    let rc = unsafe { sensor_register_listener(listen_sensor, &mut LISTENER) };
     assert!(rc == 0);
 
     //  Return 0 to indicate success.  This line should not end with a semicolon (;).
