@@ -1,6 +1,7 @@
 use cty::*;
 use cstr_core::CStr;
 use crate::base::*;
+use crate::sensor::*;
 use crate::send_coap::send_sensor_data;
 
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  //  Poll every 10,000 milliseconds (10 seconds)  
@@ -8,7 +9,7 @@ const LISTENER_CB: SensorArg = 1;            //  Indicate that this is a listene
 const READ_CB: SensorArg     = 2;            //  Indicate that this is a sensor read callback
 
 //  Define the listener function to be called after polling the temperature sensor.
-static mut LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
+static LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
     sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
     sl_func       : read_temperature,      //  Listener function to be called with the sensor data
     sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
@@ -24,26 +25,21 @@ pub fn start_sensor_listener() -> i32 {
     //  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
     //  or CoAP Server (is this is a Standalone Node).
     //  For Collector Node: Start the Listeners for Remote Sensor 
-    unsafe {
-        /* if (is_collector_node()) {                    //  If this is a Collector Node...
-            return start_remote_sensor_listeners();   //  Start the Listener for every Remote Sensor.
-        } */
+    //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
+    console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
-        //  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-        console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
+    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
+    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE(), SENSOR_POLL_TIME) };
+    assert!(rc == 0);
 
-        //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-        let rc = sensor_set_poll_rate_ms(SENSOR_DEVICE(), SENSOR_POLL_TIME);
-        assert!(rc == 0);
+    //  Fetch the sensor by name, without locking the driver for exclusive access.
+    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE(), null_sensor()) };
+    assert!(!unsafe{ is_null_sensor(listen_sensor) });
 
-        //  Fetch the sensor by name, without locking the driver for exclusive access.
-        let listen_sensor = sensor_mgr_find_next_bydevname(SENSOR_DEVICE(), null_sensor());
-        assert!(!is_null_sensor(listen_sensor));
+    //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
+    let rc = register_listener(listen_sensor, &LISTENER);
+    assert!(rc == 0);
 
-        //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-        let rc = sensor_register_listener(listen_sensor, &LISTENER);
-        assert!(rc == 0);
-    }
     0
 }
 

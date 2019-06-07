@@ -1,6 +1,7 @@
 #![no_std]          //  Don't link with standard Rust library
 
 mod base;           //  Import base.rs
+mod sensor;         //  Import sensor.rs
 mod listen_sensor;  //  Import listen_sensor.rs
 mod send_coap;      //  Import send_coap.rs
 
@@ -45,16 +46,3 @@ fn panic(_info: &PanicInfo) -> ! {
     //  This function is called on panic. From https://os.phil-opp.com/freestanding-rust-binary/
     loop {}
 }
-
-/*
-    //  Message to be displayed.
-    let msg = "Testing 123\n";
-    let buf = msg.as_bytes();
-    let len = buf.len();
-
-    //  Display message on Arm Semihosting console (openocd).
-    unsafe {
-        console_buffer(buf.as_ptr(), len as u32);
-        console_flush();
-    }
-*/

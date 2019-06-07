@@ -1,5 +1,14 @@
 use cty::*;
-use cstr_core::CStr;
+use crate::sensor::*;
+
+///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+pub fn console_print(msg: &[u8]) {
+    let len = msg.len();
+    unsafe {
+        console_buffer(msg.as_ptr(), len as u32);
+        console_flush(); //  TODO: Remove this.
+    }
+}
 
 #[link(name = "libs_mynewt_rust")]
 extern {
@@ -34,48 +43,14 @@ extern {
     pub fn console_flush();  //  Flush the output buffer to the console.
 }
 
-//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-#[link(name = "hw_sensor")]
-extern {
-    /**
-     * Set the sensor poll rate
-     *
-     * @param devname Name of the sensor
-     * @param poll_rate The poll rate in milli seconds
-     */
-    pub fn sensor_set_poll_rate_ms(devname: *const u8, poll_rate: u32) -> i32;
-
-    /**
-     * Search the sensor list and find the next sensor that corresponds
-     * to a given device name.
-     *
-     * @param devname The device name to search for
-     * @param sensor The previous sensor found with this device name
-     *
-     * @return 0 on success, non-zero error code on failure
-     */
-    pub fn sensor_mgr_find_next_bydevname(devname: *const u8, prev_cursor: SensorPtr) -> SensorPtr;
-
-    /**
-     * Register a sensor listener. This allows a calling application to receive
-     * callbacks for data from a given sensor object.
-     *
-     * For more information on the type of callbacks available, see the documentation
-     * for the sensor listener structure.
-     *
-     * @param sensor The sensor to register a listener on
-     * @param listener The listener to register onto the sensor
-     *
-     * @return 0 on success, non-zero error code on failure.
-     */
-    pub fn sensor_register_listener(sensor: SensorPtr, listener: *const SensorListener) -> i32;
-}
 
 #[link(name = "kernel_os")]
 extern {
     pub fn os_eventq_run(evq: *const CVoid);
     pub fn os_eventq_dflt_get() -> *const CVoid;
 }
+
+//  Sensor definitions are in sensor.rs
 
 //  Must sync with apps/my_sensor_app/src/listen_sensor.h
 pub fn SENSOR_DEVICE() -> *const u8 { TEMP_STM32_DEVICE() }  //  We will open internal temperature sensor "temp_stm32_0"
@@ -95,35 +70,6 @@ pub fn TEMP_SENSOR_KEY() -> *const u8 { b"t\0".as_ptr() }  //  Use key (field na
 
 //  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: SensorType = SENSOR_TYPE_USER_DEFINED_1;
-
-//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-const SENSOR_TYPE_USER_DEFINED_1: SensorType = (1 << 26);
-
-//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-pub const SENSOR_VALUE_TYPE_OPAQUE: i32 = 0;
-pub const SENSOR_VALUE_TYPE_INT32: i32 = 1;
-pub const SENSOR_VALUE_TYPE_FLOAT: i32 = 2;
-
-//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-#[repr(C)]
-pub struct SensorListener {
-    /* The type of sensor data to listen for, this is interpreted as a
-     * mask, and this listener is called for all sensor types on this
-     * sensor that match the mask.
-     */
-    pub sl_sensor_type: SensorType,
-
-    /* Sensor data handler function, called when has data */
-    pub sl_func: SensorDataFunc,
-
-    /* Argument for the sensor listener */
-    pub sl_arg: i32, // SensorArg,
-
-    /* Next item in the sensor listener list.  The head of this list is
-     * contained within the sensor object.
-     */
-    pub sl_next: u32,
-}
 
 //  Must sync with libs/sensor_coap/include/sensor_coap/sensor_coap.h
 //  sensor_value represents a decoded sensor data value. Since temperature may be integer (raw)
@@ -159,14 +105,6 @@ pub enum CVoid {
     _Variant2,
 }
 
-//  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-pub type SensorDataFunc = extern fn(SensorPtr, SensorArg, SensorDataPtr, SensorType) -> i32;
-pub type SensorType = i64;
-pub type SensorArg = i32;
-pub type SensorPtr = *const CVoid;
-pub type SensorMutPtr = *mut CVoid;
-pub type SensorDataPtr = *const CVoid;
-
 //  struct os_dev *
 pub type DevicePtr = *const CVoid;
 
@@ -188,11 +126,3 @@ pub const SYS_EUNKNOWN    : i32 = -13;
 pub const SYS_EREMOTEIO   : i32 = -14;
 pub const SYS_EDONE       : i32 = -15;
 pub const SYS_EPERUSER : i32 = -65535;
-
-pub fn console_print(msg: &[u8]) {
-    let len = msg.len();
-    unsafe {
-        console_buffer(msg.as_ptr(), len as u32);
-        console_flush(); ////
-    }
-}
