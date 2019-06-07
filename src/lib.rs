@@ -43,8 +43,22 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  Never comes here.
 }
 
-///  This function is called on panic. Set a breakpoint here to see the panic details. From https://os.phil-opp.com/freestanding-rust-binary/
+///  This function is called on panic, like an assertion failure. Set a breakpoint here to see the panic details. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    //  Display the filename and line number to the Semihosting Console.
+    if let Some(location) = info.location() {
+        let file = location.file();
+        let line = location.line();
+        console_print(b"panic at ");
+        unsafe { console_buffer(file.as_ptr(), file.len() as u32) }
+        console_print(b" line 0x");
+        unsafe { console_printhex(line as u8) }  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+        console_print(b"\n");
+        unsafe { console_flush() }
+    } else {
+        console_print(b"panic unknown loc\n");
+        unsafe { console_flush() }
+    }
     loop {}
 }
