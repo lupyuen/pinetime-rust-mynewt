@@ -1,4 +1,5 @@
-use crate::base::*;
+//!  Import the Mynewt Sensor API and export the safe version of the API. Based on
+//!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
 ///  Register a sensor listener. This allows a calling application to receive
 ///  callbacks for data from a given sensor object. This is the safe version of sensor_register_listener().
@@ -62,6 +63,14 @@ pub struct SensorListener {
     pub sl_next: u32,
 }
 
+///  Data representing a singular read from a temperature sensor. All values are in Deg C.
+///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/temperature.h
+#[repr(C, packed)]  //  Declare as packed because the C struct is packed.
+pub struct SensorTempData {  
+    pub std_temp: f32,
+    pub std_temp_is_valid: u8,
+}
+
 ///  Mynewt User-Defined Sensor Type 1.
 ///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
 pub const SENSOR_TYPE_USER_DEFINED_1: SensorType = (1 << 26);
@@ -80,3 +89,34 @@ pub type SensorArg = i32;
 pub type SensorPtr = *const CVoid;
 pub type SensorMutPtr = *mut CVoid;
 pub type SensorDataPtr = *const CVoid;
+
+///  Declare a pointer to the Mynewt `os_dev` struct.  The contents are hidden.
+pub type DevicePtr = *const CVoid;
+
+///  Declare the void C type.  From https://github.com/hashmismatch/freertos.rs/blob/master/src/base.rs
+#[repr(u32)]
+pub enum CVoid {
+    _Variant1,
+    _Variant2,
+}
+unsafe impl Send for CVoid {}
+
+///  Declare the Mynewt error codes.
+///  Must sync with repos/apache-mynewt-core/sys/defs/include/defs/error.h
+pub const SYS_EOK         : i32 = 0;
+pub const SYS_ENOMEM      : i32 = -1;
+pub const SYS_EINVAL      : i32 = -2;
+pub const SYS_ETIMEOUT    : i32 = -3;
+pub const SYS_ENOENT      : i32 = -4;
+pub const SYS_EIO         : i32 = -5;
+pub const SYS_EAGAIN      : i32 = -6;
+pub const SYS_EACCES      : i32 = -7;
+pub const SYS_EBUSY       : i32 = -8;
+pub const SYS_ENODEV      : i32 = -9;
+pub const SYS_ERANGE      : i32 = -10;
+pub const SYS_EALREADY    : i32 = -11;
+pub const SYS_ENOTSUP     : i32 = -12;
+pub const SYS_EUNKNOWN    : i32 = -13;
+pub const SYS_EREMOTEIO   : i32 = -14;
+pub const SYS_EDONE       : i32 = -15;
+pub const SYS_EPERUSER : i32 = -65535;

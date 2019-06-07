@@ -16,8 +16,6 @@ use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sens
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  
 ///  Indicate that this is a listener callback
 const LISTENER_CB: SensorArg = 1;           
-///  Indicate that this is a sensor read callback 
-const READ_CB: SensorArg     = 2;           
 
 ///  Define the listener function to be called after polling the temperature sensor.
 static LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
@@ -41,11 +39,11 @@ pub fn start_sensor_listener() -> i32 {
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE(), SENSOR_POLL_TIME) };
+    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
     assert!(rc == 0);
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE(), null_sensor()) };
+    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
     assert!(!unsafe{ is_null_sensor(listen_sensor) });
 
     //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
@@ -163,7 +161,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
             }
         }
         //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
-        return_value.key = TEMP_SENSOR_KEY();
+        return_value.key = TEMP_SENSOR_KEY;
         return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
     };
     return_value
