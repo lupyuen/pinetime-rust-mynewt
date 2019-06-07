@@ -18,7 +18,7 @@ const SENSOR_POLL_TIME: u32  = (10 * 1000);
 const LISTENER_CB: SensorArg = 1;           
 
 ///  Define the listener function to be called after polling the temperature sensor.
-static LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
+static mut LISTENER: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
     sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
     sl_func       : read_temperature,      //  Listener function to be called with the sensor data
     sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
@@ -47,7 +47,7 @@ pub fn start_sensor_listener() -> i32 {
     assert!(!unsafe{ is_null_sensor(listen_sensor) });
 
     //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-    let rc = register_listener(listen_sensor, &LISTENER);
+    let rc = unsafe { sensor_register_listener(listen_sensor, &LISTENER) };
     assert!(rc == 0);
 
     //  Return 0 to indicate success.  This line should not end with a semicolon (;).
