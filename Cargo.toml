@@ -8,24 +8,24 @@ version = "0.1.0"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
-cty = "0.2.0"
-cstr_core = "0.1.2"
-# Reduces the ROM size. See https://github.com/BurntSushi/rust-memchr
-memchr = { version = "2", default-features = false }
+cty = "0.2.0"        # String utilities from cty library: https://crates.io/crates/cty
+cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+memchr = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+cortex-m = "0.5.8"
 
-# Build this module as a Rust library, not a Rust application.
+# Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
 name = "mylib"
 test = false
 bench = false
 
-# For `cargo build`
+# Options for `cargo build`
 [profile.dev]
-panic = "abort"     # disable stack unwinding on panic
+panic = "abort"     # Disable stack unwinding on panic
 
-# For `cargo build --release`
+# Options for `cargo build --release`
 [profile.release]
-panic = "abort"     # disable stack unwinding on panic
-codegen-units = 1   # better optimizations
-debug = true        # symbols are nice and they don't increase the size on Flash
-lto = true          # better optimizations
+panic = "abort"     # Disable stack unwinding on panic
+codegen-units = 1   # Better optimizations
+debug = true        # Symbols are nice and they don't increase the size on Flash
+lto = true          # Better optimizations

@@ -1,5 +1,13347 @@
 In archive rustlib.a:
 
+aligned-08120e70a94dcea3.aligned.7z4igfo1-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 aligned.7z4igfo1-cgu.0
+
+
+
+aligned-c9df4b2a7b2c8bd1.aligned.17hrrex5-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 aligned.17hrrex5-cgu.0
+
+
+
+as_slice-2784e236f4bc81c3.as_slice.evqe40x4-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 as_slice.evqe40x4-cgu.0
+
+
+
+bare_metal-70a82aa7284aa2dc.bare_metal.15jso5av-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 bare_metal.15jso5av-cgu.0
+00000109 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000009a l       .debug_str	00000000 
+000000e8 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+00000142 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000f9 l       .debug_str	00000000 
+00000000 l    d  .text._ZN10bare_metal15CriticalSection3new17h843875c3738aa894E	00000000 .text._ZN10bare_metal15CriticalSection3new17h843875c3738aa894E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN10bare_metal15CriticalSection3new17h843875c3738aa894E	00000006 bare_metal::CriticalSection::new
+
+
+
+Disassembly of section .text._ZN10bare_metal15CriticalSection3new17h843875c3738aa894E:
+
+00000000 <bare_metal::CriticalSection::new>:
+_ZN10bare_metal15CriticalSection3new17h843875c3738aa894E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/bare-metal-0.2.4/src/lib.rs:66
+impl CriticalSection {
+    /// Creates a critical section token
+    ///
+    /// This method is meant to be used to create safe abstractions rather than
+    /// meant to be directly used in applications.
+    pub unsafe fn new() -> Self {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/bare-metal-0.2.4/src/lib.rs:68
+        CriticalSection { _0: () }
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+cortex-m-v7.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .text.__basepri_max	00000000 .text.__basepri_max
+00000000 l    d  .text.__basepri_r	00000000 .text.__basepri_r
+00000000 l    d  .text.__basepri_w	00000000 .text.__basepri_w
+00000000 l    d  .text.__faultmask	00000000 .text.__faultmask
+00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+00000000 g     F .text.__basepri_max	00000000 __basepri_max
+00000000 g     F .text.__basepri_r	00000000 __basepri_r
+00000000 g     F .text.__basepri_w	00000000 __basepri_w
+00000000 g     F .text.__faultmask	00000000 __faultmask
+
+
+
+Disassembly of section .text.__basepri_max:
+
+00000000 <__basepri_max>:
+__basepri_max():
+   0:	f380 8812 	msr	BASEPRI_MAX, r0
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__basepri_r:
+
+00000000 <__basepri_r>:
+__basepri_r():
+   0:	f3ef 8011 	mrs	r0, BASEPRI
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__basepri_w:
+
+00000000 <__basepri_w>:
+__basepri_w():
+   0:	f380 8811 	msr	BASEPRI, r0
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__faultmask:
+
+00000000 <__faultmask>:
+__faultmask():
+   0:	f3ef 8013 	mrs	r0, FAULTMASK
+   4:	4770      	bx	lr
+
+cortex-m.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .text.__bkpt	00000000 .text.__bkpt
+00000000 l    d  .text.__control	00000000 .text.__control
+00000000 l    d  .text.__cpsid	00000000 .text.(char, short *, int, double)
+00000000 l    d  .text.__cpsie	00000000 .text.(char, short *, int,...)
+00000000 l    d  .text.__delay	00000000 .text.__delay
+00000000 l    d  .text.__dmb	00000000 .text.__dmb
+00000000 l    d  .text.__dsb	00000000 .text.(double, short, bool)
+00000000 l    d  .text.__isb	00000000 .text.(int, short, bool)
+00000000 l    d  .text.__msp_r	00000000 .text.__msp_r
+00000000 l    d  .text.__msp_w	00000000 .text.__msp_w
+00000000 l    d  .text.__nop	00000000 .text.__nop
+00000000 l    d  .text.__primask	00000000 .text.__primask
+00000000 l    d  .text.__psp_r	00000000 .text.__psp_r
+00000000 l    d  .text.__psp_w	00000000 .text.__psp_w
+00000000 l    d  .text.__sev	00000000 .text.(short,...)(void)
+00000000 l    d  .text.__wfe	00000000 .text.(wchar_t, float,...)
+00000000 l    d  .text.__wfi	00000000 .text.(wchar_t, float, int)
+00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+00000000 g     F .text.__bkpt	00000000 __bkpt
+00000000 g     F .text.__control	00000000 __control
+00000000 g     F .text.__cpsid	00000000 __cpsid
+00000000 g     F .text.__cpsie	00000000 __cpsie
+00000000 g     F .text.__delay	00000000 __delay
+00000000 g     F .text.__dmb	00000000 __dmb
+00000000 g     F .text.__dsb	00000000 __dsb
+00000000 g     F .text.__isb	00000000 __isb
+00000000 g     F .text.__msp_r	00000000 __msp_r
+00000000 g     F .text.__msp_w	00000000 __msp_w
+00000000 g     F .text.__nop	00000000 __nop
+00000000 g     F .text.__primask	00000000 __primask
+00000000 g     F .text.__psp_r	00000000 __psp_r
+00000000 g     F .text.__psp_w	00000000 __psp_w
+00000000 g     F .text.__sev	00000000 __sev
+00000000 g     F .text.__wfe	00000000 __wfe
+00000000 g     F .text.__wfi	00000000 __wfi
+
+
+
+Disassembly of section .text.__bkpt:
+
+00000000 <__bkpt>:
+__bkpt():
+   0:	be00      	bkpt	0x0000
+   2:	4770      	bx	lr
+
+Disassembly of section .text.__control:
+
+00000000 <__control>:
+__control():
+   0:	f3ef 8014 	mrs	r0, CONTROL
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__cpsid:
+
+00000000 <__cpsid>:
+__cpsid():
+   0:	b672      	cpsid	i
+   2:	4770      	bx	lr
+
+Disassembly of section .text.__cpsie:
+
+00000000 <__cpsie>:
+__cpsie():
+   0:	b662      	cpsie	i
+   2:	4770      	bx	lr
+
+Disassembly of section .text.__delay:
+
+00000000 <__delay>:
+__delay():
+   0:	bf00      	nop
+   2:	3801      	subs	r0, #1
+   4:	f47f affe 	bne.w	0 <__delay>
+   8:	4770      	bx	lr
+
+Disassembly of section .text.__dmb:
+
+00000000 <__dmb>:
+__dmb():
+   0:	f3bf 8f5f 	dmb	sy
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__dsb:
+
+00000000 <__dsb>:
+__dsb():
+   0:	f3bf 8f4f 	dsb	sy
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__isb:
+
+00000000 <__isb>:
+__isb():
+   0:	f3bf 8f6f 	isb	sy
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__msp_r:
+
+00000000 <__msp_r>:
+__msp_r():
+   0:	f3ef 8008 	mrs	r0, MSP
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__msp_w:
+
+00000000 <__msp_w>:
+__msp_w():
+   0:	f380 8808 	msr	MSP, r0
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__nop:
+
+00000000 <__nop>:
+__nop():
+   0:	4770      	bx	lr
+
+Disassembly of section .text.__primask:
+
+00000000 <__primask>:
+__primask():
+   0:	f3ef 8010 	mrs	r0, PRIMASK
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__psp_r:
+
+00000000 <__psp_r>:
+__psp_r():
+   0:	f3ef 8009 	mrs	r0, PSP
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__psp_w:
+
+00000000 <__psp_w>:
+__psp_w():
+   0:	f380 8809 	msr	PSP, r0
+   4:	4770      	bx	lr
+
+Disassembly of section .text.__sev:
+
+00000000 <__sev>:
+__sev():
+   0:	bf40      	sev
+   2:	4770      	bx	lr
+
+Disassembly of section .text.__wfe:
+
+00000000 <__wfe>:
+__wfe():
+   0:	bf20      	wfe
+   2:	4770      	bx	lr
+
+Disassembly of section .text.__wfi:
+
+00000000 <__wfi>:
+__wfi():
+   0:	bf30      	wfi
+   2:	4770      	bx	lr
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.0
+00001f62 l       .debug_str	00000000 
+00001e02 l       .debug_str	00000000 
+00001e06 l       .debug_str	00000000 
+00001e0c l       .debug_str	00000000 
+00001e12 l       .debug_str	00000000 
+00001e18 l       .debug_str	00000000 
+00001e1e l       .debug_str	00000000 
+00001e4e l       .debug_str	00000000 
+00001eb3 l       .debug_str	00000000 
+00001edd l       .debug_str	00000000 
+00001f12 l       .debug_str	00000000 
+00001f16 l       .debug_str	00000000 
+00001f1b l       .debug_str	00000000 
+00001f22 l       .debug_str	00000000 
+00001f29 l       .debug_str	00000000 
+00001f30 l       .debug_str	00000000 
+00001f39 l       .debug_str	00000000 
+00001f40 l       .debug_str	00000000 
+00001f48 l       .debug_str	00000000 
+00001f4d l       .debug_str	00000000 
+00001f4f l       .debug_str	00000000 
+00001f54 l       .debug_str	00000000 
+00001f59 l       .debug_str	00000000 
+00001f6b l       .debug_str	00000000 
+00001f76 l       .debug_str	00000000 
+00001f7a l       .debug_str	00000000 
+00001f7e l       .debug_str	00000000 
+00001fae l       .debug_str	00000000 
+00002013 l       .debug_str	00000000 
+0000203d l       .debug_str	00000000 
+00002072 l       .debug_str	00000000 
+00002076 l       .debug_str	00000000 
+0000207c l       .debug_str	00000000 
+000020ac l       .debug_str	00000000 
+00002111 l       .debug_str	00000000 
+0000213b l       .debug_str	00000000 
+00002170 l       .debug_str	00000000 
+00002174 l       .debug_str	00000000 
+00002179 l       .debug_str	00000000 
+0000217e l       .debug_str	00000000 
+00002182 l       .debug_str	00000000 
+0000218c l       .debug_str	00000000 
+00002190 l       .debug_str	00000000 
+0000219a l       .debug_str	00000000 
+0000219e l       .debug_str	00000000 
+000021a8 l       .debug_str	00000000 
+000021d6 l       .debug_str	00000000 
+0000223b l       .debug_str	00000000 
+00002265 l       .debug_str	00000000 
+000022d1 l       .debug_str	00000000 
+000022db l       .debug_str	00000000 
+00002309 l       .debug_str	00000000 
+0000233e l       .debug_str	00000000 
+00002342 l       .debug_str	00000000 
+00002348 l       .debug_str	00000000 
+0000234c l       .debug_str	00000000 
+00002351 l       .debug_str	00000000 
+00002356 l       .debug_str	00000000 
+0000235e l       .debug_str	00000000 
+00002366 l       .debug_str	00000000 
+0000236e l       .debug_str	00000000 
+00002376 l       .debug_str	00000000 
+0000237e l       .debug_str	00000000 
+00002386 l       .debug_str	00000000 
+000023b6 l       .debug_str	00000000 
+0000241b l       .debug_str	00000000 
+00002445 l       .debug_str	00000000 
+0000247b l       .debug_str	00000000 
+00002480 l       .debug_str	00000000 
+00002485 l       .debug_str	00000000 
+0000248a l       .debug_str	00000000 
+00002495 l       .debug_str	00000000 
+0000249a l       .debug_str	00000000 
+000024a5 l       .debug_str	00000000 
+000024aa l       .debug_str	00000000 
+000024b5 l       .debug_str	00000000 
+000024ba l       .debug_str	00000000 
+000024c5 l       .debug_str	00000000 
+000024c9 l       .debug_str	00000000 
+000024ce l       .debug_str	00000000 
+000024ff l       .debug_str	00000000 
+00002565 l       .debug_str	00000000 
+00002590 l       .debug_str	00000000 
+000025c5 l       .debug_str	00000000 
+000025ca l       .debug_str	00000000 
+000025cf l       .debug_str	00000000 
+000025d5 l       .debug_str	00000000 
+000025d9 l       .debug_str	00000000 
+000025dd l       .debug_str	00000000 
+000025e2 l       .debug_str	00000000 
+000025e8 l       .debug_str	00000000 
+000025ed l       .debug_str	00000000 
+000025f2 l       .debug_str	00000000 
+000025f7 l       .debug_str	00000000 
+000025fd l       .debug_str	00000000 
+00002602 l       .debug_str	00000000 
+00002607 l       .debug_str	00000000 
+00002612 l       .debug_str	00000000 
+00002618 l       .debug_str	00000000 
+00002648 l       .debug_str	00000000 
+000026ad l       .debug_str	00000000 
+000026d7 l       .debug_str	00000000 
+0000270d l       .debug_str	00000000 
+00002711 l       .debug_str	00000000 
+00002715 l       .debug_str	00000000 
+00002719 l       .debug_str	00000000 
+0000271f l       .debug_str	00000000 
+00002750 l       .debug_str	00000000 
+000027b6 l       .debug_str	00000000 
+000027e1 l       .debug_str	00000000 
+00002817 l       .debug_str	00000000 
+0000281c l       .debug_str	00000000 
+00002822 l       .debug_str	00000000 
+00002828 l       .debug_str	00000000 
+0000282d l       .debug_str	00000000 
+00002832 l       .debug_str	00000000 
+00002837 l       .debug_str	00000000 
+00002841 l       .debug_str	00000000 
+00002872 l       .debug_str	00000000 
+000028d8 l       .debug_str	00000000 
+00002903 l       .debug_str	00000000 
+00002924 l       .debug_str	00000000 
+0000292a l       .debug_str	00000000 
+0000292e l       .debug_str	00000000 
+0000294d l       .debug_str	00000000 
+0000296c l       .debug_str	00000000 
+0000298b l       .debug_str	00000000 
+0000299a l       .debug_str	00000000 
+000029a0 l       .debug_str	00000000 
+000029a5 l       .debug_str	00000000 
+000029c5 l       .debug_str	00000000 
+000029d4 l       .debug_str	00000000 
+000029df l       .debug_str	00000000 
+000029fa l       .debug_str	00000000 
+00002a17 l       .debug_str	00000000 
+00002a32 l       .debug_str	00000000 
+00002a4d l       .debug_str	00000000 
+00002a68 l       .debug_str	00000000 
+00002a83 l       .debug_str	00000000 
+00002aa2 l       .debug_str	00000000 
+00002abd l       .debug_str	00000000 
+00002ad9 l       .debug_str	00000000 
+00002af4 l       .debug_str	00000000 
+00002b10 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+00000109 l       .debug_str	00000000 
+0000010e l       .debug_str	00000000 
+00000114 l       .debug_str	00000000 
+00000117 l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+00000131 l       .debug_str	00000000 
+00000141 l       .debug_str	00000000 
+00000145 l       .debug_str	00000000 
+00000154 l       .debug_str	00000000 
+0000015e l       .debug_str	00000000 
+0000016f l       .debug_str	00000000 
+00000178 l       .debug_str	00000000 
+00000183 l       .debug_str	00000000 
+0000018a l       .debug_str	00000000 
+00000197 l       .debug_str	00000000 
+0000019e l       .debug_str	00000000 
+000001a6 l       .debug_str	00000000 
+000001b0 l       .debug_str	00000000 
+000001be l       .debug_str	00000000 
+000001c3 l       .debug_str	00000000 
+000001c8 l       .debug_str	00000000 
+000001d1 l       .debug_str	00000000 
+000001df l       .debug_str	00000000 
+000001f1 l       .debug_str	00000000 
+000001fa l       .debug_str	00000000 
+00000200 l       .debug_str	00000000 
+00000206 l       .debug_str	00000000 
+0000020b l       .debug_str	00000000 
+00000210 l       .debug_str	00000000 
+00000214 l       .debug_str	00000000 
+00000216 l       .debug_str	00000000 
+00000226 l       .debug_str	00000000 
+00000238 l       .debug_str	00000000 
+00000240 l       .debug_str	00000000 
+0000027e l       .debug_str	00000000 
+00000289 l       .debug_str	00000000 
+0000028e l       .debug_str	00000000 
+000002aa l       .debug_str	00000000 
+000002e3 l       .debug_str	00000000 
+000002ec l       .debug_str	00000000 
+00000306 l       .debug_str	00000000 
+0000030e l       .debug_str	00000000 
+00000315 l       .debug_str	00000000 
+00000318 l       .debug_str	00000000 
+00000322 l       .debug_str	00000000 
+00000339 l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+00000347 l       .debug_str	00000000 
+00000384 l       .debug_str	00000000 
+0000038e l       .debug_str	00000000 
+000003aa l       .debug_str	00000000 
+000003e3 l       .debug_str	00000000 
+000003ec l       .debug_str	00000000 
+000003f4 l       .debug_str	00000000 
+000003f6 l       .debug_str	00000000 
+00000435 l       .debug_str	00000000 
+00000449 l       .debug_str	00000000 
+0000044b l       .debug_str	00000000 
+0000044f l       .debug_str	00000000 
+0000048e l       .debug_str	00000000 
+000004cd l       .debug_str	00000000 
+000004d1 l       .debug_str	00000000 
+0000050e l       .debug_str	00000000 
+00000512 l       .debug_str	00000000 
+00000551 l       .debug_str	00000000 
+00000590 l       .debug_str	00000000 
+000005cf l       .debug_str	00000000 
+0000060e l       .debug_str	00000000 
+0000064d l       .debug_str	00000000 
+0000065c l       .debug_str	00000000 
+0000066d l       .debug_str	00000000 
+00000674 l       .debug_str	00000000 
+000006b1 l       .debug_str	00000000 
+000006ba l       .debug_str	00000000 
+000006d5 l       .debug_str	00000000 
+0000070e l       .debug_str	00000000 
+00000716 l       .debug_str	00000000 
+0000072f l       .debug_str	00000000 
+0000076d l       .debug_str	00000000 
+00000777 l       .debug_str	00000000 
+000007b0 l       .debug_str	00000000 
+000007b8 l       .debug_str	00000000 
+000007bd l       .debug_str	00000000 
+000007fc l       .debug_str	00000000 
+0000083b l       .debug_str	00000000 
+0000087a l       .debug_str	00000000 
+000008b9 l       .debug_str	00000000 
+000008f8 l       .debug_str	00000000 
+00000937 l       .debug_str	00000000 
+0000093b l       .debug_str	00000000 
+0000093f l       .debug_str	00000000 
+00000943 l       .debug_str	00000000 
+00000947 l       .debug_str	00000000 
+0000094b l       .debug_str	00000000 
+00000950 l       .debug_str	00000000 
+00000955 l       .debug_str	00000000 
+00000961 l       .debug_str	00000000 
+0000096a l       .debug_str	00000000 
+000009da l       .debug_str	00000000 
+000009e7 l       .debug_str	00000000 
+00000a5e l       .debug_str	00000000 
+00000a72 l       .debug_str	00000000 
+00000a76 l       .debug_str	00000000 
+00000a7a l       .debug_str	00000000 
+00000a7e l       .debug_str	00000000 
+00000a89 l       .debug_str	00000000 
+00000af5 l       .debug_str	00000000 
+00000b02 l       .debug_str	00000000 
+00000b6f l       .debug_str	00000000 
+00000b7d l       .debug_str	00000000 
+00000bf1 l       .debug_str	00000000 
+00000c06 l       .debug_str	00000000 
+00000c7a l       .debug_str	00000000 
+00000c8f l       .debug_str	00000000 
+00000cfe l       .debug_str	00000000 
+00000d0e l       .debug_str	00000000 
+00000d79 l       .debug_str	00000000 
+00000d85 l       .debug_str	00000000 
+00000d90 l       .debug_str	00000000 
+00000d9a l       .debug_str	00000000 
+00000d9f l       .debug_str	00000000 
+00000daa l       .debug_str	00000000 
+00000e17 l       .debug_str	00000000 
+00000e25 l       .debug_str	00000000 
+00000e94 l       .debug_str	00000000 
+00000ea4 l       .debug_str	00000000 
+00000f13 l       .debug_str	00000000 
+00000f23 l       .debug_str	00000000 
+00000f94 l       .debug_str	00000000 
+00000fa6 l       .debug_str	00000000 
+00001012 l       .debug_str	00000000 
+0000101f l       .debug_str	00000000 
+00001021 l       .debug_str	00000000 
+0000108b l       .debug_str	00000000 
+00001096 l       .debug_str	00000000 
+00001107 l       .debug_str	00000000 
+00001119 l       .debug_str	00000000 
+00001185 l       .debug_str	00000000 
+00001192 l       .debug_str	00000000 
+000011fe l       .debug_str	00000000 
+0000120b l       .debug_str	00000000 
+00001277 l       .debug_str	00000000 
+00001284 l       .debug_str	00000000 
+000012f3 l       .debug_str	00000000 
+00001301 l       .debug_str	00000000 
+00001372 l       .debug_str	00000000 
+00001382 l       .debug_str	00000000 
+000013f5 l       .debug_str	00000000 
+00001407 l       .debug_str	00000000 
+00001477 l       .debug_str	00000000 
+00001486 l       .debug_str	00000000 
+000014f8 l       .debug_str	00000000 
+00001509 l       .debug_str	00000000 
+0000157b l       .debug_str	00000000 
+0000158c l       .debug_str	00000000 
+000015f9 l       .debug_str	00000000 
+00001605 l       .debug_str	00000000 
+00001671 l       .debug_str	00000000 
+0000167c l       .debug_str	00000000 
+000016f0 l       .debug_str	00000000 
+00001703 l       .debug_str	00000000 
+00001778 l       .debug_str	00000000 
+0000178c l       .debug_str	00000000 
+000017f9 l       .debug_str	00000000 
+00001805 l       .debug_str	00000000 
+00001879 l       .debug_str	00000000 
+0000188c l       .debug_str	00000000 
+00001902 l       .debug_str	00000000 
+00001917 l       .debug_str	00000000 
+00001983 l       .debug_str	00000000 
+0000198e l       .debug_str	00000000 
+00001a00 l       .debug_str	00000000 
+00001a11 l       .debug_str	00000000 
+00001a7d l       .debug_str	00000000 
+00001a88 l       .debug_str	00000000 
+00001ac8 l       .debug_str	00000000 
+00001ace l       .debug_str	00000000 
+00001b03 l       .debug_str	00000000 
+00001b07 l       .debug_str	00000000 
+00001b3c l       .debug_str	00000000 
+00001b40 l       .debug_str	00000000 
+00001b44 l       .debug_str	00000000 
+00001b4c l       .debug_str	00000000 
+00001b54 l       .debug_str	00000000 
+00001b5e l       .debug_str	00000000 
+00001b66 l       .debug_str	00000000 
+00001b6e l       .debug_str	00000000 
+00001b74 l       .debug_str	00000000 
+00001b7c l       .debug_str	00000000 
+00001b84 l       .debug_str	00000000 
+00001b8a l       .debug_str	00000000 
+00001b93 l       .debug_str	00000000 
+00001b9a l       .debug_str	00000000 
+00001ba1 l       .debug_str	00000000 
+00001baf l       .debug_str	00000000 
+00001bdf l       .debug_str	00000000 
+00001c44 l       .debug_str	00000000 
+00001c4a l       .debug_str	00000000 
+00001c74 l       .debug_str	00000000 
+00001cab l       .debug_str	00000000 
+00001cb0 l       .debug_str	00000000 
+00001cbb l       .debug_str	00000000 
+00001ccf l       .debug_str	00000000 
+00001cd3 l       .debug_str	00000000 
+00001cd7 l       .debug_str	00000000 
+00001cdb l       .debug_str	00000000 
+00001ce0 l       .debug_str	00000000 
+00001ce5 l       .debug_str	00000000 
+00001cf0 l       .debug_str	00000000 
+00001cf6 l       .debug_str	00000000 
+00001cfa l       .debug_str	00000000 
+00001d01 l       .debug_str	00000000 
+00001d08 l       .debug_str	00000000 
+00001d3a l       .debug_str	00000000 
+00001da1 l       .debug_str	00000000 
+00001dcd l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.0	00000018 .Lanon.4d355c9ea6b7915609ec3684240fb781.0
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.1	00000018 .Lanon.4d355c9ea6b7915609ec3684240fb781.1
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.2	00000018 .Lanon.4d355c9ea6b7915609ec3684240fb781.2
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.3	00000018 .Lanon.4d355c9ea6b7915609ec3684240fb781.3
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.4	00000010 .Lanon.4d355c9ea6b7915609ec3684240fb781.4
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.5	00000018 .Lanon.4d355c9ea6b7915609ec3684240fb781.5
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.6	00000010 .Lanon.4d355c9ea6b7915609ec3684240fb781.6
+00000000 l     O .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.9	00000018 .Lanon.4d355c9ea6b7915609ec3684240fb781.9
+00000000 l     O .rodata.str.0	00000063 str.0
+00000000 l     O .rodata.str.1	0000001c str.1
+00000000 l     O .rodata.str.2	00000061 str.2
+00000000 l     O .rodata.str.3	00000021 str.3
+00000000 l    d  .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$12select_cache17hce424a19277f0758E	00000000 .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$12select_cache17hce424a19277f0758E
+00000000 l    d  .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$19cache_num_sets_ways17hd25f6c91e7dfc0a0E	00000000 .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$19cache_num_sets_ways17hd25f6c91e7dfc0a0E
+00000000 l    d  .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace17h62d8701b1b1176b1E	00000000 .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace17h62d8701b1b1176b1E
+00000000 l    d  .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace17h3b6adf091c63aea2E	00000000 .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace17h3b6adf091c63aea2E
+00000000 l    d  .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$20is_debugger_attached17h70d9679faea2b403E	00000000 .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$20is_debugger_attached17h70d9679faea2b403E
+00000000 l    d  .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17he4ea97b9cb7cbd54E	00000000 .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17he4ea97b9cb7cbd54E
+00000000 l    d  .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17h2555860bfed25b3aE	00000000 .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17h2555860bfed25b3aE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17hd7fe06f1c4ba19a0E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17hd7fe06f1c4ba19a0E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17h4ce3a8d4a27f2947E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17h4ce3a8d4a27f2947E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17hc7b0936dce0993a1E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17hc7b0936dce0993a1E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit17heba91f79c9c074b5E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit17heba91f79c9c074b5E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit17h67959ffccd8d10a2E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit17h67959ffccd8d10a2E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17hbb5ecdd4c7176108E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17hbb5ecdd4c7176108E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h3d12fcff835b4037E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h3d12fcff835b4037E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17heaee2cd6a47c02deE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17heaee2cd6a47c02deE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17h3dd119c3419ed796E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17h3dd119c3419ed796E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17hbfa057c7dc3acb3fE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17hbfa057c7dc3acb3fE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17he9df00b6b9fe0701E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17he9df00b6b9fe0701E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$13clear_current17h54a70eda4b1b2a4fE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$13clear_current17h54a70eda4b1b2a4fE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter17ha73ef5fb6e47f3d2E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter17ha73ef5fb6e47f3d2E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt17h3e2648dfc472ef57E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt17h3e2648dfc472ef57E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter17hd5c360bf666dc04cE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter17hd5c360bf666dc04cE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt17h469ce1145909ccabE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt17h469ce1145909ccabE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16get_clock_source17h865aaa6605eec263E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16get_clock_source17h865aaa6605eec263E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hedf0912e1777957fE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hedf0912e1777957fE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10get_reload17hcab5920a0eff6964E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10get_reload17hcab5920a0eff6964E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18get_ticks_per_10ms17h8010c6d9bdef1e27E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18get_ticks_per_10ms17h8010c6d9bdef1e27E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$19has_reference_clock17h3fc0a0250d080a31E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$19has_reference_clock17h3fc0a0250d080a31E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h3cf25ac289e472e8E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h3cf25ac289e472e8E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18is_counter_enabled17h31f47e754d3a2118E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18is_counter_enabled17h31f47e754d3a2118E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$20is_interrupt_enabled17h66ff9a8fd0dbd30cE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$20is_interrupt_enabled17h66ff9a8fd0dbd30cE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_precise17h4b5ba382f233fcd5E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_precise17h4b5ba382f233fcd5E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10set_reload17hdf24c90e45a26095E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10set_reload17hdf24c90e45a26095E
+00000000 l    d  .text._ZN8cortex_m10peripheral11Peripherals5steal17h01e5970a7e9193faE	00000000 .text._ZN8cortex_m10peripheral11Peripherals5steal17h01e5970a7e9193faE
+00000000 l    d  .text._ZN8cortex_m10peripheral3CBP3new17h5485f8ee021aecd5E	00000000 .text._ZN8cortex_m10peripheral3CBP3new17h5485f8ee021aecd5E
+00000000 l    d  .text._ZN8cortex_m10peripheral3CBP3ptr17hb96186e4fbc1edeeE	00000000 .text._ZN8cortex_m10peripheral3CBP3ptr17hb96186e4fbc1edeeE
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..CBP$u20$as$u20$core..ops..deref..Deref$GT$5deref17hc96e7e20ac26b48bE	00000000 .text._ZN69_$LT$cortex_m..peripheral..CBP$u20$as$u20$core..ops..deref..Deref$GT$5deref17hc96e7e20ac26b48bE
+00000000 l    d  .text._ZN8cortex_m10peripheral5CPUID3ptr17hb718bda6329ca307E	00000000 .text._ZN8cortex_m10peripheral5CPUID3ptr17hb718bda6329ca307E
+00000000 l    d  .text._ZN71_$LT$cortex_m..peripheral..CPUID$u20$as$u20$core..ops..deref..Deref$GT$5deref17h7c96eefecd06d5a3E	00000000 .text._ZN71_$LT$cortex_m..peripheral..CPUID$u20$as$u20$core..ops..deref..Deref$GT$5deref17h7c96eefecd06d5a3E
+00000000 l    d  .text._ZN8cortex_m10peripheral3DCB3ptr17haed57f2c94e8ffafE	00000000 .text._ZN8cortex_m10peripheral3DCB3ptr17haed57f2c94e8ffafE
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..DCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd18e05ee1e390419E	00000000 .text._ZN69_$LT$cortex_m..peripheral..DCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd18e05ee1e390419E
+00000000 l    d  .text._ZN8cortex_m10peripheral3DWT3ptr17hf078d29f4fbb0a83E	00000000 .text._ZN8cortex_m10peripheral3DWT3ptr17hf078d29f4fbb0a83E
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17h2e8a88f99aa84b24E	00000000 .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17h2e8a88f99aa84b24E
+00000000 l    d  .text._ZN8cortex_m10peripheral3FPB3ptr17h64d88d797c3a4de0E	00000000 .text._ZN8cortex_m10peripheral3FPB3ptr17h64d88d797c3a4de0E
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..FPB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf4dc87b98b2cea18E	00000000 .text._ZN69_$LT$cortex_m..peripheral..FPB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf4dc87b98b2cea18E
+00000000 l    d  .text._ZN8cortex_m10peripheral3ITM3ptr17h11e7d6ea264b19eeE	00000000 .text._ZN8cortex_m10peripheral3ITM3ptr17h11e7d6ea264b19eeE
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..Deref$GT$5deref17hb943bc57b17ecf6cE	00000000 .text._ZN69_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..Deref$GT$5deref17hb943bc57b17ecf6cE
+00000000 l    d  .text._ZN72_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hc425808aa021c4faE	00000000 .text._ZN72_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hc425808aa021c4faE
+00000000 l    d  .text._ZN8cortex_m10peripheral3MPU3ptr17h4e70114c74ef05d8E	00000000 .text._ZN8cortex_m10peripheral3MPU3ptr17h4e70114c74ef05d8E
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..MPU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h1a4a079a32b06ff2E	00000000 .text._ZN69_$LT$cortex_m..peripheral..MPU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h1a4a079a32b06ff2E
+00000000 l    d  .text._ZN8cortex_m10peripheral4NVIC3ptr17hfa5a8c8831cf8593E	00000000 .text._ZN8cortex_m10peripheral4NVIC3ptr17hfa5a8c8831cf8593E
+00000000 l    d  .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5a97f32bbb22cd3eE	00000000 .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5a97f32bbb22cd3eE
+00000000 l    d  .text._ZN8cortex_m10peripheral3SCB3ptr17hd5c71121641d9455E	00000000 .text._ZN8cortex_m10peripheral3SCB3ptr17hd5c71121641d9455E
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha47d23a95c35897cE	00000000 .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha47d23a95c35897cE
+00000000 l    d  .text._ZN8cortex_m10peripheral4SYST3ptr17h0671829046eb63e5E	00000000 .text._ZN8cortex_m10peripheral4SYST3ptr17h0671829046eb63e5E
+00000000 l    d  .text._ZN70_$LT$cortex_m..peripheral..SYST$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha8a6c869d4749dd7E	00000000 .text._ZN70_$LT$cortex_m..peripheral..SYST$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha8a6c869d4749dd7E
+00000000 l    d  .text._ZN8cortex_m10peripheral4TPIU3ptr17hd73d5618bc52a75eE	00000000 .text._ZN8cortex_m10peripheral4TPIU3ptr17hd73d5618bc52a75eE
+00000000 l    d  .text._ZN70_$LT$cortex_m..peripheral..TPIU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h73e25f659fa57985E	00000000 .text._ZN70_$LT$cortex_m..peripheral..TPIU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h73e25f659fa57985E
+00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
+00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
+00000000 l    d  .rodata.str.2	00000000 .rodata.str.2
+00000000 l    d  .rodata.str.3	00000000 .rodata.str.3
+00000000 l    d  .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.7	00000000 .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.7
+00000000 l    d  .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.8	00000000 .rodata..Lanon.4d355c9ea6b7915609ec3684240fb781.8
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     O .bss.CORE_PERIPHERALS	00000001 CORE_PERIPHERALS
+00000000         *UND*	00000000 .hidden core::num::<impl core::convert::From<u8> for usize>::from
+00000000         *UND*	00000000 core::ptr::read_volatile
+00000000         *UND*	00000000 core::ptr::read_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000         *UND*	00000000 core::ptr::read
+00000000         *UND*	00000000 core::cell::UnsafeCell<T>::get
+00000000         *UND*	00000000 core::cell::UnsafeCell<T>::get
+00000000         *UND*	00000000 core::panicking::panic_bounds_check
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..CBP$u20$as$u20$core..ops..deref..Deref$GT$5deref17hc96e7e20ac26b48bE	00000018 <cortex_m::peripheral::CBP as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..DCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd18e05ee1e390419E	00000018 <cortex_m::peripheral::DCB as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17h2e8a88f99aa84b24E	00000018 <cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..FPB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf4dc87b98b2cea18E	00000018 <cortex_m::peripheral::FPB as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..Deref$GT$5deref17hb943bc57b17ecf6cE	00000018 <cortex_m::peripheral::ITM as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..MPU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h1a4a079a32b06ff2E	00000018 <cortex_m::peripheral::MPU as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha47d23a95c35897cE	00000018 <cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5a97f32bbb22cd3eE	00000018 <cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN70_$LT$cortex_m..peripheral..SYST$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha8a6c869d4749dd7E	00000018 <cortex_m::peripheral::SYST as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN70_$LT$cortex_m..peripheral..TPIU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h73e25f659fa57985E	00000018 <cortex_m::peripheral::TPIU as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN71_$LT$cortex_m..peripheral..CPUID$u20$as$u20$core..ops..deref..Deref$GT$5deref17h7c96eefecd06d5a3E	00000018 <cortex_m::peripheral::CPUID as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN72_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hc425808aa021c4faE	00000018 <cortex_m::peripheral::ITM as core::ops::deref::DerefMut>::deref_mut
+00000000 g     F .text._ZN8cortex_m10peripheral11Peripherals5steal17h01e5970a7e9193faE	0000003c cortex_m::peripheral::Peripherals::steal
+00000000 g     F .text._ZN8cortex_m10peripheral3CBP3new17h5485f8ee021aecd5E	00000006 cortex_m::peripheral::CBP::new
+00000000 g     F .text._ZN8cortex_m10peripheral3CBP3ptr17hb96186e4fbc1edeeE	0000000a cortex_m::peripheral::CBP::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3DCB3ptr17haed57f2c94e8ffafE	0000000a cortex_m::peripheral::DCB::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3DWT3ptr17hf078d29f4fbb0a83E	0000000a cortex_m::peripheral::DWT::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3FPB3ptr17h64d88d797c3a4de0E	0000000a cortex_m::peripheral::FPB::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3ITM3ptr17h11e7d6ea264b19eeE	00000006 cortex_m::peripheral::ITM::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3MPU3ptr17h4e70114c74ef05d8E	0000000a cortex_m::peripheral::MPU::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3SCB3ptr17hd5c71121641d9455E	0000000a cortex_m::peripheral::SCB::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace17h62d8701b1b1176b1E	0000004c cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace17h3b6adf091c63aea2E	0000004c cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$20is_debugger_attached17h70d9679faea2b403E	00000024 cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::is_debugger_attached
+00000000 g     F .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17h2555860bfed25b3aE	0000002a cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count
+00000000 g     F .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17he4ea97b9cb7cbd54E	00000048 cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::SystemHandler::index
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h3d12fcff835b4037E	00000030 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17hd7fe06f1c4ba19a0E	00000148 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17h3dd119c3419ed796E	00000030 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17hbfa057c7dc3acb3fE	00000088 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17he9df00b6b9fe0701E	000000ac cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17hbb5ecdd4c7176108E	00000058 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17h4ce3a8d4a27f2947E	0000004c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17hc7b0936dce0993a1E	0000004c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit17heba91f79c9c074b5E	0000004c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit17h67959ffccd8d10a2E	0000004c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17heaee2cd6a47c02deE	0000002c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending
+00000000 g     F .text._ZN8cortex_m10peripheral4NVIC3ptr17hfa5a8c8831cf8593E	0000000a cortex_m::peripheral::NVIC::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral4SYST3ptr17h0671829046eb63e5E	0000000a cortex_m::peripheral::SYST::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral4TPIU3ptr17hd73d5618bc52a75eE	00000008 cortex_m::peripheral::TPIU::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10get_reload17hcab5920a0eff6964E	0000002a cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_reload
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_precise17h4b5ba382f233fcd5E	00000036 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_precise
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10set_reload17hdf24c90e45a26095E	0000003e cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_reload
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hedf0912e1777957fE	0000002c cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_current
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h3cf25ac289e472e8E	00000034 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$13clear_current17h54a70eda4b1b2a4fE	0000003a cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::clear_current
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter17hd5c360bf666dc04cE	00000048 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter17ha73ef5fb6e47f3d2E	00000048 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt17h469ce1145909ccabE	00000048 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16get_clock_source17h865aaa6605eec263E	00000058 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E	000000a6 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt17h3e2648dfc472ef57E	00000048 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18get_ticks_per_10ms17h8010c6d9bdef1e27E	00000030 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_ticks_per_10ms
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18is_counter_enabled17h31f47e754d3a2118E	00000034 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_counter_enabled
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$19has_reference_clock17h3fc0a0250d080a31E	00000030 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_reference_clock
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$20is_interrupt_enabled17h66ff9a8fd0dbd30cE	00000034 cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_interrupt_enabled
+00000000 g     F .text._ZN8cortex_m10peripheral5CPUID3ptr17hb718bda6329ca307E	0000000a cortex_m::peripheral::CPUID::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$12select_cache17hce424a19277f0758E	00000078 cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache
+00000000 g     F .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$19cache_num_sets_ways17hd25f6c91e7dfc0a0E	000000c0 cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways
+00000000         *UND*	00000000 .hidden cortex_m::asm::dsb
+00000000         *UND*	00000000 .hidden cortex_m::asm::nop
+
+
+
+Disassembly of section .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$12select_cache17hce424a19277f0758E:
+
+00000000 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache>:
+_ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$12select_cache17hce424a19277f0758E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:84
+    ///
+    /// * `level`: the required cache level minus 1, e.g. 0 for L1, 1 for L2
+    /// * `ind`: select instruction cache or data/unified cache
+    ///
+    /// `level` is masked to be between 0 and 7.
+    pub fn select_cache(&mut self, level: u8, ind: CsselrCacheType) {
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9008      	str	r0, [sp, #32]
+   c:	f88d 1026 	strb.w	r1, [sp, #38]	; 0x26
+  10:	f88d 2027 	strb.w	r2, [sp, #39]	; 0x27
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:91
+        const CSSELR_IND_MASK: u32 = 1 << CSSELR_IND_POS;
+        const CSSELR_LEVEL_POS: u32 = 1;
+        const CSSELR_LEVEL_MASK: u32 = 0x7 << CSSELR_LEVEL_POS;
+
+        unsafe {
+            self.csselr.write(
+  14:	9808      	ldr	r0, [sp, #32]
+  16:	9307      	str	r3, [sp, #28]
+  18:	f8cd c018 	str.w	ip, [sp, #24]
+  1c:	f8cd e014 	str.w	lr, [sp, #20]
+  20:	f7ff fffe 	bl	0 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache>
+  24:	9004      	str	r0, [sp, #16]
+  26:	e7ff      	b.n	28 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache+0x28>
+  28:	9804      	ldr	r0, [sp, #16]
+  2a:	f100 0184 	add.w	r1, r0, #132	; 0x84
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:92
+                (((level as u32) << CSSELR_LEVEL_POS) & CSSELR_LEVEL_MASK)
+  2e:	f89d 2026 	ldrb.w	r2, [sp, #38]	; 0x26
+  32:	0052      	lsls	r2, r2, #1
+  34:	9103      	str	r1, [sp, #12]
+  36:	9202      	str	r2, [sp, #8]
+  38:	e7ff      	b.n	3a <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache+0x3a>
+  3a:	9802      	ldr	r0, [sp, #8]
+  3c:	f000 010e 	and.w	r1, r0, #14
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:93
+                    | (((ind as u32) << CSSELR_IND_POS) & CSSELR_IND_MASK),
+  40:	f89d 2027 	ldrb.w	r2, [sp, #39]	; 0x27
+  44:	9101      	str	r1, [sp, #4]
+  46:	9200      	str	r2, [sp, #0]
+  48:	e7ff      	b.n	4a <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache+0x4a>
+  4a:	9800      	ldr	r0, [sp, #0]
+  4c:	f000 0101 	and.w	r1, r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:92
+                (((level as u32) << CSSELR_LEVEL_POS) & CSSELR_LEVEL_MASK)
+  50:	9a01      	ldr	r2, [sp, #4]
+  52:	4311      	orrs	r1, r2
+  54:	9b03      	ldr	r3, [sp, #12]
+  56:	930a      	str	r3, [sp, #40]	; 0x28
+  58:	910b      	str	r1, [sp, #44]	; 0x2c
+_ZN17volatile_register11RW$LT$T$GT$5write17h9684b766e707f06bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+    /// Writes a `value` into the register
+    ///
+    /// NOTE: `unsafe` because writes to a register are side effectful
+    #[inline(always)]
+    pub unsafe fn write(&self, value: T) {
+        self.register.set(value)
+  5a:	990a      	ldr	r1, [sp, #40]	; 0x28
+  5c:	f8dd c02c 	ldr.w	ip, [sp, #44]	; 0x2c
+  60:	910c      	str	r1, [sp, #48]	; 0x30
+  62:	f8cd c034 	str.w	ip, [sp, #52]	; 0x34
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+    /// Sets the contained value
+    #[inline(always)]
+    pub fn set(&self, value: T)
+        where T: Copy
+    {
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  66:	980c      	ldr	r0, [sp, #48]	; 0x30
+  68:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  6c:	990d      	ldr	r1, [sp, #52]	; 0x34
+  6e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$12select_cache17hce424a19277f0758E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:91
+            self.csselr.write(
+  72:	e7ff      	b.n	74 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::select_cache+0x74>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:96
+            )
+        }
+    }
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$19cache_num_sets_ways17hd25f6c91e7dfc0a0E:
+
+00000000 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways>:
+_ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$19cache_num_sets_ways17hd25f6c91e7dfc0a0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:99
+
+    /// Returns the number of sets and ways in the selected cache
+    pub fn cache_num_sets_ways(&mut self, level: u8, ind: CsselrCacheType) -> (u16, u16) {
+   0:	b580      	push	{r7, lr}
+   2:	b090      	sub	sp, #64	; 0x40
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	900a      	str	r0, [sp, #40]	; 0x28
+   c:	f88d 102e 	strb.w	r1, [sp, #46]	; 0x2e
+  10:	f88d 202f 	strb.w	r2, [sp, #47]	; 0x2f
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:105
+        const CCSIDR_NUMSETS_POS: u32 = 13;
+        const CCSIDR_NUMSETS_MASK: u32 = 0x7FFF << CCSIDR_NUMSETS_POS;
+        const CCSIDR_ASSOCIATIVITY_POS: u32 = 3;
+        const CCSIDR_ASSOCIATIVITY_MASK: u32 = 0x3FF << CCSIDR_ASSOCIATIVITY_POS;
+
+        self.select_cache(level, ind);
+  14:	980a      	ldr	r0, [sp, #40]	; 0x28
+  16:	f89d 202f 	ldrb.w	r2, [sp, #47]	; 0x2f
+  1a:	f89d 102e 	ldrb.w	r1, [sp, #46]	; 0x2e
+  1e:	9309      	str	r3, [sp, #36]	; 0x24
+  20:	f8cd c020 	str.w	ip, [sp, #32]
+  24:	f8cd e01c 	str.w	lr, [sp, #28]
+  28:	f7ff fffe 	bl	0 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways>
+  2c:	e7ff      	b.n	2 <cortex_m::asm::dsb+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:106
+        ::asm::dsb();
+  2e:	f7ff fffe 	bl	0 <cortex_m::asm::dsb>
+  32:	e7ff      	b.n	34 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x34>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:107
+        let ccsidr = self.ccsidr.read();
+  34:	980a      	ldr	r0, [sp, #40]	; 0x28
+  36:	f7ff fffe 	bl	0 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways>
+  3a:	9006      	str	r0, [sp, #24]
+  3c:	e7ff      	b.n	3e <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x3e>
+  3e:	9806      	ldr	r0, [sp, #24]
+  40:	f100 0180 	add.w	r1, r0, #128	; 0x80
+  44:	910e      	str	r1, [sp, #56]	; 0x38
+_ZN17volatile_register11RO$LT$T$GT$4read17hed1d845c813a46adE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:48
+        self.register.get()
+  46:	990e      	ldr	r1, [sp, #56]	; 0x38
+  48:	910f      	str	r1, [sp, #60]	; 0x3c
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  4a:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  4c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  50:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral5cpuid45_$LT$impl$u20$cortex_m..peripheral..CPUID$GT$19cache_num_sets_ways17hd25f6c91e7dfc0a0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:107
+  54:	900d      	str	r0, [sp, #52]	; 0x34
+  56:	e7ff      	b.n	58 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x58>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:109
+        (
+            (1 + ((ccsidr & CCSIDR_NUMSETS_MASK) >> CCSIDR_NUMSETS_POS)) as u16,
+  58:	980d      	ldr	r0, [sp, #52]	; 0x34
+  5a:	f3c0 304e 	ubfx	r0, r0, #13, #15
+  5e:	9005      	str	r0, [sp, #20]
+  60:	e7ff      	b.n	62 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x62>
+  62:	9805      	ldr	r0, [sp, #20]
+  64:	1c41      	adds	r1, r0, #1
+  66:	460a      	mov	r2, r1
+  68:	4281      	cmp	r1, r0
+  6a:	9204      	str	r2, [sp, #16]
+  6c:	d31a      	bcc.n	a4 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0xa4>
+  6e:	e7ff      	b.n	70 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x70>
+  70:	9804      	ldr	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:110
+            (1 + ((ccsidr & CCSIDR_ASSOCIATIVITY_MASK) >> CCSIDR_ASSOCIATIVITY_POS)) as u16,
+  72:	990d      	ldr	r1, [sp, #52]	; 0x34
+  74:	f3c1 01c9 	ubfx	r1, r1, #3, #10
+  78:	9003      	str	r0, [sp, #12]
+  7a:	9102      	str	r1, [sp, #8]
+  7c:	e7ff      	b.n	7e <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x7e>
+  7e:	9802      	ldr	r0, [sp, #8]
+  80:	1c41      	adds	r1, r0, #1
+  82:	460a      	mov	r2, r1
+  84:	4281      	cmp	r1, r0
+  86:	9201      	str	r2, [sp, #4]
+  88:	d313      	bcc.n	b2 <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0xb2>
+  8a:	e7ff      	b.n	8c <cortex_m::peripheral::cpuid::<impl cortex_m::peripheral::CPUID>::cache_num_sets_ways+0x8c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:108
+        (
+  8c:	9803      	ldr	r0, [sp, #12]
+  8e:	f8ad 0030 	strh.w	r0, [sp, #48]	; 0x30
+  92:	9901      	ldr	r1, [sp, #4]
+  94:	f8ad 1032 	strh.w	r1, [sp, #50]	; 0x32
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:112
+        )
+    }
+  98:	f8bd 0030 	ldrh.w	r0, [sp, #48]	; 0x30
+  9c:	f8bd 1032 	ldrh.w	r1, [sp, #50]	; 0x32
+  a0:	b010      	add	sp, #64	; 0x40
+  a2:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:109
+            (1 + ((ccsidr & CCSIDR_NUMSETS_MASK) >> CCSIDR_NUMSETS_POS)) as u16,
+  a4:	f240 0000 	movw	r0, #0
+  a8:	f2c0 0000 	movt	r0, #0
+  ac:	f7ff fffe 	bl	0 <core::panicking::panic>
+  b0:	defe      	udf	#254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/cpuid.rs:110
+            (1 + ((ccsidr & CCSIDR_ASSOCIATIVITY_MASK) >> CCSIDR_ASSOCIATIVITY_POS)) as u16,
+  b2:	f240 0000 	movw	r0, #0
+  b6:	f2c0 0000 	movt	r0, #0
+  ba:	f7ff fffe 	bl	0 <core::panicking::panic>
+  be:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace17h62d8701b1b1176b1E:
+
+00000000 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace>:
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace17h62d8701b1b1176b1E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:28
+impl DCB {
+    /// Enables TRACE. This is for example required by the
+    /// `peripheral::DWT` cycle counter to work properly.
+    /// As by STM documentation, this flag is not reset on
+    /// soft-reset, only on power reset.
+    pub fn enable_trace(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:31
+        // set bit 24 / TRCENA
+        unsafe {
+            self.demcr.modify(|w| w | DCB_DEMCR_TRCENA);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h553caf79c70fc333E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+        self.register.set(f(self.register.get()));
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h553caf79c70fc333E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace17h62d8701b1b1176b1E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:31
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:33
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace17h3b6adf091c63aea2E:
+
+00000000 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace>:
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace17h3b6adf091c63aea2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:36
+
+    /// Disables TRACE. See `DCB::enable_trace()` for more details
+    pub fn disable_trace(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:39
+        // unset bit 24 / TRCENA
+        unsafe {
+            self.demcr.modify(|w| w & !DCB_DEMCR_TRCENA);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h005c8098dc087777E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h005c8098dc087777E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace17h3b6adf091c63aea2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:39
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:41
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$20is_debugger_attached17h70d9679faea2b403E:
+
+00000000 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::is_debugger_attached>:
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$20is_debugger_attached17h70d9679faea2b403E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:50
+    /// Note: This function is [reported not to
+    /// work](http://web.archive.org/web/20180821191012/https://community.nxp.com/thread/424925#comment-782843)
+    /// on Cortex-M0 devices. Per the ARM v6-M Architecture Reference Manual, "Access to the DHCSR
+    /// from software running on the processor is IMPLEMENTATION DEFINED". Indeed, from the
+    /// [Cortex-M0+ r0p1 Technical Reference Manual](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0484c/BABJHEIG.html), "Note Software cannot access the debug registers."
+    pub fn is_debugger_attached() -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:53
+        unsafe {
+            // do an 8-bit read of the 32-bit DHCSR register, and get the LSB
+            let value = ptr::read_volatile(Self::ptr() as *const u8);
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::is_debugger_attached>
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::is_debugger_attached+0xc>
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+  12:	f88d 0007 	strb.w	r0, [sp, #7]
+  16:	e7ff      	b.n	18 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::is_debugger_attached+0x18>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:56
+            value & 0x1 == 1
+        }
+    }
+  18:	f89d 0007 	ldrb.w	r0, [sp, #7]
+  1c:	f000 0001 	and.w	r0, r0, #1
+  20:	b002      	add	sp, #8
+  22:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17he4ea97b9cb7cbd54E:
+
+00000000 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter>:
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17he4ea97b9cb7cbd54E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:68
+}
+
+impl DWT {
+    /// Enables the cycle counter
+    #[cfg(not(armv6m))]
+    pub fn enable_cycle_counter(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:69
+        unsafe { self.ctrl.modify(|r| r | 1) }
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17hbaac38ebcfc12f83E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9101      	str	r1, [sp, #4]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17hbaac38ebcfc12f83E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9808      	ldr	r0, [sp, #32]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}>
+  30:	9901      	ldr	r1, [sp, #4]
+  32:	910a      	str	r1, [sp, #40]	; 0x28
+  34:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  36:	980a      	ldr	r0, [sp, #40]	; 0x28
+  38:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  3c:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  3e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17he4ea97b9cb7cbd54E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:69
+  42:	e7ff      	b.n	44 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:70
+    }
+  44:	b00c      	add	sp, #48	; 0x30
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17h2555860bfed25b3aE:
+
+00000000 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count>:
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17h2555860bfed25b3aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:74
+
+    /// Returns the current clock cycle count
+    #[cfg(not(armv6m))]
+    pub fn get_cycle_count() -> u32 {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:76
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).cyccnt.read() }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	1d01      	adds	r1, r0, #4
+  10:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  12:	9902      	ldr	r1, [sp, #8]
+  14:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  16:	9803      	ldr	r0, [sp, #12]
+  18:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1c:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17h2555860bfed25b3aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:76
+  20:	9000      	str	r0, [sp, #0]
+  22:	e7ff      	b.n	24 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count+0x24>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:77
+    }
+  24:	9800      	ldr	r0, [sp, #0]
+  26:	b004      	add	sp, #16
+  28:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17hd7fe06f1c4ba19a0E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17hd7fe06f1c4ba19a0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:165
+    }
+}
+
+impl SCB {
+    /// Returns the active exception number
+    pub fn vect_active() -> VectActive {
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:166
+        let icsr = unsafe { ptr::read(&(*SCB::ptr()).icsr as *const _ as *const u32) };
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active>
+   8:	9004      	str	r0, [sp, #16]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0xc>
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	f7ff fffe 	bl	0 <core::ptr::read>
+  12:	9006      	str	r0, [sp, #24]
+  14:	e7ff      	b.n	16 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x16>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+
+        match icsr as u8 {
+  16:	9806      	ldr	r0, [sp, #24]
+  18:	b2c1      	uxtb	r1, r0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:169
+            0 => VectActive::ThreadMode,
+  1a:	460a      	mov	r2, r1
+  1c:	290f      	cmp	r1, #15
+  1e:	9003      	str	r0, [sp, #12]
+  20:	9202      	str	r2, [sp, #8]
+  22:	f200 8071 	bhi.w	108 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x108>
+  26:	9902      	ldr	r1, [sp, #8]
+  28:	e8df f001 	tbb	[pc, r1]
+  2c:	170c6e08 	.word	0x170c6e08
+  30:	6e372c21 	.word	0x6e372c21
+  34:	426e6e6e 	.word	0x426e6e6e
+  38:	63586e4d 	.word	0x63586e4d
+  3c:	2000      	movs	r0, #0
+  3e:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  42:	e074      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  44:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:170
+            2 => VectActive::Exception(Exception::NonMaskableInt),
+  46:	f88d 001e 	strb.w	r0, [sp, #30]
+  4a:	f89d 001e 	ldrb.w	r0, [sp, #30]
+  4e:	f88d 0015 	strb.w	r0, [sp, #21]
+  52:	2001      	movs	r0, #1
+  54:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  58:	e069      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  5a:	2001      	movs	r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:171
+            3 => VectActive::Exception(Exception::HardFault),
+  5c:	f88d 001f 	strb.w	r0, [sp, #31]
+  60:	f89d 101f 	ldrb.w	r1, [sp, #31]
+  64:	f88d 1015 	strb.w	r1, [sp, #21]
+  68:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  6c:	e05f      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  6e:	2002      	movs	r0, #2
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:173
+            #[cfg(not(armv6m))]
+            4 => VectActive::Exception(Exception::MemoryManagement),
+  70:	f88d 0020 	strb.w	r0, [sp, #32]
+  74:	f89d 0020 	ldrb.w	r0, [sp, #32]
+  78:	f88d 0015 	strb.w	r0, [sp, #21]
+  7c:	2001      	movs	r0, #1
+  7e:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  82:	e054      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  84:	2003      	movs	r0, #3
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:175
+            #[cfg(not(armv6m))]
+            5 => VectActive::Exception(Exception::BusFault),
+  86:	f88d 0021 	strb.w	r0, [sp, #33]	; 0x21
+  8a:	f89d 0021 	ldrb.w	r0, [sp, #33]	; 0x21
+  8e:	f88d 0015 	strb.w	r0, [sp, #21]
+  92:	2001      	movs	r0, #1
+  94:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  98:	e049      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  9a:	2004      	movs	r0, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:177
+            #[cfg(not(armv6m))]
+            6 => VectActive::Exception(Exception::UsageFault),
+  9c:	f88d 0022 	strb.w	r0, [sp, #34]	; 0x22
+  a0:	f89d 0022 	ldrb.w	r0, [sp, #34]	; 0x22
+  a4:	f88d 0015 	strb.w	r0, [sp, #21]
+  a8:	2001      	movs	r0, #1
+  aa:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  ae:	e03e      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  b0:	2005      	movs	r0, #5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:180
+            #[cfg(any(armv8m, target_arch = "x86_64"))]
+            7 => VectActive::Exception(Exception::SecureFault),
+            11 => VectActive::Exception(Exception::SVCall),
+  b2:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
+  b6:	f89d 0023 	ldrb.w	r0, [sp, #35]	; 0x23
+  ba:	f88d 0015 	strb.w	r0, [sp, #21]
+  be:	2001      	movs	r0, #1
+  c0:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  c4:	e033      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  c6:	2006      	movs	r0, #6
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:182
+            #[cfg(not(armv6m))]
+            12 => VectActive::Exception(Exception::DebugMonitor),
+  c8:	f88d 0024 	strb.w	r0, [sp, #36]	; 0x24
+  cc:	f89d 0024 	ldrb.w	r0, [sp, #36]	; 0x24
+  d0:	f88d 0015 	strb.w	r0, [sp, #21]
+  d4:	2001      	movs	r0, #1
+  d6:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  da:	e028      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  dc:	2007      	movs	r0, #7
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:183
+            14 => VectActive::Exception(Exception::PendSV),
+  de:	f88d 0025 	strb.w	r0, [sp, #37]	; 0x25
+  e2:	f89d 0025 	ldrb.w	r0, [sp, #37]	; 0x25
+  e6:	f88d 0015 	strb.w	r0, [sp, #21]
+  ea:	2001      	movs	r0, #1
+  ec:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+  f0:	e01d      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  f2:	2008      	movs	r0, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:184
+            15 => VectActive::Exception(Exception::SysTick),
+  f4:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
+  f8:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
+  fc:	f88d 0015 	strb.w	r0, [sp, #21]
+ 100:	2001      	movs	r0, #1
+ 102:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+ 106:	e012      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:185
+            irqn => VectActive::Interrupt { irqn: irqn - 16 },
+ 108:	9803      	ldr	r0, [sp, #12]
+ 10a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+ 10e:	f89d 1027 	ldrb.w	r1, [sp, #39]	; 0x27
+ 112:	3910      	subs	r1, #16
+ 114:	b2ca      	uxtb	r2, r1
+ 116:	460b      	mov	r3, r1
+ 118:	428a      	cmp	r2, r1
+ 11a:	9301      	str	r3, [sp, #4]
+ 11c:	d10d      	bne.n	13a <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x13a>
+ 11e:	e7ff      	b.n	120 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x120>
+ 120:	9801      	ldr	r0, [sp, #4]
+ 122:	f88d 0015 	strb.w	r0, [sp, #21]
+ 126:	2102      	movs	r1, #2
+ 128:	f88d 1014 	strb.w	r1, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:168
+        match icsr as u8 {
+ 12c:	e7ff      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:187
+        }
+    }
+ 12e:	f89d 0014 	ldrb.w	r0, [sp, #20]
+ 132:	f89d 1015 	ldrb.w	r1, [sp, #21]
+ 136:	b00a      	add	sp, #40	; 0x28
+ 138:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:185
+            irqn => VectActive::Interrupt { irqn: irqn - 16 },
+ 13a:	f240 0000 	movw	r0, #0
+ 13e:	f2c0 0000 	movt	r0, #0
+ 142:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 146:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17h4ce3a8d4a27f2947E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17h4ce3a8d4a27f2947E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:585
+
+const SCB_SCR_SLEEPDEEP: u32 = 0x1 << 2;
+
+impl SCB {
+    /// Set the SLEEPDEEP bit in the SCR register
+    pub fn set_sleepdeep(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:587
+        unsafe {
+            self.scr.modify(|scr| scr | SCB_SCR_SLEEPDEEP);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h8723207dde33dbebE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+        self.register.set(f(self.register.get()));
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h8723207dde33dbebE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17h4ce3a8d4a27f2947E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:587
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:589
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17hc7b0936dce0993a1E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17hc7b0936dce0993a1E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:592
+
+    /// Clear the SLEEPDEEP bit in the SCR register
+    pub fn clear_sleepdeep(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:594
+        unsafe {
+            self.scr.modify(|scr| scr & !SCB_SCR_SLEEPDEEP);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h919ea757664ed2d2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h919ea757664ed2d2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17hc7b0936dce0993a1E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:594
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:596
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit17heba91f79c9c074b5E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit17heba91f79c9c074b5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:603
+
+const SCB_SCR_SLEEPONEXIT: u32 = 0x1 << 1;
+
+impl SCB {
+    /// Set the SLEEPONEXIT bit in the SCR register
+    pub fn set_sleeponexit(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:605
+        unsafe {
+            self.scr.modify(|scr| scr | SCB_SCR_SLEEPONEXIT);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17hd6517312aa2e8ab8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17hd6517312aa2e8ab8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit17heba91f79c9c074b5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:605
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:607
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit17h67959ffccd8d10a2E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit17h67959ffccd8d10a2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:610
+
+    /// Clear the SLEEPONEXIT bit in the SCR register
+    pub fn clear_sleeponexit(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:612
+        unsafe {
+            self.scr.modify(|scr| scr & !SCB_SCR_SLEEPONEXIT);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h1adafa0ff9875e90E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h1adafa0ff9875e90E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit17h67959ffccd8d10a2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:612
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:614
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17hbb5ecdd4c7176108E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17hbb5ecdd4c7176108E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:623
+const SCB_AIRCR_PRIGROUP_MASK: u32 = 0x5 << 8;
+const SCB_AIRCR_SYSRESETREQ: u32 = 1 << 2;
+
+impl SCB {
+    /// Initiate a system reset request to reset the MCU
+    pub fn system_reset(&mut self) -> ! {
+   0:	b08c      	sub	sp, #48	; 0x30
+   2:	4601      	mov	r1, r0
+   4:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:624
+        ::asm::dsb();
+   6:	9103      	str	r1, [sp, #12]
+   8:	f7ff fffe 	bl	0 <cortex_m::asm::dsb>
+   c:	e7ff      	b.n	e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset+0xe>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:626
+        unsafe {
+            self.aircr.modify(
+   e:	9804      	ldr	r0, [sp, #16]
+  10:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset>
+  14:	9002      	str	r0, [sp, #8]
+  16:	e7ff      	b.n	18 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset+0x18>
+  18:	9802      	ldr	r0, [sp, #8]
+  1a:	f100 0108 	add.w	r1, r0, #8
+  1e:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17hf0fd93f6e875cd61E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  20:	9906      	ldr	r1, [sp, #24]
+  22:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  24:	9809      	ldr	r0, [sp, #36]	; 0x24
+  26:	9101      	str	r1, [sp, #4]
+  28:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  2c:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17hf0fd93f6e875cd61E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  30:	9008      	str	r0, [sp, #32]
+  32:	9808      	ldr	r0, [sp, #32]
+  34:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}>
+  38:	9901      	ldr	r1, [sp, #4]
+  3a:	910a      	str	r1, [sp, #40]	; 0x28
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3e:	980a      	ldr	r0, [sp, #40]	; 0x28
+  40:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  44:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  46:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17hbb5ecdd4c7176108E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:626
+  4a:	e7ff      	b.n	2 <cortex_m::asm::dsb+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:634
+            r & SCB_AIRCR_PRIGROUP_MASK | // keep priority group unchanged
+            SCB_AIRCR_SYSRESETREQ
+                }, // set the bit
+            )
+        };
+        ::asm::dsb();
+  4c:	f7ff fffe 	bl	0 <cortex_m::asm::dsb>
+  50:	e7ff      	b.n	2 <cortex_m::asm::nop+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:637
+        loop {
+            // wait for the reset
+            ::asm::nop(); // avoid rust-lang/rust#28728
+  52:	f7ff fffe 	bl	0 <cortex_m::asm::nop>
+  56:	e7fc      	b.n	52 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset+0x52>
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h3d12fcff835b4037E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h3d12fcff835b4037E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:650
+const SCB_ICSR_PENDSTSET: u32 = 1 << 26;
+const SCB_ICSR_PENDSTCLR: u32 = 1 << 25;
+
+impl SCB {
+    /// Set the PENDSVSET bit in the ICSR register which will pend the PendSV interrupt
+    pub fn set_pendsv() {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:652
+        unsafe {
+            (*Self::ptr()).icsr.write(SCB_ICSR_PENDSVSET);
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	9002      	str	r0, [sp, #8]
+  10:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
+  14:	9103      	str	r1, [sp, #12]
+_ZN17volatile_register11RW$LT$T$GT$5write17h9684b766e707f06bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+        self.register.set(value)
+  16:	9902      	ldr	r1, [sp, #8]
+  18:	9a03      	ldr	r2, [sp, #12]
+  1a:	9104      	str	r1, [sp, #16]
+  1c:	9205      	str	r2, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+  1e:	9804      	ldr	r0, [sp, #16]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	9905      	ldr	r1, [sp, #20]
+  26:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h3d12fcff835b4037E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:652
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:654
+        }
+    }
+  2c:	b006      	add	sp, #24
+  2e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17heaee2cd6a47c02deE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17heaee2cd6a47c02deE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:657
+
+    /// Check if PENDSVSET bit in the ICSR register is set meaning PendSV interrupt is pending
+    pub fn is_pendsv_pending() -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:658
+        unsafe { (*Self::ptr()).icsr.read() & SCB_ICSR_PENDSVSET == SCB_ICSR_PENDSVSET }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	9002      	str	r0, [sp, #8]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  10:	9902      	ldr	r1, [sp, #8]
+  12:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  14:	9803      	ldr	r0, [sp, #12]
+  16:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1a:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17heaee2cd6a47c02deE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:658
+  1e:	9000      	str	r0, [sp, #0]
+  20:	e7ff      	b.n	22 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending+0x22>
+  22:	9800      	ldr	r0, [sp, #0]
+  24:	f3c0 7000 	ubfx	r0, r0, #28, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:659
+    }
+  28:	b004      	add	sp, #16
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17h3dd119c3419ed796E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17h3dd119c3419ed796E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:662
+
+    /// Set the PENDSVCLR bit in the ICSR register which will clear a pending PendSV interrupt
+    pub fn clear_pendsv() {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:664
+        unsafe {
+            (*Self::ptr()).icsr.write(SCB_ICSR_PENDSVCLR);
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	9002      	str	r0, [sp, #8]
+  10:	f04f 6100 	mov.w	r1, #134217728	; 0x8000000
+  14:	9103      	str	r1, [sp, #12]
+_ZN17volatile_register11RW$LT$T$GT$5write17h9684b766e707f06bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+        self.register.set(value)
+  16:	9902      	ldr	r1, [sp, #8]
+  18:	9a03      	ldr	r2, [sp, #12]
+  1a:	9104      	str	r1, [sp, #16]
+  1c:	9205      	str	r2, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  1e:	9804      	ldr	r0, [sp, #16]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	9905      	ldr	r1, [sp, #20]
+  26:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17h3dd119c3419ed796E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:664
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:666
+        }
+    }
+  2c:	b006      	add	sp, #24
+  2e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17hbfa057c7dc3acb3fE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17hbfa057c7dc3acb3fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:752
+impl SCB {
+    /// Returns the hardware priority of `system_handler`
+    ///
+    /// *NOTE*: Hardware priority does not exactly match logical priority levels. See
+    /// [`NVIC.get_priority`](struct.NVIC.html#method.get_priority) for more details.
+    pub fn get_priority(system_handler: SystemHandler) -> u8 {
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4601      	mov	r1, r0
+   6:	f88d 0016 	strb.w	r0, [sp, #22]
+   a:	f10d 0016 	add.w	r0, sp, #22
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:753
+        let index = system_handler.index();
+   e:	9104      	str	r1, [sp, #16]
+  10:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::SystemHandler::index>
+  14:	f88d 0017 	strb.w	r0, [sp, #23]
+  18:	e7ff      	b.n	2 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:758
+
+        #[cfg(not(armv6m))]
+        {
+            // NOTE(unsafe) atomic read with no side effects
+            unsafe { (*Self::ptr()).shpr[usize::from(index - 4)].read() }
+  1a:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority>
+  1e:	9003      	str	r0, [sp, #12]
+  20:	e7ff      	b.n	22 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x22>
+  22:	f89d 0017 	ldrb.w	r0, [sp, #23]
+  26:	3804      	subs	r0, #4
+  28:	b2c1      	uxtb	r1, r0
+  2a:	4602      	mov	r2, r0
+  2c:	4281      	cmp	r1, r0
+  2e:	9202      	str	r2, [sp, #8]
+  30:	d11a      	bne.n	68 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x68>
+  32:	e7ff      	b.n	34 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x34>
+  34:	9802      	ldr	r0, [sp, #8]
+  36:	f7ff fffe 	bl	0 <core::num::<impl core::convert::From<u8> for usize>::from>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	280b      	cmp	r0, #11
+  42:	d818      	bhi.n	76 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x76>
+  44:	e7ff      	b.n	46 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x46>
+  46:	9803      	ldr	r0, [sp, #12]
+  48:	9901      	ldr	r1, [sp, #4]
+  4a:	1842      	adds	r2, r0, r1
+  4c:	3214      	adds	r2, #20
+  4e:	9206      	str	r2, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$4read17h8c0976a4972fc816E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  50:	9a06      	ldr	r2, [sp, #24]
+  52:	9207      	str	r2, [sp, #28]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h167050dd1ed9e68aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  54:	9807      	ldr	r0, [sp, #28]
+  56:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  5a:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17hbfa057c7dc3acb3fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:758
+  5e:	9000      	str	r0, [sp, #0]
+  60:	e7ff      	b.n	62 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x62>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:768
+            // NOTE(unsafe) atomic read with no side effects
+            let shpr = unsafe { (*Self::ptr()).shpr[usize::from((index - 8) / 4)].read() };
+            let prio = (shpr >> (8 * (index % 4))) & 0x000000ff;
+            prio as u8
+        }
+    }
+  62:	9800      	ldr	r0, [sp, #0]
+  64:	b008      	add	sp, #32
+  66:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:758
+            unsafe { (*Self::ptr()).shpr[usize::from(index - 4)].read() }
+  68:	f240 0000 	movw	r0, #0
+  6c:	f2c0 0000 	movt	r0, #0
+  70:	f7ff fffe 	bl	0 <core::panicking::panic>
+  74:	defe      	udf	#254	; 0xfe
+  76:	f240 0000 	movw	r0, #0
+  7a:	f2c0 0000 	movt	r0, #0
+  7e:	220c      	movs	r2, #12
+  80:	9901      	ldr	r1, [sp, #4]
+  82:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
+  86:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17he9df00b6b9fe0701E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17he9df00b6b9fe0701E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:782
+    ///
+    /// # Unsafety
+    ///
+    /// Changing priority levels can break priority-based critical sections (see
+    /// [`register::basepri`](../register/basepri/index.html)) and compromise memory safety.
+    pub unsafe fn set_priority(&mut self, system_handler: SystemHandler, prio: u8) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9006      	str	r0, [sp, #24]
+   c:	f88d 101d 	strb.w	r1, [sp, #29]
+  10:	f88d 201e 	strb.w	r2, [sp, #30]
+  14:	f10d 001d 	add.w	r0, sp, #29
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:783
+        let index = system_handler.index();
+  18:	9305      	str	r3, [sp, #20]
+  1a:	f8cd c010 	str.w	ip, [sp, #16]
+  1e:	f8cd e00c 	str.w	lr, [sp, #12]
+  22:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::SystemHandler::index>
+  26:	f88d 001f 	strb.w	r0, [sp, #31]
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:787
+
+        #[cfg(not(armv6m))]
+        {
+            self.shpr[usize::from(index - 4)].write(prio)
+  2c:	9806      	ldr	r0, [sp, #24]
+  2e:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority>
+  32:	9002      	str	r0, [sp, #8]
+  34:	e7ff      	b.n	36 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x36>
+  36:	f89d 001f 	ldrb.w	r0, [sp, #31]
+  3a:	3804      	subs	r0, #4
+  3c:	b2c1      	uxtb	r1, r0
+  3e:	4602      	mov	r2, r0
+  40:	4281      	cmp	r1, r0
+  42:	9201      	str	r2, [sp, #4]
+  44:	d122      	bne.n	8c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x8c>
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x48>
+  48:	9801      	ldr	r0, [sp, #4]
+  4a:	f7ff fffe 	bl	0 <core::num::<impl core::convert::From<u8> for usize>::from>
+  4e:	9000      	str	r0, [sp, #0]
+  50:	e7ff      	b.n	52 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x52>
+  52:	9800      	ldr	r0, [sp, #0]
+  54:	280b      	cmp	r0, #11
+  56:	d820      	bhi.n	9a <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x9a>
+  58:	e7ff      	b.n	5a <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x5a>
+  5a:	9802      	ldr	r0, [sp, #8]
+  5c:	9900      	ldr	r1, [sp, #0]
+  5e:	1842      	adds	r2, r0, r1
+  60:	3214      	adds	r2, #20
+  62:	f89d 301e 	ldrb.w	r3, [sp, #30]
+  66:	9208      	str	r2, [sp, #32]
+  68:	f88d 3027 	strb.w	r3, [sp, #39]	; 0x27
+_ZN17volatile_register11RW$LT$T$GT$5write17h99672edb8e3fe2d9E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+        self.register.set(value)
+  6c:	9a08      	ldr	r2, [sp, #32]
+  6e:	f89d 3027 	ldrb.w	r3, [sp, #39]	; 0x27
+  72:	920a      	str	r2, [sp, #40]	; 0x28
+  74:	f88d 302f 	strb.w	r3, [sp, #47]	; 0x2f
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h617ba313402c3eacE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  78:	980a      	ldr	r0, [sp, #40]	; 0x28
+  7a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  7e:	f89d 102f 	ldrb.w	r1, [sp, #47]	; 0x2f
+  82:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17he9df00b6b9fe0701E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:787
+  86:	e7ff      	b.n	88 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x88>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:800
+                let prio = u32::from(prio) << shift;
+
+                (value & !mask) | prio
+            });
+        }
+    }
+  88:	b00c      	add	sp, #48	; 0x30
+  8a:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:787
+            self.shpr[usize::from(index - 4)].write(prio)
+  8c:	f240 0000 	movw	r0, #0
+  90:	f2c0 0000 	movt	r0, #0
+  94:	f7ff fffe 	bl	0 <core::panicking::panic>
+  98:	defe      	udf	#254	; 0xfe
+  9a:	f240 0000 	movw	r0, #0
+  9e:	f2c0 0000 	movt	r0, #0
+  a2:	220c      	movs	r2, #12
+  a4:	9900      	ldr	r1, [sp, #0]
+  a6:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
+  aa:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$13clear_current17h54a70eda4b1b2a4fE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::clear_current>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$13clear_current17h54a70eda4b1b2a4fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:43
+
+impl SYST {
+    /// Clears current value to 0
+    ///
+    /// After calling `clear_current()`, the next call to `has_wrapped()` will return `false`.
+    pub fn clear_current(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:44
+        unsafe { self.cvr.write(0) }
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	9102      	str	r1, [sp, #8]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::clear_current>
+  10:	9001      	str	r0, [sp, #4]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::clear_current+0x14>
+  14:	9801      	ldr	r0, [sp, #4]
+  16:	f100 0108 	add.w	r1, r0, #8
+  1a:	9104      	str	r1, [sp, #16]
+  1c:	2100      	movs	r1, #0
+  1e:	9105      	str	r1, [sp, #20]
+_ZN17volatile_register11RW$LT$T$GT$5write17h9684b766e707f06bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+  20:	9904      	ldr	r1, [sp, #16]
+  22:	9a05      	ldr	r2, [sp, #20]
+  24:	9106      	str	r1, [sp, #24]
+  26:	9207      	str	r2, [sp, #28]
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+  28:	9806      	ldr	r0, [sp, #24]
+  2a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  2e:	9907      	ldr	r1, [sp, #28]
+  30:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$13clear_current17h54a70eda4b1b2a4fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:44
+  34:	e7ff      	b.n	36 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::clear_current+0x36>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:45
+    }
+  36:	b008      	add	sp, #32
+  38:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter17ha73ef5fb6e47f3d2E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter17ha73ef5fb6e47f3d2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:48
+
+    /// Disables counter
+    pub fn disable_counter(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:49
+        unsafe { self.csr.modify(|v| v & !SYST_CSR_ENABLE) }
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h71e9d12c2c9d8a3fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+        self.register.set(f(self.register.get()));
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9101      	str	r1, [sp, #4]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h71e9d12c2c9d8a3fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9808      	ldr	r0, [sp, #32]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter::{{closure}}>
+  30:	9901      	ldr	r1, [sp, #4]
+  32:	910a      	str	r1, [sp, #40]	; 0x28
+  34:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  36:	980a      	ldr	r0, [sp, #40]	; 0x28
+  38:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  3c:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  3e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter17ha73ef5fb6e47f3d2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:49
+  42:	e7ff      	b.n	44 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:50
+    }
+  44:	b00c      	add	sp, #48	; 0x30
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt17h3e2648dfc472ef57E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt17h3e2648dfc472ef57E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:53
+
+    /// Disables SysTick interrupt
+    pub fn disable_interrupt(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:54
+        unsafe { self.csr.modify(|v| v & !SYST_CSR_TICKINT) }
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h7f1d022b45292509E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9101      	str	r1, [sp, #4]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h7f1d022b45292509E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9808      	ldr	r0, [sp, #32]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt::{{closure}}>
+  30:	9901      	ldr	r1, [sp, #4]
+  32:	910a      	str	r1, [sp, #40]	; 0x28
+  34:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  36:	980a      	ldr	r0, [sp, #40]	; 0x28
+  38:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  3c:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  3e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt17h3e2648dfc472ef57E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:54
+  42:	e7ff      	b.n	44 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:55
+    }
+  44:	b00c      	add	sp, #48	; 0x30
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter17hd5c360bf666dc04cE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter17hd5c360bf666dc04cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:69
+    /// - Program reload value
+    /// - Clear current value
+    /// - Program Control and Status register"
+    ///
+    /// The sequence translates to `self.set_reload(x); self.clear_current(); self.enable_counter()`
+    pub fn enable_counter(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:70
+        unsafe { self.csr.modify(|v| v | SYST_CSR_ENABLE) }
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h8775e31ffd6dd036E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9101      	str	r1, [sp, #4]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h8775e31ffd6dd036E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9808      	ldr	r0, [sp, #32]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter::{{closure}}>
+  30:	9901      	ldr	r1, [sp, #4]
+  32:	910a      	str	r1, [sp, #40]	; 0x28
+  34:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  36:	980a      	ldr	r0, [sp, #40]	; 0x28
+  38:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  3c:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  3e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter17hd5c360bf666dc04cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:70
+  42:	e7ff      	b.n	44 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:71
+    }
+  44:	b00c      	add	sp, #48	; 0x30
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt17h469ce1145909ccabE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt17h469ce1145909ccabE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:74
+
+    /// Enables SysTick interrupt
+    pub fn enable_interrupt(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:75
+        unsafe { self.csr.modify(|v| v | SYST_CSR_TICKINT) }
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h18c52f74dd1630c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9101      	str	r1, [sp, #4]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h18c52f74dd1630c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9808      	ldr	r0, [sp, #32]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt::{{closure}}>
+  30:	9901      	ldr	r1, [sp, #4]
+  32:	910a      	str	r1, [sp, #40]	; 0x28
+  34:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  36:	980a      	ldr	r0, [sp, #40]	; 0x28
+  38:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  3c:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  3e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt17h469ce1145909ccabE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:75
+  42:	e7ff      	b.n	44 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:76
+    }
+  44:	b00c      	add	sp, #48	; 0x30
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16get_clock_source17h865aaa6605eec263E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16get_clock_source17h865aaa6605eec263E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:82
+
+    /// Gets clock source
+    ///
+    /// *NOTE* This takes `&mut self` because the read operation is side effectful and can clear the
+    /// bit that indicates that the timer has wrapped (cf. `SYST.has_wrapped`)
+    pub fn get_clock_source(&mut self) -> SystClkSource {
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:84
+        // NOTE(unsafe) atomic read with no side effects
+        let clk_source_bit = self.csr.read() & SYST_CSR_CLKSOURCE != 0;
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9107      	str	r1, [sp, #28]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9807      	ldr	r0, [sp, #28]
+  1e:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  22:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16get_clock_source17h865aaa6605eec263E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:84
+  26:	9001      	str	r0, [sp, #4]
+  28:	e7ff      	b.n	2a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source+0x2a>
+  2a:	9801      	ldr	r0, [sp, #4]
+  2c:	f3c0 0180 	ubfx	r1, r0, #2, #1
+  30:	f88d 1017 	strb.w	r1, [sp, #23]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:86
+        match clk_source_bit {
+            false => SystClkSource::External,
+  34:	f89d 1017 	ldrb.w	r1, [sp, #23]
+  38:	07c9      	lsls	r1, r1, #31
+  3a:	2900      	cmp	r1, #0
+  3c:	d104      	bne.n	48 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source+0x48>
+  3e:	e7ff      	b.n	40 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source+0x40>
+  40:	2001      	movs	r0, #1
+  42:	f88d 0016 	strb.w	r0, [sp, #22]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:85
+        match clk_source_bit {
+  46:	e003      	b.n	50 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source+0x50>
+  48:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:87
+            true => SystClkSource::Core,
+  4a:	f88d 0016 	strb.w	r0, [sp, #22]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:85
+        match clk_source_bit {
+  4e:	e7ff      	b.n	50 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_clock_source+0x50>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:89
+        }
+    }
+  50:	f89d 0016 	ldrb.w	r0, [sp, #22]
+  54:	b008      	add	sp, #32
+  56:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hedf0912e1777957fE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_current>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hedf0912e1777957fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:92
+
+    /// Gets current value
+    pub fn get_current() -> u32 {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:94
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).cvr.read() }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_current>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_current+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	f100 0108 	add.w	r1, r0, #8
+  12:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+  14:	9902      	ldr	r1, [sp, #8]
+  16:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  18:	9803      	ldr	r0, [sp, #12]
+  1a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1e:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hedf0912e1777957fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:94
+  22:	9000      	str	r0, [sp, #0]
+  24:	e7ff      	b.n	26 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_current+0x26>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:95
+    }
+  26:	9800      	ldr	r0, [sp, #0]
+  28:	b004      	add	sp, #16
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10get_reload17hcab5920a0eff6964E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_reload>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10get_reload17hcab5920a0eff6964E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:98
+
+    /// Gets reload value
+    pub fn get_reload() -> u32 {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:100
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).rvr.read() }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_reload>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_reload+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	1d01      	adds	r1, r0, #4
+  10:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+  12:	9902      	ldr	r1, [sp, #8]
+  14:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  16:	9803      	ldr	r0, [sp, #12]
+  18:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1c:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10get_reload17hcab5920a0eff6964E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:100
+  20:	9000      	str	r0, [sp, #0]
+  22:	e7ff      	b.n	24 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_reload+0x24>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:101
+    }
+  24:	9800      	ldr	r0, [sp, #0]
+  26:	b004      	add	sp, #16
+  28:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18get_ticks_per_10ms17h8010c6d9bdef1e27E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_ticks_per_10ms>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18get_ticks_per_10ms17h8010c6d9bdef1e27E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:108
+    /// Returns the reload value with which the counter would wrap once per 10
+    /// ms
+    ///
+    /// Returns `0` if the value is not known (e.g. because the clock can
+    /// change dynamically).
+    pub fn get_ticks_per_10ms() -> u32 {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:110
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).calib.read() & SYST_COUNTER_MASK }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_ticks_per_10ms>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_ticks_per_10ms+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	f100 010c 	add.w	r1, r0, #12
+  12:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RO$LT$T$GT$4read17hed1d845c813a46adE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:48
+        self.register.get()
+  14:	9902      	ldr	r1, [sp, #8]
+  16:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  18:	9803      	ldr	r0, [sp, #12]
+  1a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1e:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18get_ticks_per_10ms17h8010c6d9bdef1e27E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:110
+  22:	9000      	str	r0, [sp, #0]
+  24:	e7ff      	b.n	26 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::get_ticks_per_10ms+0x26>
+  26:	9800      	ldr	r0, [sp, #0]
+  28:	f020 407f 	bic.w	r0, r0, #4278190080	; 0xff000000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:111
+    }
+  2c:	b004      	add	sp, #16
+  2e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$19has_reference_clock17h3fc0a0250d080a31E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_reference_clock>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$19has_reference_clock17h3fc0a0250d080a31E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:114
+
+    /// Checks if an external reference clock is available
+    pub fn has_reference_clock() -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:116
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).calib.read() & SYST_CALIB_NOREF == 0 }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_reference_clock>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_reference_clock+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	f100 010c 	add.w	r1, r0, #12
+  12:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RO$LT$T$GT$4read17hed1d845c813a46adE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:48
+  14:	9902      	ldr	r1, [sp, #8]
+  16:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  18:	9803      	ldr	r0, [sp, #12]
+  1a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1e:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$19has_reference_clock17h3fc0a0250d080a31E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:116
+  22:	9000      	str	r0, [sp, #0]
+  24:	e7ff      	b.n	26 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_reference_clock+0x26>
+  26:	9800      	ldr	r0, [sp, #0]
+  28:	43c1      	mvns	r1, r0
+  2a:	0fc8      	lsrs	r0, r1, #31
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:117
+    }
+  2c:	b004      	add	sp, #16
+  2e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h3cf25ac289e472e8E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h3cf25ac289e472e8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:123
+
+    /// Checks if the counter wrapped (underflowed) since the last check
+    ///
+    /// *NOTE* This takes `&mut self` because the read operation is side effectful and will clear
+    /// the bit of the read register.
+    pub fn has_wrapped(&mut self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:124
+        self.csr.read() & SYST_CSR_COUNTFLAG != 0
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	9102      	str	r1, [sp, #8]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped>
+  10:	9001      	str	r0, [sp, #4]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped+0x14>
+  14:	9801      	ldr	r0, [sp, #4]
+  16:	9004      	str	r0, [sp, #16]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  18:	9904      	ldr	r1, [sp, #16]
+  1a:	9105      	str	r1, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  1c:	9805      	ldr	r0, [sp, #20]
+  1e:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  22:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h3cf25ac289e472e8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:124
+  26:	9000      	str	r0, [sp, #0]
+  28:	e7ff      	b.n	2a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped+0x2a>
+  2a:	9800      	ldr	r0, [sp, #0]
+  2c:	f3c0 4000 	ubfx	r0, r0, #16, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:125
+    }
+  30:	b006      	add	sp, #24
+  32:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18is_counter_enabled17h31f47e754d3a2118E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_counter_enabled>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18is_counter_enabled17h31f47e754d3a2118E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:131
+
+    /// Checks if counter is enabled
+    ///
+    /// *NOTE* This takes `&mut self` because the read operation is side effectful and can clear the
+    /// bit that indicates that the timer has wrapped (cf. `SYST.has_wrapped`)
+    pub fn is_counter_enabled(&mut self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:132
+        self.csr.read() & SYST_CSR_ENABLE != 0
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	9102      	str	r1, [sp, #8]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_counter_enabled>
+  10:	9001      	str	r0, [sp, #4]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_counter_enabled+0x14>
+  14:	9801      	ldr	r0, [sp, #4]
+  16:	9004      	str	r0, [sp, #16]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+  18:	9904      	ldr	r1, [sp, #16]
+  1a:	9105      	str	r1, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  1c:	9805      	ldr	r0, [sp, #20]
+  1e:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  22:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$18is_counter_enabled17h31f47e754d3a2118E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:132
+  26:	9000      	str	r0, [sp, #0]
+  28:	e7ff      	b.n	2a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_counter_enabled+0x2a>
+  2a:	9800      	ldr	r0, [sp, #0]
+  2c:	f000 0001 	and.w	r0, r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:133
+    }
+  30:	b006      	add	sp, #24
+  32:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$20is_interrupt_enabled17h66ff9a8fd0dbd30cE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_interrupt_enabled>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$20is_interrupt_enabled17h66ff9a8fd0dbd30cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:139
+
+    /// Checks if SysTick interrupt is enabled
+    ///
+    /// *NOTE* This takes `&mut self` because the read operation is side effectful and can clear the
+    /// bit that indicates that the timer has wrapped (cf. `SYST.has_wrapped`)
+    pub fn is_interrupt_enabled(&mut self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:140
+        self.csr.read() & SYST_CSR_TICKINT != 0
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	9102      	str	r1, [sp, #8]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_interrupt_enabled>
+  10:	9001      	str	r0, [sp, #4]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_interrupt_enabled+0x14>
+  14:	9801      	ldr	r0, [sp, #4]
+  16:	9004      	str	r0, [sp, #16]
+_ZN17volatile_register11RW$LT$T$GT$4read17h95e39cff65532ae4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+  18:	9904      	ldr	r1, [sp, #16]
+  1a:	9105      	str	r1, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  1c:	9805      	ldr	r0, [sp, #20]
+  1e:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  22:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$20is_interrupt_enabled17h66ff9a8fd0dbd30cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:140
+  26:	9000      	str	r0, [sp, #0]
+  28:	e7ff      	b.n	2a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_interrupt_enabled+0x2a>
+  2a:	9800      	ldr	r0, [sp, #0]
+  2c:	f3c0 0040 	ubfx	r0, r0, #1, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:141
+    }
+  30:	b006      	add	sp, #24
+  32:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_precise17h4b5ba382f233fcd5E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_precise>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_precise17h4b5ba382f233fcd5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:148
+    /// Checks if the calibration value is precise
+    ///
+    /// Returns `false` if using the reload value returned by
+    /// `get_ticks_per_10ms()` may result in a period significantly deviating
+    /// from 10 ms.
+    pub fn is_precise() -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:150
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).calib.read() & SYST_CALIB_SKEW == 0 }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_precise>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_precise+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	f100 010c 	add.w	r1, r0, #12
+  12:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RO$LT$T$GT$4read17hed1d845c813a46adE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:48
+        self.register.get()
+  14:	9902      	ldr	r1, [sp, #8]
+  16:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  18:	9803      	ldr	r0, [sp, #12]
+  1a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1e:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_precise17h4b5ba382f233fcd5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:150
+  22:	9000      	str	r0, [sp, #0]
+  24:	e7ff      	b.n	26 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::is_precise+0x26>
+  26:	9800      	ldr	r0, [sp, #0]
+  28:	f000 4180 	and.w	r1, r0, #1073741824	; 0x40000000
+  2c:	2201      	movs	r2, #1
+  2e:	ea82 7091 	eor.w	r0, r2, r1, lsr #30
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:151
+    }
+  32:	b004      	add	sp, #16
+  34:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:154
+
+    /// Sets clock source
+    pub fn set_clock_source(&mut self, clk_source: SystClkSource) {
+   0:	b580      	push	{r7, lr}
+   2:	b098      	sub	sp, #96	; 0x60
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9007      	str	r0, [sp, #28]
+   a:	f88d 1023 	strb.w	r1, [sp, #35]	; 0x23
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:156
+        match clk_source {
+            SystClkSource::External => unsafe { self.csr.modify(|v| v & !SYST_CSR_CLKSOURCE) },
+   e:	f89d 0023 	ldrb.w	r0, [sp, #35]	; 0x23
+  12:	07c1      	lsls	r1, r0, #31
+  14:	2900      	cmp	r1, #0
+  16:	9206      	str	r2, [sp, #24]
+  18:	9305      	str	r3, [sp, #20]
+  1a:	9004      	str	r0, [sp, #16]
+  1c:	d023      	beq.n	66 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x66>
+  1e:	e7ff      	b.n	20 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x20>
+  20:	9804      	ldr	r0, [sp, #16]
+  22:	2801      	cmp	r0, #1
+  24:	d001      	beq.n	2a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x2a>
+  26:	e7ff      	b.n	28 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x28>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:159
+            SystClkSource::Core => unsafe { self.csr.modify(|v| v | SYST_CSR_CLKSOURCE) },
+        }
+    }
+  28:	defe      	udf	#254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:156
+            SystClkSource::External => unsafe { self.csr.modify(|v| v & !SYST_CSR_CLKSOURCE) },
+  2a:	9807      	ldr	r0, [sp, #28]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source>
+  30:	9003      	str	r0, [sp, #12]
+  32:	e7ff      	b.n	34 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x34>
+  34:	9803      	ldr	r0, [sp, #12]
+  36:	900c      	str	r0, [sp, #48]	; 0x30
+_ZN17volatile_register11RW$LT$T$GT$6modify17h1839c976d3e33f69E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+        self.register.set(f(self.register.get()));
+  38:	990c      	ldr	r1, [sp, #48]	; 0x30
+  3a:	910f      	str	r1, [sp, #60]	; 0x3c
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  3c:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  3e:	9102      	str	r1, [sp, #8]
+  40:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  44:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h1839c976d3e33f69E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  48:	900e      	str	r0, [sp, #56]	; 0x38
+  4a:	980e      	ldr	r0, [sp, #56]	; 0x38
+  4c:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}>
+  50:	9902      	ldr	r1, [sp, #8]
+  52:	9110      	str	r1, [sp, #64]	; 0x40
+  54:	9011      	str	r0, [sp, #68]	; 0x44
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  56:	9810      	ldr	r0, [sp, #64]	; 0x40
+  58:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  5c:	9911      	ldr	r1, [sp, #68]	; 0x44
+  5e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:156
+  62:	e7ff      	b.n	64 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x64>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:155
+        match clk_source {
+  64:	e01d      	b.n	a2 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0xa2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:157
+            SystClkSource::Core => unsafe { self.csr.modify(|v| v | SYST_CSR_CLKSOURCE) },
+  66:	9807      	ldr	r0, [sp, #28]
+  68:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source>
+  6c:	9001      	str	r0, [sp, #4]
+  6e:	e7ff      	b.n	70 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0x70>
+  70:	9801      	ldr	r0, [sp, #4]
+  72:	9012      	str	r0, [sp, #72]	; 0x48
+_ZN17volatile_register11RW$LT$T$GT$6modify17hb8d097258149fa43E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  74:	9912      	ldr	r1, [sp, #72]	; 0x48
+  76:	9115      	str	r1, [sp, #84]	; 0x54
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h33eb8897344558c5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  78:	9815      	ldr	r0, [sp, #84]	; 0x54
+  7a:	9100      	str	r1, [sp, #0]
+  7c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  80:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17hb8d097258149fa43E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  84:	9014      	str	r0, [sp, #80]	; 0x50
+  86:	9814      	ldr	r0, [sp, #80]	; 0x50
+  88:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}>
+  8c:	9900      	ldr	r1, [sp, #0]
+  8e:	9116      	str	r1, [sp, #88]	; 0x58
+  90:	9017      	str	r0, [sp, #92]	; 0x5c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  92:	9816      	ldr	r0, [sp, #88]	; 0x58
+  94:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  98:	9917      	ldr	r1, [sp, #92]	; 0x5c
+  9a:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source17h0d0b2e96ed2c53a2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:157
+  9e:	e7ff      	b.n	a0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0xa0>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:155
+        match clk_source {
+  a0:	e7ff      	b.n	a2 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source+0xa2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:159
+    }
+  a2:	b018      	add	sp, #96	; 0x60
+  a4:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10set_reload17hdf24c90e45a26095E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_reload>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10set_reload17hdf24c90e45a26095E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:166
+    /// Sets reload value
+    ///
+    /// Valid values are between `1` and `0x00ffffff`.
+    ///
+    /// *NOTE* To make the timer wrap every `N` ticks set the reload value to `N - 1`
+    pub fn set_reload(&mut self, value: u32) {
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:167
+        unsafe { self.rvr.write(value) }
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9203      	str	r2, [sp, #12]
+  10:	9302      	str	r3, [sp, #8]
+  12:	f7ff fffe 	bl	0 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_reload>
+  16:	9001      	str	r0, [sp, #4]
+  18:	e7ff      	b.n	1a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_reload+0x1a>
+  1a:	9801      	ldr	r0, [sp, #4]
+  1c:	1d01      	adds	r1, r0, #4
+  1e:	9a05      	ldr	r2, [sp, #20]
+  20:	9106      	str	r1, [sp, #24]
+  22:	9207      	str	r2, [sp, #28]
+_ZN17volatile_register11RW$LT$T$GT$5write17h9684b766e707f06bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+        self.register.set(value)
+  24:	9906      	ldr	r1, [sp, #24]
+  26:	9a07      	ldr	r2, [sp, #28]
+  28:	9108      	str	r1, [sp, #32]
+  2a:	9209      	str	r2, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h578e3963ed6bc857E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+  2c:	9808      	ldr	r0, [sp, #32]
+  2e:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  32:	9909      	ldr	r1, [sp, #36]	; 0x24
+  34:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10set_reload17hdf24c90e45a26095E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:167
+  38:	e7ff      	b.n	3a <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_reload+0x3a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:168
+    }
+  3a:	b00a      	add	sp, #40	; 0x28
+  3c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral11Peripherals5steal17h01e5970a7e9193faE:
+
+00000000 <cortex_m::peripheral::Peripherals::steal>:
+_ZN8cortex_m10peripheral11Peripherals5steal17h01e5970a7e9193faE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:169
+            }
+        })
+    }
+
+    /// Unchecked version of `Peripherals::take`
+    pub unsafe fn steal() -> Self {
+   0:	b09a      	sub	sp, #104	; 0x68
+   2:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:170
+        debug_assert!(!CORE_PERIPHERALS);
+   4:	2800      	cmp	r0, #0
+   6:	d111      	bne.n	2c <cortex_m::peripheral::Peripherals::steal+0x2c>
+   8:	e7ff      	b.n	a <cortex_m::peripheral::Peripherals::steal+0xa>
+   a:	f240 0000 	movw	r0, #0
+   e:	f2c0 0000 	movt	r0, #0
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c0      	lsls	r0, r0, #31
+  16:	2800      	cmp	r0, #0
+  18:	d007      	beq.n	2a <cortex_m::peripheral::Peripherals::steal+0x2a>
+  1a:	e7ff      	b.n	1c <cortex_m::peripheral::Peripherals::steal+0x1c>
+  1c:	f240 0000 	movw	r0, #0
+  20:	f2c0 0000 	movt	r0, #0
+  24:	f7ff fffe 	bl	0 <core::panicking::panic>
+  28:	defe      	udf	#254	; 0xfe
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::Peripherals::steal+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:172
+
+        CORE_PERIPHERALS = true;
+  2c:	f240 0000 	movw	r0, #0
+  30:	f2c0 0000 	movt	r0, #0
+  34:	2101      	movs	r1, #1
+  36:	7001      	strb	r1, [r0, #0]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:212
+            },
+            TPIU: TPIU {
+                _marker: PhantomData,
+            },
+        }
+    }
+  38:	b01a      	add	sp, #104	; 0x68
+  3a:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3CBP3new17h5485f8ee021aecd5E:
+
+00000000 <cortex_m::peripheral::CBP::new>:
+_ZN8cortex_m10peripheral3CBP3new17h5485f8ee021aecd5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:224
+
+unsafe impl Send for CBP {}
+
+#[cfg(not(armv6m))]
+impl CBP {
+    pub(crate) unsafe fn new() -> Self {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:228
+        CBP {
+            _marker: PhantomData,
+        }
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3CBP3ptr17hb96186e4fbc1edeeE:
+
+00000000 <cortex_m::peripheral::CBP::ptr>:
+_ZN8cortex_m10peripheral3CBP3ptr17hb96186e4fbc1edeeE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:231
+
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const self::cbp::RegisterBlock {
+   0:	f64e 7050 	movw	r0, #61264	; 0xef50
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:233
+        0xE000_EF50 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..CBP$u20$as$u20$core..ops..deref..Deref$GT$5deref17hc96e7e20ac26b48bE:
+
+00000000 <<cortex_m::peripheral::CBP as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..CBP$u20$as$u20$core..ops..deref..Deref$GT$5deref17hc96e7e20ac26b48bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:240
+
+#[cfg(not(armv6m))]
+impl ops::Deref for CBP {
+    type Target = self::cbp::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:241
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::CBP as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::CBP as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:242
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral5CPUID3ptr17hb718bda6329ca307E:
+
+00000000 <cortex_m::peripheral::CPUID::ptr>:
+_ZN8cortex_m10peripheral5CPUID3ptr17hb718bda6329ca307E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:254
+
+unsafe impl Send for CPUID {}
+
+impl CPUID {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const self::cpuid::RegisterBlock {
+   0:	f64e 5000 	movw	r0, #60672	; 0xed00
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:256
+        0xE000_ED00 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN71_$LT$cortex_m..peripheral..CPUID$u20$as$u20$core..ops..deref..Deref$GT$5deref17h7c96eefecd06d5a3E:
+
+00000000 <<cortex_m::peripheral::CPUID as core::ops::deref::Deref>::deref>:
+_ZN71_$LT$cortex_m..peripheral..CPUID$u20$as$u20$core..ops..deref..Deref$GT$5deref17h7c96eefecd06d5a3E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:262
+}
+
+impl ops::Deref for CPUID {
+    type Target = self::cpuid::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:263
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::CPUID as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::CPUID as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:264
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3DCB3ptr17haed57f2c94e8ffafE:
+
+00000000 <cortex_m::peripheral::DCB::ptr>:
+_ZN8cortex_m10peripheral3DCB3ptr17haed57f2c94e8ffafE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:276
+
+unsafe impl Send for DCB {}
+
+impl DCB {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const dcb::RegisterBlock {
+   0:	f64e 50f0 	movw	r0, #60912	; 0xedf0
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:278
+        0xE000_EDF0 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..DCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd18e05ee1e390419E:
+
+00000000 <<cortex_m::peripheral::DCB as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..DCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd18e05ee1e390419E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:284
+}
+
+impl ops::Deref for DCB {
+    type Target = self::dcb::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:285
+        unsafe { &*DCB::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::DCB as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::DCB as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:286
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3DWT3ptr17hf078d29f4fbb0a83E:
+
+00000000 <cortex_m::peripheral::DWT::ptr>:
+_ZN8cortex_m10peripheral3DWT3ptr17hf078d29f4fbb0a83E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:298
+
+unsafe impl Send for DWT {}
+
+impl DWT {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const dwt::RegisterBlock {
+   0:	f241 0000 	movw	r0, #4096	; 0x1000
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:300
+        0xE000_1000 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17h2e8a88f99aa84b24E:
+
+00000000 <<cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17h2e8a88f99aa84b24E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:306
+}
+
+impl ops::Deref for DWT {
+    type Target = self::dwt::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:307
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:308
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3FPB3ptr17h64d88d797c3a4de0E:
+
+00000000 <cortex_m::peripheral::FPB::ptr>:
+_ZN8cortex_m10peripheral3FPB3ptr17h64d88d797c3a4de0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:321
+unsafe impl Send for FPB {}
+
+#[cfg(not(armv6m))]
+impl FPB {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const fpb::RegisterBlock {
+   0:	f242 0000 	movw	r0, #8192	; 0x2000
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:323
+        0xE000_2000 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..FPB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf4dc87b98b2cea18E:
+
+00000000 <<cortex_m::peripheral::FPB as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..FPB$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf4dc87b98b2cea18E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:330
+
+#[cfg(not(armv6m))]
+impl ops::Deref for FPB {
+    type Target = self::fpb::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:331
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::FPB as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::FPB as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:332
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3ITM3ptr17h11e7d6ea264b19eeE:
+
+00000000 <cortex_m::peripheral::ITM::ptr>:
+_ZN8cortex_m10peripheral3ITM3ptr17h11e7d6ea264b19eeE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:369
+unsafe impl Send for ITM {}
+
+#[cfg(not(armv6m))]
+impl ITM {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *mut itm::RegisterBlock {
+   0:	f04f 4060 	mov.w	r0, #3758096384	; 0xe0000000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:371
+        0xE000_0000 as *mut _
+    }
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..Deref$GT$5deref17hb943bc57b17ecf6cE:
+
+00000000 <<cortex_m::peripheral::ITM as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..Deref$GT$5deref17hb943bc57b17ecf6cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:378
+
+#[cfg(not(armv6m))]
+impl ops::Deref for ITM {
+    type Target = self::itm::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:379
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::ITM as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::ITM as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:380
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN72_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hc425808aa021c4faE:
+
+00000000 <<cortex_m::peripheral::ITM as core::ops::deref::DerefMut>::deref_mut>:
+_ZN72_$LT$cortex_m..peripheral..ITM$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hc425808aa021c4faE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:385
+}
+
+#[cfg(not(armv6m))]
+impl ops::DerefMut for ITM {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:386
+        unsafe { &mut *Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::ITM as core::ops::deref::DerefMut>::deref_mut>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::ITM as core::ops::deref::DerefMut>::deref_mut+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:387
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3MPU3ptr17h4e70114c74ef05d8E:
+
+00000000 <cortex_m::peripheral::MPU::ptr>:
+_ZN8cortex_m10peripheral3MPU3ptr17h4e70114c74ef05d8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:399
+
+unsafe impl Send for MPU {}
+
+impl MPU {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const mpu::RegisterBlock {
+   0:	f64e 5090 	movw	r0, #60816	; 0xed90
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:401
+        0xE000_ED90 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..MPU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h1a4a079a32b06ff2E:
+
+00000000 <<cortex_m::peripheral::MPU as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..MPU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h1a4a079a32b06ff2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:407
+}
+
+impl ops::Deref for MPU {
+    type Target = self::mpu::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:408
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::MPU as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::MPU as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:409
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4NVIC3ptr17hfa5a8c8831cf8593E:
+
+00000000 <cortex_m::peripheral::NVIC::ptr>:
+_ZN8cortex_m10peripheral4NVIC3ptr17hfa5a8c8831cf8593E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:421
+
+unsafe impl Send for NVIC {}
+
+impl NVIC {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const nvic::RegisterBlock {
+   0:	f24e 1000 	movw	r0, #57600	; 0xe100
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:423
+        0xE000_E100 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5a97f32bbb22cd3eE:
+
+00000000 <<cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref>:
+_ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5a97f32bbb22cd3eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:429
+}
+
+impl ops::Deref for NVIC {
+    type Target = self::nvic::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:430
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:431
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3SCB3ptr17hd5c71121641d9455E:
+
+00000000 <cortex_m::peripheral::SCB::ptr>:
+_ZN8cortex_m10peripheral3SCB3ptr17hd5c71121641d9455E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:443
+
+unsafe impl Send for SCB {}
+
+impl SCB {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const scb::RegisterBlock {
+   0:	f64e 5004 	movw	r0, #60676	; 0xed04
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:445
+        0xE000_ED04 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha47d23a95c35897cE:
+
+00000000 <<cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha47d23a95c35897cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:451
+}
+
+impl ops::Deref for SCB {
+    type Target = self::scb::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:452
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:453
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4SYST3ptr17h0671829046eb63e5E:
+
+00000000 <cortex_m::peripheral::SYST::ptr>:
+_ZN8cortex_m10peripheral4SYST3ptr17h0671829046eb63e5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:465
+
+unsafe impl Send for SYST {}
+
+impl SYST {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const syst::RegisterBlock {
+   0:	f24e 0010 	movw	r0, #57360	; 0xe010
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:467
+        0xE000_E010 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN70_$LT$cortex_m..peripheral..SYST$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha8a6c869d4749dd7E:
+
+00000000 <<cortex_m::peripheral::SYST as core::ops::deref::Deref>::deref>:
+_ZN70_$LT$cortex_m..peripheral..SYST$u20$as$u20$core..ops..deref..Deref$GT$5deref17ha8a6c869d4749dd7E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:473
+}
+
+impl ops::Deref for SYST {
+    type Target = self::syst::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:474
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::SYST as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::SYST as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:475
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4TPIU3ptr17hd73d5618bc52a75eE:
+
+00000000 <cortex_m::peripheral::TPIU::ptr>:
+_ZN8cortex_m10peripheral4TPIU3ptr17hd73d5618bc52a75eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:488
+unsafe impl Send for TPIU {}
+
+#[cfg(not(armv6m))]
+impl TPIU {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const tpiu::RegisterBlock {
+   0:	2000      	movs	r0, #0
+   2:	f2ce 0004 	movt	r0, #57348	; 0xe004
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:490
+        0xE004_0000 as *const _
+    }
+   6:	4770      	bx	lr
+
+Disassembly of section .text._ZN70_$LT$cortex_m..peripheral..TPIU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h73e25f659fa57985E:
+
+00000000 <<cortex_m::peripheral::TPIU as core::ops::deref::Deref>::deref>:
+_ZN70_$LT$cortex_m..peripheral..TPIU$u20$as$u20$core..ops..deref..Deref$GT$5deref17h73e25f659fa57985E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:497
+
+#[cfg(not(armv6m))]
+impl ops::Deref for TPIU {
+    type Target = self::tpiu::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:498
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::TPIU as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::TPIU as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/mod.rs:499
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.1.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.1
+000008b5 l       .debug_str	00000000 
+00000835 l       .debug_str	00000000 
+0000083a l       .debug_str	00000000 
+0000083f l       .debug_str	00000000 
+00000845 l       .debug_str	00000000 
+0000084b l       .debug_str	00000000 
+00000851 l       .debug_str	00000000 
+0000085f l       .debug_str	00000000 
+00000869 l       .debug_str	00000000 
+0000086d l       .debug_str	00000000 
+00000875 l       .debug_str	00000000 
+0000087d l       .debug_str	00000000 
+00000891 l       .debug_str	00000000 
+0000089d l       .debug_str	00000000 
+000008a8 l       .debug_str	00000000 
+000008af l       .debug_str	00000000 
+000008b9 l       .debug_str	00000000 
+000008bf l       .debug_str	00000000 
+000008c5 l       .debug_str	00000000 
+000008c8 l       .debug_str	00000000 
+000008d7 l       .debug_str	00000000 
+000008de l       .debug_str	00000000 
+000008e2 l       .debug_str	00000000 
+000008eb l       .debug_str	00000000 
+000008f7 l       .debug_str	00000000 
+00000910 l       .debug_str	00000000 
+00000915 l       .debug_str	00000000 
+00000926 l       .debug_str	00000000 
+00000930 l       .debug_str	00000000 
+0000098e l       .debug_str	00000000 
+00000999 l       .debug_str	00000000 
+000009b6 l       .debug_str	00000000 
+000009ba l       .debug_str	00000000 
+000009c2 l       .debug_str	00000000 
+000009d9 l       .debug_str	00000000 
+000009fd l       .debug_str	00000000 
+00000a19 l       .debug_str	00000000 
+00000a1e l       .debug_str	00000000 
+00000a27 l       .debug_str	00000000 
+00000a2e l       .debug_str	00000000 
+00000a47 l       .debug_str	00000000 
+00000a51 l       .debug_str	00000000 
+00000a6b l       .debug_str	00000000 
+00000a77 l       .debug_str	00000000 
+00000a7f l       .debug_str	00000000 
+00000a83 l       .debug_str	00000000 
+00000a85 l       .debug_str	00000000 
+00000aaf l       .debug_str	00000000 
+00000ac3 l       .debug_str	00000000 
+00000acc l       .debug_str	00000000 
+00000ad3 l       .debug_str	00000000 
+00000ade l       .debug_str	00000000 
+00000ae3 l       .debug_str	00000000 
+00000aee l       .debug_str	00000000 
+00000b15 l       .debug_str	00000000 
+00000b1e l       .debug_str	00000000 
+00000b29 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000eb l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000f2 l       .debug_str	00000000 
+000000fb l       .debug_str	00000000 
+00000106 l       .debug_str	00000000 
+0000010a l       .debug_str	00000000 
+00000119 l       .debug_str	00000000 
+00000123 l       .debug_str	00000000 
+00000134 l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000148 l       .debug_str	00000000 
+0000014f l       .debug_str	00000000 
+0000015c l       .debug_str	00000000 
+00000163 l       .debug_str	00000000 
+0000016b l       .debug_str	00000000 
+00000175 l       .debug_str	00000000 
+0000019b l       .debug_str	00000000 
+000001a0 l       .debug_str	00000000 
+000001a7 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001ae l       .debug_str	00000000 
+000001b5 l       .debug_str	00000000 
+000001b9 l       .debug_str	00000000 
+000001bc l       .debug_str	00000000 
+000001bf l       .debug_str	00000000 
+000001c4 l       .debug_str	00000000 
+000001ca l       .debug_str	00000000 
+000001d1 l       .debug_str	00000000 
+000001d9 l       .debug_str	00000000 
+000001e3 l       .debug_str	00000000 
+000001f1 l       .debug_str	00000000 
+000001fa l       .debug_str	00000000 
+00000205 l       .debug_str	00000000 
+00000209 l       .debug_str	00000000 
+00000213 l       .debug_str	00000000 
+00000218 l       .debug_str	00000000 
+00000223 l       .debug_str	00000000 
+00000231 l       .debug_str	00000000 
+00000241 l       .debug_str	00000000 
+00000251 l       .debug_str	00000000 
+00000263 l       .debug_str	00000000 
+00000270 l       .debug_str	00000000 
+00000272 l       .debug_str	00000000 
+000002ba l       .debug_str	00000000 
+000002e4 l       .debug_str	00000000 
+00000324 l       .debug_str	00000000 
+00000327 l       .debug_str	00000000 
+00000369 l       .debug_str	00000000 
+0000036e l       .debug_str	00000000 
+00000375 l       .debug_str	00000000 
+0000037a l       .debug_str	00000000 
+0000037f l       .debug_str	00000000 
+000003ad l       .debug_str	00000000 
+00000438 l       .debug_str	00000000 
+00000444 l       .debug_str	00000000 
+00000448 l       .debug_str	00000000 
+000004d5 l       .debug_str	00000000 
+00000562 l       .debug_str	00000000 
+000005f1 l       .debug_str	00000000 
+0000067b l       .debug_str	00000000 
+000006c1 l       .debug_str	00000000 
+000006c7 l       .debug_str	00000000 
+0000072e l       .debug_str	00000000 
+00000796 l       .debug_str	00000000 
+00000801 l       .debug_str	00000000 
+00000806 l       .debug_str	00000000 
+0000082d l       .debug_str	00000000 
+0000082f l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.0	00000007 .Lanon.14e2e69139ab39fa34d16e344170ecb7.0
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.1	00000006 .Lanon.14e2e69139ab39fa34d16e344170ecb7.1
+00000000 l     O .rodata.cst4	00000004 .Lanon.14e2e69139ab39fa34d16e344170ecb7.10
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.11	00000010 .Lanon.14e2e69139ab39fa34d16e344170ecb7.11
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.12	00000009 .Lanon.14e2e69139ab39fa34d16e344170ecb7.12
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.13	00000010 .Lanon.14e2e69139ab39fa34d16e344170ecb7.13
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.14	0000000a .Lanon.14e2e69139ab39fa34d16e344170ecb7.14
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.2	0000000c .Lanon.14e2e69139ab39fa34d16e344170ecb7.2
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.3	00000006 .Lanon.14e2e69139ab39fa34d16e344170ecb7.3
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.4	0000000a .Lanon.14e2e69139ab39fa34d16e344170ecb7.4
+00000000 l     O .rodata.cst8	00000008 .Lanon.14e2e69139ab39fa34d16e344170ecb7.5
+00000000 l     O .rodata.cst16	00000010 .Lanon.14e2e69139ab39fa34d16e344170ecb7.6
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.7	00000009 .Lanon.14e2e69139ab39fa34d16e344170ecb7.7
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.8	0000000e .Lanon.14e2e69139ab39fa34d16e344170ecb7.8
+00000000 l     O .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.9	00000009 .Lanon.14e2e69139ab39fa34d16e344170ecb7.9
+00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he6cfb3ba981a22b6E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he6cfb3ba981a22b6E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb9Exception4irqn17h396183b365a2d7bcE	00000000 .text._ZN8cortex_m10peripheral3scb9Exception4irqn17h396183b365a2d7bcE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb10VectActive4from17h19e60c96f341a106E	00000000 .text._ZN8cortex_m10peripheral3scb10VectActive4from17h19e60c96f341a106E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h8d265a345f374444E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h8d265a345f374444E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h7139e110120f8717E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h7139e110120f8717E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h8ec55d64de43ed56E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h8ec55d64de43ed56E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h9305d6e9445c1125E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h9305d6e9445c1125E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h6a7e488f077c93ceE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h6a7e488f077c93ceE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb13SystemHandler5index17h4560092886b98f01E	00000000 .text._ZN8cortex_m10peripheral3scb13SystemHandler5index17h4560092886b98f01E
+00000000 l    d  .text._ZN73_$LT$cortex_m..peripheral..scb..Exception$u20$as$u20$core..fmt..Debug$GT$3fmt17h123f8dab4df1213cE	00000000 .text._ZN73_$LT$cortex_m..peripheral..scb..Exception$u20$as$u20$core..fmt..Debug$GT$3fmt17h123f8dab4df1213cE
+00000000 l    d  .text._ZN74_$LT$cortex_m..peripheral..scb..VectActive$u20$as$u20$core..fmt..Debug$GT$3fmt17hce8ed3d743caa67cE	00000000 .text._ZN74_$LT$cortex_m..peripheral..scb..VectActive$u20$as$u20$core..fmt..Debug$GT$3fmt17hce8ed3d743caa67cE
+00000000 l    d  .text._ZN77_$LT$cortex_m..peripheral..scb..SystemHandler$u20$as$u20$core..fmt..Debug$GT$3fmt17h4a55e063b6a131d7E	00000000 .text._ZN77_$LT$cortex_m..peripheral..scb..SystemHandler$u20$as$u20$core..fmt..Debug$GT$3fmt17h4a55e063b6a131d7E
+00000000 l    d  .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.11	00000000 .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.11
+00000000 l    d  .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.13	00000000 .rodata..Lanon.14e2e69139ab39fa34d16e344170ecb7.13
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he6cfb3ba981a22b6E	00000028 <&T as core::fmt::Debug>::fmt
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::field
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::builders::DebugStruct::field
+00000000         *UND*	00000000 core::fmt::builders::DebugStruct::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000         *UND*	00000000 core::fmt::Formatter::debug_struct
+00000000         *UND*	00000000 core::ptr::real_drop_in_place
+00000000         *UND*	00000000 core::ptr::real_drop_in_place
+00000000 g     F .text._ZN73_$LT$cortex_m..peripheral..scb..Exception$u20$as$u20$core..fmt..Debug$GT$3fmt17h123f8dab4df1213cE	0000016c <cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN74_$LT$cortex_m..peripheral..scb..VectActive$u20$as$u20$core..fmt..Debug$GT$3fmt17hce8ed3d743caa67cE	000000ec <cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN77_$LT$cortex_m..peripheral..scb..SystemHandler$u20$as$u20$core..fmt..Debug$GT$3fmt17h4a55e063b6a131d7E	00000126 <cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN8cortex_m10peripheral3scb10VectActive4from17h19e60c96f341a106E	00000150 cortex_m::peripheral::scb::VectActive::from
+00000000 g     F .text._ZN8cortex_m10peripheral3scb13SystemHandler5index17h4560092886b98f01E	00000064 .hidden cortex_m::peripheral::scb::SystemHandler::index
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h6a7e488f077c93ceE	0000001a .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h8d265a345f374444E	00000012 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h7139e110120f8717E	00000012 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h8ec55d64de43ed56E	00000012 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h9305d6e9445c1125E	00000012 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb9Exception4irqn17h396183b365a2d7bcE	00000076 cortex_m::peripheral::scb::Exception::irqn
+
+
+
+Disassembly of section .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he6cfb3ba981a22b6E:
+
+00000000 <<&T as core::fmt::Debug>::fmt>:
+_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he6cfb3ba981a22b6E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:1914
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	6800      	ldr	r0, [r0, #0]
+  10:	9905      	ldr	r1, [sp, #20]
+  12:	9203      	str	r2, [sp, #12]
+  14:	9302      	str	r3, [sp, #8]
+  16:	f7ff fffe 	bl	0 <<&T as core::fmt::Debug>::fmt>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <<&T as core::fmt::Debug>::fmt+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b006      	add	sp, #24
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb9Exception4irqn17h396183b365a2d7bcE:
+
+00000000 <cortex_m::peripheral::scb::Exception::irqn>:
+_ZN8cortex_m10peripheral3scb9Exception4irqn17h396183b365a2d7bcE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:233
+
+impl Exception {
+    /// Returns the IRQ number of this `Exception`
+    ///
+    /// The return value is always within the closed range `[-1, -14]`
+    pub fn irqn(&self) -> i8 {
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:235
+        match *self {
+            Exception::NonMaskableInt => -14,
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	7800      	ldrb	r0, [r0, #0]
+   a:	4602      	mov	r2, r0
+   c:	2808      	cmp	r0, #8
+   e:	9101      	str	r1, [sp, #4]
+  10:	9200      	str	r2, [sp, #0]
+  12:	d807      	bhi.n	24 <cortex_m::peripheral::scb::Exception::irqn+0x24>
+  14:	9900      	ldr	r1, [sp, #0]
+  16:	e8df f001 	tbb	[pc, r1]
+  1a:	0a06      	.short	0x0a06
+  1c:	1a16120e 	.word	0x1a16120e
+  20:	0026221e 	.word	0x0026221e
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:251
+            #[cfg(not(armv6m))]
+            Exception::DebugMonitor => -4,
+            Exception::PendSV => -2,
+            Exception::SysTick => -1,
+        }
+    }
+  24:	defe      	udf	#254	; 0xfe
+  26:	20f2      	movs	r0, #242	; 0xf2
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:235
+            Exception::NonMaskableInt => -14,
+  28:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  2c:	e01f      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  2e:	20f3      	movs	r0, #243	; 0xf3
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:236
+            Exception::HardFault => -13,
+  30:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  34:	e01b      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  36:	20f4      	movs	r0, #244	; 0xf4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:238
+            Exception::MemoryManagement => -12,
+  38:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  3c:	e017      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  3e:	20f5      	movs	r0, #245	; 0xf5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:240
+            Exception::BusFault => -11,
+  40:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  44:	e013      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  46:	20f6      	movs	r0, #246	; 0xf6
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:242
+            Exception::UsageFault => -10,
+  48:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  4c:	e00f      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  4e:	20fb      	movs	r0, #251	; 0xfb
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:245
+            Exception::SVCall => -5,
+  50:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  54:	e00b      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  56:	20fc      	movs	r0, #252	; 0xfc
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:247
+            Exception::DebugMonitor => -4,
+  58:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  5c:	e007      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  5e:	20fe      	movs	r0, #254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:248
+            Exception::PendSV => -2,
+  60:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  64:	e003      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+  66:	20ff      	movs	r0, #255	; 0xff
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:249
+            Exception::SysTick => -1,
+  68:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:234
+        match *self {
+  6c:	e7ff      	b.n	6e <cortex_m::peripheral::scb::Exception::irqn+0x6e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:251
+    }
+  6e:	f89d 000f 	ldrb.w	r0, [sp, #15]
+  72:	b004      	add	sp, #16
+  74:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb10VectActive4from17h19e60c96f341a106E:
+
+00000000 <cortex_m::peripheral::scb::VectActive::from>:
+_ZN8cortex_m10peripheral3scb10VectActive4from17h19e60c96f341a106E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:272
+    },
+}
+
+impl VectActive {
+    /// Converts a `byte` into `VectActive`
+    pub fn from(vect_active: u8) -> Option<Self> {
+   0:	b088      	sub	sp, #32
+   2:	4601      	mov	r1, r0
+   4:	f88d 000b 	strb.w	r0, [sp, #11]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:274
+        Some(match vect_active {
+            0 => VectActive::ThreadMode,
+   8:	f89d 000b 	ldrb.w	r0, [sp, #11]
+   c:	4602      	mov	r2, r0
+   e:	280f      	cmp	r0, #15
+  10:	9101      	str	r1, [sp, #4]
+  12:	9200      	str	r2, [sp, #0]
+  14:	f200 8078 	bhi.w	108 <cortex_m::peripheral::scb::VectActive::from+0x108>
+  18:	9900      	ldr	r1, [sp, #0]
+  1a:	e8df f001 	tbb	[pc, r1]
+  1e:	750f      	.short	0x750f
+  20:	33281e13 	.word	0x33281e13
+  24:	7575753e 	.word	0x7575753e
+  28:	75544975 	.word	0x75544975
+  2c:	6a5f      	.short	0x6a5f
+  2e:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:291
+            #[cfg(not(armv6m))]
+            12 => VectActive::Exception(Exception::DebugMonitor),
+            14 => VectActive::Exception(Exception::PendSV),
+            15 => VectActive::Exception(Exception::SysTick),
+            irqn if irqn >= 16 => VectActive::Interrupt { irqn },
+            _ => return None,
+  30:	f8ad 000c 	strh.w	r0, [sp, #12]
+  34:	2003      	movs	r0, #3
+  36:	f88d 000c 	strb.w	r0, [sp, #12]
+  3a:	e07a      	b.n	132 <cortex_m::peripheral::scb::VectActive::from+0x132>
+  3c:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:274
+            0 => VectActive::ThreadMode,
+  3e:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  42:	e07c      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  44:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:275
+            2 => VectActive::Exception(Exception::NonMaskableInt),
+  46:	f88d 0012 	strb.w	r0, [sp, #18]
+  4a:	f89d 0012 	ldrb.w	r0, [sp, #18]
+  4e:	f88d 0011 	strb.w	r0, [sp, #17]
+  52:	2001      	movs	r0, #1
+  54:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  58:	e071      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  5a:	2001      	movs	r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:276
+            3 => VectActive::Exception(Exception::HardFault),
+  5c:	f88d 0013 	strb.w	r0, [sp, #19]
+  60:	f89d 1013 	ldrb.w	r1, [sp, #19]
+  64:	f88d 1011 	strb.w	r1, [sp, #17]
+  68:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  6c:	e067      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  6e:	2002      	movs	r0, #2
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:278
+            4 => VectActive::Exception(Exception::MemoryManagement),
+  70:	f88d 0014 	strb.w	r0, [sp, #20]
+  74:	f89d 0014 	ldrb.w	r0, [sp, #20]
+  78:	f88d 0011 	strb.w	r0, [sp, #17]
+  7c:	2001      	movs	r0, #1
+  7e:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  82:	e05c      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  84:	2003      	movs	r0, #3
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:280
+            5 => VectActive::Exception(Exception::BusFault),
+  86:	f88d 0015 	strb.w	r0, [sp, #21]
+  8a:	f89d 0015 	ldrb.w	r0, [sp, #21]
+  8e:	f88d 0011 	strb.w	r0, [sp, #17]
+  92:	2001      	movs	r0, #1
+  94:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  98:	e051      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  9a:	2004      	movs	r0, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:282
+            6 => VectActive::Exception(Exception::UsageFault),
+  9c:	f88d 0016 	strb.w	r0, [sp, #22]
+  a0:	f89d 0016 	ldrb.w	r0, [sp, #22]
+  a4:	f88d 0011 	strb.w	r0, [sp, #17]
+  a8:	2001      	movs	r0, #1
+  aa:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  ae:	e046      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  b0:	2005      	movs	r0, #5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:285
+            11 => VectActive::Exception(Exception::SVCall),
+  b2:	f88d 0017 	strb.w	r0, [sp, #23]
+  b6:	f89d 0017 	ldrb.w	r0, [sp, #23]
+  ba:	f88d 0011 	strb.w	r0, [sp, #17]
+  be:	2001      	movs	r0, #1
+  c0:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  c4:	e03b      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  c6:	2006      	movs	r0, #6
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:287
+            12 => VectActive::Exception(Exception::DebugMonitor),
+  c8:	f88d 0018 	strb.w	r0, [sp, #24]
+  cc:	f89d 0018 	ldrb.w	r0, [sp, #24]
+  d0:	f88d 0011 	strb.w	r0, [sp, #17]
+  d4:	2001      	movs	r0, #1
+  d6:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  da:	e030      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  dc:	2007      	movs	r0, #7
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:288
+            14 => VectActive::Exception(Exception::PendSV),
+  de:	f88d 0019 	strb.w	r0, [sp, #25]
+  e2:	f89d 0019 	ldrb.w	r0, [sp, #25]
+  e6:	f88d 0011 	strb.w	r0, [sp, #17]
+  ea:	2001      	movs	r0, #1
+  ec:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+  f0:	e025      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+  f2:	2008      	movs	r0, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:289
+            15 => VectActive::Exception(Exception::SysTick),
+  f4:	f88d 001a 	strb.w	r0, [sp, #26]
+  f8:	f89d 001a 	ldrb.w	r0, [sp, #26]
+  fc:	f88d 0011 	strb.w	r0, [sp, #17]
+ 100:	2001      	movs	r0, #1
+ 102:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+ 106:	e01a      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+ 108:	f10d 000b 	add.w	r0, sp, #11
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:290
+            irqn if irqn >= 16 => VectActive::Interrupt { irqn },
+ 10c:	9007      	str	r0, [sp, #28]
+ 10e:	9807      	ldr	r0, [sp, #28]
+ 110:	7800      	ldrb	r0, [r0, #0]
+ 112:	2810      	cmp	r0, #16
+ 114:	f4ff af8b 	bcc.w	2e <cortex_m::peripheral::scb::VectActive::from+0x2e>
+ 118:	e7ff      	b.n	11a <cortex_m::peripheral::scb::VectActive::from+0x11a>
+ 11a:	f89d 000b 	ldrb.w	r0, [sp, #11]
+ 11e:	f88d 001b 	strb.w	r0, [sp, #27]
+ 122:	f89d 001b 	ldrb.w	r0, [sp, #27]
+ 126:	f88d 0011 	strb.w	r0, [sp, #17]
+ 12a:	2002      	movs	r0, #2
+ 12c:	f88d 0010 	strb.w	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+ 130:	e005      	b.n	13e <cortex_m::peripheral::scb::VectActive::from+0x13e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:293
+        })
+    }
+ 132:	f89d 000c 	ldrb.w	r0, [sp, #12]
+ 136:	f89d 100d 	ldrb.w	r1, [sp, #13]
+ 13a:	b008      	add	sp, #32
+ 13c:	4770      	bx	lr
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:273
+        Some(match vect_active {
+ 13e:	f89d 0010 	ldrb.w	r0, [sp, #16]
+ 142:	f89d 1011 	ldrb.w	r1, [sp, #17]
+ 146:	f88d 000c 	strb.w	r0, [sp, #12]
+ 14a:	f88d 100d 	strb.w	r1, [sp, #13]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:293
+    }
+ 14e:	e7f0      	b.n	132 <cortex_m::peripheral::scb::VectActive::from+0x132>
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h8d265a345f374444E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h8d265a345f374444E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:587
+
+impl SCB {
+    /// Set the SLEEPDEEP bit in the SCR register
+    pub fn set_sleepdeep(&mut self) {
+        unsafe {
+            self.scr.modify(|scr| scr | SCB_SCR_SLEEPDEEP);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0004 	orr.w	r0, r0, #4
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h7139e110120f8717E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h7139e110120f8717E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:594
+    }
+
+    /// Clear the SLEEPDEEP bit in the SCR register
+    pub fn clear_sleepdeep(&mut self) {
+        unsafe {
+            self.scr.modify(|scr| scr & !SCB_SCR_SLEEPDEEP);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 0004 	bic.w	r0, r0, #4
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h8ec55d64de43ed56E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleeponexit::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15set_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h8ec55d64de43ed56E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:605
+
+impl SCB {
+    /// Set the SLEEPONEXIT bit in the SCR register
+    pub fn set_sleeponexit(&mut self) {
+        unsafe {
+            self.scr.modify(|scr| scr | SCB_SCR_SLEEPONEXIT);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0002 	orr.w	r0, r0, #2
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h9305d6e9445c1125E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleeponexit::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17clear_sleeponexit28_$u7b$$u7b$closure$u7d$$u7d$17h9305d6e9445c1125E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:612
+    }
+
+    /// Clear the SLEEPONEXIT bit in the SCR register
+    pub fn clear_sleeponexit(&mut self) {
+        unsafe {
+            self.scr.modify(|scr| scr & !SCB_SCR_SLEEPONEXIT);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 0002 	bic.w	r0, r0, #2
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h6a7e488f077c93ceE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h6a7e488f077c93ceE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:627
+    /// Initiate a system reset request to reset the MCU
+    pub fn system_reset(&mut self) -> ! {
+        ::asm::dsb();
+        unsafe {
+            self.aircr.modify(
+                |r| {
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:629
+                    SCB_AIRCR_VECTKEY | // otherwise the write is ignored
+            r & SCB_AIRCR_PRIGROUP_MASK | // keep priority group unchanged
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f400 60a0 	and.w	r0, r0, #1280	; 0x500
+   c:	2204      	movs	r2, #4
+   e:	f2c0 52fa 	movt	r2, #1530	; 0x5fa
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:628
+                    SCB_AIRCR_VECTKEY | // otherwise the write is ignored
+  12:	4310      	orrs	r0, r2
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:631
+            SCB_AIRCR_SYSRESETREQ
+                }, // set the bit
+  14:	9100      	str	r1, [sp, #0]
+  16:	b003      	add	sp, #12
+  18:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb13SystemHandler5index17h4560092886b98f01E:
+
+00000000 <cortex_m::peripheral::scb::SystemHandler::index>:
+_ZN8cortex_m10peripheral3scb13SystemHandler5index17h4560092886b98f01E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:728
+    /// System Tick interrupt
+    SysTick,
+}
+
+impl SystemHandler {
+    fn index(&self) -> u8 {
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:731
+        match *self {
+            #[cfg(not(armv6m))]
+            SystemHandler::MemoryManagement => 4,
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	7800      	ldrb	r0, [r0, #0]
+   a:	4602      	mov	r2, r0
+   c:	2806      	cmp	r0, #6
+   e:	9101      	str	r1, [sp, #4]
+  10:	9200      	str	r2, [sp, #0]
+  12:	d806      	bhi.n	22 <cortex_m::peripheral::scb::SystemHandler::index+0x22>
+  14:	9900      	ldr	r1, [sp, #0]
+  16:	e8df f001 	tbb	[pc, r1]
+  1a:	0905      	.short	0x0905
+  1c:	1915110d 	.word	0x1915110d
+  20:	001d      	.short	0x001d
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:744
+            #[cfg(not(armv6m))]
+            SystemHandler::DebugMonitor => 12,
+            SystemHandler::PendSV => 14,
+            SystemHandler::SysTick => 15,
+        }
+    }
+  22:	defe      	udf	#254	; 0xfe
+  24:	2004      	movs	r0, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:731
+            SystemHandler::MemoryManagement => 4,
+  26:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  2a:	e017      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+  2c:	2005      	movs	r0, #5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:733
+            SystemHandler::BusFault => 5,
+  2e:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  32:	e013      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+  34:	2006      	movs	r0, #6
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:735
+            SystemHandler::UsageFault => 6,
+  36:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  3a:	e00f      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+  3c:	200b      	movs	r0, #11
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:738
+            SystemHandler::SVCall => 11,
+  3e:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  42:	e00b      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+  44:	200c      	movs	r0, #12
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:740
+            SystemHandler::DebugMonitor => 12,
+  46:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  4a:	e007      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+  4c:	200e      	movs	r0, #14
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:741
+            SystemHandler::PendSV => 14,
+  4e:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  52:	e003      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+  54:	200f      	movs	r0, #15
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:742
+            SystemHandler::SysTick => 15,
+  56:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:729
+        match *self {
+  5a:	e7ff      	b.n	5c <cortex_m::peripheral::scb::SystemHandler::index+0x5c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:744
+    }
+  5c:	f89d 000f 	ldrb.w	r0, [sp, #15]
+  60:	b004      	add	sp, #16
+  62:	4770      	bx	lr
+
+Disassembly of section .text._ZN73_$LT$cortex_m..peripheral..scb..Exception$u20$as$u20$core..fmt..Debug$GT$3fmt17h123f8dab4df1213cE:
+
+00000000 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt>:
+_ZN73_$LT$cortex_m..peripheral..scb..Exception$u20$as$u20$core..fmt..Debug$GT$3fmt17h123f8dab4df1213cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:191
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b580      	push	{r7, lr}
+   2:	b0a2      	sub	sp, #136	; 0x88
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9003      	str	r0, [sp, #12]
+   a:	9104      	str	r1, [sp, #16]
+   c:	9803      	ldr	r0, [sp, #12]
+   e:	9006      	str	r0, [sp, #24]
+  10:	9806      	ldr	r0, [sp, #24]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	4601      	mov	r1, r0
+  16:	2808      	cmp	r0, #8
+  18:	9202      	str	r2, [sp, #8]
+  1a:	9301      	str	r3, [sp, #4]
+  1c:	9100      	str	r1, [sp, #0]
+  1e:	d807      	bhi.n	30 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x30>
+  20:	9900      	ldr	r1, [sp, #0]
+  22:	e8df f001 	tbb	[pc, r1]
+  26:	1706      	.short	0x1706
+  28:	5b4a3928 	.word	0x5b4a3928
+  2c:	008e7d6c 	.word	0x008e7d6c
+  30:	defe      	udf	#254	; 0xfe
+  32:	9904      	ldr	r1, [sp, #16]
+  34:	f240 0200 	movw	r2, #0
+  38:	f2c0 0200 	movt	r2, #0
+  3c:	a807      	add	r0, sp, #28
+  3e:	230e      	movs	r3, #14
+  40:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  44:	e7ff      	b.n	46 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x46>
+  46:	a807      	add	r0, sp, #28
+  48:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  4c:	f88d 0017 	strb.w	r0, [sp, #23]
+  50:	e7ff      	b.n	52 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x52>
+  52:	e087      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+  54:	9904      	ldr	r1, [sp, #16]
+  56:	f240 0200 	movw	r2, #0
+  5a:	f2c0 0200 	movt	r2, #0
+  5e:	a80a      	add	r0, sp, #40	; 0x28
+  60:	2309      	movs	r3, #9
+  62:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  66:	e7ff      	b.n	68 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x68>
+  68:	a80a      	add	r0, sp, #40	; 0x28
+  6a:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  6e:	f88d 0017 	strb.w	r0, [sp, #23]
+  72:	e7ff      	b.n	74 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x74>
+  74:	e076      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+  76:	9904      	ldr	r1, [sp, #16]
+  78:	f240 0200 	movw	r2, #0
+  7c:	f2c0 0200 	movt	r2, #0
+  80:	a80d      	add	r0, sp, #52	; 0x34
+  82:	2310      	movs	r3, #16
+  84:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  88:	e7ff      	b.n	8a <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x8a>
+  8a:	a80d      	add	r0, sp, #52	; 0x34
+  8c:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  90:	f88d 0017 	strb.w	r0, [sp, #23]
+  94:	e7ff      	b.n	96 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x96>
+  96:	e065      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+  98:	9904      	ldr	r1, [sp, #16]
+  9a:	f240 0200 	movw	r2, #0
+  9e:	f2c0 0200 	movt	r2, #0
+  a2:	a810      	add	r0, sp, #64	; 0x40
+  a4:	2308      	movs	r3, #8
+  a6:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  aa:	e7ff      	b.n	ac <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0xac>
+  ac:	a810      	add	r0, sp, #64	; 0x40
+  ae:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  b2:	f88d 0017 	strb.w	r0, [sp, #23]
+  b6:	e7ff      	b.n	b8 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0xb8>
+  b8:	e054      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+  ba:	9904      	ldr	r1, [sp, #16]
+  bc:	f240 0200 	movw	r2, #0
+  c0:	f2c0 0200 	movt	r2, #0
+  c4:	a813      	add	r0, sp, #76	; 0x4c
+  c6:	230a      	movs	r3, #10
+  c8:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  cc:	e7ff      	b.n	ce <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0xce>
+  ce:	a813      	add	r0, sp, #76	; 0x4c
+  d0:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  d4:	f88d 0017 	strb.w	r0, [sp, #23]
+  d8:	e7ff      	b.n	da <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0xda>
+  da:	e043      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+  dc:	9904      	ldr	r1, [sp, #16]
+  de:	f240 0200 	movw	r2, #0
+  e2:	f2c0 0200 	movt	r2, #0
+  e6:	a816      	add	r0, sp, #88	; 0x58
+  e8:	2306      	movs	r3, #6
+  ea:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  ee:	e7ff      	b.n	f0 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0xf0>
+  f0:	a816      	add	r0, sp, #88	; 0x58
+  f2:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  f6:	f88d 0017 	strb.w	r0, [sp, #23]
+  fa:	e7ff      	b.n	fc <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0xfc>
+  fc:	e032      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+  fe:	9904      	ldr	r1, [sp, #16]
+ 100:	f240 0200 	movw	r2, #0
+ 104:	f2c0 0200 	movt	r2, #0
+ 108:	a819      	add	r0, sp, #100	; 0x64
+ 10a:	230c      	movs	r3, #12
+ 10c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+ 110:	e7ff      	b.n	112 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x112>
+ 112:	a819      	add	r0, sp, #100	; 0x64
+ 114:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+ 118:	f88d 0017 	strb.w	r0, [sp, #23]
+ 11c:	e7ff      	b.n	11e <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x11e>
+ 11e:	e021      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+ 120:	9904      	ldr	r1, [sp, #16]
+ 122:	f240 0200 	movw	r2, #0
+ 126:	f2c0 0200 	movt	r2, #0
+ 12a:	a81c      	add	r0, sp, #112	; 0x70
+ 12c:	2306      	movs	r3, #6
+ 12e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+ 132:	e7ff      	b.n	134 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x134>
+ 134:	a81c      	add	r0, sp, #112	; 0x70
+ 136:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+ 13a:	f88d 0017 	strb.w	r0, [sp, #23]
+ 13e:	e7ff      	b.n	140 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x140>
+ 140:	e010      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+ 142:	9904      	ldr	r1, [sp, #16]
+ 144:	f240 0200 	movw	r2, #0
+ 148:	f2c0 0200 	movt	r2, #0
+ 14c:	a81f      	add	r0, sp, #124	; 0x7c
+ 14e:	2307      	movs	r3, #7
+ 150:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+ 154:	e7ff      	b.n	156 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x156>
+ 156:	a81f      	add	r0, sp, #124	; 0x7c
+ 158:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+ 15c:	f88d 0017 	strb.w	r0, [sp, #23]
+ 160:	e7ff      	b.n	162 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x162>
+ 162:	e7ff      	b.n	164 <<cortex_m::peripheral::scb::Exception as core::fmt::Debug>::fmt+0x164>
+ 164:	f89d 0017 	ldrb.w	r0, [sp, #23]
+ 168:	b022      	add	sp, #136	; 0x88
+ 16a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN74_$LT$cortex_m..peripheral..scb..VectActive$u20$as$u20$core..fmt..Debug$GT$3fmt17hce8ed3d743caa67cE:
+
+00000000 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt>:
+_ZN74_$LT$cortex_m..peripheral..scb..VectActive$u20$as$u20$core..fmt..Debug$GT$3fmt17hce8ed3d743caa67cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:255
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b580      	push	{r7, lr}
+   2:	b096      	sub	sp, #88	; 0x58
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9009      	str	r0, [sp, #36]	; 0x24
+  10:	9809      	ldr	r0, [sp, #36]	; 0x24
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	4601      	mov	r1, r0
+  16:	2800      	cmp	r0, #0
+  18:	9205      	str	r2, [sp, #20]
+  1a:	9304      	str	r3, [sp, #16]
+  1c:	9103      	str	r1, [sp, #12]
+  1e:	d009      	beq.n	34 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x34>
+  20:	e7ff      	b.n	22 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x22>
+  22:	9803      	ldr	r0, [sp, #12]
+  24:	2801      	cmp	r0, #1
+  26:	d016      	beq.n	56 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x56>
+  28:	e7ff      	b.n	2a <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x2a>
+  2a:	9803      	ldr	r0, [sp, #12]
+  2c:	2802      	cmp	r0, #2
+  2e:	d032      	beq.n	96 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x96>
+  30:	e7ff      	b.n	32 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x32>
+  32:	defe      	udf	#254	; 0xfe
+  34:	9907      	ldr	r1, [sp, #28]
+  36:	f240 0200 	movw	r2, #0
+  3a:	f2c0 0200 	movt	r2, #0
+  3e:	a80a      	add	r0, sp, #40	; 0x28
+  40:	230a      	movs	r3, #10
+  42:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  46:	e7ff      	b.n	48 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x48>
+  48:	a80a      	add	r0, sp, #40	; 0x28
+  4a:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  4e:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
+  52:	e7ff      	b.n	54 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x54>
+  54:	e046      	b.n	e4 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0xe4>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:261
+    Exception(Exception),
+  56:	9809      	ldr	r0, [sp, #36]	; 0x24
+  58:	3001      	adds	r0, #1
+  5a:	900d      	str	r0, [sp, #52]	; 0x34
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:255
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  5c:	9907      	ldr	r1, [sp, #28]
+  5e:	f240 0200 	movw	r2, #0
+  62:	f2c0 0200 	movt	r2, #0
+  66:	a80e      	add	r0, sp, #56	; 0x38
+  68:	2309      	movs	r3, #9
+  6a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  6e:	e7ff      	b.n	70 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x70>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:261
+    Exception(Exception),
+  70:	980d      	ldr	r0, [sp, #52]	; 0x34
+  72:	9011      	str	r0, [sp, #68]	; 0x44
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:255
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  74:	f240 0200 	movw	r2, #0
+  78:	f2c0 0200 	movt	r2, #0
+  7c:	a80e      	add	r0, sp, #56	; 0x38
+  7e:	a911      	add	r1, sp, #68	; 0x44
+  80:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::field>
+  84:	9002      	str	r0, [sp, #8]
+  86:	e7ff      	b.n	88 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x88>
+  88:	a80e      	add	r0, sp, #56	; 0x38
+  8a:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  8e:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
+  92:	e7ff      	b.n	94 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0x94>
+  94:	e026      	b.n	e4 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0xe4>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:266
+        irqn: u8,
+  96:	9809      	ldr	r0, [sp, #36]	; 0x24
+  98:	3001      	adds	r0, #1
+  9a:	9012      	str	r0, [sp, #72]	; 0x48
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:255
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  9c:	9907      	ldr	r1, [sp, #28]
+  9e:	f240 0200 	movw	r2, #0
+  a2:	f2c0 0200 	movt	r2, #0
+  a6:	a813      	add	r0, sp, #76	; 0x4c
+  a8:	2309      	movs	r3, #9
+  aa:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_struct>
+  ae:	e7ff      	b.n	b0 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0xb0>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:266
+        irqn: u8,
+  b0:	9812      	ldr	r0, [sp, #72]	; 0x48
+  b2:	9015      	str	r0, [sp, #84]	; 0x54
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:255
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  b4:	f240 0000 	movw	r0, #0
+  b8:	f2c0 0000 	movt	r0, #0
+  bc:	4669      	mov	r1, sp
+  be:	6008      	str	r0, [r1, #0]
+  c0:	f240 0100 	movw	r1, #0
+  c4:	f2c0 0100 	movt	r1, #0
+  c8:	a813      	add	r0, sp, #76	; 0x4c
+  ca:	2204      	movs	r2, #4
+  cc:	ab15      	add	r3, sp, #84	; 0x54
+  ce:	f7ff fffe 	bl	0 <core::fmt::builders::DebugStruct::field>
+  d2:	9001      	str	r0, [sp, #4]
+  d4:	e7ff      	b.n	d6 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0xd6>
+  d6:	a813      	add	r0, sp, #76	; 0x4c
+  d8:	f7ff fffe 	bl	0 <core::fmt::builders::DebugStruct::finish>
+  dc:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
+  e0:	e7ff      	b.n	e2 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0xe2>
+  e2:	e7ff      	b.n	e4 <<cortex_m::peripheral::scb::VectActive as core::fmt::Debug>::fmt+0xe4>
+  e4:	f89d 0023 	ldrb.w	r0, [sp, #35]	; 0x23
+  e8:	b016      	add	sp, #88	; 0x58
+  ea:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN77_$LT$cortex_m..peripheral..scb..SystemHandler$u20$as$u20$core..fmt..Debug$GT$3fmt17h4a55e063b6a131d7E:
+
+00000000 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt>:
+_ZN77_$LT$cortex_m..peripheral..scb..SystemHandler$u20$as$u20$core..fmt..Debug$GT$3fmt17h4a55e063b6a131d7E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/scb.rs:693
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b580      	push	{r7, lr}
+   2:	b09c      	sub	sp, #112	; 0x70
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9003      	str	r0, [sp, #12]
+   a:	9104      	str	r1, [sp, #16]
+   c:	9803      	ldr	r0, [sp, #12]
+   e:	9006      	str	r0, [sp, #24]
+  10:	9806      	ldr	r0, [sp, #24]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	4601      	mov	r1, r0
+  16:	2806      	cmp	r0, #6
+  18:	9202      	str	r2, [sp, #8]
+  1a:	9301      	str	r3, [sp, #4]
+  1c:	9100      	str	r1, [sp, #0]
+  1e:	d806      	bhi.n	2e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x2e>
+  20:	9900      	ldr	r1, [sp, #0]
+  22:	e8df f001 	tbb	[pc, r1]
+  26:	1605      	.short	0x1605
+  28:	5a493827 	.word	0x5a493827
+  2c:	006b      	.short	0x006b
+  2e:	defe      	udf	#254	; 0xfe
+  30:	9904      	ldr	r1, [sp, #16]
+  32:	f240 0200 	movw	r2, #0
+  36:	f2c0 0200 	movt	r2, #0
+  3a:	a807      	add	r0, sp, #28
+  3c:	2310      	movs	r3, #16
+  3e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  42:	e7ff      	b.n	44 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x44>
+  44:	a807      	add	r0, sp, #28
+  46:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  4a:	f88d 0017 	strb.w	r0, [sp, #23]
+  4e:	e7ff      	b.n	50 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x50>
+  50:	e065      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+  52:	9904      	ldr	r1, [sp, #16]
+  54:	f240 0200 	movw	r2, #0
+  58:	f2c0 0200 	movt	r2, #0
+  5c:	a80a      	add	r0, sp, #40	; 0x28
+  5e:	2308      	movs	r3, #8
+  60:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  64:	e7ff      	b.n	66 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x66>
+  66:	a80a      	add	r0, sp, #40	; 0x28
+  68:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  6c:	f88d 0017 	strb.w	r0, [sp, #23]
+  70:	e7ff      	b.n	72 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x72>
+  72:	e054      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+  74:	9904      	ldr	r1, [sp, #16]
+  76:	f240 0200 	movw	r2, #0
+  7a:	f2c0 0200 	movt	r2, #0
+  7e:	a80d      	add	r0, sp, #52	; 0x34
+  80:	230a      	movs	r3, #10
+  82:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  86:	e7ff      	b.n	88 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x88>
+  88:	a80d      	add	r0, sp, #52	; 0x34
+  8a:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  8e:	f88d 0017 	strb.w	r0, [sp, #23]
+  92:	e7ff      	b.n	94 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x94>
+  94:	e043      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+  96:	9904      	ldr	r1, [sp, #16]
+  98:	f240 0200 	movw	r2, #0
+  9c:	f2c0 0200 	movt	r2, #0
+  a0:	a810      	add	r0, sp, #64	; 0x40
+  a2:	2306      	movs	r3, #6
+  a4:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  a8:	e7ff      	b.n	aa <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0xaa>
+  aa:	a810      	add	r0, sp, #64	; 0x40
+  ac:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  b0:	f88d 0017 	strb.w	r0, [sp, #23]
+  b4:	e7ff      	b.n	b6 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0xb6>
+  b6:	e032      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+  b8:	9904      	ldr	r1, [sp, #16]
+  ba:	f240 0200 	movw	r2, #0
+  be:	f2c0 0200 	movt	r2, #0
+  c2:	a813      	add	r0, sp, #76	; 0x4c
+  c4:	230c      	movs	r3, #12
+  c6:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  ca:	e7ff      	b.n	cc <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0xcc>
+  cc:	a813      	add	r0, sp, #76	; 0x4c
+  ce:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  d2:	f88d 0017 	strb.w	r0, [sp, #23]
+  d6:	e7ff      	b.n	d8 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0xd8>
+  d8:	e021      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+  da:	9904      	ldr	r1, [sp, #16]
+  dc:	f240 0200 	movw	r2, #0
+  e0:	f2c0 0200 	movt	r2, #0
+  e4:	a816      	add	r0, sp, #88	; 0x58
+  e6:	2306      	movs	r3, #6
+  e8:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  ec:	e7ff      	b.n	ee <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0xee>
+  ee:	a816      	add	r0, sp, #88	; 0x58
+  f0:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  f4:	f88d 0017 	strb.w	r0, [sp, #23]
+  f8:	e7ff      	b.n	fa <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0xfa>
+  fa:	e010      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+  fc:	9904      	ldr	r1, [sp, #16]
+  fe:	f240 0200 	movw	r2, #0
+ 102:	f2c0 0200 	movt	r2, #0
+ 106:	a819      	add	r0, sp, #100	; 0x64
+ 108:	2307      	movs	r3, #7
+ 10a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+ 10e:	e7ff      	b.n	110 <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x110>
+ 110:	a819      	add	r0, sp, #100	; 0x64
+ 112:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+ 116:	f88d 0017 	strb.w	r0, [sp, #23]
+ 11a:	e7ff      	b.n	11c <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11c>
+ 11c:	e7ff      	b.n	11e <<cortex_m::peripheral::scb::SystemHandler as core::fmt::Debug>::fmt+0x11e>
+ 11e:	f89d 0017 	ldrb.w	r0, [sp, #23]
+ 122:	b01c      	add	sp, #112	; 0x70
+ 124:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.10.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.10
+000002d3 l       .debug_str	00000000 
+000002a6 l       .debug_str	00000000 
+000002b4 l       .debug_str	00000000 
+000002b8 l       .debug_str	00000000 
+000002be l       .debug_str	00000000 
+000002c2 l       .debug_str	00000000 
+000002c6 l       .debug_str	00000000 
+000002d5 l       .debug_str	00000000 
+00000338 l       .debug_str	00000000 
+00000362 l       .debug_str	00000000 
+000003f2 l       .debug_str	00000000 
+000003f7 l       .debug_str	00000000 
+00000406 l       .debug_str	00000000 
+0000042a l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+000000fd l       .debug_str	00000000 
+00000103 l       .debug_str	00000000 
+0000010a l       .debug_str	00000000 
+00000112 l       .debug_str	00000000 
+00000115 l       .debug_str	00000000 
+00000117 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001c0 l       .debug_str	00000000 
+000001c9 l       .debug_str	00000000 
+000001d3 l       .debug_str	00000000 
+000001da l       .debug_str	00000000 
+000001e0 l       .debug_str	00000000 
+000001ea l       .debug_str	00000000 
+000001ec l       .debug_str	00000000 
+00000281 l       .debug_str	00000000 
+0000028d l       .debug_str	00000000 
+00000294 l       .debug_str	00000000 
+00000298 l       .debug_str	00000000 
+0000029d l       .debug_str	00000000 
+000002a2 l       .debug_str	00000000 
+00000000 l    d  .text._ZN101_$LT$core..ops..range..RangeTo$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h359738159b8e0f46E	00000000 .text._ZN101_$LT$core..ops..range..RangeTo$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h359738159b8e0f46E
+00000000 l    d  .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h1cea5a381fb439cbE	00000000 .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h1cea5a381fb439cbE
+00000000 l    d  .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcad60979ebbd0a90E	00000000 .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcad60979ebbd0a90E
+00000000 l    d  .text._ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h56a7b56a4f7a41f6E	00000000 .text._ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h56a7b56a4f7a41f6E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN101_$LT$core..ops..range..RangeTo$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h359738159b8e0f46E	00000046 <core::ops::range::RangeTo<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut
+00000000         *UND*	00000000 .hidden <usize as core::iter::range::Step>::add_usize
+00000000         *UND*	00000000 .hidden core::cmp::impls::<impl core::cmp::PartialOrd for usize>::lt
+00000000         *UND*	00000000 core::mem::swap
+00000000         *UND*	00000000 core::ptr::<impl *mut T>::add
+00000000 g     F .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h1cea5a381fb439cbE	0000009a core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next
+00000000         *UND*	00000000 core::slice::from_raw_parts_mut
+00000000         *UND*	00000000 core::slice::<impl [T]>::as_mut_ptr
+00000000 g     F .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcad60979ebbd0a90E	00000016 <I as core::iter::traits::collect::IntoIterator>::into_iter
+00000000 g     F .text._ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h56a7b56a4f7a41f6E	00000052 <core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut
+
+
+
+Disassembly of section .text._ZN101_$LT$core..ops..range..RangeTo$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h359738159b8e0f46E:
+
+00000000 <<core::ops::range::RangeTo<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut>:
+_ZN101_$LT$core..ops..range..RangeTo$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h359738159b8e0f46E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2786
+   0:	b510      	push	{r4, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9007      	str	r0, [sp, #28]
+   c:	9108      	str	r1, [sp, #32]
+   e:	9209      	str	r2, [sp, #36]	; 0x24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2787
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	2100      	movs	r1, #0
+  14:	910a      	str	r1, [sp, #40]	; 0x28
+  16:	900b      	str	r0, [sp, #44]	; 0x2c
+  18:	9a08      	ldr	r2, [sp, #32]
+  1a:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1c:	990a      	ldr	r1, [sp, #40]	; 0x28
+  1e:	9c0b      	ldr	r4, [sp, #44]	; 0x2c
+  20:	9006      	str	r0, [sp, #24]
+  22:	4608      	mov	r0, r1
+  24:	4621      	mov	r1, r4
+  26:	9c06      	ldr	r4, [sp, #24]
+  28:	9305      	str	r3, [sp, #20]
+  2a:	4623      	mov	r3, r4
+  2c:	f8cd c010 	str.w	ip, [sp, #16]
+  30:	f8cd e00c 	str.w	lr, [sp, #12]
+  34:	f7ff fffe 	bl	0 <<core::ops::range::RangeTo<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut>
+  38:	9002      	str	r0, [sp, #8]
+  3a:	9101      	str	r1, [sp, #4]
+  3c:	e7ff      	b.n	3e <<core::ops::range::RangeTo<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut+0x3e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2788
+  3e:	9802      	ldr	r0, [sp, #8]
+  40:	9901      	ldr	r1, [sp, #4]
+  42:	b00c      	add	sp, #48	; 0x30
+  44:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h1cea5a381fb439cbE:
+
+00000000 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next>:
+_ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h1cea5a381fb439cbE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:170
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+   8:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:171
+   a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+   e:	9803      	ldr	r0, [sp, #12]
+  10:	1d02      	adds	r2, r0, #4
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <core::cmp::impls::<impl core::cmp::PartialOrd for usize>::lt>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	07c1      	lsls	r1, r0, #31
+  22:	2900      	cmp	r1, #0
+  24:	d023      	beq.n	6e <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x6e>
+  26:	e7ff      	b.n	28 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:176
+  28:	9803      	ldr	r0, [sp, #12]
+  2a:	2101      	movs	r1, #1
+  2c:	f88d 1027 	strb.w	r1, [sp, #39]	; 0x27
+  30:	f7ff fffe 	bl	0 <<usize as core::iter::range::Step>::add_usize>
+  34:	9107      	str	r1, [sp, #28]
+  36:	9006      	str	r0, [sp, #24]
+  38:	e7ff      	b.n	3a <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x3a>
+  3a:	9806      	ldr	r0, [sp, #24]
+  3c:	2801      	cmp	r0, #1
+  3e:	d10f      	bne.n	60 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x60>
+  40:	e7ff      	b.n	42 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x42>
+  42:	2000      	movs	r0, #0
+  44:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9008      	str	r0, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:177
+  4c:	9903      	ldr	r1, [sp, #12]
+  4e:	a808      	add	r0, sp, #32
+  50:	f7ff fffe 	bl	0 <core::mem::swap>
+  54:	e7ff      	b.n	56 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:178
+  56:	9808      	ldr	r0, [sp, #32]
+  58:	9005      	str	r0, [sp, #20]
+  5a:	2001      	movs	r0, #1
+  5c:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:176
+  5e:	e002      	b.n	66 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x66>
+  60:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:180
+  62:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:176
+  64:	e7ff      	b.n	66 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x66>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:182
+  66:	9806      	ldr	r0, [sp, #24]
+  68:	2801      	cmp	r0, #1
+  6a:	d00b      	beq.n	84 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x84>
+  6c:	e014      	b.n	98 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x98>
+  6e:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:183
+  70:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:171
+  72:	e7ff      	b.n	74 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:185
+  74:	9804      	ldr	r0, [sp, #16]
+  76:	9905      	ldr	r1, [sp, #20]
+  78:	b00a      	add	sp, #40	; 0x28
+  7a:	bd80      	pop	{r7, pc}
+  7c:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:182
+  7e:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:171
+  82:	e7f7      	b.n	74 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:182
+  84:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  88:	07c0      	lsls	r0, r0, #31
+  8a:	2800      	cmp	r0, #0
+  8c:	d0f6      	beq.n	7c <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x7c>
+  8e:	e7ff      	b.n	90 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x90>
+  90:	2000      	movs	r0, #0
+  92:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  96:	e7f1      	b.n	7c <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x7c>
+  98:	e7f0      	b.n	7c <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x7c>
+
+Disassembly of section .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcad60979ebbd0a90E:
+
+00000000 <<I as core::iter::traits::collect::IntoIterator>::into_iter>:
+_ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcad60979ebbd0a90E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:245
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:246
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:247
+   e:	9201      	str	r2, [sp, #4]
+  10:	9300      	str	r3, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
+
+Disassembly of section .text._ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h56a7b56a4f7a41f6E:
+
+00000000 <<core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut>:
+_ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h56a7b56a4f7a41f6E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2737
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	469c      	mov	ip, r3
+   6:	4696      	mov	lr, r2
+   8:	460c      	mov	r4, r1
+   a:	4605      	mov	r5, r0
+   c:	9008      	str	r0, [sp, #32]
+   e:	9109      	str	r1, [sp, #36]	; 0x24
+  10:	920a      	str	r2, [sp, #40]	; 0x28
+  12:	930b      	str	r3, [sp, #44]	; 0x2c
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2738
+  14:	980a      	ldr	r0, [sp, #40]	; 0x28
+  16:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  18:	f8cd c01c 	str.w	ip, [sp, #28]
+  1c:	f8cd e018 	str.w	lr, [sp, #24]
+  20:	9405      	str	r4, [sp, #20]
+  22:	9504      	str	r5, [sp, #16]
+  24:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_mut_ptr>
+  28:	9003      	str	r0, [sp, #12]
+  2a:	e7ff      	b.n	2c <<core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut+0x2c>
+  2c:	9908      	ldr	r1, [sp, #32]
+  2e:	9803      	ldr	r0, [sp, #12]
+  30:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  34:	9002      	str	r0, [sp, #8]
+  36:	e7ff      	b.n	38 <<core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut+0x38>
+  38:	9808      	ldr	r0, [sp, #32]
+  3a:	9909      	ldr	r1, [sp, #36]	; 0x24
+  3c:	1a09      	subs	r1, r1, r0
+  3e:	9802      	ldr	r0, [sp, #8]
+  40:	f7ff fffe 	bl	0 <core::slice::from_raw_parts_mut>
+  44:	9001      	str	r0, [sp, #4]
+  46:	9100      	str	r1, [sp, #0]
+  48:	e7ff      	b.n	4a <<core::ops::range::Range<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut+0x4a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2739
+  4a:	9801      	ldr	r0, [sp, #4]
+  4c:	9900      	ldr	r1, [sp, #0]
+  4e:	b00c      	add	sp, #48	; 0x30
+  50:	bdb0      	pop	{r4, r5, r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.11.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.11
+000004a5 l       .debug_str	00000000 
+0000032a l       .debug_str	00000000 
+00000340 l       .debug_str	00000000 
+00000347 l       .debug_str	00000000 
+0000034a l       .debug_str	00000000 
+0000034e l       .debug_str	00000000 
+00000359 l       .debug_str	00000000 
+0000035b l       .debug_str	00000000 
+00000384 l       .debug_str	00000000 
+0000040e l       .debug_str	00000000 
+0000041a l       .debug_str	00000000 
+000004e4 l       .debug_str	00000000 
+000004ed l       .debug_str	00000000 
+0000052d l       .debug_str	00000000 
+00000537 l       .debug_str	00000000 
+00000577 l       .debug_str	00000000 
+00000581 l       .debug_str	00000000 
+000005c6 l       .debug_str	00000000 
+000005d4 l       .debug_str	00000000 
+000005d9 l       .debug_str	00000000 
+000005de l       .debug_str	00000000 
+000005fa l       .debug_str	00000000 
+00000617 l       .debug_str	00000000 
+00000619 l       .debug_str	00000000 
+00000621 l       .debug_str	00000000 
+00000623 l       .debug_str	00000000 
+00000648 l       .debug_str	00000000 
+0000064c l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000f4 l       .debug_str	00000000 
+000000f7 l       .debug_str	00000000 
+000000f9 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010c l       .debug_str	00000000 
+0000011c l       .debug_str	00000000 
+00000124 l       .debug_str	00000000 
+0000012d l       .debug_str	00000000 
+00000136 l       .debug_str	00000000 
+00000141 l       .debug_str	00000000 
+00000145 l       .debug_str	00000000 
+00000152 l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+00000164 l       .debug_str	00000000 
+0000016d l       .debug_str	00000000 
+00000172 l       .debug_str	00000000 
+000001ad l       .debug_str	00000000 
+000001b5 l       .debug_str	00000000 
+000001bd l       .debug_str	00000000 
+000001f8 l       .debug_str	00000000 
+00000201 l       .debug_str	00000000 
+0000020a l       .debug_str	00000000 
+00000210 l       .debug_str	00000000 
+00000261 l       .debug_str	00000000 
+0000026d l       .debug_str	00000000 
+0000026f l       .debug_str	00000000 
+000002c0 l       .debug_str	00000000 
+000002d2 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h085cdb0640db8938E	00000000 .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h085cdb0640db8938E
+00000000 l    d  .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h7e91324a03681f9aE	00000000 .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h7e91324a03681f9aE
+00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17he340b1f735481731E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17he340b1f735481731E
+00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h4f15b2a2744f0786E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h4f15b2a2744f0786E
+00000000 l    d  .text._ZN53_$LT$T$u20$as$u20$core..convert..TryFrom$LT$U$GT$$GT$8try_from17h4eee42378f1677dfE	00000000 .text._ZN53_$LT$T$u20$as$u20$core..convert..TryFrom$LT$U$GT$$GT$8try_from17h4eee42378f1677dfE
+00000000 l    d  .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h4ec27672166deb2fE	00000000 .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h4ec27672166deb2fE
+00000000 l    d  .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h7ed1cab8960a2958E	00000000 .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h7ed1cab8960a2958E
+00000000 l    d  .text._ZN8cortex_m10peripheral3itm4Stim8write_u817hb8d6e722aaebfa09E	00000000 .text._ZN8cortex_m10peripheral3itm4Stim8write_u817hb8d6e722aaebfa09E
+00000000 l    d  .text._ZN8cortex_m10peripheral3itm4Stim9write_u1617hb2f4dfad31b93a75E	00000000 .text._ZN8cortex_m10peripheral3itm4Stim9write_u1617hb2f4dfad31b93a75E
+00000000 l    d  .text._ZN8cortex_m10peripheral3itm4Stim9write_u3217hc2ec6393056446a0E	00000000 .text._ZN8cortex_m10peripheral3itm4Stim9write_u3217hc2ec6393056446a0E
+00000000 l    d  .text._ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h940e366c6db8d1fdE	00000000 .text._ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h940e366c6db8d1fdE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::ptr::read_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000 g     F .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h085cdb0640db8938E	0000000e core::cell::UnsafeCell<T>::get
+00000000 g     F .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h7e91324a03681f9aE	0000000e core::cell::UnsafeCell<T>::get
+00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17he340b1f735481731E	0000000e <T as core::convert::From<T>>::from
+00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h4f15b2a2744f0786E	0000001a <T as core::convert::Into<U>>::into
+00000000 g     F .text._ZN53_$LT$T$u20$as$u20$core..convert..TryFrom$LT$U$GT$$GT$8try_from17h4eee42378f1677dfE	0000001e <T as core::convert::TryFrom<U>>::try_from
+00000000 g     F .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h4ec27672166deb2fE	00000012 .hidden cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h7ed1cab8960a2958E	00000012 .hidden cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h940e366c6db8d1fdE	0000002c cortex_m::peripheral::itm::Stim::is_fifo_ready
+00000000 g     F .text._ZN8cortex_m10peripheral3itm4Stim8write_u817hb8d6e722aaebfa09E	0000002c cortex_m::peripheral::itm::Stim::write_u8
+00000000 g     F .text._ZN8cortex_m10peripheral3itm4Stim9write_u1617hb2f4dfad31b93a75E	0000002c cortex_m::peripheral::itm::Stim::write_u16
+00000000 g     F .text._ZN8cortex_m10peripheral3itm4Stim9write_u3217hc2ec6393056446a0E	00000028 cortex_m::peripheral::itm::Stim::write_u32
+
+
+
+Disassembly of section .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h085cdb0640db8938E:
+
+00000000 <core::cell::UnsafeCell<T>::get>:
+_ZN4core4cell19UnsafeCell$LT$T$GT$3get17h085cdb0640db8938E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cell.rs:1533
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cell.rs:1536
+   6:	9801      	ldr	r0, [sp, #4]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cell.rs:1537
+   8:	9100      	str	r1, [sp, #0]
+   a:	b002      	add	sp, #8
+   c:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core4cell19UnsafeCell$LT$T$GT$3get17h7e91324a03681f9aE:
+
+00000000 <core::cell::UnsafeCell<T>::get>:
+_ZN4core4cell19UnsafeCell$LT$T$GT$3get17h7e91324a03681f9aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cell.rs:1533
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cell.rs:1536
+   6:	9801      	ldr	r0, [sp, #4]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cell.rs:1537
+   8:	9100      	str	r1, [sp, #0]
+   a:	b002      	add	sp, #8
+   c:	4770      	bx	lr
+
+Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17he340b1f735481731E:
+
+00000000 <<T as core::convert::From<T>>::from>:
+_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17he340b1f735481731E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:547
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9100      	str	r1, [sp, #0]
+   a:	b002      	add	sp, #8
+   c:	4770      	bx	lr
+
+Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h4f15b2a2744f0786E:
+
+00000000 <<T as core::convert::Into<U>>::into>:
+_ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h4f15b2a2744f0786E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:539
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:540
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	9102      	str	r1, [sp, #8]
+   c:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
+  10:	9001      	str	r0, [sp, #4]
+  12:	e7ff      	b.n	14 <<T as core::convert::Into<U>>::into+0x14>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
+  14:	9801      	ldr	r0, [sp, #4]
+  16:	b004      	add	sp, #16
+  18:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN53_$LT$T$u20$as$u20$core..convert..TryFrom$LT$U$GT$$GT$8try_from17h4eee42378f1677dfE:
+
+00000000 <<T as core::convert::TryFrom<U>>::try_from>:
+_ZN53_$LT$T$u20$as$u20$core..convert..TryFrom$LT$U$GT$$GT$8try_from17h4eee42378f1677dfE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:568
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:569
+   8:	9802      	ldr	r0, [sp, #8]
+   a:	9101      	str	r1, [sp, #4]
+   c:	f7ff fffe 	bl	0 <<T as core::convert::TryFrom<U>>::try_from>
+  10:	9000      	str	r0, [sp, #0]
+  12:	e7ff      	b.n	14 <<T as core::convert::TryFrom<U>>::try_from+0x14>
+  14:	9800      	ldr	r0, [sp, #0]
+  16:	9003      	str	r0, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:570
+  18:	9803      	ldr	r0, [sp, #12]
+  1a:	b004      	add	sp, #16
+  1c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h4ec27672166deb2fE:
+
+00000000 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::enable_trace::{{closure}}>:
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h4ec27672166deb2fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:31
+    /// As by STM documentation, this flag is not reset on
+    /// soft-reset, only on power reset.
+    pub fn enable_trace(&mut self) {
+        // set bit 24 / TRCENA
+        unsafe {
+            self.demcr.modify(|w| w | DCB_DEMCR_TRCENA);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 7080 	orr.w	r0, r0, #16777216	; 0x1000000
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h7ed1cab8960a2958E:
+
+00000000 <cortex_m::peripheral::dcb::<impl cortex_m::peripheral::DCB>::disable_trace::{{closure}}>:
+_ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$13disable_trace28_$u7b$$u7b$closure$u7d$$u7d$17h7ed1cab8960a2958E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dcb.rs:39
+
+    /// Disables TRACE. See `DCB::enable_trace()` for more details
+    pub fn disable_trace(&mut self) {
+        // unset bit 24 / TRCENA
+        unsafe {
+            self.demcr.modify(|w| w & !DCB_DEMCR_TRCENA);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 7080 	bic.w	r0, r0, #16777216	; 0x1000000
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3itm4Stim8write_u817hb8d6e722aaebfa09E:
+
+00000000 <cortex_m::peripheral::itm::Stim::write_u8>:
+_ZN8cortex_m10peripheral3itm4Stim8write_u817hb8d6e722aaebfa09E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:38
+    register: UnsafeCell<u32>,
+}
+
+impl Stim {
+    /// Writes an `u8` payload into the stimulus port
+    pub fn write_u8(&mut self, value: u8) {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	f88d 1017 	strb.w	r1, [sp, #23]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:39
+        unsafe { ptr::write_volatile(self.register.get() as *mut u8, value) }
+   e:	9804      	ldr	r0, [sp, #16]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u8>
+  18:	9001      	str	r0, [sp, #4]
+  1a:	e7ff      	b.n	1c <cortex_m::peripheral::itm::Stim::write_u8+0x1c>
+  1c:	f89d 1017 	ldrb.w	r1, [sp, #23]
+  20:	9801      	ldr	r0, [sp, #4]
+  22:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+  26:	e7ff      	b.n	28 <cortex_m::peripheral::itm::Stim::write_u8+0x28>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:40
+    }
+  28:	b006      	add	sp, #24
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3itm4Stim9write_u1617hb2f4dfad31b93a75E:
+
+00000000 <cortex_m::peripheral::itm::Stim::write_u16>:
+_ZN8cortex_m10peripheral3itm4Stim9write_u1617hb2f4dfad31b93a75E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:43
+
+    /// Writes an `u16` payload into the stimulus port
+    pub fn write_u16(&mut self, value: u16) {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	f8ad 1016 	strh.w	r1, [sp, #22]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:44
+        unsafe { ptr::write_volatile(self.register.get() as *mut u16, value) }
+   e:	9804      	ldr	r0, [sp, #16]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u16>
+  18:	9001      	str	r0, [sp, #4]
+  1a:	e7ff      	b.n	1c <cortex_m::peripheral::itm::Stim::write_u16+0x1c>
+  1c:	f8bd 1016 	ldrh.w	r1, [sp, #22]
+  20:	9801      	ldr	r0, [sp, #4]
+  22:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+  26:	e7ff      	b.n	28 <cortex_m::peripheral::itm::Stim::write_u16+0x28>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:45
+    }
+  28:	b006      	add	sp, #24
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3itm4Stim9write_u3217hc2ec6393056446a0E:
+
+00000000 <cortex_m::peripheral::itm::Stim::write_u32>:
+_ZN8cortex_m10peripheral3itm4Stim9write_u3217hc2ec6393056446a0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:48
+
+    /// Writes an `u32` payload into the stimulus port
+    pub fn write_u32(&mut self, value: u32) {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:49
+        unsafe { ptr::write_volatile(self.register.get(), value) }
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9203      	str	r2, [sp, #12]
+  10:	9302      	str	r3, [sp, #8]
+  12:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u32>
+  16:	9001      	str	r0, [sp, #4]
+  18:	e7ff      	b.n	1a <cortex_m::peripheral::itm::Stim::write_u32+0x1a>
+  1a:	9905      	ldr	r1, [sp, #20]
+  1c:	9801      	ldr	r0, [sp, #4]
+  1e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+  22:	e7ff      	b.n	24 <cortex_m::peripheral::itm::Stim::write_u32+0x24>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:50
+    }
+  24:	b006      	add	sp, #24
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h940e366c6db8d1fdE:
+
+00000000 <cortex_m::peripheral::itm::Stim::is_fifo_ready>:
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h940e366c6db8d1fdE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:53
+
+    /// Returns `true` if the stimulus port is ready to accept more data
+    pub fn is_fifo_ready(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:54
+        unsafe { ptr::read_volatile(self.register.get()) == 1 }
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	9102      	str	r1, [sp, #8]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+  10:	9001      	str	r0, [sp, #4]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::itm::Stim::is_fifo_ready+0x14>
+  14:	9801      	ldr	r0, [sp, #4]
+  16:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+  1a:	9000      	str	r0, [sp, #0]
+  1c:	e7ff      	b.n	1e <cortex_m::peripheral::itm::Stim::is_fifo_ready+0x1e>
+  1e:	9800      	ldr	r0, [sp, #0]
+  20:	1e41      	subs	r1, r0, #1
+  22:	fab1 f181 	clz	r1, r1
+  26:	0948      	lsrs	r0, r1, #5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/itm.rs:55
+    }
+  28:	b004      	add	sp, #16
+  2a:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.12.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.12
+00000710 l       .debug_str	00000000 
+00000679 l       .debug_str	00000000 
+0000067b l       .debug_str	00000000 
+0000068f l       .debug_str	00000000 
+000006f8 l       .debug_str	00000000 
+00000716 l       .debug_str	00000000 
+0000073f l       .debug_str	00000000 
+00000743 l       .debug_str	00000000 
+0000076c l       .debug_str	00000000 
+00000770 l       .debug_str	00000000 
+00000802 l       .debug_str	00000000 
+0000080e l       .debug_str	00000000 
+00000812 l       .debug_str	00000000 
+0000081d l       .debug_str	00000000 
+00000821 l       .debug_str	00000000 
+0000082a l       .debug_str	00000000 
+00000830 l       .debug_str	00000000 
+0000083b l       .debug_str	00000000 
+00000844 l       .debug_str	00000000 
+00000851 l       .debug_str	00000000 
+0000085c l       .debug_str	00000000 
+00000864 l       .debug_str	00000000 
+00000869 l       .debug_str	00000000 
+00000870 l       .debug_str	00000000 
+00000876 l       .debug_str	00000000 
+0000087f l       .debug_str	00000000 
+00000889 l       .debug_str	00000000 
+000008a7 l       .debug_str	00000000 
+000008d2 l       .debug_str	00000000 
+000008d4 l       .debug_str	00000000 
+000008de l       .debug_str	00000000 
+000008e0 l       .debug_str	00000000 
+000008eb l       .debug_str	00000000 
+00000906 l       .debug_str	00000000 
+0000092b l       .debug_str	00000000 
+00000933 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+000000fc l       .debug_str	00000000 
+000000ff l       .debug_str	00000000 
+0000010e l       .debug_str	00000000 
+00000118 l       .debug_str	00000000 
+00000129 l       .debug_str	00000000 
+00000132 l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000144 l       .debug_str	00000000 
+00000151 l       .debug_str	00000000 
+00000158 l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+0000016a l       .debug_str	00000000 
+0000016f l       .debug_str	00000000 
+0000017a l       .debug_str	00000000 
+0000017e l       .debug_str	00000000 
+00000184 l       .debug_str	00000000 
+0000018d l       .debug_str	00000000 
+00000191 l       .debug_str	00000000 
+00000195 l       .debug_str	00000000 
+0000019a l       .debug_str	00000000 
+000001a2 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001ae l       .debug_str	00000000 
+000001b2 l       .debug_str	00000000 
+000001c7 l       .debug_str	00000000 
+000001cb l       .debug_str	00000000 
+000001cd l       .debug_str	00000000 
+0000020b l       .debug_str	00000000 
+00000224 l       .debug_str	00000000 
+00000228 l       .debug_str	00000000 
+00000266 l       .debug_str	00000000 
+0000027f l       .debug_str	00000000 
+00000285 l       .debug_str	00000000 
+000002c3 l       .debug_str	00000000 
+000002de l       .debug_str	00000000 
+0000031c l       .debug_str	00000000 
+00000334 l       .debug_str	00000000 
+00000399 l       .debug_str	00000000 
+0000039c l       .debug_str	00000000 
+000003a1 l       .debug_str	00000000 
+000003a5 l       .debug_str	00000000 
+000003da l       .debug_str	00000000 
+000003f2 l       .debug_str	00000000 
+000003f7 l       .debug_str	00000000 
+0000042c l       .debug_str	00000000 
+00000445 l       .debug_str	00000000 
+00000449 l       .debug_str	00000000 
+0000044d l       .debug_str	00000000 
+00000456 l       .debug_str	00000000 
+0000045b l       .debug_str	00000000 
+00000461 l       .debug_str	00000000 
+00000471 l       .debug_str	00000000 
+00000476 l       .debug_str	00000000 
+0000049b l       .debug_str	00000000 
+000004a0 l       .debug_str	00000000 
+000004b9 l       .debug_str	00000000 
+000004ee l       .debug_str	00000000 
+0000051b l       .debug_str	00000000 
+00000541 l       .debug_str	00000000 
+00000576 l       .debug_str	00000000 
+000005b0 l       .debug_str	00000000 
+000005ea l       .debug_str	00000000 
+00000602 l       .debug_str	00000000 
+0000060b l       .debug_str	00000000 
+00000615 l       .debug_str	00000000 
+0000061c l       .debug_str	00000000 
+00000625 l       .debug_str	00000000 
+00000663 l       .debug_str	00000000 
+00000676 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core10intrinsics19copy_nonoverlapping17h78858ceeb6ee1560E	00000000 .text._ZN4core10intrinsics19copy_nonoverlapping17h78858ceeb6ee1560E
+00000000 l    d  .text._ZN4core10intrinsics19copy_nonoverlapping17h8e02e56a52472434E	00000000 .text._ZN4core10intrinsics19copy_nonoverlapping17h8e02e56a52472434E
+00000000 l    d  .text._ZN4core10intrinsics19copy_nonoverlapping17h9a01725860e361d4E	00000000 .text._ZN4core10intrinsics19copy_nonoverlapping17h9a01725860e361d4E
+00000000 l    d  .text._ZN4core10intrinsics19copy_nonoverlapping17hf549d47497ad93e9E	00000000 .text._ZN4core10intrinsics19copy_nonoverlapping17hf549d47497ad93e9E
+00000000 l    d  .text._ZN4core3cmp5impls57_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$usize$GT$2lt17hcc0385d383e81921E	00000000 .text._ZN4core3cmp5impls57_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$usize$GT$2lt17hcc0385d383e81921E
+00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h14ab48553b30c581E	00000000 .text._ZN4core3ptr18real_drop_in_place17h14ab48553b30c581E
+00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h42dbd8b6a4cb343bE	00000000 .text._ZN4core3ptr18real_drop_in_place17h42dbd8b6a4cb343bE
+00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h6af0a6aa6642040bE	00000000 .text._ZN4core3ptr18real_drop_in_place17h6af0a6aa6642040bE
+00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17he5836a1ff466765aE	00000000 .text._ZN4core3ptr18real_drop_in_place17he5836a1ff466765aE
+00000000 l    d  .text._ZN4core3str23from_utf8_unchecked_mut17h5ecfe57cd4a13e80E	00000000 .text._ZN4core3str23from_utf8_unchecked_mut17h5ecfe57cd4a13e80E
+00000000 l    d  .text._ZN4core4char7convert18from_u32_unchecked17hc5d67f9e9f079e14E	00000000 .text._ZN4core4char7convert18from_u32_unchecked17hc5d67f9e9f079e14E
+00000000 l    d  .text._ZN73_$LT$aligned..Aligned$LT$A$C$T$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hfd8eca64a00e0407E	00000000 .text._ZN73_$LT$aligned..Aligned$LT$A$C$T$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hfd8eca64a00e0407E
+00000000 l    d  .text._ZN8cortex_m3asm3nop17h85941675dce26246E	00000000 .text._ZN8cortex_m3asm3nop17h85941675dce26246E
+00000000 l    d  .text._ZN8cortex_m3asm3dsb17ha057116a29c9e9bbE	00000000 .text._ZN8cortex_m3asm3dsb17ha057116a29c9e9bbE
+00000000 l    d  .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17hce5ab6a8dd7766cbE	00000000 .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17hce5ab6a8dd7766cbE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core10intrinsics19copy_nonoverlapping17h78858ceeb6ee1560E	0000002c core::intrinsics::copy_nonoverlapping
+00000000 g     F .text._ZN4core10intrinsics19copy_nonoverlapping17h8e02e56a52472434E	0000002e core::intrinsics::copy_nonoverlapping
+00000000 g     F .text._ZN4core10intrinsics19copy_nonoverlapping17h9a01725860e361d4E	0000002c core::intrinsics::copy_nonoverlapping
+00000000 g     F .text._ZN4core10intrinsics19copy_nonoverlapping17hf549d47497ad93e9E	0000002c core::intrinsics::copy_nonoverlapping
+00000000 g     F .text._ZN4core3cmp5impls57_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$usize$GT$2lt17hcc0385d383e81921E	00000028 .hidden core::cmp::impls::<impl core::cmp::PartialOrd for usize>::lt
+00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h14ab48553b30c581E	0000000c .hidden core::ptr::real_drop_in_place
+00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h42dbd8b6a4cb343bE	0000000c .hidden core::ptr::real_drop_in_place
+00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h6af0a6aa6642040bE	0000000c .hidden core::ptr::real_drop_in_place
+00000000 g     F .text._ZN4core3ptr18real_drop_in_place17he5836a1ff466765aE	0000000c .hidden core::ptr::real_drop_in_place
+00000000 g     F .text._ZN4core3str23from_utf8_unchecked_mut17h5ecfe57cd4a13e80E	00000016 .hidden core::str::from_utf8_unchecked_mut
+00000000 g     F .text._ZN4core4char7convert18from_u32_unchecked17hc5d67f9e9f079e14E	00000018 .hidden core::char::convert::from_u32_unchecked
+00000000 g     F .text._ZN73_$LT$aligned..Aligned$LT$A$C$T$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hfd8eca64a00e0407E	00000016 <aligned::Aligned<A,T> as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17hce5ab6a8dd7766cbE	00000012 .hidden cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}
+00000000 g     F .text._ZN8cortex_m3asm3dsb17ha057116a29c9e9bbE	0000000a .hidden cortex_m::asm::dsb
+00000000 g     F .text._ZN8cortex_m3asm3nop17h85941675dce26246E	0000000a .hidden cortex_m::asm::nop
+00000000         *UND*	00000000 __aeabi_memcpy
+00000000         *UND*	00000000 __aeabi_memcpy4
+00000000         *UND*	00000000 __dsb
+00000000         *UND*	00000000 __nop
+
+
+
+Disassembly of section .text._ZN4core10intrinsics19copy_nonoverlapping17h78858ceeb6ee1560E:
+
+00000000 <core::intrinsics::copy_nonoverlapping>:
+_ZN4core10intrinsics19copy_nonoverlapping17h78858ceeb6ee1560E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1411
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9003      	str	r0, [sp, #12]
+   c:	9104      	str	r1, [sp, #16]
+   e:	9205      	str	r2, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
+  10:	9903      	ldr	r1, [sp, #12]
+  12:	9804      	ldr	r0, [sp, #16]
+  14:	9a05      	ldr	r2, [sp, #20]
+  16:	0092      	lsls	r2, r2, #2
+  18:	9302      	str	r3, [sp, #8]
+  1a:	f8cd c004 	str.w	ip, [sp, #4]
+  1e:	f8cd e000 	str.w	lr, [sp]
+  22:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
+  26:	e7ff      	b.n	28 <core::intrinsics::copy_nonoverlapping+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1413
+  28:	b006      	add	sp, #24
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core10intrinsics19copy_nonoverlapping17h8e02e56a52472434E:
+
+00000000 <core::intrinsics::copy_nonoverlapping>:
+_ZN4core10intrinsics19copy_nonoverlapping17h8e02e56a52472434E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1411
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	9106      	str	r1, [sp, #24]
+   e:	9207      	str	r2, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
+  10:	9905      	ldr	r1, [sp, #20]
+  12:	9806      	ldr	r0, [sp, #24]
+  14:	9a07      	ldr	r2, [sp, #28]
+  16:	0052      	lsls	r2, r2, #1
+  18:	9304      	str	r3, [sp, #16]
+  1a:	f8cd c00c 	str.w	ip, [sp, #12]
+  1e:	f8cd e008 	str.w	lr, [sp, #8]
+  22:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  26:	9001      	str	r0, [sp, #4]
+  28:	e7ff      	b.n	2a <core::intrinsics::copy_nonoverlapping+0x2a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1413
+  2a:	b008      	add	sp, #32
+  2c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core10intrinsics19copy_nonoverlapping17h9a01725860e361d4E:
+
+00000000 <core::intrinsics::copy_nonoverlapping>:
+_ZN4core10intrinsics19copy_nonoverlapping17h9a01725860e361d4E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1411
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9003      	str	r0, [sp, #12]
+   c:	9104      	str	r1, [sp, #16]
+   e:	9205      	str	r2, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
+  10:	9903      	ldr	r1, [sp, #12]
+  12:	9804      	ldr	r0, [sp, #16]
+  14:	9a05      	ldr	r2, [sp, #20]
+  16:	0092      	lsls	r2, r2, #2
+  18:	9302      	str	r3, [sp, #8]
+  1a:	f8cd c004 	str.w	ip, [sp, #4]
+  1e:	f8cd e000 	str.w	lr, [sp]
+  22:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
+  26:	e7ff      	b.n	28 <core::intrinsics::copy_nonoverlapping+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1413
+  28:	b006      	add	sp, #24
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core10intrinsics19copy_nonoverlapping17hf549d47497ad93e9E:
+
+00000000 <core::intrinsics::copy_nonoverlapping>:
+_ZN4core10intrinsics19copy_nonoverlapping17hf549d47497ad93e9E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1411
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	9106      	str	r1, [sp, #24]
+   e:	9207      	str	r2, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
+  10:	9905      	ldr	r1, [sp, #20]
+  12:	9806      	ldr	r0, [sp, #24]
+  14:	9a07      	ldr	r2, [sp, #28]
+  16:	9304      	str	r3, [sp, #16]
+  18:	f8cd c00c 	str.w	ip, [sp, #12]
+  1c:	f8cd e008 	str.w	lr, [sp, #8]
+  20:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  24:	9001      	str	r0, [sp, #4]
+  26:	e7ff      	b.n	28 <core::intrinsics::copy_nonoverlapping+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1413
+  28:	b008      	add	sp, #32
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3cmp5impls57_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$usize$GT$2lt17hcc0385d383e81921E:
+
+00000000 <core::cmp::impls::<impl core::cmp::PartialOrd for usize>::lt>:
+_ZN4core3cmp5impls57_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$usize$GT$2lt17hcc0385d383e81921E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cmp.rs:974
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	9903      	ldr	r1, [sp, #12]
+  10:	6809      	ldr	r1, [r1, #0]
+  12:	f04f 0c00 	mov.w	ip, #0
+  16:	4288      	cmp	r0, r1
+  18:	bf38      	it	cc
+  1a:	f04f 0c01 	movcc.w	ip, #1
+  1e:	4660      	mov	r0, ip
+  20:	9201      	str	r2, [sp, #4]
+  22:	9300      	str	r3, [sp, #0]
+  24:	b004      	add	sp, #16
+  26:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h14ab48553b30c581E:
+
+00000000 <core::ptr::real_drop_in_place>:
+_ZN4core3ptr18real_drop_in_place17h14ab48553b30c581E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	9100      	str	r1, [sp, #0]
+   8:	b002      	add	sp, #8
+   a:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h42dbd8b6a4cb343bE:
+
+00000000 <core::ptr::real_drop_in_place>:
+_ZN4core3ptr18real_drop_in_place17h42dbd8b6a4cb343bE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	9100      	str	r1, [sp, #0]
+   8:	b002      	add	sp, #8
+   a:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h6af0a6aa6642040bE:
+
+00000000 <core::ptr::real_drop_in_place>:
+_ZN4core3ptr18real_drop_in_place17h6af0a6aa6642040bE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	9100      	str	r1, [sp, #0]
+   8:	b002      	add	sp, #8
+   a:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr18real_drop_in_place17he5836a1ff466765aE:
+
+00000000 <core::ptr::real_drop_in_place>:
+_ZN4core3ptr18real_drop_in_place17he5836a1ff466765aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	9100      	str	r1, [sp, #0]
+   8:	b002      	add	sp, #8
+   a:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3str23from_utf8_unchecked_mut17h5ecfe57cd4a13e80E:
+
+00000000 <core::str::from_utf8_unchecked_mut>:
+_ZN4core3str23from_utf8_unchecked_mut17h5ecfe57cd4a13e80E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:438
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:439
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:440
+   e:	9201      	str	r2, [sp, #4]
+  10:	9300      	str	r3, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core4char7convert18from_u32_unchecked17hc5d67f9e9f079e14E:
+
+00000000 <core::char::convert::from_u32_unchecked>:
+_ZN4core4char7convert18from_u32_unchecked17hc5d67f9e9f079e14E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/convert.rs:101
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/convert.rs:102
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	9003      	str	r0, [sp, #12]
+   a:	9803      	ldr	r0, [sp, #12]
+   c:	9101      	str	r1, [sp, #4]
+   e:	9000      	str	r0, [sp, #0]
+  10:	e7ff      	b.n	12 <core::char::convert::from_u32_unchecked+0x12>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/convert.rs:103
+  12:	9800      	ldr	r0, [sp, #0]
+  14:	b004      	add	sp, #16
+  16:	4770      	bx	lr
+
+Disassembly of section .text._ZN73_$LT$aligned..Aligned$LT$A$C$T$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hfd8eca64a00e0407E:
+
+00000000 <<aligned::Aligned<A,T> as core::ops::deref::Deref>::deref>:
+_ZN73_$LT$aligned..Aligned$LT$A$C$T$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hfd8eca64a00e0407E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/aligned-0.3.1/src/lib.rs:79
+    A: sealed::Alignment,
+    T: ?Sized,
+{
+    type Target = T;
+
+    fn deref(&self) -> &T {
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/aligned-0.3.1/src/lib.rs:80
+        &self.value
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/aligned-0.3.1/src/lib.rs:81
+    }
+   e:	9201      	str	r2, [sp, #4]
+  10:	9300      	str	r3, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m3asm3nop17h85941675dce26246E:
+
+00000000 <cortex_m::asm::nop>:
+_ZN8cortex_m3asm3nop17h85941675dce26246E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:65
+    }
+}
+
+/// A no-operation. Useful to prevent delay loops from being optimized away.
+#[inline]
+pub fn nop() {
+   0:	b580      	push	{r7, lr}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:76
+        () => unsafe {
+            extern "C" {
+                fn __nop();
+            }
+
+            __nop()
+   2:	f7ff fffe 	bl	0 <__nop>
+   6:	e7ff      	b.n	8 <cortex_m::asm::nop+0x8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:82
+        },
+
+        #[cfg(not(cortex_m))]
+        () => unimplemented!(),
+    }
+}
+   8:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m3asm3dsb17ha057116a29c9e9bbE:
+
+00000000 <cortex_m::asm::dsb>:
+_ZN8cortex_m3asm3dsb17ha057116a29c9e9bbE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:180
+/// can execute until this instruction completes. This instruction completes only when both:
+///
+///  * any explicit memory access made before this instruction is complete
+///  * all cache and branch predictor maintenance operations before this instruction complete
+#[inline]
+pub fn dsb() {
+   0:	b580      	push	{r7, lr}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:191
+        () => unsafe {
+            extern "C" {
+                fn __dsb();
+            }
+
+            __dsb()
+   2:	f7ff fffe 	bl	0 <__dsb>
+   6:	e7ff      	b.n	8 <cortex_m::asm::dsb+0x8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:198
+        },
+
+        #[cfg(not(cortex_m))]
+        () => unimplemented!(),
+    }
+}
+   8:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17hce5ab6a8dd7766cbE:
+
+00000000 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}>:
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17hce5ab6a8dd7766cbE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/dwt.rs:69
+
+impl DWT {
+    /// Enables the cycle counter
+    #[cfg(not(armv6m))]
+    pub fn enable_cycle_counter(&mut self) {
+        unsafe { self.ctrl.modify(|r| r | 1) }
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0001 	orr.w	r0, r0, #1
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.13.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.13
+000006bc l       .debug_str	00000000 
+000006eb l       .debug_str	00000000 
+000006f5 l       .debug_str	00000000 
+00000753 l       .debug_str	00000000 
+0000075e l       .debug_str	00000000 
+0000077b l       .debug_str	00000000 
+0000077f l       .debug_str	00000000 
+00000787 l       .debug_str	00000000 
+0000079e l       .debug_str	00000000 
+000007c2 l       .debug_str	00000000 
+000007de l       .debug_str	00000000 
+000007e3 l       .debug_str	00000000 
+000007ec l       .debug_str	00000000 
+000007f3 l       .debug_str	00000000 
+0000080c l       .debug_str	00000000 
+00000816 l       .debug_str	00000000 
+00000830 l       .debug_str	00000000 
+00000844 l       .debug_str	00000000 
+0000084d l       .debug_str	00000000 
+00000854 l       .debug_str	00000000 
+0000085f l       .debug_str	00000000 
+00000864 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+0000010a l       .debug_str	00000000 
+00000115 l       .debug_str	00000000 
+0000011a l       .debug_str	00000000 
+0000011f l       .debug_str	00000000 
+00000128 l       .debug_str	00000000 
+00000136 l       .debug_str	00000000 
+0000013a l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000140 l       .debug_str	00000000 
+00000145 l       .debug_str	00000000 
+0000014b l       .debug_str	00000000 
+00000152 l       .debug_str	00000000 
+0000015a l       .debug_str	00000000 
+00000164 l       .debug_str	00000000 
+0000016d l       .debug_str	00000000 
+0000017d l       .debug_str	00000000 
+0000018f l       .debug_str	00000000 
+0000019e l       .debug_str	00000000 
+000001af l       .debug_str	00000000 
+000001c0 l       .debug_str	00000000 
+0000024f l       .debug_str	00000000 
+0000025b l       .debug_str	00000000 
+0000025f l       .debug_str	00000000 
+000002f0 l       .debug_str	00000000 
+0000037e l       .debug_str	00000000 
+0000040e l       .debug_str	00000000 
+0000049e l       .debug_str	00000000 
+0000052e l       .debug_str	00000000 
+0000059a l       .debug_str	00000000 
+000005a2 l       .debug_str	00000000 
+000005a4 l       .debug_str	00000000 
+000005a9 l       .debug_str	00000000 
+000005d4 l       .debug_str	00000000 
+000005d6 l       .debug_str	00000000 
+000005dc l       .debug_str	00000000 
+000005e1 l       .debug_str	00000000 
+000005e6 l       .debug_str	00000000 
+000005ec l       .debug_str	00000000 
+000005f2 l       .debug_str	00000000 
+000005f9 l       .debug_str	00000000 
+000005fe l       .debug_str	00000000 
+00000604 l       .debug_str	00000000 
+00000606 l       .debug_str	00000000 
+0000060b l       .debug_str	00000000 
+0000060f l       .debug_str	00000000 
+0000061d l       .debug_str	00000000 
+00000627 l       .debug_str	00000000 
+0000062b l       .debug_str	00000000 
+00000633 l       .debug_str	00000000 
+0000063b l       .debug_str	00000000 
+00000642 l       .debug_str	00000000 
+00000656 l       .debug_str	00000000 
+00000662 l       .debug_str	00000000 
+0000066d l       .debug_str	00000000 
+00000674 l       .debug_str	00000000 
+0000067a l       .debug_str	00000000 
+0000067e l       .debug_str	00000000 
+00000684 l       .debug_str	00000000 
+0000068a l       .debug_str	00000000 
+0000068d l       .debug_str	00000000 
+0000069c l       .debug_str	00000000 
+000006a3 l       .debug_str	00000000 
+000006a7 l       .debug_str	00000000 
+000006b0 l       .debug_str	00000000 
+000006d5 l       .debug_str	00000000 
+000006da l       .debug_str	00000000 
+00000000 l     O .rodata.cst8	00000008 .Lanon.9ce06090e175846e3853a8a130463c95.0
+00000000 l     O .rodata.cst4	00000004 .Lanon.9ce06090e175846e3853a8a130463c95.1
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter28_$u7b$$u7b$closure$u7d$$u7d$17hd04f64f3d50c0312E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter28_$u7b$$u7b$closure$u7d$$u7d$17hd04f64f3d50c0312E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17heee6c22573f7e325E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17heee6c22573f7e325E
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter28_$u7b$$u7b$closure$u7d$$u7d$17h2b0f9ed57756b58eE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter28_$u7b$$u7b$closure$u7d$$u7d$17h2b0f9ed57756b58eE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17hccb947842f9b854dE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17hccb947842f9b854dE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17h3e2fa3a9ea4c2e6fE	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17h3e2fa3a9ea4c2e6fE
+00000000 l    d  .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17hb836417519750ea4E	00000000 .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17hb836417519750ea4E
+00000000 l    d  .text._ZN78_$LT$cortex_m..peripheral..syst..SystClkSource$u20$as$u20$core..fmt..Debug$GT$3fmt17haf0903d083370985E	00000000 .text._ZN78_$LT$cortex_m..peripheral..syst..SystClkSource$u20$as$u20$core..fmt..Debug$GT$3fmt17haf0903d083370985E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN78_$LT$cortex_m..peripheral..syst..SystClkSource$u20$as$u20$core..fmt..Debug$GT$3fmt17haf0903d083370985E	00000078 <cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter28_$u7b$$u7b$closure$u7d$$u7d$17h2b0f9ed57756b58eE	00000012 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter28_$u7b$$u7b$closure$u7d$$u7d$17hd04f64f3d50c0312E	00000012 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17hccb947842f9b854dE	00000012 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17h3e2fa3a9ea4c2e6fE	00000012 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17hb836417519750ea4E	00000012 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17heee6c22573f7e325E	00000012 .hidden cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt::{{closure}}
+
+
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter28_$u7b$$u7b$closure$u7d$$u7d$17hd04f64f3d50c0312E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_counter::{{closure}}>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$15disable_counter28_$u7b$$u7b$closure$u7d$$u7d$17hd04f64f3d50c0312E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:49
+        unsafe { self.cvr.write(0) }
+    }
+
+    /// Disables counter
+    pub fn disable_counter(&mut self) {
+        unsafe { self.csr.modify(|v| v & !SYST_CSR_ENABLE) }
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 0001 	bic.w	r0, r0, #1
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17heee6c22573f7e325E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::disable_interrupt::{{closure}}>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$17disable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17heee6c22573f7e325E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:54
+    }
+
+    /// Disables SysTick interrupt
+    pub fn disable_interrupt(&mut self) {
+        unsafe { self.csr.modify(|v| v & !SYST_CSR_TICKINT) }
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 0002 	bic.w	r0, r0, #2
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter28_$u7b$$u7b$closure$u7d$$u7d$17h2b0f9ed57756b58eE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_counter::{{closure}}>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$14enable_counter28_$u7b$$u7b$closure$u7d$$u7d$17h2b0f9ed57756b58eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:70
+    /// - Clear current value
+    /// - Program Control and Status register"
+    ///
+    /// The sequence translates to `self.set_reload(x); self.clear_current(); self.enable_counter()`
+    pub fn enable_counter(&mut self) {
+        unsafe { self.csr.modify(|v| v | SYST_CSR_ENABLE) }
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0001 	orr.w	r0, r0, #1
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17hccb947842f9b854dE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::enable_interrupt::{{closure}}>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16enable_interrupt28_$u7b$$u7b$closure$u7d$$u7d$17hccb947842f9b854dE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:75
+    }
+
+    /// Enables SysTick interrupt
+    pub fn enable_interrupt(&mut self) {
+        unsafe { self.csr.modify(|v| v | SYST_CSR_TICKINT) }
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0002 	orr.w	r0, r0, #2
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17h3e2fa3a9ea4c2e6fE:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17h3e2fa3a9ea4c2e6fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:156
+    }
+
+    /// Sets clock source
+    pub fn set_clock_source(&mut self, clk_source: SystClkSource) {
+        match clk_source {
+            SystClkSource::External => unsafe { self.csr.modify(|v| v & !SYST_CSR_CLKSOURCE) },
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 0004 	bic.w	r0, r0, #4
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17hb836417519750ea4E:
+
+00000000 <cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::set_clock_source::{{closure}}>:
+_ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$16set_clock_source28_$u7b$$u7b$closure$u7d$$u7d$17hb836417519750ea4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:157
+            SystClkSource::Core => unsafe { self.csr.modify(|v| v | SYST_CSR_CLKSOURCE) },
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0004 	orr.w	r0, r0, #4
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN78_$LT$cortex_m..peripheral..syst..SystClkSource$u20$as$u20$core..fmt..Debug$GT$3fmt17haf0903d083370985E:
+
+00000000 <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt>:
+_ZN78_$LT$cortex_m..peripheral..syst..SystClkSource$u20$as$u20$core..fmt..Debug$GT$3fmt17haf0903d083370985E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/peripheral/syst.rs:21
+#[derive(Clone, Copy, Debug)]
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9007      	str	r0, [sp, #28]
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c1      	lsls	r1, r0, #31
+  16:	2900      	cmp	r1, #0
+  18:	9203      	str	r2, [sp, #12]
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	9001      	str	r0, [sp, #4]
+  1e:	d005      	beq.n	2c <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x2c>
+  20:	e7ff      	b.n	22 <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x22>
+  22:	9801      	ldr	r0, [sp, #4]
+  24:	2801      	cmp	r0, #1
+  26:	d012      	beq.n	4e <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x4e>
+  28:	e7ff      	b.n	2a <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x2a>
+  2a:	defe      	udf	#254	; 0xfe
+  2c:	9905      	ldr	r1, [sp, #20]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a808      	add	r0, sp, #32
+  38:	2304      	movs	r3, #4
+  3a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  3e:	e7ff      	b.n	40 <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x40>
+  40:	a808      	add	r0, sp, #32
+  42:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  46:	f88d 001b 	strb.w	r0, [sp, #27]
+  4a:	e7ff      	b.n	4c <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x4c>
+  4c:	e010      	b.n	70 <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x70>
+  4e:	9905      	ldr	r1, [sp, #20]
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	a80b      	add	r0, sp, #44	; 0x2c
+  5a:	2308      	movs	r3, #8
+  5c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  60:	e7ff      	b.n	62 <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x62>
+  62:	a80b      	add	r0, sp, #44	; 0x2c
+  64:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  68:	f88d 001b 	strb.w	r0, [sp, #27]
+  6c:	e7ff      	b.n	6e <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x6e>
+  6e:	e7ff      	b.n	70 <<cortex_m::peripheral::syst::SystClkSource as core::fmt::Debug>::fmt+0x70>
+  70:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.14.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.14
+00000319 l       .debug_str	00000000 
+000003cc l       .debug_str	00000000 
+000003f0 l       .debug_str	00000000 
+0000040c l       .debug_str	00000000 
+00000411 l       .debug_str	00000000 
+0000041a l       .debug_str	00000000 
+00000421 l       .debug_str	00000000 
+0000043a l       .debug_str	00000000 
+00000444 l       .debug_str	00000000 
+0000045e l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000133 l       .debug_str	00000000 
+0000013c l       .debug_str	00000000 
+00000198 l       .debug_str	00000000 
+000001f5 l       .debug_str	00000000 
+000001fa l       .debug_str	00000000 
+000001fe l       .debug_str	00000000 
+00000200 l       .debug_str	00000000 
+00000206 l       .debug_str	00000000 
+0000020a l       .debug_str	00000000 
+0000020f l       .debug_str	00000000 
+00000214 l       .debug_str	00000000 
+0000021a l       .debug_str	00000000 
+00000220 l       .debug_str	00000000 
+00000227 l       .debug_str	00000000 
+0000022c l       .debug_str	00000000 
+00000232 l       .debug_str	00000000 
+00000234 l       .debug_str	00000000 
+00000239 l       .debug_str	00000000 
+0000023d l       .debug_str	00000000 
+0000024b l       .debug_str	00000000 
+00000255 l       .debug_str	00000000 
+00000259 l       .debug_str	00000000 
+00000261 l       .debug_str	00000000 
+00000269 l       .debug_str	00000000 
+00000270 l       .debug_str	00000000 
+00000284 l       .debug_str	00000000 
+00000290 l       .debug_str	00000000 
+0000029b l       .debug_str	00000000 
+000002a2 l       .debug_str	00000000 
+000002a8 l       .debug_str	00000000 
+000002ac l       .debug_str	00000000 
+000002b2 l       .debug_str	00000000 
+000002b8 l       .debug_str	00000000 
+000002bb l       .debug_str	00000000 
+000002ca l       .debug_str	00000000 
+000002d1 l       .debug_str	00000000 
+000002d5 l       .debug_str	00000000 
+000002de l       .debug_str	00000000 
+000002ea l       .debug_str	00000000 
+00000303 l       .debug_str	00000000 
+00000308 l       .debug_str	00000000 
+00000323 l       .debug_str	00000000 
+00000381 l       .debug_str	00000000 
+0000038c l       .debug_str	00000000 
+000003a9 l       .debug_str	00000000 
+000003ad l       .debug_str	00000000 
+000003b5 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3fmt3num49_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u8$GT$3fmt17hfc5528e80f1f69d5E	00000000 .text._ZN4core3fmt3num49_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u8$GT$3fmt17hfc5528e80f1f69d5E
+00000000 l    d  .text._ZN4core3fmt3num50_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u32$GT$3fmt17ha3d790a6f65774a2E	00000000 .text._ZN4core3fmt3num50_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u32$GT$3fmt17ha3d790a6f65774a2E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::num::imp::<impl core::fmt::Display for u8>::fmt
+00000000         *UND*	00000000 core::fmt::num::imp::<impl core::fmt::Display for u32>::fmt
+00000000 g     F .text._ZN4core3fmt3num49_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u8$GT$3fmt17hfc5528e80f1f69d5E	00000072 .hidden core::fmt::num::<impl core::fmt::Debug for u8>::fmt
+00000000 g     F .text._ZN4core3fmt3num50_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u32$GT$3fmt17ha3d790a6f65774a2E	00000072 .hidden core::fmt::num::<impl core::fmt::Debug for u32>::fmt
+00000000         *UND*	00000000 core::fmt::num::<impl core::fmt::LowerHex for u8>::fmt
+00000000         *UND*	00000000 core::fmt::num::<impl core::fmt::UpperHex for u8>::fmt
+00000000         *UND*	00000000 core::fmt::num::<impl core::fmt::LowerHex for u32>::fmt
+00000000         *UND*	00000000 core::fmt::num::<impl core::fmt::UpperHex for u32>::fmt
+00000000         *UND*	00000000 core::fmt::Formatter::debug_lower_hex
+00000000         *UND*	00000000 core::fmt::Formatter::debug_upper_hex
+
+
+
+Disassembly of section .text._ZN4core3fmt3num49_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u8$GT$3fmt17hfc5528e80f1f69d5E:
+
+00000000 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt>:
+_ZN4core3fmt3num49_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u8$GT$3fmt17hfc5528e80f1f69d5E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:146
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:147
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9204      	str	r2, [sp, #16]
+  10:	9303      	str	r3, [sp, #12]
+  12:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_lower_hex>
+  16:	9002      	str	r0, [sp, #8]
+  18:	e7ff      	b.n	1a <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x1a>
+  1a:	9802      	ldr	r0, [sp, #8]
+  1c:	07c1      	lsls	r1, r0, #31
+  1e:	2900      	cmp	r1, #0
+  20:	d008      	beq.n	34 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x34>
+  22:	e7ff      	b.n	24 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x24>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:148
+  24:	9805      	ldr	r0, [sp, #20]
+  26:	9906      	ldr	r1, [sp, #24]
+  28:	f7ff fffe 	bl	0 <core::fmt::num::<impl core::fmt::LowerHex for u8>::fmt>
+  2c:	f88d 001f 	strb.w	r0, [sp, #31]
+  30:	e7ff      	b.n	32 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x32>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:147
+  32:	e01a      	b.n	6a <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:149
+  34:	9806      	ldr	r0, [sp, #24]
+  36:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_upper_hex>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	07c1      	lsls	r1, r0, #31
+  42:	2900      	cmp	r1, #0
+  44:	d008      	beq.n	58 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x58>
+  46:	e7ff      	b.n	48 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x48>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:150
+  48:	9805      	ldr	r0, [sp, #20]
+  4a:	9906      	ldr	r1, [sp, #24]
+  4c:	f7ff fffe 	bl	0 <core::fmt::num::<impl core::fmt::UpperHex for u8>::fmt>
+  50:	f88d 001f 	strb.w	r0, [sp, #31]
+  54:	e7ff      	b.n	56 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:149
+  56:	e007      	b.n	68 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x68>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:152
+  58:	9805      	ldr	r0, [sp, #20]
+  5a:	9906      	ldr	r1, [sp, #24]
+  5c:	f7ff fffe 	bl	0 <core::fmt::num::imp::<impl core::fmt::Display for u8>::fmt>
+  60:	f88d 001f 	strb.w	r0, [sp, #31]
+  64:	e7ff      	b.n	66 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x66>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:149
+  66:	e7ff      	b.n	68 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x68>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:147
+  68:	e7ff      	b.n	6a <core::fmt::num::<impl core::fmt::Debug for u8>::fmt+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:154
+  6a:	f89d 001f 	ldrb.w	r0, [sp, #31]
+  6e:	b008      	add	sp, #32
+  70:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3fmt3num50_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u32$GT$3fmt17ha3d790a6f65774a2E:
+
+00000000 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt>:
+_ZN4core3fmt3num50_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u32$GT$3fmt17ha3d790a6f65774a2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:146
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:147
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9204      	str	r2, [sp, #16]
+  10:	9303      	str	r3, [sp, #12]
+  12:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_lower_hex>
+  16:	9002      	str	r0, [sp, #8]
+  18:	e7ff      	b.n	1a <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x1a>
+  1a:	9802      	ldr	r0, [sp, #8]
+  1c:	07c1      	lsls	r1, r0, #31
+  1e:	2900      	cmp	r1, #0
+  20:	d008      	beq.n	34 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x34>
+  22:	e7ff      	b.n	24 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x24>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:148
+  24:	9805      	ldr	r0, [sp, #20]
+  26:	9906      	ldr	r1, [sp, #24]
+  28:	f7ff fffe 	bl	0 <core::fmt::num::<impl core::fmt::LowerHex for u32>::fmt>
+  2c:	f88d 001f 	strb.w	r0, [sp, #31]
+  30:	e7ff      	b.n	32 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x32>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:147
+  32:	e01a      	b.n	6a <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:149
+  34:	9806      	ldr	r0, [sp, #24]
+  36:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_upper_hex>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	07c1      	lsls	r1, r0, #31
+  42:	2900      	cmp	r1, #0
+  44:	d008      	beq.n	58 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x58>
+  46:	e7ff      	b.n	48 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x48>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:150
+  48:	9805      	ldr	r0, [sp, #20]
+  4a:	9906      	ldr	r1, [sp, #24]
+  4c:	f7ff fffe 	bl	0 <core::fmt::num::<impl core::fmt::UpperHex for u32>::fmt>
+  50:	f88d 001f 	strb.w	r0, [sp, #31]
+  54:	e7ff      	b.n	56 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:149
+  56:	e007      	b.n	68 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x68>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:152
+  58:	9805      	ldr	r0, [sp, #20]
+  5a:	9906      	ldr	r1, [sp, #24]
+  5c:	f7ff fffe 	bl	0 <core::fmt::num::imp::<impl core::fmt::Display for u32>::fmt>
+  60:	f88d 001f 	strb.w	r0, [sp, #31]
+  64:	e7ff      	b.n	66 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x66>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:149
+  66:	e7ff      	b.n	68 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x68>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:147
+  68:	e7ff      	b.n	6a <core::fmt::num::<impl core::fmt::Debug for u32>::fmt+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/num.rs:154
+  6a:	f89d 001f 	ldrb.w	r0, [sp, #31]
+  6e:	b008      	add	sp, #32
+  70:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.15.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.15
+00000612 l       .debug_str	00000000 
+0000066e l       .debug_str	00000000 
+00000674 l       .debug_str	00000000 
+0000069d l       .debug_str	00000000 
+000006d2 l       .debug_str	00000000 
+000006fb l       .debug_str	00000000 
+00000708 l       .debug_str	00000000 
+00000731 l       .debug_str	00000000 
+00000740 l       .debug_str	00000000 
+00000769 l       .debug_str	00000000 
+00000775 l       .debug_str	00000000 
+0000079f l       .debug_str	00000000 
+000007ac l       .debug_str	00000000 
+000007d6 l       .debug_str	00000000 
+000007e4 l       .debug_str	00000000 
+00000823 l       .debug_str	00000000 
+00000834 l       .debug_str	00000000 
+0000083a l       .debug_str	00000000 
+0000083c l       .debug_str	00000000 
+00000878 l       .debug_str	00000000 
+00000890 l       .debug_str	00000000 
+00000895 l       .debug_str	00000000 
+0000089a l       .debug_str	00000000 
+000008a0 l       .debug_str	00000000 
+000008a2 l       .debug_str	00000000 
+000008a6 l       .debug_str	00000000 
+000008ab l       .debug_str	00000000 
+000008b2 l       .debug_str	00000000 
+000008b4 l       .debug_str	00000000 
+000008bb l       .debug_str	00000000 
+000008bd l       .debug_str	00000000 
+0000090f l       .debug_str	00000000 
+0000091a l       .debug_str	00000000 
+0000091c l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000136 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000140 l       .debug_str	00000000 
+00000147 l       .debug_str	00000000 
+00000150 l       .debug_str	00000000 
+00000155 l       .debug_str	00000000 
+0000015b l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+00000167 l       .debug_str	00000000 
+0000016a l       .debug_str	00000000 
+00000179 l       .debug_str	00000000 
+00000180 l       .debug_str	00000000 
+00000184 l       .debug_str	00000000 
+0000018d l       .debug_str	00000000 
+00000195 l       .debug_str	00000000 
+0000019d l       .debug_str	00000000 
+000001a4 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001be l       .debug_str	00000000 
+000001ca l       .debug_str	00000000 
+000001d6 l       .debug_str	00000000 
+000001d8 l       .debug_str	00000000 
+000001f1 l       .debug_str	00000000 
+000001f6 l       .debug_str	00000000 
+00000207 l       .debug_str	00000000 
+00000211 l       .debug_str	00000000 
+00000217 l       .debug_str	00000000 
+0000021b l       .debug_str	00000000 
+00000220 l       .debug_str	00000000 
+00000225 l       .debug_str	00000000 
+0000022b l       .debug_str	00000000 
+00000231 l       .debug_str	00000000 
+00000235 l       .debug_str	00000000 
+00000243 l       .debug_str	00000000 
+0000024d l       .debug_str	00000000 
+00000251 l       .debug_str	00000000 
+0000025c l       .debug_str	00000000 
+00000263 l       .debug_str	00000000 
+00000269 l       .debug_str	00000000 
+0000026d l       .debug_str	00000000 
+0000028a l       .debug_str	00000000 
+0000028e l       .debug_str	00000000 
+00000296 l       .debug_str	00000000 
+000002ad l       .debug_str	00000000 
+000002d1 l       .debug_str	00000000 
+000002ed l       .debug_str	00000000 
+000002f2 l       .debug_str	00000000 
+000002fb l       .debug_str	00000000 
+00000302 l       .debug_str	00000000 
+0000031b l       .debug_str	00000000 
+00000325 l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+0000039d l       .debug_str	00000000 
+000003a8 l       .debug_str	00000000 
+000003af l       .debug_str	00000000 
+000003b9 l       .debug_str	00000000 
+000003be l       .debug_str	00000000 
+000003ca l       .debug_str	00000000 
+000003d2 l       .debug_str	00000000 
+000003db l       .debug_str	00000000 
+000003e0 l       .debug_str	00000000 
+000003e3 l       .debug_str	00000000 
+000003ec l       .debug_str	00000000 
+000003f3 l       .debug_str	00000000 
+000003f6 l       .debug_str	00000000 
+000003fc l       .debug_str	00000000 
+00000406 l       .debug_str	00000000 
+0000040e l       .debug_str	00000000 
+00000414 l       .debug_str	00000000 
+0000041f l       .debug_str	00000000 
+00000428 l       .debug_str	00000000 
+0000044b l       .debug_str	00000000 
+0000046a l       .debug_str	00000000 
+00000491 l       .debug_str	00000000 
+0000049b l       .debug_str	00000000 
+0000049f l       .debug_str	00000000 
+000004e7 l       .debug_str	00000000 
+000004f0 l       .debug_str	00000000 
+00000538 l       .debug_str	00000000 
+00000540 l       .debug_str	00000000 
+00000595 l       .debug_str	00000000 
+0000059f l       .debug_str	00000000 
+000005d0 l       .debug_str	00000000 
+000005d9 l       .debug_str	00000000 
+0000060b l       .debug_str	00000000 
+00000638 l       .debug_str	00000000 
+00000644 l       .debug_str	00000000 
+0000065e l       .debug_str	00000000 
+00000662 l       .debug_str	00000000 
+00000666 l       .debug_str	00000000 
+0000066a l       .debug_str	00000000 
+00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h39647962fcf7b802E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h39647962fcf7b802E
+00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h999e4f7c1827db7eE	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h999e4f7c1827db7eE
+00000000 l    d  .text._ZN49_$LT$usize$u20$as$u20$core..iter..range..Step$GT$9add_usize17h00ef51355e3a38a0E	00000000 .text._ZN49_$LT$usize$u20$as$u20$core..iter..range..Step$GT$9add_usize17h00ef51355e3a38a0E
+00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h279af8d935066cb1E	00000000 .text._ZN4core3fmt10ArgumentV13new17h279af8d935066cb1E
+00000000 l    d  .text._ZN4core3fmt9Arguments6new_v117h344ddb67411c61baE	00000000 .text._ZN4core3fmt9Arguments6new_v117h344ddb67411c61baE
+00000000 l    d  .text._ZN4core3mem4swap17h6dd2a00406876ab9E	00000000 .text._ZN4core3mem4swap17h6dd2a00406876ab9E
+00000000 l    d  .text._ZN4core3mem7size_of17h0cc9f9c5d684aa16E	00000000 .text._ZN4core3mem7size_of17h0cc9f9c5d684aa16E
+00000000 l    d  .text._ZN4core3mem7size_of17h269fd8bd1b4359e1E	00000000 .text._ZN4core3mem7size_of17h269fd8bd1b4359e1E
+00000000 l    d  .text._ZN4core3mem7size_of17hab079f7319b6598fE	00000000 .text._ZN4core3mem7size_of17hab079f7319b6598fE
+00000000 l    d  .text._ZN4core3mem7size_of17hcb0222fb89db2faeE	00000000 .text._ZN4core3mem7size_of17hcb0222fb89db2faeE
+00000000 l    d  .text._ZN4core3mem8align_of17h21f449b210953412E	00000000 .text._ZN4core3mem8align_of17h21f449b210953412E
+00000000 l    d  .text._ZN4core3mem8align_of17h7efa312906e0f020E	00000000 .text._ZN4core3mem8align_of17h7efa312906e0f020E
+00000000 l    d  .text._ZN4core6option15Option$LT$T$GT$9unwrap_or17h2ac53f81a8d5f2ddE	00000000 .text._ZN4core6option15Option$LT$T$GT$9unwrap_or17h2ac53f81a8d5f2ddE
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$2ok17h771796769af0793cE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$2ok17h771796769af0793cE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h39647962fcf7b802E	00000028 <&T as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h999e4f7c1827db7eE	00000028 <&T as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN49_$LT$usize$u20$as$u20$core..iter..range..Step$GT$9add_usize17h00ef51355e3a38a0E	00000036 .hidden <usize as core::iter::range::Step>::add_usize
+00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h279af8d935066cb1E	00000032 core::fmt::ArgumentV1::new
+00000000         *UND*	00000000 .hidden core::fmt::num::<impl core::fmt::Debug for u8>::fmt
+00000000         *UND*	00000000 .hidden core::fmt::num::<impl core::fmt::Debug for u32>::fmt
+00000000 g     F .text._ZN4core3fmt9Arguments6new_v117h344ddb67411c61baE	0000004c .hidden core::fmt::Arguments::new_v1
+00000000 g     F .text._ZN4core3mem4swap17h6dd2a00406876ab9E	0000001e core::mem::swap
+00000000 g     F .text._ZN4core3mem7size_of17h0cc9f9c5d684aa16E	00000012 core::mem::size_of
+00000000 g     F .text._ZN4core3mem7size_of17h269fd8bd1b4359e1E	00000012 core::mem::size_of
+00000000 g     F .text._ZN4core3mem7size_of17hab079f7319b6598fE	00000012 core::mem::size_of
+00000000 g     F .text._ZN4core3mem7size_of17hcb0222fb89db2faeE	00000012 core::mem::size_of
+00000000 g     F .text._ZN4core3mem8align_of17h21f449b210953412E	00000012 core::mem::align_of
+00000000 g     F .text._ZN4core3mem8align_of17h7efa312906e0f020E	00000012 core::mem::align_of
+00000000         *UND*	00000000 .hidden core::num::<impl usize>::checked_add
+00000000         *UND*	00000000 core::ptr::swap_nonoverlapping_one
+00000000 g     F .text._ZN4core6option15Option$LT$T$GT$9unwrap_or17h2ac53f81a8d5f2ddE	00000096 core::option::Option<T>::unwrap_or
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$2ok17h771796769af0793cE	0000006e core::result::Result<T,E>::ok
+00000000         *UND*	00000000 <T as core::convert::TryFrom<U>>::try_from
+
+
+
+Disassembly of section .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h39647962fcf7b802E:
+
+00000000 <<&T as core::fmt::Debug>::fmt>:
+_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h39647962fcf7b802E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:1914
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	6800      	ldr	r0, [r0, #0]
+  10:	9905      	ldr	r1, [sp, #20]
+  12:	9203      	str	r2, [sp, #12]
+  14:	9302      	str	r3, [sp, #8]
+  16:	f7ff fffe 	bl	0 <core::fmt::num::<impl core::fmt::Debug for u32>::fmt>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <<&T as core::fmt::Debug>::fmt+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b006      	add	sp, #24
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h999e4f7c1827db7eE:
+
+00000000 <<&T as core::fmt::Debug>::fmt>:
+_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h999e4f7c1827db7eE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:1914
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	6800      	ldr	r0, [r0, #0]
+  10:	9905      	ldr	r1, [sp, #20]
+  12:	9203      	str	r2, [sp, #12]
+  14:	9302      	str	r3, [sp, #8]
+  16:	f7ff fffe 	bl	0 <core::fmt::num::<impl core::fmt::Debug for u8>::fmt>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <<&T as core::fmt::Debug>::fmt+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b006      	add	sp, #24
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN49_$LT$usize$u20$as$u20$core..iter..range..Step$GT$9add_usize17h00ef51355e3a38a0E:
+
+00000000 <<usize as core::iter::range::Step>::add_usize>:
+_ZN49_$LT$usize$u20$as$u20$core..iter..range..Step$GT$9add_usize17h00ef51355e3a38a0E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:81
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:82
+   c:	9805      	ldr	r0, [sp, #20]
+   e:	9203      	str	r2, [sp, #12]
+  10:	9302      	str	r3, [sp, #8]
+  12:	f7ff fffe 	bl	0 <<T as core::convert::TryFrom<U>>::try_from>
+  16:	9006      	str	r0, [sp, #24]
+  18:	e7ff      	b.n	1a <<usize as core::iter::range::Step>::add_usize+0x1a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:83
+  1a:	9806      	ldr	r0, [sp, #24]
+  1c:	9007      	str	r0, [sp, #28]
+  1e:	9804      	ldr	r0, [sp, #16]
+  20:	6800      	ldr	r0, [r0, #0]
+  22:	9907      	ldr	r1, [sp, #28]
+  24:	f7ff fffe 	bl	0 <core::num::<impl usize>::checked_add>
+  28:	9001      	str	r0, [sp, #4]
+  2a:	9100      	str	r1, [sp, #0]
+  2c:	e7ff      	b.n	2e <<usize as core::iter::range::Step>::add_usize+0x2e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:86
+  2e:	9801      	ldr	r0, [sp, #4]
+  30:	9900      	ldr	r1, [sp, #0]
+  32:	b008      	add	sp, #32
+  34:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3fmt10ArgumentV13new17h279af8d935066cb1E:
+
+00000000 <core::fmt::ArgumentV1::new>:
+_ZN4core3fmt10ArgumentV13new17h279af8d935066cb1E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:278
+   0:	b08a      	sub	sp, #40	; 0x28
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9004      	str	r0, [sp, #16]
+   8:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:282
+   a:	9805      	ldr	r0, [sp, #20]
+   c:	9008      	str	r0, [sp, #32]
+   e:	9808      	ldr	r0, [sp, #32]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	9001      	str	r0, [sp, #4]
+  16:	e7ff      	b.n	18 <core::fmt::ArgumentV1::new+0x18>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:283
+  18:	9804      	ldr	r0, [sp, #16]
+  1a:	9009      	str	r0, [sp, #36]	; 0x24
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9000      	str	r0, [sp, #0]
+  20:	e7ff      	b.n	22 <core::fmt::ArgumentV1::new+0x22>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:281
+  22:	9800      	ldr	r0, [sp, #0]
+  24:	9006      	str	r0, [sp, #24]
+  26:	9901      	ldr	r1, [sp, #4]
+  28:	9107      	str	r1, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:286
+  2a:	9806      	ldr	r0, [sp, #24]
+  2c:	9907      	ldr	r1, [sp, #28]
+  2e:	b00a      	add	sp, #40	; 0x28
+  30:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3fmt9Arguments6new_v117h344ddb67411c61baE:
+
+00000000 <core::fmt::Arguments::new_v1>:
+_ZN4core3fmt9Arguments6new_v117h344ddb67411c61baE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:314
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	f8dd c038 	ldr.w	ip, [sp, #56]	; 0x38
+   8:	469e      	mov	lr, r3
+   a:	4614      	mov	r4, r2
+   c:	460d      	mov	r5, r1
+   e:	4606      	mov	r6, r0
+  10:	9104      	str	r1, [sp, #16]
+  12:	9205      	str	r2, [sp, #20]
+  14:	9306      	str	r3, [sp, #24]
+  16:	f8cd c01c 	str.w	ip, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:317
+  1a:	9904      	ldr	r1, [sp, #16]
+  1c:	9a05      	ldr	r2, [sp, #20]
+  1e:	2300      	movs	r3, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:318
+  20:	9309      	str	r3, [sp, #36]	; 0x24
+  22:	9308      	str	r3, [sp, #32]
+  24:	9308      	str	r3, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:319
+  26:	9b06      	ldr	r3, [sp, #24]
+  28:	f8dd c01c 	ldr.w	ip, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
+  2c:	6001      	str	r1, [r0, #0]
+  2e:	6042      	str	r2, [r0, #4]
+  30:	9908      	ldr	r1, [sp, #32]
+  32:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  34:	6081      	str	r1, [r0, #8]
+  36:	60c2      	str	r2, [r0, #12]
+  38:	6103      	str	r3, [r0, #16]
+  3a:	f8c0 c014 	str.w	ip, [r0, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:321
+  3e:	f8cd e00c 	str.w	lr, [sp, #12]
+  42:	9402      	str	r4, [sp, #8]
+  44:	9501      	str	r5, [sp, #4]
+  46:	9600      	str	r6, [sp, #0]
+  48:	b00a      	add	sp, #40	; 0x28
+  4a:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text._ZN4core3mem4swap17h6dd2a00406876ab9E:
+
+00000000 <core::mem::swap>:
+_ZN4core3mem4swap17h6dd2a00406876ab9E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:493
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9002      	str	r0, [sp, #8]
+   a:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:495
+   c:	9802      	ldr	r0, [sp, #8]
+   e:	9903      	ldr	r1, [sp, #12]
+  10:	9201      	str	r2, [sp, #4]
+  12:	9300      	str	r3, [sp, #0]
+  14:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  18:	e7ff      	b.n	1a <core::mem::swap+0x1a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:497
+  1a:	b004      	add	sp, #16
+  1c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3mem7size_of17h0cc9f9c5d684aa16E:
+
+00000000 <core::mem::size_of>:
+_ZN4core3mem7size_of17h0cc9f9c5d684aa16E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:235
+   0:	b082      	sub	sp, #8
+   2:	2020      	movs	r0, #32
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:236
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::size_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:237
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3mem7size_of17h269fd8bd1b4359e1E:
+
+00000000 <core::mem::size_of>:
+_ZN4core3mem7size_of17h269fd8bd1b4359e1E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:235
+   0:	b082      	sub	sp, #8
+   2:	2004      	movs	r0, #4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:236
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::size_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:237
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3mem7size_of17hab079f7319b6598fE:
+
+00000000 <core::mem::size_of>:
+_ZN4core3mem7size_of17hab079f7319b6598fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:235
+   0:	b082      	sub	sp, #8
+   2:	2004      	movs	r0, #4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:236
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::size_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:237
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3mem7size_of17hcb0222fb89db2faeE:
+
+00000000 <core::mem::size_of>:
+_ZN4core3mem7size_of17hcb0222fb89db2faeE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:235
+   0:	b082      	sub	sp, #8
+   2:	2001      	movs	r0, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:236
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::size_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:237
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3mem8align_of17h21f449b210953412E:
+
+00000000 <core::mem::align_of>:
+_ZN4core3mem8align_of17h21f449b210953412E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:327
+   0:	b082      	sub	sp, #8
+   2:	2001      	movs	r0, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:328
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::align_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:329
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3mem8align_of17h7efa312906e0f020E:
+
+00000000 <core::mem::align_of>:
+_ZN4core3mem8align_of17h7efa312906e0f020E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:327
+   0:	b082      	sub	sp, #8
+   2:	2004      	movs	r0, #4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:328
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::align_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:329
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core6option15Option$LT$T$GT$9unwrap_or17h2ac53f81a8d5f2ddE:
+
+00000000 <core::option::Option<T>::unwrap_or>:
+_ZN4core6option15Option$LT$T$GT$9unwrap_or17h2ac53f81a8d5f2ddE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:367
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9004      	str	r0, [sp, #16]
+   c:	9105      	str	r1, [sp, #20]
+   e:	9206      	str	r2, [sp, #24]
+  10:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:369
+  12:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
+  16:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  1a:	2001      	movs	r0, #1
+  1c:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  20:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
+  24:	9804      	ldr	r0, [sp, #16]
+  26:	2800      	cmp	r0, #0
+  28:	9303      	str	r3, [sp, #12]
+  2a:	f8cd c008 	str.w	ip, [sp, #8]
+  2e:	f8cd e004 	str.w	lr, [sp, #4]
+  32:	9000      	str	r0, [sp, #0]
+  34:	d00d      	beq.n	52 <core::option::Option<T>::unwrap_or+0x52>
+  36:	e7ff      	b.n	38 <core::option::Option<T>::unwrap_or+0x38>
+  38:	9800      	ldr	r0, [sp, #0]
+  3a:	2801      	cmp	r0, #1
+  3c:	d001      	beq.n	42 <core::option::Option<T>::unwrap_or+0x42>
+  3e:	e7ff      	b.n	40 <core::option::Option<T>::unwrap_or+0x40>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:372
+  40:	defe      	udf	#254	; 0xfe
+  42:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:369
+  44:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  48:	9805      	ldr	r0, [sp, #20]
+  4a:	9008      	str	r0, [sp, #32]
+  4c:	9808      	ldr	r0, [sp, #32]
+  4e:	9007      	str	r0, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:368
+  50:	e005      	b.n	5e <core::option::Option<T>::unwrap_or+0x5e>
+  52:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:370
+  54:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
+  58:	9806      	ldr	r0, [sp, #24]
+  5a:	9007      	str	r0, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:368
+  5c:	e7ff      	b.n	5e <core::option::Option<T>::unwrap_or+0x5e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:372
+  5e:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
+  62:	07c0      	lsls	r0, r0, #31
+  64:	2800      	cmp	r0, #0
+  66:	d104      	bne.n	72 <core::option::Option<T>::unwrap_or+0x72>
+  68:	e7ff      	b.n	6a <core::option::Option<T>::unwrap_or+0x6a>
+  6a:	9804      	ldr	r0, [sp, #16]
+  6c:	2801      	cmp	r0, #1
+  6e:	d007      	beq.n	80 <core::option::Option<T>::unwrap_or+0x80>
+  70:	e010      	b.n	94 <core::option::Option<T>::unwrap_or+0x94>
+  72:	2000      	movs	r0, #0
+  74:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
+  78:	e7f7      	b.n	6a <core::option::Option<T>::unwrap_or+0x6a>
+  7a:	9807      	ldr	r0, [sp, #28]
+  7c:	b00a      	add	sp, #40	; 0x28
+  7e:	bd80      	pop	{r7, pc}
+  80:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  84:	07c0      	lsls	r0, r0, #31
+  86:	2800      	cmp	r0, #0
+  88:	d0f7      	beq.n	7a <core::option::Option<T>::unwrap_or+0x7a>
+  8a:	e7ff      	b.n	8c <core::option::Option<T>::unwrap_or+0x8c>
+  8c:	2000      	movs	r0, #0
+  8e:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  92:	e7f2      	b.n	7a <core::option::Option<T>::unwrap_or+0x7a>
+  94:	e7f1      	b.n	7a <core::option::Option<T>::unwrap_or+0x7a>
+
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$2ok17h771796769af0793cE:
+
+00000000 <core::result::Result<T,E>::ok>:
+_ZN4core6result19Result$LT$T$C$E$GT$2ok17h771796769af0793cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:336
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	f88d 000a 	strb.w	r0, [sp, #10]
+   8:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:338
+   a:	f88d 000f 	strb.w	r0, [sp, #15]
+   e:	2001      	movs	r0, #1
+  10:	f88d 000f 	strb.w	r0, [sp, #15]
+  14:	f89d 000a 	ldrb.w	r0, [sp, #10]
+  18:	07c2      	lsls	r2, r0, #31
+  1a:	2a00      	cmp	r2, #0
+  1c:	9101      	str	r1, [sp, #4]
+  1e:	9000      	str	r0, [sp, #0]
+  20:	d005      	beq.n	2e <core::result::Result<T,E>::ok+0x2e>
+  22:	e7ff      	b.n	24 <core::result::Result<T,E>::ok+0x24>
+  24:	9800      	ldr	r0, [sp, #0]
+  26:	2801      	cmp	r0, #1
+  28:	d008      	beq.n	3c <core::result::Result<T,E>::ok+0x3c>
+  2a:	e7ff      	b.n	2c <core::result::Result<T,E>::ok+0x2c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:341
+  2c:	defe      	udf	#254	; 0xfe
+  2e:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:338
+  30:	f88d 000f 	strb.w	r0, [sp, #15]
+  34:	2001      	movs	r0, #1
+  36:	f88d 000b 	strb.w	r0, [sp, #11]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:337
+  3a:	e003      	b.n	44 <core::result::Result<T,E>::ok+0x44>
+  3c:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:339
+  3e:	f88d 000b 	strb.w	r0, [sp, #11]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:337
+  42:	e7ff      	b.n	44 <core::result::Result<T,E>::ok+0x44>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:341
+  44:	f89d 000a 	ldrb.w	r0, [sp, #10]
+  48:	07c0      	lsls	r0, r0, #31
+  4a:	2800      	cmp	r0, #0
+  4c:	d004      	beq.n	58 <core::result::Result<T,E>::ok+0x58>
+  4e:	e00d      	b.n	6c <core::result::Result<T,E>::ok+0x6c>
+  50:	f89d 000b 	ldrb.w	r0, [sp, #11]
+  54:	b004      	add	sp, #16
+  56:	4770      	bx	lr
+  58:	f89d 000f 	ldrb.w	r0, [sp, #15]
+  5c:	07c0      	lsls	r0, r0, #31
+  5e:	2800      	cmp	r0, #0
+  60:	d0f6      	beq.n	50 <core::result::Result<T,E>::ok+0x50>
+  62:	e7ff      	b.n	64 <core::result::Result<T,E>::ok+0x64>
+  64:	2000      	movs	r0, #0
+  66:	f88d 000f 	strb.w	r0, [sp, #15]
+  6a:	e7f1      	b.n	50 <core::result::Result<T,E>::ok+0x50>
+  6c:	e7f0      	b.n	50 <core::result::Result<T,E>::ok+0x50>
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.2.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.2
+0000077b l       .debug_str	00000000 
+0000078c l       .debug_str	00000000 
+00000790 l       .debug_str	00000000 
+00000798 l       .debug_str	00000000 
+000007af l       .debug_str	00000000 
+000007d3 l       .debug_str	00000000 
+000007ef l       .debug_str	00000000 
+000007f9 l       .debug_str	00000000 
+00000813 l       .debug_str	00000000 
+00000871 l       .debug_str	00000000 
+0000087c l       .debug_str	00000000 
+00000899 l       .debug_str	00000000 
+000008b2 l       .debug_str	00000000 
+000008bc l       .debug_str	00000000 
+000008da l       .debug_str	00000000 
+000008dc l       .debug_str	00000000 
+000008e1 l       .debug_str	00000000 
+000008e7 l       .debug_str	00000000 
+000008f2 l       .debug_str	00000000 
+000008f9 l       .debug_str	00000000 
+000008fb l       .debug_str	00000000 
+00000900 l       .debug_str	00000000 
+00000906 l       .debug_str	00000000 
+0000090c l       .debug_str	00000000 
+00000910 l       .debug_str	00000000 
+0000091d l       .debug_str	00000000 
+00000924 l       .debug_str	00000000 
+00000928 l       .debug_str	00000000 
+0000092d l       .debug_str	00000000 
+00000934 l       .debug_str	00000000 
+00000938 l       .debug_str	00000000 
+00000940 l       .debug_str	00000000 
+0000094b l       .debug_str	00000000 
+0000094e l       .debug_str	00000000 
+00000950 l       .debug_str	00000000 
+0000096b l       .debug_str	00000000 
+00000990 l       .debug_str	00000000 
+00000996 l       .debug_str	00000000 
+0000099b l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000eb l       .debug_str	00000000 
+000000f4 l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+000000fc l       .debug_str	00000000 
+00000107 l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000115 l       .debug_str	00000000 
+0000011a l       .debug_str	00000000 
+00000120 l       .debug_str	00000000 
+00000124 l       .debug_str	00000000 
+00000126 l       .debug_str	00000000 
+00000136 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+00000165 l       .debug_str	00000000 
+0000017e l       .debug_str	00000000 
+00000185 l       .debug_str	00000000 
+00000188 l       .debug_str	00000000 
+0000018b l       .debug_str	00000000 
+0000018f l       .debug_str	00000000 
+00000196 l       .debug_str	00000000 
+0000019a l       .debug_str	00000000 
+0000019d l       .debug_str	00000000 
+000001a0 l       .debug_str	00000000 
+000001a5 l       .debug_str	00000000 
+000001ab l       .debug_str	00000000 
+000001b2 l       .debug_str	00000000 
+000001ba l       .debug_str	00000000 
+000001c4 l       .debug_str	00000000 
+000001ca l       .debug_str	00000000 
+000001d3 l       .debug_str	00000000 
+000001d7 l       .debug_str	00000000 
+00000218 l       .debug_str	00000000 
+00000221 l       .debug_str	00000000 
+0000022a l       .debug_str	00000000 
+00000234 l       .debug_str	00000000 
+0000023b l       .debug_str	00000000 
+00000241 l       .debug_str	00000000 
+00000247 l       .debug_str	00000000 
+0000024c l       .debug_str	00000000 
+00000251 l       .debug_str	00000000 
+00000256 l       .debug_str	00000000 
+00000289 l       .debug_str	00000000 
+000002a9 l       .debug_str	00000000 
+000002da l       .debug_str	00000000 
+000002f9 l       .debug_str	00000000 
+000002fb l       .debug_str	00000000 
+00000353 l       .debug_str	00000000 
+000003a9 l       .debug_str	00000000 
+000003ff l       .debug_str	00000000 
+0000041e l       .debug_str	00000000 
+00000450 l       .debug_str	00000000 
+0000045c l       .debug_str	00000000 
+000004b8 l       .debug_str	00000000 
+000004c2 l       .debug_str	00000000 
+000004f1 l       .debug_str	00000000 
+000004fb l       .debug_str	00000000 
+0000052f l       .debug_str	00000000 
+0000053d l       .debug_str	00000000 
+0000056c l       .debug_str	00000000 
+00000576 l       .debug_str	00000000 
+000005a5 l       .debug_str	00000000 
+000005a7 l       .debug_str	00000000 
+000005ac l       .debug_str	00000000 
+000005b1 l       .debug_str	00000000 
+000005b8 l       .debug_str	00000000 
+000005c4 l       .debug_str	00000000 
+000005cc l       .debug_str	00000000 
+000005d3 l       .debug_str	00000000 
+000005d8 l       .debug_str	00000000 
+000005e1 l       .debug_str	00000000 
+000005e6 l       .debug_str	00000000 
+000005e9 l       .debug_str	00000000 
+000005f2 l       .debug_str	00000000 
+000005f9 l       .debug_str	00000000 
+000005fe l       .debug_str	00000000 
+00000604 l       .debug_str	00000000 
+0000060a l       .debug_str	00000000 
+00000614 l       .debug_str	00000000 
+00000617 l       .debug_str	00000000 
+0000061d l       .debug_str	00000000 
+00000627 l       .debug_str	00000000 
+0000062f l       .debug_str	00000000 
+00000635 l       .debug_str	00000000 
+0000063b l       .debug_str	00000000 
+00000646 l       .debug_str	00000000 
+0000064f l       .debug_str	00000000 
+00000672 l       .debug_str	00000000 
+00000691 l       .debug_str	00000000 
+00000696 l       .debug_str	00000000 
+000006bd l       .debug_str	00000000 
+000006c3 l       .debug_str	00000000 
+000006c6 l       .debug_str	00000000 
+000006d5 l       .debug_str	00000000 
+000006dc l       .debug_str	00000000 
+000006e0 l       .debug_str	00000000 
+000006e9 l       .debug_str	00000000 
+000006f1 l       .debug_str	00000000 
+000006f9 l       .debug_str	00000000 
+0000070d l       .debug_str	00000000 
+00000719 l       .debug_str	00000000 
+00000725 l       .debug_str	00000000 
+0000073e l       .debug_str	00000000 
+00000743 l       .debug_str	00000000 
+00000754 l       .debug_str	00000000 
+0000075e l       .debug_str	00000000 
+0000076c l       .debug_str	00000000 
+00000770 l       .debug_str	00000000 
+00000782 l       .debug_str	00000000 
+00000788 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.0	00000018 .Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.0
+00000000 l     O .rodata..Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.1	00000018 .Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.1
+00000000 l     O .rodata..Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.2	00000018 .Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.2
+00000000 l     O .rodata..Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.3	00000018 .Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.3
+00000000 l     F .text._ZN8cortex_m3itm11write_words17h056b3f18bb916fe5E	000000c0 cortex_m::itm::write_words
+00000000 l     O .rodata.str.0	00000056 str.0
+00000000 l     O .rodata.str.1	00000021 str.1
+00000000 l    d  .text._ZN4core3fmt5Write10write_char17h4274827b4b40ea40E	00000000 .text._ZN4core3fmt5Write10write_char17h4274827b4b40ea40E
+00000000 l    d  .text._ZN4core3fmt5Write9write_fmt17h2abb8ae218a15e9aE	00000000 .text._ZN4core3fmt5Write9write_fmt17h2abb8ae218a15e9aE
+00000000 l    d  .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h2a33f9472d50aae2E	00000000 .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h2a33f9472d50aae2E
+00000000 l    d  .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17he941e15ca5587f03E	00000000 .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17he941e15ca5587f03E
+00000000 l    d  .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h9b25a2d6decfde69E	00000000 .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h9b25a2d6decfde69E
+00000000 l    d  .text._ZN8cortex_m3itm11write_words17h056b3f18bb916fe5E	00000000 .text._ZN8cortex_m3itm11write_words17h056b3f18bb916fe5E
+00000000 l    d  .text._ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h7a07d7d652971e76E	00000000 .text._ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h7a07d7d652971e76E
+00000000 l    d  .text._ZN8cortex_m3itm9write_all17hcc62433fa0c63353E	00000000 .text._ZN8cortex_m3itm9write_all17hcc62433fa0c63353E
+00000000 l    d  .text._ZN8cortex_m3itm13write_aligned17h3ef9f96c2d4b2a37E	00000000 .text._ZN8cortex_m3itm13write_aligned17h3ef9f96c2d4b2a37E
+00000000 l    d  .text._ZN8cortex_m3itm9write_fmt17h8d0f8c7ccbf63e53E	00000000 .text._ZN8cortex_m3itm9write_fmt17h8d0f8c7ccbf63e53E
+00000000 l    d  .text._ZN8cortex_m3itm9write_str17h6f48a24f1a763420E	00000000 .text._ZN8cortex_m3itm9write_str17h6f48a24f1a763420E
+00000000 l    d  .rodata..Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.0	00000000 .rodata..Lanon.9ad9cbd55fbe2659bb8ac6031eb8e818.0
+00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
+00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
+00000000 l    d  .debug_loc	00000000 .debug_loc
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3fmt5Write10write_char17h4274827b4b40ea40E	0000004e core::fmt::Write::write_char
+00000000 g     F .text._ZN4core3fmt5Write9write_fmt17h2abb8ae218a15e9aE	00000046 core::fmt::Write::write_fmt
+00000000         *UND*	00000000 core::fmt::write
+00000000         *UND*	00000000 core::ptr::real_drop_in_place
+00000000         *UND*	00000000 core::ptr::<impl *const T>::offset
+00000000         *UND*	00000000 core::ptr::<impl *const T>::offset
+00000000         *UND*	00000000 core::ptr::read
+00000000         *UND*	00000000 core::ptr::read
+00000000         *UND*	00000000 .hidden core::char::methods::<impl char>::encode_utf8
+00000000         *UND*	00000000 core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next
+00000000         *UND*	00000000 core::slice::from_raw_parts
+00000000         *UND*	00000000 core::slice::from_raw_parts
+00000000         *UND*	00000000 core::slice::<impl [T]>::len
+00000000         *UND*	00000000 core::slice::<impl [T]>::len
+00000000         *UND*	00000000 core::slice::<impl [T]>::as_ptr
+00000000         *UND*	00000000 core::slice::<impl [T]>::as_ptr
+00000000         *UND*	00000000 core::result::Result<T,E>::ok
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h2a33f9472d50aae2E	00000028 <&mut W as core::fmt::Write>::write_char
+00000000 g     F .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17he941e15ca5587f03E	00000038 <&mut W as core::fmt::Write>::write_fmt
+00000000 g     F .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h9b25a2d6decfde69E	00000034 <&mut W as core::fmt::Write>::write_str
+00000000 g     F .text._ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h7a07d7d652971e76E	00000054 <cortex_m::itm::Port as core::fmt::Write>::write_str
+00000000         *UND*	00000000 <I as core::iter::traits::collect::IntoIterator>::into_iter
+00000000         *UND*	00000000 <aligned::Aligned<A,T> as core::ops::deref::Deref>::deref
+00000000         *UND*	00000000 cortex_m::peripheral::itm::Stim::is_fifo_ready
+00000000         *UND*	00000000 cortex_m::peripheral::itm::Stim::write_u8
+00000000         *UND*	00000000 cortex_m::peripheral::itm::Stim::write_u16
+00000000         *UND*	00000000 cortex_m::peripheral::itm::Stim::write_u32
+00000000 g     F .text._ZN8cortex_m3itm13write_aligned17h3ef9f96c2d4b2a37E	00000152 cortex_m::itm::write_aligned
+00000000 g     F .text._ZN8cortex_m3itm9write_all17hcc62433fa0c63353E	0000017c cortex_m::itm::write_all
+00000000 g     F .text._ZN8cortex_m3itm9write_fmt17h8d0f8c7ccbf63e53E	00000044 cortex_m::itm::write_fmt
+00000000 g     F .text._ZN8cortex_m3itm9write_str17h6f48a24f1a763420E	00000048 cortex_m::itm::write_str
+
+
+
+Disassembly of section .text._ZN4core3fmt5Write10write_char17h4274827b4b40ea40E:
+
+00000000 <core::fmt::Write::write_char>:
+_ZN4core3fmt5Write10write_char17h4274827b4b40ea40E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:169
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9007      	str	r0, [sp, #28]
+   a:	9108      	str	r1, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:170
+   c:	9807      	ldr	r0, [sp, #28]
+   e:	9908      	ldr	r1, [sp, #32]
+  10:	f04f 0c00 	mov.w	ip, #0
+  14:	f8cd c024 	str.w	ip, [sp, #36]	; 0x24
+  18:	f10d 0c24 	add.w	ip, sp, #36	; 0x24
+  1c:	f04f 0e04 	mov.w	lr, #4
+  20:	9006      	str	r0, [sp, #24]
+  22:	4608      	mov	r0, r1
+  24:	4661      	mov	r1, ip
+  26:	9205      	str	r2, [sp, #20]
+  28:	4672      	mov	r2, lr
+  2a:	9304      	str	r3, [sp, #16]
+  2c:	f7ff fffe 	bl	0 <core::char::methods::<impl char>::encode_utf8>
+  30:	9003      	str	r0, [sp, #12]
+  32:	9102      	str	r1, [sp, #8]
+  34:	e7ff      	b.n	36 <core::fmt::Write::write_char+0x36>
+  36:	9806      	ldr	r0, [sp, #24]
+  38:	9903      	ldr	r1, [sp, #12]
+  3a:	9a02      	ldr	r2, [sp, #8]
+  3c:	f7ff fffe 	bl	0 <core::fmt::Write::write_char>
+  40:	9001      	str	r0, [sp, #4]
+  42:	e7ff      	b.n	44 <core::fmt::Write::write_char+0x44>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:171
+  44:	9801      	ldr	r0, [sp, #4]
+  46:	f000 0001 	and.w	r0, r0, #1
+  4a:	b00a      	add	sp, #40	; 0x28
+  4c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3fmt5Write9write_fmt17h2abb8ae218a15e9aE:
+
+00000000 <core::fmt::Write::write_fmt>:
+_ZN4core3fmt5Write9write_fmt17h2abb8ae218a15e9aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:194
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	b08c      	sub	sp, #48	; 0x30
+   6:	460a      	mov	r2, r1
+   8:	4603      	mov	r3, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	a806      	add	r0, sp, #24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:195
+   e:	4684      	mov	ip, r0
+  10:	e891 41f0 	ldmia.w	r1, {r4, r5, r6, r7, r8, lr}
+  14:	e88c 41f0 	stmia.w	ip, {r4, r5, r6, r7, r8, lr}
+  18:	f240 0100 	movw	r1, #0
+  1c:	f2c0 0100 	movt	r1, #0
+  20:	f10d 0c14 	add.w	ip, sp, #20
+  24:	9004      	str	r0, [sp, #16]
+  26:	4660      	mov	r0, ip
+  28:	f8dd c010 	ldr.w	ip, [sp, #16]
+  2c:	9203      	str	r2, [sp, #12]
+  2e:	4662      	mov	r2, ip
+  30:	9302      	str	r3, [sp, #8]
+  32:	f7ff fffe 	bl	0 <core::fmt::write>
+  36:	9001      	str	r0, [sp, #4]
+  38:	e7ff      	b.n	3a <core::fmt::Write::write_fmt+0x3a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:196
+  3a:	9801      	ldr	r0, [sp, #4]
+  3c:	f000 0001 	and.w	r0, r0, #1
+  40:	b00c      	add	sp, #48	; 0x30
+  42:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h2a33f9472d50aae2E:
+
+00000000 <<&mut W as core::fmt::Write>::write_char>:
+_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h2a33f9472d50aae2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:205
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:206
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	6800      	ldr	r0, [r0, #0]
+  10:	9905      	ldr	r1, [sp, #20]
+  12:	9203      	str	r2, [sp, #12]
+  14:	9302      	str	r3, [sp, #8]
+  16:	f7ff fffe 	bl	0 <<&mut W as core::fmt::Write>::write_char>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <<&mut W as core::fmt::Write>::write_char+0x1e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:207
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b006      	add	sp, #24
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17he941e15ca5587f03E:
+
+00000000 <<&mut W as core::fmt::Write>::write_fmt>:
+_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17he941e15ca5587f03E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:209
+   0:	e92d 43f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, lr}
+   4:	b08b      	sub	sp, #44	; 0x2c
+   6:	460a      	mov	r2, r1
+   8:	4603      	mov	r3, r0
+   a:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:210
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	6800      	ldr	r0, [r0, #0]
+  10:	f10d 0c14 	add.w	ip, sp, #20
+  14:	46e6      	mov	lr, ip
+  16:	e891 03f0 	ldmia.w	r1, {r4, r5, r6, r7, r8, r9}
+  1a:	e88e 03f0 	stmia.w	lr, {r4, r5, r6, r7, r8, r9}
+  1e:	4661      	mov	r1, ip
+  20:	9203      	str	r2, [sp, #12]
+  22:	9302      	str	r3, [sp, #8]
+  24:	f7ff fffe 	bl	0 <<&mut W as core::fmt::Write>::write_fmt>
+  28:	9001      	str	r0, [sp, #4]
+  2a:	e7ff      	b.n	2c <<&mut W as core::fmt::Write>::write_fmt+0x2c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:211
+  2c:	9801      	ldr	r0, [sp, #4]
+  2e:	f000 0001 	and.w	r0, r0, #1
+  32:	b00b      	add	sp, #44	; 0x2c
+  34:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
+
+Disassembly of section .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h9b25a2d6decfde69E:
+
+00000000 <<&mut W as core::fmt::Write>::write_str>:
+_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h9b25a2d6decfde69E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:201
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	9106      	str	r1, [sp, #24]
+   e:	9207      	str	r2, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:202
+  10:	9805      	ldr	r0, [sp, #20]
+  12:	6800      	ldr	r0, [r0, #0]
+  14:	9906      	ldr	r1, [sp, #24]
+  16:	9a07      	ldr	r2, [sp, #28]
+  18:	9304      	str	r3, [sp, #16]
+  1a:	f8cd c00c 	str.w	ip, [sp, #12]
+  1e:	f8cd e008 	str.w	lr, [sp, #8]
+  22:	f7ff fffe 	bl	0 <<&mut W as core::fmt::Write>::write_str>
+  26:	9001      	str	r0, [sp, #4]
+  28:	e7ff      	b.n	2a <<&mut W as core::fmt::Write>::write_str+0x2a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:203
+  2a:	9801      	ldr	r0, [sp, #4]
+  2c:	f000 0001 	and.w	r0, r0, #1
+  30:	b008      	add	sp, #32
+  32:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m3itm11write_words17h056b3f18bb916fe5E:
+
+00000000 <cortex_m::itm::write_words>:
+_ZN8cortex_m3itm11write_words17h056b3f18bb916fe5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:12
+use aligned::{Aligned, A4};
+
+use peripheral::itm::Stim;
+
+// NOTE assumes that `bytes` is 32-bit aligned
+unsafe fn write_words(stim: &mut Stim, bytes: &[u32]) {
+   0:	b580      	push	{r7, lr}
+   2:	b098      	sub	sp, #96	; 0x60
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	900c      	str	r0, [sp, #48]	; 0x30
+   c:	910d      	str	r1, [sp, #52]	; 0x34
+   e:	920e      	str	r2, [sp, #56]	; 0x38
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:13
+    let mut p = bytes.as_ptr();
+  10:	980d      	ldr	r0, [sp, #52]	; 0x34
+  12:	990e      	ldr	r1, [sp, #56]	; 0x38
+  14:	930b      	str	r3, [sp, #44]	; 0x2c
+  16:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
+  1a:	f8cd e024 	str.w	lr, [sp, #36]	; 0x24
+  1e:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
+  22:	900f      	str	r0, [sp, #60]	; 0x3c
+  24:	e7ff      	b.n	26 <cortex_m::itm::write_words+0x26>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:14
+    for _ in 0..bytes.len() {
+  26:	980d      	ldr	r0, [sp, #52]	; 0x34
+  28:	990e      	ldr	r1, [sp, #56]	; 0x38
+  2a:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  2e:	9008      	str	r0, [sp, #32]
+  30:	e7ff      	b.n	32 <cortex_m::itm::write_words+0x32>
+  32:	2000      	movs	r0, #0
+  34:	9010      	str	r0, [sp, #64]	; 0x40
+  36:	9808      	ldr	r0, [sp, #32]
+  38:	9011      	str	r0, [sp, #68]	; 0x44
+  3a:	9810      	ldr	r0, [sp, #64]	; 0x40
+  3c:	9911      	ldr	r1, [sp, #68]	; 0x44
+  3e:	f7ff fffe 	bl	0 <<I as core::iter::traits::collect::IntoIterator>::into_iter>
+  42:	9007      	str	r0, [sp, #28]
+  44:	9106      	str	r1, [sp, #24]
+  46:	e7ff      	b.n	48 <cortex_m::itm::write_words+0x48>
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9012      	str	r0, [sp, #72]	; 0x48
+  4c:	9906      	ldr	r1, [sp, #24]
+  4e:	9113      	str	r1, [sp, #76]	; 0x4c
+  50:	e7ff      	b.n	52 <cortex_m::itm::write_words+0x52>
+  52:	a812      	add	r0, sp, #72	; 0x48
+  54:	f7ff fffe 	bl	0 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next>
+  58:	9116      	str	r1, [sp, #88]	; 0x58
+  5a:	9015      	str	r0, [sp, #84]	; 0x54
+  5c:	e7ff      	b.n	5e <cortex_m::itm::write_words+0x5e>
+  5e:	9815      	ldr	r0, [sp, #84]	; 0x54
+  60:	2800      	cmp	r0, #0
+  62:	9005      	str	r0, [sp, #20]
+  64:	d00a      	beq.n	7c <cortex_m::itm::write_words+0x7c>
+  66:	e7ff      	b.n	68 <cortex_m::itm::write_words+0x68>
+  68:	9805      	ldr	r0, [sp, #20]
+  6a:	2801      	cmp	r0, #1
+  6c:	d001      	beq.n	72 <cortex_m::itm::write_words+0x72>
+  6e:	e7ff      	b.n	70 <cortex_m::itm::write_words+0x70>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:19
+        while !stim.is_fifo_ready() {}
+        stim.write_u32(ptr::read(p));
+        p = p.offset(1);
+    }
+}
+  70:	defe      	udf	#254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:14
+    for _ in 0..bytes.len() {
+  72:	9816      	ldr	r0, [sp, #88]	; 0x58
+  74:	9017      	str	r0, [sp, #92]	; 0x5c
+  76:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  78:	9014      	str	r0, [sp, #80]	; 0x50
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:15
+        while !stim.is_fifo_ready() {}
+  7a:	e001      	b.n	80 <cortex_m::itm::write_words+0x80>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:19
+}
+  7c:	b018      	add	sp, #96	; 0x60
+  7e:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:15
+        while !stim.is_fifo_ready() {}
+  80:	980c      	ldr	r0, [sp, #48]	; 0x30
+  82:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+  86:	9004      	str	r0, [sp, #16]
+  88:	e007      	b.n	9a <cortex_m::itm::write_words+0x9a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:16
+        stim.write_u32(ptr::read(p));
+  8a:	980c      	ldr	r0, [sp, #48]	; 0x30
+  8c:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  8e:	9003      	str	r0, [sp, #12]
+  90:	4608      	mov	r0, r1
+  92:	f7ff fffe 	bl	0 <core::ptr::read>
+  96:	9002      	str	r0, [sp, #8]
+  98:	e004      	b.n	a4 <cortex_m::itm::write_words+0xa4>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:15
+        while !stim.is_fifo_ready() {}
+  9a:	9804      	ldr	r0, [sp, #16]
+  9c:	07c1      	lsls	r1, r0, #31
+  9e:	2900      	cmp	r1, #0
+  a0:	d0ee      	beq.n	80 <cortex_m::itm::write_words+0x80>
+  a2:	e7f2      	b.n	8a <cortex_m::itm::write_words+0x8a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:16
+        stim.write_u32(ptr::read(p));
+  a4:	9803      	ldr	r0, [sp, #12]
+  a6:	9902      	ldr	r1, [sp, #8]
+  a8:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u32>
+  ac:	e7ff      	b.n	ae <cortex_m::itm::write_words+0xae>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:17
+        p = p.offset(1);
+  ae:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  b0:	2101      	movs	r1, #1
+  b2:	f7ff fffe 	bl	0 <core::ptr::<impl *const T>::offset>
+  b6:	9001      	str	r0, [sp, #4]
+  b8:	e7ff      	b.n	ba <cortex_m::itm::write_words+0xba>
+  ba:	9801      	ldr	r0, [sp, #4]
+  bc:	900f      	str	r0, [sp, #60]	; 0x3c
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:14
+    for _ in 0..bytes.len() {
+  be:	e7c8      	b.n	52 <cortex_m::itm::write_words+0x52>
+
+Disassembly of section .text._ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h7a07d7d652971e76E:
+
+00000000 <<cortex_m::itm::Port as core::fmt::Write>::write_str>:
+_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h7a07d7d652971e76E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:24
+
+struct Port<'p>(&'p mut Stim);
+
+impl<'p> fmt::Write for Port<'p> {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+   0:	b580      	push	{r7, lr}
+   2:	b090      	sub	sp, #64	; 0x40
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9007      	str	r0, [sp, #28]
+   c:	9108      	str	r1, [sp, #32]
+   e:	9209      	str	r2, [sp, #36]	; 0x24
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:25
+        write_all(self.0, s.as_bytes());
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	6800      	ldr	r0, [r0, #0]
+  14:	9908      	ldr	r1, [sp, #32]
+  16:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  18:	910c      	str	r1, [sp, #48]	; 0x30
+  1a:	920d      	str	r2, [sp, #52]	; 0x34
+_ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2153
+  1c:	990c      	ldr	r1, [sp, #48]	; 0x30
+  1e:	9a0d      	ldr	r2, [sp, #52]	; 0x34
+  20:	910e      	str	r1, [sp, #56]	; 0x38
+  22:	920f      	str	r2, [sp, #60]	; 0x3c
+  24:	990e      	ldr	r1, [sp, #56]	; 0x38
+  26:	9a0f      	ldr	r2, [sp, #60]	; 0x3c
+_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h7a07d7d652971e76E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:25
+  28:	9306      	str	r3, [sp, #24]
+  2a:	f8cd c014 	str.w	ip, [sp, #20]
+  2e:	f8cd e010 	str.w	lr, [sp, #16]
+  32:	9003      	str	r0, [sp, #12]
+  34:	9102      	str	r1, [sp, #8]
+  36:	9201      	str	r2, [sp, #4]
+  38:	e7ff      	b.n	3a <<cortex_m::itm::Port as core::fmt::Write>::write_str+0x3a>
+  3a:	9803      	ldr	r0, [sp, #12]
+  3c:	9902      	ldr	r1, [sp, #8]
+  3e:	9a01      	ldr	r2, [sp, #4]
+  40:	f7ff fffe 	bl	0 <<cortex_m::itm::Port as core::fmt::Write>::write_str>
+  44:	e7ff      	b.n	46 <<cortex_m::itm::Port as core::fmt::Write>::write_str+0x46>
+  46:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:26
+        Ok(())
+  48:	f88d 002b 	strb.w	r0, [sp, #43]	; 0x2b
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:27
+    }
+  4c:	f89d 002b 	ldrb.w	r0, [sp, #43]	; 0x2b
+  50:	b010      	add	sp, #64	; 0x40
+  52:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m3itm9write_all17hcc62433fa0c63353E:
+
+00000000 <cortex_m::itm::write_all>:
+_ZN8cortex_m3itm9write_all17hcc62433fa0c63353E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:31
+}
+
+/// Writes a `buffer` to the ITM `port`
+pub fn write_all(port: &mut Stim, buffer: &[u8]) {
+   0:	b580      	push	{r7, lr}
+   2:	b09a      	sub	sp, #104	; 0x68
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9013      	str	r0, [sp, #76]	; 0x4c
+   c:	9114      	str	r1, [sp, #80]	; 0x50
+   e:	9215      	str	r2, [sp, #84]	; 0x54
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:33
+    unsafe {
+        let mut len = buffer.len();
+  10:	9814      	ldr	r0, [sp, #80]	; 0x50
+  12:	9915      	ldr	r1, [sp, #84]	; 0x54
+  14:	9312      	str	r3, [sp, #72]	; 0x48
+  16:	f8cd c044 	str.w	ip, [sp, #68]	; 0x44
+  1a:	f8cd e040 	str.w	lr, [sp, #64]	; 0x40
+  1e:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  22:	9016      	str	r0, [sp, #88]	; 0x58
+  24:	e7ff      	b.n	26 <cortex_m::itm::write_all+0x26>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:34
+        let mut ptr = buffer.as_ptr();
+  26:	9814      	ldr	r0, [sp, #80]	; 0x50
+  28:	9915      	ldr	r1, [sp, #84]	; 0x54
+  2a:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
+  2e:	9017      	str	r0, [sp, #92]	; 0x5c
+  30:	e7ff      	b.n	32 <cortex_m::itm::write_all+0x32>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:36
+
+        if len == 0 {
+  32:	9816      	ldr	r0, [sp, #88]	; 0x58
+  34:	2800      	cmp	r0, #0
+  36:	d104      	bne.n	42 <cortex_m::itm::write_all+0x42>
+  38:	e7ff      	b.n	3a <cortex_m::itm::write_all+0x3a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:37
+            return;
+  3a:	e001      	b.n	40 <cortex_m::itm::write_all+0x40>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:73
+            }
+        }
+
+        write_aligned(port, mem::transmute(slice::from_raw_parts(ptr, len)));
+    }
+}
+  3c:	b01a      	add	sp, #104	; 0x68
+  3e:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:37
+            return;
+  40:	e7fc      	b.n	3c <cortex_m::itm::write_all+0x3c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:41
+        if ptr as usize % 2 == 1 {
+  42:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  44:	900f      	str	r0, [sp, #60]	; 0x3c
+  46:	e7ff      	b.n	48 <cortex_m::itm::write_all+0x48>
+  48:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  4a:	07c1      	lsls	r1, r0, #31
+  4c:	2900      	cmp	r1, #0
+  4e:	d021      	beq.n	94 <cortex_m::itm::write_all+0x94>
+  50:	e7ff      	b.n	52 <cortex_m::itm::write_all+0x52>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
+            while !port.is_fifo_ready() {}
+  52:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  54:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+  58:	900e      	str	r0, [sp, #56]	; 0x38
+  5a:	e005      	b.n	68 <cortex_m::itm::write_all+0x68>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:43
+            port.write_u8(*ptr);
+  5c:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  5e:	9917      	ldr	r1, [sp, #92]	; 0x5c
+  60:	7809      	ldrb	r1, [r1, #0]
+  62:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u8>
+  66:	e004      	b.n	72 <cortex_m::itm::write_all+0x72>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
+            while !port.is_fifo_ready() {}
+  68:	980e      	ldr	r0, [sp, #56]	; 0x38
+  6a:	07c1      	lsls	r1, r0, #31
+  6c:	2900      	cmp	r1, #0
+  6e:	d0f0      	beq.n	52 <cortex_m::itm::write_all+0x52>
+  70:	e7f4      	b.n	5c <cortex_m::itm::write_all+0x5c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:46
+            ptr = ptr.offset(1);
+  72:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  74:	2101      	movs	r1, #1
+  76:	f7ff fffe 	bl	0 <core::ptr::<impl *const T>::offset>
+  7a:	900d      	str	r0, [sp, #52]	; 0x34
+  7c:	e7ff      	b.n	7e <cortex_m::itm::write_all+0x7e>
+  7e:	980d      	ldr	r0, [sp, #52]	; 0x34
+  80:	9017      	str	r0, [sp, #92]	; 0x5c
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:47
+            len -= 1;
+  82:	9916      	ldr	r1, [sp, #88]	; 0x58
+  84:	1e4a      	subs	r2, r1, #1
+  86:	2901      	cmp	r1, #1
+  88:	920c      	str	r2, [sp, #48]	; 0x30
+  8a:	d369      	bcc.n	160 <cortex_m::itm::write_all+0x160>
+  8c:	e7ff      	b.n	8e <cortex_m::itm::write_all+0x8e>
+  8e:	980c      	ldr	r0, [sp, #48]	; 0x30
+  90:	9016      	str	r0, [sp, #88]	; 0x58
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:41
+        if ptr as usize % 2 == 1 {
+  92:	e7ff      	b.n	94 <cortex_m::itm::write_all+0x94>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:51
+        if ptr as usize % 4 == 2 {
+  94:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  96:	900b      	str	r0, [sp, #44]	; 0x2c
+  98:	e7ff      	b.n	9a <cortex_m::itm::write_all+0x9a>
+  9a:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  9c:	f000 0103 	and.w	r1, r0, #3
+  a0:	2902      	cmp	r1, #2
+  a2:	d142      	bne.n	12a <cortex_m::itm::write_all+0x12a>
+  a4:	e7ff      	b.n	a6 <cortex_m::itm::write_all+0xa6>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:52
+            if len > 1 {
+  a6:	9816      	ldr	r0, [sp, #88]	; 0x58
+  a8:	2802      	cmp	r0, #2
+  aa:	d328      	bcc.n	fe <cortex_m::itm::write_all+0xfe>
+  ac:	e7ff      	b.n	ae <cortex_m::itm::write_all+0xae>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
+                while !port.is_fifo_ready() {}
+  ae:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  b0:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+  b4:	900a      	str	r0, [sp, #40]	; 0x28
+  b6:	e007      	b.n	c8 <cortex_m::itm::write_all+0xc8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:55
+                port.write_u16(ptr::read(ptr as *const u16));
+  b8:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  ba:	9917      	ldr	r1, [sp, #92]	; 0x5c
+  bc:	9009      	str	r0, [sp, #36]	; 0x24
+  be:	4608      	mov	r0, r1
+  c0:	f7ff fffe 	bl	0 <core::ptr::read>
+  c4:	9008      	str	r0, [sp, #32]
+  c6:	e004      	b.n	d2 <cortex_m::itm::write_all+0xd2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
+                while !port.is_fifo_ready() {}
+  c8:	980a      	ldr	r0, [sp, #40]	; 0x28
+  ca:	07c1      	lsls	r1, r0, #31
+  cc:	2900      	cmp	r1, #0
+  ce:	d0ee      	beq.n	ae <cortex_m::itm::write_all+0xae>
+  d0:	e7f2      	b.n	b8 <cortex_m::itm::write_all+0xb8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:55
+                port.write_u16(ptr::read(ptr as *const u16));
+  d2:	9809      	ldr	r0, [sp, #36]	; 0x24
+  d4:	9908      	ldr	r1, [sp, #32]
+  d6:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u16>
+  da:	e7ff      	b.n	dc <cortex_m::itm::write_all+0xdc>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:58
+                ptr = ptr.offset(2);
+  dc:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  de:	2102      	movs	r1, #2
+  e0:	f7ff fffe 	bl	0 <core::ptr::<impl *const T>::offset>
+  e4:	9007      	str	r0, [sp, #28]
+  e6:	e7ff      	b.n	e8 <cortex_m::itm::write_all+0xe8>
+  e8:	9807      	ldr	r0, [sp, #28]
+  ea:	9017      	str	r0, [sp, #92]	; 0x5c
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:59
+                len -= 2;
+  ec:	9916      	ldr	r1, [sp, #88]	; 0x58
+  ee:	1e8a      	subs	r2, r1, #2
+  f0:	2902      	cmp	r1, #2
+  f2:	9206      	str	r2, [sp, #24]
+  f4:	d33b      	bcc.n	16e <cortex_m::itm::write_all+0x16e>
+  f6:	e7ff      	b.n	f8 <cortex_m::itm::write_all+0xf8>
+  f8:	9806      	ldr	r0, [sp, #24]
+  fa:	9016      	str	r0, [sp, #88]	; 0x58
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:51
+        if ptr as usize % 4 == 2 {
+  fc:	e015      	b.n	12a <cortex_m::itm::write_all+0x12a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:61
+                if len == 1 {
+  fe:	9816      	ldr	r0, [sp, #88]	; 0x58
+ 100:	2801      	cmp	r0, #1
+ 102:	d111      	bne.n	128 <cortex_m::itm::write_all+0x128>
+ 104:	e7ff      	b.n	106 <cortex_m::itm::write_all+0x106>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:63
+                    while !port.is_fifo_ready() {}
+ 106:	9813      	ldr	r0, [sp, #76]	; 0x4c
+ 108:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+ 10c:	9005      	str	r0, [sp, #20]
+ 10e:	e005      	b.n	11c <cortex_m::itm::write_all+0x11c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:64
+                    port.write_u8(*ptr);
+ 110:	9813      	ldr	r0, [sp, #76]	; 0x4c
+ 112:	9917      	ldr	r1, [sp, #92]	; 0x5c
+ 114:	7809      	ldrb	r1, [r1, #0]
+ 116:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u8>
+ 11a:	e004      	b.n	126 <cortex_m::itm::write_all+0x126>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:63
+                    while !port.is_fifo_ready() {}
+ 11c:	9805      	ldr	r0, [sp, #20]
+ 11e:	07c1      	lsls	r1, r0, #31
+ 120:	2900      	cmp	r1, #0
+ 122:	d0f0      	beq.n	106 <cortex_m::itm::write_all+0x106>
+ 124:	e7f4      	b.n	110 <cortex_m::itm::write_all+0x110>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:61
+                if len == 1 {
+ 126:	e7ff      	b.n	128 <cortex_m::itm::write_all+0x128>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:67
+                return;
+ 128:	e78a      	b.n	40 <cortex_m::itm::write_all+0x40>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:71
+        write_aligned(port, mem::transmute(slice::from_raw_parts(ptr, len)));
+ 12a:	9813      	ldr	r0, [sp, #76]	; 0x4c
+ 12c:	9917      	ldr	r1, [sp, #92]	; 0x5c
+ 12e:	9a16      	ldr	r2, [sp, #88]	; 0x58
+ 130:	9004      	str	r0, [sp, #16]
+ 132:	4608      	mov	r0, r1
+ 134:	4611      	mov	r1, r2
+ 136:	f7ff fffe 	bl	0 <core::slice::from_raw_parts>
+ 13a:	9003      	str	r0, [sp, #12]
+ 13c:	9102      	str	r1, [sp, #8]
+ 13e:	e7ff      	b.n	140 <cortex_m::itm::write_all+0x140>
+ 140:	9803      	ldr	r0, [sp, #12]
+ 142:	9018      	str	r0, [sp, #96]	; 0x60
+ 144:	9902      	ldr	r1, [sp, #8]
+ 146:	9119      	str	r1, [sp, #100]	; 0x64
+ 148:	9918      	ldr	r1, [sp, #96]	; 0x60
+ 14a:	9a19      	ldr	r2, [sp, #100]	; 0x64
+ 14c:	9101      	str	r1, [sp, #4]
+ 14e:	9200      	str	r2, [sp, #0]
+ 150:	e7ff      	b.n	152 <cortex_m::itm::write_all+0x152>
+ 152:	9804      	ldr	r0, [sp, #16]
+ 154:	9901      	ldr	r1, [sp, #4]
+ 156:	9a00      	ldr	r2, [sp, #0]
+ 158:	f7ff fffe 	bl	0 <cortex_m::itm::write_all>
+ 15c:	e7ff      	b.n	15e <cortex_m::itm::write_all+0x15e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:73
+}
+ 15e:	e76d      	b.n	3c <cortex_m::itm::write_all+0x3c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:47
+            len -= 1;
+ 160:	f240 0000 	movw	r0, #0
+ 164:	f2c0 0000 	movt	r0, #0
+ 168:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 16c:	defe      	udf	#254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:59
+                len -= 2;
+ 16e:	f240 0000 	movw	r0, #0
+ 172:	f2c0 0000 	movt	r0, #0
+ 176:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 17a:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m3itm13write_aligned17h3ef9f96c2d4b2a37E:
+
+00000000 <cortex_m::itm::write_aligned>:
+_ZN8cortex_m3itm13write_aligned17h3ef9f96c2d4b2a37E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:89
+/// itm::write_aligned(&itm.stim[0], &buffer);
+///
+/// // Or equivalently
+/// itm::write_aligned(&itm.stim[0], &Aligned(*b"Hello, world!\n"));
+/// ```
+pub fn write_aligned(port: &mut Stim, buffer: &Aligned<A4, [u8]>) {
+   0:	b580      	push	{r7, lr}
+   2:	b09e      	sub	sp, #120	; 0x78
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9017      	str	r0, [sp, #92]	; 0x5c
+   c:	9118      	str	r1, [sp, #96]	; 0x60
+   e:	9219      	str	r2, [sp, #100]	; 0x64
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:91
+    unsafe {
+        let len = buffer.len();
+  10:	9818      	ldr	r0, [sp, #96]	; 0x60
+  12:	9919      	ldr	r1, [sp, #100]	; 0x64
+  14:	9316      	str	r3, [sp, #88]	; 0x58
+  16:	f8cd c054 	str.w	ip, [sp, #84]	; 0x54
+  1a:	f8cd e050 	str.w	lr, [sp, #80]	; 0x50
+  1e:	f7ff fffe 	bl	0 <<aligned::Aligned<A,T> as core::ops::deref::Deref>::deref>
+  22:	9013      	str	r0, [sp, #76]	; 0x4c
+  24:	9112      	str	r1, [sp, #72]	; 0x48
+  26:	e7ff      	b.n	28 <cortex_m::itm::write_aligned+0x28>
+  28:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  2a:	9912      	ldr	r1, [sp, #72]	; 0x48
+  2c:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  30:	901a      	str	r0, [sp, #104]	; 0x68
+  32:	e7ff      	b.n	34 <cortex_m::itm::write_aligned+0x34>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:93
+
+        if len == 0 {
+  34:	981a      	ldr	r0, [sp, #104]	; 0x68
+  36:	2800      	cmp	r0, #0
+  38:	d103      	bne.n	42 <cortex_m::itm::write_aligned+0x42>
+  3a:	e7ff      	b.n	3c <cortex_m::itm::write_aligned+0x3c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:94
+            return;
+  3c:	e7ff      	b.n	3e <cortex_m::itm::write_aligned+0x3e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:122
+        if left == 1 {
+            while !port.is_fifo_ready() {}
+            port.write_u8(*ptr);
+        }
+    }
+}
+  3e:	b01e      	add	sp, #120	; 0x78
+  40:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:97
+        let split = len & !0b11;
+  42:	981a      	ldr	r0, [sp, #104]	; 0x68
+  44:	f020 0003 	bic.w	r0, r0, #3
+  48:	901b      	str	r0, [sp, #108]	; 0x6c
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:99
+            port,
+  4a:	9817      	ldr	r0, [sp, #92]	; 0x5c
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:100
+            slice::from_raw_parts(buffer.as_ptr() as *const u32, split >> 2),
+  4c:	9918      	ldr	r1, [sp, #96]	; 0x60
+  4e:	9a19      	ldr	r2, [sp, #100]	; 0x64
+  50:	9011      	str	r0, [sp, #68]	; 0x44
+  52:	4608      	mov	r0, r1
+  54:	4611      	mov	r1, r2
+  56:	f7ff fffe 	bl	0 <<aligned::Aligned<A,T> as core::ops::deref::Deref>::deref>
+  5a:	9010      	str	r0, [sp, #64]	; 0x40
+  5c:	910f      	str	r1, [sp, #60]	; 0x3c
+  5e:	e7ff      	b.n	60 <cortex_m::itm::write_aligned+0x60>
+  60:	9810      	ldr	r0, [sp, #64]	; 0x40
+  62:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  64:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
+  68:	900e      	str	r0, [sp, #56]	; 0x38
+  6a:	e7ff      	b.n	6c <cortex_m::itm::write_aligned+0x6c>
+  6c:	980e      	ldr	r0, [sp, #56]	; 0x38
+  6e:	991b      	ldr	r1, [sp, #108]	; 0x6c
+  70:	0889      	lsrs	r1, r1, #2
+  72:	900d      	str	r0, [sp, #52]	; 0x34
+  74:	910c      	str	r1, [sp, #48]	; 0x30
+  76:	e7ff      	b.n	78 <cortex_m::itm::write_aligned+0x78>
+  78:	980d      	ldr	r0, [sp, #52]	; 0x34
+  7a:	990c      	ldr	r1, [sp, #48]	; 0x30
+  7c:	f7ff fffe 	bl	0 <core::slice::from_raw_parts>
+  80:	900b      	str	r0, [sp, #44]	; 0x2c
+  82:	910a      	str	r1, [sp, #40]	; 0x28
+  84:	e7ff      	b.n	86 <cortex_m::itm::write_aligned+0x86>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:98
+        write_words(
+  86:	9811      	ldr	r0, [sp, #68]	; 0x44
+  88:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  8a:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+  8c:	f7ff fffe 	bl	0 <cortex_m::itm::write_aligned>
+  90:	e7ff      	b.n	92 <cortex_m::itm::write_aligned+0x92>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:104
+        let mut left = len & 0b11;
+  92:	981a      	ldr	r0, [sp, #104]	; 0x68
+  94:	f000 0003 	and.w	r0, r0, #3
+  98:	901c      	str	r0, [sp, #112]	; 0x70
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:105
+        let mut ptr = buffer.as_ptr().offset(split as isize);
+  9a:	9818      	ldr	r0, [sp, #96]	; 0x60
+  9c:	9919      	ldr	r1, [sp, #100]	; 0x64
+  9e:	f7ff fffe 	bl	0 <<aligned::Aligned<A,T> as core::ops::deref::Deref>::deref>
+  a2:	9009      	str	r0, [sp, #36]	; 0x24
+  a4:	9108      	str	r1, [sp, #32]
+  a6:	e7ff      	b.n	a8 <cortex_m::itm::write_aligned+0xa8>
+  a8:	9809      	ldr	r0, [sp, #36]	; 0x24
+  aa:	9908      	ldr	r1, [sp, #32]
+  ac:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
+  b0:	9007      	str	r0, [sp, #28]
+  b2:	e7ff      	b.n	b4 <cortex_m::itm::write_aligned+0xb4>
+  b4:	991b      	ldr	r1, [sp, #108]	; 0x6c
+  b6:	9807      	ldr	r0, [sp, #28]
+  b8:	f7ff fffe 	bl	0 <core::ptr::<impl *const T>::offset>
+  bc:	901d      	str	r0, [sp, #116]	; 0x74
+  be:	e7ff      	b.n	c0 <cortex_m::itm::write_aligned+0xc0>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:108
+        if left > 1 {
+  c0:	981c      	ldr	r0, [sp, #112]	; 0x70
+  c2:	2802      	cmp	r0, #2
+  c4:	d328      	bcc.n	118 <cortex_m::itm::write_aligned+0x118>
+  c6:	e7ff      	b.n	c8 <cortex_m::itm::write_aligned+0xc8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:109
+            while !port.is_fifo_ready() {}
+  c8:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  ca:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+  ce:	9006      	str	r0, [sp, #24]
+  d0:	e007      	b.n	e2 <cortex_m::itm::write_aligned+0xe2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:110
+            port.write_u16(ptr::read(ptr as *const u16));
+  d2:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  d4:	991d      	ldr	r1, [sp, #116]	; 0x74
+  d6:	9005      	str	r0, [sp, #20]
+  d8:	4608      	mov	r0, r1
+  da:	f7ff fffe 	bl	0 <core::ptr::read>
+  de:	9004      	str	r0, [sp, #16]
+  e0:	e004      	b.n	ec <cortex_m::itm::write_aligned+0xec>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:109
+            while !port.is_fifo_ready() {}
+  e2:	9806      	ldr	r0, [sp, #24]
+  e4:	07c1      	lsls	r1, r0, #31
+  e6:	2900      	cmp	r1, #0
+  e8:	d0ee      	beq.n	c8 <cortex_m::itm::write_aligned+0xc8>
+  ea:	e7f2      	b.n	d2 <cortex_m::itm::write_aligned+0xd2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:110
+            port.write_u16(ptr::read(ptr as *const u16));
+  ec:	9805      	ldr	r0, [sp, #20]
+  ee:	9904      	ldr	r1, [sp, #16]
+  f0:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u16>
+  f4:	e7ff      	b.n	f6 <cortex_m::itm::write_aligned+0xf6>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:112
+            ptr = ptr.offset(2);
+  f6:	981d      	ldr	r0, [sp, #116]	; 0x74
+  f8:	2102      	movs	r1, #2
+  fa:	f7ff fffe 	bl	0 <core::ptr::<impl *const T>::offset>
+  fe:	9003      	str	r0, [sp, #12]
+ 100:	e7ff      	b.n	102 <cortex_m::itm::write_aligned+0x102>
+ 102:	9803      	ldr	r0, [sp, #12]
+ 104:	901d      	str	r0, [sp, #116]	; 0x74
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:113
+            left -= 2;
+ 106:	991c      	ldr	r1, [sp, #112]	; 0x70
+ 108:	1e8a      	subs	r2, r1, #2
+ 10a:	2902      	cmp	r1, #2
+ 10c:	9202      	str	r2, [sp, #8]
+ 10e:	d319      	bcc.n	144 <cortex_m::itm::write_aligned+0x144>
+ 110:	e7ff      	b.n	112 <cortex_m::itm::write_aligned+0x112>
+ 112:	9802      	ldr	r0, [sp, #8]
+ 114:	901c      	str	r0, [sp, #112]	; 0x70
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:108
+        if left > 1 {
+ 116:	e7ff      	b.n	118 <cortex_m::itm::write_aligned+0x118>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:117
+        if left == 1 {
+ 118:	981c      	ldr	r0, [sp, #112]	; 0x70
+ 11a:	2801      	cmp	r0, #1
+ 11c:	d111      	bne.n	142 <cortex_m::itm::write_aligned+0x142>
+ 11e:	e7ff      	b.n	120 <cortex_m::itm::write_aligned+0x120>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:118
+            while !port.is_fifo_ready() {}
+ 120:	9817      	ldr	r0, [sp, #92]	; 0x5c
+ 122:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::is_fifo_ready>
+ 126:	9001      	str	r0, [sp, #4]
+ 128:	e005      	b.n	136 <cortex_m::itm::write_aligned+0x136>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:119
+            port.write_u8(*ptr);
+ 12a:	9817      	ldr	r0, [sp, #92]	; 0x5c
+ 12c:	991d      	ldr	r1, [sp, #116]	; 0x74
+ 12e:	7809      	ldrb	r1, [r1, #0]
+ 130:	f7ff fffe 	bl	0 <cortex_m::peripheral::itm::Stim::write_u8>
+ 134:	e004      	b.n	140 <cortex_m::itm::write_aligned+0x140>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:118
+            while !port.is_fifo_ready() {}
+ 136:	9801      	ldr	r0, [sp, #4]
+ 138:	07c1      	lsls	r1, r0, #31
+ 13a:	2900      	cmp	r1, #0
+ 13c:	d0f0      	beq.n	120 <cortex_m::itm::write_aligned+0x120>
+ 13e:	e7f4      	b.n	12a <cortex_m::itm::write_aligned+0x12a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:117
+        if left == 1 {
+ 140:	e7ff      	b.n	142 <cortex_m::itm::write_aligned+0x142>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:122
+}
+ 142:	e77c      	b.n	3e <cortex_m::itm::write_aligned+0x3e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:113
+            left -= 2;
+ 144:	f240 0000 	movw	r0, #0
+ 148:	f2c0 0000 	movt	r0, #0
+ 14c:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 150:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m3itm9write_fmt17h8d0f8c7ccbf63e53E:
+
+00000000 <cortex_m::itm::write_fmt>:
+_ZN8cortex_m3itm9write_fmt17h8d0f8c7ccbf63e53E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:125
+
+/// Writes `fmt::Arguments` to the ITM `port`
+pub fn write_fmt(port: &mut Stim, args: fmt::Arguments) {
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	b08e      	sub	sp, #56	; 0x38
+   6:	460a      	mov	r2, r1
+   8:	4603      	mov	r3, r0
+   a:	9006      	str	r0, [sp, #24]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:128
+    use core::fmt::Write;
+
+    Port(port).write_fmt(args).ok();
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9007      	str	r0, [sp, #28]
+  10:	a808      	add	r0, sp, #32
+  12:	4684      	mov	ip, r0
+  14:	e891 41f0 	ldmia.w	r1, {r4, r5, r6, r7, r8, lr}
+  18:	e88c 41f0 	stmia.w	ip, {r4, r5, r6, r7, r8, lr}
+  1c:	a907      	add	r1, sp, #28
+  1e:	9005      	str	r0, [sp, #20]
+  20:	4608      	mov	r0, r1
+  22:	9905      	ldr	r1, [sp, #20]
+  24:	9204      	str	r2, [sp, #16]
+  26:	9303      	str	r3, [sp, #12]
+  28:	f7ff fffe 	bl	0 <cortex_m::itm::write_fmt>
+  2c:	9002      	str	r0, [sp, #8]
+  2e:	e7ff      	b.n	30 <cortex_m::itm::write_fmt+0x30>
+  30:	9802      	ldr	r0, [sp, #8]
+  32:	f000 0001 	and.w	r0, r0, #1
+  36:	f7ff fffe 	bl	0 <core::result::Result<T,E>::ok>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <cortex_m::itm::write_fmt+0x3e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:129
+}
+  3e:	b00e      	add	sp, #56	; 0x38
+  40:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text._ZN8cortex_m3itm9write_str17h6f48a24f1a763420E:
+
+00000000 <cortex_m::itm::write_str>:
+_ZN8cortex_m3itm9write_str17h6f48a24f1a763420E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:132
+
+/// Writes a string to the ITM `port`
+pub fn write_str(port: &mut Stim, string: &str) {
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9007      	str	r0, [sp, #28]
+   c:	9108      	str	r1, [sp, #32]
+   e:	9209      	str	r2, [sp, #36]	; 0x24
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:133
+    write_all(port, string.as_bytes())
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	9908      	ldr	r1, [sp, #32]
+  14:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  16:	910a      	str	r1, [sp, #40]	; 0x28
+  18:	920b      	str	r2, [sp, #44]	; 0x2c
+_ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2153
+  1a:	990a      	ldr	r1, [sp, #40]	; 0x28
+  1c:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  1e:	910c      	str	r1, [sp, #48]	; 0x30
+  20:	920d      	str	r2, [sp, #52]	; 0x34
+  22:	990c      	ldr	r1, [sp, #48]	; 0x30
+  24:	9a0d      	ldr	r2, [sp, #52]	; 0x34
+_ZN8cortex_m3itm9write_str17h6f48a24f1a763420E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:133
+  26:	9306      	str	r3, [sp, #24]
+  28:	f8cd c014 	str.w	ip, [sp, #20]
+  2c:	f8cd e010 	str.w	lr, [sp, #16]
+  30:	9003      	str	r0, [sp, #12]
+  32:	9102      	str	r1, [sp, #8]
+  34:	9201      	str	r2, [sp, #4]
+  36:	e7ff      	b.n	38 <cortex_m::itm::write_str+0x38>
+  38:	9803      	ldr	r0, [sp, #12]
+  3a:	9902      	ldr	r1, [sp, #8]
+  3c:	9a01      	ldr	r2, [sp, #4]
+  3e:	f7ff fffe 	bl	0 <cortex_m::itm::write_str>
+  42:	e7ff      	b.n	44 <cortex_m::itm::write_str+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:134
+}
+  44:	b00e      	add	sp, #56	; 0x38
+  46:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.3.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.3
+0000089c l       .debug_str	00000000 
+00000821 l       .debug_str	00000000 
+00000828 l       .debug_str	00000000 
+0000082d l       .debug_str	00000000 
+00000833 l       .debug_str	00000000 
+00000835 l       .debug_str	00000000 
+0000083a l       .debug_str	00000000 
+0000083e l       .debug_str	00000000 
+0000084c l       .debug_str	00000000 
+00000856 l       .debug_str	00000000 
+0000085a l       .debug_str	00000000 
+00000862 l       .debug_str	00000000 
+0000086a l       .debug_str	00000000 
+0000087e l       .debug_str	00000000 
+0000088a l       .debug_str	00000000 
+00000895 l       .debug_str	00000000 
+000008a2 l       .debug_str	00000000 
+000008a6 l       .debug_str	00000000 
+000008ac l       .debug_str	00000000 
+000008b2 l       .debug_str	00000000 
+000008b5 l       .debug_str	00000000 
+000008c4 l       .debug_str	00000000 
+000008cb l       .debug_str	00000000 
+000008cf l       .debug_str	00000000 
+000008d8 l       .debug_str	00000000 
+000008e4 l       .debug_str	00000000 
+000008fd l       .debug_str	00000000 
+00000902 l       .debug_str	00000000 
+00000913 l       .debug_str	00000000 
+0000091d l       .debug_str	00000000 
+0000097b l       .debug_str	00000000 
+00000986 l       .debug_str	00000000 
+000009a3 l       .debug_str	00000000 
+000009a7 l       .debug_str	00000000 
+000009af l       .debug_str	00000000 
+000009c6 l       .debug_str	00000000 
+000009ea l       .debug_str	00000000 
+00000a06 l       .debug_str	00000000 
+00000a0b l       .debug_str	00000000 
+00000a14 l       .debug_str	00000000 
+00000a1b l       .debug_str	00000000 
+00000a34 l       .debug_str	00000000 
+00000a3e l       .debug_str	00000000 
+00000a58 l       .debug_str	00000000 
+00000a63 l       .debug_str	00000000 
+00000a77 l       .debug_str	00000000 
+00000a80 l       .debug_str	00000000 
+00000a8b l       .debug_str	00000000 
+00000a97 l       .debug_str	00000000 
+00000a9d l       .debug_str	00000000 
+00000aa7 l       .debug_str	00000000 
+00000aad l       .debug_str	00000000 
+00000ab8 l       .debug_str	00000000 
+00000abf l       .debug_str	00000000 
+00000aca l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000eb l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+000000f4 l       .debug_str	00000000 
+000000fd l       .debug_str	00000000 
+00000106 l       .debug_str	00000000 
+0000010e l       .debug_str	00000000 
+00000111 l       .debug_str	00000000 
+0000011c l       .debug_str	00000000 
+00000129 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000133 l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000144 l       .debug_str	00000000 
+0000014e l       .debug_str	00000000 
+00000153 l       .debug_str	00000000 
+00000158 l       .debug_str	00000000 
+0000015f l       .debug_str	00000000 
+00000162 l       .debug_str	00000000 
+00000166 l       .debug_str	00000000 
+0000016d l       .debug_str	00000000 
+00000171 l       .debug_str	00000000 
+00000174 l       .debug_str	00000000 
+00000177 l       .debug_str	00000000 
+0000017c l       .debug_str	00000000 
+00000182 l       .debug_str	00000000 
+00000189 l       .debug_str	00000000 
+00000191 l       .debug_str	00000000 
+0000019b l       .debug_str	00000000 
+000001a0 l       .debug_str	00000000 
+000001a8 l       .debug_str	00000000 
+000001b1 l       .debug_str	00000000 
+000001f0 l       .debug_str	00000000 
+00000230 l       .debug_str	00000000 
+00000236 l       .debug_str	00000000 
+00000276 l       .debug_str	00000000 
+0000027c l       .debug_str	00000000 
+000002bb l       .debug_str	00000000 
+000002c0 l       .debug_str	00000000 
+00000307 l       .debug_str	00000000 
+00000315 l       .debug_str	00000000 
+0000031a l       .debug_str	00000000 
+00000363 l       .debug_str	00000000 
+00000373 l       .debug_str	00000000 
+000003b2 l       .debug_str	00000000 
+000003b9 l       .debug_str	00000000 
+000003f8 l       .debug_str	00000000 
+000003ff l       .debug_str	00000000 
+00000440 l       .debug_str	00000000 
+0000044a l       .debug_str	00000000 
+00000490 l       .debug_str	00000000 
+0000049e l       .debug_str	00000000 
+00000505 l       .debug_str	00000000 
+0000056d l       .debug_str	00000000 
+00000570 l       .debug_str	00000000 
+000005d5 l       .debug_str	00000000 
+0000063d l       .debug_str	00000000 
+000006a2 l       .debug_str	00000000 
+00000709 l       .debug_str	00000000 
+0000076d l       .debug_str	00000000 
+00000772 l       .debug_str	00000000 
+00000798 l       .debug_str	00000000 
+000007bc l       .debug_str	00000000 
+000007e0 l       .debug_str	00000000 
+00000803 l       .debug_str	00000000 
+00000805 l       .debug_str	00000000 
+0000080b l       .debug_str	00000000 
+00000810 l       .debug_str	00000000 
+00000815 l       .debug_str	00000000 
+0000081b l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.0	00000001 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.0
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.1	00000001 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.1
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.10	00000006 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.10
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.2	00000007 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.2
+00000000 l     O .rodata.cst4	00000004 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.3
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.4	00000010 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.4
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.5	0000000c .Lanon.47ec667a0bc1b7c8ea34dd77573de939.5
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.6	0000000a .Lanon.47ec667a0bc1b7c8ea34dd77573de939.6
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.7	00000003 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.7
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.8	00000003 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.8
+00000000 l     O .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.9	00000009 .Lanon.47ec667a0bc1b7c8ea34dd77573de939.9
+00000000 l     F .text._ZN74_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..cmp..PartialEq$GT$2eq17heedb4816c5d781dfE	00000068 <cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq
+00000000 l     F .text._ZN75_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..cmp..PartialEq$GT$2eq17h40fed3007942d90bE	00000068 <cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq
+00000000 l     F .text._ZN75_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..cmp..PartialEq$GT$2eq17h22945fbe0c7d4ff9E	00000068 <cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq
+00000000 l    d  .text._ZN8cortex_m8register7control7Control4bits17hf0788b6e1665cb7bE	00000000 .text._ZN8cortex_m8register7control7Control4bits17hf0788b6e1665cb7bE
+00000000 l    d  .text._ZN8cortex_m8register7control7Control5npriv17h5c7f3543a06ccbd4E	00000000 .text._ZN8cortex_m8register7control7Control5npriv17h5c7f3543a06ccbd4E
+00000000 l    d  .text._ZN8cortex_m8register7control7Control5spsel17h7961486ad778c016E	00000000 .text._ZN8cortex_m8register7control7Control5spsel17h7961486ad778c016E
+00000000 l    d  .text._ZN8cortex_m8register7control7Control4fpca17h83b21fc506438b86E	00000000 .text._ZN8cortex_m8register7control7Control4fpca17h83b21fc506438b86E
+00000000 l    d  .text._ZN8cortex_m8register7control5Npriv13is_privileged17h58561cd39c81840fE	00000000 .text._ZN8cortex_m8register7control5Npriv13is_privileged17h58561cd39c81840fE
+00000000 l    d  .text._ZN8cortex_m8register7control5Npriv15is_unprivileged17h4f1d698bbfe3fe26E	00000000 .text._ZN8cortex_m8register7control5Npriv15is_unprivileged17h4f1d698bbfe3fe26E
+00000000 l    d  .text._ZN8cortex_m8register7control5Spsel6is_msp17hb1e214ffe74eabd0E	00000000 .text._ZN8cortex_m8register7control5Spsel6is_msp17hb1e214ffe74eabd0E
+00000000 l    d  .text._ZN8cortex_m8register7control5Spsel6is_psp17h66de709aece1176fE	00000000 .text._ZN8cortex_m8register7control5Spsel6is_psp17h66de709aece1176fE
+00000000 l    d  .text._ZN8cortex_m8register7control4Fpca9is_active17hf7b5ea84bb29ad44E	00000000 .text._ZN8cortex_m8register7control4Fpca9is_active17hf7b5ea84bb29ad44E
+00000000 l    d  .text._ZN8cortex_m8register7control4Fpca13is_not_active17h3e21221cb80f590aE	00000000 .text._ZN8cortex_m8register7control4Fpca13is_not_active17h3e21221cb80f590aE
+00000000 l    d  .text._ZN73_$LT$cortex_m..register..control..Control$u20$as$u20$core..fmt..Debug$GT$3fmt17h75fcf3a3ba182d8cE	00000000 .text._ZN73_$LT$cortex_m..register..control..Control$u20$as$u20$core..fmt..Debug$GT$3fmt17h75fcf3a3ba182d8cE
+00000000 l    d  .text._ZN75_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..cmp..PartialEq$GT$2eq17h40fed3007942d90bE	00000000 .text._ZN75_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..cmp..PartialEq$GT$2eq17h40fed3007942d90bE
+00000000 l    d  .text._ZN71_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..fmt..Debug$GT$3fmt17h156a84f677dcdb63E	00000000 .text._ZN71_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..fmt..Debug$GT$3fmt17h156a84f677dcdb63E
+00000000 l    d  .text._ZN75_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..cmp..PartialEq$GT$2eq17h22945fbe0c7d4ff9E	00000000 .text._ZN75_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..cmp..PartialEq$GT$2eq17h22945fbe0c7d4ff9E
+00000000 l    d  .text._ZN71_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..fmt..Debug$GT$3fmt17h0b9bbb3a03ce7ccdE	00000000 .text._ZN71_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..fmt..Debug$GT$3fmt17h0b9bbb3a03ce7ccdE
+00000000 l    d  .text._ZN74_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..cmp..PartialEq$GT$2eq17heedb4816c5d781dfE	00000000 .text._ZN74_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..cmp..PartialEq$GT$2eq17heedb4816c5d781dfE
+00000000 l    d  .text._ZN70_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..fmt..Debug$GT$3fmt17h15ebe5adbc976b7eE	00000000 .text._ZN70_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..fmt..Debug$GT$3fmt17h15ebe5adbc976b7eE
+00000000 l    d  .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.4	00000000 .rodata..Lanon.47ec667a0bc1b7c8ea34dd77573de939.4
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::builders::DebugStruct::field
+00000000         *UND*	00000000 core::fmt::builders::DebugStruct::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000         *UND*	00000000 core::fmt::Formatter::debug_struct
+00000000         *UND*	00000000 core::ptr::real_drop_in_place
+00000000 g     F .text._ZN70_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..fmt..Debug$GT$3fmt17h15ebe5adbc976b7eE	00000078 <cortex_m::register::control::Fpca as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN71_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..fmt..Debug$GT$3fmt17h156a84f677dcdb63E	00000078 <cortex_m::register::control::Npriv as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN71_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..fmt..Debug$GT$3fmt17h0b9bbb3a03ce7ccdE	00000078 <cortex_m::register::control::Spsel as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN73_$LT$cortex_m..register..control..Control$u20$as$u20$core..fmt..Debug$GT$3fmt17h75fcf3a3ba182d8cE	00000072 <cortex_m::register::control::Control as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN8cortex_m8register7control4Fpca13is_not_active17h3e21221cb80f590aE	00000028 cortex_m::register::control::Fpca::is_not_active
+00000000 g     F .text._ZN8cortex_m8register7control4Fpca9is_active17hf7b5ea84bb29ad44E	00000028 cortex_m::register::control::Fpca::is_active
+00000000 g     F .text._ZN8cortex_m8register7control5Npriv13is_privileged17h58561cd39c81840fE	00000028 cortex_m::register::control::Npriv::is_privileged
+00000000 g     F .text._ZN8cortex_m8register7control5Npriv15is_unprivileged17h4f1d698bbfe3fe26E	00000028 cortex_m::register::control::Npriv::is_unprivileged
+00000000 g     F .text._ZN8cortex_m8register7control5Spsel6is_msp17hb1e214ffe74eabd0E	00000028 cortex_m::register::control::Spsel::is_msp
+00000000 g     F .text._ZN8cortex_m8register7control5Spsel6is_psp17h66de709aece1176fE	00000028 cortex_m::register::control::Spsel::is_psp
+00000000 g     F .text._ZN8cortex_m8register7control7Control4bits17hf0788b6e1665cb7bE	00000010 cortex_m::register::control::Control::bits
+00000000 g     F .text._ZN8cortex_m8register7control7Control4fpca17h83b21fc506438b86E	0000003a cortex_m::register::control::Control::fpca
+00000000 g     F .text._ZN8cortex_m8register7control7Control5npriv17h5c7f3543a06ccbd4E	0000003a cortex_m::register::control::Control::npriv
+00000000 g     F .text._ZN8cortex_m8register7control7Control5spsel17h7961486ad778c016E	0000003a cortex_m::register::control::Control::spsel
+
+
+
+Disassembly of section .text._ZN8cortex_m8register7control7Control4bits17hf0788b6e1665cb7bE:
+
+00000000 <cortex_m::register::control::Control::bits>:
+_ZN8cortex_m8register7control7Control4bits17hf0788b6e1665cb7bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:11
+    bits: u32,
+}
+
+impl Control {
+    /// Returns the contents of the register as raw bits
+    pub fn bits(&self) -> u32 {
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:12
+        self.bits
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	6800      	ldr	r0, [r0, #0]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:13
+    }
+   a:	9100      	str	r1, [sp, #0]
+   c:	b002      	add	sp, #8
+   e:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m8register7control7Control5npriv17h5c7f3543a06ccbd4E:
+
+00000000 <cortex_m::register::control::Control::npriv>:
+_ZN8cortex_m8register7control7Control5npriv17h5c7f3543a06ccbd4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:16
+
+    /// Thread mode privilege level
+    pub fn npriv(&self) -> Npriv {
+   0:	b085      	sub	sp, #20
+   2:	4601      	mov	r1, r0
+   4:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:17
+        if self.bits & (1 << 0) == (1 << 0) {
+   6:	9803      	ldr	r0, [sp, #12]
+   8:	6800      	ldr	r0, [r0, #0]
+   a:	9102      	str	r1, [sp, #8]
+   c:	9001      	str	r0, [sp, #4]
+   e:	e7ff      	b.n	10 <cortex_m::register::control::Control::npriv+0x10>
+  10:	9801      	ldr	r0, [sp, #4]
+  12:	f000 0101 	and.w	r1, r0, #1
+  16:	9100      	str	r1, [sp, #0]
+  18:	e7ff      	b.n	1a <cortex_m::register::control::Control::npriv+0x1a>
+  1a:	9800      	ldr	r0, [sp, #0]
+  1c:	2801      	cmp	r0, #1
+  1e:	d104      	bne.n	2a <cortex_m::register::control::Control::npriv+0x2a>
+  20:	e7ff      	b.n	22 <cortex_m::register::control::Control::npriv+0x22>
+  22:	2001      	movs	r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:18
+            Npriv::Unprivileged
+  24:	f88d 0013 	strb.w	r0, [sp, #19]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:17
+        if self.bits & (1 << 0) == (1 << 0) {
+  28:	e003      	b.n	32 <cortex_m::register::control::Control::npriv+0x32>
+  2a:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:20
+        } else {
+            Npriv::Privileged
+  2c:	f88d 0013 	strb.w	r0, [sp, #19]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:17
+        if self.bits & (1 << 0) == (1 << 0) {
+  30:	e7ff      	b.n	32 <cortex_m::register::control::Control::npriv+0x32>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:22
+        }
+    }
+  32:	f89d 0013 	ldrb.w	r0, [sp, #19]
+  36:	b005      	add	sp, #20
+  38:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m8register7control7Control5spsel17h7961486ad778c016E:
+
+00000000 <cortex_m::register::control::Control::spsel>:
+_ZN8cortex_m8register7control7Control5spsel17h7961486ad778c016E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:25
+
+    /// Currently active stack pointer
+    pub fn spsel(&self) -> Spsel {
+   0:	b085      	sub	sp, #20
+   2:	4601      	mov	r1, r0
+   4:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:26
+        if self.bits & (1 << 1) == (1 << 1) {
+   6:	9803      	ldr	r0, [sp, #12]
+   8:	6800      	ldr	r0, [r0, #0]
+   a:	9102      	str	r1, [sp, #8]
+   c:	9001      	str	r0, [sp, #4]
+   e:	e7ff      	b.n	10 <cortex_m::register::control::Control::spsel+0x10>
+  10:	9801      	ldr	r0, [sp, #4]
+  12:	f000 0102 	and.w	r1, r0, #2
+  16:	9100      	str	r1, [sp, #0]
+  18:	e7ff      	b.n	1a <cortex_m::register::control::Control::spsel+0x1a>
+  1a:	9800      	ldr	r0, [sp, #0]
+  1c:	2802      	cmp	r0, #2
+  1e:	d104      	bne.n	2a <cortex_m::register::control::Control::spsel+0x2a>
+  20:	e7ff      	b.n	22 <cortex_m::register::control::Control::spsel+0x22>
+  22:	2001      	movs	r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:27
+            Spsel::Psp
+  24:	f88d 0013 	strb.w	r0, [sp, #19]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:26
+        if self.bits & (1 << 1) == (1 << 1) {
+  28:	e003      	b.n	32 <cortex_m::register::control::Control::spsel+0x32>
+  2a:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:29
+        } else {
+            Spsel::Msp
+  2c:	f88d 0013 	strb.w	r0, [sp, #19]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:26
+        if self.bits & (1 << 1) == (1 << 1) {
+  30:	e7ff      	b.n	32 <cortex_m::register::control::Control::spsel+0x32>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:31
+        }
+    }
+  32:	f89d 0013 	ldrb.w	r0, [sp, #19]
+  36:	b005      	add	sp, #20
+  38:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m8register7control7Control4fpca17h83b21fc506438b86E:
+
+00000000 <cortex_m::register::control::Control::fpca>:
+_ZN8cortex_m8register7control7Control4fpca17h83b21fc506438b86E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:34
+
+    /// Whether context floating-point is currently active
+    pub fn fpca(&self) -> Fpca {
+   0:	b085      	sub	sp, #20
+   2:	4601      	mov	r1, r0
+   4:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:35
+        if self.bits & (1 << 2) == (1 << 2) {
+   6:	9803      	ldr	r0, [sp, #12]
+   8:	6800      	ldr	r0, [r0, #0]
+   a:	9102      	str	r1, [sp, #8]
+   c:	9001      	str	r0, [sp, #4]
+   e:	e7ff      	b.n	10 <cortex_m::register::control::Control::fpca+0x10>
+  10:	9801      	ldr	r0, [sp, #4]
+  12:	f000 0104 	and.w	r1, r0, #4
+  16:	9100      	str	r1, [sp, #0]
+  18:	e7ff      	b.n	1a <cortex_m::register::control::Control::fpca+0x1a>
+  1a:	9800      	ldr	r0, [sp, #0]
+  1c:	2804      	cmp	r0, #4
+  1e:	d104      	bne.n	2a <cortex_m::register::control::Control::fpca+0x2a>
+  20:	e7ff      	b.n	22 <cortex_m::register::control::Control::fpca+0x22>
+  22:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:36
+            Fpca::Active
+  24:	f88d 0013 	strb.w	r0, [sp, #19]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:35
+        if self.bits & (1 << 2) == (1 << 2) {
+  28:	e003      	b.n	32 <cortex_m::register::control::Control::fpca+0x32>
+  2a:	2001      	movs	r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:38
+        } else {
+            Fpca::NotActive
+  2c:	f88d 0013 	strb.w	r0, [sp, #19]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:35
+        if self.bits & (1 << 2) == (1 << 2) {
+  30:	e7ff      	b.n	32 <cortex_m::register::control::Control::fpca+0x32>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:40
+        }
+    }
+  32:	f89d 0013 	ldrb.w	r0, [sp, #19]
+  36:	b005      	add	sp, #20
+  38:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m8register7control5Npriv13is_privileged17h58561cd39c81840fE:
+
+00000000 <cortex_m::register::control::Npriv::is_privileged>:
+_ZN8cortex_m8register7control5Npriv13is_privileged17h58561cd39c81840fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:54
+    Unprivileged,
+}
+
+impl Npriv {
+    /// Is in privileged thread mode?
+    pub fn is_privileged(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:55
+        *self == Npriv::Privileged
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::control::Npriv::is_privileged>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::control::Npriv::is_privileged+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:56
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register7control5Npriv15is_unprivileged17h4f1d698bbfe3fe26E:
+
+00000000 <cortex_m::register::control::Npriv::is_unprivileged>:
+_ZN8cortex_m8register7control5Npriv15is_unprivileged17h4f1d698bbfe3fe26E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:59
+
+    /// Is in unprivileged thread mode?
+    pub fn is_unprivileged(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:60
+        *self == Npriv::Unprivileged
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::control::Npriv::is_unprivileged>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::control::Npriv::is_unprivileged+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:61
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register7control5Spsel6is_msp17hb1e214ffe74eabd0E:
+
+00000000 <cortex_m::register::control::Spsel::is_msp>:
+_ZN8cortex_m8register7control5Spsel6is_msp17hb1e214ffe74eabd0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:75
+    Psp,
+}
+
+impl Spsel {
+    /// Is MSP the current stack pointer?
+    pub fn is_msp(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:76
+        *self == Spsel::Msp
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::control::Spsel::is_msp>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::control::Spsel::is_msp+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:77
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register7control5Spsel6is_psp17h66de709aece1176fE:
+
+00000000 <cortex_m::register::control::Spsel::is_psp>:
+_ZN8cortex_m8register7control5Spsel6is_psp17h66de709aece1176fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:80
+
+    /// Is PSP the current stack pointer?
+    pub fn is_psp(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:81
+        *self == Spsel::Psp
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::control::Spsel::is_psp>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::control::Spsel::is_psp+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:82
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register7control4Fpca9is_active17hf7b5ea84bb29ad44E:
+
+00000000 <cortex_m::register::control::Fpca::is_active>:
+_ZN8cortex_m8register7control4Fpca9is_active17hf7b5ea84bb29ad44E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:96
+    NotActive,
+}
+
+impl Fpca {
+    /// Is a floating-point context active?
+    pub fn is_active(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:97
+        *self == Fpca::Active
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::control::Fpca::is_active>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::control::Fpca::is_active+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:98
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register7control4Fpca13is_not_active17h3e21221cb80f590aE:
+
+00000000 <cortex_m::register::control::Fpca::is_not_active>:
+_ZN8cortex_m8register7control4Fpca13is_not_active17h3e21221cb80f590aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:101
+
+    /// Is a floating-point context not active?
+    pub fn is_not_active(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:102
+        *self == Fpca::NotActive
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::control::Fpca::is_not_active>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::control::Fpca::is_not_active+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:103
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN73_$LT$cortex_m..register..control..Control$u20$as$u20$core..fmt..Debug$GT$3fmt17h75fcf3a3ba182d8cE:
+
+00000000 <<cortex_m::register::control::Control as core::fmt::Debug>::fmt>:
+_ZN73_$LT$cortex_m..register..control..Control$u20$as$u20$core..fmt..Debug$GT$3fmt17h75fcf3a3ba182d8cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:4
+#[derive(Clone, Copy, Debug)]
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:6
+    bits: u32,
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9008      	str	r0, [sp, #32]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:4
+#[derive(Clone, Copy, Debug)]
+  10:	9907      	ldr	r1, [sp, #28]
+  12:	f240 0000 	movw	r0, #0
+  16:	f2c0 0000 	movt	r0, #0
+  1a:	f10d 0c24 	add.w	ip, sp, #36	; 0x24
+  1e:	f04f 0e07 	mov.w	lr, #7
+  22:	9005      	str	r0, [sp, #20]
+  24:	4660      	mov	r0, ip
+  26:	f8dd c014 	ldr.w	ip, [sp, #20]
+  2a:	9204      	str	r2, [sp, #16]
+  2c:	4662      	mov	r2, ip
+  2e:	9303      	str	r3, [sp, #12]
+  30:	4673      	mov	r3, lr
+  32:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_struct>
+  36:	e7ff      	b.n	38 <<cortex_m::register::control::Control as core::fmt::Debug>::fmt+0x38>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:6
+    bits: u32,
+  38:	9808      	ldr	r0, [sp, #32]
+  3a:	900b      	str	r0, [sp, #44]	; 0x2c
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:4
+#[derive(Clone, Copy, Debug)]
+  3c:	f240 0000 	movw	r0, #0
+  40:	f2c0 0000 	movt	r0, #0
+  44:	4669      	mov	r1, sp
+  46:	6008      	str	r0, [r1, #0]
+  48:	f240 0100 	movw	r1, #0
+  4c:	f2c0 0100 	movt	r1, #0
+  50:	a809      	add	r0, sp, #36	; 0x24
+  52:	2204      	movs	r2, #4
+  54:	ab0b      	add	r3, sp, #44	; 0x2c
+  56:	f7ff fffe 	bl	0 <core::fmt::builders::DebugStruct::field>
+  5a:	9002      	str	r0, [sp, #8]
+  5c:	e7ff      	b.n	5e <<cortex_m::register::control::Control as core::fmt::Debug>::fmt+0x5e>
+  5e:	a809      	add	r0, sp, #36	; 0x24
+  60:	f7ff fffe 	bl	0 <core::fmt::builders::DebugStruct::finish>
+  64:	9001      	str	r0, [sp, #4]
+  66:	e7ff      	b.n	68 <<cortex_m::register::control::Control as core::fmt::Debug>::fmt+0x68>
+  68:	9801      	ldr	r0, [sp, #4]
+  6a:	f000 0001 	and.w	r0, r0, #1
+  6e:	b00c      	add	sp, #48	; 0x30
+  70:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN75_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..cmp..PartialEq$GT$2eq17h40fed3007942d90bE:
+
+00000000 <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq>:
+_ZN75_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..cmp..PartialEq$GT$2eq17h40fed3007942d90bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:44
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b092      	sub	sp, #72	; 0x48
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9007      	str	r0, [sp, #28]
+   8:	9108      	str	r1, [sp, #32]
+   a:	9807      	ldr	r0, [sp, #28]
+   c:	7800      	ldrb	r0, [r0, #0]
+   e:	2100      	movs	r1, #0
+  10:	910f      	str	r1, [sp, #60]	; 0x3c
+  12:	900e      	str	r0, [sp, #56]	; 0x38
+  14:	980e      	ldr	r0, [sp, #56]	; 0x38
+  16:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  18:	9206      	str	r2, [sp, #24]
+  1a:	9305      	str	r3, [sp, #20]
+  1c:	9004      	str	r0, [sp, #16]
+  1e:	9103      	str	r1, [sp, #12]
+  20:	e7ff      	b.n	22 <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq+0x22>
+  22:	9804      	ldr	r0, [sp, #16]
+  24:	900a      	str	r0, [sp, #40]	; 0x28
+  26:	9908      	ldr	r1, [sp, #32]
+  28:	7809      	ldrb	r1, [r1, #0]
+  2a:	2200      	movs	r2, #0
+  2c:	9211      	str	r2, [sp, #68]	; 0x44
+  2e:	9110      	str	r1, [sp, #64]	; 0x40
+  30:	9910      	ldr	r1, [sp, #64]	; 0x40
+  32:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  34:	9102      	str	r1, [sp, #8]
+  36:	9201      	str	r2, [sp, #4]
+  38:	e7ff      	b.n	3a <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq+0x3a>
+  3a:	9802      	ldr	r0, [sp, #8]
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+  3e:	990a      	ldr	r1, [sp, #40]	; 0x28
+  40:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  42:	4291      	cmp	r1, r2
+  44:	d108      	bne.n	58 <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq+0x58>
+  46:	e7ff      	b.n	48 <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq+0x48>
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9908      	ldr	r1, [sp, #32]
+  4c:	900c      	str	r0, [sp, #48]	; 0x30
+  4e:	910d      	str	r1, [sp, #52]	; 0x34
+  50:	2001      	movs	r0, #1
+  52:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  56:	e003      	b.n	60 <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq+0x60>
+  58:	2000      	movs	r0, #0
+  5a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  5e:	e7ff      	b.n	60 <<cortex_m::register::control::Npriv as core::cmp::PartialEq>::eq+0x60>
+  60:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  64:	b012      	add	sp, #72	; 0x48
+  66:	4770      	bx	lr
+
+Disassembly of section .text._ZN71_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..fmt..Debug$GT$3fmt17h156a84f677dcdb63E:
+
+00000000 <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt>:
+_ZN71_$LT$cortex_m..register..control..Npriv$u20$as$u20$core..fmt..Debug$GT$3fmt17h156a84f677dcdb63E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:44
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9007      	str	r0, [sp, #28]
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c1      	lsls	r1, r0, #31
+  16:	2900      	cmp	r1, #0
+  18:	9203      	str	r2, [sp, #12]
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	9001      	str	r0, [sp, #4]
+  1e:	d005      	beq.n	2c <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x2c>
+  20:	e7ff      	b.n	22 <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x22>
+  22:	9801      	ldr	r0, [sp, #4]
+  24:	2801      	cmp	r0, #1
+  26:	d012      	beq.n	4e <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x4e>
+  28:	e7ff      	b.n	2a <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x2a>
+  2a:	defe      	udf	#254	; 0xfe
+  2c:	9905      	ldr	r1, [sp, #20]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a808      	add	r0, sp, #32
+  38:	230a      	movs	r3, #10
+  3a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  3e:	e7ff      	b.n	40 <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x40>
+  40:	a808      	add	r0, sp, #32
+  42:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  46:	f88d 001b 	strb.w	r0, [sp, #27]
+  4a:	e7ff      	b.n	4c <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x4c>
+  4c:	e010      	b.n	70 <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x70>
+  4e:	9905      	ldr	r1, [sp, #20]
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	a80b      	add	r0, sp, #44	; 0x2c
+  5a:	230c      	movs	r3, #12
+  5c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  60:	e7ff      	b.n	62 <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x62>
+  62:	a80b      	add	r0, sp, #44	; 0x2c
+  64:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  68:	f88d 001b 	strb.w	r0, [sp, #27]
+  6c:	e7ff      	b.n	6e <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x6e>
+  6e:	e7ff      	b.n	70 <<cortex_m::register::control::Npriv as core::fmt::Debug>::fmt+0x70>
+  70:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN75_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..cmp..PartialEq$GT$2eq17h22945fbe0c7d4ff9E:
+
+00000000 <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq>:
+_ZN75_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..cmp..PartialEq$GT$2eq17h22945fbe0c7d4ff9E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:65
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b092      	sub	sp, #72	; 0x48
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9007      	str	r0, [sp, #28]
+   8:	9108      	str	r1, [sp, #32]
+   a:	9807      	ldr	r0, [sp, #28]
+   c:	7800      	ldrb	r0, [r0, #0]
+   e:	2100      	movs	r1, #0
+  10:	910f      	str	r1, [sp, #60]	; 0x3c
+  12:	900e      	str	r0, [sp, #56]	; 0x38
+  14:	980e      	ldr	r0, [sp, #56]	; 0x38
+  16:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  18:	9206      	str	r2, [sp, #24]
+  1a:	9305      	str	r3, [sp, #20]
+  1c:	9004      	str	r0, [sp, #16]
+  1e:	9103      	str	r1, [sp, #12]
+  20:	e7ff      	b.n	22 <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq+0x22>
+  22:	9804      	ldr	r0, [sp, #16]
+  24:	900a      	str	r0, [sp, #40]	; 0x28
+  26:	9908      	ldr	r1, [sp, #32]
+  28:	7809      	ldrb	r1, [r1, #0]
+  2a:	2200      	movs	r2, #0
+  2c:	9211      	str	r2, [sp, #68]	; 0x44
+  2e:	9110      	str	r1, [sp, #64]	; 0x40
+  30:	9910      	ldr	r1, [sp, #64]	; 0x40
+  32:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  34:	9102      	str	r1, [sp, #8]
+  36:	9201      	str	r2, [sp, #4]
+  38:	e7ff      	b.n	3a <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq+0x3a>
+  3a:	9802      	ldr	r0, [sp, #8]
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+  3e:	990a      	ldr	r1, [sp, #40]	; 0x28
+  40:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  42:	4291      	cmp	r1, r2
+  44:	d108      	bne.n	58 <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq+0x58>
+  46:	e7ff      	b.n	48 <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq+0x48>
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9908      	ldr	r1, [sp, #32]
+  4c:	900c      	str	r0, [sp, #48]	; 0x30
+  4e:	910d      	str	r1, [sp, #52]	; 0x34
+  50:	2001      	movs	r0, #1
+  52:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  56:	e003      	b.n	60 <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq+0x60>
+  58:	2000      	movs	r0, #0
+  5a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  5e:	e7ff      	b.n	60 <<cortex_m::register::control::Spsel as core::cmp::PartialEq>::eq+0x60>
+  60:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  64:	b012      	add	sp, #72	; 0x48
+  66:	4770      	bx	lr
+
+Disassembly of section .text._ZN71_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..fmt..Debug$GT$3fmt17h0b9bbb3a03ce7ccdE:
+
+00000000 <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt>:
+_ZN71_$LT$cortex_m..register..control..Spsel$u20$as$u20$core..fmt..Debug$GT$3fmt17h0b9bbb3a03ce7ccdE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:65
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9007      	str	r0, [sp, #28]
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c1      	lsls	r1, r0, #31
+  16:	2900      	cmp	r1, #0
+  18:	9203      	str	r2, [sp, #12]
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	9001      	str	r0, [sp, #4]
+  1e:	d005      	beq.n	2c <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x2c>
+  20:	e7ff      	b.n	22 <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x22>
+  22:	9801      	ldr	r0, [sp, #4]
+  24:	2801      	cmp	r0, #1
+  26:	d012      	beq.n	4e <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x4e>
+  28:	e7ff      	b.n	2a <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x2a>
+  2a:	defe      	udf	#254	; 0xfe
+  2c:	9905      	ldr	r1, [sp, #20]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a808      	add	r0, sp, #32
+  38:	2303      	movs	r3, #3
+  3a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  3e:	e7ff      	b.n	40 <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x40>
+  40:	a808      	add	r0, sp, #32
+  42:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  46:	f88d 001b 	strb.w	r0, [sp, #27]
+  4a:	e7ff      	b.n	4c <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x4c>
+  4c:	e010      	b.n	70 <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x70>
+  4e:	9905      	ldr	r1, [sp, #20]
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	a80b      	add	r0, sp, #44	; 0x2c
+  5a:	2303      	movs	r3, #3
+  5c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  60:	e7ff      	b.n	62 <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x62>
+  62:	a80b      	add	r0, sp, #44	; 0x2c
+  64:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  68:	f88d 001b 	strb.w	r0, [sp, #27]
+  6c:	e7ff      	b.n	6e <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x6e>
+  6e:	e7ff      	b.n	70 <<cortex_m::register::control::Spsel as core::fmt::Debug>::fmt+0x70>
+  70:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN74_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..cmp..PartialEq$GT$2eq17heedb4816c5d781dfE:
+
+00000000 <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq>:
+_ZN74_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..cmp..PartialEq$GT$2eq17heedb4816c5d781dfE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:86
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b092      	sub	sp, #72	; 0x48
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9007      	str	r0, [sp, #28]
+   8:	9108      	str	r1, [sp, #32]
+   a:	9807      	ldr	r0, [sp, #28]
+   c:	7800      	ldrb	r0, [r0, #0]
+   e:	2100      	movs	r1, #0
+  10:	910f      	str	r1, [sp, #60]	; 0x3c
+  12:	900e      	str	r0, [sp, #56]	; 0x38
+  14:	980e      	ldr	r0, [sp, #56]	; 0x38
+  16:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  18:	9206      	str	r2, [sp, #24]
+  1a:	9305      	str	r3, [sp, #20]
+  1c:	9004      	str	r0, [sp, #16]
+  1e:	9103      	str	r1, [sp, #12]
+  20:	e7ff      	b.n	22 <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq+0x22>
+  22:	9804      	ldr	r0, [sp, #16]
+  24:	900a      	str	r0, [sp, #40]	; 0x28
+  26:	9908      	ldr	r1, [sp, #32]
+  28:	7809      	ldrb	r1, [r1, #0]
+  2a:	2200      	movs	r2, #0
+  2c:	9211      	str	r2, [sp, #68]	; 0x44
+  2e:	9110      	str	r1, [sp, #64]	; 0x40
+  30:	9910      	ldr	r1, [sp, #64]	; 0x40
+  32:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  34:	9102      	str	r1, [sp, #8]
+  36:	9201      	str	r2, [sp, #4]
+  38:	e7ff      	b.n	3a <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq+0x3a>
+  3a:	9802      	ldr	r0, [sp, #8]
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+  3e:	990a      	ldr	r1, [sp, #40]	; 0x28
+  40:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  42:	4291      	cmp	r1, r2
+  44:	d108      	bne.n	58 <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq+0x58>
+  46:	e7ff      	b.n	48 <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq+0x48>
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9908      	ldr	r1, [sp, #32]
+  4c:	900c      	str	r0, [sp, #48]	; 0x30
+  4e:	910d      	str	r1, [sp, #52]	; 0x34
+  50:	2001      	movs	r0, #1
+  52:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  56:	e003      	b.n	60 <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq+0x60>
+  58:	2000      	movs	r0, #0
+  5a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  5e:	e7ff      	b.n	60 <<cortex_m::register::control::Fpca as core::cmp::PartialEq>::eq+0x60>
+  60:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  64:	b012      	add	sp, #72	; 0x48
+  66:	4770      	bx	lr
+
+Disassembly of section .text._ZN70_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..fmt..Debug$GT$3fmt17h15ebe5adbc976b7eE:
+
+00000000 <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt>:
+_ZN70_$LT$cortex_m..register..control..Fpca$u20$as$u20$core..fmt..Debug$GT$3fmt17h15ebe5adbc976b7eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/control.rs:86
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9007      	str	r0, [sp, #28]
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c1      	lsls	r1, r0, #31
+  16:	2900      	cmp	r1, #0
+  18:	9203      	str	r2, [sp, #12]
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	9001      	str	r0, [sp, #4]
+  1e:	d005      	beq.n	2c <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x2c>
+  20:	e7ff      	b.n	22 <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x22>
+  22:	9801      	ldr	r0, [sp, #4]
+  24:	2801      	cmp	r0, #1
+  26:	d012      	beq.n	4e <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x4e>
+  28:	e7ff      	b.n	2a <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x2a>
+  2a:	defe      	udf	#254	; 0xfe
+  2c:	9905      	ldr	r1, [sp, #20]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a808      	add	r0, sp, #32
+  38:	2306      	movs	r3, #6
+  3a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  3e:	e7ff      	b.n	40 <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x40>
+  40:	a808      	add	r0, sp, #32
+  42:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  46:	f88d 001b 	strb.w	r0, [sp, #27]
+  4a:	e7ff      	b.n	4c <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x4c>
+  4c:	e010      	b.n	70 <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x70>
+  4e:	9905      	ldr	r1, [sp, #20]
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	a80b      	add	r0, sp, #44	; 0x2c
+  5a:	2309      	movs	r3, #9
+  5c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  60:	e7ff      	b.n	62 <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x62>
+  62:	a80b      	add	r0, sp, #44	; 0x2c
+  64:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  68:	f88d 001b 	strb.w	r0, [sp, #27]
+  6c:	e7ff      	b.n	6e <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x6e>
+  6e:	e7ff      	b.n	70 <<cortex_m::register::control::Fpca as core::fmt::Debug>::fmt+0x70>
+  70:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.4.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.4
+000001f6 l       .debug_str	00000000 
+00000166 l       .debug_str	00000000 
+00000170 l       .debug_str	00000000 
+00000177 l       .debug_str	00000000 
+0000017d l       .debug_str	00000000 
+00000186 l       .debug_str	00000000 
+000001d1 l       .debug_str	00000000 
+000001da l       .debug_str	00000000 
+000001df l       .debug_str	00000000 
+000001e3 l       .debug_str	00000000 
+000001ed l       .debug_str	00000000 
+000001f2 l       .debug_str	00000000 
+000001fa l       .debug_str	00000000 
+000001ff l       .debug_str	00000000 
+00000206 l       .debug_str	00000000 
+0000020b l       .debug_str	00000000 
+00000210 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000ff l       .debug_str	00000000 
+0000014e l       .debug_str	00000000 
+0000015a l       .debug_str	00000000 
+00000163 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.3	00000018 .Lanon.2da621181d690ef0a1b1244e9b301a89.3
+00000000 l     O .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.5	00000010 .Lanon.2da621181d690ef0a1b1244e9b301a89.5
+00000000 l     F .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$8len_utf817h05617b3f53e1306fE	0000004c core::char::methods::<impl char>::len_utf8
+00000000 l    d  .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$11encode_utf817hd75d086f6d872e9eE	00000000 .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$11encode_utf817hd75d086f6d872e9eE
+00000000 l    d  .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$8len_utf817h05617b3f53e1306fE	00000000 .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$8len_utf817h05617b3f53e1306fE
+00000000 l    d  .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.0	00000000 .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.0
+00000000 l    d  .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.1	00000000 .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.1
+00000000 l    d  .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.2	00000000 .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.2
+00000000 l    d  .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.4	00000000 .rodata..Lanon.2da621181d690ef0a1b1244e9b301a89.4
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::ArgumentV1::new
+00000000         *UND*	00000000 core::fmt::ArgumentV1::new
+00000000         *UND*	00000000 core::fmt::num::imp::<impl core::fmt::Display for usize>::fmt
+00000000         *UND*	00000000 core::fmt::num::<impl core::fmt::UpperHex for u32>::fmt
+00000000         *UND*	00000000 .hidden core::fmt::Arguments::new_v1
+00000000         *UND*	00000000 .hidden core::str::from_utf8_unchecked_mut
+00000000         *UND*	00000000 .hidden core::char::convert::from_u32_unchecked
+00000000 g     F .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$11encode_utf817hd75d086f6d872e9eE	0000033a .hidden core::char::methods::<impl char>::encode_utf8
+00000000         *UND*	00000000 core::slice::<impl [T]>::get_unchecked_mut
+00000000         *UND*	00000000 core::slice::<impl [T]>::get_unchecked_mut
+00000000         *UND*	00000000 core::slice::<impl [T]>::len
+00000000         *UND*	00000000 core::slice::<impl [T]>::is_empty
+00000000         *UND*	00000000 core::panicking::panic_fmt
+
+
+
+Disassembly of section .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$11encode_utf817hd75d086f6d872e9eE:
+
+00000000 <core::char::methods::<impl char>::encode_utf8>:
+_ZN4core4char7methods22_$LT$impl$u20$char$GT$11encode_utf817hd75d086f6d872e9eE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:436
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b0c2      	sub	sp, #264	; 0x108
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9027      	str	r0, [sp, #156]	; 0x9c
+   c:	9128      	str	r1, [sp, #160]	; 0xa0
+   e:	9229      	str	r2, [sp, #164]	; 0xa4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:437
+  10:	9827      	ldr	r0, [sp, #156]	; 0x9c
+  12:	902a      	str	r0, [sp, #168]	; 0xa8
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:440
+  14:	982a      	ldr	r0, [sp, #168]	; 0xa8
+  16:	2880      	cmp	r0, #128	; 0x80
+  18:	9326      	str	r3, [sp, #152]	; 0x98
+  1a:	f8cd c094 	str.w	ip, [sp, #148]	; 0x94
+  1e:	f8cd e090 	str.w	lr, [sp, #144]	; 0x90
+  22:	d304      	bcc.n	2e <core::char::methods::<impl char>::encode_utf8+0x2e>
+  24:	e7ff      	b.n	26 <core::char::methods::<impl char>::encode_utf8+0x26>
+  26:	2000      	movs	r0, #0
+  28:	f88d 00b1 	strb.w	r0, [sp, #177]	; 0xb1
+  2c:	e005      	b.n	3a <core::char::methods::<impl char>::encode_utf8+0x3a>
+  2e:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  30:	9929      	ldr	r1, [sp, #164]	; 0xa4
+  32:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::is_empty>
+  36:	9023      	str	r0, [sp, #140]	; 0x8c
+  38:	e005      	b.n	46 <core::char::methods::<impl char>::encode_utf8+0x46>
+  3a:	f89d 00b1 	ldrb.w	r0, [sp, #177]	; 0xb1
+  3e:	07c0      	lsls	r0, r0, #31
+  40:	2800      	cmp	r0, #0
+  42:	d106      	bne.n	52 <core::char::methods::<impl char>::encode_utf8+0x52>
+  44:	e017      	b.n	76 <core::char::methods::<impl char>::encode_utf8+0x76>
+  46:	2001      	movs	r0, #1
+  48:	9923      	ldr	r1, [sp, #140]	; 0x8c
+  4a:	4388      	bics	r0, r1
+  4c:	f88d 00b1 	strb.w	r0, [sp, #177]	; 0xb1
+  50:	e7f3      	b.n	3a <core::char::methods::<impl char>::encode_utf8+0x3a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:441
+  52:	982a      	ldr	r0, [sp, #168]	; 0xa8
+  54:	9928      	ldr	r1, [sp, #160]	; 0xa0
+  56:	9a29      	ldr	r2, [sp, #164]	; 0xa4
+  58:	2300      	movs	r3, #0
+  5a:	9022      	str	r0, [sp, #136]	; 0x88
+  5c:	4608      	mov	r0, r1
+  5e:	4611      	mov	r1, r2
+  60:	461a      	mov	r2, r3
+  62:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+  66:	9021      	str	r0, [sp, #132]	; 0x84
+  68:	e7ff      	b.n	6a <core::char::methods::<impl char>::encode_utf8+0x6a>
+  6a:	9822      	ldr	r0, [sp, #136]	; 0x88
+  6c:	9921      	ldr	r1, [sp, #132]	; 0x84
+  6e:	7008      	strb	r0, [r1, #0]
+  70:	2201      	movs	r2, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:442
+  72:	922b      	str	r2, [sp, #172]	; 0xac
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:440
+  74:	e14c      	b.n	310 <core::char::methods::<impl char>::encode_utf8+0x310>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:443
+  76:	982a      	ldr	r0, [sp, #168]	; 0xa8
+  78:	f5b0 6f00 	cmp.w	r0, #2048	; 0x800
+  7c:	d304      	bcc.n	88 <core::char::methods::<impl char>::encode_utf8+0x88>
+  7e:	e7ff      	b.n	80 <core::char::methods::<impl char>::encode_utf8+0x80>
+  80:	2000      	movs	r0, #0
+  82:	f88d 00b2 	strb.w	r0, [sp, #178]	; 0xb2
+  86:	e005      	b.n	94 <core::char::methods::<impl char>::encode_utf8+0x94>
+  88:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  8a:	9929      	ldr	r1, [sp, #164]	; 0xa4
+  8c:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  90:	9020      	str	r0, [sp, #128]	; 0x80
+  92:	e005      	b.n	a0 <core::char::methods::<impl char>::encode_utf8+0xa0>
+  94:	f89d 00b2 	ldrb.w	r0, [sp, #178]	; 0xb2
+  98:	07c0      	lsls	r0, r0, #31
+  9a:	2800      	cmp	r0, #0
+  9c:	d108      	bne.n	b0 <core::char::methods::<impl char>::encode_utf8+0xb0>
+  9e:	e02e      	b.n	fe <core::char::methods::<impl char>::encode_utf8+0xfe>
+  a0:	2000      	movs	r0, #0
+  a2:	9920      	ldr	r1, [sp, #128]	; 0x80
+  a4:	2901      	cmp	r1, #1
+  a6:	bf88      	it	hi
+  a8:	2001      	movhi	r0, #1
+  aa:	f88d 00b2 	strb.w	r0, [sp, #178]	; 0xb2
+  ae:	e7f1      	b.n	94 <core::char::methods::<impl char>::encode_utf8+0x94>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:444
+  b0:	982a      	ldr	r0, [sp, #168]	; 0xa8
+  b2:	f3c0 1084 	ubfx	r0, r0, #6, #5
+  b6:	9928      	ldr	r1, [sp, #160]	; 0xa0
+  b8:	9a29      	ldr	r2, [sp, #164]	; 0xa4
+  ba:	2300      	movs	r3, #0
+  bc:	901f      	str	r0, [sp, #124]	; 0x7c
+  be:	4608      	mov	r0, r1
+  c0:	4611      	mov	r1, r2
+  c2:	461a      	mov	r2, r3
+  c4:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+  c8:	901e      	str	r0, [sp, #120]	; 0x78
+  ca:	e7ff      	b.n	cc <core::char::methods::<impl char>::encode_utf8+0xcc>
+  cc:	981f      	ldr	r0, [sp, #124]	; 0x7c
+  ce:	f040 01c0 	orr.w	r1, r0, #192	; 0xc0
+  d2:	9a1e      	ldr	r2, [sp, #120]	; 0x78
+  d4:	7011      	strb	r1, [r2, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:445
+  d6:	992a      	ldr	r1, [sp, #168]	; 0xa8
+  d8:	f001 013f 	and.w	r1, r1, #63	; 0x3f
+  dc:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  de:	9b29      	ldr	r3, [sp, #164]	; 0xa4
+  e0:	2201      	movs	r2, #1
+  e2:	911d      	str	r1, [sp, #116]	; 0x74
+  e4:	4619      	mov	r1, r3
+  e6:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+  ea:	901c      	str	r0, [sp, #112]	; 0x70
+  ec:	e7ff      	b.n	ee <core::char::methods::<impl char>::encode_utf8+0xee>
+  ee:	981d      	ldr	r0, [sp, #116]	; 0x74
+  f0:	f040 0180 	orr.w	r1, r0, #128	; 0x80
+  f4:	9a1c      	ldr	r2, [sp, #112]	; 0x70
+  f6:	7011      	strb	r1, [r2, #0]
+  f8:	2102      	movs	r1, #2
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:446
+  fa:	912b      	str	r1, [sp, #172]	; 0xac
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:443
+  fc:	e107      	b.n	30e <core::char::methods::<impl char>::encode_utf8+0x30e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:447
+  fe:	982a      	ldr	r0, [sp, #168]	; 0xa8
+ 100:	f5b0 3f80 	cmp.w	r0, #65536	; 0x10000
+ 104:	d304      	bcc.n	110 <core::char::methods::<impl char>::encode_utf8+0x110>
+ 106:	e7ff      	b.n	108 <core::char::methods::<impl char>::encode_utf8+0x108>
+ 108:	2000      	movs	r0, #0
+ 10a:	f88d 00b3 	strb.w	r0, [sp, #179]	; 0xb3
+ 10e:	e005      	b.n	11c <core::char::methods::<impl char>::encode_utf8+0x11c>
+ 110:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 112:	9929      	ldr	r1, [sp, #164]	; 0xa4
+ 114:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+ 118:	901b      	str	r0, [sp, #108]	; 0x6c
+ 11a:	e005      	b.n	128 <core::char::methods::<impl char>::encode_utf8+0x128>
+ 11c:	f89d 00b3 	ldrb.w	r0, [sp, #179]	; 0xb3
+ 120:	07c0      	lsls	r0, r0, #31
+ 122:	2800      	cmp	r0, #0
+ 124:	d108      	bne.n	138 <core::char::methods::<impl char>::encode_utf8+0x138>
+ 126:	e03f      	b.n	1a8 <core::char::methods::<impl char>::encode_utf8+0x1a8>
+ 128:	2000      	movs	r0, #0
+ 12a:	991b      	ldr	r1, [sp, #108]	; 0x6c
+ 12c:	2902      	cmp	r1, #2
+ 12e:	bf88      	it	hi
+ 130:	2001      	movhi	r0, #1
+ 132:	f88d 00b3 	strb.w	r0, [sp, #179]	; 0xb3
+ 136:	e7f1      	b.n	11c <core::char::methods::<impl char>::encode_utf8+0x11c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:448
+ 138:	982a      	ldr	r0, [sp, #168]	; 0xa8
+ 13a:	f3c0 3003 	ubfx	r0, r0, #12, #4
+ 13e:	9928      	ldr	r1, [sp, #160]	; 0xa0
+ 140:	9a29      	ldr	r2, [sp, #164]	; 0xa4
+ 142:	2300      	movs	r3, #0
+ 144:	901a      	str	r0, [sp, #104]	; 0x68
+ 146:	4608      	mov	r0, r1
+ 148:	4611      	mov	r1, r2
+ 14a:	461a      	mov	r2, r3
+ 14c:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 150:	9019      	str	r0, [sp, #100]	; 0x64
+ 152:	e7ff      	b.n	154 <core::char::methods::<impl char>::encode_utf8+0x154>
+ 154:	981a      	ldr	r0, [sp, #104]	; 0x68
+ 156:	f040 01e0 	orr.w	r1, r0, #224	; 0xe0
+ 15a:	9a19      	ldr	r2, [sp, #100]	; 0x64
+ 15c:	7011      	strb	r1, [r2, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:449
+ 15e:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 160:	f3c1 1185 	ubfx	r1, r1, #6, #6
+ 164:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 166:	9b29      	ldr	r3, [sp, #164]	; 0xa4
+ 168:	2201      	movs	r2, #1
+ 16a:	9118      	str	r1, [sp, #96]	; 0x60
+ 16c:	4619      	mov	r1, r3
+ 16e:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 172:	9017      	str	r0, [sp, #92]	; 0x5c
+ 174:	e7ff      	b.n	176 <core::char::methods::<impl char>::encode_utf8+0x176>
+ 176:	9818      	ldr	r0, [sp, #96]	; 0x60
+ 178:	f040 0180 	orr.w	r1, r0, #128	; 0x80
+ 17c:	9a17      	ldr	r2, [sp, #92]	; 0x5c
+ 17e:	7011      	strb	r1, [r2, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:450
+ 180:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 182:	f001 013f 	and.w	r1, r1, #63	; 0x3f
+ 186:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 188:	9b29      	ldr	r3, [sp, #164]	; 0xa4
+ 18a:	2202      	movs	r2, #2
+ 18c:	9116      	str	r1, [sp, #88]	; 0x58
+ 18e:	4619      	mov	r1, r3
+ 190:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 194:	9015      	str	r0, [sp, #84]	; 0x54
+ 196:	e7ff      	b.n	198 <core::char::methods::<impl char>::encode_utf8+0x198>
+ 198:	9816      	ldr	r0, [sp, #88]	; 0x58
+ 19a:	f040 0180 	orr.w	r1, r0, #128	; 0x80
+ 19e:	9a15      	ldr	r2, [sp, #84]	; 0x54
+ 1a0:	7011      	strb	r1, [r2, #0]
+ 1a2:	2103      	movs	r1, #3
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:451
+ 1a4:	912b      	str	r1, [sp, #172]	; 0xac
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:447
+ 1a6:	e0b1      	b.n	30c <core::char::methods::<impl char>::encode_utf8+0x30c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:452
+ 1a8:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 1aa:	9929      	ldr	r1, [sp, #164]	; 0xa4
+ 1ac:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+ 1b0:	9014      	str	r0, [sp, #80]	; 0x50
+ 1b2:	e7ff      	b.n	1b4 <core::char::methods::<impl char>::encode_utf8+0x1b4>
+ 1b4:	9814      	ldr	r0, [sp, #80]	; 0x50
+ 1b6:	2804      	cmp	r0, #4
+ 1b8:	d349      	bcc.n	24e <core::char::methods::<impl char>::encode_utf8+0x24e>
+ 1ba:	e7ff      	b.n	1bc <core::char::methods::<impl char>::encode_utf8+0x1bc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:453
+ 1bc:	982a      	ldr	r0, [sp, #168]	; 0xa8
+ 1be:	f3c0 4082 	ubfx	r0, r0, #18, #3
+ 1c2:	9928      	ldr	r1, [sp, #160]	; 0xa0
+ 1c4:	9a29      	ldr	r2, [sp, #164]	; 0xa4
+ 1c6:	2300      	movs	r3, #0
+ 1c8:	9013      	str	r0, [sp, #76]	; 0x4c
+ 1ca:	4608      	mov	r0, r1
+ 1cc:	4611      	mov	r1, r2
+ 1ce:	461a      	mov	r2, r3
+ 1d0:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 1d4:	9012      	str	r0, [sp, #72]	; 0x48
+ 1d6:	e7ff      	b.n	1d8 <core::char::methods::<impl char>::encode_utf8+0x1d8>
+ 1d8:	9813      	ldr	r0, [sp, #76]	; 0x4c
+ 1da:	f040 01f0 	orr.w	r1, r0, #240	; 0xf0
+ 1de:	9a12      	ldr	r2, [sp, #72]	; 0x48
+ 1e0:	7011      	strb	r1, [r2, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:454
+ 1e2:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 1e4:	f3c1 3105 	ubfx	r1, r1, #12, #6
+ 1e8:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 1ea:	9b29      	ldr	r3, [sp, #164]	; 0xa4
+ 1ec:	2201      	movs	r2, #1
+ 1ee:	9111      	str	r1, [sp, #68]	; 0x44
+ 1f0:	4619      	mov	r1, r3
+ 1f2:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 1f6:	9010      	str	r0, [sp, #64]	; 0x40
+ 1f8:	e7ff      	b.n	1fa <core::char::methods::<impl char>::encode_utf8+0x1fa>
+ 1fa:	9811      	ldr	r0, [sp, #68]	; 0x44
+ 1fc:	f040 0180 	orr.w	r1, r0, #128	; 0x80
+ 200:	9a10      	ldr	r2, [sp, #64]	; 0x40
+ 202:	7011      	strb	r1, [r2, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:455
+ 204:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 206:	f3c1 1185 	ubfx	r1, r1, #6, #6
+ 20a:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 20c:	9b29      	ldr	r3, [sp, #164]	; 0xa4
+ 20e:	2202      	movs	r2, #2
+ 210:	910f      	str	r1, [sp, #60]	; 0x3c
+ 212:	4619      	mov	r1, r3
+ 214:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 218:	900e      	str	r0, [sp, #56]	; 0x38
+ 21a:	e7ff      	b.n	21c <core::char::methods::<impl char>::encode_utf8+0x21c>
+ 21c:	980f      	ldr	r0, [sp, #60]	; 0x3c
+ 21e:	f040 0180 	orr.w	r1, r0, #128	; 0x80
+ 222:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+ 224:	7011      	strb	r1, [r2, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:456
+ 226:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 228:	f001 013f 	and.w	r1, r1, #63	; 0x3f
+ 22c:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 22e:	9b29      	ldr	r3, [sp, #164]	; 0xa4
+ 230:	2203      	movs	r2, #3
+ 232:	910d      	str	r1, [sp, #52]	; 0x34
+ 234:	4619      	mov	r1, r3
+ 236:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 23a:	900c      	str	r0, [sp, #48]	; 0x30
+ 23c:	e7ff      	b.n	23e <core::char::methods::<impl char>::encode_utf8+0x23e>
+ 23e:	980d      	ldr	r0, [sp, #52]	; 0x34
+ 240:	f040 0180 	orr.w	r1, r0, #128	; 0x80
+ 244:	9a0c      	ldr	r2, [sp, #48]	; 0x30
+ 246:	7011      	strb	r1, [r2, #0]
+ 248:	2104      	movs	r1, #4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:457
+ 24a:	912b      	str	r1, [sp, #172]	; 0xac
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:447
+ 24c:	e05e      	b.n	30c <core::char::methods::<impl char>::encode_utf8+0x30c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:460
+ 24e:	982a      	ldr	r0, [sp, #168]	; 0xa8
+ 250:	f7ff fffe 	bl	0 <core::char::convert::from_u32_unchecked>
+ 254:	900b      	str	r0, [sp, #44]	; 0x2c
+ 256:	e7ff      	b.n	258 <core::char::methods::<impl char>::encode_utf8+0x258>
+ 258:	980b      	ldr	r0, [sp, #44]	; 0x2c
+ 25a:	f7ff fffe 	bl	0 <core::char::methods::<impl char>::encode_utf8>
+ 25e:	903c      	str	r0, [sp, #240]	; 0xf0
+ 260:	e7ff      	b.n	262 <core::char::methods::<impl char>::encode_utf8+0x262>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:462
+ 262:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 264:	9929      	ldr	r1, [sp, #164]	; 0xa4
+ 266:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+ 26a:	903d      	str	r0, [sp, #244]	; 0xf4
+ 26c:	e7ff      	b.n	26e <core::char::methods::<impl char>::encode_utf8+0x26e>
+ 26e:	a83c      	add	r0, sp, #240	; 0xf0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:459
+ 270:	9039      	str	r0, [sp, #228]	; 0xe4
+ 272:	a82a      	add	r0, sp, #168	; 0xa8
+ 274:	903a      	str	r0, [sp, #232]	; 0xe8
+ 276:	a83d      	add	r0, sp, #244	; 0xf4
+ 278:	903b      	str	r0, [sp, #236]	; 0xec
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/lib.rs:1
+//! Low level access to Cortex-M processors
+ 27a:	9839      	ldr	r0, [sp, #228]	; 0xe4
+ 27c:	903e      	str	r0, [sp, #248]	; 0xf8
+ 27e:	983a      	ldr	r0, [sp, #232]	; 0xe8
+ 280:	903f      	str	r0, [sp, #252]	; 0xfc
+ 282:	983b      	ldr	r0, [sp, #236]	; 0xec
+ 284:	9040      	str	r0, [sp, #256]	; 0x100
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:460
+ 286:	983e      	ldr	r0, [sp, #248]	; 0xf8
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
+ 288:	f240 0100 	movw	r1, #0
+ 28c:	f2c0 0100 	movt	r1, #0
+ 290:	f7ff fffe 	bl	0 <core::fmt::ArgumentV1::new>
+ 294:	900a      	str	r0, [sp, #40]	; 0x28
+ 296:	9109      	str	r1, [sp, #36]	; 0x24
+ 298:	e7ff      	b.n	29a <core::char::methods::<impl char>::encode_utf8+0x29a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:461
+ 29a:	983f      	ldr	r0, [sp, #252]	; 0xfc
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
+ 29c:	f240 0100 	movw	r1, #0
+ 2a0:	f2c0 0100 	movt	r1, #0
+ 2a4:	f7ff fffe 	bl	0 <core::fmt::ArgumentV1::new>
+ 2a8:	9008      	str	r0, [sp, #32]
+ 2aa:	9107      	str	r1, [sp, #28]
+ 2ac:	e7ff      	b.n	2ae <core::char::methods::<impl char>::encode_utf8+0x2ae>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:462
+ 2ae:	9840      	ldr	r0, [sp, #256]	; 0x100
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
+ 2b0:	f240 0100 	movw	r1, #0
+ 2b4:	f2c0 0100 	movt	r1, #0
+ 2b8:	f7ff fffe 	bl	0 <core::fmt::ArgumentV1::new>
+ 2bc:	9006      	str	r0, [sp, #24]
+ 2be:	9105      	str	r1, [sp, #20]
+ 2c0:	e7ff      	b.n	2c2 <core::char::methods::<impl char>::encode_utf8+0x2c2>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:459
+ 2c2:	980a      	ldr	r0, [sp, #40]	; 0x28
+ 2c4:	9033      	str	r0, [sp, #204]	; 0xcc
+ 2c6:	9909      	ldr	r1, [sp, #36]	; 0x24
+ 2c8:	9134      	str	r1, [sp, #208]	; 0xd0
+ 2ca:	9a08      	ldr	r2, [sp, #32]
+ 2cc:	9235      	str	r2, [sp, #212]	; 0xd4
+ 2ce:	9b07      	ldr	r3, [sp, #28]
+ 2d0:	9336      	str	r3, [sp, #216]	; 0xd8
+ 2d2:	f8dd c018 	ldr.w	ip, [sp, #24]
+ 2d6:	f8cd c0dc 	str.w	ip, [sp, #220]	; 0xdc
+ 2da:	f8dd e014 	ldr.w	lr, [sp, #20]
+ 2de:	f8cd e0e0 	str.w	lr, [sp, #224]	; 0xe0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
+ 2e2:	466c      	mov	r4, sp
+ 2e4:	2503      	movs	r5, #3
+ 2e6:	6025      	str	r5, [r4, #0]
+ 2e8:	f240 0100 	movw	r1, #0
+ 2ec:	f2c0 0100 	movt	r1, #0
+ 2f0:	a82d      	add	r0, sp, #180	; 0xb4
+ 2f2:	ab33      	add	r3, sp, #204	; 0xcc
+ 2f4:	462a      	mov	r2, r5
+ 2f6:	f7ff fffe 	bl	0 <core::fmt::Arguments::new_v1>
+ 2fa:	e7ff      	b.n	2 <core::char::methods::<impl char>::encode_utf8+0x2>
+ 2fc:	f240 0100 	movw	r1, #0
+ 300:	f2c0 0100 	movt	r1, #0
+ 304:	a82d      	add	r0, sp, #180	; 0xb4
+ 306:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
+ 30a:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:443
+ 30c:	e7ff      	b.n	30e <core::char::methods::<impl char>::encode_utf8+0x30e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:440
+ 30e:	e7ff      	b.n	310 <core::char::methods::<impl char>::encode_utf8+0x310>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:464
+ 310:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 312:	9929      	ldr	r1, [sp, #164]	; 0xa4
+ 314:	9a2b      	ldr	r2, [sp, #172]	; 0xac
+ 316:	9241      	str	r2, [sp, #260]	; 0x104
+ 318:	9a41      	ldr	r2, [sp, #260]	; 0x104
+ 31a:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+ 31e:	9004      	str	r0, [sp, #16]
+ 320:	9103      	str	r1, [sp, #12]
+ 322:	e7ff      	b.n	324 <core::char::methods::<impl char>::encode_utf8+0x324>
+ 324:	9804      	ldr	r0, [sp, #16]
+ 326:	9903      	ldr	r1, [sp, #12]
+ 328:	f7ff fffe 	bl	0 <core::str::from_utf8_unchecked_mut>
+ 32c:	9002      	str	r0, [sp, #8]
+ 32e:	9101      	str	r1, [sp, #4]
+ 330:	e7ff      	b.n	332 <core::char::methods::<impl char>::encode_utf8+0x332>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:466
+ 332:	9802      	ldr	r0, [sp, #8]
+ 334:	9901      	ldr	r1, [sp, #4]
+ 336:	b042      	add	sp, #264	; 0x108
+ 338:	bdb0      	pop	{r4, r5, r7, pc}
+
+Disassembly of section .text._ZN4core4char7methods22_$LT$impl$u20$char$GT$8len_utf817h05617b3f53e1306fE:
+
+00000000 <core::char::methods::<impl char>::len_utf8>:
+_ZN4core4char7methods22_$LT$impl$u20$char$GT$8len_utf817h05617b3f53e1306fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:359
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:360
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9003      	str	r0, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:361
+   a:	9803      	ldr	r0, [sp, #12]
+   c:	287f      	cmp	r0, #127	; 0x7f
+   e:	9100      	str	r1, [sp, #0]
+  10:	d803      	bhi.n	1a <core::char::methods::<impl char>::len_utf8+0x1a>
+  12:	e7ff      	b.n	14 <core::char::methods::<impl char>::len_utf8+0x14>
+  14:	2001      	movs	r0, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:362
+  16:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:361
+  18:	e015      	b.n	46 <core::char::methods::<impl char>::len_utf8+0x46>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:363
+  1a:	9803      	ldr	r0, [sp, #12]
+  1c:	2100      	movs	r1, #0
+  1e:	ebb1 2fd0 	cmp.w	r1, r0, lsr #11
+  22:	d103      	bne.n	2c <core::char::methods::<impl char>::len_utf8+0x2c>
+  24:	e7ff      	b.n	26 <core::char::methods::<impl char>::len_utf8+0x26>
+  26:	2002      	movs	r0, #2
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:364
+  28:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:363
+  2a:	e00b      	b.n	44 <core::char::methods::<impl char>::len_utf8+0x44>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:365
+  2c:	f8bd 000e 	ldrh.w	r0, [sp, #14]
+  30:	2800      	cmp	r0, #0
+  32:	d103      	bne.n	3c <core::char::methods::<impl char>::len_utf8+0x3c>
+  34:	e7ff      	b.n	36 <core::char::methods::<impl char>::len_utf8+0x36>
+  36:	2003      	movs	r0, #3
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:366
+  38:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:365
+  3a:	e002      	b.n	42 <core::char::methods::<impl char>::len_utf8+0x42>
+  3c:	2004      	movs	r0, #4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:368
+  3e:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:365
+  40:	e7ff      	b.n	42 <core::char::methods::<impl char>::len_utf8+0x42>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:363
+  42:	e7ff      	b.n	44 <core::char::methods::<impl char>::len_utf8+0x44>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:361
+  44:	e7ff      	b.n	46 <core::char::methods::<impl char>::len_utf8+0x46>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/char/methods.rs:370
+  46:	9802      	ldr	r0, [sp, #8]
+  48:	b004      	add	sp, #16
+  4a:	4770      	bx	lr
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.5.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.5
+00000eb0 l       .debug_str	00000000 
+00000ef5 l       .debug_str	00000000 
+00000f2b l       .debug_str	00000000 
+00000f46 l       .debug_str	00000000 
+00000f80 l       .debug_str	00000000 
+00000f9f l       .debug_str	00000000 
+00000fdb l       .debug_str	00000000 
+00001021 l       .debug_str	00000000 
+00001029 l       .debug_str	00000000 
+00001031 l       .debug_str	00000000 
+0000107a l       .debug_str	00000000 
+00001085 l       .debug_str	00000000 
+000010d0 l       .debug_str	00000000 
+000010dc l       .debug_str	00000000 
+000010e7 l       .debug_str	00000000 
+00001132 l       .debug_str	00000000 
+0000113c l       .debug_str	00000000 
+00001162 l       .debug_str	00000000 
+0000116c l       .debug_str	00000000 
+00001192 l       .debug_str	00000000 
+0000119c l       .debug_str	00000000 
+000011c2 l       .debug_str	00000000 
+000011ce l       .debug_str	00000000 
+000011f5 l       .debug_str	00000000 
+00001202 l       .debug_str	00000000 
+00001206 l       .debug_str	00000000 
+0000120a l       .debug_str	00000000 
+0000120c l       .debug_str	00000000 
+0000120e l       .debug_str	00000000 
+00001214 l       .debug_str	00000000 
+00001218 l       .debug_str	00000000 
+0000121a l       .debug_str	00000000 
+00001225 l       .debug_str	00000000 
+00001227 l       .debug_str	00000000 
+00001229 l       .debug_str	00000000 
+0000122d l       .debug_str	00000000 
+00001233 l       .debug_str	00000000 
+0000123e l       .debug_str	00000000 
+00001242 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000f1 l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+000000fb l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+0000011b l       .debug_str	00000000 
+0000011f l       .debug_str	00000000 
+00000123 l       .debug_str	00000000 
+00000127 l       .debug_str	00000000 
+0000012b l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000135 l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+00000171 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001ed l       .debug_str	00000000 
+00000225 l       .debug_str	00000000 
+00000256 l       .debug_str	00000000 
+0000025b l       .debug_str	00000000 
+000002a4 l       .debug_str	00000000 
+000002ad l       .debug_str	00000000 
+00000320 l       .debug_str	00000000 
+00000357 l       .debug_str	00000000 
+00000388 l       .debug_str	00000000 
+000003d2 l       .debug_str	00000000 
+000003e1 l       .debug_str	00000000 
+00000424 l       .debug_str	00000000 
+00000466 l       .debug_str	00000000 
+000004a9 l       .debug_str	00000000 
+000004ea l       .debug_str	00000000 
+00000524 l       .debug_str	00000000 
+00000576 l       .debug_str	00000000 
+000005e9 l       .debug_str	00000000 
+00000629 l       .debug_str	00000000 
+00000663 l       .debug_str	00000000 
+000006b6 l       .debug_str	00000000 
+000006ba l       .debug_str	00000000 
+000006cc l       .debug_str	00000000 
+000006dd l       .debug_str	00000000 
+0000071b l       .debug_str	00000000 
+00000727 l       .debug_str	00000000 
+0000076a l       .debug_str	00000000 
+0000077a l       .debug_str	00000000 
+00000783 l       .debug_str	00000000 
+000007a4 l       .debug_str	00000000 
+00000817 l       .debug_str	00000000 
+00000826 l       .debug_str	00000000 
+0000082f l       .debug_str	00000000 
+00000851 l       .debug_str	00000000 
+00000895 l       .debug_str	00000000 
+000008a6 l       .debug_str	00000000 
+000008ea l       .debug_str	00000000 
+000008fa l       .debug_str	00000000 
+000008ff l       .debug_str	00000000 
+00000903 l       .debug_str	00000000 
+00000915 l       .debug_str	00000000 
+00000926 l       .debug_str	00000000 
+00000964 l       .debug_str	00000000 
+00000970 l       .debug_str	00000000 
+000009b3 l       .debug_str	00000000 
+000009c3 l       .debug_str	00000000 
+000009cc l       .debug_str	00000000 
+000009ed l       .debug_str	00000000 
+00000a60 l       .debug_str	00000000 
+00000a6f l       .debug_str	00000000 
+00000a78 l       .debug_str	00000000 
+00000a9a l       .debug_str	00000000 
+00000ade l       .debug_str	00000000 
+00000aef l       .debug_str	00000000 
+00000b33 l       .debug_str	00000000 
+00000b43 l       .debug_str	00000000 
+00000b49 l       .debug_str	00000000 
+00000b5d l       .debug_str	00000000 
+00000b70 l       .debug_str	00000000 
+00000bae l       .debug_str	00000000 
+00000bbc l       .debug_str	00000000 
+00000bff l       .debug_str	00000000 
+00000c11 l       .debug_str	00000000 
+00000c1c l       .debug_str	00000000 
+00000c3f l       .debug_str	00000000 
+00000cb2 l       .debug_str	00000000 
+00000cc3 l       .debug_str	00000000 
+00000cce l       .debug_str	00000000 
+00000cf2 l       .debug_str	00000000 
+00000d36 l       .debug_str	00000000 
+00000d49 l       .debug_str	00000000 
+00000d8d l       .debug_str	00000000 
+00000d9f l       .debug_str	00000000 
+00000da2 l       .debug_str	00000000 
+00000dd2 l       .debug_str	00000000 
+00000de4 l       .debug_str	00000000 
+00000e14 l       .debug_str	00000000 
+00000e27 l       .debug_str	00000000 
+00000e58 l       .debug_str	00000000 
+00000e6b l       .debug_str	00000000 
+00000e9c l       .debug_str	00000000 
+00000ee1 l       .debug_str	00000000 
+00000000 l     F .text._ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE	00000106 core::ptr::swap_nonoverlapping_bytes
+00000000 l    d  .text._ZN4core3ptr13read_volatile17h4ed98bdef27fccc0E	00000000 .text._ZN4core3ptr13read_volatile17h4ed98bdef27fccc0E
+00000000 l    d  .text._ZN4core3ptr13read_volatile17hc0149a70cc3a1b3aE	00000000 .text._ZN4core3ptr13read_volatile17hc0149a70cc3a1b3aE
+00000000 l    d  .text._ZN4core3ptr14write_volatile17h78a9b006f957b588E	00000000 .text._ZN4core3ptr14write_volatile17h78a9b006f957b588E
+00000000 l    d  .text._ZN4core3ptr14write_volatile17hbd17221ca7d9ee45E	00000000 .text._ZN4core3ptr14write_volatile17hbd17221ca7d9ee45E
+00000000 l    d  .text._ZN4core3ptr14write_volatile17hbee86689a67e852fE	00000000 .text._ZN4core3ptr14write_volatile17hbee86689a67e852fE
+00000000 l    d  .text._ZN4core3ptr19swap_nonoverlapping17hda94af2e085a3d56E	00000000 .text._ZN4core3ptr19swap_nonoverlapping17hda94af2e085a3d56E
+00000000 l    d  .text._ZN4core3ptr23swap_nonoverlapping_one17hd18d4780113afa57E	00000000 .text._ZN4core3ptr23swap_nonoverlapping_one17hd18d4780113afa57E
+00000000 l    d  .text._ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE	00000000 .text._ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE
+00000000 l    d  .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$3add17h1646e274f75582a1E	00000000 .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$3add17h1646e274f75582a1E
+00000000 l    d  .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17h950eefcc66f9a214E	00000000 .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17h950eefcc66f9a214E
+00000000 l    d  .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h3dd5f0ad1321696cE	00000000 .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h3dd5f0ad1321696cE
+00000000 l    d  .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h8d587212d9f174c5E	00000000 .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h8d587212d9f174c5E
+00000000 l    d  .text._ZN4core3ptr4read17h0121416a1d762e1cE	00000000 .text._ZN4core3ptr4read17h0121416a1d762e1cE
+00000000 l    d  .text._ZN4core3ptr4read17h8b36ff7581142770E	00000000 .text._ZN4core3ptr4read17h8b36ff7581142770E
+00000000 l    d  .text._ZN4core3ptr4read17ha0f21bb4fcea250fE	00000000 .text._ZN4core3ptr4read17ha0f21bb4fcea250fE
+00000000 l    d  .text._ZN4core3ptr5write17hf73b84af7c3f37beE	00000000 .text._ZN4core3ptr5write17hf73b84af7c3f37beE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 core::mem::size_of
+00000000         *UND*	00000000 core::mem::size_of
+00000000 g     F .text._ZN4core3ptr13read_volatile17h4ed98bdef27fccc0E	0000001e core::ptr::read_volatile
+00000000 g     F .text._ZN4core3ptr13read_volatile17hc0149a70cc3a1b3aE	0000001a core::ptr::read_volatile
+00000000 g     F .text._ZN4core3ptr14write_volatile17h78a9b006f957b588E	0000001e core::ptr::write_volatile
+00000000 g     F .text._ZN4core3ptr14write_volatile17hbd17221ca7d9ee45E	0000001a core::ptr::write_volatile
+00000000 g     F .text._ZN4core3ptr14write_volatile17hbee86689a67e852fE	0000001e core::ptr::write_volatile
+00000000 g     F .text._ZN4core3ptr19swap_nonoverlapping17hda94af2e085a3d56E	00000042 core::ptr::swap_nonoverlapping
+00000000 g     F .text._ZN4core3ptr23swap_nonoverlapping_one17hd18d4780113afa57E	00000054 core::ptr::swap_nonoverlapping_one
+00000000 g     F .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$3add17h1646e274f75582a1E	00000022 core::ptr::<impl *mut T>::add
+00000000 g     F .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17h950eefcc66f9a214E	00000022 core::ptr::<impl *mut T>::offset
+00000000 g     F .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h3dd5f0ad1321696cE	00000024 core::ptr::<impl *const T>::offset
+00000000 g     F .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h8d587212d9f174c5E	00000022 core::ptr::<impl *const T>::offset
+00000000 g     F .text._ZN4core3ptr4read17h0121416a1d762e1cE	00000050 core::ptr::read
+00000000 g     F .text._ZN4core3ptr4read17h8b36ff7581142770E	00000042 core::ptr::read
+00000000 g     F .text._ZN4core3ptr4read17ha0f21bb4fcea250fE	00000042 core::ptr::read
+00000000 g     F .text._ZN4core3ptr5write17hf73b84af7c3f37beE	00000018 core::ptr::write
+
+
+
+Disassembly of section .text._ZN4core3ptr13read_volatile17h4ed98bdef27fccc0E:
+
+00000000 <core::ptr::read_volatile>:
+_ZN4core3ptr13read_volatile17h4ed98bdef27fccc0E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:870
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	7800      	ldrb	r0, [r0, #0]
+   a:	f88d 000f 	strb.w	r0, [sp, #15]
+   e:	f89d 000f 	ldrb.w	r0, [sp, #15]
+  12:	9101      	str	r1, [sp, #4]
+  14:	9000      	str	r0, [sp, #0]
+  16:	e7ff      	b.n	18 <core::ptr::read_volatile+0x18>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:872
+  18:	9800      	ldr	r0, [sp, #0]
+  1a:	b004      	add	sp, #16
+  1c:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr13read_volatile17hc0149a70cc3a1b3aE:
+
+00000000 <core::ptr::read_volatile>:
+_ZN4core3ptr13read_volatile17hc0149a70cc3a1b3aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:870
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	6800      	ldr	r0, [r0, #0]
+   a:	9003      	str	r0, [sp, #12]
+   c:	9803      	ldr	r0, [sp, #12]
+   e:	9101      	str	r1, [sp, #4]
+  10:	9000      	str	r0, [sp, #0]
+  12:	e7ff      	b.n	14 <core::ptr::read_volatile+0x14>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:872
+  14:	9800      	ldr	r0, [sp, #0]
+  16:	b004      	add	sp, #16
+  18:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr14write_volatile17h78a9b006f957b588E:
+
+00000000 <core::ptr::write_volatile>:
+_ZN4core3ptr14write_volatile17h78a9b006f957b588E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:938
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	f88d 100f 	strb.w	r1, [sp, #15]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:939
+   c:	9802      	ldr	r0, [sp, #8]
+   e:	f89d 100f 	ldrb.w	r1, [sp, #15]
+  12:	7001      	strb	r1, [r0, #0]
+  14:	9201      	str	r2, [sp, #4]
+  16:	9300      	str	r3, [sp, #0]
+  18:	e7ff      	b.n	1a <core::ptr::write_volatile+0x1a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:940
+  1a:	b004      	add	sp, #16
+  1c:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr14write_volatile17hbd17221ca7d9ee45E:
+
+00000000 <core::ptr::write_volatile>:
+_ZN4core3ptr14write_volatile17hbd17221ca7d9ee45E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:938
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:939
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+   e:	6001      	str	r1, [r0, #0]
+  10:	9201      	str	r2, [sp, #4]
+  12:	9300      	str	r3, [sp, #0]
+  14:	e7ff      	b.n	16 <core::ptr::write_volatile+0x16>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:940
+  16:	b004      	add	sp, #16
+  18:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr14write_volatile17hbee86689a67e852fE:
+
+00000000 <core::ptr::write_volatile>:
+_ZN4core3ptr14write_volatile17hbee86689a67e852fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:938
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	f8ad 100e 	strh.w	r1, [sp, #14]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:939
+   c:	9802      	ldr	r0, [sp, #8]
+   e:	f8bd 100e 	ldrh.w	r1, [sp, #14]
+  12:	8001      	strh	r1, [r0, #0]
+  14:	9201      	str	r2, [sp, #4]
+  16:	9300      	str	r3, [sp, #0]
+  18:	e7ff      	b.n	1a <core::ptr::write_volatile+0x1a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:940
+  1a:	b004      	add	sp, #16
+  1c:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr19swap_nonoverlapping17hda94af2e085a3d56E:
+
+00000000 <core::ptr::swap_nonoverlapping>:
+_ZN4core3ptr19swap_nonoverlapping17hda94af2e085a3d56E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:349
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9004      	str	r0, [sp, #16]
+   c:	9105      	str	r1, [sp, #20]
+   e:	9206      	str	r2, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:350
+  10:	9804      	ldr	r0, [sp, #16]
+  12:	9007      	str	r0, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:351
+  14:	9805      	ldr	r0, [sp, #20]
+  16:	9008      	str	r0, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:352
+  18:	9303      	str	r3, [sp, #12]
+  1a:	f8cd c008 	str.w	ip, [sp, #8]
+  1e:	f8cd e004 	str.w	lr, [sp, #4]
+  22:	f7ff fffe 	bl	0 <core::mem::size_of>
+  26:	9000      	str	r0, [sp, #0]
+  28:	e7ff      	b.n	2a <core::ptr::swap_nonoverlapping+0x2a>
+  2a:	9806      	ldr	r0, [sp, #24]
+  2c:	9900      	ldr	r1, [sp, #0]
+  2e:	4348      	muls	r0, r1
+  30:	9009      	str	r0, [sp, #36]	; 0x24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:353
+  32:	9807      	ldr	r0, [sp, #28]
+  34:	9908      	ldr	r1, [sp, #32]
+  36:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  38:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping>
+  3c:	e7ff      	b.n	3e <core::ptr::swap_nonoverlapping+0x3e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:354
+  3e:	b00a      	add	sp, #40	; 0x28
+  40:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr23swap_nonoverlapping_one17hd18d4780113afa57E:
+
+00000000 <core::ptr::swap_nonoverlapping_one>:
+_ZN4core3ptr23swap_nonoverlapping_one17hd18d4780113afa57E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:357
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9003      	str	r0, [sp, #12]
+   a:	9104      	str	r1, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:360
+   c:	9202      	str	r2, [sp, #8]
+   e:	9301      	str	r3, [sp, #4]
+  10:	f7ff fffe 	bl	0 <core::mem::size_of>
+  14:	9000      	str	r0, [sp, #0]
+  16:	e7ff      	b.n	18 <core::ptr::swap_nonoverlapping_one+0x18>
+  18:	9800      	ldr	r0, [sp, #0]
+  1a:	281f      	cmp	r0, #31
+  1c:	d811      	bhi.n	42 <core::ptr::swap_nonoverlapping_one+0x42>
+  1e:	e7ff      	b.n	20 <core::ptr::swap_nonoverlapping_one+0x20>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:361
+  20:	9803      	ldr	r0, [sp, #12]
+  22:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  26:	9005      	str	r0, [sp, #20]
+  28:	e7ff      	b.n	2a <core::ptr::swap_nonoverlapping_one+0x2a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:362
+  2a:	9804      	ldr	r0, [sp, #16]
+  2c:	9903      	ldr	r1, [sp, #12]
+  2e:	2201      	movs	r2, #1
+  30:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  34:	e7ff      	b.n	36 <core::ptr::swap_nonoverlapping_one+0x36>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:363
+  36:	9804      	ldr	r0, [sp, #16]
+  38:	9905      	ldr	r1, [sp, #20]
+  3a:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  3e:	e7ff      	b.n	40 <core::ptr::swap_nonoverlapping_one+0x40>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:360
+  40:	e006      	b.n	50 <core::ptr::swap_nonoverlapping_one+0x50>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:365
+  42:	9803      	ldr	r0, [sp, #12]
+  44:	9904      	ldr	r1, [sp, #16]
+  46:	2201      	movs	r2, #1
+  48:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  4c:	e7ff      	b.n	4e <core::ptr::swap_nonoverlapping_one+0x4e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:360
+  4e:	e7ff      	b.n	50 <core::ptr::swap_nonoverlapping_one+0x50>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:367
+  50:	b006      	add	sp, #24
+  52:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE:
+
+00000000 <core::ptr::swap_nonoverlapping_bytes>:
+_ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:370
+   0:	b5d0      	push	{r4, r6, r7, lr}
+   2:	af02      	add	r7, sp, #8
+   4:	b0ac      	sub	sp, #176	; 0xb0
+   6:	466c      	mov	r4, sp
+   8:	f36f 0404 	bfc	r4, #0, #5
+   c:	46a5      	mov	sp, r4
+   e:	4613      	mov	r3, r2
+  10:	468c      	mov	ip, r1
+  12:	4686      	mov	lr, r0
+  14:	900b      	str	r0, [sp, #44]	; 0x2c
+  16:	910c      	str	r1, [sp, #48]	; 0x30
+  18:	920d      	str	r2, [sp, #52]	; 0x34
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:381
+  1a:	930a      	str	r3, [sp, #40]	; 0x28
+  1c:	f8cd c024 	str.w	ip, [sp, #36]	; 0x24
+  20:	f8cd e020 	str.w	lr, [sp, #32]
+  24:	f7ff fffe 	bl	0 <core::mem::size_of>
+  28:	900e      	str	r0, [sp, #56]	; 0x38
+  2a:	e7ff      	b.n	2c <core::ptr::swap_nonoverlapping_bytes+0x2c>
+  2c:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:386
+  2e:	900f      	str	r0, [sp, #60]	; 0x3c
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:387
+  30:	e7ff      	b.n	32 <core::ptr::swap_nonoverlapping_bytes+0x32>
+  32:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  34:	990e      	ldr	r1, [sp, #56]	; 0x38
+  36:	4408      	add	r0, r1
+  38:	990d      	ldr	r1, [sp, #52]	; 0x34
+  3a:	4288      	cmp	r0, r1
+  3c:	d905      	bls.n	4a <core::ptr::swap_nonoverlapping_bytes+0x4a>
+  3e:	e7ff      	b.n	40 <core::ptr::swap_nonoverlapping_bytes+0x40>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:403
+  40:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  42:	990d      	ldr	r1, [sp, #52]	; 0x34
+  44:	4288      	cmp	r0, r1
+  46:	d32d      	bcc.n	a4 <core::ptr::swap_nonoverlapping_bytes+0xa4>
+  48:	e059      	b.n	fe <core::ptr::swap_nonoverlapping_bytes+0xfe>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:390
+  4a:	e7ff      	b.n	4c <core::ptr::swap_nonoverlapping_bytes+0x4c>
+  4c:	a810      	add	r0, sp, #64	; 0x40
+  4e:	9028      	str	r0, [sp, #160]	; 0xa0
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h15288156bd4b8329E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  50:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  52:	9029      	str	r0, [sp, #164]	; 0xa4
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17he9e238dd57ebacf2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  54:	9829      	ldr	r0, [sp, #164]	; 0xa4
+_ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:391
+  56:	9007      	str	r0, [sp, #28]
+  58:	e7ff      	b.n	5a <core::ptr::swap_nonoverlapping_bytes+0x5a>
+  5a:	9807      	ldr	r0, [sp, #28]
+  5c:	9019      	str	r0, [sp, #100]	; 0x64
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:392
+  5e:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  60:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  62:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_bytes>
+  66:	901a      	str	r0, [sp, #104]	; 0x68
+  68:	e7ff      	b.n	6a <core::ptr::swap_nonoverlapping_bytes+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:393
+  6a:	980c      	ldr	r0, [sp, #48]	; 0x30
+  6c:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  6e:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_bytes>
+  72:	901b      	str	r0, [sp, #108]	; 0x6c
+  74:	e7ff      	b.n	76 <core::ptr::swap_nonoverlapping_bytes+0x76>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:397
+  76:	981a      	ldr	r0, [sp, #104]	; 0x68
+  78:	9919      	ldr	r1, [sp, #100]	; 0x64
+  7a:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  7c:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  80:	e7ff      	b.n	82 <core::ptr::swap_nonoverlapping_bytes+0x82>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:398
+  82:	981b      	ldr	r0, [sp, #108]	; 0x6c
+  84:	991a      	ldr	r1, [sp, #104]	; 0x68
+  86:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  88:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  8c:	e7ff      	b.n	8e <core::ptr::swap_nonoverlapping_bytes+0x8e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:399
+  8e:	9819      	ldr	r0, [sp, #100]	; 0x64
+  90:	991b      	ldr	r1, [sp, #108]	; 0x6c
+  92:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  94:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  98:	e7ff      	b.n	9a <core::ptr::swap_nonoverlapping_bytes+0x9a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:400
+  9a:	980e      	ldr	r0, [sp, #56]	; 0x38
+  9c:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  9e:	4408      	add	r0, r1
+  a0:	900f      	str	r0, [sp, #60]	; 0x3c
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:387
+  a2:	e7c6      	b.n	32 <core::ptr::swap_nonoverlapping_bytes+0x32>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:405
+  a4:	e7ff      	b.n	a6 <core::ptr::swap_nonoverlapping_bytes+0xa6>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:406
+  a6:	980d      	ldr	r0, [sp, #52]	; 0x34
+  a8:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  aa:	1a40      	subs	r0, r0, r1
+  ac:	9024      	str	r0, [sp, #144]	; 0x90
+  ae:	a81c      	add	r0, sp, #112	; 0x70
+  b0:	902a      	str	r0, [sp, #168]	; 0xa8
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h17727fadf5fc0d2bE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  b2:	982a      	ldr	r0, [sp, #168]	; 0xa8
+  b4:	902b      	str	r0, [sp, #172]	; 0xac
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17h58eb4db237f2bf3aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  b6:	982b      	ldr	r0, [sp, #172]	; 0xac
+_ZN4core3ptr25swap_nonoverlapping_bytes17h1abc0f2fc63d5dafE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:408
+  b8:	9006      	str	r0, [sp, #24]
+  ba:	e7ff      	b.n	bc <core::ptr::swap_nonoverlapping_bytes+0xbc>
+  bc:	9806      	ldr	r0, [sp, #24]
+  be:	9025      	str	r0, [sp, #148]	; 0x94
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:409
+  c0:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  c2:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  c4:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_bytes>
+  c8:	9026      	str	r0, [sp, #152]	; 0x98
+  ca:	e7ff      	b.n	cc <core::ptr::swap_nonoverlapping_bytes+0xcc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:410
+  cc:	980c      	ldr	r0, [sp, #48]	; 0x30
+  ce:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  d0:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_bytes>
+  d4:	9027      	str	r0, [sp, #156]	; 0x9c
+  d6:	e7ff      	b.n	d8 <core::ptr::swap_nonoverlapping_bytes+0xd8>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:412
+  d8:	9826      	ldr	r0, [sp, #152]	; 0x98
+  da:	9925      	ldr	r1, [sp, #148]	; 0x94
+  dc:	9a24      	ldr	r2, [sp, #144]	; 0x90
+  de:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  e2:	e7ff      	b.n	e4 <core::ptr::swap_nonoverlapping_bytes+0xe4>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:413
+  e4:	9827      	ldr	r0, [sp, #156]	; 0x9c
+  e6:	9926      	ldr	r1, [sp, #152]	; 0x98
+  e8:	9a24      	ldr	r2, [sp, #144]	; 0x90
+  ea:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  ee:	e7ff      	b.n	f0 <core::ptr::swap_nonoverlapping_bytes+0xf0>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:414
+  f0:	9825      	ldr	r0, [sp, #148]	; 0x94
+  f2:	9927      	ldr	r1, [sp, #156]	; 0x9c
+  f4:	9a24      	ldr	r2, [sp, #144]	; 0x90
+  f6:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  fa:	e7ff      	b.n	fc <core::ptr::swap_nonoverlapping_bytes+0xfc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:403
+  fc:	e7ff      	b.n	fe <core::ptr::swap_nonoverlapping_bytes+0xfe>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:416
+  fe:	f1a7 0408 	sub.w	r4, r7, #8
+ 102:	46a5      	mov	sp, r4
+ 104:	bdd0      	pop	{r4, r6, r7, pc}
+
+Disassembly of section .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$3add17h1646e274f75582a1E:
+
+00000000 <core::ptr::<impl *mut T>::add>:
+_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$3add17h1646e274f75582a1E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1938
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1941
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9905      	ldr	r1, [sp, #20]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  18:	9001      	str	r0, [sp, #4]
+  1a:	e7ff      	b.n	1c <core::ptr::<impl *mut T>::add+0x1c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1942
+  1c:	9801      	ldr	r0, [sp, #4]
+  1e:	b006      	add	sp, #24
+  20:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17h950eefcc66f9a214E:
+
+00000000 <core::ptr::<impl *mut T>::offset>:
+_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17h950eefcc66f9a214E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1702
+   0:	b086      	sub	sp, #24
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9003      	str	r0, [sp, #12]
+   8:	9104      	str	r1, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1703
+   a:	9803      	ldr	r0, [sp, #12]
+   c:	9904      	ldr	r1, [sp, #16]
+   e:	4408      	add	r0, r1
+  10:	9005      	str	r0, [sp, #20]
+  12:	9805      	ldr	r0, [sp, #20]
+  14:	9202      	str	r2, [sp, #8]
+  16:	9301      	str	r3, [sp, #4]
+  18:	9000      	str	r0, [sp, #0]
+  1a:	e7ff      	b.n	1c <core::ptr::<impl *mut T>::offset+0x1c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1704
+  1c:	9800      	ldr	r0, [sp, #0]
+  1e:	b006      	add	sp, #24
+  20:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h3dd5f0ad1321696cE:
+
+00000000 <core::ptr::<impl *const T>::offset>:
+_ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h3dd5f0ad1321696cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1076
+   0:	b086      	sub	sp, #24
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9003      	str	r0, [sp, #12]
+   8:	9104      	str	r1, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1077
+   a:	9803      	ldr	r0, [sp, #12]
+   c:	9904      	ldr	r1, [sp, #16]
+   e:	eb00 0081 	add.w	r0, r0, r1, lsl #2
+  12:	9005      	str	r0, [sp, #20]
+  14:	9805      	ldr	r0, [sp, #20]
+  16:	9202      	str	r2, [sp, #8]
+  18:	9301      	str	r3, [sp, #4]
+  1a:	9000      	str	r0, [sp, #0]
+  1c:	e7ff      	b.n	1e <core::ptr::<impl *const T>::offset+0x1e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1078
+  1e:	9800      	ldr	r0, [sp, #0]
+  20:	b006      	add	sp, #24
+  22:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h8d587212d9f174c5E:
+
+00000000 <core::ptr::<impl *const T>::offset>:
+_ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h8d587212d9f174c5E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1076
+   0:	b086      	sub	sp, #24
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9003      	str	r0, [sp, #12]
+   8:	9104      	str	r1, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1077
+   a:	9803      	ldr	r0, [sp, #12]
+   c:	9904      	ldr	r1, [sp, #16]
+   e:	4408      	add	r0, r1
+  10:	9005      	str	r0, [sp, #20]
+  12:	9805      	ldr	r0, [sp, #20]
+  14:	9202      	str	r2, [sp, #8]
+  16:	9301      	str	r3, [sp, #4]
+  18:	9000      	str	r0, [sp, #0]
+  1a:	e7ff      	b.n	1c <core::ptr::<impl *const T>::offset+0x1c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1078
+  1c:	9800      	ldr	r0, [sp, #0]
+  1e:	b006      	add	sp, #24
+  20:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3ptr4read17h0121416a1d762e1cE:
+
+00000000 <core::ptr::read>:
+_ZN4core3ptr4read17h0121416a1d762e1cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:572
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4601      	mov	r1, r0
+   6:	9005      	str	r0, [sp, #20]
+_ZN4core3mem20MaybeUninit$LT$T$GT$6uninit17h5cb8ba46cdff3667E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1121
+   8:	f8bd 001a 	ldrh.w	r0, [sp, #26]
+_ZN4core3ptr4read17h0121416a1d762e1cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:573
+   c:	f8ad 0018 	strh.w	r0, [sp, #24]
+  10:	9104      	str	r1, [sp, #16]
+  12:	e7ff      	b.n	14 <core::ptr::read+0x14>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  14:	9805      	ldr	r0, [sp, #20]
+  16:	a906      	add	r1, sp, #24
+  18:	9108      	str	r1, [sp, #32]
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h24fd46ac5f8212bfE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  1a:	9908      	ldr	r1, [sp, #32]
+  1c:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hf48382bc9af27437E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  1e:	9909      	ldr	r1, [sp, #36]	; 0x24
+_ZN4core3ptr4read17h0121416a1d762e1cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  20:	9003      	str	r0, [sp, #12]
+  22:	9102      	str	r1, [sp, #8]
+  24:	e7ff      	b.n	26 <core::ptr::read+0x26>
+  26:	2201      	movs	r2, #1
+  28:	9803      	ldr	r0, [sp, #12]
+  2a:	9902      	ldr	r1, [sp, #8]
+  2c:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  30:	e7ff      	b.n	32 <core::ptr::read+0x32>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  32:	f8bd 0018 	ldrh.w	r0, [sp, #24]
+  36:	f8ad 001c 	strh.w	r0, [sp, #28]
+_ZN4core3mem20MaybeUninit$LT$T$GT$11assume_init17hfad9cffa423b76cbE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1294
+  3a:	f8bd 001c 	ldrh.w	r0, [sp, #28]
+  3e:	f8ad 001e 	strh.w	r0, [sp, #30]
+_ZN4core3mem21ManuallyDrop$LT$T$GT$10into_inner17he018786016be2abdE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:828
+  42:	f8bd 001e 	ldrh.w	r0, [sp, #30]
+_ZN4core3ptr4read17h0121416a1d762e1cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  46:	9001      	str	r0, [sp, #4]
+  48:	e7ff      	b.n	4a <core::ptr::read+0x4a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:576
+  4a:	9801      	ldr	r0, [sp, #4]
+  4c:	b00a      	add	sp, #40	; 0x28
+  4e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr4read17h8b36ff7581142770E:
+
+00000000 <core::ptr::read>:
+_ZN4core3ptr4read17h8b36ff7581142770E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:572
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9005      	str	r0, [sp, #20]
+_ZN4core3mem20MaybeUninit$LT$T$GT$6uninit17h2b65c73ea8c6cd6aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1121
+   8:	9807      	ldr	r0, [sp, #28]
+_ZN4core3ptr4read17h8b36ff7581142770E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:573
+   a:	9006      	str	r0, [sp, #24]
+   c:	9104      	str	r1, [sp, #16]
+   e:	e7ff      	b.n	10 <core::ptr::read+0x10>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  10:	9805      	ldr	r0, [sp, #20]
+  12:	a906      	add	r1, sp, #24
+  14:	910a      	str	r1, [sp, #40]	; 0x28
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h31b989b44f379f06E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  16:	990a      	ldr	r1, [sp, #40]	; 0x28
+  18:	910b      	str	r1, [sp, #44]	; 0x2c
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17ha85e52738767d67bE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  1a:	990b      	ldr	r1, [sp, #44]	; 0x2c
+_ZN4core3ptr4read17h8b36ff7581142770E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  1c:	9003      	str	r0, [sp, #12]
+  1e:	9102      	str	r1, [sp, #8]
+  20:	e7ff      	b.n	22 <core::ptr::read+0x22>
+  22:	2201      	movs	r2, #1
+  24:	9803      	ldr	r0, [sp, #12]
+  26:	9902      	ldr	r1, [sp, #8]
+  28:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  2c:	e7ff      	b.n	2e <core::ptr::read+0x2e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  2e:	9806      	ldr	r0, [sp, #24]
+  30:	9008      	str	r0, [sp, #32]
+_ZN4core3mem20MaybeUninit$LT$T$GT$11assume_init17h24fac6b4cd8305fcE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1294
+  32:	9808      	ldr	r0, [sp, #32]
+  34:	9009      	str	r0, [sp, #36]	; 0x24
+_ZN4core3mem21ManuallyDrop$LT$T$GT$10into_inner17hfced0931ec4a8b1aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:828
+  36:	9809      	ldr	r0, [sp, #36]	; 0x24
+_ZN4core3ptr4read17h8b36ff7581142770E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  38:	9001      	str	r0, [sp, #4]
+  3a:	e7ff      	b.n	3c <core::ptr::read+0x3c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:576
+  3c:	9801      	ldr	r0, [sp, #4]
+  3e:	b00c      	add	sp, #48	; 0x30
+  40:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr4read17ha0f21bb4fcea250fE:
+
+00000000 <core::ptr::read>:
+_ZN4core3ptr4read17ha0f21bb4fcea250fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:572
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9005      	str	r0, [sp, #20]
+_ZN4core3mem20MaybeUninit$LT$T$GT$6uninit17hb38e5878efa44e69E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1121
+   8:	9807      	ldr	r0, [sp, #28]
+_ZN4core3ptr4read17ha0f21bb4fcea250fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:573
+   a:	9006      	str	r0, [sp, #24]
+   c:	9104      	str	r1, [sp, #16]
+   e:	e7ff      	b.n	10 <core::ptr::read+0x10>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  10:	9805      	ldr	r0, [sp, #20]
+  12:	a906      	add	r1, sp, #24
+  14:	910a      	str	r1, [sp, #40]	; 0x28
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h73a29113d73bbf1aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  16:	990a      	ldr	r1, [sp, #40]	; 0x28
+  18:	910b      	str	r1, [sp, #44]	; 0x2c
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17h5808cef2de5632b2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  1a:	990b      	ldr	r1, [sp, #44]	; 0x2c
+_ZN4core3ptr4read17ha0f21bb4fcea250fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  1c:	9003      	str	r0, [sp, #12]
+  1e:	9102      	str	r1, [sp, #8]
+  20:	e7ff      	b.n	22 <core::ptr::read+0x22>
+  22:	2201      	movs	r2, #1
+  24:	9803      	ldr	r0, [sp, #12]
+  26:	9902      	ldr	r1, [sp, #8]
+  28:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  2c:	e7ff      	b.n	2e <core::ptr::read+0x2e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  2e:	9806      	ldr	r0, [sp, #24]
+  30:	9008      	str	r0, [sp, #32]
+_ZN4core3mem20MaybeUninit$LT$T$GT$11assume_init17hb8606776a8b19133E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1294
+  32:	9808      	ldr	r0, [sp, #32]
+  34:	9009      	str	r0, [sp, #36]	; 0x24
+_ZN4core3mem21ManuallyDrop$LT$T$GT$10into_inner17he705755c391e7ca2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:828
+  36:	9809      	ldr	r0, [sp, #36]	; 0x24
+_ZN4core3ptr4read17ha0f21bb4fcea250fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  38:	9001      	str	r0, [sp, #4]
+  3a:	e7ff      	b.n	3c <core::ptr::read+0x3c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:576
+  3c:	9801      	ldr	r0, [sp, #4]
+  3e:	b00c      	add	sp, #48	; 0x30
+  40:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr5write17hf73b84af7c3f37beE:
+
+00000000 <core::ptr::write>:
+_ZN4core3ptr5write17hf73b84af7c3f37beE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:733
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+   e:	6001      	str	r1, [r0, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:735
+  10:	9201      	str	r2, [sp, #4]
+  12:	9300      	str	r3, [sp, #0]
+  14:	b004      	add	sp, #16
+  16:	4770      	bx	lr
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.6.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.6
+00000332 l       .debug_str	00000000 
+0000014e l       .debug_str	00000000 
+00000159 l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+00000166 l       .debug_str	00000000 
+0000016d l       .debug_str	00000000 
+00000170 l       .debug_str	00000000 
+000001a3 l       .debug_str	00000000 
+000001b6 l       .debug_str	00000000 
+000001c0 l       .debug_str	00000000 
+000001c6 l       .debug_str	00000000 
+000001fd l       .debug_str	00000000 
+00000214 l       .debug_str	00000000 
+0000021e l       .debug_str	00000000 
+0000026c l       .debug_str	00000000 
+0000027b l       .debug_str	00000000 
+00000283 l       .debug_str	00000000 
+00000287 l       .debug_str	00000000 
+0000028d l       .debug_str	00000000 
+00000291 l       .debug_str	00000000 
+00000295 l       .debug_str	00000000 
+000002a4 l       .debug_str	00000000 
+000002a6 l       .debug_str	00000000 
+000002fb l       .debug_str	00000000 
+00000387 l       .debug_str	00000000 
+000003a3 l       .debug_str	00000000 
+000003ab l       .debug_str	00000000 
+000003f1 l       .debug_str	00000000 
+000003f9 l       .debug_str	00000000 
+0000043f l       .debug_str	00000000 
+00000448 l       .debug_str	00000000 
+00000491 l       .debug_str	00000000 
+0000049d l       .debug_str	00000000 
+000004e6 l       .debug_str	00000000 
+000004f1 l       .debug_str	00000000 
+0000053c l       .debug_str	00000000 
+00000549 l       .debug_str	00000000 
+0000054e l       .debug_str	00000000 
+000005bf l       .debug_str	00000000 
+000005d5 l       .debug_str	00000000 
+000005da l       .debug_str	00000000 
+000005de l       .debug_str	00000000 
+000005e3 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+000000fc l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+00000131 l       .debug_str	00000000 
+00000145 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.bb2accefa584492960359689b1946bf2.0	00000018 .Lanon.bb2accefa584492960359689b1946bf2.0
+00000000 l     O .rodata..Lanon.bb2accefa584492960359689b1946bf2.3	00000018 .Lanon.bb2accefa584492960359689b1946bf2.3
+00000000 l     O .rodata..Lanon.bb2accefa584492960359689b1946bf2.5	00000018 .Lanon.bb2accefa584492960359689b1946bf2.5
+00000000 l     O .rodata..Lanon.bb2accefa584492960359689b1946bf2.6	00000018 .Lanon.bb2accefa584492960359689b1946bf2.6
+00000000 l     O .rodata..Lanon.bb2accefa584492960359689b1946bf2.7	00000018 .Lanon.bb2accefa584492960359689b1946bf2.7
+00000000 l     O .rodata..Lanon.bb2accefa584492960359689b1946bf2.8	00000018 .Lanon.bb2accefa584492960359689b1946bf2.8
+00000000 l     O .rodata.str.0	00000048 str.0
+00000000 l     O .rodata.str.1	00000039 str.1
+00000000 l    d  .text._ZN4core5slice14from_raw_parts17h5a2dfaa408f9faafE	00000000 .text._ZN4core5slice14from_raw_parts17h5a2dfaa408f9faafE
+00000000 l    d  .text._ZN4core5slice14from_raw_parts17hf31faab3a7c7850fE	00000000 .text._ZN4core5slice14from_raw_parts17hf31faab3a7c7850fE
+00000000 l    d  .text._ZN4core5slice18from_raw_parts_mut17h8542d89b5a924112E	00000000 .text._ZN4core5slice18from_raw_parts_mut17h8542d89b5a924112E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17h8590773df2d39077E	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17h8590773df2d39077E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17h00c534edc9da252fE	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17h00c534edc9da252fE
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17hf0ee6a9f7c3b9b14E	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17hf0ee6a9f7c3b9b14E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h597a45aee1833210E	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h597a45aee1833210E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17ha90fd096868574c6E	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17ha90fd096868574c6E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h032a0aaa895f5821E	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h032a0aaa895f5821E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hc130e8d8cc822d47E	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hc130e8d8cc822d47E
+00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$8is_empty17h216493476683ca6bE	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$8is_empty17h216493476683ca6bE
+00000000 l    d  .text._ZN68_$LT$usize$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h7341c338b1a63420E	00000000 .text._ZN68_$LT$usize$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h7341c338b1a63420E
+00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
+00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
+00000000 l    d  .rodata..Lanon.bb2accefa584492960359689b1946bf2.1	00000000 .rodata..Lanon.bb2accefa584492960359689b1946bf2.1
+00000000 l    d  .rodata..Lanon.bb2accefa584492960359689b1946bf2.2	00000000 .rodata..Lanon.bb2accefa584492960359689b1946bf2.2
+00000000 l    d  .rodata..Lanon.bb2accefa584492960359689b1946bf2.4	00000000 .rodata..Lanon.bb2accefa584492960359689b1946bf2.4
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 <core::ops::range::RangeTo<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut
+00000000         *UND*	00000000 core::mem::size_of
+00000000         *UND*	00000000 core::mem::size_of
+00000000         *UND*	00000000 core::mem::align_of
+00000000         *UND*	00000000 core::mem::align_of
+00000000         *UND*	00000000 .hidden core::num::<impl usize>::saturating_mul
+00000000         *UND*	00000000 core::ptr::<impl *mut T>::add
+00000000 g     F .text._ZN4core5slice14from_raw_parts17h5a2dfaa408f9faafE	000000aa core::slice::from_raw_parts
+00000000 g     F .text._ZN4core5slice14from_raw_parts17hf31faab3a7c7850fE	000000aa core::slice::from_raw_parts
+00000000 g     F .text._ZN4core5slice18from_raw_parts_mut17h8542d89b5a924112E	000000aa core::slice::from_raw_parts_mut
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17h8590773df2d39077E	00000014 core::slice::<impl [T]>::as_mut_ptr
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17h00c534edc9da252fE	00000032 core::slice::<impl [T]>::get_unchecked_mut
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17hf0ee6a9f7c3b9b14E	0000002e core::slice::<impl [T]>::get_unchecked_mut
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h597a45aee1833210E	0000001c core::slice::<impl [T]>::len
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17ha90fd096868574c6E	0000001c core::slice::<impl [T]>::len
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h032a0aaa895f5821E	00000014 core::slice::<impl [T]>::as_ptr
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hc130e8d8cc822d47E	00000014 core::slice::<impl [T]>::as_ptr
+00000000 g     F .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$8is_empty17h216493476683ca6bE	00000028 core::slice::<impl [T]>::is_empty
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN68_$LT$usize$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h7341c338b1a63420E	00000038 <usize as core::slice::SliceIndex<[T]>>::get_unchecked_mut
+
+
+
+Disassembly of section .text._ZN4core5slice14from_raw_parts17h5a2dfaa408f9faafE:
+
+00000000 <core::slice::from_raw_parts>:
+_ZN4core5slice14from_raw_parts17h5a2dfaa408f9faafE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5112
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+   c:	2001      	movs	r0, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+   e:	2800      	cmp	r0, #0
+  10:	9205      	str	r2, [sp, #20]
+  12:	9304      	str	r3, [sp, #16]
+  14:	d11b      	bne.n	4e <core::slice::from_raw_parts+0x4e>
+  16:	e7ff      	b.n	18 <core::slice::from_raw_parts+0x18>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5113
+  18:	9806      	ldr	r0, [sp, #24]
+  1a:	9003      	str	r0, [sp, #12]
+  1c:	f7ff fffe 	bl	0 <core::mem::align_of>
+  20:	9002      	str	r0, [sp, #8]
+  22:	e7ff      	b.n	24 <core::slice::from_raw_parts+0x24>
+  24:	9802      	ldr	r0, [sp, #8]
+  26:	2800      	cmp	r0, #0
+  28:	d038      	beq.n	9c <core::slice::from_raw_parts+0x9c>
+  2a:	e7ff      	b.n	2c <core::slice::from_raw_parts+0x2c>
+  2c:	9803      	ldr	r0, [sp, #12]
+  2e:	9902      	ldr	r1, [sp, #8]
+  30:	fbb0 f2f1 	udiv	r2, r0, r1
+  34:	fb02 0211 	mls	r2, r2, r1, r0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  38:	2a00      	cmp	r2, #0
+  3a:	d007      	beq.n	4c <core::slice::from_raw_parts+0x4c>
+  3c:	e7ff      	b.n	3e <core::slice::from_raw_parts+0x3e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
+  3e:	f240 0000 	movw	r0, #0
+  42:	f2c0 0000 	movt	r0, #0
+  46:	f7ff fffe 	bl	0 <core::panicking::panic>
+  4a:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  4c:	e7ff      	b.n	4e <core::slice::from_raw_parts+0x4e>
+  4e:	2001      	movs	r0, #1
+  50:	2800      	cmp	r0, #0
+  52:	d117      	bne.n	84 <core::slice::from_raw_parts+0x84>
+  54:	e7ff      	b.n	56 <core::slice::from_raw_parts+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5114
+  56:	f7ff fffe 	bl	0 <core::mem::size_of>
+  5a:	9001      	str	r0, [sp, #4]
+  5c:	e7ff      	b.n	5e <core::slice::from_raw_parts+0x5e>
+  5e:	9907      	ldr	r1, [sp, #28]
+  60:	9801      	ldr	r0, [sp, #4]
+  62:	f7ff fffe 	bl	0 <core::num::<impl usize>::saturating_mul>
+  66:	9000      	str	r0, [sp, #0]
+  68:	e7ff      	b.n	6a <core::slice::from_raw_parts+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  6a:	9800      	ldr	r0, [sp, #0]
+  6c:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
+  70:	dc07      	bgt.n	82 <core::slice::from_raw_parts+0x82>
+  72:	e7ff      	b.n	74 <core::slice::from_raw_parts+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
+  74:	f240 0000 	movw	r0, #0
+  78:	f2c0 0000 	movt	r0, #0
+  7c:	f7ff fffe 	bl	0 <core::panicking::panic>
+  80:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  82:	e7ff      	b.n	84 <core::slice::from_raw_parts+0x84>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5116
+  84:	9806      	ldr	r0, [sp, #24]
+  86:	9907      	ldr	r1, [sp, #28]
+  88:	900a      	str	r0, [sp, #40]	; 0x28
+  8a:	910b      	str	r1, [sp, #44]	; 0x2c
+  8c:	980a      	ldr	r0, [sp, #40]	; 0x28
+  8e:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  90:	9008      	str	r0, [sp, #32]
+  92:	9109      	str	r1, [sp, #36]	; 0x24
+  94:	9808      	ldr	r0, [sp, #32]
+  96:	9909      	ldr	r1, [sp, #36]	; 0x24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5117
+  98:	b00c      	add	sp, #48	; 0x30
+  9a:	bd80      	pop	{r7, pc}
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5113
+  9c:	f240 0000 	movw	r0, #0
+  a0:	f2c0 0000 	movt	r0, #0
+  a4:	f7ff fffe 	bl	0 <core::panicking::panic>
+  a8:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN4core5slice14from_raw_parts17hf31faab3a7c7850fE:
+
+00000000 <core::slice::from_raw_parts>:
+_ZN4core5slice14from_raw_parts17hf31faab3a7c7850fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5112
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+   c:	2001      	movs	r0, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+   e:	2800      	cmp	r0, #0
+  10:	9205      	str	r2, [sp, #20]
+  12:	9304      	str	r3, [sp, #16]
+  14:	d11b      	bne.n	4e <core::slice::from_raw_parts+0x4e>
+  16:	e7ff      	b.n	18 <core::slice::from_raw_parts+0x18>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5113
+  18:	9806      	ldr	r0, [sp, #24]
+  1a:	9003      	str	r0, [sp, #12]
+  1c:	f7ff fffe 	bl	0 <core::mem::align_of>
+  20:	9002      	str	r0, [sp, #8]
+  22:	e7ff      	b.n	24 <core::slice::from_raw_parts+0x24>
+  24:	9802      	ldr	r0, [sp, #8]
+  26:	2800      	cmp	r0, #0
+  28:	d038      	beq.n	9c <core::slice::from_raw_parts+0x9c>
+  2a:	e7ff      	b.n	2c <core::slice::from_raw_parts+0x2c>
+  2c:	9803      	ldr	r0, [sp, #12]
+  2e:	9902      	ldr	r1, [sp, #8]
+  30:	fbb0 f2f1 	udiv	r2, r0, r1
+  34:	fb02 0211 	mls	r2, r2, r1, r0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  38:	2a00      	cmp	r2, #0
+  3a:	d007      	beq.n	4c <core::slice::from_raw_parts+0x4c>
+  3c:	e7ff      	b.n	3e <core::slice::from_raw_parts+0x3e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
+  3e:	f240 0000 	movw	r0, #0
+  42:	f2c0 0000 	movt	r0, #0
+  46:	f7ff fffe 	bl	0 <core::panicking::panic>
+  4a:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  4c:	e7ff      	b.n	4e <core::slice::from_raw_parts+0x4e>
+  4e:	2001      	movs	r0, #1
+  50:	2800      	cmp	r0, #0
+  52:	d117      	bne.n	84 <core::slice::from_raw_parts+0x84>
+  54:	e7ff      	b.n	56 <core::slice::from_raw_parts+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5114
+  56:	f7ff fffe 	bl	0 <core::mem::size_of>
+  5a:	9001      	str	r0, [sp, #4]
+  5c:	e7ff      	b.n	5e <core::slice::from_raw_parts+0x5e>
+  5e:	9907      	ldr	r1, [sp, #28]
+  60:	9801      	ldr	r0, [sp, #4]
+  62:	f7ff fffe 	bl	0 <core::num::<impl usize>::saturating_mul>
+  66:	9000      	str	r0, [sp, #0]
+  68:	e7ff      	b.n	6a <core::slice::from_raw_parts+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  6a:	9800      	ldr	r0, [sp, #0]
+  6c:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
+  70:	dc07      	bgt.n	82 <core::slice::from_raw_parts+0x82>
+  72:	e7ff      	b.n	74 <core::slice::from_raw_parts+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
+  74:	f240 0000 	movw	r0, #0
+  78:	f2c0 0000 	movt	r0, #0
+  7c:	f7ff fffe 	bl	0 <core::panicking::panic>
+  80:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  82:	e7ff      	b.n	84 <core::slice::from_raw_parts+0x84>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5116
+  84:	9806      	ldr	r0, [sp, #24]
+  86:	9907      	ldr	r1, [sp, #28]
+  88:	900a      	str	r0, [sp, #40]	; 0x28
+  8a:	910b      	str	r1, [sp, #44]	; 0x2c
+  8c:	980a      	ldr	r0, [sp, #40]	; 0x28
+  8e:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  90:	9008      	str	r0, [sp, #32]
+  92:	9109      	str	r1, [sp, #36]	; 0x24
+  94:	9808      	ldr	r0, [sp, #32]
+  96:	9909      	ldr	r1, [sp, #36]	; 0x24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5117
+  98:	b00c      	add	sp, #48	; 0x30
+  9a:	bd80      	pop	{r7, pc}
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5113
+  9c:	f240 0000 	movw	r0, #0
+  a0:	f2c0 0000 	movt	r0, #0
+  a4:	f7ff fffe 	bl	0 <core::panicking::panic>
+  a8:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN4core5slice18from_raw_parts_mut17h8542d89b5a924112E:
+
+00000000 <core::slice::from_raw_parts_mut>:
+_ZN4core5slice18from_raw_parts_mut17h8542d89b5a924112E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5133
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+   c:	2001      	movs	r0, #1
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+   e:	2800      	cmp	r0, #0
+  10:	9205      	str	r2, [sp, #20]
+  12:	9304      	str	r3, [sp, #16]
+  14:	d11b      	bne.n	4e <core::slice::from_raw_parts_mut+0x4e>
+  16:	e7ff      	b.n	18 <core::slice::from_raw_parts_mut+0x18>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5134
+  18:	9806      	ldr	r0, [sp, #24]
+  1a:	9003      	str	r0, [sp, #12]
+  1c:	f7ff fffe 	bl	0 <core::mem::align_of>
+  20:	9002      	str	r0, [sp, #8]
+  22:	e7ff      	b.n	24 <core::slice::from_raw_parts_mut+0x24>
+  24:	9802      	ldr	r0, [sp, #8]
+  26:	2800      	cmp	r0, #0
+  28:	d038      	beq.n	9c <core::slice::from_raw_parts_mut+0x9c>
+  2a:	e7ff      	b.n	2c <core::slice::from_raw_parts_mut+0x2c>
+  2c:	9803      	ldr	r0, [sp, #12]
+  2e:	9902      	ldr	r1, [sp, #8]
+  30:	fbb0 f2f1 	udiv	r2, r0, r1
+  34:	fb02 0211 	mls	r2, r2, r1, r0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  38:	2a00      	cmp	r2, #0
+  3a:	d007      	beq.n	4c <core::slice::from_raw_parts_mut+0x4c>
+  3c:	e7ff      	b.n	3e <core::slice::from_raw_parts_mut+0x3e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
+  3e:	f240 0000 	movw	r0, #0
+  42:	f2c0 0000 	movt	r0, #0
+  46:	f7ff fffe 	bl	0 <core::panicking::panic>
+  4a:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  4c:	e7ff      	b.n	4e <core::slice::from_raw_parts_mut+0x4e>
+  4e:	2001      	movs	r0, #1
+  50:	2800      	cmp	r0, #0
+  52:	d117      	bne.n	84 <core::slice::from_raw_parts_mut+0x84>
+  54:	e7ff      	b.n	56 <core::slice::from_raw_parts_mut+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5135
+  56:	f7ff fffe 	bl	0 <core::mem::size_of>
+  5a:	9001      	str	r0, [sp, #4]
+  5c:	e7ff      	b.n	5e <core::slice::from_raw_parts_mut+0x5e>
+  5e:	9907      	ldr	r1, [sp, #28]
+  60:	9801      	ldr	r0, [sp, #4]
+  62:	f7ff fffe 	bl	0 <core::num::<impl usize>::saturating_mul>
+  66:	9000      	str	r0, [sp, #0]
+  68:	e7ff      	b.n	6a <core::slice::from_raw_parts_mut+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  6a:	9800      	ldr	r0, [sp, #0]
+  6c:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
+  70:	dc07      	bgt.n	82 <core::slice::from_raw_parts_mut+0x82>
+  72:	e7ff      	b.n	74 <core::slice::from_raw_parts_mut+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
+  74:	f240 0000 	movw	r0, #0
+  78:	f2c0 0000 	movt	r0, #0
+  7c:	f7ff fffe 	bl	0 <core::panicking::panic>
+  80:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:184
+  82:	e7ff      	b.n	84 <core::slice::from_raw_parts_mut+0x84>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5137
+  84:	9806      	ldr	r0, [sp, #24]
+  86:	9907      	ldr	r1, [sp, #28]
+  88:	900a      	str	r0, [sp, #40]	; 0x28
+  8a:	910b      	str	r1, [sp, #44]	; 0x2c
+  8c:	980a      	ldr	r0, [sp, #40]	; 0x28
+  8e:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  90:	9008      	str	r0, [sp, #32]
+  92:	9109      	str	r1, [sp, #36]	; 0x24
+  94:	9808      	ldr	r0, [sp, #32]
+  96:	9909      	ldr	r1, [sp, #36]	; 0x24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5138
+  98:	b00c      	add	sp, #48	; 0x30
+  9a:	bd80      	pop	{r7, pc}
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5134
+  9c:	f240 0000 	movw	r0, #0
+  a0:	f2c0 0000 	movt	r0, #0
+  a4:	f7ff fffe 	bl	0 <core::panicking::panic>
+  a8:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17h8590773df2d39077E:
+
+00000000 <core::slice::<impl [T]>::as_mut_ptr>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17h8590773df2d39077E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:412
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:413
+   a:	9802      	ldr	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:414
+   c:	9201      	str	r2, [sp, #4]
+   e:	9300      	str	r3, [sp, #0]
+  10:	b004      	add	sp, #16
+  12:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17h00c534edc9da252fE:
+
+00000000 <core::slice::<impl [T]>::get_unchecked_mut>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17h00c534edc9da252fE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:351
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	9106      	str	r1, [sp, #24]
+   e:	9207      	str	r2, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:354
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	9905      	ldr	r1, [sp, #20]
+  14:	9a06      	ldr	r2, [sp, #24]
+  16:	9304      	str	r3, [sp, #16]
+  18:	f8cd c00c 	str.w	ip, [sp, #12]
+  1c:	f8cd e008 	str.w	lr, [sp, #8]
+  20:	f7ff fffe 	bl	0 <<core::ops::range::RangeTo<usize> as core::slice::SliceIndex<[T]>>::get_unchecked_mut>
+  24:	9001      	str	r0, [sp, #4]
+  26:	9100      	str	r1, [sp, #0]
+  28:	e7ff      	b.n	2a <core::slice::<impl [T]>::get_unchecked_mut+0x2a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:355
+  2a:	9801      	ldr	r0, [sp, #4]
+  2c:	9900      	ldr	r1, [sp, #0]
+  2e:	b008      	add	sp, #32
+  30:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17hf0ee6a9f7c3b9b14E:
+
+00000000 <core::slice::<impl [T]>::get_unchecked_mut>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$17get_unchecked_mut17hf0ee6a9f7c3b9b14E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:351
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	9106      	str	r1, [sp, #24]
+   e:	9207      	str	r2, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:354
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	9905      	ldr	r1, [sp, #20]
+  14:	9a06      	ldr	r2, [sp, #24]
+  16:	9304      	str	r3, [sp, #16]
+  18:	f8cd c00c 	str.w	ip, [sp, #12]
+  1c:	f8cd e008 	str.w	lr, [sp, #8]
+  20:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::get_unchecked_mut>
+  24:	9001      	str	r0, [sp, #4]
+  26:	e7ff      	b.n	28 <core::slice::<impl [T]>::get_unchecked_mut+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:355
+  28:	9801      	ldr	r0, [sp, #4]
+  2a:	b008      	add	sp, #32
+  2c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h597a45aee1833210E:
+
+00000000 <core::slice::<impl [T]>::len>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h597a45aee1833210E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:79
+   0:	b086      	sub	sp, #24
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:81
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+   e:	9004      	str	r0, [sp, #16]
+  10:	9105      	str	r1, [sp, #20]
+  12:	9805      	ldr	r0, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:83
+  14:	9201      	str	r2, [sp, #4]
+  16:	9300      	str	r3, [sp, #0]
+  18:	b006      	add	sp, #24
+  1a:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17ha90fd096868574c6E:
+
+00000000 <core::slice::<impl [T]>::len>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17ha90fd096868574c6E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:79
+   0:	b086      	sub	sp, #24
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:81
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+   e:	9004      	str	r0, [sp, #16]
+  10:	9105      	str	r1, [sp, #20]
+  12:	9805      	ldr	r0, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:83
+  14:	9201      	str	r2, [sp, #4]
+  16:	9300      	str	r3, [sp, #0]
+  18:	b006      	add	sp, #24
+  1a:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h032a0aaa895f5821E:
+
+00000000 <core::slice::<impl [T]>::as_ptr>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h032a0aaa895f5821E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:385
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:386
+   a:	9802      	ldr	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:387
+   c:	9201      	str	r2, [sp, #4]
+   e:	9300      	str	r3, [sp, #0]
+  10:	b004      	add	sp, #16
+  12:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hc130e8d8cc822d47E:
+
+00000000 <core::slice::<impl [T]>::as_ptr>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17hc130e8d8cc822d47E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:385
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:386
+   a:	9802      	ldr	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:387
+   c:	9201      	str	r2, [sp, #4]
+   e:	9300      	str	r3, [sp, #0]
+  10:	b004      	add	sp, #16
+  12:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$8is_empty17h216493476683ca6bE:
+
+00000000 <core::slice::<impl [T]>::is_empty>:
+_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$8is_empty17h216493476683ca6bE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:96
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:97
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9905      	ldr	r1, [sp, #20]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::is_empty>
+  18:	9001      	str	r0, [sp, #4]
+  1a:	e7ff      	b.n	1c <core::slice::<impl [T]>::is_empty+0x1c>
+  1c:	9801      	ldr	r0, [sp, #4]
+  1e:	fab0 f180 	clz	r1, r0
+  22:	0948      	lsrs	r0, r1, #5
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:98
+  24:	b006      	add	sp, #24
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN68_$LT$usize$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h7341c338b1a63420E:
+
+00000000 <<usize as core::slice::SliceIndex<[T]>>::get_unchecked_mut>:
+_ZN68_$LT$usize$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$17get_unchecked_mut17h7341c338b1a63420E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2688
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	9106      	str	r1, [sp, #24]
+   e:	9207      	str	r2, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2689
+  10:	9806      	ldr	r0, [sp, #24]
+  12:	9907      	ldr	r1, [sp, #28]
+  14:	9304      	str	r3, [sp, #16]
+  16:	f8cd c00c 	str.w	ip, [sp, #12]
+  1a:	f8cd e008 	str.w	lr, [sp, #8]
+  1e:	f7ff fffe 	bl	0 <<usize as core::slice::SliceIndex<[T]>>::get_unchecked_mut>
+  22:	9001      	str	r0, [sp, #4]
+  24:	e7ff      	b.n	26 <<usize as core::slice::SliceIndex<[T]>>::get_unchecked_mut+0x26>
+  26:	9905      	ldr	r1, [sp, #20]
+  28:	9801      	ldr	r0, [sp, #4]
+  2a:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  2e:	9000      	str	r0, [sp, #0]
+  30:	e7ff      	b.n	32 <<usize as core::slice::SliceIndex<[T]>>::get_unchecked_mut+0x32>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2690
+  32:	9800      	ldr	r0, [sp, #0]
+  34:	b008      	add	sp, #32
+  36:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.7.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.7
+000002f1 l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+00000166 l       .debug_str	00000000 
+0000016a l       .debug_str	00000000 
+00000178 l       .debug_str	00000000 
+000001bf l       .debug_str	00000000 
+000001cb l       .debug_str	00000000 
+00000215 l       .debug_str	00000000 
+00000224 l       .debug_str	00000000 
+0000026f l       .debug_str	00000000 
+0000027f l       .debug_str	00000000 
+00000283 l       .debug_str	00000000 
+00000288 l       .debug_str	00000000 
+00000296 l       .debug_str	00000000 
+000002e1 l       .debug_str	00000000 
+00000335 l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+000003a8 l       .debug_str	00000000 
+000003ad l       .debug_str	00000000 
+000003b2 l       .debug_str	00000000 
+000003b6 l       .debug_str	00000000 
+000003b8 l       .debug_str	00000000 
+000003ba l       .debug_str	00000000 
+000003c0 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000149 l       .debug_str	00000000 
+00000150 l       .debug_str	00000000 
+00000154 l       .debug_str	00000000 
+00000159 l       .debug_str	00000000 
+0000015f l       .debug_str	00000000 
+00000000 l     F .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_mul17h3fc00296225501aaE	00000050 core::num::<impl usize>::checked_mul
+00000000 l     F .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17hfa95d0aa747a831dE	00000052 core::num::<impl usize>::overflowing_add
+00000000 l     F .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_mul17h161973df7fc67b95E	00000052 core::num::<impl usize>::overflowing_mul
+00000000 l     F .text._ZN4core3num23_$LT$impl$u20$usize$GT$9max_value17h0aad4dc0badc8afcE	00000006 core::num::<impl usize>::max_value
+00000000 l    d  .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17hca3d144784f295e8E	00000000 .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17hca3d144784f295e8E
+00000000 l    d  .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_mul17h3fc00296225501aaE	00000000 .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_mul17h3fc00296225501aaE
+00000000 l    d  .text._ZN4core3num23_$LT$impl$u20$usize$GT$14saturating_mul17hedefb441126d2f44E	00000000 .text._ZN4core3num23_$LT$impl$u20$usize$GT$14saturating_mul17hedefb441126d2f44E
+00000000 l    d  .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17hfa95d0aa747a831dE	00000000 .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17hfa95d0aa747a831dE
+00000000 l    d  .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_mul17h161973df7fc67b95E	00000000 .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_mul17h161973df7fc67b95E
+00000000 l    d  .text._ZN4core3num23_$LT$impl$u20$usize$GT$9max_value17h0aad4dc0badc8afcE	00000000 .text._ZN4core3num23_$LT$impl$u20$usize$GT$9max_value17h0aad4dc0badc8afcE
+00000000 l    d  .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17he8390de774bd45f9E	00000000 .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17he8390de774bd45f9E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17hca3d144784f295e8E	00000050 .hidden core::num::<impl usize>::checked_add
+00000000 g     F .text._ZN4core3num23_$LT$impl$u20$usize$GT$14saturating_mul17hedefb441126d2f44E	0000003a .hidden core::num::<impl usize>::saturating_mul
+00000000 g     F .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17he8390de774bd45f9E	00000012 .hidden core::num::<impl core::convert::From<u8> for usize>::from
+00000000         *UND*	00000000 core::option::Option<T>::unwrap_or
+
+
+
+Disassembly of section .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17hca3d144784f295e8E:
+
+00000000 <core::num::<impl usize>::checked_add>:
+_ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17hca3d144784f295e8E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2678
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2679
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9905      	ldr	r1, [sp, #20]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	f7ff fffe 	bl	0 <core::num::<impl usize>::checked_add>
+  18:	9001      	str	r0, [sp, #4]
+  1a:	9100      	str	r1, [sp, #0]
+  1c:	e7ff      	b.n	1e <core::num::<impl usize>::checked_add+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	9008      	str	r0, [sp, #32]
+  22:	9900      	ldr	r1, [sp, #0]
+  24:	f001 0201 	and.w	r2, r1, #1
+  28:	f88d 2027 	strb.w	r2, [sp, #39]	; 0x27
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2680
+  2c:	f89d 2027 	ldrb.w	r2, [sp, #39]	; 0x27
+  30:	07d2      	lsls	r2, r2, #31
+  32:	2a00      	cmp	r2, #0
+  34:	d003      	beq.n	3e <core::num::<impl usize>::checked_add+0x3e>
+  36:	e7ff      	b.n	38 <core::num::<impl usize>::checked_add+0x38>
+  38:	2000      	movs	r0, #0
+  3a:	9006      	str	r0, [sp, #24]
+  3c:	e004      	b.n	48 <core::num::<impl usize>::checked_add+0x48>
+  3e:	9808      	ldr	r0, [sp, #32]
+  40:	9007      	str	r0, [sp, #28]
+  42:	2001      	movs	r0, #1
+  44:	9006      	str	r0, [sp, #24]
+  46:	e7ff      	b.n	48 <core::num::<impl usize>::checked_add+0x48>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2681
+  48:	9806      	ldr	r0, [sp, #24]
+  4a:	9907      	ldr	r1, [sp, #28]
+  4c:	b00a      	add	sp, #40	; 0x28
+  4e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3num23_$LT$impl$u20$usize$GT$11checked_mul17h3fc00296225501aaE:
+
+00000000 <core::num::<impl usize>::checked_mul>:
+_ZN4core3num23_$LT$impl$u20$usize$GT$11checked_mul17h3fc00296225501aaE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2722
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2723
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9905      	ldr	r1, [sp, #20]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	f7ff fffe 	bl	0 <core::num::<impl usize>::checked_mul>
+  18:	9001      	str	r0, [sp, #4]
+  1a:	9100      	str	r1, [sp, #0]
+  1c:	e7ff      	b.n	1e <core::num::<impl usize>::checked_mul+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	9008      	str	r0, [sp, #32]
+  22:	9900      	ldr	r1, [sp, #0]
+  24:	f001 0201 	and.w	r2, r1, #1
+  28:	f88d 2027 	strb.w	r2, [sp, #39]	; 0x27
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2724
+  2c:	f89d 2027 	ldrb.w	r2, [sp, #39]	; 0x27
+  30:	07d2      	lsls	r2, r2, #31
+  32:	2a00      	cmp	r2, #0
+  34:	d003      	beq.n	3e <core::num::<impl usize>::checked_mul+0x3e>
+  36:	e7ff      	b.n	38 <core::num::<impl usize>::checked_mul+0x38>
+  38:	2000      	movs	r0, #0
+  3a:	9006      	str	r0, [sp, #24]
+  3c:	e004      	b.n	48 <core::num::<impl usize>::checked_mul+0x48>
+  3e:	9808      	ldr	r0, [sp, #32]
+  40:	9007      	str	r0, [sp, #28]
+  42:	2001      	movs	r0, #1
+  44:	9006      	str	r0, [sp, #24]
+  46:	e7ff      	b.n	48 <core::num::<impl usize>::checked_mul+0x48>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2725
+  48:	9806      	ldr	r0, [sp, #24]
+  4a:	9907      	ldr	r1, [sp, #28]
+  4c:	b00a      	add	sp, #40	; 0x28
+  4e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3num23_$LT$impl$u20$usize$GT$14saturating_mul17hedefb441126d2f44E:
+
+00000000 <core::num::<impl usize>::saturating_mul>:
+_ZN4core3num23_$LT$impl$u20$usize$GT$14saturating_mul17hedefb441126d2f44E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2999
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3000
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9907      	ldr	r1, [sp, #28]
+  10:	9205      	str	r2, [sp, #20]
+  12:	9304      	str	r3, [sp, #16]
+  14:	f7ff fffe 	bl	0 <core::num::<impl usize>::saturating_mul>
+  18:	9003      	str	r0, [sp, #12]
+  1a:	9102      	str	r1, [sp, #8]
+  1c:	e7ff      	b.n	1e <core::num::<impl usize>::saturating_mul+0x1e>
+  1e:	f7ff fffe 	bl	0 <core::num::<impl usize>::saturating_mul>
+  22:	9001      	str	r0, [sp, #4]
+  24:	e7ff      	b.n	26 <core::num::<impl usize>::saturating_mul+0x26>
+  26:	9803      	ldr	r0, [sp, #12]
+  28:	9902      	ldr	r1, [sp, #8]
+  2a:	9a01      	ldr	r2, [sp, #4]
+  2c:	f7ff fffe 	bl	0 <core::option::Option<T>::unwrap_or>
+  30:	9000      	str	r0, [sp, #0]
+  32:	e7ff      	b.n	34 <core::num::<impl usize>::saturating_mul+0x34>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3001
+  34:	9800      	ldr	r0, [sp, #0]
+  36:	b008      	add	sp, #32
+  38:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17hfa95d0aa747a831dE:
+
+00000000 <core::num::<impl usize>::overflowing_add>:
+_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17hfa95d0aa747a831dE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3348
+   0:	b08c      	sub	sp, #48	; 0x30
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9004      	str	r0, [sp, #16]
+   8:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3349
+   a:	9804      	ldr	r0, [sp, #16]
+   c:	9905      	ldr	r1, [sp, #20]
+   e:	1840      	adds	r0, r0, r1
+  10:	f04f 0100 	mov.w	r1, #0
+  14:	f141 0100 	adc.w	r1, r1, #0
+  18:	900a      	str	r0, [sp, #40]	; 0x28
+  1a:	f88d 102c 	strb.w	r1, [sp, #44]	; 0x2c
+  1e:	980a      	ldr	r0, [sp, #40]	; 0x28
+  20:	f89d 102c 	ldrb.w	r1, [sp, #44]	; 0x2c
+  24:	9203      	str	r2, [sp, #12]
+  26:	9302      	str	r3, [sp, #8]
+  28:	9001      	str	r0, [sp, #4]
+  2a:	9100      	str	r1, [sp, #0]
+  2c:	e7ff      	b.n	2e <core::num::<impl usize>::overflowing_add+0x2e>
+  2e:	9801      	ldr	r0, [sp, #4]
+  30:	9008      	str	r0, [sp, #32]
+  32:	9900      	ldr	r1, [sp, #0]
+  34:	f001 0201 	and.w	r2, r1, #1
+  38:	f88d 2027 	strb.w	r2, [sp, #39]	; 0x27
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3350
+  3c:	9a08      	ldr	r2, [sp, #32]
+  3e:	f89d 3027 	ldrb.w	r3, [sp, #39]	; 0x27
+  42:	9206      	str	r2, [sp, #24]
+  44:	f88d 301c 	strb.w	r3, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3351
+  48:	9806      	ldr	r0, [sp, #24]
+  4a:	f89d 101c 	ldrb.w	r1, [sp, #28]
+  4e:	b00c      	add	sp, #48	; 0x30
+  50:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_mul17h161973df7fc67b95E:
+
+00000000 <core::num::<impl usize>::overflowing_mul>:
+_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_mul17h161973df7fc67b95E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3403
+   0:	b08c      	sub	sp, #48	; 0x30
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9004      	str	r0, [sp, #16]
+   8:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3404
+   a:	9804      	ldr	r0, [sp, #16]
+   c:	9905      	ldr	r1, [sp, #20]
+   e:	fba0 0101 	umull	r0, r1, r0, r1
+  12:	2900      	cmp	r1, #0
+  14:	bf18      	it	ne
+  16:	2101      	movne	r1, #1
+  18:	900a      	str	r0, [sp, #40]	; 0x28
+  1a:	f88d 102c 	strb.w	r1, [sp, #44]	; 0x2c
+  1e:	980a      	ldr	r0, [sp, #40]	; 0x28
+  20:	f89d 102c 	ldrb.w	r1, [sp, #44]	; 0x2c
+  24:	9203      	str	r2, [sp, #12]
+  26:	9302      	str	r3, [sp, #8]
+  28:	9001      	str	r0, [sp, #4]
+  2a:	9100      	str	r1, [sp, #0]
+  2c:	e7ff      	b.n	2e <core::num::<impl usize>::overflowing_mul+0x2e>
+  2e:	9801      	ldr	r0, [sp, #4]
+  30:	9008      	str	r0, [sp, #32]
+  32:	9900      	ldr	r1, [sp, #0]
+  34:	f001 0201 	and.w	r2, r1, #1
+  38:	f88d 2027 	strb.w	r2, [sp, #39]	; 0x27
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3405
+  3c:	9a08      	ldr	r2, [sp, #32]
+  3e:	f89d 3027 	ldrb.w	r3, [sp, #39]	; 0x27
+  42:	9206      	str	r2, [sp, #24]
+  44:	f88d 301c 	strb.w	r3, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3406
+  48:	9806      	ldr	r0, [sp, #24]
+  4a:	f89d 101c 	ldrb.w	r1, [sp, #28]
+  4e:	b00c      	add	sp, #48	; 0x30
+  50:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3num23_$LT$impl$u20$usize$GT$9max_value17h0aad4dc0badc8afcE:
+
+00000000 <core::num::<impl usize>::max_value>:
+_ZN4core3num23_$LT$impl$u20$usize$GT$9max_value17h0aad4dc0badc8afcE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:2327
+   0:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17he8390de774bd45f9E:
+
+00000000 <core::num::<impl core::convert::From<u8> for usize>::from>:
+_ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17he8390de774bd45f9E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:5107
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	f88d 0007 	strb.w	r0, [sp, #7]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:5108
+   8:	f89d 0007 	ldrb.w	r0, [sp, #7]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:5109
+   c:	9100      	str	r1, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.8.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.8
+00000410 l       .debug_str	00000000 
+000004b3 l       .debug_str	00000000 
+000004be l       .debug_str	00000000 
+000004db l       .debug_str	00000000 
+000004df l       .debug_str	00000000 
+000004e7 l       .debug_str	00000000 
+000004fe l       .debug_str	00000000 
+00000522 l       .debug_str	00000000 
+0000053e l       .debug_str	00000000 
+00000543 l       .debug_str	00000000 
+0000054c l       .debug_str	00000000 
+00000553 l       .debug_str	00000000 
+0000056c l       .debug_str	00000000 
+00000576 l       .debug_str	00000000 
+00000590 l       .debug_str	00000000 
+000005a4 l       .debug_str	00000000 
+000005ad l       .debug_str	00000000 
+000005b4 l       .debug_str	00000000 
+000005bf l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+00000111 l       .debug_str	00000000 
+00000119 l       .debug_str	00000000 
+0000011e l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+00000128 l       .debug_str	00000000 
+0000012c l       .debug_str	00000000 
+00000133 l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013a l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000142 l       .debug_str	00000000 
+00000148 l       .debug_str	00000000 
+0000014f l       .debug_str	00000000 
+00000157 l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+0000016a l       .debug_str	00000000 
+000001ae l       .debug_str	00000000 
+000001b8 l       .debug_str	00000000 
+000001bd l       .debug_str	00000000 
+00000204 l       .debug_str	00000000 
+00000210 l       .debug_str	00000000 
+0000027a l       .debug_str	00000000 
+0000027d l       .debug_str	00000000 
+000002e4 l       .debug_str	00000000 
+000002e9 l       .debug_str	00000000 
+0000030f l       .debug_str	00000000 
+00000315 l       .debug_str	00000000 
+0000031f l       .debug_str	00000000 
+00000325 l       .debug_str	00000000 
+00000330 l       .debug_str	00000000 
+00000332 l       .debug_str	00000000 
+00000338 l       .debug_str	00000000 
+0000033c l       .debug_str	00000000 
+00000341 l       .debug_str	00000000 
+00000346 l       .debug_str	00000000 
+0000034c l       .debug_str	00000000 
+00000352 l       .debug_str	00000000 
+00000359 l       .debug_str	00000000 
+0000035e l       .debug_str	00000000 
+00000364 l       .debug_str	00000000 
+00000366 l       .debug_str	00000000 
+0000036b l       .debug_str	00000000 
+0000036f l       .debug_str	00000000 
+0000037d l       .debug_str	00000000 
+00000387 l       .debug_str	00000000 
+0000038b l       .debug_str	00000000 
+00000393 l       .debug_str	00000000 
+0000039b l       .debug_str	00000000 
+000003a2 l       .debug_str	00000000 
+000003b6 l       .debug_str	00000000 
+000003c2 l       .debug_str	00000000 
+000003cd l       .debug_str	00000000 
+000003d4 l       .debug_str	00000000 
+000003da l       .debug_str	00000000 
+000003de l       .debug_str	00000000 
+000003e4 l       .debug_str	00000000 
+000003ea l       .debug_str	00000000 
+000003ed l       .debug_str	00000000 
+000003fc l       .debug_str	00000000 
+00000403 l       .debug_str	00000000 
+00000407 l       .debug_str	00000000 
+0000041c l       .debug_str	00000000 
+00000435 l       .debug_str	00000000 
+0000043a l       .debug_str	00000000 
+0000044b l       .debug_str	00000000 
+00000455 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.e45407f091c1340635a75ff9c000409a.0	00000001 .Lanon.e45407f091c1340635a75ff9c000409a.0
+00000000 l     O .rodata..Lanon.e45407f091c1340635a75ff9c000409a.1	00000001 .Lanon.e45407f091c1340635a75ff9c000409a.1
+00000000 l     O .rodata.cst8	00000008 .Lanon.e45407f091c1340635a75ff9c000409a.2
+00000000 l     O .rodata..Lanon.e45407f091c1340635a75ff9c000409a.3	00000006 .Lanon.e45407f091c1340635a75ff9c000409a.3
+00000000 l     F .text._ZN77_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..cmp..PartialEq$GT$2eq17h46624901e1b36b0cE	00000068 <cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq
+00000000 l    d  .text._ZN8cortex_m8register7primask7Primask9is_active17h2e7e909f32abfa9fE	00000000 .text._ZN8cortex_m8register7primask7Primask9is_active17h2e7e909f32abfa9fE
+00000000 l    d  .text._ZN8cortex_m8register7primask7Primask11is_inactive17hdf22d8d303c4585fE	00000000 .text._ZN8cortex_m8register7primask7Primask11is_inactive17hdf22d8d303c4585fE
+00000000 l    d  .text._ZN77_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..cmp..PartialEq$GT$2eq17h46624901e1b36b0cE	00000000 .text._ZN77_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..cmp..PartialEq$GT$2eq17h46624901e1b36b0cE
+00000000 l    d  .text._ZN73_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..fmt..Debug$GT$3fmt17ha0d37e2faa3c8590E	00000000 .text._ZN73_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..fmt..Debug$GT$3fmt17ha0d37e2faa3c8590E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN73_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..fmt..Debug$GT$3fmt17ha0d37e2faa3c8590E	00000078 <cortex_m::register::primask::Primask as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN8cortex_m8register7primask7Primask11is_inactive17hdf22d8d303c4585fE	00000028 cortex_m::register::primask::Primask::is_inactive
+00000000 g     F .text._ZN8cortex_m8register7primask7Primask9is_active17h2e7e909f32abfa9fE	00000028 cortex_m::register::primask::Primask::is_active
+
+
+
+Disassembly of section .text._ZN8cortex_m8register7primask7Primask9is_active17h2e7e909f32abfa9fE:
+
+00000000 <cortex_m::register::primask::Primask::is_active>:
+_ZN8cortex_m8register7primask7Primask9is_active17h2e7e909f32abfa9fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:14
+    Inactive,
+}
+
+impl Primask {
+    /// All exceptions with configurable priority are active
+    pub fn is_active(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:15
+        *self == Primask::Active
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::primask::Primask::is_active>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::primask::Primask::is_active+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:16
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register7primask7Primask11is_inactive17hdf22d8d303c4585fE:
+
+00000000 <cortex_m::register::primask::Primask::is_inactive>:
+_ZN8cortex_m8register7primask7Primask11is_inactive17hdf22d8d303c4585fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:19
+
+    /// All exceptions with configurable priority are inactive
+    pub fn is_inactive(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:20
+        *self == Primask::Inactive
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::primask::Primask::is_inactive>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::primask::Primask::is_inactive+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:21
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN77_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..cmp..PartialEq$GT$2eq17h46624901e1b36b0cE:
+
+00000000 <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq>:
+_ZN77_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..cmp..PartialEq$GT$2eq17h46624901e1b36b0cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:4
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b092      	sub	sp, #72	; 0x48
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9007      	str	r0, [sp, #28]
+   8:	9108      	str	r1, [sp, #32]
+   a:	9807      	ldr	r0, [sp, #28]
+   c:	7800      	ldrb	r0, [r0, #0]
+   e:	2100      	movs	r1, #0
+  10:	910f      	str	r1, [sp, #60]	; 0x3c
+  12:	900e      	str	r0, [sp, #56]	; 0x38
+  14:	980e      	ldr	r0, [sp, #56]	; 0x38
+  16:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  18:	9206      	str	r2, [sp, #24]
+  1a:	9305      	str	r3, [sp, #20]
+  1c:	9004      	str	r0, [sp, #16]
+  1e:	9103      	str	r1, [sp, #12]
+  20:	e7ff      	b.n	22 <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq+0x22>
+  22:	9804      	ldr	r0, [sp, #16]
+  24:	900a      	str	r0, [sp, #40]	; 0x28
+  26:	9908      	ldr	r1, [sp, #32]
+  28:	7809      	ldrb	r1, [r1, #0]
+  2a:	2200      	movs	r2, #0
+  2c:	9211      	str	r2, [sp, #68]	; 0x44
+  2e:	9110      	str	r1, [sp, #64]	; 0x40
+  30:	9910      	ldr	r1, [sp, #64]	; 0x40
+  32:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  34:	9102      	str	r1, [sp, #8]
+  36:	9201      	str	r2, [sp, #4]
+  38:	e7ff      	b.n	3a <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq+0x3a>
+  3a:	9802      	ldr	r0, [sp, #8]
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+  3e:	990a      	ldr	r1, [sp, #40]	; 0x28
+  40:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  42:	4291      	cmp	r1, r2
+  44:	d108      	bne.n	58 <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq+0x58>
+  46:	e7ff      	b.n	48 <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq+0x48>
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9908      	ldr	r1, [sp, #32]
+  4c:	900c      	str	r0, [sp, #48]	; 0x30
+  4e:	910d      	str	r1, [sp, #52]	; 0x34
+  50:	2001      	movs	r0, #1
+  52:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  56:	e003      	b.n	60 <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq+0x60>
+  58:	2000      	movs	r0, #0
+  5a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  5e:	e7ff      	b.n	60 <<cortex_m::register::primask::Primask as core::cmp::PartialEq>::eq+0x60>
+  60:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  64:	b012      	add	sp, #72	; 0x48
+  66:	4770      	bx	lr
+
+Disassembly of section .text._ZN73_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..fmt..Debug$GT$3fmt17ha0d37e2faa3c8590E:
+
+00000000 <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt>:
+_ZN73_$LT$cortex_m..register..primask..Primask$u20$as$u20$core..fmt..Debug$GT$3fmt17ha0d37e2faa3c8590E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/primask.rs:4
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9007      	str	r0, [sp, #28]
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c1      	lsls	r1, r0, #31
+  16:	2900      	cmp	r1, #0
+  18:	9203      	str	r2, [sp, #12]
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	9001      	str	r0, [sp, #4]
+  1e:	d005      	beq.n	2c <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x2c>
+  20:	e7ff      	b.n	22 <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x22>
+  22:	9801      	ldr	r0, [sp, #4]
+  24:	2801      	cmp	r0, #1
+  26:	d012      	beq.n	4e <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x4e>
+  28:	e7ff      	b.n	2a <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x2a>
+  2a:	defe      	udf	#254	; 0xfe
+  2c:	9905      	ldr	r1, [sp, #20]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a808      	add	r0, sp, #32
+  38:	2306      	movs	r3, #6
+  3a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  3e:	e7ff      	b.n	40 <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x40>
+  40:	a808      	add	r0, sp, #32
+  42:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  46:	f88d 001b 	strb.w	r0, [sp, #27]
+  4a:	e7ff      	b.n	4c <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x4c>
+  4c:	e010      	b.n	70 <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x70>
+  4e:	9905      	ldr	r1, [sp, #20]
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	a80b      	add	r0, sp, #44	; 0x2c
+  5a:	2308      	movs	r3, #8
+  5c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  60:	e7ff      	b.n	62 <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x62>
+  62:	a80b      	add	r0, sp, #44	; 0x2c
+  64:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  68:	f88d 001b 	strb.w	r0, [sp, #27]
+  6c:	e7ff      	b.n	6e <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x6e>
+  6e:	e7ff      	b.n	70 <<cortex_m::register::primask::Primask as core::fmt::Debug>::fmt+0x70>
+  70:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+cortex_m-1c57d63c68ee0f80.cortex_m.bh7207dj-cgu.9.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.bh7207dj-cgu.9
+00000428 l       .debug_str	00000000 
+000004cb l       .debug_str	00000000 
+000004d6 l       .debug_str	00000000 
+000004f3 l       .debug_str	00000000 
+000004f7 l       .debug_str	00000000 
+000004ff l       .debug_str	00000000 
+00000516 l       .debug_str	00000000 
+0000053a l       .debug_str	00000000 
+00000556 l       .debug_str	00000000 
+0000055b l       .debug_str	00000000 
+00000564 l       .debug_str	00000000 
+0000056b l       .debug_str	00000000 
+00000584 l       .debug_str	00000000 
+0000058e l       .debug_str	00000000 
+000005a8 l       .debug_str	00000000 
+000005bc l       .debug_str	00000000 
+000005c5 l       .debug_str	00000000 
+000005cc l       .debug_str	00000000 
+000005d7 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+00000100 l       .debug_str	00000000 
+00000103 l       .debug_str	00000000 
+0000010a l       .debug_str	00000000 
+00000113 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000122 l       .debug_str	00000000 
+00000129 l       .debug_str	00000000 
+0000012c l       .debug_str	00000000 
+00000130 l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+0000013e l       .debug_str	00000000 
+00000141 l       .debug_str	00000000 
+00000146 l       .debug_str	00000000 
+0000014c l       .debug_str	00000000 
+00000153 l       .debug_str	00000000 
+0000015b l       .debug_str	00000000 
+00000165 l       .debug_str	00000000 
+0000016e l       .debug_str	00000000 
+000001b6 l       .debug_str	00000000 
+000001c0 l       .debug_str	00000000 
+000001c5 l       .debug_str	00000000 
+00000210 l       .debug_str	00000000 
+0000021c l       .debug_str	00000000 
+0000028a l       .debug_str	00000000 
+0000028d l       .debug_str	00000000 
+000002f8 l       .debug_str	00000000 
+000002fd l       .debug_str	00000000 
+00000327 l       .debug_str	00000000 
+0000032d l       .debug_str	00000000 
+00000337 l       .debug_str	00000000 
+0000033d l       .debug_str	00000000 
+00000348 l       .debug_str	00000000 
+0000034a l       .debug_str	00000000 
+00000350 l       .debug_str	00000000 
+00000354 l       .debug_str	00000000 
+00000359 l       .debug_str	00000000 
+0000035e l       .debug_str	00000000 
+00000364 l       .debug_str	00000000 
+0000036a l       .debug_str	00000000 
+00000371 l       .debug_str	00000000 
+00000376 l       .debug_str	00000000 
+0000037c l       .debug_str	00000000 
+0000037e l       .debug_str	00000000 
+00000383 l       .debug_str	00000000 
+00000387 l       .debug_str	00000000 
+00000395 l       .debug_str	00000000 
+0000039f l       .debug_str	00000000 
+000003a3 l       .debug_str	00000000 
+000003ab l       .debug_str	00000000 
+000003b3 l       .debug_str	00000000 
+000003ba l       .debug_str	00000000 
+000003ce l       .debug_str	00000000 
+000003da l       .debug_str	00000000 
+000003e5 l       .debug_str	00000000 
+000003ec l       .debug_str	00000000 
+000003f2 l       .debug_str	00000000 
+000003f6 l       .debug_str	00000000 
+000003fc l       .debug_str	00000000 
+00000402 l       .debug_str	00000000 
+00000405 l       .debug_str	00000000 
+00000414 l       .debug_str	00000000 
+0000041b l       .debug_str	00000000 
+0000041f l       .debug_str	00000000 
+00000434 l       .debug_str	00000000 
+0000044d l       .debug_str	00000000 
+00000452 l       .debug_str	00000000 
+00000463 l       .debug_str	00000000 
+0000046d l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.262e2ed50a8c2a8371ae5bcb92c35078.0	00000001 .Lanon.262e2ed50a8c2a8371ae5bcb92c35078.0
+00000000 l     O .rodata..Lanon.262e2ed50a8c2a8371ae5bcb92c35078.1	00000001 .Lanon.262e2ed50a8c2a8371ae5bcb92c35078.1
+00000000 l     O .rodata.cst8	00000008 .Lanon.262e2ed50a8c2a8371ae5bcb92c35078.2
+00000000 l     O .rodata..Lanon.262e2ed50a8c2a8371ae5bcb92c35078.3	00000006 .Lanon.262e2ed50a8c2a8371ae5bcb92c35078.3
+00000000 l     F .text._ZN81_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc818b70d1005b1d3E	00000068 <cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq
+00000000 l    d  .text._ZN8cortex_m8register9faultmask9Faultmask9is_active17h6bb41764d43a9123E	00000000 .text._ZN8cortex_m8register9faultmask9Faultmask9is_active17h6bb41764d43a9123E
+00000000 l    d  .text._ZN8cortex_m8register9faultmask9Faultmask11is_inactive17h4cfe2db5f8dcab9dE	00000000 .text._ZN8cortex_m8register9faultmask9Faultmask11is_inactive17h4cfe2db5f8dcab9dE
+00000000 l    d  .text._ZN81_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc818b70d1005b1d3E	00000000 .text._ZN81_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc818b70d1005b1d3E
+00000000 l    d  .text._ZN77_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..fmt..Debug$GT$3fmt17h81e49e2145ba1ea1E	00000000 .text._ZN77_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..fmt..Debug$GT$3fmt17h81e49e2145ba1ea1E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN77_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..fmt..Debug$GT$3fmt17h81e49e2145ba1ea1E	00000078 <cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN8cortex_m8register9faultmask9Faultmask11is_inactive17h4cfe2db5f8dcab9dE	00000028 cortex_m::register::faultmask::Faultmask::is_inactive
+00000000 g     F .text._ZN8cortex_m8register9faultmask9Faultmask9is_active17h6bb41764d43a9123E	00000028 cortex_m::register::faultmask::Faultmask::is_active
+
+
+
+Disassembly of section .text._ZN8cortex_m8register9faultmask9Faultmask9is_active17h6bb41764d43a9123E:
+
+00000000 <cortex_m::register::faultmask::Faultmask::is_active>:
+_ZN8cortex_m8register9faultmask9Faultmask9is_active17h6bb41764d43a9123E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:14
+    Inactive,
+}
+
+impl Faultmask {
+    /// All exceptions are active
+    pub fn is_active(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:15
+        *self == Faultmask::Active
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::faultmask::Faultmask::is_active>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::faultmask::Faultmask::is_active+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:16
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m8register9faultmask9Faultmask11is_inactive17h4cfe2db5f8dcab9dE:
+
+00000000 <cortex_m::register::faultmask::Faultmask::is_inactive>:
+_ZN8cortex_m8register9faultmask9Faultmask11is_inactive17h4cfe2db5f8dcab9dE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:19
+
+    /// All exceptions, except for NMI, are inactive
+    pub fn is_inactive(&self) -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:20
+        *self == Faultmask::Inactive
+   8:	9803      	ldr	r0, [sp, #12]
+   a:	f240 0200 	movw	r2, #0
+   e:	f2c0 0200 	movt	r2, #0
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <cortex_m::register::faultmask::Faultmask::is_inactive>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <cortex_m::register::faultmask::Faultmask::is_inactive+0x1e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:21
+    }
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	f000 0001 	and.w	r0, r0, #1
+  24:	b004      	add	sp, #16
+  26:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN81_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc818b70d1005b1d3E:
+
+00000000 <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq>:
+_ZN81_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc818b70d1005b1d3E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:4
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   0:	b092      	sub	sp, #72	; 0x48
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9007      	str	r0, [sp, #28]
+   8:	9108      	str	r1, [sp, #32]
+   a:	9807      	ldr	r0, [sp, #28]
+   c:	7800      	ldrb	r0, [r0, #0]
+   e:	2100      	movs	r1, #0
+  10:	910f      	str	r1, [sp, #60]	; 0x3c
+  12:	900e      	str	r0, [sp, #56]	; 0x38
+  14:	980e      	ldr	r0, [sp, #56]	; 0x38
+  16:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  18:	9206      	str	r2, [sp, #24]
+  1a:	9305      	str	r3, [sp, #20]
+  1c:	9004      	str	r0, [sp, #16]
+  1e:	9103      	str	r1, [sp, #12]
+  20:	e7ff      	b.n	22 <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq+0x22>
+  22:	9804      	ldr	r0, [sp, #16]
+  24:	900a      	str	r0, [sp, #40]	; 0x28
+  26:	9908      	ldr	r1, [sp, #32]
+  28:	7809      	ldrb	r1, [r1, #0]
+  2a:	2200      	movs	r2, #0
+  2c:	9211      	str	r2, [sp, #68]	; 0x44
+  2e:	9110      	str	r1, [sp, #64]	; 0x40
+  30:	9910      	ldr	r1, [sp, #64]	; 0x40
+  32:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  34:	9102      	str	r1, [sp, #8]
+  36:	9201      	str	r2, [sp, #4]
+  38:	e7ff      	b.n	3a <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq+0x3a>
+  3a:	9802      	ldr	r0, [sp, #8]
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+  3e:	990a      	ldr	r1, [sp, #40]	; 0x28
+  40:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  42:	4291      	cmp	r1, r2
+  44:	d108      	bne.n	58 <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq+0x58>
+  46:	e7ff      	b.n	48 <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq+0x48>
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9908      	ldr	r1, [sp, #32]
+  4c:	900c      	str	r0, [sp, #48]	; 0x30
+  4e:	910d      	str	r1, [sp, #52]	; 0x34
+  50:	2001      	movs	r0, #1
+  52:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  56:	e003      	b.n	60 <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq+0x60>
+  58:	2000      	movs	r0, #0
+  5a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  5e:	e7ff      	b.n	60 <<cortex_m::register::faultmask::Faultmask as core::cmp::PartialEq>::eq+0x60>
+  60:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  64:	b012      	add	sp, #72	; 0x48
+  66:	4770      	bx	lr
+
+Disassembly of section .text._ZN77_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..fmt..Debug$GT$3fmt17h81e49e2145ba1ea1E:
+
+00000000 <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt>:
+_ZN77_$LT$cortex_m..register..faultmask..Faultmask$u20$as$u20$core..fmt..Debug$GT$3fmt17h81e49e2145ba1ea1E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/register/faultmask.rs:4
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	9007      	str	r0, [sp, #28]
+  10:	9807      	ldr	r0, [sp, #28]
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c1      	lsls	r1, r0, #31
+  16:	2900      	cmp	r1, #0
+  18:	9203      	str	r2, [sp, #12]
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	9001      	str	r0, [sp, #4]
+  1e:	d005      	beq.n	2c <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x2c>
+  20:	e7ff      	b.n	22 <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x22>
+  22:	9801      	ldr	r0, [sp, #4]
+  24:	2801      	cmp	r0, #1
+  26:	d012      	beq.n	4e <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x4e>
+  28:	e7ff      	b.n	2a <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x2a>
+  2a:	defe      	udf	#254	; 0xfe
+  2c:	9905      	ldr	r1, [sp, #20]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a808      	add	r0, sp, #32
+  38:	2306      	movs	r3, #6
+  3a:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  3e:	e7ff      	b.n	40 <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x40>
+  40:	a808      	add	r0, sp, #32
+  42:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  46:	f88d 001b 	strb.w	r0, [sp, #27]
+  4a:	e7ff      	b.n	4c <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x4c>
+  4c:	e010      	b.n	70 <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x70>
+  4e:	9905      	ldr	r1, [sp, #20]
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	a80b      	add	r0, sp, #44	; 0x2c
+  5a:	2308      	movs	r3, #8
+  5c:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  60:	e7ff      	b.n	62 <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x62>
+  62:	a80b      	add	r0, sp, #44	; 0x2c
+  64:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  68:	f88d 001b 	strb.w	r0, [sp, #27]
+  6c:	e7ff      	b.n	6e <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x6e>
+  6e:	e7ff      	b.n	70 <<cortex_m::register::faultmask::Faultmask as core::fmt::Debug>::fmt+0x70>
+  70:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  74:	b00e      	add	sp, #56	; 0x38
+  76:	bd80      	pop	{r7, pc}
+
+cortex_m-7c38d4cecc7edfb7.cortex_m.52231x00-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.52231x00-cgu.0
+000002a1 l       .debug_str	00000000 
+000001d9 l       .debug_str	00000000 
+000001e0 l       .debug_str	00000000 
+000001e3 l       .debug_str	00000000 
+000001ed l       .debug_str	00000000 
+000001ef l       .debug_str	00000000 
+00000206 l       .debug_str	00000000 
+0000020a l       .debug_str	00000000 
+00000295 l       .debug_str	00000000 
+000002a5 l       .debug_str	00000000 
+00000332 l       .debug_str	00000000 
+000003bc l       .debug_str	00000000 
+00000403 l       .debug_str	00000000 
+00000418 l       .debug_str	00000000 
+00000420 l       .debug_str	00000000 
+00000424 l       .debug_str	00000000 
+00000426 l       .debug_str	00000000 
+00000429 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+000000e6 l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000112 l       .debug_str	00000000 
+0000011b l       .debug_str	00000000 
+00000126 l       .debug_str	00000000 
+0000012d l       .debug_str	00000000 
+0000013a l       .debug_str	00000000 
+00000141 l       .debug_str	00000000 
+00000149 l       .debug_str	00000000 
+00000157 l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+0000016e l       .debug_str	00000000 
+0000017e l       .debug_str	00000000 
+0000018b l       .debug_str	00000000 
+000001c4 l       .debug_str	00000000 
+000001cc l       .debug_str	00000000 
+000001d4 l       .debug_str	00000000 
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb7cbp_new17hd240428f1beb8a94E	00000000 .text._ZN8cortex_m10peripheral3scb7cbp_new17hd240428f1beb8a94E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17hc58bcab63fc8319cE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17hc58bcab63fc8319cE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h91c7072a5e3e649eE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h91c7072a5e3e649eE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h574a94adea68b1b9E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h574a94adea68b1b9E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb20system_handler_index17h6ad2424bec24b7f4E	00000000 .text._ZN8cortex_m10peripheral3scb20system_handler_index17h6ad2424bec24b7f4E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN8cortex_m10peripheral3scb20system_handler_index17h6ad2424bec24b7f4E	00000064 .hidden cortex_m::peripheral::scb::system_handler_index
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h574a94adea68b1b9E	0000001a .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17hc58bcab63fc8319cE	00000012 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h91c7072a5e3e649eE	00000012 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb7cbp_new17hd240428f1beb8a94E	00000008 cortex_m::peripheral::scb::cbp_new
+
+
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb7cbp_new17hd240428f1beb8a94E:
+
+00000000 <cortex_m::peripheral::scb::cbp_new>:
+_ZN8cortex_m10peripheral3scb7cbp_new17hd240428f1beb8a94E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:193
+
+#[cfg(not(armv6m))]
+use self::scb_consts::*;
+
+#[cfg(not(armv6m))]
+unsafe fn cbp_new() -> CBP {
+   0:	b081      	sub	sp, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:194
+    core::mem::transmute(())
+   2:	e7ff      	b.n	4 <cortex_m::peripheral::scb::cbp_new+0x4>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:195
+}
+   4:	b001      	add	sp, #4
+   6:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17hc58bcab63fc8319cE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17hc58bcab63fc8319cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:479
+
+impl SCB {
+    /// Set the SLEEPDEEP bit in the SCR register
+    pub fn set_sleepdeep(&mut self) {
+        unsafe {
+            self.scr.modify(|scr| scr | SCB_SCR_SLEEPDEEP);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0004 	orr.w	r0, r0, #4
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h91c7072a5e3e649eE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep28_$u7b$$u7b$closure$u7d$$u7d$17h91c7072a5e3e649eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:486
+    }
+
+    /// Clear the SLEEPDEEP bit in the SCR register
+    pub fn clear_sleepdeep(&mut self) {
+        unsafe {
+            self.scr.modify(|scr| scr & !SCB_SCR_SLEEPDEEP);
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f020 0004 	bic.w	r0, r0, #4
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h574a94adea68b1b9E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset28_$u7b$$u7b$closure$u7d$$u7d$17h574a94adea68b1b9E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:501
+    /// Initiate a system reset request to reset the MCU
+    pub fn system_reset(&mut self) -> ! {
+        ::asm::dsb();
+        unsafe {
+            self.aircr.modify(
+                |r| {
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:503
+                    SCB_AIRCR_VECTKEY | // otherwise the write is ignored
+            r & SCB_AIRCR_PRIGROUP_MASK | // keep priority group unchanged
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f400 60a0 	and.w	r0, r0, #1280	; 0x500
+   c:	2204      	movs	r2, #4
+   e:	f2c0 52fa 	movt	r2, #1530	; 0x5fa
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:502
+                    SCB_AIRCR_VECTKEY | // otherwise the write is ignored
+  12:	4310      	orrs	r0, r2
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:505
+            SCB_AIRCR_SYSRESETREQ
+                }, // set the bit
+  14:	9100      	str	r1, [sp, #0]
+  16:	b003      	add	sp, #12
+  18:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb20system_handler_index17h6ad2424bec24b7f4E:
+
+00000000 <cortex_m::peripheral::scb::system_handler_index>:
+_ZN8cortex_m10peripheral3scb20system_handler_index17h6ad2424bec24b7f4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:565
+            (*Self::ptr()).icsr.write(SCB_ICSR_PENDSTCLR);
+        }
+    }
+}
+
+fn system_handler_index(sh: &SystemHandler) -> u8 {
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:568
+    match *sh {
+        #[cfg(not(armv6m))]
+        SystemHandler::MemoryManagement => 4,
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	7800      	ldrb	r0, [r0, #0]
+   a:	4602      	mov	r2, r0
+   c:	2806      	cmp	r0, #6
+   e:	9101      	str	r1, [sp, #4]
+  10:	9200      	str	r2, [sp, #0]
+  12:	d806      	bhi.n	22 <cortex_m::peripheral::scb::system_handler_index+0x22>
+  14:	9900      	ldr	r1, [sp, #0]
+  16:	e8df f001 	tbb	[pc, r1]
+  1a:	0905      	.short	0x0905
+  1c:	1915110d 	.word	0x1915110d
+  20:	001d      	.short	0x001d
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:581
+        #[cfg(not(armv6m))]
+        SystemHandler::DebugMonitor => 12,
+        SystemHandler::PendSV => 14,
+        SystemHandler::SysTick => 15,
+    }
+}
+  22:	defe      	udf	#254	; 0xfe
+  24:	2004      	movs	r0, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:568
+        SystemHandler::MemoryManagement => 4,
+  26:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  2a:	e017      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+  2c:	2005      	movs	r0, #5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:570
+        SystemHandler::BusFault => 5,
+  2e:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  32:	e013      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+  34:	2006      	movs	r0, #6
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:572
+        SystemHandler::UsageFault => 6,
+  36:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  3a:	e00f      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+  3c:	200b      	movs	r0, #11
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:575
+        SystemHandler::SVCall => 11,
+  3e:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  42:	e00b      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+  44:	200c      	movs	r0, #12
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:577
+        SystemHandler::DebugMonitor => 12,
+  46:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  4a:	e007      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+  4c:	200e      	movs	r0, #14
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:578
+        SystemHandler::PendSV => 14,
+  4e:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  52:	e003      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+  54:	200f      	movs	r0, #15
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:579
+        SystemHandler::SysTick => 15,
+  56:	f88d 000f 	strb.w	r0, [sp, #15]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:566
+    match *sh {
+  5a:	e7ff      	b.n	5c <cortex_m::peripheral::scb::system_handler_index+0x5c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:581
+}
+  5c:	f89d 000f 	ldrb.w	r0, [sp, #15]
+  60:	b004      	add	sp, #16
+  62:	4770      	bx	lr
+
+cortex_m-7c38d4cecc7edfb7.cortex_m.52231x00-cgu.1.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.52231x00-cgu.1
+0000016c l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+000000e6 l       .debug_str	00000000 
+000000eb l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+00000172 l       .debug_str	00000000 
+000000f8 l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+00000166 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17h57a24cf8501a722cE	00000000 .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17h57a24cf8501a722cE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17h57a24cf8501a722cE	00000012 .hidden core::num::<impl core::convert::From<u8> for usize>::from
+
+
+
+Disassembly of section .text._ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17h57a24cf8501a722cE:
+
+00000000 <core::num::<impl core::convert::From<u8> for usize>::from>:
+_ZN4core3num65_$LT$impl$u20$core..convert..From$LT$u8$GT$$u20$for$u20$usize$GT$4from17h57a24cf8501a722cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:5107
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	f88d 0007 	strb.w	r0, [sp, #7]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:5108
+   8:	f89d 0007 	ldrb.w	r0, [sp, #7]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:5109
+   c:	9100      	str	r1, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
+
+cortex_m-7c38d4cecc7edfb7.cortex_m.52231x00-cgu.2.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.52231x00-cgu.2
+000001c6 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+000000e6 l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+000001be l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+00000107 l       .debug_str	00000000 
+0000011c l       .debug_str	00000000 
+000001ae l       .debug_str	00000000 
+000001ba l       .debug_str	00000000 
+00000000 l    d  .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17h12155e986fdf934bE	00000000 .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17h12155e986fdf934bE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17h12155e986fdf934bE	00000012 .hidden cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}
+
+
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17h12155e986fdf934bE:
+
+00000000 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}>:
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter28_$u7b$$u7b$closure$u7d$$u7d$17h12155e986fdf934bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:40
+pub use cortex_m_0_6::peripheral::dwt::Comparator;
+
+impl DWT {
+    /// Enables the cycle counter
+    pub fn enable_cycle_counter(&mut self) {
+        unsafe { self.ctrl.modify(|r| r | 1) }
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9802      	ldr	r0, [sp, #8]
+   8:	f040 0001 	orr.w	r0, r0, #1
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+cortex_m-7c38d4cecc7edfb7.cortex_m.52231x00-cgu.3.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.52231x00-cgu.3
+00000c8a l       .debug_str	00000000 
+00000c7c l       .debug_str	00000000 
+00000c81 l       .debug_str	00000000 
+00000c93 l       .debug_str	00000000 
+00000c9e l       .debug_str	00000000 
+00000cb2 l       .debug_str	00000000 
+00000cb6 l       .debug_str	00000000 
+00000cbe l       .debug_str	00000000 
+00000cc2 l       .debug_str	00000000 
+00000cd0 l       .debug_str	00000000 
+00000d00 l       .debug_str	00000000 
+00000d65 l       .debug_str	00000000 
+00000d6b l       .debug_str	00000000 
+00000d95 l       .debug_str	00000000 
+00000dcb l       .debug_str	00000000 
+00000dd0 l       .debug_str	00000000 
+00000dd5 l       .debug_str	00000000 
+00000de0 l       .debug_str	00000000 
+00000de5 l       .debug_str	00000000 
+00000df0 l       .debug_str	00000000 
+00000df5 l       .debug_str	00000000 
+00000e00 l       .debug_str	00000000 
+00000e05 l       .debug_str	00000000 
+00000e10 l       .debug_str	00000000 
+00000e15 l       .debug_str	00000000 
+00000e20 l       .debug_str	00000000 
+00000e24 l       .debug_str	00000000 
+00000e55 l       .debug_str	00000000 
+00000ebb l       .debug_str	00000000 
+00000ee6 l       .debug_str	00000000 
+00000f1b l       .debug_str	00000000 
+00000f20 l       .debug_str	00000000 
+00000f25 l       .debug_str	00000000 
+00000f2b l       .debug_str	00000000 
+00000f2f l       .debug_str	00000000 
+00000f33 l       .debug_str	00000000 
+00000f38 l       .debug_str	00000000 
+00000f3e l       .debug_str	00000000 
+00000f43 l       .debug_str	00000000 
+00000f48 l       .debug_str	00000000 
+00000f4d l       .debug_str	00000000 
+00000f53 l       .debug_str	00000000 
+00000f58 l       .debug_str	00000000 
+00000f5d l       .debug_str	00000000 
+00000f68 l       .debug_str	00000000 
+00000f6e l       .debug_str	00000000 
+00000f9e l       .debug_str	00000000 
+00001003 l       .debug_str	00000000 
+0000102d l       .debug_str	00000000 
+0000104c l       .debug_str	00000000 
+0000106b l       .debug_str	00000000 
+0000107a l       .debug_str	00000000 
+00001080 l       .debug_str	00000000 
+00001085 l       .debug_str	00000000 
+000010a0 l       .debug_str	00000000 
+000010bc l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+000000e6 l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+0000011a l       .debug_str	00000000 
+0000012b l       .debug_str	00000000 
+00000134 l       .debug_str	00000000 
+0000013f l       .debug_str	00000000 
+00000146 l       .debug_str	00000000 
+00000153 l       .debug_str	00000000 
+0000015a l       .debug_str	00000000 
+00000162 l       .debug_str	00000000 
+0000016c l       .debug_str	00000000 
+0000017a l       .debug_str	00000000 
+0000018c l       .debug_str	00000000 
+00000195 l       .debug_str	00000000 
+0000019b l       .debug_str	00000000 
+000001a1 l       .debug_str	00000000 
+000001a6 l       .debug_str	00000000 
+000001ab l       .debug_str	00000000 
+000001af l       .debug_str	00000000 
+000001b1 l       .debug_str	00000000 
+000001c1 l       .debug_str	00000000 
+000001d3 l       .debug_str	00000000 
+000001db l       .debug_str	00000000 
+000001e3 l       .debug_str	00000000 
+000001e5 l       .debug_str	00000000 
+00000224 l       .debug_str	00000000 
+00000238 l       .debug_str	00000000 
+0000023d l       .debug_str	00000000 
+00000259 l       .debug_str	00000000 
+0000025b l       .debug_str	00000000 
+00000294 l       .debug_str	00000000 
+0000029d l       .debug_str	00000000 
+000002b7 l       .debug_str	00000000 
+000002f0 l       .debug_str	00000000 
+000002f9 l       .debug_str	00000000 
+00000301 l       .debug_str	00000000 
+00000308 l       .debug_str	00000000 
+0000030b l       .debug_str	00000000 
+00000315 l       .debug_str	00000000 
+0000032c l       .debug_str	00000000 
+00000330 l       .debug_str	00000000 
+0000036d l       .debug_str	00000000 
+00000377 l       .debug_str	00000000 
+0000037b l       .debug_str	00000000 
+000003ba l       .debug_str	00000000 
+000003f9 l       .debug_str	00000000 
+00000438 l       .debug_str	00000000 
+00000476 l       .debug_str	00000000 
+00000481 l       .debug_str	00000000 
+00000490 l       .debug_str	00000000 
+000004a1 l       .debug_str	00000000 
+000004a8 l       .debug_str	00000000 
+000004e5 l       .debug_str	00000000 
+000004ee l       .debug_str	00000000 
+00000509 l       .debug_str	00000000 
+00000542 l       .debug_str	00000000 
+0000054a l       .debug_str	00000000 
+00000563 l       .debug_str	00000000 
+000005a1 l       .debug_str	00000000 
+000005ab l       .debug_str	00000000 
+000005e4 l       .debug_str	00000000 
+000005ec l       .debug_str	00000000 
+000005f0 l       .debug_str	00000000 
+000005f6 l       .debug_str	00000000 
+000005fa l       .debug_str	00000000 
+000005fe l       .debug_str	00000000 
+00000602 l       .debug_str	00000000 
+00000606 l       .debug_str	00000000 
+0000060a l       .debug_str	00000000 
+0000060f l       .debug_str	00000000 
+00000614 l       .debug_str	00000000 
+00000619 l       .debug_str	00000000 
+00000625 l       .debug_str	00000000 
+0000062e l       .debug_str	00000000 
+000006a2 l       .debug_str	00000000 
+000006b7 l       .debug_str	00000000 
+00000726 l       .debug_str	00000000 
+00000736 l       .debug_str	00000000 
+000007a1 l       .debug_str	00000000 
+000007ad l       .debug_str	00000000 
+000007b8 l       .debug_str	00000000 
+000007bc l       .debug_str	00000000 
+000007c6 l       .debug_str	00000000 
+000007cb l       .debug_str	00000000 
+000007d6 l       .debug_str	00000000 
+00000843 l       .debug_str	00000000 
+00000851 l       .debug_str	00000000 
+000008c0 l       .debug_str	00000000 
+000008d0 l       .debug_str	00000000 
+0000093c l       .debug_str	00000000 
+00000949 l       .debug_str	00000000 
+0000094b l       .debug_str	00000000 
+000009b5 l       .debug_str	00000000 
+000009c0 l       .debug_str	00000000 
+00000a31 l       .debug_str	00000000 
+00000a43 l       .debug_str	00000000 
+00000a48 l       .debug_str	00000000 
+00000ab4 l       .debug_str	00000000 
+00000ac1 l       .debug_str	00000000 
+00000b2d l       .debug_str	00000000 
+00000b3a l       .debug_str	00000000 
+00000ba6 l       .debug_str	00000000 
+00000bb3 l       .debug_str	00000000 
+00000bf3 l       .debug_str	00000000 
+00000bf9 l       .debug_str	00000000 
+00000c2e l       .debug_str	00000000 
+00000c32 l       .debug_str	00000000 
+00000c36 l       .debug_str	00000000 
+00000c3b l       .debug_str	00000000 
+00000c42 l       .debug_str	00000000 
+00000c49 l       .debug_str	00000000 
+00000c50 l       .debug_str	00000000 
+00000c59 l       .debug_str	00000000 
+00000c60 l       .debug_str	00000000 
+00000c68 l       .debug_str	00000000 
+00000c6d l       .debug_str	00000000 
+00000c75 l       .debug_str	00000000 
+00000c77 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.0	00000018 .Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.0
+00000000 l     O .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.1	00000018 .Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.1
+00000000 l     O .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.2	00000010 .Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.2
+00000000 l     O .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.3	00000018 .Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.3
+00000000 l     O .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.4	00000010 .Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.4
+00000000 l     O .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.7	00000018 .Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.7
+00000000 l     O .rodata.str.0	00000062 str.0
+00000000 l     O .rodata.str.1	00000021 str.1
+00000000 l    d  .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17hf2d4530f5eb999c3E	00000000 .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17hf2d4530f5eb999c3E
+00000000 l    d  .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17hd0ab7f008d6b35e5E	00000000 .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17hd0ab7f008d6b35e5E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17h101a91753062e2e2E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17h101a91753062e2e2E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17hb2cea18b4582bca4E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17hb2cea18b4582bca4E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17h1d5b1de90a691e86E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17h1d5b1de90a691e86E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17h209092c16d921a01E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17h209092c16d921a01E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h50fa05356c564fcaE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h50fa05356c564fcaE
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17h556063282ddb8ed5E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17h556063282ddb8ed5E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17hde5208c03cf231c8E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17hde5208c03cf231c8E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17ha58816685e07ee11E	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17ha58816685e07ee11E
+00000000 l    d  .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17h87d0fafaba3df81aE	00000000 .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17h87d0fafaba3df81aE
+00000000 l    d  .text._ZN8cortex_m10peripheral11Peripherals5steal17h026631cfc74bfb8eE	00000000 .text._ZN8cortex_m10peripheral11Peripherals5steal17h026631cfc74bfb8eE
+00000000 l    d  .text._ZN8cortex_m10peripheral3DWT3ptr17h82db8a323e716e70E	00000000 .text._ZN8cortex_m10peripheral3DWT3ptr17h82db8a323e716e70E
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd0f7cee70728ec4aE	00000000 .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd0f7cee70728ec4aE
+00000000 l    d  .text._ZN8cortex_m10peripheral4NVIC3ptr17h0e3fd31128bd1c67E	00000000 .text._ZN8cortex_m10peripheral4NVIC3ptr17h0e3fd31128bd1c67E
+00000000 l    d  .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5c25c1f051209b87E	00000000 .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5c25c1f051209b87E
+00000000 l    d  .text._ZN8cortex_m10peripheral3SCB3ptr17hc2d4669c582dd6d4E	00000000 .text._ZN8cortex_m10peripheral3SCB3ptr17hc2d4669c582dd6d4E
+00000000 l    d  .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17h210746f957bfdcfdE	00000000 .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17h210746f957bfdcfdE
+00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
+00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
+00000000 l    d  .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.5	00000000 .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.5
+00000000 l    d  .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.6	00000000 .rodata..Lanon.933d20e2cfa115a4a6ffdabcbc7af8a9.6
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 CORE_PERIPHERALS
+00000000         *UND*	00000000 .hidden core::num::<impl core::convert::From<u8> for usize>::from
+00000000         *UND*	00000000 core::ptr::read_volatile
+00000000         *UND*	00000000 core::ptr::read_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000         *UND*	00000000 core::ptr::write_volatile
+00000000         *UND*	00000000 core::ptr::read
+00000000         *UND*	00000000 core::cell::UnsafeCell<T>::get
+00000000         *UND*	00000000 core::cell::UnsafeCell<T>::get
+00000000         *UND*	00000000 core::panicking::panic_bounds_check
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd0f7cee70728ec4aE	00000018 <cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17h210746f957bfdcfdE	00000018 <cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5c25c1f051209b87E	00000018 <cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref
+00000000 g     F .text._ZN8cortex_m10peripheral11Peripherals5steal17h026631cfc74bfb8eE	0000003e cortex_m::peripheral::Peripherals::steal
+00000000 g     F .text._ZN8cortex_m10peripheral3DWT3ptr17h82db8a323e716e70E	0000000a cortex_m::peripheral::DWT::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3SCB3ptr17hc2d4669c582dd6d4E	0000000a cortex_m::peripheral::SCB::ptr
+00000000 g     F .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17hd0ab7f008d6b35e5E	0000002a cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count
+00000000 g     F .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17hf2d4530f5eb999c3E	00000048 cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::system_handler_index
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h50fa05356c564fcaE	00000030 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17h101a91753062e2e2E	00000148 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17hde5208c03cf231c8E	00000030 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17ha58816685e07ee11E	00000088 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17h87d0fafaba3df81aE	000000ac cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17h209092c16d921a01E	00000058 cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17hb2cea18b4582bca4E	0000004c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17h1d5b1de90a691e86E	0000004c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep
+00000000         *UND*	00000000 .hidden cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}
+00000000 g     F .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17h556063282ddb8ed5E	0000002c cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending
+00000000 g     F .text._ZN8cortex_m10peripheral4NVIC3ptr17h0e3fd31128bd1c67E	0000000a cortex_m::peripheral::NVIC::ptr
+00000000         *UND*	00000000 .hidden cortex_m::asm::dsb
+00000000         *UND*	00000000 .hidden cortex_m::asm::nop
+
+
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17hf2d4530f5eb999c3E:
+
+00000000 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter>:
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17hf2d4530f5eb999c3E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:39
+
+pub use cortex_m_0_6::peripheral::dwt::Comparator;
+
+impl DWT {
+    /// Enables the cycle counter
+    pub fn enable_cycle_counter(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:40
+        unsafe { self.ctrl.modify(|r| r | 1) }
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	9006      	str	r0, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h5db0e59e8e68884dE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+    /// NOTE: `unsafe` because writes to a register are side effectful
+    #[inline(always)]
+    pub unsafe fn modify<F>(&self, f: F)
+        where F: FnOnce(T) -> T
+    {
+        self.register.set(f(self.register.get()));
+  18:	9906      	ldr	r1, [sp, #24]
+  1a:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17he71709ace23b5692E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+    /// Returns a copy of the contained value
+    #[inline(always)]
+    pub fn get(&self) -> T
+        where T: Copy
+    {
+        unsafe { ptr::read_volatile(self.value.get()) }
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9101      	str	r1, [sp, #4]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h5db0e59e8e68884dE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  28:	9008      	str	r0, [sp, #32]
+  2a:	9808      	ldr	r0, [sp, #32]
+  2c:	f7ff fffe 	bl	0 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter::{{closure}}>
+  30:	9901      	ldr	r1, [sp, #4]
+  32:	910a      	str	r1, [sp, #40]	; 0x28
+  34:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17hdc764cacc1776a79E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+    /// Sets the contained value
+    #[inline(always)]
+    pub fn set(&self, value: T)
+        where T: Copy
+    {
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  36:	980a      	ldr	r0, [sp, #40]	; 0x28
+  38:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  3c:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  3e:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$20enable_cycle_counter17hf2d4530f5eb999c3E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:40
+  42:	e7ff      	b.n	44 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::enable_cycle_counter+0x44>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:41
+    }
+  44:	b00c      	add	sp, #48	; 0x30
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17hd0ab7f008d6b35e5E:
+
+00000000 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count>:
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17hd0ab7f008d6b35e5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:44
+
+    /// Returns the current clock cycle count
+    pub fn get_cycle_count() -> u32 {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:46
+        // NOTE(unsafe) atomic read with no side effects
+        unsafe { (*Self::ptr()).cyccnt.read() }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	1d01      	adds	r1, r0, #4
+  10:	9102      	str	r1, [sp, #8]
+_ZN17volatile_register11RW$LT$T$GT$4read17h0da0dd45188cc2fcE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+    }
+
+    /// Reads the value of the register
+    #[inline(always)]
+    pub fn read(&self) -> T {
+        self.register.get()
+  12:	9902      	ldr	r1, [sp, #8]
+  14:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17he71709ace23b5692E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  16:	9803      	ldr	r0, [sp, #12]
+  18:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1c:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral3dwt43_$LT$impl$u20$cortex_m..peripheral..DWT$GT$15get_cycle_count17hd0ab7f008d6b35e5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:46
+  20:	9000      	str	r0, [sp, #0]
+  22:	e7ff      	b.n	24 <cortex_m::peripheral::dwt::<impl cortex_m::peripheral::DWT>::get_cycle_count+0x24>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/dwt.rs:47
+    }
+  24:	9800      	ldr	r0, [sp, #0]
+  26:	b004      	add	sp, #16
+  28:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17h101a91753062e2e2E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$11vect_active17h101a91753062e2e2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:156
+    }
+}
+
+impl SCB {
+    /// Returns the active exception number
+    pub fn vect_active() -> VectActive {
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:157
+        let icsr = unsafe { ptr::read(&(*SCB::ptr()).icsr as *const _ as *const u32) };
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active>
+   8:	9004      	str	r0, [sp, #16]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0xc>
+   c:	9804      	ldr	r0, [sp, #16]
+   e:	f7ff fffe 	bl	0 <core::ptr::read>
+  12:	9006      	str	r0, [sp, #24]
+  14:	e7ff      	b.n	16 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x16>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+
+        match icsr as u8 {
+  16:	9806      	ldr	r0, [sp, #24]
+  18:	b2c1      	uxtb	r1, r0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:160
+            0 => VectActive::ThreadMode,
+  1a:	460a      	mov	r2, r1
+  1c:	290f      	cmp	r1, #15
+  1e:	9003      	str	r0, [sp, #12]
+  20:	9202      	str	r2, [sp, #8]
+  22:	f200 8071 	bhi.w	108 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x108>
+  26:	9902      	ldr	r1, [sp, #8]
+  28:	e8df f001 	tbb	[pc, r1]
+  2c:	170c6e08 	.word	0x170c6e08
+  30:	6e372c21 	.word	0x6e372c21
+  34:	426e6e6e 	.word	0x426e6e6e
+  38:	63586e4d 	.word	0x63586e4d
+  3c:	2000      	movs	r0, #0
+  3e:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  42:	e074      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  44:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:161
+            2 => VectActive::Exception(Exception::NonMaskableInt),
+  46:	f88d 001e 	strb.w	r0, [sp, #30]
+  4a:	f89d 001e 	ldrb.w	r0, [sp, #30]
+  4e:	f88d 0015 	strb.w	r0, [sp, #21]
+  52:	2001      	movs	r0, #1
+  54:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  58:	e069      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  5a:	2001      	movs	r0, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:162
+            3 => VectActive::Exception(Exception::HardFault),
+  5c:	f88d 001f 	strb.w	r0, [sp, #31]
+  60:	f89d 101f 	ldrb.w	r1, [sp, #31]
+  64:	f88d 1015 	strb.w	r1, [sp, #21]
+  68:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  6c:	e05f      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  6e:	2002      	movs	r0, #2
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:164
+            #[cfg(not(armv6m))]
+            4 => VectActive::Exception(Exception::MemoryManagement),
+  70:	f88d 0020 	strb.w	r0, [sp, #32]
+  74:	f89d 0020 	ldrb.w	r0, [sp, #32]
+  78:	f88d 0015 	strb.w	r0, [sp, #21]
+  7c:	2001      	movs	r0, #1
+  7e:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  82:	e054      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  84:	2003      	movs	r0, #3
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:166
+            #[cfg(not(armv6m))]
+            5 => VectActive::Exception(Exception::BusFault),
+  86:	f88d 0021 	strb.w	r0, [sp, #33]	; 0x21
+  8a:	f89d 0021 	ldrb.w	r0, [sp, #33]	; 0x21
+  8e:	f88d 0015 	strb.w	r0, [sp, #21]
+  92:	2001      	movs	r0, #1
+  94:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  98:	e049      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  9a:	2004      	movs	r0, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:168
+            #[cfg(not(armv6m))]
+            6 => VectActive::Exception(Exception::UsageFault),
+  9c:	f88d 0022 	strb.w	r0, [sp, #34]	; 0x22
+  a0:	f89d 0022 	ldrb.w	r0, [sp, #34]	; 0x22
+  a4:	f88d 0015 	strb.w	r0, [sp, #21]
+  a8:	2001      	movs	r0, #1
+  aa:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  ae:	e03e      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  b0:	2005      	movs	r0, #5
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:171
+            #[cfg(any(armv8m, target_arch = "x86_64"))]
+            7 => VectActive::Exception(Exception::SecureFault),
+            11 => VectActive::Exception(Exception::SVCall),
+  b2:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
+  b6:	f89d 0023 	ldrb.w	r0, [sp, #35]	; 0x23
+  ba:	f88d 0015 	strb.w	r0, [sp, #21]
+  be:	2001      	movs	r0, #1
+  c0:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  c4:	e033      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  c6:	2006      	movs	r0, #6
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:173
+            #[cfg(not(armv6m))]
+            12 => VectActive::Exception(Exception::DebugMonitor),
+  c8:	f88d 0024 	strb.w	r0, [sp, #36]	; 0x24
+  cc:	f89d 0024 	ldrb.w	r0, [sp, #36]	; 0x24
+  d0:	f88d 0015 	strb.w	r0, [sp, #21]
+  d4:	2001      	movs	r0, #1
+  d6:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  da:	e028      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  dc:	2007      	movs	r0, #7
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:174
+            14 => VectActive::Exception(Exception::PendSV),
+  de:	f88d 0025 	strb.w	r0, [sp, #37]	; 0x25
+  e2:	f89d 0025 	ldrb.w	r0, [sp, #37]	; 0x25
+  e6:	f88d 0015 	strb.w	r0, [sp, #21]
+  ea:	2001      	movs	r0, #1
+  ec:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+  f0:	e01d      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+  f2:	2008      	movs	r0, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:175
+            15 => VectActive::Exception(Exception::SysTick),
+  f4:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
+  f8:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
+  fc:	f88d 0015 	strb.w	r0, [sp, #21]
+ 100:	2001      	movs	r0, #1
+ 102:	f88d 0014 	strb.w	r0, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+ 106:	e012      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:176
+            irqn => VectActive::Interrupt { irqn: irqn - 16 },
+ 108:	9803      	ldr	r0, [sp, #12]
+ 10a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+ 10e:	f89d 1027 	ldrb.w	r1, [sp, #39]	; 0x27
+ 112:	3910      	subs	r1, #16
+ 114:	b2ca      	uxtb	r2, r1
+ 116:	460b      	mov	r3, r1
+ 118:	428a      	cmp	r2, r1
+ 11a:	9301      	str	r3, [sp, #4]
+ 11c:	d10d      	bne.n	13a <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x13a>
+ 11e:	e7ff      	b.n	120 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x120>
+ 120:	9801      	ldr	r0, [sp, #4]
+ 122:	f88d 0015 	strb.w	r0, [sp, #21]
+ 126:	2102      	movs	r1, #2
+ 128:	f88d 1014 	strb.w	r1, [sp, #20]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:159
+        match icsr as u8 {
+ 12c:	e7ff      	b.n	12e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::vect_active+0x12e>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:178
+        }
+    }
+ 12e:	f89d 0014 	ldrb.w	r0, [sp, #20]
+ 132:	f89d 1015 	ldrb.w	r1, [sp, #21]
+ 136:	b00a      	add	sp, #40	; 0x28
+ 138:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:176
+            irqn => VectActive::Interrupt { irqn: irqn - 16 },
+ 13a:	f240 0000 	movw	r0, #0
+ 13e:	f2c0 0000 	movt	r0, #0
+ 142:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 146:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17hb2cea18b4582bca4E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17hb2cea18b4582bca4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:477
+
+const SCB_SCR_SLEEPDEEP: u32 = 0x1 << 2;
+
+impl SCB {
+    /// Set the SLEEPDEEP bit in the SCR register
+    pub fn set_sleepdeep(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:479
+        unsafe {
+            self.scr.modify(|scr| scr | SCB_SCR_SLEEPDEEP);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h283493881f284cb8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+        self.register.set(f(self.register.get()));
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17he71709ace23b5692E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h283493881f284cb8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17hdc764cacc1776a79E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$13set_sleepdeep17hb2cea18b4582bca4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:479
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_sleepdeep+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:481
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17h1d5b1de90a691e86E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17h1d5b1de90a691e86E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:484
+
+    /// Clear the SLEEPDEEP bit in the SCR register
+    pub fn clear_sleepdeep(&mut self) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:486
+        unsafe {
+            self.scr.modify(|scr| scr & !SCB_SCR_SLEEPDEEP);
+   8:	9804      	ldr	r0, [sp, #16]
+   a:	9103      	str	r1, [sp, #12]
+   c:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep>
+  10:	9002      	str	r0, [sp, #8]
+  12:	e7ff      	b.n	14 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep+0x14>
+  14:	9802      	ldr	r0, [sp, #8]
+  16:	f100 010c 	add.w	r1, r0, #12
+  1a:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h59ed68f443e9dae2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  1c:	9906      	ldr	r1, [sp, #24]
+  1e:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17he71709ace23b5692E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  20:	9809      	ldr	r0, [sp, #36]	; 0x24
+  22:	9101      	str	r1, [sp, #4]
+  24:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  28:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h59ed68f443e9dae2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  2c:	9008      	str	r0, [sp, #32]
+  2e:	9808      	ldr	r0, [sp, #32]
+  30:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep::{{closure}}>
+  34:	9901      	ldr	r1, [sp, #4]
+  36:	910a      	str	r1, [sp, #40]	; 0x28
+  38:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17hdc764cacc1776a79E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  3c:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  40:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  42:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$15clear_sleepdeep17h1d5b1de90a691e86E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:486
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_sleepdeep+0x48>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:488
+        }
+    }
+  48:	b00c      	add	sp, #48	; 0x30
+  4a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17h209092c16d921a01E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17h209092c16d921a01E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:497
+const SCB_AIRCR_PRIGROUP_MASK: u32 = 0x5 << 8;
+const SCB_AIRCR_SYSRESETREQ: u32 = 1 << 2;
+
+impl SCB {
+    /// Initiate a system reset request to reset the MCU
+    pub fn system_reset(&mut self) -> ! {
+   0:	b08c      	sub	sp, #48	; 0x30
+   2:	4601      	mov	r1, r0
+   4:	9004      	str	r0, [sp, #16]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:498
+        ::asm::dsb();
+   6:	9103      	str	r1, [sp, #12]
+   8:	f7ff fffe 	bl	0 <cortex_m::asm::dsb>
+   c:	e7ff      	b.n	e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset+0xe>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:500
+        unsafe {
+            self.aircr.modify(
+   e:	9804      	ldr	r0, [sp, #16]
+  10:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset>
+  14:	9002      	str	r0, [sp, #8]
+  16:	e7ff      	b.n	18 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset+0x18>
+  18:	9802      	ldr	r0, [sp, #8]
+  1a:	f100 0108 	add.w	r1, r0, #8
+  1e:	9106      	str	r1, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$6modify17h259ba4e99e955b58E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  20:	9906      	ldr	r1, [sp, #24]
+  22:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN5vcell21VolatileCell$LT$T$GT$3get17he71709ace23b5692E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  24:	9809      	ldr	r0, [sp, #36]	; 0x24
+  26:	9101      	str	r1, [sp, #4]
+  28:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  2c:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN17volatile_register11RW$LT$T$GT$6modify17h259ba4e99e955b58E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:69
+  30:	9008      	str	r0, [sp, #32]
+  32:	9808      	ldr	r0, [sp, #32]
+  34:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset::{{closure}}>
+  38:	9901      	ldr	r1, [sp, #4]
+  3a:	910a      	str	r1, [sp, #40]	; 0x28
+  3c:	900b      	str	r0, [sp, #44]	; 0x2c
+_ZN5vcell21VolatileCell$LT$T$GT$3set17hdc764cacc1776a79E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  3e:	980a      	ldr	r0, [sp, #40]	; 0x28
+  40:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  44:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  46:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12system_reset17h209092c16d921a01E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:500
+  4a:	e7ff      	b.n	2 <cortex_m::asm::dsb+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:508
+            r & SCB_AIRCR_PRIGROUP_MASK | // keep priority group unchanged
+            SCB_AIRCR_SYSRESETREQ
+                }, // set the bit
+            )
+        };
+        ::asm::dsb();
+  4c:	f7ff fffe 	bl	0 <cortex_m::asm::dsb>
+  50:	e7ff      	b.n	2 <cortex_m::asm::nop+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:511
+        loop {
+            // wait for the reset
+            ::asm::nop(); // avoid rust-lang/rust#28728
+  52:	f7ff fffe 	bl	0 <cortex_m::asm::nop>
+  56:	e7fc      	b.n	52 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::system_reset+0x52>
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h50fa05356c564fcaE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h50fa05356c564fcaE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:524
+const SCB_ICSR_PENDSTSET: u32 = 1 << 26;
+const SCB_ICSR_PENDSTCLR: u32 = 1 << 25;
+
+impl SCB {
+    /// Set the PENDSVSET bit in the ICSR register which will pend the PendSV interrupt
+    pub fn set_pendsv() {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:526
+        unsafe {
+            (*Self::ptr()).icsr.write(SCB_ICSR_PENDSVSET);
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	9002      	str	r0, [sp, #8]
+  10:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
+  14:	9103      	str	r1, [sp, #12]
+_ZN17volatile_register11RW$LT$T$GT$5write17hcea25c0096f9a628E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+    /// Writes a `value` into the register
+    ///
+    /// NOTE: `unsafe` because writes to a register are side effectful
+    #[inline(always)]
+    pub unsafe fn write(&self, value: T) {
+        self.register.set(value)
+  16:	9902      	ldr	r1, [sp, #8]
+  18:	9a03      	ldr	r2, [sp, #12]
+  1a:	9104      	str	r1, [sp, #16]
+  1c:	9205      	str	r2, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3set17hdc764cacc1776a79E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+  1e:	9804      	ldr	r0, [sp, #16]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	9905      	ldr	r1, [sp, #20]
+  26:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17h50fa05356c564fcaE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:526
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_pendsv+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:528
+        }
+    }
+  2c:	b006      	add	sp, #24
+  2e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17h556063282ddb8ed5E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17h556063282ddb8ed5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:531
+
+    /// Check if PENDSVSET bit in the ICSR register is set meaning PendSV interrupt is pending
+    pub fn is_pendsv_pending() -> bool {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:532
+        unsafe { (*Self::ptr()).icsr.read() & SCB_ICSR_PENDSVSET == SCB_ICSR_PENDSVSET }
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	9002      	str	r0, [sp, #8]
+_ZN17volatile_register11RW$LT$T$GT$4read17h0da0dd45188cc2fcE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  10:	9902      	ldr	r1, [sp, #8]
+  12:	9103      	str	r1, [sp, #12]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17he71709ace23b5692E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  14:	9803      	ldr	r0, [sp, #12]
+  16:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  1a:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17h556063282ddb8ed5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:532
+  1e:	9000      	str	r0, [sp, #0]
+  20:	e7ff      	b.n	22 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::is_pendsv_pending+0x22>
+  22:	9800      	ldr	r0, [sp, #0]
+  24:	f3c0 7000 	ubfx	r0, r0, #28, #1
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:533
+    }
+  28:	b004      	add	sp, #16
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17hde5208c03cf231c8E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17hde5208c03cf231c8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:536
+
+    /// Set the PENDSVCLR bit in the ICSR register which will clear a pending PendSV interrupt
+    pub fn clear_pendsv() {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:538
+        unsafe {
+            (*Self::ptr()).icsr.write(SCB_ICSR_PENDSVCLR);
+   4:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv>
+   8:	9001      	str	r0, [sp, #4]
+   a:	e7ff      	b.n	c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv+0xc>
+   c:	9801      	ldr	r0, [sp, #4]
+   e:	9002      	str	r0, [sp, #8]
+  10:	f04f 6100 	mov.w	r1, #134217728	; 0x8000000
+  14:	9103      	str	r1, [sp, #12]
+_ZN17volatile_register11RW$LT$T$GT$5write17hcea25c0096f9a628E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+        self.register.set(value)
+  16:	9902      	ldr	r1, [sp, #8]
+  18:	9a03      	ldr	r2, [sp, #12]
+  1a:	9104      	str	r1, [sp, #16]
+  1c:	9205      	str	r2, [sp, #20]
+_ZN5vcell21VolatileCell$LT$T$GT$3set17hdc764cacc1776a79E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  1e:	9804      	ldr	r0, [sp, #16]
+  20:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  24:	9905      	ldr	r1, [sp, #20]
+  26:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12clear_pendsv17hde5208c03cf231c8E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:538
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::clear_pendsv+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:540
+        }
+    }
+  2c:	b006      	add	sp, #24
+  2e:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17ha58816685e07ee11E:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17ha58816685e07ee11E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:588
+impl SCB {
+    /// Returns the hardware priority of `system_handler`
+    ///
+    /// *NOTE*: Hardware priority does not exactly match logical priority levels. See
+    /// [`NVIC.get_priority`](struct.NVIC.html#method.get_priority) for more details.
+    pub fn get_priority(system_handler: SystemHandler) -> u8 {
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	4601      	mov	r1, r0
+   6:	f88d 0016 	strb.w	r0, [sp, #22]
+   a:	f10d 0016 	add.w	r0, sp, #22
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:589
+        let index = system_handler_index(&system_handler);
+   e:	9104      	str	r1, [sp, #16]
+  10:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::system_handler_index>
+  14:	f88d 0017 	strb.w	r0, [sp, #23]
+  18:	e7ff      	b.n	2 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:594
+
+        #[cfg(not(armv6m))]
+        {
+            // NOTE(unsafe) atomic read with no side effects
+            unsafe { (*Self::ptr()).shpr[usize::from(index - 4)].read() }
+  1a:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority>
+  1e:	9003      	str	r0, [sp, #12]
+  20:	e7ff      	b.n	22 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x22>
+  22:	f89d 0017 	ldrb.w	r0, [sp, #23]
+  26:	3804      	subs	r0, #4
+  28:	b2c1      	uxtb	r1, r0
+  2a:	4602      	mov	r2, r0
+  2c:	4281      	cmp	r1, r0
+  2e:	9202      	str	r2, [sp, #8]
+  30:	d11a      	bne.n	68 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x68>
+  32:	e7ff      	b.n	34 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x34>
+  34:	9802      	ldr	r0, [sp, #8]
+  36:	f7ff fffe 	bl	0 <core::num::<impl core::convert::From<u8> for usize>::from>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	280b      	cmp	r0, #11
+  42:	d818      	bhi.n	76 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x76>
+  44:	e7ff      	b.n	46 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x46>
+  46:	9803      	ldr	r0, [sp, #12]
+  48:	9901      	ldr	r1, [sp, #4]
+  4a:	1842      	adds	r2, r0, r1
+  4c:	3214      	adds	r2, #20
+  4e:	9206      	str	r2, [sp, #24]
+_ZN17volatile_register11RW$LT$T$GT$4read17h9135adc35f9fa1adE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+        self.register.get()
+  50:	9a06      	ldr	r2, [sp, #24]
+  52:	9207      	str	r2, [sp, #28]
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h3ec260acb24f52a5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:43
+        unsafe { ptr::read_volatile(self.value.get()) }
+  54:	9807      	ldr	r0, [sp, #28]
+  56:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  5a:	f7ff fffe 	bl	0 <core::ptr::read_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12get_priority17ha58816685e07ee11E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:594
+  5e:	9000      	str	r0, [sp, #0]
+  60:	e7ff      	b.n	62 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::get_priority+0x62>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:604
+            // NOTE(unsafe) atomic read with no side effects
+            let shpr = unsafe { (*Self::ptr()).shpr[usize::from((index - 8) / 4)].read() };
+            let prio = (shpr >> (8 * (index % 4))) & 0x000000ff;
+            prio as u8
+        }
+    }
+  62:	9800      	ldr	r0, [sp, #0]
+  64:	b008      	add	sp, #32
+  66:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:594
+            unsafe { (*Self::ptr()).shpr[usize::from(index - 4)].read() }
+  68:	f240 0000 	movw	r0, #0
+  6c:	f2c0 0000 	movt	r0, #0
+  70:	f7ff fffe 	bl	0 <core::panicking::panic>
+  74:	defe      	udf	#254	; 0xfe
+  76:	f240 0000 	movw	r0, #0
+  7a:	f2c0 0000 	movt	r0, #0
+  7e:	220c      	movs	r2, #12
+  80:	9901      	ldr	r1, [sp, #4]
+  82:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
+  86:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17h87d0fafaba3df81aE:
+
+00000000 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority>:
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17h87d0fafaba3df81aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:618
+    ///
+    /// # Unsafety
+    ///
+    /// Changing priority levels can break priority-based critical sections (see
+    /// [`register::basepri`](../register/basepri/index.html)) and compromise memory safety.
+    pub unsafe fn set_priority(&mut self, system_handler: SystemHandler, prio: u8) {
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9006      	str	r0, [sp, #24]
+   c:	f88d 101d 	strb.w	r1, [sp, #29]
+  10:	f88d 201e 	strb.w	r2, [sp, #30]
+  14:	f10d 001d 	add.w	r0, sp, #29
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:619
+        let index = system_handler_index(&system_handler);
+  18:	9305      	str	r3, [sp, #20]
+  1a:	f8cd c010 	str.w	ip, [sp, #16]
+  1e:	f8cd e00c 	str.w	lr, [sp, #12]
+  22:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::system_handler_index>
+  26:	f88d 001f 	strb.w	r0, [sp, #31]
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:623
+
+        #[cfg(not(armv6m))]
+        {
+            self.shpr[usize::from(index - 4)].write(prio)
+  2c:	9806      	ldr	r0, [sp, #24]
+  2e:	f7ff fffe 	bl	0 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority>
+  32:	9002      	str	r0, [sp, #8]
+  34:	e7ff      	b.n	36 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x36>
+  36:	f89d 001f 	ldrb.w	r0, [sp, #31]
+  3a:	3804      	subs	r0, #4
+  3c:	b2c1      	uxtb	r1, r0
+  3e:	4602      	mov	r2, r0
+  40:	4281      	cmp	r1, r0
+  42:	9201      	str	r2, [sp, #4]
+  44:	d122      	bne.n	8c <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x8c>
+  46:	e7ff      	b.n	48 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x48>
+  48:	9801      	ldr	r0, [sp, #4]
+  4a:	f7ff fffe 	bl	0 <core::num::<impl core::convert::From<u8> for usize>::from>
+  4e:	9000      	str	r0, [sp, #0]
+  50:	e7ff      	b.n	52 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x52>
+  52:	9800      	ldr	r0, [sp, #0]
+  54:	280b      	cmp	r0, #11
+  56:	d820      	bhi.n	9a <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x9a>
+  58:	e7ff      	b.n	5a <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x5a>
+  5a:	9802      	ldr	r0, [sp, #8]
+  5c:	9900      	ldr	r1, [sp, #0]
+  5e:	1842      	adds	r2, r0, r1
+  60:	3214      	adds	r2, #20
+  62:	f89d 301e 	ldrb.w	r3, [sp, #30]
+  66:	9208      	str	r2, [sp, #32]
+  68:	f88d 3027 	strb.w	r3, [sp, #39]	; 0x27
+_ZN17volatile_register11RW$LT$T$GT$5write17h7f120ca0da18991cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:83
+        self.register.set(value)
+  6c:	9a08      	ldr	r2, [sp, #32]
+  6e:	f89d 3027 	ldrb.w	r3, [sp, #39]	; 0x27
+  72:	920a      	str	r2, [sp, #40]	; 0x28
+  74:	f88d 302f 	strb.w	r3, [sp, #47]	; 0x2f
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h8e230d9ff0c53453E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs:51
+        unsafe { ptr::write_volatile(self.value.get(), value) }
+  78:	980a      	ldr	r0, [sp, #40]	; 0x28
+  7a:	f7ff fffe 	bl	0 <core::cell::UnsafeCell<T>::get>
+  7e:	f89d 102f 	ldrb.w	r1, [sp, #47]	; 0x2f
+  82:	f7ff fffe 	bl	0 <core::ptr::write_volatile>
+_ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$12set_priority17h87d0fafaba3df81aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:623
+  86:	e7ff      	b.n	88 <cortex_m::peripheral::scb::<impl cortex_m::peripheral::SCB>::set_priority+0x88>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:636
+                let prio = u32::from(prio) << shift;
+
+                (value & !mask) | prio
+            });
+        }
+    }
+  88:	b00c      	add	sp, #48	; 0x30
+  8a:	bd80      	pop	{r7, pc}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/scb.rs:623
+            self.shpr[usize::from(index - 4)].write(prio)
+  8c:	f240 0000 	movw	r0, #0
+  90:	f2c0 0000 	movt	r0, #0
+  94:	f7ff fffe 	bl	0 <core::panicking::panic>
+  98:	defe      	udf	#254	; 0xfe
+  9a:	f240 0000 	movw	r0, #0
+  9e:	f2c0 0000 	movt	r0, #0
+  a2:	220c      	movs	r2, #12
+  a4:	9900      	ldr	r1, [sp, #0]
+  a6:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
+  aa:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN8cortex_m10peripheral11Peripherals5steal17h026631cfc74bfb8eE:
+
+00000000 <cortex_m::peripheral::Peripherals::steal>:
+_ZN8cortex_m10peripheral11Peripherals5steal17h026631cfc74bfb8eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:161
+            }
+        })
+    }
+
+    /// Unchecked version of `Peripherals::take`
+    pub unsafe fn steal() -> Self {
+   0:	b082      	sub	sp, #8
+   2:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:162
+        debug_assert!(!CORE_PERIPHERALS);
+   4:	2800      	cmp	r0, #0
+   6:	d111      	bne.n	2c <cortex_m::peripheral::Peripherals::steal+0x2c>
+   8:	e7ff      	b.n	a <cortex_m::peripheral::Peripherals::steal+0xa>
+   a:	f240 0000 	movw	r0, #0
+   e:	f2c0 0000 	movt	r0, #0
+  12:	7800      	ldrb	r0, [r0, #0]
+  14:	07c0      	lsls	r0, r0, #31
+  16:	2800      	cmp	r0, #0
+  18:	d007      	beq.n	2a <cortex_m::peripheral::Peripherals::steal+0x2a>
+  1a:	e7ff      	b.n	1c <cortex_m::peripheral::Peripherals::steal+0x1c>
+  1c:	f240 0000 	movw	r0, #0
+  20:	f2c0 0000 	movt	r0, #0
+  24:	f7ff fffe 	bl	0 <core::panicking::panic>
+  28:	defe      	udf	#254	; 0xfe
+  2a:	e7ff      	b.n	2c <cortex_m::peripheral::Peripherals::steal+0x2c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:164
+
+        CORE_PERIPHERALS = true;
+  2c:	f240 0000 	movw	r0, #0
+  30:	f2c0 0000 	movt	r0, #0
+  34:	2101      	movs	r1, #1
+  36:	7001      	strb	r1, [r0, #0]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:165
+        core::mem::transmute(())
+  38:	e7ff      	b.n	3a <cortex_m::peripheral::Peripherals::steal+0x3a>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:166
+    }
+  3a:	b002      	add	sp, #8
+  3c:	4770      	bx	lr
+
+Disassembly of section .text._ZN8cortex_m10peripheral3DWT3ptr17h82db8a323e716e70E:
+
+00000000 <cortex_m::peripheral::DWT::ptr>:
+_ZN8cortex_m10peripheral3DWT3ptr17h82db8a323e716e70E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:180
+
+unsafe impl Send for DWT {}
+
+impl DWT {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const dwt::RegisterBlock {
+   0:	f241 0000 	movw	r0, #4096	; 0x1000
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:182
+        0xE000_1000 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd0f7cee70728ec4aE:
+
+00000000 <<cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..DWT$u20$as$u20$core..ops..deref..Deref$GT$5deref17hd0f7cee70728ec4aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:188
+}
+
+impl ops::Deref for DWT {
+    type Target = self::dwt::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:189
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::DWT as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:190
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral4NVIC3ptr17h0e3fd31128bd1c67E:
+
+00000000 <cortex_m::peripheral::NVIC::ptr>:
+_ZN8cortex_m10peripheral4NVIC3ptr17h0e3fd31128bd1c67E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:202
+
+unsafe impl Send for NVIC {}
+
+impl NVIC {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const nvic::RegisterBlock {
+   0:	f24e 1000 	movw	r0, #57600	; 0xe100
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:204
+        0xE000_E100 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5c25c1f051209b87E:
+
+00000000 <<cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref>:
+_ZN70_$LT$cortex_m..peripheral..NVIC$u20$as$u20$core..ops..deref..Deref$GT$5deref17h5c25c1f051209b87E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:210
+}
+
+impl ops::Deref for NVIC {
+    type Target = self::nvic::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:211
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::NVIC as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:212
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m10peripheral3SCB3ptr17hc2d4669c582dd6d4E:
+
+00000000 <cortex_m::peripheral::SCB::ptr>:
+_ZN8cortex_m10peripheral3SCB3ptr17hc2d4669c582dd6d4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:224
+
+unsafe impl Send for SCB {}
+
+impl SCB {
+    /// Returns a pointer to the register block
+    pub fn ptr() -> *const scb::RegisterBlock {
+   0:	f64e 5004 	movw	r0, #60676	; 0xed04
+   4:	f2ce 0000 	movt	r0, #57344	; 0xe000
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:226
+        0xE000_ED04 as *const _
+    }
+   8:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17h210746f957bfdcfdE:
+
+00000000 <<cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref>:
+_ZN69_$LT$cortex_m..peripheral..SCB$u20$as$u20$core..ops..deref..Deref$GT$5deref17h210746f957bfdcfdE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:232
+}
+
+impl ops::Deref for SCB {
+    type Target = self::scb::RegisterBlock;
+
+    fn deref(&self) -> &Self::Target {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:233
+        unsafe { &*Self::ptr() }
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <<cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref>
+   e:	9001      	str	r0, [sp, #4]
+  10:	e7ff      	b.n	12 <<cortex_m::peripheral::SCB as core::ops::deref::Deref>::deref+0x12>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/peripheral/mod.rs:234
+    }
+  12:	9801      	ldr	r0, [sp, #4]
+  14:	b004      	add	sp, #16
+  16:	bd80      	pop	{r7, pc}
+
+cortex_m-7c38d4cecc7edfb7.cortex_m.52231x00-cgu.4.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 cortex_m.52231x00-cgu.4
+0000011c l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+00000120 l       .debug_str	00000000 
+00000149 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+000000e6 l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+00000000 l    d  .text._ZN8cortex_m3asm3dsb17hd8d4748227fe3353E	00000000 .text._ZN8cortex_m3asm3dsb17hd8d4748227fe3353E
+00000000 l    d  .text._ZN8cortex_m3asm3nop17h8bb6905b8992e458E	00000000 .text._ZN8cortex_m3asm3nop17h8bb6905b8992e458E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN8cortex_m3asm3dsb17hd8d4748227fe3353E	0000000a .hidden cortex_m::asm::dsb
+00000000 g     F .text._ZN8cortex_m3asm3nop17h8bb6905b8992e458E	0000000a .hidden cortex_m::asm::nop
+00000000         *UND*	00000000 __dsb
+00000000         *UND*	00000000 __nop
+
+
+
+Disassembly of section .text._ZN8cortex_m3asm3dsb17hd8d4748227fe3353E:
+
+00000000 <cortex_m::asm::dsb>:
+_ZN8cortex_m3asm3dsb17hd8d4748227fe3353E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:180
+/// can execute until this instruction completes. This instruction completes only when both:
+///
+///  * any explicit memory access made before this instruction is complete
+///  * all cache and branch predictor maintenance operations before this instruction complete
+#[inline]
+pub fn dsb() {
+   0:	b580      	push	{r7, lr}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:191
+        () => unsafe {
+            extern "C" {
+                fn __dsb();
+            }
+
+            __dsb()
+   2:	f7ff fffe 	bl	0 <__dsb>
+   6:	e7ff      	b.n	8 <cortex_m::asm::dsb+0x8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:198
+        },
+
+        #[cfg(not(cortex_m))]
+        () => unimplemented!(),
+    }
+}
+   8:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8cortex_m3asm3nop17h8bb6905b8992e458E:
+
+00000000 <cortex_m::asm::nop>:
+_ZN8cortex_m3asm3nop17h8bb6905b8992e458E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:65
+pub fn nop() {
+   0:	b580      	push	{r7, lr}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:76
+            __nop()
+   2:	f7ff fffe 	bl	0 <__nop>
+   6:	e7ff      	b.n	8 <cortex_m::asm::nop+0x8>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:82
+}
+   8:	bd80      	pop	{r7, pc}
+
 cstr_core-002f35632daba805.cstr_core.4br1pvmw-cgu.0.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
@@ -6077,6 +19419,327 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 cty.1wm03uxu-cgu.0
 
 
+
+generic_array-c36cdd01cde97b57.generic_array.cc1bbfxy-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 generic_array.cc1bbfxy-cgu.0
+00000137 l       .debug_str	00000000 
+0000017b l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000009e l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+00000102 l       .debug_str	00000000 
+0000010e l       .debug_str	00000000 
+00000117 l       .debug_str	00000000 
+0000011a l       .debug_str	00000000 
+00000124 l       .debug_str	00000000 
+0000012b l       .debug_str	00000000 
+00000131 l       .debug_str	00000000 
+0000016f l       .debug_str	00000000 
+00000000 l     O .rodata.cst16	00000010 .Lanon.4eca67f5bd9792c32f28c37cf4fda6d8.0
+00000010 l     O .rodata.cst16	00000010 .Lanon.4eca67f5bd9792c32f28c37cf4fda6d8.1
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     O .rodata._ZN13generic_array3hex11LOWER_CHARS17h50b033dacd6d267dE	00000008 generic_array::hex::LOWER_CHARS
+00000000 g     O .rodata._ZN13generic_array3hex11UPPER_CHARS17h4c04111d97407154E	00000008 generic_array::hex::UPPER_CHARS
+
+
+
+generic_array-c36cdd01cde97b57.generic_array.cc1bbfxy-cgu.1.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 generic_array.cc1bbfxy-cgu.1
+0000015b l       .debug_str	00000000 
+00000152 l       .debug_str	00000000 
+00000154 l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+00000176 l       .debug_str	00000000 
+0000016f l       .debug_str	00000000 
+0000016a l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000009e l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000fe l       .debug_str	00000000 
+0000013c l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.2	00000010 .Lanon.4de279b0ddc66629ef3c97ad1dbae96a.2
+00000000 l     O .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.4	00000010 .Lanon.4de279b0ddc66629ef3c97ad1dbae96a.4
+00000000 l    d  .text._ZN13generic_array21from_iter_length_fail17hd0b512bce13609d0E	00000000 .text._ZN13generic_array21from_iter_length_fail17hd0b512bce13609d0E
+00000000 l    d  .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.0	00000000 .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.0
+00000000 l    d  .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.1	00000000 .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.1
+00000000 l    d  .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.3	00000000 .rodata..Lanon.4de279b0ddc66629ef3c97ad1dbae96a.3
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN13generic_array21from_iter_length_fail17hd0b512bce13609d0E	00000084 generic_array::from_iter_length_fail
+00000000         *UND*	00000000 core::fmt::ArgumentV1::new
+00000000         *UND*	00000000 core::fmt::num::imp::<impl core::fmt::Display for usize>::fmt
+00000000         *UND*	00000000 .hidden core::fmt::Arguments::new_v1
+00000000         *UND*	00000000 core::panicking::panic_fmt
+
+
+
+Disassembly of section .text._ZN13generic_array21from_iter_length_fail17hd0b512bce13609d0E:
+
+00000000 <generic_array::from_iter_length_fail>:
+_ZN13generic_array21from_iter_length_fail17hd0b512bce13609d0E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/generic-array-0.12.0/src/lib.rs:319
+    }
+}
+
+#[inline(never)]
+#[cold]
+fn from_iter_length_fail(length: usize, expected: usize) -> ! {
+   0:	b098      	sub	sp, #96	; 0x60
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9008      	str	r0, [sp, #32]
+   8:	9109      	str	r1, [sp, #36]	; 0x24
+   a:	a808      	add	r0, sp, #32
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/generic-array-0.12.0/src/lib.rs:320
+    panic!(
+   c:	9014      	str	r0, [sp, #80]	; 0x50
+   e:	a809      	add	r0, sp, #36	; 0x24
+  10:	9015      	str	r0, [sp, #84]	; 0x54
+  12:	9814      	ldr	r0, [sp, #80]	; 0x50
+  14:	9016      	str	r0, [sp, #88]	; 0x58
+  16:	9815      	ldr	r0, [sp, #84]	; 0x54
+  18:	9017      	str	r0, [sp, #92]	; 0x5c
+  1a:	9816      	ldr	r0, [sp, #88]	; 0x58
+  1c:	f240 0100 	movw	r1, #0
+  20:	f2c0 0100 	movt	r1, #0
+  24:	9207      	str	r2, [sp, #28]
+  26:	9306      	str	r3, [sp, #24]
+  28:	f7ff fffe 	bl	0 <core::fmt::ArgumentV1::new>
+  2c:	9005      	str	r0, [sp, #20]
+  2e:	9104      	str	r1, [sp, #16]
+  30:	e7ff      	b.n	32 <generic_array::from_iter_length_fail+0x32>
+  32:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  34:	f240 0100 	movw	r1, #0
+  38:	f2c0 0100 	movt	r1, #0
+  3c:	f7ff fffe 	bl	0 <core::fmt::ArgumentV1::new>
+  40:	9003      	str	r0, [sp, #12]
+  42:	9102      	str	r1, [sp, #8]
+  44:	e7ff      	b.n	46 <generic_array::from_iter_length_fail+0x46>
+  46:	9805      	ldr	r0, [sp, #20]
+  48:	9010      	str	r0, [sp, #64]	; 0x40
+  4a:	9904      	ldr	r1, [sp, #16]
+  4c:	9111      	str	r1, [sp, #68]	; 0x44
+  4e:	9a03      	ldr	r2, [sp, #12]
+  50:	9212      	str	r2, [sp, #72]	; 0x48
+  52:	9b02      	ldr	r3, [sp, #8]
+  54:	9313      	str	r3, [sp, #76]	; 0x4c
+  56:	46ec      	mov	ip, sp
+  58:	f04f 0e02 	mov.w	lr, #2
+  5c:	f8cc e000 	str.w	lr, [ip]
+  60:	f240 0100 	movw	r1, #0
+  64:	f2c0 0100 	movt	r1, #0
+  68:	a80a      	add	r0, sp, #40	; 0x28
+  6a:	ab10      	add	r3, sp, #64	; 0x40
+  6c:	4672      	mov	r2, lr
+  6e:	f7ff fffe 	bl	0 <core::fmt::Arguments::new_v1>
+  72:	e7ff      	b.n	2 <generic_array::from_iter_length_fail+0x2>
+  74:	f240 0100 	movw	r1, #0
+  78:	f2c0 0100 	movt	r1, #0
+  7c:	a80a      	add	r0, sp, #40	; 0x28
+  7e:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
+  82:	defe      	udf	#254	; 0xfe
+
+generic_array-c36cdd01cde97b57.generic_array.cc1bbfxy-cgu.2.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 generic_array.cc1bbfxy-cgu.2
+000003d1 l       .debug_str	00000000 
+00000482 l       .debug_str	00000000 
+0000048c l       .debug_str	00000000 
+000004bd l       .debug_str	00000000 
+000004c8 l       .debug_str	00000000 
+000004fa l       .debug_str	00000000 
+00000501 l       .debug_str	00000000 
+00000503 l       .debug_str	00000000 
+0000050a l       .debug_str	00000000 
+0000050c l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000009e l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f5 l       .debug_str	00000000 
+000000fc l       .debug_str	00000000 
+000000ff l       .debug_str	00000000 
+00000102 l       .debug_str	00000000 
+00000106 l       .debug_str	00000000 
+0000010d l       .debug_str	00000000 
+00000111 l       .debug_str	00000000 
+00000114 l       .debug_str	00000000 
+00000117 l       .debug_str	00000000 
+0000011c l       .debug_str	00000000 
+00000122 l       .debug_str	00000000 
+00000129 l       .debug_str	00000000 
+00000131 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000141 l       .debug_str	00000000 
+00000147 l       .debug_str	00000000 
+0000014a l       .debug_str	00000000 
+00000159 l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+00000164 l       .debug_str	00000000 
+0000016d l       .debug_str	00000000 
+00000175 l       .debug_str	00000000 
+0000017d l       .debug_str	00000000 
+00000184 l       .debug_str	00000000 
+0000018a l       .debug_str	00000000 
+0000019e l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001b6 l       .debug_str	00000000 
+000001b8 l       .debug_str	00000000 
+000001d1 l       .debug_str	00000000 
+000001d6 l       .debug_str	00000000 
+000001e7 l       .debug_str	00000000 
+000001f1 l       .debug_str	00000000 
+000001f7 l       .debug_str	00000000 
+000001fb l       .debug_str	00000000 
+00000200 l       .debug_str	00000000 
+00000205 l       .debug_str	00000000 
+0000020b l       .debug_str	00000000 
+00000211 l       .debug_str	00000000 
+00000218 l       .debug_str	00000000 
+0000021d l       .debug_str	00000000 
+00000222 l       .debug_str	00000000 
+00000226 l       .debug_str	00000000 
+00000234 l       .debug_str	00000000 
+0000023e l       .debug_str	00000000 
+00000242 l       .debug_str	00000000 
+0000024d l       .debug_str	00000000 
+00000254 l       .debug_str	00000000 
+0000025a l       .debug_str	00000000 
+0000025e l       .debug_str	00000000 
+0000027b l       .debug_str	00000000 
+0000027f l       .debug_str	00000000 
+00000287 l       .debug_str	00000000 
+0000029e l       .debug_str	00000000 
+000002c2 l       .debug_str	00000000 
+000002de l       .debug_str	00000000 
+000002e3 l       .debug_str	00000000 
+000002ec l       .debug_str	00000000 
+000002f3 l       .debug_str	00000000 
+0000030c l       .debug_str	00000000 
+00000316 l       .debug_str	00000000 
+00000330 l       .debug_str	00000000 
+0000038e l       .debug_str	00000000 
+00000399 l       .debug_str	00000000 
+000003a0 l       .debug_str	00000000 
+000003aa l       .debug_str	00000000 
+000003af l       .debug_str	00000000 
+000003bb l       .debug_str	00000000 
+000003c3 l       .debug_str	00000000 
+000003cc l       .debug_str	00000000 
+000003d4 l       .debug_str	00000000 
+000003dd l       .debug_str	00000000 
+000003e4 l       .debug_str	00000000 
+000003e7 l       .debug_str	00000000 
+000003ed l       .debug_str	00000000 
+000003f7 l       .debug_str	00000000 
+000003ff l       .debug_str	00000000 
+00000405 l       .debug_str	00000000 
+00000410 l       .debug_str	00000000 
+00000419 l       .debug_str	00000000 
+0000043c l       .debug_str	00000000 
+0000045b l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17hb39516e5bc165facE	00000000 .text._ZN4core3fmt10ArgumentV13new17hb39516e5bc165facE
+00000000 l    d  .text._ZN4core3fmt9Arguments6new_v117h741f5c90576415aaE	00000000 .text._ZN4core3fmt9Arguments6new_v117h741f5c90576415aaE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3fmt10ArgumentV13new17hb39516e5bc165facE	00000032 core::fmt::ArgumentV1::new
+00000000 g     F .text._ZN4core3fmt9Arguments6new_v117h741f5c90576415aaE	0000004c .hidden core::fmt::Arguments::new_v1
+
+
+
+Disassembly of section .text._ZN4core3fmt10ArgumentV13new17hb39516e5bc165facE:
+
+00000000 <core::fmt::ArgumentV1::new>:
+_ZN4core3fmt10ArgumentV13new17hb39516e5bc165facE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:278
+   0:	b08a      	sub	sp, #40	; 0x28
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9004      	str	r0, [sp, #16]
+   8:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:282
+   a:	9805      	ldr	r0, [sp, #20]
+   c:	9008      	str	r0, [sp, #32]
+   e:	9808      	ldr	r0, [sp, #32]
+  10:	9203      	str	r2, [sp, #12]
+  12:	9302      	str	r3, [sp, #8]
+  14:	9001      	str	r0, [sp, #4]
+  16:	e7ff      	b.n	18 <core::fmt::ArgumentV1::new+0x18>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:283
+  18:	9804      	ldr	r0, [sp, #16]
+  1a:	9009      	str	r0, [sp, #36]	; 0x24
+  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
+  1e:	9000      	str	r0, [sp, #0]
+  20:	e7ff      	b.n	22 <core::fmt::ArgumentV1::new+0x22>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:281
+  22:	9800      	ldr	r0, [sp, #0]
+  24:	9006      	str	r0, [sp, #24]
+  26:	9901      	ldr	r1, [sp, #4]
+  28:	9107      	str	r1, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:286
+  2a:	9806      	ldr	r0, [sp, #24]
+  2c:	9907      	ldr	r1, [sp, #28]
+  2e:	b00a      	add	sp, #40	; 0x28
+  30:	4770      	bx	lr
+
+Disassembly of section .text._ZN4core3fmt9Arguments6new_v117h741f5c90576415aaE:
+
+00000000 <core::fmt::Arguments::new_v1>:
+_ZN4core3fmt9Arguments6new_v117h741f5c90576415aaE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:314
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	f8dd c038 	ldr.w	ip, [sp, #56]	; 0x38
+   8:	469e      	mov	lr, r3
+   a:	4614      	mov	r4, r2
+   c:	460d      	mov	r5, r1
+   e:	4606      	mov	r6, r0
+  10:	9104      	str	r1, [sp, #16]
+  12:	9205      	str	r2, [sp, #20]
+  14:	9306      	str	r3, [sp, #24]
+  16:	f8cd c01c 	str.w	ip, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:317
+  1a:	9904      	ldr	r1, [sp, #16]
+  1c:	9a05      	ldr	r2, [sp, #20]
+  1e:	2300      	movs	r3, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:318
+  20:	9309      	str	r3, [sp, #36]	; 0x24
+  22:	9308      	str	r3, [sp, #32]
+  24:	9308      	str	r3, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:319
+  26:	9b06      	ldr	r3, [sp, #24]
+  28:	f8dd c01c 	ldr.w	ip, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
+  2c:	6001      	str	r1, [r0, #0]
+  2e:	6042      	str	r2, [r0, #4]
+  30:	9908      	ldr	r1, [sp, #32]
+  32:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  34:	6081      	str	r1, [r0, #8]
+  36:	60c2      	str	r2, [r0, #12]
+  38:	6103      	str	r3, [r0, #16]
+  3a:	f8c0 c014 	str.w	ip, [r0, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:321
+  3e:	f8cd e00c 	str.w	lr, [sp, #12]
+  42:	9402      	str	r4, [sp, #8]
+  44:	9501      	str	r5, [sp, #4]
+  46:	9600      	str	r6, [sp, #0]
+  48:	b00a      	add	sp, #40	; 0x28
+  4a:	bd70      	pop	{r4, r5, r6, pc}
 
 memchr-e5ca130edfba2c24.memchr.2jnkkboq-cgu.0.rcgu.o:     file format elf32-littlearm
 
@@ -13272,25 +26935,25 @@ Disassembly of section .text._ZN5mylib13listen_sensor21start_sensor_listener17h2
 00000000 <mylib::listen_sensor::start_sensor_listener>:
 _ZN5mylib13listen_sensor21start_sensor_listener17h2b855ed9b04189dfE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:38
-///  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
-///  or CoAP Server (is this is a Standalone Node).
-///  For Collector Node: Start the Listeners for Remote Sensor 
-///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-///  Return 0 if successful.
-pub fn start_sensor_listener() -> i32 {
+    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
+    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
+    assert!(rc == 0);
+    assert!(rc > 0);
+
+    //  Fetch the sensor by name, without locking the driver for exclusive access.
    0:	b5f0      	push	{r4, r5, r6, r7, lr}
    2:	b093      	sub	sp, #76	; 0x4c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:39
-    console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
+    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
    4:	f240 0000 	movw	r0, #0
    8:	f2c0 0000 	movt	r0, #0
    c:	210a      	movs	r1, #10
    e:	f7ff fffe 	bl	0 <mylib::base::console_print>
   12:	e7ff      	b.n	2 <mylib::listen_sensor::start_sensor_listener+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:42
+    assert!(!unsafe{ is_null_sensor(listen_sensor) });
 
-    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
+    //  Define the listener function to be called after polling the temperature sensor.
   14:	f240 0000 	movw	r0, #0
   18:	f2c0 0000 	movt	r0, #0
   1c:	f242 7110 	movw	r1, #10000	; 0x2710
@@ -13298,7 +26961,7 @@ pub fn start_sensor_listener() -> i32 {
   24:	9002      	str	r0, [sp, #8]
   26:	e7ff      	b.n	28 <mylib::listen_sensor::start_sensor_listener+0x28>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:43
-    assert!(rc == 0);
+    let listener = SensorListener {
   28:	9802      	ldr	r0, [sp, #8]
   2a:	2800      	cmp	r0, #0
   2c:	d007      	beq.n	3e <mylib::listen_sensor::start_sensor_listener+0x3e>
@@ -13308,9 +26971,9 @@ pub fn start_sensor_listener() -> i32 {
   38:	f7ff fffe 	bl	0 <core::panicking::panic>
   3c:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:46
-
-    //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
+        sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
+        sl_func       : read_temperature,      //  Listener function to be called with the sensor data
+        sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
   3e:	f7ff fffe 	bl	0 <null_sensor>
   42:	9001      	str	r0, [sp, #4]
   44:	e7ff      	b.n	46 <mylib::listen_sensor::start_sensor_listener+0x46>
@@ -13321,7 +26984,7 @@ pub fn start_sensor_listener() -> i32 {
   54:	9003      	str	r0, [sp, #12]
   56:	e7ff      	b.n	58 <mylib::listen_sensor::start_sensor_listener+0x58>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:47
-    assert!(!unsafe{ is_null_sensor(listen_sensor) });
+        sl_next       : 0,                     //  Must be 0
   58:	9803      	ldr	r0, [sp, #12]
   5a:	f7ff fffe 	bl	0 <is_null_sensor>
   5e:	9000      	str	r0, [sp, #0]
@@ -13337,11 +27000,11 @@ pub fn start_sensor_listener() -> i32 {
   78:	defe      	udf	#254	; 0xfe
   7a:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:52
+    };
 
-    //  Set the Listener Function to be called every 10 seconds, with the polled sensor data.
-    ////let rc = unsafe { sensor_register_listener(listen_sensor, &mut LISTENER) };
-     
-    let listener = SensorListener {
+    //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
+    let rc = register_listener(listen_sensor, listener);
+    assert!(rc == 0);
   7c:	9005      	str	r0, [sp, #20]
   7e:	f04f 6180 	mov.w	r1, #67108864	; 0x4000000
   82:	9104      	str	r1, [sp, #16]
@@ -13352,12 +27015,12 @@ pub fn start_sensor_listener() -> i32 {
   90:	9107      	str	r1, [sp, #28]
   92:	9008      	str	r0, [sp, #32]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:58
-        sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
-        sl_func       : read_temperature,      //  Listener function to be called with the sensor data
-        sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
-        sl_next       : 0,                     //  Must be 0
-    };
-    let rc = register_listener(listen_sensor, listener);
+
+    //  Return 0 to indicate success.  This line should not end with a semicolon (;).
+    0
+}
+
+/////////////////////////////////////////////////////////
   94:	9803      	ldr	r0, [sp, #12]
   96:	a904      	add	r1, sp, #16
   98:	aa0c      	add	r2, sp, #48	; 0x30
@@ -13369,7 +27032,7 @@ pub fn start_sensor_listener() -> i32 {
   aa:	900b      	str	r0, [sp, #44]	; 0x2c
   ac:	e7ff      	b.n	ae <mylib::listen_sensor::start_sensor_listener+0xae>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:59
-    assert!(rc == 0);
+//  Listen To Remote Sensors Connected Via nRF24L01
   ae:	980b      	ldr	r0, [sp, #44]	; 0x2c
   b0:	2800      	cmp	r0, #0
   b2:	d007      	beq.n	c4 <mylib::listen_sensor::start_sensor_listener+0xc4>
@@ -13381,9 +27044,9 @@ pub fn start_sensor_listener() -> i32 {
   c4:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:63
 
-    //  Return 0 to indicate success.  This line should not end with a semicolon (;).
-    0
-}
+//  TODO
+
+/////////////////////////////////////////////////////////
   c6:	b013      	add	sp, #76	; 0x4c
   c8:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
@@ -13392,12 +27055,12 @@ Disassembly of section .text._ZN5mylib13listen_sensor16read_temperature17h53480a
 00000000 <mylib::listen_sensor::read_temperature>:
 _ZN5mylib13listen_sensor16read_temperature17h53480a57fcc5ca50E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:78
-///  This listener function is called by Mynewt every 10 seconds (for local sensors) or when sensor data is received
-///  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through `sensor_data`.
-///  If this is a Sensor Node, we send the sensor data to the Collector Node.
-///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
-///  Return 0 if we have processed the sensor data successfully.
-extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
+        console_print(b"read_temperature\n");
+        //  Check that the temperature data is valid.
+        //  TODO
+        if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
+        assert!(!is_null_sensor(sensor));
+
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	b096      	sub	sp, #88	; 0x58
    4:	9b1b      	ldr	r3, [sp, #108]	; 0x6c
@@ -13411,8 +27074,8 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   16:	930b      	str	r3, [sp, #44]	; 0x2c
   18:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:80
-    unsafe {
-        console_print(b"read_temperature\n");
+        //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
+        //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
   1c:	f240 0000 	movw	r0, #0
   20:	f2c0 0000 	movt	r0, #0
   24:	2111      	movs	r1, #17
@@ -13422,9 +27085,9 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   2e:	f7ff fffe 	bl	0 <mylib::base::console_print>
   32:	e7ff      	b.n	34 <mylib::listen_sensor::read_temperature+0x34>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:83
-        //  Check that the temperature data is valid.
-        //  TODO
-        if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
+        let device = sensor_get_device(sensor);
+        let c_buf: *const c_char = device_get_name(device);
+        let device_name: &CStr = CStr::from_ptr(c_buf);
   34:	9809      	ldr	r0, [sp, #36]	; 0x24
   36:	f7ff fffe 	bl	0 <is_null_sensor_data>
   3a:	9003      	str	r0, [sp, #12]
@@ -13438,17 +27101,17 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   4c:	900c      	str	r0, [sp, #48]	; 0x30
   4e:	e7ff      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
-        }
-        assert!(rc == 0);
-        //#endif  //  MYNEWT_VAL(SENSOR_COAP)
-    }
-    0
-}
+///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
+///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
+///  the raw or computed temperature, as well as the key and value type.
+fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
+    let mut return_value = SensorValue {
+        key: b"\0".as_ptr(),
   50:	980c      	ldr	r0, [sp, #48]	; 0x30
   52:	b016      	add	sp, #88	; 0x58
   54:	bdb0      	pop	{r4, r5, r7, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:84
-        assert!(!is_null_sensor(sensor));
+        //assert!(device_name.len() > 0);  //  console_printf("device_name %s\n", device_name);
   56:	9807      	ldr	r0, [sp, #28]
   58:	f7ff fffe 	bl	0 <is_null_sensor>
   5c:	9002      	str	r0, [sp, #8]
@@ -13463,19 +27126,19 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   72:	f7ff fffe 	bl	0 <core::panicking::panic>
   76:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:88
-        let device = sensor_get_device(sensor);
+        assert!(temp_sensor_value.val_type != 0);
   78:	9807      	ldr	r0, [sp, #28]
   7a:	f7ff fffe 	bl	0 <sensor_get_device>
   7e:	900d      	str	r0, [sp, #52]	; 0x34
   80:	e7ff      	b.n	82 <mylib::listen_sensor::read_temperature+0x82>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:89
-        let c_buf: *const c_char = device_get_name(device);
+        if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
   82:	980d      	ldr	r0, [sp, #52]	; 0x34
   84:	f7ff fffe 	bl	0 <device_get_name>
   88:	900e      	str	r0, [sp, #56]	; 0x38
   8a:	e7ff      	b.n	8c <mylib::listen_sensor::read_temperature+0x8c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:90
-        let device_name: &CStr = CStr::from_ptr(c_buf);
+
   8c:	980e      	ldr	r0, [sp, #56]	; 0x38
   8e:	f7ff fffe 	bl	0 <cstr_core::CStr::from_ptr>
   92:	9001      	str	r0, [sp, #4]
@@ -13486,7 +27149,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   9c:	9900      	ldr	r1, [sp, #0]
   9e:	9110      	str	r1, [sp, #64]	; 0x40
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:94
-        let temp_sensor_value = get_temperature(sensor_data, sensor_type);
+        //  background task so this function will return without waiting for the message 
   a0:	9909      	ldr	r1, [sp, #36]	; 0x24
   a2:	9a0a      	ldr	r2, [sp, #40]	; 0x28
   a4:	9b0b      	ldr	r3, [sp, #44]	; 0x2c
@@ -13494,7 +27157,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   a8:	f7ff fffe 	bl	0 <mylib::listen_sensor::read_temperature>
   ac:	e7ff      	b.n	ae <mylib::listen_sensor::read_temperature+0xae>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:95
-        assert!(temp_sensor_value.val_type != 0);
+        //  to be transmitted.
   ae:	9812      	ldr	r0, [sp, #72]	; 0x48
   b0:	2800      	cmp	r0, #0
   b2:	d107      	bne.n	c4 <mylib::listen_sensor::read_temperature+0xc4>
@@ -13504,7 +27167,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   be:	f7ff fffe 	bl	0 <core::panicking::panic>
   c2:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:96
-        if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
+        let rc = send_sensor_data(&temp_sensor_value, device_name);
   c4:	9812      	ldr	r0, [sp, #72]	; 0x48
   c6:	2800      	cmp	r0, #0
   c8:	d105      	bne.n	d6 <mylib::listen_sensor::read_temperature+0xd6>
@@ -13514,7 +27177,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   d2:	e7ff      	b.n	d4 <mylib::listen_sensor::read_temperature+0xd4>
   d4:	e7bc      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:103
-        let rc = send_sensor_data(&temp_sensor_value, device_name);
+        }
   d6:	990f      	ldr	r1, [sp, #60]	; 0x3c
   d8:	9a10      	ldr	r2, [sp, #64]	; 0x40
   da:	a811      	add	r0, sp, #68	; 0x44
@@ -13522,14 +27185,14 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   e0:	9015      	str	r0, [sp, #84]	; 0x54
   e2:	e7ff      	b.n	e4 <mylib::listen_sensor::read_temperature+0xe4>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
-        if rc == SYS_EAGAIN {
+    0
   e4:	9815      	ldr	r0, [sp, #84]	; 0x54
   e6:	3006      	adds	r0, #6
   e8:	2800      	cmp	r0, #0
   ea:	d10b      	bne.n	104 <mylib::listen_sensor::read_temperature+0x104>
   ec:	e7ff      	b.n	ee <mylib::listen_sensor::read_temperature+0xee>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:108
-            console_print(b"TMP network not ready\n");
+}
   ee:	f240 0000 	movw	r0, #0
   f2:	f2c0 0000 	movt	r0, #0
   f6:	2116      	movs	r1, #22
@@ -13537,11 +27200,11 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   fc:	e7ff      	b.n	fe <mylib::listen_sensor::read_temperature+0xfe>
   fe:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:109
-            return 0; 
+
  100:	900c      	str	r0, [sp, #48]	; 0x30
  102:	e7e7      	b.n	d4 <mylib::listen_sensor::read_temperature+0xd4>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:111
-        assert!(rc == 0);
+///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
  104:	9815      	ldr	r0, [sp, #84]	; 0x54
  106:	2800      	cmp	r0, #0
  108:	d007      	beq.n	11a <mylib::listen_sensor::read_temperature+0x11a>
@@ -13552,10 +27215,10 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
  118:	defe      	udf	#254	; 0xfe
  11a:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:114
-    0
+    let mut return_value = SensorValue {
  11c:	900c      	str	r0, [sp, #48]	; 0x30
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
-}
+        key: b"\0".as_ptr(),
  11e:	e797      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
 
 Disassembly of section .text._ZN5mylib13listen_sensor15get_temperature17h42fabeac78d97520E:
@@ -13563,11 +27226,11 @@ Disassembly of section .text._ZN5mylib13listen_sensor15get_temperature17h42fabea
 00000000 <mylib::listen_sensor::get_temperature>:
 _ZN5mylib13listen_sensor15get_temperature17h42fabeac78d97520E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:120
-
-///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
-///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
-///  the raw or computed temperature, as well as the key and value type.
-fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
+        val_type: 0,
+        int_val: 0,
+        float_val: 0.0,
+    };
+    unsafe {
    0:	b510      	push	{r4, lr}
    2:	b096      	sub	sp, #88	; 0x58
    4:	469c      	mov	ip, r3
@@ -13577,8 +27240,8 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
    c:	9307      	str	r3, [sp, #28]
    e:	9206      	str	r2, [sp, #24]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
-    let mut return_value = SensorValue {
-        key: b"\0".as_ptr(),
+        //assert!(sensor_data);
+        match sensor_type {                                //  Is this raw or computed temperature?
   10:	f240 0100 	movw	r1, #0
   14:	f2c0 0100 	movt	r1, #0
   18:	2201      	movs	r2, #1
@@ -13592,7 +27255,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   2e:	9000      	str	r0, [sp, #0]
   30:	e7ff      	b.n	32 <mylib::listen_sensor::get_temperature+0x32>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:121
-    let mut return_value = SensorValue {
+        //assert!(sensor_data);
   32:	9800      	ldr	r0, [sp, #0]
   34:	9009      	str	r0, [sp, #36]	; 0x24
   36:	2100      	movs	r1, #0
@@ -13600,12 +27263,12 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   3a:	f8ad 102c 	strh.w	r1, [sp, #44]	; 0x2c
   3e:	910c      	str	r1, [sp, #48]	; 0x30
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:130
-        float_val: 0.0,
-    };
-    unsafe {
-        //assert!(sensor_data);
-        match sensor_type {                                //  Is this raw or computed temperature?
-            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
+                let mut rawtempdata = SensorTempRawData {
+                    strd_temp_raw: 0,
+                    strd_temp_raw_is_valid: 0,
+                };
+                let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
+                assert!(rc == 0);
   40:	9906      	ldr	r1, [sp, #24]
   42:	9a07      	ldr	r2, [sp, #28]
   44:	f081 6180 	eor.w	r1, r1, #67108864	; 0x4000000
@@ -13615,22 +27278,22 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   4e:	e7ff      	b.n	50 <mylib::listen_sensor::get_temperature+0x50>
   50:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:132
-                //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
-                let mut rawtempdata = SensorTempRawData {
+
+                //  Check that the raw temperature data is valid.
   52:	900d      	str	r0, [sp, #52]	; 0x34
   54:	f88d 0038 	strb.w	r0, [sp, #56]	; 0x38
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:136
-                    strd_temp_raw: 0,
-                    strd_temp_raw_is_valid: 0,
-                };
-                let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
+                if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+
+                //  Raw temperature data is valid.  Copy and display it.
+                return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
   58:	9805      	ldr	r0, [sp, #20]
   5a:	a90d      	add	r1, sp, #52	; 0x34
   5c:	f7ff fffe 	bl	0 <get_temp_raw_data>
   60:	900f      	str	r0, [sp, #60]	; 0x3c
   62:	e7ff      	b.n	64 <mylib::listen_sensor::get_temperature+0x64>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:137
-                assert!(rc == 0);
+                console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
   64:	980f      	ldr	r0, [sp, #60]	; 0x3c
   66:	2800      	cmp	r0, #0
   68:	d007      	beq.n	7a <mylib::listen_sensor::get_temperature+0x7a>
@@ -13640,9 +27303,9 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   74:	f7ff fffe 	bl	0 <core::panicking::panic>
   78:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:140
-
-                //  Check that the raw temperature data is valid.
-                if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+            },
+            SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+                //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
   7a:	f89d 0038 	ldrb.w	r0, [sp, #56]	; 0x38
   7e:	2800      	cmp	r0, #0
   80:	d112      	bne.n	a8 <mylib::listen_sensor::get_temperature+0xa8>
@@ -13658,51 +27321,45 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   9c:	f8cc 0000 	str.w	r0, [ip]
   a0:	e001      	b.n	a6 <mylib::listen_sensor::get_temperature+0xa6>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:176
-        //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
-        return_value.key = TEMP_SENSOR_KEY;
-        return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
-    };
-    return_value
-}
   a2:	b016      	add	sp, #88	; 0x58
   a4:	bd10      	pop	{r4, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:140
-                if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+                //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
   a6:	e7fc      	b.n	a2 <mylib::listen_sensor::get_temperature+0xa2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:143
-                return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
+                    std_temp_is_valid: 0,
   a8:	980d      	ldr	r0, [sp, #52]	; 0x34
   aa:	f8ad 002c 	strh.w	r0, [sp, #44]	; 0x2c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:144
-                console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
+                };
   ae:	f240 0000 	movw	r0, #0
   b2:	f2c0 0000 	movt	r0, #0
   b6:	2119      	movs	r1, #25
   b8:	f7ff fffe 	bl	0 <mylib::base::console_print>
   bc:	e7ff      	b.n	be <mylib::listen_sensor::get_temperature+0xbe>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
-        match sensor_type {                                //  Is this raw or computed temperature?
+                let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
   be:	e02f      	b.n	120 <mylib::listen_sensor::get_temperature+0x120>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:146
-            SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+                assert!(rc == 0);
   c0:	9806      	ldr	r0, [sp, #24]
   c2:	9907      	ldr	r1, [sp, #28]
   c4:	9111      	str	r1, [sp, #68]	; 0x44
   c6:	9010      	str	r0, [sp, #64]	; 0x40
   c8:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:148
-                let mut tempdata = SensorTempData {
+                //  Check that the computed temperature data is valid.
   ca:	9013      	str	r0, [sp, #76]	; 0x4c
   cc:	f88d 0050 	strb.w	r0, [sp, #80]	; 0x50
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:152
-                let rc = get_temp_data(sensor_data, &mut tempdata);
+                return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
   d0:	9805      	ldr	r0, [sp, #20]
   d2:	a913      	add	r1, sp, #76	; 0x4c
   d4:	f7ff fffe 	bl	0 <get_temp_data>
   d8:	9015      	str	r0, [sp, #84]	; 0x54
   da:	e7ff      	b.n	dc <mylib::listen_sensor::get_temperature+0xdc>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:153
-                assert!(rc == 0);
+                /*
   dc:	9815      	ldr	r0, [sp, #84]	; 0x54
   de:	2800      	cmp	r0, #0
   e0:	d007      	beq.n	f2 <mylib::listen_sensor::get_temperature+0xf2>
@@ -13712,7 +27369,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
   ec:	f7ff fffe 	bl	0 <core::panicking::panic>
   f0:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:156
-                if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+                #endif  //  !MYNEWT_VAL(RAW_TEMP)
   f2:	f89d 0050 	ldrb.w	r0, [sp, #80]	; 0x50
   f6:	2800      	cmp	r0, #0
   f8:	d10f      	bne.n	11a <mylib::listen_sensor::get_temperature+0x11a>
@@ -13728,23 +27385,20 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  114:	f8cc 0000 	str.w	r0, [ip]
  118:	e7c5      	b.n	a6 <mylib::listen_sensor::get_temperature+0xa6>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:159
-                return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
+            _ => {
  11a:	9813      	ldr	r0, [sp, #76]	; 0x4c
  11c:	900c      	str	r0, [sp, #48]	; 0x30
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
-        match sensor_type {                                //  Is this raw or computed temperature?
+                let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
  11e:	e7ff      	b.n	120 <mylib::listen_sensor::get_temperature+0x120>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:172
-        return_value.key = TEMP_SENSOR_KEY;
  120:	f240 0000 	movw	r0, #0
  124:	f2c0 0000 	movt	r0, #0
  128:	9009      	str	r0, [sp, #36]	; 0x24
  12a:	2001      	movs	r0, #1
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:173
-        return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
  12c:	900a      	str	r0, [sp, #40]	; 0x28
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:175
-    return_value
  12e:	9809      	ldr	r0, [sp, #36]	; 0x24
  130:	990a      	ldr	r1, [sp, #40]	; 0x28
  132:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
@@ -13755,7 +27409,6 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
  142:	f8cc 1004 	str.w	r1, [ip, #4]
  146:	f8cc 0000 	str.w	r0, [ip]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:176
-}
  14a:	e7aa      	b.n	a2 <mylib::listen_sensor::get_temperature+0xa2>
 
 mylib-50794855a3f9698d.509tcgk6983yrx6c.rcgu.o:     file format elf32-littlearm
@@ -13914,29 +27567,29 @@ Disassembly of section .text.main:
 00000000 <main>:
 main():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:20
+use core::panic::PanicInfo;     //  Import the PanicInfo type which is used by panic() below
+use cortex_m::asm;              //  Import the cortex_m assembly function to inject breakpoint
+use crate::base::*;             //  Import base.rs for common declarations
 use crate::listen_sensor::*;    //  Import listen_sensor.rs for polling the temperature sensor
 use crate::send_coap::*;        //  Import send_coap.rs for sending sensor data
 
+   0:	b084      	sub	sp, #16
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:23
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                     //  Don't mangle the name "main"
 pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
-   0:	b084      	sub	sp, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:23
-    unsafe {
-        //  Init Mynewt system.
-        rust_sysinit();
    2:	f7ff fffe 	bl	0 <rust_sysinit>
    6:	e7ff      	b.n	2 <console_flush+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:24
-        console_flush();
+    //  Init Mynewt system.
    8:	f7ff fffe 	bl	0 <console_flush>
    c:	e7ff      	b.n	2 <mylib::send_coap::start_network_task+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:29
+    unsafe { rust_sysinit()  };
+    unsafe { console_flush() };
 
-        //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
-        //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
-        //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-        let rc1 = start_network_task();  assert!(rc1 == 0);
+    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
+    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
    e:	f7ff fffe 	bl	0 <mylib::send_coap::start_network_task>
   12:	9002      	str	r0, [sp, #8]
   14:	e7ff      	b.n	16 <main+0x16>
@@ -13949,11 +27602,11 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
   26:	f7ff fffe 	bl	0 <core::panicking::panic>
   2a:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:34
+    //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    let rc = start_network_task();  assert!(rc == 0);
 
-        //  Starting polling the temperature sensor every 10 seconds in the background.  
-        //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
-        //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
-        let rc2 = start_sensor_listener();  assert!(rc2 == 0);
+    //  Starting polling the temperature sensor every 10 seconds in the background.  
+    //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
   2c:	f7ff fffe 	bl	0 <mylib::listen_sensor::start_sensor_listener>
   30:	9003      	str	r0, [sp, #12]
   32:	e7ff      	b.n	34 <main+0x34>
@@ -13966,23 +27619,23 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
   44:	f7ff fffe 	bl	0 <core::panicking::panic>
   48:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:37
+    //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
+    let rc = start_sensor_listener();  assert!(rc == 0);
 
-        //  Main event loop
-        loop {                        //  Loop forever...
   4a:	e7ff      	b.n	4c <main+0x4c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:39
-            os_eventq_run(            //  Process events...
-                os_eventq_dflt_get()  //  From default event queue.
+    //  Main event loop
+    loop {                            //  Loop forever...
   4c:	f7ff fffe 	bl	0 <os_eventq_dflt_get>
   50:	9001      	str	r0, [sp, #4]
   52:	e7ff      	b.n	54 <main+0x54>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:38
-            os_eventq_run(            //  Process events...
+    //  Main event loop
   54:	9801      	ldr	r0, [sp, #4]
   56:	f7ff fffe 	bl	0 <os_eventq_run>
   5a:	e7ff      	b.n	5c <main+0x5c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:37
-        loop {                        //  Loop forever...
+
   5c:	e7f6      	b.n	4c <main+0x4c>
 
 Disassembly of section .text.rust_begin_unwind:
@@ -13990,18 +27643,18 @@ Disassembly of section .text.rust_begin_unwind:
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:48
+            )
+        }
+    }
     //  Never comes here.
 }
 
-///  This function is called on panic, like an assertion failure. Set a breakpoint here to see the panic details. From https://os.phil-opp.com/freestanding-rust-binary/
-#[panic_handler]
-fn panic(info: &PanicInfo) -> ! {
    0:	b08a      	sub	sp, #40	; 0x28
    2:	4601      	mov	r1, r0
    4:	9003      	str	r0, [sp, #12]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:50
-    //  Display the filename and line number to the Semihosting Console.
-    if let Some(location) = info.location() {
+///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+#[panic_handler]
    6:	9803      	ldr	r0, [sp, #12]
    8:	9102      	str	r1, [sp, #8]
    a:	f7ff fffe 	bl	0 <core::panic::PanicInfo::location>
@@ -14014,27 +27667,27 @@ fn panic(info: &PanicInfo) -> ! {
   1a:	9805      	ldr	r0, [sp, #20]
   1c:	9006      	str	r0, [sp, #24]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:51
-        let file = location.file();
+fn panic(info: &PanicInfo) -> ! {
   1e:	9806      	ldr	r0, [sp, #24]
   20:	f7ff fffe 	bl	0 <core::panic::Location::file>
   24:	9108      	str	r1, [sp, #32]
   26:	9007      	str	r0, [sp, #28]
   28:	e7ff      	b.n	2a <rust_begin_unwind+0x2a>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:52
-        let line = location.line();
+    //  Display the filename and line number to the Semihosting Console.
   2a:	9806      	ldr	r0, [sp, #24]
   2c:	f7ff fffe 	bl	0 <core::panic::Location::line>
   30:	9009      	str	r0, [sp, #36]	; 0x24
   32:	e7ff      	b.n	34 <rust_begin_unwind+0x34>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:53
-        console_print(b"panic at ");
+    if let Some(location) = info.location() {
   34:	f240 0000 	movw	r0, #0
   38:	f2c0 0000 	movt	r0, #0
   3c:	2109      	movs	r1, #9
   3e:	f7ff fffe 	bl	0 <mylib::base::console_print>
   42:	e7ff      	b.n	44 <rust_begin_unwind+0x44>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:54
-        unsafe { console_buffer(file.as_ptr(), file.len() as u32) }
+        let file = location.file();
   44:	9807      	ldr	r0, [sp, #28]
   46:	9908      	ldr	r1, [sp, #32]
   48:	f7ff fffe 	bl	0 <core::str::<impl str>::as_ptr>
@@ -14050,34 +27703,34 @@ fn panic(info: &PanicInfo) -> ! {
   60:	f7ff fffe 	bl	0 <console_buffer>
   64:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:55
-        console_print(b" line 0x");
+        let line = location.line();
   66:	f240 0000 	movw	r0, #0
   6a:	f2c0 0000 	movt	r0, #0
   6e:	2108      	movs	r1, #8
   70:	f7ff fffe 	bl	0 <mylib::base::console_print>
   74:	e7ff      	b.n	76 <rust_begin_unwind+0x76>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:56
-        unsafe { console_printhex(line as u8) }  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+        console_print(b"panic at ");
   76:	f89d 0024 	ldrb.w	r0, [sp, #36]	; 0x24
   7a:	f7ff fffe 	bl	0 <console_printhex>
   7e:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:57
-        console_print(b"\n");
+        unsafe { console_buffer(file.as_ptr(), file.len() as u32) }
   80:	f240 0000 	movw	r0, #0
   84:	f2c0 0000 	movt	r0, #0
   88:	2101      	movs	r1, #1
   8a:	f7ff fffe 	bl	0 <mylib::base::console_print>
   8e:	e7ff      	b.n	2 <console_flush+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:58
-        unsafe { console_flush() }
+        console_print(b" line 0x");
   90:	f7ff fffe 	bl	0 <console_flush>
   94:	e7ff      	b.n	96 <rust_begin_unwind+0x96>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:50
-    if let Some(location) = info.location() {
+#[panic_handler]
   96:	e00a      	b.n	ae <rust_begin_unwind+0xae>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:60
-    } else {
-        console_print(b"panic unknown loc\n");
+        unsafe { console_printhex(line as u8) }  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+        console_print(b"\n");
   98:	f240 0000 	movw	r0, #0
   9c:	f2c0 0000 	movt	r0, #0
   a0:	2112      	movs	r1, #18
@@ -14088,8 +27741,8 @@ fn panic(info: &PanicInfo) -> ! {
   a8:	f7ff fffe 	bl	0 <console_flush>
   ac:	e7ff      	b.n	ae <rust_begin_unwind+0xae>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:63
-    }
-    loop {}
+    } else {
+        console_print(b"panic unknown loc\n");
   ae:	e7ff      	b.n	b0 <rust_begin_unwind+0xb0>
   b0:	e7fe      	b.n	b0 <rust_begin_unwind+0xb0>
 
@@ -14150,12 +27803,12 @@ Disassembly of section .text._ZN5mylib6sensor21null_sensor_data_func17h8e594dd52
 00000000 <mylib::sensor::null_sensor_data_func>:
 _ZN5mylib6sensor21null_sensor_data_func17h8e594dd52cb73506E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:12
-    sl_func       : null_sensor_data_func,      //  Listener function to be called with the sensor data
-    sl_arg        : 0,           //  Indicate to the listener function that this is a listener callback
-    sl_next       : 0,                     //  Must be 0
-};
-
-extern fn null_sensor_data_func(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 { 0 }
+///
+///  For more information on the type of callbacks available, see the documentation
+///  for the sensor listener structure.
+///
+///  `sensor`: The sensor to register a listener on.
+///  `listener`: The listener to register onto the sensor.
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	b088      	sub	sp, #32
    4:	9b0d      	ldr	r3, [sp, #52]	; 0x34
@@ -14180,18 +27833,18 @@ Disassembly of section .text._ZN5mylib6sensor17register_listener17h4d59b765a06cf
 00000000 <mylib::sensor::register_listener>:
 _ZN5mylib6sensor17register_listener17h4d59b765a06cf618E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:23
-///  for the sensor listener structure.
-///
-///  `sensor`: The sensor to register a listener on.
-///  `listener`: The listener to register onto the sensor.
-///  Return 0 on success, non-zero error code on failure.
-pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {    
+    //  Pass the internal listener to the unsafe Mynewt API.
+    unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) }
+}
+
+///  Define the listener function to be called after polling the sensor.
+///  This is a static mutable copy of the listener passed in through `register_listener`.
    0:	b570      	push	{r4, r5, r6, lr}
    2:	b08a      	sub	sp, #40	; 0x28
    4:	4602      	mov	r2, r0
    6:	9003      	str	r0, [sp, #12]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:24
-    unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
+///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
    8:	f240 0000 	movw	r0, #0
    c:	f2c0 0000 	movt	r0, #0
   10:	6803      	ldr	r3, [r0, #0]
@@ -14208,9 +27861,9 @@ pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {
   2c:	defe      	udf	#254	; 0xfe
   2e:	a804      	add	r0, sp, #16
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:27
-    //  Copy the caller's listener to the internal listener.
-    //  LISTENER_INTERNAL = SensorListener { .. listener };
-    unsafe { LISTENER_INTERNAL = listener };
+static mut LISTENER_INTERNAL: SensorListener = SensorListener {  
+    sl_sensor_type: 0, 
+    sl_func       : null_sensor_data_func,
   30:	9902      	ldr	r1, [sp, #8]
   32:	4602      	mov	r2, r0
   34:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
@@ -14221,14 +27874,3202 @@ pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {
   46:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
   4a:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:29
+    sl_arg        : 0,
+    sl_next       : 0,
+  4e:	9803      	ldr	r0, [sp, #12]
+  50:	f7ff fffe 	bl	0 <sensor_register_listener>
+  54:	9000      	str	r0, [sp, #0]
+  56:	e7ff      	b.n	58 <mylib::sensor::register_listener+0x58>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:30
+};
+  58:	9800      	ldr	r0, [sp, #0]
+  5a:	b00a      	add	sp, #40	; 0x28
+  5c:	bd70      	pop	{r4, r5, r6, pc}
+
+mylib-b003fcb153d61cda.18n9guqs9q0zxh55.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 18n9guqs9q0zxh55
+000001ed l       .debug_str	00000000 
+0000016b l       .debug_str	00000000 
+000001a3 l       .debug_str	00000000 
+000001db l       .debug_str	00000000 
+00000229 l       .debug_str	00000000 
+00000262 l       .debug_str	00000000 
+00000255 l       .debug_str	00000000 
+00000250 l       .debug_str	00000000 
+00000248 l       .debug_str	00000000 
+0000023f l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000082 l       .debug_str	00000000 
+00000089 l       .debug_str	00000000 
+0000009b l       .debug_str	00000000 
+000000aa l       .debug_str	00000000 
+000000ae l       .debug_str	00000000 
+000000b6 l       .debug_str	00000000 
+000000ba l       .debug_str	00000000 
+000000be l       .debug_str	00000000 
+000000c8 l       .debug_str	00000000 
+000000d2 l       .debug_str	00000000 
+000000d8 l       .debug_str	00000000 
+000000f4 l       .debug_str	00000000 
+0000014d l       .debug_str	00000000 
+00000154 l       .debug_str	00000000 
+0000015c l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.061914168654b3d2aef4baac020860b9.2	00000018 .Lanon.061914168654b3d2aef4baac020860b9.2
+00000000 l     O .data._ZN5mylib6sensor17LISTENER_INTERNAL17h869a4bbc3ef7a70eE	00000018 mylib::sensor::LISTENER_INTERNAL
+00000000 l     F .text._ZN5mylib6sensor21null_sensor_data_func17hed0345933409d3ecE	0000002a mylib::sensor::null_sensor_data_func
+00000000 l    d  .text._ZN5mylib6sensor17register_listener17hcfc70760fee1324fE	00000000 .text._ZN5mylib6sensor17register_listener17hcfc70760fee1324fE
+00000000 l    d  .text._ZN5mylib6sensor21null_sensor_data_func17hed0345933409d3ecE	00000000 .text._ZN5mylib6sensor21null_sensor_data_func17hed0345933409d3ecE
+00000000 l    d  .rodata..Lanon.061914168654b3d2aef4baac020860b9.0	00000000 .rodata..Lanon.061914168654b3d2aef4baac020860b9.0
+00000000 l    d  .rodata..Lanon.061914168654b3d2aef4baac020860b9.1	00000000 .rodata..Lanon.061914168654b3d2aef4baac020860b9.1
+00000000 l    d  .data._ZN5mylib6sensor17LISTENER_INTERNAL17h869a4bbc3ef7a70eE	00000000 .data._ZN5mylib6sensor17LISTENER_INTERNAL17h869a4bbc3ef7a70eE
+00000000 l    d  .debug_loc	00000000 .debug_loc
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN5mylib6sensor17register_listener17hcfc70760fee1324fE	0000005e .hidden mylib::sensor::register_listener
+00000000         *UND*	00000000 sensor_register_listener
+
+
+
+Disassembly of section .text._ZN5mylib6sensor17register_listener17hcfc70760fee1324fE:
+
+00000000 <mylib::sensor::register_listener>:
+_ZN5mylib6sensor17register_listener17hcfc70760fee1324fE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:14
+///  for the sensor listener structure.
+///
+///  `sensor`: The sensor to register a listener on.
+///  `listener`: The listener to register onto the sensor.
+///  Return 0 on success, non-zero error code on failure.
+pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {    
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4602      	mov	r2, r0
+   6:	9003      	str	r0, [sp, #12]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:15
+    unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
+   8:	f240 0000 	movw	r0, #0
+   c:	f2c0 0000 	movt	r0, #0
+  10:	6803      	ldr	r3, [r0, #0]
+  12:	6840      	ldr	r0, [r0, #4]
+  14:	4318      	orrs	r0, r3
+  16:	2800      	cmp	r0, #0
+  18:	9102      	str	r1, [sp, #8]
+  1a:	9201      	str	r2, [sp, #4]
+  1c:	d007      	beq.n	2e <mylib::sensor::register_listener+0x2e>
+  1e:	e7ff      	b.n	20 <mylib::sensor::register_listener+0x20>
+  20:	f240 0000 	movw	r0, #0
+  24:	f2c0 0000 	movt	r0, #0
+  28:	f7ff fffe 	bl	0 <core::panicking::panic>
+  2c:	defe      	udf	#254	; 0xfe
+  2e:	a804      	add	r0, sp, #16
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:17
+    //  Copy the caller's listener to the internal listener.
+    unsafe { LISTENER_INTERNAL = listener };
+  30:	9902      	ldr	r1, [sp, #8]
+  32:	4602      	mov	r2, r0
+  34:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
+  38:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+  3c:	f240 0100 	movw	r1, #0
+  40:	f2c0 0100 	movt	r1, #0
+  44:	460a      	mov	r2, r1
+  46:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
+  4a:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:19
     //  Pass the internal listener to the unsafe Mynewt API.
     unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) }
   4e:	9803      	ldr	r0, [sp, #12]
   50:	f7ff fffe 	bl	0 <sensor_register_listener>
   54:	9000      	str	r0, [sp, #0]
   56:	e7ff      	b.n	58 <mylib::sensor::register_listener+0x58>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:20
 }
   58:	9800      	ldr	r0, [sp, #0]
   5a:	b00a      	add	sp, #40	; 0x28
   5c:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text._ZN5mylib6sensor21null_sensor_data_func17hed0345933409d3ecE:
+
+00000000 <mylib::sensor::null_sensor_data_func>:
+_ZN5mylib6sensor21null_sensor_data_func17hed0345933409d3ecE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/sensor.rs:33
+    sl_arg        : 0,
+    sl_next       : 0,
+};
+
+///  Define a dummy sensor data function in case there is none.
+extern fn null_sensor_data_func(_sensor: SensorPtr, _arg: SensorArg, _sensor_data: SensorDataPtr, _sensor_type: SensorType) -> i32 { 0 }
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	9b0d      	ldr	r3, [sp, #52]	; 0x34
+   6:	f8dd c030 	ldr.w	ip, [sp, #48]	; 0x30
+   a:	4696      	mov	lr, r2
+   c:	460c      	mov	r4, r1
+   e:	4605      	mov	r5, r0
+  10:	9003      	str	r0, [sp, #12]
+  12:	9104      	str	r1, [sp, #16]
+  14:	9205      	str	r2, [sp, #20]
+  16:	9307      	str	r3, [sp, #28]
+  18:	f8cd c018 	str.w	ip, [sp, #24]
+  1c:	2000      	movs	r0, #0
+  1e:	f8cd e008 	str.w	lr, [sp, #8]
+  22:	9401      	str	r4, [sp, #4]
+  24:	9500      	str	r5, [sp, #0]
+  26:	b008      	add	sp, #32
+  28:	bdb0      	pop	{r4, r5, r7, pc}
+
+mylib-b003fcb153d61cda.2szhknqr18qd3cbm.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 2szhknqr18qd3cbm
+00000147 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+0000014b l       .debug_str	00000000 
+0000018a l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000081 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008e l       .debug_str	00000000 
+000000cf l       .debug_str	00000000 
+000000d8 l       .debug_str	00000000 
+000000e1 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000f5 l       .debug_str	00000000 
+000000fb l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000106 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3str21_$LT$impl$u20$str$GT$3len17h30fb15763e3d167dE	00000000 .text._ZN4core3str21_$LT$impl$u20$str$GT$3len17h30fb15763e3d167dE
+00000000 l    d  .text._ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hd8ab2824414c1d90E	00000000 .text._ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hd8ab2824414c1d90E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3str21_$LT$impl$u20$str$GT$3len17h30fb15763e3d167dE	0000003c .hidden core::str::<impl str>::len
+00000000 g     F .text._ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hd8ab2824414c1d90E	00000014 .hidden core::str::<impl str>::as_ptr
+00000000         *UND*	00000000 core::slice::<impl [T]>::len
+
+
+
+Disassembly of section .text._ZN4core3str21_$LT$impl$u20$str$GT$3len17h30fb15763e3d167dE:
+
+00000000 <core::str::<impl str>::len>:
+_ZN4core3str21_$LT$impl$u20$str$GT$3len17h30fb15763e3d167dE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2070
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	9107      	str	r1, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2071
+   c:	9806      	ldr	r0, [sp, #24]
+   e:	9907      	ldr	r1, [sp, #28]
+  10:	9008      	str	r0, [sp, #32]
+  12:	9109      	str	r1, [sp, #36]	; 0x24
+_ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2153
+  14:	9808      	ldr	r0, [sp, #32]
+  16:	9909      	ldr	r1, [sp, #36]	; 0x24
+  18:	900a      	str	r0, [sp, #40]	; 0x28
+  1a:	910b      	str	r1, [sp, #44]	; 0x2c
+  1c:	980a      	ldr	r0, [sp, #40]	; 0x28
+  1e:	990b      	ldr	r1, [sp, #44]	; 0x2c
+_ZN4core3str21_$LT$impl$u20$str$GT$3len17h30fb15763e3d167dE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2071
+  20:	9205      	str	r2, [sp, #20]
+  22:	9304      	str	r3, [sp, #16]
+  24:	9003      	str	r0, [sp, #12]
+  26:	9102      	str	r1, [sp, #8]
+  28:	e7ff      	b.n	2a <core::str::<impl str>::len+0x2a>
+  2a:	9803      	ldr	r0, [sp, #12]
+  2c:	9902      	ldr	r1, [sp, #8]
+  2e:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  32:	9001      	str	r0, [sp, #4]
+  34:	e7ff      	b.n	36 <core::str::<impl str>::len+0x36>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2072
+  36:	9801      	ldr	r0, [sp, #4]
+  38:	b00c      	add	sp, #48	; 0x30
+  3a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hd8ab2824414c1d90E:
+
+00000000 <core::str::<impl str>::as_ptr>:
+_ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hd8ab2824414c1d90E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2217
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2218
+   a:	9802      	ldr	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2219
+   c:	9201      	str	r2, [sp, #4]
+   e:	9300      	str	r3, [sp, #0]
+  10:	b004      	add	sp, #16
+  12:	4770      	bx	lr
+
+mylib-b003fcb153d61cda.3bdhhpoj085ustfh.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 3bdhhpoj085ustfh
+000002d4 l       .debug_str	00000000 
+000001d8 l       .debug_str	00000000 
+000001dc l       .debug_str	00000000 
+000001e6 l       .debug_str	00000000 
+000001ea l       .debug_str	00000000 
+000001f6 l       .debug_str	00000000 
+000001f9 l       .debug_str	00000000 
+00000215 l       .debug_str	00000000 
+0000021e l       .debug_str	00000000 
+0000022d l       .debug_str	00000000 
+00000231 l       .debug_str	00000000 
+00000239 l       .debug_str	00000000 
+00000292 l       .debug_str	00000000 
+00000299 l       .debug_str	00000000 
+000002a1 l       .debug_str	00000000 
+000002b0 l       .debug_str	00000000 
+000002b5 l       .debug_str	00000000 
+000002c1 l       .debug_str	00000000 
+000002cd l       .debug_str	00000000 
+000002da l       .debug_str	00000000 
+000002e6 l       .debug_str	00000000 
+000002f0 l       .debug_str	00000000 
+000002f6 l       .debug_str	00000000 
+0000030a l       .debug_str	00000000 
+0000030f l       .debug_str	00000000 
+00000320 l       .debug_str	00000000 
+00000332 l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+0000034b l       .debug_str	00000000 
+00000359 l       .debug_str	00000000 
+00000370 l       .debug_str	00000000 
+00000382 l       .debug_str	00000000 
+000003a2 l       .debug_str	00000000 
+000003ab l       .debug_str	00000000 
+000003b4 l       .debug_str	00000000 
+000003c6 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000082 l       .debug_str	00000000 
+00000089 l       .debug_str	00000000 
+0000008d l       .debug_str	00000000 
+00000097 l       .debug_str	00000000 
+000000a1 l       .debug_str	00000000 
+000000a7 l       .debug_str	00000000 
+000000b5 l       .debug_str	00000000 
+000000f9 l       .debug_str	00000000 
+0000010f l       .debug_str	00000000 
+00000113 l       .debug_str	00000000 
+00000152 l       .debug_str	00000000 
+00000163 l       .debug_str	00000000 
+000001a1 l       .debug_str	00000000 
+000001b1 l       .debug_str	00000000 
+000001b6 l       .debug_str	00000000 
+000001ba l       .debug_str	00000000 
+000001bd l       .debug_str	00000000 
+000001c7 l       .debug_str	00000000 
+000001d0 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.0	0000000a .Lanon.5a193bd42aa79a17fece9f816a2deead.0
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.1	0000000d .Lanon.5a193bd42aa79a17fece9f816a2deead.1
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.10	00000011 .Lanon.5a193bd42aa79a17fece9f816a2deead.10
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.12	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.12
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.14	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.14
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.15	00000016 .Lanon.5a193bd42aa79a17fece9f816a2deead.15
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.16	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.16
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.17	00000001 .Lanon.5a193bd42aa79a17fece9f816a2deead.17
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.18	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.18
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.19	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.19
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.20	00000019 .Lanon.5a193bd42aa79a17fece9f816a2deead.20
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.21	00000002 .Lanon.5a193bd42aa79a17fece9f816a2deead.21
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.4	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.4
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.6	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.6
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.8	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.8
+00000000 l     O .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.9	00000018 .Lanon.5a193bd42aa79a17fece9f816a2deead.9
+00000000 l     F .text._ZN5mylib13listen_sensor15get_temperature17h83c775b9fc8c5924E	0000014c mylib::listen_sensor::get_temperature
+00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17h318673dbfba97d4bE	00000120 mylib::listen_sensor::read_temperature
+00000000 l    d  .text._ZN5mylib13listen_sensor21start_sensor_listener17h8abf00547b9e4a93E	00000000 .text._ZN5mylib13listen_sensor21start_sensor_listener17h8abf00547b9e4a93E
+00000000 l    d  .text._ZN5mylib13listen_sensor16read_temperature17h318673dbfba97d4bE	00000000 .text._ZN5mylib13listen_sensor16read_temperature17h318673dbfba97d4bE
+00000000 l    d  .text._ZN5mylib13listen_sensor15get_temperature17h83c775b9fc8c5924E	00000000 .text._ZN5mylib13listen_sensor15get_temperature17h83c775b9fc8c5924E
+00000000 l    d  .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.2	00000000 .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.2
+00000000 l    d  .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.3	00000000 .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.3
+00000000 l    d  .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.5	00000000 .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.5
+00000000 l    d  .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.7	00000000 .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.7
+00000000 l    d  .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.11	00000000 .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.11
+00000000 l    d  .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.13	00000000 .rodata..Lanon.5a193bd42aa79a17fece9f816a2deead.13
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::slice::<impl [T]>::as_ptr
+00000000         *UND*	00000000 core::panicking::panic
+00000000 g     F .text._ZN5mylib13listen_sensor21start_sensor_listener17h8abf00547b9e4a93E	000000e0 .hidden mylib::listen_sensor::start_sensor_listener
+00000000         *UND*	00000000 .hidden mylib::base::console_print
+00000000         *UND*	00000000 .hidden mylib::sensor::register_listener
+00000000         *UND*	00000000 .hidden mylib::send_coap::send_sensor_data
+00000000         *UND*	00000000 cstr_core::CStr::from_ptr
+00000000         *UND*	00000000 device_get_name
+00000000         *UND*	00000000 get_temp_data
+00000000         *UND*	00000000 get_temp_raw_data
+00000000         *UND*	00000000 is_null_sensor
+00000000         *UND*	00000000 is_null_sensor_data
+00000000         *UND*	00000000 null_sensor
+00000000         *UND*	00000000 sensor_get_device
+00000000         *UND*	00000000 sensor_mgr_find_next_bydevname
+00000000         *UND*	00000000 sensor_set_poll_rate_ms
+
+
+
+Disassembly of section .text._ZN5mylib13listen_sensor21start_sensor_listener17h8abf00547b9e4a93E:
+
+00000000 <mylib::listen_sensor::start_sensor_listener>:
+_ZN5mylib13listen_sensor21start_sensor_listener17h8abf00547b9e4a93E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:30
+///  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
+///  or CoAP Server (is this is a Standalone Node).
+///  For Collector Node: Start the Listeners for Remote Sensor 
+///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
+///  Return 0 if successful.
+pub fn start_sensor_listener() -> i32 {
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	b093      	sub	sp, #76	; 0x4c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:31
+    console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
+   4:	f240 0000 	movw	r0, #0
+   8:	f2c0 0000 	movt	r0, #0
+   c:	210a      	movs	r1, #10
+   e:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  12:	e7ff      	b.n	2 <mylib::listen_sensor::start_sensor_listener+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:34
+
+    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
+    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
+  14:	f240 0000 	movw	r0, #0
+  18:	f2c0 0000 	movt	r0, #0
+  1c:	f242 7110 	movw	r1, #10000	; 0x2710
+  20:	f7ff fffe 	bl	0 <sensor_set_poll_rate_ms>
+  24:	9002      	str	r0, [sp, #8]
+  26:	e7ff      	b.n	28 <mylib::listen_sensor::start_sensor_listener+0x28>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:35
+    assert!(rc == 0);
+  28:	9802      	ldr	r0, [sp, #8]
+  2a:	2800      	cmp	r0, #0
+  2c:	d007      	beq.n	3e <mylib::listen_sensor::start_sensor_listener+0x3e>
+  2e:	e7ff      	b.n	30 <mylib::listen_sensor::start_sensor_listener+0x30>
+  30:	f240 0000 	movw	r0, #0
+  34:	f2c0 0000 	movt	r0, #0
+  38:	f7ff fffe 	bl	0 <core::panicking::panic>
+  3c:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:36
+    assert!(rc > 0);
+  3e:	9802      	ldr	r0, [sp, #8]
+  40:	2800      	cmp	r0, #0
+  42:	dc07      	bgt.n	54 <mylib::listen_sensor::start_sensor_listener+0x54>
+  44:	e7ff      	b.n	46 <mylib::listen_sensor::start_sensor_listener+0x46>
+  46:	f240 0000 	movw	r0, #0
+  4a:	f2c0 0000 	movt	r0, #0
+  4e:	f7ff fffe 	bl	0 <core::panicking::panic>
+  52:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:39
+
+    //  Fetch the sensor by name, without locking the driver for exclusive access.
+    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
+  54:	f7ff fffe 	bl	0 <null_sensor>
+  58:	9001      	str	r0, [sp, #4]
+  5a:	e7ff      	b.n	5c <mylib::listen_sensor::start_sensor_listener+0x5c>
+  5c:	f240 0000 	movw	r0, #0
+  60:	f2c0 0000 	movt	r0, #0
+  64:	9901      	ldr	r1, [sp, #4]
+  66:	f7ff fffe 	bl	0 <sensor_mgr_find_next_bydevname>
+  6a:	9003      	str	r0, [sp, #12]
+  6c:	e7ff      	b.n	6e <mylib::listen_sensor::start_sensor_listener+0x6e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:40
+    assert!(!unsafe{ is_null_sensor(listen_sensor) });
+  6e:	9803      	ldr	r0, [sp, #12]
+  70:	f7ff fffe 	bl	0 <is_null_sensor>
+  74:	9000      	str	r0, [sp, #0]
+  76:	e7ff      	b.n	78 <mylib::listen_sensor::start_sensor_listener+0x78>
+  78:	9800      	ldr	r0, [sp, #0]
+  7a:	07c1      	lsls	r1, r0, #31
+  7c:	2900      	cmp	r1, #0
+  7e:	d007      	beq.n	90 <mylib::listen_sensor::start_sensor_listener+0x90>
+  80:	e7ff      	b.n	82 <mylib::listen_sensor::start_sensor_listener+0x82>
+  82:	f240 0000 	movw	r0, #0
+  86:	f2c0 0000 	movt	r0, #0
+  8a:	f7ff fffe 	bl	0 <core::panicking::panic>
+  8e:	defe      	udf	#254	; 0xfe
+  90:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:43
+
+    //  Define the listener function to be called after polling the temperature sensor.
+    let listener = SensorListener {
+  92:	9005      	str	r0, [sp, #20]
+  94:	f04f 6180 	mov.w	r1, #67108864	; 0x4000000
+  98:	9104      	str	r1, [sp, #16]
+  9a:	f240 0100 	movw	r1, #0
+  9e:	f2c0 0100 	movt	r1, #0
+  a2:	9106      	str	r1, [sp, #24]
+  a4:	2101      	movs	r1, #1
+  a6:	9107      	str	r1, [sp, #28]
+  a8:	9008      	str	r0, [sp, #32]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:51
+        sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
+        sl_next       : 0,                     //  Must be 0
+    };
+
+    //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
+    let rc = register_listener(listen_sensor, listener);
+  aa:	9803      	ldr	r0, [sp, #12]
+  ac:	a904      	add	r1, sp, #16
+  ae:	aa0c      	add	r2, sp, #48	; 0x30
+  b0:	4613      	mov	r3, r2
+  b2:	e891 50f0 	ldmia.w	r1, {r4, r5, r6, r7, ip, lr}
+  b6:	e883 50f0 	stmia.w	r3, {r4, r5, r6, r7, ip, lr}
+  ba:	4611      	mov	r1, r2
+  bc:	f7ff fffe 	bl	0 <mylib::sensor::register_listener>
+  c0:	900b      	str	r0, [sp, #44]	; 0x2c
+  c2:	e7ff      	b.n	c4 <mylib::listen_sensor::start_sensor_listener+0xc4>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:52
+    assert!(rc == 0);
+  c4:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  c6:	2800      	cmp	r0, #0
+  c8:	d007      	beq.n	da <mylib::listen_sensor::start_sensor_listener+0xda>
+  ca:	e7ff      	b.n	cc <mylib::listen_sensor::start_sensor_listener+0xcc>
+  cc:	f240 0000 	movw	r0, #0
+  d0:	f2c0 0000 	movt	r0, #0
+  d4:	f7ff fffe 	bl	0 <core::panicking::panic>
+  d8:	defe      	udf	#254	; 0xfe
+  da:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:56
+
+    //  Return 0 to indicate success.  This line should not end with a semicolon (;).
+    0
+}
+  dc:	b013      	add	sp, #76	; 0x4c
+  de:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text._ZN5mylib13listen_sensor16read_temperature17h318673dbfba97d4bE:
+
+00000000 <mylib::listen_sensor::read_temperature>:
+_ZN5mylib13listen_sensor16read_temperature17h318673dbfba97d4bE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:71
+///  This listener function is called by Mynewt every 10 seconds (for local sensors) or when sensor data is received
+///  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through `sensor_data`.
+///  If this is a Sensor Node, we send the sensor data to the Collector Node.
+///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
+///  Return 0 if we have processed the sensor data successfully.
+extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b096      	sub	sp, #88	; 0x58
+   4:	9b1b      	ldr	r3, [sp, #108]	; 0x6c
+   6:	f8dd c068 	ldr.w	ip, [sp, #104]	; 0x68
+   a:	4696      	mov	lr, r2
+   c:	460c      	mov	r4, r1
+   e:	4605      	mov	r5, r0
+  10:	9007      	str	r0, [sp, #28]
+  12:	9108      	str	r1, [sp, #32]
+  14:	9209      	str	r2, [sp, #36]	; 0x24
+  16:	930b      	str	r3, [sp, #44]	; 0x2c
+  18:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:73
+    unsafe {
+        console_print(b"read_temperature\n");
+  1c:	f240 0000 	movw	r0, #0
+  20:	f2c0 0000 	movt	r0, #0
+  24:	2111      	movs	r1, #17
+  26:	f8cd e018 	str.w	lr, [sp, #24]
+  2a:	9405      	str	r4, [sp, #20]
+  2c:	9504      	str	r5, [sp, #16]
+  2e:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  32:	e7ff      	b.n	34 <mylib::listen_sensor::read_temperature+0x34>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:76
+        //  Check that the temperature data is valid.
+        //  TODO
+        if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
+  34:	9809      	ldr	r0, [sp, #36]	; 0x24
+  36:	f7ff fffe 	bl	0 <is_null_sensor_data>
+  3a:	9003      	str	r0, [sp, #12]
+  3c:	e7ff      	b.n	3e <mylib::listen_sensor::read_temperature+0x3e>
+  3e:	9803      	ldr	r0, [sp, #12]
+  40:	07c1      	lsls	r1, r0, #31
+  42:	2900      	cmp	r1, #0
+  44:	d007      	beq.n	56 <mylib::listen_sensor::read_temperature+0x56>
+  46:	e7ff      	b.n	48 <mylib::listen_sensor::read_temperature+0x48>
+  48:	f06f 0001 	mvn.w	r0, #1
+  4c:	900c      	str	r0, [sp, #48]	; 0x30
+  4e:	e7ff      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:108
+        }
+        assert!(rc == 0);
+        //#endif  //  MYNEWT_VAL(SENSOR_COAP)
+    }
+    0
+}
+  50:	980c      	ldr	r0, [sp, #48]	; 0x30
+  52:	b016      	add	sp, #88	; 0x58
+  54:	bdb0      	pop	{r4, r5, r7, pc}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:77
+        assert!(!is_null_sensor(sensor));
+  56:	9807      	ldr	r0, [sp, #28]
+  58:	f7ff fffe 	bl	0 <is_null_sensor>
+  5c:	9002      	str	r0, [sp, #8]
+  5e:	e7ff      	b.n	60 <mylib::listen_sensor::read_temperature+0x60>
+  60:	9802      	ldr	r0, [sp, #8]
+  62:	07c1      	lsls	r1, r0, #31
+  64:	2900      	cmp	r1, #0
+  66:	d007      	beq.n	78 <mylib::listen_sensor::read_temperature+0x78>
+  68:	e7ff      	b.n	6a <mylib::listen_sensor::read_temperature+0x6a>
+  6a:	f240 0000 	movw	r0, #0
+  6e:	f2c0 0000 	movt	r0, #0
+  72:	f7ff fffe 	bl	0 <core::panicking::panic>
+  76:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:81
+        let device = sensor_get_device(sensor);
+  78:	9807      	ldr	r0, [sp, #28]
+  7a:	f7ff fffe 	bl	0 <sensor_get_device>
+  7e:	900d      	str	r0, [sp, #52]	; 0x34
+  80:	e7ff      	b.n	82 <mylib::listen_sensor::read_temperature+0x82>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:82
+        let c_buf: *const c_char = device_get_name(device);
+  82:	980d      	ldr	r0, [sp, #52]	; 0x34
+  84:	f7ff fffe 	bl	0 <device_get_name>
+  88:	900e      	str	r0, [sp, #56]	; 0x38
+  8a:	e7ff      	b.n	8c <mylib::listen_sensor::read_temperature+0x8c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:83
+        let device_name: &CStr = CStr::from_ptr(c_buf);
+  8c:	980e      	ldr	r0, [sp, #56]	; 0x38
+  8e:	f7ff fffe 	bl	0 <cstr_core::CStr::from_ptr>
+  92:	9001      	str	r0, [sp, #4]
+  94:	9100      	str	r1, [sp, #0]
+  96:	e7ff      	b.n	98 <mylib::listen_sensor::read_temperature+0x98>
+  98:	9801      	ldr	r0, [sp, #4]
+  9a:	900f      	str	r0, [sp, #60]	; 0x3c
+  9c:	9900      	ldr	r1, [sp, #0]
+  9e:	9110      	str	r1, [sp, #64]	; 0x40
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:87
+        let temp_sensor_value = get_temperature(sensor_data, sensor_type);
+  a0:	9909      	ldr	r1, [sp, #36]	; 0x24
+  a2:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+  a4:	9b0b      	ldr	r3, [sp, #44]	; 0x2c
+  a6:	a811      	add	r0, sp, #68	; 0x44
+  a8:	f7ff fffe 	bl	0 <mylib::listen_sensor::read_temperature>
+  ac:	e7ff      	b.n	ae <mylib::listen_sensor::read_temperature+0xae>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:88
+        assert!(temp_sensor_value.val_type != 0);
+  ae:	9812      	ldr	r0, [sp, #72]	; 0x48
+  b0:	2800      	cmp	r0, #0
+  b2:	d107      	bne.n	c4 <mylib::listen_sensor::read_temperature+0xc4>
+  b4:	e7ff      	b.n	b6 <mylib::listen_sensor::read_temperature+0xb6>
+  b6:	f240 0000 	movw	r0, #0
+  ba:	f2c0 0000 	movt	r0, #0
+  be:	f7ff fffe 	bl	0 <core::panicking::panic>
+  c2:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:89
+        if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
+  c4:	9812      	ldr	r0, [sp, #72]	; 0x48
+  c6:	2800      	cmp	r0, #0
+  c8:	d105      	bne.n	d6 <mylib::listen_sensor::read_temperature+0xd6>
+  ca:	e7ff      	b.n	cc <mylib::listen_sensor::read_temperature+0xcc>
+  cc:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
+  d0:	900c      	str	r0, [sp, #48]	; 0x30
+  d2:	e7ff      	b.n	d4 <mylib::listen_sensor::read_temperature+0xd4>
+  d4:	e7bc      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:96
+        let rc = send_sensor_data(&temp_sensor_value, device_name);
+  d6:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  d8:	9a10      	ldr	r2, [sp, #64]	; 0x40
+  da:	a811      	add	r0, sp, #68	; 0x44
+  dc:	f7ff fffe 	bl	0 <mylib::send_coap::send_sensor_data>
+  e0:	9015      	str	r0, [sp, #84]	; 0x54
+  e2:	e7ff      	b.n	e4 <mylib::listen_sensor::read_temperature+0xe4>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:100
+        if rc == SYS_EAGAIN {
+  e4:	9815      	ldr	r0, [sp, #84]	; 0x54
+  e6:	3006      	adds	r0, #6
+  e8:	2800      	cmp	r0, #0
+  ea:	d10b      	bne.n	104 <mylib::listen_sensor::read_temperature+0x104>
+  ec:	e7ff      	b.n	ee <mylib::listen_sensor::read_temperature+0xee>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:101
+            console_print(b"TMP network not ready\n");
+  ee:	f240 0000 	movw	r0, #0
+  f2:	f2c0 0000 	movt	r0, #0
+  f6:	2116      	movs	r1, #22
+  f8:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  fc:	e7ff      	b.n	fe <mylib::listen_sensor::read_temperature+0xfe>
+  fe:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:102
+            return 0; 
+ 100:	900c      	str	r0, [sp, #48]	; 0x30
+ 102:	e7e7      	b.n	d4 <mylib::listen_sensor::read_temperature+0xd4>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:104
+        assert!(rc == 0);
+ 104:	9815      	ldr	r0, [sp, #84]	; 0x54
+ 106:	2800      	cmp	r0, #0
+ 108:	d007      	beq.n	11a <mylib::listen_sensor::read_temperature+0x11a>
+ 10a:	e7ff      	b.n	10c <mylib::listen_sensor::read_temperature+0x10c>
+ 10c:	f240 0000 	movw	r0, #0
+ 110:	f2c0 0000 	movt	r0, #0
+ 114:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 118:	defe      	udf	#254	; 0xfe
+ 11a:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:107
+    0
+ 11c:	900c      	str	r0, [sp, #48]	; 0x30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:108
+}
+ 11e:	e797      	b.n	50 <mylib::listen_sensor::read_temperature+0x50>
+
+Disassembly of section .text._ZN5mylib13listen_sensor15get_temperature17h83c775b9fc8c5924E:
+
+00000000 <mylib::listen_sensor::get_temperature>:
+_ZN5mylib13listen_sensor15get_temperature17h83c775b9fc8c5924E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:113
+
+///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
+///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
+///  the raw or computed temperature, as well as the key and value type.
+fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
+   0:	b510      	push	{r4, lr}
+   2:	b096      	sub	sp, #88	; 0x58
+   4:	469c      	mov	ip, r3
+   6:	4696      	mov	lr, r2
+   8:	460c      	mov	r4, r1
+   a:	9105      	str	r1, [sp, #20]
+   c:	9307      	str	r3, [sp, #28]
+   e:	9206      	str	r2, [sp, #24]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:115
+    let mut return_value = SensorValue {
+        key: b"\0".as_ptr(),
+  10:	f240 0100 	movw	r1, #0
+  14:	f2c0 0100 	movt	r1, #0
+  18:	2201      	movs	r2, #1
+  1a:	9004      	str	r0, [sp, #16]
+  1c:	4608      	mov	r0, r1
+  1e:	4611      	mov	r1, r2
+  20:	f8cd c00c 	str.w	ip, [sp, #12]
+  24:	f8cd e008 	str.w	lr, [sp, #8]
+  28:	9401      	str	r4, [sp, #4]
+  2a:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
+  2e:	9000      	str	r0, [sp, #0]
+  30:	e7ff      	b.n	32 <mylib::listen_sensor::get_temperature+0x32>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:114
+    let mut return_value = SensorValue {
+  32:	9800      	ldr	r0, [sp, #0]
+  34:	9009      	str	r0, [sp, #36]	; 0x24
+  36:	2100      	movs	r1, #0
+  38:	910a      	str	r1, [sp, #40]	; 0x28
+  3a:	f8ad 102c 	strh.w	r1, [sp, #44]	; 0x2c
+  3e:	910c      	str	r1, [sp, #48]	; 0x30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:123
+        float_val: 0.0,
+    };
+    unsafe {
+        //assert!(sensor_data);
+        match sensor_type {                                //  Is this raw or computed temperature?
+            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
+  40:	9906      	ldr	r1, [sp, #24]
+  42:	9a07      	ldr	r2, [sp, #28]
+  44:	f081 6180 	eor.w	r1, r1, #67108864	; 0x4000000
+  48:	4311      	orrs	r1, r2
+  4a:	2900      	cmp	r1, #0
+  4c:	d138      	bne.n	c0 <mylib::listen_sensor::get_temperature+0xc0>
+  4e:	e7ff      	b.n	50 <mylib::listen_sensor::get_temperature+0x50>
+  50:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:125
+                //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
+                let mut rawtempdata = SensorTempRawData {
+  52:	900d      	str	r0, [sp, #52]	; 0x34
+  54:	f88d 0038 	strb.w	r0, [sp, #56]	; 0x38
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
+                    strd_temp_raw: 0,
+                    strd_temp_raw_is_valid: 0,
+                };
+                let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
+  58:	9805      	ldr	r0, [sp, #20]
+  5a:	a90d      	add	r1, sp, #52	; 0x34
+  5c:	f7ff fffe 	bl	0 <get_temp_raw_data>
+  60:	900f      	str	r0, [sp, #60]	; 0x3c
+  62:	e7ff      	b.n	64 <mylib::listen_sensor::get_temperature+0x64>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:130
+                assert!(rc == 0);
+  64:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  66:	2800      	cmp	r0, #0
+  68:	d007      	beq.n	7a <mylib::listen_sensor::get_temperature+0x7a>
+  6a:	e7ff      	b.n	6c <mylib::listen_sensor::get_temperature+0x6c>
+  6c:	f240 0000 	movw	r0, #0
+  70:	f2c0 0000 	movt	r0, #0
+  74:	f7ff fffe 	bl	0 <core::panicking::panic>
+  78:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:133
+
+                //  Check that the raw temperature data is valid.
+                if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+  7a:	f89d 0038 	ldrb.w	r0, [sp, #56]	; 0x38
+  7e:	2800      	cmp	r0, #0
+  80:	d112      	bne.n	a8 <mylib::listen_sensor::get_temperature+0xa8>
+  82:	e7ff      	b.n	84 <mylib::listen_sensor::get_temperature+0x84>
+  84:	9809      	ldr	r0, [sp, #36]	; 0x24
+  86:	990a      	ldr	r1, [sp, #40]	; 0x28
+  88:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  8a:	9b0c      	ldr	r3, [sp, #48]	; 0x30
+  8c:	f8dd c010 	ldr.w	ip, [sp, #16]
+  90:	f8cc 300c 	str.w	r3, [ip, #12]
+  94:	f8cc 2008 	str.w	r2, [ip, #8]
+  98:	f8cc 1004 	str.w	r1, [ip, #4]
+  9c:	f8cc 0000 	str.w	r0, [ip]
+  a0:	e001      	b.n	a6 <mylib::listen_sensor::get_temperature+0xa6>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:169
+        //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
+        return_value.key = TEMP_SENSOR_KEY;
+        return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
+    };
+    return_value
+}
+  a2:	b016      	add	sp, #88	; 0x58
+  a4:	bd10      	pop	{r4, pc}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:133
+                if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+  a6:	e7fc      	b.n	a2 <mylib::listen_sensor::get_temperature+0xa2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:136
+                return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
+  a8:	980d      	ldr	r0, [sp, #52]	; 0x34
+  aa:	f8ad 002c 	strh.w	r0, [sp, #44]	; 0x2c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:137
+                console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
+  ae:	f240 0000 	movw	r0, #0
+  b2:	f2c0 0000 	movt	r0, #0
+  b6:	2119      	movs	r1, #25
+  b8:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  bc:	e7ff      	b.n	be <mylib::listen_sensor::get_temperature+0xbe>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
+        match sensor_type {                                //  Is this raw or computed temperature?
+  be:	e02f      	b.n	120 <mylib::listen_sensor::get_temperature+0x120>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:139
+            SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+  c0:	9806      	ldr	r0, [sp, #24]
+  c2:	9907      	ldr	r1, [sp, #28]
+  c4:	9111      	str	r1, [sp, #68]	; 0x44
+  c6:	9010      	str	r0, [sp, #64]	; 0x40
+  c8:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:141
+                let mut tempdata = SensorTempData {
+  ca:	9013      	str	r0, [sp, #76]	; 0x4c
+  cc:	f88d 0050 	strb.w	r0, [sp, #80]	; 0x50
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:145
+                let rc = get_temp_data(sensor_data, &mut tempdata);
+  d0:	9805      	ldr	r0, [sp, #20]
+  d2:	a913      	add	r1, sp, #76	; 0x4c
+  d4:	f7ff fffe 	bl	0 <get_temp_data>
+  d8:	9015      	str	r0, [sp, #84]	; 0x54
+  da:	e7ff      	b.n	dc <mylib::listen_sensor::get_temperature+0xdc>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:146
+                assert!(rc == 0);
+  dc:	9815      	ldr	r0, [sp, #84]	; 0x54
+  de:	2800      	cmp	r0, #0
+  e0:	d007      	beq.n	f2 <mylib::listen_sensor::get_temperature+0xf2>
+  e2:	e7ff      	b.n	e4 <mylib::listen_sensor::get_temperature+0xe4>
+  e4:	f240 0000 	movw	r0, #0
+  e8:	f2c0 0000 	movt	r0, #0
+  ec:	f7ff fffe 	bl	0 <core::panicking::panic>
+  f0:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:149
+                if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+  f2:	f89d 0050 	ldrb.w	r0, [sp, #80]	; 0x50
+  f6:	2800      	cmp	r0, #0
+  f8:	d10f      	bne.n	11a <mylib::listen_sensor::get_temperature+0x11a>
+  fa:	e7ff      	b.n	fc <mylib::listen_sensor::get_temperature+0xfc>
+  fc:	9809      	ldr	r0, [sp, #36]	; 0x24
+  fe:	990a      	ldr	r1, [sp, #40]	; 0x28
+ 100:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+ 102:	9b0c      	ldr	r3, [sp, #48]	; 0x30
+ 104:	f8dd c010 	ldr.w	ip, [sp, #16]
+ 108:	f8cc 300c 	str.w	r3, [ip, #12]
+ 10c:	f8cc 2008 	str.w	r2, [ip, #8]
+ 110:	f8cc 1004 	str.w	r1, [ip, #4]
+ 114:	f8cc 0000 	str.w	r0, [ip]
+ 118:	e7c5      	b.n	a6 <mylib::listen_sensor::get_temperature+0xa6>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:152
+                return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
+ 11a:	9813      	ldr	r0, [sp, #76]	; 0x4c
+ 11c:	900c      	str	r0, [sp, #48]	; 0x30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:122
+        match sensor_type {                                //  Is this raw or computed temperature?
+ 11e:	e7ff      	b.n	120 <mylib::listen_sensor::get_temperature+0x120>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:165
+        return_value.key = TEMP_SENSOR_KEY;
+ 120:	f240 0000 	movw	r0, #0
+ 124:	f2c0 0000 	movt	r0, #0
+ 128:	9009      	str	r0, [sp, #36]	; 0x24
+ 12a:	2001      	movs	r0, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:166
+        return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
+ 12c:	900a      	str	r0, [sp, #40]	; 0x28
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:168
+    return_value
+ 12e:	9809      	ldr	r0, [sp, #36]	; 0x24
+ 130:	990a      	ldr	r1, [sp, #40]	; 0x28
+ 132:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+ 134:	9b0c      	ldr	r3, [sp, #48]	; 0x30
+ 136:	f8dd c010 	ldr.w	ip, [sp, #16]
+ 13a:	f8cc 300c 	str.w	r3, [ip, #12]
+ 13e:	f8cc 2008 	str.w	r2, [ip, #8]
+ 142:	f8cc 1004 	str.w	r1, [ip, #4]
+ 146:	f8cc 0000 	str.w	r0, [ip]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:169
+}
+ 14a:	e7aa      	b.n	a2 <mylib::listen_sensor::get_temperature+0xa2>
+
+mylib-b003fcb153d61cda.3m2bj5bgdp6nzbj4.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 3m2bj5bgdp6nzbj4
+00000340 l       .debug_str	00000000 
+000003d1 l       .debug_str	00000000 
+000003db l       .debug_str	00000000 
+000003f5 l       .debug_str	00000000 
+00000453 l       .debug_str	00000000 
+0000045e l       .debug_str	00000000 
+0000047b l       .debug_str	00000000 
+00000494 l       .debug_str	00000000 
+0000049e l       .debug_str	00000000 
+000004b4 l       .debug_str	00000000 
+000004d2 l       .debug_str	00000000 
+000004db l       .debug_str	00000000 
+000004e0 l       .debug_str	00000000 
+000004e5 l       .debug_str	00000000 
+000004e9 l       .debug_str	00000000 
+000004f2 l       .debug_str	00000000 
+000004fc l       .debug_str	00000000 
+00000514 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000081 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+00000088 l       .debug_str	00000000 
+0000008b l       .debug_str	00000000 
+0000008e l       .debug_str	00000000 
+00000093 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+000000a0 l       .debug_str	00000000 
+000000a8 l       .debug_str	00000000 
+000000b2 l       .debug_str	00000000 
+000000b9 l       .debug_str	00000000 
+000000bc l       .debug_str	00000000 
+000000c0 l       .debug_str	00000000 
+000000c7 l       .debug_str	00000000 
+000000cd l       .debug_str	00000000 
+000000d6 l       .debug_str	00000000 
+000000da l       .debug_str	00000000 
+00000104 l       .debug_str	00000000 
+00000109 l       .debug_str	00000000 
+0000010e l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000122 l       .debug_str	00000000 
+00000128 l       .debug_str	00000000 
+0000012b l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000134 l       .debug_str	00000000 
+0000013c l       .debug_str	00000000 
+00000140 l       .debug_str	00000000 
+00000148 l       .debug_str	00000000 
+00000150 l       .debug_str	00000000 
+00000157 l       .debug_str	00000000 
+0000015d l       .debug_str	00000000 
+00000171 l       .debug_str	00000000 
+0000017d l       .debug_str	00000000 
+00000182 l       .debug_str	00000000 
+0000018a l       .debug_str	00000000 
+00000191 l       .debug_str	00000000 
+00000195 l       .debug_str	00000000 
+0000019a l       .debug_str	00000000 
+000001a1 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001b4 l       .debug_str	00000000 
+000001bb l       .debug_str	00000000 
+000001c0 l       .debug_str	00000000 
+000001cc l       .debug_str	00000000 
+000001d4 l       .debug_str	00000000 
+000001dd l       .debug_str	00000000 
+000001e2 l       .debug_str	00000000 
+000001e5 l       .debug_str	00000000 
+000001e9 l       .debug_str	00000000 
+000001f2 l       .debug_str	00000000 
+000001f9 l       .debug_str	00000000 
+000001fe l       .debug_str	00000000 
+00000203 l       .debug_str	00000000 
+00000209 l       .debug_str	00000000 
+0000020f l       .debug_str	00000000 
+00000219 l       .debug_str	00000000 
+0000021c l       .debug_str	00000000 
+00000222 l       .debug_str	00000000 
+0000022c l       .debug_str	00000000 
+00000234 l       .debug_str	00000000 
+0000023a l       .debug_str	00000000 
+00000240 l       .debug_str	00000000 
+0000024b l       .debug_str	00000000 
+00000254 l       .debug_str	00000000 
+00000277 l       .debug_str	00000000 
+00000296 l       .debug_str	00000000 
+00000298 l       .debug_str	00000000 
+0000029d l       .debug_str	00000000 
+000002c4 l       .debug_str	00000000 
+000002c9 l       .debug_str	00000000 
+000002cf l       .debug_str	00000000 
+000002d5 l       .debug_str	00000000 
+000002d8 l       .debug_str	00000000 
+000002e7 l       .debug_str	00000000 
+000002ee l       .debug_str	00000000 
+000002f2 l       .debug_str	00000000 
+000002fb l       .debug_str	00000000 
+00000307 l       .debug_str	00000000 
+00000320 l       .debug_str	00000000 
+00000325 l       .debug_str	00000000 
+00000336 l       .debug_str	00000000 
+0000034e l       .debug_str	00000000 
+00000352 l       .debug_str	00000000 
+0000035d l       .debug_str	00000000 
+00000364 l       .debug_str	00000000 
+0000036a l       .debug_str	00000000 
+0000036e l       .debug_str	00000000 
+00000372 l       .debug_str	00000000 
+0000037a l       .debug_str	00000000 
+00000391 l       .debug_str	00000000 
+000003b5 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.2
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.3
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4	00000012 .Lanon.3ed011473997af99b525cde47c9eaaac.4
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5	00000009 .Lanon.3ed011473997af99b525cde47c9eaaac.5
+00000000 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.6
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.7
+00000000 l    d  .text.main	00000000 .text.main
+00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
+00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0
+00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 .hidden core::str::<impl str>::len
+00000000         *UND*	00000000 .hidden core::str::<impl str>::as_ptr
+00000000         *UND*	00000000 core::panic::Location::file
+00000000         *UND*	00000000 core::panic::Location::line
+00000000         *UND*	00000000 core::panic::PanicInfo::location
+00000000         *UND*	00000000 core::panicking::panic
+00000000         *UND*	00000000 .hidden mylib::listen_sensor::start_sensor_listener
+00000000         *UND*	00000000 .hidden mylib::base::console_print
+00000000         *UND*	00000000 .hidden mylib::send_coap::start_network_task
+00000000         *UND*	00000000 __bkpt
+00000000         *UND*	00000000 console_buffer
+00000000         *UND*	00000000 console_flush
+00000000         *UND*	00000000 console_printhex
+00000000 g     F .text.main	0000005e main
+00000000         *UND*	00000000 os_eventq_dflt_get
+00000000         *UND*	00000000 os_eventq_run
+00000000 g     F .text.rust_begin_unwind	000000b6 rust_begin_unwind
+00000000         *UND*	00000000 rust_sysinit
+
+
+
+Disassembly of section .text.main:
+
+00000000 <main>:
+main():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:23
+use crate::listen_sensor::*;    //  Import listen_sensor.rs for polling the temperature sensor
+use crate::send_coap::*;        //  Import send_coap.rs for sending sensor data
+
+///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
+#[no_mangle]                     //  Don't mangle the name "main"
+pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+   0:	b084      	sub	sp, #16
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:25
+    //  Init Mynewt system.
+    unsafe { rust_sysinit()  };
+   2:	f7ff fffe 	bl	0 <rust_sysinit>
+   6:	e7ff      	b.n	2 <console_flush+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:26
+    unsafe { console_flush() };
+   8:	f7ff fffe 	bl	0 <console_flush>
+   c:	e7ff      	b.n	2 <mylib::send_coap::start_network_task+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:31
+
+    //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
+    //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
+    //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
+    let rc = start_network_task();  assert!(rc == 0);
+   e:	f7ff fffe 	bl	0 <mylib::send_coap::start_network_task>
+  12:	9002      	str	r0, [sp, #8]
+  14:	e7ff      	b.n	16 <main+0x16>
+  16:	9802      	ldr	r0, [sp, #8]
+  18:	2800      	cmp	r0, #0
+  1a:	d007      	beq.n	2c <main+0x2c>
+  1c:	e7ff      	b.n	1e <main+0x1e>
+  1e:	f240 0000 	movw	r0, #0
+  22:	f2c0 0000 	movt	r0, #0
+  26:	f7ff fffe 	bl	0 <core::panicking::panic>
+  2a:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:36
+
+    //  Starting polling the temperature sensor every 10 seconds in the background.  
+    //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
+    //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
+    let rc = start_sensor_listener();  assert!(rc == 0);
+  2c:	f7ff fffe 	bl	0 <mylib::listen_sensor::start_sensor_listener>
+  30:	9003      	str	r0, [sp, #12]
+  32:	e7ff      	b.n	34 <main+0x34>
+  34:	9803      	ldr	r0, [sp, #12]
+  36:	2800      	cmp	r0, #0
+  38:	d007      	beq.n	4a <main+0x4a>
+  3a:	e7ff      	b.n	3c <main+0x3c>
+  3c:	f240 0000 	movw	r0, #0
+  40:	f2c0 0000 	movt	r0, #0
+  44:	f7ff fffe 	bl	0 <core::panicking::panic>
+  48:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:39
+
+    //  Main event loop
+    loop {                            //  Loop forever...
+  4a:	e7ff      	b.n	4c <main+0x4c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:42
+        unsafe {
+            os_eventq_run(            //  Process events...
+                os_eventq_dflt_get()  //  From default event queue.
+  4c:	f7ff fffe 	bl	0 <os_eventq_dflt_get>
+  50:	9001      	str	r0, [sp, #4]
+  52:	e7ff      	b.n	54 <main+0x54>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:41
+            os_eventq_run(            //  Process events...
+  54:	9801      	ldr	r0, [sp, #4]
+  56:	f7ff fffe 	bl	0 <os_eventq_run>
+  5a:	e7ff      	b.n	5c <main+0x5c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:39
+    loop {                            //  Loop forever...
+  5c:	e7f6      	b.n	4c <main+0x4c>
+
+Disassembly of section .text.rust_begin_unwind:
+
+00000000 <rust_begin_unwind>:
+rust_begin_unwind():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:51
+    //  Never comes here.
+}
+
+///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+   0:	b08a      	sub	sp, #40	; 0x28
+   2:	4601      	mov	r1, r0
+   4:	9003      	str	r0, [sp, #12]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:53
+    //  Display the filename and line number to the Semihosting Console.
+    if let Some(location) = info.location() {
+   6:	9803      	ldr	r0, [sp, #12]
+   8:	9102      	str	r1, [sp, #8]
+   a:	f7ff fffe 	bl	0 <core::panic::PanicInfo::location>
+   e:	9005      	str	r0, [sp, #20]
+  10:	e7ff      	b.n	12 <rust_begin_unwind+0x12>
+  12:	9805      	ldr	r0, [sp, #20]
+  14:	2800      	cmp	r0, #0
+  16:	d03f      	beq.n	98 <rust_begin_unwind+0x98>
+  18:	e7ff      	b.n	1a <rust_begin_unwind+0x1a>
+  1a:	9805      	ldr	r0, [sp, #20]
+  1c:	9006      	str	r0, [sp, #24]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:54
+        let file = location.file();
+  1e:	9806      	ldr	r0, [sp, #24]
+  20:	f7ff fffe 	bl	0 <core::panic::Location::file>
+  24:	9108      	str	r1, [sp, #32]
+  26:	9007      	str	r0, [sp, #28]
+  28:	e7ff      	b.n	2a <rust_begin_unwind+0x2a>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:55
+        let line = location.line();
+  2a:	9806      	ldr	r0, [sp, #24]
+  2c:	f7ff fffe 	bl	0 <core::panic::Location::line>
+  30:	9009      	str	r0, [sp, #36]	; 0x24
+  32:	e7ff      	b.n	34 <rust_begin_unwind+0x34>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:56
+        console_print(b"panic at ");
+  34:	f240 0000 	movw	r0, #0
+  38:	f2c0 0000 	movt	r0, #0
+  3c:	2109      	movs	r1, #9
+  3e:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  42:	e7ff      	b.n	44 <rust_begin_unwind+0x44>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:57
+        unsafe { console_buffer(file.as_ptr(), file.len() as u32) }
+  44:	9807      	ldr	r0, [sp, #28]
+  46:	9908      	ldr	r1, [sp, #32]
+  48:	f7ff fffe 	bl	0 <core::str::<impl str>::as_ptr>
+  4c:	9001      	str	r0, [sp, #4]
+  4e:	e7ff      	b.n	50 <rust_begin_unwind+0x50>
+  50:	9807      	ldr	r0, [sp, #28]
+  52:	9908      	ldr	r1, [sp, #32]
+  54:	f7ff fffe 	bl	0 <core::str::<impl str>::len>
+  58:	9000      	str	r0, [sp, #0]
+  5a:	e7ff      	b.n	5c <rust_begin_unwind+0x5c>
+  5c:	9801      	ldr	r0, [sp, #4]
+  5e:	9900      	ldr	r1, [sp, #0]
+  60:	f7ff fffe 	bl	0 <console_buffer>
+  64:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:58
+        console_print(b" line 0x");
+  66:	f240 0000 	movw	r0, #0
+  6a:	f2c0 0000 	movt	r0, #0
+  6e:	2108      	movs	r1, #8
+  70:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  74:	e7ff      	b.n	76 <rust_begin_unwind+0x76>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:59
+        unsafe { console_printhex(line as u8) }  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+  76:	f89d 0024 	ldrb.w	r0, [sp, #36]	; 0x24
+  7a:	f7ff fffe 	bl	0 <console_printhex>
+  7e:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:60
+        console_print(b"\n");
+  80:	f240 0000 	movw	r0, #0
+  84:	f2c0 0000 	movt	r0, #0
+  88:	2101      	movs	r1, #1
+  8a:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  8e:	e7ff      	b.n	2 <console_flush+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:61
+        unsafe { console_flush() }
+  90:	f7ff fffe 	bl	0 <console_flush>
+  94:	e7ff      	b.n	96 <rust_begin_unwind+0x96>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:53
+    if let Some(location) = info.location() {
+  96:	e00a      	b.n	ae <rust_begin_unwind+0xae>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:63
+    } else {
+        console_print(b"panic unknown loc\n");
+  98:	f240 0000 	movw	r0, #0
+  9c:	f2c0 0000 	movt	r0, #0
+  a0:	2112      	movs	r1, #18
+  a2:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  a6:	e7ff      	b.n	2 <console_flush+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:64
+        unsafe { console_flush() }
+  a8:	f7ff fffe 	bl	0 <console_flush>
+  ac:	e7ff      	b.n	2 <__bkpt+0x2>
+_ZN8cortex_m3asm4bkpt17h38d1ae7ad2dd546bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/asm.rs:19
+        () => unsafe {
+            extern "C" {
+                fn __bkpt();
+            }
+
+            __bkpt();
+  ae:	f7ff fffe 	bl	0 <__bkpt>
+rust_begin_unwind():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:67
+    }
+    //  Pause in the debugger.
+    asm::bkpt();
+  b2:	e7ff      	b.n	b4 <rust_begin_unwind+0xb4>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:69
+    //  Loop forever so that device won't restart.
+    loop {}
+  b4:	e7fe      	b.n	b4 <rust_begin_unwind+0xb4>
+
+mylib-b003fcb153d61cda.53xejyw88i0w8gr2.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 53xejyw88i0w8gr2
+000001b1 l       .debug_str	00000000 
+00000194 l       .debug_str	00000000 
+000001a1 l       .debug_str	00000000 
+000001ab l       .debug_str	00000000 
+000001c5 l       .debug_str	00000000 
+000001ca l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000082 l       .debug_str	00000000 
+0000008c l       .debug_str	00000000 
+000000c8 l       .debug_str	00000000 
+000000db l       .debug_str	00000000 
+000000df l       .debug_str	00000000 
+00000119 l       .debug_str	00000000 
+0000012a l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000134 l       .debug_str	00000000 
+00000138 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000145 l       .debug_str	00000000 
+0000014e l       .debug_str	00000000 
+00000156 l       .debug_str	00000000 
+0000015a l       .debug_str	00000000 
+00000164 l       .debug_str	00000000 
+00000168 l       .debug_str	00000000 
+00000174 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.fc7461d3016bc6c03b6a89aa14c3356d.0	00000013 .Lanon.fc7461d3016bc6c03b6a89aa14c3356d.0
+00000000 l     O .rodata..Lanon.fc7461d3016bc6c03b6a89aa14c3356d.1	00000011 .Lanon.fc7461d3016bc6c03b6a89aa14c3356d.1
+00000000 l    d  .text._ZN5mylib9send_coap18start_network_task17ha633b2c655e84b19E	00000000 .text._ZN5mylib9send_coap18start_network_task17ha633b2c655e84b19E
+00000000 l    d  .text._ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E	00000000 .text._ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 .hidden mylib::base::console_print
+00000000 g     F .text._ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E	00000030 .hidden mylib::send_coap::send_sensor_data
+00000000 g     F .text._ZN5mylib9send_coap18start_network_task17ha633b2c655e84b19E	00000016 .hidden mylib::send_coap::start_network_task
+
+
+
+Disassembly of section .text._ZN5mylib9send_coap18start_network_task17ha633b2c655e84b19E:
+
+00000000 <mylib::send_coap::start_network_task>:
+_ZN5mylib9send_coap18start_network_task17ha633b2c655e84b19E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:20
+
+///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
+///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
+///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
+pub fn start_network_task() -> i32 {
+   0:	b580      	push	{r7, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:21
+    console_print(b"start_network_task\n");
+   2:	f240 0000 	movw	r0, #0
+   6:	f2c0 0000 	movt	r0, #0
+   a:	2113      	movs	r1, #19
+   c:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  10:	e7ff      	b.n	12 <mylib::send_coap::start_network_task+0x12>
+  12:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:23
+    0
+}
+  14:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E:
+
+00000000 <mylib::send_coap::send_sensor_data>:
+_ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:34
+///  For Collector Node: sensor_node is the Sensor Node Address of the Sensor Node that transmitted
+///  the sensor data (like `b3b4b5b6f1`)
+///  The message will be enqueued for transmission by the CoAP / OIC Background Task 
+///  so this function will return without waiting for the message to be transmitted.  
+///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+pub fn send_sensor_data(_val: *const SensorValue, _sensor_node: &'static CStr) -> i32 {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9003      	str	r0, [sp, #12]
+   c:	9104      	str	r1, [sp, #16]
+   e:	9205      	str	r2, [sp, #20]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:35
+    console_print(b"send_sensor_data\n");
+  10:	f240 0000 	movw	r0, #0
+  14:	f2c0 0000 	movt	r0, #0
+  18:	2111      	movs	r1, #17
+  1a:	9302      	str	r3, [sp, #8]
+  1c:	f8cd c004 	str.w	ip, [sp, #4]
+  20:	f8cd e000 	str.w	lr, [sp]
+  24:	f7ff fffe 	bl	0 <mylib::base::console_print>
+  28:	e7ff      	b.n	2a <mylib::send_coap::send_sensor_data+0x2a>
+  2a:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:37
+    0
+}
+  2c:	b006      	add	sp, #24
+  2e:	bd80      	pop	{r7, pc}
+
+mylib-b003fcb153d61cda.wjo4ew4l4ktpf3y.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 wjo4ew4l4ktpf3y
+000000f4 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+0000004c l       .debug_str	00000000 
+0000007c l       .debug_str	00000000 
+00000082 l       .debug_str	00000000 
+00000087 l       .debug_str	00000000 
+000000b9 l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000c7 l       .debug_str	00000000 
+000000cb l       .debug_str	00000000 
+000000d4 l       .debug_str	00000000 
+000000d7 l       .debug_str	00000000 
+000000e1 l       .debug_str	00000000 
+000000e8 l       .debug_str	00000000 
+00000000 l    d  .text._ZN5mylib4base13console_print17h6caebb40d9fb0292E	00000000 .text._ZN5mylib4base13console_print17h6caebb40d9fb0292E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::slice::<impl [T]>::len
+00000000         *UND*	00000000 core::slice::<impl [T]>::as_ptr
+00000000 g     F .text._ZN5mylib4base13console_print17h6caebb40d9fb0292E	0000003c .hidden mylib::base::console_print
+00000000         *UND*	00000000 console_buffer
+00000000         *UND*	00000000 console_flush
+
+
+
+Disassembly of section .text._ZN5mylib4base13console_print17h6caebb40d9fb0292E:
+
+00000000 <mylib::base::console_print>:
+_ZN5mylib4base13console_print17h6caebb40d9fb0292E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:7
+
+use cty::*;            //  Import string utilities from cty library: https://crates.io/crates/cty
+use crate::sensor::*;  //  Import sensor.rs for Mynewt Sensor API
+
+///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+pub fn console_print(msg: &[u8]) {
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9003      	str	r0, [sp, #12]
+   a:	9104      	str	r1, [sp, #16]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:8
+    let len = msg.len();
+   c:	9803      	ldr	r0, [sp, #12]
+   e:	9904      	ldr	r1, [sp, #16]
+  10:	9202      	str	r2, [sp, #8]
+  12:	9301      	str	r3, [sp, #4]
+  14:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  18:	9005      	str	r0, [sp, #20]
+  1a:	e7ff      	b.n	1c <mylib::base::console_print+0x1c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:11
+    unsafe {
+        //  Call the Semihosting Console API, which is unsafe.
+        console_buffer(msg.as_ptr(), len as u32);
+  1c:	9803      	ldr	r0, [sp, #12]
+  1e:	9904      	ldr	r1, [sp, #16]
+  20:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_ptr>
+  24:	9000      	str	r0, [sp, #0]
+  26:	e7ff      	b.n	28 <mylib::base::console_print+0x28>
+  28:	9905      	ldr	r1, [sp, #20]
+  2a:	9800      	ldr	r0, [sp, #0]
+  2c:	f7ff fffe 	bl	0 <console_buffer>
+  30:	e7ff      	b.n	2 <console_flush+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:12
+        console_flush();  //  TODO: Remove this.
+  32:	f7ff fffe 	bl	0 <console_flush>
+  36:	e7ff      	b.n	38 <mylib::base::console_print+0x38>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:14
+    }
+}
+  38:	b006      	add	sp, #24
+  3a:	bd80      	pop	{r7, pc}
+
+stable_deref_trait-fbf528bd5edd2101.stable_deref_trait.cl5vm0za-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 stable_deref_trait.cl5vm0za-cgu.0
+
+
+
+typenum-fb96b8ca04273e5e.typenum.2c5ypkf9-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 typenum.2c5ypkf9-cgu.0
+00000402 l       .debug_str	00000000 
+0000046f l       .debug_str	00000000 
+00000476 l       .debug_str	00000000 
+0000048f l       .debug_str	00000000 
+00000499 l       .debug_str	00000000 
+000004b3 l       .debug_str	00000000 
+000004c7 l       .debug_str	00000000 
+000004d0 l       .debug_str	00000000 
+000004d7 l       .debug_str	00000000 
+000004e2 l       .debug_str	00000000 
+000004e7 l       .debug_str	00000000 
+000004f2 l       .debug_str	00000000 
+000004f7 l       .debug_str	00000000 
+00000506 l       .debug_str	00000000 
+0000050c l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+00000140 l       .debug_str	00000000 
+00000193 l       .debug_str	00000000 
+000001e3 l       .debug_str	00000000 
+00000234 l       .debug_str	00000000 
+00000239 l       .debug_str	00000000 
+00000241 l       .debug_str	00000000 
+00000253 l       .debug_str	00000000 
+00000255 l       .debug_str	00000000 
+0000025b l       .debug_str	00000000 
+0000025f l       .debug_str	00000000 
+00000264 l       .debug_str	00000000 
+00000269 l       .debug_str	00000000 
+0000026f l       .debug_str	00000000 
+00000275 l       .debug_str	00000000 
+0000027c l       .debug_str	00000000 
+00000281 l       .debug_str	00000000 
+00000287 l       .debug_str	00000000 
+00000289 l       .debug_str	00000000 
+0000028e l       .debug_str	00000000 
+00000292 l       .debug_str	00000000 
+000002a0 l       .debug_str	00000000 
+000002aa l       .debug_str	00000000 
+000002ae l       .debug_str	00000000 
+000002b6 l       .debug_str	00000000 
+000002be l       .debug_str	00000000 
+000002c5 l       .debug_str	00000000 
+000002d9 l       .debug_str	00000000 
+000002e5 l       .debug_str	00000000 
+000002f0 l       .debug_str	00000000 
+000002f7 l       .debug_str	00000000 
+000002fd l       .debug_str	00000000 
+00000301 l       .debug_str	00000000 
+00000307 l       .debug_str	00000000 
+0000030d l       .debug_str	00000000 
+00000310 l       .debug_str	00000000 
+0000031f l       .debug_str	00000000 
+00000326 l       .debug_str	00000000 
+0000032a l       .debug_str	00000000 
+00000333 l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+00000358 l       .debug_str	00000000 
+0000035d l       .debug_str	00000000 
+0000036e l       .debug_str	00000000 
+00000378 l       .debug_str	00000000 
+000003d6 l       .debug_str	00000000 
+000003e1 l       .debug_str	00000000 
+000003fe l       .debug_str	00000000 
+0000040a l       .debug_str	00000000 
+00000421 l       .debug_str	00000000 
+00000445 l       .debug_str	00000000 
+00000461 l       .debug_str	00000000 
+00000466 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.8e85d28317557cffebaa383b26c06184.0	00000007 .Lanon.8e85d28317557cffebaa383b26c06184.0
+00000000 l     O .rodata.cst4	00000004 .Lanon.8e85d28317557cffebaa383b26c06184.1
+00000000 l     O .rodata..Lanon.8e85d28317557cffebaa383b26c06184.2	00000005 .Lanon.8e85d28317557cffebaa383b26c06184.2
+00000000 l    d  .text._ZN53_$LT$typenum..Greater$u20$as$u20$core..fmt..Debug$GT$3fmt17h5f3af5205536a92cE	00000000 .text._ZN53_$LT$typenum..Greater$u20$as$u20$core..fmt..Debug$GT$3fmt17h5f3af5205536a92cE
+00000000 l    d  .text._ZN50_$LT$typenum..Less$u20$as$u20$core..fmt..Debug$GT$3fmt17h6c18900150a92e9fE	00000000 .text._ZN50_$LT$typenum..Less$u20$as$u20$core..fmt..Debug$GT$3fmt17h6c18900150a92e9fE
+00000000 l    d  .text._ZN51_$LT$typenum..Equal$u20$as$u20$core..fmt..Debug$GT$3fmt17h9aa560e9df7d391fE	00000000 .text._ZN51_$LT$typenum..Equal$u20$as$u20$core..fmt..Debug$GT$3fmt17h9aa560e9df7d391fE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN50_$LT$typenum..Less$u20$as$u20$core..fmt..Debug$GT$3fmt17h6c18900150a92e9fE	00000048 <typenum::Less as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN51_$LT$typenum..Equal$u20$as$u20$core..fmt..Debug$GT$3fmt17h9aa560e9df7d391fE	00000048 <typenum::Equal as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN53_$LT$typenum..Greater$u20$as$u20$core..fmt..Debug$GT$3fmt17h5f3af5205536a92cE	00000048 <typenum::Greater as core::fmt::Debug>::fmt
+
+
+
+Disassembly of section .text._ZN53_$LT$typenum..Greater$u20$as$u20$core..fmt..Debug$GT$3fmt17h5f3af5205536a92cE:
+
+00000000 <<typenum::Greater as core::fmt::Debug>::fmt>:
+_ZN53_$LT$typenum..Greater$u20$as$u20$core..fmt..Debug$GT$3fmt17h5f3af5205536a92cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/lib.rs:84
+pub use int::{NInt, PInt};
+pub use array::{ATerm, TArr};
+
+/// A potential output from `Cmp`, this is the type equivalent to the enum variant
+/// `core::cmp::Ordering::Greater`.
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e07 	mov.w	lr, #7
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::Greater as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::Greater as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN50_$LT$typenum..Less$u20$as$u20$core..fmt..Debug$GT$3fmt17h6c18900150a92e9fE:
+
+00000000 <<typenum::Less as core::fmt::Debug>::fmt>:
+_ZN50_$LT$typenum..Less$u20$as$u20$core..fmt..Debug$GT$3fmt17h6c18900150a92e9fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/lib.rs:89
+pub struct Greater;
+
+/// A potential output from `Cmp`, this is the type equivalent to the enum variant
+/// `core::cmp::Ordering::Less`.
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e04 	mov.w	lr, #4
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::Less as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::Less as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN51_$LT$typenum..Equal$u20$as$u20$core..fmt..Debug$GT$3fmt17h9aa560e9df7d391fE:
+
+00000000 <<typenum::Equal as core::fmt::Debug>::fmt>:
+_ZN51_$LT$typenum..Equal$u20$as$u20$core..fmt..Debug$GT$3fmt17h9aa560e9df7d391fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/lib.rs:94
+pub struct Less;
+
+/// A potential output from `Cmp`, this is the type equivalent to the enum variant
+/// `core::cmp::Ordering::Equal`.
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e05 	mov.w	lr, #5
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::Equal as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::Equal as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+typenum-fb96b8ca04273e5e.typenum.2c5ypkf9-cgu.1.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 typenum.2c5ypkf9-cgu.1
+000006bb l       .debug_str	00000000 
+000006ff l       .debug_str	00000000 
+00000704 l       .debug_str	00000000 
+00000715 l       .debug_str	00000000 
+0000071f l       .debug_str	00000000 
+0000077d l       .debug_str	00000000 
+00000788 l       .debug_str	00000000 
+000007a5 l       .debug_str	00000000 
+000007a9 l       .debug_str	00000000 
+000007c0 l       .debug_str	00000000 
+000007e4 l       .debug_str	00000000 
+00000800 l       .debug_str	00000000 
+00000805 l       .debug_str	00000000 
+0000080e l       .debug_str	00000000 
+00000815 l       .debug_str	00000000 
+0000082e l       .debug_str	00000000 
+00000838 l       .debug_str	00000000 
+00000852 l       .debug_str	00000000 
+00000866 l       .debug_str	00000000 
+0000086f l       .debug_str	00000000 
+00000876 l       .debug_str	00000000 
+00000881 l       .debug_str	00000000 
+00000886 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000143 l       .debug_str	00000000 
+0000014a l       .debug_str	00000000 
+0000014f l       .debug_str	00000000 
+00000153 l       .debug_str	00000000 
+00000159 l       .debug_str	00000000 
+0000015d l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+00000164 l       .debug_str	00000000 
+0000018d l       .debug_str	00000000 
+0000018f l       .debug_str	00000000 
+000001c5 l       .debug_str	00000000 
+000001c7 l       .debug_str	00000000 
+000001c9 l       .debug_str	00000000 
+000001f6 l       .debug_str	00000000 
+0000023f l       .debug_str	00000000 
+00000281 l       .debug_str	00000000 
+0000028a l       .debug_str	00000000 
+00000290 l       .debug_str	00000000 
+000002c7 l       .debug_str	00000000 
+00000308 l       .debug_str	00000000 
+00000360 l       .debug_str	00000000 
+00000364 l       .debug_str	00000000 
+00000367 l       .debug_str	00000000 
+000003bf l       .debug_str	00000000 
+000003c3 l       .debug_str	00000000 
+0000043b l       .debug_str	00000000 
+00000440 l       .debug_str	00000000 
+0000049f l       .debug_str	00000000 
+000004a3 l       .debug_str	00000000 
+00000502 l       .debug_str	00000000 
+00000506 l       .debug_str	00000000 
+00000593 l       .debug_str	00000000 
+00000597 l       .debug_str	00000000 
+0000059d l       .debug_str	00000000 
+000005f0 l       .debug_str	00000000 
+000005f5 l       .debug_str	00000000 
+00000607 l       .debug_str	00000000 
+00000609 l       .debug_str	00000000 
+0000060f l       .debug_str	00000000 
+00000613 l       .debug_str	00000000 
+00000618 l       .debug_str	00000000 
+0000061d l       .debug_str	00000000 
+00000623 l       .debug_str	00000000 
+00000629 l       .debug_str	00000000 
+00000630 l       .debug_str	00000000 
+00000635 l       .debug_str	00000000 
+0000063b l       .debug_str	00000000 
+00000640 l       .debug_str	00000000 
+0000064e l       .debug_str	00000000 
+00000658 l       .debug_str	00000000 
+0000065c l       .debug_str	00000000 
+00000664 l       .debug_str	00000000 
+0000066c l       .debug_str	00000000 
+00000673 l       .debug_str	00000000 
+00000687 l       .debug_str	00000000 
+00000693 l       .debug_str	00000000 
+0000069e l       .debug_str	00000000 
+000006a5 l       .debug_str	00000000 
+000006ab l       .debug_str	00000000 
+000006af l       .debug_str	00000000 
+000006b5 l       .debug_str	00000000 
+000006be l       .debug_str	00000000 
+000006cd l       .debug_str	00000000 
+000006d1 l       .debug_str	00000000 
+000006da l       .debug_str	00000000 
+000006e6 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.86dadf9835a795b5be9b7980bc5a49e2.0	00000002 .Lanon.86dadf9835a795b5be9b7980bc5a49e2.0
+00000000 l    d  .text._ZN7typenum3int13PInt$LT$U$GT$3new17h2593d14334d70e1cE	00000000 .text._ZN7typenum3int13PInt$LT$U$GT$3new17h2593d14334d70e1cE
+00000000 l    d  .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Neg$GT$3neg17h769e6b33b30dc733E	00000000 .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Neg$GT$3neg17h769e6b33b30dc733E
+00000000 l    d  .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Sub$GT$3sub17ha2e7238046df32bbE	00000000 .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Sub$GT$3sub17ha2e7238046df32bbE
+00000000 l    d  .text._ZN89_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Pow$LT$typenum..int..Z0$GT$$GT$4powi17h9dc615fe2d25b03aE	00000000 .text._ZN89_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Pow$LT$typenum..int..Z0$GT$$GT$4powi17h9dc615fe2d25b03aE
+00000000 l    d  .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Min$GT$3min17h8883502a7c462f41E	00000000 .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Min$GT$3min17h8883502a7c462f41E
+00000000 l    d  .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Max$GT$3max17hbc53c58678fcc6b5E	00000000 .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Max$GT$3max17hbc53c58678fcc6b5E
+00000000 l    d  .text._ZN7typenum5array97_$LT$impl$u20$core..ops..arith..Mul$LT$typenum..array..ATerm$GT$$u20$for$u20$typenum..int..Z0$GT$3mul17hd88e5e53de0c12c9E	00000000 .text._ZN7typenum5array97_$LT$impl$u20$core..ops..arith..Mul$LT$typenum..array..ATerm$GT$$u20$for$u20$typenum..int..Z0$GT$3mul17hd88e5e53de0c12c9E
+00000000 l    d  .text._ZN53_$LT$typenum..int..Z0$u20$as$u20$core..fmt..Debug$GT$3fmt17h9eb208b4a425faaeE	00000000 .text._ZN53_$LT$typenum..int..Z0$u20$as$u20$core..fmt..Debug$GT$3fmt17h9eb208b4a425faaeE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN53_$LT$typenum..int..Z0$u20$as$u20$core..fmt..Debug$GT$3fmt17h9eb208b4a425faaeE	00000048 <typenum::int::Z0 as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Neg$GT$3neg17h769e6b33b30dc733E	00000006 <typenum::int::Z0 as core::ops::arith::Neg>::neg
+00000000 g     F .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Sub$GT$3sub17ha2e7238046df32bbE	00000006 <typenum::int::Z0 as core::ops::arith::Sub>::sub
+00000000 g     F .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Max$GT$3max17hbc53c58678fcc6b5E	00000006 <typenum::int::Z0 as typenum::type_operators::Max>::max
+00000000 g     F .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Min$GT$3min17h8883502a7c462f41E	00000006 <typenum::int::Z0 as typenum::type_operators::Min>::min
+00000000 g     F .text._ZN7typenum3int13PInt$LT$U$GT$3new17h2593d14334d70e1cE	00000006 typenum::int::PInt<U>::new
+00000000 g     F .text._ZN7typenum5array97_$LT$impl$u20$core..ops..arith..Mul$LT$typenum..array..ATerm$GT$$u20$for$u20$typenum..int..Z0$GT$3mul17hd88e5e53de0c12c9E	00000006 typenum::array::<impl core::ops::arith::Mul<typenum::array::ATerm> for typenum::int::Z0>::mul
+00000000 g     F .text._ZN89_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Pow$LT$typenum..int..Z0$GT$$GT$4powi17h9dc615fe2d25b03aE	0000000e <typenum::int::Z0 as typenum::type_operators::Pow<typenum::int::Z0>>::powi
+
+
+
+Disassembly of section .text._ZN7typenum3int13PInt$LT$U$GT$3new17h2593d14334d70e1cE:
+
+00000000 <typenum::int::PInt<U>::new>:
+_ZN7typenum3int13PInt$LT$U$GT$3new17h2593d14334d70e1cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:56
+}
+
+impl<U: Unsigned + NonZero> PInt<U> {
+    /// Instantiates a singleton representing this strictly positive integer.
+    #[inline]
+    pub fn new() -> PInt<U> {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:60
+        PInt {
+            _marker: PhantomData,
+        }
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Neg$GT$3neg17h769e6b33b30dc733E:
+
+00000000 <<typenum::int::Z0 as core::ops::arith::Neg>::neg>:
+_ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Neg$GT$3neg17h769e6b33b30dc733E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:204
+// Neg
+
+/// `-Z0 = Z0`
+impl Neg for Z0 {
+    type Output = Z0;
+    fn neg(self) -> Self::Output {
+   0:	b081      	sub	sp, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:206
+        Z0
+    }
+   2:	b001      	add	sp, #4
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Sub$GT$3sub17ha2e7238046df32bbE:
+
+00000000 <<typenum::int::Z0 as core::ops::arith::Sub>::sub>:
+_ZN58_$LT$typenum..int..Z0$u20$as$u20$core..ops..arith..Sub$GT$3sub17ha2e7238046df32bbE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:328
+// Sub
+
+/// `Z0 - Z0 = Z0`
+impl Sub<Z0> for Z0 {
+    type Output = Z0;
+    fn sub(self, _: Z0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:330
+        Z0
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN89_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Pow$LT$typenum..int..Z0$GT$$GT$4powi17h9dc615fe2d25b03aE:
+
+00000000 <<typenum::int::Z0 as typenum::type_operators::Pow<typenum::int::Z0>>::powi>:
+_ZN89_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Pow$LT$typenum..int..Z0$GT$$GT$4powi17h9dc615fe2d25b03aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:647
+// Pow
+
+/// 0^0 = 1
+impl Pow<Z0> for Z0 {
+    type Output = P1;
+    fn powi(self, _: Z0) -> Self::Output {
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:648
+        P1::new()
+   4:	f7ff fffe 	bl	0 <<typenum::int::Z0 as typenum::type_operators::Pow<typenum::int::Z0>>::powi>
+   8:	e7ff      	b.n	a <<typenum::int::Z0 as typenum::type_operators::Pow<typenum::int::Z0>>::powi+0xa>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:649
+    }
+   a:	b002      	add	sp, #8
+   c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Min$GT$3min17h8883502a7c462f41E:
+
+00000000 <<typenum::int::Z0 as typenum::type_operators::Min>::min>:
+_ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Min$GT$3min17h8883502a7c462f41E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:750
+// Min
+use {Max, Maximum, Min, Minimum};
+
+impl Min<Z0> for Z0 {
+    type Output = Z0;
+    fn min(self, _: Z0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:752
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Max$GT$3max17hbc53c58678fcc6b5E:
+
+00000000 <<typenum::int::Z0 as typenum::type_operators::Max>::max>:
+_ZN65_$LT$typenum..int..Z0$u20$as$u20$typenum..type_operators..Max$GT$3max17hbc53c58678fcc6b5E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:846
+// ---------------------------------------------------------------------------------------
+// Max
+
+impl Max<Z0> for Z0 {
+    type Output = Z0;
+    fn max(self, _: Z0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:848
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN7typenum5array97_$LT$impl$u20$core..ops..arith..Mul$LT$typenum..array..ATerm$GT$$u20$for$u20$typenum..int..Z0$GT$3mul17hd88e5e53de0c12c9E:
+
+00000000 <typenum::array::<impl core::ops::arith::Mul<typenum::array::ATerm> for typenum::int::Z0>::mul>:
+_ZN7typenum5array97_$LT$impl$u20$core..ops..arith..Mul$LT$typenum..array..ATerm$GT$$u20$for$u20$typenum..int..Z0$GT$3mul17hd88e5e53de0c12c9E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:141
+    }
+}
+
+impl Mul<ATerm> for Z0 {
+    type Output = ATerm;
+    fn mul(self, _: ATerm) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:143
+        ATerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN53_$LT$typenum..int..Z0$u20$as$u20$core..fmt..Debug$GT$3fmt17h9eb208b4a425faaeE:
+
+00000000 <<typenum::int::Z0 as core::fmt::Debug>::fmt>:
+_ZN53_$LT$typenum..int..Z0$u20$as$u20$core..fmt..Debug$GT$3fmt17h9eb208b4a425faaeE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/int.rs:74
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e02 	mov.w	lr, #2
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::int::Z0 as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::int::Z0 as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+typenum-fb96b8ca04273e5e.typenum.2c5ypkf9-cgu.2.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 typenum.2c5ypkf9-cgu.2
+000008fb l       .debug_str	00000000 
+000008dd l       .debug_str	00000000 
+000008e9 l       .debug_str	00000000 
+000008f4 l       .debug_str	00000000 
+00000901 l       .debug_str	00000000 
+00000905 l       .debug_str	00000000 
+0000090b l       .debug_str	00000000 
+00000911 l       .debug_str	00000000 
+00000914 l       .debug_str	00000000 
+00000923 l       .debug_str	00000000 
+00000927 l       .debug_str	00000000 
+00000930 l       .debug_str	00000000 
+0000093c l       .debug_str	00000000 
+00000955 l       .debug_str	00000000 
+0000095a l       .debug_str	00000000 
+0000096b l       .debug_str	00000000 
+00000975 l       .debug_str	00000000 
+000009d3 l       .debug_str	00000000 
+000009de l       .debug_str	00000000 
+000009fb l       .debug_str	00000000 
+000009ff l       .debug_str	00000000 
+00000a16 l       .debug_str	00000000 
+00000a3a l       .debug_str	00000000 
+00000a56 l       .debug_str	00000000 
+00000a5b l       .debug_str	00000000 
+00000a64 l       .debug_str	00000000 
+00000a6b l       .debug_str	00000000 
+00000a84 l       .debug_str	00000000 
+00000a8e l       .debug_str	00000000 
+00000aa8 l       .debug_str	00000000 
+00000abc l       .debug_str	00000000 
+00000ac5 l       .debug_str	00000000 
+00000acc l       .debug_str	00000000 
+00000ad7 l       .debug_str	00000000 
+00000adc l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013c l       .debug_str	00000000 
+00000144 l       .debug_str	00000000 
+0000014b l       .debug_str	00000000 
+0000014f l       .debug_str	00000000 
+00000155 l       .debug_str	00000000 
+00000159 l       .debug_str	00000000 
+0000015d l       .debug_str	00000000 
+00000160 l       .debug_str	00000000 
+00000189 l       .debug_str	00000000 
+0000018b l       .debug_str	00000000 
+000001c1 l       .debug_str	00000000 
+000001c3 l       .debug_str	00000000 
+000001c5 l       .debug_str	00000000 
+000001f2 l       .debug_str	00000000 
+000001fb l       .debug_str	00000000 
+00000237 l       .debug_str	00000000 
+00000262 l       .debug_str	00000000 
+000002c5 l       .debug_str	00000000 
+000002c9 l       .debug_str	00000000 
+0000033d l       .debug_str	00000000 
+00000341 l       .debug_str	00000000 
+000003b5 l       .debug_str	00000000 
+00000429 l       .debug_str	00000000 
+0000042d l       .debug_str	00000000 
+000004d0 l       .debug_str	00000000 
+0000052c l       .debug_str	00000000 
+0000059e l       .debug_str	00000000 
+000005a2 l       .debug_str	00000000 
+00000614 l       .debug_str	00000000 
+00000686 l       .debug_str	00000000 
+0000068a l       .debug_str	00000000 
+000006fc l       .debug_str	00000000 
+00000770 l       .debug_str	00000000 
+00000774 l       .debug_str	00000000 
+000007e8 l       .debug_str	00000000 
+0000083f l       .debug_str	00000000 
+00000844 l       .debug_str	00000000 
+0000085a l       .debug_str	00000000 
+0000085d l       .debug_str	00000000 
+0000085f l       .debug_str	00000000 
+00000865 l       .debug_str	00000000 
+00000869 l       .debug_str	00000000 
+0000086e l       .debug_str	00000000 
+00000873 l       .debug_str	00000000 
+00000879 l       .debug_str	00000000 
+0000087f l       .debug_str	00000000 
+00000886 l       .debug_str	00000000 
+0000088b l       .debug_str	00000000 
+00000891 l       .debug_str	00000000 
+00000896 l       .debug_str	00000000 
+000008a4 l       .debug_str	00000000 
+000008ae l       .debug_str	00000000 
+000008b2 l       .debug_str	00000000 
+000008ba l       .debug_str	00000000 
+000008c2 l       .debug_str	00000000 
+000008c9 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.69f807129344f51111b1d6ffdc1cc086.0	00000005 .Lanon.69f807129344f51111b1d6ffdc1cc086.0
+00000000 l    d  .text._ZN7typenum4uint17UInt$LT$U$C$B$GT$3new17h1454cbd0715f71e2E	00000000 .text._ZN7typenum4uint17UInt$LT$U$C$B$GT$3new17h1454cbd0715f71e2E
+00000000 l    d  .text._ZN69_$LT$typenum..uint..UTerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha54a0d0c58ac5090E	00000000 .text._ZN69_$LT$typenum..uint..UTerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha54a0d0c58ac5090E
+00000000 l    d  .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B0$GT$$GT$3add17h90c226c0dff2573dE	00000000 .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B0$GT$$GT$3add17h90c226c0dff2573dE
+00000000 l    d  .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B1$GT$$GT$3add17h6e408ad4a04c368cE	00000000 .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B1$GT$$GT$3add17h6e408ad4a04c368cE
+00000000 l    d  .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B0$GT$$GT$3sub17h4d8cf38819941d06E	00000000 .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B0$GT$$GT$3sub17h4d8cf38819941d06E
+00000000 l    d  .text._ZN132_$LT$typenum..uint..UInt$LT$typenum..uint..UTerm$C$typenum..bit..B1$GT$$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B1$GT$$GT$3sub17hef5e2cf6955bb85dE	00000000 .text._ZN132_$LT$typenum..uint..UInt$LT$typenum..uint..UTerm$C$typenum..bit..B1$GT$$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B1$GT$$GT$3sub17hef5e2cf6955bb85dE
+00000000 l    d  .text._ZN62_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17haf82ab116a0d997fE	00000000 .text._ZN62_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17haf82ab116a0d997fE
+00000000 l    d  .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B0$GT$$GT$3shl17he5ce64cfe51ae834E	00000000 .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B0$GT$$GT$3shl17he5ce64cfe51ae834E
+00000000 l    d  .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B1$GT$$GT$3shl17ha7e148f31e55e6abE	00000000 .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B1$GT$$GT$3shl17ha7e148f31e55e6abE
+00000000 l    d  .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B0$GT$$GT$3shr17hc3fe6a1fe697518cE	00000000 .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B0$GT$$GT$3shr17hc3fe6a1fe697518cE
+00000000 l    d  .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B1$GT$$GT$3shr17h4ee8057b15ee9939E	00000000 .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B1$GT$$GT$3shr17h4ee8057b15ee9939E
+00000000 l    d  .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B0$GT$$GT$3mul17h4fa0cd3d64ac0daaE	00000000 .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B0$GT$$GT$3mul17h4fa0cd3d64ac0daaE
+00000000 l    d  .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B1$GT$$GT$3mul17h9ab77d7514cf7b39E	00000000 .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B1$GT$$GT$3mul17h9ab77d7514cf7b39E
+00000000 l    d  .text._ZN57_$LT$typenum..uint..UTerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hc3db026f7018f7a6E	00000000 .text._ZN57_$LT$typenum..uint..UTerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hc3db026f7018f7a6E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN132_$LT$typenum..uint..UInt$LT$typenum..uint..UTerm$C$typenum..bit..B1$GT$$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B1$GT$$GT$3sub17hef5e2cf6955bb85dE	00000006 <typenum::uint::UInt<typenum::uint::UTerm,typenum::bit::B1> as core::ops::arith::Sub<typenum::bit::B1>>::sub
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN57_$LT$typenum..uint..UTerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hc3db026f7018f7a6E	00000048 <typenum::uint::UTerm as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN62_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17haf82ab116a0d997fE	00000006 <typenum::uint::UTerm as core::ops::arith::Sub>::sub
+00000000 g     F .text._ZN69_$LT$typenum..uint..UTerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha54a0d0c58ac5090E	0000000c <typenum::uint::UTerm as typenum::type_operators::Len>::len
+00000000 g     F .text._ZN7typenum4uint17UInt$LT$U$C$B$GT$3new17h1454cbd0715f71e2E	00000006 typenum::uint::UInt<U,B>::new
+00000000 g     F .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B0$GT$$GT$3shl17he5ce64cfe51ae834E	00000006 <typenum::uint::UTerm as core::ops::bit::Shl<typenum::bit::B0>>::shl
+00000000 g     F .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B1$GT$$GT$3shl17ha7e148f31e55e6abE	00000006 <typenum::uint::UTerm as core::ops::bit::Shl<typenum::bit::B1>>::shl
+00000000 g     F .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B0$GT$$GT$3shr17hc3fe6a1fe697518cE	00000006 <typenum::uint::UTerm as core::ops::bit::Shr<typenum::bit::B0>>::shr
+00000000 g     F .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B1$GT$$GT$3shr17h4ee8057b15ee9939E	00000006 <typenum::uint::UTerm as core::ops::bit::Shr<typenum::bit::B1>>::shr
+00000000 g     F .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B0$GT$$GT$3add17h90c226c0dff2573dE	00000006 <typenum::uint::UTerm as core::ops::arith::Add<typenum::bit::B0>>::add
+00000000 g     F .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B1$GT$$GT$3add17h6e408ad4a04c368cE	0000000e <typenum::uint::UTerm as core::ops::arith::Add<typenum::bit::B1>>::add
+00000000 g     F .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B0$GT$$GT$3mul17h4fa0cd3d64ac0daaE	00000006 <typenum::uint::UTerm as core::ops::arith::Mul<typenum::bit::B0>>::mul
+00000000 g     F .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B1$GT$$GT$3mul17h9ab77d7514cf7b39E	00000006 <typenum::uint::UTerm as core::ops::arith::Mul<typenum::bit::B1>>::mul
+00000000 g     F .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B0$GT$$GT$3sub17h4d8cf38819941d06E	00000006 <typenum::uint::UTerm as core::ops::arith::Sub<typenum::bit::B0>>::sub
+
+
+
+Disassembly of section .text._ZN7typenum4uint17UInt$LT$U$C$B$GT$3new17h1454cbd0715f71e2E:
+
+00000000 <typenum::uint::UInt<U,B>::new>:
+_ZN7typenum4uint17UInt$LT$U$C$B$GT$3new17h1454cbd0715f71e2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:154
+}
+
+impl<U: Unsigned, B: Bit> UInt<U, B> {
+    /// Instantiates a singleton representing this unsigned integer.
+    #[inline]
+    pub fn new() -> UInt<U, B> {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:158
+        UInt {
+            _marker: PhantomData,
+        }
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN69_$LT$typenum..uint..UTerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha54a0d0c58ac5090E:
+
+00000000 <<typenum::uint::UTerm as typenum::type_operators::Len>::len>:
+_ZN69_$LT$typenum..uint..UTerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha54a0d0c58ac5090E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:242
+// Getting length of unsigned integers, which is defined as the number of bits before `UTerm`
+
+/// Length of `UTerm` by itself is 0
+impl Len for UTerm {
+    type Output = U0;
+    fn len(&self) -> Self::Output {
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:244
+        UTerm
+    }
+   6:	9100      	str	r1, [sp, #0]
+   8:	b002      	add	sp, #8
+   a:	4770      	bx	lr
+
+Disassembly of section .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B0$GT$$GT$3add17h90c226c0dff2573dE:
+
+00000000 <<typenum::uint::UTerm as core::ops::arith::Add<typenum::bit::B0>>::add>:
+_ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B0$GT$$GT$3add17h90c226c0dff2573dE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:266
+// Adding bits to unsigned integers
+
+/// `UTerm + B0 = UTerm`
+impl Add<B0> for UTerm {
+    type Output = UTerm;
+    fn add(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:268
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B1$GT$$GT$3add17h6e408ad4a04c368cE:
+
+00000000 <<typenum::uint::UTerm as core::ops::arith::Add<typenum::bit::B1>>::add>:
+_ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Add$LT$typenum..bit..B1$GT$$GT$3add17h6e408ad4a04c368cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:282
+}
+
+/// `UTerm + B1 = UInt<UTerm, B1>`
+impl Add<B1> for UTerm {
+    type Output = UInt<UTerm, B1>;
+    fn add(self, _: B1) -> Self::Output {
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:283
+        UInt::new()
+   4:	f7ff fffe 	bl	0 <<typenum::uint::UTerm as core::ops::arith::Add<typenum::bit::B1>>::add>
+   8:	e7ff      	b.n	a <<typenum::uint::UTerm as core::ops::arith::Add<typenum::bit::B1>>::add+0xa>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:284
+    }
+   a:	b002      	add	sp, #8
+   c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B0$GT$$GT$3sub17h4d8cf38819941d06E:
+
+00000000 <<typenum::uint::UTerm as core::ops::arith::Sub<typenum::bit::B0>>::sub>:
+_ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B0$GT$$GT$3sub17h4d8cf38819941d06E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:377
+// Subtracting bits from unsigned integers
+
+/// `UTerm - B0 = Term`
+impl Sub<B0> for UTerm {
+    type Output = UTerm;
+    fn sub(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:379
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN132_$LT$typenum..uint..UInt$LT$typenum..uint..UTerm$C$typenum..bit..B1$GT$$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B1$GT$$GT$3sub17hef5e2cf6955bb85dE:
+
+00000000 <<typenum::uint::UInt<typenum::uint::UTerm,typenum::bit::B1> as core::ops::arith::Sub<typenum::bit::B1>>::sub>:
+_ZN132_$LT$typenum..uint..UInt$LT$typenum..uint..UTerm$C$typenum..bit..B1$GT$$u20$as$u20$core..ops..arith..Sub$LT$typenum..bit..B1$GT$$GT$3sub17hef5e2cf6955bb85dE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:401
+}
+
+/// `UInt<UTerm, B1> - B1 = UTerm`
+impl Sub<B1> for UInt<UTerm, B1> {
+    type Output = UTerm;
+    fn sub(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:403
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN62_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17haf82ab116a0d997fE:
+
+00000000 <<typenum::uint::UTerm as core::ops::arith::Sub>::sub>:
+_ZN62_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17haf82ab116a0d997fE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:424
+// Subtracting unsigned integers
+
+/// `UTerm - UTerm = UTerm`
+impl Sub<UTerm> for UTerm {
+    type Output = UTerm;
+    fn sub(self, _: UTerm) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:426
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B0$GT$$GT$3shl17he5ce64cfe51ae834E:
+
+00000000 <<typenum::uint::UTerm as core::ops::bit::Shl<typenum::bit::B0>>::shl>:
+_ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B0$GT$$GT$3shl17he5ce64cfe51ae834E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:680
+// Shl unsigned integers
+
+/// Shifting `UTerm` by a 0 bit: `UTerm << B0 = UTerm`
+impl Shl<B0> for UTerm {
+    type Output = UTerm;
+    fn shl(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:682
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B1$GT$$GT$3shl17ha7e148f31e55e6abE:
+
+00000000 <<typenum::uint::UTerm as core::ops::bit::Shl<typenum::bit::B1>>::shl>:
+_ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shl$LT$typenum..bit..B1$GT$$GT$3shl17ha7e148f31e55e6abE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:688
+}
+
+/// Shifting `UTerm` by a 1 bit: `UTerm << B1 = UTerm`
+impl Shl<B1> for UTerm {
+    type Output = UTerm;
+    fn shl(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:690
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B0$GT$$GT$3shr17hc3fe6a1fe697518cE:
+
+00000000 <<typenum::uint::UTerm as core::ops::bit::Shr<typenum::bit::B0>>::shr>:
+_ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B0$GT$$GT$3shr17hc3fe6a1fe697518cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:759
+}
+
+/// Shifting right `UTerm` by a 0 bit: `UTerm >> B0 = UTerm`
+impl Shr<B0> for UTerm {
+    type Output = UTerm;
+    fn shr(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:761
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B1$GT$$GT$3shr17h4ee8057b15ee9939E:
+
+00000000 <<typenum::uint::UTerm as core::ops::bit::Shr<typenum::bit::B1>>::shr>:
+_ZN84_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..bit..Shr$LT$typenum..bit..B1$GT$$GT$3shr17h4ee8057b15ee9939E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:767
+}
+
+/// Shifting right `UTerm` by a 1 bit: `UTerm >> B1 = UTerm`
+impl Shr<B1> for UTerm {
+    type Output = UTerm;
+    fn shr(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:769
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B0$GT$$GT$3mul17h4fa0cd3d64ac0daaE:
+
+00000000 <<typenum::uint::UTerm as core::ops::arith::Mul<typenum::bit::B0>>::mul>:
+_ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B0$GT$$GT$3mul17h4fa0cd3d64ac0daaE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:814
+}
+
+/// `UTerm * B0 = UTerm`
+impl Mul<B0> for UTerm {
+    type Output = UTerm;
+    fn mul(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:816
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B1$GT$$GT$3mul17h9ab77d7514cf7b39E:
+
+00000000 <<typenum::uint::UTerm as core::ops::arith::Mul<typenum::bit::B1>>::mul>:
+_ZN86_$LT$typenum..uint..UTerm$u20$as$u20$core..ops..arith..Mul$LT$typenum..bit..B1$GT$$GT$3mul17h9ab77d7514cf7b39E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:822
+}
+
+/// `UTerm * B1 = UTerm`
+impl Mul<B1> for UTerm {
+    type Output = UTerm;
+    fn mul(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:824
+        UTerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN57_$LT$typenum..uint..UTerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hc3db026f7018f7a6E:
+
+00000000 <<typenum::uint::UTerm as core::fmt::Debug>::fmt>:
+_ZN57_$LT$typenum..uint..UTerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hc3db026f7018f7a6E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/uint.rs:49
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e05 	mov.w	lr, #5
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::uint::UTerm as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::uint::UTerm as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+typenum-fb96b8ca04273e5e.typenum.2c5ypkf9-cgu.3.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 typenum.2c5ypkf9-cgu.3
+00000a15 l       .debug_str	00000000 
+0000099f l       .debug_str	00000000 
+000009a1 l       .debug_str	00000000 
+000009a6 l       .debug_str	00000000 
+000009aa l       .debug_str	00000000 
+000009b8 l       .debug_str	00000000 
+000009c2 l       .debug_str	00000000 
+000009c6 l       .debug_str	00000000 
+000009ce l       .debug_str	00000000 
+000009d6 l       .debug_str	00000000 
+000009dd l       .debug_str	00000000 
+000009f1 l       .debug_str	00000000 
+000009fd l       .debug_str	00000000 
+00000a08 l       .debug_str	00000000 
+00000a0f l       .debug_str	00000000 
+00000a19 l       .debug_str	00000000 
+00000a1f l       .debug_str	00000000 
+00000a25 l       .debug_str	00000000 
+00000a28 l       .debug_str	00000000 
+00000a37 l       .debug_str	00000000 
+00000a3e l       .debug_str	00000000 
+00000a42 l       .debug_str	00000000 
+00000a4b l       .debug_str	00000000 
+00000a57 l       .debug_str	00000000 
+00000a70 l       .debug_str	00000000 
+00000a75 l       .debug_str	00000000 
+00000a86 l       .debug_str	00000000 
+00000a90 l       .debug_str	00000000 
+00000aee l       .debug_str	00000000 
+00000af9 l       .debug_str	00000000 
+00000b16 l       .debug_str	00000000 
+00000b1a l       .debug_str	00000000 
+00000b22 l       .debug_str	00000000 
+00000b39 l       .debug_str	00000000 
+00000b5d l       .debug_str	00000000 
+00000b79 l       .debug_str	00000000 
+00000b7e l       .debug_str	00000000 
+00000b87 l       .debug_str	00000000 
+00000b8e l       .debug_str	00000000 
+00000ba7 l       .debug_str	00000000 
+00000bb1 l       .debug_str	00000000 
+00000bcb l       .debug_str	00000000 
+00000bdf l       .debug_str	00000000 
+00000be8 l       .debug_str	00000000 
+00000bef l       .debug_str	00000000 
+00000bfa l       .debug_str	00000000 
+00000bff l       .debug_str	00000000 
+00000c0a l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000144 l       .debug_str	00000000 
+0000019a l       .debug_str	00000000 
+0000019e l       .debug_str	00000000 
+000001a1 l       .debug_str	00000000 
+000001f7 l       .debug_str	00000000 
+000001fa l       .debug_str	00000000 
+0000026e l       .debug_str	00000000 
+00000275 l       .debug_str	00000000 
+000002d1 l       .debug_str	00000000 
+0000032b l       .debug_str	00000000 
+00000331 l       .debug_str	00000000 
+000003a3 l       .debug_str	00000000 
+000003ff l       .debug_str	00000000 
+00000406 l       .debug_str	00000000 
+0000047a l       .debug_str	00000000 
+000004ee l       .debug_str	00000000 
+0000054a l       .debug_str	00000000 
+000005a9 l       .debug_str	00000000 
+000005ad l       .debug_str	00000000 
+00000624 l       .debug_str	00000000 
+0000069b l       .debug_str	00000000 
+000006fa l       .debug_str	00000000 
+00000759 l       .debug_str	00000000 
+0000075d l       .debug_str	00000000 
+000007d4 l       .debug_str	00000000 
+0000084b l       .debug_str	00000000 
+000008aa l       .debug_str	00000000 
+000008fd l       .debug_str	00000000 
+00000950 l       .debug_str	00000000 
+00000955 l       .debug_str	00000000 
+00000959 l       .debug_str	00000000 
+0000096b l       .debug_str	00000000 
+0000096d l       .debug_str	00000000 
+00000973 l       .debug_str	00000000 
+00000977 l       .debug_str	00000000 
+0000097c l       .debug_str	00000000 
+00000981 l       .debug_str	00000000 
+00000987 l       .debug_str	00000000 
+0000098d l       .debug_str	00000000 
+00000994 l       .debug_str	00000000 
+00000999 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.043dec9aaf65e2504d3f865cc3b03714.0	00000002 .Lanon.043dec9aaf65e2504d3f865cc3b03714.0
+00000000 l     O .rodata..Lanon.043dec9aaf65e2504d3f865cc3b03714.1	00000002 .Lanon.043dec9aaf65e2504d3f865cc3b03714.1
+00000000 l    d  .text._ZN56_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..Not$GT$3not17h55d087c793d8ab4aE	00000000 .text._ZN56_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..Not$GT$3not17h55d087c793d8ab4aE
+00000000 l    d  .text._ZN56_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..Not$GT$3not17h92915afa3bb7d521E	00000000 .text._ZN56_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..Not$GT$3not17h92915afa3bb7d521E
+00000000 l    d  .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$LT$typenum..bit..B0$GT$$GT$6bitand17h464d4682127c58c3E	00000000 .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$LT$typenum..bit..B0$GT$$GT$6bitand17h464d4682127c58c3E
+00000000 l    d  .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17hfdebf038ac03a066E	00000000 .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17hfdebf038ac03a066E
+00000000 l    d  .text._ZN58_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h967da595fe39e158E	00000000 .text._ZN58_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h967da595fe39e158E
+00000000 l    d  .text._ZN82_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$LT$typenum..bit..B1$GT$$GT$5bitor17h306715fcd423a034E	00000000 .text._ZN82_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$LT$typenum..bit..B1$GT$$GT$5bitor17h306715fcd423a034E
+00000000 l    d  .text._ZN59_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hc44d4613cff7823eE	00000000 .text._ZN59_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hc44d4613cff7823eE
+00000000 l    d  .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B0$GT$$GT$6bitxor17h8efcac545919c717E	00000000 .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B0$GT$$GT$6bitxor17h8efcac545919c717E
+00000000 l    d  .text._ZN83_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B1$GT$$GT$6bitxor17h73ce303fb5d2ca29E	00000000 .text._ZN83_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B1$GT$$GT$6bitxor17h73ce303fb5d2ca29E
+00000000 l    d  .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hd09240b798a6392cE	00000000 .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hd09240b798a6392cE
+00000000 l    d  .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$GT$3min17he52121874d5b1994E	00000000 .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$GT$3min17he52121874d5b1994E
+00000000 l    d  .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B1$GT$$GT$3min17hd2dcb72488be0169E	00000000 .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B1$GT$$GT$3min17hd2dcb72488be0169E
+00000000 l    d  .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B0$GT$$GT$3min17h7b069e9b68efd23bE	00000000 .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B0$GT$$GT$3min17h7b069e9b68efd23bE
+00000000 l    d  .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$GT$3min17hf66705613f284be3E	00000000 .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$GT$3min17hf66705613f284be3E
+00000000 l    d  .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$GT$3max17h94bdb0fde1907ef2E	00000000 .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$GT$3max17h94bdb0fde1907ef2E
+00000000 l    d  .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B1$GT$$GT$3max17hb19db5e0be04e943E	00000000 .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B1$GT$$GT$3max17hb19db5e0be04e943E
+00000000 l    d  .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B0$GT$$GT$3max17hcbb55bee06a3a020E	00000000 .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B0$GT$$GT$3max17hcbb55bee06a3a020E
+00000000 l    d  .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$GT$3max17h7811da9f6727aa32E	00000000 .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$GT$3max17h7811da9f6727aa32E
+00000000 l    d  .text._ZN53_$LT$typenum..bit..B0$u20$as$u20$core..fmt..Debug$GT$3fmt17hdd156d4a7c4e4bb4E	00000000 .text._ZN53_$LT$typenum..bit..B0$u20$as$u20$core..fmt..Debug$GT$3fmt17hdd156d4a7c4e4bb4E
+00000000 l    d  .text._ZN53_$LT$typenum..bit..B1$u20$as$u20$core..fmt..Debug$GT$3fmt17ha3c0fb82abf1ce52E	00000000 .text._ZN53_$LT$typenum..bit..B1$u20$as$u20$core..fmt..Debug$GT$3fmt17ha3c0fb82abf1ce52E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN53_$LT$typenum..bit..B0$u20$as$u20$core..fmt..Debug$GT$3fmt17hdd156d4a7c4e4bb4E	00000048 <typenum::bit::B0 as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN53_$LT$typenum..bit..B1$u20$as$u20$core..fmt..Debug$GT$3fmt17ha3c0fb82abf1ce52E	00000048 <typenum::bit::B1 as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN56_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..Not$GT$3not17h55d087c793d8ab4aE	00000006 <typenum::bit::B0 as core::ops::bit::Not>::not
+00000000 g     F .text._ZN56_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..Not$GT$3not17h92915afa3bb7d521E	00000006 <typenum::bit::B1 as core::ops::bit::Not>::not
+00000000 g     F .text._ZN58_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h967da595fe39e158E	00000006 <typenum::bit::B0 as core::ops::bit::BitOr>::bitor
+00000000 g     F .text._ZN59_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hc44d4613cff7823eE	00000006 <typenum::bit::B0 as core::ops::bit::BitXor>::bitxor
+00000000 g     F .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17hfdebf038ac03a066E	00000006 <typenum::bit::B1 as core::ops::bit::BitAnd>::bitand
+00000000 g     F .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hd09240b798a6392cE	00000006 <typenum::bit::B1 as core::ops::bit::BitXor>::bitxor
+00000000 g     F .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$GT$3max17h94bdb0fde1907ef2E	00000006 <typenum::bit::B0 as typenum::type_operators::Max>::max
+00000000 g     F .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$GT$3min17he52121874d5b1994E	00000006 <typenum::bit::B0 as typenum::type_operators::Min>::min
+00000000 g     F .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$GT$3max17h7811da9f6727aa32E	00000006 <typenum::bit::B1 as typenum::type_operators::Max>::max
+00000000 g     F .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$GT$3min17hf66705613f284be3E	00000006 <typenum::bit::B1 as typenum::type_operators::Min>::min
+00000000 g     F .text._ZN82_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$LT$typenum..bit..B1$GT$$GT$5bitor17h306715fcd423a034E	00000006 <typenum::bit::B0 as core::ops::bit::BitOr<typenum::bit::B1>>::bitor
+00000000 g     F .text._ZN83_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B1$GT$$GT$6bitxor17h73ce303fb5d2ca29E	00000006 <typenum::bit::B0 as core::ops::bit::BitXor<typenum::bit::B1>>::bitxor
+00000000 g     F .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$LT$typenum..bit..B0$GT$$GT$6bitand17h464d4682127c58c3E	00000006 <typenum::bit::B1 as core::ops::bit::BitAnd<typenum::bit::B0>>::bitand
+00000000 g     F .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B0$GT$$GT$6bitxor17h8efcac545919c717E	00000006 <typenum::bit::B1 as core::ops::bit::BitXor<typenum::bit::B0>>::bitxor
+00000000 g     F .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B1$GT$$GT$3max17hb19db5e0be04e943E	00000006 <typenum::bit::B0 as typenum::type_operators::Max<typenum::bit::B1>>::max
+00000000 g     F .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B1$GT$$GT$3min17hd2dcb72488be0169E	00000006 <typenum::bit::B0 as typenum::type_operators::Min<typenum::bit::B1>>::min
+00000000 g     F .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B0$GT$$GT$3max17hcbb55bee06a3a020E	00000006 <typenum::bit::B1 as typenum::type_operators::Max<typenum::bit::B0>>::max
+00000000 g     F .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B0$GT$$GT$3min17h7b069e9b68efd23bE	00000006 <typenum::bit::B1 as typenum::type_operators::Min<typenum::bit::B0>>::min
+
+
+
+Disassembly of section .text._ZN56_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..Not$GT$3not17h55d087c793d8ab4aE:
+
+00000000 <<typenum::bit::B0 as core::ops::bit::Not>::not>:
+_ZN56_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..Not$GT$3not17h55d087c793d8ab4aE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:76
+impl PowerOfTwo for B1 {}
+
+/// Not of 0 (!0 = 1)
+impl Not for B0 {
+    type Output = B1;
+    fn not(self) -> Self::Output {
+   0:	b081      	sub	sp, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:78
+        B1
+    }
+   2:	b001      	add	sp, #4
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN56_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..Not$GT$3not17h92915afa3bb7d521E:
+
+00000000 <<typenum::bit::B1 as core::ops::bit::Not>::not>:
+_ZN56_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..Not$GT$3not17h92915afa3bb7d521E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:83
+}
+/// Not of 1 (!1 = 0)
+impl Not for B1 {
+    type Output = B0;
+    fn not(self) -> Self::Output {
+   0:	b081      	sub	sp, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:85
+        B0
+    }
+   2:	b001      	add	sp, #4
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$LT$typenum..bit..B0$GT$$GT$6bitand17h464d4682127c58c3E:
+
+00000000 <<typenum::bit::B1 as core::ops::bit::BitAnd<typenum::bit::B0>>::bitand>:
+_ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$LT$typenum..bit..B0$GT$$GT$6bitand17h464d4682127c58c3E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:99
+}
+
+/// And with 1 ( 1 & 0 = 0)
+impl BitAnd<B0> for B1 {
+    type Output = B0;
+    fn bitand(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:101
+        B0
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17hfdebf038ac03a066E:
+
+00000000 <<typenum::bit::B1 as core::ops::bit::BitAnd>::bitand>:
+_ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17hfdebf038ac03a066E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:107
+}
+
+/// And with 1 ( 1 & 1 = 1)
+impl BitAnd<B1> for B1 {
+    type Output = B1;
+    fn bitand(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:109
+        B1
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN58_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h967da595fe39e158E:
+
+00000000 <<typenum::bit::B0 as core::ops::bit::BitOr>::bitor>:
+_ZN58_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h967da595fe39e158E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:115
+}
+
+/// Or with 0 ( 0 | 0 = 0)
+impl BitOr<B0> for B0 {
+    type Output = B0;
+    fn bitor(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:117
+        B0
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN82_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$LT$typenum..bit..B1$GT$$GT$5bitor17h306715fcd423a034E:
+
+00000000 <<typenum::bit::B0 as core::ops::bit::BitOr<typenum::bit::B1>>::bitor>:
+_ZN82_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitOr$LT$typenum..bit..B1$GT$$GT$5bitor17h306715fcd423a034E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:123
+}
+
+/// Or with 0 ( 0 | 1 = 1)
+impl BitOr<B1> for B0 {
+    type Output = B1;
+    fn bitor(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:125
+        B1
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN59_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hc44d4613cff7823eE:
+
+00000000 <<typenum::bit::B0 as core::ops::bit::BitXor>::bitxor>:
+_ZN59_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hc44d4613cff7823eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:139
+}
+
+/// Xor between 0 and 0 ( 0 ^ 0 = 0)
+impl BitXor<B0> for B0 {
+    type Output = B0;
+    fn bitxor(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:141
+        B0
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B0$GT$$GT$6bitxor17h8efcac545919c717E:
+
+00000000 <<typenum::bit::B1 as core::ops::bit::BitXor<typenum::bit::B0>>::bitxor>:
+_ZN83_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B0$GT$$GT$6bitxor17h8efcac545919c717E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:146
+}
+/// Xor between 1 and 0 ( 1 ^ 0 = 1)
+impl BitXor<B0> for B1 {
+    type Output = B1;
+    fn bitxor(self, _: B0) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:148
+        B1
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN83_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B1$GT$$GT$6bitxor17h73ce303fb5d2ca29E:
+
+00000000 <<typenum::bit::B0 as core::ops::bit::BitXor<typenum::bit::B1>>::bitxor>:
+_ZN83_$LT$typenum..bit..B0$u20$as$u20$core..ops..bit..BitXor$LT$typenum..bit..B1$GT$$GT$6bitxor17h73ce303fb5d2ca29E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:153
+}
+/// Xor between 0 and 1 ( 0 ^ 1 = 1)
+impl BitXor<B1> for B0 {
+    type Output = B1;
+    fn bitxor(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:155
+        B1
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hd09240b798a6392cE:
+
+00000000 <<typenum::bit::B1 as core::ops::bit::BitXor>::bitxor>:
+_ZN59_$LT$typenum..bit..B1$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17hd09240b798a6392cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:160
+}
+/// Xor between 1 and 1 ( 1 ^ 1 = 0)
+impl BitXor<B1> for B1 {
+    type Output = B0;
+    fn bitxor(self, _: B1) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:162
+        B0
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$GT$3min17he52121874d5b1994E:
+
+00000000 <<typenum::bit::B0 as typenum::type_operators::Min>::min>:
+_ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$GT$3min17he52121874d5b1994E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:225
+}
+
+use Min;
+impl Min<B0> for B0 {
+    type Output = B0;
+    fn min(self, _: B0) -> B0 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:227
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B1$GT$$GT$3min17hd2dcb72488be0169E:
+
+00000000 <<typenum::bit::B0 as typenum::type_operators::Min<typenum::bit::B1>>::min>:
+_ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B1$GT$$GT$3min17hd2dcb72488be0169E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:231
+}
+impl Min<B1> for B0 {
+    type Output = B0;
+    fn min(self, _: B1) -> B0 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:233
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B0$GT$$GT$3min17h7b069e9b68efd23bE:
+
+00000000 <<typenum::bit::B1 as typenum::type_operators::Min<typenum::bit::B0>>::min>:
+_ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$LT$typenum..bit..B0$GT$$GT$3min17h7b069e9b68efd23bE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:237
+}
+impl Min<B0> for B1 {
+    type Output = B0;
+    fn min(self, rhs: B0) -> B0 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:239
+        rhs
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$GT$3min17hf66705613f284be3E:
+
+00000000 <<typenum::bit::B1 as typenum::type_operators::Min>::min>:
+_ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Min$GT$3min17hf66705613f284be3E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:243
+}
+impl Min<B1> for B1 {
+    type Output = B1;
+    fn min(self, _: B1) -> B1 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:245
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$GT$3max17h94bdb0fde1907ef2E:
+
+00000000 <<typenum::bit::B0 as typenum::type_operators::Max>::max>:
+_ZN65_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$GT$3max17h94bdb0fde1907ef2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:251
+}
+
+use Max;
+impl Max<B0> for B0 {
+    type Output = B0;
+    fn max(self, _: B0) -> B0 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:253
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B1$GT$$GT$3max17hb19db5e0be04e943E:
+
+00000000 <<typenum::bit::B0 as typenum::type_operators::Max<typenum::bit::B1>>::max>:
+_ZN89_$LT$typenum..bit..B0$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B1$GT$$GT$3max17hb19db5e0be04e943E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:257
+}
+impl Max<B1> for B0 {
+    type Output = B1;
+    fn max(self, rhs: B1) -> B1 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:259
+        rhs
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B0$GT$$GT$3max17hcbb55bee06a3a020E:
+
+00000000 <<typenum::bit::B1 as typenum::type_operators::Max<typenum::bit::B0>>::max>:
+_ZN89_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$LT$typenum..bit..B0$GT$$GT$3max17hcbb55bee06a3a020E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:263
+}
+impl Max<B0> for B1 {
+    type Output = B1;
+    fn max(self, _: B0) -> B1 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:265
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$GT$3max17h7811da9f6727aa32E:
+
+00000000 <<typenum::bit::B1 as typenum::type_operators::Max>::max>:
+_ZN65_$LT$typenum..bit..B1$u20$as$u20$typenum..type_operators..Max$GT$3max17h7811da9f6727aa32E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:269
+}
+impl Max<B1> for B1 {
+    type Output = B1;
+    fn max(self, _: B1) -> B1 {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:271
+        self
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN53_$LT$typenum..bit..B0$u20$as$u20$core..fmt..Debug$GT$3fmt17hdd156d4a7c4e4bb4E:
+
+00000000 <<typenum::bit::B0 as core::fmt::Debug>::fmt>:
+_ZN53_$LT$typenum..bit..B0$u20$as$u20$core..fmt..Debug$GT$3fmt17hdd156d4a7c4e4bb4E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:19
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e02 	mov.w	lr, #2
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::bit::B0 as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::bit::B0 as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN53_$LT$typenum..bit..B1$u20$as$u20$core..fmt..Debug$GT$3fmt17ha3c0fb82abf1ce52E:
+
+00000000 <<typenum::bit::B1 as core::fmt::Debug>::fmt>:
+_ZN53_$LT$typenum..bit..B1$u20$as$u20$core..fmt..Debug$GT$3fmt17ha3c0fb82abf1ce52E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/bit.rs:31
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug, Default)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e02 	mov.w	lr, #2
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::bit::B1 as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::bit::B1 as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+typenum-fb96b8ca04273e5e.typenum.2c5ypkf9-cgu.4.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 typenum.2c5ypkf9-cgu.4
+00000174 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000ec l       .debug_str	00000000 
+0000017b l       .debug_str	00000000 
+000000f4 l       .debug_str	00000000 
+000000fd l       .debug_str	00000000 
+00000000 l    d  .text._ZN86_$LT$typenum..private..InvertedUTerm$u20$as$u20$typenum..private..InvertedUnsigned$GT$6to_u6417ha5b0c711f104a51eE	00000000 .text._ZN86_$LT$typenum..private..InvertedUTerm$u20$as$u20$typenum..private..InvertedUnsigned$GT$6to_u6417ha5b0c711f104a51eE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN86_$LT$typenum..private..InvertedUTerm$u20$as$u20$typenum..private..InvertedUnsigned$GT$6to_u6417ha5b0c711f104a51eE	0000000c <typenum::private::InvertedUTerm as typenum::private::InvertedUnsigned>::to_u64
+
+
+
+Disassembly of section .text._ZN86_$LT$typenum..private..InvertedUTerm$u20$as$u20$typenum..private..InvertedUnsigned$GT$6to_u6417ha5b0c711f104a51eE:
+
+00000000 <<typenum::private::InvertedUTerm as typenum::private::InvertedUnsigned>::to_u64>:
+_ZN86_$LT$typenum..private..InvertedUTerm$u20$as$u20$typenum..private..InvertedUnsigned$GT$6to_u6417ha5b0c711f104a51eE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/private.rs:114
+pub trait InvertedUnsigned {
+    fn to_u64() -> u64;
+}
+
+impl InvertedUnsigned for InvertedUTerm {
+    fn to_u64() -> u64 {
+   0:	b081      	sub	sp, #4
+   2:	2000      	movs	r0, #0
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/private.rs:116
+        0
+    }
+   4:	9000      	str	r0, [sp, #0]
+   6:	9900      	ldr	r1, [sp, #0]
+   8:	b001      	add	sp, #4
+   a:	4770      	bx	lr
+
+typenum-fb96b8ca04273e5e.typenum.2c5ypkf9-cgu.5.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 typenum.2c5ypkf9-cgu.5
+00000460 l       .debug_str	00000000 
+00000505 l       .debug_str	00000000 
+0000050d l       .debug_str	00000000 
+00000524 l       .debug_str	00000000 
+00000548 l       .debug_str	00000000 
+00000564 l       .debug_str	00000000 
+00000569 l       .debug_str	00000000 
+00000572 l       .debug_str	00000000 
+00000579 l       .debug_str	00000000 
+00000592 l       .debug_str	00000000 
+0000059c l       .debug_str	00000000 
+000005b6 l       .debug_str	00000000 
+000005ca l       .debug_str	00000000 
+000005d3 l       .debug_str	00000000 
+000005da l       .debug_str	00000000 
+000005e5 l       .debug_str	00000000 
+000005ea l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+000000e4 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000110 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000125 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000137 l       .debug_str	00000000 
+0000013d l       .debug_str	00000000 
+00000146 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001ae l       .debug_str	00000000 
+000001b3 l       .debug_str	00000000 
+000001b9 l       .debug_str	00000000 
+00000216 l       .debug_str	00000000 
+0000021a l       .debug_str	00000000 
+00000220 l       .debug_str	00000000 
+0000027d l       .debug_str	00000000 
+00000281 l       .debug_str	00000000 
+000002de l       .debug_str	00000000 
+000002e2 l       .debug_str	00000000 
+0000033a l       .debug_str	00000000 
+0000033f l       .debug_str	00000000 
+00000356 l       .debug_str	00000000 
+00000358 l       .debug_str	00000000 
+0000035e l       .debug_str	00000000 
+00000362 l       .debug_str	00000000 
+00000367 l       .debug_str	00000000 
+0000036c l       .debug_str	00000000 
+00000372 l       .debug_str	00000000 
+00000378 l       .debug_str	00000000 
+0000037f l       .debug_str	00000000 
+00000384 l       .debug_str	00000000 
+0000038a l       .debug_str	00000000 
+0000038c l       .debug_str	00000000 
+00000391 l       .debug_str	00000000 
+00000395 l       .debug_str	00000000 
+000003a3 l       .debug_str	00000000 
+000003ad l       .debug_str	00000000 
+000003b1 l       .debug_str	00000000 
+000003b9 l       .debug_str	00000000 
+000003c1 l       .debug_str	00000000 
+000003c8 l       .debug_str	00000000 
+000003dc l       .debug_str	00000000 
+000003e8 l       .debug_str	00000000 
+000003f3 l       .debug_str	00000000 
+000003fa l       .debug_str	00000000 
+00000400 l       .debug_str	00000000 
+00000404 l       .debug_str	00000000 
+0000040a l       .debug_str	00000000 
+00000410 l       .debug_str	00000000 
+00000413 l       .debug_str	00000000 
+00000422 l       .debug_str	00000000 
+00000429 l       .debug_str	00000000 
+0000042d l       .debug_str	00000000 
+00000436 l       .debug_str	00000000 
+00000442 l       .debug_str	00000000 
+0000045b l       .debug_str	00000000 
+00000471 l       .debug_str	00000000 
+0000047b l       .debug_str	00000000 
+000004d9 l       .debug_str	00000000 
+000004e4 l       .debug_str	00000000 
+00000501 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.65043be84cf06c58f6ea417c29506f95.0	00000005 .Lanon.65043be84cf06c58f6ea417c29506f95.0
+00000000 l    d  .text._ZN70_$LT$typenum..array..ATerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha3babb97a89b9bfaE	00000000 .text._ZN70_$LT$typenum..array..ATerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha3babb97a89b9bfaE
+00000000 l    d  .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Add$GT$3add17hce747913c6699364E	00000000 .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Add$GT$3add17hce747913c6699364E
+00000000 l    d  .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17hcf899553e18a9ff9E	00000000 .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17hcf899553e18a9ff9E
+00000000 l    d  .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Neg$GT$3neg17hb5369febbe14063cE	00000000 .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Neg$GT$3neg17hb5369febbe14063cE
+00000000 l    d  .text._ZN58_$LT$typenum..array..ATerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa7f6a44e74e0603E	00000000 .text._ZN58_$LT$typenum..array..ATerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa7f6a44e74e0603E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
+00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000 g     F .text._ZN58_$LT$typenum..array..ATerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa7f6a44e74e0603E	00000048 <typenum::array::ATerm as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Add$GT$3add17hce747913c6699364E	00000006 <typenum::array::ATerm as core::ops::arith::Add>::add
+00000000 g     F .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Neg$GT$3neg17hb5369febbe14063cE	00000006 <typenum::array::ATerm as core::ops::arith::Neg>::neg
+00000000 g     F .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17hcf899553e18a9ff9E	00000006 <typenum::array::ATerm as core::ops::arith::Sub>::sub
+00000000 g     F .text._ZN70_$LT$typenum..array..ATerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha3babb97a89b9bfaE	0000000c <typenum::array::ATerm as typenum::type_operators::Len>::len
+
+
+
+Disassembly of section .text._ZN70_$LT$typenum..array..ATerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha3babb97a89b9bfaE:
+
+00000000 <<typenum::array::ATerm as typenum::type_operators::Len>::len>:
+_ZN70_$LT$typenum..array..ATerm$u20$as$u20$typenum..type_operators..Len$GT$3len17ha3babb97a89b9bfaE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:56
+// Length
+
+/// Length of `ATerm` by itself is 0
+impl Len for ATerm {
+    type Output = U0;
+    fn len(&self) -> Self::Output {
+   0:	b082      	sub	sp, #8
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:58
+        UTerm
+    }
+   6:	9100      	str	r1, [sp, #0]
+   8:	b002      	add	sp, #8
+   a:	4770      	bx	lr
+
+Disassembly of section .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Add$GT$3add17hce747913c6699364E:
+
+00000000 <<typenum::array::ATerm as core::ops::arith::Add>::add>:
+_ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Add$GT$3add17hce747913c6699364E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:80
+// Add arrays
+// Note that two arrays are only addable if they are the same length.
+
+impl Add<ATerm> for ATerm {
+    type Output = ATerm;
+    fn add(self, _: ATerm) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:82
+        ATerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17hcf899553e18a9ff9E:
+
+00000000 <<typenum::array::ATerm as core::ops::arith::Sub>::sub>:
+_ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Sub$GT$3sub17hcf899553e18a9ff9E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:102
+// Subtract arrays
+// Note that two arrays are only subtractable if they are the same length.
+
+impl Sub<ATerm> for ATerm {
+    type Output = ATerm;
+    fn sub(self, _: ATerm) -> Self::Output {
+   0:	b082      	sub	sp, #8
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:104
+        ATerm
+    }
+   2:	b002      	add	sp, #8
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Neg$GT$3neg17hb5369febbe14063cE:
+
+00000000 <<typenum::array::ATerm as core::ops::arith::Neg>::neg>:
+_ZN63_$LT$typenum..array..ATerm$u20$as$u20$core..ops..arith..Neg$GT$3neg17hb5369febbe14063cE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:268
+// Negate an array
+use core::ops::Neg;
+
+impl Neg for ATerm {
+    type Output = ATerm;
+    fn neg(self) -> Self::Output {
+   0:	b081      	sub	sp, #4
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:270
+        ATerm
+    }
+   2:	b001      	add	sp, #4
+   4:	4770      	bx	lr
+
+Disassembly of section .text._ZN58_$LT$typenum..array..ATerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa7f6a44e74e0603E:
+
+00000000 <<typenum::array::ATerm as core::fmt::Debug>::fmt>:
+_ZN58_$LT$typenum..array..ATerm$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa7f6a44e74e0603E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/array.rs:11
+#[derive(Eq, PartialEq, Ord, PartialOrd, Clone, Copy, Hash, Debug)]
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	9106      	str	r1, [sp, #24]
+   c:	9906      	ldr	r1, [sp, #24]
+   e:	f240 0000 	movw	r0, #0
+  12:	f2c0 0000 	movt	r0, #0
+  16:	f10d 0c1c 	add.w	ip, sp, #28
+  1a:	f04f 0e05 	mov.w	lr, #5
+  1e:	9004      	str	r0, [sp, #16]
+  20:	4660      	mov	r0, ip
+  22:	f8dd c010 	ldr.w	ip, [sp, #16]
+  26:	9203      	str	r2, [sp, #12]
+  28:	4662      	mov	r2, ip
+  2a:	9302      	str	r3, [sp, #8]
+  2c:	4673      	mov	r3, lr
+  2e:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
+  32:	e7ff      	b.n	34 <<typenum::array::ATerm as core::fmt::Debug>::fmt+0x34>
+  34:	a807      	add	r0, sp, #28
+  36:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
+  3a:	9001      	str	r0, [sp, #4]
+  3c:	e7ff      	b.n	3e <<typenum::array::ATerm as core::fmt::Debug>::fmt+0x3e>
+  3e:	9801      	ldr	r0, [sp, #4]
+  40:	f000 0001 	and.w	r0, r0, #1
+  44:	b00a      	add	sp, #40	; 0x28
+  46:	bd80      	pop	{r7, pc}
+
+vcell-2b48f180b58ac4b7.vcell.v3u3mklr-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 vcell.v3u3mklr-cgu.0
+
+
+
+volatile_register-75776a7c47d86126.volatile_register.43w3pahh-cgu.0.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 volatile_register.43w3pahh-cgu.0
+
+
