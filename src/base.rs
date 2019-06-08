@@ -118,7 +118,7 @@ pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: SensorType = SENSOR_TYPE_USER_DEF
 ///  or float (computed), we use the struct to return both integer and float values.
 ///  `val_type` indicates whether it's an integer or float.
 ///  Must sync with libs/sensor_coap/include/sensor_coap/sensor_coap.h
-#[repr(C)]
+#[repr(C)]  //  This struct is common to C and Rust, tell Rust not to reorder the fields.
 pub struct SensorValue {
     ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
     pub key: *const u8,  
@@ -132,7 +132,7 @@ pub struct SensorValue {
 
 ///  Represents a single temperature sensor raw value.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
-#[repr(C, packed)]  //  Declare as packed because the C struct is packed.
+#[repr(C, packed)]  //  Common to C and Rust. Declare as packed because the C struct is packed.
 pub struct SensorTempRawData {   
     ///  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     pub strd_temp_raw: u32,          

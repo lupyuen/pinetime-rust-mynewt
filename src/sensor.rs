@@ -1,18 +1,9 @@
 //!  Import the Mynewt Sensor API and export the safe version of the API. Based on
 //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
-///  Define the listener function to be called after polling the temperature sensor.
-static mut LISTENER_INTERNAL: SensorListener = SensorListener {  //  Must be static so it won't go out of scope.
-    sl_sensor_type: 0,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
-    sl_func       : null_sensor_data_func,      //  Listener function to be called with the sensor data
-    sl_arg        : 0,           //  Indicate to the listener function that this is a listener callback
-    sl_next       : 0,                     //  Must be 0
-};
-
-extern fn null_sensor_data_func(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 { 0 }
-
 ///  Register a sensor listener. This allows a calling application to receive
-///  callbacks for data from a given sensor object. This is the safe version of sensor_register_listener().
+///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
+///  that copies the listener locally before passing to Mynewt.
 ///
 ///  For more information on the type of callbacks available, see the documentation
 ///  for the sensor listener structure.
@@ -23,15 +14,27 @@ extern fn null_sensor_data_func(sensor: SensorPtr, _arg: SensorArg, sensor_data:
 pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {    
     unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
     //  Copy the caller's listener to the internal listener.
-    //  LISTENER_INTERNAL = SensorListener { .. listener };
     unsafe { LISTENER_INTERNAL = listener };
     //  Pass the internal listener to the unsafe Mynewt API.
     unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) }
 }
 
+///  Define the listener function to be called after polling the sensor.
+///  This is a static mutable copy of the listener passed in through `register_listener`.
+///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
+static mut LISTENER_INTERNAL: SensorListener = SensorListener {  
+    sl_sensor_type: 0, 
+    sl_func       : null_sensor_data_func,
+    sl_arg        : 0,
+    sl_next       : 0,
+};
+
+///  Define a dummy sensor data function in case there is none.
+extern fn null_sensor_data_func(_sensor: SensorPtr, _arg: SensorArg, _sensor_data: SensorDataPtr, _sensor_type: SensorType) -> i32 { 0 }
+
 ///  Import the Mynewt Sensor API for C.
 ///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-#[link(name = "hw_sensor")]
+#[link(name = "hw_sensor")]  //  Functions below are located in the Mynewt build output `hw_sensor.a`
 extern {
     ///  Set the sensor poll rate.
     ///  `devname`: Name of the sensor.
@@ -59,7 +62,7 @@ extern {
 
 ///  Import the Mynewt SensorListener struct for C, which defines the listener function to be called after polling a sensor.
 ///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
-#[repr(C)]  //  This struct is shared by C and Rust, tell Rust not to reorder the fields.
+#[repr(C)]  //  This struct is common to C and Rust, tell Rust not to reorder the fields.
 pub struct SensorListener {
     ///  The type of sensor data to listen for, this is interpreted as a
     ///  mask, and this listener is called for all sensor types on this
@@ -79,7 +82,7 @@ pub struct SensorListener {
 
 ///  Data representing a singular read from a temperature sensor. All values are in Deg C.
 ///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/temperature.h
-#[repr(C, packed)]  //  Declare as packed because the C struct is packed.
+#[repr(C, packed)]  //  Common to C and Rust. Declare as packed because the C struct is packed.
 pub struct SensorTempData {  
     pub std_temp: f32,
     pub std_temp_is_valid: u8,
@@ -115,7 +118,7 @@ pub enum CVoid {
 }
 unsafe impl Send for CVoid {}
 
-///  Declare the Mynewt error codes.
+///  Mynewt error codes.
 ///  Must sync with repos/apache-mynewt-core/sys/defs/include/defs/error.h
 pub const SYS_EOK         : i32 = 0;
 pub const SYS_ENOMEM      : i32 = -1;
