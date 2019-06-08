@@ -13,7 +13,7 @@ mod listen_sensor;  //  Declare listen_sensor.rs as Rust module `listen_sensor`
 mod send_coap;      //  Declare send_coap.rs as Rust module `send_coap`
 
 use core::panic::PanicInfo;     //  Import the PanicInfo type which is used by panic() below
-use cortex_m::asm;              //  Import the cortex_m assembly function to inject breakpoint
+use cortex_m::asm::bkpt;        //  Import the cortex_m assembly function to inject breakpoint
 use crate::base::*;             //  Import base.rs for common declarations
 use crate::listen_sensor::*;    //  Import listen_sensor.rs for polling the temperature sensor
 use crate::send_coap::*;        //  Import send_coap.rs for sending sensor data
@@ -64,7 +64,7 @@ fn panic(info: &PanicInfo) -> ! {
         unsafe { console_flush() }
     }
     //  Pause in the debugger.
-    asm::bkpt();
+    bkpt();
     //  Loop forever so that device won't restart.
     loop {}
 }
