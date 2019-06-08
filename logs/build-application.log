@@ -1,760 +1,671 @@
+> Executing task in folder stm32bluepill-mynewt-sensor: bash -c -l ' scripts/build-app.sh && echo ✅ ◾ ️Done! ' <
+
++ set +x
+
+----- Building Rust app and Mynewt OS...
++ app_build=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
++ rust_build_dir=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps
++ rust_app_dir=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_app
++ rust_app_dest=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
++ rust_libcore_dir=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore
++ rust_libcore_dest=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore/libs_rust_libcore.a
++ '[' '!' -e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a ']'
++ set +x
+
+----- Build Mynewt stubs for Rust app and Rust libcore (ignore error)
++ set +e
++ newt build bluepill_my_sensor
 WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
 Building target targets/bluepill_my_sensor
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src    
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/cborattr/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/json/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/bsp/bluepill/src
-Compiling architecture specific src pkgs in directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/bsp/bluepill/src/arch/cortex_m3/
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/cmsis-core/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/adc/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/uart/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/hal/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/creator/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src
-Compiling architecture specific src pkgs in directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/libs/adc_stm32f1/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/libs/hmac_prng/src        
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/libs/semihosting_console/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/libs/sensor_coap/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/libs/temp_stm32/src       
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/flash_map/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/modlog/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/stub/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/mfg/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysdown/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysinit/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/mem/src
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysdown-app.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/main.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysflash.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/geolocate.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/vsscanf.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/send_coap.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/listen_sensor.c - rebuild required; 
-different command
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c - rebuild required; different command
 Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysdown-app.c
-Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysflash.c
-Compiling apps/my_sensor_app/src/vsscanf.c
-Compiling apps/my_sensor_app/src/geolocate.c
 Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
-Compiling apps/my_sensor_app/src/main.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/aes_decrypt.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/aes_encrypt.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/cbc_mode.c - 
-rebuild required; different command
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/aes_decrypt.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/ccm_mode.c - 
-rebuild required; different command
-Compiling apps/my_sensor_app/src/listen_sensor.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/aes_encrypt.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/cmac_mode.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/cbc_mode.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/aes_encrypt.c
+Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysflash.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/aes_decrypt.c
+Compiling apps/my_sensor_app/src/stub.c
+Compiling apps/my_sensor_app/src/vsscanf.c
 Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ccm_mode.c
 Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/cmac_mode.c
-Compiling apps/my_sensor_app/src/send_coap.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_mode.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_prng.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src/ecc.c - rebuiCompiling repos/apache-mynewt-core/crypto/tinycrypt/src/hmac_prng.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/cborattr/src/cborattr.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/json/src/json_decode.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/json/src/json_encode.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_reader.c - rebuild required; different commandCompiling repos/apache-mynewt-core/crypto/tinycrypt/src/sha256.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_mode.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_prng.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_dh.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_platform_specific.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_dsa.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/hmac.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/hmac_prng.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/sha256.c
+Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/mynewt.c
 Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/utils.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_reader.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_reader.c - rebuild required; different commandCompiling repos/apache-mynewt-core/crypto/tinycrypt/src/mynewt.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_writer.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/encoding/json/src/json_decode.c
-Compiling repos/apache-mynewt-core/encoding/json/src/json_encode.cCompiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/encoding/cborattr/src/cborattr.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder_close_container_checked.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/encoding/json/src/json_encode.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_reader.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_reader.c
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_writer.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cborerrorstrings.c - rebuild required; different commandCompiling repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder_close_container_checked.c/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cborparser.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cborparser_dup_string.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder_close_container_checked.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborerrorstrings.c
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborparser.cCompiling repos/apache-mynewt-core/encoding/tinycbor/src/cborparser_dup_string.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cborpretty.c - rebuild required; different command/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/cbortojson.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src/open_memstream.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/bsp/bluepill/src/hal_bsp.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/bsp/bluepill/src/system_stm32f1xx.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/bsp/bluepill/src/arch/cortex_m3/startup_stm32f103xb.s - rebuild required; different command
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborparser.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborparser_dup_string.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/open_memstream.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/cmsis-core/src/cmsis_nvic.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborpretty.c
-Assembling repos/apache-mynewt-core/hw/bsp/bluepill/src/arch/cortex_m3/startup_stm32f103xb.s
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbortojson.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/adc/src/adc.c - rebuild required; different command
+Assembling repos/apache-mynewt-core/hw/bsp/bluepill/src/arch/cortex_m3/startup_stm32f103xb.s
 Compiling repos/apache-mynewt-core/hw/bsp/bluepill/src/system_stm32f1xx.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/uart/src/uart.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/cmsis-core/src/cmsis_nvic.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src/uart_hal.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/drivers/uart/src/uart.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/hal/src/hal_common.c - rebuild 
-required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/hal/src/hal_flash.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_flash.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/bsp/bluepill/src/hal_bsp.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_gpio.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/hal/src/hal_common.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_i2c.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/hw/drivers/uart/src/uart.c
 Compiling repos/apache-mynewt-core/hw/drivers/adc/src/adc.c
 Compiling repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src/uart_hal.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_gpio.c
+Compiling repos/apache-mynewt-core/hw/hal/src/hal_common.c
 Compiling repos/apache-mynewt-core/hw/hal/src/hal_flash.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_flash.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_i2c.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_spi.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system_start.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_timer.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_watchdog.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system_start.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_spi.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system_start.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_timer.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_watchdog.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v1.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v2.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_spi.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_timer.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v1.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v2.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c - rebuild required; different command      
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_spi.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_timer.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cec.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c - rebuild required; different command      
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_crc.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cec.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac_ex.c - rebuild required; different command      
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cec.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_crc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_eth.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c - rebuild required; different command       
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac_ex.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c - rebuild required; different command    
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c - rebuild required; different command        
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c - rebuild required; different command     
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_eth.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_hcd.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2s.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_hcd.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_irda.c - rebuild required; different command        
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.c - rebuild required; different command        
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_mmc.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2s.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nand.c - rebuild required; different command        
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_irda.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pccard.c - rebuild required; different command      
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_mmc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nand.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pccard.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.c - rebuild required; different command      
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c - rebuild required; different command      
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.c - rebuild required; different command      
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sd.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_smartcard.c - rebuild required; different command   
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sd.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c - rebuild required; different command      
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sd.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_smartcard.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c - rebuild required; different command        
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c - rebuild required; different command      
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c - rebuild required; different command        
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.c - rebuild required; different command       
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.c - rebuild required; different command        
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_adc.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_adc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dac.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dac.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_i2c.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_pwr.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_i2c.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_pwr.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_sdmmc.c - rebuild required; different command        
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c - rebuild required; different command        
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.c - rebuild required; different command        
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_flash.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_reset_cause.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_sdmmc.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_timer_freq.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src/sensor_oic.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_reset_cause.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src/sensor_shell.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_flash.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/endian.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/hw/sensor/src/sensor_oic.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_timer_freq.c
 Compiling repos/apache-mynewt-core/hw/sensor/src/sensor.c
+Compiling repos/apache-mynewt-core/hw/sensor/src/sensor_oic.c
 Compiling repos/apache-mynewt-core/hw/sensor/src/sensor_shell.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_callout.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c
 Compiling repos/apache-mynewt-core/kernel/os/src/endian.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_cputime.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_callout.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_cputime_1mhz.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_cputime_high.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_cputime_pwr2.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_dev.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_eventq.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_heap.c - rebuild 
-required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_1mhz.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_mbuf.c - rebuild 
-required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_high.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_pwr2.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_dev.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_eventq.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_mempool.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_heap.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mbuf.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_msys.c - rebuild 
-required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_mutex.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_sanity.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_sched.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_sem.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mempool.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_stacktrace.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/kernel/os/src/os_msys.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mutex.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_msys.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sanity.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_task.c - rebuild 
-required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sched.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sem.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/os_time.c - rebuild 
-required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_stacktrace.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_arch_arm.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_fault.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_task.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/HAL_CM3.s - rebuild required; different command
-Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/HAL_CM3.s
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/SVC_Table.s - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/asprintf.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/kernel/os/src/os_time.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/atoi.c - rebuild required; different command
-Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/SVC_Table.s
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/atol.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/atoll.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/asprintf.c
 Compiling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_arch_arm.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/atol.c
+Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/HAL_CM3.s
+Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/SVC_Table.s
+Compiling repos/apache-mynewt-core/libc/baselibc/src/asprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atoi.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/bsearch.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/bzero.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/atoll.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/bzero.c
 Compiling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_fault.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/atol.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/atoll.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/bsearch.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/calloc.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/fgets.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/inline.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/jrand48.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/lrand48.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/malloc.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/fgets.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/bzero.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/calloc.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/fgets.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/inline.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/jrand48.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memccpy.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/lrand48.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/malloc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memchr.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memcmp.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memcpy.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memfile.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memmem.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memchr.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcmp.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memmove.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memfile.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memmem.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memrchr.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memset.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memmove.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/memswap.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/mrand48.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memrchr.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/mynewt.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/nrand48.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/memswap.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/qsort.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memset.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/realloc.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/libc/baselibc/src/memswap.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/mrand48.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/sprintf.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/srand48.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/nrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/qsort.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/sscanf.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/libc/baselibc/src/nrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/realloc.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/start.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strcat.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/mynewt.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sscanf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sprintf.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strchr.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/libc/baselibc/src/mynewt.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strchr.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strcmp.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strcpy.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strcspn.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strcmp.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strcpy.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strdup.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strlcat.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/start.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strcpy.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strcmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcspn.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strlcpy.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strlcat.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strlen.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strncasecmp.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strncat.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strdup.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strlcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strlcpy.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strncmp.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strncpy.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strlen.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strncasecmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strncat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strncmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strncpy.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strndup.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strnlen.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strntoimax.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strntoumax.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strpbrk.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strrchr.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strsep.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strnlen.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strndup.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strspn.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strpbrk.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strnlen.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoimax.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoumax.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strpbrk.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strrchr.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoumax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strsep.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strspn.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strstr.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtok.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtok_r.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtol.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtoll.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strstr.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtoul.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtoull.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok_r.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtol.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoll.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/strtoumax.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoul.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoull.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/vasprintf.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/vprintf.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/vsprintf.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoumax.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/adc_stm32f1/src/adc_stm32f1.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vasprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vprintf.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/adc_stm32f1/src/creator.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/ATParser.cpp - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vsprintf.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/BufferedSerial.cpp - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/Controller.cpp - rebuild required; different command
 Compiling repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/MyBuffer.cpp - rebuild required; different command
-Compiling libs/esp8266/src/MyBuffer.cpp
+Compiling libs/esp8266/src/util.c
 Compiling libs/adc_stm32f1/src/adc_stm32f1.c
 Compiling libs/adc_stm32f1/src/creator.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/creator.cpp - rebuild required; different 
-command
 Compiling libs/esp8266/src/ATParser.cpp
 Compiling libs/esp8266/src/BufferedSerial.cpp
 Compiling libs/esp8266/src/Controller.cpp
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/driver.cpp - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/esp8266/src/transport.cpp - rebuild required; different command
+Compiling libs/esp8266/src/MyBuffer.cpp
 Compiling libs/esp8266/src/creator.cpp
-/mnt/c/stm32bluepill-mynewt-sensor/libs/hmac_prng/src/hmac_prng.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/semihosting_console/src/console.c - rebuild required; 
-different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/semihosting_console/src/console_fmt.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/semihosting_console/src/semihosting_console.c - rebuild required; different command
 Compiling libs/esp8266/src/driver.cpp
 Compiling libs/esp8266/src/transport.cpp
-/mnt/c/stm32bluepill-mynewt-sensor/libs/semihosting_console/src/ticks.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/sensor_coap/src/sensor_coap.c - rebuild required; different command
-Compiling libs/semihosting_console/src/console_fmt.c
-Compiling libs/semihosting_console/src/console.c
 Compiling libs/hmac_prng/src/hmac_prng.c
+Compiling libs/mynewt_rust/src/mynewt_rust.c
+Compiling libs/mynewt_rust/src/sensor_helper.c
+Compiling libs/nrf24l01/src/util.c
+Compiling libs/nrf24l01/src/creator.cpp
+Compiling libs/nrf24l01/src/driver.cpp
+Compiling libs/nrf24l01/src/nRF24L01P.cpp
+Compiling libs/nrf24l01/src/transport.cpp
+Compiling libs/remote_sensor/src/creator.c
+Compiling libs/remote_sensor/src/remote_sensor.c
+Compiling libs/remote_sensor/src/route_coap.c
+Compiling libs/rust_app/src/stub.c
+Compiling libs/rust_libcore/src/stub.c
+Compiling libs/semihosting_console/src/console.c
+Compiling libs/semihosting_console/src/console_fmt.c
 Compiling libs/semihosting_console/src/semihosting_console.c
 Compiling libs/semihosting_console/src/ticks.c
-/mnt/c/stm32bluepill-mynewt-sensor/libs/temp_stm32/src/creator.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/libs/temp_stm32/src/temp_stm32.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_buffer.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_client_api.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_core_res.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_discovery.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_helpers.c - rebuild required; different command
 Compiling libs/sensor_coap/src/sensor_coap.c
 Compiling libs/temp_stm32/src/creator.c
+Compiling libs/sensor_network/src/sensor_network.c
 Compiling libs/temp_stm32/src/temp_stm32.c
-Compiling repos/apache-mynewt-core/net/oic/src/api/oc_helpers.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_buffer.c
-Compiling repos/apache-mynewt-core/net/oic/src/api/oc_core_res.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_client_api.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_main.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/net/oic/src/api/oc_core_res.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_discovery.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_rep.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_ri.c - rebuild 
-required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_server_api.c - 
-rebuild required; different command
-Compiling repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+Compiling repos/apache-mynewt-core/net/oic/src/api/oc_helpers.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_main.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/api/oc_uuid.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c 
-- rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/messaging/coap/engine.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/messaging/coap/observe.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_ri.c
-Compiling repos/apache-mynewt-core/net/oic/src/api/oc_server_api.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_uuid.c
-Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/observe.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/messaging/coap/separate.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/net/oic/src/api/oc_server_api.c
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c
+Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/observe.c
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/engine.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/messaging/coap/transactions.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/abort.c - 
-rebuild required; different command
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/separate.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/adaptor.c 
-- rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/ble_adaptor.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/clock.c - 
-rebuild required; different command
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/transactions.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/abort.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/conns.c - 
-rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/ip4_adaptor.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/ip_adaptor.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ble_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/adaptor.c
+Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ble_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/clock.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/log.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ip4_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/conns.c
+Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ip4_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ip_adaptor.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/lora_adaptor.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/random.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/random.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/serial_adaptor.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/port/mynewt/storage.c 
-- rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_acl.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/log.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_cred.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/lora_adaptor.c
-Compiling repos/apache-mynewt-core/net/oic/src/security/oc_acl.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/storage.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_doxm.c - rebuild required; different command
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_cred.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_dtls.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_pstat.c - 
-rebuild required; different command
-Compiling repos/apache-mynewt-core/net/oic/src/security/oc_doxm.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_store.c - 
-rebuild required; different command
-Compiling repos/apache-mynewt-core/net/oic/src/security/oc_pstat.c
+Compiling repos/apache-mynewt-core/net/oic/src/security/oc_acl.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/serial_adaptor.c
+Compiling repos/apache-mynewt-core/net/oic/src/security/oc_doxm.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_dtls.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src/security/oc_svr.c - rebuild required; different command
+Compiling repos/apache-mynewt-core/net/oic/src/security/oc_pstat.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_store.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_svr.c
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/flash_map/src/flash_map.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/modlog/src/modlog.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/stub/src/log.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/mfg/src/mfg.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysdown/src/sysdown.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysinit/src/sysinit.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/mem/src/mem.c - rebuild required; different command
-/mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src/rwlock.c - rebuild required; different command
-Compiling repos/apache-mynewt-core/sys/flash_map/src/flash_map.c
-Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/log/stub/src/log.c
+Compiling repos/apache-mynewt-core/sys/flash_map/src/flash_map.c
 Compiling repos/apache-mynewt-core/sys/mfg/src/mfg.c
-Compiling repos/apache-mynewt-core/sys/sysinit/src/sysinit.c
-Compiling repos/apache-mynewt-core/sys/sysdown/src/sysdown.c
+Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/util/mem/src/mem.c
+Compiling repos/apache-mynewt-core/sys/sysdown/src/sysdown.c
+Compiling repos/apache-mynewt-core/sys/sysinit/src/sysinit.c
 Compiling repos/apache-mynewt-core/util/rwlock/src/rwlock.c
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a - rebuild required; different command
-Archiving apps_my_sensor_app.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps/my_sensor_app/src/geolocate.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps/my_sensor_app/src/listen_sensor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps/my_sensor_app/src/main.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps/my_sensor_app/src/send_coap.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps/my_sensor_app/src/vsscanf.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/bin/bluepill_my_sensor-sysinit-app.a - rebuild required; different command
-Archiving bluepill_my_sensor-sysinit-app.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/bin/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysdown-app.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/bin/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysflash.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/bin/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/crypto_tinycrypt.a - rebuild required; different command
-Archiving crypto_tinycrypt.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/aes_decrypt.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/aes_encrypt.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/cbc_mode.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ccm_mode.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/cmac_mode.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_mode.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_prng.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ecc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_dh.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_dsa.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_platform_specific.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/hmac.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/hmac_prng.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/mynewt.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/sha256.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/repos/apache-mynewt-core/crypto/tinycrypt/src/utils.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/cborattr/encoding_cborattr.a - rebuild required; different command
-Archiving encoding_cborattr.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/cborattr/repos/apache-mynewt-core/encoding/cborattr/src/cborattr.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/json/encoding_json.a - rebuild required; different command
-Archiving encoding_json.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_decode.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a - rebuild required; different command
-Archiving encoding_tinycbor.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_reader.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_reader.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_writer.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder_close_container_checked.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborerrorstrings.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborparser.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborparser_dup_string.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborpretty.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbortojson.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/open_memstream.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/bsp/bluepill/hw_bsp_bluepill.a - rebuild required; different command
-Archiving hw_bsp_bluepill.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/bsp/bluepill/repos/apache-mynewt-core/hw/bsp/bluepill/src/arch/cortex_m3/startup_stm32f103xb.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/bsp/bluepill/repos/apache-mynewt-core/hw/bsp/bluepill/src/hal_bsp.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/bsp/bluepill/repos/apache-mynewt-core/hw/bsp/bluepill/src/system_stm32f1xx.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/cmsis-core/hw_cmsis-core.a - rebuild required; different command
-Archiving hw_cmsis-core.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/cmsis-core/repos/apache-mynewt-core/hw/cmsis-core/src/cmsis_nvic.o     
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/adc/hw_drivers_adc.a - rebuild required; different command
-Archiving hw_drivers_adc.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/adc/repos/apache-mynewt-core/hw/drivers/adc/src/adc.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/uart/hw_drivers_uart.a - rebuild required; different command
-Archiving hw_drivers_uart.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/uart/repos/apache-mynewt-core/hw/drivers/uart/src/uart.o     
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/uart/uart_hal/hw_drivers_uart_uart_hal.a - rebuild required; different command
-Archiving hw_drivers_uart_uart_hal.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/uart/uart_hal/repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src/uart_hal.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/hal/hw_hal.a - rebuild required; different command
-Archiving hw_hal.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/hal/repos/apache-mynewt-core/hw/hal/src/hal_common.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/hal/repos/apache-mynewt-core/hw/hal/src/hal_flash.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/hw_mcu_stm_stm32_common.a - rebuild required; different command
-Archiving hw_mcu_stm_stm32_common.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_flash.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_gpio.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_i2c.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_spi.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system_start.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_timer.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_watchdog.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v1.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v2.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_spi.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_timer.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.o        
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/hw_mcu_stm_stm32f1xx.a - rebuild required; different command
-Archiving hw_mcu_stm_stm32f1xx.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cec.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_crc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_eth.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_hcd.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2s.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_irda.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_mmc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nand.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pccard.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sd.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_smartcard.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_adc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dac.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_i2c.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_pwr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_sdmmc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_flash.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_reset_cause.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_timer_freq.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/hw_sensor.a - 
-rebuild required; different command
-Archiving hw_sensor.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor_oic.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor_shell.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/creator/hw_sensor_creator.a - rebuild required; different command
-Archiving hw_sensor_creator.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/creator/repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/kernel_os.a - 
-rebuild required; different command
-Archiving kernel_os.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/HAL_CM3.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/SVC_Table.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_arch_arm.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_fault.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/endian.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_callout.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_cputime.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_cputime_1mhz.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_cputime_high.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_cputime_pwr2.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_dev.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_eventq.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_heap.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_mbuf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_mempool.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_msys.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_mutex.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_sanity.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_sched.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_sem.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_stacktrace.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_task.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os_time.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/libc_baselibc.a - rebuild required; different command
-Archiving libc_baselibc.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/asprintf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/atoi.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/atol.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/atoll.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/bsearch.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/bzero.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/calloc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/fgets.o 
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/inline.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/jrand48.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/lrand48.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/malloc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memccpy.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memchr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memcmp.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memcpy.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memfile.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memmem.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memmove.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memrchr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memset.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/memswap.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/mrand48.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/mynewt.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/nrand48.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/qsort.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/realloc.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/sprintf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/srand48.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/sscanf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/start.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strcat.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strchr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strcmp.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strcpy.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strcspn.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strdup.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strlcat.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strlcpy.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strlen.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strncasecmp.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strncat.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strncmp.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strncpy.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strndup.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strnlen.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strntoimax.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strntoumax.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strpbrk.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strrchr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strsep.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strspn.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strstr.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtoimax.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtok.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtok_r.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtol.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtoll.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtoul.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtoull.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/strtoumax.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/vasprintf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/vprintf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/vsprintf.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/repos/apache-mynewt-core/libc/baselibc/src/vsscanf.o 
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/adc_stm32f1/libs_adc_stm32f1.a - rebuild required; different command
-Archiving libs_adc_stm32f1.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/adc_stm32f1/libs/adc_stm32f1/src/adc_stm32f1.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/adc_stm32f1/libs/adc_stm32f1/src/creator.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs_esp8266.a - rebuild required; different command
-Archiving libs_esp8266.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/ATParser.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/BufferedSerial.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/Controller.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/MyBuffer.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/creator.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/driver.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs/esp8266/src/transport.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/hmac_prng/libs_hmac_prng.a - rebuild required; different command
-Archiving libs_hmac_prng.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/hmac_prng/libs/hmac_prng/src/hmac_prng.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/semihosting_console/libs_semihosting_console.a - rebuild required; different command
-Archiving libs_semihosting_console.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/semihosting_console/libs/semihosting_console/src/console.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/semihosting_console/libs/semihosting_console/src/console_fmt.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/semihosting_console/libs/semihosting_console/src/semihosting_console.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/semihosting_console/libs/semihosting_console/src/ticks.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs_sensor_coap.a - rebuild required; different command
-Archiving libs_sensor_coap.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/temp_stm32/libs_temp_stm32.a - rebuild required; different command
-Archiving libs_temp_stm32.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/temp_stm32/libs/temp_stm32/src/creator.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/temp_stm32/libs/temp_stm32/src/temp_stm32.o  
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/net_oic.a - rebuild required; different command
-Archiving net_oic.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_buffer.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_client_api.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_core_res.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_discovery.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_helpers.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_main.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_rep.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_ri.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_server_api.o 
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/api/oc_uuid.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/messaging/coap/engine.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/messaging/coap/observe.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/messaging/coap/separate.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/messaging/coap/transactions.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/abort.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/adaptor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/ble_adaptor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/clock.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/conns.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/ip4_adaptor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/ip_adaptor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/log.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/lora_adaptor.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/random.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/serial_adaptor.o 
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/port/mynewt/storage.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_acl.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_cred.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_doxm.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_dtls.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_pstat.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_store.o /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/repos/apache-mynewt-core/net/oic/src/security/oc_svr.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/flash_map/sys_flash_map.a - rebuild required; different command
-Archiving sys_flash_map.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/flash_map/repos/apache-mynewt-core/sys/flash_map/src/flash_map.o      
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/log/modlog/sys_log_modlog.a - rebuild required; different command
-Archiving sys_log_modlog.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/log/modlog/repos/apache-mynewt-core/sys/log/modlog/src/modlog.o      
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/log/stub/sys_log_stub.a - rebuild required; different command
-Archiving sys_log_stub.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/log/stub/repos/apache-mynewt-core/sys/log/stub/src/log.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/mfg/sys_mfg.a - rebuild required; different command
-Archiving sys_mfg.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/mfg/repos/apache-mynewt-core/sys/mfg/src/mfg.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/sysdown/sys_sysdown.a - rebuild required; different command
-Archiving sys_sysdown.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/sysdown/repos/apache-mynewt-core/sys/sysdown/src/sysdown.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/sysinit/sys_sysinit.a - rebuild required; different command
-Archiving sys_sysinit.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/sysinit/repos/apache-mynewt-core/sys/sysinit/src/sysinit.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/util/mem/util_mem.a - rebuild required; different command
-Archiving util_mem.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/util/mem/repos/apache-mynewt-core/util/mem/src/mem.o
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/util/rwlock/util_rwlock.a - rebuild required; different command
-Archiving util_rwlock.a with object files /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/util/rwlock/repos/apache-mynewt-core/util/rwlock/src/rwlock.o
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf - rebuild required; different command
-Linking /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
-Linking /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf with input files [/mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/crypto/tinycrypt/crypto_tinycrypt.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/cborattr/encoding_cborattr.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/json/encoding_json.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/bsp/bluepill/hw_bsp_bluepill.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/cmsis-core/hw_cmsis-core.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/adc/hw_drivers_adc.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/uart/hw_drivers_uart.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/drivers/uart/uart_hal/hw_drivers_uart_uart_hal.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/hal/hw_hal.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32_common/hw_mcu_stm_stm32_common.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/mcu/stm/stm32f1xx/hw_mcu_stm_stm32f1xx.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/creator/hw_sensor_creator.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/hw/sensor/hw_sensor.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/kernel/os/kernel_os.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/libc_baselibc.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/adc_stm32f1/libs_adc_stm32f1.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/esp8266/libs_esp8266.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/hmac_prng/libs_hmac_prng.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/semihosting_console/libs_semihosting_console.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs_sensor_coap.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/temp_stm32/libs_temp_stm32.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/net/oic/net_oic.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/flash_map/sys_flash_map.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/log/modlog/sys_log_modlog.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/log/stub/sys_log_stub.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/mfg/sys_mfg.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/sysdown/sys_sysdown.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/sys/sysinit/sys_sysinit.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/util/mem/util_mem.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/util/rwlock/util_rwlock.a /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/bin/bluepill_my_sensor-sysinit-app.a]
-Mem FLASH: 0x8004000-0x8010000
-Mem RAM: 0x20000000-0x20005000
+Archiving apps_my_sensor_app.a
+Archiving bluepill_my_sensor-sysinit-app.a
+Archiving crypto_tinycrypt.a
+Archiving encoding_cborattr.a
+Archiving encoding_json.a
+Archiving encoding_tinycbor.a
+Archiving hw_bsp_bluepill.a
+Archiving hw_cmsis-core.a
+Archiving hw_drivers_adc.a
+Archiving hw_drivers_uart.a
+Archiving hw_drivers_uart_uart_hal.a
+Archiving hw_hal.a
+Archiving hw_mcu_stm_stm32_common.a
+Archiving hw_mcu_stm_stm32f1xx.a
+Archiving hw_sensor.a
+Archiving hw_sensor_creator.a
+Archiving kernel_os.a
+Archiving libc_baselibc.a
+Archiving libs_adc_stm32f1.a
+Archiving libs_esp8266.a
+Archiving libs_hmac_prng.a
+Archiving libs_mynewt_rust.a
+Archiving libs_nrf24l01.a
+Archiving libs_remote_sensor.a
+Archiving libs_rust_app.a
+Archiving libs_rust_libcore.a
+Archiving libs_semihosting_console.a
+Archiving libs_sensor_coap.a
+Archiving libs_sensor_network.a
+Archiving libs_temp_stm32.a
+Archiving net_oic.a
+Archiving sys_flash_map.a
+Archiving sys_log_modlog.a
+Archiving sys_log_stub.a
+Archiving sys_mfg.a
+Archiving sys_sysdown.a
+Archiving sys_sysinit.a
+Archiving util_mem.a
+Archiving util_rwlock.a
+Linking /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+Error: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/libc_baselibc.a(start.o): In function `_start':
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/start.c:39: undefined reference to `main'
+collect2: error: ld returned 1 exit status
+
++ set -e
++ '[' -e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf ']'
++ rust_app_build='/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libmylib*.rlib'
++ for f in '$rust_app_build'
++ '[' -e '/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libmylib*.rlib' ']'
++ set +x
+
+----- Build Rust app
++ cargo build -v
+   Compiling typenum v1.10.0
+   Compiling semver-parser v0.7.0
+   Compiling stable_deref_trait v1.1.1
+   Compiling cortex-m v0.6.0
+   Compiling vcell v0.1.0
+   Compiling memchr v2.2.0
+   Compiling cortex-m v0.5.10
+   Compiling aligned v0.2.0
+     Running `rustc --crate-name build_script_main /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/build/main.rs --color always --crate-type bin --emit=dep-info,link -C debuginfo=2 -C metadata=48823c8f3d2f5f20 -C extra-filename=-48823c8f3d2f5f20 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/typenum-48823c8f3d2f5f20 -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow`
+     Running `rustc --crate-name semver_parser /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/semver-parser-0.7.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C debuginfo=2 -C metadata=bccfec873b2ca87f -C extra-filename=-bccfec873b2ca87f --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow`
+     Running `rustc --crate-name build_script_build /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/build.rs --color always --crate-type bin --emit=dep-info,link -C debuginfo=2 -C metadata=a17a39f31dfafb05 -C extra-filename=-a17a39f31dfafb05 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/cortex-m-a17a39f31dfafb05 -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow`
+     Running `rustc --crate-name stable_deref_trait /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/stable_deref_trait-1.1.1/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=fbf528bd5edd2101 -C extra-filename=-fbf528bd5edd2101 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name vcell /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=2b48f180b58ac4b7 -C extra-filename=-2b48f180b58ac4b7 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name aligned /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/aligned-0.2.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=08120e70a94dcea3 -C extra-filename=-08120e70a94dcea3 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name build_script_build /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/build.rs --color always --crate-type bin --emit=dep-info,link -C debuginfo=2 -C metadata=04732b46601c244a -C extra-filename=-04732b46601c244a --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/memchr-04732b46601c244a -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow`
+     Running `rustc --crate-name build_script_build /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/build.rs --color always --crate-type bin --emit=dep-info,link -C debuginfo=2 -C metadata=ec7ac403f7a4dd16 -C extra-filename=-ec7ac403f7a4dd16 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/cortex-m-ec7ac403f7a4dd16 -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow`
+   Compiling cty v0.1.5
+     Running `rustc --crate-name cty /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cty-0.1.5/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=0197cbf7a3600457 -C extra-filename=-0197cbf7a3600457 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling cty v0.2.0
+     Running `rustc --crate-name cty /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cty-0.2.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=aaa0a2034f77a628 -C extra-filename=-aaa0a2034f77a628 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling volatile-register v0.2.0
+     Running `rustc --crate-name volatile_register /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=75776a7c47d86126 -C extra-filename=-75776a7c47d86126 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern vcell=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libvcell-2b48f180b58ac4b7.rlib --cap-lints allow -C link-arg=-Tlink.x`
+     Running `/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/cortex-m-a17a39f31dfafb05/build-script-build`
+     Running `/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/cortex-m-ec7ac403f7a4dd16/build-script-build`
+     Running `/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/memchr-04732b46601c244a/build-script-build`
+     Running `rustc --crate-name memchr /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=e5ca130edfba2c24 -C extra-filename=-e5ca130edfba2c24 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x --cfg memchr_runtime_simd --cfg memchr_runtime_sse2 --cfg memchr_runtime_sse42 --cfg memchr_runtime_avx`
+   Compiling semver v0.9.0
+     Running `rustc --crate-name semver /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/semver-0.9.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C debuginfo=2 --cfg 'feature="default"' -C metadata=32058dde18d97373 -C extra-filename=-32058dde18d97373 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern semver_parser=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps/libsemver_parser-bccfec873b2ca87f.rlib --cap-lints allow`
+     Running `/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/typenum-48823c8f3d2f5f20/build-script-main`
+     Running `rustc --crate-name typenum /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/typenum-1.10.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=fb96b8ca04273e5e -C extra-filename=-fb96b8ca04273e5e --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling cstr_core v0.1.2
+     Running `rustc --crate-name cstr_core /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=002f35632daba805 -C extra-filename=-002f35632daba805 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern cty=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcty-0197cbf7a3600457.rlib --extern memchr=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libmemchr-e5ca130edfba2c24.rlib --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling rustc_version v0.2.3
+     Running `rustc --crate-name rustc_version /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/rustc_version-0.2.3/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C debuginfo=2 -C metadata=622f3030f98dc7b7 -C extra-filename=-622f3030f98dc7b7 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern semver=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps/libsemver-32058dde18d97373.rlib --cap-lints allow`
+   Compiling bare-metal v0.2.4
+     Running `rustc --crate-name build_script_build /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/bare-metal-0.2.4/build.rs --color always --crate-type bin --emit=dep-info,link -C debuginfo=2 -C metadata=c6f8a1064d0e4baa -C extra-filename=-c6f8a1064d0e4baa --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/bare-metal-c6f8a1064d0e4baa -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern rustc_version=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps/librustc_version-622f3030f98dc7b7.rlib --cap-lints allow`
+   Compiling generic-array v0.12.0
+     Running `rustc --crate-name generic_array /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/generic-array-0.12.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=c36cdd01cde97b57 -C extra-filename=-c36cdd01cde97b57 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern typenum=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libtypenum-fb96b8ca04273e5e.rlib --cap-lints allow -C link-arg=-Tlink.x`
+     Running `/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/build/bare-metal-c6f8a1064d0e4baa/build-script-build`
+     Running `rustc --crate-name bare_metal /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/bare-metal-0.2.4/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=70a82aa7284aa2dc -C extra-filename=-70a82aa7284aa2dc --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling as-slice v0.1.0
+     Running `rustc --crate-name as_slice /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/as-slice-0.1.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=2784e236f4bc81c3 -C extra-filename=-2784e236f4bc81c3 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern generic_array=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libgeneric_array-c36cdd01cde97b57.rlib --extern stable_deref_trait=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libstable_deref_trait-fbf528bd5edd2101.rlib --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling aligned v0.3.1
+     Running `rustc --edition=2018 --crate-name aligned /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/aligned-0.3.1/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=c9df4b2a7b2c8bd1 -C extra-filename=-c9df4b2a7b2c8bd1 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern as_slice=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libas_slice-2784e236f4bc81c3.rlib --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name cortex_m /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=1c57d63c68ee0f80 -C extra-filename=-1c57d63c68ee0f80 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern aligned=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libaligned-c9df4b2a7b2c8bd1.rlib --extern bare_metal=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libbare_metal-70a82aa7284aa2dc.rlib --extern volatile_register=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libvolatile_register-75776a7c47d86126.rlib --cap-lints allow -C link-arg=-Tlink.x -L /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/build/cortex-m-1a76b7c30c8827ae/out --cfg cortex_m --cfg armv7m -l static=cortex-m`
+     Running `rustc --crate-name cortex_m /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.10/src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=7c38d4cecc7edfb7 -C extra-filename=-7c38d4cecc7edfb7 --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern aligned=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libaligned-08120e70a94dcea3.rlib --extern bare_metal=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libbare_metal-70a82aa7284aa2dc.rlib --extern cortex_m_0_6=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcortex_m-1c57d63c68ee0f80.rlib --extern volatile_register=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libvolatile_register-75776a7c47d86126.rlib --cap-lints allow -C link-arg=-Tlink.x -L /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/build/cortex-m-855994089d6e1576/out --cfg cortex_m --cfg armv7m -l static=cortex-m -L /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/build/cortex-m-1a76b7c30c8827ae/out`
+   Compiling myapp v0.1.0 (/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor)
+     Running `rustc --edition=2018 --crate-name mylib src/lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C panic=abort -C debuginfo=2 -C metadata=b003fcb153d61cda -C extra-filename=-b003fcb153d61cda --out-dir /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps --target thumbv7m-none-eabi -C incremental=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/incremental -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps -L dependency=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/debug/deps --extern cortex_m=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcortex_m-7c38d4cecc7edfb7.rlib --extern cstr_core=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcstr_core-002f35632daba805.rlib --extern cty=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcty-aaa0a2034f77a628.rlib --extern memchr=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libmemchr-e5ca130edfba2c24.rlib -C link-arg=-Tlink.x -L /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/build/cortex-m-855994089d6e1576/out -L /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/build/cortex-m-1a76b7c30c8827ae/out`
+warning: unreachable pattern
+   --> src/listen_sensor.rs:158:13
+    |
+138 |             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+    |             ------------------------------- matches any value
+...
+158 |             _ => {
+    |             ^ unreachable pattern
+    |
+    = note: #[warn(unreachable_patterns)] on by default
+
+warning: unused variable: `SENSOR_TYPE_AMBIENT_TEMPERATURE`
+   --> src/listen_sensor.rs:138:13
+    |
+138 |             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider prefixing with an underscore: `_SENSOR_TYPE_AMBIENT_TEMPERATURE`
+    |
+    = note: #[warn(unused_variables)] on by default
+
+warning: foreign function is never used: `console_printfloat`
+  --> src/base.rs:68:5
+   |
+68 |     pub fn console_printfloat(f: f32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: #[warn(dead_code)] on by default
+
+warning: foreign function is never used: `console_dump`
+  --> src/base.rs:72:5
+   |
+72 |     pub fn console_dump(buffer: *const u8, len: u32);  
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SENSOR_VALUE_TYPE_OPAQUE`
+  --> src/sensor.rs:97:1
+   |
+97 | pub const SENSOR_VALUE_TYPE_OPAQUE: i32 = 0;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SENSOR_VALUE_TYPE_FLOAT`
+  --> src/sensor.rs:99:1
+   |
+99 | pub const SENSOR_VALUE_TYPE_FLOAT: i32 = 2;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: type alias is never used: `SensorMutPtr`
+   --> src/sensor.rs:107:1
+    |
+107 | pub type SensorMutPtr = *mut CVoid;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EOK`
+   --> src/sensor.rs:123:1
+    |
+123 | pub const SYS_EOK         : i32 = 0;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_ENOMEM`
+   --> src/sensor.rs:124:1
+    |
+124 | pub const SYS_ENOMEM      : i32 = -1;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_ETIMEOUT`
+   --> src/sensor.rs:126:1
+    |
+126 | pub const SYS_ETIMEOUT    : i32 = -3;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_ENOENT`
+   --> src/sensor.rs:127:1
+    |
+127 | pub const SYS_ENOENT      : i32 = -4;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EIO`
+   --> src/sensor.rs:128:1
+    |
+128 | pub const SYS_EIO         : i32 = -5;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EACCES`
+   --> src/sensor.rs:130:1
+    |
+130 | pub const SYS_EACCES      : i32 = -7;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EBUSY`
+   --> src/sensor.rs:131:1
+    |
+131 | pub const SYS_EBUSY       : i32 = -8;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_ENODEV`
+   --> src/sensor.rs:132:1
+    |
+132 | pub const SYS_ENODEV      : i32 = -9;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_ERANGE`
+   --> src/sensor.rs:133:1
+    |
+133 | pub const SYS_ERANGE      : i32 = -10;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EALREADY`
+   --> src/sensor.rs:134:1
+    |
+134 | pub const SYS_EALREADY    : i32 = -11;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_ENOTSUP`
+   --> src/sensor.rs:135:1
+    |
+135 | pub const SYS_ENOTSUP     : i32 = -12;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EUNKNOWN`
+   --> src/sensor.rs:136:1
+    |
+136 | pub const SYS_EUNKNOWN    : i32 = -13;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EREMOTEIO`
+   --> src/sensor.rs:137:1
+    |
+137 | pub const SYS_EREMOTEIO   : i32 = -14;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EDONE`
+   --> src/sensor.rs:138:1
+    |
+138 | pub const SYS_EDONE       : i32 = -15;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant item is never used: `SYS_EPERUSER`
+   --> src/sensor.rs:139:1
+    |
+139 | pub const SYS_EPERUSER : i32 = -65535;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable `SENSOR_TYPE_AMBIENT_TEMPERATURE` should have a snake case name
+   --> src/listen_sensor.rs:138:13
+    |
+138 |             SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `sensor_type_ambient_temperature`
+    |
+    = note: #[warn(non_snake_case)] on by default
+
+    Finished dev [unoptimized + debuginfo] target(s) in 11.66s
++ cargo metadata --format-version 1
++ set +x
+
+----- Consolidate Rust app and external libraries
++ '[' -d tmprustlib ']'
++ rm -r tmprustlib
++ '[' '!' -d tmprustlib ']'
++ mkdir tmprustlib
++ pushd tmprustlib
+~/mynewt/stm32bluepill-mynewt-sensor/tmprustlib ~/mynewt/stm32bluepill-mynewt-sensor
++ set +x
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libaligned-08120e70a94dcea3.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libaligned-c9df4b2a7b2c8bd1.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libas_slice-2784e236f4bc81c3.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libbare_metal-70a82aa7284aa2dc.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcortex_m-1c57d63c68ee0f80.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcortex_m-7c38d4cecc7edfb7.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcstr_core-002f35632daba805.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcty-0197cbf7a3600457.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libcty-aaa0a2034f77a628.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libgeneric_array-c36cdd01cde97b57.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libmemchr-e5ca130edfba2c24.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libmylib-b003fcb153d61cda.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libstable_deref_trait-fbf528bd5edd2101.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libtypenum-fb96b8ca04273e5e.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libvcell-2b48f180b58ac4b7.rlib
+arm-none-eabi-ar x /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/target/thumbv7m-none-eabi/debug/deps/libvolatile_register-75776a7c47d86126.rlib
+arm-none-eabi-ar r rustlib.a *.o
+arm-none-eabi-ar: creating rustlib.a
++ '[' '!' -d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_app ']'
++ cp rustlib.a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
++ touch /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_app/libs_rust_app.a
++ arm-none-eabi-objdump -t -S --line-numbers --wide rustlib.a
++ arm-none-eabi-objdump -t -S --demangle --line-numbers --wide rustlib.a
++ popd
+~/mynewt/stm32bluepill-mynewt-sensor
++ set +x
+
+----- Copy Rust libcore
+++ rustc --print sysroot --target thumbv7m-none-eabi
++ rust_sysroot=/Users/Luppy/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin
++ rust_libcore_src='/Users/Luppy/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin/lib/rustlib/thumbv7m-none-eabi/lib/libcore-*.rlib'
++ '[' '!' -d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore ']'
++ '[' -e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore/libs_rust_libcore.a ']'
++ rm /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore/libs_rust_libcore.a
++ for f in '$rust_libcore_src'
++ cp /Users/Luppy/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin/lib/rustlib/thumbv7m-none-eabi/lib/libcore-e6b0ad9835323d10.rlib /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore/libs_rust_libcore.a
++ touch /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libs/rust_libcore/libs_rust_libcore.a
++ set +e
++ arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib
++ arm-none-eabi-objdump -t -S --line-numbers --wide target/thumbv7m-none-eabi/debug/libmylib.rlib
++ arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/thumbv7m-none-eabi/debug/libmylib.rlib
++ set -e
++ set +x
+
+----- Build and link Mynewt with Rust app
++ newt build bluepill_my_sensor
+WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
+Building target targets/bluepill_my_sensor
+Linking /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 Target successfully built: targets/bluepill_my_sensor
++ newt size -v bluepill_my_sensor
 WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
 Size of Application Image: app
-Mem FLASH: 0x8004000-0x8010000
+Mem FLASH: 0x8001000-0x8010000
 Mem RAM: 0x20000000-0x20005000
-  FLASH     RAM
-    214     304 *fill*
-   2296       0 libgcc.a
-   2668    1194 apps_my_sensor_app.a
-   1920       0 crypto_tinycrypt.a
-    940       0 encoding_json.a
-    730      64 hw_bsp_bluepill.a
+  FLASH     RAM 
+    297     316 *fill*
+   1450       0 apps_my_sensor_app.a
+   1760       0 crypto_tinycrypt.a
+   2210       0 encoding_tinycbor.a
+    758      84 hw_bsp_bluepill.a
      52       0 hw_cmsis-core.a
      32       0 hw_drivers_adc.a
-    430       0 hw_drivers_uart_uart_hal.a
+    428       0 hw_drivers_uart_uart_hal.a
     154       0 hw_hal.a
-   3170      84 hw_mcu_stm_stm32_common.a
-   5956      32 hw_mcu_stm_stm32f1xx.a
+   6036     372 hw_mcu_stm_stm32_common.a
+   7292      32 hw_mcu_stm_stm32f1xx.a
       2       0 hw_sensor_creator.a
-   1526     260 hw_sensor.a
-   6772    8217 kernel_os.a
-   2672      50 libc_baselibc.a
-   1119     268 libs_adc_stm32f1.a
-   5124    1622 libs_esp8266.a
-    348     360 libs_hmac_prng.a
-    889    2088 libs_semihosting_console.a
-   1164     225 libs_sensor_coap.a
-   1106     240 libs_temp_stm32.a
-   2451     394 net_oic.a
-    330     128 sys_flash_map.a
+   1528     260 hw_sensor.a
+   6658    8217 kernel_os.a
+   2598      44 libc_baselibc.a
+   1129     268 libs_adc_stm32f1.a
+   5179    1626 libs_esp8266.a
+    332     360 libs_hmac_prng.a
+    174       0 libs_mynewt_rust.a
+   6028     203 libs_nrf24l01.a
+   1647    1192 libs_remote_sensor.a
+   3511      24 libs_rust_app.a
+    158       0 libs_rust_libcore.a
+    675      40 libs_semihosting_console.a
+     40       9 libs_sensor_coap.a
+    847     139 libs_sensor_network.a
+   1063     240 libs_temp_stm32.a
+   2179     388 net_oic.a
+    334     128 sys_flash_map.a
       2       0 sys_log_modlog.a
-    682      29 sys_mfg.a
+    686      29 sys_mfg.a
      30       5 sys_sysinit.a
      48       0 util_mem.a
-    148       0 bluepill_my_sensor-sysinit-app.a
-Loading compiler /mnt/c/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
+    160       0 bluepill_my_sensor-sysinit-app.a
+    932       0 libgcc.a
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-  42890     232   15364   58486    e476 /mnt/c/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+  56322     276   13732   70330   112ba /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ✅ ◾ ️Done!
+
+Terminal will be reused by tasks, press any key to close it.
