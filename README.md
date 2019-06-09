@@ -96,15 +96,15 @@ Check the article...
     https://github.com/lupyuen/stm32bluepill-mynewt-sensor/tree/rust
     ```
 
-    Note: This is the `rust` branch of the repository that contains the Rust and Mynewt application.
+    _Note: This is the `rust` branch of the repository that contains Mynewt with Rust support_
 
 1. When prompted to `Select Repository Location…`
 
-    For Windows: Select your `Local Disk C:` drive
+    _For Windows:_ Select your `Local Disk C:` drive
 
-    For macOS: Select your `Home` folder
+    _For macOS:_ Select your `Home` folder
 
-    (If you have previously downloaded `stm32bluepill-mynewt-sensor`, rename the old folder before downloading)
+    If you have previously downloaded `stm32bluepill-mynewt-sensor`, rename the old folder before downloading
 
     The source code will be downloaded to `C:\stm32bluepill-mynewt-sensor` (Windows) or `$HOME/stm32bluepill-mynewt-sensor` (macOS)
 
@@ -122,34 +122,13 @@ Check the article...
 
 1. The setup script will take a few minutes to download and install the build tools.
 
-    When it’s done, we should see Done!
+    When it’s done, we should see `Done!`
 
 1. Exit and restart Visual Studio Code. This activates the installed extensions.
 
 1. In case of problems, compare your log with the setup log below:
 
     [Windows Setup Log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/logs/install-windows.log)
-
-
-# Build Bootloader and Application (Windows and macOS)
-
-1. Click 
-    `Terminal → Run Task → 
-    [1] Build bluepill_boot`
-
-1. Click `Terminal → Run Task → 
-    [2] Build bluepill_my_sensor`
-
-1. Click `Terminal → Run Task → 
-    [3] Image bluepill_my_sensor`
-
-# Flash Bootloader and Application to Blue Pill (Windows and macOS)
-
-1. Click `Terminal → Run Task → 
-[4] Load bluepill_boot`
-
-1. Click `Terminal → Run Task → 
-[5] Load bluepill_my_sensor`
 
 # Install Rust (Windows)
 
@@ -202,12 +181,48 @@ Check the article...
 
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
     ```
+# Build and Flash Bootloader and Application (Windows and macOS)
+
+## _Build Bootloader_
+
+Click 
+    `Terminal → Run Task → 
+    [1] Build bluepill_boot`
+
+## _Flash Bootloader to Blue Pill_
+
+1. Connect ST-Link to Blue Pill and the USB port
+
+1. Click `Terminal → Run Task → 
+[4] Load bluepill_boot`
+
+## _Build Application_ 
+
+1. Click `Terminal → Run Task → 
+    [2] Build bluepill_my_sensor`
+
+1. Click `Terminal → Run Task → 
+    [3] Image bluepill_my_sensor`
+
+## _Flash Application to Blue Pill_
+
+1. Connect ST-Link to Blue Pill and the USB port
+
+1. Click `Terminal → Run Task → 
+[5] Load bluepill_my_sensor`
 
 # Run The Application (Windows and macOS)
 
+1. Connect ST-Link to Blue Pill and the USB port
+
 1. Click `Debug → Start Debugging`
 
+1. To re-run the application after making code changes:
 
+    Click `Terminal → Run Task → 
+    [2] Build bluepill_my_sensor`
+
+    Click `Debug → Start Debugging`
 
 # Installation, Build, Flash and Debug Logs
 
