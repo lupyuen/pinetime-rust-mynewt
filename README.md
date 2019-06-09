@@ -142,15 +142,11 @@ _(Rust on Windows is needed to support the Rust RLS extension for Visual Studio 
 
     Click `Run Anyway`
 
-1.  Enter into the command prompt:
+1.  Open the Windows Command Prompt (not Windows Ubuntu).  Enter into the command prompt:
     ```
     c:
     cd \stm32bluepill-mynewt-sensor
-    cd $HOME/stm32bluepill-mynewt-sensor
-    cd /mnt/c/stm32bluepill-mynewt-sensor
-
     rustup update
-
     rustc -V
     ```
 
@@ -160,10 +156,9 @@ _(Rust on Windows is needed to support the Rust RLS extension for Visual Studio 
     rustc 1.36.0-nightly (50a0defd5 2019-05-21)
     ```
 
-1.  Enter into the command prompt:
+1.  Enter into the Windows Command Prompt (not Windows Ubuntu):
     ```
     rustup target add thumbv7m-none-eabi
-
     rustup component add rls rust-analysis rust-src
     ```
 
@@ -171,11 +166,8 @@ _(Rust on Windows is needed to support the Rust RLS extension for Visual Studio 
 
     ```
     rustup override set nightly-2019-05-22
-
     rustup target add thumbv7m-none-eabi
-
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
-
     ```
 
     The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
@@ -187,18 +179,16 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
 1. Click `Windows → Ubuntu`
 
-1. Enter into the Windows Ubuntu command prompt:
+1. Enter into the Windows Ubuntu command prompt (not Windows Command Prompt):
 
     ```
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-1.  Enter into the Windows Ubuntu command prompt:
+1.  Enter into the Windows Ubuntu command prompt (not Windows Command Prompt):
     ```
     cd /mnt/c/stm32bluepill-mynewt-sensor
-
     rustup update
-
     rustc -V
     ```
 
@@ -208,10 +198,9 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
     rustc 1.36.0-nightly (50a0defd5 2019-05-21)
     ```
 
-1.  Enter into the Windows Ubuntu command prompt:
+1.  Enter into the Windows Ubuntu command prompt (not Windows Command Prompt):
     ```
     rustup target add thumbv7m-none-eabi
-
     rustup component add rls rust-analysis rust-src
     ```
 
@@ -219,27 +208,18 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
     ```
     rustup override set nightly-2019-05-22
-
     rustup target add thumbv7m-none-eabi
-
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
-
     ```
 
 # Install Rust (macOS)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
-# Install Rust Target for Windows and macOS
-
 1.  Enter into the command prompt:
     ```
-    cd stm32bluepill-mynewt-sensor
     cd $HOME/stm32bluepill-mynewt-sensor
-    cd /mnt/c/stm32bluepill-mynewt-sensor
-
     rustup update
-
     rustc -V
     ```
 
@@ -252,7 +232,6 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 1.  Enter into the command prompt:
     ```
     rustup target add thumbv7m-none-eabi
-
     rustup component add rls rust-analysis rust-src
     ```
 
@@ -260,11 +239,8 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
     ```
     rustup override set nightly-2019-05-22
-
     rustup target add thumbv7m-none-eabi
-
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
-
     ```
 
     The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
