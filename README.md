@@ -68,7 +68,7 @@ Check the article...
     https://github.com/lupyuen/stm32bluepill-mynewt-sensor/tree/rust
     ```
 
-    This is the `rust` branch of the repository that contains the Rust and Mynewt application.
+    Note: This is the `rust` branch of the repository that contains the Rust and Mynewt application.
 
 1. When prompted to `Select Repository Location…`
 
