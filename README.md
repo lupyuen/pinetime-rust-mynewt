@@ -60,7 +60,7 @@ In case of problems, compare your log with this [setup log](https://github.com/l
 
 # Install Rust
 
-1.  Install `rustup` by following the instructions at https://rustup.rs.
+1.  Install `rustup` according to the instructions at https://rustup.rs
 
 
 ```
