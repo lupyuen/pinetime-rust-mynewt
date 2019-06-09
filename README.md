@@ -102,7 +102,7 @@ Check the article...
 
     [Windows Setup Log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/logs/install-windows.log)
 
-# Windows
+# Install ST-Link Driver and Arm Cross-Compiler (Windows)
 
 1. Download the ST-Link USB driver from
 
@@ -131,58 +131,27 @@ Check the article...
     `"Add path to environment variable"`
 
 
-# Build Bootloader and Application
+# Build Bootloader and Application (Windows and macOS)
 
-Click 
-Terminal → Run Task → 
-[1] Build bluepill_boot
+1. Click 
+    `Terminal → Run Task → 
+    [1] Build bluepill_boot`
 
-Terminal → Run Task → 
-[2] Build bluepill_my_sensor
+1. Click `Terminal → Run Task → 
+    [2] Build bluepill_my_sensor`
 
-Terminal → Run Task → 
-[3] Image bluepill_my_sensor
+1. Click `Terminal → Run Task → 
+    [3] Image bluepill_my_sensor`
 
-# Flash Bootloader and Application to Blue Pill
+# Flash Bootloader and Application to Blue Pill (Windows and macOS)
 
-Terminal → Run Task → 
-[4] Load bluepill_boot
+1. Click `Terminal → Run Task → 
+[4] Load bluepill_boot`
 
-Terminal → Run Task → 
-[5] Load bluepill_my_sensor
+1. Click `Terminal → Run Task → 
+[5] Load bluepill_my_sensor`
 
-# Run The Application
-
-Click Debug → Start Debugging
-
-4️⃣ Section “Run The Application” of the previous tutorial
-
-To install Apache Mynewt for Windows and macOS, refer to the tutorials...
-
-1.  [_Build Your IoT Sensor Network — STM32 Blue Pill + nRF24L01 + ESP8266 + Apache Mynewt + thethings.io_](https://medium.com/@ly.lee/build-your-iot-sensor-network-stm32-blue-pill-nrf24l01-esp8266-apache-mynewt-thethings-io-ca7486523f5d)
-
-1.  [_Connect STM32 Blue Pill to ESP8266 with Apache Mynewt_](https://medium.com/@ly.lee/connect-stm32-blue-pill-to-esp8266-with-apache-mynewt-7edceb9e3b8d?source=friends_link&sk=df729a82533d817ec6b2d9b626b6f66b)
-
-1.  [_Create your IoT gadget with Apache Mynewt and STM32 Blue Pill_](https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725?source=friends_link&sk=d511426d5a2217ebd06789b3eef7df54)
-
-# Install Apache Mynewt for Ubuntu Linux
-
-1.  Install and launch Video Studio Code
-
-1.  Click `Terminal → Run Task`
-
-1.  Select `[0] Install Apache Mynewt`
-
-1.  When prompted, click on the `Terminal` pane and enter the `sudo` password. The password only needs to be entered once.
-
-1.  The [setup script](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/scripts/install-linux.sh) will take a few minutes to download and install the build tools.  When it’s done, we should see Done!
-
-1.  Exit and restart Visual Studio Code. This activates the installed extensions.
-
-In case of problems, compare your log with this [setup log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/logs/install-linux.log).
-
-
-# Install Rust on Windows
+# Install Rust (Windows)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
@@ -192,7 +161,7 @@ In case of problems, compare your log with this [setup log](https://github.com/l
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
-# Install Rust on macOS
+# Install Rust (macOS)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
@@ -234,36 +203,10 @@ In case of problems, compare your log with this [setup log](https://github.com/l
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
     ```
 
+# Run The Application (Windows and macOS)
 
+1. Click `Debug → Start Debugging`
 
-```
-
-
------
-
-
-
------
-
-libcore
-
-target/.rustc_info.json
-<<
-        "16168332780710089770": [
-            "___\nlib___.rlib\nlib___.a\n/Users/Luppy/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin\ndebug_assertions\nproc_macro\ntarget_arch=\"arm\"\ntarget_endian=\"little\"\ntarget_env=\"\"\ntarget_feature=\"mclass\"\ntarget_feature=\"v5te\"\ntarget_feature=\"v6\"\ntarget_feature=\"v6k\"\ntarget_feature=\"v6t2\"\ntarget_feature=\"v7\"\ntarget_has_atomic=\"16\"\ntarget_has_atomic=\"32\"\ntarget_has_atomic=\"8\"\ntarget_has_atomic=\"cas\"\ntarget_has_atomic=\"ptr\"\ntarget_os=\"none\"\ntarget_pointer_width=\"32\"\ntarget_vendor=\"\"\n",
-            "warning: dropping unsupported crate type `dylib` for target `thumbv7m-none-eabi`\n\nwarning: dropping unsupported crate type `cdylib` for target `thumbv7m-none-eabi`\n\nwarning: dropping unsupported crate type `proc-macro` for target `thumbv7m-none-eabi`\n\n"
-        ],
->>
-
-copy libcore*.rlib from 
-~/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin/lib/rustlib/thumbv7m-none-eabi/lib
-~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/thumbv7m-none-eabi/lib
-to
-libs/rust_libcore/src
-
------
-
-```
 
 
 # Installation, Build, Flash and Debug Logs
