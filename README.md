@@ -33,90 +33,102 @@ Check the article...
 
 1. ST-Link V2 USB Adapter ([or compatible](https://www.lazada.sg/-i105322107-s106873847.html?urlFlag=true&mp=1)). [Connect Blue Pill to ST-Link like this](https://gist.github.com/lupyuen/30c6197403878630c0cd0630f8fce71b)
 
-# Install Windows Subsystem for Linux
+# Install Windows Subsystem for Linux (Windows)
 
-Follow the instructions in this article to install Windows Subsystem for Linux.
-https://docs.microsoft.com/en-us/windows/wsl/install-win10
+1. Follow the instructions [in this article](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to install Windows Subsystem for Linux
 
-The PowerShell command in the article should be run as Administrator…
 
-Right-click Windows PowerShell in the Windows menu
+1. The PowerShell command in the article should be run as Administrator…
 
-Select Run As Administrator
+    Right-click `Windows PowerShell` in the Windows menu
 
-For the Linux Distribution,
-select Ubuntu
+    Select `Run As Administrator`
 
-Click Get
+1. For the `Linux Distribution`, select `Ubuntu`
 
-Click Windows → Ubuntu
+1. Click `Get`
 
-When prompted, enter a simple user ID (e.g. user) without any spaces.
+1. Click `Windows → Ubuntu`
 
-Enter a password of your choice.
+1. When prompted, enter a simple user ID (e.g. `user`) without any spaces
 
-# Install Apache Mynewt for Windows and macOS
+1. Enter a password of your choice
 
-1️⃣ Install Visual Studio Code if you haven’t. Launch Visual Studio Code.
+# Install Apache Mynewt (Windows and macOS)
 
-2️⃣ Click View → Command Palette
+1. Install [Visual Studio Code](https://code.visualstudio.com/) if you haven’t. Launch Visual Studio Code.
 
-3️⃣ Type git clone then press Enter
+1. Click `View → Command Palette`
 
-4️⃣ For Repository URL, enter
+1. Type `git clone` then press Enter
 
-https://github.com/lupyuen/stm32bluepill-mynewt-sensor
+1. For `Repository URL`, enter
 
-5️⃣ When prompted to Select Repository Location…
+    ```
+    https://github.com/lupyuen/stm32bluepill-mynewt-sensor/tree/rust
+    ```
 
-For Windows: Select your Local Disk C: drive
+    This is the `rust` branch of the repository that contains the Rust and Mynewt application.
 
-For macOS: Select your Home folder
+1. When prompted to `Select Repository Location…`
 
-(If you have previously downloaded stm32bluepill-mynewt-sensor, rename the old folder before downloading)
+    For Windows: Select your `Local Disk C:` drive
 
-The Mynewt Sensor Application source code will be downloaded to C:\stm32bluepill-mynewt-sensor (Windows) or $HOME/stm32bluepill-mynewt-sensor (macOS)
+    For macOS: Select your `Home` folder
 
-6️⃣ When prompted, click Open Repository and Open Workspace
+    (If you have previously downloaded `stm32bluepill-mynewt-sensor`, rename the old folder before downloading)
 
-Click Terminal → Run Task
+    The source code will be downloaded to `C:\stm32bluepill-mynewt-sensor` (Windows) or `$HOME/stm32bluepill-mynewt-sensor` (macOS)
 
-Select [0] Install Apache Mynewt
+1. When prompted, click `Open Repository` and `Open Workspace`
 
-When prompted, click Continue Without Scanning The Task Output
+1. Click `Terminal → Run Task`
 
-5️⃣ When prompted, click on the Terminal pane and enter the password from Step 2️⃣
+1. Select `[0] Install Apache Mynewt`
 
-The password only needs to be entered once.
+1. When prompted, click `Continue Without Scanning The Task Output`
 
-6️⃣ The setup script will take a few minutes to download and install the build tools.
+1. When prompted, click on the Terminal pane and enter the password from the _"Install Windows Subsystem for Linux"_ steps above. For macOS, enter your user password.
 
-When it’s done, we should see Done!
+    The password only needs to be entered once.
 
-Exit and restart Visual Studio Code. This activates the installed extensions.
+1. The setup script will take a few minutes to download and install the build tools.
 
-In case of problems, compare your log with this setup log.
+    When it’s done, we should see Done!
+
+1. Exit and restart Visual Studio Code. This activates the installed extensions.
+
+1. In case of problems, compare your log with the setup log below:
+
+    [Windows Setup Log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/logs/install-windows.log)
 
 # Windows
 
-Download the ST-Link USB driver from
-► ST-Link Driver Website (email registration required)
-Click Get Software
-https://www.st.com/en/development-tools/stsw-link009.html
+1. Download the ST-Link USB driver from
 
-Unzip the downloaded file. Double-click the driver installer: 
-dpinst_amd64.exe
+    [ST-Link Driver Website](https://www.st.com/en/development-tools/stsw-link009.html) (email registration required)
 
-Install Arm Cross-Compiler and Linker for Windows from
-► Arm Developer Website
-https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+    Click `Get Software`
 
-Look for the first Windows 32-bit Download without SHA, e.g. 
-gcc-arm-none-eabi-...-major-win32.exe
-Click Download
+1. Unzip the downloaded file. Double-click the driver installer: 
 
-Select this option at the last install step: 
-"Add path to environment variable"
+    `dpinst_amd64.exe`
+
+1. Install Arm Cross-Compiler and Linker for Windows from
+
+    [Arm Developer Website](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+
+1. Look for the first Windows 32-bit Download without SHA, e.g. 
+
+    `gcc-arm-none-eabi-...-major-win32.exe`
+
+1. Click `Download`
+
+1. Run the installer
+
+1. Select this option at the last install step: 
+    
+    `"Add path to environment variable"`
 
 
 # Build Bootloader and Application
