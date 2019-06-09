@@ -212,6 +212,8 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
     ```
 
+    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder.
+
 # Install Rust (macOS)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
@@ -269,6 +271,8 @@ Click
 1. Click `Terminal → Run Task → 
     [3] Image bluepill_my_sensor`
 
+1. [Check this video](https://youtu.be/QTTqRlsiBfk) for the build process
+
 ## _Flash Application to Blue Pill_
 
 1. Connect ST-Link to Blue Pill and the USB port
@@ -281,6 +285,8 @@ Click
 1. Connect ST-Link to Blue Pill and the USB port
 
 1. Click `Debug → Start Debugging`
+
+1. [Check this video](https://youtu.be/Pj3pl6GaztU) for the debug steps
 
 1. To re-run the application after making code changes:
 
