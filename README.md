@@ -35,6 +35,8 @@ Check the article...
 
 # Install Windows Subsystem for Linux (Windows)
 
+_(Windows Subsystem for Linux is needed for building Rust and Mynewt programs)_
+
 1. Follow the instructions [in this article](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to install Windows Subsystem for Linux
 
 
@@ -132,12 +134,96 @@ Check the article...
 
 # Install Rust (Windows)
 
+_(Rust on Windows is needed to support the Rust RLS extension for Visual Studio Code)_
+
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
-    ```
-    rustup‑init.exe, run anyway
+1.  When downloading `rustup‑init.exe`, Windows may block the execution. 
 
+    Click `Run Anyway`
+
+1.  Enter into the command prompt:
+    ```
+    c:
+    cd \stm32bluepill-mynewt-sensor
+    cd $HOME/stm32bluepill-mynewt-sensor
+    cd /mnt/c/stm32bluepill-mynewt-sensor
+
+    rustup update
+
+    rustc -V
+    ```
+
+    The reported version of `rustc` should be `1.36.0` or later:
+
+    ```
+    rustc 1.36.0-nightly (50a0defd5 2019-05-21)
+    ```
+
+1.  Enter into the command prompt:
+    ```
+    rustup target add thumbv7m-none-eabi
+
+    rustup component add rls rust-analysis rust-src
+    ```
+
+    If you see an error like `error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`, enter these commands to select an older working build of RLS (2019-05-22)...
+
+    ```
+    rustup override set nightly-2019-05-22
+
+    rustup target add thumbv7m-none-eabi
+
+    rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
+
+    ```
+
+    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
+    https://rust-lang.github.io/rustup-components-history/
+
+# Install Rust on Windows Subsystem for Linux (Windows)
+
+_(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt programs)_
+
+1. Click `Windows → Ubuntu`
+
+1. Enter into the Windows Ubuntu command prompt:
+
+    ```
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+1.  Enter into the Windows Ubuntu command prompt:
+    ```
+    cd /mnt/c/stm32bluepill-mynewt-sensor
+
+    rustup update
+
+    rustc -V
+    ```
+
+    The reported version of `rustc` should be `1.36.0` or later:
+
+    ```
+    rustc 1.36.0-nightly (50a0defd5 2019-05-21)
+    ```
+
+1.  Enter into the Windows Ubuntu command prompt:
+    ```
+    rustup target add thumbv7m-none-eabi
+
+    rustup component add rls rust-analysis rust-src
+    ```
+
+    If you see an error like `error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`, enter these commands to select an older working build of RLS (2019-05-22)...
+
+    ```
+    rustup override set nightly-2019-05-22
+
+    rustup target add thumbv7m-none-eabi
+
+    rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
+
     ```
 
 # Install Rust (macOS)
@@ -154,8 +240,6 @@ Check the article...
 
     rustup update
 
-    rustup target add thumbv7m-none-eabi
-
     rustc -V
     ```
 
@@ -163,24 +247,29 @@ Check the article...
 
     ```
     rustc 1.36.0-nightly (50a0defd5 2019-05-21)
-
     ```
 
+1.  Enter into the command prompt:
     ```
+    rustup target add thumbv7m-none-eabi
+
     rustup component add rls rust-analysis rust-src
+    ```
 
-    error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'
+    If you see an error like `error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`, enter these commands to select an older working build of RLS (2019-05-22)...
 
-    check
-    https://rust-lang.github.io/rustup-components-history/
-    rls: Last available - 2019-05-22
-
+    ```
     rustup override set nightly-2019-05-22
 
     rustup target add thumbv7m-none-eabi
 
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
+
     ```
+
+    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
+    https://rust-lang.github.io/rustup-components-history/
+    
 # Build and Flash Bootloader and Application (Windows and macOS)
 
 ## _Build Bootloader_
