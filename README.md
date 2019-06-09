@@ -19,17 +19,52 @@
 #
 -->
 
-# Apache Mynewt Sensor Network Application for STM32 Blue Pill with ESP8266 and nRF24L01 (includes Geolocation)
+# Embedded Rust Application hosted on Apache Mynewt for STM32 Blue Pill
 
-Check the tutorial...
+_Note: This is the `rust` branch that contains a Rust application hosted on Mynewt_
 
-[_Build Your IoT Sensor Network — STM32 Blue Pill + nRF24L01 + ESP8266 + Apache Mynewt + thethings.io_](https://medium.com/@ly.lee/build-your-iot-sensor-network-stm32-blue-pill-nrf24l01-esp8266-apache-mynewt-thethings-io-ca7486523f5d)
+Check the article...
 
-# TODO: Hosting Rust Apps on Apache Mynewt
+[_Hosting Embedded Rust apps on Apache Mynewt with STM32 Blue Pill_](https://medium.com/@ly.lee/hosting-embedded-rust-apps-on-apache-mynewt-with-stm32-blue-pill-c86b119fe5f)
+
+# Requirements
+
+1. STM32 Blue Pill or [_Super Blue Pill_](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
+
+# Install Apache Mynewt for Windows and macOS
+
+To install Apache Mynewt for Windows and macOS, refer to the tutorials...
+
+1.  [_Build Your IoT Sensor Network — STM32 Blue Pill + nRF24L01 + ESP8266 + Apache Mynewt + thethings.io_](https://medium.com/@ly.lee/build-your-iot-sensor-network-stm32-blue-pill-nrf24l01-esp8266-apache-mynewt-thethings-io-ca7486523f5d)
+
+1.  [_Connect STM32 Blue Pill to ESP8266 with Apache Mynewt_](https://medium.com/@ly.lee/connect-stm32-blue-pill-to-esp8266-with-apache-mynewt-7edceb9e3b8d?source=friends_link&sk=df729a82533d817ec6b2d9b626b6f66b)
+
+1.  [_Create your IoT gadget with Apache Mynewt and STM32 Blue Pill_](https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725?source=friends_link&sk=d511426d5a2217ebd06789b3eef7df54)
+
+# Install Apache Mynewt for Ubuntu Linux
+
+1.  Launch Video Studio Code
+
+1.  Click `Terminal → Run Task`
+
+1.  Select `[0] Install Apache Mynewt`
+
+1.  When prompted, click on the `Terminal` pane and enter the `sudo` password. The password only needs to be entered once.
+
+1.  The [setup script](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/scripts/install-linux.sh) will take a few minutes to download and install the build tools.  When it’s done, we should see Done!
+
+1.  Exit and restart Visual Studio Code. This activates the installed extensions.
+
+In case of problems, compare your log with this [setup log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/logs/install-linux.log).
+
+
+# Install Rust
+
+1.  Install `rustup` by following the instructions at https://rustup.rs.
+
 
 ```
 
-Install rustup by following the instructions at https://rustup.rs.
 
 macOS:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -87,18 +122,22 @@ libs/rust_libcore/src
 
 ```
 
-# panic_immediate_abort
 
-To remote core::fmt for panic:
+# Installation, Build, Flash and Debug Logs
 
-https://github.com/rust-lang/rust/blob/master/src/libcore/panicking.rs
-
+Sample logs for Windows and Ubuntu Linux may be found in the [logs folder](logs)
 
 # Contents
 
 This repository contains...
 
-1. [`my_sensor_app`](apps/my_sensor_app): Sensor Network Application
+1. [`src`](src): Rust Application
+
+1. [`Cargo.toml`](Cargo.toml): Rust Build Settings
+
+1. [`.cargo`](.cargo): Rust Target Settings
+
+1. [`my_sensor_app`](apps/my_sensor_app): Mynewt Application Stub
 
 1. [`boot_stub`](apps/boot_stub): Mynewt Bootloader Stub
 
@@ -122,108 +161,10 @@ This repository contains...
 
 1. [`temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
 
-# Requirements
+1. [`scripts`](scripts): Install, build and deploy scripts
 
-1. STM32 Blue Pill or [_Super Blue Pill_](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
+1. [`.vscode`](.vscode): Visual Studio Code macros for install, build and deploy
 
-1. ESP8266 or nRF24L01 or both
-
-# Configuration
-
-The program runs in 4 modes:
-
-<b>1️⃣ Standalone Node (Blue Pill with ESP8266):</b> The program polls the 
-Blue Pill internal temperature sensor every 10 seconds and transmits the 
-sensor data (JSON format) to a CoAP (UDP) Server, such as thethings.io.  
-
-Edit the settings in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
-
-```yml
-syscfg.vals:
-    # TUTORIAL1: 1
-    TUTORIAL2: 1
-    # TUTORIAL3: 1
-    ...
-```
-
-<b>2️⃣ Sensor Node (Blue Pill with nRF24L01):</b> The program polls the 
-Blue Pill internal temperature sensor every 10 seconds and transmits the 
-sensor data (CBOR format) to the Collector Node.  
-
-Edit the settings 
-in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
-
-```yml
-syscfg.vals:
-    # TUTORIAL1: 1
-    # TUTORIAL2: 1
-    TUTORIAL3: 1
-    ...
-```
-
-Set `SENSOR_NODE_HW_ID_1` to the Hardware ID of the Blue Pill.
-
-<b>3️⃣ Collector Node (Blue Pill with nRF24L01 and ESP8266):</b> The program
-receives sensor data (CBOR format) from the Sensor Node, and transmits the 
-sensor data (JSON format) to a CoAP (UDP) Server, such as thethings.io.
-
-Edit the settings in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
-
-```yml
-syscfg.vals:
-    # TUTORIAL1: 1
-    # TUTORIAL2: 1
-    TUTORIAL3: 1
-    ...
-```
-
-Set `COLLECTOR_NODE_HW_ID` to the Hardware ID of the Blue Pill.
-
-<b>4️⃣ WiFi Geolocation (Blue Pill with ESP8266):</b> The program sends WiFi Access Point MAC Addresses and Signal Strength scanned by ESP8266 to a CoAP (UDP) Server, such as thethings.io.  See https://github.com/lupyuen/thethingsio-wifi-geolocation
-
-thethings.io will call the Google Geolocation API to compute the latitude and longitude based on the WiFi data.  For public display, the computed geolocation is pushed to a web application hosted on Google Cloud App Engine. See https://github.com/lupyuen/gcloud-wifi-geolocation
-
-Edit the settings in `targets/bluepill_my_sensor/syscfg.yml` as follows: 
-
-```yml
-syscfg.vals:
-    # TUTORIAL1: 1
-    TUTORIAL2: 1
-    # TUTORIAL3: 1
-    WIFI_GEOLOCATION: 1
-    ...
-```
-
-# Install Apache Mynewt for Windows and macOS
-
-To install Apache Mynewt for Windows and macOS, refer to the tutorials...
-
-1.  [_Build Your IoT Sensor Network — STM32 Blue Pill + nRF24L01 + ESP8266 + Apache Mynewt + thethings.io_](https://medium.com/@ly.lee/build-your-iot-sensor-network-stm32-blue-pill-nrf24l01-esp8266-apache-mynewt-thethings-io-ca7486523f5d)
-
-1.  [_Connect STM32 Blue Pill to ESP8266 with Apache Mynewt_](https://medium.com/@ly.lee/connect-stm32-blue-pill-to-esp8266-with-apache-mynewt-7edceb9e3b8d?source=friends_link&sk=df729a82533d817ec6b2d9b626b6f66b)
-
-1.  [_Create your IoT gadget with Apache Mynewt and STM32 Blue Pill_](https://medium.com/@ly.lee/create-your-iot-gadget-with-apache-mynewt-and-stm32-blue-pill-d689b3ca725?source=friends_link&sk=d511426d5a2217ebd06789b3eef7df54)
-
-# Install Apache Mynewt for Ubuntu Linux
-
-1.  Launch Video Studio Code
-
-1.  Click `Terminal → Run Task`
-
-1.  Select `[0] Install Apache Mynewt`
-
-1.  When prompted, click on the `Terminal` pane and enter the `sudo` password. The password only needs to be entered once.
-
-1.  The [setup script](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/scripts/install-linux.sh) will take a few minutes to download and install the build tools.  When it’s done, we should see Done!
-
-1.  Exit and restart Visual Studio Code. This activates the installed extensions.
-
-In case of problems, compare your log with this [setup log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/logs/install-linux.log).
-
-
-# Installation, Build, Flash and Debug Logs
-
-Sample logs for Windows and Ubuntu Linux may be found in the [logs folder](logs)
 
 # How This Application Was Created
 
