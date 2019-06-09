@@ -43,7 +43,7 @@ To install Apache Mynewt for Windows and macOS, refer to the tutorials...
 
 # Install Apache Mynewt for Ubuntu Linux
 
-1.  Launch Video Studio Code
+1.  Install and launch Video Studio Code
 
 1.  Click `Terminal → Run Task`
 
@@ -58,9 +58,33 @@ To install Apache Mynewt for Windows and macOS, refer to the tutorials...
 In case of problems, compare your log with this [setup log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/logs/install-linux.log).
 
 
-# Install Rust
+# Install Rust on Windows
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
+
+# Install Rust on macOS
+
+1.  Install `rustup` according to the instructions at https://rustup.rs
+
+# Install Rust Target for Windows and macOS
+
+1.  Enter into the command prompt:
+    ```
+    rustup update
+
+    rustup target add thumbv7m-none-eabi
+
+    rustc -V
+    ```
+
+    The reported version of `rustc` should be `1.36.0` or later:
+
+    ```
+    rustc 1.36.0-nightly (50a0defd5 2019-05-21)
+
+    ```
+
+
 
 
 ```
@@ -73,15 +97,7 @@ rustup update
 Windows: 
 rustup‑init.exe, run anyway
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update
 
-rustc -V
-rustc 1.35.0 (3c235d560 2019-05-20)
-or
-rustc 1.36.0-nightly (50a0defd5 2019-05-21)
-or later
-
-rustup target add thumbv7m-none-eabi
 
 
 -----
