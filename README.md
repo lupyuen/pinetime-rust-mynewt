@@ -54,6 +54,34 @@ Check the article...
 
 1. Enter a password of your choice
 
+# Install ST-Link Driver and Arm Cross-Compiler (Windows)
+
+1. Download the ST-Link USB driver from
+
+    [ST-Link Driver Website](https://www.st.com/en/development-tools/stsw-link009.html) (email registration required)
+
+    Click `Get Software`
+
+1. Unzip the downloaded file. Double-click the driver installer: 
+
+    `dpinst_amd64.exe`
+
+1. Install Arm Cross-Compiler and Linker for Windows from
+
+    [Arm Developer Website](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+
+1. Look for the first Windows 32-bit Download without SHA, e.g. 
+
+    `gcc-arm-none-eabi-...-major-win32.exe`
+
+1. Click `Download`
+
+1. Run the installer
+
+1. Select this option at the last install step: 
+    
+    `"Add path to environment variable"`
+
 # Install Apache Mynewt (Windows and macOS)
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/) if you haven’t. Launch Visual Studio Code.
@@ -101,34 +129,6 @@ Check the article...
 1. In case of problems, compare your log with the setup log below:
 
     [Windows Setup Log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/logs/install-windows.log)
-
-# Install ST-Link Driver and Arm Cross-Compiler (Windows)
-
-1. Download the ST-Link USB driver from
-
-    [ST-Link Driver Website](https://www.st.com/en/development-tools/stsw-link009.html) (email registration required)
-
-    Click `Get Software`
-
-1. Unzip the downloaded file. Double-click the driver installer: 
-
-    `dpinst_amd64.exe`
-
-1. Install Arm Cross-Compiler and Linker for Windows from
-
-    [Arm Developer Website](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
-
-1. Look for the first Windows 32-bit Download without SHA, e.g. 
-
-    `gcc-arm-none-eabi-...-major-win32.exe`
-
-1. Click `Download`
-
-1. Run the installer
-
-1. Select this option at the last install step: 
-    
-    `"Add path to environment variable"`
 
 
 # Build Bootloader and Application (Windows and macOS)
