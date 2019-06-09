@@ -29,9 +29,121 @@ Check the article...
 
 # Requirements
 
-1. STM32 Blue Pill or [_Super Blue Pill_](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
+1. [STM32 Blue Pill](http://wiki.stm32duino.com/index.php?title=Blue_Pill) or [Super Blue Pill](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
+
+1. ST-Link V2 USB Adapter ([or compatible](https://www.lazada.sg/-i105322107-s106873847.html?urlFlag=true&mp=1)). [Connect Blue Pill to ST-Link like this](https://gist.github.com/lupyuen/30c6197403878630c0cd0630f8fce71b)
+
+# Install Windows Subsystem for Linux
+
+Follow the instructions in this article to install Windows Subsystem for Linux.
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+The PowerShell command in the article should be run as Administrator…
+
+Right-click Windows PowerShell in the Windows menu
+
+Select Run As Administrator
+
+For the Linux Distribution,
+select Ubuntu
+
+Click Get
+
+Click Windows → Ubuntu
+
+When prompted, enter a simple user ID (e.g. user) without any spaces.
+
+Enter a password of your choice.
 
 # Install Apache Mynewt for Windows and macOS
+
+1️⃣ Install Visual Studio Code if you haven’t. Launch Visual Studio Code.
+
+2️⃣ Click View → Command Palette
+
+3️⃣ Type git clone then press Enter
+
+4️⃣ For Repository URL, enter
+
+https://github.com/lupyuen/stm32bluepill-mynewt-sensor
+
+5️⃣ When prompted to Select Repository Location…
+
+For Windows: Select your Local Disk C: drive
+
+For macOS: Select your Home folder
+
+(If you have previously downloaded stm32bluepill-mynewt-sensor, rename the old folder before downloading)
+
+The Mynewt Sensor Application source code will be downloaded to C:\stm32bluepill-mynewt-sensor (Windows) or $HOME/stm32bluepill-mynewt-sensor (macOS)
+
+6️⃣ When prompted, click Open Repository and Open Workspace
+
+Click Terminal → Run Task
+
+Select [0] Install Apache Mynewt
+
+When prompted, click Continue Without Scanning The Task Output
+
+5️⃣ When prompted, click on the Terminal pane and enter the password from Step 2️⃣
+
+The password only needs to be entered once.
+
+6️⃣ The setup script will take a few minutes to download and install the build tools.
+
+When it’s done, we should see Done!
+
+Exit and restart Visual Studio Code. This activates the installed extensions.
+
+In case of problems, compare your log with this setup log.
+
+# Windows
+
+Download the ST-Link USB driver from
+► ST-Link Driver Website (email registration required)
+Click Get Software
+https://www.st.com/en/development-tools/stsw-link009.html
+
+Unzip the downloaded file. Double-click the driver installer: 
+dpinst_amd64.exe
+
+Install Arm Cross-Compiler and Linker for Windows from
+► Arm Developer Website
+https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+
+Look for the first Windows 32-bit Download without SHA, e.g. 
+gcc-arm-none-eabi-...-major-win32.exe
+Click Download
+
+Select this option at the last install step: 
+"Add path to environment variable"
+
+
+# Build Bootloader and Application
+
+Click 
+Terminal → Run Task → 
+[1] Build bluepill_boot
+
+Terminal → Run Task → 
+[2] Build bluepill_my_sensor
+
+Terminal → Run Task → 
+[3] Image bluepill_my_sensor
+
+# Flash Bootloader and Application to Blue Pill
+
+Terminal → Run Task → 
+[4] Load bluepill_boot
+
+Terminal → Run Task → 
+[5] Load bluepill_my_sensor
+
+# Run The Application
+
+Click Debug → Start Debugging
+
+4️⃣ Section “Run The Application” of the previous tutorial
 
 To install Apache Mynewt for Windows and macOS, refer to the tutorials...
 
@@ -62,6 +174,12 @@ In case of problems, compare your log with this [setup log](https://github.com/l
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
+    ```
+    rustup‑init.exe, run anyway
+
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
 # Install Rust on macOS
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
@@ -70,6 +188,10 @@ In case of problems, compare your log with this [setup log](https://github.com/l
 
 1.  Enter into the command prompt:
     ```
+    cd stm32bluepill-mynewt-sensor
+    cd $HOME/stm32bluepill-mynewt-sensor
+    cd /mnt/c/stm32bluepill-mynewt-sensor
+
     rustup update
 
     rustup target add thumbv7m-none-eabi
@@ -84,37 +206,30 @@ In case of problems, compare your log with this [setup log](https://github.com/l
 
     ```
 
+    ```
+    rustup component add rls rust-analysis rust-src
+
+    error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'
+
+    check
+    https://rust-lang.github.io/rustup-components-history/
+    rls: Last available - 2019-05-22
+
+    rustup override set nightly-2019-05-22
+
+    rustup target add thumbv7m-none-eabi
+
+    rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
+    ```
 
 
 
 ```
 
 
-macOS:
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update
-
-Windows: 
-rustup‑init.exe, run anyway
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-
-
 -----
-error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'
 
-check
-https://rust-lang.github.io/rustup-components-history/
-rls: Last available - 2019-05-22
 
-cd $HOME/stm32bluepill-mynewt-sensor
-cd /mnt/c/stm32bluepill-mynewt-sensor
-
-rustup override set nightly-2019-05-22
-
-info: override toolchain for '/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor' set to 'nightly-2019-05-22-x86_64-apple-darwin'
-
-rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
 
 -----
 
