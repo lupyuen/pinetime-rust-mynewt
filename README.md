@@ -252,7 +252,7 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
 1. Exit and restart Visual Studio Code. This activates the installed extensions.
 
-    [Windows VSCode Extensions](scripts/install-ext-windows.sh)
+    [Windows VSCode Extensions](scripts/install-ext-windows.cmd)
 
     [macOS VSCode Extensions](scripts/install-ext-mac.sh)
 
