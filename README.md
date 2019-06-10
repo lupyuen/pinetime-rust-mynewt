@@ -98,8 +98,6 @@ _(Rust on Windows is needed to support the Rust RLS extension for Visual Studio 
 
 1.  Open the Windows Command Prompt (not Windows Ubuntu).  Enter into the command prompt:
     ```
-    c:
-    cd \stm32bluepill-mynewt-sensor
     rustup update
     rustc -V
     ```
@@ -116,15 +114,25 @@ _(Rust on Windows is needed to support the Rust RLS extension for Visual Studio 
     rustup component add rls rust-analysis rust-src
     ```
 
-    If you see an error like `error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`, enter these commands to select an older working build of RLS (2019-05-22)...
+1.  If you see an error like [`error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`](https://github.com/rust-lang/rls#error-component-rls-is-unavailable-for-download-nightly)...
 
-    ```
+    We will need to install an older working build of Rust Language Server (RLS), I recommend the `2019-05-22` build.  Follow these steps:
+
+    Ignore the error and continue to the next step of this installation guide.
+
+    After completing the steps for _"Install Apache Mynewt"_, enter these commands into the Windows Command Prompt (not Windows Ubuntu)...
+
+    ```cmd
+    c:
+    cd \stm32bluepill-mynewt-sensor
     rustup override set nightly-2019-05-22
     rustup target add thumbv7m-none-eabi
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
     ```
 
-    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
+    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder that was created in the steps for _"Install Apache Mynewt"_.
+    
+    To find the last successful build of RLS:
     https://rust-lang.github.io/rustup-components-history/
 
 # Install Rust on Windows Subsystem for Linux (Windows)
@@ -141,7 +149,6 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
 1.  Enter into the Windows Ubuntu command prompt (not Windows Command Prompt):
     ```
-    cd /mnt/c/stm32bluepill-mynewt-sensor
     rustup update
     rustc -V
     ```
@@ -158,23 +165,32 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
     rustup component add rls rust-analysis rust-src
     ```
 
-    If you see an error like `error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`, enter these commands to select an older working build of RLS (2019-05-22)...
+1.  If you see an error like [`error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`](https://github.com/rust-lang/rls#error-component-rls-is-unavailable-for-download-nightly)...
 
-    ```
+    We will need to install an older working build of Rust Language Server (RLS), I recommend the `2019-05-22` build.  Follow these steps:
+
+    Ignore the error and continue to the next step of this installation guide.
+
+    After completing the steps for _"Install Apache Mynewt"_, enter these commands into the Windows Ubuntu command prompt (not Windows Command Prompt)...
+
+    ```bash
+    cd /mnt/c/stm32bluepill-mynewt-sensor
     rustup override set nightly-2019-05-22
     rustup target add thumbv7m-none-eabi
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
     ```
 
-    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder.
+    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder that was created in the steps for _"Install Apache Mynewt"_.
+    
+    To find the last successful build of RLS:
+    https://rust-lang.github.io/rustup-components-history/
 
 # Install Rust (macOS and Ubuntu)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
 1.  Enter into the command prompt:
-    ```
-    cd $HOME/stm32bluepill-mynewt-sensor
+    ```bash
     rustup update
     rustc -V
     ```
@@ -186,20 +202,29 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
     ```
 
 1.  Enter into the command prompt:
-    ```
+    ```bash
     rustup target add thumbv7m-none-eabi
     rustup component add rls rust-analysis rust-src
     ```
 
-    If you see an error like `error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`, enter these commands to select an older working build of RLS (2019-05-22)...
+1.  If you see an error like [`error: component 'rls' for target 'x86_64-apple-darwin' is unavailable for download for channel 'nightly'`](https://github.com/rust-lang/rls#error-component-rls-is-unavailable-for-download-nightly)...
 
-    ```
+    We will need to install an older working build of Rust Language Server (RLS), I recommend the `2019-05-22` build.  Follow these steps:
+
+    Ignore the error and continue to the next step of this installation guide.
+
+    After completing the steps for _"Install Apache Mynewt"_, enter these commands into the command prompt...
+
+    ```bash
+    cd $HOME/stm32bluepill-mynewt-sensor
     rustup override set nightly-2019-05-22
     rustup target add thumbv7m-none-eabi
     rustup component add rls rust-analysis rust-src --toolchain nightly-2019-05-22
     ```
 
-    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
+    The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder that was created in the steps for _"Install Apache Mynewt"_.
+    
+    To find the last successful build of RLS:
     https://rust-lang.github.io/rustup-components-history/
     
 # Install Apache Mynewt (Windows, macOS and Ubuntu)
