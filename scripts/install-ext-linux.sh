@@ -13,5 +13,11 @@ code --install-extension marus25.cortex-debug --force
 #  Install C++ Intellisense to provide C++ code navigation.
 code --install-extension ms-vscode.cpptools --force
 
+#  Install Rust Language Service Extension to provide Rust code navigation.
+code --install-extension rust-lang.rust --force
+
+#  Install Better TOML Extension for editing Config.toml in Rust.
+code --install-extension bungcip.better-toml --force
+
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
