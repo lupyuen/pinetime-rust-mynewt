@@ -266,18 +266,15 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
 # Build and Flash Bootloader and Application (Windows, macOS and Ubuntu)
 
+[All Visual Studio Code Tasks](.vscode/tasks.json)
+
 ## _Build Bootloader_
 
 Click 
     `Terminal → Run Task → 
     [1] Build bluepill_boot`
 
-## _Flash Bootloader to Blue Pill_
-
-1. Connect ST-Link to Blue Pill and the USB port
-
-1. Click `Terminal → Run Task → 
-[4] Load bluepill_boot`
+[Build Bootloader Log](logs/build-bootloader.log)
 
 ## _Build Application_ 
 
@@ -287,7 +284,24 @@ Click
 1. Click `Terminal → Run Task → 
     [3] Image bluepill_my_sensor`
 
-1. [Check this video](https://youtu.be/QTTqRlsiBfk) for the build process
+[Check this video](https://youtu.be/QTTqRlsiBfk) for the build process
+
+[Build Application Script](scripts/build-app.sh)
+
+[Build Application Log](logs/build-application.log)
+
+[Rust Application ELF](logs/libmylib.elf)
+
+[Rust Application Disassembly](logs/libmylib-demangle.S)
+
+## _Flash Bootloader to Blue Pill_
+
+1. Connect ST-Link to Blue Pill and the USB port
+
+1. Click `Terminal → Run Task → 
+[4] Load bluepill_boot`
+
+[Flash Bootloader Script](scripts/flash-boot.ocd)
 
 ## _Flash Application to Blue Pill_
 
@@ -296,13 +310,13 @@ Click
 1. Click `Terminal → Run Task → 
 [5] Load bluepill_my_sensor`
 
+[Flash Application Script](scripts/flash-app.ocd)
+
 # Run The Application (Windows, macOS and Ubuntu)
 
 1. Connect ST-Link to Blue Pill and the USB port
 
 1. Click `Debug → Start Debugging`
-
-1. [Check this video](https://youtu.be/Pj3pl6GaztU) for the debug steps
 
 1. To re-run the application after making code changes:
 
@@ -310,6 +324,10 @@ Click
     [2] Build bluepill_my_sensor`
 
     Click `Debug → Start Debugging`
+
+[Check this video](https://youtu.be/Pj3pl6GaztU) for the debug steps
+
+[Debug Script](scripts/debug.ocd)
 
 # Installation, Build, Flash and Debug Logs
 
