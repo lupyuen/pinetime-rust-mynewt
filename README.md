@@ -92,9 +92,17 @@ _(Rust on Windows is needed to support the Rust RLS extension for Visual Studio 
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
-1.  When downloading `rustup‑init.exe`, Windows may block the execution. 
+    Click the link provided to download `rustup‑init.exe`
+
+1.  Launch the downloaded file `rustup‑init.exe`
+
+    If you see the message `"Windows Defender SmartScreen prevented an unrecognised app from starting"`...
+
+    Click `More Info`
 
     Click `Run Anyway`
+
+1.  At the `Welcome to Rust!` prompt, press Enter to select the default option `1) Proceed with installation (default)`
 
 1.  Open the Windows Command Prompt (not Windows Ubuntu).  Enter into the command prompt:
     ```
@@ -147,6 +155,8 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     ```
 
+1.  At the `Welcome to Rust!` prompt, press Enter to select the default option `1) Proceed with installation (default)`
+
 1.  Enter into the Windows Ubuntu command prompt (not Windows Command Prompt):
     ```
     rustup update
@@ -188,6 +198,8 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 # Install Rust (macOS and Ubuntu)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
+
+1.  At the `Welcome to Rust!` prompt, press Enter to select the default option `1) Proceed with installation (default)`
 
 1.  Enter into the command prompt:
     ```bash
