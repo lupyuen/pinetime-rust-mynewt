@@ -290,6 +290,10 @@ Click
 
 [Build Application Log](logs/build-application.log)
 
+[Mynewt ROM Image Linker Map](logs/my_sensor_app.elf.map)
+
+[Mynewt ROM Image Disassembly](logs/my_sensor_app.elf.lst)
+
 [Rust Application ELF](logs/libmylib.elf)
 
 [Rust Application Disassembly](logs/libmylib-demangle.S)
