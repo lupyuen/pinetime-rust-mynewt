@@ -33,6 +33,8 @@ Check the article...
 
 1. ST-Link V2 USB Adapter ([or compatible](https://www.lazada.sg/-i105322107-s106873847.html?urlFlag=true&mp=1)). [Connect Blue Pill to ST-Link like this](https://gist.github.com/lupyuen/30c6197403878630c0cd0630f8fce71b)
 
+1. Windows 10, macOS or Ubuntu computer
+
 # Install Windows Subsystem for Linux (Windows)
 
 _(Windows Subsystem for Linux is needed for building Rust and Mynewt programs)_
@@ -83,54 +85,6 @@ _(Windows Subsystem for Linux is needed for building Rust and Mynewt programs)_
 1. Select this option at the last install step: 
     
     `"Add path to environment variable"`
-
-# Install Apache Mynewt (Windows and macOS)
-
-1. Install [Visual Studio Code](https://code.visualstudio.com/) if you haven’t. Launch Visual Studio Code.
-
-1. Click `View → Command Palette`
-
-1. Type `git clone` then press Enter
-
-1. For `Repository URL`, enter
-
-    ```
-    https://github.com/lupyuen/stm32bluepill-mynewt-sensor/tree/rust
-    ```
-
-    _Note: This is the `rust` branch of the repository that contains Mynewt with Rust support_
-
-1. When prompted to `Select Repository Location…`
-
-    _For Windows:_ Select your `Local Disk C:` drive
-
-    _For macOS:_ Select your `Home` folder
-
-    If you have previously downloaded `stm32bluepill-mynewt-sensor`, rename the old folder before downloading
-
-    The source code will be downloaded to `C:\stm32bluepill-mynewt-sensor` (Windows) or `$HOME/stm32bluepill-mynewt-sensor` (macOS)
-
-1. When prompted, click `Open Repository` and `Open Workspace`
-
-1. Click `Terminal → Run Task`
-
-1. Select `[0] Install Apache Mynewt`
-
-1. When prompted, click `Continue Without Scanning The Task Output`
-
-1. When prompted, click on the Terminal pane and enter the password from the _"Install Windows Subsystem for Linux"_ steps above. For macOS, enter your user password.
-
-    The password only needs to be entered once.
-
-1. The setup script will take a few minutes to download and install the build tools.
-
-    When it’s done, we should see `Done!`
-
-1. Exit and restart Visual Studio Code. This activates the installed extensions.
-
-1. In case of problems, compare your log with the setup log below:
-
-    [Windows Setup Log](https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/logs/install-windows.log)
 
 # Install Rust (Windows)
 
@@ -214,7 +168,7 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
 
     The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder.
 
-# Install Rust (macOS)
+# Install Rust (macOS and Ubuntu)
 
 1.  Install `rustup` according to the instructions at https://rustup.rs
 
@@ -248,7 +202,69 @@ _(Rust on Windows Subsystem for Linux is needed for building Rust and Mynewt pro
     The above commands should be executed in the `stm32bluepill-mynewt-sensor` folder. To find the last successful build of RLS:
     https://rust-lang.github.io/rustup-components-history/
     
-# Build and Flash Bootloader and Application (Windows and macOS)
+# Install Apache Mynewt (Windows, macOS and Ubuntu)
+
+1. Install [Visual Studio Code](https://code.visualstudio.com/) if you haven’t. Launch Visual Studio Code.
+
+1. Click `View → Command Palette`
+
+1. Type `git clone` then press Enter
+
+1. For `Repository URL`, enter
+
+    ```
+    https://github.com/lupyuen/stm32bluepill-mynewt-sensor/tree/rust
+    ```
+
+    _Note: This is the `rust` branch of the repository that contains Mynewt with Rust support_
+
+1. When prompted to `Select Repository Location…`
+
+    _For Windows:_ Select your `Local Disk C:` drive
+
+    _For macOS and Ubuntu:_ Select your `Home` folder
+
+    If you have previously downloaded `stm32bluepill-mynewt-sensor`, rename the old folder before downloading
+
+    The source code will be downloaded to `C:\stm32bluepill-mynewt-sensor` (Windows) or `$HOME/stm32bluepill-mynewt-sensor` (macOS)
+
+1. When prompted, click `Open Repository` and `Open Workspace`
+
+1. Click `Terminal → Run Task`
+
+1. Select `[0] Install Apache Mynewt`
+
+1. When prompted, click `Continue Without Scanning The Task Output`
+
+1. When prompted, click on the Terminal pane and enter the password from the _"Install Windows Subsystem for Linux"_ steps above. For macOS and Ubuntu, enter your user password.
+
+    The password only needs to be entered once.
+
+1. The setup script will take a few minutes to download and install the build tools.
+
+    When it’s done, we should see `Done!`
+
+    [Windows Setup Script](scripts/install-windows.sh)
+
+    [macOS Setup Script](scripts/install-mac.sh)
+
+    [Ubuntu Setup Script](scripts/install-linux.sh)
+
+1. Exit and restart Visual Studio Code. This activates the installed extensions.
+
+    [Windows VSCode Extensions](scripts/install-ext-windows.sh)
+
+    [macOS VSCode Extensions](scripts/install-ext-mac.sh)
+
+    [Ubuntu VSCode Extensions](scripts/install-ext-linux.sh)
+
+1. In case of problems, compare your log with the setup log below:
+
+    [Windows Setup Log](logs/install-windows.log)
+
+    [Ubuntu Setup Log](logs/install-linux.log)
+
+# Build and Flash Bootloader and Application (Windows, macOS and Ubuntu)
 
 ## _Build Bootloader_
 
@@ -280,7 +296,7 @@ Click
 1. Click `Terminal → Run Task → 
 [5] Load bluepill_my_sensor`
 
-# Run The Application (Windows and macOS)
+# Run The Application (Windows, macOS and Ubuntu)
 
 1. Connect ST-Link to Blue Pill and the USB port
 
