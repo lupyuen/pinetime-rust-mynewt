@@ -116,6 +116,17 @@
             "problemMatcher": []
         },
         {
+            //  Generate documentation.
+            "label": "📄 Generate Doc",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c", "-l",
+                " set +e +x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
+            ],
+            "problemMatcher": []
+        },
+        {
             //  Remove all compiled files.
             "label": "🗑 Clean",
             "type": "shell",
