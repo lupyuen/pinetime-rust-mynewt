@@ -28,7 +28,9 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-    let rc = start_network_task();  assert!(rc == 0);
+    let rc = start_network_task();  
+    rc.expect("");
+    //  assert!(rc == 0);
 
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
