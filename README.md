@@ -378,39 +378,39 @@ Sample logs for Windows and Ubuntu Linux may be found in the [logs folder](logs)
 
 This repository contains...
 
-1. [`src`](src): Rust Application
+[`src`](src): Rust Application
 
-1. [`Cargo.toml`](Cargo.toml): Rust Build Settings
+[`Cargo.toml`](Cargo.toml): Rust Build Settings
 
-1. [`.cargo`](.cargo): Rust Target Settings
+[`.cargo`](.cargo): Rust Target Settings
 
-1. [`my_sensor_app`](apps/my_sensor_app): Mynewt Application Stub
+[`my_sensor_app`](apps/my_sensor_app): Mynewt Application Stub
 
-1. [`boot_stub`](apps/boot_stub): Mynewt Bootloader Stub
+[`boot_stub`](apps/boot_stub): Mynewt Bootloader Stub
 
-1. [`adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32F1
+[`adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32F1
 
-1. [`custom_sensor`](libs/custom_sensor): Custom Sensor Definitions
+[`custom_sensor`](libs/custom_sensor): Custom Sensor Definitions
 
-1. [`esp8266`](libs/esp8266): Mynewt Driver for ESP8266
+[`esp8266`](libs/esp8266): Mynewt Driver for ESP8266
 
-1. [`hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
+[`hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
 
-1. [`nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
+[`nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
 
-1. [`remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
+[`remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
 
-1. [`semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
+[`semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
 
-1. [`sensor_coap`](libs/sensor_coap): Sensor CoAP Library
+[`sensor_coap`](libs/sensor_coap): Sensor CoAP Library
 
-1. [`sensor_network`](libs/sensor_network): Sensor Network Library
+[`sensor_network`](libs/sensor_network): Sensor Network Library
 
-1. [`temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
+[`temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
 
-1. [`scripts`](scripts): Install, build and deploy scripts
+[`scripts`](scripts): Install, build and deploy scripts
 
-1. [`.vscode`](.vscode): Visual Studio Code macros for install, build and deploy
+[`.vscode`](.vscode): Visual Studio Code macros for install, build and deploy
 
 
 # How This Application Was Created
