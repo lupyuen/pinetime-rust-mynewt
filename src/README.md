@@ -4,6 +4,8 @@ This Rust application polls the internal temperature sensor every 10 seconds and
 
 The application is compiled as a Rust library `libmylib.rlib`, which is injected into the Mynewt build.
 
+The application was ported from the C version at [`/apps/my_sensor_app`](/apps/my_sensor_app)
+
 [`lib.rs`](lib.rs): Main library module. Contains `main()`, called by Mynewt at startup, and the panic handler. Imports the modules below via the `mod` directive.
 
 [`base.rs`](base.rs): Common declarations
