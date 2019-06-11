@@ -13,53 +13,6 @@
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;                     //  Import base.rs for common declarations
 
-macro_rules! calculate {
-    (eval $e:expr) => {{
-        {
-            let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
-fn test_macro() {
-    calculate! {
-        eval 1 + 2 // hehehe `eval` is _not_ a Rust keyword!
-    }
-
-    calculate! {
-        eval (1 + 2) * (3 / 4)
-    }
-}
-
-macro_rules! coap_root {
-    ($blk:block) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
-macro_rules! coap_array {
-    ($parent:ident, $key:ident, $blk:block) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
-macro_rules! coap_item_str {
-    //  TODO: Allow key to be ident.
-    ($parent:ident, $key:expr, $val:expr) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
 //  From https://docs.serde.rs/src/serde_json/macros.rs.html
 
 #[macro_export(local_inner_macros)]
@@ -294,8 +247,53 @@ macro_rules! json_unexpected {
     () => {};
 }
 
+macro_rules! coap_root {
+    ($blk:block) => {{
+        {
+            //  let val: usize = $e; // Force types to be integers
+            //  println!("{} = {}", stringify!{$e}, val);
+        }
+    }};
+}
+
+macro_rules! coap_array {
+    ($parent:ident, $key:ident, $blk:block) => {{
+        {
+            //  let val: usize = $e; // Force types to be integers
+            //  println!("{} = {}", stringify!{$e}, val);
+        }
+    }};
+}
+
+macro_rules! coap_item_str {
+    //  TODO: Allow key to be ident.
+    ($parent:ident, $key:expr, $val:expr) => {{
+        {
+            //  let val: usize = $e; // Force types to be integers
+            //  println!("{} = {}", stringify!{$e}, val);
+        }
+    }};
+}
+
 fn test_macro2() {
-    //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
+    //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
+    let payload = coap!({
+        "device": device_id,
+        "node": node_id,
+
+        val,
+        //  If we are using raw temperature (integer) instead of computed temperature (float)...
+        //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
+        //    {"key":"t",   "value":2870} for raw temperature (integer)
+        //  val.key: val.int_val
+        //    {"key":"tmp", "value":28.7} for computed temperature (float)
+        //  coap_item_float_val! (values, val);
+        //  val.key: val.float_val
+
+        //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
+        //  val
+        //  val.key: val.int_val
+    });
 
     coap_item_str! (values, "device", device_id);  ////
 
@@ -303,14 +301,6 @@ fn test_macro2() {
         coap_item_str! (values, "device", device_id);
         coap_item_str! (values, "node", node_id);
     });  ////
-
-    /*
-    let payload = coap!({
-        "values": [
-
-        ]
-    });
-    */
 
     let payload = coap_root! ({  //  Create the payload root
         coap_array! (root, values, {  //  Create "values" as an array of items under the root
@@ -320,7 +310,6 @@ fn test_macro2() {
             //  Append to the "values" array:
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
             coap_item_str! (values, "device", device_id);
-
 
             //    {"key":"node", "value":"b3b4b5b6f1"},
             coap_item_str! (values, "node", node_id);
@@ -338,6 +327,25 @@ fn test_macro2() {
         }) //  Close the "values" array
     }); //  Close the payload root
 
+}
+
+macro_rules! calculate {
+    (eval $e:expr) => {{
+        {
+            let val: usize = $e; // Force types to be integers
+            //  println!("{} = {}", stringify!{$e}, val);
+        }
+    }};
+}
+
+fn test_macro() {
+    calculate! {
+        eval 1 + 2 // hehehe `eval` is _not_ a Rust keyword!
+    }
+
+    calculate! {
+        eval (1 + 2) * (3 / 4)
+    }
 }
 
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
