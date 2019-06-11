@@ -16,6 +16,8 @@ The application was ported from the C version at [`/apps/my_sensor_app`](/apps/m
 
 [`send_coap.rs`](send_coap.rs): Called by the Listener Function after each poll of the internal temperature sensor.
 
+[View Rust Documentation](https://lupyuen.github.io/stm32bluepill-mynewt-sensor/rust/mylib/)
+
 ## Related Files
 
 [`/Cargo.toml`](/Cargo.toml): Rust Build Settings
