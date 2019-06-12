@@ -192,8 +192,6 @@ macro_rules! coap_internal {
         let _ = "TODO: Expand _sensor_value (key, value) and add to _object_key";
         let _sensor_value = $($key)*;
         let _object_key = $object;
-        //  let _key = _sensor_value.key;
-        //  let _value = "TODO: _sensor_value.value";
         coap_set_int_val!(
             $object,  //  _object_key, 
             $($key)*  //  _sensor_value
@@ -328,7 +326,6 @@ macro_rules! coap_unexpected {
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP macros ported from C to Rust:
 //  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
-//  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
 
 #[macro_export(local_inner_macros)]
 macro_rules! coap_root {
@@ -352,6 +349,8 @@ macro_rules! coap_array {
     }};
 }
 
+///  Append a (`key` + `val` string value) item to the array named `parent`:
+///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_str {
     //  TODO: Allow key to be ident.
@@ -360,20 +359,100 @@ macro_rules! coap_item_str {
         let _parent = $parent;
         let _key = $key;
         let _val = $val;
-        //  TODO
+        coap_item!(_parent, {
+            rep_set_text_string!(
+                $parent,  //  _parent, 
+                "key",   
+                $key      //  _key
+            );
+            rep_set_text_string!(
+                $parent,  //  _parent, 
+                "value", 
+                $val      //  _val
+            );
+        });
         let _ = "end coap_item_str";
+    }};
+}
+
+///  Append an array item under the array named `array0`.  Add `children0` as the items (key and value).
+///    `{ <array0>: [ ..., { <children0> } ] }`
+#[macro_export(local_inner_macros)]
+macro_rules! coap_item {
+    ($array0:ident, $children0:block) => {{
+        let _ = "begin coap_item";
+        rep_object_array_start_item!($array0);
+        { $children0; }
+        rep_object_array_end_item!($array0);
+        let _ = "end coap_item";
     }};
 }
 
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
     //  TODO: Allow key to be ident.
-    ($parent:ident, $sensorval:expr) => {{
+    ($parent:ident, $sensor_value:expr) => {{
         let _ = "begin coap_set_int_val with _parent, _sensorval";
         let _parent = $parent;
-        let _sensorval = $sensorval;
+        let _sensor_value = $sensor_value;
         //  TODO
+        //  let _key = _sensor_value.key;
+        //  let _value = "TODO: _sensor_value.value";
+
         let _ = "end coap_set_int_val";
+    }};
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  CoAP macros ported from C to Rust:
+//  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_start_object {
+    ($parent:ident, $key:expr) => {{
+        let _ = "begin oc_rep_start_object";
+        //  TODO
+        //  CborEncoder key##_map;
+        //  g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength);
+        let _ = "end oc_rep_start_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_end_object {
+    ($parent:ident, $key:expr) => {{
+        let _ = "begin oc_rep_end_object";
+        //  TODO
+        //  g_err |= cbor_encoder_close_container(&parent, &key##_map);
+        let _ = "end oc_rep_end_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_set_text_string {
+    ($object:ident, $key:expr, $value:expr) => {{
+        let _ = "begin oc_rep_set_text_string with _object, _key, _value";
+        let _object = $object;
+        let _key = $key;
+        let _value = $value;
+        //  TODO
+        //  g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));
+        //  g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));
+        let _ = "end oc_rep_set_text_string";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_set_text_string {
+    ($object:ident, $key:expr, $value:expr) => {{
+        let _ = "begin oc_rep_set_text_string with _object, _key, _value";
+        let _object = $object;
+        let _key = $key;
+        let _value = $value;
+        //  TODO
+        //  g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));
+        //  g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));
+        let _ = "end oc_rep_set_text_string";
     }};
 }
 
