@@ -562,9 +562,12 @@ mod send_coap {
                                @ object $ object : ident [ $ ( $ key : tt ) +
                                ] ( $ value : expr ) , $ ( $ rest : tt ) * ) =>
                                {
-                               let _ = "TODO: add (_key, _value) to _object" ;
-                               let _key = $ ( $ key ) + ; let _value = $ value
-                               ; let _object = $ object ; coap_internal ! (
+                               let _ =
+                               "TODO: add (_key, _value) to _object_key" ; let
+                               _key = $ ( $ key ) + ; let _value = $ value ;
+                               let _object_key = $ object ; coap_item_str ! (
+                               _object_key , _key , _value ) ; let _ =
+                               "--------------------" ; coap_internal ! (
                                @ object $ object (  ) ( $ ( $ rest ) * ) (
                                $ ( $ rest ) * ) ) ; } ; (
                                @ object $ object : ident [ $ ( $ key : tt ) +
@@ -639,9 +642,10 @@ mod send_coap {
                                ) ( , $ ( $ rest : tt ) * ) (
                                $ comma : tt $ ( $ copy : tt ) * ) ) => {
                                let _ =
-                               "TODO: Expand _sensor_value (key, value) and add into _object"
+                               "TODO: Expand _sensor_value (key, value) and add to _object_key"
                                ; let _sensor_value = $ ( $ key ) * ; let
-                               _object = $ object ; coap_internal ! (
+                               _object_key = $ object ; let _ =
+                               "--------------------" ; coap_internal ! (
                                @ object $ object (  ) ( $ ( $ rest ) * ) (
                                $ ( $ rest ) * ) ) ; } ; (
                                @ object $ object : ident (  ) (
@@ -673,7 +677,7 @@ mod send_coap {
                                coap_array ! (
                                root_key , values_key , {
                                coap_internal ! (
-                               @ object root_key (  ) ( $ ( $ tt ) + ) (
+                               @ object values_key (  ) ( $ ( $ tt ) + ) (
                                $ ( $ tt ) + ) ) ; } ) ; } ) ; let _ =
                                "end root" ; let _ = "return root to caller" ;
                                root_key } } ; ( $ other : expr ) => {
@@ -694,21 +698,19 @@ mod send_coap {
     macro_rules! coap_array(( $ parent : ident , $ key : ident , $ blk : block
                             ) => {
                             {
-                            {
                             let _ = "begin coap_array with _parent, _key" ;
                             let _parent = $ parent ; let _key = $ key ; $ blk
-                            ; let _ = "end coap_array" ; } } } ;);
+                            ; let _ = "end coap_array" ; } } ;);
     #[macro_export(local_inner_macros)]
     macro_rules! coap_item_str((
                                $ parent : ident , $ key : expr , $ val : expr
                                ) => {
                                {
-                               {
                                let _ =
-                               "begin coap_item_str with _parent, _key, _expr"
+                               "begin coap_item_str with _parent, _key, _val"
                                ; let _parent = $ parent ; let _key = $ key ;
-                               let _expr = $ val ; let _ = "end coap_item_str"
-                               ; } } } ;);
+                               let _val = $ val ; let _ = "end coap_item_str"
+                               ; } } ;);
     ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
@@ -729,34 +731,50 @@ mod send_coap {
                     let _ = "begin coap_root";
                     {
                         {
+                            let _ = "begin coap_array with _parent, _key";
+                            let _parent = root_key;
+                            let _key = values_key;
                             {
-                                let _ = "begin coap_array with _parent, _key";
-                                let _parent = root_key;
-                                let _key = values_key;
+                                let _ =
+                                    "TODO: add (_key, _value) to _object_key";
+                                let _key = "device";
+                                let _value = { let _expr = device_id; _expr };
+                                let _object_key = values_key;
                                 {
                                     let _ =
-                                        "TODO: add (_key, _value) to _object";
-                                    let _key = "device";
-                                    let _value =
-                                        { let _expr = device_id; _expr };
-                                    let _object = root_key;
-                                    let _ =
-                                        "TODO: Expand _sensor_value (key, value) and add into _object";
-                                    let _sensor_value = int_sensor_value;
-                                    let _object = root_key;
-                                    let _ =
-                                        "TODO: Expand _sensor_value (key, value) and add into _object";
-                                    let _sensor_value = float_sensor_value;
-                                    let _object = root_key;
-                                    let _ =
-                                        "TODO: add (_key, _value) to _object";
-                                    let _key = "node";
-                                    let _value =
-                                        { let _expr = node_id; _expr };
-                                    let _object = root_key;
+                                        "begin coap_item_str with _parent, _key, _val";
+                                    let _parent = _object_key;
+                                    let _key = _key;
+                                    let _val = _value;
+                                    let _ = "end coap_item_str";
                                 };
-                                let _ = "end coap_array";
-                            }
+                                let _ = "--------------------";
+                                let _ =
+                                    "TODO: Expand _sensor_value (key, value) and add to _object_key";
+                                let _sensor_value = int_sensor_value;
+                                let _object_key = values_key;
+                                let _ = "--------------------";
+                                let _ =
+                                    "TODO: Expand _sensor_value (key, value) and add to _object_key";
+                                let _sensor_value = float_sensor_value;
+                                let _object_key = values_key;
+                                let _ = "--------------------";
+                                let _ =
+                                    "TODO: add (_key, _value) to _object_key";
+                                let _key = "node";
+                                let _value = { let _expr = node_id; _expr };
+                                let _object_key = values_key;
+                                {
+                                    let _ =
+                                        "begin coap_item_str with _parent, _key, _val";
+                                    let _parent = _object_key;
+                                    let _key = _key;
+                                    let _val = _value;
+                                    let _ = "end coap_item_str";
+                                };
+                                let _ = "--------------------";
+                            };
+                            let _ = "end coap_array";
                         };
                     };
                     let _ = "end coap_root";
@@ -787,77 +805,61 @@ mod send_coap {
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         {
-            {
-                let _ = "begin coap_item_str with _parent, _key, _expr";
-                let _parent = values;
-                let _key = "device";
-                let _expr = device_id;
-                let _ = "end coap_item_str";
-            }
+            let _ = "begin coap_item_str with _parent, _key, _val";
+            let _parent = values;
+            let _key = "device";
+            let _val = device_id;
+            let _ = "end coap_item_str";
         };
         {
+            let _ = "begin coap_array with _parent, _key";
+            let _parent = root;
+            let _key = values;
             {
-                let _ = "begin coap_array with _parent, _key";
-                let _parent = root;
-                let _key = values;
                 {
-                    {
-                        {
-                            let _ =
-                                "begin coap_item_str with _parent, _key, _expr";
-                            let _parent = values;
-                            let _key = "device";
-                            let _expr = device_id;
-                            let _ = "end coap_item_str";
-                        }
-                    };
-                    {
-                        {
-                            let _ =
-                                "begin coap_item_str with _parent, _key, _expr";
-                            let _parent = values;
-                            let _key = "node";
-                            let _expr = node_id;
-                            let _ = "end coap_item_str";
-                        }
-                    };
+                    let _ = "begin coap_item_str with _parent, _key, _val";
+                    let _parent = values;
+                    let _key = "device";
+                    let _val = device_id;
+                    let _ = "end coap_item_str";
                 };
-                let _ = "end coap_array";
-            }
+                {
+                    let _ = "begin coap_item_str with _parent, _key, _val";
+                    let _parent = values;
+                    let _key = "node";
+                    let _val = node_id;
+                    let _ = "end coap_item_str";
+                };
+            };
+            let _ = "end coap_array";
         };
         let payload =
             {
                 let _ = "begin coap_root";
                 {
                     {
+                        let _ = "begin coap_array with _parent, _key";
+                        let _parent = root;
+                        let _key = values;
                         {
-                            let _ = "begin coap_array with _parent, _key";
-                            let _parent = root;
-                            let _key = values;
                             {
-                                {
-                                    {
-                                        let _ =
-                                            "begin coap_item_str with _parent, _key, _expr";
-                                        let _parent = values;
-                                        let _key = "device";
-                                        let _expr = device_id;
-                                        let _ = "end coap_item_str";
-                                    }
-                                };
-                                {
-                                    {
-                                        let _ =
-                                            "begin coap_item_str with _parent, _key, _expr";
-                                        let _parent = values;
-                                        let _key = "node";
-                                        let _expr = node_id;
-                                        let _ = "end coap_item_str";
-                                    }
-                                };
+                                let _ =
+                                    "begin coap_item_str with _parent, _key, _val";
+                                let _parent = values;
+                                let _key = "device";
+                                let _val = device_id;
+                                let _ = "end coap_item_str";
                             };
-                            let _ = "end coap_array";
-                        }
+                            {
+                                let _ =
+                                    "begin coap_item_str with _parent, _key, _val";
+                                let _parent = values;
+                                let _key = "node";
+                                let _val = node_id;
+                                let _ = "end coap_item_str";
+                            };
+                        };
+                        let _ = "end coap_array";
                     }
                 };
                 let _ = "end coap_root";

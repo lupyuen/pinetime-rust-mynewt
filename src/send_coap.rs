@@ -104,10 +104,12 @@ macro_rules! coap_internal {
 
     // Insert the current entry followed by trailing comma.
     (@object $object:ident [$($key:tt)+] ($value:expr) , $($rest:tt)*) => {
-        let _ = "TODO: add (_key, _value) to _object";
+        let _ = "TODO: add (_key, _value) to _object_key";
         let _key = $($key)+;
         let _value = $value;
-        let _object = $object;
+        let _object_key = $object;
+        coap_item_str!(_object_key, _key, _value);
+        let _ = "--------------------";
         //  let _ = $object.insert(($($key)+).into(), $value);
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
     };
@@ -178,9 +180,11 @@ macro_rules! coap_internal {
 
     // TODO: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
     (@object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-        let _ = "TODO: Expand _sensor_value (key, value) and add to _object";
+        let _ = "TODO: Expand _sensor_value (key, value) and add to _object_key";
         let _sensor_value = $($key)*;
-        let _object = $object;
+        let _object_key = $object;
+        //  coap_item_str!(_object_key, _key, _value);
+        let _ = "--------------------";
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
 
         // Previously: Found a comma inside a key. Trigger a reasonable error message.
@@ -235,15 +239,17 @@ macro_rules! coap_internal {
         //  $crate::Value::Object($crate::Map::new())
     };
 
-    //  Matches the top level of the JSON: { ... }
+    //  If we match the top level of the JSON: { ... }
     ({ $($tt:tt)+ }) => {
+        //  Substitute with this code...
         {
             let _ = "begin root";
             let root_key = "root";  //  Top level object is named "root".
             let values_key = "values";  //  "values" will be an array of items under the root
+            //  coap_internal!(@object root_key () ($($tt)+) ($($tt)+));            
             coap_root!({  //  Create the payload root
-                coap_array! (root_key, values_key, {  //  Create "values" as an array of items under the root
-                    coap_internal!(@object root_key () ($($tt)+) ($($tt)+));
+                coap_array!(root_key, values_key, {  //  Create "values" as an array of items under the root
+                    coap_internal!(@object values_key () ($($tt)+) ($($tt)+));
                 });  //  Close the "values" array
             });  //  Close the payload root
             let _ = "end root";
@@ -296,13 +302,11 @@ macro_rules! coap_root {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
     ($parent:ident, $key:ident, $blk:block) => {{
-        {
-            let _ = "begin coap_array with _parent, _key";
-            let _parent = $parent;
-            let _key = $key;
-            $blk;
-            let _ = "end coap_array";
-        }
+        let _ = "begin coap_array with _parent, _key";
+        let _parent = $parent;
+        let _key = $key;
+        $blk;
+        let _ = "end coap_array";
     }};
 }
 
@@ -310,13 +314,11 @@ macro_rules! coap_array {
 macro_rules! coap_item_str {
     //  TODO: Allow key to be ident.
     ($parent:ident, $key:expr, $val:expr) => {{
-        {
-            let _ = "begin coap_item_str with _parent, _key, _expr";
-            let _parent = $parent;
-            let _key = $key;
-            let _expr = $val;
-            let _ = "end coap_item_str";
-        }
+        let _ = "begin coap_item_str with _parent, _key, _val";
+        let _parent = $parent;
+        let _key = $key;
+        let _val = $val;
+        let _ = "end coap_item_str";
     }};
 }
 
