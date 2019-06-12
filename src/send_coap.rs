@@ -12,6 +12,7 @@
 
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;                     //  Import base.rs for common declarations
+use crate::sensor::*;
 
 //  From https://docs.serde.rs/src/serde_json/macros.rs.html
 
@@ -247,6 +248,15 @@ macro_rules! json_unexpected {
     () => {};
 }
 
+macro_rules! coap {
+    ($blk:block) => {{
+        {
+            //  let val: usize = $e; // Force types to be integers
+            //  println!("{} = {}", stringify!{$e}, val);
+        }
+    }};
+}
+
 macro_rules! coap_root {
     ($blk:block) => {{
         {
@@ -275,25 +285,26 @@ macro_rules! coap_item_str {
     }};
 }
 
-fn test_macro2() {
+///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
+///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
+///  or Standalone Node).
+fn send_sensor_data_rust() {
+    let device_id = b"0102030405060708090a0b0c0d0e0f10";
+    let node_id = b"b3b4b5b6f1";
+    //  Sensor `t` has int value 2870.
+    let int_sensor_value = ("t", SENSOR_VALUE_TYPE_INT32, 2870);
+    //  Sensor `tmp` has float value 28.70.
+    let float_sensor_value = ("tmp", SENSOR_VALUE_TYPE_FLOAT, 28.70);
+
     //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
     let payload = coap!({
         "device": device_id,
         "node": node_id,
-
-        val,
-        //  If we are using raw temperature (integer) instead of computed temperature (float)...
-        //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
-        //    {"key":"t",   "value":2870} for raw temperature (integer)
-        //  val.key: val.int_val
-        //    {"key":"tmp", "value":28.7} for computed temperature (float)
-        //  coap_item_float_val! (values, val);
-        //  val.key: val.float_val
-
-        //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-        //  val
-        //  val.key: val.int_val
+        int_sensor_value,    //  Send `{t: 2870}`
+        float_sensor_value,  //  Send `{tmp: 28.70}`
     });
+
+    //  Send the payload.
 
     coap_item_str! (values, "device", device_id);  ////
 
