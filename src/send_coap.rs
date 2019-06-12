@@ -176,14 +176,15 @@ macro_rules! coap_internal {
         coap_unexpected!($colon);
     };
 
-    // Found a comma inside a key. Trigger a reasonable error message.
+    // TODO: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
     (@object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-        // Takes no arguments so "no rules expected the token `,`".
-        // TODO
-        let _ = "TODO: Expand _sensor_value (key, value) and add into _object";
+        let _ = "TODO: Expand _sensor_value (key, value) and add to _object";
         let _sensor_value = $($key)*;
         let _object = $object;
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
+
+        // Previously: Found a comma inside a key. Trigger a reasonable error message.
+        // Takes no arguments so "no rules expected the token `,`".
         ////coap_unexpected!($comma);
     };
 
@@ -234,14 +235,20 @@ macro_rules! coap_internal {
         //  $crate::Value::Object($crate::Map::new())
     };
 
+    //  Matches the top level of the JSON: { ... }
     ({ $($tt:tt)+ }) => {
         {
-            let _ = "begin object";
-            let object = "TODO: new object";
-            coap_internal!(@object object () ($($tt)+) ($($tt)+));
-            let _ = "end object";
-            let _ = "return object to caller";
-            "object"
+            let _ = "begin root";
+            let root_key = "root";  //  Top level object is named "root".
+            let values_key = "values";  //  "values" will be an array of items under the root
+            coap_root!({  //  Create the payload root
+                coap_array! (root_key, values_key, {  //  Create "values" as an array of items under the root
+                    coap_internal!(@object root_key () ($($tt)+) ($($tt)+));
+                });  //  Close the "values" array
+            });  //  Close the payload root
+            let _ = "end root";
+            let _ = "return root to caller";
+            root_key
         }
         /*
         coap_object_new({
@@ -275,6 +282,42 @@ macro_rules! coap_internal_vec {
 #[doc(hidden)]
 macro_rules! coap_unexpected {
     () => {};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! coap_root {
+    ($blk:block) => {{
+        let _ = "begin coap_root";
+        $blk;
+        let _ = "end coap_root";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! coap_array {
+    ($parent:ident, $key:ident, $blk:block) => {{
+        {
+            let _ = "begin coap_array with _parent, _key";
+            let _parent = $parent;
+            let _key = $key;
+            $blk;
+            let _ = "end coap_array";
+        }
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! coap_item_str {
+    //  TODO: Allow key to be ident.
+    ($parent:ident, $key:expr, $val:expr) => {{
+        {
+            let _ = "begin coap_item_str with _parent, _key, _expr";
+            let _parent = $parent;
+            let _key = $key;
+            let _expr = $val;
+            let _ = "end coap_item_str";
+        }
+    }};
 }
 
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
@@ -323,34 +366,6 @@ pub enum SensorValueType {
     Float(f32),
 }
 
-macro_rules! coap_root {
-    ($blk:block) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
-macro_rules! coap_array {
-    ($parent:ident, $key:ident, $blk:block) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
-macro_rules! coap_item_str {
-    //  TODO: Allow key to be ident.
-    ($parent:ident, $key:expr, $val:expr) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
-}
-
 fn test_macro2() {
     //  Send the payload.
     //  On Collector Node: Device sends JSON to CoAP server via ESP8266...
@@ -363,6 +378,11 @@ fn test_macro2() {
 
     //  On Sensor Node: Device sends CBOR to Collector Node via nRF24L01...
     //  { "t": 2870 }
+
+    let root = "root_var";
+    let values = "values_var";
+    let device_id = b"0102030405060708090a0b0c0d0e0f10";
+    let node_id = b"b3b4b5b6f1";
 
     coap_item_str! (values, "device", device_id);  ////
 
