@@ -108,9 +108,17 @@ macro_rules! coap_internal {
         let _key = $($key)+;
         let _value = $value;
         let _object_key = $object;
-        coap_item_str!(_object_key, _key, _value);
+
+        //  Append to the "values" array e.g.
+        //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+        //  coap_item_str!(_object_key, _key, _value);
+        coap_item_str!($object, $($key)+, $value);
         let _ = "--------------------";
+
+        //  Previously:
         //  let _ = $object.insert(($($key)+).into(), $value);
+
+        //  Continue expanding the rest of the JSON.
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
     };
 
@@ -121,6 +129,7 @@ macro_rules! coap_internal {
 
     // Insert the last entry without trailing comma.
     (@object $object:ident [$($key:tt)+] ($value:expr)) => {
+        //  TODO
         let _ = $object.insert(($($key)+).into(), $value);
     };
 
@@ -183,7 +192,13 @@ macro_rules! coap_internal {
         let _ = "TODO: Expand _sensor_value (key, value) and add to _object_key";
         let _sensor_value = $($key)*;
         let _object_key = $object;
-        //  coap_item_str!(_object_key, _key, _value);
+        //  let _key = _sensor_value.key;
+        //  let _value = "TODO: _sensor_value.value";
+        coap_set_int_val!(
+            $object,  //  _object_key, 
+            $($key)*  //  _sensor_value
+        );
+
         let _ = "--------------------";
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
 
@@ -210,32 +225,49 @@ macro_rules! coap_internal {
     //////////////////////////////////////////////////////////////////////////
 
     (null) => {
-        coap_null()
+        //  TODO
+        { _ = "null"; "null" }
+        //  Previously:
         //  $crate::Value::Null
     };
 
     (true) => {
-        coap_true()
+        //  TODO
+        { _ = "true"; "true" }
+        //  Previously:
         //  $crate::Value::Bool(true)
     };
 
     (false) => {
-        coap_false()
+        //  TODO
+        { _ = "false"; "false" }
+        //  Previously:
         //  $crate::Value::Bool(false)
     };
 
     ([]) => {
-        coap_array_new(coap_internal_vec![])
+        //  TODO
+        { _ = "[]"; "[]" }
+        //  Previously:
         //  $crate::Value::Array(coap_internal_vec![])
     };
 
     ([ $($tt:tt)+ ]) => {
-        coap_array_new(coap_internal!(@array [] $($tt)+))
+        //  TODO
+        {
+            _ = "begin array";
+            _array = coap_internal!(@array [] $($tt)+);
+            _ = "end array";
+            "TODO: array"
+        }
+        //  Previously:
         //  $crate::Value::Array(coap_internal!(@array [] $($tt)+))
     };
 
     ({}) => {
-        coap_object_new(coap_map_new())
+        //  TODO
+        { _ = "{}"; "{}" }
+        //  Previously:
         //  $crate::Value::Object($crate::Map::new())
     };
 
@@ -248,7 +280,10 @@ macro_rules! coap_internal {
             let values_key = "values";  //  "values" will be an array of items under the root
             //  coap_internal!(@object root_key () ($($tt)+) ($($tt)+));            
             coap_root!({  //  Create the payload root
+                //  coap_array!(root_key, values_key, {
                 coap_array!(root_key, values_key, {  //  Create "values" as an array of items under the root
+                    //  Expand the items inside { ... }
+                    //  coap_internal!(@object values_key () ($($tt)+) ($($tt)+));
                     coap_internal!(@object values_key () ($($tt)+) ($($tt)+));
                 });  //  Close the "values" array
             });  //  Close the payload root
@@ -256,7 +291,7 @@ macro_rules! coap_internal {
             let _ = "return root to caller";
             root_key
         }
-        /*
+        /* Previously:
         coap_object_new({
         //  $crate::Value::Object({
             let mut object = coap_map_new();
@@ -270,8 +305,8 @@ macro_rules! coap_internal {
     // Any Serialize type: numbers, strings, struct literals, variables etc.
     // Must be below every other rule.
     ($other:expr) => {
-        { let _expr = $other; _expr }
-        //  coap_to_value(&$other).unwrap()
+        { let _expr = $other; $other }
+        //  Previously:
         //  $crate::to_value(&$other).unwrap()
     };
 }
@@ -290,10 +325,16 @@ macro_rules! coap_unexpected {
     () => {};
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//  CoAP macros ported from C to Rust:
+//  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
+//  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
+
 #[macro_export(local_inner_macros)]
 macro_rules! coap_root {
     ($blk:block) => {{
         let _ = "begin coap_root";
+        //  TODO
         $blk;
         let _ = "end coap_root";
     }};
@@ -305,6 +346,7 @@ macro_rules! coap_array {
         let _ = "begin coap_array with _parent, _key";
         let _parent = $parent;
         let _key = $key;
+        //  TODO
         $blk;
         let _ = "end coap_array";
     }};
@@ -318,7 +360,20 @@ macro_rules! coap_item_str {
         let _parent = $parent;
         let _key = $key;
         let _val = $val;
+        //  TODO
         let _ = "end coap_item_str";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! coap_set_int_val {
+    //  TODO: Allow key to be ident.
+    ($parent:ident, $sensorval:expr) => {{
+        let _ = "begin coap_set_int_val with _parent, _sensorval";
+        let _parent = $parent;
+        let _sensorval = $sensorval;
+        //  TODO
+        let _ = "end coap_set_int_val";
     }};
 }
 
@@ -385,19 +440,23 @@ fn test_macro2() {
     let values = "values_var";
     let device_id = b"0102030405060708090a0b0c0d0e0f10";
     let node_id = b"b3b4b5b6f1";
+    //  Sensor `t` has int value 2870.
+    let int_sensor_value = SensorValueNew {
+        key: "t",
+        val: SensorValueType::Uint(2870)
+    };
 
     coap_item_str! (values, "device", device_id);  ////
+    //  coap_set_int_val! (root, int_sensor_value);
 
     coap_array! (root, values, {  //  Create "values" as an array of items under the root
         coap_item_str! (values, "device", device_id);
         coap_item_str! (values, "node", node_id);
+        //  coap_set_int_val! (root, int_sensor_value);
     });  ////
 
     let payload = coap_root! ({  //  Create the payload root
         coap_array! (root, values, {  //  Create "values" as an array of items under the root
-            //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-            ////TODO: coap_set_int_val! (root, val);
-
             //  Append to the "values" array:
             //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
             coap_item_str! (values, "device", device_id);
@@ -405,6 +464,9 @@ fn test_macro2() {
             //    {"key":"node", "value":"b3b4b5b6f1"},
             coap_item_str! (values, "node", node_id);
 
+            //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
+            coap_set_int_val! (root, int_sensor_value);
+            
             //  If we are using raw temperature (integer) instead of computed temperature (float)...
             //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
             //    {"key":"t",   "value":2870} for raw temperature (integer)

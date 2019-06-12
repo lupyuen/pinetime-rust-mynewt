@@ -566,7 +566,7 @@ mod send_coap {
                                "TODO: add (_key, _value) to _object_key" ; let
                                _key = $ ( $ key ) + ; let _value = $ value ;
                                let _object_key = $ object ; coap_item_str ! (
-                               _object_key , _key , _value ) ; let _ =
+                               $ object , $ ( $ key ) + , $ value ) ; let _ =
                                "--------------------" ; coap_internal ! (
                                @ object $ object (  ) ( $ ( $ rest ) * ) (
                                $ ( $ rest ) * ) ) ; } ; (
@@ -644,7 +644,8 @@ mod send_coap {
                                let _ =
                                "TODO: Expand _sensor_value (key, value) and add to _object_key"
                                ; let _sensor_value = $ ( $ key ) * ; let
-                               _object_key = $ object ; let _ =
+                               _object_key = $ object ; coap_set_int_val ! (
+                               $ object , $ ( $ key ) * ) ; let _ =
                                "--------------------" ; coap_internal ! (
                                @ object $ object (  ) ( $ ( $ rest ) * ) (
                                $ ( $ rest ) * ) ) ; } ; (
@@ -660,16 +661,17 @@ mod send_coap {
                                coap_internal ! (
                                @ object $ object ( $ ( $ key ) * $ tt ) (
                                $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
-                               null ) => { coap_null (  ) } ; ( true ) => {
-                               coap_true (  ) } ; ( false ) => {
-                               coap_false (  ) } ; ( [  ] ) => {
-                               coap_array_new ( coap_internal_vec ! [  ] ) } ;
-                               ( [ $ ( $ tt : tt ) + ] ) => {
-                               coap_array_new (
-                               coap_internal ! ( @ array [  ] $ ( $ tt ) + ) )
-                               } ; ( {  } ) => {
-                               coap_object_new ( coap_map_new (  ) ) } ; (
-                               { $ ( $ tt : tt ) + } ) => {
+                               null ) => { { _ = "null" ; "null" } } ; ( true
+                               ) => { { _ = "true" ; "true" } } ; ( false ) =>
+                               { { _ = "false" ; "false" } } ; ( [  ] ) => {
+                               { _ = "[]" ; "[]" } } ; ( [ $ ( $ tt : tt ) + ]
+                               ) => {
+                               {
+                               _ = "begin array" ; _array = coap_internal ! (
+                               @ array [  ] $ ( $ tt ) + ) ; _ = "end array" ;
+                               "TODO: array" } } ; ( {  } ) => {
+                               { _ = "{}" ; "{}" } } ; ( { $ ( $ tt : tt ) + }
+                               ) => {
                                {
                                let _ = "begin root" ; let root_key = "root" ;
                                let values_key = "values" ; coap_root ! (
@@ -681,7 +683,7 @@ mod send_coap {
                                $ ( $ tt ) + ) ) ; } ) ; } ) ; let _ =
                                "end root" ; let _ = "return root to caller" ;
                                root_key } } ; ( $ other : expr ) => {
-                               { let _expr = $ other ; _expr } } ;);
+                               { let _expr = $ other ; $ other } } ;);
     #[macro_export]
     #[doc(hidden)]
     macro_rules! coap_internal_vec(( $ ( $ content : tt ) * ) => {
@@ -711,6 +713,15 @@ mod send_coap {
                                ; let _parent = $ parent ; let _key = $ key ;
                                let _val = $ val ; let _ = "end coap_item_str"
                                ; } } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! coap_set_int_val(( $ parent : ident , $ sensorval : expr ) =>
+                                  {
+                                  {
+                                  let _ =
+                                  "begin coap_set_int_val with _parent, _sensorval"
+                                  ; let _parent = $ parent ; let _sensorval =
+                                  $ sensorval ; let _ = "end coap_set_int_val"
+                                  ; } } ;);
     ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
@@ -738,14 +749,16 @@ mod send_coap {
                                 let _ =
                                     "TODO: add (_key, _value) to _object_key";
                                 let _key = "device";
-                                let _value = { let _expr = device_id; _expr };
+                                let _value =
+                                    { let _expr = device_id; device_id };
                                 let _object_key = values_key;
                                 {
                                     let _ =
                                         "begin coap_item_str with _parent, _key, _val";
-                                    let _parent = _object_key;
-                                    let _key = _key;
-                                    let _val = _value;
+                                    let _parent = values_key;
+                                    let _key = "device";
+                                    let _val =
+                                        { let _expr = device_id; device_id };
                                     let _ = "end coap_item_str";
                                 };
                                 let _ = "--------------------";
@@ -753,23 +766,38 @@ mod send_coap {
                                     "TODO: Expand _sensor_value (key, value) and add to _object_key";
                                 let _sensor_value = int_sensor_value;
                                 let _object_key = values_key;
+                                {
+                                    let _ =
+                                        "begin coap_set_int_val with _parent, _sensorval";
+                                    let _parent = values_key;
+                                    let _sensorval = int_sensor_value;
+                                    let _ = "end coap_set_int_val";
+                                };
                                 let _ = "--------------------";
                                 let _ =
                                     "TODO: Expand _sensor_value (key, value) and add to _object_key";
                                 let _sensor_value = float_sensor_value;
                                 let _object_key = values_key;
+                                {
+                                    let _ =
+                                        "begin coap_set_int_val with _parent, _sensorval";
+                                    let _parent = values_key;
+                                    let _sensorval = float_sensor_value;
+                                    let _ = "end coap_set_int_val";
+                                };
                                 let _ = "--------------------";
                                 let _ =
                                     "TODO: add (_key, _value) to _object_key";
                                 let _key = "node";
-                                let _value = { let _expr = node_id; _expr };
+                                let _value = { let _expr = node_id; node_id };
                                 let _object_key = values_key;
                                 {
                                     let _ =
                                         "begin coap_item_str with _parent, _key, _val";
-                                    let _parent = _object_key;
-                                    let _key = _key;
-                                    let _val = _value;
+                                    let _parent = values_key;
+                                    let _key = "node";
+                                    let _val =
+                                        { let _expr = node_id; node_id };
                                     let _ = "end coap_item_str";
                                 };
                                 let _ = "--------------------";
@@ -804,6 +832,8 @@ mod send_coap {
         let values = "values_var";
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
+        let int_sensor_value =
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         {
             let _ = "begin coap_item_str with _parent, _key, _val";
             let _parent = values;
@@ -857,6 +887,13 @@ mod send_coap {
                                 let _key = "node";
                                 let _val = node_id;
                                 let _ = "end coap_item_str";
+                            };
+                            {
+                                let _ =
+                                    "begin coap_set_int_val with _parent, _sensorval";
+                                let _parent = root;
+                                let _sensorval = int_sensor_value;
+                                let _ = "end coap_set_int_val";
                             };
                         };
                         let _ = "end coap_array";
