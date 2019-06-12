@@ -104,9 +104,10 @@ macro_rules! coap_internal {
 
     // Insert the current entry followed by trailing comma.
     (@object $object:ident [$($key:tt)+] ($value:expr) , $($rest:tt)*) => {
-        let _object = $object;
+        let _ = "TODO: add (_key, _value) to _object";
         let _key = $($key)+;
         let _value = $value;
+        let _object = $object;
         //  let _ = $object.insert(($($key)+).into(), $value);
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
     };
@@ -179,7 +180,10 @@ macro_rules! coap_internal {
     (@object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
         // Takes no arguments so "no rules expected the token `,`".
         // TODO
-        { let _ident = $($key)*; _ident }
+        let _ = "TODO: Expand _sensor_value (key, value) and add into _object";
+        let _sensor_value = $($key)*;
+        let _object = $object;
+        coap_internal!(@object $object () ($($rest)*) ($($rest)*));
         ////coap_unexpected!($comma);
     };
 
@@ -232,9 +236,11 @@ macro_rules! coap_internal {
 
     ({ $($tt:tt)+ }) => {
         {
-            let object = "begin_object";
+            let _ = "begin object";
+            let object = "TODO: new object";
             coap_internal!(@object object () ($($tt)+) ($($tt)+));
-            let _ = "end_object";
+            let _ = "end object";
+            let _ = "return object to caller";
             "object"
         }
         /*
@@ -251,7 +257,7 @@ macro_rules! coap_internal {
     // Any Serialize type: numbers, strings, struct literals, variables etc.
     // Must be below every other rule.
     ($other:expr) => {
-        { let _other = $other; _other }
+        { let _expr = $other; _expr }
         //  coap_to_value(&$other).unwrap()
         //  $crate::to_value(&$other).unwrap()
     };
@@ -294,9 +300,9 @@ fn send_sensor_data_rust() {
     //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
     let payload = coap!({
         "device": device_id,
-        "node":   node_id,
         int_sensor_value,    //  Send `{t: 2870}`
         float_sensor_value,  //  Send `{tmp: 28.70}`
+        "node":   node_id,
     });
 
     trace_macros!(false);

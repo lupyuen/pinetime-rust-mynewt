@@ -562,8 +562,9 @@ mod send_coap {
                                @ object $ object : ident [ $ ( $ key : tt ) +
                                ] ( $ value : expr ) , $ ( $ rest : tt ) * ) =>
                                {
-                               let _object = $ object ; let _key = $ ( $ key )
-                               + ; let _value = $ value ; coap_internal ! (
+                               let _ = "TODO: add (_key, _value) to _object" ;
+                               let _key = $ ( $ key ) + ; let _value = $ value
+                               ; let _object = $ object ; coap_internal ! (
                                @ object $ object (  ) ( $ ( $ rest ) * ) (
                                $ ( $ rest ) * ) ) ; } ; (
                                @ object $ object : ident [ $ ( $ key : tt ) +
@@ -637,7 +638,12 @@ mod send_coap {
                                @ object $ object : ident ( $ ( $ key : tt ) *
                                ) ( , $ ( $ rest : tt ) * ) (
                                $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                               { let _ident = $ ( $ key ) * ; _ident } } ; (
+                               let _ =
+                               "TODO: Expand _sensor_value (key, value) and add into _object"
+                               ; let _sensor_value = $ ( $ key ) * ; let
+                               _object = $ object ; coap_internal ! (
+                               @ object $ object (  ) ( $ ( $ rest ) * ) (
+                               $ ( $ rest ) * ) ) ; } ; (
                                @ object $ object : ident (  ) (
                                ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy
                                : tt ) => {
@@ -661,11 +667,13 @@ mod send_coap {
                                coap_object_new ( coap_map_new (  ) ) } ; (
                                { $ ( $ tt : tt ) + } ) => {
                                {
-                               let object = "begin_object" ; coap_internal ! (
+                               let _ = "begin object" ; let object =
+                               "TODO: new object" ; coap_internal ! (
                                @ object object (  ) ( $ ( $ tt ) + ) (
-                               $ ( $ tt ) + ) ) ; let _ = "end_object" ;
-                               "object" } } ; ( $ other : expr ) => {
-                               { let _other = $ other ; _other } } ;);
+                               $ ( $ tt ) + ) ) ; let _ = "end object" ; let _
+                               = "return object to caller" ; "object" } } ; (
+                               $ other : expr ) => {
+                               { let _expr = $ other ; _expr } } ;);
     #[macro_export]
     #[doc(hidden)]
     macro_rules! coap_internal_vec(( $ ( $ content : tt ) * ) => {
@@ -686,15 +694,26 @@ mod send_coap {
         ();
         let payload =
             {
-                let object = "begin_object";
-                let _object = object;
+                let _ = "begin object";
+                let object = "TODO: new object";
+                let _ = "TODO: add (_key, _value) to _object";
                 let _key = "device";
-                let _value = { let _other = device_id; _other };
+                let _value = { let _expr = device_id; _expr };
                 let _object = object;
+                let _ =
+                    "TODO: Expand _sensor_value (key, value) and add into _object";
+                let _sensor_value = int_sensor_value;
+                let _object = object;
+                let _ =
+                    "TODO: Expand _sensor_value (key, value) and add into _object";
+                let _sensor_value = float_sensor_value;
+                let _object = object;
+                let _ = "TODO: add (_key, _value) to _object";
                 let _key = "node";
-                let _value = { let _other = node_id; _other };
-                { let _ident = int_sensor_value; _ident };
-                let _ = "end_object";
+                let _value = { let _expr = node_id; _expr };
+                let _object = object;
+                let _ = "end object";
+                let _ = "return object to caller";
                 "object"
             };
         ();
