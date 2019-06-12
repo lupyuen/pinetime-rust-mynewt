@@ -104,7 +104,10 @@ macro_rules! coap_internal {
 
     // Insert the current entry followed by trailing comma.
     (@object $object:ident [$($key:tt)+] ($value:expr) , $($rest:tt)*) => {
-        let _ = $object.insert(($($key)+).into(), $value);
+        let _object = $object;
+        let _key = $($key)+;
+        let _value = $value;
+        //  let _ = $object.insert(($($key)+).into(), $value);
         coap_internal!(@object $object () ($($rest)*) ($($rest)*));
     };
 
@@ -227,6 +230,13 @@ macro_rules! coap_internal {
     };
 
     ({ $($tt:tt)+ }) => {
+        {
+            let object = "begin_object";
+            coap_internal!(@object object () ($($tt)+) ($($tt)+));
+            let _ = "end_object";
+            "object"
+        }
+        /*
         coap_object_new({
         //  $crate::Value::Object({
             let mut object = coap_map_new();
@@ -234,12 +244,14 @@ macro_rules! coap_internal {
             coap_internal!(@object object () ($($tt)+) ($($tt)+));
             object
         })
+        */
     };
 
     // Any Serialize type: numbers, strings, struct literals, variables etc.
     // Must be below every other rule.
     ($other:expr) => {
-        coap_to_value(&$other).unwrap()
+        { let _other = $other; _other }
+        //  coap_to_value(&$other).unwrap()
         //  $crate::to_value(&$other).unwrap()
     };
 }
@@ -258,13 +270,50 @@ macro_rules! coap_unexpected {
     () => {};
 }
 
-macro_rules! coap2 {
-    ($blk:block) => {{
-        {
-            //  let val: usize = $e; // Force types to be integers
-            //  println!("{} = {}", stringify!{$e}, val);
-        }
-    }};
+///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
+///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
+///  or Standalone Node).
+fn send_sensor_data_rust() {
+    let device_id = b"0102030405060708090a0b0c0d0e0f10";
+    let node_id = b"b3b4b5b6f1";
+
+    //  Sensor `t` has int value 2870.
+    let int_sensor_value = SensorValueNew {
+        key: b"t".as_ptr(),
+        val: SensorValueType::Uint(2870)
+    };
+    //  Sensor `tmp` has float value 28.70.
+    let float_sensor_value = SensorValueNew {
+        key: b"tmp".as_ptr(),
+        val: SensorValueType::Float(28.70)
+    };
+
+    trace_macros!(true);
+
+    //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
+    let payload = coap!({
+        "device": device_id,
+        //  "node": node_id,
+        //  int_sensor_value,    //  Send `{t: 2870}`
+        //  float_sensor_value,  //  Send `{tmp: 28.70}`
+    });
+
+    trace_macros!(false);
+
+}
+
+pub struct SensorValueNew {
+    ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
+    pub key: *const u8,
+    ///  The type of the sensor value and the value.
+    pub val: SensorValueType,
+}
+
+pub enum SensorValueType {
+    ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
+    Uint(u32),
+    ///  32-bit float. For computed temp, contains the computed temp float value
+    Float(f32),
 }
 
 macro_rules! coap_root {
@@ -295,41 +344,13 @@ macro_rules! coap_item_str {
     }};
 }
 
-///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
-///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
-///  or Standalone Node).
-fn send_sensor_data_rust() {
-    let device_id = b"0102030405060708090a0b0c0d0e0f10";
-    let node_id = b"b3b4b5b6f1";
-    //  Sensor `t` has int value 2870.
-    let int_sensor_value = SensorValueNew {
-        key: b"t".as_ptr(),
-        val: SensorValueType::Uint(2870)
-    };
-    //  Sensor `tmp` has float value 28.70.
-    let float_sensor_value = SensorValueNew {
-        key: b"tmp".as_ptr(),
-        val: SensorValueType::Float(28.70)
-    };
-
-    trace_macros!(true);
-
-    //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
-    let payload = coap!({
-        "device": device_id,
-        "node": node_id,
-        int_sensor_value,    //  Send `{t: 2870}`
-        float_sensor_value,  //  Send `{tmp: 28.70}`
-    });
-
-    trace_macros!(false);
-
+fn test_macro2() {
     //  Send the payload.
     //  On Collector Node: Device sends JSON to CoAP server via ESP8266...
     // {"values":[
     //   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
     //   {"key":"node",   "value":"b3b4b5b6f1"},
-    //   {"key":"t",      "value":2870}
+    //   {"key":"t",      "value":2870},
     //   {"key":"tmp",    "value":28.7}
     // ]}
 
@@ -367,23 +388,7 @@ fn send_sensor_data_rust() {
 
         }) //  Close the "values" array
     }); //  Close the payload root
-
 }
-
-pub struct SensorValueNew {
-    ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-    pub key: *const u8,
-    ///  The type of the sensor value and the value.
-    pub val: SensorValueType,
-}
-
-pub enum SensorValueType {
-    ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
-    Uint(u32),
-    ///  32-bit float. For computed temp, contains the computed temp float value
-    Float(f32),
-}
-
 
 macro_rules! calculate {
     (eval $e:expr) => {{
@@ -413,6 +418,7 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
     console_print(b"start_network_task\n");
     test_macro();
     test_macro2();
+    send_sensor_data_rust();
     Ok(())
     //  0
 }
