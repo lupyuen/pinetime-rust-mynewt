@@ -636,8 +636,8 @@ mod send_coap {
                                coap_unexpected ! ( $ colon ) ; } ; (
                                @ object $ object : ident ( $ ( $ key : tt ) *
                                ) ( , $ ( $ rest : tt ) * ) (
-                               $ comma : tt $ ( $ copy : tt ) * ) ) => {  } ;
-                               (
+                               $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                               { let _ident = $ ( $ key ) * ; _ident } } ; (
                                @ object $ object : ident (  ) (
                                ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy
                                : tt ) => {
@@ -690,6 +690,10 @@ mod send_coap {
                 let _object = object;
                 let _key = "device";
                 let _value = { let _other = device_id; _other };
+                let _object = object;
+                let _key = "node";
+                let _value = { let _other = node_id; _other };
+                { let _ident = int_sensor_value; _ident };
                 let _ = "end_object";
                 "object"
             };

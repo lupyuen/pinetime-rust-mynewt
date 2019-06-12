@@ -179,6 +179,7 @@ macro_rules! coap_internal {
     (@object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
         // Takes no arguments so "no rules expected the token `,`".
         // TODO
+        { let _ident = $($key)*; _ident }
         ////coap_unexpected!($comma);
     };
 
@@ -293,9 +294,9 @@ fn send_sensor_data_rust() {
     //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
     let payload = coap!({
         "device": device_id,
-        //  "node": node_id,
-        //  int_sensor_value,    //  Send `{t: 2870}`
-        //  float_sensor_value,  //  Send `{tmp: 28.70}`
+        "node":   node_id,
+        int_sensor_value,    //  Send `{t: 2870}`
+        float_sensor_value,  //  Send `{tmp: 28.70}`
     });
 
     trace_macros!(false);
