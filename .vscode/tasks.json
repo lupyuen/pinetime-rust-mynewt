@@ -122,7 +122,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " set +e +x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
+                " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
             ],
             "problemMatcher": []
         },
@@ -134,6 +134,17 @@
             "args": [
                 "-c", "-l",
                 " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
+            ],
+            "problemMatcher": []
+        },
+        {
+            //  Build Rust library with macros expanded, output to logs/libmylib-expanded.rs.
+            "label": "Expand Rust macros",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c", "-l",
+                " set -e -x ; ./scripts/build-rustlib.sh ; echo ✅ ◾ ️Done! "
             ],
             "problemMatcher": []
         },

@@ -279,12 +279,12 @@ fn send_sensor_data_rust() {
 
     //  Sensor `t` has int value 2870.
     let int_sensor_value = SensorValueNew {
-        key: b"t".as_ptr(),
+        key: "t",
         val: SensorValueType::Uint(2870)
     };
     //  Sensor `tmp` has float value 28.70.
     let float_sensor_value = SensorValueNew {
-        key: b"tmp".as_ptr(),
+        key: "tmp",
         val: SensorValueType::Float(28.70)
     };
 
@@ -304,7 +304,7 @@ fn send_sensor_data_rust() {
 
 pub struct SensorValueNew {
     ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-    pub key: *const u8,
+    pub key: &'static str,
     ///  The type of the sensor value and the value.
     pub val: SensorValueType,
 }

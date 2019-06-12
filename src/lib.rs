@@ -38,6 +38,15 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
     let rc = start_sensor_listener();  assert!(rc == 0);
 
+    /* `assert!(rc == 0)` expands to:
+    if !(rc == 0) {
+        {
+            ::core::panicking::panic(&("assertion failed: rc == 0",
+                                       "src/lib.rs", 39u32, 40u32))
+        }
+    }; */
+    // ::core::panicking::panic(expr_file_line_col: &(&'static str, &'static str, u32, u32))
+
     //  Main event loop
     loop {                            //  Loop forever...
         unsafe {
