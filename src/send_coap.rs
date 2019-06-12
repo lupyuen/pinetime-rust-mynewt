@@ -17,83 +17,83 @@ use crate::sensor::*;
 //  From https://docs.serde.rs/src/serde_json/macros.rs.html
 
 #[macro_export(local_inner_macros)]
-macro_rules! json {
+macro_rules! coap {
     // Hide distracting implementation details from the generated rustdoc.
     ($($json:tt)+) => {
-        json_internal!($($json)+)
+        coap_internal!($($json)+)
     };
 }
 
 #[macro_export(local_inner_macros)]
 #[doc(hidden)]
-macro_rules! json_internal {
+macro_rules! coap_internal {
     //////////////////////////////////////////////////////////////////////////
     // TT muncher for parsing the inside of an array [...]. Produces a vec![...]
     // of the elements.
     //
-    // Must be invoked as: json_internal!(@array [] $($tt)*)
+    // Must be invoked as: coap_internal!(@array [] $($tt)*)
     //////////////////////////////////////////////////////////////////////////
 
     // Done with trailing comma.
     (@array [$($elems:expr,)*]) => {
-        json_internal_vec![$($elems,)*]
+        coap_internal_vec![$($elems,)*]
     };
 
     // Done without trailing comma.
     (@array [$($elems:expr),*]) => {
-        json_internal_vec![$($elems),*]
+        coap_internal_vec![$($elems),*]
     };
 
     // Next element is `null`.
     (@array [$($elems:expr,)*] null $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)* json_internal!(null)] $($rest)*)
+        coap_internal!(@array [$($elems,)* coap_internal!(null)] $($rest)*)
     };
 
     // Next element is `true`.
     (@array [$($elems:expr,)*] true $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)* json_internal!(true)] $($rest)*)
+        coap_internal!(@array [$($elems,)* coap_internal!(true)] $($rest)*)
     };
 
     // Next element is `false`.
     (@array [$($elems:expr,)*] false $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)* json_internal!(false)] $($rest)*)
+        coap_internal!(@array [$($elems,)* coap_internal!(false)] $($rest)*)
     };
 
     // Next element is an array.
     (@array [$($elems:expr,)*] [$($array:tt)*] $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)* json_internal!([$($array)*])] $($rest)*)
+        coap_internal!(@array [$($elems,)* coap_internal!([$($array)*])] $($rest)*)
     };
 
     // Next element is a map.
     (@array [$($elems:expr,)*] {$($map:tt)*} $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)* json_internal!({$($map)*})] $($rest)*)
+        coap_internal!(@array [$($elems,)* coap_internal!({$($map)*})] $($rest)*)
     };
 
     // Next element is an expression followed by comma.
     (@array [$($elems:expr,)*] $next:expr, $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)* json_internal!($next),] $($rest)*)
+        coap_internal!(@array [$($elems,)* coap_internal!($next),] $($rest)*)
     };
 
     // Last element is an expression with no trailing comma.
     (@array [$($elems:expr,)*] $last:expr) => {
-        json_internal!(@array [$($elems,)* json_internal!($last)])
+        coap_internal!(@array [$($elems,)* coap_internal!($last)])
     };
 
     // Comma after the most recent element.
     (@array [$($elems:expr),*] , $($rest:tt)*) => {
-        json_internal!(@array [$($elems,)*] $($rest)*)
+        coap_internal!(@array [$($elems,)*] $($rest)*)
     };
 
     // Unexpected token after most recent element.
     (@array [$($elems:expr),*] $unexpected:tt $($rest:tt)*) => {
-        json_unexpected!($unexpected)
+        coap_unexpected!($unexpected)
     };
 
     //////////////////////////////////////////////////////////////////////////
     // TT muncher for parsing the inside of an object {...}. Each entry is
     // inserted into the given map variable.
     //
-    // Must be invoked as: json_internal!(@object $map () ($($tt)*) ($($tt)*))
+    // Must be invoked as: coap_internal!(@object $map () ($($tt)*) ($($tt)*))
     //
     // We require two copies of the input tokens so that we can match on one
     // copy and trigger errors on the other copy.
@@ -105,12 +105,12 @@ macro_rules! json_internal {
     // Insert the current entry followed by trailing comma.
     (@object $object:ident [$($key:tt)+] ($value:expr) , $($rest:tt)*) => {
         let _ = $object.insert(($($key)+).into(), $value);
-        json_internal!(@object $object () ($($rest)*) ($($rest)*));
+        coap_internal!(@object $object () ($($rest)*) ($($rest)*));
     };
 
     // Current entry followed by unexpected token.
     (@object $object:ident [$($key:tt)+] ($value:expr) $unexpected:tt $($rest:tt)*) => {
-        json_unexpected!($unexpected);
+        coap_unexpected!($unexpected);
     };
 
     // Insert the last entry without trailing comma.
@@ -120,109 +120,118 @@ macro_rules! json_internal {
 
     // Next value is `null`.
     (@object $object:ident ($($key:tt)+) (: null $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!(null)) $($rest)*);
+        coap_internal!(@object $object [$($key)+] (coap_internal!(null)) $($rest)*);
     };
 
     // Next value is `true`.
     (@object $object:ident ($($key:tt)+) (: true $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!(true)) $($rest)*);
+        coap_internal!(@object $object [$($key)+] (coap_internal!(true)) $($rest)*);
     };
 
     // Next value is `false`.
     (@object $object:ident ($($key:tt)+) (: false $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!(false)) $($rest)*);
+        coap_internal!(@object $object [$($key)+] (coap_internal!(false)) $($rest)*);
     };
 
     // Next value is an array.
     (@object $object:ident ($($key:tt)+) (: [$($array:tt)*] $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!([$($array)*])) $($rest)*);
+        coap_internal!(@object $object [$($key)+] (coap_internal!([$($array)*])) $($rest)*);
     };
 
     // Next value is a map.
     (@object $object:ident ($($key:tt)+) (: {$($map:tt)*} $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!({$($map)*})) $($rest)*);
+        coap_internal!(@object $object [$($key)+] (coap_internal!({$($map)*})) $($rest)*);
     };
 
     // Next value is an expression followed by comma.
     (@object $object:ident ($($key:tt)+) (: $value:expr , $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!($value)) , $($rest)*);
+        coap_internal!(@object $object [$($key)+] (coap_internal!($value)) , $($rest)*);
     };
 
     // Last value is an expression with no trailing comma.
     (@object $object:ident ($($key:tt)+) (: $value:expr) $copy:tt) => {
-        json_internal!(@object $object [$($key)+] (json_internal!($value)));
+        coap_internal!(@object $object [$($key)+] (coap_internal!($value)));
     };
 
     // Missing value for last entry. Trigger a reasonable error message.
     (@object $object:ident ($($key:tt)+) (:) $copy:tt) => {
         // "unexpected end of macro invocation"
-        json_internal!();
+        coap_internal!();
     };
 
     // Missing colon and value for last entry. Trigger a reasonable error
     // message.
     (@object $object:ident ($($key:tt)+) () $copy:tt) => {
         // "unexpected end of macro invocation"
-        json_internal!();
+        coap_internal!();
     };
 
     // Misplaced colon. Trigger a reasonable error message.
     (@object $object:ident () (: $($rest:tt)*) ($colon:tt $($copy:tt)*)) => {
         // Takes no arguments so "no rules expected the token `:`".
-        json_unexpected!($colon);
+        coap_unexpected!($colon);
     };
 
     // Found a comma inside a key. Trigger a reasonable error message.
     (@object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
         // Takes no arguments so "no rules expected the token `,`".
-        json_unexpected!($comma);
+        // TODO
+        ////coap_unexpected!($comma);
     };
 
     // Key is fully parenthesized. This avoids clippy double_parens false
     // positives because the parenthesization may be necessary here.
     (@object $object:ident () (($key:expr) : $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object ($key) (: $($rest)*) (: $($rest)*));
+        coap_internal!(@object $object ($key) (: $($rest)*) (: $($rest)*));
     };
 
     // Munch a token into the current key.
     (@object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {
-        json_internal!(@object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
+        coap_internal!(@object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
     };
 
     //////////////////////////////////////////////////////////////////////////
     // The main implementation.
     //
-    // Must be invoked as: json_internal!($($json)+)
+    // Must be invoked as: coap_internal!($($json)+)
     //////////////////////////////////////////////////////////////////////////
 
     (null) => {
-        $crate::Value::Null
+        coap_null()
+        //  $crate::Value::Null
     };
 
     (true) => {
-        $crate::Value::Bool(true)
+        coap_true()
+        //  $crate::Value::Bool(true)
     };
 
     (false) => {
-        $crate::Value::Bool(false)
+        coap_false()
+        //  $crate::Value::Bool(false)
     };
 
     ([]) => {
-        $crate::Value::Array(json_internal_vec![])
+        coap_array_new(coap_internal_vec![])
+        //  $crate::Value::Array(coap_internal_vec![])
     };
 
     ([ $($tt:tt)+ ]) => {
-        $crate::Value::Array(json_internal!(@array [] $($tt)+))
+        coap_array_new(coap_internal!(@array [] $($tt)+))
+        //  $crate::Value::Array(coap_internal!(@array [] $($tt)+))
     };
 
     ({}) => {
-        $crate::Value::Object($crate::Map::new())
+        coap_object_new(coap_map_new())
+        //  $crate::Value::Object($crate::Map::new())
     };
 
     ({ $($tt:tt)+ }) => {
-        $crate::Value::Object({
-            let mut object = $crate::Map::new();
-            json_internal!(@object object () ($($tt)+) ($($tt)+));
+        coap_object_new({
+        //  $crate::Value::Object({
+            let mut object = coap_map_new();
+            //  let mut object = $crate::Map::new();
+            coap_internal!(@object object () ($($tt)+) ($($tt)+));
             object
         })
     };
@@ -230,13 +239,14 @@ macro_rules! json_internal {
     // Any Serialize type: numbers, strings, struct literals, variables etc.
     // Must be below every other rule.
     ($other:expr) => {
-        $crate::to_value(&$other).unwrap()
+        coap_to_value(&$other).unwrap()
+        //  $crate::to_value(&$other).unwrap()
     };
 }
 
 #[macro_export]
 #[doc(hidden)]
-macro_rules! json_internal_vec {
+macro_rules! coap_internal_vec {
     ($($content:tt)*) => {
         vec![$($content)*]
     };
@@ -244,11 +254,11 @@ macro_rules! json_internal_vec {
 
 #[macro_export]
 #[doc(hidden)]
-macro_rules! json_unexpected {
+macro_rules! coap_unexpected {
     () => {};
 }
 
-macro_rules! coap {
+macro_rules! coap2 {
     ($blk:block) => {{
         {
             //  let val: usize = $e; // Force types to be integers
@@ -292,9 +302,17 @@ fn send_sensor_data_rust() {
     let device_id = b"0102030405060708090a0b0c0d0e0f10";
     let node_id = b"b3b4b5b6f1";
     //  Sensor `t` has int value 2870.
-    let int_sensor_value = ("t", SENSOR_VALUE_TYPE_INT32, 2870);
+    let int_sensor_value = SensorValueNew {
+        key: b"t".as_ptr(),
+        val: SensorValueType::Uint(2870)
+    };
     //  Sensor `tmp` has float value 28.70.
-    let float_sensor_value = ("tmp", SENSOR_VALUE_TYPE_FLOAT, 28.70);
+    let float_sensor_value = SensorValueNew {
+        key: b"tmp".as_ptr(),
+        val: SensorValueType::Float(28.70)
+    };
+
+    trace_macros!(true);
 
     //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
     let payload = coap!({
@@ -304,7 +322,19 @@ fn send_sensor_data_rust() {
         float_sensor_value,  //  Send `{tmp: 28.70}`
     });
 
+    trace_macros!(false);
+
     //  Send the payload.
+    //  On Collector Node: Device sends JSON to CoAP server via ESP8266...
+    // {"values":[
+    //   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+    //   {"key":"node",   "value":"b3b4b5b6f1"},
+    //   {"key":"t",      "value":2870}
+    //   {"key":"tmp",    "value":28.7}
+    // ]}
+
+    //  On Sensor Node: Device sends CBOR to Collector Node via nRF24L01...
+    //  { "t": 2870 }
 
     coap_item_str! (values, "device", device_id);  ////
 
@@ -339,6 +369,21 @@ fn send_sensor_data_rust() {
     }); //  Close the payload root
 
 }
+
+pub struct SensorValueNew {
+    ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
+    pub key: *const u8,
+    ///  The type of the sensor value and the value.
+    pub val: SensorValueType,
+}
+
+pub enum SensorValueType {
+    ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
+    Uint(u32),
+    ///  32-bit float. For computed temp, contains the computed temp float value
+    Float(f32),
+}
+
 
 macro_rules! calculate {
     (eval $e:expr) => {{
