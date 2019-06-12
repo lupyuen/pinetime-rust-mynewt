@@ -394,12 +394,42 @@ macro_rules! coap_set_int_val {
     ($parent:ident, $sensor_value:expr) => {{
         let _ = "begin coap_set_int_val with _parent, _sensorval";
         let _parent = $parent;
-        let _sensor_value = $sensor_value;
+        //  let _sensor_value = $sensor_value;
         //  TODO
         //  let _key = _sensor_value.key;
         //  let _value = "TODO: _sensor_value.value";
 
         let _ = "end coap_set_int_val";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_set_text_string {
+    ($object:ident, $key:expr, $value:expr) => {{
+        let _ = "begin rep_set_text_string";
+        //  TODO: Handle JSON
+        oc_rep_set_text_string!($object, $key, $value);
+        let _ = "end rep_set_text_string";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_object_array_start_item {
+    ($key:expr) => {{
+        let _ = "begin rep_object_array_start_item";
+        //  TODO: Handle JSON
+        oc_rep_object_array_start_item!($key);
+        let _ = "end rep_object_array_start_item";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_object_array_end_item {
+    ($key:expr) => {{
+        let _ = "begin rep_object_array_end_item";
+        //  TODO: Handle JSON
+        oc_rep_object_array_end_item!($key);
+        let _ = "end rep_object_array_end_item";
     }};
 }
 
@@ -409,7 +439,7 @@ macro_rules! coap_set_int_val {
 
 #[macro_export(local_inner_macros)]
 macro_rules! oc_rep_start_object {
-    ($parent:ident, $key:expr) => {{
+    ($parent:expr, $key:expr) => {{
         let _ = "begin oc_rep_start_object";
         //  TODO
         //  CborEncoder key##_map;
@@ -420,7 +450,7 @@ macro_rules! oc_rep_start_object {
 
 #[macro_export(local_inner_macros)]
 macro_rules! oc_rep_end_object {
-    ($parent:ident, $key:expr) => {{
+    ($parent:expr, $key:expr) => {{
         let _ = "begin oc_rep_end_object";
         //  TODO
         //  g_err |= cbor_encoder_close_container(&parent, &key##_map);
@@ -443,18 +473,25 @@ macro_rules! oc_rep_set_text_string {
 }
 
 #[macro_export(local_inner_macros)]
-macro_rules! oc_rep_set_text_string {
-    ($object:ident, $key:expr, $value:expr) => {{
-        let _ = "begin oc_rep_set_text_string with _object, _key, _value";
-        let _object = $object;
-        let _key = $key;
-        let _value = $value;
-        //  TODO
-        //  g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));
-        //  g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));
-        let _ = "end oc_rep_set_text_string";
+macro_rules! oc_rep_object_array_start_item {
+    ($key:expr) => {{
+        let _ = "begin oc_rep_object_array_start_item";
+        oc_rep_start_object!($key + "_array", $key);
+        let _ = "end oc_rep_object_array_start_item";
     }};
 }
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_object_array_end_item {
+    ($key:expr) => {{
+        let _ = "begin oc_rep_object_array_end_item";
+        oc_rep_end_object!($key + "_array", $key);
+        let _ = "end oc_rep_object_array_end_item";
+    }};
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Test CoAP macros
 
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node

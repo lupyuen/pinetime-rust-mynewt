@@ -720,18 +720,60 @@ mod send_coap {
                                rep_set_text_string ! (
                                $ parent , "value" , $ val ) ; } ) ; let _ =
                                "end coap_item_str" ; } } ;);
+    ///  Append an array item under the array named `array0`.  Add `children0` as the items (key and value).
+    ///    `{ <array0>: [ ..., { <children0> } ] }`
+    #[macro_export(local_inner_macros)]
+    macro_rules! coap_item(( $ array0 : ident , $ children0 : block ) => {
+                           {
+                           let _ = "begin coap_item" ;
+                           rep_object_array_start_item ! ( $ array0 ) ; {
+                           $ children0 ; } rep_object_array_end_item ! (
+                           $ array0 ) ; let _ = "end coap_item" ; } } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! coap_set_int_val(( $ parent : ident , $ sensor_value : expr )
+                                  => {
+                                  {
+                                  let _ =
+                                  "begin coap_set_int_val with _parent, _sensorval"
+                                  ; let _parent = $ parent ; let _ =
+                                  "end coap_set_int_val" ; } } ;);
     #[macro_export(local_inner_macros)]
     macro_rules! rep_set_text_string((
                                      $ object : ident , $ key : expr , $ value
                                      : expr ) => {
                                      {
-                                     let _ =
-                                     "begin rep_set_text_string with _object, _key, _value"
-                                     ; let _object = $ object ; let _key = $
-                                     key ; let _value = $ value ;
+                                     let _ = "begin rep_set_text_string" ;
                                      oc_rep_set_text_string ! (
-                                     $ object , $ key , $ value , ) ; let _ =
+                                     $ object , $ key , $ value ) ; let _ =
                                      "end rep_set_text_string" ; } } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! rep_object_array_start_item(( $ key : expr ) => {
+                                             {
+                                             let _ =
+                                             "begin rep_object_array_start_item"
+                                             ; oc_rep_object_array_start_item
+                                             ! ( $ key ) ; let _ =
+                                             "end rep_object_array_start_item"
+                                             ; } } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! rep_object_array_end_item(( $ key : expr ) => {
+                                           {
+                                           let _ =
+                                           "begin rep_object_array_end_item" ;
+                                           oc_rep_object_array_end_item ! (
+                                           $ key ) ; let _ =
+                                           "end rep_object_array_end_item" ; }
+                                           } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! oc_rep_start_object(( $ parent : expr , $ key : expr ) => {
+                                     {
+                                     let _ = "begin oc_rep_start_object" ; let
+                                     _ = "end oc_rep_start_object" ; } } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! oc_rep_end_object(( $ parent : expr , $ key : expr ) => {
+                                   {
+                                   let _ = "begin oc_rep_end_object" ; let _ =
+                                   "end oc_rep_end_object" ; } } ;);
     #[macro_export(local_inner_macros)]
     macro_rules! oc_rep_set_text_string((
                                         $ object : ident , $ key : expr , $
@@ -743,14 +785,25 @@ mod send_coap {
                                         $ key ; let _value = $ value ; let _ =
                                         "end oc_rep_set_text_string" ; } } ;);
     #[macro_export(local_inner_macros)]
-    macro_rules! coap_set_int_val(( $ parent : ident , $ sensor_value : expr )
-                                  => {
-                                  {
-                                  let _ =
-                                  "begin coap_set_int_val with _parent, _sensorval"
-                                  ; let _parent = $ parent ; let _sensor_value
-                                  = $ sensor_value ; let _ =
-                                  "end coap_set_int_val" ; } } ;);
+    macro_rules! oc_rep_object_array_start_item(( $ key : expr ) => {
+                                                {
+                                                let _ =
+                                                "begin oc_rep_object_array_start_item"
+                                                ; oc_rep_start_object ! (
+                                                $ key + "_array" , $ key ) ;
+                                                let _ =
+                                                "end oc_rep_object_array_start_item"
+                                                ; } } ;);
+    #[macro_export(local_inner_macros)]
+    macro_rules! oc_rep_object_array_end_item(( $ key : expr ) => {
+                                              {
+                                              let _ =
+                                              "begin oc_rep_object_array_end_item"
+                                              ; oc_rep_end_object ! (
+                                              $ key + "_array" , $ key ) ; let
+                                              _ =
+                                              "end oc_rep_object_array_end_item"
+                                              ; } } ;);
     ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
@@ -788,7 +841,87 @@ mod send_coap {
                                     let _key = "device";
                                     let _val =
                                         { let _expr = device_id; device_id };
-                                    (/*ERROR*/);
+                                    {
+                                        let _ = "begin coap_item";
+                                        {
+                                            let _ =
+                                                "begin rep_object_array_start_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_object_array_start_item";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_start_object";
+                                                    let _ =
+                                                        "end oc_rep_start_object";
+                                                };
+                                                let _ =
+                                                    "end oc_rep_object_array_start_item";
+                                            };
+                                            let _ =
+                                                "end rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                {
+                                                    let _ =
+                                                        "begin rep_set_text_string";
+                                                    {
+                                                        let _ =
+                                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                                        let _object =
+                                                            values_key;
+                                                        let _key = "key";
+                                                        let _value = "device";
+                                                        let _ =
+                                                            "end oc_rep_set_text_string";
+                                                    };
+                                                    let _ =
+                                                        "end rep_set_text_string";
+                                                };
+                                                {
+                                                    let _ =
+                                                        "begin rep_set_text_string";
+                                                    {
+                                                        let _ =
+                                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                                        let _object =
+                                                            values_key;
+                                                        let _key = "value";
+                                                        let _value =
+                                                            {
+                                                                let _expr =
+                                                                    device_id;
+                                                                device_id
+                                                            };
+                                                        let _ =
+                                                            "end oc_rep_set_text_string";
+                                                    };
+                                                    let _ =
+                                                        "end rep_set_text_string";
+                                                };
+                                            };
+                                        }
+                                        {
+                                            let _ =
+                                                "begin rep_object_array_end_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_object_array_end_item";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_end_object";
+                                                    let _ =
+                                                        "end oc_rep_end_object";
+                                                };
+                                                let _ =
+                                                    "end oc_rep_object_array_end_item";
+                                            };
+                                            let _ =
+                                                "end rep_object_array_end_item";
+                                        };
+                                        let _ = "end coap_item";
+                                    };
                                     let _ = "end coap_item_str";
                                 };
                                 let _ = "--------------------";
@@ -800,7 +933,6 @@ mod send_coap {
                                     let _ =
                                         "begin coap_set_int_val with _parent, _sensorval";
                                     let _parent = values_key;
-                                    let _sensor_value = int_sensor_value;
                                     let _ = "end coap_set_int_val";
                                 };
                                 let _ = "--------------------";
@@ -812,7 +944,6 @@ mod send_coap {
                                     let _ =
                                         "begin coap_set_int_val with _parent, _sensorval";
                                     let _parent = values_key;
-                                    let _sensor_value = float_sensor_value;
                                     let _ = "end coap_set_int_val";
                                 };
                                 let _ = "--------------------";
@@ -828,7 +959,87 @@ mod send_coap {
                                     let _key = "node";
                                     let _val =
                                         { let _expr = node_id; node_id };
-                                    (/*ERROR*/);
+                                    {
+                                        let _ = "begin coap_item";
+                                        {
+                                            let _ =
+                                                "begin rep_object_array_start_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_object_array_start_item";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_start_object";
+                                                    let _ =
+                                                        "end oc_rep_start_object";
+                                                };
+                                                let _ =
+                                                    "end oc_rep_object_array_start_item";
+                                            };
+                                            let _ =
+                                                "end rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                {
+                                                    let _ =
+                                                        "begin rep_set_text_string";
+                                                    {
+                                                        let _ =
+                                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                                        let _object =
+                                                            values_key;
+                                                        let _key = "key";
+                                                        let _value = "node";
+                                                        let _ =
+                                                            "end oc_rep_set_text_string";
+                                                    };
+                                                    let _ =
+                                                        "end rep_set_text_string";
+                                                };
+                                                {
+                                                    let _ =
+                                                        "begin rep_set_text_string";
+                                                    {
+                                                        let _ =
+                                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                                        let _object =
+                                                            values_key;
+                                                        let _key = "value";
+                                                        let _value =
+                                                            {
+                                                                let _expr =
+                                                                    node_id;
+                                                                node_id
+                                                            };
+                                                        let _ =
+                                                            "end oc_rep_set_text_string";
+                                                    };
+                                                    let _ =
+                                                        "end rep_set_text_string";
+                                                };
+                                            };
+                                        }
+                                        {
+                                            let _ =
+                                                "begin rep_object_array_end_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_object_array_end_item";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_end_object";
+                                                    let _ =
+                                                        "end oc_rep_end_object";
+                                                };
+                                                let _ =
+                                                    "end oc_rep_object_array_end_item";
+                                            };
+                                            let _ =
+                                                "end rep_object_array_end_item";
+                                        };
+                                        let _ = "end coap_item";
+                                    };
                                     let _ = "end coap_item_str";
                                 };
                                 let _ = "--------------------";
@@ -870,7 +1081,62 @@ mod send_coap {
             let _parent = values;
             let _key = "device";
             let _val = device_id;
-            (/*ERROR*/);
+            {
+                let _ = "begin coap_item";
+                {
+                    let _ = "begin rep_object_array_start_item";
+                    {
+                        let _ = "begin oc_rep_object_array_start_item";
+                        {
+                            let _ = "begin oc_rep_start_object";
+                            let _ = "end oc_rep_start_object";
+                        };
+                        let _ = "end oc_rep_object_array_start_item";
+                    };
+                    let _ = "end rep_object_array_start_item";
+                };
+                {
+                    {
+                        {
+                            let _ = "begin rep_set_text_string";
+                            {
+                                let _ =
+                                    "begin oc_rep_set_text_string with _object, _key, _value";
+                                let _object = values;
+                                let _key = "key";
+                                let _value = "device";
+                                let _ = "end oc_rep_set_text_string";
+                            };
+                            let _ = "end rep_set_text_string";
+                        };
+                        {
+                            let _ = "begin rep_set_text_string";
+                            {
+                                let _ =
+                                    "begin oc_rep_set_text_string with _object, _key, _value";
+                                let _object = values;
+                                let _key = "value";
+                                let _value = device_id;
+                                let _ = "end oc_rep_set_text_string";
+                            };
+                            let _ = "end rep_set_text_string";
+                        };
+                    };
+                }
+                {
+                    let _ = "begin rep_object_array_end_item";
+                    {
+                        let _ = "begin oc_rep_object_array_end_item";
+                        {
+                            let _ = "begin oc_rep_end_object";
+                            let _ = "end oc_rep_end_object";
+                        };
+                        let _ = "end oc_rep_object_array_end_item";
+                    };
+                    let _ = "end rep_object_array_end_item";
+                };
+                let _ = "end coap_item";
+            };
             let _ = "end coap_item_str";
         };
         {
@@ -883,7 +1149,63 @@ mod send_coap {
                     let _parent = values;
                     let _key = "device";
                     let _val = device_id;
-                    (/*ERROR*/);
+                    {
+                        let _ = "begin coap_item";
+                        {
+                            let _ = "begin rep_object_array_start_item";
+                            {
+                                let _ =
+                                    "begin oc_rep_object_array_start_item";
+                                {
+                                    let _ = "begin oc_rep_start_object";
+                                    let _ = "end oc_rep_start_object";
+                                };
+                                let _ = "end oc_rep_object_array_start_item";
+                            };
+                            let _ = "end rep_object_array_start_item";
+                        };
+                        {
+                            {
+                                {
+                                    let _ = "begin rep_set_text_string";
+                                    {
+                                        let _ =
+                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                        let _object = values;
+                                        let _key = "key";
+                                        let _value = "device";
+                                        let _ = "end oc_rep_set_text_string";
+                                    };
+                                    let _ = "end rep_set_text_string";
+                                };
+                                {
+                                    let _ = "begin rep_set_text_string";
+                                    {
+                                        let _ =
+                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                        let _object = values;
+                                        let _key = "value";
+                                        let _value = device_id;
+                                        let _ = "end oc_rep_set_text_string";
+                                    };
+                                    let _ = "end rep_set_text_string";
+                                };
+                            };
+                        }
+                        {
+                            let _ = "begin rep_object_array_end_item";
+                            {
+                                let _ = "begin oc_rep_object_array_end_item";
+                                {
+                                    let _ = "begin oc_rep_end_object";
+                                    let _ = "end oc_rep_end_object";
+                                };
+                                let _ = "end oc_rep_object_array_end_item";
+                            };
+                            let _ = "end rep_object_array_end_item";
+                        };
+                        let _ = "end coap_item";
+                    };
                     let _ = "end coap_item_str";
                 };
                 {
@@ -891,7 +1213,63 @@ mod send_coap {
                     let _parent = values;
                     let _key = "node";
                     let _val = node_id;
-                    (/*ERROR*/);
+                    {
+                        let _ = "begin coap_item";
+                        {
+                            let _ = "begin rep_object_array_start_item";
+                            {
+                                let _ =
+                                    "begin oc_rep_object_array_start_item";
+                                {
+                                    let _ = "begin oc_rep_start_object";
+                                    let _ = "end oc_rep_start_object";
+                                };
+                                let _ = "end oc_rep_object_array_start_item";
+                            };
+                            let _ = "end rep_object_array_start_item";
+                        };
+                        {
+                            {
+                                {
+                                    let _ = "begin rep_set_text_string";
+                                    {
+                                        let _ =
+                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                        let _object = values;
+                                        let _key = "key";
+                                        let _value = "node";
+                                        let _ = "end oc_rep_set_text_string";
+                                    };
+                                    let _ = "end rep_set_text_string";
+                                };
+                                {
+                                    let _ = "begin rep_set_text_string";
+                                    {
+                                        let _ =
+                                            "begin oc_rep_set_text_string with _object, _key, _value";
+                                        let _object = values;
+                                        let _key = "value";
+                                        let _value = node_id;
+                                        let _ = "end oc_rep_set_text_string";
+                                    };
+                                    let _ = "end rep_set_text_string";
+                                };
+                            };
+                        }
+                        {
+                            let _ = "begin rep_object_array_end_item";
+                            {
+                                let _ = "begin oc_rep_object_array_end_item";
+                                {
+                                    let _ = "begin oc_rep_end_object";
+                                    let _ = "end oc_rep_end_object";
+                                };
+                                let _ = "end oc_rep_object_array_end_item";
+                            };
+                            let _ = "end rep_object_array_end_item";
+                        };
+                        let _ = "end coap_item";
+                    };
                     let _ = "end coap_item_str";
                 };
             };
@@ -912,7 +1290,80 @@ mod send_coap {
                                 let _parent = values;
                                 let _key = "device";
                                 let _val = device_id;
-                                (/*ERROR*/);
+                                {
+                                    let _ = "begin coap_item";
+                                    {
+                                        let _ =
+                                            "begin rep_object_array_start_item";
+                                        {
+                                            let _ =
+                                                "begin oc_rep_object_array_start_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_start_object";
+                                                let _ =
+                                                    "end oc_rep_start_object";
+                                            };
+                                            let _ =
+                                                "end oc_rep_object_array_start_item";
+                                        };
+                                        let _ =
+                                            "end rep_object_array_start_item";
+                                    };
+                                    {
+                                        {
+                                            {
+                                                let _ =
+                                                    "begin rep_set_text_string";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_set_text_string with _object, _key, _value";
+                                                    let _object = values;
+                                                    let _key = "key";
+                                                    let _value = "device";
+                                                    let _ =
+                                                        "end oc_rep_set_text_string";
+                                                };
+                                                let _ =
+                                                    "end rep_set_text_string";
+                                            };
+                                            {
+                                                let _ =
+                                                    "begin rep_set_text_string";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_set_text_string with _object, _key, _value";
+                                                    let _object = values;
+                                                    let _key = "value";
+                                                    let _value = device_id;
+                                                    let _ =
+                                                        "end oc_rep_set_text_string";
+                                                };
+                                                let _ =
+                                                    "end rep_set_text_string";
+                                            };
+                                        };
+                                    }
+                                    {
+                                        let _ =
+                                            "begin rep_object_array_end_item";
+                                        {
+                                            let _ =
+                                                "begin oc_rep_object_array_end_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_end_object";
+                                                let _ =
+                                                    "end oc_rep_end_object";
+                                            };
+                                            let _ =
+                                                "end oc_rep_object_array_end_item";
+                                        };
+                                        let _ =
+                                            "end rep_object_array_end_item";
+                                    };
+                                    let _ = "end coap_item";
+                                };
                                 let _ = "end coap_item_str";
                             };
                             {
@@ -921,14 +1372,86 @@ mod send_coap {
                                 let _parent = values;
                                 let _key = "node";
                                 let _val = node_id;
-                                (/*ERROR*/);
+                                {
+                                    let _ = "begin coap_item";
+                                    {
+                                        let _ =
+                                            "begin rep_object_array_start_item";
+                                        {
+                                            let _ =
+                                                "begin oc_rep_object_array_start_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_start_object";
+                                                let _ =
+                                                    "end oc_rep_start_object";
+                                            };
+                                            let _ =
+                                                "end oc_rep_object_array_start_item";
+                                        };
+                                        let _ =
+                                            "end rep_object_array_start_item";
+                                    };
+                                    {
+                                        {
+                                            {
+                                                let _ =
+                                                    "begin rep_set_text_string";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_set_text_string with _object, _key, _value";
+                                                    let _object = values;
+                                                    let _key = "key";
+                                                    let _value = "node";
+                                                    let _ =
+                                                        "end oc_rep_set_text_string";
+                                                };
+                                                let _ =
+                                                    "end rep_set_text_string";
+                                            };
+                                            {
+                                                let _ =
+                                                    "begin rep_set_text_string";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_set_text_string with _object, _key, _value";
+                                                    let _object = values;
+                                                    let _key = "value";
+                                                    let _value = node_id;
+                                                    let _ =
+                                                        "end oc_rep_set_text_string";
+                                                };
+                                                let _ =
+                                                    "end rep_set_text_string";
+                                            };
+                                        };
+                                    }
+                                    {
+                                        let _ =
+                                            "begin rep_object_array_end_item";
+                                        {
+                                            let _ =
+                                                "begin oc_rep_object_array_end_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_end_object";
+                                                let _ =
+                                                    "end oc_rep_end_object";
+                                            };
+                                            let _ =
+                                                "end oc_rep_object_array_end_item";
+                                        };
+                                        let _ =
+                                            "end rep_object_array_end_item";
+                                    };
+                                    let _ = "end coap_item";
+                                };
                                 let _ = "end coap_item_str";
                             };
                             {
                                 let _ =
                                     "begin coap_set_int_val with _parent, _sensorval";
                                 let _parent = root;
-                                let _sensor_value = int_sensor_value;
                                 let _ = "end coap_set_int_val";
                             };
                         };
