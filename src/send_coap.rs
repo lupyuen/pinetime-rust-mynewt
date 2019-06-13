@@ -197,6 +197,7 @@ macro_rules! coap_internal {
       $object,  //  _object, 
       $($key)*  //  _sensor_value
     );
+    "--------------------";
     //  Continue expanding the rest of the JSON.
     coap_internal!(@json @object $object () ($($rest)*) ($($rest)*));
   };
@@ -209,6 +210,7 @@ macro_rules! coap_internal {
       $object,  //  _object, 
       $($key)*  //  _sensor_value
     );
+    "--------------------";
     //  Continue expanding the rest of the JSON.
     coap_internal!(@cbor @object $object () ($($rest)*) ($($rest)*));
   };
@@ -549,21 +551,20 @@ macro_rules! oc_rep_end_root_object {
 #[macro_export]
 macro_rules! oc_rep_start_object {
   ($parent:ident, $key:ident, $parent_suffix:literal) => {{
-    //  Must use _parent0, _key0 to avoid conflict.
-    dump!(begin oc_rep_start_object);
-    let _parent0 = concat!(
-      stringify!($parent), $parent_suffix  //  parent##parent_suffix
-    );
-    let _key0 = $key;
-    let _child = concat!(
-      stringify!($key), "_map"  //  key##_map
+    concat!(
+      "begin oc_rep_start_object ",
+      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  dump!(TODO: CborEncoder key##_map);
-    let _ = concat!("TODO: CborEncoder ", 
+    concat!(
+      "> TODO: CborEncoder ",
       stringify!($key), "_map"  //  key##_map
     );
     //  dump!(TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    let _ = concat!("TODO: g_err |= cbor_encoder_create_map(&",
+    concat!(
+      "> TODO: g_err |= cbor_encoder_create_map(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &",
       stringify!($key), "_map",  //  key##_map
@@ -575,17 +576,15 @@ macro_rules! oc_rep_start_object {
 #[macro_export]
 macro_rules! oc_rep_end_object {
   ($parent:ident, $key:ident, $parent_suffix:literal) => {{
-    //  Must use _parent0, _key0 to avoid conflict.
-    dump!(begin oc_rep_end_object);
-    let _parent0 = concat!(
-      stringify!($parent), $parent_suffix  //  parent##parent_suffix
-    );
-    let _key0 = $key;
-    let _child = concat!(
-      stringify!($key), "_map"  //  key##_map
+    concat!(
+      "begin oc_rep_end_object ",
+      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  dump!(TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    let _ = concat!("TODO: g_err |= cbor_encoder_close_container(&",
+    concat!(
+      "> TODO: g_err |= cbor_encoder_close_container(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &", 
       stringify!($key), "_map",  //  key##_map
@@ -598,22 +597,21 @@ macro_rules! oc_rep_end_object {
 #[macro_export]
 macro_rules! oc_rep_start_array {
   ($parent:ident, $key:ident, $parent_suffix:literal) => {{
-    dump!(begin oc_rep_start_array);
-    let _parent = concat!(
-      stringify!($parent), $parent_suffix  //  parent##parent_suffix
-    );
-    let _key = $key;
-    let _child = concat!(
-      stringify!($key), "_array"  //  key##_array
+    concat!(
+      "begin oc_rep_start_array ",
+      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     //  dump!(TODO: CborEncoder key##_array);
-    let _ = concat!("TODO: CborEncoder ",
+    concat!(
+      "> TODO: CborEncoder ",
       stringify!($key), "_array",  //  key##_array
       ");"
     );
-
     //  dump!(TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-    let _ = concat!("TODO: g_err |= cbor_encoder_create_array(&", 
+    concat!(
+      "> TODO: g_err |= cbor_encoder_create_array(&", 
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &",
       stringify!($key), "_array",  //  key##_array
@@ -626,16 +624,15 @@ macro_rules! oc_rep_start_array {
 #[macro_export]
 macro_rules! oc_rep_end_array {
   ($parent:ident, $key:ident, $parent_suffix:literal) => {{
-    dump!(begin oc_rep_end_array);
-    let _parent = concat!(
-      stringify!($parent), $parent_suffix  //  parent##parent_suffix
-    );
-    let _key = $key;
-    let _child = concat!(
-      stringify!($key), "_array"  //  key##_array
+    concat!(
+      "begin oc_rep_end_array ",
+      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     //  dump!(TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
-    let _ = concat!("TODO: g_err |= cbor_encoder_close_container(&",
+    concat!(
+      "> TODO: g_err |= cbor_encoder_close_container(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &",
       stringify!($key), "_array",  //  key##_array
@@ -648,14 +645,15 @@ macro_rules! oc_rep_end_array {
 #[macro_export]
 macro_rules! oc_rep_set_array {
   ($object:ident, $key:ident) => {{
-    dump!(begin oc_rep_set_array);
-    let _object = $object;
-    let _key = $key;    
-    let _child = concat!(
-      stringify!($object), "_map"  //  object##_map
+    concat!(
+      "begin oc_rep_set_array ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  let _ = concat!("TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
-    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+    //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($key),  //  #key
@@ -663,14 +661,7 @@ macro_rules! oc_rep_set_array {
       stringify!($key),  //  #key
       "));"
     );
-
-    //  let _ = concat!("TODO: oc_rep_start_array!(object##_map, key);");
-    let _ = concat!("TODO: oc_rep_start_array!(",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($key),  //  key
-      ");"
-    );
+    //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
     oc_rep_start_array!(
       $object,
       $key,
@@ -683,19 +674,13 @@ macro_rules! oc_rep_set_array {
 #[macro_export]
 macro_rules! oc_rep_close_array {
   ($object:ident, $key:ident) => {{
-    dump!(begin oc_rep_close_array);
-    let _object = $object;
-    let _key = $key;
-    let _child = concat!(
-      stringify!($object), "_map"  //  object##_map
+    concat!(
+      "begin oc_rep_close_array ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  dump!(TODO: oc_rep_end_array(object##_map, key));
-    let _ = concat!("TODO: oc_rep_end_array(",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($key),  //  key
-      ");"
-    );
     oc_rep_end_array!(
       $object, 
       $key,
@@ -708,14 +693,12 @@ macro_rules! oc_rep_close_array {
 #[macro_export]
 macro_rules! oc_rep_object_array_start_item {
   ($key:ident) => {{
-    dump!(begin oc_rep_object_array_start_item);
-    //  dump!(TODO: oc_rep_start_object(key##_array, key));        
-    let _ = concat!("TODO: oc_rep_start_object(",
-      stringify!($key), "_array",  //  key##_array
-      ", ",
-      stringify!($key),  //  key
-      ");"
+    concat!(
+      "begin oc_rep_object_array_start_item ",
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array",  //  key##_array
     );
+    //  dump!(TODO: oc_rep_start_object(key##_array, key));        
     oc_rep_start_object!(
       $key, 
       $key,
@@ -728,14 +711,12 @@ macro_rules! oc_rep_object_array_start_item {
 #[macro_export]
 macro_rules! oc_rep_object_array_end_item {
   ($key:ident) => {{
-    dump!(begin oc_rep_object_array_end_item);
-    //  dump!(TODO: oc_rep_end_object(key##_array, key));
-    let _ = concat!("TODO: oc_rep_end_object(",
-      stringify!($key), "_array",  //  key##_array
-      ", ",
-      stringify!($key),  //  key
-      ");"
+    concat!(
+      "begin oc_rep_object_array_end_item ",
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array",  //  key##_array
     );
+    //  dump!(TODO: oc_rep_end_object(key##_array, key));
     oc_rep_end_object!(
       $key, 
       $key,
@@ -748,15 +729,16 @@ macro_rules! oc_rep_object_array_end_item {
 #[macro_export]
 macro_rules! oc_rep_set_int {
   ($object:ident, $key:expr, $value:expr) => {{
-    dump!(begin oc_rep_set_int with _object, _key, _value);
-    let _object = $object;
-    let _key = $key;
-    let _value = $value;
-    let _child = concat!(
-      stringify!($object), "_map"  //  object##_map
+    concat!(
+      "begin oc_rep_set_int ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($key),  //  #key
@@ -766,7 +748,8 @@ macro_rules! oc_rep_set_int {
     );
 
     //  dump!(TODO: g_err |= cbor_encode_int(&object##_map, value));
-    let _ = concat!("TODO: g_err |= cbor_encode_int(&",
+    concat!(
+      "> TODO: g_err |= cbor_encode_int(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($value),  //  value
@@ -780,15 +763,16 @@ macro_rules! oc_rep_set_int {
 #[macro_export]
 macro_rules! oc_rep_set_int_k {
   ($object:ident, $key:expr, $value:expr) => {{
-    dump!(begin oc_rep_set_int_k with _object, _key, _value);
-    let _object = $object;
-    let _key = $key;
-    let _value = $value;
-    let _child = concat!(
-      stringify!($object), "_map"  //  object##_map
+    concat!(
+      "begin oc_rep_set_int_k ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, key, strlen(key)));
-    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($key),  //  key
@@ -798,7 +782,8 @@ macro_rules! oc_rep_set_int_k {
     );
 
     //  dump!(TODO: g_err |= cbor_encode_int(&object##_map, value));
-    let _ = concat!("TODO: g_err |= cbor_encode_int(&",
+    concat!(
+      "> TODO: g_err |= cbor_encode_int(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($value),  //  value
@@ -811,15 +796,16 @@ macro_rules! oc_rep_set_int_k {
 #[macro_export]
 macro_rules! oc_rep_set_text_string {
   ($object:ident, $key:expr, $value:expr) => {{
-    dump!(begin oc_rep_set_text_string with _object, _key, _value);
-    let _object = $object;
-    let _key = $key;
-    let _value = $value;
-    let _child = concat!(
-      stringify!($object), "_map"  //  object##_map
+    concat!(
+      "begin oc_rep_set_text_string ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($key),  //  #key
@@ -829,7 +815,8 @@ macro_rules! oc_rep_set_text_string {
     );
 
     //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
-    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($value),  //  value
@@ -841,10 +828,13 @@ macro_rules! oc_rep_set_text_string {
   }};
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//  Test macros
+
 #[macro_export]
 macro_rules! test_literal {
   ($key:literal) => {{
-    let _ = concat!($key, "_zzz");
+    concat!($key, "_zzz");
   }};
 }
 
@@ -895,7 +885,7 @@ macro_rules! dump {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Test CoAP macros
+//  Test code
 
 //  const SEND_JSON_FORMAT: bool = false;
 
