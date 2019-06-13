@@ -277,15 +277,19 @@ macro_rules! coap_internal {
             let _ = "begin root";
             let root_key = "root";  //  Top level object is named "root".
             let values_key = "values";  //  "values" will be an array of items under the root
-            //  coap_internal!(@object root_key () ($($tt)+) ($($tt)+));            
             coap_root!({  //  Create the payload root
-                //  coap_array!(root_key, values_key, {
+
+                //  For sending to CoAP Server...
                 coap_array!(root_key, values_key, {  //  Create "values" as an array of items under the root
                     //  Expand the items inside { ... }
-                    //  coap_internal!(@object values_key () ($($tt)+) ($($tt)+));
                     coap_internal!(@object values_key () ($($tt)+) ($($tt)+));
                 });  //  Close the "values" array
+
+                //  For sending to Collector Node...
+                //  coap_internal!(@object root_key () ($($tt)+) ($($tt)+));
+
             });  //  Close the payload root
+            //  Previously: coap_internal!(@object root_key () ($($tt)+) ($($tt)+));            
             let _ = "end root";
             let _ = "return root to caller";
             root_key
@@ -491,7 +495,7 @@ macro_rules! oc_rep_start_root_object {
     () => {{
         let _ = "begin oc_rep_start_root_object";
         //  TODO
-        //  g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength);
+        let _ = "TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength);";
         let _ = "end oc_rep_start_root_object";
     }};
 }
@@ -501,7 +505,7 @@ macro_rules! oc_rep_end_root_object {
     () => {{
         let _ = "begin oc_rep_end_root_object";
         //  TODO
-        //  g_err |= cbor_encoder_close_container(&g_encoder, &root_map);
+        let _ = "TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map);";
         let _ = "end oc_rep_end_root_object";
     }};
 }
@@ -513,7 +517,7 @@ macro_rules! oc_rep_start_object {
         let _parent0 = $parent;
         let _key0 = $key;
         //  TODO
-        let _ = "TODO: CborEncoder key##_map;"
+        let _ = "TODO: CborEncoder key##_map;";
         let _ = "TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength);";
         let _ = "end oc_rep_start_object";
     }};
@@ -526,8 +530,20 @@ macro_rules! oc_rep_end_object {
         let _parent0 = $parent;
         let _key0 = $key;
         //  TODO
-        let _ = "TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map);"
+        let _ = "TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map);";
         let _ = "end oc_rep_end_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_end_array {
+    ($parent:ident, $key:ident) => {{
+        let _ = "begin oc_rep_end_array";
+        let _parent = $parent;
+        let _key = $key;
+        //  TODO
+        let _ = "TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array);";
+        let _ = "end oc_rep_end_array";
     }};
 }
 
@@ -540,6 +556,7 @@ macro_rules! oc_rep_set_array {
         //  TODO
         let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));";
         let _ = "TODO: oc_rep_start_array!(object##_map, key);";
+        oc_rep_start_array!($key, $key);  //  TODO
         let _ = "end oc_rep_start_object";
     }};
 }
@@ -552,6 +569,7 @@ macro_rules! oc_rep_close_array {
         let _key = $key;
         //  TODO
         let _ = "TODO: oc_rep_end_array(object##_map, key);";
+        oc_rep_end_array!($key, $key);  //  TODO
         let _ = "end oc_rep_close_array";
     }};
 }
@@ -574,7 +592,8 @@ macro_rules! oc_rep_set_text_string {
 macro_rules! oc_rep_object_array_start_item {
     ($key:ident) => {{
         let _ = "begin oc_rep_object_array_start_item";
-        let _ = "TODO: oc_rep_start_object(key##_array, key);";
+        let _ = "TODO: oc_rep_start_object(key##_array, key);";        
+        oc_rep_start_object!($key, $key);  //  TODO
         let _ = "end oc_rep_object_array_start_item";
     }};
 }
@@ -584,6 +603,7 @@ macro_rules! oc_rep_object_array_end_item {
     ($key:ident) => {{
         let _ = "begin oc_rep_object_array_end_item";
         let _ = "TODO: oc_rep_end_object(key##_array, key);";
+        oc_rep_end_object!($key, $key);  //  TODO
         let _ = "end oc_rep_object_array_end_item";
     }};
 }
