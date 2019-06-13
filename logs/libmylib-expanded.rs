@@ -579,12 +579,15 @@ mod send_coap {
                                @ $ enc : ident @ object $ object : ident [
                                $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
                                $ rest : tt ) * ) => {
-                               let _ =
-                               "TODO: add (_key, _value) to _object_key" ; let
-                               _key = $ ( $ key ) + ; let _value = $ value ;
-                               let _object_key = $ object ; coap_item_str ! (
-                               $ object , $ ( $ key ) + , $ value ) ; let _ =
-                               "--------------------" ; coap_internal ! (
+                               let _ = (
+                               "TODO: add1 key:" , ( $ ( $ key ) + ) ,
+                               "value:" , $ value , "to object:" , $ object )
+                               ; let _key = $ ( $ key ) + ; let _value = $
+                               value ; let _object_key = $ object ;
+                               coap_item_str ! (
+                               @ $ enc $ object , $ ( $ key ) + , $ value ) ;
+                               let _ = "--------------------" ; coap_internal
+                               ! (
                                @ $ enc @ object $ object (  ) ( $ ( $ rest ) *
                                ) ( $ ( $ rest ) * ) ) ; } ; (
                                @ $ enc : ident @ object $ object : ident [
@@ -594,8 +597,9 @@ mod send_coap {
                                @ $ enc : ident @ object $ object : ident [
                                $ ( $ key : tt ) + ] ( $ value : expr ) ) => {
                                let _ = (
-                               "TODO: add key:" , ( $ ( $ key ) + ) , "value:"
-                               , $ value , "to object:" , $ object ) ; } ; (
+                               "TODO: add2 key:" , ( $ ( $ key ) + ) ,
+                               "value:" , $ value , "to object:" , $ object )
+                               ; } ; (
                                @ $ enc : ident @ object $ object : ident (
                                $ ( $ key : tt ) + ) (
                                : null $ ( $ rest : tt ) * ) $ copy : tt ) => {
@@ -685,7 +689,7 @@ mod send_coap {
                                @ $ enc : ident @ object $ object : ident (  )
                                ( ( $ key : expr ) : $ ( $ rest : tt ) * ) $
                                copy : tt ) => {
-                               coap_internal ! (
+                               let _ = "token ()" ; coap_internal ! (
                                @ $ enc @ object $ object ( $ key ) (
                                : $ ( $ rest ) * ) ( : $ ( $ rest ) * ) ) ; } ;
                                (
@@ -716,8 +720,11 @@ mod send_coap {
                                coap_root ! (
                                @ json {
                                let values = "values" ; coap_array ! (
-                               @ json root , values , { let _object = values ;
-                               } ) ; } ) ; let _ = "end json root" ; let _ =
+                               @ json root , values , {
+                               coap_internal ! (
+                               @ json @ object values (  ) ( $ ( $ tt ) + ) (
+                               $ ( $ tt ) + ) ) ; } ) ; } ) ; let _ =
+                               "end json root" ; let _ =
                                "return json root to caller" ; root } } ; (
                                @ cbor { $ ( $ tt : tt ) + } ) => {
                                {
@@ -1138,18 +1145,17 @@ mod send_coap {
                                      " / " , stringify ! ( $ key ) ) ;
                                      test_internal_rules2 ! (
                                      @ $ encoding $ key ) ; } ;);
-    const SEND_JSON_FORMAT: bool = false;
+    ///  Macro to dump all tokens received as a literal string, e.g.
+    ///  `dump_tokens!(a b c)` returns `"a b c"`
+    #[macro_export]
+    macro_rules! dump_tokens(( $ ( $ token : tt ) * ) => {
+                             stringify ! ( $ ( $ token ) * ) } ;);
     ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
     fn send_sensor_data_json() {
         ();
-        let _ = "json: a";
-        let _ = "json2: a";
-        let _ = "cbor: b";
-        let _ = "cbor2: b";
-        let _ = "other: zzz / c";
-        let _ = "other2: zzz / c";
+        "a b c";
         ();
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
@@ -1197,7 +1203,208 @@ mod send_coap {
                                 };
                                 let _ = "end oc_rep_set_array";
                             };
-                            { let _object = values; };
+                            {
+                                let _ = "token ident";
+                                let _ =
+                                    ("TODO: add1 key:", ("device"), "value:",
+                                     { let _expr = device_id; device_id },
+                                     "to object:", values);
+                                let _key = "device";
+                                let _value =
+                                    { let _expr = device_id; device_id };
+                                let _object_key = values;
+                                {
+                                    let _ =
+                                        "begin coap_item_str with _parent, _key, _val";
+                                    let _parent = values;
+                                    let _key = "device";
+                                    let _val =
+                                        { let _expr = device_id; device_id };
+                                    {
+                                        let _ = "begin coap_item";
+                                        {
+                                            let _ =
+                                                "begin oc_rep_object_array_start_item";
+                                            let _ =
+                                                "TODO: oc_rep_start_object(values_array, values);";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_start_object";
+                                                let _parent0 = "values_array";
+                                                let _key0 = values;
+                                                let _child = "values_map";
+                                                let _ =
+                                                    "TODO: CborEncoder values_map";
+                                                let _ =
+                                                    "TODO: g_err |= cbor_encoder_create_map(&values_array, &values_map, CborIndefiniteLength);";
+                                                let _ =
+                                                    "end oc_rep_start_object";
+                                            };
+                                            let _ =
+                                                "end oc_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_set_text_string with _object, _key, _value";
+                                                let _object = values;
+                                                let _key = "key";
+                                                let _value = "device";
+                                                let _child = "values_map";
+                                                let _ =
+                                                    "TODO: g_err |= cbor_encode_text_string(&values_map, \"key\", strlen(\"key\"));";
+                                                let _ =
+                                                    "TODO: g_err |= cbor_encode_text_string(&values_map, \"device\", strlen(\"device\"));";
+                                                let _ =
+                                                    "end oc_rep_set_text_string";
+                                            };
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_set_text_string with _object, _key, _value";
+                                                let _object = values;
+                                                let _key = "value";
+                                                let _value =
+                                                    {
+                                                        let _expr = device_id;
+                                                        device_id
+                                                    };
+                                                let _child = "values_map";
+                                                let _ =
+                                                    "TODO: g_err |= cbor_encode_text_string(&values_map, \"value\", strlen(\"value\"));";
+                                                let _ =
+                                                    "TODO: g_err |= cbor_encode_text_string(&values_map, coap_internal!(@ json device_id), strlen(coap_internal!(@ json device_id)));";
+                                                let _ =
+                                                    "end oc_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            let _ =
+                                                "begin oc_rep_object_array_end_item";
+                                            let _ =
+                                                "TODO: oc_rep_end_object(values_array, values);";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_end_object";
+                                                let _parent0 = "values_array";
+                                                let _key0 = values;
+                                                let _child = "values_map";
+                                                let _ =
+                                                    "TODO: g_err |= cbor_encoder_close_container(&values_array, &values_map);";
+                                                let _ =
+                                                    "end oc_rep_end_object";
+                                            };
+                                            let _ =
+                                                "end oc_rep_object_array_end_item";
+                                        };
+                                        let _ = "end coap_item";
+                                    };
+                                    let _ = "end coap_item_str";
+                                };
+                                let _ = "--------------------";
+                                let _ = "token ident";
+                                let _ =
+                                    "TODO: Expand _sensor_value (key, value) and add to _object";
+                                let _sensor_value = int_sensor_value;
+                                let _object = values;
+                                let _ = "--------------------";
+                                {
+                                    let _ =
+                                        "begin coap_item_int_val with _parent0, _val0";
+                                    let _parent0 = values;
+                                    let _ = "TODO: let _val0 = $val0;";
+                                    let _ =
+                                        "TODO: let _key = _sensor_value.key;";
+                                    let _ =
+                                        "TODO: let _value = _sensor_value.value;";
+                                    let _ =
+                                        "TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32);";
+                                    let _ =
+                                        "TODO: CP_ITEM_INT(parent0, val0->key, val0->int_val);";
+                                    {
+                                        let _ = "begin coap_item_int";
+                                        {
+                                            let _ = "begin coap_item";
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_object_array_start_item";
+                                                let _ =
+                                                    "TODO: oc_rep_start_object(values_array, values);";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_start_object";
+                                                    let _parent0 =
+                                                        "values_array";
+                                                    let _key0 = values;
+                                                    let _child = "values_map";
+                                                    let _ =
+                                                        "TODO: CborEncoder values_map";
+                                                    let _ =
+                                                        "TODO: g_err |= cbor_encoder_create_map(&values_array, &values_map, CborIndefiniteLength);";
+                                                    let _ =
+                                                        "end oc_rep_start_object";
+                                                };
+                                                let _ =
+                                                    "end oc_rep_object_array_start_item";
+                                            };
+                                            {
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_set_text_string with _object, _key, _value";
+                                                    let _object = values;
+                                                    let _key = "key";
+                                                    let _value =
+                                                        "TODO: val0->key";
+                                                    let _child = "values_map";
+                                                    let _ =
+                                                        "TODO: g_err |= cbor_encode_text_string(&values_map, \"key\", strlen(\"key\"));";
+                                                    let _ =
+                                                        "TODO: g_err |= cbor_encode_text_string(&values_map, \"TODO: val0->key\", strlen(\"TODO: val0->key\"));";
+                                                    let _ =
+                                                        "end oc_rep_set_text_string";
+                                                };
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_set_int with _object, _key, _value";
+                                                    let _object = values;
+                                                    let _key = "value";
+                                                    let _value =
+                                                        "TODO: val0->int_val";
+                                                    let _child = "values_map";
+                                                    let _ =
+                                                        "TODO: g_err |= cbor_encode_text_string(&values_map, \"value\", strlen(\"value\"));";
+                                                    let _ =
+                                                        "TODO: g_err |= cbor_encode_int(&values_map, \"TODO: val0->int_val\");";
+                                                    let _ =
+                                                        "end oc_rep_set_int";
+                                                };
+                                            };
+                                            {
+                                                let _ =
+                                                    "begin oc_rep_object_array_end_item";
+                                                let _ =
+                                                    "TODO: oc_rep_end_object(values_array, values);";
+                                                {
+                                                    let _ =
+                                                        "begin oc_rep_end_object";
+                                                    let _parent0 =
+                                                        "values_array";
+                                                    let _key0 = values;
+                                                    let _child = "values_map";
+                                                    let _ =
+                                                        "TODO: g_err |= cbor_encoder_close_container(&values_array, &values_map);";
+                                                    let _ =
+                                                        "end oc_rep_end_object";
+                                                };
+                                                let _ =
+                                                    "end oc_rep_object_array_end_item";
+                                            };
+                                            let _ = "end coap_item";
+                                        };
+                                        let _ = "end coap_item_int";
+                                    };
+                                    let _ = "end coap_item_int_val";
+                                };
+                            };
                             {
                                 let _ = "begin oc_rep_close_array";
                                 let _object = root;
@@ -1838,9 +2045,8 @@ mod send_coap {
         console_print(b"start_network_task\n");
         test_macro();
         test_macro2();
-        if SEND_JSON_FORMAT {
-            send_sensor_data_json();
-        } else { send_sensor_data_cbor(); }
+        send_sensor_data_json();
+        send_sensor_data_cbor();
         Ok(())
     }
     ///  TODO: Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the

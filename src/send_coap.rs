@@ -109,7 +109,7 @@ macro_rules! coap_internal {
 
   // Insert the current entry followed by trailing comma.
   (@$enc:ident @object $object:ident [$($key:tt)+] ($value:expr) , $($rest:tt)*) => {
-    let _ = "TODO: add (_key, _value) to _object_key";
+    let _ = ("TODO: add1 key:", ($($key)+), "value:", $value, "to object:", $object);
     let _key = $($key)+;
     let _value = $value;
     let _object_key = $object;
@@ -117,7 +117,7 @@ macro_rules! coap_internal {
     //  Append to the "values" array e.g.
     //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
     //  coap_item_str!(_object_key, _key, _value);
-    coap_item_str!($object, $($key)+, $value);
+    coap_item_str!(@$enc $object, $($key)+, $value);
     let _ = "--------------------";
 
     //  Previously:
@@ -135,7 +135,7 @@ macro_rules! coap_internal {
   // Insert the last entry without trailing comma.
   (@$enc:ident @object $object:ident [$($key:tt)+] ($value:expr)) => {
     //  TODO
-    let _ = ("TODO: add key:", ($($key)+), "value:", $value, "to object:", $object);
+    let _ = ("TODO: add2 key:", ($($key)+), "value:", $value, "to object:", $object);
     //  let _ = $object.insert(($($key)+).into(), $value);
   };
 
@@ -226,6 +226,7 @@ macro_rules! coap_internal {
   // Key is fully parenthesized. This avoids clippy double_parens false
   // positives because the parenthesization may be necessary here.
   (@$enc:ident @object $object:ident () (($key:expr) : $($rest:tt)*) $copy:tt) => {
+    let _ = "token ()";
     coap_internal!(@$enc @object $object ($key) (: $($rest)*) (: $($rest)*));
   };
 
@@ -289,79 +290,42 @@ macro_rules! coap_internal {
   };
 
   //  JSON encoding: If we match the top level of the JSON: { ... }
-  (@json { $($tt:tt)+ }) => {
+  (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
-    {
-      let _ = "begin json root";
-      let root = "root";  //  Top level object is named "root".
-      coap_root!(@json {  //  Create the payload root
-          let values = "values";  //  "values" will be an array of items under the root
-          coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
-            //  Expand the items inside { ... }
-            let _object = values;
-            //let _para1 = ($($tt)+);
-            //let _para2 = ($($tt)+);
-            ////coap_internal!(@json @object values () ($($tt)+) ($($tt)+));
-          });  //  Close the "values" array
-      });  //  Close the payload root
-      let _ = "end json root";
-      let _ = "return json root to caller";
-      root
-    }
-  };
+    let _ = "begin json root";
+    let root = "root";  //  Top level object is named "root".
+    coap_root!(@json {  //  Create the payload root
+        let values = "values";  //  "values" will be an array of items under the root
+        coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
+          //  Expand the items inside { ... } and add them to values.
+          coap_internal!(@json @object values () ($($tt)+) ($($tt)+));
+        });  //  Close the "values" array
+    });  //  Close the payload root
+    let _ = "end json root";
+    let _ = "return json root to caller";
+    root
+  }};
 
   //  CBOR encoding: If we match the top level of the JSON: { ... }
-  (@cbor { $($tt:tt)+ }) => {
+  (@cbor { $($tt:tt)+ }) => {{
     //  Substitute with this code...
-    {
-      let _ = "begin cbor root";
-      let root = "root";  //  Top level object is named "root".
-      coap_root!(@cbor {  //  Create the payload root
-          //  For sending CBOR to Collector Node...
-          coap_internal!(@cbor @object root () ($($tt)+) ($($tt)+));
-      });  //  Close the payload root
-      let _ = "end cbor root";
-      let _ = "return cbor root to caller";
-      root
-    }
-  };
+    let _ = "begin cbor root";
+    let root = "root";  //  Top level object is named "root".
+    coap_root!(@cbor {  //  Create the payload root
+        //  Expand the items inside { ... } and add them to root.
+        coap_internal!(@cbor @object root () ($($tt)+) ($($tt)+));
+    });  //  Close the payload root
+    let _ = "end cbor root";
+    let _ = "return cbor root to caller";
+    root
+  }};
 
-  /* Previously:
+  /* Previously substitute with:
   $crate::Value::Object({
     let mut object = $crate::Map::new();
     coap_internal!(@object object () ($($tt)+) ($($tt)+));
     object
   })
-  */
-
-  /*
-  //  If we match the top level of the JSON: { ... }
-  ({ $($tt:tt)+ }) => {
-    //  Substitute with this code...
-    {
-      let _ = "begin root";
-      let root = "root";  //  Top level object is named "root".
-      coap_root!({  //  Create the payload root
-
-        if SEND_JSON_FORMAT {  //  For sending JSON to CoAP Server...
-          let values = "values";  //  "values" will be an array of items under the root
-          coap_array!(root, values, {  //  Create "values" as an array of items under the root
-            //  Expand the items inside { ... }
-            coap_internal!(@object values () ($($tt)+) ($($tt)+));
-          });  //  Close the "values" array
-        } else {
-
-          //  For sending CBOR to Collector Node...
-          coap_internal!(@object root () ($($tt)+) ($($tt)+));
-        }
-
-      });  //  Close the payload root
-      //  Previously: coap_internal!(@object root () ($($tt)+) ($($tt)+));            
-      let _ = "end root";
-      let _ = "return root to caller";
-      root
-    }
-  };
   */
 
   // Any Serialize type: numbers, strings, struct literals, variables etc.
@@ -942,19 +906,29 @@ macro_rules! test_internal_rules {
   };
 }
 
+///  Macro to dump all tokens received as a literal string, e.g.
+///  `dump_tokens!(a b c)` returns `"a b c"`
+#[macro_export]
+macro_rules! dump_tokens {
+  ($($token:tt)*) => {
+    stringify!($($token)*)
+  };
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Test CoAP macros
 
-const SEND_JSON_FORMAT: bool = false;
+//  const SEND_JSON_FORMAT: bool = false;
 
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).
 fn send_sensor_data_json() {  //  JSON
   trace_macros!(true);
-  test_internal_rules!(@json a);
-  test_internal_rules!(@cbor b);
-  test_internal_rules!(@zzz c);
+  dump_tokens!(a b c);
+  // test_internal_rules!(@json a);
+  // test_internal_rules!(@cbor b);
+  // test_internal_rules!(@zzz c);
   trace_macros!(false);
 
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
@@ -1097,8 +1071,8 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   console_print(b"start_network_task\n");
   test_macro();
   test_macro2();
-  if SEND_JSON_FORMAT { send_sensor_data_json(); }
-  else { send_sensor_data_cbor(); }
+  send_sensor_data_json();
+  send_sensor_data_cbor();
   Ok(())
   //  0
 }
