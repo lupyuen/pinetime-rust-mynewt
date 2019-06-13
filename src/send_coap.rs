@@ -189,15 +189,23 @@ macro_rules! coap_internal {
 
   // TODO: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    let _ = "TODO: Expand _sensor_value (key, value) and add to _object_key";
+    let _ = "TODO: Expand _sensor_value (key, value) and add to _object";
     let _sensor_value = $($key)*;
-    let _object_key = $object;
-    coap_set_int_val!(
-      $object,  //  _object_key, 
-      $($key)*  //  _sensor_value
-    );
-
+    let _object = $object;
     let _ = "--------------------";
+
+    if SEND_JSON_FORMAT {  //  For JSON
+      coap_item_int_val!(
+        $object,  //  _object, 
+        $($key)*  //  _sensor_value
+      );
+    } else {  //  For CBOR
+      coap_set_int_val!(
+        $object,  //  _object, 
+        $($key)*  //  _sensor_value
+      );
+    }
+
     coap_internal!(@object $object () ($($rest)*) ($($rest)*));
 
     // Previously: Found a comma inside a key. Trigger a reasonable error message.
@@ -276,19 +284,19 @@ macro_rules! coap_internal {
     {
       let _ = "begin root";
       let root = "root";  //  Top level object is named "root".
-      let values = "values";  //  "values" will be an array of items under the root
       coap_root!({  //  Create the payload root
 
-        /*
-        //  For sending JSON to CoAP Server...
-        coap_array!(root, values, {  //  Create "values" as an array of items under the root
-          //  Expand the items inside { ... }
-          coap_internal!(@object values () ($($tt)+) ($($tt)+));
-        });  //  Close the "values" array
-        */
+        if SEND_JSON_FORMAT {  //  For sending JSON to CoAP Server...
+          let values = "values";  //  "values" will be an array of items under the root
+          coap_array!(root, values, {  //  Create "values" as an array of items under the root
+            //  Expand the items inside { ... }
+            coap_internal!(@object values () ($($tt)+) ($($tt)+));
+          });  //  Close the "values" array
+        } else {
 
-        //  For sending CBOR to Collector Node...
-        coap_internal!(@object root () ($($tt)+) ($($tt)+));
+          //  For sending CBOR to Collector Node...
+          coap_internal!(@object root () ($($tt)+) ($($tt)+));
+        }
 
       });  //  Close the payload root
       //  Previously: coap_internal!(@object root () ($($tt)+) ($($tt)+));            
@@ -400,6 +408,20 @@ macro_rules! coap_item {
   }};
 }
 
+//  Append a (key + int value) item to the array named "array":
+//    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
+#[macro_export(local_inner_macros)]
+macro_rules! coap_item_int {
+  ($array0:ident, $key0:expr, $value0:expr) => {{
+    let _ = "begin coap_item_int";
+    coap_item!($array0, {
+      oc_rep_set_text_string!($array0, "key",   $key0);
+      oc_rep_set_int!(        $array0, "value", $value0);
+    });
+    let _ = "end coap_item_int";
+  }};
+}
+
 ///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
@@ -412,8 +434,25 @@ macro_rules! coap_set_int_val {
     let _ = "TODO: let _value = _sensor_value.value;";
     let _ = "TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32);";
     let _ = "TODO: rep_set_int_k(parent0, val0->key, val0->int_val);";
-  oc_rep_set_int_k!($parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
+    oc_rep_set_int_k!($parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
     let _ = "end coap_set_int_val";
+  }};
+}
+
+///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
+#[macro_export(local_inner_macros)]
+macro_rules! coap_item_int_val {
+  ($parent0:ident, $val0:expr) => {{
+    let _ = "begin coap_item_int_val with _parent0, _val0";
+    let _parent0 = $parent0;
+    let _ = "TODO: let _val0 = $val0;";
+    //  TODO
+    let _ = "TODO: let _key = _sensor_value.key;";
+    let _ = "TODO: let _value = _sensor_value.value;";
+    let _ = "TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32);";
+    let _ = "TODO: CP_ITEM_INT(parent0, val0->key, val0->int_val);";
+    coap_item_int!($parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
+    let _ = "end coap_item_int_val";
   }};
 }
 
@@ -713,9 +752,9 @@ macro_rules! oc_rep_object_array_end_item {
 }
 
 #[macro_export]
-macro_rules! oc_rep_set_text_string {
+macro_rules! oc_rep_set_int {
   ($object:ident, $key:expr, $value:expr) => {{
-    let _ = "begin oc_rep_set_text_string with _object, _key, _value";
+    let _ = "begin oc_rep_set_int with _object, _key, _value";
     let _object = $object;
     let _key = $key;
     let _value = $value;
@@ -732,16 +771,14 @@ macro_rules! oc_rep_set_text_string {
       "));"
     );
 
-    //  let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));";
-    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+    //  let _ = "TODO: g_err |= cbor_encode_int(&object##_map, value);";
+    let _ = concat!("TODO: g_err |= cbor_encode_int(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($value),  //  value
-      ", strlen(",
-      stringify!($value),  //  value
-      "));"
+      ");"
     );
-    let _ = "end oc_rep_set_text_string";
+    let _ = "end oc_rep_set_int";
   }};
 }
 
@@ -778,6 +815,39 @@ macro_rules! oc_rep_set_int_k {
 }
 
 #[macro_export]
+macro_rules! oc_rep_set_text_string {
+  ($object:ident, $key:expr, $value:expr) => {{
+    let _ = "begin oc_rep_set_text_string with _object, _key, _value";
+    let _object = $object;
+    let _key = $key;
+    let _value = $value;
+    let _child = concat!(
+      stringify!($object), "_map"  //  object##_map
+    );
+    //  let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));";
+    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+      stringify!($object), "_map",  //  object##_map
+      ", ",
+      stringify!($key),  //  #key
+      ", strlen(",
+      stringify!($key),  //  #key
+      "));"
+    );
+
+    //  let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));";
+    let _ = concat!("TODO: g_err |= cbor_encode_text_string(&",
+      stringify!($object), "_map",  //  object##_map
+      ", ",
+      stringify!($value),  //  value
+      ", strlen(",
+      stringify!($value),  //  value
+      "));"
+    );
+    let _ = "end oc_rep_set_text_string";
+  }};
+}
+
+#[macro_export]
 macro_rules! test_literal {
   ($key:literal) => {{
     let _ = concat!($key, "_zzz");
@@ -795,11 +865,12 @@ macro_rules! test_ident {
 ///////////////////////////////////////////////////////////////////////////////
 //  Test CoAP macros
 
+const SEND_JSON_FORMAT: bool = false;
+
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).
-/*
-fn send_sensor_data_rust() {  //  JSON
+fn send_sensor_data_json() {  //  JSON
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id = b"b3b4b5b6f1";
 
@@ -824,9 +895,8 @@ fn send_sensor_data_rust() {  //  JSON
   });
   trace_macros!(false);
 }
-*/
 
-fn send_sensor_data_rust() {  //  CBOR
+fn send_sensor_data_cbor() {  //  CBOR
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
     key: "t",
@@ -941,7 +1011,8 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   console_print(b"start_network_task\n");
   test_macro();
   test_macro2();
-  send_sensor_data_rust();
+  if SEND_JSON_FORMAT { send_sensor_data_json(); }
+  else { send_sensor_data_cbor(); }
   Ok(())
   //  0
 }
