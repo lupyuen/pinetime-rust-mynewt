@@ -536,6 +536,19 @@ macro_rules! oc_rep_end_object {
 }
 
 #[macro_export(local_inner_macros)]
+macro_rules! oc_rep_start_array {
+    ($parent:ident, $key:ident) => {{
+        let _ = "begin oc_rep_start_array";
+        let _parent = $parent;
+        let _key = $key;
+        //  TODO
+        let _ = "TODO: CborEncoder key##_array;";
+        let _ = "TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength);";
+        let _ = "end oc_rep_start_array";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
 macro_rules! oc_rep_end_array {
     ($parent:ident, $key:ident) => {{
         let _ = "begin oc_rep_end_array";
