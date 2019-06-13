@@ -291,10 +291,8 @@ macro_rules! coap_internal {
             root_key
         }
         /* Previously:
-        coap_object_new({
-        //  $crate::Value::Object({
-            let mut object = coap_map_new();
-            //  let mut object = $crate::Map::new();
+        $crate::Value::Object({
+            let mut object = $crate::Map::new();
             coap_internal!(@object object () ($($tt)+) ($($tt)+));
             object
         })
@@ -328,24 +326,28 @@ macro_rules! coap_unexpected {
 //  CoAP macros ported from C to Rust:
 //  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
 
+///  Compose the payload root.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_root {
-    ($blk:block) => {{
+    ($children0:block) => {{
         let _ = "begin coap_root";
-        //  TODO
-        $blk;
+        rep_start_root_object!();
+        $children0;
+        rep_end_root_object!();
         let _ = "end coap_root";
     }};
 }
 
+///  Compose an array under "object", named as "key".  Add "children" as array elements.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
-    ($parent:ident, $key:ident, $blk:block) => {{
-        let _ = "begin coap_array with _parent, _key";
-        let _parent = $parent;
-        let _key = $key;
-        //  TODO
-        $blk;
+    ($object0:ident, $key0:ident, $children0:block) => {{
+        let _ = "begin coap_array with _object0, _key0";
+        let _object0 = $object0;
+        let _key0 = $key0;
+        rep_set_array!($object0, $key0);
+        $children0;
+        rep_close_array!($object0, $key0);
         let _ = "end coap_array";
     }};
 }
@@ -392,18 +394,61 @@ macro_rules! coap_item {
     }};
 }
 
+///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
-    //  TODO: Allow key to be ident.
-    ($parent:ident, $sensor_value:expr) => {{
-        let _ = "begin coap_set_int_val with _parent, _sensorval";
-        let _parent = $parent;
-        //  let _sensor_value = $sensor_value;
+    ($parent0:ident, $val0:expr) => {{
+        let _ = "begin coap_set_int_val with _parent0, _val0";
+        let _parent0 = $parent0;
+        let _ = "TODO: let _val0 = $val0;";
         //  TODO
-        //  let _key = _sensor_value.key;
-        //  let _value = "TODO: _sensor_value.value";
-
+        let _ = "TODO: let _key = _sensor_value.key;";
+        let _ = "TODO: let _value = _sensor_value.value;";
+        let _ = "TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32);";
+        let _ = "TODO: rep_set_int_k(parent0, val0->key, val0->int_val);";
         let _ = "end coap_set_int_val";
+    }};
+}
+
+//  `rep` macros
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_start_root_object {
+    () => {{
+        let _ = "begin rep_start_root_object";
+        //  TODO: Handle JSON
+        oc_rep_start_root_object!();
+        let _ = "end rep_start_root_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_end_root_object {
+    () => {{
+        let _ = "begin rep_end_root_object";
+        //  TODO: Handle JSON
+        oc_rep_end_root_object!();
+        let _ = "end rep_end_root_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_set_array {
+    ($object:ident, $key:ident) => {{
+        let _ = "begin rep_set_array";
+        //  TODO: Handle JSON
+        oc_rep_set_array!($object, $key);
+        let _ = "end rep_set_array";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! rep_close_array {
+    ($object:ident, $key:ident) => {{
+        let _ = "begin rep_close_array";
+        //  TODO: Handle JSON
+        oc_rep_close_array!($object, $key);
+        let _ = "end rep_close_array";
     }};
 }
 
@@ -442,14 +487,34 @@ macro_rules! rep_object_array_end_item {
 //  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
 
 #[macro_export(local_inner_macros)]
+macro_rules! oc_rep_start_root_object {
+    () => {{
+        let _ = "begin oc_rep_start_root_object";
+        //  TODO
+        //  g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength);
+        let _ = "end oc_rep_start_root_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_end_root_object {
+    () => {{
+        let _ = "begin oc_rep_end_root_object";
+        //  TODO
+        //  g_err |= cbor_encoder_close_container(&g_encoder, &root_map);
+        let _ = "end oc_rep_end_root_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
 macro_rules! oc_rep_start_object {
     ($parent:ident, $key:ident) => {{
         let _ = "begin oc_rep_start_object";
         let _parent0 = $parent;
         let _key0 = $key;
         //  TODO
-        //  CborEncoder key##_map;
-        //  g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength);
+        let _ = "TODO: CborEncoder key##_map;"
+        let _ = "TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength);";
         let _ = "end oc_rep_start_object";
     }};
 }
@@ -461,8 +526,33 @@ macro_rules! oc_rep_end_object {
         let _parent0 = $parent;
         let _key0 = $key;
         //  TODO
-        //  g_err |= cbor_encoder_close_container(&parent, &key##_map);
+        let _ = "TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map);"
         let _ = "end oc_rep_end_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_set_array {
+    ($object:ident, $key:ident) => {{
+        let _ = "begin oc_rep_set_array";
+        let _object = $object;
+        let _key = $key;
+        //  TODO
+        let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));";
+        let _ = "TODO: oc_rep_start_array!(object##_map, key);";
+        let _ = "end oc_rep_start_object";
+    }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! oc_rep_close_array {
+    ($object:ident, $key:ident) => {{
+        let _ = "begin oc_rep_close_array";
+        let _object = $object;
+        let _key = $key;
+        //  TODO
+        let _ = "TODO: oc_rep_end_array(object##_map, key);";
+        let _ = "end oc_rep_close_array";
     }};
 }
 
@@ -474,8 +564,8 @@ macro_rules! oc_rep_set_text_string {
         let _key = $key;
         let _value = $value;
         //  TODO
-        //  g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));
-        //  g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));
+        let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));";
+        let _ = "TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value));";
         let _ = "end oc_rep_set_text_string";
     }};
 }
@@ -484,8 +574,7 @@ macro_rules! oc_rep_set_text_string {
 macro_rules! oc_rep_object_array_start_item {
     ($key:ident) => {{
         let _ = "begin oc_rep_object_array_start_item";
-        ////let _arraykey = concat!($key, "_array");
-        ////oc_rep_start_object!(_arraykey, $key);
+        let _ = "TODO: oc_rep_start_object(key##_array, key);";
         let _ = "end oc_rep_object_array_start_item";
     }};
 }
@@ -494,8 +583,7 @@ macro_rules! oc_rep_object_array_start_item {
 macro_rules! oc_rep_object_array_end_item {
     ($key:ident) => {{
         let _ = "begin oc_rep_object_array_end_item";
-        ////let _arraykey = concat!($key, "_array");
-        ////oc_rep_end_object!(_arraykey, $key);
+        let _ = "TODO: oc_rep_end_object(key##_array, key);";
         let _ = "end oc_rep_object_array_end_item";
     }};
 }
@@ -510,6 +598,7 @@ macro_rules! test_literal {
 #[macro_export]
 macro_rules! test_ident {
     ($key:ident) => {{
+        let $key = stringify!($key);
         // concat_idents!($key, zzz);
     }};
 }
