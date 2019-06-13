@@ -441,6 +441,8 @@ macro_rules! rep_object_array_end_item {
 macro_rules! oc_rep_start_object {
     ($parent:expr, $key:expr) => {{
         let _ = "begin oc_rep_start_object";
+        let _parent0 = $parent;
+        let _key0 = $key;
         //  TODO
         //  CborEncoder key##_map;
         //  g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength);
@@ -452,6 +454,8 @@ macro_rules! oc_rep_start_object {
 macro_rules! oc_rep_end_object {
     ($parent:expr, $key:expr) => {{
         let _ = "begin oc_rep_end_object";
+        let _parent0 = $parent;
+        let _key0 = $key;
         //  TODO
         //  g_err |= cbor_encoder_close_container(&parent, &key##_map);
         let _ = "end oc_rep_end_object";
