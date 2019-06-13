@@ -658,7 +658,7 @@ mod send_coap {
                                @ object $ object : ident ( $ ( $ key : tt ) *
                                ) ( $ tt : tt $ ( $ rest : tt ) * ) $ copy : tt
                                ) => {
-                               coap_internal ! (
+                               let _ = "token ident" ; coap_internal ! (
                                @ object $ object ( $ ( $ key ) * $ tt ) (
                                $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
                                null ) => { { _ = "null" ; "null" } } ; ( true
@@ -714,7 +714,7 @@ mod send_coap {
                                "begin coap_item_str with _parent, _key, _val"
                                ; let _parent = $ parent ; let _key = $ key ;
                                let _val = $ val ; coap_item ! (
-                               _parent , {
+                               $ parent , {
                                rep_set_text_string ! (
                                $ parent , "key" , $ key ) ;
                                rep_set_text_string ! (
@@ -747,7 +747,7 @@ mod send_coap {
                                      $ object , $ key , $ value ) ; let _ =
                                      "end rep_set_text_string" ; } } ;);
     #[macro_export(local_inner_macros)]
-    macro_rules! rep_object_array_start_item(( $ key : expr ) => {
+    macro_rules! rep_object_array_start_item(( $ key : ident ) => {
                                              {
                                              let _ =
                                              "begin rep_object_array_start_item"
@@ -756,7 +756,7 @@ mod send_coap {
                                              "end rep_object_array_start_item"
                                              ; } } ;);
     #[macro_export(local_inner_macros)]
-    macro_rules! rep_object_array_end_item(( $ key : expr ) => {
+    macro_rules! rep_object_array_end_item(( $ key : ident ) => {
                                            {
                                            let _ =
                                            "begin rep_object_array_end_item" ;
@@ -765,14 +765,14 @@ mod send_coap {
                                            "end rep_object_array_end_item" ; }
                                            } ;);
     #[macro_export(local_inner_macros)]
-    macro_rules! oc_rep_start_object(( $ parent : expr , $ key : expr ) => {
+    macro_rules! oc_rep_start_object(( $ parent : ident , $ key : ident ) => {
                                      {
                                      let _ = "begin oc_rep_start_object" ; let
                                      _parent0 = $ parent ; let _key0 = $ key ;
                                      let _ = "end oc_rep_start_object" ; } }
                                      ;);
     #[macro_export(local_inner_macros)]
-    macro_rules! oc_rep_end_object(( $ parent : expr , $ key : expr ) => {
+    macro_rules! oc_rep_end_object(( $ parent : ident , $ key : ident ) => {
                                    {
                                    let _ = "begin oc_rep_end_object" ; let
                                    _parent0 = $ parent ; let _key0 = $ key ;
@@ -787,30 +787,34 @@ mod send_coap {
                                         ; let _object = $ object ; let _key =
                                         $ key ; let _value = $ value ; let _ =
                                         "end oc_rep_set_text_string" ; } } ;);
-    #[macro_export(local_inner_macros)]
-    macro_rules! oc_rep_object_array_start_item(( $ key : expr ) => {
+    #[macro_export]
+    macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
                                                 {
                                                 let _ =
                                                 "begin oc_rep_object_array_start_item"
-                                                ; oc_rep_start_object ! (
-                                                $ key + "_array" , $ key ) ;
-                                                let _ =
+                                                ; let _ =
                                                 "end oc_rep_object_array_start_item"
                                                 ; } } ;);
-    #[macro_export(local_inner_macros)]
-    macro_rules! oc_rep_object_array_end_item(( $ key : expr ) => {
+    #[macro_export]
+    macro_rules! oc_rep_object_array_end_item(( $ key : ident ) => {
                                               {
                                               let _ =
                                               "begin oc_rep_object_array_end_item"
-                                              ; oc_rep_end_object ! (
-                                              $ key + "_array" , $ key ) ; let
-                                              _ =
+                                              ; let _ =
                                               "end oc_rep_object_array_end_item"
                                               ; } } ;);
+    #[macro_export]
+    macro_rules! test_literal(( $ key : literal ) => {
+                              { let _ = concat ! ( $ key , "_zzz" ) ; } } ;);
+    #[macro_export]
+    macro_rules! test_ident(( $ key : ident ) => { { let _ = $ key ; } } ;);
     ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
     fn send_sensor_data_rust() {
+        ();
+        { let _ = "abc_zzz"; };
+        ();
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
@@ -831,6 +835,7 @@ mod send_coap {
                             let _parent = root_key;
                             let _key = values_key;
                             {
+                                let _ = "token ident";
                                 let _ =
                                     "TODO: add (_key, _value) to _object_key";
                                 let _key = "device";
@@ -852,15 +857,6 @@ mod send_coap {
                                             {
                                                 let _ =
                                                     "begin oc_rep_object_array_start_item";
-                                                {
-                                                    let _ =
-                                                        "begin oc_rep_start_object";
-                                                    let _parent0 =
-                                                        _parent + "_array";
-                                                    let _key0 = _parent;
-                                                    let _ =
-                                                        "end oc_rep_start_object";
-                                                };
                                                 let _ =
                                                     "end oc_rep_object_array_start_item";
                                             };
@@ -914,15 +910,6 @@ mod send_coap {
                                             {
                                                 let _ =
                                                     "begin oc_rep_object_array_end_item";
-                                                {
-                                                    let _ =
-                                                        "begin oc_rep_end_object";
-                                                    let _parent0 =
-                                                        _parent + "_array";
-                                                    let _key0 = _parent;
-                                                    let _ =
-                                                        "end oc_rep_end_object";
-                                                };
                                                 let _ =
                                                     "end oc_rep_object_array_end_item";
                                             };
@@ -934,6 +921,7 @@ mod send_coap {
                                     let _ = "end coap_item_str";
                                 };
                                 let _ = "--------------------";
+                                let _ = "token ident";
                                 let _ =
                                     "TODO: Expand _sensor_value (key, value) and add to _object_key";
                                 let _sensor_value = int_sensor_value;
@@ -945,6 +933,7 @@ mod send_coap {
                                     let _ = "end coap_set_int_val";
                                 };
                                 let _ = "--------------------";
+                                let _ = "token ident";
                                 let _ =
                                     "TODO: Expand _sensor_value (key, value) and add to _object_key";
                                 let _sensor_value = float_sensor_value;
@@ -956,6 +945,7 @@ mod send_coap {
                                     let _ = "end coap_set_int_val";
                                 };
                                 let _ = "--------------------";
+                                let _ = "token ident";
                                 let _ =
                                     "TODO: add (_key, _value) to _object_key";
                                 let _key = "node";
@@ -976,15 +966,6 @@ mod send_coap {
                                             {
                                                 let _ =
                                                     "begin oc_rep_object_array_start_item";
-                                                {
-                                                    let _ =
-                                                        "begin oc_rep_start_object";
-                                                    let _parent0 =
-                                                        _parent + "_array";
-                                                    let _key0 = _parent;
-                                                    let _ =
-                                                        "end oc_rep_start_object";
-                                                };
                                                 let _ =
                                                     "end oc_rep_object_array_start_item";
                                             };
@@ -1038,15 +1019,6 @@ mod send_coap {
                                             {
                                                 let _ =
                                                     "begin oc_rep_object_array_end_item";
-                                                {
-                                                    let _ =
-                                                        "begin oc_rep_end_object";
-                                                    let _parent0 =
-                                                        _parent + "_array";
-                                                    let _key0 = _parent;
-                                                    let _ =
-                                                        "end oc_rep_end_object";
-                                                };
                                                 let _ =
                                                     "end oc_rep_object_array_end_item";
                                             };
@@ -1102,12 +1074,6 @@ mod send_coap {
                     let _ = "begin rep_object_array_start_item";
                     {
                         let _ = "begin oc_rep_object_array_start_item";
-                        {
-                            let _ = "begin oc_rep_start_object";
-                            let _parent0 = _parent + "_array";
-                            let _key0 = _parent;
-                            let _ = "end oc_rep_start_object";
-                        };
                         let _ = "end oc_rep_object_array_start_item";
                     };
                     let _ = "end rep_object_array_start_item";
@@ -1144,12 +1110,6 @@ mod send_coap {
                     let _ = "begin rep_object_array_end_item";
                     {
                         let _ = "begin oc_rep_object_array_end_item";
-                        {
-                            let _ = "begin oc_rep_end_object";
-                            let _parent0 = _parent + "_array";
-                            let _key0 = _parent;
-                            let _ = "end oc_rep_end_object";
-                        };
                         let _ = "end oc_rep_object_array_end_item";
                     };
                     let _ = "end rep_object_array_end_item";
@@ -1175,12 +1135,6 @@ mod send_coap {
                             {
                                 let _ =
                                     "begin oc_rep_object_array_start_item";
-                                {
-                                    let _ = "begin oc_rep_start_object";
-                                    let _parent0 = _parent + "_array";
-                                    let _key0 = _parent;
-                                    let _ = "end oc_rep_start_object";
-                                };
                                 let _ = "end oc_rep_object_array_start_item";
                             };
                             let _ = "end rep_object_array_start_item";
@@ -1217,12 +1171,6 @@ mod send_coap {
                             let _ = "begin rep_object_array_end_item";
                             {
                                 let _ = "begin oc_rep_object_array_end_item";
-                                {
-                                    let _ = "begin oc_rep_end_object";
-                                    let _parent0 = _parent + "_array";
-                                    let _key0 = _parent;
-                                    let _ = "end oc_rep_end_object";
-                                };
                                 let _ = "end oc_rep_object_array_end_item";
                             };
                             let _ = "end rep_object_array_end_item";
@@ -1243,12 +1191,6 @@ mod send_coap {
                             {
                                 let _ =
                                     "begin oc_rep_object_array_start_item";
-                                {
-                                    let _ = "begin oc_rep_start_object";
-                                    let _parent0 = _parent + "_array";
-                                    let _key0 = _parent;
-                                    let _ = "end oc_rep_start_object";
-                                };
                                 let _ = "end oc_rep_object_array_start_item";
                             };
                             let _ = "end rep_object_array_start_item";
@@ -1285,12 +1227,6 @@ mod send_coap {
                             let _ = "begin rep_object_array_end_item";
                             {
                                 let _ = "begin oc_rep_object_array_end_item";
-                                {
-                                    let _ = "begin oc_rep_end_object";
-                                    let _parent0 = _parent + "_array";
-                                    let _key0 = _parent;
-                                    let _ = "end oc_rep_end_object";
-                                };
                                 let _ = "end oc_rep_object_array_end_item";
                             };
                             let _ = "end rep_object_array_end_item";
@@ -1325,15 +1261,6 @@ mod send_coap {
                                         {
                                             let _ =
                                                 "begin oc_rep_object_array_start_item";
-                                            {
-                                                let _ =
-                                                    "begin oc_rep_start_object";
-                                                let _parent0 =
-                                                    _parent + "_array";
-                                                let _key0 = _parent;
-                                                let _ =
-                                                    "end oc_rep_start_object";
-                                            };
                                             let _ =
                                                 "end oc_rep_object_array_start_item";
                                         };
@@ -1380,15 +1307,6 @@ mod send_coap {
                                         {
                                             let _ =
                                                 "begin oc_rep_object_array_end_item";
-                                            {
-                                                let _ =
-                                                    "begin oc_rep_end_object";
-                                                let _parent0 =
-                                                    _parent + "_array";
-                                                let _key0 = _parent;
-                                                let _ =
-                                                    "end oc_rep_end_object";
-                                            };
                                             let _ =
                                                 "end oc_rep_object_array_end_item";
                                         };
@@ -1413,15 +1331,6 @@ mod send_coap {
                                         {
                                             let _ =
                                                 "begin oc_rep_object_array_start_item";
-                                            {
-                                                let _ =
-                                                    "begin oc_rep_start_object";
-                                                let _parent0 =
-                                                    _parent + "_array";
-                                                let _key0 = _parent;
-                                                let _ =
-                                                    "end oc_rep_start_object";
-                                            };
                                             let _ =
                                                 "end oc_rep_object_array_start_item";
                                         };
@@ -1468,15 +1377,6 @@ mod send_coap {
                                         {
                                             let _ =
                                                 "begin oc_rep_object_array_end_item";
-                                            {
-                                                let _ =
-                                                    "begin oc_rep_end_object";
-                                                let _parent0 =
-                                                    _parent + "_array";
-                                                let _key0 = _parent;
-                                                let _ =
-                                                    "end oc_rep_end_object";
-                                            };
                                             let _ =
                                                 "end oc_rep_object_array_end_item";
                                         };

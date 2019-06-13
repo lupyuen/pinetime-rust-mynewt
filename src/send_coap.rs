@@ -500,6 +500,20 @@ macro_rules! oc_rep_object_array_end_item {
     }};
 }
 
+#[macro_export]
+macro_rules! test_literal {
+    ($key:literal) => {{
+        let _ = concat!($key, "_zzz");
+    }};
+}
+
+#[macro_export]
+macro_rules! test_ident {
+    ($key:ident) => {{
+        // concat_idents!($key, zzz);
+    }};
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Test CoAP macros
 
@@ -507,6 +521,12 @@ macro_rules! oc_rep_object_array_end_item {
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).
 fn send_sensor_data_rust() {
+    let abc = "def";
+    trace_macros!(true);
+    //test_literal!("abc");
+    test_ident!(abc);
+    trace_macros!(false);
+
     let device_id = b"0102030405060708090a0b0c0d0e0f10";
     let node_id = b"b3b4b5b6f1";
 
