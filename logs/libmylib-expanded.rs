@@ -810,10 +810,10 @@ mod send_coap {
                                   dump ! (
                                   begin coap_set_int_val parent : $ parent0
                                   val : $ val0 ) ; dump ! (
-                                  TODO : assert (
+                                  > TODO : assert (
                                   $ val0 . val_type == SENSOR_VALUE_TYPE_INT32
                                   ) ) ; dump ! (
-                                  TODO : oc_rep_set_int_k (
+                                  > TODO : oc_rep_set_int_k (
                                   $ parent0 , $ val0 . key , $ val0 . int_val
                                   ) ) ; oc_rep_set_int_k ! (
                                   $ parent0 , $ val0 . key , 1234 ) ; dump ! (
@@ -827,10 +827,10 @@ mod send_coap {
                                    dump ! (
                                    begin coap_item_int_val parent : $ parent0
                                    val : $ val0 ) ; dump ! (
-                                   TODO : assert (
+                                   > TODO : assert (
                                    $ val0 . val_type ==
                                    SENSOR_VALUE_TYPE_INT32 ) ) ; dump ! (
-                                   TODO : coap_item_int (
+                                   > TODO : coap_item_int (
                                    $ parent0 , $ val0 . key , $ val0 . int_val
                                    ) ) ; coap_item_int ! (
                                    @ $ enc $ parent0 , $ val0 . key , 1234 ) ;
@@ -894,7 +894,7 @@ mod send_coap {
                                           dump ! (
                                           begin oc_rep_start_root_object ) ;
                                           dump ! (
-                                          TODO : g_err |=
+                                          > TODO : g_err |=
                                           cbor_encoder_create_map (
                                           & g_encoder , & root_map ,
                                           CborIndefiniteLength ) ) ; dump ! (
@@ -905,7 +905,7 @@ mod send_coap {
                                         {
                                         dump ! ( begin oc_rep_end_root_object
                                         ) ; dump ! (
-                                        TODO : g_err |=
+                                        > TODO : g_err |=
                                         cbor_encoder_close_container (
                                         & g_encoder , & root_map ) ) ; dump !
                                         ( end oc_rep_end_root_object ) ; } }
@@ -1161,7 +1161,7 @@ mod send_coap {
                     "begin coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        "TODO : g_err |= cbor_encoder_create_map (\n& g_encoder , & root_map , CborIndefiniteLength )";
+                        "> TODO : g_err |= cbor_encoder_create_map (\n& g_encoder , & root_map , CborIndefiniteLength )";
                         "end oc_rep_start_root_object";
                     };
                     {
@@ -1229,8 +1229,8 @@ mod send_coap {
                                 "--------------------";
                                 {
                                     "begin coap_item_int_val parent : values val : int_sensor_value";
-                                    "TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                    "TODO : coap_item_int (\nvalues , int_sensor_value . key , int_sensor_value . int_val )";
+                                    "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                    "> TODO : coap_item_int (\nvalues , int_sensor_value . key , int_sensor_value . int_val )";
                                     {
                                         "begin coap_item_int key : int_sensor_value.key value : 1234";
                                         {
@@ -1290,7 +1290,7 @@ mod send_coap {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        "TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
+                        "> TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -1313,7 +1313,7 @@ mod send_coap {
                     "begin coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        "TODO : g_err |= cbor_encoder_create_map (\n& g_encoder , & root_map , CborIndefiniteLength )";
+                        "> TODO : g_err |= cbor_encoder_create_map (\n& g_encoder , & root_map , CborIndefiniteLength )";
                         "end oc_rep_start_root_object";
                     };
                     {
@@ -1322,8 +1322,8 @@ mod send_coap {
                         "--------------------";
                         {
                             "begin coap_set_int_val parent : root val : int_sensor_value";
-                            "TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                            "TODO : oc_rep_set_int_k (\nroot , int_sensor_value . key , int_sensor_value . int_val )";
+                            "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                            "> TODO : oc_rep_set_int_k (\nroot , int_sensor_value . key , int_sensor_value . int_val )";
                             {
                                 "begin oc_rep_set_int_k , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
                                 "> TODO: g_err |= cbor_encode_text_string(&root_map, int_sensor_value.key, strlen(int_sensor_value.key));";
@@ -1336,7 +1336,7 @@ mod send_coap {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        "TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
+                        "> TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -1522,7 +1522,7 @@ mod send_coap {
                 "begin coap_root";
                 {
                     "begin oc_rep_start_root_object";
-                    "TODO : g_err |= cbor_encoder_create_map (\n& g_encoder , & root_map , CborIndefiniteLength )";
+                    "> TODO : g_err |= cbor_encoder_create_map (\n& g_encoder , & root_map , CborIndefiniteLength )";
                     "end oc_rep_start_root_object";
                 };
                 {
@@ -1624,8 +1624,8 @@ mod send_coap {
                             };
                             {
                                 "begin coap_set_int_val parent : root val : int_sensor_value";
-                                "TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                "TODO : oc_rep_set_int_k (\nroot , int_sensor_value . key , int_sensor_value . int_val )";
+                                "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                "> TODO : oc_rep_set_int_k (\nroot , int_sensor_value . key , int_sensor_value . int_val )";
                                 {
                                     "begin oc_rep_set_int_k , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
                                     "> TODO: g_err |= cbor_encode_text_string(&root_map, int_sensor_value.key, strlen(int_sensor_value.key));";
@@ -1649,7 +1649,7 @@ mod send_coap {
                 };
                 {
                     "begin oc_rep_end_root_object";
-                    "TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
+                    "> TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
                     "end oc_rep_end_root_object";
                 };
                 "end coap_root";

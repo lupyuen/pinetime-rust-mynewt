@@ -433,8 +433,8 @@ macro_rules! coap_item_int {
 macro_rules! coap_set_int_val {
   (@$enc:ident $parent0:ident, $val0:expr) => {{
     dump!(begin coap_set_int_val parent: $parent0 val: $val0);
-    dump!(TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    dump!(TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
+    dump!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
+    dump!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
     oc_rep_set_int_k!($parent0, $val0.key, 1234);  //  TODO
     dump!(end coap_set_int_val);
   }};
@@ -445,8 +445,8 @@ macro_rules! coap_set_int_val {
 macro_rules! coap_item_int_val {
   (@$enc:ident $parent0:ident, $val0:expr) => {{
     dump!(begin coap_item_int_val parent: $parent0 val: $val0);
-    dump!(TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    dump!(TODO: coap_item_int($parent0, $val0.key, $val0.int_val));
+    dump!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
+    dump!(> TODO: coap_item_int($parent0, $val0.key, $val0.int_val));
     coap_item_int!(@$enc $parent0, $val0.key, 1234);  //  TODO
     dump!(end coap_item_int_val);
   }};
@@ -533,7 +533,7 @@ macro_rules! oc_rep_start_root_object {
   () => {{
     dump!(begin oc_rep_start_root_object);
     //  TODO
-    dump!(TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
+    dump!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
     dump!(end oc_rep_start_root_object);
   }};
 }
@@ -543,7 +543,7 @@ macro_rules! oc_rep_end_root_object {
   () => {{
     dump!(begin oc_rep_end_root_object);
     //  TODO
-    dump!(TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
+    dump!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
     dump!(end oc_rep_end_root_object);
   }};
 }
@@ -557,12 +557,12 @@ macro_rules! oc_rep_start_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    //  dump!(TODO: CborEncoder key##_map);
+    //  dump!(> TODO: CborEncoder key##_map);
     concat!(
       "> TODO: CborEncoder ",
       stringify!($key), "_map"  //  key##_map
     );
-    //  dump!(TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
+    //  dump!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
     concat!(
       "> TODO: g_err |= cbor_encoder_create_map(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
@@ -582,7 +582,7 @@ macro_rules! oc_rep_end_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    //  dump!(TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
+    //  dump!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
     concat!(
       "> TODO: g_err |= cbor_encoder_close_container(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
@@ -603,13 +603,13 @@ macro_rules! oc_rep_start_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    //  dump!(TODO: CborEncoder key##_array);
+    //  dump!(> TODO: CborEncoder key##_array);
     concat!(
       "> TODO: CborEncoder ",
       stringify!($key), "_array",  //  key##_array
       ");"
     );
-    //  dump!(TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
+    //  dump!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
     concat!(
       "> TODO: g_err |= cbor_encoder_create_array(&", 
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
@@ -630,7 +630,7 @@ macro_rules! oc_rep_end_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    //  dump!(TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
+    //  dump!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
     concat!(
       "> TODO: g_err |= cbor_encoder_close_container(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
@@ -680,7 +680,7 @@ macro_rules! oc_rep_close_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  dump!(TODO: oc_rep_end_array(object##_map, key));
+    //  dump!(> TODO: oc_rep_end_array(object##_map, key));
     oc_rep_end_array!(
       $object, 
       $key,
@@ -698,7 +698,7 @@ macro_rules! oc_rep_object_array_start_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
-    //  dump!(TODO: oc_rep_start_object(key##_array, key));        
+    //  dump!(> TODO: oc_rep_start_object(key##_array, key));        
     oc_rep_start_object!(
       $key, 
       $key,
@@ -716,7 +716,7 @@ macro_rules! oc_rep_object_array_end_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
-    //  dump!(TODO: oc_rep_end_object(key##_array, key));
+    //  dump!(> TODO: oc_rep_end_object(key##_array, key));
     oc_rep_end_object!(
       $key, 
       $key,
@@ -736,7 +736,7 @@ macro_rules! oc_rep_set_int {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+    //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
     concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
@@ -747,7 +747,7 @@ macro_rules! oc_rep_set_int {
       "));"
     );
 
-    //  dump!(TODO: g_err |= cbor_encode_int(&object##_map, value));
+    //  dump!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
     concat!(
       "> TODO: g_err |= cbor_encode_int(&",
       stringify!($object), "_map",  //  object##_map
@@ -770,7 +770,7 @@ macro_rules! oc_rep_set_int_k {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, key, strlen(key)));
+    //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, key, strlen(key)));
     concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
@@ -781,7 +781,7 @@ macro_rules! oc_rep_set_int_k {
       "));"
     );
 
-    //  dump!(TODO: g_err |= cbor_encode_int(&object##_map, value));
+    //  dump!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
     concat!(
       "> TODO: g_err |= cbor_encode_int(&",
       stringify!($object), "_map",  //  object##_map
@@ -803,7 +803,7 @@ macro_rules! oc_rep_set_text_string {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+    //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
     concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
@@ -814,7 +814,7 @@ macro_rules! oc_rep_set_text_string {
       "));"
     );
 
-    //  dump!(TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
+    //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
     concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
