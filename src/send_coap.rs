@@ -213,6 +213,7 @@ macro_rules! coap_internal {
 
     // Munch a token into the current key.
     (@object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {
+        let _ = "token ident";
         coap_internal!(@object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
     };
 
@@ -359,18 +360,21 @@ macro_rules! coap_item_str {
         let _parent = $parent;
         let _key = $key;
         let _val = $val;
-        coap_item!(_parent, {
-            rep_set_text_string!(
-                $parent,  //  _parent, 
-                "key",   
-                $key      //  _key
-            );
-            rep_set_text_string!(
-                $parent,  //  _parent, 
-                "value", 
-                $val      //  _val
-            );
-        });
+        coap_item!(
+            $parent,  //  _parent,
+            {
+                rep_set_text_string!(
+                    $parent,  //  _parent, 
+                    "key",   
+                    $key      //  _key
+                );
+                rep_set_text_string!(
+                    $parent,  //  _parent, 
+                    "value", 
+                    $val      //  _val
+                );
+            }
+        );
         let _ = "end coap_item_str";
     }};
 }
@@ -415,7 +419,7 @@ macro_rules! rep_set_text_string {
 
 #[macro_export(local_inner_macros)]
 macro_rules! rep_object_array_start_item {
-    ($key:expr) => {{
+    ($key:ident) => {{
         let _ = "begin rep_object_array_start_item";
         //  TODO: Handle JSON
         oc_rep_object_array_start_item!($key);
@@ -425,7 +429,7 @@ macro_rules! rep_object_array_start_item {
 
 #[macro_export(local_inner_macros)]
 macro_rules! rep_object_array_end_item {
-    ($key:expr) => {{
+    ($key:ident) => {{
         let _ = "begin rep_object_array_end_item";
         //  TODO: Handle JSON
         oc_rep_object_array_end_item!($key);
@@ -439,7 +443,7 @@ macro_rules! rep_object_array_end_item {
 
 #[macro_export(local_inner_macros)]
 macro_rules! oc_rep_start_object {
-    ($parent:expr, $key:expr) => {{
+    ($parent:ident, $key:ident) => {{
         let _ = "begin oc_rep_start_object";
         let _parent0 = $parent;
         let _key0 = $key;
@@ -452,7 +456,7 @@ macro_rules! oc_rep_start_object {
 
 #[macro_export(local_inner_macros)]
 macro_rules! oc_rep_end_object {
-    ($parent:expr, $key:expr) => {{
+    ($parent:ident, $key:ident) => {{
         let _ = "begin oc_rep_end_object";
         let _parent0 = $parent;
         let _key0 = $key;
@@ -476,20 +480,22 @@ macro_rules! oc_rep_set_text_string {
     }};
 }
 
-#[macro_export(local_inner_macros)]
+#[macro_export]
 macro_rules! oc_rep_object_array_start_item {
-    ($key:expr) => {{
+    ($key:ident) => {{
         let _ = "begin oc_rep_object_array_start_item";
-        oc_rep_start_object!($key + "_array", $key);
+        ////let _arraykey = concat!($key, "_array");
+        ////oc_rep_start_object!(_arraykey, $key);
         let _ = "end oc_rep_object_array_start_item";
     }};
 }
 
-#[macro_export(local_inner_macros)]
+#[macro_export]
 macro_rules! oc_rep_object_array_end_item {
-    ($key:expr) => {{
+    ($key:ident) => {{
         let _ = "begin oc_rep_object_array_end_item";
-        oc_rep_end_object!($key + "_array", $key);
+        ////let _arraykey = concat!($key, "_array");
+        ////oc_rep_end_object!(_arraykey, $key);
         let _ = "end oc_rep_object_array_end_item";
     }};
 }
