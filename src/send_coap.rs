@@ -279,14 +279,16 @@ macro_rules! coap_internal {
       let values = "values";  //  "values" will be an array of items under the root
       coap_root!({  //  Create the payload root
 
-        //  For sending to CoAP Server...
+        /*
+        //  For sending JSON to CoAP Server...
         coap_array!(root, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... }
           coap_internal!(@object values () ($($tt)+) ($($tt)+));
         });  //  Close the "values" array
+        */
 
-        //  For sending to Collector Node...
-        //  coap_internal!(@object root () ($($tt)+) ($($tt)+));
+        //  For sending CBOR to Collector Node...
+        coap_internal!(@object root () ($($tt)+) ($($tt)+));
 
       });  //  Close the payload root
       //  Previously: coap_internal!(@object root () ($($tt)+) ($($tt)+));            
@@ -796,13 +798,8 @@ macro_rules! test_ident {
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).
-fn send_sensor_data_rust() {
-  let abc = "def";
-  trace_macros!(true);
-  //test_literal!("abc");
-  test_ident!(abc);
-  trace_macros!(false);
-
+/*
+fn send_sensor_data_rust() {  //  JSON
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id = b"b3b4b5b6f1";
 
@@ -817,18 +814,31 @@ fn send_sensor_data_rust() {
     val: SensorValueType::Float(28.70)
   };
 
-  trace_macros!(true);
-
   //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
+  trace_macros!(true);
   let payload = coap!({
     "device": device_id,
-    //  int_sensor_value,    //  Send `{t: 2870}`
+    int_sensor_value,    //  Send `{t: 2870}`
     //  float_sensor_value,  //  Send `{tmp: 28.70}`
     //  "node":   node_id,
   });
-
   trace_macros!(false);
+}
+*/
 
+fn send_sensor_data_rust() {  //  CBOR
+  //  Sensor `t` has int value 2870.
+  let int_sensor_value = SensorValueNew {
+    key: "t",
+    val: SensorValueType::Uint(2870)
+  };
+
+  //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
+  trace_macros!(true);
+  let payload = coap!({
+    int_sensor_value,    //  Send `{t: 2870}`
+  });
+  trace_macros!(false);
 }
 
 pub struct SensorValueNew {
