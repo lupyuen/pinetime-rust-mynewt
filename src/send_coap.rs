@@ -109,16 +109,12 @@ macro_rules! coap_internal {
 
   // Insert the current entry followed by trailing comma.
   (@$enc:ident @object $object:ident [$($key:tt)+] ($value:expr) , $($rest:tt)*) => {
-    let _ = ("TODO: add1 key:", ($($key)+), "value:", $value, "to object:", $object);
-    let _key = $($key)+;
-    let _value = $value;
-    let _object_key = $object;
+    dump!(add1 key: $($key)+ value: $value to object: $object);
 
     //  Append to the "values" array e.g.
     //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-    //  coap_item_str!(_object_key, _key, _value);
     coap_item_str!(@$enc $object, $($key)+, $value);
-    let _ = "--------------------";
+    "--------------------";
 
     //  Previously:
     //  let _ = $object.insert(($($key)+).into(), $value);
@@ -135,7 +131,7 @@ macro_rules! coap_internal {
   // Insert the last entry without trailing comma.
   (@$enc:ident @object $object:ident [$($key:tt)+] ($value:expr)) => {
     //  TODO
-    let _ = ("TODO: add2 key:", ($($key)+), "value:", $value, "to object:", $object);
+    dump!(TODO: add2 key: $($key)+ value: $value to object: $object);
     //  let _ = $object.insert(($($key)+).into(), $value);
   };
 
@@ -195,27 +191,25 @@ macro_rules! coap_internal {
 
   // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    let _ = "TODO: Expand _sensor_value (key, value) and add to _object";
-    let _sensor_value = $($key)*;
-    let _object = $object;
-    let _ = "--------------------";
+    dump!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
+    "--------------------";
     coap_item_int_val!(@json
       $object,  //  _object, 
       $($key)*  //  _sensor_value
     );
+    //  Continue expanding the rest of the JSON.
     coap_internal!(@json @object $object () ($($rest)*) ($($rest)*));
   };
 
   // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@cbor @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    let _ = "TODO: Expand _sensor_value (key, value) and add to _object";
-    let _sensor_value = $($key)*;
-    let _object = $object;
-    let _ = "--------------------";
+    dump!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
+    "--------------------";
     coap_set_int_val!(@cbor
       $object,  //  _object, 
       $($key)*  //  _sensor_value
     );
+    //  Continue expanding the rest of the JSON.
     coap_internal!(@cbor @object $object () ($($rest)*) ($($rest)*));
   };
 
@@ -226,13 +220,13 @@ macro_rules! coap_internal {
   // Key is fully parenthesized. This avoids clippy double_parens false
   // positives because the parenthesization may be necessary here.
   (@$enc:ident @object $object:ident () (($key:expr) : $($rest:tt)*) $copy:tt) => {
-    let _ = "token ()";
+    dump!(token ());
     coap_internal!(@$enc @object $object ($key) (: $($rest)*) (: $($rest)*));
   };
 
   // Munch a token into the current key.
   (@$enc:ident @object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {
-    let _ = "token ident";
+    dump!(next token);
     coap_internal!(@$enc @object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
   };
 
@@ -244,28 +238,28 @@ macro_rules! coap_internal {
 
   (@$enc:ident null) => {
     //  TODO
-    { _ = "null"; "null" }
+    { dump!(null); "null" }
     //  Previously:
     //  $crate::Value::Null
   };
 
   (@$enc:ident true) => {
     //  TODO
-    { _ = "true"; "true" }
+    { dump!(true); "true" }
     //  Previously:
     //  $crate::Value::Bool(true)
   };
 
   (@$enc:ident false) => {
     //  TODO
-    { _ = "false"; "false" }
+    { dump!(false); "false" }
     //  Previously:
     //  $crate::Value::Bool(false)
   };
 
   (@$enc:ident []) => {
     //  TODO
-    { _ = "[]"; "[]" }
+    { dump!([ TODO ]); "[ TODO ]" }
     //  Previously:
     //  $crate::Value::Array(coap_internal_vec![])
   };
@@ -273,10 +267,10 @@ macro_rules! coap_internal {
   (@$enc:ident [ $($tt:tt)+ ]) => {
     //  TODO
     {
-      _ = "begin array";
+      dump!(begin array);
       _array = coap_internal!(@$enc @array [] $($tt)+);
-      _ = "end array";
-      "TODO: array"
+      dump!(end array);
+      "[ TODO ]"
     }
     //  Previously:
     //  $crate::Value::Array(coap_internal!(@array [] $($tt)+))
@@ -284,7 +278,7 @@ macro_rules! coap_internal {
 
   (@$enc:ident {}) => {
     //  TODO
-    { _ = "{}"; "{}" }
+    { dump!({ TODO }); "{ TODO }" }
     //  Previously:
     //  $crate::Value::Object($crate::Map::new())
   };
@@ -292,7 +286,7 @@ macro_rules! coap_internal {
   //  JSON encoding: If we match the top level of the JSON: { ... }
   (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
-    let _ = "begin json root";
+    dump!(begin json root);
     let root = "root";  //  Top level object is named "root".
     coap_root!(@json {  //  Create the payload root
         let values = "values";  //  "values" will be an array of items under the root
@@ -301,22 +295,22 @@ macro_rules! coap_internal {
           coap_internal!(@json @object values () ($($tt)+) ($($tt)+));
         });  //  Close the "values" array
     });  //  Close the payload root
-    let _ = "end json root";
-    let _ = "return json root to caller";
+    dump!(end json root);
+    dump!(return json root to caller);
     root
   }};
 
   //  CBOR encoding: If we match the top level of the JSON: { ... }
   (@cbor { $($tt:tt)+ }) => {{
     //  Substitute with this code...
-    let _ = "begin cbor root";
+    dump!(begin cbor root);
     let root = "root";  //  Top level object is named "root".
     coap_root!(@cbor {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
         coap_internal!(@cbor @object root () ($($tt)+) ($($tt)+));
     });  //  Close the payload root
-    let _ = "end cbor root";
-    let _ = "return cbor root to caller";
+    dump!(end cbor root);
+    dump!(return cbor root to caller);
     root
   }};
 
@@ -331,7 +325,7 @@ macro_rules! coap_internal {
   // Any Serialize type: numbers, strings, struct literals, variables etc.
   // Must be below every other rule.
   (@$enc:ident $other:expr) => {
-    { let _expr = $other; $other }
+    { dump!(expr = $other); $other }
     //  Previously:
     //  $crate::to_value(&$other).unwrap()
   };
@@ -907,9 +901,9 @@ macro_rules! test_internal_rules {
 }
 
 ///  Macro to dump all tokens received as a literal string, e.g.
-///  `dump_tokens!(a b c)` returns `"a b c"`
+///  `dump!(a b c)` returns `"a b c"`
 #[macro_export]
-macro_rules! dump_tokens {
+macro_rules! dump {
   ($($token:tt)*) => {
     stringify!($($token)*)
   };
@@ -925,7 +919,7 @@ macro_rules! dump_tokens {
 ///  or Standalone Node).
 fn send_sensor_data_json() {  //  JSON
   trace_macros!(true);
-  dump_tokens!(a b c);
+  dump!(a b c);
   // test_internal_rules!(@json a);
   // test_internal_rules!(@cbor b);
   // test_internal_rules!(@zzz c);

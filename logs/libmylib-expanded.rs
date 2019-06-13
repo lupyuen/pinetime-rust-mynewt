@@ -579,15 +579,11 @@ mod send_coap {
                                @ $ enc : ident @ object $ object : ident [
                                $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
                                $ rest : tt ) * ) => {
-                               let _ = (
-                               "TODO: add1 key:" , ( $ ( $ key ) + ) ,
-                               "value:" , $ value , "to object:" , $ object )
-                               ; let _key = $ ( $ key ) + ; let _value = $
-                               value ; let _object_key = $ object ;
-                               coap_item_str ! (
+                               dump ! (
+                               add1 key : $ ( $ key ) + value : $ value to
+                               object : $ object ) ; coap_item_str ! (
                                @ $ enc $ object , $ ( $ key ) + , $ value ) ;
-                               let _ = "--------------------" ; coap_internal
-                               ! (
+                               "--------------------" ; coap_internal ! (
                                @ $ enc @ object $ object (  ) ( $ ( $ rest ) *
                                ) ( $ ( $ rest ) * ) ) ; } ; (
                                @ $ enc : ident @ object $ object : ident [
@@ -596,10 +592,9 @@ mod send_coap {
                                coap_unexpected ! ( $ unexpected ) ; } ; (
                                @ $ enc : ident @ object $ object : ident [
                                $ ( $ key : tt ) + ] ( $ value : expr ) ) => {
-                               let _ = (
-                               "TODO: add2 key:" , ( $ ( $ key ) + ) ,
-                               "value:" , $ value , "to object:" , $ object )
-                               ; } ; (
+                               dump ! (
+                               TODO : add2 key : $ ( $ key ) + value : $ value
+                               to object : $ object ) ; } ; (
                                @ $ enc : ident @ object $ object : ident (
                                $ ( $ key : tt ) + ) (
                                : null $ ( $ rest : tt ) * ) $ copy : tt ) => {
@@ -665,11 +660,11 @@ mod send_coap {
                                @ json @ object $ object : ident (
                                $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * )
                                ( $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                               let _ =
-                               "TODO: Expand _sensor_value (key, value) and add to _object"
-                               ; let _sensor_value = $ ( $ key ) * ; let
-                               _object = $ object ; let _ =
-                               "--------------------" ; coap_item_int_val ! (
+                               dump ! (
+                               TODO : Extract ( key , value ) from
+                               _sensor_value : $ ( $ key ) * and add to
+                               _object : $ object ) ; "--------------------" ;
+                               coap_item_int_val ! (
                                @ json $ object , $ ( $ key ) * ) ;
                                coap_internal ! (
                                @ json @ object $ object (  ) ( $ ( $ rest ) *
@@ -677,11 +672,11 @@ mod send_coap {
                                @ cbor @ object $ object : ident (
                                $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * )
                                ( $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                               let _ =
-                               "TODO: Expand _sensor_value (key, value) and add to _object"
-                               ; let _sensor_value = $ ( $ key ) * ; let
-                               _object = $ object ; let _ =
-                               "--------------------" ; coap_set_int_val ! (
+                               dump ! (
+                               TODO : Extract ( key , value ) from
+                               _sensor_value : $ ( $ key ) * and add to
+                               _object : $ object ) ; "--------------------" ;
+                               coap_set_int_val ! (
                                @ cbor $ object , $ ( $ key ) * ) ;
                                coap_internal ! (
                                @ cbor @ object $ object (  ) ( $ ( $ rest ) *
@@ -689,7 +684,7 @@ mod send_coap {
                                @ $ enc : ident @ object $ object : ident (  )
                                ( ( $ key : expr ) : $ ( $ rest : tt ) * ) $
                                copy : tt ) => {
-                               let _ = "token ()" ; coap_internal ! (
+                               dump ! ( token (  ) ) ; coap_internal ! (
                                @ $ enc @ object $ object ( $ key ) (
                                : $ ( $ rest ) * ) ( : $ ( $ rest ) * ) ) ; } ;
                                (
@@ -697,47 +692,48 @@ mod send_coap {
                                $ ( $ key : tt ) * ) (
                                $ tt : tt $ ( $ rest : tt ) * ) $ copy : tt )
                                => {
-                               let _ = "token ident" ; coap_internal ! (
+                               dump ! ( next token ) ; coap_internal ! (
                                @ $ enc @ object $ object ( $ ( $ key ) * $ tt
                                ) ( $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ;
                                ( @ $ enc : ident null ) => {
-                               { _ = "null" ; "null" } } ; (
+                               { dump ! ( null ) ; "null" } } ; (
                                @ $ enc : ident true ) => {
-                               { _ = "true" ; "true" } } ; (
+                               { dump ! ( true ) ; "true" } } ; (
                                @ $ enc : ident false ) => {
-                               { _ = "false" ; "false" } } ; (
-                               @ $ enc : ident [  ] ) => { { _ = "[]" ; "[]" }
-                               } ; ( @ $ enc : ident [ $ ( $ tt : tt ) + ] )
-                               => {
+                               { dump ! ( false ) ; "false" } } ; (
+                               @ $ enc : ident [  ] ) => {
+                               { dump ! ( [ TODO ] ) ; "[ TODO ]" } } ; (
+                               @ $ enc : ident [ $ ( $ tt : tt ) + ] ) => {
                                {
-                               _ = "begin array" ; _array = coap_internal ! (
-                               @ $ enc @ array [  ] $ ( $ tt ) + ) ; _ =
-                               "end array" ; "TODO: array" } } ; (
-                               @ $ enc : ident {  } ) => { { _ = "{}" ; "{}" }
-                               } ; ( @ json { $ ( $ tt : tt ) + } ) => {
+                               dump ! ( begin array ) ; _array = coap_internal
+                               ! ( @ $ enc @ array [  ] $ ( $ tt ) + ) ; dump
+                               ! ( end array ) ; "[ TODO ]" } } ; (
+                               @ $ enc : ident {  } ) => {
+                               { dump ! ( { TODO } ) ; "{ TODO }" } } ; (
+                               @ json { $ ( $ tt : tt ) + } ) => {
                                {
-                               let _ = "begin json root" ; let root = "root" ;
-                               coap_root ! (
+                               dump ! ( begin json root ) ; let root = "root"
+                               ; coap_root ! (
                                @ json {
                                let values = "values" ; coap_array ! (
                                @ json root , values , {
                                coap_internal ! (
                                @ json @ object values (  ) ( $ ( $ tt ) + ) (
-                               $ ( $ tt ) + ) ) ; } ) ; } ) ; let _ =
-                               "end json root" ; let _ =
-                               "return json root to caller" ; root } } ; (
+                               $ ( $ tt ) + ) ) ; } ) ; } ) ; dump ! (
+                               end json root ) ; dump ! (
+                               return json root to caller ) ; root } } ; (
                                @ cbor { $ ( $ tt : tt ) + } ) => {
                                {
-                               let _ = "begin cbor root" ; let root = "root" ;
-                               coap_root ! (
+                               dump ! ( begin cbor root ) ; let root = "root"
+                               ; coap_root ! (
                                @ cbor {
                                coap_internal ! (
                                @ cbor @ object root (  ) ( $ ( $ tt ) + ) (
-                               $ ( $ tt ) + ) ) ; } ) ; let _ =
-                               "end cbor root" ; let _ =
-                               "return cbor root to caller" ; root } } ; (
-                               @ $ enc : ident $ other : expr ) => {
-                               { let _expr = $ other ; $ other } } ;);
+                               $ ( $ tt ) + ) ) ; } ) ; dump ! ( end cbor root
+                               ) ; dump ! ( return cbor root to caller ) ;
+                               root } } ; ( @ $ enc : ident $ other : expr )
+                               => { { dump ! ( expr = $ other ) ; $ other } }
+                               ;);
     #[macro_export]
     #[doc(hidden)]
     macro_rules! coap_internal_vec(( $ ( $ content : tt ) * ) => {
@@ -1146,10 +1142,10 @@ mod send_coap {
                                      test_internal_rules2 ! (
                                      @ $ encoding $ key ) ; } ;);
     ///  Macro to dump all tokens received as a literal string, e.g.
-    ///  `dump_tokens!(a b c)` returns `"a b c"`
+    ///  `dump!(a b c)` returns `"a b c"`
     #[macro_export]
-    macro_rules! dump_tokens(( $ ( $ token : tt ) * ) => {
-                             stringify ! ( $ ( $ token ) * ) } ;);
+    macro_rules! dump(( $ ( $ token : tt ) * ) => {
+                      stringify ! ( $ ( $ token ) * ) } ;);
     ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
@@ -1166,7 +1162,7 @@ mod send_coap {
         ();
         let payload =
             {
-                let _ = "begin json root";
+                "begin json root";
                 let root = "root";
                 {
                     let _ = "begin coap_root";
@@ -1204,22 +1200,15 @@ mod send_coap {
                                 let _ = "end oc_rep_set_array";
                             };
                             {
-                                let _ = "token ident";
-                                let _ =
-                                    ("TODO: add1 key:", ("device"), "value:",
-                                     { let _expr = device_id; device_id },
-                                     "to object:", values);
-                                let _key = "device";
-                                let _value =
-                                    { let _expr = device_id; device_id };
-                                let _object_key = values;
+                                "next token";
+                                "add1 key : \"device\" value : coap_internal!(@ json device_id) to object :\nvalues";
                                 {
                                     let _ =
                                         "begin coap_item_str with _parent, _key, _val";
                                     let _parent = values;
                                     let _key = "device";
                                     let _val =
-                                        { let _expr = device_id; device_id };
+                                        { "expr = device_id"; device_id };
                                     {
                                         let _ = "begin coap_item";
                                         {
@@ -1265,7 +1254,7 @@ mod send_coap {
                                                 let _key = "value";
                                                 let _value =
                                                     {
-                                                        let _expr = device_id;
+                                                        "expr = device_id";
                                                         device_id
                                                     };
                                                 let _child = "values_map";
@@ -1300,13 +1289,10 @@ mod send_coap {
                                     };
                                     let _ = "end coap_item_str";
                                 };
-                                let _ = "--------------------";
-                                let _ = "token ident";
-                                let _ =
-                                    "TODO: Expand _sensor_value (key, value) and add to _object";
-                                let _sensor_value = int_sensor_value;
-                                let _object = values;
-                                let _ = "--------------------";
+                                "--------------------";
+                                "next token";
+                                "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : values";
+                                "--------------------";
                                 {
                                     let _ =
                                         "begin coap_item_int_val with _parent0, _val0";
@@ -1434,8 +1420,8 @@ mod send_coap {
                     };
                     let _ = "end coap_root";
                 };
-                let _ = "end json root";
-                let _ = "return json root to caller";
+                "end json root";
+                "return json root to caller";
                 root
             };
         ();
@@ -1446,7 +1432,7 @@ mod send_coap {
         ();
         let payload =
             {
-                let _ = "begin cbor root";
+                "begin cbor root";
                 let root = "root";
                 {
                     let _ = "begin coap_root";
@@ -1457,12 +1443,9 @@ mod send_coap {
                         let _ = "end oc_rep_start_root_object";
                     };
                     {
-                        let _ = "token ident";
-                        let _ =
-                            "TODO: Expand _sensor_value (key, value) and add to _object";
-                        let _sensor_value = int_sensor_value;
-                        let _object = root;
-                        let _ = "--------------------";
+                        "next token";
+                        "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
+                        "--------------------";
                         {
                             let _ =
                                 "begin coap_set_int_val with _parent0, _val0";
@@ -1498,8 +1481,8 @@ mod send_coap {
                     };
                     let _ = "end coap_root";
                 };
-                let _ = "end cbor root";
-                let _ = "return cbor root to caller";
+                "end cbor root";
+                "return cbor root to caller";
                 root
             };
         ();
