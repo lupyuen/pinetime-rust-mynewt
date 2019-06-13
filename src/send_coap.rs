@@ -135,7 +135,8 @@ macro_rules! coap_internal {
   // Insert the last entry without trailing comma.
   (@$enc:ident @object $object:ident [$($key:tt)+] ($value:expr)) => {
     //  TODO
-    let _ = $object.insert(($($key)+).into(), $value);
+    let _ = ("TODO: add key:", ($($key)+), "value:", $value, "to object:", $object);
+    //  let _ = $object.insert(($($key)+).into(), $value);
   };
 
   // Next value is `null`.
@@ -297,7 +298,7 @@ macro_rules! coap_internal {
           let values = "values";  //  "values" will be an array of items under the root
           coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
             //  Expand the items inside { ... }
-            coap_internal!(@json @object values () ($($tt)+) ($($tt)+));
+            ////coap_internal!(@json @object values () ($($tt)+) ($($tt)+));
           });  //  Close the "values" array
       });  //  Close the payload root
       let _ = "end json root";
@@ -390,7 +391,7 @@ macro_rules! coap_unexpected {
 ///  Compose the payload root.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_root {
-  (@$encoding:ident $children0:block) => {{
+  (@$enc:ident $children0:block) => {{
     let _ = "begin coap_root";
     oc_rep_start_root_object!();
     $children0;
@@ -402,7 +403,7 @@ macro_rules! coap_root {
 ///  Compose an array under "object", named as "key".  Add "children" as array elements.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
-  (@$encoding:ident $object0:ident, $key0:ident, $children0:block) => {{
+  (@$enc:ident $object0:ident, $key0:ident, $children0:block) => {{
     let _ = "begin coap_array with _object0, _key0";
     let _object0 = $object0;
     let _key0 = $key0;
@@ -418,12 +419,12 @@ macro_rules! coap_array {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_str {
   //  TODO: Allow key to be ident.
-  ($parent:ident, $key:expr, $val:expr) => {{
+  (@$enc:ident $parent:ident, $key:expr, $val:expr) => {{
     let _ = "begin coap_item_str with _parent, _key, _val";
     let _parent = $parent;
     let _key = $key;
     let _val = $val;
-    coap_item!(
+    coap_item!(@$enc
       $parent,  //  _parent,
       {
         oc_rep_set_text_string!(
@@ -446,7 +447,7 @@ macro_rules! coap_item_str {
 ///    `{ <array0>: [ ..., { <children0> } ] }`
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item {
-  ($array0:ident, $children0:block) => {{
+  (@$enc:ident $array0:ident, $children0:block) => {{
     let _ = "begin coap_item";
     oc_rep_object_array_start_item!($array0);
     $children0;
@@ -459,9 +460,9 @@ macro_rules! coap_item {
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int {
-  ($array0:ident, $key0:expr, $value0:expr) => {{
+  (@$enc:ident $array0:ident, $key0:expr, $value0:expr) => {{
     let _ = "begin coap_item_int";
-    coap_item!($array0, {
+    coap_item!(@$enc $array0, {
       oc_rep_set_text_string!($array0, "key",   $key0);
       oc_rep_set_int!(        $array0, "value", $value0);
     });
@@ -472,7 +473,7 @@ macro_rules! coap_item_int {
 ///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
-  ($parent0:ident, $val0:expr) => {{
+  (@$enc:ident $parent0:ident, $val0:expr) => {{
     let _ = "begin coap_set_int_val with _parent0, _val0";
     let _parent0 = $parent0;
     let _ = "TODO: let _val0 = $val0;";
@@ -489,7 +490,7 @@ macro_rules! coap_set_int_val {
 ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int_val {
-  ($parent0:ident, $val0:expr) => {{
+  (@$enc:ident $parent0:ident, $val0:expr) => {{
     let _ = "begin coap_item_int_val with _parent0, _val0";
     let _parent0 = $parent0;
     let _ = "TODO: let _val0 = $val0;";
@@ -498,7 +499,7 @@ macro_rules! coap_item_int_val {
     let _ = "TODO: let _value = _sensor_value.value;";
     let _ = "TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32);";
     let _ = "TODO: CP_ITEM_INT(parent0, val0->key, val0->int_val);";
-    coap_item_int!($parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
+    coap_item_int!(@$enc $parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
     let _ = "end coap_item_int_val";
   }};
 }
@@ -1030,12 +1031,12 @@ fn test_macro2() {
     val: SensorValueType::Uint(2870)
   };
 
-  coap_item_str! (values, "device", device_id);  ////
+  coap_item_str! (@json values, "device", device_id);  ////
   //  coap_set_int_val! (root, int_sensor_value);
 
   coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-    coap_item_str! (values, "device", device_id);
-    coap_item_str! (values, "node", node_id);
+    coap_item_str! (@json values, "device", device_id);
+    coap_item_str! (@json values, "node", node_id);
     //  coap_set_int_val! (root, int_sensor_value);
   });  ////
 
@@ -1043,13 +1044,13 @@ fn test_macro2() {
     coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
       //  Append to the "values" array:
       //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-      coap_item_str! (values, "device", device_id);
+      coap_item_str! (@json values, "device", device_id);
 
       //    {"key":"node", "value":"b3b4b5b6f1"},
-      coap_item_str! (values, "node", node_id);
+      coap_item_str! (@json values, "node", node_id);
 
       //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-      coap_set_int_val! (root, int_sensor_value);
+      coap_set_int_val! (@json root, int_sensor_value);
       
       //  If we are using raw temperature (integer) instead of computed temperature (float)...
       //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
