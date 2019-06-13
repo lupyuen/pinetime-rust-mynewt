@@ -298,6 +298,9 @@ macro_rules! coap_internal {
           let values = "values";  //  "values" will be an array of items under the root
           coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
             //  Expand the items inside { ... }
+            let _object = values;
+            //let _para1 = ($($tt)+);
+            //let _para2 = ($($tt)+);
             ////coap_internal!(@json @object values () ($($tt)+) ($($tt)+));
           });  //  Close the "values" array
       });  //  Close the payload root

@@ -716,8 +716,8 @@ mod send_coap {
                                coap_root ! (
                                @ json {
                                let values = "values" ; coap_array ! (
-                               @ json root , values , {  } ) ; } ) ; let _ =
-                               "end json root" ; let _ =
+                               @ json root , values , { let _object = values ;
+                               } ) ; } ) ; let _ = "end json root" ; let _ =
                                "return json root to caller" ; root } } ; (
                                @ cbor { $ ( $ tt : tt ) + } ) => {
                                {
@@ -1197,7 +1197,7 @@ mod send_coap {
                                 };
                                 let _ = "end oc_rep_set_array";
                             };
-                            { };
+                            { let _object = values; };
                             {
                                 let _ = "begin oc_rep_close_array";
                                 let _object = root;
