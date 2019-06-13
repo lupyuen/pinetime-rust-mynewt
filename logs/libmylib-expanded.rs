@@ -755,10 +755,10 @@ mod send_coap {
                             @ $ enc : ident $ object0 : ident , $ key0 : ident
                             , $ children0 : block ) => {
                             {
-                            dump ! ( begin coap_array with _object0 , _key0 )
-                            ; let _object0 = $ object0 ; let _key0 = $ key0 ;
-                            oc_rep_set_array ! ( $ object0 , $ key0 ) ; $
-                            children0 ; oc_rep_close_array ! (
+                            dump ! (
+                            begin coap_array _object0 : $ object0 _key0 : $
+                            key0 ) ; oc_rep_set_array ! ( $ object0 , $ key0 )
+                            ; $ children0 ; oc_rep_close_array ! (
                             $ object0 , $ key0 ) ; dump ! ( end coap_array ) ;
                             } } ;);
     ///  Append a (`key` + `val` string value) item to the array named `parent`:
@@ -769,9 +769,8 @@ mod send_coap {
                                , $ val : expr ) => {
                                {
                                dump ! (
-                               begin coap_item_str with _parent , _key , _val
-                               ) ; let _parent = $ parent ; let _key = $ key ;
-                               let _val = $ val ; coap_item ! (
+                               begin coap_item_str _parent : $ parent _key : $
+                               key _val : $ val ) ; coap_item ! (
                                @ $ enc $ parent , {
                                oc_rep_set_text_string ! (
                                $ parent , "key" , $ key ) ;
@@ -785,7 +784,7 @@ mod send_coap {
                            @ $ enc : ident $ array0 : ident , $ children0 :
                            block ) => {
                            {
-                           dump ! ( begin coap_item ) ;
+                           dump ! ( begin coap_item array : $ array0 ) ;
                            oc_rep_object_array_start_item ! ( $ array0 ) ; $
                            children0 ; oc_rep_object_array_end_item ! (
                            $ array0 ) ; dump ! ( end coap_item ) ; } } ;);
@@ -794,7 +793,9 @@ mod send_coap {
                                @ $ enc : ident $ array0 : ident , $ key0 :
                                expr , $ value0 : expr ) => {
                                {
-                               dump ! ( begin coap_item_int ) ; coap_item ! (
+                               dump ! (
+                               begin coap_item_int key : $ key0 value : $
+                               value0 ) ; coap_item ! (
                                @ $ enc $ array0 , {
                                oc_rep_set_text_string ! (
                                $ array0 , "key" , $ key0 ) ; oc_rep_set_int !
@@ -807,21 +808,15 @@ mod send_coap {
                                   expr ) => {
                                   {
                                   dump ! (
-                                  begin coap_set_int_val with _parent0 , _val0
-                                  ) ; let _parent0 = $ parent0 ; dump ! (
-                                  TODO : let _val0 = $ val0 ) ; dump ! (
-                                  TODO : let _key = _sensor_value . key ) ;
-                                  dump ! (
-                                  TODO : let _value = _sensor_value . value )
-                                  ; dump ! (
+                                  begin coap_set_int_val parent : $ parent0
+                                  val : $ val0 ) ; dump ! (
                                   TODO : assert (
-                                  val0 -> val_type == SENSOR_VALUE_TYPE_INT32
+                                  $ val0 . val_type == SENSOR_VALUE_TYPE_INT32
                                   ) ) ; dump ! (
-                                  TODO : rep_set_int_k (
-                                  parent0 , val0 -> key , val0 -> int_val ) )
-                                  ; oc_rep_set_int_k ! (
-                                  $ parent0 , "TODO: val0->key" ,
-                                  "TODO: val0->int_val" ) ; dump ! (
+                                  TODO : oc_rep_set_int_k (
+                                  $ parent0 , $ val0 . key , $ val0 . int_val
+                                  ) ) ; oc_rep_set_int_k ! (
+                                  $ parent0 , $ val0 . key , 1234 ) ; dump ! (
                                   end coap_set_int_val ) ; } } ;);
     ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
     #[macro_export(local_inner_macros)]
@@ -830,22 +825,16 @@ mod send_coap {
                                    : expr ) => {
                                    {
                                    dump ! (
-                                   begin coap_item_int_val with _parent0 ,
-                                   _val0 ) ; let _parent0 = $ parent0 ; dump !
-                                   ( TODO : let _val0 = $ val0 ) ; dump ! (
-                                   TODO : let _key = _sensor_value . key ) ;
-                                   dump ! (
-                                   TODO : let _value = _sensor_value . value )
-                                   ; dump ! (
+                                   begin coap_item_int_val parent : $ parent0
+                                   val : $ val0 ) ; dump ! (
                                    TODO : assert (
-                                   val0 -> val_type == SENSOR_VALUE_TYPE_INT32
-                                   ) ) ; dump ! (
-                                   TODO : CP_ITEM_INT (
-                                   parent0 , val0 -> key , val0 -> int_val ) )
-                                   ; coap_item_int ! (
-                                   @ $ enc $ parent0 , "TODO: val0->key" ,
-                                   "TODO: val0->int_val" ) ; dump ! (
-                                   end coap_item_int_val ) ; } } ;);
+                                   $ val0 . val_type ==
+                                   SENSOR_VALUE_TYPE_INT32 ) ) ; dump ! (
+                                   TODO : coap_item_int (
+                                   $ parent0 , $ val0 . key , $ val0 . int_val
+                                   ) ) ; coap_item_int ! (
+                                   @ $ enc $ parent0 , $ val0 . key , 1234 ) ;
+                                   dump ! ( end coap_item_int_val ) ; } } ;);
     #[macro_export(local_inner_macros)]
     macro_rules! rep_start_root_object((  ) => {
                                        {
@@ -1189,9 +1178,7 @@ mod send_coap {
                     {
                         let values = "values";
                         {
-                            "begin coap_array with _object0 , _key0";
-                            let _object0 = root;
-                            let _key0 = values;
+                            "begin coap_array _object0 : root _key0 : values";
                             {
                                 "begin oc_rep_set_array";
                                 let _object = root;
@@ -1218,13 +1205,9 @@ mod send_coap {
                                 "next token";
                                 "add1 key : \"device\" value : coap_internal!(@ json device_id) to object :\nvalues";
                                 {
-                                    "begin coap_item_str with _parent , _key , _val";
-                                    let _parent = values;
-                                    let _key = "device";
-                                    let _val =
-                                        { "expr = device_id"; device_id };
+                                    "begin coap_item_str _parent : values _key : \"device\" _val :\ncoap_internal!(@ json device_id)";
                                     {
-                                        "begin coap_item";
+                                        "begin coap_item array : values";
                                         {
                                             "begin oc_rep_object_array_start_item";
                                             let _ =
@@ -1296,17 +1279,13 @@ mod send_coap {
                                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : values";
                                 "--------------------";
                                 {
-                                    "begin coap_item_int_val with _parent0 , _val0";
-                                    let _parent0 = values;
-                                    "TODO : let _val0 = int_sensor_value";
-                                    "TODO : let _key = _sensor_value . key";
-                                    "TODO : let _value = _sensor_value . value";
-                                    "TODO : assert ( val0 -> val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                    "TODO : CP_ITEM_INT ( parent0 , val0 -> key , val0 -> int_val )";
+                                    "begin coap_item_int_val parent : values val : int_sensor_value";
+                                    "TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                    "TODO : coap_item_int (\nvalues , int_sensor_value . key , int_sensor_value . int_val )";
                                     {
-                                        "begin coap_item_int";
+                                        "begin coap_item_int key : int_sensor_value.key value : 1234";
                                         {
-                                            "begin coap_item";
+                                            "begin coap_item array : values";
                                             {
                                                 "begin oc_rep_object_array_start_item";
                                                 let _ =
@@ -1331,25 +1310,24 @@ mod send_coap {
                                                     let _object = values;
                                                     let _key = "key";
                                                     let _value =
-                                                        "TODO: val0->key";
+                                                        int_sensor_value.key;
                                                     let _child = "values_map";
                                                     let _ =
                                                         "TODO: g_err |= cbor_encode_text_string(&values_map, \"key\", strlen(\"key\"));";
                                                     let _ =
-                                                        "TODO: g_err |= cbor_encode_text_string(&values_map, \"TODO: val0->key\", strlen(\"TODO: val0->key\"));";
+                                                        "TODO: g_err |= cbor_encode_text_string(&values_map, int_sensor_value.key, strlen(int_sensor_value.key));";
                                                     "end oc_rep_set_text_string";
                                                 };
                                                 {
                                                     "begin oc_rep_set_int with _object , _key , _value";
                                                     let _object = values;
                                                     let _key = "value";
-                                                    let _value =
-                                                        "TODO: val0->int_val";
+                                                    let _value = 1234;
                                                     let _child = "values_map";
                                                     let _ =
                                                         "TODO: g_err |= cbor_encode_text_string(&values_map, \"value\", strlen(\"value\"));";
                                                     let _ =
-                                                        "TODO: g_err |= cbor_encode_int(&values_map, \"TODO: val0->int_val\");";
+                                                        "TODO: g_err |= cbor_encode_int(&values_map, 1234);";
                                                     "end oc_rep_set_int";
                                                 };
                                             };
@@ -1430,23 +1408,19 @@ mod send_coap {
                         "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                         "--------------------";
                         {
-                            "begin coap_set_int_val with _parent0 , _val0";
-                            let _parent0 = root;
-                            "TODO : let _val0 = int_sensor_value";
-                            "TODO : let _key = _sensor_value . key";
-                            "TODO : let _value = _sensor_value . value";
-                            "TODO : assert ( val0 -> val_type == SENSOR_VALUE_TYPE_INT32 )";
-                            "TODO : rep_set_int_k ( parent0 , val0 -> key , val0 -> int_val )";
+                            "begin coap_set_int_val parent : root val : int_sensor_value";
+                            "TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                            "TODO : oc_rep_set_int_k (\nroot , int_sensor_value . key , int_sensor_value . int_val )";
                             {
                                 "begin oc_rep_set_int_k with _object , _key , _value";
                                 let _object = root;
-                                let _key = "TODO: val0->key";
-                                let _value = "TODO: val0->int_val";
+                                let _key = int_sensor_value.key;
+                                let _value = 1234;
                                 let _child = "root_map";
                                 let _ =
-                                    "TODO: g_err |= cbor_encode_text_string(&root_map, \"TODO: val0->key\", strlen(\"TODO: val0->key\"));";
+                                    "TODO: g_err |= cbor_encode_text_string(&root_map, int_sensor_value.key, strlen(int_sensor_value.key));";
                                 let _ =
-                                    "TODO: g_err |= cbor_encode_int(&root_map, \"TODO: val0->int_val\");";
+                                    "TODO: g_err |= cbor_encode_int(&root_map, 1234);";
                                 "end oc_rep_set_int_k";
                             };
                             "end coap_set_int_val";
@@ -1487,12 +1461,9 @@ mod send_coap {
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         {
-            "begin coap_item_str with _parent , _key , _val";
-            let _parent = values;
-            let _key = "device";
-            let _val = device_id;
+            "begin coap_item_str _parent : values _key : \"device\" _val : device_id";
             {
-                "begin coap_item";
+                "begin coap_item array : values";
                 {
                     "begin oc_rep_object_array_start_item";
                     let _ =
@@ -1554,9 +1525,7 @@ mod send_coap {
             "end coap_item_str";
         };
         {
-            "begin coap_array with _object0 , _key0";
-            let _object0 = root;
-            let _key0 = values;
+            "begin coap_array _object0 : root _key0 : values";
             {
                 "begin oc_rep_set_array";
                 let _object = root;
@@ -1579,12 +1548,9 @@ mod send_coap {
             };
             {
                 {
-                    "begin coap_item_str with _parent , _key , _val";
-                    let _parent = values;
-                    let _key = "device";
-                    let _val = device_id;
+                    "begin coap_item_str _parent : values _key : \"device\" _val : device_id";
                     {
-                        "begin coap_item";
+                        "begin coap_item array : values";
                         {
                             "begin oc_rep_object_array_start_item";
                             let _ =
@@ -1647,12 +1613,9 @@ mod send_coap {
                     "end coap_item_str";
                 };
                 {
-                    "begin coap_item_str with _parent , _key , _val";
-                    let _parent = values;
-                    let _key = "node";
-                    let _val = node_id;
+                    "begin coap_item_str _parent : values _key : \"node\" _val : node_id";
                     {
-                        "begin coap_item";
+                        "begin coap_item array : values";
                         {
                             "begin oc_rep_object_array_start_item";
                             let _ =
@@ -1744,9 +1707,7 @@ mod send_coap {
                 };
                 {
                     {
-                        "begin coap_array with _object0 , _key0";
-                        let _object0 = root;
-                        let _key0 = values;
+                        "begin coap_array _object0 : root _key0 : values";
                         {
                             "begin oc_rep_set_array";
                             let _object = root;
@@ -1770,12 +1731,9 @@ mod send_coap {
                         };
                         {
                             {
-                                "begin coap_item_str with _parent , _key , _val";
-                                let _parent = values;
-                                let _key = "device";
-                                let _val = device_id;
+                                "begin coap_item_str _parent : values _key : \"device\" _val : device_id";
                                 {
-                                    "begin coap_item";
+                                    "begin coap_item array : values";
                                     {
                                         "begin oc_rep_object_array_start_item";
                                         let _ =
@@ -1839,12 +1797,9 @@ mod send_coap {
                                 "end coap_item_str";
                             };
                             {
-                                "begin coap_item_str with _parent , _key , _val";
-                                let _parent = values;
-                                let _key = "node";
-                                let _val = node_id;
+                                "begin coap_item_str _parent : values _key : \"node\" _val : node_id";
                                 {
-                                    "begin coap_item";
+                                    "begin coap_item array : values";
                                     {
                                         "begin oc_rep_object_array_start_item";
                                         let _ =
@@ -1908,23 +1863,19 @@ mod send_coap {
                                 "end coap_item_str";
                             };
                             {
-                                "begin coap_set_int_val with _parent0 , _val0";
-                                let _parent0 = root;
-                                "TODO : let _val0 = int_sensor_value";
-                                "TODO : let _key = _sensor_value . key";
-                                "TODO : let _value = _sensor_value . value";
-                                "TODO : assert ( val0 -> val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                "TODO : rep_set_int_k ( parent0 , val0 -> key , val0 -> int_val )";
+                                "begin coap_set_int_val parent : root val : int_sensor_value";
+                                "TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                "TODO : oc_rep_set_int_k (\nroot , int_sensor_value . key , int_sensor_value . int_val )";
                                 {
                                     "begin oc_rep_set_int_k with _object , _key , _value";
                                     let _object = root;
-                                    let _key = "TODO: val0->key";
-                                    let _value = "TODO: val0->int_val";
+                                    let _key = int_sensor_value.key;
+                                    let _value = 1234;
                                     let _child = "root_map";
                                     let _ =
-                                        "TODO: g_err |= cbor_encode_text_string(&root_map, \"TODO: val0->key\", strlen(\"TODO: val0->key\"));";
+                                        "TODO: g_err |= cbor_encode_text_string(&root_map, int_sensor_value.key, strlen(int_sensor_value.key));";
                                     let _ =
-                                        "TODO: g_err |= cbor_encode_int(&root_map, \"TODO: val0->int_val\");";
+                                        "TODO: g_err |= cbor_encode_int(&root_map, 1234);";
                                     "end oc_rep_set_int_k";
                                 };
                                 "end coap_set_int_val";

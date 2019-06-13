@@ -365,9 +365,7 @@ macro_rules! coap_root {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
   (@$enc:ident $object0:ident, $key0:ident, $children0:block) => {{
-    dump!(begin coap_array with _object0, _key0);
-    let _object0 = $object0;
-    let _key0 = $key0;
+    dump!(begin coap_array _object0: $object0  _key0: $key0);
     oc_rep_set_array!($object0, $key0);
     $children0;
     oc_rep_close_array!($object0, $key0);
@@ -381,10 +379,7 @@ macro_rules! coap_array {
 macro_rules! coap_item_str {
   //  TODO: Allow key to be ident.
   (@$enc:ident $parent:ident, $key:expr, $val:expr) => {{
-    dump!(begin coap_item_str with _parent, _key, _val);
-    let _parent = $parent;
-    let _key = $key;
-    let _val = $val;
+    dump!(begin coap_item_str _parent: $parent _key: $key _val: $val);
     coap_item!(@$enc
       $parent,  //  _parent,
       {
@@ -409,7 +404,7 @@ macro_rules! coap_item_str {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item {
   (@$enc:ident $array0:ident, $children0:block) => {{
-    dump!(begin coap_item);
+    dump!(begin coap_item array: $array0);
     oc_rep_object_array_start_item!($array0);
     $children0;
     oc_rep_object_array_end_item!($array0);
@@ -422,7 +417,7 @@ macro_rules! coap_item {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int {
   (@$enc:ident $array0:ident, $key0:expr, $value0:expr) => {{
-    dump!(begin coap_item_int);
+    dump!(begin coap_item_int key: $key0 value: $value0);
     coap_item!(@$enc $array0, {
       oc_rep_set_text_string!($array0, "key",   $key0);
       oc_rep_set_int!(        $array0, "value", $value0);
@@ -435,15 +430,10 @@ macro_rules! coap_item_int {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
   (@$enc:ident $parent0:ident, $val0:expr) => {{
-    dump!(begin coap_set_int_val with _parent0, _val0);
-    let _parent0 = $parent0;
-    dump!(TODO: let _val0 = $val0);
-    //  TODO
-    dump!(TODO: let _key = _sensor_value.key);
-    dump!(TODO: let _value = _sensor_value.value);
-    dump!(TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32));
-    dump!(TODO: rep_set_int_k(parent0, val0->key, val0->int_val));
-    oc_rep_set_int_k!($parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
+    dump!(begin coap_set_int_val parent: $parent0 val: $val0);
+    dump!(TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
+    dump!(TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
+    oc_rep_set_int_k!($parent0, $val0.key, 1234);  //  TODO
     dump!(end coap_set_int_val);
   }};
 }
@@ -452,15 +442,10 @@ macro_rules! coap_set_int_val {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int_val {
   (@$enc:ident $parent0:ident, $val0:expr) => {{
-    dump!(begin coap_item_int_val with _parent0, _val0);
-    let _parent0 = $parent0;
-    dump!(TODO: let _val0 = $val0);
-    //  TODO
-    dump!(TODO: let _key = _sensor_value.key);
-    dump!(TODO: let _value = _sensor_value.value);
-    dump!(TODO: assert(val0->val_type == SENSOR_VALUE_TYPE_INT32));
-    dump!(TODO: CP_ITEM_INT(parent0, val0->key, val0->int_val));
-    coap_item_int!(@$enc $parent0, "TODO: val0->key", "TODO: val0->int_val");  //  TODO
+    dump!(begin coap_item_int_val parent: $parent0 val: $val0);
+    dump!(TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
+    dump!(TODO: coap_item_int($parent0, $val0.key, $val0.int_val));
+    coap_item_int!(@$enc $parent0, $val0.key, 1234);  //  TODO
     dump!(end coap_item_int_val);
   }};
 }
