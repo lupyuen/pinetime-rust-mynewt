@@ -419,7 +419,7 @@ macro_rules! coap_item {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int {
   (@$enc:ident $array0:ident, $key0:expr, $value0:expr) => {{
-    dump!(begin coap_item_int key: $key0 value: $value0);
+    dump!(begin coap_item_int, key: $key0, value: $value0);
     coap_item!(@$enc $array0, {
       oc_rep_set_text_string!($array0, "key",   $key0);
       oc_rep_set_int!(        $array0, "value", $value0);
@@ -432,9 +432,9 @@ macro_rules! coap_item_int {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
   (@$enc:ident $parent0:ident, $val0:expr) => {{
-    dump!(begin coap_set_int_val parent: $parent0 val: $val0);
+    dump!(begin coap_set_int_val, parent: $parent0, val: $val0);
     dump!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    dump!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
+    //  dump!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
     oc_rep_set_int_k!($parent0, $val0.key, 1234);  //  TODO
     dump!(end coap_set_int_val);
   }};
@@ -444,7 +444,7 @@ macro_rules! coap_set_int_val {
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int_val {
   (@$enc:ident $parent0:ident, $val0:expr) => {{
-    dump!(begin coap_item_int_val parent: $parent0 val: $val0);
+    dump!(begin coap_item_int_val, parent: $parent0, val: $val0);
     dump!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
     dump!(> TODO: coap_item_int($parent0, $val0.key, $val0.int_val));
     coap_item_int!(@$enc $parent0, $val0.key, 1234);  //  TODO
@@ -533,7 +533,8 @@ macro_rules! oc_rep_start_root_object {
   () => {{
     dump!(begin oc_rep_start_root_object);
     //  TODO
-    dump!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
+    //  dump!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
+    cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength);
     dump!(end oc_rep_start_root_object);
   }};
 }
@@ -550,73 +551,78 @@ macro_rules! oc_rep_end_root_object {
 
 #[macro_export]
 macro_rules! oc_rep_start_object {
-  ($parent:ident, $key:ident, $parent_suffix:literal) => {{
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
       "begin oc_rep_start_object ",
-      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  dump!(> TODO: CborEncoder key##_map);
-    concat!(
+    concat_idents!($key, _map) = CborEncoder{};
+    /* concat!(
       "> TODO: CborEncoder ",
       stringify!($key), "_map"  //  key##_map
-    );
+    ); */
     //  dump!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    concat!(
+    cbor_encoder_create_map(&$parent, &concat_idents!($key, _map), CborIndefiniteLength);
+    /* concat!(
       "> TODO: g_err |= cbor_encoder_create_map(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &",
       stringify!($key), "_map",  //  key##_map
-      ", CborIndefiniteLength);");
+      ", CborIndefiniteLength);"); */
     dump!(end oc_rep_start_object);
   }};
 }
 
 #[macro_export]
 macro_rules! oc_rep_end_object {
-  ($parent:ident, $key:ident, $parent_suffix:literal) => {{
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
       "begin oc_rep_end_object ",
-      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  dump!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    concat!(
+    cbor_encoder_close_container(&concat_idents!($parent, $parent_suffix), &concat_idents!($key,##_map));
+    /* concat!(
       "> TODO: g_err |= cbor_encoder_close_container(&",
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &", 
       stringify!($key), "_map",  //  key##_map
       ");"
-    );
+    ); */
     dump!(end oc_rep_end_object);
   }};
 }
 
 #[macro_export]
 macro_rules! oc_rep_start_array {
-  ($parent:ident, $key:ident, $parent_suffix:literal) => {{
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
       "begin oc_rep_start_array ",
-      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     //  dump!(> TODO: CborEncoder key##_array);
-    concat!(
+    concat_idents!($key, _array) = CborEncoder{};
+    /* concat!(
       "> TODO: CborEncoder ",
       stringify!($key), "_array",  //  key##_array
       ");"
-    );
+    ); */
     //  dump!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-    concat!(
+    cbor_encoder_create_array(&concat_idents!($parent, $parent_suffix), &concat_idents!($key, _array), CborIndefiniteLength);
+    /* concat!(
       "> TODO: g_err |= cbor_encoder_create_array(&", 
       stringify!($parent), $parent_suffix,  //  parent##parent_suffix
       ", &",
       stringify!($key), "_array",  //  key##_array
       ", CborIndefiniteLength);"
-    );
+    ); */
     dump!(end oc_rep_start_array);
   }};
 }
@@ -652,7 +658,8 @@ macro_rules! oc_rep_set_array {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
-    concat!(
+    cbor_encode_text_string(concat_idents!($object, _map), $key, $key.len());
+    /* concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
@@ -660,13 +667,13 @@ macro_rules! oc_rep_set_array {
       ", strlen(",
       stringify!($key),  //  #key
       "));"
-    );
+    ); */
     //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
     oc_rep_start_array!(
       $object,
       $key,
-      "_map"
-    );  //  TODO
+      _map
+    ); //  TODO
     dump!(end oc_rep_set_array);
   }};
 }
@@ -702,7 +709,7 @@ macro_rules! oc_rep_object_array_start_item {
     oc_rep_start_object!(
       $key, 
       $key,
-      "_array"
+      _array
     );  //  TODO
     dump!(end oc_rep_object_array_start_item);
   }};
@@ -737,7 +744,8 @@ macro_rules! oc_rep_set_int {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-    concat!(
+    cbor_encode_text_string(&concat_idents!($object,_map), $key, $key.len());
+    /* concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
@@ -745,16 +753,17 @@ macro_rules! oc_rep_set_int {
       ", strlen(",
       stringify!($key),  //  #key
       "));"
-    );
+    ); */
 
     //  dump!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-    concat!(
+    cbor_encode_int(&concat_idents!($object,_map), value);
+    /* concat!(
       "> TODO: g_err |= cbor_encode_int(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
       stringify!($value),  //  value
       ");"
-    );
+    ); */
     dump!(end oc_rep_set_int);
   }};
 }
@@ -804,7 +813,8 @@ macro_rules! oc_rep_set_text_string {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-    concat!(
+    cbor_encode_text_string(&concat_idents!($object, _map), $key, $key.len());
+    /* concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
@@ -812,10 +822,11 @@ macro_rules! oc_rep_set_text_string {
       ", strlen(",
       stringify!($key),  //  #key
       "));"
-    );
+    ); */
 
     //  dump!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
-    concat!(
+    cbor_encode_text_string(&concat_idents!($object, _map), $value, $value.len());
+    /* concat!(
       "> TODO: g_err |= cbor_encode_text_string(&",
       stringify!($object), "_map",  //  object##_map
       ", ",
@@ -823,7 +834,7 @@ macro_rules! oc_rep_set_text_string {
       ", strlen(",
       stringify!($value),  //  value
       "));"
-    );
+    ); */
     dump!(end oc_rep_set_text_string);
   }};
 }
@@ -892,14 +903,7 @@ macro_rules! dump {
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).
-fn send_sensor_data_json() {  //  JSON
-  trace_macros!(true);
-  dump!(a b c);
-  // test_internal_rules!(@json a);
-  // test_internal_rules!(@cbor b);
-  // test_internal_rules!(@zzz c);
-  trace_macros!(false);
-
+fn send_sensor_data_json() {
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id = b"b3b4b5b6f1";
 
@@ -908,24 +912,18 @@ fn send_sensor_data_json() {  //  JSON
     key: "t",
     val: SensorValueType::Uint(2870)
   };
-  //  Sensor `tmp` has float value 28.70.
-  let float_sensor_value = SensorValueNew {
-    key: "tmp",
-    val: SensorValueType::Float(28.70)
-  };
 
-  //  Compose the CoAP Payload in JSON or CBOR using the `coap` macro.
+  //  Compose the CoAP Payload in JSON using the `coap` macro.
   trace_macros!(true);
   let payload = coap!(@json {
     "device": device_id,
-    int_sensor_value,    //  Send `{t: 2870}`
-    //  float_sensor_value,  //  Send `{tmp: 28.70}`
-    //  "node":   node_id,
+    "node":   node_id,
+    int_sensor_value,  //  Send `{t: 2870}`
   });
   trace_macros!(false);
 }
 
-fn send_sensor_data_cbor() {  //  CBOR
+fn send_sensor_data_cbor() {
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
     key: "t",
@@ -937,6 +935,20 @@ fn send_sensor_data_cbor() {  //  CBOR
   let payload = coap!(@cbor {
     int_sensor_value,    //  Send `{t: 2870}`
   });
+  trace_macros!(false);
+
+  //  Sensor `tmp` has float value 28.70.
+  let float_sensor_value = SensorValueNew {
+    key: "tmp",
+    val: SensorValueType::Float(28.70)
+  };
+  //  float_sensor_value,  //  Send `{tmp: 28.70}`
+
+  trace_macros!(true);
+  dump!(a b c);
+  // test_internal_rules!(@json a);
+  // test_internal_rules!(@cbor b);
+  // test_internal_rules!(@zzz c);
   trace_macros!(false);
 }
 
