@@ -126,6 +126,14 @@ macro_rules! parse {
     unexpected_token!($colon);
   };
 
+  // No Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
+  (@none @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
+    d!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
+    "--------------------";
+    //  Continue expanding the rest of the JSON.
+    parse!(@none @object $object () ($($rest)*) ($($rest)*));
+  };
+
   // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     d!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
@@ -150,14 +158,6 @@ macro_rules! parse {
     "--------------------";
     //  Continue expanding the rest of the JSON.
     parse!(@cbor @object $object () ($($rest)*) ($($rest)*));
-  };
-
-  // No Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
-  (@none @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    d!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
-    "--------------------";
-    //  Continue expanding the rest of the JSON.
-    parse!(@none @object $object () ($($rest)*) ($($rest)*));
   };
 
   // Previously: Found a comma inside a key. Trigger a reasonable error message.
