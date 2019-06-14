@@ -647,7 +647,7 @@ pub extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("assertion failed: rc == 0",
-                                       "src/lib.rs", 41u32, 40u32))
+                                       "src/lib.rs", 42u32, 40u32))
         }
     };
     loop  { unsafe { os_eventq_run(os_eventq_dflt_get()) } }

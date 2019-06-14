@@ -11,6 +11,7 @@ extern crate cortex_m;      //  Declare the external library cortex_m
 #[macro_use]
 mod macros;         //  Declare macros.rs as Rust module `macros` and import the macros
 mod base;           //  Declare base.rs as Rust module `base`
+mod tinycbor;       //  Declare tinycbor.rs as Rust module `tinycbor` and import the C API for TinyCBOR
 mod sensor;         //  Declare sensor.rs as Rust module `sensor`
 mod listen_sensor;  //  Declare listen_sensor.rs as Rust module `listen_sensor`
 mod send_coap;      //  Declare send_coap.rs as Rust module `send_coap`

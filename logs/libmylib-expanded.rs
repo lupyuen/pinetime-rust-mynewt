@@ -24,6 +24,7 @@ extern crate cortex_m;
 mod macros {
     //  Declare macros.rs as Rust module `macros` and import the macros
     //  Declare base.rs as Rust module `base`
+    //  Declare tinycbor.rs as Rust module `tinycbor` and import the C API for TinyCBOR
     //  Declare sensor.rs as Rust module `sensor`
     //  Declare listen_sensor.rs as Rust module `listen_sensor`
     //  Declare send_coap.rs as Rust module `send_coap`
@@ -164,6 +165,15 @@ mod macros {
                        : $ ( $ rest : tt ) * ) (
                        $ colon : tt $ ( $ copy : tt ) * ) ) => {
                        unexpected_token ! ( $ colon ) ; } ; (
+                       @ none @ object $ object : ident ( $ ( $ key : tt ) * )
+                       ( , $ ( $ rest : tt ) * ) (
+                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                       d ! (
+                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       $ key ) * and add to _object : $ object ) ;
+                       "--------------------" ; parse ! (
+                       @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
+                       $ ( $ rest ) * ) ) ; } ; (
                        @ json @ object $ object : ident ( $ ( $ key : tt ) * )
                        ( , $ ( $ rest : tt ) * ) (
                        $ comma : tt $ ( $ copy : tt ) * ) ) => {
@@ -185,15 +195,6 @@ mod macros {
                        @ cbor $ object , $ ( $ key ) * ) ;
                        "--------------------" ; parse ! (
                        @ cbor @ object $ object (  ) ( $ ( $ rest ) * ) (
-                       $ ( $ rest ) * ) ) ; } ; (
-                       @ none @ object $ object : ident ( $ ( $ key : tt ) * )
-                       ( , $ ( $ rest : tt ) * ) (
-                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                       d ! (
-                       TODO : Extract ( key , value ) from _sensor_value : $ (
-                       $ key ) * and add to _object : $ object ) ;
-                       "--------------------" ; parse ! (
-                       @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
                        $ ( $ rest ) * ) ) ; } ; (
                        @ $ enc : ident @ object $ object : ident (  ) (
                        ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy : tt )
@@ -771,6 +772,710 @@ mod base {
         ///  1 if data is valid
         pub strd_temp_raw_is_valid: u8,
     }
+}
+mod tinycbor {
+    pub type __uint8_t = ::std::os::raw::c_uchar;
+    pub type __uint16_t = ::std::os::raw::c_ushort;
+    pub type __uint32_t = ::std::os::raw::c_ulong;
+    pub type __int64_t = ::std::os::raw::c_longlong;
+    pub type __uint64_t = ::std::os::raw::c_ulonglong;
+    pub type __uintptr_t = ::std::os::raw::c_uint;
+    pub type FILE = File;
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct File_methods {
+        pub write: ::std::option::Option<unsafe extern "C" fn(instance:
+                                                                  *mut FILE,
+                                                              bp:
+                                                                  *const ::std::os::raw::c_char,
+                                                              n: usize)
+                                             -> usize>,
+        pub read: ::std::option::Option<unsafe extern "C" fn(instance:
+                                                                 *mut FILE,
+                                                             bp:
+                                                                 *mut ::std::os::raw::c_char,
+                                                             n: usize)
+                                            -> usize>,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for File_methods {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                File_methods { write: ref __self_0_0, read: ref __self_0_1 }
+                => {
+                    let mut debug_trait_builder =
+                        f.debug_struct("File_methods");
+                    let _ =
+                        debug_trait_builder.field("write", &&(*__self_0_0));
+                    let _ =
+                        debug_trait_builder.field("read", &&(*__self_0_1));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for File_methods { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for File_methods {
+        #[inline]
+        fn clone(&self) -> File_methods {
+            {
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::option::Option<unsafe extern "C" fn(instance:
+                                                                                                         *mut FILE,
+                                                                                                     bp:
+                                                                                                         *const ::std::os::raw::c_char,
+                                                                                                     n:
+                                                                                                         usize)
+                                                                                    ->
+                                                                                        usize>>;
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::option::Option<unsafe extern "C" fn(instance:
+                                                                                                         *mut FILE,
+                                                                                                     bp:
+                                                                                                         *mut ::std::os::raw::c_char,
+                                                                                                     n:
+                                                                                                         usize)
+                                                                                    ->
+                                                                                        usize>>;
+                *self
+            }
+        }
+    }
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct File {
+        pub vmt: *const File_methods,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for File {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                File { vmt: ref __self_0_0 } => {
+                    let mut debug_trait_builder = f.debug_struct("File");
+                    let _ = debug_trait_builder.field("vmt", &&(*__self_0_0));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for File { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for File {
+        #[inline]
+        fn clone(&self) -> File {
+            {
+                let _: ::core::clone::AssertParamIsClone<*const File_methods>;
+                *self
+            }
+        }
+    }
+    pub const CborType_CborIntegerType: CborType = 0;
+    pub const CborType_CborByteStringType: CborType = 64;
+    pub const CborType_CborTextStringType: CborType = 96;
+    pub const CborType_CborArrayType: CborType = 128;
+    pub const CborType_CborMapType: CborType = 160;
+    pub const CborType_CborTagType: CborType = 192;
+    pub const CborType_CborSimpleType: CborType = 224;
+    pub const CborType_CborBooleanType: CborType = 245;
+    pub const CborType_CborNullType: CborType = 246;
+    pub const CborType_CborUndefinedType: CborType = 247;
+    pub const CborType_CborHalfFloatType: CborType = 249;
+    pub const CborType_CborFloatType: CborType = 250;
+    pub const CborType_CborDoubleType: CborType = 251;
+    pub const CborType_CborInvalidType: CborType = 255;
+    pub type CborType = u32;
+    pub type CborTag = u64;
+    pub const CborKnownTags_CborDateTimeStringTag: CborKnownTags = 0;
+    pub const CborKnownTags_CborUnixTime_tTag: CborKnownTags = 1;
+    pub const CborKnownTags_CborPositiveBignumTag: CborKnownTags = 2;
+    pub const CborKnownTags_CborNegativeBignumTag: CborKnownTags = 3;
+    pub const CborKnownTags_CborDecimalTag: CborKnownTags = 4;
+    pub const CborKnownTags_CborBigfloatTag: CborKnownTags = 5;
+    pub const CborKnownTags_CborExpectedBase64urlTag: CborKnownTags = 21;
+    pub const CborKnownTags_CborExpectedBase64Tag: CborKnownTags = 22;
+    pub const CborKnownTags_CborExpectedBase16Tag: CborKnownTags = 23;
+    pub const CborKnownTags_CborUriTag: CborKnownTags = 32;
+    pub const CborKnownTags_CborBase64urlTag: CborKnownTags = 33;
+    pub const CborKnownTags_CborBase64Tag: CborKnownTags = 34;
+    pub const CborKnownTags_CborRegularExpressionTag: CborKnownTags = 35;
+    pub const CborKnownTags_CborMimeMessageTag: CborKnownTags = 36;
+    pub const CborKnownTags_CborSignatureTag: CborKnownTags = 55799;
+    pub type CborKnownTags = u32;
+    pub const CborError_CborNoError: CborError = 0;
+    pub const CborError_CborUnknownError: CborError = 1;
+    pub const CborError_CborErrorUnknownLength: CborError = 2;
+    pub const CborError_CborErrorAdvancePastEOF: CborError = 3;
+    pub const CborError_CborErrorIO: CborError = 4;
+    pub const CborError_CborErrorGarbageAtEnd: CborError = 256;
+    pub const CborError_CborErrorUnexpectedEOF: CborError = 257;
+    pub const CborError_CborErrorUnexpectedBreak: CborError = 258;
+    pub const CborError_CborErrorUnknownType: CborError = 259;
+    pub const CborError_CborErrorIllegalType: CborError = 260;
+    pub const CborError_CborErrorIllegalNumber: CborError = 261;
+    pub const CborError_CborErrorIllegalSimpleType: CborError = 262;
+    pub const CborError_CborErrorUnknownSimpleType: CborError = 512;
+    pub const CborError_CborErrorUnknownTag: CborError = 513;
+    pub const CborError_CborErrorInappropriateTagForType: CborError = 514;
+    pub const CborError_CborErrorDuplicateObjectKeys: CborError = 515;
+    pub const CborError_CborErrorInvalidUtf8TextString: CborError = 516;
+    pub const CborError_CborErrorTooManyItems: CborError = 768;
+    pub const CborError_CborErrorTooFewItems: CborError = 769;
+    pub const CborError_CborErrorDataTooLarge: CborError = 1024;
+    pub const CborError_CborErrorNestingTooDeep: CborError = 1025;
+    pub const CborError_CborErrorUnsupportedType: CborError = 1026;
+    pub const CborError_CborErrorJsonObjectKeyIsAggregate: CborError = 1027;
+    pub const CborError_CborErrorJsonObjectKeyNotString: CborError = 1028;
+    pub const CborError_CborErrorJsonNotImplemented: CborError = 1029;
+    pub const CborError_CborErrorOutOfMemory: CborError = 2147483648;
+    pub const CborError_CborErrorInternalError: CborError = 4294967295;
+    pub type CborError = u32;
+    extern "C" {
+        pub fn cbor_error_string(error: CborError)
+         -> *const ::std::os::raw::c_char;
+    }
+    pub type cbor_encoder_write
+        =
+        ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                       *mut cbor_encoder_writer,
+                                                   data:
+                                                       *const ::std::os::raw::c_char,
+                                                   len: ::std::os::raw::c_int)
+                                  -> ::std::os::raw::c_int>;
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct cbor_encoder_writer {
+        pub write: cbor_encoder_write,
+        pub bytes_written: ::std::os::raw::c_int,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for cbor_encoder_writer {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                cbor_encoder_writer {
+                write: ref __self_0_0, bytes_written: ref __self_0_1 } => {
+                    let mut debug_trait_builder =
+                        f.debug_struct("cbor_encoder_writer");
+                    let _ =
+                        debug_trait_builder.field("write", &&(*__self_0_0));
+                    let _ =
+                        debug_trait_builder.field("bytes_written",
+                                                  &&(*__self_0_1));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for cbor_encoder_writer { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for cbor_encoder_writer {
+        #[inline]
+        fn clone(&self) -> cbor_encoder_writer {
+            {
+                let _: ::core::clone::AssertParamIsClone<cbor_encoder_write>;
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                *self
+            }
+        }
+    }
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct cbor_iovec {
+        pub iov_base: *mut ::std::os::raw::c_void,
+        pub iov_len: usize,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for cbor_iovec {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                cbor_iovec { iov_base: ref __self_0_0, iov_len: ref __self_0_1
+                } => {
+                    let mut debug_trait_builder =
+                        f.debug_struct("cbor_iovec");
+                    let _ =
+                        debug_trait_builder.field("iov_base",
+                                                  &&(*__self_0_0));
+                    let _ =
+                        debug_trait_builder.field("iov_len", &&(*__self_0_1));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for cbor_iovec { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for cbor_iovec {
+        #[inline]
+        fn clone(&self) -> cbor_iovec {
+            {
+                let _:
+                        ::core::clone::AssertParamIsClone<*mut ::std::os::raw::c_void>;
+                let _: ::core::clone::AssertParamIsClone<usize>;
+                *self
+            }
+        }
+    }
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct CborEncoder {
+        pub writer: *mut cbor_encoder_writer,
+        pub writer_arg: *mut ::std::os::raw::c_void,
+        pub added: usize,
+        pub flags: ::std::os::raw::c_int,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for CborEncoder {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                CborEncoder {
+                writer: ref __self_0_0,
+                writer_arg: ref __self_0_1,
+                added: ref __self_0_2,
+                flags: ref __self_0_3 } => {
+                    let mut debug_trait_builder =
+                        f.debug_struct("CborEncoder");
+                    let _ =
+                        debug_trait_builder.field("writer", &&(*__self_0_0));
+                    let _ =
+                        debug_trait_builder.field("writer_arg",
+                                                  &&(*__self_0_1));
+                    let _ =
+                        debug_trait_builder.field("added", &&(*__self_0_2));
+                    let _ =
+                        debug_trait_builder.field("flags", &&(*__self_0_3));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for CborEncoder { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for CborEncoder {
+        #[inline]
+        fn clone(&self) -> CborEncoder {
+            {
+                let _:
+                        ::core::clone::AssertParamIsClone<*mut cbor_encoder_writer>;
+                let _:
+                        ::core::clone::AssertParamIsClone<*mut ::std::os::raw::c_void>;
+                let _: ::core::clone::AssertParamIsClone<usize>;
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                *self
+            }
+        }
+    }
+    extern "C" {
+        pub static CborIndefiniteLength: usize;
+    }
+    extern "C" {
+        pub fn cbor_encoder_init(encoder: *mut CborEncoder,
+                                 pwriter: *mut cbor_encoder_writer,
+                                 flags: ::std::os::raw::c_int);
+    }
+    extern "C" {
+        pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_negative_int(encoder: *mut CborEncoder,
+                                        absolute_value: u64) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_simple_value(encoder: *mut CborEncoder, value: u8)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_tag(encoder: *mut CborEncoder, tag: CborTag)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_text_string(encoder: *mut CborEncoder,
+                                       string: *const ::std::os::raw::c_char,
+                                       length: usize) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_byte_string(encoder: *mut CborEncoder,
+                                       string: *const u8, length: usize)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_byte_iovec(encoder: *mut CborEncoder,
+                                      iov: *const cbor_iovec,
+                                      iov_len: ::std::os::raw::c_int)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encode_floating_point(encoder: *mut CborEncoder,
+                                          fpType: CborType,
+                                          value:
+                                              *const ::std::os::raw::c_void)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encoder_create_array(encoder: *mut CborEncoder,
+                                         arrayEncoder: *mut CborEncoder,
+                                         length: usize) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encoder_create_map(encoder: *mut CborEncoder,
+                                       mapEncoder: *mut CborEncoder,
+                                       length: usize) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encoder_create_indef_byte_string(encoder:
+                                                         *mut CborEncoder,
+                                                     stringEncoder:
+                                                         *mut CborEncoder)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encoder_close_container(encoder: *mut CborEncoder,
+                                            containerEncoder:
+                                                *const CborEncoder)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_encoder_close_container_checked(encoder: *mut CborEncoder,
+                                                    containerEncoder:
+                                                        *const CborEncoder)
+         -> CborError;
+    }
+    pub const CborParserIteratorFlags_CborIteratorFlag_IntegerValueTooLarge:
+              CborParserIteratorFlags =
+        1;
+    pub const CborParserIteratorFlags_CborIteratorFlag_NegativeInteger:
+              CborParserIteratorFlags =
+        2;
+    pub const CborParserIteratorFlags_CborIteratorFlag_UnknownLength:
+              CborParserIteratorFlags =
+        4;
+    pub const CborParserIteratorFlags_CborIteratorFlag_ContainerIsMap:
+              CborParserIteratorFlags =
+        32;
+    pub type CborParserIteratorFlags = u32;
+    pub type cbor_reader_get8
+        =
+        ::std::option::Option<unsafe extern "C" fn(d:
+                                                       *mut cbor_decoder_reader,
+                                                   offset:
+                                                       ::std::os::raw::c_int)
+                                  -> u8>;
+    pub type cbor_reader_get16
+        =
+        ::std::option::Option<unsafe extern "C" fn(d:
+                                                       *mut cbor_decoder_reader,
+                                                   offset:
+                                                       ::std::os::raw::c_int)
+                                  -> u16>;
+    pub type cbor_reader_get32
+        =
+        ::std::option::Option<unsafe extern "C" fn(d:
+                                                       *mut cbor_decoder_reader,
+                                                   offset:
+                                                       ::std::os::raw::c_int)
+                                  -> u32>;
+    pub type cbor_reader_get64
+        =
+        ::std::option::Option<unsafe extern "C" fn(d:
+                                                       *mut cbor_decoder_reader,
+                                                   offset:
+                                                       ::std::os::raw::c_int)
+                                  -> u64>;
+    pub type cbor_memcmp
+        =
+        ::std::option::Option<unsafe extern "C" fn(d:
+                                                       *mut cbor_decoder_reader,
+                                                   buf:
+                                                       *mut ::std::os::raw::c_char,
+                                                   offset:
+                                                       ::std::os::raw::c_int,
+                                                   len: usize) -> usize>;
+    pub type cbor_memcpy
+        =
+        ::std::option::Option<unsafe extern "C" fn(d:
+                                                       *mut cbor_decoder_reader,
+                                                   buf:
+                                                       *mut ::std::os::raw::c_char,
+                                                   offset:
+                                                       ::std::os::raw::c_int,
+                                                   len: usize) -> usize>;
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct cbor_decoder_reader {
+        pub get8: cbor_reader_get8,
+        pub get16: cbor_reader_get16,
+        pub get32: cbor_reader_get32,
+        pub get64: cbor_reader_get64,
+        pub cmp: cbor_memcmp,
+        pub cpy: cbor_memcpy,
+        pub message_size: usize,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for cbor_decoder_reader {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                cbor_decoder_reader {
+                get8: ref __self_0_0,
+                get16: ref __self_0_1,
+                get32: ref __self_0_2,
+                get64: ref __self_0_3,
+                cmp: ref __self_0_4,
+                cpy: ref __self_0_5,
+                message_size: ref __self_0_6 } => {
+                    let mut debug_trait_builder =
+                        f.debug_struct("cbor_decoder_reader");
+                    let _ =
+                        debug_trait_builder.field("get8", &&(*__self_0_0));
+                    let _ =
+                        debug_trait_builder.field("get16", &&(*__self_0_1));
+                    let _ =
+                        debug_trait_builder.field("get32", &&(*__self_0_2));
+                    let _ =
+                        debug_trait_builder.field("get64", &&(*__self_0_3));
+                    let _ = debug_trait_builder.field("cmp", &&(*__self_0_4));
+                    let _ = debug_trait_builder.field("cpy", &&(*__self_0_5));
+                    let _ =
+                        debug_trait_builder.field("message_size",
+                                                  &&(*__self_0_6));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for cbor_decoder_reader { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for cbor_decoder_reader {
+        #[inline]
+        fn clone(&self) -> cbor_decoder_reader {
+            {
+                let _: ::core::clone::AssertParamIsClone<cbor_reader_get8>;
+                let _: ::core::clone::AssertParamIsClone<cbor_reader_get16>;
+                let _: ::core::clone::AssertParamIsClone<cbor_reader_get32>;
+                let _: ::core::clone::AssertParamIsClone<cbor_reader_get64>;
+                let _: ::core::clone::AssertParamIsClone<cbor_memcmp>;
+                let _: ::core::clone::AssertParamIsClone<cbor_memcpy>;
+                let _: ::core::clone::AssertParamIsClone<usize>;
+                *self
+            }
+        }
+    }
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct CborParser {
+        pub d: *mut cbor_decoder_reader,
+        pub end: ::std::os::raw::c_int,
+        pub flags: ::std::os::raw::c_int,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for CborParser {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                CborParser {
+                d: ref __self_0_0, end: ref __self_0_1, flags: ref __self_0_2
+                } => {
+                    let mut debug_trait_builder =
+                        f.debug_struct("CborParser");
+                    let _ = debug_trait_builder.field("d", &&(*__self_0_0));
+                    let _ = debug_trait_builder.field("end", &&(*__self_0_1));
+                    let _ =
+                        debug_trait_builder.field("flags", &&(*__self_0_2));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for CborParser { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for CborParser {
+        #[inline]
+        fn clone(&self) -> CborParser {
+            {
+                let _:
+                        ::core::clone::AssertParamIsClone<*mut cbor_decoder_reader>;
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                *self
+            }
+        }
+    }
+    #[repr(C)]
+    #[rustc_copy_clone_marker]
+    pub struct CborValue {
+        pub parser: *const CborParser,
+        pub offset: ::std::os::raw::c_int,
+        pub remaining: u32,
+        pub extra: u16,
+        pub type_: u8,
+        pub flags: u8,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for CborValue {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match *self {
+                CborValue {
+                parser: ref __self_0_0,
+                offset: ref __self_0_1,
+                remaining: ref __self_0_2,
+                extra: ref __self_0_3,
+                type_: ref __self_0_4,
+                flags: ref __self_0_5 } => {
+                    let mut debug_trait_builder = f.debug_struct("CborValue");
+                    let _ =
+                        debug_trait_builder.field("parser", &&(*__self_0_0));
+                    let _ =
+                        debug_trait_builder.field("offset", &&(*__self_0_1));
+                    let _ =
+                        debug_trait_builder.field("remaining",
+                                                  &&(*__self_0_2));
+                    let _ =
+                        debug_trait_builder.field("extra", &&(*__self_0_3));
+                    let _ =
+                        debug_trait_builder.field("type_", &&(*__self_0_4));
+                    let _ =
+                        debug_trait_builder.field("flags", &&(*__self_0_5));
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::marker::Copy for CborValue { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for CborValue {
+        #[inline]
+        fn clone(&self) -> CborValue {
+            {
+                let _: ::core::clone::AssertParamIsClone<*const CborParser>;
+                let _:
+                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                let _: ::core::clone::AssertParamIsClone<u32>;
+                let _: ::core::clone::AssertParamIsClone<u16>;
+                let _: ::core::clone::AssertParamIsClone<u8>;
+                let _: ::core::clone::AssertParamIsClone<u8>;
+                *self
+            }
+        }
+    }
+    extern "C" {
+        pub fn cbor_parser_init(d: *mut cbor_decoder_reader,
+                                flags: ::std::os::raw::c_int,
+                                parser: *mut CborParser, it: *mut CborValue)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_advance_fixed(it: *mut CborValue) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_advance(it: *mut CborValue) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_enter_container(it: *const CborValue,
+                                          recursed: *mut CborValue)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_leave_container(it: *mut CborValue,
+                                          recursed: *const CborValue)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_get_int64_checked(value: *const CborValue,
+                                            result: *mut i64) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_get_int_checked(value: *const CborValue,
+                                          result: *mut ::std::os::raw::c_int)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_skip_tag(it: *mut CborValue) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_calculate_string_length(value: *const CborValue,
+                                                  length: *mut usize)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_text_string_equals(value: *const CborValue,
+                                             string:
+                                                 *const ::std::os::raw::c_char,
+                                             result: *mut bool) -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_map_find_value(map: *const CborValue,
+                                         string:
+                                             *const ::std::os::raw::c_char,
+                                         element: *mut CborValue)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_get_half_float(value: *const CborValue,
+                                         result: *mut ::std::os::raw::c_void)
+         -> CborError;
+    }
+    extern "C" {
+        pub fn cbor_value_to_pretty_advance(out: *mut FILE,
+                                            value: *mut CborValue)
+         -> CborError;
+    }
+    pub const CborMajorTypes_UnsignedIntegerType: CborMajorTypes = 0;
+    pub const CborMajorTypes_NegativeIntegerType: CborMajorTypes = 1;
+    pub const CborMajorTypes_ByteStringType: CborMajorTypes = 2;
+    pub const CborMajorTypes_TextStringType: CborMajorTypes = 3;
+    pub const CborMajorTypes_ArrayType: CborMajorTypes = 4;
+    pub const CborMajorTypes_MapType: CborMajorTypes = 5;
+    pub const CborMajorTypes_TagType: CborMajorTypes = 6;
+    pub const CborMajorTypes_SimpleTypesType: CborMajorTypes = 7;
+    pub type CborMajorTypes = u32;
+    pub const CborSimpleTypes_FalseValue: CborSimpleTypes = 20;
+    pub const CborSimpleTypes_TrueValue: CborSimpleTypes = 21;
+    pub const CborSimpleTypes_NullValue: CborSimpleTypes = 22;
+    pub const CborSimpleTypes_UndefinedValue: CborSimpleTypes = 23;
+    pub const CborSimpleTypes_SimpleTypeInNextByte: CborSimpleTypes = 24;
+    pub const CborSimpleTypes_HalfPrecisionFloat: CborSimpleTypes = 25;
+    pub const CborSimpleTypes_SinglePrecisionFloat: CborSimpleTypes = 26;
+    pub const CborSimpleTypes_DoublePrecisionFloat: CborSimpleTypes = 27;
+    pub const CborSimpleTypes_Break: CborSimpleTypes = 31;
+    pub type CborSimpleTypes = u32;
 }
 mod sensor {
     //!  Import the Mynewt Sensor API and export the safe version of the API. Based on
@@ -1729,7 +2434,7 @@ pub extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("assertion failed: rc == 0",
-                                       "src/lib.rs", 41u32, 40u32))
+                                       "src/lib.rs", 42u32, 40u32))
         }
     };
     loop  { unsafe { os_eventq_run(os_eventq_dflt_get()) } }
