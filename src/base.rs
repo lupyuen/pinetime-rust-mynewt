@@ -130,6 +130,23 @@ pub struct SensorValue {
     pub float_val: f32,  
 }
 
+///  Represents a decoded sensor data value. Since temperature may be integer (raw)
+///  or float (computed), we use the struct to return both integer and float values.
+pub struct SensorValueNew {
+  ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
+  pub key: &'static str,
+  ///  The type of the sensor value and the value.
+  pub val: SensorValueType,
+}
+
+///  Represents the type and value of a sensor data value.
+pub enum SensorValueType {
+  ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
+  Uint(u32),
+  ///  32-bit float. For computed temp, contains the computed temp float value
+  Float(f32),
+}
+
 ///  Represents a single temperature sensor raw value.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 #[repr(C, packed)]  //  Common to C and Rust. Declare as packed because the C struct is packed.
