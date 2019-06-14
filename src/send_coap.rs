@@ -1,7 +1,7 @@
 use cstr_core::CStr;     //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;      //  Import base.rs for common declarations
-use crate::sensor::*;    //  Import sensor.rs for sensor declarations
 use crate::tinycbor::*;  //  Import tinycbor.rs for TinyCBOR C API
+//  use crate::sensor::*;    //  Import sensor.rs for sensor declarations
 
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);   //  Start tracing macros
@@ -10,7 +10,7 @@ fn send_sensor_data_without_encoding() {
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: "t",
+    key: int_sensor_key,
     val: SensorValueType::Uint(2870)
   };
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
@@ -45,26 +45,25 @@ fn send_sensor_data_json() {
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: "t",
+    key: int_sensor_key,
     val: SensorValueType::Uint(2870)
   };
-
+  /*
   //  Compose the CoAP Payload in JSON using the `coap` macro.
-  //  trace_macros!(true);
+  trace_macros!(true);
   let payload = coap!(@json {
     //  "device": device_id,
     //  "node":   node_id,
     int_sensor_value,  //  Send `{t: 2870}`
   });
-  //  trace_macros!(false);
+  trace_macros!(false);
+  */
 }
 
 fn send_sensor_data_cbor() {
-  let mut root_map = CborEncoder{};
-  
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: "t",
+    key: int_sensor_key,
     val: SensorValueType::Uint(2870)
   };
 
@@ -76,7 +75,24 @@ fn send_sensor_data_cbor() {
   trace_macros!(false);
 }
 
-static mut g_encoder: CborEncoder = CborEncoder{};
+//  static mut g_encoder: CborEncoder = CborEncoder{};
+/* static mut root_map: CborEncoder = CborEncoder{  //  TODO: Prevent concurrent access.
+  writer: 0 as *mut cbor_encoder_writer,
+  writer_arg: 0 as *mut ::cty::c_void,
+  added: 0,
+  flags: 0,
+}; */
+///  Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+#[link(name = "net_oic")]
+extern {
+    static mut g_encoder: *mut CborEncoder;
+    static mut root_map: *mut CborEncoder;
+}
+
+///  Null-terminated string "t".
+const int_sensor_key: &'static [u8] = b"t\0";
+///  Null-terminated string "tmp".
+const float_sensor_key: &'static [u8] = b"tmp\0";
 
 fn test_macro2() {
   //  Send the payload.
@@ -97,7 +113,7 @@ fn test_macro2() {
   let node_id = b"b3b4b5b6f1";
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: "t",
+    key: int_sensor_key,
     val: SensorValueType::Uint(2870)
   };
 
