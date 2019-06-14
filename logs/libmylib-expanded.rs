@@ -204,8 +204,9 @@ mod macros {
                        @ $ enc : ident @ object $ object : ident (
                        $ ( $ key : tt ) * ) ( $ tt : tt $ ( $ rest : tt ) * )
                        $ copy : tt ) => {
-                       d ! ( >> $ ( $ key ) * $ tt >> $ ( $ rest ) * ) ; parse
-                       ! (
+                       nx ! (
+                       ( $ ( $ key ) * ) , ( $ tt ) , ( $ ( $ rest ) * ) ) ;
+                       parse ! (
                        @ $ enc @ object $ object ( $ ( $ key ) * $ tt ) (
                        $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
                        @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] )
@@ -631,6 +632,15 @@ mod macros {
     #[macro_export]
     macro_rules! d(( $ ( $ token : tt ) * ) => {
                    stringify ! ( $ ( $ token ) * ) } ;);
+    ///  Macro to display the token being parsed and the remaining tokens
+    #[macro_export]
+    macro_rules! nx((
+                    ( $ ( $ current : tt ) * ) , ( $ ( $ next : tt ) * ) , (
+                    $ ( $ rest : tt ) * ) ) => {
+                    concat ! (
+                    " >> " , stringify ! ( $ ( $ current ) * ) , " >> " ,
+                    stringify ! ( $ ( $ next ) * ) , " >> " , stringify ! (
+                    $ ( $ rest ) * ) ) ; } ;);
 }
 mod base {
     //!  Common declarations for the application.  Includes custom sensor declarations.
@@ -1075,22 +1085,22 @@ mod send_coap {
     use crate::sensor::*;
     fn send_sensor_data_without_encoding() {
         ();
-        "r#a b c";
+        "a b c";
         ();
-        let device_id = b"0102030405060708090a0b0c0d0e0f10";
-        let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
+        let device_id = b"0102030405060708090a0b0c0d0e0f10";
+        let node_id = b"b3b4b5b6f1";
         ();
         let payload =
             {
                 "begin none root";
                 let root = "root";
-                ">> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
+                " >>  >> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
                 "TODO : add key : \"device\" , value : parse!(@ none device_id) , to object :\nroot";
-                ">> \"node\" >> : node_id , int_sensor_value ,";
+                " >>  >> \"node\" >> : node_id , int_sensor_value ,";
                 "TODO : add key : \"node\" , value : parse!(@ none node_id) , to object : root";
-                ">> int_sensor_value >> ,";
+                " >>  >> int_sensor_value >> ,";
                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                 "--------------------";
                 "end none root";
@@ -1135,7 +1145,7 @@ mod send_coap {
                                 "end oc_rep_set_array";
                             };
                             {
-                                ">> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
+                                " >>  >> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
                                 "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
                                 {
                                     "begin coap_item_str _parent : values _key : \"device\" _val :\nparse!(@ json device_id)";
@@ -1185,7 +1195,7 @@ mod send_coap {
                                     "end coap_item_str";
                                 };
                                 "--------------------";
-                                ">> \"node\" >> : node_id , int_sensor_value ,";
+                                " >>  >> \"node\" >> : node_id , int_sensor_value ,";
                                 "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
                                 {
                                     "begin coap_item_str _parent : values _key : \"node\" _val :\nparse!(@ json node_id)";
@@ -1235,7 +1245,7 @@ mod send_coap {
                                     "end coap_item_str";
                                 };
                                 "--------------------";
-                                ">> int_sensor_value >> ,";
+                                " >>  >> int_sensor_value >> ,";
                                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : values";
                                 "--------------------";
                                 {
@@ -1333,7 +1343,7 @@ mod send_coap {
                         "end oc_rep_start_root_object";
                     };
                     {
-                        ">> int_sensor_value >> ,";
+                        " >>  >> int_sensor_value >> ,";
                         "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                         "--------------------";
                         {

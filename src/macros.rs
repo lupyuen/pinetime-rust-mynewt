@@ -173,7 +173,7 @@ macro_rules! parse {
 
   // Munch a token into the current key.
   (@$enc:ident @object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {    
-    d!( >> $($key)* $tt >> $($rest)* );
+    nx!( ($($key)*), ($tt), ($($rest)*) );
     //  Parse the next token while we are in the @object state.
     //  coap_internal takes these parameters:
     //  encoding: @json, @cbor or @none
@@ -792,7 +792,7 @@ macro_rules! oc_rep_set_text_string {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Test macros
+//  Test Macros
 
 #[macro_export]
 macro_rules! test_literal {
@@ -838,6 +838,9 @@ macro_rules! test_internal_rules {
   };
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//  Utility Macros
+
 ///  Macro to dump all tokens received as a literal string, e.g.
 ///  `d!(a b c)` returns `"a b c"`
 #[macro_export]
@@ -846,5 +849,20 @@ macro_rules! d {
   ($($token:tt)*) => {
     //  For all matched tokens, convert into a string.
     stringify!($($token)*)
+  };
+}
+
+///  Macro to display the token being parsed and the remaining tokens
+#[macro_export]
+macro_rules! nx {
+  (($($current:tt)*), ($($next:tt)*), ($($rest:tt)*)) => {
+    concat!(
+      " >> ",
+      stringify!($($current)*), 
+      " >> ",
+      stringify!($($next)*), 
+      " >> ",
+      stringify!($($rest)*)
+    );
   };
 }
