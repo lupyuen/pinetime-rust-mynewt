@@ -3,27 +3,26 @@ use crate::base::*;    //  Import base.rs for common declarations
 use crate::sensor::*;  //  Import sensor.rs for sensor declarations
 
 fn send_sensor_data_without_encoding() {
-  trace_macros!(true);
-  d!(r#a b c);
-  trace_macros!(false);
-
-  let device_id = b"0102030405060708090a0b0c0d0e0f10";
-  let node_id = b"b3b4b5b6f1";
+  trace_macros!(true);   //  Start tracing macros
+  d!(a b c);             //  Will expand to "a b c" (for debugging)
+  trace_macros!(false);  //  Stop tracing macros
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
     key: "t",
     val: SensorValueType::Uint(2870)
   };
+  let device_id = b"0102030405060708090a0b0c0d0e0f10";
+  let node_id =   b"b3b4b5b6f1";
 
   //  Compose the CoAP Payload without encoding using the `coap` macro.
-  trace_macros!(true);
+  trace_macros!(true);   //  Start tracing macros
   let payload = coap!(@none {
     "device": device_id,
     "node":   node_id,
     int_sensor_value,  //  Send `{t: 2870}`
   });
-  trace_macros!(false);
+  trace_macros!(false);  //  Stop tracing macros
 }
 
 // !  Send sensor data to a CoAP Server or a Collector Node.  The CoAP payload will be encoded as JSON
