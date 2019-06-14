@@ -70,295 +70,262 @@ mod macros {
     ///  Macros for composing CoAP payloads with JSON or CBOR encoding
     ///  Adapted From https://docs.serde.rs/src/serde_json/macros.rs.html
     #[macro_export(local_inner_macros)]
-    macro_rules! coap(( @ json $ ( $ tokens : tt ) + ) => {
-                      coap_internal ! ( @ json $ ( $ tokens ) + ) } ; (
+    macro_rules! coap(( @ none $ ( $ tokens : tt ) + ) => {
+                      parse ! ( @ none $ ( $ tokens ) + ) } ; (
+                      @ json $ ( $ tokens : tt ) + ) => {
+                      parse ! ( @ json $ ( $ tokens ) + ) } ; (
                       @ cbor $ ( $ tokens : tt ) + ) => {
-                      coap_internal ! ( @ cbor $ ( $ tokens ) + ) } ; (
-                      @ none $ ( $ tokens : tt ) + ) => {
-                      coap_internal ! ( @ none $ ( $ tokens ) + ) } ;);
+                      parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
     #[macro_export(local_inner_macros)]
-    #[doc(hidden)]
-    macro_rules! coap_internal((
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] ) => {
-                               coap_internal_vec ! [ $ ( $ elems , ) * ] } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr ) , * ] ) => {
-                               coap_internal_vec ! [ $ ( $ elems ) , * ] } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] null $ ( $ rest : tt
-                               ) * ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc null ) ] $ ( $ rest ) * ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] true $ ( $ rest : tt
-                               ) * ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc true ) ] $ ( $ rest ) * ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] false $ (
-                               $ rest : tt ) * ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc false ) ] $ ( $ rest ) * ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] [
-                               $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) =>
-                               {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc [ $ ( $ array ) * ] ) ] $ ( $ rest ) *
-                               ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] { $ ( $ map : tt ) *
-                               } $ ( $ rest : tt ) * ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc { $ ( $ map ) * } ) ] $ ( $ rest ) * )
-                               } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] $ next : expr , $ (
-                               $ rest : tt ) * ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc $ next ) , ] $ ( $ rest ) * ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr , ) * ] $ last : expr ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [
-                               $ ( $ elems , ) * coap_internal ! (
-                               @ $ enc $ last ) ] ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr ) , * ] , $ ( $ rest : tt )
-                               * ) => {
-                               coap_internal ! (
-                               @ $ enc @ array [ $ ( $ elems , ) * ] $ (
-                               $ rest ) * ) } ; (
-                               @ $ enc : ident @ array [
-                               $ ( $ elems : expr ) , * ] $ unexpected : tt $
-                               ( $ rest : tt ) * ) => {
-                               coap_unexpected ! ( $ unexpected ) } ; (
-                               @ $ enc : ident @ object $ object : ident (  )
-                               (  ) (  ) ) => {  } ; (
-                               @ none @ object $ object : ident [
-                               $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
-                               $ rest : tt ) * ) => {
-                               dump ! (
-                               TODO : add1 key : $ ( $ key ) + value : $ value
-                               to object : $ object ) ; coap_internal ! (
-                               @ none @ object $ object (  ) ( $ ( $ rest ) *
-                               ) ( $ ( $ rest ) * ) ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident [
-                               $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
-                               $ rest : tt ) * ) => {
-                               dump ! (
-                               add1 key : $ ( $ key ) + value : $ value to
-                               object : $ object ) ; coap_item_str ! (
-                               @ $ enc $ object , $ ( $ key ) + , $ value ) ;
-                               "--------------------" ; coap_internal ! (
-                               @ $ enc @ object $ object (  ) ( $ ( $ rest ) *
-                               ) ( $ ( $ rest ) * ) ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident [
-                               $ ( $ key : tt ) + ] ( $ value : expr ) $
-                               unexpected : tt $ ( $ rest : tt ) * ) => {
-                               coap_unexpected ! ( $ unexpected ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident [
-                               $ ( $ key : tt ) + ] ( $ value : expr ) ) => {
-                               dump ! (
-                               TODO : add2 key : $ ( $ key ) + value : $ value
-                               to object : $ object ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (
-                               : null $ ( $ rest : tt ) * ) $ copy : tt ) => {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc null ) ) $ ( $ rest )
-                               * ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (
-                               : true $ ( $ rest : tt ) * ) $ copy : tt ) => {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc true ) ) $ ( $ rest )
-                               * ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (
-                               : false $ ( $ rest : tt ) * ) $ copy : tt ) =>
-                               {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc false ) ) $ ( $ rest
-                               ) * ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (
-                               : [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) *
-                               ) $ copy : tt ) => {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc [ $ ( $ array ) * ] )
-                               ) $ ( $ rest ) * ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (
-                               : { $ ( $ map : tt ) * } $ ( $ rest : tt ) * )
-                               $ copy : tt ) => {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc { $ ( $ map ) * } ) )
-                               $ ( $ rest ) * ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (
-                               : $ value : expr , $ ( $ rest : tt ) * ) $ copy
-                               : tt ) => {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc $ value ) ) , $ (
-                               $ rest ) * ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) ( : $ value : expr ) $
-                               copy : tt ) => {
-                               coap_internal ! (
-                               @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                               coap_internal ! ( @ $ enc $ value ) ) ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) ( : ) $ copy : tt ) => {
-                               coap_internal ! (  ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) + ) (  ) $ copy : tt ) => {
-                               coap_internal ! (  ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (  )
-                               ( : $ ( $ rest : tt ) * ) (
-                               $ colon : tt $ ( $ copy : tt ) * ) ) => {
-                               coap_unexpected ! ( $ colon ) ; } ; (
-                               @ json @ object $ object : ident (
-                               $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * )
-                               ( $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                               dump ! (
-                               TODO : Extract ( key , value ) from
-                               _sensor_value : $ ( $ key ) * and add to
-                               _object : $ object ) ; "--------------------" ;
-                               coap_item_int_val ! (
-                               @ json $ object , $ ( $ key ) * ) ;
-                               "--------------------" ; coap_internal ! (
-                               @ json @ object $ object (  ) ( $ ( $ rest ) *
-                               ) ( $ ( $ rest ) * ) ) ; } ; (
-                               @ cbor @ object $ object : ident (
-                               $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * )
-                               ( $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                               dump ! (
-                               TODO : Extract ( key , value ) from
-                               _sensor_value : $ ( $ key ) * and add to
-                               _object : $ object ) ; "--------------------" ;
-                               coap_set_int_val ! (
-                               @ cbor $ object , $ ( $ key ) * ) ;
-                               "--------------------" ; coap_internal ! (
-                               @ cbor @ object $ object (  ) ( $ ( $ rest ) *
-                               ) ( $ ( $ rest ) * ) ) ; } ; (
-                               @ none @ object $ object : ident (
-                               $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * )
-                               ( $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                               dump ! (
-                               TODO : Extract ( key , value ) from
-                               _sensor_value : $ ( $ key ) * and add to
-                               _object : $ object ) ; "--------------------" ;
-                               coap_internal ! (
-                               @ none @ object $ object (  ) ( $ ( $ rest ) *
-                               ) ( $ ( $ rest ) * ) ) ; } ; (
-                               @ $ enc : ident @ object $ object : ident (  )
-                               ( ( $ key : expr ) : $ ( $ rest : tt ) * ) $
-                               copy : tt ) => {
-                               dump ! ( token (  ) ) ; coap_internal ! (
-                               @ $ enc @ object $ object ( $ key ) (
-                               : $ ( $ rest ) * ) ( : $ ( $ rest ) * ) ) ; } ;
-                               (
-                               @ $ enc : ident @ object $ object : ident (
-                               $ ( $ key : tt ) * ) (
-                               $ tt : tt $ ( $ rest : tt ) * ) $ copy : tt )
-                               => {
-                               dump ! ( next token : ( $ ( $ key ) * $ tt ) )
-                               ; coap_internal ! (
-                               @ $ enc @ object $ object ( $ ( $ key ) * $ tt
-                               ) ( $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ;
-                               ( @ $ enc : ident null ) => {
-                               { dump ! ( null ) ; "null" } } ; (
-                               @ $ enc : ident true ) => {
-                               { dump ! ( true ) ; "true" } } ; (
-                               @ $ enc : ident false ) => {
-                               { dump ! ( false ) ; "false" } } ; (
-                               @ $ enc : ident [  ] ) => {
-                               { dump ! ( [ TODO ] ) ; "[ TODO ]" } } ; (
-                               @ $ enc : ident [ $ ( $ tt : tt ) + ] ) => {
-                               {
-                               dump ! ( begin array ) ; _array = coap_internal
-                               ! ( @ $ enc @ array [  ] $ ( $ tt ) + ) ; dump
-                               ! ( end array ) ; "[ TODO ]" } } ; (
-                               @ $ enc : ident {  } ) => {
-                               { dump ! ( { TODO } ) ; "{ TODO }" } } ; (
-                               @ json { $ ( $ tt : tt ) + } ) => {
-                               {
-                               dump ! ( begin json root ) ; let root = "root"
-                               ; coap_root ! (
-                               @ json {
-                               let values = "values" ; coap_array ! (
-                               @ json root , values , {
-                               coap_internal ! (
-                               @ json @ object values (  ) ( $ ( $ tt ) + ) (
-                               $ ( $ tt ) + ) ) ; } ) ; } ) ; dump ! (
-                               end json root ) ; dump ! (
-                               return json root to caller ) ; root } } ; (
-                               @ cbor { $ ( $ tt : tt ) + } ) => {
-                               {
-                               dump ! ( begin cbor root ) ; let root = "root"
-                               ; coap_root ! (
-                               @ cbor {
-                               coap_internal ! (
-                               @ cbor @ object root (  ) ( $ ( $ tt ) + ) (
-                               $ ( $ tt ) + ) ) ; } ) ; dump ! ( end cbor root
-                               ) ; dump ! ( return cbor root to caller ) ;
-                               root } } ; ( @ none { $ ( $ tt : tt ) + } ) =>
-                               {
-                               {
-                               dump ! ( begin none root ) ; let root = "root"
-                               ; coap_internal ! (
-                               @ none @ object root (  ) ( $ ( $ tt ) + ) (
-                               $ ( $ tt ) + ) ) ; dump ! ( end none root ) ;
-                               dump ! ( return none root to caller ) ; root }
-                               } ; ( @ $ enc : ident $ other : expr ) => {
-                               { dump ! ( expr = $ other ) ; $ other } } ;);
+    macro_rules! parse((
+                       @ $ enc : ident @ object $ object : ident (  ) (  ) (
+                       ) ) => {  } ; (
+                       @ none @ object $ object : ident [ $ ( $ key : tt ) + ]
+                       ( $ value : expr ) , $ ( $ rest : tt ) * ) => {
+                       d ! (
+                       TODO : add key : $ ( $ key ) + , value : $ value , to
+                       object : $ object ) ; parse ! (
+                       @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
+                       $ ( $ rest ) * ) ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident [
+                       $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
+                       $ rest : tt ) * ) => {
+                       d ! (
+                       add1 key : $ ( $ key ) + value : $ value to object : $
+                       object ) ; coap_item_str ! (
+                       @ $ enc $ object , $ ( $ key ) + , $ value ) ;
+                       "--------------------" ; parse ! (
+                       @ $ enc @ object $ object (  ) ( $ ( $ rest ) * ) (
+                       $ ( $ rest ) * ) ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident [
+                       $ ( $ key : tt ) + ] ( $ value : expr ) $ unexpected :
+                       tt $ ( $ rest : tt ) * ) => {
+                       unexpected_token ! ( $ unexpected ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident [
+                       $ ( $ key : tt ) + ] ( $ value : expr ) ) => {
+                       d ! (
+                       TODO : add2 key : $ ( $ key ) + value : $ value to
+                       object : $ object ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) ( : null $ ( $ rest : tt ) * ) $
+                       copy : tt ) => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc null ) ) $ ( $ rest ) * ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) ( : true $ ( $ rest : tt ) * ) $
+                       copy : tt ) => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc true ) ) $ ( $ rest ) * ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) ( : false $ ( $ rest : tt ) * ) $
+                       copy : tt ) => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc false ) ) $ ( $ rest ) * ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) (
+                       : [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) $ copy
+                       : tt ) => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc [ $ ( $ array ) * ] ) ) $ ( $ rest )
+                       * ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) (
+                       : { $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) $ copy :
+                       tt ) => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc { $ ( $ map ) * } ) ) $ ( $ rest ) *
+                       ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) (
+                       : $ value : expr , $ ( $ rest : tt ) * ) $ copy : tt )
+                       => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc $ value ) ) , $ ( $ rest ) * ) ; } ;
+                       (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) ( : $ value : expr ) $ copy : tt )
+                       => {
+                       parse ! (
+                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                       parse ! ( @ $ enc $ value ) ) ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) ( : ) $ copy : tt ) => {
+                       parse ! (  ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) + ) (  ) $ copy : tt ) => {
+                       parse ! (  ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (  ) (
+                       : $ ( $ rest : tt ) * ) (
+                       $ colon : tt $ ( $ copy : tt ) * ) ) => {
+                       unexpected_token ! ( $ colon ) ; } ; (
+                       @ json @ object $ object : ident ( $ ( $ key : tt ) * )
+                       ( , $ ( $ rest : tt ) * ) (
+                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                       d ! (
+                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       $ key ) * and add to _object : $ object ) ;
+                       "--------------------" ; coap_item_int_val ! (
+                       @ json $ object , $ ( $ key ) * ) ;
+                       "--------------------" ; parse ! (
+                       @ json @ object $ object (  ) ( $ ( $ rest ) * ) (
+                       $ ( $ rest ) * ) ) ; } ; (
+                       @ cbor @ object $ object : ident ( $ ( $ key : tt ) * )
+                       ( , $ ( $ rest : tt ) * ) (
+                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                       d ! (
+                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       $ key ) * and add to _object : $ object ) ;
+                       "--------------------" ; coap_set_int_val ! (
+                       @ cbor $ object , $ ( $ key ) * ) ;
+                       "--------------------" ; parse ! (
+                       @ cbor @ object $ object (  ) ( $ ( $ rest ) * ) (
+                       $ ( $ rest ) * ) ) ; } ; (
+                       @ none @ object $ object : ident ( $ ( $ key : tt ) * )
+                       ( , $ ( $ rest : tt ) * ) (
+                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                       d ! (
+                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       $ key ) * and add to _object : $ object ) ;
+                       "--------------------" ; parse ! (
+                       @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
+                       $ ( $ rest ) * ) ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (  ) (
+                       ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy : tt )
+                       => {
+                       d ! ( got (  ) ) ; parse ! (
+                       @ $ enc @ object $ object ( $ key ) ( : $ ( $ rest ) *
+                       ) ( : $ ( $ rest ) * ) ) ; } ; (
+                       @ $ enc : ident @ object $ object : ident (
+                       $ ( $ key : tt ) * ) ( $ tt : tt $ ( $ rest : tt ) * )
+                       $ copy : tt ) => {
+                       d ! ( >> $ ( $ key ) * $ tt >> ( $ ( $ rest ) * ) ) ;
+                       parse ! (
+                       @ $ enc @ object $ object ( $ ( $ key ) * $ tt ) (
+                       $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] )
+                       => { parse_vector ! [ $ ( $ elems , ) * ] } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr ) , * ] )
+                       => { parse_vector ! [ $ ( $ elems ) , * ] } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ]
+                       null $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc null ) ] $ ( $ rest
+                       ) * ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ]
+                       true $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc true ) ] $ ( $ rest
+                       ) * ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ]
+                       false $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc false ) ] $ (
+                       $ rest ) * ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] [
+                       $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc [ $ ( $ array ) * ]
+                       ) ] $ ( $ rest ) * ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] {
+                       $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc { $ ( $ map ) * } )
+                       ] $ ( $ rest ) * ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] $
+                       next : expr , $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc $ next ) , ] $ (
+                       $ rest ) * ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] $
+                       last : expr ) => {
+                       parse ! (
+                       @ $ enc @ array [
+                       $ ( $ elems , ) * parse ! ( @ $ enc $ last ) ] ) } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr ) , * ] ,
+                       $ ( $ rest : tt ) * ) => {
+                       parse ! (
+                       @ $ enc @ array [ $ ( $ elems , ) * ] $ ( $ rest ) * )
+                       } ; (
+                       @ $ enc : ident @ array [ $ ( $ elems : expr ) , * ] $
+                       unexpected : tt $ ( $ rest : tt ) * ) => {
+                       unexpected_token ! ( $ unexpected ) } ; (
+                       @ $ enc : ident null ) => {
+                       { d ! ( TODO : null ) ; "null" } } ; (
+                       @ $ enc : ident true ) => { { d ! ( true ) ; "true" } }
+                       ; ( @ $ enc : ident false ) => {
+                       { d ! ( false ) ; "false" } } ; ( @ $ enc : ident [  ]
+                       ) => { { d ! ( [ TODO ] ) ; "[ TODO ]" } } ; (
+                       @ $ enc : ident [ $ ( $ tt : tt ) + ] ) => {
+                       {
+                       d ! ( begin array ) ; _array = parse ! (
+                       @ $ enc @ array [  ] $ ( $ tt ) + ) ; d ! ( end array )
+                       ; "[ TODO ]" } } ; ( @ $ enc : ident {  } ) => {
+                       { d ! ( { TODO } ) ; "{ TODO }" } } ; (
+                       @ none { $ ( $ tt : tt ) + } ) => {
+                       {
+                       d ! ( begin none root ) ; let root = "root" ; parse ! (
+                       @ none @ object root (  ) ( $ ( $ tt ) + ) (
+                       $ ( $ tt ) + ) ) ; d ! ( end none root ) ; d ! (
+                       return none root to caller ) ; root } } ; (
+                       @ json { $ ( $ tt : tt ) + } ) => {
+                       {
+                       d ! ( begin json root ) ; let root = "root" ; coap_root
+                       ! (
+                       @ json {
+                       let values = "values" ; coap_array ! (
+                       @ json root , values , {
+                       parse ! (
+                       @ json @ object values (  ) ( $ ( $ tt ) + ) (
+                       $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! ( end json root ) ;
+                       d ! ( return json root to caller ) ; root } } ; (
+                       @ cbor { $ ( $ tt : tt ) + } ) => {
+                       {
+                       d ! ( begin cbor root ) ; let root = "root" ; coap_root
+                       ! (
+                       @ cbor {
+                       parse ! (
+                       @ cbor @ object root (  ) ( $ ( $ tt ) + ) (
+                       $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ; d ! (
+                       return cbor root to caller ) ; root } } ; (
+                       @ $ enc : ident $ other : expr ) => { $ other } ;);
     #[macro_export]
     #[doc(hidden)]
-    macro_rules! coap_internal_vec(( $ ( $ content : tt ) * ) => {
-                                   vec ! [ $ ( $ content ) * ] } ;);
+    macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
+                              vec ! [ $ ( $ content ) * ] } ;);
     #[macro_export]
     #[doc(hidden)]
-    macro_rules! coap_unexpected((  ) => {  } ;);
+    macro_rules! unexpected_token((  ) => {  } ;);
     ///  Compose the payload root.
     #[macro_export(local_inner_macros)]
     macro_rules! coap_root(( @ $ enc : ident $ children0 : block ) => {
                            {
-                           dump ! ( begin coap_root ) ;
-                           oc_rep_start_root_object ! (  ) ; $ children0 ;
-                           oc_rep_end_root_object ! (  ) ; dump ! (
-                           end coap_root ) ; } } ;);
+                           d ! ( begin coap_root ) ; oc_rep_start_root_object
+                           ! (  ) ; $ children0 ; oc_rep_end_root_object ! (
+                           ) ; d ! ( end coap_root ) ; } } ;);
     ///  Compose an array under "object", named as "key".  Add "children" as array elements.
     #[macro_export(local_inner_macros)]
     macro_rules! coap_array((
                             @ $ enc : ident $ object0 : ident , $ key0 : ident
                             , $ children0 : block ) => {
                             {
-                            dump ! (
+                            d ! (
                             begin coap_array _object0 : $ object0 _key0 : $
                             key0 ) ; oc_rep_set_array ! ( $ object0 , $ key0 )
                             ; $ children0 ; oc_rep_close_array ! (
-                            $ object0 , $ key0 ) ; dump ! ( end coap_array ) ;
-                            } } ;);
+                            $ object0 , $ key0 ) ; d ! ( end coap_array ) ; }
+                            } ;);
     ///  Append a (`key` + `val` string value) item to the array named `parent`:
     ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
     #[macro_export(local_inner_macros)]
@@ -366,14 +333,14 @@ mod macros {
                                @ $ enc : ident $ parent : ident , $ key : expr
                                , $ val : expr ) => {
                                {
-                               dump ! (
+                               d ! (
                                begin coap_item_str _parent : $ parent _key : $
                                key _val : $ val ) ; coap_item ! (
                                @ $ enc $ parent , {
                                oc_rep_set_text_string ! (
                                $ parent , "key" , $ key ) ;
                                oc_rep_set_text_string ! (
-                               $ parent , "value" , $ val ) ; } ) ; dump ! (
+                               $ parent , "value" , $ val ) ; } ) ; d ! (
                                end coap_item_str ) ; } } ;);
     ///  Append an array item under the array named `array0`.  Add `children0` as the items (key and value).
     ///    `{ <array0>: [ ..., { <children0> } ] }`
@@ -382,36 +349,36 @@ mod macros {
                            @ $ enc : ident $ array0 : ident , $ children0 :
                            block ) => {
                            {
-                           dump ! ( begin coap_item array : $ array0 ) ;
+                           d ! ( begin coap_item array : $ array0 ) ;
                            oc_rep_object_array_start_item ! ( $ array0 ) ; $
                            children0 ; oc_rep_object_array_end_item ! (
-                           $ array0 ) ; dump ! ( end coap_item ) ; } } ;);
+                           $ array0 ) ; d ! ( end coap_item ) ; } } ;);
     #[macro_export(local_inner_macros)]
     macro_rules! coap_item_int((
                                @ $ enc : ident $ array0 : ident , $ key0 :
                                expr , $ value0 : expr ) => {
                                {
-                               dump ! (
+                               d ! (
                                begin coap_item_int , key : $ key0 , value : $
                                value0 ) ; coap_item ! (
                                @ $ enc $ array0 , {
                                oc_rep_set_text_string ! (
                                $ array0 , "key" , $ key0 ) ; oc_rep_set_int !
-                               ( $ array0 , "value" , $ value0 ) ; } ) ; dump
-                               ! ( end coap_item_int ) ; } } ;);
+                               ( $ array0 , "value" , $ value0 ) ; } ) ; d ! (
+                               end coap_item_int ) ; } } ;);
     ///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
     #[macro_export(local_inner_macros)]
     macro_rules! coap_set_int_val((
                                   @ $ enc : ident $ parent0 : ident , $ val0 :
                                   expr ) => {
                                   {
-                                  dump ! (
+                                  d ! (
                                   begin coap_set_int_val , parent : $ parent0
-                                  , val : $ val0 ) ; dump ! (
+                                  , val : $ val0 ) ; d ! (
                                   > TODO : assert (
                                   $ val0 . val_type == SENSOR_VALUE_TYPE_INT32
                                   ) ) ; oc_rep_set_int_k ! (
-                                  $ parent0 , $ val0 . key , 1234 ) ; dump ! (
+                                  $ parent0 , $ val0 . key , 1234 ) ; d ! (
                                   end coap_set_int_val ) ; } } ;);
     ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
     #[macro_export(local_inner_macros)]
@@ -419,37 +386,35 @@ mod macros {
                                    @ $ enc : ident $ parent0 : ident , $ val0
                                    : expr ) => {
                                    {
-                                   dump ! (
+                                   d ! (
                                    begin coap_item_int_val , parent : $
-                                   parent0 , val : $ val0 ) ; dump ! (
+                                   parent0 , val : $ val0 ) ; d ! (
                                    > TODO : assert (
                                    $ val0 . val_type ==
-                                   SENSOR_VALUE_TYPE_INT32 ) ) ; dump ! (
+                                   SENSOR_VALUE_TYPE_INT32 ) ) ; d ! (
                                    > TODO : coap_item_int (
                                    $ parent0 , $ val0 . key , $ val0 . int_val
                                    ) ) ; coap_item_int ! (
                                    @ $ enc $ parent0 , $ val0 . key , 1234 ) ;
-                                   dump ! ( end coap_item_int_val ) ; } } ;);
+                                   d ! ( end coap_item_int_val ) ; } } ;);
     #[macro_export(local_inner_macros)]
     macro_rules! oc_rep_start_root_object((  ) => {
                                           {
-                                          dump ! (
-                                          begin oc_rep_start_root_object ) ;
-                                          cbor_encoder_create_map (
+                                          d ! ( begin oc_rep_start_root_object
+                                          ) ; cbor_encoder_create_map (
                                           & g_encoder , & root_map ,
-                                          CborIndefiniteLength ) ; dump ! (
+                                          CborIndefiniteLength ) ; d ! (
                                           end oc_rep_start_root_object ) ; } }
                                           ;);
     #[macro_export(local_inner_macros)]
     macro_rules! oc_rep_end_root_object((  ) => {
                                         {
-                                        dump ! ( begin oc_rep_end_root_object
-                                        ) ; dump ! (
+                                        d ! ( begin oc_rep_end_root_object ) ;
+                                        d ! (
                                         > TODO : g_err |=
                                         cbor_encoder_close_container (
-                                        & g_encoder , & root_map ) ) ; dump !
-                                        ( end oc_rep_end_root_object ) ; } }
-                                        ;);
+                                        & g_encoder , & root_map ) ) ; d ! (
+                                        end oc_rep_end_root_object ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_start_object((
                                      $ parent : ident , $ key : ident , $
@@ -466,8 +431,7 @@ mod macros {
                                      cbor_encoder_create_map (
                                      & $ parent , & concat_idents ! (
                                      $ key , _map ) , CborIndefiniteLength ) ;
-                                     dump ! ( end oc_rep_start_object ) ; } }
-                                     ;);
+                                     d ! ( end oc_rep_start_object ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_end_object((
                                    $ parent : ident , $ key : ident , $
@@ -482,8 +446,8 @@ mod macros {
                                    cbor_encoder_close_container (
                                    & concat_idents ! (
                                    $ parent , $ parent_suffix ) , &
-                                   concat_idents ! ( $ key , # # _map ) ) ;
-                                   dump ! ( end oc_rep_end_object ) ; } } ;);
+                                   concat_idents ! ( $ key , # # _map ) ) ; d
+                                   ! ( end oc_rep_end_object ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_start_array((
                                     $ parent : ident , $ key : ident , $
@@ -500,7 +464,7 @@ mod macros {
                                     & concat_idents ! (
                                     $ parent , $ parent_suffix ) , &
                                     concat_idents ! ( $ key , _array ) ,
-                                    CborIndefiniteLength ) ; dump ! (
+                                    CborIndefiniteLength ) ; d ! (
                                     end oc_rep_start_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_end_array((
@@ -516,8 +480,8 @@ mod macros {
                                   "> TODO: g_err |= cbor_encoder_close_container(&"
                                   , stringify ! ( $ parent ) , $ parent_suffix
                                   , ", &" , stringify ! ( $ key ) , "_array" ,
-                                  ");" ) ; dump ! ( end oc_rep_end_array ) ; }
-                                  } ;);
+                                  ");" ) ; d ! ( end oc_rep_end_array ) ; } }
+                                  ;);
     #[macro_export]
     macro_rules! oc_rep_set_array(( $ object : ident , $ key : ident ) => {
                                   {
@@ -529,7 +493,7 @@ mod macros {
                                   cbor_encode_text_string (
                                   concat_idents ! ( $ object , _map ) , $ key
                                   , $ key . len (  ) ) ; oc_rep_start_array !
-                                  ( $ object , $ key , _map ) ; dump ! (
+                                  ( $ object , $ key , _map ) ; d ! (
                                   end oc_rep_set_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_close_array(( $ object : ident , $ key : ident ) => {
@@ -540,7 +504,7 @@ mod macros {
                                     stringify ! ( $ key ) , ", child: " ,
                                     stringify ! ( $ object ) , "_map" ) ;
                                     oc_rep_end_array ! (
-                                    $ object , $ key , "_map" ) ; dump ! (
+                                    $ object , $ key , "_map" ) ; d ! (
                                     end oc_rep_close_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
@@ -552,8 +516,8 @@ mod macros {
                                                 stringify ! ( $ key ) ,
                                                 "_array" , ) ;
                                                 oc_rep_start_object ! (
-                                                $ key , $ key , _array ) ;
-                                                dump ! (
+                                                $ key , $ key , _array ) ; d !
+                                                (
                                                 end
                                                 oc_rep_object_array_start_item
                                                 ) ; } } ;);
@@ -566,8 +530,8 @@ mod macros {
                                               $ key ) , ", child: " ,
                                               stringify ! ( $ key ) , "_array"
                                               , ) ; oc_rep_end_object ! (
-                                              $ key , $ key , "_array" ) ;
-                                              dump ! (
+                                              $ key , $ key , "_array" ) ; d !
+                                              (
                                               end oc_rep_object_array_end_item
                                               ) ; } } ;);
     #[macro_export]
@@ -585,7 +549,7 @@ mod macros {
                                 & concat_idents ! ( $ object , _map ) , $ key
                                 , $ key . len (  ) ) ; cbor_encode_int (
                                 & concat_idents ! ( $ object , _map ) , value
-                                ) ; dump ! ( end oc_rep_set_int ) ; } } ;);
+                                ) ; d ! ( end oc_rep_set_int ) ; } } ;);
     ///  Same as oc_rep_set_int but changed "#key" to "key" so that the key won't be stringified.
     #[macro_export]
     macro_rules! oc_rep_set_int_k((
@@ -605,7 +569,7 @@ mod macros {
                                   stringify ! ( $ key ) , "));" ) ; concat ! (
                                   "> TODO: g_err |= cbor_encode_int(&" ,
                                   stringify ! ( $ object ) , "_map" , ", " ,
-                                  stringify ! ( $ value ) , ");" ) ; dump ! (
+                                  stringify ! ( $ value ) , ");" ) ; d ! (
                                   end oc_rep_set_int_k ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_set_text_string((
@@ -624,9 +588,9 @@ mod macros {
                                         , $ key , $ key . len (  ) ) ;
                                         cbor_encode_text_string (
                                         & concat_idents ! ( $ object , _map )
-                                        , $ value , $ value . len (  ) ) ;
-                                        dump ! ( end oc_rep_set_text_string )
-                                        ; } } ;);
+                                        , $ value , $ value . len (  ) ) ; d !
+                                        ( end oc_rep_set_text_string ) ; } }
+                                        ;);
     #[macro_export]
     macro_rules! test_literal(( $ key : literal ) => {
                               { concat ! ( $ key , "_zzz" ) ; } } ;);
@@ -663,10 +627,10 @@ mod macros {
                                      test_internal_rules2 ! (
                                      @ $ encoding $ key ) ; } ;);
     ///  Macro to dump all tokens received as a literal string, e.g.
-    ///  `dump!(a b c)` returns `"a b c"`
+    ///  `d!(a b c)` returns `"a b c"`
     #[macro_export]
-    macro_rules! dump(( $ ( $ token : tt ) * ) => {
-                      stringify ! ( $ ( $ token ) * ) } ;);
+    macro_rules! d(( $ ( $ token : tt ) * ) => {
+                   stringify ! ( $ ( $ token ) * ) } ;);
 }
 mod base {
     //!  Common declarations for the application.  Includes custom sensor declarations.
@@ -1124,6 +1088,9 @@ mod send_coap {
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).
     fn send_sensor_data_without_encoding() {
+        ();
+        "a b c";
+        ();
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
@@ -1133,11 +1100,11 @@ mod send_coap {
             {
                 "begin none root";
                 let root = "root";
-                "next token : ( \"device\" )";
-                "TODO : add1 key : \"device\" value : coap_internal!(@ none device_id) to object\n: root";
-                "next token : ( \"node\" )";
-                "TODO : add1 key : \"node\" value : coap_internal!(@ none node_id) to object :\nroot";
-                "next token : ( int_sensor_value )";
+                ">> \"device\" >> ( : device_id , \"node\" : node_id , int_sensor_value , )";
+                "TODO : add key : \"device\" , value : parse!(@ none device_id) , to object :\nroot";
+                ">> \"node\" >> ( : node_id , int_sensor_value , )";
+                "TODO : add key : \"node\" , value : parse!(@ none node_id) , to object : root";
+                ">> int_sensor_value >> ( , )";
                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                 "--------------------";
                 "end none root";
@@ -1183,10 +1150,10 @@ mod send_coap {
                                 "end oc_rep_set_array";
                             };
                             {
-                                "next token : ( \"device\" )";
-                                "add1 key : \"device\" value : coap_internal!(@ json device_id) to object :\nvalues";
+                                ">> \"device\" >> ( : device_id , \"node\" : node_id , int_sensor_value , )";
+                                "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
                                 {
-                                    "begin coap_item_str _parent : values _key : \"device\" _val :\ncoap_internal!(@ json device_id)";
+                                    "begin coap_item_str _parent : values _key : \"device\" _val :\nparse!(@ json device_id)";
                                     {
                                         "begin coap_item array : values";
                                         {
@@ -1213,19 +1180,13 @@ mod send_coap {
                                                 "end oc_rep_set_text_string";
                                             };
                                             {
-                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: coap_internal!(@ json device_id), child: values_map";
+                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
                                                 cbor_encode_text_string(&values_map,
                                                                         "value",
                                                                         "value".len());
                                                 cbor_encode_text_string(&values_map,
-                                                                        {
-                                                                            "expr = device_id";
-                                                                            device_id
-                                                                        },
-                                                                        {
-                                                                            "expr = device_id";
-                                                                            device_id
-                                                                        }.len());
+                                                                        device_id,
+                                                                        device_id.len());
                                                 "end oc_rep_set_text_string";
                                             };
                                         };
@@ -1239,10 +1200,10 @@ mod send_coap {
                                     "end coap_item_str";
                                 };
                                 "--------------------";
-                                "next token : ( \"node\" )";
-                                "add1 key : \"node\" value : coap_internal!(@ json node_id) to object : values";
+                                ">> \"node\" >> ( : node_id , int_sensor_value , )";
+                                "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
                                 {
-                                    "begin coap_item_str _parent : values _key : \"node\" _val :\ncoap_internal!(@ json node_id)";
+                                    "begin coap_item_str _parent : values _key : \"node\" _val :\nparse!(@ json node_id)";
                                     {
                                         "begin coap_item array : values";
                                         {
@@ -1269,19 +1230,13 @@ mod send_coap {
                                                 "end oc_rep_set_text_string";
                                             };
                                             {
-                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: coap_internal!(@ json node_id), child: values_map";
+                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
                                                 cbor_encode_text_string(&values_map,
                                                                         "value",
                                                                         "value".len());
                                                 cbor_encode_text_string(&values_map,
-                                                                        {
-                                                                            "expr = node_id";
-                                                                            node_id
-                                                                        },
-                                                                        {
-                                                                            "expr = node_id";
-                                                                            node_id
-                                                                        }.len());
+                                                                        node_id,
+                                                                        node_id.len());
                                                 "end oc_rep_set_text_string";
                                             };
                                         };
@@ -1295,7 +1250,7 @@ mod send_coap {
                                     "end coap_item_str";
                                 };
                                 "--------------------";
-                                "next token : ( int_sensor_value )";
+                                ">> int_sensor_value >> ( , )";
                                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : values";
                                 "--------------------";
                                 {
@@ -1395,7 +1350,7 @@ mod send_coap {
                         "end oc_rep_start_root_object";
                     };
                     {
-                        "next token : ( int_sensor_value )";
+                        ">> int_sensor_value >> ( , )";
                         "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                         "--------------------";
                         {
@@ -1425,9 +1380,6 @@ mod send_coap {
         ();
         let float_sensor_value =
             SensorValueNew{key: "tmp", val: SensorValueType::Float(28.70),};
-        ();
-        "a b c";
-        ();
     }
     fn test_macro2() {
         let root = "root_var";
@@ -1743,20 +1695,13 @@ mod send_coap {
                 "end coap_root";
             };
     }
-    macro_rules! calculate(( eval $ e : expr ) => {
-                           { { let val : usize = $ e ; } } } ;);
-    fn test_macro() {
-        { { let val: usize = 1 + 2; } }
-        { { let val: usize = (1 + 2) * (3 / 4); } }
-    }
     ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
     ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
     ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
     ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
     pub fn start_network_task() -> Result<(), i32> {
         console_print(b"start_network_task\n");
-        test_macro();
-        test_macro2();
+        send_sensor_data_without_encoding();
         send_sensor_data_json();
         send_sensor_data_cbor();
         Ok(())

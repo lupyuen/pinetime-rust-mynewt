@@ -14,15 +14,14 @@ use cstr_core::CStr;   //  Import string utilities from cstr_core library: https
 use crate::base::*;    //  Import base.rs for common declarations
 use crate::sensor::*;  //  Import sensor.rs for sensor declarations
 
-///////////////////////////////////////////////////////////////////////////////
-//  Test code
-
-//  const SEND_JSON_FORMAT: bool = false;
-
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).
 fn send_sensor_data_without_encoding() {
+  trace_macros!(true);
+  d!(a b c);
+  trace_macros!(false);
+
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id = b"b3b4b5b6f1";
 
@@ -32,7 +31,7 @@ fn send_sensor_data_without_encoding() {
     val: SensorValueType::Uint(2870)
   };
 
-  //  Compose the CoAP Payload in JSON using the `coap` macro.
+  //  Compose the CoAP Payload without encoding using the `coap` macro.
   trace_macros!(true);
   let payload = coap!(@none {
     "device": device_id,
@@ -82,13 +81,6 @@ fn send_sensor_data_cbor() {
     val: SensorValueType::Float(28.70)
   };
   //  float_sensor_value,  //  Send `{tmp: 28.70}`
-
-  trace_macros!(true);
-  dump!(a b c);
-  // test_internal_rules!(@json a);
-  // test_internal_rules!(@cbor b);
-  // test_internal_rules!(@zzz c);
-  trace_macros!(false);
 }
 
 fn test_macro2() {
@@ -149,25 +141,6 @@ fn test_macro2() {
   }); //  Close the payload root
 }
 
-macro_rules! calculate {
-  (eval $e:expr) => {{
-    {
-      let val: usize = $e; // Force types to be integers
-      //  println!("{} = {}", stringify!{$e}, val);
-    }
-  }};
-}
-
-fn test_macro() {
-  calculate! {
-    eval 1 + 2 // hehehe `eval` is _not_ a Rust keyword!
-  }
-
-  calculate! {
-    eval (1 + 2) * (3 / 4)
-  }
-}
-
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
 ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
 ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
@@ -175,8 +148,7 @@ fn test_macro() {
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
 //  pub fn start_network_task() -> i32  {
   console_print(b"start_network_task\n");
-  test_macro();
-  test_macro2();
+  send_sensor_data_without_encoding();
   send_sensor_data_json();
   send_sensor_data_cbor();
   Ok(())
