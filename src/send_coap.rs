@@ -1,25 +1,10 @@
-//!  Send sensor data to a CoAP Server or a Collector Node.  The CoAP payload will be encoded as JSON
-//!  for CoAP Server and CBOR for Collector Node.  The sensor data will be transmitted to 
-//!  CoAP Server over WiFi via the ESP8266 transceiver, and to Collector Node via nRF24L01 transceiver.
-//!
-//!  This enables transmission of Sensor Data to a local Sensor Network (via nRF24L01)
-//!  and to the internet (via ESP8266).  For sending to Collector Node we use raw temperature (integer) 
-//!  instead of computed temperature (floating-point) to make the encoding simpler and faster.
-//!
-//!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-//!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
-
 use cstr_core::CStr;   //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;    //  Import base.rs for common declarations
 use crate::sensor::*;  //  Import sensor.rs for sensor declarations
 
-///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
-///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
-///  or Standalone Node).
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);
-  d!(a b c);
+  d!(r#a b c);
   trace_macros!(false);
 
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
@@ -41,6 +26,17 @@ fn send_sensor_data_without_encoding() {
   trace_macros!(false);
 }
 
+// !  Send sensor data to a CoAP Server or a Collector Node.  The CoAP payload will be encoded as JSON
+// !  for CoAP Server and CBOR for Collector Node.  The sensor data will be transmitted to 
+// !  CoAP Server over WiFi via the ESP8266 transceiver, and to Collector Node via nRF24L01 transceiver.
+// !
+// !  This enables transmission of Sensor Data to a local Sensor Network (via nRF24L01)
+// !  and to the internet (via ESP8266).  For sending to Collector Node we use raw temperature (integer) 
+// !  instead of computed temperature (floating-point) to make the encoding simpler and faster.
+// !
+// !  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+// !  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
+// !  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 fn send_sensor_data_json() {
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id = b"b3b4b5b6f1";
@@ -52,13 +48,13 @@ fn send_sensor_data_json() {
   };
 
   //  Compose the CoAP Payload in JSON using the `coap` macro.
-  trace_macros!(true);
+  //  trace_macros!(true);
   let payload = coap!(@json {
     "device": device_id,
     "node":   node_id,
     int_sensor_value,  //  Send `{t: 2870}`
   });
-  trace_macros!(false);
+  //  trace_macros!(false);
 }
 
 fn send_sensor_data_cbor() {
@@ -69,11 +65,11 @@ fn send_sensor_data_cbor() {
   };
 
   //  Compose the CoAP Payload in CBOR using the `coap` macro.
-  trace_macros!(true);
+  //  trace_macros!(true);
   let payload = coap!(@cbor {
     int_sensor_value,    //  Send `{t: 2870}`
   });
-  trace_macros!(false);
+  //  trace_macros!(false);
 
   //  Sensor `tmp` has float value 28.70.
   let float_sensor_value = SensorValueNew {

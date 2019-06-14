@@ -204,8 +204,8 @@ mod macros {
                        @ $ enc : ident @ object $ object : ident (
                        $ ( $ key : tt ) * ) ( $ tt : tt $ ( $ rest : tt ) * )
                        $ copy : tt ) => {
-                       d ! ( >> $ ( $ key ) * $ tt >> ( $ ( $ rest ) * ) ) ;
-                       parse ! (
+                       d ! ( >> $ ( $ key ) * $ tt >> $ ( $ rest ) * ) ; parse
+                       ! (
                        @ $ enc @ object $ object ( $ ( $ key ) * $ tt ) (
                        $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
                        @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] )
@@ -1070,26 +1070,12 @@ mod listen_sensor {
     }
 }
 mod send_coap {
-    //!  Send sensor data to a CoAP Server or a Collector Node.  The CoAP payload will be encoded as JSON
-    //!  for CoAP Server and CBOR for Collector Node.  The sensor data will be transmitted to 
-    //!  CoAP Server over WiFi via the ESP8266 transceiver, and to Collector Node via nRF24L01 transceiver.
-    //!
-    //!  This enables transmission of Sensor Data to a local Sensor Network (via nRF24L01)
-    //!  and to the internet (via ESP8266).  For sending to Collector Node we use raw temperature (integer) 
-    //!  instead of computed temperature (floating-point) to make the encoding simpler and faster.
-    //!
-    //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-    //!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
-    //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
     use crate::base::*;
     use crate::sensor::*;
-    ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
-    ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
-    ///  or Standalone Node).
     fn send_sensor_data_without_encoding() {
         ();
-        "a b c";
+        "r#a b c";
         ();
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
@@ -1100,11 +1086,11 @@ mod send_coap {
             {
                 "begin none root";
                 let root = "root";
-                ">> \"device\" >> ( : device_id , \"node\" : node_id , int_sensor_value , )";
+                ">> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
                 "TODO : add key : \"device\" , value : parse!(@ none device_id) , to object :\nroot";
-                ">> \"node\" >> ( : node_id , int_sensor_value , )";
+                ">> \"node\" >> : node_id , int_sensor_value ,";
                 "TODO : add key : \"node\" , value : parse!(@ none node_id) , to object : root";
-                ">> int_sensor_value >> ( , )";
+                ">> int_sensor_value >> ,";
                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                 "--------------------";
                 "end none root";
@@ -1118,7 +1104,6 @@ mod send_coap {
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
-        ();
         let payload =
             {
                 "begin json root";
@@ -1150,7 +1135,7 @@ mod send_coap {
                                 "end oc_rep_set_array";
                             };
                             {
-                                ">> \"device\" >> ( : device_id , \"node\" : node_id , int_sensor_value , )";
+                                ">> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
                                 "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
                                 {
                                     "begin coap_item_str _parent : values _key : \"device\" _val :\nparse!(@ json device_id)";
@@ -1200,7 +1185,7 @@ mod send_coap {
                                     "end coap_item_str";
                                 };
                                 "--------------------";
-                                ">> \"node\" >> ( : node_id , int_sensor_value , )";
+                                ">> \"node\" >> : node_id , int_sensor_value ,";
                                 "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
                                 {
                                     "begin coap_item_str _parent : values _key : \"node\" _val :\nparse!(@ json node_id)";
@@ -1250,7 +1235,7 @@ mod send_coap {
                                     "end coap_item_str";
                                 };
                                 "--------------------";
-                                ">> int_sensor_value >> ( , )";
+                                ">> int_sensor_value >> ,";
                                 "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : values";
                                 "--------------------";
                                 {
@@ -1331,12 +1316,10 @@ mod send_coap {
                 "return json root to caller";
                 root
             };
-        ();
     }
     fn send_sensor_data_cbor() {
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
-        ();
         let payload =
             {
                 "begin cbor root";
@@ -1350,7 +1333,7 @@ mod send_coap {
                         "end oc_rep_start_root_object";
                     };
                     {
-                        ">> int_sensor_value >> ( , )";
+                        ">> int_sensor_value >> ,";
                         "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
                         "--------------------";
                         {
@@ -1377,7 +1360,6 @@ mod send_coap {
                 "return cbor root to caller";
                 root
             };
-        ();
         let float_sensor_value =
             SensorValueNew{key: "tmp", val: SensorValueType::Float(28.70),};
     }
