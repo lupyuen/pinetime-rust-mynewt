@@ -169,7 +169,7 @@ mod macros {
                        ( , $ ( $ rest : tt ) * ) (
                        $ comma : tt $ ( $ copy : tt ) * ) ) => {
                        d ! (
-                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       TODO : extract key , value from _sensor_value : $ (
                        $ key ) * and add to _object : $ object ) ;
                        "--------------------" ; parse ! (
                        @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
@@ -178,7 +178,7 @@ mod macros {
                        ( , $ ( $ rest : tt ) * ) (
                        $ comma : tt $ ( $ copy : tt ) * ) ) => {
                        d ! (
-                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       TODO : extract key , value from _sensor_value : $ (
                        $ key ) * and add to _object : $ object ) ;
                        "--------------------" ; coap_item_int_val ! (
                        @ json $ object , $ ( $ key ) * ) ;
@@ -189,7 +189,7 @@ mod macros {
                        ( , $ ( $ rest : tt ) * ) (
                        $ comma : tt $ ( $ copy : tt ) * ) ) => {
                        d ! (
-                       TODO : Extract ( key , value ) from _sensor_value : $ (
+                       TODO : extract key , value from _sensor_value : $ (
                        $ key ) * and add to _object : $ object ) ;
                        "--------------------" ; coap_set_int_val ! (
                        @ cbor $ object , $ ( $ key ) * ) ;
@@ -379,7 +379,7 @@ mod macros {
                                   , val : $ val0 ) ; d ! (
                                   > TODO : assert (
                                   $ val0 . val_type == SENSOR_VALUE_TYPE_INT32
-                                  ) ) ; oc_rep_set_int_k ! (
+                                  ) ) ; oc_rep_set_int ! (
                                   $ parent0 , $ val0 . key , 1234 ) ; d ! (
                                   end coap_set_int_val ) ; } } ;);
     ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
@@ -412,10 +412,8 @@ mod macros {
     macro_rules! oc_rep_end_root_object((  ) => {
                                         {
                                         d ! ( begin oc_rep_end_root_object ) ;
-                                        d ! (
-                                        > TODO : g_err |=
                                         cbor_encoder_close_container (
-                                        & g_encoder , & root_map ) ) ; d ! (
+                                        & g_encoder , & root_map ) ; d ! (
                                         end oc_rep_end_root_object ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_start_object((
@@ -552,27 +550,6 @@ mod macros {
                                 , $ key . len (  ) ) ; cbor_encode_int (
                                 & concat_idents ! ( $ object , _map ) , value
                                 ) ; d ! ( end oc_rep_set_int ) ; } } ;);
-    ///  Same as oc_rep_set_int but changed "#key" to "key" so that the key won't be stringified.
-    #[macro_export]
-    macro_rules! oc_rep_set_int_k((
-                                  $ object : ident , $ key : expr , $ value :
-                                  expr ) => {
-                                  {
-                                  concat ! (
-                                  "begin oc_rep_set_int_k " , ", object: " ,
-                                  stringify ! ( $ object ) , ", key: " ,
-                                  stringify ! ( $ key ) , ", value: " ,
-                                  stringify ! ( $ value ) , ", child: " ,
-                                  stringify ! ( $ object ) , "_map" ) ; concat
-                                  ! (
-                                  "> TODO: g_err |= cbor_encode_text_string(&"
-                                  , stringify ! ( $ object ) , "_map" , ", " ,
-                                  stringify ! ( $ key ) , ", strlen(" ,
-                                  stringify ! ( $ key ) , "));" ) ; concat ! (
-                                  "> TODO: g_err |= cbor_encode_int(&" ,
-                                  stringify ! ( $ object ) , "_map" , ", " ,
-                                  stringify ! ( $ value ) , ");" ) ; d ! (
-                                  end oc_rep_set_int_k ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_set_text_string((
                                         $ object : ident , $ key : expr , $
@@ -774,28 +751,28 @@ mod base {
     }
 }
 mod tinycbor {
-    pub type __uint8_t = ::std::os::raw::c_uchar;
-    pub type __uint16_t = ::std::os::raw::c_ushort;
-    pub type __uint32_t = ::std::os::raw::c_ulong;
-    pub type __int64_t = ::std::os::raw::c_longlong;
-    pub type __uint64_t = ::std::os::raw::c_ulonglong;
-    pub type __uintptr_t = ::std::os::raw::c_uint;
+    pub type __uint8_t = ::cty::c_uchar;
+    pub type __uint16_t = ::cty::c_ushort;
+    pub type __uint32_t = ::cty::c_ulong;
+    pub type __int64_t = ::cty::c_longlong;
+    pub type __uint64_t = ::cty::c_ulonglong;
+    pub type __uintptr_t = ::cty::c_uint;
     pub type FILE = File;
     #[repr(C)]
     #[rustc_copy_clone_marker]
     pub struct File_methods {
-        pub write: ::std::option::Option<unsafe extern "C" fn(instance:
+        pub write: ::core::option::Option<unsafe extern "C" fn(instance:
+                                                                   *mut FILE,
+                                                               bp:
+                                                                   *const ::cty::c_char,
+                                                               n: usize)
+                                              -> usize>,
+        pub read: ::core::option::Option<unsafe extern "C" fn(instance:
                                                                   *mut FILE,
                                                               bp:
-                                                                  *const ::std::os::raw::c_char,
+                                                                  *mut ::cty::c_char,
                                                               n: usize)
                                              -> usize>,
-        pub read: ::std::option::Option<unsafe extern "C" fn(instance:
-                                                                 *mut FILE,
-                                                             bp:
-                                                                 *mut ::std::os::raw::c_char,
-                                                             n: usize)
-                                            -> usize>,
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]
@@ -825,23 +802,23 @@ mod tinycbor {
         fn clone(&self) -> File_methods {
             {
                 let _:
-                        ::core::clone::AssertParamIsClone<::std::option::Option<unsafe extern "C" fn(instance:
-                                                                                                         *mut FILE,
-                                                                                                     bp:
-                                                                                                         *const ::std::os::raw::c_char,
-                                                                                                     n:
-                                                                                                         usize)
-                                                                                    ->
-                                                                                        usize>>;
+                        ::core::clone::AssertParamIsClone<::core::option::Option<unsafe extern "C" fn(instance:
+                                                                                                          *mut FILE,
+                                                                                                      bp:
+                                                                                                          *const ::cty::c_char,
+                                                                                                      n:
+                                                                                                          usize)
+                                                                                     ->
+                                                                                         usize>>;
                 let _:
-                        ::core::clone::AssertParamIsClone<::std::option::Option<unsafe extern "C" fn(instance:
-                                                                                                         *mut FILE,
-                                                                                                     bp:
-                                                                                                         *mut ::std::os::raw::c_char,
-                                                                                                     n:
-                                                                                                         usize)
-                                                                                    ->
-                                                                                        usize>>;
+                        ::core::clone::AssertParamIsClone<::core::option::Option<unsafe extern "C" fn(instance:
+                                                                                                          *mut FILE,
+                                                                                                      bp:
+                                                                                                          *mut ::cty::c_char,
+                                                                                                      n:
+                                                                                                          usize)
+                                                                                     ->
+                                                                                         usize>>;
                 *self
             }
         }
@@ -939,22 +916,21 @@ mod tinycbor {
     pub const CborError_CborErrorInternalError: CborError = 4294967295;
     pub type CborError = u32;
     extern "C" {
-        pub fn cbor_error_string(error: CborError)
-         -> *const ::std::os::raw::c_char;
+        pub fn cbor_error_string(error: CborError) -> *const ::cty::c_char;
     }
     pub type cbor_encoder_write
         =
-        ::std::option::Option<unsafe extern "C" fn(arg1:
-                                                       *mut cbor_encoder_writer,
-                                                   data:
-                                                       *const ::std::os::raw::c_char,
-                                                   len: ::std::os::raw::c_int)
-                                  -> ::std::os::raw::c_int>;
+        ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                        *mut cbor_encoder_writer,
+                                                    data:
+                                                        *const ::cty::c_char,
+                                                    len: ::cty::c_int)
+                                   -> ::cty::c_int>;
     #[repr(C)]
     #[rustc_copy_clone_marker]
     pub struct cbor_encoder_writer {
         pub write: cbor_encoder_write,
-        pub bytes_written: ::std::os::raw::c_int,
+        pub bytes_written: ::cty::c_int,
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]
@@ -985,8 +961,7 @@ mod tinycbor {
         fn clone(&self) -> cbor_encoder_writer {
             {
                 let _: ::core::clone::AssertParamIsClone<cbor_encoder_write>;
-                let _:
-                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                let _: ::core::clone::AssertParamIsClone<::cty::c_int>;
                 *self
             }
         }
@@ -994,7 +969,7 @@ mod tinycbor {
     #[repr(C)]
     #[rustc_copy_clone_marker]
     pub struct cbor_iovec {
-        pub iov_base: *mut ::std::os::raw::c_void,
+        pub iov_base: *mut ::cty::c_void,
         pub iov_len: usize,
     }
     #[automatically_derived]
@@ -1025,8 +1000,7 @@ mod tinycbor {
         #[inline]
         fn clone(&self) -> cbor_iovec {
             {
-                let _:
-                        ::core::clone::AssertParamIsClone<*mut ::std::os::raw::c_void>;
+                let _: ::core::clone::AssertParamIsClone<*mut ::cty::c_void>;
                 let _: ::core::clone::AssertParamIsClone<usize>;
                 *self
             }
@@ -1036,9 +1010,9 @@ mod tinycbor {
     #[rustc_copy_clone_marker]
     pub struct CborEncoder {
         pub writer: *mut cbor_encoder_writer,
-        pub writer_arg: *mut ::std::os::raw::c_void,
+        pub writer_arg: *mut ::cty::c_void,
         pub added: usize,
-        pub flags: ::std::os::raw::c_int,
+        pub flags: ::cty::c_int,
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]
@@ -1077,22 +1051,18 @@ mod tinycbor {
             {
                 let _:
                         ::core::clone::AssertParamIsClone<*mut cbor_encoder_writer>;
-                let _:
-                        ::core::clone::AssertParamIsClone<*mut ::std::os::raw::c_void>;
+                let _: ::core::clone::AssertParamIsClone<*mut ::cty::c_void>;
                 let _: ::core::clone::AssertParamIsClone<usize>;
-                let _:
-                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                let _: ::core::clone::AssertParamIsClone<::cty::c_int>;
                 *self
             }
         }
     }
-    extern "C" {
-        pub static CborIndefiniteLength: usize;
-    }
+    pub const CborIndefiniteLength: usize = 4294967295;
     extern "C" {
         pub fn cbor_encoder_init(encoder: *mut CborEncoder,
                                  pwriter: *mut cbor_encoder_writer,
-                                 flags: ::std::os::raw::c_int);
+                                 flags: ::cty::c_int);
     }
     extern "C" {
         pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64)
@@ -1116,7 +1086,7 @@ mod tinycbor {
     }
     extern "C" {
         pub fn cbor_encode_text_string(encoder: *mut CborEncoder,
-                                       string: *const ::std::os::raw::c_char,
+                                       string: *const ::cty::c_char,
                                        length: usize) -> CborError;
     }
     extern "C" {
@@ -1127,14 +1097,12 @@ mod tinycbor {
     extern "C" {
         pub fn cbor_encode_byte_iovec(encoder: *mut CborEncoder,
                                       iov: *const cbor_iovec,
-                                      iov_len: ::std::os::raw::c_int)
-         -> CborError;
+                                      iov_len: ::cty::c_int) -> CborError;
     }
     extern "C" {
         pub fn cbor_encode_floating_point(encoder: *mut CborEncoder,
                                           fpType: CborType,
-                                          value:
-                                              *const ::std::os::raw::c_void)
+                                          value: *const ::cty::c_void)
          -> CborError;
     }
     extern "C" {
@@ -1181,50 +1149,42 @@ mod tinycbor {
     pub type CborParserIteratorFlags = u32;
     pub type cbor_reader_get8
         =
-        ::std::option::Option<unsafe extern "C" fn(d:
-                                                       *mut cbor_decoder_reader,
-                                                   offset:
-                                                       ::std::os::raw::c_int)
-                                  -> u8>;
+        ::core::option::Option<unsafe extern "C" fn(d:
+                                                        *mut cbor_decoder_reader,
+                                                    offset: ::cty::c_int)
+                                   -> u8>;
     pub type cbor_reader_get16
         =
-        ::std::option::Option<unsafe extern "C" fn(d:
-                                                       *mut cbor_decoder_reader,
-                                                   offset:
-                                                       ::std::os::raw::c_int)
-                                  -> u16>;
+        ::core::option::Option<unsafe extern "C" fn(d:
+                                                        *mut cbor_decoder_reader,
+                                                    offset: ::cty::c_int)
+                                   -> u16>;
     pub type cbor_reader_get32
         =
-        ::std::option::Option<unsafe extern "C" fn(d:
-                                                       *mut cbor_decoder_reader,
-                                                   offset:
-                                                       ::std::os::raw::c_int)
-                                  -> u32>;
+        ::core::option::Option<unsafe extern "C" fn(d:
+                                                        *mut cbor_decoder_reader,
+                                                    offset: ::cty::c_int)
+                                   -> u32>;
     pub type cbor_reader_get64
         =
-        ::std::option::Option<unsafe extern "C" fn(d:
-                                                       *mut cbor_decoder_reader,
-                                                   offset:
-                                                       ::std::os::raw::c_int)
-                                  -> u64>;
+        ::core::option::Option<unsafe extern "C" fn(d:
+                                                        *mut cbor_decoder_reader,
+                                                    offset: ::cty::c_int)
+                                   -> u64>;
     pub type cbor_memcmp
         =
-        ::std::option::Option<unsafe extern "C" fn(d:
-                                                       *mut cbor_decoder_reader,
-                                                   buf:
-                                                       *mut ::std::os::raw::c_char,
-                                                   offset:
-                                                       ::std::os::raw::c_int,
-                                                   len: usize) -> usize>;
+        ::core::option::Option<unsafe extern "C" fn(d:
+                                                        *mut cbor_decoder_reader,
+                                                    buf: *mut ::cty::c_char,
+                                                    offset: ::cty::c_int,
+                                                    len: usize) -> usize>;
     pub type cbor_memcpy
         =
-        ::std::option::Option<unsafe extern "C" fn(d:
-                                                       *mut cbor_decoder_reader,
-                                                   buf:
-                                                       *mut ::std::os::raw::c_char,
-                                                   offset:
-                                                       ::std::os::raw::c_int,
-                                                   len: usize) -> usize>;
+        ::core::option::Option<unsafe extern "C" fn(d:
+                                                        *mut cbor_decoder_reader,
+                                                    buf: *mut ::cty::c_char,
+                                                    offset: ::cty::c_int,
+                                                    len: usize) -> usize>;
     #[repr(C)]
     #[rustc_copy_clone_marker]
     pub struct cbor_decoder_reader {
@@ -1293,8 +1253,8 @@ mod tinycbor {
     #[rustc_copy_clone_marker]
     pub struct CborParser {
         pub d: *mut cbor_decoder_reader,
-        pub end: ::std::os::raw::c_int,
-        pub flags: ::std::os::raw::c_int,
+        pub end: ::cty::c_int,
+        pub flags: ::cty::c_int,
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]
@@ -1326,10 +1286,8 @@ mod tinycbor {
             {
                 let _:
                         ::core::clone::AssertParamIsClone<*mut cbor_decoder_reader>;
-                let _:
-                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
-                let _:
-                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                let _: ::core::clone::AssertParamIsClone<::cty::c_int>;
+                let _: ::core::clone::AssertParamIsClone<::cty::c_int>;
                 *self
             }
         }
@@ -1338,7 +1296,7 @@ mod tinycbor {
     #[rustc_copy_clone_marker]
     pub struct CborValue {
         pub parser: *const CborParser,
-        pub offset: ::std::os::raw::c_int,
+        pub offset: ::cty::c_int,
         pub remaining: u32,
         pub extra: u16,
         pub type_: u8,
@@ -1385,8 +1343,7 @@ mod tinycbor {
         fn clone(&self) -> CborValue {
             {
                 let _: ::core::clone::AssertParamIsClone<*const CborParser>;
-                let _:
-                        ::core::clone::AssertParamIsClone<::std::os::raw::c_int>;
+                let _: ::core::clone::AssertParamIsClone<::cty::c_int>;
                 let _: ::core::clone::AssertParamIsClone<u32>;
                 let _: ::core::clone::AssertParamIsClone<u16>;
                 let _: ::core::clone::AssertParamIsClone<u8>;
@@ -1397,9 +1354,8 @@ mod tinycbor {
     }
     extern "C" {
         pub fn cbor_parser_init(d: *mut cbor_decoder_reader,
-                                flags: ::std::os::raw::c_int,
-                                parser: *mut CborParser, it: *mut CborValue)
-         -> CborError;
+                                flags: ::cty::c_int, parser: *mut CborParser,
+                                it: *mut CborValue) -> CborError;
     }
     extern "C" {
         pub fn cbor_value_advance_fixed(it: *mut CborValue) -> CborError;
@@ -1423,7 +1379,7 @@ mod tinycbor {
     }
     extern "C" {
         pub fn cbor_value_get_int_checked(value: *const CborValue,
-                                          result: *mut ::std::os::raw::c_int)
+                                          result: *mut ::cty::c_int)
          -> CborError;
     }
     extern "C" {
@@ -1436,20 +1392,18 @@ mod tinycbor {
     }
     extern "C" {
         pub fn cbor_value_text_string_equals(value: *const CborValue,
-                                             string:
-                                                 *const ::std::os::raw::c_char,
+                                             string: *const ::cty::c_char,
                                              result: *mut bool) -> CborError;
     }
     extern "C" {
         pub fn cbor_value_map_find_value(map: *const CborValue,
-                                         string:
-                                             *const ::std::os::raw::c_char,
+                                         string: *const ::cty::c_char,
                                          element: *mut CborValue)
          -> CborError;
     }
     extern "C" {
         pub fn cbor_value_get_half_float(value: *const CborValue,
-                                         result: *mut ::std::os::raw::c_void)
+                                         result: *mut ::cty::c_void)
          -> CborError;
     }
     extern "C" {
@@ -1788,6 +1742,7 @@ mod send_coap {
     use cstr_core::CStr;
     use crate::base::*;
     use crate::sensor::*;
+    use crate::tinycbor::*;
     fn send_sensor_data_without_encoding() {
         ();
         "a b c";
@@ -1796,23 +1751,6 @@ mod send_coap {
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
-        ();
-        let payload =
-            {
-                "begin none root";
-                let root = "root";
-                " >>  >> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
-                "TODO : add key : \"device\" , value : parse!(@ none device_id) , to object :\nroot";
-                " >>  >> \"node\" >> : node_id , int_sensor_value ,";
-                "TODO : add key : \"node\" , value : parse!(@ none node_id) , to object : root";
-                " >>  >> int_sensor_value >> ,";
-                "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
-                "--------------------";
-                "end none root";
-                "return none root to caller";
-                root
-            };
-        ();
     }
     fn send_sensor_data_json() {
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
@@ -1850,108 +1788,8 @@ mod send_coap {
                                 "end oc_rep_set_array";
                             };
                             {
-                                " >>  >> \"device\" >> : device_id , \"node\" : node_id , int_sensor_value ,";
-                                "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
-                                {
-                                    "begin coap_item_str _parent : values _key : \"device\" _val :\nparse!(@ json device_id)";
-                                    {
-                                        "begin coap_item array : values";
-                                        {
-                                            "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                                            {
-                                                "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                                values_map = CborEncoder{};
-                                                cbor_encoder_create_map(&values,
-                                                                        &values_map,
-                                                                        CborIndefiniteLength);
-                                                "end oc_rep_start_object";
-                                            };
-                                            "end oc_rep_object_array_start_item";
-                                        };
-                                        {
-                                            {
-                                                "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
-                                                cbor_encode_text_string(&values_map,
-                                                                        "key",
-                                                                        "key".len());
-                                                cbor_encode_text_string(&values_map,
-                                                                        "device",
-                                                                        "device".len());
-                                                "end oc_rep_set_text_string";
-                                            };
-                                            {
-                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
-                                                cbor_encode_text_string(&values_map,
-                                                                        "value",
-                                                                        "value".len());
-                                                cbor_encode_text_string(&values_map,
-                                                                        device_id,
-                                                                        device_id.len());
-                                                "end oc_rep_set_text_string";
-                                            };
-                                        };
-                                        {
-                                            "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                                            (/*ERROR*/);
-                                            "end oc_rep_object_array_end_item";
-                                        };
-                                        "end coap_item";
-                                    };
-                                    "end coap_item_str";
-                                };
-                                "--------------------";
-                                " >>  >> \"node\" >> : node_id , int_sensor_value ,";
-                                "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
-                                {
-                                    "begin coap_item_str _parent : values _key : \"node\" _val :\nparse!(@ json node_id)";
-                                    {
-                                        "begin coap_item array : values";
-                                        {
-                                            "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                                            {
-                                                "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                                values_map = CborEncoder{};
-                                                cbor_encoder_create_map(&values,
-                                                                        &values_map,
-                                                                        CborIndefiniteLength);
-                                                "end oc_rep_start_object";
-                                            };
-                                            "end oc_rep_object_array_start_item";
-                                        };
-                                        {
-                                            {
-                                                "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
-                                                cbor_encode_text_string(&values_map,
-                                                                        "key",
-                                                                        "key".len());
-                                                cbor_encode_text_string(&values_map,
-                                                                        "node",
-                                                                        "node".len());
-                                                "end oc_rep_set_text_string";
-                                            };
-                                            {
-                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
-                                                cbor_encode_text_string(&values_map,
-                                                                        "value",
-                                                                        "value".len());
-                                                cbor_encode_text_string(&values_map,
-                                                                        node_id,
-                                                                        node_id.len());
-                                                "end oc_rep_set_text_string";
-                                            };
-                                        };
-                                        {
-                                            "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                                            (/*ERROR*/);
-                                            "end oc_rep_object_array_end_item";
-                                        };
-                                        "end coap_item";
-                                    };
-                                    "end coap_item_str";
-                                };
-                                "--------------------";
                                 " >>  >> int_sensor_value >> ,";
-                                "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : values";
+                                "TODO : extract key , value from _sensor_value : int_sensor_value and add to\n_object : values";
                                 "--------------------";
                                 {
                                     "begin coap_item_int_val , parent : values , val : int_sensor_value";
@@ -2022,7 +1860,7 @@ mod send_coap {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        "> TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
+                        cbor_encoder_close_container(&g_encoder, &root_map);
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -2035,6 +1873,7 @@ mod send_coap {
     fn send_sensor_data_cbor() {
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
+        ();
         let payload =
             {
                 "begin cbor root";
@@ -2049,16 +1888,18 @@ mod send_coap {
                     };
                     {
                         " >>  >> int_sensor_value >> ,";
-                        "TODO : Extract ( key , value ) from _sensor_value : int_sensor_value and add\nto _object : root";
+                        "TODO : extract key , value from _sensor_value : int_sensor_value and add to\n_object : root";
                         "--------------------";
                         {
                             "begin coap_set_int_val , parent : root , val : int_sensor_value";
                             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
                             {
-                                "begin oc_rep_set_int_k , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                                "> TODO: g_err |= cbor_encode_text_string(&root_map, int_sensor_value.key, strlen(int_sensor_value.key));";
-                                "> TODO: g_err |= cbor_encode_int(&root_map, 1234);";
-                                "end oc_rep_set_int_k";
+                                "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
+                                cbor_encode_text_string(&root_map,
+                                                        int_sensor_value.key,
+                                                        int_sensor_value.key.len());
+                                cbor_encode_int(&root_map, value);
+                                "end oc_rep_set_int";
                             };
                             "end coap_set_int_val";
                         };
@@ -2066,7 +1907,7 @@ mod send_coap {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        "> TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
+                        cbor_encoder_close_container(&g_encoder, &root_map);
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -2075,8 +1916,7 @@ mod send_coap {
                 "return cbor root to caller";
                 root
             };
-        let float_sensor_value =
-            SensorValueNew{key: "tmp", val: SensorValueType::Float(28.70),};
+        ();
     }
     fn test_macro2() {
         let root = "root_var";
@@ -2086,311 +1926,17 @@ mod send_coap {
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         {
-            "begin coap_item_str _parent : values _key : \"device\" _val : device_id";
+            "begin coap_set_int_val , parent : root , val : int_sensor_value";
+            "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
             {
-                "begin coap_item array : values";
-                {
-                    "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                    {
-                        "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                        values_map = CborEncoder{};
-                        cbor_encoder_create_map(&values, &values_map,
-                                                CborIndefiniteLength);
-                        "end oc_rep_start_object";
-                    };
-                    "end oc_rep_object_array_start_item";
-                };
-                {
-                    {
-                        "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
-                        cbor_encode_text_string(&values_map, "key",
-                                                "key".len());
-                        cbor_encode_text_string(&values_map, "device",
-                                                "device".len());
-                        "end oc_rep_set_text_string";
-                    };
-                    {
-                        "begin oc_rep_set_text_string , object: values, key: \"value\", value: device_id, child: values_map";
-                        cbor_encode_text_string(&values_map, "value",
-                                                "value".len());
-                        cbor_encode_text_string(&values_map, device_id,
-                                                device_id.len());
-                        "end oc_rep_set_text_string";
-                    };
-                };
-                {
-                    "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                    (/*ERROR*/);
-                    "end oc_rep_object_array_end_item";
-                };
-                "end coap_item";
+                "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
+                cbor_encode_text_string(&root_map, int_sensor_value.key,
+                                        int_sensor_value.key.len());
+                cbor_encode_int(&root_map, value);
+                "end oc_rep_set_int";
             };
-            "end coap_item_str";
+            "end coap_set_int_val";
         };
-        {
-            "begin coap_array _object0 : root _key0 : values";
-            {
-                "begin oc_rep_set_array , object: root, key: values, child: root_map";
-                cbor_encode_text_string(root_map, values, values.len());
-                {
-                    "begin oc_rep_start_array , parent: root_map, key: values, child: values_array";
-                    values_array = CborEncoder{};
-                    cbor_encoder_create_array(&root_map, &values_array,
-                                              CborIndefiniteLength);
-                    "end oc_rep_start_array";
-                };
-                "end oc_rep_set_array";
-            };
-            {
-                {
-                    "begin coap_item_str _parent : values _key : \"device\" _val : device_id";
-                    {
-                        "begin coap_item array : values";
-                        {
-                            "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                            {
-                                "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                values_map = CborEncoder{};
-                                cbor_encoder_create_map(&values, &values_map,
-                                                        CborIndefiniteLength);
-                                "end oc_rep_start_object";
-                            };
-                            "end oc_rep_object_array_start_item";
-                        };
-                        {
-                            {
-                                "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
-                                cbor_encode_text_string(&values_map, "key",
-                                                        "key".len());
-                                cbor_encode_text_string(&values_map, "device",
-                                                        "device".len());
-                                "end oc_rep_set_text_string";
-                            };
-                            {
-                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: device_id, child: values_map";
-                                cbor_encode_text_string(&values_map, "value",
-                                                        "value".len());
-                                cbor_encode_text_string(&values_map,
-                                                        device_id,
-                                                        device_id.len());
-                                "end oc_rep_set_text_string";
-                            };
-                        };
-                        {
-                            "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                            (/*ERROR*/);
-                            "end oc_rep_object_array_end_item";
-                        };
-                        "end coap_item";
-                    };
-                    "end coap_item_str";
-                };
-                {
-                    "begin coap_item_str _parent : values _key : \"node\" _val : node_id";
-                    {
-                        "begin coap_item array : values";
-                        {
-                            "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                            {
-                                "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                values_map = CborEncoder{};
-                                cbor_encoder_create_map(&values, &values_map,
-                                                        CborIndefiniteLength);
-                                "end oc_rep_start_object";
-                            };
-                            "end oc_rep_object_array_start_item";
-                        };
-                        {
-                            {
-                                "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
-                                cbor_encode_text_string(&values_map, "key",
-                                                        "key".len());
-                                cbor_encode_text_string(&values_map, "node",
-                                                        "node".len());
-                                "end oc_rep_set_text_string";
-                            };
-                            {
-                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: node_id, child: values_map";
-                                cbor_encode_text_string(&values_map, "value",
-                                                        "value".len());
-                                cbor_encode_text_string(&values_map, node_id,
-                                                        node_id.len());
-                                "end oc_rep_set_text_string";
-                            };
-                        };
-                        {
-                            "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                            (/*ERROR*/);
-                            "end oc_rep_object_array_end_item";
-                        };
-                        "end coap_item";
-                    };
-                    "end coap_item_str";
-                };
-            };
-            {
-                "begin oc_rep_close_array , object: root, key: values, child: root_map";
-                {
-                    "begin oc_rep_end_array , parent: root_map, key: values, child: values_array";
-                    "> TODO: g_err |= cbor_encoder_close_container(&root_map, &values_array);";
-                    "end oc_rep_end_array";
-                };
-                "end oc_rep_close_array";
-            };
-            "end coap_array";
-        };
-        let payload =
-            {
-                "begin coap_root";
-                {
-                    "begin oc_rep_start_root_object";
-                    cbor_encoder_create_map(&g_encoder, &root_map,
-                                            CborIndefiniteLength);
-                    "end oc_rep_start_root_object";
-                };
-                {
-                    {
-                        "begin coap_array _object0 : root _key0 : values";
-                        {
-                            "begin oc_rep_set_array , object: root, key: values, child: root_map";
-                            cbor_encode_text_string(root_map, values,
-                                                    values.len());
-                            {
-                                "begin oc_rep_start_array , parent: root_map, key: values, child: values_array";
-                                values_array = CborEncoder{};
-                                cbor_encoder_create_array(&root_map,
-                                                          &values_array,
-                                                          CborIndefiniteLength);
-                                "end oc_rep_start_array";
-                            };
-                            "end oc_rep_set_array";
-                        };
-                        {
-                            {
-                                "begin coap_item_str _parent : values _key : \"device\" _val : device_id";
-                                {
-                                    "begin coap_item array : values";
-                                    {
-                                        "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                                        {
-                                            "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                            values_map = CborEncoder{};
-                                            cbor_encoder_create_map(&values,
-                                                                    &values_map,
-                                                                    CborIndefiniteLength);
-                                            "end oc_rep_start_object";
-                                        };
-                                        "end oc_rep_object_array_start_item";
-                                    };
-                                    {
-                                        {
-                                            "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
-                                            cbor_encode_text_string(&values_map,
-                                                                    "key",
-                                                                    "key".len());
-                                            cbor_encode_text_string(&values_map,
-                                                                    "device",
-                                                                    "device".len());
-                                            "end oc_rep_set_text_string";
-                                        };
-                                        {
-                                            "begin oc_rep_set_text_string , object: values, key: \"value\", value: device_id, child: values_map";
-                                            cbor_encode_text_string(&values_map,
-                                                                    "value",
-                                                                    "value".len());
-                                            cbor_encode_text_string(&values_map,
-                                                                    device_id,
-                                                                    device_id.len());
-                                            "end oc_rep_set_text_string";
-                                        };
-                                    };
-                                    {
-                                        "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                                        (/*ERROR*/);
-                                        "end oc_rep_object_array_end_item";
-                                    };
-                                    "end coap_item";
-                                };
-                                "end coap_item_str";
-                            };
-                            {
-                                "begin coap_item_str _parent : values _key : \"node\" _val : node_id";
-                                {
-                                    "begin coap_item array : values";
-                                    {
-                                        "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                                        {
-                                            "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                            values_map = CborEncoder{};
-                                            cbor_encoder_create_map(&values,
-                                                                    &values_map,
-                                                                    CborIndefiniteLength);
-                                            "end oc_rep_start_object";
-                                        };
-                                        "end oc_rep_object_array_start_item";
-                                    };
-                                    {
-                                        {
-                                            "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
-                                            cbor_encode_text_string(&values_map,
-                                                                    "key",
-                                                                    "key".len());
-                                            cbor_encode_text_string(&values_map,
-                                                                    "node",
-                                                                    "node".len());
-                                            "end oc_rep_set_text_string";
-                                        };
-                                        {
-                                            "begin oc_rep_set_text_string , object: values, key: \"value\", value: node_id, child: values_map";
-                                            cbor_encode_text_string(&values_map,
-                                                                    "value",
-                                                                    "value".len());
-                                            cbor_encode_text_string(&values_map,
-                                                                    node_id,
-                                                                    node_id.len());
-                                            "end oc_rep_set_text_string";
-                                        };
-                                    };
-                                    {
-                                        "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                                        (/*ERROR*/);
-                                        "end oc_rep_object_array_end_item";
-                                    };
-                                    "end coap_item";
-                                };
-                                "end coap_item_str";
-                            };
-                            {
-                                "begin coap_set_int_val , parent : root , val : int_sensor_value";
-                                "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                {
-                                    "begin oc_rep_set_int_k , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                                    "> TODO: g_err |= cbor_encode_text_string(&root_map, int_sensor_value.key, strlen(int_sensor_value.key));";
-                                    "> TODO: g_err |= cbor_encode_int(&root_map, 1234);";
-                                    "end oc_rep_set_int_k";
-                                };
-                                "end coap_set_int_val";
-                            };
-                        };
-                        {
-                            "begin oc_rep_close_array , object: root, key: values, child: root_map";
-                            {
-                                "begin oc_rep_end_array , parent: root_map, key: values, child: values_array";
-                                "> TODO: g_err |= cbor_encoder_close_container(&root_map, &values_array);";
-                                "end oc_rep_end_array";
-                            };
-                            "end oc_rep_close_array";
-                        };
-                        "end coap_array";
-                    }
-                };
-                {
-                    "begin oc_rep_end_root_object";
-                    "> TODO : g_err |= cbor_encoder_close_container ( & g_encoder , & root_map )";
-                    "end oc_rep_end_root_object";
-                };
-                "end coap_root";
-            };
     }
     ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
     ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  

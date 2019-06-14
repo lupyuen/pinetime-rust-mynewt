@@ -149,6 +149,17 @@
             "problemMatcher": []
         },
         {
+            //  Generate Rust bindings for C libraries.
+            "label": "Generate Rust bindings",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c", "-l",
+                " set -e -x ; ./scripts/gen-bindings.sh ; echo ✅ ◾ ️Done! "
+            ],
+            "problemMatcher": []
+        },
+        {
             //  Install VSCode Extensions. They will be activated upon restarting VSCode.
             "label": "Install Extensions",
             "type": "shell",

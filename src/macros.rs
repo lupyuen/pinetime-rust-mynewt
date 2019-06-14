@@ -128,7 +128,7 @@ macro_rules! parse {
 
   // No Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@none @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    d!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
+    d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
     //  Continue expanding the rest of the JSON.
     parse!(@none @object $object () ($($rest)*) ($($rest)*));
@@ -136,7 +136,7 @@ macro_rules! parse {
 
   // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    d!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
+    d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
     coap_item_int_val!(@json
       $object,  //  _object, 
@@ -149,7 +149,7 @@ macro_rules! parse {
 
   // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@cbor @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    d!(TODO: Extract (key, value) from _sensor_value: $($key)* and add to _object: $object);
+    d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
     coap_set_int_val!(@cbor
       $object,  //  _object, 
@@ -459,7 +459,7 @@ macro_rules! coap_set_int_val {
     d!(begin coap_set_int_val, parent: $parent0, val: $val0);
     d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
     //  d!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
-    oc_rep_set_int_k!($parent0, $val0.key, 1234);  //  TODO
+    oc_rep_set_int!($parent0, $val0.key, 1234);  //  TODO
     d!(end coap_set_int_val);
   }};
 }
@@ -495,8 +495,8 @@ macro_rules! oc_rep_start_root_object {
 macro_rules! oc_rep_end_root_object {
   () => {{
     d!(begin oc_rep_end_root_object);
-    //  TODO
-    d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
+    //  d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
+    cbor_encoder_close_container(&g_encoder, &root_map);
     d!(end oc_rep_end_root_object);
   }};
 }
@@ -561,20 +561,8 @@ macro_rules! oc_rep_start_array {
     );
     //  d!(> TODO: CborEncoder key##_array);
     concat_idents!($key, _array) = CborEncoder{};
-    /* concat!(
-      "> TODO: CborEncoder ",
-      stringify!($key), "_array",  //  key##_array
-      ");"
-    ); */
     //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
     cbor_encoder_create_array(&concat_idents!($parent, $parent_suffix), &concat_idents!($key, _array), CborIndefiniteLength);
-    /* concat!(
-      "> TODO: g_err |= cbor_encoder_create_array(&", 
-      stringify!($parent), $parent_suffix,  //  parent##parent_suffix
-      ", &",
-      stringify!($key), "_array",  //  key##_array
-      ", CborIndefiniteLength);"
-    ); */
     d!(end oc_rep_start_array);
   }};
 }
@@ -679,7 +667,7 @@ macro_rules! oc_rep_object_array_end_item {
     oc_rep_end_object!(
       $key, 
       $key,
-      "_array"
+      _array
     );  //  TODO
     d!(end oc_rep_object_array_end_item);
   }};
@@ -697,29 +685,13 @@ macro_rules! oc_rep_set_int {
     );
     //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
     cbor_encode_text_string(&concat_idents!($object,_map), $key, $key.len());
-    /* concat!(
-      "> TODO: g_err |= cbor_encode_text_string(&",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($key),  //  #key
-      ", strlen(",
-      stringify!($key),  //  #key
-      "));"
-    ); */
-
     //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
     cbor_encode_int(&concat_idents!($object,_map), value);
-    /* concat!(
-      "> TODO: g_err |= cbor_encode_int(&",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($value),  //  value
-      ");"
-    ); */
     d!(end oc_rep_set_int);
   }};
 }
 
+/*
 ///  Same as oc_rep_set_int but changed "#key" to "key" so that the key won't be stringified.
 #[macro_export]
 macro_rules! oc_rep_set_int_k {
@@ -753,6 +725,7 @@ macro_rules! oc_rep_set_int_k {
     d!(end oc_rep_set_int_k);
   }};
 }
+*/
 
 #[macro_export]
 macro_rules! oc_rep_set_text_string {
@@ -766,27 +739,8 @@ macro_rules! oc_rep_set_text_string {
     );
     //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
     cbor_encode_text_string(&concat_idents!($object, _map), $key, $key.len());
-    /* concat!(
-      "> TODO: g_err |= cbor_encode_text_string(&",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($key),  //  #key
-      ", strlen(",
-      stringify!($key),  //  #key
-      "));"
-    ); */
-
     //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
     cbor_encode_text_string(&concat_idents!($object, _map), $value, $value.len());
-    /* concat!(
-      "> TODO: g_err |= cbor_encode_text_string(&",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($value),  //  value
-      ", strlen(",
-      stringify!($value),  //  value
-      "));"
-    ); */
     d!(end oc_rep_set_text_string);
   }};
 }

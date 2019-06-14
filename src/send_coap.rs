@@ -1,6 +1,7 @@
-use cstr_core::CStr;   //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
-use crate::base::*;    //  Import base.rs for common declarations
-use crate::sensor::*;  //  Import sensor.rs for sensor declarations
+use cstr_core::CStr;     //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
+use crate::base::*;      //  Import base.rs for common declarations
+use crate::sensor::*;    //  Import sensor.rs for sensor declarations
+use crate::tinycbor::*;  //  Import tinycbor.rs for TinyCBOR C API
 
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);   //  Start tracing macros
@@ -15,6 +16,7 @@ fn send_sensor_data_without_encoding() {
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id =   b"b3b4b5b6f1";
 
+  /*
   //  Compose the CoAP Payload without encoding using the `coap` macro.
   trace_macros!(true);   //  Start tracing macros
   let payload = coap!(@none {
@@ -23,6 +25,7 @@ fn send_sensor_data_without_encoding() {
     int_sensor_value,  //  Send `{t: 2870}`
   });
   trace_macros!(false);  //  Stop tracing macros
+  */
 }
 
 // !  Send sensor data to a CoAP Server or a Collector Node.  The CoAP payload will be encoded as JSON
@@ -38,7 +41,7 @@ fn send_sensor_data_without_encoding() {
 // !  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 fn send_sensor_data_json() {
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
-  let node_id = b"b3b4b5b6f1";
+  let node_id  =  b"b3b4b5b6f1";
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
@@ -49,14 +52,16 @@ fn send_sensor_data_json() {
   //  Compose the CoAP Payload in JSON using the `coap` macro.
   //  trace_macros!(true);
   let payload = coap!(@json {
-    "device": device_id,
-    "node":   node_id,
+    //  "device": device_id,
+    //  "node":   node_id,
     int_sensor_value,  //  Send `{t: 2870}`
   });
   //  trace_macros!(false);
 }
 
 fn send_sensor_data_cbor() {
+  let mut root_map = CborEncoder{};
+  
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
     key: "t",
@@ -64,19 +69,14 @@ fn send_sensor_data_cbor() {
   };
 
   //  Compose the CoAP Payload in CBOR using the `coap` macro.
-  //  trace_macros!(true);
+  trace_macros!(true);
   let payload = coap!(@cbor {
     int_sensor_value,    //  Send `{t: 2870}`
   });
-  //  trace_macros!(false);
-
-  //  Sensor `tmp` has float value 28.70.
-  let float_sensor_value = SensorValueNew {
-    key: "tmp",
-    val: SensorValueType::Float(28.70)
-  };
-  //  float_sensor_value,  //  Send `{tmp: 28.70}`
+  trace_macros!(false);
 }
+
+static mut g_encoder: CborEncoder = CborEncoder{};
 
 fn test_macro2() {
   //  Send the payload.
@@ -101,8 +101,10 @@ fn test_macro2() {
     val: SensorValueType::Uint(2870)
   };
 
+  coap_set_int_val! (@cbor root, int_sensor_value);
+
+  /*
   coap_item_str! (@json values, "device", device_id);  ////
-  //  coap_set_int_val! (root, int_sensor_value);
 
   coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
     coap_item_str! (@json values, "device", device_id);
@@ -134,6 +136,7 @@ fn test_macro2() {
 
     }) //  Close the "values" array
   }); //  Close the payload root
+  */
 }
 
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers

@@ -7,7 +7,7 @@ set -x  #  Echo all commands.
 
 bindgen \
     --use-core \
-    --ctypes-prefix '::core::raw' \
+    --ctypes-prefix '::cty' \
     --whitelist-function '(?i)cbor.*' \
     --whitelist-type     '(?i)cbor.*' \
     --whitelist-var      '(?i)cbor.*' \
