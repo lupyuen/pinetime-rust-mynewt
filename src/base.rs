@@ -134,7 +134,8 @@ pub struct SensorValue {
 ///  or float (computed), we use the struct to return both integer and float values.
 pub struct SensorValueNew {
   ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-  pub key: &'static [u8],
+  //  pub key: &'static [u8],
+  pub key: &'static str,
   ///  The type of the sensor value and the value.
   pub val: SensorValueType,
 }

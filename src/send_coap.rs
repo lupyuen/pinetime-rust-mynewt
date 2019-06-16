@@ -10,7 +10,7 @@ fn send_sensor_data_without_encoding() {
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: int_sensor_key,
+    key: "t",
     val: SensorValueType::Uint(2870)
   };
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
@@ -45,7 +45,7 @@ fn send_sensor_data_json() {
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: int_sensor_key,
+    key: "t",
     val: SensorValueType::Uint(2870)
   };
   /*
@@ -63,9 +63,15 @@ fn send_sensor_data_json() {
 fn send_sensor_data_cbor() {
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: int_sensor_key,
+    key: "t",
     val: SensorValueType::Uint(2870)
   };
+  const k: &'static [u8] = b"t\0";
+  const k2: &'static str = "t";
+  cbor_encode_text_string(&mut root_map,
+                          int_sensor_value.key.as_ptr(),
+                          int_sensor_value.key.len());
+  cbor_encode_int(&mut root_map, 1234);
 
   //  Compose the CoAP Payload in CBOR using the `coap` macro.
   trace_macros!(true);
@@ -85,8 +91,8 @@ fn send_sensor_data_cbor() {
 ///  Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
 #[link(name = "net_oic")]
 extern {
-    static mut g_encoder: *mut CborEncoder;
-    static mut root_map: *mut CborEncoder;
+    static mut g_encoder: CborEncoder;
+    static mut root_map: CborEncoder;
 }
 
 ///  Null-terminated string "t".
@@ -113,7 +119,7 @@ fn test_macro2() {
   let node_id = b"b3b4b5b6f1";
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValueNew {
-    key: int_sensor_key,
+    key: "t",
     val: SensorValueType::Uint(2870)
   };
 

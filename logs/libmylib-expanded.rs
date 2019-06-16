@@ -404,7 +404,7 @@ mod macros {
                                           {
                                           d ! ( begin oc_rep_start_root_object
                                           ) ; cbor_encoder_create_map (
-                                          & g_encoder , & root_map ,
+                                          & mut g_encoder , & mut root_map ,
                                           CborIndefiniteLength ) ; d ! (
                                           end oc_rep_start_root_object ) ; } }
                                           ;);
@@ -413,8 +413,9 @@ mod macros {
                                         {
                                         d ! ( begin oc_rep_end_root_object ) ;
                                         cbor_encoder_close_container (
-                                        & g_encoder , & root_map ) ; d ! (
-                                        end oc_rep_end_root_object ) ; } } ;);
+                                        & mut g_encoder , & mut root_map ) ; d
+                                        ! ( end oc_rep_end_root_object ) ; } }
+                                        ;);
     #[macro_export]
     macro_rules! oc_rep_start_object((
                                      $ parent : ident , $ key : ident , $
@@ -545,9 +546,9 @@ mod macros {
                                 stringify ! ( $ value ) , ", child: " ,
                                 stringify ! ( $ object ) , "_map" ) ;
                                 cbor_encode_text_string (
-                                & concat_idents ! ( $ object , _map ) , $ key
-                                , $ key . len (  ) ) ; cbor_encode_int (
-                                & concat_idents ! ( $ object , _map ) , $
+                                & mut concat_idents ! ( $ object , _map ) , $
+                                key , $ key . len (  ) ) ; cbor_encode_int (
+                                & mut concat_idents ! ( $ object , _map ) , $
                                 value ) ; d ! ( end oc_rep_set_int ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_set_text_string((
@@ -725,7 +726,7 @@ mod base {
     ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
     ///  or float (computed), we use the struct to return both integer and float values.
     pub struct SensorValueNew {
-        ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
+        ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
         pub key: &'static str,
         ///  The type of the sensor value and the value.
         pub val: SensorValueType,
@@ -1740,14 +1741,14 @@ mod listen_sensor {
 mod send_coap {
     use cstr_core::CStr;
     use crate::base::*;
-    use crate::sensor::*;
     use crate::tinycbor::*;
     fn send_sensor_data_without_encoding() {
         ();
         "a b c";
         ();
         let int_sensor_value =
-            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: int_sensor_key,
+                           val: SensorValueType::Uint(2870),};
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
     }
@@ -1755,11 +1756,17 @@ mod send_coap {
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
-            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: int_sensor_key,
+                           val: SensorValueType::Uint(2870),};
     }
     fn send_sensor_data_cbor() {
         let int_sensor_value =
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
+        const k: &'static [u8] = b"t\0";
+        const k2: &'static str = "t";
+        cbor_encode_text_string(&mut root_map, int_sensor_value.key.as_ptr(),
+                                int_sensor_value.key.len());
+        cbor_encode_int(&mut root_map, 1234);
         ();
         let payload =
             {
@@ -1769,7 +1776,7 @@ mod send_coap {
                     "begin coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        cbor_encoder_create_map(&g_encoder, &root_map,
+                        cbor_encoder_create_map(&mut g_encoder, &mut root_map,
                                                 CborIndefiniteLength);
                         "end oc_rep_start_root_object";
                     };
@@ -1782,10 +1789,10 @@ mod send_coap {
                             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
                             {
                                 "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                                cbor_encode_text_string(&root_map,
+                                cbor_encode_text_string(&mut root_map,
                                                         int_sensor_value.key,
                                                         int_sensor_value.key.len());
-                                cbor_encode_int(&root_map, 1234);
+                                cbor_encode_int(&mut root_map, 1234);
                                 "end oc_rep_set_int";
                             };
                             "end coap_set_int_val";
@@ -1794,7 +1801,8 @@ mod send_coap {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        cbor_encoder_close_container(&g_encoder, &root_map);
+                        cbor_encoder_close_container(&mut g_encoder,
+                                                     &mut root_map);
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -1805,23 +1813,32 @@ mod send_coap {
             };
         ();
     }
-    static mut g_encoder: CborEncoder = CborEncoder{};
-    static mut root_map: CborEncoder = CborEncoder{};
+    ///  Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+    #[link(name = "net_oic")]
+    extern "C" {
+        static mut g_encoder: CborEncoder;
+        static mut root_map: CborEncoder;
+    }
+    ///  Null-terminated string "t".
+    const int_sensor_key: &'static [u8] = b"t\0";
+    ///  Null-terminated string "tmp".
+    const float_sensor_key: &'static [u8] = b"tmp\0";
     fn test_macro2() {
         let root = "root_var";
         let values = "values_var";
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
-            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: int_sensor_key,
+                           val: SensorValueType::Uint(2870),};
         {
             "begin coap_set_int_val , parent : root , val : int_sensor_value";
             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
             {
                 "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                cbor_encode_text_string(&root_map, int_sensor_value.key,
+                cbor_encode_text_string(&mut root_map, int_sensor_value.key,
                                         int_sensor_value.key.len());
-                cbor_encode_int(&root_map, 1234);
+                cbor_encode_int(&mut root_map, 1234);
                 "end oc_rep_set_int";
             };
             "end coap_set_int_val";
