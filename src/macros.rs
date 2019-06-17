@@ -510,12 +510,10 @@ macro_rules! oc_rep_start_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    unsafe {
-      //  d!(> TODO: CborEncoder key##_map);
-      concat_idents!($key, _map) = CborEncoder{};
-      //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-      cbor_encoder_create_map(&$parent, &concat_idents!($key, _map), CborIndefiniteLength);
-    }
+    //  d!(> TODO: CborEncoder key##_map);
+    concat_idents!($key, _map) = CborEncoder{};
+    //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
+    unsafe { cbor_encoder_create_map(&$parent, &concat_idents!($key, _map), CborIndefiniteLength) };
     d!(end oc_rep_start_object);
   }};
 }
@@ -544,12 +542,10 @@ macro_rules! oc_rep_start_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    unsafe {
-      //  d!(> TODO: CborEncoder key##_array);
-      concat_idents!($key, _array) = CborEncoder{};
-      //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-      cbor_encoder_create_array(&concat_idents!($parent, $parent_suffix), &concat_idents!($key, _array), CborIndefiniteLength);
-    }
+    //  d!(> TODO: CborEncoder key##_array);
+    concat_idents!($key, _array) = CborEncoder{};
+    //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
+    unsafe { cbor_encoder_create_array(&concat_idents!($parent, $parent_suffix), &concat_idents!($key, _array), CborIndefiniteLength) };
     d!(end oc_rep_start_array);
   }};
 }
@@ -578,16 +574,14 @@ macro_rules! oc_rep_set_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    unsafe {
-      //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
-      cbor_encode_text_string(concat_idents!($object, _map), $key.as_ptr(), $key.len());
-      //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
-      oc_rep_start_array!(
-        $object,
-        $key,
-        _map
-      ); //  TODO
-    }
+    //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
+    unsafe { cbor_encode_text_string(concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
+    //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
+    oc_rep_start_array!(
+      $object,
+      $key,
+      _map
+    ); //  TODO
     d!(end oc_rep_set_array);
   }};
 }

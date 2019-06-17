@@ -403,19 +403,21 @@ mod macros {
     macro_rules! oc_rep_start_root_object((  ) => {
                                           {
                                           d ! ( begin oc_rep_start_root_object
-                                          ) ; cbor_encoder_create_map (
+                                          ) ; unsafe {
+                                          cbor_encoder_create_map (
                                           & mut g_encoder , & mut root_map ,
-                                          CborIndefiniteLength ) ; d ! (
+                                          CborIndefiniteLength ) } ; d ! (
                                           end oc_rep_start_root_object ) ; } }
                                           ;);
     #[macro_export(local_inner_macros)]
     macro_rules! oc_rep_end_root_object((  ) => {
                                         {
                                         d ! ( begin oc_rep_end_root_object ) ;
+                                        unsafe {
                                         cbor_encoder_close_container (
-                                        & mut g_encoder , & mut root_map ) ; d
-                                        ! ( end oc_rep_end_root_object ) ; } }
-                                        ;);
+                                        & mut g_encoder , & mut root_map ) ; }
+                                        d ! ( end oc_rep_end_root_object ) ; }
+                                        } ;);
     #[macro_export]
     macro_rules! oc_rep_start_object((
                                      $ parent : ident , $ key : ident , $
@@ -428,11 +430,12 @@ mod macros {
                                      ", key: " , stringify ! ( $ key ) ,
                                      ", child: " , stringify ! ( $ key ) ,
                                      "_map" ) ; concat_idents ! ( $ key , _map
-                                     ) = CborEncoder {  } ;
+                                     ) = CborEncoder {  } ; unsafe {
                                      cbor_encoder_create_map (
                                      & $ parent , & concat_idents ! (
-                                     $ key , _map ) , CborIndefiniteLength ) ;
-                                     d ! ( end oc_rep_start_object ) ; } } ;);
+                                     $ key , _map ) , CborIndefiniteLength ) }
+                                     ; d ! ( end oc_rep_start_object ) ; } }
+                                     ;);
     #[macro_export]
     macro_rules! oc_rep_end_object((
                                    $ parent : ident , $ key : ident , $
@@ -443,12 +446,12 @@ mod macros {
                                    stringify ! ( $ parent ) , stringify ! (
                                    $ parent_suffix ) , ", key: " , stringify !
                                    ( $ key ) , ", child: " , stringify ! (
-                                   $ key ) , "_map" ) ;
+                                   $ key ) , "_map" ) ; unsafe {
                                    cbor_encoder_close_container (
                                    & concat_idents ! (
                                    $ parent , $ parent_suffix ) , &
-                                   concat_idents ! ( $ key , # # _map ) ) ; d
-                                   ! ( end oc_rep_end_object ) ; } } ;);
+                                   concat_idents ! ( $ key , # # _map ) ) } ;
+                                   d ! ( end oc_rep_end_object ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_start_array((
                                     $ parent : ident , $ key : ident , $
@@ -461,11 +464,12 @@ mod macros {
                                     ! ( $ key ) , ", child: " , stringify ! (
                                     $ key ) , "_array" ) ; concat_idents ! (
                                     $ key , _array ) = CborEncoder {  } ;
+                                    unsafe {
                                     cbor_encoder_create_array (
                                     & concat_idents ! (
                                     $ parent , $ parent_suffix ) , &
                                     concat_idents ! ( $ key , _array ) ,
-                                    CborIndefiniteLength ) ; d ! (
+                                    CborIndefiniteLength ) } ; d ! (
                                     end oc_rep_start_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_end_array((
@@ -477,12 +481,11 @@ mod macros {
                                   stringify ! ( $ parent ) , $ parent_suffix ,
                                   ", key: " , stringify ! ( $ key ) ,
                                   ", child: " , stringify ! ( $ key ) ,
-                                  "_array" ) ; concat ! (
-                                  "> TODO: g_err |= cbor_encoder_close_container(&"
-                                  , stringify ! ( $ parent ) , $ parent_suffix
-                                  , ", &" , stringify ! ( $ key ) , "_array" ,
-                                  ");" ) ; d ! ( end oc_rep_end_array ) ; } }
-                                  ;);
+                                  "_array" ) ; unsafe {
+                                  cbor_encoder_close_container (
+                                  $ parent , & concat_idents ! (
+                                  $ parent , $ parent_suffix ) ) } ; d ! (
+                                  end oc_rep_end_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_set_array(( $ object : ident , $ key : ident ) => {
                                   {
@@ -490,11 +493,13 @@ mod macros {
                                   "begin oc_rep_set_array " , ", object: " ,
                                   stringify ! ( $ object ) , ", key: " ,
                                   stringify ! ( $ key ) , ", child: " ,
-                                  stringify ! ( $ object ) , "_map" ) ;
+                                  stringify ! ( $ object ) , "_map" ) ; unsafe
+                                  {
                                   cbor_encode_text_string (
                                   concat_idents ! ( $ object , _map ) , $ key
-                                  , $ key . len (  ) ) ; oc_rep_start_array !
-                                  ( $ object , $ key , _map ) ; d ! (
+                                  . as_ptr (  ) , $ key . len (  ) ) } ;
+                                  oc_rep_start_array ! (
+                                  $ object , $ key , _map ) ; d ! (
                                   end oc_rep_set_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_close_array(( $ object : ident , $ key : ident ) => {
@@ -504,8 +509,9 @@ mod macros {
                                     , stringify ! ( $ object ) , ", key: " ,
                                     stringify ! ( $ key ) , ", child: " ,
                                     stringify ! ( $ object ) , "_map" ) ;
+                                    unsafe {
                                     oc_rep_end_array ! (
-                                    $ object , $ key , "_map" ) ; d ! (
+                                    $ object , $ key , "_map" ) } ; d ! (
                                     end oc_rep_close_array ) ; } } ;);
     #[macro_export]
     macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
@@ -515,10 +521,10 @@ mod macros {
                                                 , ", key: " , stringify ! (
                                                 $ key ) , ", child: " ,
                                                 stringify ! ( $ key ) ,
-                                                "_array" , ) ;
+                                                "_array" , ) ; unsafe {
                                                 oc_rep_start_object ! (
-                                                $ key , $ key , _array ) ; d !
-                                                (
+                                                $ key , $ key , _array ) } ; d
+                                                ! (
                                                 end
                                                 oc_rep_object_array_start_item
                                                 ) ; } } ;);
@@ -530,8 +536,10 @@ mod macros {
                                               , ", key: " , stringify ! (
                                               $ key ) , ", child: " ,
                                               stringify ! ( $ key ) , "_array"
-                                              , ) ; oc_rep_end_object ! (
-                                              $ key , $ key , _array ) ; d ! (
+                                              , ) ; unsafe {
+                                              oc_rep_end_object ! (
+                                              $ key , $ key , _array ) } ; d !
+                                              (
                                               end oc_rep_object_array_end_item
                                               ) ; } } ;);
     #[macro_export]
@@ -544,12 +552,14 @@ mod macros {
                                 stringify ! ( $ object ) , ", key: " ,
                                 stringify ! ( $ key ) , ", value: " ,
                                 stringify ! ( $ value ) , ", child: " ,
-                                stringify ! ( $ object ) , "_map" ) ;
+                                stringify ! ( $ object ) , "_map" ) ; unsafe {
                                 cbor_encode_text_string (
                                 & mut concat_idents ! ( $ object , _map ) , $
-                                key , $ key . len (  ) ) ; cbor_encode_int (
+                                key . as_ptr (  ) , $ key . len (  ) ) ;
+                                cbor_encode_int (
                                 & mut concat_idents ! ( $ object , _map ) , $
-                                value ) ; d ! ( end oc_rep_set_int ) ; } } ;);
+                                value ) ; } d ! ( end oc_rep_set_int ) ; } }
+                                ;);
     #[macro_export]
     macro_rules! oc_rep_set_text_string((
                                         $ object : ident , $ key : expr , $
@@ -561,15 +571,15 @@ mod macros {
                                         ) , ", key: " , stringify ! ( $ key )
                                         , ", value: " , stringify ! ( $ value
                                         ) , ", child: " , stringify ! (
-                                        $ object ) , "_map" ) ;
+                                        $ object ) , "_map" ) ; unsafe {
                                         cbor_encode_text_string (
                                         & concat_idents ! ( $ object , _map )
-                                        , $ key , $ key . len (  ) ) ;
-                                        cbor_encode_text_string (
+                                        , $ key . as_ptr (  ) , $ key . len (
+                                        ) ) ; cbor_encode_text_string (
                                         & concat_idents ! ( $ object , _map )
-                                        , $ value , $ value . len (  ) ) ; d !
-                                        ( end oc_rep_set_text_string ) ; } }
-                                        ;);
+                                        , $ value . as_ptr (  ) , $ value .
+                                        len (  ) ) ; } d ! (
+                                        end oc_rep_set_text_string ) ; } } ;);
     #[macro_export]
     macro_rules! test_literal(( $ key : literal ) => {
                               { concat ! ( $ key , "_zzz" ) ; } } ;);
@@ -1747,8 +1757,7 @@ mod send_coap {
         "a b c";
         ();
         let int_sensor_value =
-            SensorValueNew{key: int_sensor_key,
-                           val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
     }
@@ -1756,8 +1765,7 @@ mod send_coap {
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
-            SensorValueNew{key: int_sensor_key,
-                           val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
     }
     fn send_sensor_data_cbor() {
         let int_sensor_value =
@@ -1776,8 +1784,11 @@ mod send_coap {
                     "begin coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        cbor_encoder_create_map(&mut g_encoder, &mut root_map,
-                                                CborIndefiniteLength);
+                        unsafe {
+                            cbor_encoder_create_map(&mut g_encoder,
+                                                    &mut root_map,
+                                                    CborIndefiniteLength)
+                        };
                         "end oc_rep_start_root_object";
                     };
                     {
@@ -1789,10 +1800,12 @@ mod send_coap {
                             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
                             {
                                 "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                                cbor_encode_text_string(&mut root_map,
-                                                        int_sensor_value.key,
-                                                        int_sensor_value.key.len());
-                                cbor_encode_int(&mut root_map, 1234);
+                                unsafe {
+                                    cbor_encode_text_string(&mut root_map,
+                                                            int_sensor_value.key.as_ptr(),
+                                                            int_sensor_value.key.len());
+                                    cbor_encode_int(&mut root_map, 1234);
+                                }
                                 "end oc_rep_set_int";
                             };
                             "end coap_set_int_val";
@@ -1801,8 +1814,10 @@ mod send_coap {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        cbor_encoder_close_container(&mut g_encoder,
-                                                     &mut root_map);
+                        unsafe {
+                            cbor_encoder_close_container(&mut g_encoder,
+                                                         &mut root_map);
+                        }
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -1829,16 +1844,18 @@ mod send_coap {
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
-            SensorValueNew{key: int_sensor_key,
-                           val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         {
             "begin coap_set_int_val , parent : root , val : int_sensor_value";
             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
             {
                 "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                cbor_encode_text_string(&mut root_map, int_sensor_value.key,
-                                        int_sensor_value.key.len());
-                cbor_encode_int(&mut root_map, 1234);
+                unsafe {
+                    cbor_encode_text_string(&mut root_map,
+                                            int_sensor_value.key.as_ptr(),
+                                            int_sensor_value.key.len());
+                    cbor_encode_int(&mut root_map, 1234);
+                }
                 "end oc_rep_set_int";
             };
             "end coap_set_int_val";

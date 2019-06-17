@@ -6,8 +6,7 @@
         "a b c";
         ();
         let int_sensor_value =
-            SensorValueNew{key: int_sensor_key,
-                           val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
     }
@@ -15,8 +14,7 @@
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
-            SensorValueNew{key: int_sensor_key,
-                           val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
     }
     fn send_sensor_data_cbor() {
         let int_sensor_value =
@@ -35,8 +33,11 @@
                     "begin coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        cbor_encoder_create_map(&mut g_encoder, &mut root_map,
-                                                CborIndefiniteLength);
+                        unsafe {
+                            cbor_encoder_create_map(&mut g_encoder,
+                                                    &mut root_map,
+                                                    CborIndefiniteLength)
+                        };
                         "end oc_rep_start_root_object";
                     };
                     {
@@ -48,10 +49,12 @@
                             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
                             {
                                 "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                                cbor_encode_text_string(&mut root_map,
-                                                        int_sensor_value.key,
-                                                        int_sensor_value.key.len());
-                                cbor_encode_int(&mut root_map, 1234);
+                                unsafe {
+                                    cbor_encode_text_string(&mut root_map,
+                                                            int_sensor_value.key.as_ptr(),
+                                                            int_sensor_value.key.len());
+                                    cbor_encode_int(&mut root_map, 1234);
+                                }
                                 "end oc_rep_set_int";
                             };
                             "end coap_set_int_val";
@@ -60,8 +63,10 @@
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        cbor_encoder_close_container(&mut g_encoder,
-                                                     &mut root_map);
+                        unsafe {
+                            cbor_encoder_close_container(&mut g_encoder,
+                                                         &mut root_map);
+                        }
                         "end oc_rep_end_root_object";
                     };
                     "end coap_root";
@@ -88,16 +93,18 @@
         let device_id = b"0102030405060708090a0b0c0d0e0f10";
         let node_id = b"b3b4b5b6f1";
         let int_sensor_value =
-            SensorValueNew{key: int_sensor_key,
-                           val: SensorValueType::Uint(2870),};
+            SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         {
             "begin coap_set_int_val , parent : root , val : int_sensor_value";
             "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
             {
                 "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                cbor_encode_text_string(&mut root_map, int_sensor_value.key,
-                                        int_sensor_value.key.len());
-                cbor_encode_int(&mut root_map, 1234);
+                unsafe {
+                    cbor_encode_text_string(&mut root_map,
+                                            int_sensor_value.key.as_ptr(),
+                                            int_sensor_value.key.len());
+                    cbor_encode_int(&mut root_map, 1234);
+                }
                 "end oc_rep_set_int";
             };
             "end coap_set_int_val";
