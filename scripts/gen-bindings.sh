@@ -20,6 +20,13 @@ function generate_bindings_libs() {
     local modname=$1
     local libdir=libs/$libname
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+
+    local whitelist=--whitelist-function "(?i)init_.*_post"
+    whitelist=$whitelist --whitelist-function "(?i)do_.*_post"
+    whitelist=$whitelist --whitelist-function "(?i)$modname.*"
+    whitelist=$whitelist --whitelist-type     "(?i)$modname.*"
+    whitelist=$whitelist --whitelist-var      "(?i)$modname.*"
+
     generate_bindings $libname $modname $libdir $libcmd
 }
 
