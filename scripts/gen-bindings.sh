@@ -9,15 +9,17 @@ function generate_bindings_libs() {
     #  Generate bindings for libs/$1 e.g. sensor_network.
     libname=$1
     libdir=libs/$libname
+    libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd
+    expandcmd=logs/gen-bindings.txt
 
     #  Remove first line: arm-none-eabi-gcc
-    tail +2 bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd \
+    tail +2 $libcmd \
         | sed "/^-o/,$ d" \
-        > logs/gen-bindings.txt
+        > $expandcmd
 
     #  Append gcc options to expand macros. 
     cat \
-        >> logs/gen-bindings.txt \
+        >> $expandcmd \
         << "EOF"
 -E 
 -dD
@@ -25,15 +27,15 @@ function generate_bindings_libs() {
 EOF
 
     #  Expand macros to sensor_network-expanded.h
-    echo "logs/$libname-expanded.h" >>logs/gen-bindings.txt
+    echo "logs/$libname-expanded.h" >>$expandcmd
 
     #  Append the last line containing the source filename e.g. libs/sensor_network/src/sensor_network.c
     tail -1 \
-        bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd \
-        >> logs/gen-bindings.txt
+        $libcmd \
+        >> $expandcmd
 
     #  Run gcc to expand macros.
-    arm-none-eabi-gcc @logs/gen-bindings.txt
+    arm-none-eabi-gcc @$expandcmd
 
     #  Generate Rust bindings for the expanded macros.
     bindgen \
