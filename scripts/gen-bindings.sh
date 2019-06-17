@@ -5,8 +5,12 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+#  Generate bindings for libs/sensor_network.
+libname=sensor_network
+libdir=libs/$libname
+
 #  Remove first line: arm-none-eabi-gcc
-tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd \
+tail +2 bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd \
     | sed "/^-o/,$ d" \
     > logs/gen-bindings.txt
 
@@ -17,12 +21,12 @@ cat \
 -E 
 -dD
 -o
-logs/sensor_network-expanded.h
+logs/$libname-expanded.h
 EOF
 
 #  Append the last line containing the source filename e.g. libs/sensor_network/src/sensor_network.c
 tail -1 \
-    bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd \
+    bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd \
     >> logs/gen-bindings.txt
 
 #  Run gcc to expand macros.
@@ -30,22 +34,27 @@ arm-none-eabi-gcc @logs/gen-bindings.txt
 
 #  Generate Rust bindings for the expanded macros.
 bindgen \
+    --no-layout-tests \
     --use-core \
-    --ctypes-prefix '::cty' \
-    --whitelist-function '(?i)sensor_network.*' \
-    --whitelist-type     '(?i)sensor_network.*' \
-    --whitelist-var      '(?i)sensor_network.*' \
-    -o src/sensor_network.rs \
-    logs/sensor_network-expanded.h
+    --ctypes-prefix "::cty" \
+    --whitelist-function "(?i)init_.*_post" \
+    --whitelist-function "(?i)do_.*_post" \
+    --whitelist-function "(?i)$libname.*" \
+    --whitelist-type     "(?i)$libname.*" \
+    --whitelist-var      "(?i)$libname.*" \
+    -o src/$libname.rs \
+    logs/$libname-expanded.h
 
 exit
 
+#  Generate Rust bindings for tinycbor.
 bindgen \
+    --no-layout-tests \
     --use-core \
-    --ctypes-prefix '::cty' \
-    --whitelist-function '(?i)cbor.*' \
-    --whitelist-type     '(?i)cbor.*' \
-    --whitelist-var      '(?i)cbor.*' \
+    --ctypes-prefix "::cty" \
+    --whitelist-function "(?i)cbor.*" \
+    --whitelist-type     "(?i)cbor.*" \
+    --whitelist-var      "(?i)cbor.*" \
     -o src/tinycbor.rs \
     logs/cborencoder.h
 
@@ -55,24 +64,6 @@ bindgen \
 # /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h
 
 exit
-
-
-remove first line:
-tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
-
-remove last 3 lines:
-sed "/^-o/,$ d" <bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
-
-add expand macros: 
--E 
--dD
--o
-sensor_network-expanded.h
-
-
-arm-none-eabi-gcc @bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
-bindgen bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o
-whitelist
 
 → bindgen --help
 bindgen 0.49.2

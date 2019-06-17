@@ -5,6 +5,21 @@ pub type __uint8_t = ::cty::c_uchar;
 pub type __uint16_t = ::cty::c_ushort;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct oc_server_handle {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn init_sensor_post(
+        server: *mut oc_server_handle,
+        uri: *const ::cty::c_char,
+        coap_content_format: ::cty::c_int,
+    ) -> bool;
+}
+extern "C" {
+    pub fn do_sensor_post() -> bool;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct sensor_network_interface {
     pub iface_type: u8,
     pub network_device: *const ::cty::c_char,
@@ -20,88 +35,23 @@ pub struct sensor_network_interface {
     >,
     pub transport_registered: u8,
 }
-#[test]
-fn bindgen_test_layout_sensor_network_interface() {
-    assert_eq!(
-        ::core::mem::size_of::<sensor_network_interface>(),
-        40usize,
-        concat!("Size of: ", stringify!(sensor_network_interface))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<sensor_network_interface>(),
-        8usize,
-        concat!("Alignment of ", stringify!(sensor_network_interface))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<sensor_network_interface>())).iface_type as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(sensor_network_interface),
-            "::",
-            stringify!(iface_type)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<sensor_network_interface>())).network_device as *const _
-                as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(sensor_network_interface),
-            "::",
-            stringify!(network_device)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<sensor_network_interface>())).server_endpoint_size as *const _
-                as usize
-        },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(sensor_network_interface),
-            "::",
-            stringify!(server_endpoint_size)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<sensor_network_interface>())).register_transport_func
-                as *const _ as usize
-        },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(sensor_network_interface),
-            "::",
-            stringify!(register_transport_func)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<sensor_network_interface>())).transport_registered as *const _
-                as usize
-        },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(sensor_network_interface),
-            "::",
-            stringify!(transport_registered)
-        )
-    );
-}
 extern "C" {
     pub fn sensor_network_register_transport(iface_type: u8) -> ::cty::c_int;
 }
 extern "C" {
+    pub fn init_server_post(uri: *const ::cty::c_char) -> bool;
+}
+extern "C" {
+    pub fn init_collector_post() -> bool;
+}
+extern "C" {
     pub fn sensor_network_init_post(iface_type: u8, uri: *const ::cty::c_char) -> bool;
+}
+extern "C" {
+    pub fn do_server_post() -> bool;
+}
+extern "C" {
+    pub fn do_collector_post() -> bool;
 }
 extern "C" {
     pub fn sensor_network_do_post(iface_type: u8) -> bool;
@@ -118,31 +68,6 @@ extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct sensor_network_endpoint {
     pub endpoint: [u8; 16usize],
-}
-#[test]
-fn bindgen_test_layout_sensor_network_endpoint() {
-    assert_eq!(
-        ::core::mem::size_of::<sensor_network_endpoint>(),
-        16usize,
-        concat!("Size of: ", stringify!(sensor_network_endpoint))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<sensor_network_endpoint>(),
-        1usize,
-        concat!("Alignment of ", stringify!(sensor_network_endpoint))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<sensor_network_endpoint>())).endpoint as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(sensor_network_endpoint),
-            "::",
-            stringify!(endpoint)
-        )
-    );
 }
 extern "C" {
     pub static mut sensor_network_interfaces: [sensor_network_interface; 2usize];
