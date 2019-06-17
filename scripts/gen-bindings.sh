@@ -5,12 +5,33 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+function generate_bindings_apps() {
+    #  Generate bindings for apps/$1 e.g. my_sensor_app.
+    local libname=$1
+    local modname=$2
+    local libdir=apps/$libname
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+    generate_bindings $libname $modname $libdir $libcmd
+}
+
 function generate_bindings_libs() {
     #  Generate bindings for libs/$1 e.g. sensor_network.
-    libname=$1
-    libdir=libs/$libname
-    libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd
-    expandcmd=logs/gen-bindings.txt
+    local libname=$1
+    local modname=$1
+    local libdir=libs/$libname
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+    generate_bindings $libname $modname $libdir $libcmd
+}
+
+function generate_bindings() {
+    #  Generate bindings for libs/$1 e.g. sensor_network.
+    local libname=$1
+    local modname=$2
+    local libdir=$3
+    local libcmd=$4
+
+    local expandcmd=logs/gen-bindings.txt
+    local expandfile=logs/$modname-expanded.h
 
     #  Remove first line: arm-none-eabi-gcc
     tail +2 $libcmd \
@@ -27,7 +48,7 @@ function generate_bindings_libs() {
 EOF
 
     #  Expand macros to sensor_network-expanded.h
-    echo "logs/$libname-expanded.h" >>$expandcmd
+    echo $expandfile >>$expandcmd
 
     #  Append the last line containing the source filename e.g. libs/sensor_network/src/sensor_network.c
     tail -1 \
@@ -44,15 +65,18 @@ EOF
         --ctypes-prefix "::cty" \
         --whitelist-function "(?i)init_.*_post" \
         --whitelist-function "(?i)do_.*_post" \
-        --whitelist-function "(?i)$libname.*" \
-        --whitelist-type     "(?i)$libname.*" \
-        --whitelist-var      "(?i)$libname.*" \
-        -o src/$libname.rs \
-        logs/$libname-expanded.h
+        --whitelist-function "(?i)$modname.*" \
+        --whitelist-type     "(?i)$modname.*" \
+        --whitelist-var      "(?i)$modname.*" \
+        -o src/$modname.rs \
+        $expandfile
 }
 
+#  Generate bindings for my_sensor_app/send_coap.c
+generate_bindings_apps my_sensor_app send_coap
+
 #  Generate bindings for libs/sensor_network.
-generate_bindings_libs sensor_network
+#generate_bindings_libs sensor_network
 
 exit
 
