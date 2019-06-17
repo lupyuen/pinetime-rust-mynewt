@@ -1772,9 +1772,6 @@ mod send_coap {
             SensorValueNew{key: "t", val: SensorValueType::Uint(2870),};
         const k: &'static [u8] = b"t\0";
         const k2: &'static str = "t";
-        cbor_encode_text_string(&mut root_map, int_sensor_value.key.as_ptr(),
-                                int_sensor_value.key.len());
-        cbor_encode_int(&mut root_map, 1234);
         ();
         let payload =
             {

@@ -125,11 +125,9 @@ fn test_macro2() {
     val: SensorValueType::Uint(2870)
   };
 
-  coap_set_int_val! (@cbor root, int_sensor_value);
-
   /*
+  coap_set_int_val! (@cbor root, int_sensor_value);
   coap_item_str! (@json values, "device", device_id);  ////
-
   coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
     coap_item_str! (@json values, "device", device_id);
     coap_item_str! (@json values, "node", node_id);

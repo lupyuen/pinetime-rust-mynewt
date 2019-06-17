@@ -31454,7 +31454,7 @@ Disassembly of section .text._ZN5mylib9send_coap18start_network_task17hd61dace35
 
 00000000 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE>:
 _ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:170
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:168
 
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
 ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
@@ -31463,7 +31463,7 @@ _ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE():
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
    0:	b580      	push	{r7, lr}
    2:	b084      	sub	sp, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:170
 //  pub fn start_network_task() -> i32  {
   console_print(b"start_network_task\n");
    4:	f240 0000 	movw	r0, #0
@@ -31471,23 +31471,23 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
    c:	2113      	movs	r1, #19
    e:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h6caebb40d9fb0292E>
   12:	e7ff      	b.n	2 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:173
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:171
   send_sensor_data_without_encoding();
   14:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE>
   18:	e7ff      	b.n	2 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:174
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
   send_sensor_data_json();
   1a:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE>
   1e:	e7ff      	b.n	2 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:175
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:173
   send_sensor_data_cbor();
   20:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE>
   24:	e7ff      	b.n	26 <_ZN5mylib9send_coap18start_network_task17hd61dace35b0a381aE+0x26>
   26:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:176
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:174
   Ok(())
   28:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:178
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:176
   //  0
 }
   2a:	9801      	ldr	r0, [sp, #4]
@@ -31499,7 +31499,7 @@ Disassembly of section .text._ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f7
 
 00000000 <_ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E>:
 _ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:189
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:187
 ///  For Collector Node: sensor_node is the Sensor Node Address of the Sensor Node that transmitted
 ///  the sensor data (like `b3b4b5b6f1`)
 ///  The message will be enqueued for transmission by the CoAP / OIC Background Task 
@@ -31514,7 +31514,7 @@ pub fn send_sensor_data(_val: *const SensorValue, _sensor_node: &'static CStr) -
    a:	9003      	str	r0, [sp, #12]
    c:	9104      	str	r1, [sp, #16]
    e:	9205      	str	r2, [sp, #20]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:190
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:188
   console_print(b"send_sensor_data\n");
   10:	f240 0000 	movw	r0, #0
   14:	f2c0 0000 	movt	r0, #0
@@ -31525,7 +31525,7 @@ pub fn send_sensor_data(_val: *const SensorValue, _sensor_node: &'static CStr) -
   24:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h6caebb40d9fb0292E>
   28:	e7ff      	b.n	2a <_ZN5mylib9send_coap16send_sensor_data17hd2e470cb3f766db4E+0x2a>
   2a:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:222
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:220
 
 */
 
