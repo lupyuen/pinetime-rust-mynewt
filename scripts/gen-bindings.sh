@@ -28,7 +28,15 @@ tail -1 \
 #  Run gcc to expand macros.
 arm-none-eabi-gcc @logs/gen-bindings.txt
 
-
+#  Generate Rust bindings for the expanded macros.
+bindgen \
+    --use-core \
+    --ctypes-prefix '::cty' \
+    --whitelist-function '(?i)sensor_network.*' \
+    --whitelist-type     '(?i)sensor_network.*' \
+    --whitelist-var      '(?i)sensor_network.*' \
+    -o src/sensor_network.rs \
+    logs/sensor_network-expanded.h
 
 exit
 
