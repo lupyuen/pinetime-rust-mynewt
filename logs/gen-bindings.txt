@@ -135,5 +135,5 @@
 -E 
 -dD
 -o
-logs/$libname-expanded.h
+logs/sensor_network-expanded.h
 libs/sensor_network/src/sensor_network.c

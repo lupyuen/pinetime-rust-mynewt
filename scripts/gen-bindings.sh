@@ -14,15 +14,17 @@ tail +2 bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$libname.o.cmd \
     | sed "/^-o/,$ d" \
     > logs/gen-bindings.txt
 
-#  Append gcc options to expand macros into sensor_network-expanded.h 
+#  Append gcc options to expand macros. 
 cat \
     >> logs/gen-bindings.txt \
     << "EOF"
 -E 
 -dD
 -o
-logs/$libname-expanded.h
 EOF
+
+#  Expand macros to sensor_network-expanded.h
+echo "logs/$libname-expanded.h" >>logs/gen-bindings.txt
 
 #  Append the last line containing the source filename e.g. libs/sensor_network/src/sensor_network.c
 tail -1 \
