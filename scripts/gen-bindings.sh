@@ -21,6 +21,14 @@ bindgen \
 
 exit
 
+remove first line:
+tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
+
+add expand macros: -E -dD
+arm-none-eabi-gcc @bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
+bindgen bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o
+whitelist
+
 → bindgen --help
 bindgen 0.49.2
 Generates Rust bindings from C/C++ headers.
