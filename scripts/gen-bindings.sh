@@ -5,6 +5,33 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+#  Remove first line: arm-none-eabi-gcc
+tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd \
+    | sed "/^-o/,$ d" \
+    > logs/gen-bindings.txt
+
+#  Append gcc options to expand macros into sensor_network-expanded.h 
+cat \
+    >> logs/gen-bindings.txt \
+    << "EOF"
+-E 
+-dD
+-o
+logs/sensor_network-expanded.h
+EOF
+
+#  Append the last line containing the source filename e.g. libs/sensor_network/src/sensor_network.c
+tail -1 \
+    bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd \
+    >> logs/gen-bindings.txt
+
+#  Run gcc to expand macros.
+arm-none-eabi-gcc @logs/gen-bindings.txt
+
+
+
+exit
+
 bindgen \
     --use-core \
     --ctypes-prefix '::cty' \
@@ -21,10 +48,20 @@ bindgen \
 
 exit
 
+
 remove first line:
 tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
 
-add expand macros: -E -dD
+remove last 3 lines:
+sed "/^-o/,$ d" <bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
+
+add expand macros: 
+-E 
+-dD
+-o
+sensor_network-expanded.h
+
+
 arm-none-eabi-gcc @bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
 bindgen bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o
 whitelist
