@@ -163,12 +163,16 @@ fn test_macro2() {
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
 
-//  Storage for Network Task
-const NETWORK_TASK_STACK_SIZE: usize = 256;  //  Previously OS_STACK_ALIGN(256).  Size of the stack (in 8-byte units)
-const OS_STACK_SIZE: usize = 8;  //  Previously sizeof(os_stack_t).  Size of each stack unit.
-static mut network_task_stack: [u8; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE] = [0; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE];  //  Stack space, initialised to 0
-static mut network_task: os_task = os_task{};  //  Mynewt task object will be saved here
-static mut network_is_ready: bool = false;     //  Set to true when network tasks have been completed
+///  Stack space for Network Task, initialised to 0.
+static mut network_task_stack: [u8; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE] = [0; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE];
+///  Mynewt task object will be saved here.
+static mut network_task: os_task = os_task{};
+///  Set to true when network tasks have been completed
+static mut network_is_ready: bool = false;
+///  Size of the stack (in 8-byte units). Previously `OS_STACK_ALIGN(256)`  
+const NETWORK_TASK_STACK_SIZE: usize = 256;  
+///  Size of each stack unit (8 bytes). Previously `sizeof(os_stack_t)`
+const OS_STACK_SIZE: usize = 8;              
 
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
 ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  

@@ -32,7 +32,7 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
     let rc = start_network_task();  
-    rc.expect("");
+    rc.expect("");  //  TODO: Use ?
     //  assert!(rc == 0);
 
     //  Starting polling the temperature sensor every 10 seconds in the background.  
