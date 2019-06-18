@@ -2,6 +2,7 @@ use cstr_core::CStr;             //  Import string utilities from cstr_core libr
 use crate::base::*;              //  Import base.rs for common declarations
 use crate::mynewt::tinycbor::*;  //  Import mynewt/tinycbor.rs for TinyCBOR C API
 use crate::mynewt::os::*;        //  Import mynewt/os.rs for Mynewt `kernel/os` API
+use crate::mynewt::sensor_network::*;  //  Import mynewt/sensor_network.rs for Mynewt `sensor_network` library
 
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);   //  Start tracing macros
@@ -201,18 +202,50 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   send_sensor_data_without_encoding();  //  Testing
   send_sensor_data_json();  //  Testing
   send_sensor_data_cbor();  //  Testing
-  let rc = os_task_init(  //  Create a new task and start it...
+  let rc = os_task_init(    //  Create a new task and start it...
     &mut network_task,      //  Task object will be saved here.
-    b"network\0".as_ptr(),          //  Name of task.
-    network_task_func,  //  Function to execute when task starts.
-    0 as *mut ::cty::c_void,               //  Argument to be passed to above function.
+    b"network\0".as_ptr(),  //  Name of task.
+    Some(network_task_func),  //  Function to execute when task starts.
+    0 as *mut ::cty::c_void,  //  Argument to be passed to above function.
     10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-    OS_WAIT_FOREVER as u32,    //  Don't do sanity / watchdog checking.
+    OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking.
     network_task_stack.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
-    NETWORK_TASK_STACK_SIZE as u16);           //  Size of the stack (in 4-byte units).
+    NETWORK_TASK_STACK_SIZE as u16);  //  Size of the stack (in 4-byte units).
   assert_eq!(rc, 0);
   Ok(())
   //  0
+}
+
+///  Network Task runs this function in the background to prepare the network drivers
+///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  Also perform WiFi Geolocation if it is enabled.
+///  For Collector Node and Standalone Node: We connect the ESP8266 to the WiFi access point. 
+///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+///  Register the ESP8266 driver as the network transport for CoAP Server.  
+///  For Collector Node and Sensor Nodes: We register the nRF24L01 driver as the network transport for 
+///  CoAP Collector.
+extern "C" fn network_task_func(arg: *mut ::cty::c_void) {
+    console_print(b"NET start\n");  assert!(!network_is_ready);
+
+    //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+    //  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+    if is_standalone_node() || is_collector_node() {
+        let rc = register_server_transport();  assert_eq!(rc, 0);
+    }
+
+    //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+    if is_collector_node() || is_sensor_node() {
+        let rc = register_collector_transport();  assert_eq!(rc, 0);
+    }
+
+    //  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
+    //  run in the background and send sensor data to the server.
+    network_is_ready = true;  //  Indicate that network is ready.
+
+    loop {  //  Loop forever...        
+        console_print(b"NET free mbuf %d\n");  //  , os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
+        os_time_delay(10 * OS_TICKS_PER_SEC);                      //  Wait 10 seconds before repeating.
+    }
+    assert!(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
 ///  TODO: Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
