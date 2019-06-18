@@ -92,7 +92,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 		console_print(b"NET free mbuf %d\n");  //  , os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
 		unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
 	}
-	assert!(false);  //  Never comes here.  If this task function terminates, the program will crash.
+	//  Never comes here.  If this task function terminates, the program will crash.
 }
 
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
@@ -190,7 +190,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Resul
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
-fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
+fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
 	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
     if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 

@@ -10,9 +10,14 @@
 extern crate cortex_m;       //  Declare the external library `cortex_m`
 
 #[allow(dead_code)] //  Suppress warnings of unused constants and vars
+#[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
+#[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 #[macro_use]        //  Allow macros from Rust module `mynewt`
 mod mynewt;         //  Declare `mynewt/mod.rs` as Rust module `mynewt`
+
+#[allow(dead_code)] //  Suppress warnings of unused constants and vars
 mod base;           //  Declare `base.rs` as Rust module `base`
+
 mod listen_sensor;  //  Declare `listen_sensor.rs` as Rust module `listen_sensor`
 mod send_coap;      //  Declare `send_coap.rs` as Rust module `send_coap`
 

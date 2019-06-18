@@ -106,6 +106,8 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
 ///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
 ///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
 ///  the raw or computed temperature, as well as the key and value type.
+#[allow(unreachable_patterns)]
+#[allow(unused_variables)]
 fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
     let mut return_value = SensorValue::default();
     match sensor_type {                                //  Is this raw or computed temperature?
