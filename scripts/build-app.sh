@@ -5,11 +5,15 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 set +x ; echo ; echo "----- Building Rust app and Mynewt OS..." ; set -x
 
+#  Rust build profile: debug or release
+#  rust_build_profile=debug
+rust_build_profile=release
+
 #  Location of the compiled ROM image.  We will remove this to force relinking the Rust app with Mynewt OS.
 app_build=$PWD/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 
 #  Location of the compiled Rust app and external libraries.  The Rust compiler generates a *.rlib archive for the Rust app and each external Rust library here.
-rust_build_dir=$PWD/target/thumbv7m-none-eabi/debug/deps
+rust_build_dir=$PWD/target/thumbv7m-none-eabi/$rust_build_profile/deps
 
 #  Location of the libs/rust_app stub library built by Mynewt.  We will replace this stub by the Rust app and external libraries.
 rust_app_dir=$PWD/bin/targets/bluepill_my_sensor/app/libs/rust_app
@@ -18,6 +22,15 @@ rust_app_dest=$rust_app_dir/libs_rust_app.a
 #  Location of the libs/rust_libcore stub library built by Mynewt.  We will replace this stub by the Rust core library libcore.
 rust_libcore_dir=$PWD/bin/targets/bluepill_my_sensor/app/libs/rust_libcore
 rust_libcore_dest=$rust_libcore_dir/libs_rust_libcore.a
+
+#  Rust build options
+if [ "$rust_build_profile" == 'release' ]; then
+    # Build for release
+    rust_build_options=--release 
+else
+    # Build for debug
+    rust_build_options= 
+fi
 
 #  If this is the very first build, do the Mynewt build to generate the rust_app and rust_libcore stubs.  This build will not link successfully but it's OK.
 if [ ! -e $rust_app_dest ]; then
@@ -43,7 +56,7 @@ done
 
 #  Build the Rust app in "src" folder.
 set +x ; echo ; echo "----- Build Rust app" ; set -x
-cargo build -v
+cargo build -v $rust_build_options
 
 #  Export the metadata for the Rust build.
 cargo metadata --format-version 1 >logs/libmylib.json
@@ -109,9 +122,9 @@ done
 
 #  Dump the ELF and disassembly for the compiled Rust application.
 set +e
-arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >logs/libmylib.elf 2>&1
-arm-none-eabi-objdump -t -S            --line-numbers --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >logs/libmylib.S 2>&1
-arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/thumbv7m-none-eabi/debug/libmylib.rlib >logs/libmylib-demangle.S 2>&1
+arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/$rust_build_profile/libmylib.rlib >logs/libmylib.elf 2>&1
+arm-none-eabi-objdump -t -S            --line-numbers --wide target/thumbv7m-none-eabi/$rust_build_profile/libmylib.rlib >logs/libmylib.S 2>&1
+arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/thumbv7m-none-eabi/$rust_build_profile/libmylib.rlib >logs/libmylib-demangle.S 2>&1
 set -e
 
 #  Run the Mynewt build, which will link with the Rust app, Rust libraries and libcore.
