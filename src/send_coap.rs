@@ -167,10 +167,7 @@ fn test_macro2() {
 ///  Stack space for Network Task, initialised to 0.
 static mut network_task_stack: [u8; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE] = [0; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE];
 ///  Mynewt task object will be saved here.
-static mut network_task: os_task = os_task{
-    t_stackptr: 0 as os_stack_t,
-
-};
+static mut network_task: os_task = os_task{};
 ///  Set to true when network tasks have been completed
 static mut network_is_ready: bool = false;
 ///  Size of the stack (in 8-byte units). Previously `OS_STACK_ALIGN(256)`  

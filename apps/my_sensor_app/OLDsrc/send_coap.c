@@ -26,7 +26,7 @@ static int send_sensor_data_to_collector(struct sensor_value *val, const char *s
 //  Network Task
 
 //  Storage for Network Task
-#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
+#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 8-byte units)
 static uint8_t network_task_stack[sizeof(os_stack_t) * NETWORK_TASK_STACK_SIZE];  //  Stack space
 static struct os_task network_task;    //  Mynewt task object will be saved here
 static bool network_is_ready = false;  //  Set to true when network tasks have been completed

@@ -194,11 +194,13 @@ extern "C" {
     pub fn os_time_delay(osticks: os_time_t);
 }
 #[repr(C)]
+#[derive(Default)]
 pub struct os_timeval {
     pub tv_sec: i64,
     pub tv_usec: i32,
 }
 #[repr(C)]
+#[derive(Default)]
 pub struct os_timezone {
     pub tz_minuteswest: i16,
     pub tz_dsttime: i16,
@@ -210,6 +212,11 @@ pub struct os_time_change_info {
     pub tci_cur_tv: *const os_timeval,
     pub tci_cur_tz: *const os_timezone,
     pub tci_newly_synced: bool,
+}
+impl Default for os_time_change_info {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 pub type os_time_change_fn = ::core::option::Option<
     unsafe extern "C" fn(info: *const os_time_change_info, arg: *mut ::cty::c_void),
@@ -223,6 +230,16 @@ pub struct os_time_change_listener {
 #[repr(C)]
 pub struct os_time_change_listener__bindgen_ty_1 {
     pub stqe_next: *mut os_time_change_listener,
+}
+impl Default for os_time_change_listener__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_time_change_listener {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_settimeofday(utctime: *mut os_timeval, tz: *mut os_timezone) -> ::cty::c_int;
@@ -263,6 +280,16 @@ pub struct os_event {
 pub struct os_event__bindgen_ty_1 {
     pub stqe_next: *mut os_event,
 }
+impl Default for os_event__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_event {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_eventq {
     pub evq_owner: *mut os_task,
@@ -273,6 +300,16 @@ pub struct os_eventq {
 pub struct os_eventq__bindgen_ty_1 {
     pub stqh_first: *mut os_event,
     pub stqh_last: *mut *mut os_event,
+}
+impl Default for os_eventq__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_eventq {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_eventq_init(arg1: *mut os_eventq);
@@ -324,10 +361,25 @@ pub struct os_callout__bindgen_ty_1 {
     pub tqe_next: *mut os_callout,
     pub tqe_prev: *mut *mut os_callout,
 }
+impl Default for os_callout__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_callout {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_callout_list {
     pub tqh_first: *mut os_callout,
     pub tqh_last: *mut *mut os_callout,
+}
+impl Default for os_callout_list {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_callout_init(
@@ -365,6 +417,16 @@ pub struct hal_timer {
 pub struct hal_timer__bindgen_ty_1 {
     pub tqe_next: *mut hal_timer,
     pub tqe_prev: *mut *mut hal_timer,
+}
+impl Default for hal_timer__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for hal_timer {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_cputime_init(clock_freq: u32) -> ::cty::c_int;
@@ -413,6 +475,7 @@ pub type os_dev_resume_func_t =
 pub type os_dev_close_func_t =
     ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev) -> ::cty::c_int>;
 #[repr(C)]
+#[derive(Default)]
 pub struct os_dev_handlers {
     pub od_open: os_dev_open_func_t,
     pub od_suspend: os_dev_suspend_func_t,
@@ -434,6 +497,16 @@ pub struct os_dev {
 #[repr(C)]
 pub struct os_dev__bindgen_ty_1 {
     pub stqe_next: *mut os_dev,
+}
+impl Default for os_dev__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_dev {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_dev_suspend(dev: *mut os_dev, suspend_t: os_time_t, force: u8) -> ::cty::c_int;
@@ -503,6 +576,16 @@ pub struct os_mbuf_pool {
 pub struct os_mbuf_pool__bindgen_ty_1 {
     pub stqe_next: *mut os_mbuf_pool,
 }
+impl Default for os_mbuf_pool__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_mbuf_pool {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_mbuf_pkthdr {
     pub omp_len: u16,
@@ -512,6 +595,16 @@ pub struct os_mbuf_pkthdr {
 #[repr(C)]
 pub struct os_mbuf_pkthdr__bindgen_ty_1 {
     pub stqe_next: *mut os_mbuf_pkthdr,
+}
+impl Default for os_mbuf_pkthdr__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_mbuf_pkthdr {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 pub struct os_mbuf {
@@ -527,6 +620,16 @@ pub struct os_mbuf {
 pub struct os_mbuf__bindgen_ty_1 {
     pub sle_next: *mut os_mbuf,
 }
+impl Default for os_mbuf__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_mbuf {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_mqueue {
     pub mq_head: os_mqueue__bindgen_ty_1,
@@ -536,6 +639,16 @@ pub struct os_mqueue {
 pub struct os_mqueue__bindgen_ty_1 {
     pub stqh_first: *mut os_mbuf_pkthdr,
     pub stqh_last: *mut *mut os_mbuf_pkthdr,
+}
+impl Default for os_mqueue__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_mqueue {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_mqueue_init(
@@ -677,6 +790,16 @@ pub struct os_memblock {
 pub struct os_memblock__bindgen_ty_1 {
     pub sle_next: *mut os_memblock,
 }
+impl Default for os_memblock__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_memblock {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_mempool {
     pub mp_block_size: u32,
@@ -693,9 +816,24 @@ pub struct os_mempool {
 pub struct os_mempool__bindgen_ty_1 {
     pub stqe_next: *mut os_mempool,
 }
+impl Default for os_mempool__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_mempool__bindgen_ty_2 {
     pub slh_first: *mut os_memblock,
+}
+impl Default for os_mempool__bindgen_ty_2 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_mempool {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 pub type os_mempool_put_fn = ::core::option::Option<
     unsafe extern "C" fn(
@@ -710,7 +848,13 @@ pub struct os_mempool_ext {
     pub mpe_put_cb: os_mempool_put_fn,
     pub mpe_put_arg: *mut ::cty::c_void,
 }
+impl Default for os_mempool_ext {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
+#[derive(Default)]
 pub struct os_mempool_info {
     pub omi_block_size: ::cty::c_int,
     pub omi_num_blocks: ::cty::c_int,
@@ -782,6 +926,16 @@ pub struct os_mutex {
 pub struct os_mutex__bindgen_ty_1 {
     pub slh_first: *mut os_task,
 }
+impl Default for os_mutex__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_mutex {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 extern "C" {
     pub fn os_mutex_init(mu: *mut os_mutex) -> os_error_t;
 }
@@ -805,6 +959,16 @@ pub struct os_sanity_check {
 #[repr(C)]
 pub struct os_sanity_check__bindgen_ty_1 {
     pub sle_next: *mut os_sanity_check,
+}
+impl Default for os_sanity_check__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_sanity_check {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_sanity_init() -> ::cty::c_int;
@@ -831,6 +995,16 @@ pub struct os_task_obj {
 #[repr(C)]
 pub struct os_task_obj__bindgen_ty_1 {
     pub slh_first: *mut os_task,
+}
+impl Default for os_task_obj__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_task_obj {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 pub const os_task_state_OS_TASK_READY: os_task_state = 1;
 pub const os_task_state_OS_TASK_SLEEP: os_task_state = 2;
@@ -864,19 +1038,44 @@ pub struct os_task {
 pub struct os_task__bindgen_ty_1 {
     pub stqe_next: *mut os_task,
 }
+impl Default for os_task__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_task__bindgen_ty_2 {
     pub tqe_next: *mut os_task,
     pub tqe_prev: *mut *mut os_task,
 }
+impl Default for os_task__bindgen_ty_2 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 pub struct os_task__bindgen_ty_3 {
     pub sle_next: *mut os_task,
+}
+impl Default for os_task__bindgen_ty_3 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_task {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 pub struct os_task_stailq {
     pub stqh_first: *mut os_task,
     pub stqh_last: *mut *mut os_task,
+}
+impl Default for os_task_stailq {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_task_init(
@@ -897,6 +1096,7 @@ extern "C" {
     pub fn os_task_count() -> u8;
 }
 #[repr(C)]
+#[derive(Default)]
 pub struct os_task_info {
     pub oti_prio: u8,
     pub oti_taskid: u8,
@@ -916,6 +1116,11 @@ extern "C" {
 pub struct os_task_list {
     pub tqh_first: *mut os_task,
     pub tqh_last: *mut *mut os_task,
+}
+impl Default for os_task_list {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_sched_ctx_sw_hook(arg1: *mut os_task);
@@ -962,6 +1167,16 @@ pub struct os_sem {
 #[repr(C)]
 pub struct os_sem__bindgen_ty_1 {
     pub slh_first: *mut os_task,
+}
+impl Default for os_sem__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+impl Default for os_sem {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn os_sem_init(sem: *mut os_sem, tokens: u16) -> os_error_t;

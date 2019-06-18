@@ -95,9 +95,10 @@ EOF
     bindgen \
         --use-core \
         --ctypes-prefix "::cty" \
-        --no-layout-tests \
+        --with-derive-default \
         --no-derive-copy \
         --no-derive-debug \
+        --no-layout-tests \
         $whitelist \
         -o src/mynewt/$modname.rs \
         $expandfile
