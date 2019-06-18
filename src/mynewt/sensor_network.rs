@@ -4,6 +4,18 @@ pub const SENSOR_NETWORK_SIZE: u32 = 5;
 pub type __uint8_t = ::cty::c_uchar;
 pub type __uint16_t = ::cty::c_ushort;
 #[repr(C)]
+pub struct sensor_value {
+    pub key: *const ::cty::c_char,
+    pub val_type: ::cty::c_int,
+    pub int_val: u16,
+    pub float_val: f32,
+}
+impl Default for sensor_value {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+#[repr(C)]
 pub struct oc_server_handle {
     _unused: [u8; 0],
 }
@@ -73,6 +85,15 @@ extern "C" {
 }
 extern "C" {
     pub fn is_standalone_node() -> bool;
+}
+extern "C" {
+    pub fn should_send_to_collector(
+        val: *mut sensor_value,
+        device_name: *const ::cty::c_char,
+    ) -> bool;
+}
+extern "C" {
+    pub fn get_device_id() -> *const ::cty::c_char;
 }
 extern "C" {
     pub fn sensor_network_init();

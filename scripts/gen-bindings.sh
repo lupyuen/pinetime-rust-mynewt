@@ -36,6 +36,8 @@ function generate_bindings_libs() {
         --whitelist-function (?i)do_.*_post \
         --whitelist-function (?i)is_.*_node \
         --whitelist-function (?i)register_.*_transport \
+        --whitelist-function (?i)should_send_to_.* \
+        --whitelist-function (?i)get_device_id \
         --whitelist-function (?i)${modname}.* \
         --whitelist-type     (?i)${modname}.* \
         --whitelist-var      (?i)${modname}.* 

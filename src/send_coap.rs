@@ -124,64 +124,43 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 ///  so this function will return without waiting for the message to be transmitted.  
 ///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 pub fn send_sensor_data(val: &SensorValue, sensor_node: &'static str) -> i32 {
-  console_print(b"send_sensor_data\n");
-
-/*
-  //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
-  CP_ROOT({                     //  Create the payload root
-    CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root
-      //  Append to the "values" array:
-      //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-      CP_ITEM_STR(values, "device", device_id);
-
-      //    {"key":"node", "value":"b3b4b5b6f1"},
-      CP_ITEM_STR(values, "node", node_id);
-
-#if MYNEWT_VAL(RAW_TEMP)  //  If we are using raw temperature (integer) instead of computed temperature (float)...
-      //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
-      //    {"key":"t",   "value":2870} for raw temperature (integer)
-      CP_ITEM_INT_VAL(values, val);
-#else       //    {"key":"tmp", "value":28.7} for computed temperature (float)
-      CP_ITEM_FLOAT_VAL(values, val);
-#endif  //  MYNEWT_VAL(RAW_TEMP)
-
-      //  If there are more sensor values, add them here with
-      //  CP_ITEM_VAL, CP_ITEM_INT, CP_ITEM_UINT, CP_ITEM_FLOAT or CP_ITEM_STR
-      //  Check geolocate() for a more complex payload: apps/my_sensor_app/src/geolocate.c
-
-    });                       //  End CP_ARRAY: Close the "values" array
-  });                           //  End CP_ROOT:  Close the payload root
-
-*/
-
-  ;
-  0
+    console_print(b"send_sensor_data\n");
+    //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
+    if should_send_to_collector(val, sensor_node) { 
+        return send_sensor_data_to_collector(val, sensor_node); 
+    }
+    //  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
+    send_sensor_data_to_server(val, sensor_node);
 }
 
-/*
-static int send_sensor_data_to_server(struct sensor_value *val, const char *node_id) {
-  //  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
-  //  and send to the CoAP server and URI.  The Sensor Value may be integer or float.
-  //  For temperature, the Sensor Key is either "t" for raw temperature (integer, from 0 to 4095) 
-  //  or "tmp" for computed temperature (float).
-  //  The message will be enqueued for transmission by the CoAP / OIC 
-  //  Background Task so this function will return without waiting for the message 
-  //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+///////////////////////////////////////////////////////////////////////////////
+//  For Collector Node or Standalone Node: Send Sensor Data to CoAP Server (ESP8266)
 
-  //  For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
-  //  {"values":[
-  //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-  //    {"key":"tmp",    "value":28.7},
-  //    {"key":"...",    "value":... },
-  //    ... ]}
-  assert(val);  assert(node_id);
-  if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-  const char *device_id = get_device_id();  assert(device_id);
+///  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
+///  and send to the CoAP server and URI.  The Sensor Value may be integer or float.
+///  For temperature, the Sensor Key is either "t" for raw temperature (integer, from 0 to 4095) 
+///  or "tmp" for computed temperature (float).
+///  The message will be enqueued for transmission by the CoAP / OIC 
+///  Background Task so this function will return without waiting for the message 
+///  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+///  For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
+///  ```
+///  {"values":[
+///    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+///    {"key":"tmp",    "value":28.7},
+///    {"key":"...",    "value":... },
+///    ... ]}
+///  ```
+fn send_sensor_data_to_server(val: &SensorValue, node_id: &'static str) -> i32 {
+    if let SensorValueType::None = val { assert!(false); }
+    assert!(node_id.len() > 0);
+    if (!NETWORK_IS_READY) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    const char *device_id = get_device_id();  assert(device_id);
 
-  //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
-  //  block other tasks from composing and posting CoAP messages (through a semaphore).
-  //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-  int rc = init_server_post(NULL);  assert(rc != 0);
+    //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    let rc = init_server_post(NULL);  assert_ne!(rc, 0);
 
   //  Compose the CoAP Payload in JSON using the CP macros.  Also works for CBOR.
   CP_ROOT({                     //  Create the payload root
@@ -221,18 +200,21 @@ static int send_sensor_data_to_server(struct sensor_value *val, const char *node
   return 0;
 }
 
-static int send_sensor_data_to_collector(struct sensor_value *val, const char *node_id) {
-  //  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
-  //  transmit to the Collector Node.  The Sensor Value should be integer not float since
-  //  we transmit integers only to the Collector Node.
-  //  For temperature, the Sensor Key is "t" for raw temperature (integer, from 0 to 4095).
-  //  The message will be enqueued for transmission by the CoAP / OIC 
-  //  Background Task so this function will return without waiting for the message 
-  //  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-  //  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
-  //    { t: 2870 }
+///////////////////////////////////////////////////////////////////////////////
+//  For Sensor Node: Send Sensor Data to Collector Node (nRF24L01)
+
+///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
+///  transmit to the Collector Node.  The Sensor Value should be integer not float since
+///  we transmit integers only to the Collector Node.
+///  For temperature, the Sensor Key is "t" for raw temperature (integer, from 0 to 4095).
+///  The message will be enqueued for transmission by the CoAP / OIC 
+///  Background Task so this function will return without waiting for the message 
+///  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
+///  `{ t: 2870 }`
+fn send_sensor_data_to_collector(val: &SensorValue, node_id: &'static str) -> i32 {
   assert(val);
-  if (!network_is_ready) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+  if (!NETWORK_IS_READY) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
   //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
   //  block other tasks from composing and posting CoAP messages (through a semaphore).
