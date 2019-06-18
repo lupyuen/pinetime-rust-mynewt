@@ -65,10 +65,6 @@ static mut NETWORK_IS_READY: bool = false;
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
 //  pub fn start_network_task() -> i32  {
   console_print(b"start_network_task\n");
-  //  send_sensor_data_without_encoding();  //  Testing
-  //  send_sensor_data_json();  //  Testing
-  //  send_sensor_data_cbor();  //  Testing
-
   let rc = unsafe { os_task_init( //  Create a new task and start it...
 	&mut network_task,            //  Task object will be saved here.
 	b"network\0".as_ptr(),        //  Name of task.
@@ -171,7 +167,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
 
     //  Compose the CoAP Payload in JSON using the coap!() macro.
-    /* let payload = coap!(@json {
+    /* let _payload = coap!(@json {
         //  Create "values" as an array of items under the root.
         //  Append to the "values" array:
         //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
@@ -219,7 +215,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
     let rc = unsafe { init_collector_post() };  assert!(rc);
 
     //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
-    let payload = coap!(@cbor {
+    let _payload = coap!(@cbor {
     	//  Set the Sensor Key and integer Sensor Value, e.g. `{ t: 2870 }`
         sensor_val,
     });
@@ -249,6 +245,7 @@ cbor_encode_text_string(&mut root_map,
 cbor_encode_int(&mut root_map, 1234);
 */
 
+/*
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);   //  Start tracing macros
   d!(a b c);             //  Will expand to "a b c" (for debugging)
@@ -262,7 +259,6 @@ fn send_sensor_data_without_encoding() {
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id =   b"b3b4b5b6f1";
 
-  /*
   //  Compose the CoAP Payload without encoding using the `coap` macro.
   trace_macros!(true);   //  Start tracing macros
   let payload = coap!(@none {
@@ -271,7 +267,6 @@ fn send_sensor_data_without_encoding() {
 	int_sensor_value,  //  Send `{t: 2870}`
   });
   trace_macros!(false);  //  Stop tracing macros
-  */
 }
 
 fn send_sensor_data_json() {
@@ -283,7 +278,6 @@ fn send_sensor_data_json() {
 	key: "t",
 	val: SensorValueType::Uint(2870)
   };
-  /*
   //  Compose the CoAP Payload in JSON using the `coap` macro.
   trace_macros!(true);
   let payload = coap!(@json {
@@ -292,17 +286,16 @@ fn send_sensor_data_json() {
 	int_sensor_value,  //  Send `{t: 2870}`
   });
   trace_macros!(false);
-  */
 }
 
 
 //  static mut g_encoder: CborEncoder = CborEncoder{};
-/* static mut root_map: CborEncoder = CborEncoder{  //  TODO: Prevent concurrent access.
+static mut root_map: CborEncoder = CborEncoder{  //  TODO: Prevent concurrent access.
   writer: 0 as *mut cbor_encoder_writer,
   writer_arg: 0 as *mut ::cty::c_void,
   added: 0,
   flags: 0,
-}; */
+};
 
 fn test_macro2() {
   //  Send the payload.
@@ -327,7 +320,6 @@ fn test_macro2() {
 	val: SensorValueType::Uint(2870)
   };
 
-  /*
   coap_set_int_val! (@cbor root, int_sensor_value);
   coap_item_str! (@json values, "device", device_id);  ////
   coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
@@ -360,5 +352,5 @@ fn test_macro2() {
 
 	}) //  Close the "values" array
   }); //  Close the payload root
-  */
 }
+*/

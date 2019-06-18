@@ -116,19 +116,19 @@ Section Headers:
   [90] .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.49 PROGBITS        00000000 000cb4 000018 00   A  0   0  4
   [91] .rel.rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.49 REL             00000000 003c8c 000010 08     110  90  4
   [92] .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.50 PROGBITS        00000000 000ccc 000021 00   A  0   0  1
-  [93] .debug_str        PROGBITS        00000000 000ced 000834 01  MS  0   0  1
-  [94] .debug_abbrev     PROGBITS        00000000 001521 00013b 00      0   0  1
-  [95] .debug_info       PROGBITS        00000000 00165c 00084d 00      0   0  1
+  [93] .debug_str        PROGBITS        00000000 000ced 000835 01  MS  0   0  1
+  [94] .debug_abbrev     PROGBITS        00000000 001522 00013b 00      0   0  1
+  [95] .debug_info       PROGBITS        00000000 00165d 00084d 00      0   0  1
   [96] .rel.debug_info   REL             00000000 003c9c 000668 08     110  95  4
-  [97] .debug_ranges     PROGBITS        00000000 001ea9 000150 00      0   0  1
+  [97] .debug_ranges     PROGBITS        00000000 001eaa 000150 00      0   0  1
   [98] .rel.debug_ranges REL             00000000 004304 0001d0 08     110  97  4
-  [99] .debug_macinfo    PROGBITS        00000000 001ff9 000001 00      0   0  1
-  [100] .debug_pubnames   PROGBITS        00000000 001ffa 00014d 00      0   0  1
+  [99] .debug_macinfo    PROGBITS        00000000 001ffa 000001 00      0   0  1
+  [100] .debug_pubnames   PROGBITS        00000000 001ffb 00014d 00      0   0  1
   [101] .rel.debug_pubnames REL             00000000 0044d4 000008 08     110 100  4
-  [102] .debug_pubtypes   PROGBITS        00000000 002147 000391 00      0   0  1
+  [102] .debug_pubtypes   PROGBITS        00000000 002148 000391 00      0   0  1
   [103] .rel.debug_pubtypes REL             00000000 0044dc 000008 08     110 102  4
-  [104] .note.GNU-stack   PROGBITS        00000000 0024d8 000000 00      0   0  1
-  [105] .ARM.attributes   ARM_ATTRIBUTES  00000000 0024d8 000032 00      0   0  1
+  [104] .note.GNU-stack   PROGBITS        00000000 0024d9 000000 00      0   0  1
+  [105] .ARM.attributes   ARM_ATTRIBUTES  00000000 0024d9 000032 00      0   0  1
   [106] .debug_frame      PROGBITS        00000000 00250c 0000a0 00      0   0  4
   [107] .rel.debug_frame  REL             00000000 0044e4 000050 08     110 106  4
   [108] .debug_line       PROGBITS        00000000 0025ac 000298 00      0   0  1
@@ -498,7 +498,7 @@ Relocation section '.rel.debug_info' at offset 0x3c9c contains 205 entries:
 0000030c  0000ad02 R_ARM_ABS32            00000000   .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
 00000319  00005c02 R_ARM_ABS32            000006ed   
 00000324  0000ad02 R_ARM_ABS32            00000000   .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
-00000331  00008102 R_ARM_ABS32            0000082f   
+00000331  00008102 R_ARM_ABS32            00000830   
 0000033d  0000ad02 R_ARM_ABS32            00000000   .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
 0000034a  00008002 R_ARM_ABS32            00000827   
 00000355  0000ad02 R_ARM_ABS32            00000000   .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
@@ -870,7 +870,7 @@ Symbol table '.symtab' contains 228 entries:
    126: 00000810     0 NOTYPE  LOCAL  DEFAULT   93 
    127: 0000081b     0 NOTYPE  LOCAL  DEFAULT   93 
    128: 00000827     0 NOTYPE  LOCAL  DEFAULT   93 
-   129: 0000082f     0 NOTYPE  LOCAL  DEFAULT   93 
+   129: 00000830     0 NOTYPE  LOCAL  DEFAULT   93 
    130: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
    131: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
    132: 00000000     0 NOTYPE  LOCAL  DEFAULT   11 $t.2

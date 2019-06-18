@@ -131,7 +131,7 @@ SYMBOL TABLE:
 00000810 l       .debug_str	00000000 
 0000081b l       .debug_str	00000000 
 00000827 l       .debug_str	00000000 
-0000082f l       .debug_str	00000000 
+00000830 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.0	00000013 .Lanon.b35cb14c59c8833032407cee1d6d75cf.0
 00000000 l     O .rodata.cst8	00000008 .Lanon.b35cb14c59c8833032407cee1d6d75cf.1
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.11	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.11
@@ -249,10 +249,7 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
    c:	2113      	movs	r1, #19
    e:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
   12:	e7ff      	b.n	2 <_ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE+0x2>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:74
-  //  send_sensor_data_json();  //  Testing
-  //  send_sensor_data_cbor();  //  Testing
-
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:70
   let rc = unsafe { os_task_init( //  Create a new task and start it...
 	&mut network_task,            //  Task object will be saved here.
 	b"network\0".as_ptr(),        //  Name of task.
@@ -262,12 +259,12 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   1e:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h6e6820e87d479c61E>
   22:	900a      	str	r0, [sp, #40]	; 0x28
   24:	e7ff      	b.n	26 <_ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE+0x26>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:75
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:71
 	Some(network_task_func),      //  Function to execute when task starts.
   26:	f240 0000 	movw	r0, #0
   2a:	f2c0 0000 	movt	r0, #0
   2e:	900e      	str	r0, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:79
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:75
 	0 as *mut ::cty::c_void,      //  Argument to be passed to above function.
 	10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
 	OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking.
@@ -278,7 +275,7 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   3c:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h7ab41fd71c3f64d3E>
   40:	9009      	str	r0, [sp, #36]	; 0x24
   42:	e7ff      	b.n	44 <_ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE+0x44>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:72
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:68
   let rc = unsafe { os_task_init( //  Create a new task and start it...
   44:	9a0e      	ldr	r2, [sp, #56]	; 0x38
   46:	4668      	mov	r0, sp
@@ -298,7 +295,7 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   6c:	900d      	str	r0, [sp, #52]	; 0x34
   6e:	e7ff      	b.n	70 <_ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE+0x70>
   70:	a80d      	add	r0, sp, #52	; 0x34
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:81
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:77
 	NETWORK_TASK_STACK_SIZE as u16) };  //  Size of the stack (in 4-byte units).
   assert_eq!(rc, 0);
   72:	900f      	str	r0, [sp, #60]	; 0x3c
@@ -336,17 +333,17 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
   bc:	9107      	str	r1, [sp, #28]
   be:	e005      	b.n	cc <_ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE+0xcc>
   c0:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:82
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:78
   Ok(())
   c2:	900b      	str	r0, [sp, #44]	; 0x2c
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:84
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:80
   //  0
 }
   c4:	980b      	ldr	r0, [sp, #44]	; 0x2c
   c6:	990c      	ldr	r1, [sp, #48]	; 0x30
   c8:	b024      	add	sp, #144	; 0x90
   ca:	bd80      	pop	{r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:81
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:77
   assert_eq!(rc, 0);
   cc:	9822      	ldr	r0, [sp, #136]	; 0x88
   ce:	f240 0100 	movw	r1, #0
@@ -383,7 +380,7 @@ Disassembly of section .text._ZN5mylib9send_coap17network_task_func17h008f672c6f
 
 00000000 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE>:
 _ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:93
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:89
 ///  For Collector Node and Standalone Node: We connect the ESP8266 to the WiFi access point. 
 ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
 ///  Register the ESP8266 driver as the network transport for CoAP Server.  
@@ -394,7 +391,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
    2:	b0bc      	sub	sp, #240	; 0xf0
    4:	4601      	mov	r1, r0
    6:	900f      	str	r0, [sp, #60]	; 0x3c
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:94
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:90
 	console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
    8:	f240 0000 	movw	r0, #0
    c:	f2c0 0000 	movt	r0, #0
@@ -414,7 +411,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
   32:	f2c0 0000 	movt	r0, #0
   36:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   3a:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:98
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:94
 
 	//  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
 	//  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
@@ -442,7 +439,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
   6c:	f000 0101 	and.w	r1, r0, #1
   70:	f88d 1043 	strb.w	r1, [sp, #67]	; 0x43
   74:	e7ee      	b.n	ffffffe0 <register_server_transport+0xffffffe0>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:99
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:95
 		let rc = unsafe { register_server_transport() };  assert_eq!(rc, 0);
   76:	f7ff fffe 	bl	0 <register_server_transport>
   7a:	9011      	str	r0, [sp, #68]	; 0x44
@@ -482,10 +479,10 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
   c8:	900b      	str	r0, [sp, #44]	; 0x2c
   ca:	910a      	str	r1, [sp, #40]	; 0x28
   cc:	e000      	b.n	d0 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0xd0>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:98
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:94
 	if unsafe { is_standalone_node() } || unsafe { is_collector_node() } {
   ce:	e028      	b.n	122 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x122>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:99
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:95
 		let rc = unsafe { register_server_transport() };  assert_eq!(rc, 0);
   d0:	9825      	ldr	r0, [sp, #148]	; 0x94
   d2:	f240 0100 	movw	r1, #0
@@ -517,7 +514,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  11a:	a816      	add	r0, sp, #88	; 0x58
  11c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  120:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:103
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:99
 	}
 
 	//  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
@@ -545,7 +542,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  152:	f000 0101 	and.w	r1, r0, #1
  156:	f88d 109b 	strb.w	r1, [sp, #155]	; 0x9b
  15a:	e7ee      	b.n	ffffffe0 <register_collector_transport+0xffffffe0>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:104
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:100
 		let rc = unsafe { register_collector_transport() };  assert_eq!(rc, 0);
  15c:	f7ff fffe 	bl	0 <register_collector_transport>
  160:	9027      	str	r0, [sp, #156]	; 0x9c
@@ -585,10 +582,10 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  1ae:	9005      	str	r0, [sp, #20]
  1b0:	9104      	str	r1, [sp, #16]
  1b2:	e000      	b.n	1b6 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x1b6>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:103
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:99
 	if unsafe { is_collector_node() } || unsafe { is_sensor_node() } {
  1b4:	e028      	b.n	208 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x208>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:104
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:100
 		let rc = unsafe { register_collector_transport() };  assert_eq!(rc, 0);
  1b6:	983b      	ldr	r0, [sp, #236]	; 0xec
  1b8:	f240 0100 	movw	r1, #0
@@ -620,7 +617,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  200:	a82c      	add	r0, sp, #176	; 0xb0
  202:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  206:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:109
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:105
 	}
 
 	//  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
@@ -630,11 +627,11 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  20c:	f2c0 0000 	movt	r0, #0
  210:	2101      	movs	r1, #1
  212:	7001      	strb	r1, [r0, #0]
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:111
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:107
 
 	loop {  //  Loop forever...        
  214:	e7ff      	b.n	216 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x216>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:112
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:108
 		console_print(b"NET free mbuf %d\n");  //  , os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
  216:	f240 0000 	movw	r0, #0
  21a:	f2c0 0000 	movt	r0, #0
@@ -643,7 +640,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  224:	e7ff      	b.n	226 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x226>
  226:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  22a:	210a      	movs	r1, #10
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:113
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:109
 		unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
  22c:	fba1 0100 	umull	r0, r1, r1, r0
  230:	2900      	cmp	r1, #0
@@ -653,10 +650,10 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
  238:	9801      	ldr	r0, [sp, #4]
  23a:	f7ff fffe 	bl	0 <os_time_delay>
  23e:	e7ff      	b.n	240 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x240>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:111
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:107
 	loop {  //  Loop forever...        
  240:	e7e9      	b.n	216 <_ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE+0x216>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:113
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:109
 		unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
  242:	f240 0000 	movw	r0, #0
  246:	f2c0 0000 	movt	r0, #0
@@ -667,7 +664,7 @@ Disassembly of section .text._ZN5mylib9send_coap16send_sensor_data17h610afad13e4
 
 00000000 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E>:
 _ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:127
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:123
 ///  For Collector Node: sensor_node is the Sensor Node Address of the Sensor Node that transmitted
 ///  the sensor data (like `b3b4b5b6f1`)
 ///  The message will be enqueued for transmission by the CoAP / OIC Background Task 
@@ -682,7 +679,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
    a:	9006      	str	r0, [sp, #24]
    c:	9107      	str	r1, [sp, #28]
    e:	9208      	str	r2, [sp, #32]
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:128
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:124
 	console_print(b"send_sensor_data\n");
   10:	f240 0000 	movw	r0, #0
   14:	f2c0 0000 	movt	r0, #0
@@ -692,7 +689,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   20:	f8cd e00c 	str.w	lr, [sp, #12]
   24:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
   28:	e7ff      	b.n	2 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x2>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:131
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:127
     //  TODO: Remove val
     let mut val = sensor_value{
         key: b"\0".as_ptr(),
@@ -702,7 +699,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   34:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h6e6820e87d479c61E>
   38:	9002      	str	r0, [sp, #8]
   3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x3c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:130
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:126
     let mut val = sensor_value{
   3c:	9802      	ldr	r0, [sp, #8]
   3e:	900a      	str	r0, [sp, #40]	; 0x28
@@ -710,7 +707,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   42:	910b      	str	r1, [sp, #44]	; 0x2c
   44:	f8ad 1030 	strh.w	r1, [sp, #48]	; 0x30
   48:	910d      	str	r1, [sp, #52]	; 0x34
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:137
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:133
         val_type: 0,
         int_val: 0,
         float_val: 0.0,
@@ -732,7 +729,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   66:	2900      	cmp	r1, #0
   68:	d00b      	beq.n	82 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x82>
   6a:	e7ff      	b.n	6c <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x6c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:138
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:134
 		return send_sensor_data_to_collector(sensor_val, sensor_node); 
   6c:	9806      	ldr	r0, [sp, #24]
   6e:	9907      	ldr	r1, [sp, #28]
@@ -741,7 +738,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   76:	9009      	str	r0, [sp, #36]	; 0x24
   78:	e7ff      	b.n	7a <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x7a>
   7a:	e7ff      	b.n	7c <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x7c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:142
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:138
 	}
 	//  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
 	send_sensor_data_to_server(sensor_val, sensor_node)
@@ -749,7 +746,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   7c:	9809      	ldr	r0, [sp, #36]	; 0x24
   7e:	b00e      	add	sp, #56	; 0x38
   80:	bd80      	pop	{r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:141
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:137
 	send_sensor_data_to_server(sensor_val, sensor_node)
   82:	9806      	ldr	r0, [sp, #24]
   84:	9907      	ldr	r1, [sp, #28]
@@ -757,7 +754,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
   88:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E>
   8c:	9009      	str	r0, [sp, #36]	; 0x24
   8e:	e7ff      	b.n	90 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x90>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:142
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:138
 }
   90:	e7f4      	b.n	7c <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E+0x7c>
 
@@ -765,7 +762,7 @@ Disassembly of section .text._ZN5mylib9send_coap26send_sensor_data_to_server17h0
 
 00000000 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE>:
 _ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:158
 ///    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
 ///    {"key":"tmp",    "value":28.7},
 ///    {"key":"...",    "value":... },
@@ -780,7 +777,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
    a:	900b      	str	r0, [sp, #44]	; 0x2c
    c:	910c      	str	r1, [sp, #48]	; 0x30
    e:	920d      	str	r2, [sp, #52]	; 0x34
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:159
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
   10:	980b      	ldr	r0, [sp, #44]	; 0x2c
   12:	6880      	ldr	r0, [r0, #8]
@@ -799,7 +796,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
   34:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   38:	defe      	udf	#254	; 0xfe
   3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x3c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:164
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:160
 	assert!(node_id.to_str().unwrap().len() > 0);
   3c:	990c      	ldr	r1, [sp, #48]	; 0x30
   3e:	9a0d      	ldr	r2, [sp, #52]	; 0x34
@@ -824,7 +821,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
   6c:	f2c0 0000 	movt	r0, #0
   70:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   74:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:165
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
   76:	f240 0000 	movw	r0, #0
   7a:	f2c0 0000 	movt	r0, #0
@@ -836,7 +833,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
   88:	f06f 0005 	mvn.w	r0, #5
   8c:	900e      	str	r0, [sp, #56]	; 0x38
   8e:	e7ff      	b.n	90 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x90>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:198
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:194
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
@@ -846,7 +843,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
   90:	980e      	ldr	r0, [sp, #56]	; 0x38
   92:	b028      	add	sp, #160	; 0xa0
   94:	bd80      	pop	{r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:166
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
   96:	f7ff fffe 	bl	0 <get_device_id>
   9a:	9012      	str	r0, [sp, #72]	; 0x48
@@ -887,12 +884,12 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
   ea:	9103      	str	r1, [sp, #12]
   ec:	e005      	b.n	fa <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xfa>
   ee:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:171
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:167
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
   f0:	f7ff fffe 	bl	0 <init_server_post>
   f4:	f88d 009e 	strb.w	r0, [sp, #158]	; 0x9e
   f8:	e028      	b.n	14c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x14c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:166
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
   fa:	9826      	ldr	r0, [sp, #152]	; 0x98
   fc:	f240 0100 	movw	r1, #0
@@ -924,7 +921,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
  144:	a817      	add	r0, sp, #92	; 0x5c
  146:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  14a:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:171
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:167
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
  14c:	f89d 009e 	ldrb.w	r0, [sp, #158]	; 0x9e
  150:	07c0      	lsls	r0, r0, #31
@@ -935,7 +932,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
  15c:	f2c0 0000 	movt	r0, #0
  160:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  164:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:190
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:186
     let rc = unsafe { do_server_post() };  assert!(rc);
  166:	f7ff fffe 	bl	0 <do_server_post>
  16a:	f88d 009f 	strb.w	r0, [sp, #159]	; 0x9f
@@ -949,7 +946,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
  180:	f2c0 0000 	movt	r0, #0
  184:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  188:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:192
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:188
     console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
  18a:	f240 0000 	movw	r0, #0
  18e:	f2c0 0000 	movt	r0, #0
@@ -957,10 +954,10 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
  194:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
  198:	e7ff      	b.n	19a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x19a>
  19a:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:197
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:193
     0
  19c:	900e      	str	r0, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:198
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:194
 }
  19e:	e777      	b.n	90 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x90>
 
@@ -968,7 +965,7 @@ Disassembly of section .text._ZN5mylib9send_coap29send_sensor_data_to_collector1
 
 00000000 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E>:
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:212
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:208
 ///  The message will be enqueued for transmission by the CoAP / OIC 
 ///  Background Task so this function will return without waiting for the message 
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
@@ -983,7 +980,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
    a:	900c      	str	r0, [sp, #48]	; 0x30
    c:	910d      	str	r1, [sp, #52]	; 0x34
    e:	920e      	str	r2, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:213
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:209
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
   10:	980c      	ldr	r0, [sp, #48]	; 0x30
   12:	6880      	ldr	r0, [r0, #8]
@@ -1002,7 +999,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   34:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   38:	defe      	udf	#254	; 0xfe
   3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x3c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:214
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:210
     if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
   3c:	f240 0000 	movw	r0, #0
   40:	f2c0 0000 	movt	r0, #0
@@ -1014,7 +1011,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   4e:	f06f 0005 	mvn.w	r0, #5
   52:	900f      	str	r0, [sp, #60]	; 0x3c
   54:	e7ff      	b.n	56 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x56>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:237
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
@@ -1024,7 +1021,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   56:	980f      	ldr	r0, [sp, #60]	; 0x3c
   58:	b016      	add	sp, #88	; 0x58
   5a:	bd80      	pop	{r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:219
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:215
     let rc = unsafe { init_collector_post() };  assert!(rc);
   5c:	f7ff fffe 	bl	0 <init_collector_post>
   60:	f88d 0043 	strb.w	r0, [sp, #67]	; 0x43
@@ -1038,8 +1035,8 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   76:	f2c0 0000 	movt	r0, #0
   7a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   7e:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:222
-    let payload = coap!(@cbor {
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:218
+    let _payload = coap!(@cbor {
   80:	f240 0000 	movw	r0, #0
   84:	f2c0 0000 	movt	r0, #0
   88:	9013      	str	r0, [sp, #76]	; 0x4c
@@ -1096,7 +1093,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
  116:	9914      	ldr	r1, [sp, #80]	; 0x50
  118:	9011      	str	r0, [sp, #68]	; 0x44
  11a:	9112      	str	r1, [sp, #72]	; 0x48
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:230
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:226
     let rc = unsafe { do_collector_post() };  assert!(rc);
  11c:	f7ff fffe 	bl	0 <do_collector_post>
  120:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
@@ -1110,7 +1107,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
  136:	f2c0 0000 	movt	r0, #0
  13a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  13e:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:232
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:228
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
  140:	f240 0000 	movw	r0, #0
  144:	f2c0 0000 	movt	r0, #0
@@ -1118,10 +1115,10 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
  14a:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
  14e:	e7ff      	b.n	150 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x150>
  150:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:236
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:232
     0
  152:	900f      	str	r0, [sp, #60]	; 0x3c
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:237
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
 }
  154:	e77f      	b.n	56 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x56>
 
