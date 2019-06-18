@@ -68,40 +68,39 @@ pub fn start_sensor_listener() -> i32 {
 ///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
 ///  Return 0 if we have processed the sensor data successfully.
 extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
-    unsafe {
-        console_print(b"read_temperature\n");
-        //  Check that the temperature data is valid.
-        //  TODO
-        if is_null_sensor_data(sensor_data) { return SYS_EINVAL; }  //  Exit if data is missing
-        assert!(!is_null_sensor(sensor));
+    console_print(b"read_temperature\n");
+    //  Check that the temperature data is valid.
+    //  TODO
+    if unsafe { is_null_sensor_data(sensor_data) } { return SYS_EINVAL; }  //  Exit if data is missing
+    assert!(unsafe { !is_null_sensor(sensor) });
 
-        //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
-        //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
-        let device = sensor_get_device(sensor);
-        let device_name_ptr: *const c_char = device_get_name(device);
-        let device_name: &CStr = CStr::from_ptr(device_name_ptr);
-        //assert!(device_name.len() > 0);  //  console_printf("device_name %s\n", device_name);
-        
-        //  Get the temperature sensor value. It could be raw or computed.
-        let temp_sensor_value = get_temperature(sensor_data, sensor_type);
-        if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
+    //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
+    //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
+    let device = unsafe { sensor_get_device(sensor) };
+    let device_name_ptr: *const c_char = unsafe { device_get_name(device) };
+    let device_name: &CStr = unsafe { CStr::from_ptr(device_name_ptr) };
+    //assert!(device_name.len() > 0);  //  console_printf("device_name %s\n", device_name);
+    
+    //  Get the temperature sensor value. It could be raw or computed.
+    let temp_sensor_value = get_temperature(sensor_data, sensor_type);
+    if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
 
-        //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
-        //  Compose a CoAP message with the temperature sensor data and send to the 
-        //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
-        //  background task so this function will return without waiting for the message 
-        //  to be transmitted.
-        let rc = send_sensor_data(&temp_sensor_value, device_name);
+    //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
+    //  Compose a CoAP message with the temperature sensor data and send to the 
+    //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
+    //  background task so this function will return without waiting for the message 
+    //  to be transmitted.
+    let rc = send_sensor_data(&temp_sensor_value, device_name);
 
-        //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
-        //  We drop the sensor data and send at the next poll.
-        if rc == SYS_EAGAIN {
+    //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
+    //  We drop the sensor data and send at the next poll.
+    if let Err(err) = rc {
+        if err == SYS_EAGAIN {
             console_print(b"TMP network not ready\n");
             return 0; 
-        }
-        assert!(rc == 0);
-        //#endif  //  MYNEWT_VAL(SENSOR_COAP)
+        }            
     }
+    //#endif  //  MYNEWT_VAL(SENSOR_COAP)
     0
 }
 

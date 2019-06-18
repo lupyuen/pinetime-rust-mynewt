@@ -49,7 +49,6 @@ static mut NETWORK_IS_READY: bool = false;
 ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
-//  pub fn start_network_task() -> i32  {
     console_print(b"start_network_task\n");
     let rc = unsafe { os_task_init( //  Create a new task and start it...
         &mut NETWORK_TASK,            //  Task object will be saved here.
@@ -62,7 +61,6 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
         NETWORK_TASK_STACK_SIZE as u16) };  //  Size of the stack (in 4-byte units).
     assert_eq!(rc, 0);
     Ok(())
-    //  0
 }
 
 ///  Network Task runs this function in the background to prepare the network drivers
@@ -106,7 +104,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 ///  The message will be enqueued for transmission by the CoAP / OIC Background Task 
 ///  so this function will return without waiting for the message to be transmitted.  
 ///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
+pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
 	console_print(b"send_sensor_data\n");
     //  TODO: Remove val
     let mut val = sensor_value{
@@ -141,11 +139,11 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
 ///    {"key":"...",    "value":... },
 ///    ... ]}
 ///  ```
-fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
+fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
     if let SensorValueType::None = sensor_val.val { assert!(false); }
     //  assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
-	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+	if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
 
 	//  Start composing the CoAP Server message with the sensor data in the payload.  This will 
@@ -177,7 +175,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
-    0
+    Ok(())
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -192,9 +190,9 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
-fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
+fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
 	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
-    if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -216,7 +214,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
 
     //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
     //  transmit the message: libs/nrf24l01/src/transport.cpp
-    0
+    Ok(())
 }
 
 /*
