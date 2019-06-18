@@ -20,14 +20,16 @@ function generate_bindings_libs() {
     local modname=$1
     local libdir=libs/$libname
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+    local whitelist=`cat << EOF
+        --whitelist-function (?i)init_.*_post \
+        --whitelist-function (?i)do_.*_post \
+        --whitelist-function (?i)$modname.* \
+        --whitelist-type     (?i)$modname.* \
+        --whitelist-var      (?i)$modname.* 
+EOF
+`
 
-    local whitelist=--whitelist-function "(?i)init_.*_post"
-    whitelist=$whitelist --whitelist-function "(?i)do_.*_post"
-    whitelist=$whitelist --whitelist-function "(?i)$modname.*"
-    whitelist=$whitelist --whitelist-type     "(?i)$modname.*"
-    whitelist=$whitelist --whitelist-var      "(?i)$modname.*"
-
-    generate_bindings $libname $modname $libdir $libcmd
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
 function generate_bindings() {
@@ -36,6 +38,9 @@ function generate_bindings() {
     local modname=$2
     local libdir=$3
     local libcmd=$4
+    shift 4
+    local whitelist="$@"
+    echo "whitelist=$whitelist"
 
     local expandcmd=logs/gen-bindings.txt
     local expandfile=logs/$modname-expanded.h
@@ -49,9 +54,9 @@ function generate_bindings() {
     cat \
         >> $expandcmd \
         << "EOF"
--E 
--dD
--o
+        -E 
+        -dD
+        -o
 EOF
 
     #  Expand macros to sensor_network-expanded.h
@@ -70,22 +75,24 @@ EOF
         --no-layout-tests \
         --use-core \
         --ctypes-prefix "::cty" \
-        --whitelist-function "(?i)init_.*_post" \
-        --whitelist-function "(?i)do_.*_post" \
-        --whitelist-function "(?i)$modname.*" \
-        --whitelist-type     "(?i)$modname.*" \
-        --whitelist-var      "(?i)$modname.*" \
+        $whitelist \
         -o src/$modname.rs \
         $expandfile
 }
 
 #  Generate bindings for my_sensor_app/send_coap.c
-generate_bindings_apps my_sensor_app send_coap
+#  generate_bindings_apps my_sensor_app send_coap
 
 #  Generate bindings for libs/sensor_network.
-#generate_bindings_libs sensor_network
+generate_bindings_libs sensor_network
 
 exit
+
+        --whitelist-function "(?i)init_.*_post" \
+        --whitelist-function "(?i)do_.*_post" \
+        --whitelist-function "(?i)$modname.*" \
+        --whitelist-type     "(?i)$modname.*" \
+        --whitelist-var      "(?i)$modname.*" \
 
 #  Generate Rust bindings for tinycbor.
 bindgen \

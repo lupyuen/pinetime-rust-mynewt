@@ -132,8 +132,8 @@
 -Itargets/bluepill_my_sensor/src
 -Itargets/bluepill_my_sensor/src/arch/cortex_m3
 -c
--E 
--dD
--o
+        -E 
+        -dD
+        -o
 logs/sensor_network-expanded.h
 libs/sensor_network/src/sensor_network.c
