@@ -9,7 +9,7 @@
 use cty::*;                             //  Import string utilities from cty library: https://crates.io/crates/cty
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;                     //  Import base.rs for common declarations
-use crate::mynewt::sensor::*;                   //  Import sensor.rs for Mynewt Sensor API
+use crate::mynewt::sensor::*;           //  Import sensor.rs for Mynewt Sensor API
 use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sensor data
 
 ///  Poll every 10,000 milliseconds (10 seconds)  

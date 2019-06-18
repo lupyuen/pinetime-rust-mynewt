@@ -1717,7 +1717,7 @@ Disassembly of section .text.main:
 
 00000000 <main>:
 main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:26
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:27
 use crate::listen_sensor::*;    //  Import listen_sensor.rs for polling the temperature sensor
 use crate::send_coap::*;        //  Import send_coap.rs for sending sensor data
 
@@ -1725,11 +1725,11 @@ use crate::send_coap::*;        //  Import send_coap.rs for sending sensor data
 #[no_mangle]                     //  Don't mangle the name "main"
 pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
    0:	b092      	sub	sp, #72	; 0x48
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:28
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:29
     //  Init Mynewt system.
     unsafe { rust_sysinit()  };
    2:	f7ff fffe 	bl	0 <rust_sysinit>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:29
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:30
     unsafe { console_flush() };
    6:	f7ff fffe 	bl	0 <console_flush>
 _ZN5mylib4base13console_print17hee1ead095790f478E():
@@ -1832,7 +1832,7 @@ _ZN5mylib6mynewt6sensor17register_listener17h5f4754571eae406fE():
   cc:	4620      	mov	r0, r4
   ce:	f7ff fffe 	bl	0 <sensor_register_listener>
 main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:47
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:48
 
     //  Main event loop
     loop {                            //  Loop forever...
@@ -1840,10 +1840,10 @@ main():
             os_eventq_run(            //  Process events...
                 os_eventq_dflt_get()  //  From default event queue.
   d2:	f7ff fffe 	bl	0 <os_eventq_dflt_get>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:46
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:47
             os_eventq_run(            //  Process events...
   d6:	f7ff fffe 	bl	0 <os_eventq_run>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:44
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:45
     loop {                            //  Loop forever...
   da:	e7fa      	b.n	d2 <main+0xd2>
   dc:	a809      	add	r0, sp, #36	; 0x24
@@ -1941,7 +1941,7 @@ Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:59
 
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
@@ -1951,17 +1951,17 @@ fn panic(info: &PanicInfo) -> ! {
    0:	f7ff fffe 	bl	0 <_ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E>
    4:	b338      	cbz	r0, 56 <rust_begin_unwind+0x56>
    6:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:60
         let file = location.file();
    8:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4file17h94cc6af18de736c4E>
    c:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:60
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:61
         let line = location.line();
    e:	4620      	mov	r0, r4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:60
         let file = location.file();
   10:	460e      	mov	r6, r1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:60
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:61
         let line = location.line();
   12:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4line17h3ffc63f14d0a6636E>
   16:	4604      	mov	r4, r0
@@ -1976,7 +1976,7 @@ _ZN5mylib4base13console_print17hee1ead095790f478E():
         console_flush();  //  TODO: Remove this.
   26:	f7ff fffe 	bl	0 <console_flush>
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:63
         console_print(b"panic at ");
         unsafe { console_buffer(file.as_ptr(), file.len() as u32) }
   2a:	4628      	mov	r0, r5
@@ -1993,7 +1993,7 @@ _ZN5mylib4base13console_print17hee1ead095790f478E():
         console_flush();  //  TODO: Remove this.
   40:	f7ff fffe 	bl	0 <console_flush>
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:64
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:65
         console_print(b" line 0x");
         unsafe { console_printhex(line as u8) }  //  TODO: Print in decimal not hex. Allow more than 255 lines.
   44:	b2e0      	uxtb	r0, r4
@@ -2022,7 +2022,7 @@ _ZN8cortex_m3asm4bkpt17h756c5667fd4cf09cE():
             __bkpt();
   6c:	f7ff fffe 	bl	0 <__bkpt>
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:75
         unsafe { console_flush() }
     }
     //  Pause in the debugger.

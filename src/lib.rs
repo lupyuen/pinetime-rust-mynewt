@@ -9,8 +9,9 @@
 #![feature(const_transmute)] //  Allow `transmute` for initialising Mynewt structs
 extern crate cortex_m;       //  Declare the external library `cortex_m`
 
-#[macro_use]
-mod mynewt;         //  Declare `mynewt/mod.rs` as Rust module `mynewt`. Use macros from the module.
+#[allow(dead_code)] //  Suppress warnings of unused constants and vars
+#[macro_use]        //  Allow macros from Rust module `mynewt`
+mod mynewt;         //  Declare `mynewt/mod.rs` as Rust module `mynewt`
 mod base;           //  Declare `base.rs` as Rust module `base`
 mod listen_sensor;  //  Declare `listen_sensor.rs` as Rust module `listen_sensor`
 mod send_coap;      //  Declare `send_coap.rs` as Rust module `send_coap`
