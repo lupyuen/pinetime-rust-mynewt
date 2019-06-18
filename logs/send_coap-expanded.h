@@ -1,4 +1,4 @@
-# 1 "libs/sensor_network/src/sensor_network.c"
+# 1 "apps/my_sensor_app/src/send_coap.c"
 # 1 "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor//"
 # 1 "<built-in>"
 #define __STDC__ 1
@@ -464,8 +464,8 @@
 #define FLOAT_SUPPORT 1
 #define MYNEWT 1
 #define STM32F103xB 1
-# 1 "libs/sensor_network/src/sensor_network.c"
-# 21 "libs/sensor_network/src/sensor_network.c"
+# 1 "apps/my_sensor_app/src/send_coap.c"
+# 13 "apps/my_sensor_app/src/send_coap.c"
 # 1 "repos/apache-mynewt-core/sys/sysinit/include/sysinit/sysinit.h" 1
 # 21 "repos/apache-mynewt-core/sys/sysinit/include/sysinit/sysinit.h"
 #define H_SYSINIT_ 
@@ -2576,245 +2576,14 @@ void sysinit_panic_set(sysinit_panic_fn *panic_fn);
 # 114 "repos/apache-mynewt-core/sys/sysinit/include/sysinit/sysinit.h"
 void sysinit_app(void);
 #define sysinit() do { sysinit_start(); sysinit_app(); sysinit_end(); } while (0)
-# 22 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "repos/apache-mynewt-core/hw/bsp/bluepill/include/bsp/bsp.h" 1
-# 20 "repos/apache-mynewt-core/hw/bsp/bluepill/include/bsp/bsp.h"
-#define H_BSP_H 
+# 14 "apps/my_sensor_app/src/send_coap.c" 2
 
 
-# 1 "repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/include/mcu/mcu.h" 1
-# 21 "repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/include/mcu/mcu.h"
-#define __MCU_MCU_H_ 
+# 1 "libs/semihosting_console/include/console/console.h" 1
+# 20 "libs/semihosting_console/include/console/console.h"
+#define __SEMIHOSTING_CONSOLE_H__ 
 
-# 1 "repos/apache-mynewt-core/hw/mcu/stm/stm32_common/include/stm32_common/mcu.h" 1
-# 21 "repos/apache-mynewt-core/hw/mcu/stm/stm32_common/include/stm32_common/mcu.h"
-#define __MCU_STM_MCU_H_ 
-# 51 "repos/apache-mynewt-core/hw/mcu/stm/stm32_common/include/stm32_common/mcu.h"
-#define MCU_GPIO_PORTA(pin) ((0 * 16) + (pin))
-#define MCU_GPIO_PORTB(pin) ((1 * 16) + (pin))
-#define MCU_GPIO_PORTC(pin) ((2 * 16) + (pin))
-#define MCU_GPIO_PORTD(pin) ((3 * 16) + (pin))
-#define MCU_GPIO_PORTE(pin) ((4 * 16) + (pin))
-#define MCU_GPIO_PORTF(pin) ((5 * 16) + (pin))
-#define MCU_GPIO_PORTG(pin) ((6 * 16) + (pin))
-#define MCU_GPIO_PORTH(pin) ((7 * 16) + (pin))
-#define MCU_GPIO_PORTI(pin) ((8 * 16) + (pin))
-#define MCU_GPIO_PORTJ(pin) ((9 * 16) + (pin))
-#define MCU_GPIO_PORTK(pin) ((10 * 16) + (pin))
 
-
-
-
-#define MCU_GPIO_PIN_NUM(pin) (0x000F & pin)
-#define MCU_GPIO_PIN_PORT(pin) (0x000F & (pin >> 4))
-#define MCU_GPIO_PIN_PAD(pin) (0x00FF & pin)
-
-
-
-
-#define MCU_GPIO_PIN_NONE (0xFFFF)
-
-
-
-
-
-#define MCU_AFIO_GPIO(pin,af) (((0x0F & af) << 12) | (0x00FF & pin))
-
-
-
-
-#define MCU_AFIO_PORTA(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTA(pin), af)
-#define MCU_AFIO_PORTB(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTB(pin), af)
-#define MCU_AFIO_PORTC(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTC(pin), af)
-#define MCU_AFIO_PORTD(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTD(pin), af)
-#define MCU_AFIO_PORTE(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTE(pin), af)
-#define MCU_AFIO_PORTF(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTF(pin), af)
-#define MCU_AFIO_PORTG(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTG(pin), af)
-#define MCU_AFIO_PORTH(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTH(pin), af)
-#define MCU_AFIO_PORTI(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTI(pin), af)
-#define MCU_AFIO_PORTJ(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTJ(pin), af)
-#define MCU_AFIO_PORTK(pin,af) MCU_AFIO_GPIO(MCU_GPIO_PORTK(pin), af)
-
-
-
-
-#define MCU_AFIO_PIN_NUM(pin) MCU_GPIO_PIN_NUM(pin)
-#define MCU_AFIO_PIN_PORT(pin) MCU_GPIO_PIN_PORT(pin)
-#define MCU_AFIO_PIN_PAD(pin) MCU_GPIO_PIN_PAD(pin)
-#define MCU_AFIO_PIN_AF(pin) (0x000F & (pin >> 12))
-
-
-
-
-#define MCU_AFIO_PIN_NONE (0xFFFF)
-# 24 "repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/include/mcu/mcu.h" 2
-
-
-
-
-
-#define SVC_IRQ_NUMBER SVCall_IRQn
-# 24 "repos/apache-mynewt-core/hw/bsp/bluepill/include/bsp/bsp.h" 2
-
-
-
-
-
-
-#define sec_data_core __attribute__((section(".data.core")))
-#define sec_bss_core __attribute__((section(".bss.core")))
-#define sec_bss_nz_core __attribute__((section(".bss.core.nz")))
-
-
-#define bssnz_t sec_bss_nz_core
-
-extern uint8_t _ram_start;
-
-#define RAM_SIZE (20 * 1024)
-
-
-#define LED_BLINK_PIN MCU_GPIO_PORTC(13)
-
-#define LED_2 MCU_GPIO_PORTC(0)
-
-
-#define UART_CNT 1
-# 23 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_bsp.h" 1
-# 29 "repos/apache-mynewt-core/hw/hal/include/hal/hal_bsp.h"
-#define __HAL_BSP_H_ 
-# 40 "repos/apache-mynewt-core/hw/hal/include/hal/hal_bsp.h"
-void hal_bsp_init(void);
-
-
-
-
-
-struct hal_flash;
-const struct hal_flash *hal_bsp_flash_dev(uint8_t flash_id);
-
-
-
-
-void *_sbrk(int incr);
-
-struct hal_bsp_mem_dump {
-    void *hbmd_start;
-    uint32_t hbmd_size;
-};
-
-
-
-
-const struct hal_bsp_mem_dump *hal_bsp_core_dump(int *area_cnt);
-
-#define HAL_BSP_MAX_ID_LEN 32
-
-
-
-
-
-
-int hal_bsp_hw_id_len(void);
-# 82 "repos/apache-mynewt-core/hw/hal/include/hal/hal_bsp.h"
-int hal_bsp_hw_id(uint8_t *id, int max_len);
-
-
-#define HAL_BSP_POWER_ON (1)
-
-#define HAL_BSP_POWER_WFI (2)
-
-#define HAL_BSP_POWER_SLEEP (3)
-
-
-
-
-#define HAL_BSP_POWER_DEEP_SLEEP (4)
-
-
-
-#define HAL_BSP_POWER_OFF (5)
-
-
-
-#define HAL_BSP_POWER_PERUSER (128)
-# 118 "repos/apache-mynewt-core/hw/hal/include/hal/hal_bsp.h"
-int hal_bsp_power_state(int state);
-
-
-
-
-uint32_t hal_bsp_get_nvic_priority(int irq_num, uint32_t pri);
-# 24 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h" 1
-# 21 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h"
-#define __SENSOR_H__ 
-
-# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 1
-
-
-
-
-
-#define _STRING_H 
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 10 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 2
-
-
-
-
-
-extern void *memccpy(void *, const void *, int, size_t);
-extern void *memchr(const void *, int, size_t);
-extern void *memrchr(const void *, int, size_t);
-extern int memcmp(const void *, const void *, size_t);
-extern void *memcpy(void *, const void *, size_t);
-extern void *memmove(void *, const void *, size_t);
-extern void *memset(void *, int, size_t);
-extern void *memmem(const void *, size_t, const void *, size_t);
-extern void memswap(void *, void *, size_t);
-extern void bzero(void *, size_t);
-extern int strcasecmp(const char *, const char *);
-extern int strncasecmp(const char *, const char *, size_t);
-extern char *strcat(char *, const char *);
-extern char *strchr(const char *, int);
-extern char *index(const char *, int);
-extern char *strrchr(const char *, int);
-extern char *rindex(const char *, int);
-extern int strcmp(const char *, const char *);
-extern char *strcpy(char *, const char *);
-extern size_t strcspn(const char *, const char *);
-extern char *strdup(const char *);
-extern char *strndup(const char *, size_t);
-extern size_t strlen(const char *);
-extern size_t strnlen(const char *, size_t);
-extern char *strncat(char *, const char *, size_t);
-extern size_t strlcat(char *, const char *, size_t);
-extern int strncmp(const char *, const char *, size_t);
-extern char *strncpy(char *, const char *, size_t);
-extern size_t strlcpy(char *, const char *, size_t);
-extern char *strpbrk(const char *, const char *);
-extern char *strsep(char **, const char *);
-extern size_t strspn(const char *, const char *);
-extern char *strstr(const char *, const char *);
-extern char *strnstr(const char *, const char *, size_t);
-extern char *strtok(char *, const char *);
-extern char *strtok_r(char *, const char *, char **);
-
-
-inline static int strcoll(const char *s1, const char *s2)
-{
- return strcmp(s1, s2);
-}
-
-inline static size_t strxfrm(char *dest, const char *src, size_t n)
-{
- strncpy(dest, src, n);
- return strlen(src);
-}
-# 24 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h" 2
 # 1 "repos/apache-mynewt-core/kernel/os/include/os/mynewt.h" 1
 # 21 "repos/apache-mynewt-core/kernel/os/include/os/mynewt.h"
 #define H_OS_MYNEWT_ 
@@ -17246,8 +17015,73 @@ typedef __gnuc_va_list va_list;
 # 11 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
 # 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
 # 12 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
-# 21 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h"
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 1
 
+
+
+
+
+#define _STRING_H 
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 10 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 2
+
+
+
+
+
+
+# 15 "repos/apache-mynewt-core/libc/baselibc/include/string.h"
+extern void *memccpy(void *, const void *, int, size_t);
+extern void *memchr(const void *, int, size_t);
+extern void *memrchr(const void *, int, size_t);
+extern int memcmp(const void *, const void *, size_t);
+extern void *memcpy(void *, const void *, size_t);
+extern void *memmove(void *, const void *, size_t);
+extern void *memset(void *, int, size_t);
+extern void *memmem(const void *, size_t, const void *, size_t);
+extern void memswap(void *, void *, size_t);
+extern void bzero(void *, size_t);
+extern int strcasecmp(const char *, const char *);
+extern int strncasecmp(const char *, const char *, size_t);
+extern char *strcat(char *, const char *);
+extern char *strchr(const char *, int);
+extern char *index(const char *, int);
+extern char *strrchr(const char *, int);
+extern char *rindex(const char *, int);
+extern int strcmp(const char *, const char *);
+extern char *strcpy(char *, const char *);
+extern size_t strcspn(const char *, const char *);
+extern char *strdup(const char *);
+extern char *strndup(const char *, size_t);
+extern size_t strlen(const char *);
+extern size_t strnlen(const char *, size_t);
+extern char *strncat(char *, const char *, size_t);
+extern size_t strlcat(char *, const char *, size_t);
+extern int strncmp(const char *, const char *, size_t);
+extern char *strncpy(char *, const char *, size_t);
+extern size_t strlcpy(char *, const char *, size_t);
+extern char *strpbrk(const char *, const char *);
+extern char *strsep(char **, const char *);
+extern size_t strspn(const char *, const char *);
+extern char *strstr(const char *, const char *);
+extern char *strnstr(const char *, const char *, size_t);
+extern char *strtok(char *, const char *);
+extern char *strtok_r(char *, const char *, char **);
+
+
+inline static int strcoll(const char *s1, const char *s2)
+{
+ return strcmp(s1, s2);
+}
+
+inline static size_t strxfrm(char *dest, const char *src, size_t n)
+{
+ strncpy(dest, src, n);
+ return strlen(src);
+}
+# 13 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
 # 21 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h"
 struct File;
 
@@ -17557,7 +17391,114 @@ os_trace_api_ret_u32(unsigned id, uint32_t return_value)
 
 #define H_MYNEWT_LOGCFG_ 
 # 34 "repos/apache-mynewt-core/kernel/os/include/os/mynewt.h" 2
-# 25 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h" 2
+# 24 "libs/semihosting_console/include/console/console.h" 2
+
+
+
+
+
+struct os_eventq;
+
+
+
+
+
+
+
+struct console_input {
+
+
+    char line[(256)];
+};
+
+typedef void (*console_rx_cb)(void);
+typedef int (*console_append_char_cb)(char *line, uint8_t byte);
+typedef void (*completion_cb)(char *str, console_append_char_cb cb);
+
+
+void console_buffer(const char *buffer, unsigned int length);
+void console_printhex(uint8_t v);
+void console_printfloat(float f);
+void console_dump(const uint8_t *buffer, unsigned int len);
+void console_flush(void);
+
+
+
+
+void console_deinit(void);
+
+
+
+void console_reinit(void);
+int console_init(console_rx_cb rx_cb);
+int console_is_init(void);
+void console_write(const char *str, int cnt);
+void console_blocking_mode(void);
+void console_non_blocking_mode(void);
+void console_echo(int on);
+
+int console_printf(const char *fmt, ...)
+    __attribute__ ((format (printf, 1, 2)));;
+
+void console_set_completion_cb(completion_cb cb);
+int console_handle_char(uint8_t byte);
+
+
+void console_line_queue_set(struct os_eventq *evq);
+
+void console_line_event_put(struct os_event *ev);
+
+
+
+extern 
+# 82 "libs/semihosting_console/include/console/console.h" 3 4
+      _Bool 
+# 82 "libs/semihosting_console/include/console/console.h"
+           g_silence_console;
+
+
+
+extern 
+# 86 "libs/semihosting_console/include/console/console.h" 3 4
+      _Bool 
+# 86 "libs/semihosting_console/include/console/console.h"
+           g_console_input_ignore;
+# 95 "libs/semihosting_console/include/console/console.h"
+static void inline
+console_silence(
+# 96 "libs/semihosting_console/include/console/console.h" 3 4
+               _Bool 
+# 96 "libs/semihosting_console/include/console/console.h"
+                    silent)
+{
+    g_silence_console = silent;
+}
+# 108 "libs/semihosting_console/include/console/console.h"
+static void inline
+console_input_ignore(
+# 109 "libs/semihosting_console/include/console/console.h" 3 4
+                    _Bool 
+# 109 "libs/semihosting_console/include/console/console.h"
+                         ignore)
+{
+    g_console_input_ignore = ignore;
+}
+
+extern int console_is_midline;
+extern int console_out(int character);
+extern void console_rx_restart(void);
+
+int console_lock(int timeout);
+int console_unlock(void);
+# 17 "apps/my_sensor_app/src/send_coap.c" 2
+# 1 "libs/sensor_network/include/sensor_network/sensor_network.h" 1
+# 39 "libs/sensor_network/include/sensor_network/sensor_network.h"
+#define __SENSOR_NETWORK_H__ 
+
+
+# 1 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h" 1
+# 21 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h"
+#define __SENSOR_H__ 
 # 46 "repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h"
 void sensor_pkg_init(void);
 
@@ -18216,748 +18157,318 @@ sensor_mgr_put_read_evt(void *arg);
 
 int
 sensor_reset(struct sensor *sensor);
-# 25 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 1
-# 35 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-#define COAP_H 
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 38 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-
-
+# 43 "libs/sensor_network/include/sensor_network/sensor_network.h" 2
+# 53 "libs/sensor_network/include/sensor_network/sensor_network.h"
+#define SERVER_INTERFACE_TYPE 0
+#define COLLECTOR_INTERFACE_TYPE 1
+#define MAX_INTERFACE_TYPES 2
+#define MAX_ENDPOINT_SIZE 16
+#define SENSOR_NETWORK_SIZE 5
 
 
-# 1 "repos/apache-mynewt-core/sys/stats/stub/include/stats/stats.h" 1
-# 20 "repos/apache-mynewt-core/sys/stats/stub/include/stats/stats.h"
-#define __UTIL_STATS_H__ 
-# 29 "repos/apache-mynewt-core/sys/stats/stub/include/stats/stats.h"
-struct stats_name_map {
-    uint16_t snm_off;
-    char *snm_name;
-} __attribute__((packed));
-
-struct stats_hdr {
-    const char *s_name;
-    uint8_t s_size;
-    uint8_t s_cnt;
-    uint16_t s_pad1;
-
-
-
-
-    struct { struct stats_hdr *stqe_next; } s_next;
+struct sensor_network_interface {
+    uint8_t iface_type;
+    const char *network_device;
+    uint8_t server_endpoint_size;
+    int (*register_transport_func)(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
+    uint8_t transport_registered;
 };
 
-#define STATS_SECT_DECL(__name) struct stats_ ## __name
+struct sensor_value;
 
-#define STATS_SECT_END };
 
-#define STATS_SECT_START(__name) STATS_SECT_DECL(__name) {
 
-#define STATS_SECT_VAR(__var) 
 
-#define STATS_HDR(__sectname) 
 
-#define STATS_SECT_ENTRY(__var) 
-#define STATS_SECT_ENTRY16(__var) 
-#define STATS_SECT_ENTRY32(__var) 
-#define STATS_SECT_ENTRY64(__var) 
-#define STATS_RESET(__var) 
+int register_server_transport(void);
 
-#define STATS_SIZE_INIT_PARMS(__sectvarname,__size) 0, 0
 
-#define STATS_GET(__sectvarname,__var) 
-#define STATS_INC(__sectvarname,__var) 
-#define STATS_INCN(__sectvarname,__var,__n) 
-#define STATS_CLEAR(__sectvarname,__var) 
+int register_collector_transport(void);
 
-#define STATS_NAME_START(__name) 
-#define STATS_NAME(__name,__entry) 
-#define STATS_NAME_END(__name) 
-#define STATS_NAME_INIT_PARMS(__name) NULL, 0
 
-#define stats_init(...) 0
-#define stats_register(name,shdr) 0
-#define stats_init_and_reg(...) 0
-#define stats_reset(shdr) 
-# 43 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
+int sensor_network_register_transport(uint8_t iface_type);
 
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h" 1
 
-#define CONFIG_H 
-# 13 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h"
-# 1 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 1
-# 20 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h"
-#define __SYS_LOG_STUB_H__ 
 
 
 
-# 1 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h" 1
-# 21 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h"
-#define H_LOG_COMMON_ 
 
 
-# 1 "repos/apache-mynewt-core/sys/log/common/include/log_common/ignore.h" 1
-# 21 "repos/apache-mynewt-core/sys/log/common/include/log_common/ignore.h"
-#define H_IGNORE_ 
-# 32 "repos/apache-mynewt-core/sys/log/common/include/log_common/ignore.h"
-#define IGN_1(X) ((void)(X))
-#define IGN_2(X,...) ((void)(X));IGN_1(__VA_ARGS__)
-#define IGN_3(X,...) ((void)(X));IGN_2(__VA_ARGS__)
-#define IGN_4(X,...) ((void)(X));IGN_3(__VA_ARGS__)
-#define IGN_5(X,...) ((void)(X));IGN_4(__VA_ARGS__)
-#define IGN_6(X,...) ((void)(X));IGN_5(__VA_ARGS__)
-#define IGN_7(X,...) ((void)(X));IGN_6(__VA_ARGS__)
-#define IGN_8(X,...) ((void)(X));IGN_7(__VA_ARGS__)
-#define IGN_9(X,...) ((void)(X));IGN_8(__VA_ARGS__)
-#define IGN_10(X,...) ((void)(X));IGN_9(__VA_ARGS__)
-#define IGN_11(X,...) ((void)(X));IGN_10(__VA_ARGS__)
-#define IGN_12(X,...) ((void)(X));IGN_11(__VA_ARGS__)
-#define IGN_13(X,...) ((void)(X));IGN_12(__VA_ARGS__)
-#define IGN_14(X,...) ((void)(X));IGN_13(__VA_ARGS__)
-#define IGN_15(X,...) ((void)(X));IGN_14(__VA_ARGS__)
-#define IGN_16(X,...) ((void)(X));IGN_15(__VA_ARGS__)
-#define IGN_17(X,...) ((void)(X));IGN_16(__VA_ARGS__)
-#define IGN_18(X,...) ((void)(X));IGN_17(__VA_ARGS__)
-#define IGN_19(X,...) ((void)(X));IGN_18(__VA_ARGS__)
-#define IGN_20(X,...) ((void)(X));IGN_19(__VA_ARGS__)
 
-#define GET_MACRO(_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,_13,_14,_15,_16,_17,_18,_19,_20,NAME,...) NAME
+# 88 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 88 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    init_server_post(const char *uri);
 
-#define IGNORE(...) GET_MACRO(__VA_ARGS__, IGN_20, IGN_19, IGN_18, IGN_17, IGN_16, IGN_15, IGN_14, IGN_13, IGN_12, IGN_11, IGN_10, IGN_9, IGN_8, IGN_7, IGN_6, IGN_5, IGN_4, IGN_3, IGN_2, IGN_1)(__VA_ARGS__)
-# 25 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h" 2
 
 
 
 
+# 93 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 93 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    init_collector_post(void);
 
-struct log;
 
-#define LOG_VERSION_V3 3
-#define LOG_VERSION_V2 2
-#define LOG_VERSION_V1 1
 
-#define LOG_TYPE_STREAM (0)
-#define LOG_TYPE_MEMORY (1)
-#define LOG_TYPE_STORAGE (2)
 
-#define LOG_LEVEL_DEBUG (0)
-#define LOG_LEVEL_INFO (1)
-#define LOG_LEVEL_WARN (2)
-#define LOG_LEVEL_ERROR (3)
-#define LOG_LEVEL_CRITICAL (4)
 
-#define LOG_LEVEL_MAX (UINT8_MAX)
+# 98 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 98 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    sensor_network_init_post(uint8_t iface_type, const char *uri);
 
-#define LOG_LEVEL_STR(level) (LOG_LEVEL_DEBUG == level ? "DEBUG" : (LOG_LEVEL_INFO == level ? "INFO" : (LOG_LEVEL_WARN == level ? "WARN" : (LOG_LEVEL_ERROR == level ? "ERROR" : (LOG_LEVEL_CRITICAL == level ? "CRITICAL" : "UNKNOWN")))))
-# 57 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h"
-#define LOG_MODULE_DEFAULT (0)
-#define LOG_MODULE_OS (1)
-#define LOG_MODULE_NEWTMGR (2)
-#define LOG_MODULE_NIMBLE_CTLR (3)
-#define LOG_MODULE_NIMBLE_HOST (4)
-#define LOG_MODULE_NFFS (5)
-#define LOG_MODULE_REBOOT (6)
-#define LOG_MODULE_IOTIVITY (7)
-#define LOG_MODULE_TEST (8)
-#define LOG_MODULE_PERUSER (64)
-#define LOG_MODULE_MAX (255)
 
-#define LOG_ETYPE_STRING (0)
 
 
 
 
 
 
-#define LOG_STORE_CONSOLE 1
-#define LOG_STORE_CBMEM 2
-#define LOG_STORE_FCB 3
+# 106 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 106 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    do_server_post(void);
 
 
-#define UTC01_01_2016 1451606400
 
-#define LOG_NAME_MAX_LEN (64)
 
 
+# 111 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 111 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    do_collector_post(void);
 
 
-#define LOG_SYSLEVEL ((uint8_t)MYNEWT_VAL_LOG_LEVEL)
 
 
 
-#define LOGS_NMGR_OP_READ (0)
-#define LOGS_NMGR_OP_CLEAR (1)
-#define LOGS_NMGR_OP_APPEND (2)
-#define LOGS_NMGR_OP_MODULE_LIST (3)
-#define LOGS_NMGR_OP_LEVEL_LIST (4)
-#define LOGS_NMGR_OP_LOGS_LIST (5)
-#define LOGS_NMGR_OP_SET_WATERMARK (6)
-#define LOGS_NMGR_OP_MODLEVEL (8)
+# 116 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 116 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    sensor_network_do_post(uint8_t iface_type);
 
-#define LOG_PRINTF_MAX_ENTRY_LEN (128)
 
 
-struct log_info {
-    uint32_t li_next_index;
-    uint8_t li_version;
-};
 
-extern struct log_info g_log_info;
-# 118 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h"
-typedef void log_append_cb(struct log *log, uint32_t idx);
-# 25 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 2
 
 
 
+# 123 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 123 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    is_collector_node(void);
 
 
-#define LOG_DEBUG(__l,__mod,...) IGNORE(__VA_ARGS__)
-#define LOG_INFO(__l,__mod,...) IGNORE(__VA_ARGS__)
-#define LOG_WARN(__l,__mod,...) IGNORE(__VA_ARGS__)
-#define LOG_ERROR(__l,__mod,...) IGNORE(__VA_ARGS__)
-#define LOG_CRITICAL(__l,__mod,...) IGNORE(__VA_ARGS__)
 
-struct log {
-};
 
-struct log_handler {
-};
+# 127 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 127 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    is_sensor_node(void);
 
-static inline int
-log_register(char *name, struct log *log, const struct log_handler *h,
-             void *arg, uint8_t level)
-{
-    return 0;
-}
 
-static inline void
-log_set_append_cb(struct log *log, log_append_cb *cb)
-{
-}
 
-static inline struct log *
-log_find(const char *name)
-{
-    return 
-# 57 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 3 4
-          ((void *)0)
-# 57 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h"
-              ;
-}
+# 130 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 130 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    is_standalone_node(void);
 
-static inline int
-log_append_typed(struct log *log, uint8_t module, uint8_t level, uint8_t etype,
-                 void *data, uint16_t len)
-{
-    return 0;
-}
 
-static inline int
-log_append_mbuf_typed_no_free(struct log *log, uint8_t module, uint8_t level,
-                              uint8_t etype, struct os_mbuf **om_ptr)
-{
-    return 0;
-}
 
-static inline int
-log_append_mbuf_typed(struct log *log, uint8_t module, uint8_t level,
-                      uint8_t etype, struct os_mbuf *om)
-{
-    os_mbuf_free_chain(om);
-    return 0;
-}
+# 133 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+_Bool 
+# 133 "libs/sensor_network/include/sensor_network/sensor_network.h"
+    should_send_to_collector(struct sensor_value *val, const char *device_name);
 
-static inline int
-log_append_mbuf_body_no_free(struct log *log, uint8_t module, uint8_t level,
-                             uint8_t etype, struct os_mbuf *om)
-{
-    return 0;
-}
 
-static inline int
-log_append_mbuf_body(struct log *log, uint8_t module, uint8_t level,
-                     uint8_t etype, struct os_mbuf *om)
-{
-    os_mbuf_free_chain(om);
-    return 0;
-}
 
-static inline void
-log_init(void)
-{
-}
 
-static inline void log_set_level(struct log *log, uint8_t level)
-{
-    return;
-}
 
-static inline uint8_t log_get_level(const struct log *log)
-{
-    return 0;
-}
+const uint8_t *get_hardware_id(void);
 
-#define log_printf(...) 
 
+const char *get_device_id(void);
 
 
+unsigned long long get_collector_node_address(void);
 
-extern const struct log_handler log_console_handler;
-extern const struct log_handler log_cbmem_handler;
-extern const struct log_handler log_fcb_handler;
 
+unsigned long long get_sensor_node_address(void);
 
 
+const unsigned long long *get_sensor_node_addresses(void);
 
 
-static inline struct log *
-log_console_get(void)
-{
-    return 
-# 128 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 3 4
-          ((void *)0)
-# 128 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h"
-              ;
-}
-# 14 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h" 2
-# 22 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h"
-#define OC_CLIENT 
+const char **get_sensor_node_names(void);
 
 
 
 
 
+void sensor_network_init(void);
 
-typedef os_time_t oc_clock_time_t;
-#define OC_CLOCK_CONF_TICKS_PER_SECOND (OS_TICKS_PER_SEC)
 
+int sensor_network_register_interface(const struct sensor_network_interface *iface);
+# 18 "apps/my_sensor_app/src/send_coap.c" 2
+# 1 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 1
 
 
-#define OC_CLK_FMT "%lu"
 
 
-
-
-#define MAX_APP_RESOURCES MYNEWT_VAL(OC_APP_RESOURCES)
-
-
-
-#define MAX_NUM_CONCURRENT_REQUESTS MYNEWT_VAL(OC_CONCURRENT_REQUESTS)
-
-
-#define EST_NUM_REP_OBJECTS MYNEWT_VAL(OC_NUM_REP_OBJECTS)
-
-
-#define MAX_PAYLOAD_SIZE MYNEWT_VAL(OC_MAX_PAYLOAD_SIZE)
-
-
-#define MAX_NUM_DEVICES MYNEWT_VAL(OC_NUM_DEVICES)
-
-
-#define MAX_PLATFORM_PAYLOAD_SIZE MYNEWT_VAL(OC_MAX_PAYLOAD)
-
-
-#define MAX_DEVICE_PAYLOAD_SIZE MYNEWT_VAL(OC_MAX_PAYLOAD)
-# 45 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/conf.h" 1
-# 35 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/conf.h"
-#define CONF_H 
-# 44 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/conf.h"
-#define COAP_LINK_FORMAT_FILTERING 0
-#define COAP_PROXY_OPTION_PROCESSING 0
-
-
-
-
-#define COAP_MAX_OPEN_TRANSACTIONS (MAX_NUM_CONCURRENT_REQUESTS)
-
-
-
-
-#define COAP_MAX_ATTEMPTS 2
-
-
-
-
-
-
-#define COAP_MAX_HEADER_SIZE (4 + COAP_TOKEN_LEN + 3 + 1 + COAP_ETAG_LEN + 4 + 4 + 30)
-
-
-
-
-
-#define COAP_MAX_OBSERVERS (MAX_APP_RESOURCES + MAX_NUM_CONCURRENT_REQUESTS)
-
-
-
-
-#define COAP_OBSERVE_REFRESH_INTERVAL 20
-# 46 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
-# 35 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h"
-#define CONSTANTS_H 
-
-
-
-
-
-#define COAP_DEFAULT_PORT 5683
-
-#define COAP_DEFAULT_MAX_AGE 60
-#define COAP_RESPONSE_TIMEOUT MYNEWT_VAL(OC_COAP_RESPONSE_TIMEOUT)
-#define COAP_RESPONSE_RANDOM_FACTOR 1.5
-#define COAP_MAX_RETRANSMIT 4
-
-#define COAP_HEADER_LEN 4
-
-#define COAP_TOKEN_LEN 8
-#define COAP_ETAG_LEN 8
-#define COAP_MAX_URI 32
-#define COAP_MAX_URI_QUERY 32
-
-
-
-
-struct coap_udp_hdr {
-
-
-
-
-
-    uint8_t token_len:4;
-    uint8_t type:2;
-    uint8_t version:2;
-
-    uint8_t code;
-    uint16_t id;
+#define __SENSOR_COAP_H__ 
+# 14 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+struct sensor_value {
+    const char *key;
+    int val_type;
+    uint16_t int_val;
+    float float_val;
 };
 
 
 
 
+#define COAP_PORT_UNSECURED (5683)
 
-#define COAP_TCP_LENGTH8_OFF 13
-#define COAP_TCP_LENGTH16_OFF 269
-#define COAP_TCP_LENGTH32_OFF 65805
+struct oc_server_handle;
 
-#define COAP_TCP_TYPE0 0
-#define COAP_TCP_TYPE8 13
-#define COAP_TCP_TYPE16 14
-#define COAP_TCP_TYPE32 15
 
-struct coap_tcp_hdr0 {
+void init_sensor_coap(void);
 
 
 
+# 32 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
+_Bool 
+# 32 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+    sensor_coap_ready(void);
 
-    uint8_t token_len:4;
-    uint8_t data_len:4;
 
-    uint8_t code;
-};
 
-struct coap_tcp_hdr8 {
 
+# 36 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
+_Bool 
+# 36 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+    init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
 
 
 
-    uint8_t token_len:4;
-    uint8_t type:4;
+# 39 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
+_Bool 
+# 39 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+    do_sensor_post(void);
 
-    uint8_t data_len;
-    uint8_t code;
-};
 
-struct coap_tcp_hdr16 {
 
 
 
+# 1 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 1
+# 21 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+#define _JSON_H_ 
 
-    uint8_t token_len:4;
-    uint8_t type:4;
 
-    uint16_t data_len;
-    uint8_t code;
-} __attribute__((packed));
 
-struct coap_tcp_hdr32 {
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/ctype.h" 1
 
 
 
 
-    uint8_t token_len:4;
-    uint8_t type:4;
 
-    uint32_t data_len;
-    uint8_t code;
-} __attribute__((packed));
 
-#define COAP_TCP_TYPE8 13
-#define COAP_TCP_TYPE16 14
-#define COAP_TCP_TYPE32 15
 
-
-#define COAP_HEADER_OPTION_DELTA_MASK 0xF0
-#define COAP_HEADER_OPTION_SHORT_LENGTH_MASK 0x0F
-
-
-typedef enum {
-  COAP_TYPE_CON,
-  COAP_TYPE_NON,
-  COAP_TYPE_ACK,
-  COAP_TYPE_RST
-} coap_message_type_t;
-
-
-typedef enum { COAP_GET = 1, COAP_POST, COAP_PUT, COAP_DELETE } coap_method_t;
-
-
-typedef enum {
-  NO_ERROR = 0,
-
-  CREATED_2_01 = 65,
-  DELETED_2_02 = 66,
-  VALID_2_03 = 67,
-  CHANGED_2_04 = 68,
-  CONTENT_2_05 = 69,
-  CONTINUE_2_31 = 95,
-
-  BAD_REQUEST_4_00 = 128,
-  UNAUTHORIZED_4_01 = 129,
-  BAD_OPTION_4_02 = 130,
-  FORBIDDEN_4_03 = 131,
-  NOT_FOUND_4_04 = 132,
-  METHOD_NOT_ALLOWED_4_05 = 133,
-  NOT_ACCEPTABLE_4_06 = 134,
-  PRECONDITION_FAILED_4_12 = 140,
-  REQUEST_ENTITY_TOO_LARGE_4_13 = 141,
-  UNSUPPORTED_MEDIA_TYPE_4_15 = 143,
-
-  INTERNAL_SERVER_ERROR_5_00 = 160,
-  NOT_IMPLEMENTED_5_01 = 161,
-  BAD_GATEWAY_5_02 = 162,
-  SERVICE_UNAVAILABLE_5_03 = 163,
-  GATEWAY_TIMEOUT_5_04 = 164,
-  PROXYING_NOT_SUPPORTED_5_05 = 165,
-
-
-  MEMORY_ALLOCATION_ERROR = 192,
-  PACKET_SERIALIZATION_ERROR,
-
-
-  CLEAR_TRANSACTION,
-  EMPTY_ACK_RESPONSE
-} coap_status_t;
-
-
-typedef enum {
-  COAP_OPTION_IF_MATCH = 1,
-  COAP_OPTION_URI_HOST = 3,
-  COAP_OPTION_ETAG = 4,
-  COAP_OPTION_IF_NONE_MATCH = 5,
-  COAP_OPTION_OBSERVE = 6,
-  COAP_OPTION_URI_PORT = 7,
-  COAP_OPTION_LOCATION_PATH = 8,
-  COAP_OPTION_URI_PATH = 11,
-  COAP_OPTION_CONTENT_FORMAT = 12,
-  COAP_OPTION_MAX_AGE = 14,
-  COAP_OPTION_URI_QUERY = 15,
-  COAP_OPTION_ACCEPT = 17,
-  COAP_OPTION_LOCATION_QUERY = 20,
-  COAP_OPTION_BLOCK2 = 23,
-  COAP_OPTION_BLOCK1 = 27,
-  COAP_OPTION_SIZE2 = 28,
-  COAP_OPTION_PROXY_URI = 35,
-  COAP_OPTION_PROXY_SCHEME = 39,
-  COAP_OPTION_SIZE1 = 60,
-} coap_option_t;
-
-
-typedef enum {
-  TEXT_PLAIN = 0,
-  TEXT_XML = 1,
-  TEXT_CSV = 2,
-  TEXT_HTML = 3,
-  IMAGE_GIF = 21,
-  IMAGE_JPEG = 22,
-  IMAGE_PNG = 23,
-  IMAGE_TIFF = 24,
-  AUDIO_RAW = 25,
-  VIDEO_RAW = 26,
-  APPLICATION_LINK_FORMAT = 40,
-  APPLICATION_XML = 41,
-  APPLICATION_OCTET_STREAM = 42,
-  APPLICATION_RDF_XML = 43,
-  APPLICATION_SOAP_XML = 44,
-  APPLICATION_ATOM_XML = 45,
-  APPLICATION_XMPP_XML = 46,
-  APPLICATION_EXI = 47,
-  APPLICATION_FASTINFOSET = 48,
-  APPLICATION_SOAP_FASTINFOSET = 49,
-  APPLICATION_JSON = 50,
-  APPLICATION_X_OBIX_BINARY = 51,
-  APPLICATION_CBOR = 60
-} coap_content_format_t;
-# 47 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_log.h" 1
-# 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_log.h"
-#define OC_LOG_H 
-
-
-# 1 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h" 1
-# 48 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define H_MODLOG_ 
-
-
-
-
-#define MODLOG_MODULE_DFLT 255
-
-
-
-
-
-
-struct modlog_desc {
-
-    struct log *log;
-
-
-    uint8_t handle;
-
-
-    uint8_t module;
-
-
-    uint8_t min_level;
-};
-# 85 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-typedef int modlog_foreach_fn(const struct modlog_desc *desc, void *arg);
-# 193 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-static inline int
-modlog_get(uint8_t handle, struct modlog_desc *out_desc)
+#define _CTYPE_H 
+# 17 "repos/apache-mynewt-core/libc/baselibc/include/ctype.h"
+extern inline __attribute__((gnu_inline)) int isupper(int __c)
 {
-    return (-12);
+ return __c >= 'A' && __c <= 'Z';
 }
 
-static inline int
-modlog_register(uint8_t module, struct log *log, uint8_t min_level,
-                uint8_t *out_handle)
+extern inline __attribute__((gnu_inline)) int islower(int __c)
 {
-    return 0;
+ return __c >= 'a' && __c <= 'z';
 }
 
-static inline int
-modlog_delete(uint8_t handle)
+extern inline __attribute__((gnu_inline)) int isalpha(int __c)
 {
-    return (-12);
+ return islower(__c) || isupper(__c);
 }
 
-static inline void
-modlog_clear(void)
-{ }
-
-static inline int
-modlog_append(uint8_t module, uint8_t level, uint8_t etype, void *data,
-              uint16_t len)
+extern inline __attribute__((gnu_inline)) int isdigit(int __c)
 {
-    return 0;
+ return ((unsigned)__c - '0') <= 9;
 }
 
-static inline int
-modlog_append_mbuf(uint8_t module, uint8_t level, uint8_t etype,
-                   struct os_mbuf *om)
+extern inline __attribute__((gnu_inline)) int isalnum(int __c)
 {
-    os_mbuf_free_chain(om);
-    return 0;
+ return isalpha(__c) || isdigit(__c);
 }
 
-static inline int
-modlog_foreach(modlog_foreach_fn *fn, void *arg)
+extern inline __attribute__((gnu_inline)) int isascii(int __c)
 {
-    return (-12);
+ return !(__c & ~0x7f);
 }
 
-static inline void
-modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
-{ }
-# 256 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG_DEBUG(ml_mod_,...) IGNORE(__VA_ARGS__)
-# 272 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG_INFO(ml_mod_,...) IGNORE(__VA_ARGS__)
-# 288 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG_WARN(ml_mod_,...) IGNORE(__VA_ARGS__)
-# 304 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG_ERROR(ml_mod_,...) IGNORE(__VA_ARGS__)
-# 320 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG_CRITICAL(ml_mod_,...) IGNORE(__VA_ARGS__)
-# 340 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG(ml_lvl_,ml_mod_,...) MODLOG_ ## ml_lvl_((ml_mod_), __VA_ARGS__)
-# 359 "repos/apache-mynewt-core/sys/log/modlog/include/modlog/modlog.h"
-#define MODLOG_DFLT(ml_lvl_,...) MODLOG(ml_lvl_, LOG_MODULE_DEFAULT, __VA_ARGS__)
-# 22 "repos/apache-mynewt-core/net/oic/include/oic/oc_log.h" 2
-# 79 "repos/apache-mynewt-core/net/oic/include/oic/oc_log.h"
-#define OC_LOG(lvl_,...) 
-#define OC_LOG_ENDPOINT(...) 
-#define OC_LOG_STR(...) 
-#define OC_LOG_STR_MBUF(...) 
-#define OC_LOG_HEX(...) 
-#define OC_LOG_HEX_MBUF(...) 
-# 48 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h" 1
-# 18 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h"
-#define OC_CONNECTIVITY_H 
+extern inline __attribute__((gnu_inline)) int isblank(int __c)
+{
+ return (__c == '\t') || (__c == ' ');
+}
+
+extern inline __attribute__((gnu_inline)) int iscntrl(int __c)
+{
+ return __c < 0x20;
+}
+
+extern inline __attribute__((gnu_inline)) int isspace(int __c)
+{
+ return __c == ' ' || __c == '\n' || __c == '\t' || __c == '\r';
+}
+
+extern inline __attribute__((gnu_inline)) int isxdigit(int __c)
+{
+ return isdigit(__c) || (__c >= 'a' && __c <= 'f') || (__c >= 'A' && __c <= 'F');
+}
+
+extern inline __attribute__((gnu_inline)) int ispunct(int __c)
+{
+ return (__c >= '!' && __c <= '/') ||
+     (__c >= ':' && __c <= '@') ||
+     (__c >= '[' && __c <= '`') ||
+     (__c >= '{' && __c <= '~');
+}
+
+extern inline __attribute__((gnu_inline)) int isprint(int __c)
+{
+ return (__c >= 0x20 && __c <= 0x7e);
+}
+
+extern inline __attribute__((gnu_inline)) int isgraph(int __c)
+{
+ return (__c > 0x20 && __c < 0x7f);
+}
+
+extern inline __attribute__((gnu_inline)) int toupper(int __c)
+{
+ return islower(__c) ? (__c & ~32) : __c;
+}
+
+extern inline __attribute__((gnu_inline)) int tolower(int __c)
+{
+ return isupper(__c) ? (__c | 32) : __c;
+}
+# 26 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 2
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 1 3
+# 20 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 1 3
 
 
 
 
 
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/transport.h" 1
-# 21 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/transport.h"
-#define __MYNEWT_TRANSPORT_H_ 
 
 
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h" 1
-# 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h"
-#define OC_RI_H 
+#define _ANSIDECL_H_ 
 
-
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h" 1
-# 22 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 1
-# 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h"
-#define OC_REP_H 
-
-
-
-
-# 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
-# 26 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-#define CBOR_H 
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
-# 30 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
-#define _GCC_LIMITS_H_ 
-
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/syslimits.h" 1 3 4
-
-
-
-
-
-#define _GCC_NEXT_LIMITS_H 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
-# 194 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 1 3 4
-
-#define _LIBC_LIMITS_H_ 1
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 1 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 1 3
 
 
 
@@ -18966,7 +18477,7 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 
 #define __NEWLIB_H__ 1
-# 18 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+# 18 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3
 #define _WANT_IO_C99_FORMATS 1
 
 
@@ -18974,9 +18485,9 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 
 #define _WANT_REGISTER_FINI 1
-# 40 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+# 40 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3
 #define _MB_LEN_MAX 1
-# 50 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+# 50 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3
 #define HAVE_INITFINI_ARRAY 1
 
 
@@ -19003,17 +18514,84 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 
 #define _UNBUF_STREAM_OPT 1
-# 92 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+# 92 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3
 #define _RETARGETABLE_LOCKING 1
-# 5 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 2 3 4
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 1 3 4
-# 41 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 11 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 1 3
+
+#define __SYS_CONFIG_H__ 
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/ieeefp.h" 1 3
+# 77 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/ieeefp.h" 3
+#define __IEEE_LITTLE_ENDIAN 
+# 453 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/ieeefp.h" 3
+#define __OBSOLETE_MATH_DEFAULT 1
+
+
+#define __OBSOLETE_MATH __OBSOLETE_MATH_DEFAULT
+# 5 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 2 3
+# 220 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 3
+#define _POINTER_INT long
+
+
+
+
+
+#undef __RAND_MAX
+
+
+
+#define __RAND_MAX 0x7fffffff
+# 246 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 3
+#define __EXPORT 
+
+
+
+#define __IMPORT 
+
+
+
+
+
+
+#define _READ_WRITE_RETURN_TYPE int
+
+
+
+
+
+#define _READ_WRITE_BUFSIZE_TYPE int
+# 12 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 2 3
+# 31 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 3
+#define _BEGIN_STD_C 
+#define _END_STD_C 
+#define _NOTHROW 
+
+
+
+#define _LONG_DOUBLE long double
+
+
+
+
+
+#define _ATTRIBUTE(attrs) __attribute__ (attrs)
+# 69 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 3
+#define _ELIDABLE_INLINE static __inline__
+
+
+
+#define _NOINLINE __attribute__ ((__noinline__))
+#define _NOINLINE_STATIC _NOINLINE static
+# 21 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 1 3
+# 41 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define _SYS_CDEFS_H_ 
 
 
 
 # 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 46 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 2 3 4
+# 46 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 2 3
 
 #define __PMT(args) args
 #define __DOTS , ...
@@ -19035,15 +18613,15 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 #define __bounded 
 #define __unbounded 
 #define __ptrvalue 
-# 76 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 76 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __has_extension __has_feature
 
 
 #define __has_feature(x) 0
-# 92 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 92 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __BEGIN_DECLS 
 #define __END_DECLS 
-# 105 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 105 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __GNUCLIKE_ASM 3
 #define __GNUCLIKE_MATH_BUILTIN_CONSTANTS 
 
@@ -19098,7 +18676,7 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 #define __CC_SUPPORTS_VARADIC_XXX 1
 
 #define __CC_SUPPORTS_DYNAMIC_ARRAY_INIT 1
-# 175 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 175 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __P(protos) protos
 #define __CONCAT1(x,y) x ## y
 #define __CONCAT(x,y) __CONCAT1(x,y)
@@ -19108,9 +18686,9 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 #define __const const
 #define __signed signed
 #define __volatile volatile
-# 239 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 239 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __weak_symbol __attribute__((__weak__))
-# 252 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 252 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __dead2 __attribute__((__noreturn__))
 #define __pure2 __attribute__((__const__))
 #define __unused __attribute__((__unused__))
@@ -19126,9 +18704,9 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 
 #define __alloc_align(x) __attribute__((__alloc_align__(x)))
-# 356 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 356 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __generic(expr,t,yes,no) _Generic(expr, t: yes, default: no)
-# 374 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 374 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __min_size(x) static (x)
 
 
@@ -19178,9 +18756,9 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 
 #define __unreachable() __builtin_unreachable()
-# 442 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 442 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __restrict restrict
-# 475 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 475 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __predict_true(exp) __builtin_expect((exp), 1)
 #define __predict_false(exp) __builtin_expect((exp), 0)
 
@@ -19194,12 +18772,12 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 
 #define __hidden __attribute__((__visibility__("hidden")))
-# 497 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 497 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __offsetof(type,field) offsetof(type, field)
 #define __rangeof(type,start,end) (__offsetof(type, end) - __offsetof(type, start))
-# 508 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 508 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __containerof(x,s,m) ({ const volatile __typeof(((s *)0)->m) *__x = (x); __DEQUALIFY(s *, (const volatile char *)__x - __offsetof(s, m));})
-# 530 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 530 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __printflike(fmtarg,firstvararg) __attribute__((__format__ (__printf__, fmtarg, firstvararg)))
 
 #define __scanflike(fmtarg,firstvararg) __attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
@@ -19208,7 +18786,7 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 #define __strfmonlike(fmtarg,firstvararg) __attribute__((__format__ (__strfmon__, fmtarg, firstvararg)))
 
 #define __strftimelike(fmtarg,firstvararg) __attribute__((__format__ (__strftime__, fmtarg, firstvararg)))
-# 547 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 547 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __printf0like(fmtarg,firstvararg) 
 
 
@@ -19229,7 +18807,7 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 #define __sym_compat(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@" #verid)
 
 #define __sym_default(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@@" #verid)
-# 601 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 601 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __FBSDID(s) struct __hack
 
 
@@ -19270,10 +18848,10 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 #define _Null_unspecified 
 #define __NULLABILITY_PRAGMA_PUSH 
 #define __NULLABILITY_PRAGMA_POP 
-# 661 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 661 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __arg_type_tag(arg_kind,arg_idx,type_tag_idx) 
 #define __datatype_type_tag(kind,type) 
-# 680 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+# 680 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3
 #define __lock_annotate(x) 
 
 
@@ -19317,7 +18895,987 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 
 #define __guarded_by(x) __lock_annotate(guarded_by(x))
 #define __pt_guarded_by(x) __lock_annotate(pt_guarded_by(x))
-# 6 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 2 3 4
+# 22 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_types.h" 1 3
+
+
+
+
+
+#define _MACHINE__TYPES_H 
+# 23 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+
+
+
+
+
+
+# 28 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
+typedef __uint8_t u_int8_t;
+
+
+typedef __uint16_t u_int16_t;
+
+
+typedef __uint32_t u_int32_t;
+
+
+typedef __uint64_t u_int64_t;
+
+typedef int register_t;
+#define __BIT_TYPES_DEFINED__ 1
+# 60 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
+#define _SYS_TYPES_H 
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 63 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 1 3
+# 20 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
+#define _SYS__TYPES_H 
+
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/lock.h" 1 3
+
+#define __SYS_LOCK_H__ 
+# 33 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/lock.h" 3
+struct __lock;
+typedef struct __lock * _LOCK_T;
+#define _LOCK_RECURSIVE_T _LOCK_T
+
+#define __LOCK_INIT(class,lock) extern struct __lock __lock_ ## lock; class _LOCK_T lock = &__lock_ ## lock
+
+#define __LOCK_INIT_RECURSIVE(class,lock) __LOCK_INIT(class,lock)
+
+extern void __retarget_lock_init(_LOCK_T *lock);
+#define __lock_init(lock) __retarget_lock_init(&lock)
+extern void __retarget_lock_init_recursive(_LOCK_T *lock);
+#define __lock_init_recursive(lock) __retarget_lock_init_recursive(&lock)
+extern void __retarget_lock_close(_LOCK_T lock);
+#define __lock_close(lock) __retarget_lock_close(lock)
+extern void __retarget_lock_close_recursive(_LOCK_T lock);
+#define __lock_close_recursive(lock) __retarget_lock_close_recursive(lock)
+extern void __retarget_lock_acquire(_LOCK_T lock);
+#define __lock_acquire(lock) __retarget_lock_acquire(lock)
+extern void __retarget_lock_acquire_recursive(_LOCK_T lock);
+#define __lock_acquire_recursive(lock) __retarget_lock_acquire_recursive(lock)
+extern int __retarget_lock_try_acquire(_LOCK_T lock);
+#define __lock_try_acquire(lock) __retarget_lock_try_acquire(lock)
+extern int __retarget_lock_try_acquire_recursive(_LOCK_T lock);
+#define __lock_try_acquire_recursive(lock) __retarget_lock_try_acquire_recursive(lock)
+
+extern void __retarget_lock_release(_LOCK_T lock);
+#define __lock_release(lock) __retarget_lock_release(lock)
+extern void __retarget_lock_release_recursive(_LOCK_T lock);
+#define __lock_release_recursive(lock) __retarget_lock_release_recursive(lock)
+# 26 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 2 3
+
+
+typedef long __blkcnt_t;
+
+
+
+typedef long __blksize_t;
+
+
+
+typedef __uint64_t __fsblkcnt_t;
+
+
+
+typedef __uint32_t __fsfilcnt_t;
+
+
+
+typedef long _off_t;
+
+
+
+
+
+typedef int __pid_t;
+
+
+
+typedef short __dev_t;
+
+
+
+typedef unsigned short __uid_t;
+
+
+typedef unsigned short __gid_t;
+
+
+
+typedef __uint32_t __id_t;
+
+
+
+
+
+
+
+typedef unsigned short __ino_t;
+# 88 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
+typedef __uint32_t __mode_t;
+
+
+
+
+
+__extension__ typedef long long _off64_t;
+
+
+
+
+
+typedef _off_t __off_t;
+
+
+typedef _off64_t __loff_t;
+
+
+typedef long __key_t;
+
+
+
+
+
+
+
+typedef long _fpos_t;
+# 125 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
+#undef __size_t
+
+
+
+typedef unsigned int __size_t;
+# 144 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
+#define unsigned signed
+typedef signed int _ssize_t;
+#undef unsigned
+# 156 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
+typedef _ssize_t __ssize_t;
+
+#define __need_wint_t 
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 161 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 238 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 347 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+
+
+
+
+#define _WINT_T 
+
+
+
+
+typedef unsigned int wint_t;
+
+#undef __need_wint_t
+# 401 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 160 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 2 3
+
+
+
+typedef struct
+{
+  int __count;
+  union
+  {
+    wint_t __wch;
+    unsigned char __wchb[4];
+  } __value;
+} _mbstate_t;
+
+
+
+typedef _LOCK_T _flock_t;
+
+
+
+
+typedef void *_iconv_t;
+
+
+
+#define _CLOCK_T_ unsigned long
+
+
+typedef unsigned long __clock_t;
+
+
+
+
+#define _TIME_T_ __int_least64_t
+
+typedef __int_least64_t __time_t;
+
+
+#define _CLOCKID_T_ unsigned long
+
+
+typedef unsigned long __clockid_t;
+
+#define _TIMER_T_ unsigned long
+typedef unsigned long __timer_t;
+
+
+typedef __uint8_t __sa_family_t;
+
+
+
+typedef __uint32_t __socklen_t;
+
+
+typedef unsigned short __nlink_t;
+typedef long __suseconds_t;
+typedef unsigned long __useconds_t;
+
+
+typedef __builtin_va_list __va_list;
+# 64 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/endian.h" 1 3
+
+#define __MACHINE_ENDIAN_H__ 
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_endian.h" 1 3
+# 31 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_endian.h" 3
+#define _LITTLE_ENDIAN 1234
+#define _BIG_ENDIAN 4321
+#define _PDP_ENDIAN 3412
+
+
+
+
+#define _BYTE_ORDER _LITTLE_ENDIAN
+# 7 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/endian.h" 2 3
+
+
+#define _QUAD_HIGHWORD 1
+#define _QUAD_LOWWORD 0
+
+
+
+
+
+
+#define LITTLE_ENDIAN _LITTLE_ENDIAN
+#define BIG_ENDIAN _BIG_ENDIAN
+#define PDP_ENDIAN _PDP_ENDIAN
+#define BYTE_ORDER _BYTE_ORDER
+
+
+
+#define __bswap16(_x) __builtin_bswap16(_x)
+#define __bswap32(_x) __builtin_bswap32(_x)
+#define __bswap64(_x) __builtin_bswap64(_x)
+# 57 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/endian.h" 3
+#define __htonl(_x) __bswap32(_x)
+#define __htons(_x) __bswap16(_x)
+#define __ntohl(_x) __bswap32(_x)
+#define __ntohs(_x) __bswap16(_x)
+# 68 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 1 3
+
+#define _SYS_SELECT_H 
+# 14 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_sigset.h" 1 3
+# 39 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_sigset.h" 3
+#define _SYS__SIGSET_H_ 
+
+typedef unsigned long __sigset_t;
+# 15 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timeval.h" 1 3
+# 30 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timeval.h" 3
+#define _SYS__TIMEVAL_H_ 
+
+
+
+
+typedef __suseconds_t suseconds_t;
+#define _SUSECONDS_T_DECLARED 
+
+
+
+typedef __int_least64_t time_t;
+#define __time_t_defined 
+#define _TIME_T_DECLARED 
+
+
+
+
+#define _TIMEVAL_DEFINED 
+
+
+
+
+struct timeval {
+ time_t tv_sec;
+ suseconds_t tv_usec;
+};
+
+
+
+
+#define timerclear(tvp) ((tvp)->tv_sec = (tvp)->tv_usec = 0)
+#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
+#define timercmp(tvp,uvp,cmp) (((tvp)->tv_sec == (uvp)->tv_sec) ? ((tvp)->tv_usec cmp (uvp)->tv_usec) : ((tvp)->tv_sec cmp (uvp)->tv_sec))
+
+
+
+#define timeradd(tvp,uvp,vvp) do { (vvp)->tv_sec = (tvp)->tv_sec + (uvp)->tv_sec; (vvp)->tv_usec = (tvp)->tv_usec + (uvp)->tv_usec; if ((vvp)->tv_usec >= 1000000) { (vvp)->tv_sec++; (vvp)->tv_usec -= 1000000; } } while (0)
+# 75 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timeval.h" 3
+#define timersub(tvp,uvp,vvp) do { (vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec; (vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec; if ((vvp)->tv_usec < 0) { (vvp)->tv_sec--; (vvp)->tv_usec += 1000000; } } while (0)
+# 16 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 1 3
+# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 3
+#define _SYS_TIMESPEC_H_ 
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timespec.h" 1 3
+# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timespec.h" 3
+#define _SYS__TIMESPEC_H_ 
+# 45 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timespec.h" 3
+struct timespec {
+ time_t tv_sec;
+ long tv_nsec;
+};
+# 39 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 2 3
+
+
+#define TIMEVAL_TO_TIMESPEC(tv,ts) do { (ts)->tv_sec = (tv)->tv_sec; (ts)->tv_nsec = (tv)->tv_usec * 1000; } while (0)
+
+
+
+
+#define TIMESPEC_TO_TIMEVAL(tv,ts) do { (tv)->tv_sec = (ts)->tv_sec; (tv)->tv_usec = (ts)->tv_nsec / 1000; } while (0)
+# 58 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 3
+struct itimerspec {
+ struct timespec it_interval;
+ struct timespec it_value;
+};
+# 17 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 2 3
+
+
+#define _SIGSET_T_DECLARED 
+typedef __sigset_t sigset_t;
+
+
+#define _SYS_TYPES_FD_SET 
+
+
+
+
+
+
+
+#define FD_SETSIZE 64
+
+
+typedef unsigned long fd_mask;
+#define NFDBITS (sizeof (fd_mask) * 8)
+
+#define _howmany(x,y) (((x)+((y)-1))/(y))
+
+
+
+
+typedef struct _types_fd_set {
+ fd_mask fds_bits[(((64)+(((sizeof (fd_mask) * 8))-1))/((sizeof (fd_mask) * 8)))];
+} _types_fd_set;
+
+#define fd_set _types_fd_set
+
+#define FD_SET(n,p) ((p)->fds_bits[(n)/NFDBITS] |= (1L << ((n) % NFDBITS)))
+#define FD_CLR(n,p) ((p)->fds_bits[(n)/NFDBITS] &= ~(1L << ((n) % NFDBITS)))
+#define FD_ISSET(n,p) ((p)->fds_bits[(n)/NFDBITS] & (1L << ((n) % NFDBITS)))
+#define FD_ZERO(p) (__extension__ (void)({ size_t __i; char *__tmp = (char *)p; for (__i = 0; __i < sizeof (*(p)); ++__i) *__tmp++ = 0; }))
+# 60 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 3
+
+
+int select (int __n, _types_fd_set *__readfds, _types_fd_set *__writefds, _types_fd_set *__exceptfds, struct timeval *__timeout)
+                                                   ;
+
+int pselect (int __n, _types_fd_set *__readfds, _types_fd_set *__writefds, _types_fd_set *__exceptfds, const struct timespec *__timeout, const sigset_t *__set)
+
+                           ;
+
+
+
+# 69 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+#define physadr physadr_t
+#define quad quad_t
+
+
+typedef __uint32_t in_addr_t;
+#define _IN_ADDR_T_DECLARED 
+
+
+
+typedef __uint16_t in_port_t;
+#define _IN_PORT_T_DECLARED 
+
+
+
+
+
+
+
+typedef unsigned char u_char;
+#define __u_char_defined 
+
+
+typedef unsigned short u_short;
+#define __u_short_defined 
+
+
+typedef unsigned int u_int;
+#define __u_int_defined 
+
+
+typedef unsigned long u_long;
+#define __u_long_defined 
+
+#define _BSDTYPES_DEFINED 
+
+
+
+
+typedef unsigned short ushort;
+typedef unsigned int uint;
+typedef unsigned long ulong;
+
+
+
+typedef __blkcnt_t blkcnt_t;
+#define _BLKCNT_T_DECLARED 
+
+
+
+typedef __blksize_t blksize_t;
+#define _BLKSIZE_T_DECLARED 
+
+
+
+typedef unsigned long clock_t;
+#define __clock_t_defined 
+#define _CLOCK_T_DECLARED 
+# 135 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
+typedef long daddr_t;
+#define __daddr_t_defined 
+
+
+typedef char * caddr_t;
+#define __caddr_t_defined 
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+typedef __fsfilcnt_t fsfilcnt_t;
+#define _FSBLKCNT_T_DECLARED 
+
+
+
+typedef __id_t id_t;
+#define _ID_T_DECLARED 
+
+
+
+typedef __ino_t ino_t;
+#define _INO_T_DECLARED 
+# 173 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
+typedef __off_t off_t;
+#define _OFF_T_DECLARED 
+
+
+typedef __dev_t dev_t;
+#define _DEV_T_DECLARED 
+
+
+typedef __uid_t uid_t;
+#define _UID_T_DECLARED 
+
+
+typedef __gid_t gid_t;
+#define _GID_T_DECLARED 
+
+
+
+typedef __pid_t pid_t;
+#define _PID_T_DECLARED 
+
+
+
+typedef __key_t key_t;
+#define _KEY_T_DECLARED 
+
+
+
+typedef _ssize_t ssize_t;
+#define _SSIZE_T_DECLARED 
+
+
+
+typedef __mode_t mode_t;
+#define _MODE_T_DECLARED 
+
+
+
+typedef __nlink_t nlink_t;
+#define _NLINK_T_DECLARED 
+
+
+
+typedef __clockid_t clockid_t;
+#define __clockid_t_defined 
+#define _CLOCKID_T_DECLARED 
+
+
+
+typedef __timer_t timer_t;
+#define __timer_t_defined 
+#define _TIMER_T_DECLARED 
+
+
+
+typedef __useconds_t useconds_t;
+#define _USECONDS_T_DECLARED 
+
+
+
+
+
+
+
+typedef __int64_t sbintime_t;
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 1 3
+# 19 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+#define _SYS__PTHREADTYPES_H_ 
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 1 3
+# 22 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
+#define _SYS_SCHED_H_ 
+# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
+#define SCHED_OTHER 0
+
+
+#define SCHED_FIFO 1
+#define SCHED_RR 2
+# 48 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
+struct sched_param {
+  int sched_priority;
+# 61 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
+};
+# 24 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 2 3
+# 32 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+typedef __uint32_t pthread_t;
+
+
+
+#define PTHREAD_SCOPE_PROCESS 0
+#define PTHREAD_SCOPE_SYSTEM 1
+
+
+#define PTHREAD_INHERIT_SCHED 1
+
+
+#define PTHREAD_EXPLICIT_SCHED 2
+
+
+#define PTHREAD_CREATE_DETACHED 0
+#define PTHREAD_CREATE_JOINABLE 1
+# 61 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+typedef struct {
+  int is_initialized;
+  void *stackaddr;
+  int stacksize;
+  int contentionscope;
+  int inheritsched;
+  int schedpolicy;
+  struct sched_param schedparam;
+
+
+
+
+
+  int detachstate;
+} pthread_attr_t;
+# 154 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+typedef __uint32_t pthread_mutex_t;
+
+typedef struct {
+  int is_initialized;
+# 168 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+  int recursive;
+} pthread_mutexattr_t;
+
+
+#define _PTHREAD_MUTEX_INITIALIZER ((pthread_mutex_t) 0xFFFFFFFF)
+
+
+
+typedef __uint32_t pthread_cond_t;
+
+#define _PTHREAD_COND_INITIALIZER ((pthread_cond_t) 0xFFFFFFFF)
+
+typedef struct {
+  int is_initialized;
+  clock_t clock;
+
+
+
+} pthread_condattr_t;
+
+
+
+typedef __uint32_t pthread_key_t;
+
+typedef struct {
+  int is_initialized;
+  int init_executed;
+} pthread_once_t;
+
+#define _PTHREAD_ONCE_INIT { 1, 0 }
+# 240 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/types.h" 1 3
+# 241 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
+
+
+
+#undef __need_inttypes
+# 28 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 2
+
+
+
+
+
+
+#define JSON_VALUE_TYPE_BOOL (0)
+#define JSON_VALUE_TYPE_UINT64 (1)
+#define JSON_VALUE_TYPE_INT64 (2)
+#define JSON_VALUE_TYPE_STRING (3)
+#define JSON_VALUE_TYPE_ARRAY (4)
+#define JSON_VALUE_TYPE_OBJECT (5)
+
+
+# 41 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+struct json_value {
+    uint8_t jv_pad1;
+    uint8_t jv_type;
+    uint16_t jv_len;
+
+    union {
+        uint64_t u;
+        float fl;
+        char *str;
+        struct {
+            char **keys;
+            struct json_value **values;
+        } composite;
+    } jv_val;
+};
+
+#define JSON_VALUE_STRING(__jv,__str) (__jv)->jv_type = JSON_VALUE_TYPE_STRING; (__jv)->jv_len = strlen(__str); (__jv)->jv_val.str = (__str);
+
+
+
+
+#define JSON_VALUE_STRINGN(__jv,__str,__len) (__jv)->jv_type = JSON_VALUE_TYPE_STRING; (__jv)->jv_len = (uint16_t) (__len); (__jv)->jv_val.str = (__str);
+
+
+
+
+#define JSON_VALUE_BOOL(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_BOOL; (__jv)->jv_val.u = (__v);
+
+
+
+#define JSON_VALUE_INT(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_INT64; (__jv)->jv_val.u = (uint64_t) __v;
+
+
+
+#define JSON_VALUE_UINT(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_UINT64; (__jv)->jv_val.u = (uint64_t) __v;
+
+
+
+
+typedef int (*json_write_func_t)(void *buf, char *data,
+        int len);
+
+struct json_encoder {
+    json_write_func_t je_write;
+    void *je_arg;
+    int je_wr_commas:1;
+    char je_encode_buf[64];
+};
+
+
+#define JSON_NITEMS(x) (int)(sizeof(x)/sizeof(x[0]))
+
+int json_encode_object_start(struct json_encoder *);
+int json_encode_object_key(struct json_encoder *encoder, char *key);
+int json_encode_object_entry(struct json_encoder *, char *,
+        struct json_value *);
+int json_encode_object_finish(struct json_encoder *);
+
+int json_encode_array_name(struct json_encoder *encoder, char *name);
+int json_encode_array_start(struct json_encoder *encoder);
+int json_encode_array_value(struct json_encoder *encoder, struct json_value *val);
+int json_encode_array_finish(struct json_encoder *encoder);
+
+
+typedef enum {
+    t_integer,
+    t_uinteger,
+    t_real,
+    t_string,
+    t_boolean,
+    t_character,
+    t_object,
+    t_structobject,
+    t_array,
+    t_check,
+    t_ignore
+} json_type;
+
+struct json_enum_t {
+    char *name;
+    long long int value;
+};
+
+struct json_array_t {
+    json_type element_type;
+    union {
+        struct {
+            const struct json_attr_t *subtype;
+            char *base;
+            size_t stride;
+        } objects;
+        struct {
+            char **ptrs;
+            char *store;
+            int storelen;
+        } strings;
+        struct {
+            long long int *store;
+        } integers;
+        struct {
+            long long unsigned int *store;
+        } uintegers;
+        struct {
+            double *store;
+        } reals;
+        struct {
+            
+# 147 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
+           _Bool 
+# 147 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+                *store;
+        } booleans;
+    } arr;
+    int *count;
+    int maxlen;
+};
+
+struct json_attr_t {
+    char *attribute;
+    json_type type;
+    union {
+        long long int *integer;
+        long long unsigned int *uinteger;
+        double *real;
+        char *string;
+        
+# 162 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
+       _Bool 
+# 162 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+            *boolean;
+        char *character;
+        struct json_array_t array;
+        size_t offset;
+    } addr;
+    union {
+        long long int integer;
+        long long unsigned int uinteger;
+        double real;
+        
+# 171 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
+       _Bool 
+# 171 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+            boolean;
+        char character;
+        char *check;
+    } dflt;
+    size_t len;
+    const struct json_enum_t *map;
+    
+# 177 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
+   _Bool 
+# 177 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+        nodefault;
+};
+
+struct json_buffer;
+
+
+
+
+typedef char (*json_buffer_read_next_byte_t)(struct json_buffer *);
+
+typedef char (*json_buffer_read_prev_byte_t)(struct json_buffer *);
+
+typedef int (*json_buffer_readn_t)(struct json_buffer *, char *buf, int n);
+
+struct json_buffer {
+    json_buffer_readn_t jb_readn;
+    json_buffer_read_next_byte_t jb_read_next;
+    json_buffer_read_prev_byte_t jb_read_prev;
+};
+
+#define JSON_ATTR_MAX 31
+#define JSON_VAL_MAX 512
+
+int json_read_object(struct json_buffer *, const struct json_attr_t *);
+int json_read_array(struct json_buffer *, const struct json_array_t *);
+
+#define JSON_ERR_OBSTART 1
+#define JSON_ERR_ATTRSTART 2
+#define JSON_ERR_BADATTR 3
+#define JSON_ERR_ATTRLEN 4
+#define JSON_ERR_NOARRAY 5
+#define JSON_ERR_NOBRAK 6
+#define JSON_ERR_STRLONG 7
+#define JSON_ERR_TOKLONG 8
+#define JSON_ERR_BADTRAIL 9
+#define JSON_ERR_ARRAYSTART 10
+#define JSON_ERR_OBJARR 11
+#define JSON_ERR_SUBTOOLONG 12
+#define JSON_ERR_BADSUBTRAIL 13
+#define JSON_ERR_SUBTYPE 14
+#define JSON_ERR_BADSTRING 15
+#define JSON_ERR_CHECKFAIL 16
+#define JSON_ERR_NOPARSTR 17
+#define JSON_ERR_BADENUM 18
+#define JSON_ERR_QNONSTRING 19
+#define JSON_ERR_NONQSTRING 19
+#define JSON_ERR_MISC 20
+#define JSON_ERR_BADNUM 21
+#define JSON_ERR_NULLPTR 22
+# 237 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
+#define JSON_STRUCT_OBJECT(s,f) .addr.offset = offsetof(s, f)
+#define JSON_STRUCT_ARRAY(a,e,n) .addr.array.element_type = t_structobject, .addr.array.arr.objects.subtype = e, .addr.array.arr.objects.base = (char*)a, .addr.array.arr.objects.stride = sizeof(a[0]), .addr.array.count = n, .addr.array.maxlen = (int)(sizeof(a)/sizeof(a[0]))
+# 46 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+#define COAP_CONTENT_FORMAT APPLICATION_JSON
+#define JSON_VALUE_TYPE_EXT_FLOAT (6)
+
+extern struct json_encoder coap_json_encoder;
+extern struct json_value coap_json_value;
+
+void json_rep_new(struct os_mbuf *m);
+void json_rep_reset(void);
+int json_rep_finalize(void);
+int json_encode_object_entry_ext(struct json_encoder *encoder, char *key, struct json_value *val);
+
+
+
+void json_rep_start_root_object(void);
+
+
+
+void json_rep_end_root_object(void);
+
+
+
+#define json_rep_set_array(object,key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
+
+
+
+#define json_rep_close_array(object,key) json_encode_array_finish(&coap_json_encoder)
+
+
+
+#define json_rep_object_array_start_item(key) { json_encode_object_start(&coap_json_encoder); }
+
+
+
+#define json_rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }
+
+
+#define JSON_VALUE_EXT_FLOAT(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_EXT_FLOAT; (__jv)->jv_val.fl = (float) __v;
+
+
+
+
+#define json_rep_set_int(object,key,value) { JSON_VALUE_INT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_uint(object,key,value) { JSON_VALUE_UINT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_float(object,key,value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_text_string(object,key,value) { JSON_VALUE_STRING (&coap_json_value, (char *) value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+# 148 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 1
+# 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h"
+#define OC_REP_H 
+
+
+
+
+# 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
+# 26 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+#define CBOR_H 
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
+# 30 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
+#define _GCC_LIMITS_H_ 
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/syslimits.h" 1 3 4
+
+
+
+
+
+#define _GCC_NEXT_LIMITS_H 
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
+# 194 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 1 3 4
+
+#define _LIBC_LIMITS_H_ 1
+
+
+
 
 
 #define MB_LEN_MAX _MB_LEN_MAX
@@ -20303,7 +20861,284 @@ _Bool
 
 #define oc_string_array_get_allocated_size(ocstringarray) (ocstringarray.oa_sz / STRING_ARRAY_ITEM_MAX_LEN)
 # 26 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 2
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h" 1
 
+#define CONFIG_H 
+# 13 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h"
+# 1 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 1
+# 20 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h"
+#define __SYS_LOG_STUB_H__ 
+
+
+
+# 1 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h" 1
+# 21 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h"
+#define H_LOG_COMMON_ 
+
+
+# 1 "repos/apache-mynewt-core/sys/log/common/include/log_common/ignore.h" 1
+# 21 "repos/apache-mynewt-core/sys/log/common/include/log_common/ignore.h"
+#define H_IGNORE_ 
+# 32 "repos/apache-mynewt-core/sys/log/common/include/log_common/ignore.h"
+#define IGN_1(X) ((void)(X))
+#define IGN_2(X,...) ((void)(X));IGN_1(__VA_ARGS__)
+#define IGN_3(X,...) ((void)(X));IGN_2(__VA_ARGS__)
+#define IGN_4(X,...) ((void)(X));IGN_3(__VA_ARGS__)
+#define IGN_5(X,...) ((void)(X));IGN_4(__VA_ARGS__)
+#define IGN_6(X,...) ((void)(X));IGN_5(__VA_ARGS__)
+#define IGN_7(X,...) ((void)(X));IGN_6(__VA_ARGS__)
+#define IGN_8(X,...) ((void)(X));IGN_7(__VA_ARGS__)
+#define IGN_9(X,...) ((void)(X));IGN_8(__VA_ARGS__)
+#define IGN_10(X,...) ((void)(X));IGN_9(__VA_ARGS__)
+#define IGN_11(X,...) ((void)(X));IGN_10(__VA_ARGS__)
+#define IGN_12(X,...) ((void)(X));IGN_11(__VA_ARGS__)
+#define IGN_13(X,...) ((void)(X));IGN_12(__VA_ARGS__)
+#define IGN_14(X,...) ((void)(X));IGN_13(__VA_ARGS__)
+#define IGN_15(X,...) ((void)(X));IGN_14(__VA_ARGS__)
+#define IGN_16(X,...) ((void)(X));IGN_15(__VA_ARGS__)
+#define IGN_17(X,...) ((void)(X));IGN_16(__VA_ARGS__)
+#define IGN_18(X,...) ((void)(X));IGN_17(__VA_ARGS__)
+#define IGN_19(X,...) ((void)(X));IGN_18(__VA_ARGS__)
+#define IGN_20(X,...) ((void)(X));IGN_19(__VA_ARGS__)
+
+#define GET_MACRO(_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,_13,_14,_15,_16,_17,_18,_19,_20,NAME,...) NAME
+
+#define IGNORE(...) GET_MACRO(__VA_ARGS__, IGN_20, IGN_19, IGN_18, IGN_17, IGN_16, IGN_15, IGN_14, IGN_13, IGN_12, IGN_11, IGN_10, IGN_9, IGN_8, IGN_7, IGN_6, IGN_5, IGN_4, IGN_3, IGN_2, IGN_1)(__VA_ARGS__)
+# 25 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h" 2
+
+
+
+
+
+struct log;
+
+#define LOG_VERSION_V3 3
+#define LOG_VERSION_V2 2
+#define LOG_VERSION_V1 1
+
+#define LOG_TYPE_STREAM (0)
+#define LOG_TYPE_MEMORY (1)
+#define LOG_TYPE_STORAGE (2)
+
+#define LOG_LEVEL_DEBUG (0)
+#define LOG_LEVEL_INFO (1)
+#define LOG_LEVEL_WARN (2)
+#define LOG_LEVEL_ERROR (3)
+#define LOG_LEVEL_CRITICAL (4)
+
+#define LOG_LEVEL_MAX (UINT8_MAX)
+
+#define LOG_LEVEL_STR(level) (LOG_LEVEL_DEBUG == level ? "DEBUG" : (LOG_LEVEL_INFO == level ? "INFO" : (LOG_LEVEL_WARN == level ? "WARN" : (LOG_LEVEL_ERROR == level ? "ERROR" : (LOG_LEVEL_CRITICAL == level ? "CRITICAL" : "UNKNOWN")))))
+# 57 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h"
+#define LOG_MODULE_DEFAULT (0)
+#define LOG_MODULE_OS (1)
+#define LOG_MODULE_NEWTMGR (2)
+#define LOG_MODULE_NIMBLE_CTLR (3)
+#define LOG_MODULE_NIMBLE_HOST (4)
+#define LOG_MODULE_NFFS (5)
+#define LOG_MODULE_REBOOT (6)
+#define LOG_MODULE_IOTIVITY (7)
+#define LOG_MODULE_TEST (8)
+#define LOG_MODULE_PERUSER (64)
+#define LOG_MODULE_MAX (255)
+
+#define LOG_ETYPE_STRING (0)
+
+
+
+
+
+
+#define LOG_STORE_CONSOLE 1
+#define LOG_STORE_CBMEM 2
+#define LOG_STORE_FCB 3
+
+
+#define UTC01_01_2016 1451606400
+
+#define LOG_NAME_MAX_LEN (64)
+
+
+
+
+#define LOG_SYSLEVEL ((uint8_t)MYNEWT_VAL_LOG_LEVEL)
+
+
+
+#define LOGS_NMGR_OP_READ (0)
+#define LOGS_NMGR_OP_CLEAR (1)
+#define LOGS_NMGR_OP_APPEND (2)
+#define LOGS_NMGR_OP_MODULE_LIST (3)
+#define LOGS_NMGR_OP_LEVEL_LIST (4)
+#define LOGS_NMGR_OP_LOGS_LIST (5)
+#define LOGS_NMGR_OP_SET_WATERMARK (6)
+#define LOGS_NMGR_OP_MODLEVEL (8)
+
+#define LOG_PRINTF_MAX_ENTRY_LEN (128)
+
+
+struct log_info {
+    uint32_t li_next_index;
+    uint8_t li_version;
+};
+
+extern struct log_info g_log_info;
+# 118 "repos/apache-mynewt-core/sys/log/common/include/log_common/log_common.h"
+typedef void log_append_cb(struct log *log, uint32_t idx);
+# 25 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 2
+
+
+
+
+
+#define LOG_DEBUG(__l,__mod,...) IGNORE(__VA_ARGS__)
+#define LOG_INFO(__l,__mod,...) IGNORE(__VA_ARGS__)
+#define LOG_WARN(__l,__mod,...) IGNORE(__VA_ARGS__)
+#define LOG_ERROR(__l,__mod,...) IGNORE(__VA_ARGS__)
+#define LOG_CRITICAL(__l,__mod,...) IGNORE(__VA_ARGS__)
+
+struct log {
+};
+
+struct log_handler {
+};
+
+static inline int
+log_register(char *name, struct log *log, const struct log_handler *h,
+             void *arg, uint8_t level)
+{
+    return 0;
+}
+
+static inline void
+log_set_append_cb(struct log *log, log_append_cb *cb)
+{
+}
+
+static inline struct log *
+log_find(const char *name)
+{
+    return 
+# 57 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 3 4
+          ((void *)0)
+# 57 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h"
+              ;
+}
+
+static inline int
+log_append_typed(struct log *log, uint8_t module, uint8_t level, uint8_t etype,
+                 void *data, uint16_t len)
+{
+    return 0;
+}
+
+static inline int
+log_append_mbuf_typed_no_free(struct log *log, uint8_t module, uint8_t level,
+                              uint8_t etype, struct os_mbuf **om_ptr)
+{
+    return 0;
+}
+
+static inline int
+log_append_mbuf_typed(struct log *log, uint8_t module, uint8_t level,
+                      uint8_t etype, struct os_mbuf *om)
+{
+    os_mbuf_free_chain(om);
+    return 0;
+}
+
+static inline int
+log_append_mbuf_body_no_free(struct log *log, uint8_t module, uint8_t level,
+                             uint8_t etype, struct os_mbuf *om)
+{
+    return 0;
+}
+
+static inline int
+log_append_mbuf_body(struct log *log, uint8_t module, uint8_t level,
+                     uint8_t etype, struct os_mbuf *om)
+{
+    os_mbuf_free_chain(om);
+    return 0;
+}
+
+static inline void
+log_init(void)
+{
+}
+
+static inline void log_set_level(struct log *log, uint8_t level)
+{
+    return;
+}
+
+static inline uint8_t log_get_level(const struct log *log)
+{
+    return 0;
+}
+
+#define log_printf(...) 
+
+
+
+
+extern const struct log_handler log_console_handler;
+extern const struct log_handler log_cbmem_handler;
+extern const struct log_handler log_fcb_handler;
+
+
+
+
+
+static inline struct log *
+log_console_get(void)
+{
+    return 
+# 128 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h" 3 4
+          ((void *)0)
+# 128 "repos/apache-mynewt-core/sys/log/stub/include/log/log.h"
+              ;
+}
+# 14 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h" 2
+# 22 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/config.h"
+#define OC_CLIENT 
+
+
+
+
+
+
+typedef os_time_t oc_clock_time_t;
+#define OC_CLOCK_CONF_TICKS_PER_SECOND (OS_TICKS_PER_SEC)
+
+
+
+#define OC_CLK_FMT "%lu"
+
+
+
+
+#define MAX_APP_RESOURCES MYNEWT_VAL(OC_APP_RESOURCES)
+
+
+
+#define MAX_NUM_CONCURRENT_REQUESTS MYNEWT_VAL(OC_CONCURRENT_REQUESTS)
+
+
+#define EST_NUM_REP_OBJECTS MYNEWT_VAL(OC_NUM_REP_OBJECTS)
+
+
+#define MAX_PAYLOAD_SIZE MYNEWT_VAL(OC_MAX_PAYLOAD_SIZE)
+
+
+#define MAX_NUM_DEVICES MYNEWT_VAL(OC_NUM_DEVICES)
+
+
+#define MAX_PLATFORM_PAYLOAD_SIZE MYNEWT_VAL(OC_MAX_PAYLOAD)
+
+
+#define MAX_DEVICE_PAYLOAD_SIZE MYNEWT_VAL(OC_MAX_PAYLOAD)
+# 27 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 2
 
 
 
@@ -20473,1883 +21308,214 @@ uint16_t oc_parse_rep(struct os_mbuf *m, uint16_t payload_off,
                       uint16_t payload_size, oc_rep_t **out_rep);
 
 void oc_free_rep(oc_rep_t *rep);
-# 23 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_uuid.h" 1
-# 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_uuid.h"
-#define OC_UUID_H 
+# 149 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
+# 35 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h"
+#define CONSTANTS_H 
 
 
 
 
 
+#define COAP_DEFAULT_PORT 5683
 
+#define COAP_DEFAULT_MAX_AGE 60
+#define COAP_RESPONSE_TIMEOUT MYNEWT_VAL(OC_COAP_RESPONSE_TIMEOUT)
+#define COAP_RESPONSE_RANDOM_FACTOR 1.5
+#define COAP_MAX_RETRANSMIT 4
 
-typedef struct
-{
-  uint8_t id[16];
-} oc_uuid_t;
+#define COAP_HEADER_LEN 4
 
-void oc_str_to_uuid(const char *str, oc_uuid_t *uuid);
-void oc_uuid_to_str(const oc_uuid_t *uuid, char *buffer, int buflen);
-void oc_gen_uuid(oc_uuid_t *uuid);
-# 24 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri_const.h" 1
-# 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri_const.h"
-#define OC_RI_CONST_H 
-
-typedef enum { OC_GET = 1, OC_POST, OC_PUT, OC_DELETE } oc_method_t;
-
-typedef enum {
-  OC_IF_BASELINE = 1 << 1,
-  OC_IF_LL = 1 << 2,
-  OC_IF_B = 1 << 3,
-  OC_IF_R = 1 << 4,
-  OC_IF_RW = 1 << 5,
-  OC_IF_A = 1 << 6,
-  OC_IF_S = 1 << 7,
-} oc_interface_mask_t;
+#define COAP_TOKEN_LEN 8
+#define COAP_ETAG_LEN 8
+#define COAP_MAX_URI 32
+#define COAP_MAX_URI_QUERY 32
 
-typedef enum {
-  OC_STATUS_OK = 0,
-  OC_STATUS_CREATED,
-  OC_STATUS_CHANGED,
-  OC_STATUS_DELETED,
-  OC_STATUS_NOT_MODIFIED,
-  OC_STATUS_BAD_REQUEST,
-  OC_STATUS_UNAUTHORIZED,
-  OC_STATUS_BAD_OPTION,
-  OC_STATUS_FORBIDDEN,
-  OC_STATUS_NOT_FOUND,
-  OC_STATUS_METHOD_NOT_ALLOWED,
-  OC_STATUS_NOT_ACCEPTABLE,
-  OC_STATUS_REQUEST_ENTITY_TOO_LARGE,
-  OC_STATUS_UNSUPPORTED_MEDIA_TYPE,
-  OC_STATUS_INTERNAL_SERVER_ERROR,
-  OC_STATUS_NOT_IMPLEMENTED,
-  OC_STATUS_BAD_GATEWAY,
-  OC_STATUS_SERVICE_UNAVAILABLE,
-  OC_STATUS_GATEWAY_TIMEOUT,
-  OC_STATUS_PROXYING_NOT_SUPPORTED,
-  __NUM_OC_STATUS_CODES__,
-  OC_IGNORE
-} oc_status_t;
 
-typedef enum oc_resource_properties {
-  OC_DISCOVERABLE = (1 << 0),
-  OC_OBSERVABLE = (1 << 1),
-  OC_ACTIVE = (1 << 2),
-  OC_SECURE = (1 << 4),
-  OC_PERIODIC = (1 << 6),
-  OC_TRANS_ENC = (1 << 7),
-  OC_TRANS_AUTH = (1 << 8),
-} oc_resource_properties_t;
 
-#define OC_TRANS_SEC_MASK (OC_TRANS_ENC | OC_TRANS_AUTH)
 
-typedef enum {
-  OCF_RES = 0,
-  OCF_P,
+struct coap_udp_hdr {
 
 
 
 
 
+    uint8_t token_len:4;
+    uint8_t type:2;
+    uint8_t version:2;
 
-  __NUM_OC_CORE_RESOURCES__
-} oc_core_resource_t;
-
-#define NUM_OC_CORE_RESOURCES (__NUM_OC_CORE_RESOURCES__ + MAX_NUM_DEVICES)
-# 25 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h" 2
-
-
-
-
-
-struct oc_separate_response;
-struct oc_response_buffer;
-struct oc_endpoint;
-
-typedef struct oc_response {
-    struct oc_separate_response *separate_response;
-    struct oc_response_buffer *response_buffer;
-} oc_response_t;
-
-typedef struct oc_request {
-    struct oc_endpoint *origin;
-    struct oc_resource *resource;
-    const char *query;
-    int query_len;
-    oc_response_t *response;
-    struct coap_packet_rx *packet;
-} oc_request_t;
-
-typedef void (*oc_request_handler_t)(oc_request_t *, oc_interface_mask_t);
-
-typedef struct oc_resource {
-  struct { struct oc_resource *sle_next; } next;
-  int device;
-  oc_string_t uri;
-  oc_string_array_t types;
-  oc_interface_mask_t interfaces;
-  oc_interface_mask_t default_interface;
-  oc_resource_properties_t properties;
-  oc_request_handler_t get_handler;
-  oc_request_handler_t put_handler;
-  oc_request_handler_t post_handler;
-  oc_request_handler_t delete_handler;
-  struct os_callout callout;
-  uint32_t observe_period_mseconds;
-  uint8_t num_observers;
-} oc_resource_t;
-
-void oc_ri_init(void);
-
-void oc_ri_shutdown(void);
-
-int oc_status_code(oc_status_t key);
-
-oc_resource_t *oc_ri_get_app_resource_by_uri(const char *uri);
-
-oc_resource_t *oc_ri_get_app_resources(void);
-
-
-
-
-
-
-
-int oc_ri_get_query_nth_key_value(const char *query, int query_len, char **key,
-                                  int *key_len, char **value, int *value_len,
-                                  int n);
-int oc_ri_get_query_value(const char *query, int query_len, const char *key,
-                          char **value);
-
-oc_interface_mask_t oc_ri_get_interface_mask(char *iface, int if_len);
-
-struct coap_packet_rx;
-struct coap_packet;
-
-# 93 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h" 3 4
-_Bool 
-# 93 "repos/apache-mynewt-core/net/oic/include/oic/oc_ri.h"
-    oc_ri_invoke_coap_entity_handler(struct coap_packet_rx *request,
-                                      struct coap_packet *response,
-                                      int32_t *offset,
-                                      struct oc_endpoint *endpoint);
-# 25 "repos/apache-mynewt-core/net/oic/include/oic/port/mynewt/transport.h" 2
-
-
-
-
-
-
-#define OC_TRANSPORT_MAX 8
-
-#define OC_TRANSPORT_USE_TCP (1 << 0)
-
-struct oc_endpoint;
-
-struct oc_transport {
-    uint8_t ot_flags;
-    uint8_t (*ot_ep_size)(const struct oc_endpoint *);
-    int (*ot_ep_has_conn)(const struct oc_endpoint *);
-    void (*ot_tx_ucast)(struct os_mbuf *);
-    void (*ot_tx_mcast)(struct os_mbuf *);
-    enum oc_resource_properties
-         (*ot_get_trans_security)(const struct oc_endpoint *);
-    char *(*ot_ep_str)(char *ptr, int maxlen, const struct oc_endpoint *);
-    int (*ot_init)(void);
-    void (*ot_shutdown)(void);
-};
-
-extern const struct oc_transport *oc_transports[8];
-
-int8_t oc_transport_register(const struct oc_transport *);
-int8_t oc_transport_lookup(const struct oc_transport *);
-void oc_transport_unregister(const struct oc_transport *);
-# 25 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h" 2
-# 34 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h"
-struct oc_ep_hdr {
-    uint8_t oe_type:3;
-    uint8_t oe_flags:5;
-};
-
-#define OC_ENDPOINT_MULTICAST (1 << 0)
-#define OC_ENDPOINT_SECURED (1 << 1)
-
-
-
-
-typedef struct oc_endpoint {
-    struct oc_ep_hdr ep;
-    uint8_t _res[23];
-} oc_endpoint_t;
-
-
-
-
-struct oc_endpoint_plain {
-    struct oc_ep_hdr ep;
-};
-
-static inline int
-oc_endpoint_size(struct oc_endpoint *oe)
-{
-    ((oc_transports[oe->ep.oe_type]) ? (void)0 : __assert_func(
-# 60 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h" 3 4
-   ((void *)0)
-# 60 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h"
-   , 0, 
-# 60 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h" 3 4
-   ((void *)0)
-# 60 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h"
-   , 
-# 60 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h" 3 4
-   ((void *)0)
-# 60 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h"
-   ));
-    return oc_transports[oe->ep.oe_type]->ot_ep_size(oe);
-}
-
-
-
-
-static inline int
-oc_endpoint_use_tcp(struct oc_endpoint *oe)
-{
-    return oc_transports[oe->ep.oe_type]->ot_flags & (1 << 0);
-}
-
-
-
-
-
-
-static inline int
-oc_endpoint_has_conn(struct oc_endpoint *oe)
-{
-    const struct oc_transport *ot;
-
-    ot = oc_transports[oe->ep.oe_type];
-    if (ot->ot_ep_has_conn) {
-        return ot->ot_ep_has_conn(oe);
-    }
-    return oc_endpoint_use_tcp(oe);
-}
-
-#define OC_MBUF_ENDPOINT(m) ((struct oc_endpoint *)((uint8_t *)m + sizeof(struct os_mbuf) + sizeof(struct os_mbuf_pkthdr)))
-# 103 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_connectivity.h"
-#define OC_ENDPOINT_CONN_EV_OPEN 1
-#define OC_ENDPOINT_CONN_EV_CLOSE 2
-struct oc_conn_cb {
-    struct { struct oc_conn_cb *sle_next; } occ_next;
-    void (*occ_func)(struct oc_endpoint *, int ev);
-};
-void oc_conn_cb_register(struct oc_conn_cb *cb);
-
-struct oc_conn_ev {
-    struct { struct oc_conn_ev *stqe_next; } oce_next;
-    struct oc_endpoint oce_oe;
-    int oce_type;
-};
-
-
-
-
-struct oc_conn_ev *oc_conn_ev_alloc(void);
-void oc_conn_created(struct oc_conn_ev *);
-void oc_conn_removed(struct oc_conn_ev *);
-
-enum oc_resource_properties oc_get_trans_security(const struct oc_endpoint *oe);
-int oc_connectivity_init(void);
-void oc_connectivity_shutdown(void);
-
-void oc_send_buffer(struct os_mbuf *);
-void oc_send_multicast_message(struct os_mbuf *);
-
-void oc_recv_message(struct os_mbuf *m);
-# 49 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_random.h" 1
-# 35 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_random.h"
-#define OC_RANDOM_H 
-# 45 "repos/apache-mynewt-core/net/oic/include/oic/port/oc_random.h"
-void oc_random_init(unsigned short seed);
-
-
-
-
-
-
-unsigned short oc_random_rand(void);
-
-
-
-#define RANDOM_RAND_MAX 65535U
-
-void oc_random_destroy(void);
-# 50 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h" 2
-
-
-
-
-
-
-
-#define MAX(n,m) (((n) < (m)) ? (m) : (n))
-
-
-
-#define MIN(n,m) (((n) < (m)) ? (n) : (m))
-
-
-
-#define ABS(n) (((n) < 0) ? -(n) : (n))
-
-
-#define COAP_MAX_PACKET_SIZE (COAP_MAX_HEADER_SIZE + MAX_PAYLOAD_SIZE)
-
-
-
-
-#define COAP_MAX_BLOCK_SIZE (MAX_PAYLOAD_SIZE < 32 ? 16 : (MAX_PAYLOAD_SIZE < 64 ? 32 : (MAX_PAYLOAD_SIZE < 128 ? 64 : (MAX_PAYLOAD_SIZE < 256 ? 128 : (MAX_PAYLOAD_SIZE < 512 ? 256 : (MAX_PAYLOAD_SIZE < 1024 ? 512 : (MAX_PAYLOAD_SIZE < 2048 ? 1024 : 2048)))))))
-# 90 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-enum
-{
-  OPTION_MAP_SIZE = sizeof(uint8_t) * 8
-};
-
-#define SET_OPTION(packet,opt) ((packet)->options[opt / OPTION_MAP_SIZE] |= 1 << (opt % OPTION_MAP_SIZE))
-
-#define IS_OPTION(packet,opt) ((packet)->options[opt / OPTION_MAP_SIZE] & (1 << (opt % OPTION_MAP_SIZE)))
-
-
-
-
-
-
-struct coap_packet_rx {
-    struct os_mbuf *m;
-
-    uint8_t version;
-    coap_message_type_t type;
     uint8_t code;
-    uint16_t mid;
-
-    uint8_t token_len;
-    uint8_t token[8];
-
-
-    uint8_t options[COAP_OPTION_SIZE1 / OPTION_MAP_SIZE + 1];
-
-
-    uint16_t content_format;
-    uint32_t max_age;
-# 131 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-    uint16_t uri_host_len;
-    uint16_t uri_host_off;
-
-
-
-
-
-
-    uint16_t uri_port;
-    uint16_t uri_path_len;
-    uint16_t uri_path_off;
-    uint16_t accept;
-    int32_t observe;
-
-
-
-
-    uint32_t block2_num;
-    uint8_t block2_more;
-    uint16_t block2_size;
-    uint32_t block2_offset;
-    uint32_t block1_num;
-    uint8_t block1_more;
-    uint16_t block1_size;
-    uint32_t block1_offset;
-    uint32_t size2;
-    uint32_t size1;
-    uint16_t uri_query_len;
-    uint16_t uri_query_off;
-    uint8_t if_none_match;
-
-    uint16_t payload_off;
-    uint16_t payload_len;
+    uint16_t id;
 };
 
 
 
 
 
-typedef struct coap_packet {
-    uint8_t version;
-    coap_message_type_t type;
+#define COAP_TCP_LENGTH8_OFF 13
+#define COAP_TCP_LENGTH16_OFF 269
+#define COAP_TCP_LENGTH32_OFF 65805
+
+#define COAP_TCP_TYPE0 0
+#define COAP_TCP_TYPE8 13
+#define COAP_TCP_TYPE16 14
+#define COAP_TCP_TYPE32 15
+
+struct coap_tcp_hdr0 {
+
+
+
+
+    uint8_t token_len:4;
+    uint8_t data_len:4;
+
     uint8_t code;
-    uint16_t mid;
-
-    uint8_t token_len;
-    uint8_t token[8];
-
-
-    uint8_t options[COAP_OPTION_SIZE1 / OPTION_MAP_SIZE + 1];
-
-
-    uint16_t content_format;
-    uint32_t max_age;
-# 195 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-    uint16_t uri_host_len;
-    char *uri_host;
-
-
-
-
-
-
-    uint16_t uri_port;
-    uint16_t uri_path_len;
-    char *uri_path;
-    int32_t observe;
-    uint16_t accept;
-
-
-
-
-    uint32_t block2_num;
-    uint8_t block2_more;
-    uint16_t block2_size;
-    uint32_t block2_offset;
-    uint32_t block1_num;
-    uint8_t block1_more;
-    uint16_t block1_size;
-    uint32_t block1_offset;
-    uint32_t size2;
-    uint32_t size1;
-    uint16_t uri_query_len;
-    char *uri_query;
-    uint8_t if_none_match;
-
-    uint16_t payload_len;
-    uint8_t *payload;
-    struct os_mbuf *payload_m;
-} coap_packet_t;
-
-
-
-
-struct stats_coap_stats {
-   
-   
-   
-   
-   
-   
-   
 };
 
-extern struct stats_coap_stats coap_stats;
-
-
-#define COAP_SERIALIZE_INT_OPT(pkt,m,number,field,text) if (IS_OPTION(pkt, number)) { OC_LOG(DEBUG, " %s [%u]\n", text, (unsigned int)pkt->field); if (coap_append_int_opt(m, number, current_number, pkt->field)) { goto err_mem; } current_number = number; }
+struct coap_tcp_hdr8 {
 
 
 
 
+    uint8_t token_len:4;
+    uint8_t type:4;
 
-
-
-#define COAP_SERIALIZE_BYTE_OPT(pkt,m,number,field,text) if (IS_OPTION(pkt, number)) { OC_LOG(DEBUG, " %s %u ", text, pkt->field ##_len); OC_LOG_HEX(LOG_LEVEL_DEBUG, pkt->field, pkt->field ##_len); if (coap_append_array_opt(m, number, current_number, pkt->field, pkt->field ##_len, '\0')) { goto err_mem; } current_number = number; }
-# 265 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-#define COAP_SERIALIZE_STRING_OPT(pkt,m,number,field,splitter,text) if (IS_OPTION(pkt, number)) { OC_LOG(DEBUG, " %s", text); OC_LOG_STR(LOG_LEVEL_DEBUG, pkt->field, pkt->field ##_len); if (coap_append_array_opt(m, number, current_number, (uint8_t *)pkt->field, pkt->field ##_len, splitter)) { goto err_mem; } current_number = number; }
-# 276 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-#define COAP_SERIALIZE_BLOCK_OPT(pkt,m,number,field,text) if (IS_OPTION(pkt, number)) { OC_LOG(DEBUG, " %s [%lu%s (%u B/blk)]\n", text, (unsigned long)pkt->field ##_num, pkt->field ##_more ? "+" : "", pkt->field ##_size); uint32_t block = pkt->field ##_num << 4; if (pkt->field ##_more) { block |= 0x8; } block |= 0xF & coap_log_2(pkt->field ##_size / 16); OC_LOG(DEBUG, " %s encoded: 0x%lX\n", text, (unsigned long)block); if (coap_append_int_opt(m, number, current_number, block)) { goto err_mem; } current_number = number; }
-# 295 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/coap.h"
-extern coap_status_t erbium_status_code;
-extern char *coap_error_message;
-
-void coap_init_connection(void);
-uint16_t coap_get_mid(void);
-
-uint16_t coap_tcp_msg_size(uint8_t *hdr, int datalen);
-
-void coap_init_message(coap_packet_t *, coap_message_type_t type,
-                       uint8_t code, uint16_t mid);
-int coap_serialize_message(coap_packet_t *, struct os_mbuf *m);
-void coap_send_message(struct os_mbuf *m, int dup);
-coap_status_t coap_parse_message(struct coap_packet_rx *request,
-                                 struct os_mbuf **mp);
-
-int coap_get_query_variable(coap_packet_t *, const char *name,
-                            const char **output);
-int coap_get_post_variable(coap_packet_t *, const char *name,
-                           const char **output);
-
-
-
-int coap_set_status_code(coap_packet_t *, unsigned int code);
-
-int coap_set_token(coap_packet_t *, const uint8_t *token, size_t token_len);
-
-int coap_get_header_content_format(struct coap_packet_rx *,
-                                   unsigned int *format);
-int coap_set_header_content_format(coap_packet_t *, unsigned int format);
-
-int coap_get_header_accept(struct coap_packet_rx *, unsigned int *accept);
-int coap_set_header_accept(coap_packet_t *, unsigned int accept);
-
-int coap_get_header_max_age(struct coap_packet_rx *, uint32_t *age);
-int coap_set_header_max_age(coap_packet_t *, uint32_t age);
-
-int coap_get_header_etag(struct coap_packet_rx *, const uint8_t **etag);
-int coap_set_header_etag(coap_packet_t *, const uint8_t *etag, size_t etag_len);
-
-int coap_get_header_if_match(struct coap_packet_rx *, const uint8_t **etag);
-int coap_set_header_if_match(coap_packet_t *, const uint8_t *etag,
-                             size_t etag_len);
-
-int coap_get_header_if_none_match(struct coap_packet_rx *);
-int coap_set_header_if_none_match(coap_packet_t *);
-
-int coap_get_header_proxy_uri(struct coap_packet_rx *,
-  const char **uri);
-int coap_set_header_proxy_uri(coap_packet_t *, const char *uri);
-
-int coap_get_header_proxy_scheme(struct coap_packet_rx *,
-  const char **scheme);
-int coap_set_header_proxy_scheme(coap_packet_t *, const char *scheme);
-
-int coap_get_header_uri_host(struct coap_packet_rx *,
-  const char **host);
-int coap_set_header_uri_host(coap_packet_t *, const char *host);
-
-int coap_get_header_uri_path(struct coap_packet_rx *, char *path, int maxlen);
-
-int coap_set_header_uri_path(coap_packet_t *, const char *path);
-
-int coap_get_header_uri_query(struct coap_packet_rx *, char *qry, int maxlen);
-
-int coap_set_header_uri_query(coap_packet_t *, const char *query);
-
-int coap_get_header_location_path(struct coap_packet_rx *,
-  const char **path);
-int coap_set_header_location_path(coap_packet_t *,
-                                  const char *path);
-
-
-
-
-int coap_get_header_location_query(struct coap_packet_rx *,
-  const char **query);
-int coap_set_header_location_query(coap_packet_t *, const char *query);
-
-int coap_get_header_observe(struct coap_packet_rx *, uint32_t *observe);
-int coap_set_header_observe(coap_packet_t *, uint32_t observe);
-
-int coap_get_header_block2(struct coap_packet_rx *, uint32_t *num,
-                           uint8_t *more, uint16_t *size, uint32_t *offset);
-int coap_set_header_block2(coap_packet_t *, uint32_t num, uint8_t more,
-                           uint16_t size);
-
-int coap_get_header_block1(struct coap_packet_rx *, uint32_t *num,
-                           uint8_t *more, uint16_t *size, uint32_t *offset);
-int coap_set_header_block1(coap_packet_t *, uint32_t num, uint8_t more,
-                           uint16_t size);
-
-int coap_get_header_size2(struct coap_packet_rx *, uint32_t *size);
-int coap_set_header_size2(coap_packet_t *, uint32_t size);
-
-int coap_get_header_size1(struct coap_packet_rx *, uint32_t *size);
-int coap_set_header_size1(coap_packet_t *, uint32_t size);
-
-int coap_get_payload_copy(struct coap_packet_rx *, uint8_t *payload,
-                          int maxlen);
-int coap_get_payload(struct coap_packet_rx *pkt, struct os_mbuf **mp,
-                     uint16_t *off);
-int coap_set_payload(coap_packet_t *, struct os_mbuf *m, size_t length);
-# 26 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "libs/semihosting_console/include/console/console.h" 1
-# 20 "libs/semihosting_console/include/console/console.h"
-#define __SEMIHOSTING_CONSOLE_H__ 
-# 29 "libs/semihosting_console/include/console/console.h"
-struct os_eventq;
-
-
-
-
-
-
-
-struct console_input {
-
-
-    char line[(256)];
+    uint8_t data_len;
+    uint8_t code;
 };
 
-typedef void (*console_rx_cb)(void);
-typedef int (*console_append_char_cb)(char *line, uint8_t byte);
-typedef void (*completion_cb)(char *str, console_append_char_cb cb);
+struct coap_tcp_hdr16 {
 
 
-void console_buffer(const char *buffer, unsigned int length);
-void console_printhex(uint8_t v);
-void console_printfloat(float f);
-void console_dump(const uint8_t *buffer, unsigned int len);
-void console_flush(void);
 
 
+    uint8_t token_len:4;
+    uint8_t type:4;
 
+    uint16_t data_len;
+    uint8_t code;
+} __attribute__((packed));
 
-void console_deinit(void);
+struct coap_tcp_hdr32 {
 
 
 
-void console_reinit(void);
-int console_init(console_rx_cb rx_cb);
-int console_is_init(void);
-void console_write(const char *str, int cnt);
-void console_blocking_mode(void);
-void console_non_blocking_mode(void);
-void console_echo(int on);
 
-int console_printf(const char *fmt, ...)
-    __attribute__ ((format (printf, 1, 2)));;
+    uint8_t token_len:4;
+    uint8_t type:4;
 
-void console_set_completion_cb(completion_cb cb);
-int console_handle_char(uint8_t byte);
+    uint32_t data_len;
+    uint8_t code;
+} __attribute__((packed));
 
+#define COAP_TCP_TYPE8 13
+#define COAP_TCP_TYPE16 14
+#define COAP_TCP_TYPE32 15
 
-void console_line_queue_set(struct os_eventq *evq);
 
-void console_line_event_put(struct os_event *ev);
-
-
-
-extern 
-# 82 "libs/semihosting_console/include/console/console.h" 3 4
-      _Bool 
-# 82 "libs/semihosting_console/include/console/console.h"
-           g_silence_console;
-
-
-
-extern 
-# 86 "libs/semihosting_console/include/console/console.h" 3 4
-      _Bool 
-# 86 "libs/semihosting_console/include/console/console.h"
-           g_console_input_ignore;
-# 95 "libs/semihosting_console/include/console/console.h"
-static void inline
-console_silence(
-# 96 "libs/semihosting_console/include/console/console.h" 3 4
-               _Bool 
-# 96 "libs/semihosting_console/include/console/console.h"
-                    silent)
-{
-    g_silence_console = silent;
-}
-# 108 "libs/semihosting_console/include/console/console.h"
-static void inline
-console_input_ignore(
-# 109 "libs/semihosting_console/include/console/console.h" 3 4
-                    _Bool 
-# 109 "libs/semihosting_console/include/console/console.h"
-                         ignore)
-{
-    g_console_input_ignore = ignore;
-}
-
-extern int console_is_midline;
-extern int console_out(int character);
-extern void console_rx_restart(void);
-
-int console_lock(int timeout);
-int console_unlock(void);
-# 27 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "libs/hmac_prng/include/hmac_prng/hmac_prng.h" 1
-
-
-#define __HMAC_PRNG_H__ 
-# 12 "libs/hmac_prng/include/hmac_prng/hmac_prng.h"
-void hmac_prng_init(void);
-
-
-int hmac_prng_generate(uint8_t *rnd, unsigned int rndlen);
-# 28 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 1
-
-
-
-
-#define __SENSOR_COAP_H__ 
-# 14 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
-struct sensor_value {
-    const char *key;
-    int val_type;
-    uint16_t int_val;
-    float float_val;
-};
-
-
-
-
-#define COAP_PORT_UNSECURED (5683)
-
-struct oc_server_handle;
-
-
-void init_sensor_coap(void);
-
-
-
-# 32 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
-_Bool 
-# 32 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
-    sensor_coap_ready(void);
-
-
-
-
-# 36 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
-_Bool 
-# 36 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
-    init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
-
-
-
-# 39 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
-_Bool 
-# 39 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
-    do_sensor_post(void);
-
-
-
-
-
-# 1 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 1
-# 21 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-#define _JSON_H_ 
-
-
-
-# 1 "repos/apache-mynewt-core/libc/baselibc/include/ctype.h" 1
-
-
-
-
-
-
-
-#define _CTYPE_H 
-# 17 "repos/apache-mynewt-core/libc/baselibc/include/ctype.h"
-extern inline __attribute__((gnu_inline)) int isupper(int __c)
-{
- return __c >= 'A' && __c <= 'Z';
-}
-
-extern inline __attribute__((gnu_inline)) int islower(int __c)
-{
- return __c >= 'a' && __c <= 'z';
-}
-
-extern inline __attribute__((gnu_inline)) int isalpha(int __c)
-{
- return islower(__c) || isupper(__c);
-}
-
-extern inline __attribute__((gnu_inline)) int isdigit(int __c)
-{
- return ((unsigned)__c - '0') <= 9;
-}
-
-extern inline __attribute__((gnu_inline)) int isalnum(int __c)
-{
- return isalpha(__c) || isdigit(__c);
-}
-
-extern inline __attribute__((gnu_inline)) int isascii(int __c)
-{
- return !(__c & ~0x7f);
-}
-
-extern inline __attribute__((gnu_inline)) int isblank(int __c)
-{
- return (__c == '\t') || (__c == ' ');
-}
-
-extern inline __attribute__((gnu_inline)) int iscntrl(int __c)
-{
- return __c < 0x20;
-}
-
-extern inline __attribute__((gnu_inline)) int isspace(int __c)
-{
- return __c == ' ' || __c == '\n' || __c == '\t' || __c == '\r';
-}
-
-extern inline __attribute__((gnu_inline)) int isxdigit(int __c)
-{
- return isdigit(__c) || (__c >= 'a' && __c <= 'f') || (__c >= 'A' && __c <= 'F');
-}
-
-extern inline __attribute__((gnu_inline)) int ispunct(int __c)
-{
- return (__c >= '!' && __c <= '/') ||
-     (__c >= ':' && __c <= '@') ||
-     (__c >= '[' && __c <= '`') ||
-     (__c >= '{' && __c <= '~');
-}
-
-extern inline __attribute__((gnu_inline)) int isprint(int __c)
-{
- return (__c >= 0x20 && __c <= 0x7e);
-}
-
-extern inline __attribute__((gnu_inline)) int isgraph(int __c)
-{
- return (__c > 0x20 && __c < 0x7f);
-}
-
-extern inline __attribute__((gnu_inline)) int toupper(int __c)
-{
- return islower(__c) ? (__c & ~32) : __c;
-}
-
-extern inline __attribute__((gnu_inline)) int tolower(int __c)
-{
- return isupper(__c) ? (__c | 32) : __c;
-}
-# 26 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 2
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 1 3
-# 20 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 1 3
-
-
-
-
-
-
-
-#define _ANSIDECL_H_ 
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 1 3
-
-#define __SYS_CONFIG_H__ 
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/ieeefp.h" 1 3
-# 77 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/ieeefp.h" 3
-#define __IEEE_LITTLE_ENDIAN 
-# 453 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/ieeefp.h" 3
-#define __OBSOLETE_MATH_DEFAULT 1
-
-
-#define __OBSOLETE_MATH __OBSOLETE_MATH_DEFAULT
-# 5 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 2 3
-# 220 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 3
-#define _POINTER_INT long
-
-
-
-
-
-#undef __RAND_MAX
-
-
-
-#define __RAND_MAX 0x7fffffff
-# 246 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/config.h" 3
-#define __EXPORT 
-
-
-
-#define __IMPORT 
-
-
-
-
-
-
-#define _READ_WRITE_RETURN_TYPE int
-
-
-
-
-
-#define _READ_WRITE_BUFSIZE_TYPE int
-# 12 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 2 3
-# 31 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 3
-#define _BEGIN_STD_C 
-#define _END_STD_C 
-#define _NOTHROW 
-
-
-
-#define _LONG_DOUBLE long double
-
-
-
-
-
-#define _ATTRIBUTE(attrs) __attribute__ (attrs)
-# 69 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_ansi.h" 3
-#define _ELIDABLE_INLINE static __inline__
-
-
-
-#define _NOINLINE __attribute__ ((__noinline__))
-#define _NOINLINE_STATIC _NOINLINE static
-# 21 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_types.h" 1 3
-
-
-
-
-
-#define _MACHINE__TYPES_H 
-# 23 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-
-
-
-
-
-
-# 28 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
-typedef __uint8_t u_int8_t;
-
-
-typedef __uint16_t u_int16_t;
-
-
-typedef __uint32_t u_int32_t;
-
-
-typedef __uint64_t u_int64_t;
-
-typedef int register_t;
-#define __BIT_TYPES_DEFINED__ 1
-# 60 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
-#define _SYS_TYPES_H 
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 63 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 1 3
-# 20 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
-#define _SYS__TYPES_H 
-
-
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/lock.h" 1 3
-
-#define __SYS_LOCK_H__ 
-# 33 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/lock.h" 3
-struct __lock;
-typedef struct __lock * _LOCK_T;
-#define _LOCK_RECURSIVE_T _LOCK_T
-
-#define __LOCK_INIT(class,lock) extern struct __lock __lock_ ## lock; class _LOCK_T lock = &__lock_ ## lock
-
-#define __LOCK_INIT_RECURSIVE(class,lock) __LOCK_INIT(class,lock)
-
-extern void __retarget_lock_init(_LOCK_T *lock);
-#define __lock_init(lock) __retarget_lock_init(&lock)
-extern void __retarget_lock_init_recursive(_LOCK_T *lock);
-#define __lock_init_recursive(lock) __retarget_lock_init_recursive(&lock)
-extern void __retarget_lock_close(_LOCK_T lock);
-#define __lock_close(lock) __retarget_lock_close(lock)
-extern void __retarget_lock_close_recursive(_LOCK_T lock);
-#define __lock_close_recursive(lock) __retarget_lock_close_recursive(lock)
-extern void __retarget_lock_acquire(_LOCK_T lock);
-#define __lock_acquire(lock) __retarget_lock_acquire(lock)
-extern void __retarget_lock_acquire_recursive(_LOCK_T lock);
-#define __lock_acquire_recursive(lock) __retarget_lock_acquire_recursive(lock)
-extern int __retarget_lock_try_acquire(_LOCK_T lock);
-#define __lock_try_acquire(lock) __retarget_lock_try_acquire(lock)
-extern int __retarget_lock_try_acquire_recursive(_LOCK_T lock);
-#define __lock_try_acquire_recursive(lock) __retarget_lock_try_acquire_recursive(lock)
-
-extern void __retarget_lock_release(_LOCK_T lock);
-#define __lock_release(lock) __retarget_lock_release(lock)
-extern void __retarget_lock_release_recursive(_LOCK_T lock);
-#define __lock_release_recursive(lock) __retarget_lock_release_recursive(lock)
-# 26 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 2 3
-
-
-typedef long __blkcnt_t;
-
-
-
-typedef long __blksize_t;
-
-
-
-typedef __uint64_t __fsblkcnt_t;
-
-
-
-typedef __uint32_t __fsfilcnt_t;
-
-
-
-typedef long _off_t;
-
-
-
-
-
-typedef int __pid_t;
-
-
-
-typedef short __dev_t;
-
-
-
-typedef unsigned short __uid_t;
-
-
-typedef unsigned short __gid_t;
-
-
-
-typedef __uint32_t __id_t;
-
-
-
-
-
-
-
-typedef unsigned short __ino_t;
-# 88 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
-typedef __uint32_t __mode_t;
-
-
-
-
-
-__extension__ typedef long long _off64_t;
-
-
-
-
-
-typedef _off_t __off_t;
-
-
-typedef _off64_t __loff_t;
-
-
-typedef long __key_t;
-
-
-
-
-
-
-
-typedef long _fpos_t;
-# 125 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
-#undef __size_t
-
-
-
-typedef unsigned int __size_t;
-# 144 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
-#define unsigned signed
-typedef signed int _ssize_t;
-#undef unsigned
-# 156 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 3
-typedef _ssize_t __ssize_t;
-
-#define __need_wint_t 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 161 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
-#undef __need_ptrdiff_t
-# 238 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 347 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-
-
-
-
-#define _WINT_T 
-
-
-
-
-typedef unsigned int wint_t;
-
-#undef __need_wint_t
-# 401 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-
-
-
-
-#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
-# 160 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_types.h" 2 3
-
-
-
-typedef struct
-{
-  int __count;
-  union
-  {
-    wint_t __wch;
-    unsigned char __wchb[4];
-  } __value;
-} _mbstate_t;
-
-
-
-typedef _LOCK_T _flock_t;
-
-
-
-
-typedef void *_iconv_t;
-
-
-
-#define _CLOCK_T_ unsigned long
-
-
-typedef unsigned long __clock_t;
-
-
-
-
-#define _TIME_T_ __int_least64_t
-
-typedef __int_least64_t __time_t;
-
-
-#define _CLOCKID_T_ unsigned long
-
-
-typedef unsigned long __clockid_t;
-
-#define _TIMER_T_ unsigned long
-typedef unsigned long __timer_t;
-
-
-typedef __uint8_t __sa_family_t;
-
-
-
-typedef __uint32_t __socklen_t;
-
-
-typedef unsigned short __nlink_t;
-typedef long __suseconds_t;
-typedef unsigned long __useconds_t;
-
-
-typedef __builtin_va_list __va_list;
-# 64 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/endian.h" 1 3
-
-#define __MACHINE_ENDIAN_H__ 
-
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_endian.h" 1 3
-# 31 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_endian.h" 3
-#define _LITTLE_ENDIAN 1234
-#define _BIG_ENDIAN 4321
-#define _PDP_ENDIAN 3412
-
-
-
-
-#define _BYTE_ORDER _LITTLE_ENDIAN
-# 7 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/endian.h" 2 3
-
-
-#define _QUAD_HIGHWORD 1
-#define _QUAD_LOWWORD 0
-
-
-
-
-
-
-#define LITTLE_ENDIAN _LITTLE_ENDIAN
-#define BIG_ENDIAN _BIG_ENDIAN
-#define PDP_ENDIAN _PDP_ENDIAN
-#define BYTE_ORDER _BYTE_ORDER
-
-
-
-#define __bswap16(_x) __builtin_bswap16(_x)
-#define __bswap32(_x) __builtin_bswap32(_x)
-#define __bswap64(_x) __builtin_bswap64(_x)
-# 57 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/endian.h" 3
-#define __htonl(_x) __bswap32(_x)
-#define __htons(_x) __bswap16(_x)
-#define __ntohl(_x) __bswap32(_x)
-#define __ntohs(_x) __bswap16(_x)
-# 68 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 1 3
-
-#define _SYS_SELECT_H 
-# 14 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_sigset.h" 1 3
-# 39 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_sigset.h" 3
-#define _SYS__SIGSET_H_ 
-
-typedef unsigned long __sigset_t;
-# 15 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 2 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timeval.h" 1 3
-# 30 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timeval.h" 3
-#define _SYS__TIMEVAL_H_ 
-
-
-
-
-typedef __suseconds_t suseconds_t;
-#define _SUSECONDS_T_DECLARED 
-
-
-
-typedef __int_least64_t time_t;
-#define __time_t_defined 
-#define _TIME_T_DECLARED 
-
-
-
-
-#define _TIMEVAL_DEFINED 
-
-
-
-
-struct timeval {
- time_t tv_sec;
- suseconds_t tv_usec;
-};
-
-
-
-
-#define timerclear(tvp) ((tvp)->tv_sec = (tvp)->tv_usec = 0)
-#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp,uvp,cmp) (((tvp)->tv_sec == (uvp)->tv_sec) ? ((tvp)->tv_usec cmp (uvp)->tv_usec) : ((tvp)->tv_sec cmp (uvp)->tv_sec))
-
-
-
-#define timeradd(tvp,uvp,vvp) do { (vvp)->tv_sec = (tvp)->tv_sec + (uvp)->tv_sec; (vvp)->tv_usec = (tvp)->tv_usec + (uvp)->tv_usec; if ((vvp)->tv_usec >= 1000000) { (vvp)->tv_sec++; (vvp)->tv_usec -= 1000000; } } while (0)
-# 75 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timeval.h" 3
-#define timersub(tvp,uvp,vvp) do { (vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec; (vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec; if ((vvp)->tv_usec < 0) { (vvp)->tv_sec--; (vvp)->tv_usec += 1000000; } } while (0)
-# 16 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 2 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 1 3
-# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 3
-#define _SYS_TIMESPEC_H_ 
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timespec.h" 1 3
-# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timespec.h" 3
-#define _SYS__TIMESPEC_H_ 
-# 45 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_timespec.h" 3
-struct timespec {
- time_t tv_sec;
- long tv_nsec;
-};
-# 39 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 2 3
-
-
-#define TIMEVAL_TO_TIMESPEC(tv,ts) do { (ts)->tv_sec = (tv)->tv_sec; (ts)->tv_nsec = (tv)->tv_usec * 1000; } while (0)
-
-
-
-
-#define TIMESPEC_TO_TIMEVAL(tv,ts) do { (tv)->tv_sec = (ts)->tv_sec; (tv)->tv_usec = (ts)->tv_nsec / 1000; } while (0)
-# 58 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/timespec.h" 3
-struct itimerspec {
- struct timespec it_interval;
- struct timespec it_value;
-};
-# 17 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 2 3
-
-
-#define _SIGSET_T_DECLARED 
-typedef __sigset_t sigset_t;
-
-
-#define _SYS_TYPES_FD_SET 
-
-
-
-
-
-
-
-#define FD_SETSIZE 64
-
-
-typedef unsigned long fd_mask;
-#define NFDBITS (sizeof (fd_mask) * 8)
-
-#define _howmany(x,y) (((x)+((y)-1))/(y))
-
-
-
-
-typedef struct _types_fd_set {
- fd_mask fds_bits[(((64)+(((sizeof (fd_mask) * 8))-1))/((sizeof (fd_mask) * 8)))];
-} _types_fd_set;
-
-#define fd_set _types_fd_set
-
-#define FD_SET(n,p) ((p)->fds_bits[(n)/NFDBITS] |= (1L << ((n) % NFDBITS)))
-#define FD_CLR(n,p) ((p)->fds_bits[(n)/NFDBITS] &= ~(1L << ((n) % NFDBITS)))
-#define FD_ISSET(n,p) ((p)->fds_bits[(n)/NFDBITS] & (1L << ((n) % NFDBITS)))
-#define FD_ZERO(p) (__extension__ (void)({ size_t __i; char *__tmp = (char *)p; for (__i = 0; __i < sizeof (*(p)); ++__i) *__tmp++ = 0; }))
-# 60 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/select.h" 3
-
-
-int select (int __n, _types_fd_set *__readfds, _types_fd_set *__writefds, _types_fd_set *__exceptfds, struct timeval *__timeout)
-                                                   ;
-
-int pselect (int __n, _types_fd_set *__readfds, _types_fd_set *__writefds, _types_fd_set *__exceptfds, const struct timespec *__timeout, const sigset_t *__set)
-
-                           ;
-
-
-
-# 69 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-#define physadr physadr_t
-#define quad quad_t
-
-
-typedef __uint32_t in_addr_t;
-#define _IN_ADDR_T_DECLARED 
-
-
-
-typedef __uint16_t in_port_t;
-#define _IN_PORT_T_DECLARED 
-
-
-
-
-
-
-
-typedef unsigned char u_char;
-#define __u_char_defined 
-
-
-typedef unsigned short u_short;
-#define __u_short_defined 
-
-
-typedef unsigned int u_int;
-#define __u_int_defined 
-
-
-typedef unsigned long u_long;
-#define __u_long_defined 
-
-#define _BSDTYPES_DEFINED 
-
-
-
-
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-
-
-
-typedef __blkcnt_t blkcnt_t;
-#define _BLKCNT_T_DECLARED 
-
-
-
-typedef __blksize_t blksize_t;
-#define _BLKSIZE_T_DECLARED 
-
-
-
-typedef unsigned long clock_t;
-#define __clock_t_defined 
-#define _CLOCK_T_DECLARED 
-# 135 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
-typedef long daddr_t;
-#define __daddr_t_defined 
-
-
-typedef char * caddr_t;
-#define __caddr_t_defined 
-
-
-
-typedef __fsblkcnt_t fsblkcnt_t;
-typedef __fsfilcnt_t fsfilcnt_t;
-#define _FSBLKCNT_T_DECLARED 
-
-
-
-typedef __id_t id_t;
-#define _ID_T_DECLARED 
-
-
-
-typedef __ino_t ino_t;
-#define _INO_T_DECLARED 
-# 173 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 3
-typedef __off_t off_t;
-#define _OFF_T_DECLARED 
-
-
-typedef __dev_t dev_t;
-#define _DEV_T_DECLARED 
-
-
-typedef __uid_t uid_t;
-#define _UID_T_DECLARED 
-
-
-typedef __gid_t gid_t;
-#define _GID_T_DECLARED 
-
-
-
-typedef __pid_t pid_t;
-#define _PID_T_DECLARED 
-
-
-
-typedef __key_t key_t;
-#define _KEY_T_DECLARED 
-
-
-
-typedef _ssize_t ssize_t;
-#define _SSIZE_T_DECLARED 
-
-
-
-typedef __mode_t mode_t;
-#define _MODE_T_DECLARED 
-
-
-
-typedef __nlink_t nlink_t;
-#define _NLINK_T_DECLARED 
-
-
-
-typedef __clockid_t clockid_t;
-#define __clockid_t_defined 
-#define _CLOCKID_T_DECLARED 
-
-
-
-typedef __timer_t timer_t;
-#define __timer_t_defined 
-#define _TIMER_T_DECLARED 
-
-
-
-typedef __useconds_t useconds_t;
-#define _USECONDS_T_DECLARED 
-
-
-
-
-
-
-
-typedef __int64_t sbintime_t;
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 1 3
-# 19 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
-#define _SYS__PTHREADTYPES_H_ 
-
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 1 3
-# 22 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
-#define _SYS_SCHED_H_ 
-# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
-#define SCHED_OTHER 0
-
-
-#define SCHED_FIFO 1
-#define SCHED_RR 2
-# 48 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
-struct sched_param {
-  int sched_priority;
-# 61 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/sched.h" 3
-};
-# 24 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 2 3
-# 32 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
-typedef __uint32_t pthread_t;
-
-
-
-#define PTHREAD_SCOPE_PROCESS 0
-#define PTHREAD_SCOPE_SYSTEM 1
-
-
-#define PTHREAD_INHERIT_SCHED 1
-
-
-#define PTHREAD_EXPLICIT_SCHED 2
-
-
-#define PTHREAD_CREATE_DETACHED 0
-#define PTHREAD_CREATE_JOINABLE 1
-# 61 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
-typedef struct {
-  int is_initialized;
-  void *stackaddr;
-  int stacksize;
-  int contentionscope;
-  int inheritsched;
-  int schedpolicy;
-  struct sched_param schedparam;
-
-
-
-
-
-  int detachstate;
-} pthread_attr_t;
-# 154 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
-typedef __uint32_t pthread_mutex_t;
-
-typedef struct {
-  int is_initialized;
-# 168 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_pthreadtypes.h" 3
-  int recursive;
-} pthread_mutexattr_t;
-
-
-#define _PTHREAD_MUTEX_INITIALIZER ((pthread_mutex_t) 0xFFFFFFFF)
-
-
-
-typedef __uint32_t pthread_cond_t;
-
-#define _PTHREAD_COND_INITIALIZER ((pthread_cond_t) 0xFFFFFFFF)
-
-typedef struct {
-  int is_initialized;
-  clock_t clock;
-
-
-
-} pthread_condattr_t;
-
-
-
-typedef __uint32_t pthread_key_t;
-
-typedef struct {
-  int is_initialized;
-  int init_executed;
-} pthread_once_t;
-
-#define _PTHREAD_ONCE_INIT { 1, 0 }
-# 240 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/types.h" 1 3
-# 241 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/types.h" 2 3
-
-
-
-#undef __need_inttypes
-# 28 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 2
-
-
-
-
-
-
-#define JSON_VALUE_TYPE_BOOL (0)
-#define JSON_VALUE_TYPE_UINT64 (1)
-#define JSON_VALUE_TYPE_INT64 (2)
-#define JSON_VALUE_TYPE_STRING (3)
-#define JSON_VALUE_TYPE_ARRAY (4)
-#define JSON_VALUE_TYPE_OBJECT (5)
-
-
-# 41 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-struct json_value {
-    uint8_t jv_pad1;
-    uint8_t jv_type;
-    uint16_t jv_len;
-
-    union {
-        uint64_t u;
-        float fl;
-        char *str;
-        struct {
-            char **keys;
-            struct json_value **values;
-        } composite;
-    } jv_val;
-};
-
-#define JSON_VALUE_STRING(__jv,__str) (__jv)->jv_type = JSON_VALUE_TYPE_STRING; (__jv)->jv_len = strlen(__str); (__jv)->jv_val.str = (__str);
-
-
-
-
-#define JSON_VALUE_STRINGN(__jv,__str,__len) (__jv)->jv_type = JSON_VALUE_TYPE_STRING; (__jv)->jv_len = (uint16_t) (__len); (__jv)->jv_val.str = (__str);
-
-
-
-
-#define JSON_VALUE_BOOL(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_BOOL; (__jv)->jv_val.u = (__v);
-
-
-
-#define JSON_VALUE_INT(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_INT64; (__jv)->jv_val.u = (uint64_t) __v;
-
-
-
-#define JSON_VALUE_UINT(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_UINT64; (__jv)->jv_val.u = (uint64_t) __v;
-
-
-
-
-typedef int (*json_write_func_t)(void *buf, char *data,
-        int len);
-
-struct json_encoder {
-    json_write_func_t je_write;
-    void *je_arg;
-    int je_wr_commas:1;
-    char je_encode_buf[64];
-};
-
-
-#define JSON_NITEMS(x) (int)(sizeof(x)/sizeof(x[0]))
-
-int json_encode_object_start(struct json_encoder *);
-int json_encode_object_key(struct json_encoder *encoder, char *key);
-int json_encode_object_entry(struct json_encoder *, char *,
-        struct json_value *);
-int json_encode_object_finish(struct json_encoder *);
-
-int json_encode_array_name(struct json_encoder *encoder, char *name);
-int json_encode_array_start(struct json_encoder *encoder);
-int json_encode_array_value(struct json_encoder *encoder, struct json_value *val);
-int json_encode_array_finish(struct json_encoder *encoder);
+#define COAP_HEADER_OPTION_DELTA_MASK 0xF0
+#define COAP_HEADER_OPTION_SHORT_LENGTH_MASK 0x0F
 
 
 typedef enum {
-    t_integer,
-    t_uinteger,
-    t_real,
-    t_string,
-    t_boolean,
-    t_character,
-    t_object,
-    t_structobject,
-    t_array,
-    t_check,
-    t_ignore
-} json_type;
-
-struct json_enum_t {
-    char *name;
-    long long int value;
-};
-
-struct json_array_t {
-    json_type element_type;
-    union {
-        struct {
-            const struct json_attr_t *subtype;
-            char *base;
-            size_t stride;
-        } objects;
-        struct {
-            char **ptrs;
-            char *store;
-            int storelen;
-        } strings;
-        struct {
-            long long int *store;
-        } integers;
-        struct {
-            long long unsigned int *store;
-        } uintegers;
-        struct {
-            double *store;
-        } reals;
-        struct {
-            
-# 147 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
-           _Bool 
-# 147 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-                *store;
-        } booleans;
-    } arr;
-    int *count;
-    int maxlen;
-};
-
-struct json_attr_t {
-    char *attribute;
-    json_type type;
-    union {
-        long long int *integer;
-        long long unsigned int *uinteger;
-        double *real;
-        char *string;
-        
-# 162 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
-       _Bool 
-# 162 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-            *boolean;
-        char *character;
-        struct json_array_t array;
-        size_t offset;
-    } addr;
-    union {
-        long long int integer;
-        long long unsigned int uinteger;
-        double real;
-        
-# 171 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
-       _Bool 
-# 171 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-            boolean;
-        char character;
-        char *check;
-    } dflt;
-    size_t len;
-    const struct json_enum_t *map;
-    
-# 177 "repos/apache-mynewt-core/encoding/json/include/json/json.h" 3 4
-   _Bool 
-# 177 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-        nodefault;
-};
-
-struct json_buffer;
+  COAP_TYPE_CON,
+  COAP_TYPE_NON,
+  COAP_TYPE_ACK,
+  COAP_TYPE_RST
+} coap_message_type_t;
 
 
+typedef enum { COAP_GET = 1, COAP_POST, COAP_PUT, COAP_DELETE } coap_method_t;
 
 
-typedef char (*json_buffer_read_next_byte_t)(struct json_buffer *);
+typedef enum {
+  NO_ERROR = 0,
 
-typedef char (*json_buffer_read_prev_byte_t)(struct json_buffer *);
+  CREATED_2_01 = 65,
+  DELETED_2_02 = 66,
+  VALID_2_03 = 67,
+  CHANGED_2_04 = 68,
+  CONTENT_2_05 = 69,
+  CONTINUE_2_31 = 95,
 
-typedef int (*json_buffer_readn_t)(struct json_buffer *, char *buf, int n);
+  BAD_REQUEST_4_00 = 128,
+  UNAUTHORIZED_4_01 = 129,
+  BAD_OPTION_4_02 = 130,
+  FORBIDDEN_4_03 = 131,
+  NOT_FOUND_4_04 = 132,
+  METHOD_NOT_ALLOWED_4_05 = 133,
+  NOT_ACCEPTABLE_4_06 = 134,
+  PRECONDITION_FAILED_4_12 = 140,
+  REQUEST_ENTITY_TOO_LARGE_4_13 = 141,
+  UNSUPPORTED_MEDIA_TYPE_4_15 = 143,
 
-struct json_buffer {
-    json_buffer_readn_t jb_readn;
-    json_buffer_read_next_byte_t jb_read_next;
-    json_buffer_read_prev_byte_t jb_read_prev;
-};
-
-#define JSON_ATTR_MAX 31
-#define JSON_VAL_MAX 512
-
-int json_read_object(struct json_buffer *, const struct json_attr_t *);
-int json_read_array(struct json_buffer *, const struct json_array_t *);
-
-#define JSON_ERR_OBSTART 1
-#define JSON_ERR_ATTRSTART 2
-#define JSON_ERR_BADATTR 3
-#define JSON_ERR_ATTRLEN 4
-#define JSON_ERR_NOARRAY 5
-#define JSON_ERR_NOBRAK 6
-#define JSON_ERR_STRLONG 7
-#define JSON_ERR_TOKLONG 8
-#define JSON_ERR_BADTRAIL 9
-#define JSON_ERR_ARRAYSTART 10
-#define JSON_ERR_OBJARR 11
-#define JSON_ERR_SUBTOOLONG 12
-#define JSON_ERR_BADSUBTRAIL 13
-#define JSON_ERR_SUBTYPE 14
-#define JSON_ERR_BADSTRING 15
-#define JSON_ERR_CHECKFAIL 16
-#define JSON_ERR_NOPARSTR 17
-#define JSON_ERR_BADENUM 18
-#define JSON_ERR_QNONSTRING 19
-#define JSON_ERR_NONQSTRING 19
-#define JSON_ERR_MISC 20
-#define JSON_ERR_BADNUM 21
-#define JSON_ERR_NULLPTR 22
-# 237 "repos/apache-mynewt-core/encoding/json/include/json/json.h"
-#define JSON_STRUCT_OBJECT(s,f) .addr.offset = offsetof(s, f)
-#define JSON_STRUCT_ARRAY(a,e,n) .addr.array.element_type = t_structobject, .addr.array.arr.objects.subtype = e, .addr.array.arr.objects.base = (char*)a, .addr.array.arr.objects.stride = sizeof(a[0]), .addr.array.count = n, .addr.array.maxlen = (int)(sizeof(a)/sizeof(a[0]))
-# 46 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
-#define COAP_CONTENT_FORMAT APPLICATION_JSON
-#define JSON_VALUE_TYPE_EXT_FLOAT (6)
-
-extern struct json_encoder coap_json_encoder;
-extern struct json_value coap_json_value;
-
-void json_rep_new(struct os_mbuf *m);
-void json_rep_reset(void);
-int json_rep_finalize(void);
-int json_encode_object_entry_ext(struct json_encoder *encoder, char *key, struct json_value *val);
+  INTERNAL_SERVER_ERROR_5_00 = 160,
+  NOT_IMPLEMENTED_5_01 = 161,
+  BAD_GATEWAY_5_02 = 162,
+  SERVICE_UNAVAILABLE_5_03 = 163,
+  GATEWAY_TIMEOUT_5_04 = 164,
+  PROXYING_NOT_SUPPORTED_5_05 = 165,
 
 
-
-void json_rep_start_root_object(void);
-
-
-
-void json_rep_end_root_object(void);
+  MEMORY_ALLOCATION_ERROR = 192,
+  PACKET_SERIALIZATION_ERROR,
 
 
-
-#define json_rep_set_array(object,key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
-
-
-
-#define json_rep_close_array(object,key) json_encode_array_finish(&coap_json_encoder)
+  CLEAR_TRANSACTION,
+  EMPTY_ACK_RESPONSE
+} coap_status_t;
 
 
+typedef enum {
+  COAP_OPTION_IF_MATCH = 1,
+  COAP_OPTION_URI_HOST = 3,
+  COAP_OPTION_ETAG = 4,
+  COAP_OPTION_IF_NONE_MATCH = 5,
+  COAP_OPTION_OBSERVE = 6,
+  COAP_OPTION_URI_PORT = 7,
+  COAP_OPTION_LOCATION_PATH = 8,
+  COAP_OPTION_URI_PATH = 11,
+  COAP_OPTION_CONTENT_FORMAT = 12,
+  COAP_OPTION_MAX_AGE = 14,
+  COAP_OPTION_URI_QUERY = 15,
+  COAP_OPTION_ACCEPT = 17,
+  COAP_OPTION_LOCATION_QUERY = 20,
+  COAP_OPTION_BLOCK2 = 23,
+  COAP_OPTION_BLOCK1 = 27,
+  COAP_OPTION_SIZE2 = 28,
+  COAP_OPTION_PROXY_URI = 35,
+  COAP_OPTION_PROXY_SCHEME = 39,
+  COAP_OPTION_SIZE1 = 60,
+} coap_option_t;
 
-#define json_rep_object_array_start_item(key) { json_encode_object_start(&coap_json_encoder); }
 
+typedef enum {
+  TEXT_PLAIN = 0,
+  TEXT_XML = 1,
+  TEXT_CSV = 2,
+  TEXT_HTML = 3,
+  IMAGE_GIF = 21,
+  IMAGE_JPEG = 22,
+  IMAGE_PNG = 23,
+  IMAGE_TIFF = 24,
+  AUDIO_RAW = 25,
+  VIDEO_RAW = 26,
+  APPLICATION_LINK_FORMAT = 40,
+  APPLICATION_XML = 41,
+  APPLICATION_OCTET_STREAM = 42,
+  APPLICATION_RDF_XML = 43,
+  APPLICATION_SOAP_XML = 44,
+  APPLICATION_ATOM_XML = 45,
+  APPLICATION_XMPP_XML = 46,
+  APPLICATION_EXI = 47,
+  APPLICATION_FASTINFOSET = 48,
+  APPLICATION_SOAP_FASTINFOSET = 49,
+  APPLICATION_JSON = 50,
+  APPLICATION_X_OBIX_BINARY = 51,
+  APPLICATION_CBOR = 60
+} coap_content_format_t;
+# 150 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
 
-
-#define json_rep_object_array_end_item(key) { json_encode_object_finish(&coap_json_encoder); }
-
-
-#define JSON_VALUE_EXT_FLOAT(__jv,__v) (__jv)->jv_type = JSON_VALUE_TYPE_EXT_FLOAT; (__jv)->jv_val.fl = (float) __v;
-
-
-
-
-#define json_rep_set_int(object,key,value) { JSON_VALUE_INT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
-#define json_rep_set_uint(object,key,value) { JSON_VALUE_UINT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
-#define json_rep_set_float(object,key,value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
-#define json_rep_set_text_string(object,key,value) { JSON_VALUE_STRING (&coap_json_value, (char *) value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
-# 151 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 #undef COAP_CONTENT_FORMAT
 extern int oc_content_format;
 #define JSON_ENC (oc_content_format == APPLICATION_JSON)
@@ -22476,25 +21642,400 @@ extern int oc_content_format;
 #define CP_ITEM_FLOAT(array0,key0,value0) { CP_ITEM(array0, { rep_set_text_string(array0, key, key0); rep_set_float( array0, value, value0); }) }
 # 318 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 #define CP_ITEM_STR(array0,key0,value0) { CP_ITEM(array0, { rep_set_text_string(array0, key, key0); rep_set_text_string(array0, value, value0); }) }
-# 29 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "libs/sensor_network/include/sensor_network/sensor_network.h" 1
-# 39 "libs/sensor_network/include/sensor_network/sensor_network.h"
-#define __SENSOR_NETWORK_H__ 
-# 53 "libs/sensor_network/include/sensor_network/sensor_network.h"
-#define SERVER_INTERFACE_TYPE 0
-#define COLLECTOR_INTERFACE_TYPE 1
-#define MAX_INTERFACE_TYPES 2
-#define MAX_ENDPOINT_SIZE 16
-#define SENSOR_NETWORK_SIZE 5
+# 19 "apps/my_sensor_app/src/send_coap.c" 2
+# 1 "apps/my_sensor_app/src/geolocate.h" 1
 
 
-struct sensor_network_interface {
-    uint8_t iface_type;
-    const char *network_device;
-    uint8_t server_endpoint_size;
-    int (*register_transport_func)(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
-    uint8_t transport_registered;
+
+#define __GEOLOCATE_H__ 
+# 20 "apps/my_sensor_app/src/send_coap.c" 2
+# 1 "apps/my_sensor_app/src/send_coap.h" 1
+
+
+
+#define __SEND_COAP_H__ 
+
+
+
+
+
+
+# 1 "libs/esp8266/include/esp8266/esp8266.h" 1
+
+
+
+#define __ESP8266_DRIVER_H__ 
+
+# 1 "libs/esp8266/include/esp8266/network.h" 1
+
+
+#define __ESP8266_NETWORK_H__ 
+# 16 "libs/esp8266/include/esp8266/network.h"
+typedef enum nsapi_protocol {
+    NSAPI_TCP,
+    NSAPI_UDP,
+} nsapi_protocol_t;
+# 28 "libs/esp8266/include/esp8266/network.h"
+enum nsapi_error {
+    NSAPI_ERROR_OK = 0,
+    NSAPI_ERROR_WOULD_BLOCK = -3001,
+    NSAPI_ERROR_UNSUPPORTED = -3002,
+    NSAPI_ERROR_PARAMETER = -3003,
+    NSAPI_ERROR_NO_CONNECTION = -3004,
+    NSAPI_ERROR_NO_SOCKET = -3005,
+    NSAPI_ERROR_NO_ADDRESS = -3006,
+    NSAPI_ERROR_NO_MEMORY = -3007,
+    NSAPI_ERROR_NO_SSID = -3008,
+    NSAPI_ERROR_DNS_FAILURE = -3009,
+    NSAPI_ERROR_DHCP_FAILURE = -3010,
+    NSAPI_ERROR_AUTH_FAILURE = -3011,
+    NSAPI_ERROR_DEVICE_ERROR = -3012,
+    NSAPI_ERROR_IN_PROGRESS = -3013,
+    NSAPI_ERROR_ALREADY = -3014,
+    NSAPI_ERROR_IS_CONNECTED = -3015,
+    NSAPI_ERROR_CONNECTION_LOST = -3016,
+    NSAPI_ERROR_CONNECTION_TIMEOUT = -3017,
+    NSAPI_ERROR_ADDRESS_IN_USE = -3018,
+    NSAPI_ERROR_TIMEOUT = -3019,
+    NSAPI_ERROR_BUSY = -3020,
 };
+# 7 "libs/esp8266/include/esp8266/esp8266.h" 2
+# 1 "libs/esp8266/include/esp8266/wifi.h" 1
+
+#define __ESP8266_WIFI_H__ 
+# 14 "libs/esp8266/include/esp8266/wifi.h"
+typedef enum nsapi_security {
+    NSAPI_SECURITY_NONE = 0x0,
+    NSAPI_SECURITY_WEP = 0x1,
+    NSAPI_SECURITY_WPA = 0x2,
+    NSAPI_SECURITY_WPA2 = 0x3,
+    NSAPI_SECURITY_WPA_WPA2 = 0x4,
+    NSAPI_SECURITY_PAP = 0x5,
+    NSAPI_SECURITY_CHAP = 0x6,
+    NSAPI_SECURITY_UNKNOWN = 0xFF,
+} nsapi_security_t;
+
+
+
+
+
+typedef struct nsapi_wifi_ap {
+    char ssid[33];
+    uint8_t bssid[6];
+    nsapi_security_t security;
+    int8_t rssi;
+    uint8_t channel;
+} nsapi_wifi_ap_t;
+# 8 "libs/esp8266/include/esp8266/esp8266.h" 2
+
+
+
+
+
+#define ESP8266_DEVICE "esp8266_0"
+#define ESP8266_SOCKET_COUNT 2
+
+
+#define ESP8266_TX_BUFFER_SIZE 400
+#define ESP8266_RX_BUFFER_SIZE 256
+#define ESP8266_PARSER_BUFFER_SIZE 256
+
+
+#define ESP8266_CONNECT_TIMEOUT 10000
+#define ESP8266_SEND_TIMEOUT 10000
+#define ESP8266_RECV_TIMEOUT 0
+#define ESP8266_SCAN_TIMEOUT 30000
+#define ESP8266_MISC_TIMEOUT 2000
+
+typedef 
+# 28 "libs/esp8266/include/esp8266/esp8266.h" 3 4
+       _Bool 
+# 28 "libs/esp8266/include/esp8266/esp8266.h"
+            filter_func_t0(nsapi_wifi_ap_t *, unsigned);
+
+
+struct esp8266_socket {
+    int id;
+    nsapi_protocol_t proto;
+    
+# 34 "libs/esp8266/include/esp8266/esp8266.h" 3 4
+   _Bool 
+# 34 "libs/esp8266/include/esp8266/esp8266.h"
+        connected;
+    const char *host;
+    uint16_t port;
+};
+
+
+struct esp8266_cfg {
+
+    int uart;
+
+
+    char ap_ssid[33];
+    nsapi_security_t ap_sec;
+    uint8_t ap_ch;
+    char ap_pass[64];
+
+
+    uint8_t _ids[2];
+    struct esp8266_socket _sockets[2];
+    struct {
+        void (*callback)(void *);
+        void *data;
+    } _cbs[2];
+};
+
+
+struct esp8266 {
+    struct os_dev dev;
+    struct esp8266_cfg cfg;
+    void *controller;
+};
+
+
+
+void esp8266_create(void);
+
+
+int esp8266_default_cfg(struct esp8266_cfg *cfg);
+
+
+int esp8266_init(struct os_dev *dev0, void *arg);
+
+
+int esp8266_config(struct esp8266 *dev, struct esp8266_cfg *cfg);
+
+
+
+
+
+
+int esp8266_scan(struct esp8266 *dev, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);
+
+
+int esp8266_connect(struct esp8266 *dev, const char *ssid, const char *pass);
+
+
+int esp8266_set_credentials(struct esp8266 *dev, const char *ssid, const char *pass, nsapi_security_t security);
+
+
+int esp8266_disconnect(struct esp8266 *dev);
+
+
+int esp8266_socket_open(struct esp8266 *dev, void **handle, nsapi_protocol_t proto);
+
+
+int esp8266_socket_close(struct esp8266 *dev, void *handle);
+
+
+
+int esp8266_socket_connect(struct esp8266 *dev, void *handle, const char *host, uint16_t port);
+
+
+int esp8266_socket_send(struct esp8266 *dev, void *handle, const void *data, unsigned size);
+
+
+int esp8266_socket_send_mbuf(struct esp8266 *dev, void *handle, struct os_mbuf *m);
+
+
+
+int esp8266_socket_sendto(struct esp8266 *dev, void *handle, const char *host, uint16_t port, const void *data, unsigned size);
+
+
+void esp8266_socket_attach(struct esp8266 *dev, void *handle, void (*callback)(void *), void *data);
+
+const char *esp8266_get_ip_address(struct esp8266 *dev);
+const char *esp8266_get_mac_address(struct esp8266 *dev);
+const char *esp8266_get_gateway(struct esp8266 *dev);
+const char *esp8266_get_netmask(struct esp8266 *dev);
+int8_t esp8266_get_rssi(struct esp8266 *dev);
+# 12 "apps/my_sensor_app/src/send_coap.h" 2
+#define SERVER_NETWORK_INTERFACE ESP8266_DEVICE
+
+
+
+# 1 "libs/nrf24l01/include/nrf24l01/nrf24l01.h" 1
+# 22 "libs/nrf24l01/include/nrf24l01/nrf24l01.h"
+#define __NRF24L01_DRIVER_H__ 
+
+
+# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h" 1
+# 28 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+#define H_HAL_SPI_ 
+# 37 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+#define HAL_SPI_TYPE_MASTER (0)
+
+#define HAL_SPI_TYPE_SLAVE (1)
+
+
+#define HAL_SPI_MODE0 (0)
+
+#define HAL_SPI_MODE1 (1)
+
+#define HAL_SPI_MODE2 (2)
+
+#define HAL_SPI_MODE3 (3)
+
+
+#define HAL_SPI_MSB_FIRST (0)
+
+#define HAL_SPI_LSB_FIRST (1)
+
+
+#define HAL_SPI_WORD_SIZE_8BIT (0)
+
+#define HAL_SPI_WORD_SIZE_9BIT (1)
+
+
+typedef void (*hal_spi_txrx_cb)(void *arg, int len);
+
+
+struct hal_spi_hw_settings {
+    int pin_sck;
+    int pin_mosi;
+    int pin_miso;
+    int pin_ss;
+};
+
+
+
+
+
+struct hal_spi_settings {
+
+    uint8_t data_mode;
+
+    uint8_t data_order;
+
+    uint8_t word_size;
+
+    uint32_t baudrate;
+};
+# 97 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_init(int spi_num, void *cfg, uint8_t spi_type);
+# 110 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_init_hw(uint8_t spi_num, uint8_t spi_type,
+                    const struct hal_spi_hw_settings *cfg);
+# 125 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_config(int spi_num, struct hal_spi_settings *psettings);
+# 142 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_set_txrx_cb(int spi_num, hal_spi_txrx_cb txrx_cb, void *arg);
+# 153 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_enable(int spi_num);
+# 163 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_disable(int spi_num);
+# 178 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+uint16_t hal_spi_tx_val(int spi_num, uint16_t val);
+# 203 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_txrx(int spi_num, void *txbuf, void *rxbuf, int cnt);
+# 237 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_txrx_noblock(int spi_num, void *txbuf, void *rxbuf, int cnt);
+# 246 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_slave_set_def_tx_val(int spi_num, uint16_t val);
+# 257 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_abort(int spi_num);
+# 269 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h"
+int hal_spi_data_mode_breakout(uint8_t data_mode,
+                               int *out_cpol, int *out_cpha);
+# 26 "libs/nrf24l01/include/nrf24l01/nrf24l01.h" 2
+
+
+
+
+
+#define NRF24L01_DEVICE "nrf24l01_0"
+#define NRL24L01_MAX_RX_PIPES 5
+
+
+#define NRL24L01_MAX_SENSOR_NODE_NAMES NRL24L01_MAX_RX_PIPES
+extern const char *nrf24l01_sensor_node_names[5];
+
+
+struct nrf24l01_cfg {
+    struct hal_spi_settings spi_settings;
+    int spi_num;
+    void *spi_cfg;
+    int cs_pin;
+    int ce_pin;
+    int irq_pin;
+    int freq;
+    int power;
+    int data_rate;
+    int crc_width;
+
+    int tx_size;
+    uint8_t auto_ack;
+    uint8_t auto_retransmit;
+
+    unsigned long long tx_address;
+    const unsigned long long *rx_addresses;
+    uint8_t rx_addresses_len;
+};
+
+
+struct nrf24l01 {
+    struct os_dev dev;
+    struct nrf24l01_cfg cfg;
+    uint8_t is_configured;
+    void *controller;
+};
+
+
+
+
+
+
+void nrf24l01_create(void);
+
+
+int nrf24l01_default_cfg(struct nrf24l01_cfg *cfg);
+
+
+int nrf24l01_init(struct os_dev *dev0, void *arg);
+
+
+int nrf24l01_config(struct nrf24l01 *dev, struct nrf24l01_cfg *cfg);
+
+
+
+
+
+int nrf24l01_send(struct nrf24l01 *dev, uint8_t *buf, uint8_t size);
+
+
+int nrf24l01_receive(struct nrf24l01 *dev, int pipe, uint8_t *buf, uint8_t size);
+
+
+int nrf24l01_readable_pipe(struct nrf24l01 *dev);
+
+
+unsigned long long nrf24l01_get_rx_address(struct nrf24l01 *dev, int pipe);
+
+
+
+
+
+int nrf24l01_set_rx_callback(struct nrf24l01 *dev, void (*callback)(struct os_event *ev));
+
+
+
+
+
+int nrf24l01_flush_tx(struct nrf24l01 *dev);
+
+
+int nrf24l01_flush_rx(struct nrf24l01 *dev);
+
+
+int nrf24l01_flush_txrx(struct nrf24l01 *dev);
+# 17 "apps/my_sensor_app/src/send_coap.h" 2
+#define SENSOR_NETWORK_INTERFACE NRF24L01_DEVICE
+
+
+
+
+
 
 struct sensor_value;
 
@@ -22502,933 +22043,364 @@ struct sensor_value;
 
 
 
-int register_server_transport(void);
+int start_network_task(void);
+# 41 "apps/my_sensor_app/src/send_coap.h"
+int send_sensor_data(struct sensor_value *val, const char *device_name);
+# 21 "apps/my_sensor_app/src/send_coap.c" 2
 
+static int send_sensor_data_to_server(struct sensor_value *val, const char *sensor_node);
+static int send_sensor_data_to_collector(struct sensor_value *val, const char *sensor_node);
 
-int register_collector_transport(void);
 
 
-int sensor_network_register_transport(uint8_t iface_type);
 
 
+#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)
+static uint8_t network_task_stack[sizeof(os_stack_t) * (( ((((256)) & (((8)) - 1)) == 0) ? ((256)) : (((256)) + (((8)) - (((256)) & (((8)) - 1)))) ))];
+static struct os_task network_task;
+static 
+# 32 "apps/my_sensor_app/src/send_coap.c" 3 4
+      _Bool 
+# 32 "apps/my_sensor_app/src/send_coap.c"
+           network_is_ready = 
+# 32 "apps/my_sensor_app/src/send_coap.c" 3 4
+                              0
+# 32 "apps/my_sensor_app/src/send_coap.c"
+                                   ;
 
+static void network_task_func(void *arg);
 
+int start_network_task(void) {
 
 
 
 
-# 88 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 88 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    init_server_post(const char *uri);
 
-
-
-
-
-# 93 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 93 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    init_collector_post(void);
-
-
-
-
-
-# 98 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 98 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    sensor_network_init_post(uint8_t iface_type, const char *uri);
-
-
-
-
-
-
-
-
-# 106 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 106 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    do_server_post(void);
-
-
-
-
-
-# 111 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 111 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    do_collector_post(void);
-
-
-
-
-
-# 116 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 116 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    sensor_network_do_post(uint8_t iface_type);
-
-
-
-
-
-
-
-# 123 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 123 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    is_collector_node(void);
-
-
-
-
-# 127 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 127 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    is_sensor_node(void);
-
-
-
-# 130 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 130 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    is_standalone_node(void);
-
-
-
-# 133 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
-_Bool 
-# 133 "libs/sensor_network/include/sensor_network/sensor_network.h"
-    should_send_to_collector(struct sensor_value *val, const char *device_name);
-
-
-
-
-
-const uint8_t *get_hardware_id(void);
-
-
-const char *get_device_id(void);
-
-
-unsigned long long get_collector_node_address(void);
-
-
-unsigned long long get_sensor_node_address(void);
-
-
-const unsigned long long *get_sensor_node_addresses(void);
-
-
-const char **get_sensor_node_names(void);
-
-
-
-
-
-void sensor_network_init(void);
-
-
-int sensor_network_register_interface(const struct sensor_network_interface *iface);
-# 30 "libs/sensor_network/src/sensor_network.c" 2
-
-static const char *_net = "NET ";
-static const char *_node = " node ";
-
-
-
-#define _ID(x) x
-
-
-#define _ID12(a,b,c,d,e,f,g,h,i,j,k,l) {a,b,c,d,e,f,g,h,i,j,k,l}
-#define _HWID(x) _ID(_ID12 x)
-
-
-
-
-#define HARDWARE_ID_LENGTH 12
-static const uint8_t COLLECTOR_NODE_HW_ID[12] =
-    {0x57,0xff,0x6a,0x06,0x78,0x78,0x54,0x50,0x49,0x29,0x24,0x67};
-
-static const uint8_t SENSOR_NODE_HW_IDS[5][12] = {
-    {0x38,0xff,0x6d,0x06,0x4e,0x57,0x34,0x36,0x25,0x58,0x08,0x43},
-    {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x02},
-    {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x03},
-    {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x04},
-    {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x05},
-};
-
-
-
-
-#define COLLECTOR_NODE_ADDRESS MYNEWT_VAL(COLLECTOR_NODE_ADDRESS)
-#define SENSOR_NETWORK_ADDRESS MYNEWT_VAL(SENSOR_NETWORK_ADDRESS)
-
-
-#define ADDR(network_addr,node_id) (node_id + (network_addr << 8))
-
-
-static const unsigned long long sensor_node_addresses[5] = {
-    ((0xf1) + ((0xb3b4b5b6ull) << 8)),
-    ((0xcd) + ((0xb3b4b5b6ull) << 8)),
-    ((0xa3) + ((0xb3b4b5b6ull) << 8)),
-    ((0x0f) + ((0xb3b4b5b6ull) << 8)),
-    ((0x05) + ((0xb3b4b5b6ull) << 8)),
-};
-
-
-static unsigned long long sensor_node_address = 0;
-
-#define NODE_NAME_LENGTH 11
-static char sensor_node_names_buf[5 * 11];
-
-
-static const char *sensor_node_names[5] = {
-    sensor_node_names_buf,
-    sensor_node_names_buf + 11,
-    sensor_node_names_buf + 2 * 11,
-    sensor_node_names_buf + 3 * 11,
-    sensor_node_names_buf + 4 * 11,
-};
-
-static uint8_t hw_id[12];
-static int hw_id_len = 0;
-
-
-#define DEVICE_ID_LENGTH 16
-#define DEVICE_ID_TEXT_LENGTH (1 + DEVICE_ID_LENGTH * 2)
-static uint8_t device_id [16];
-static char device_id_text[(1 + 16 * 2)];
-
-
-
-
-
-static const char COAP_HOST[] = ("coap.thethings.io");
-static const char COAP_URI[] = ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8");
-
-
-
-
-struct sensor_network_endpoint {
-    uint8_t endpoint[16];
-};
-
-static struct sensor_network_interface sensor_network_interfaces[2];
-static struct sensor_network_endpoint sensor_network_endpoints[2];
-static int sensor_network_encoding[2] = {
-    APPLICATION_JSON,
-    APPLICATION_CBOR,
-};
-static const char *sensor_network_shortname[2] = {
-    "svr",
-    "col",
-};
-
-
-
-
-int register_server_transport(void) {
-
-    uint8_t i = 0;
-    int rc = sensor_network_register_transport(i);
+    int rc = os_task_init(
+        &network_task,
+        "network",
+        network_task_func,
+        
+# 46 "apps/my_sensor_app/src/send_coap.c" 3 4
+       ((void *)0)
+# 46 "apps/my_sensor_app/src/send_coap.c"
+           ,
+        10,
+        (-1),
+        (os_stack_t *) network_task_stack,
+        (( ((((256)) & (((8)) - 1)) == 0) ? ((256)) : (((256)) + (((8)) - (((256)) & (((8)) - 1)))) )));
     ((rc == 0) ? (void)0 : __assert_func(
-# 131 "libs/sensor_network/src/sensor_network.c" 3 4
+# 51 "apps/my_sensor_app/src/send_coap.c" 3 4
    ((void *)0)
-# 131 "libs/sensor_network/src/sensor_network.c"
+# 51 "apps/my_sensor_app/src/send_coap.c"
    , 0, 
-# 131 "libs/sensor_network/src/sensor_network.c" 3 4
+# 51 "apps/my_sensor_app/src/send_coap.c" 3 4
    ((void *)0)
-# 131 "libs/sensor_network/src/sensor_network.c"
+# 51 "apps/my_sensor_app/src/send_coap.c"
    , 
-# 131 "libs/sensor_network/src/sensor_network.c" 3 4
+# 51 "apps/my_sensor_app/src/send_coap.c" 3 4
    ((void *)0)
-# 131 "libs/sensor_network/src/sensor_network.c"
+# 51 "apps/my_sensor_app/src/send_coap.c"
    ));
     return rc;
 }
 
-int register_collector_transport(void) {
+static void network_task_func(void *arg) {
 
-    uint8_t i = 1;
-    int rc = sensor_network_register_transport(i);
-    ((rc == 0) ? (void)0 : __assert_func(
-# 139 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 139 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 139 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 139 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 139 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 139 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return rc;
-}
 
-int sensor_network_register_transport(uint8_t iface_type) {
 
-    ((iface_type >= 0 && iface_type < 2) ? (void)0 : __assert_func(
-# 145 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 145 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 145 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 145 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 145 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 145 "libs/sensor_network/src/sensor_network.c"
-   ));
-    struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
-    if (iface->transport_registered) { return 0; }
 
-    void *endpoint = &sensor_network_endpoints[iface_type];
 
-    ((iface->network_device) ? (void)0 : __assert_func(
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
-   )); ((iface->register_transport_func) ? (void)0 : __assert_func(
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+
+
+    console_printf("NET start\n"); ((!network_is_ready) ? (void)0 : __assert_func(
+# 63 "apps/my_sensor_app/src/send_coap.c" 3 4
                                    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 63 "apps/my_sensor_app/src/send_coap.c"
                                    , 0, 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 63 "apps/my_sensor_app/src/send_coap.c" 3 4
                                    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 63 "apps/my_sensor_app/src/send_coap.c"
                                    , 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 63 "apps/my_sensor_app/src/send_coap.c" 3 4
                                    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 63 "apps/my_sensor_app/src/send_coap.c"
                                    ));
-    const char *network_device = iface->network_device;
-    console_printf("%s%s %s\n", _net, sensor_network_shortname[iface_type], network_device);
-
-
-    int rc = iface->register_transport_func(network_device, endpoint, COAP_HOST, (5683), 16);
-    ((rc == 0) ? (void)0 : __assert_func(
-# 157 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 157 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 157 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 157 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 157 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 157 "libs/sensor_network/src/sensor_network.c"
-   ));
-    iface->transport_registered = 1;
-    return rc;
-}
-
-
-
-
-
-# 165 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 165 "libs/sensor_network/src/sensor_network.c"
-    init_server_post(const char *uri) {
-
-
-
-    uint8_t i = 0;
-    
-# 170 "libs/sensor_network/src/sensor_network.c" 3 4
-   _Bool 
-# 170 "libs/sensor_network/src/sensor_network.c"
-        status = sensor_network_init_post(i, uri);
-    ((status) ? (void)0 : __assert_func(
-# 171 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 171 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 171 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 171 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 171 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 171 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return status;
-}
-
-
-# 175 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 175 "libs/sensor_network/src/sensor_network.c"
-    init_collector_post(void) {
-
-
-
-    uint8_t i = 1;
-    const char *uri = 
-# 180 "libs/sensor_network/src/sensor_network.c" 3 4
-                     ((void *)0)
-# 180 "libs/sensor_network/src/sensor_network.c"
-                         ;
-    
-# 181 "libs/sensor_network/src/sensor_network.c" 3 4
-   _Bool 
-# 181 "libs/sensor_network/src/sensor_network.c"
-        status = sensor_network_init_post(i, uri);
-    ((status) ? (void)0 : __assert_func(
-# 182 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 182 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 182 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 182 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 182 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 182 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return status;
-}
-
-
-# 186 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 186 "libs/sensor_network/src/sensor_network.c"
-    sensor_network_init_post(uint8_t iface_type, const char *uri) {
-
-
-
-    if (uri == 
-# 190 "libs/sensor_network/src/sensor_network.c" 3 4
-              ((void *)0)
-# 190 "libs/sensor_network/src/sensor_network.c"
-                  ) { uri = COAP_URI; }
-    ((uri) ? (void)0 : __assert_func(
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
-   )); ((iface_type >= 0 && iface_type < 2) ? (void)0 : __assert_func(
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
-                 ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
-                 , 0, 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
-                 ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
-                 , 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
-                 ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
-                 ));
-    struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
-    ((iface->network_device) ? (void)0 : __assert_func(
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
-   )); ((iface->register_transport_func) ? (void)0 : __assert_func(
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
-                                   , 0, 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
-                                   , 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
-                                   ));
-    void *endpoint = &sensor_network_endpoints[iface_type];
-    int encoding = sensor_network_encoding[iface_type];
-    if (!iface->transport_registered) {
-
-        int rc = sensor_network_register_transport(iface_type);
-        ((rc == 0) ? (void)0 : __assert_func(
-# 199 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 199 "libs/sensor_network/src/sensor_network.c"
-       , 0, 
-# 199 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 199 "libs/sensor_network/src/sensor_network.c"
-       , 
-# 199 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 199 "libs/sensor_network/src/sensor_network.c"
-       ));
-    }
-    
-# 201 "libs/sensor_network/src/sensor_network.c" 3 4
-   _Bool 
-# 201 "libs/sensor_network/src/sensor_network.c"
-        status = init_sensor_post(endpoint, uri, encoding);
-    ((status) ? (void)0 : __assert_func(
-# 202 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 202 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 202 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 202 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 202 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 202 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return status;
-}
-
-
-
-
-
-
-
-
-# 212 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 212 "libs/sensor_network/src/sensor_network.c"
-    do_server_post(void) {
-
-
-
-    uint8_t i = 0;
-    
-# 217 "libs/sensor_network/src/sensor_network.c" 3 4
-   _Bool 
-# 217 "libs/sensor_network/src/sensor_network.c"
-        status = sensor_network_do_post(i);
-    ((status) ? (void)0 : __assert_func(
-# 218 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 218 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 218 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 218 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 218 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 218 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return status;
-}
-
-
-# 222 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 222 "libs/sensor_network/src/sensor_network.c"
-    do_collector_post(void) {
-
-
-
-    uint8_t i = 1;
-    
-# 227 "libs/sensor_network/src/sensor_network.c" 3 4
-   _Bool 
-# 227 "libs/sensor_network/src/sensor_network.c"
-        status = sensor_network_do_post(i);
-    ((status) ? (void)0 : __assert_func(
-# 228 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 228 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 228 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 228 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 228 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 228 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return status;
-}
-
-
-# 232 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 232 "libs/sensor_network/src/sensor_network.c"
-    sensor_network_do_post(uint8_t iface_type) {
-
-
-
-    ((iface_type >= 0 && iface_type < 2) ? (void)0 : __assert_func(
-# 236 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 236 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 236 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 236 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 236 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 236 "libs/sensor_network/src/sensor_network.c"
-   ));
-    
-# 237 "libs/sensor_network/src/sensor_network.c" 3 4
-   _Bool 
-# 237 "libs/sensor_network/src/sensor_network.c"
-        status = do_sensor_post();
-    ((status) ? (void)0 : __assert_func(
-# 238 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 238 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 238 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 238 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 238 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 238 "libs/sensor_network/src/sensor_network.c"
-   ));
-    return status;
-}
-
-
-
-
-
-# 245 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 245 "libs/sensor_network/src/sensor_network.c"
-    is_collector_node(void) {
-
-
-
-
-    const uint8_t *hardware_id = get_hardware_id();
-
-    if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, 12) == 0) { return 
-# 252 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                                                    1
-# 252 "libs/sensor_network/src/sensor_network.c"
-                                                                                        ; }
-    return 
-# 253 "libs/sensor_network/src/sensor_network.c" 3 4
-          0
-# 253 "libs/sensor_network/src/sensor_network.c"
-               ;
-}
-
-
-# 256 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 256 "libs/sensor_network/src/sensor_network.c"
-    is_sensor_node(void) {
-
-
-    if (sensor_node_address) { return 
-# 259 "libs/sensor_network/src/sensor_network.c" 3 4
-                                     1
-# 259 "libs/sensor_network/src/sensor_network.c"
-                                         ; }
-    return 
-# 260 "libs/sensor_network/src/sensor_network.c" 3 4
-          0
-# 260 "libs/sensor_network/src/sensor_network.c"
-               ;
-}
-
-
-# 263 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 263 "libs/sensor_network/src/sensor_network.c"
-    is_standalone_node(void) {
-
-    if (!is_collector_node() && !is_sensor_node()) { return 
-# 265 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                           1
-# 265 "libs/sensor_network/src/sensor_network.c"
-                                                               ; }
-    return 
-# 266 "libs/sensor_network/src/sensor_network.c" 3 4
-          0
-# 266 "libs/sensor_network/src/sensor_network.c"
-               ;
-}
-
-
-# 269 "libs/sensor_network/src/sensor_network.c" 3 4
-_Bool 
-# 269 "libs/sensor_network/src/sensor_network.c"
-    should_send_to_collector(struct sensor_value *val, const char *device_name) {
-
-    ((val) ? (void)0 : __assert_func(
-# 271 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 271 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 271 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 271 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 271 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 271 "libs/sensor_network/src/sensor_network.c"
-   ));
-    if (is_sensor_node()) { return 
-# 272 "libs/sensor_network/src/sensor_network.c" 3 4
-                                  1
-# 272 "libs/sensor_network/src/sensor_network.c"
-                                      ; }
-    return 
-# 273 "libs/sensor_network/src/sensor_network.c" 3 4
-          0
-# 273 "libs/sensor_network/src/sensor_network.c"
-               ;
-}
-
-
-
-
-const uint8_t *get_hardware_id(void) {
-
-    if (hw_id_len == 0) {
-        hw_id_len = hal_bsp_hw_id_len();
-        (((unsigned) hw_id_len >= sizeof(hw_id)) ? (void)0 : __assert_func(
-# 283 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 283 "libs/sensor_network/src/sensor_network.c"
-       , 0, 
-# 283 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 283 "libs/sensor_network/src/sensor_network.c"
-       , 
-# 283 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 283 "libs/sensor_network/src/sensor_network.c"
-       ));
-        hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id)); ((hw_id_len > 0) ? (void)0 : __assert_func(
-# 284 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                         ((void *)0)
-# 284 "libs/sensor_network/src/sensor_network.c"
-                                                         , 0, 
-# 284 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                         ((void *)0)
-# 284 "libs/sensor_network/src/sensor_network.c"
-                                                         , 
-# 284 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                         ((void *)0)
-# 284 "libs/sensor_network/src/sensor_network.c"
-                                                         ));
-        console_printf("%shwid ", _net); console_dump(hw_id, hw_id_len); console_printf("\n");
-    }
-    return hw_id;
-}
-
-const char *get_device_id(void) {
-
-    if (device_id_text[0]) { return device_id_text; }
-
-
-    int rc = hmac_prng_generate(device_id, 16); ((rc == 0) ? (void)0 : __assert_func(
-# 295 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                              ((void *)0)
-# 295 "libs/sensor_network/src/sensor_network.c"
-                                                              , 0, 
-# 295 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                              ((void *)0)
-# 295 "libs/sensor_network/src/sensor_network.c"
-                                                              , 
-# 295 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                              ((void *)0)
-# 295 "libs/sensor_network/src/sensor_network.c"
-                                                              ));
-    char *s = device_id_text; int i;
-
-    for (i = 0; i < 16; i++) {
-        sprintf(s, "%02x", device_id[i]);
-        s += 2;
-    }
-    device_id_text[(1 + 16 * 2) - 1] = 0;
-    console_printf("%srandom device id %s\n", _net, device_id_text);
-
-
-
-
-    return device_id_text;
-}
-
-
-unsigned long long get_collector_node_address(void) { return (0x7878787878ull); }
-
-
-unsigned long long get_sensor_node_address(void) { return sensor_node_address; }
-
-
-const unsigned long long *get_sensor_node_addresses(void) { return sensor_node_addresses; }
-
-
-const char **get_sensor_node_names(void) { return sensor_node_names; }
-
-
-
-
-void sensor_network_init(void) {
-
-
-
-    for (int i = 0; i < 5; i++) {
-        int len = sprintf((char *) sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
-        ((len + 1 <= 11) ? (void)0 : __assert_func(
-# 332 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 332 "libs/sensor_network/src/sensor_network.c"
-       , 0, 
-# 332 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 332 "libs/sensor_network/src/sensor_network.c"
-       , 
-# 332 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 332 "libs/sensor_network/src/sensor_network.c"
-       ));
+    int rc = 0;
+
+
+
+    if (is_standalone_node() || is_collector_node()) {
+        rc = register_server_transport(); ((rc == 0) ? (void)0 : __assert_func(
+# 69 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                          ((void *)0)
+# 69 "apps/my_sensor_app/src/send_coap.c"
+                                          , 0, 
+# 69 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                          ((void *)0)
+# 69 "apps/my_sensor_app/src/send_coap.c"
+                                          , 
+# 69 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                          ((void *)0)
+# 69 "apps/my_sensor_app/src/send_coap.c"
+                                          ));
     }
 
-    const uint8_t *hardware_id = get_hardware_id();
-    int i;
-    for (i = 0; i < 5; i++) {
-        if (memcmp(hardware_id, SENSOR_NODE_HW_IDS[i], 12) == 0) {
-            sensor_node_address = sensor_node_addresses[i];
-            console_printf("%ssensor%s#%d\n", _net, _node, i + 1);
-            break;
-        }
+
+    if (is_collector_node() || is_sensor_node()) {
+        rc = register_collector_transport(); ((rc == 0) ? (void)0 : __assert_func(
+# 74 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                             ((void *)0)
+# 74 "apps/my_sensor_app/src/send_coap.c"
+                                             , 0, 
+# 74 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                             ((void *)0)
+# 74 "apps/my_sensor_app/src/send_coap.c"
+                                             , 
+# 74 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                             ((void *)0)
+# 74 "apps/my_sensor_app/src/send_coap.c"
+                                             ));
     }
+# 85 "apps/my_sensor_app/src/send_coap.c"
+    network_is_ready = 
+# 85 "apps/my_sensor_app/src/send_coap.c" 3 4
+                      1
+# 85 "apps/my_sensor_app/src/send_coap.c"
+                          ;
 
-    if (is_collector_node()) { console_printf("%scollector%s\n", _net, _node); }
-    else if (is_standalone_node()) { console_printf("%sstandalone%s\n", _net, _node); }
-}
-
-int sensor_network_register_interface(const struct sensor_network_interface *iface) {
-
-    ((iface) ? (void)0 : __assert_func(
-# 351 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 351 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 351 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 351 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 351 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 351 "libs/sensor_network/src/sensor_network.c"
-   ));
-    uint8_t i = iface->iface_type; ((i >= 0 && i < 2) ? (void)0 : __assert_func(
-# 352 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 352 "libs/sensor_network/src/sensor_network.c"
-                                   , 0, 
-# 352 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 352 "libs/sensor_network/src/sensor_network.c"
-                                   , 
-# 352 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 352 "libs/sensor_network/src/sensor_network.c"
-                                   ));
-    ((iface->network_device) ? (void)0 : __assert_func(
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-   )); ((iface->server_endpoint_size) ? (void)0 : __assert_func(
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-                                   , 0, 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-                                   , 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-                                   ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-                                   )); ((iface->register_transport_func) ? (void)0 : __assert_func(
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                                         ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-                                                                         , 0, 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                                         ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-                                                                         , 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
-                                                                         ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
-                                                                         ));
-    ((iface->server_endpoint_size <= 16) ? (void)0 : __assert_func(
-# 354 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 354 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 354 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 354 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 354 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 354 "libs/sensor_network/src/sensor_network.c"
-   ));
-    ((sensor_network_interfaces[i].network_device == 
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+    while (
+# 87 "apps/my_sensor_app/src/send_coap.c" 3 4
+          1
+# 87 "apps/my_sensor_app/src/send_coap.c"
+              ) {
+        console_printf("NET free mbuf %d\n", os_msys_num_free());
+        os_time_delay(10 * (1000));
+    }
+    ((
+# 91 "apps/my_sensor_app/src/send_coap.c" 3 4
+   0
+# 91 "apps/my_sensor_app/src/send_coap.c"
    ) ? (void)0 : __assert_func(
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 91 "apps/my_sensor_app/src/send_coap.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 91 "apps/my_sensor_app/src/send_coap.c"
    , 0, 
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 91 "apps/my_sensor_app/src/send_coap.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 91 "apps/my_sensor_app/src/send_coap.c"
    , 
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 91 "apps/my_sensor_app/src/send_coap.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 91 "apps/my_sensor_app/src/send_coap.c"
    ));
-    memcpy(&sensor_network_interfaces[i], iface, sizeof(struct sensor_network_interface));
-    sensor_network_interfaces[i].transport_registered = 0;
-    console_printf("%s%s %s\n", _net, sensor_network_shortname[i], sensor_network_interfaces[i].network_device);
+}
+
+int send_sensor_data(struct sensor_value *val, const char *sensor_node) {
+# 106 "apps/my_sensor_app/src/send_coap.c"
+    if (should_send_to_collector(val, sensor_node)) {
+        return send_sensor_data_to_collector(val, sensor_node);
+    }
+
+    return send_sensor_data_to_server(val, sensor_node);
+}
+
+
+
+
+
+
+static int send_sensor_data_to_server(struct sensor_value *val, const char *node_id) {
+# 133 "apps/my_sensor_app/src/send_coap.c"
+    ((val) ? (void)0 : __assert_func(
+# 133 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 133 "apps/my_sensor_app/src/send_coap.c"
+   , 0, 
+# 133 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 133 "apps/my_sensor_app/src/send_coap.c"
+   , 
+# 133 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 133 "apps/my_sensor_app/src/send_coap.c"
+   )); ((node_id) ? (void)0 : __assert_func(
+# 133 "apps/my_sensor_app/src/send_coap.c" 3 4
+                 ((void *)0)
+# 133 "apps/my_sensor_app/src/send_coap.c"
+                 , 0, 
+# 133 "apps/my_sensor_app/src/send_coap.c" 3 4
+                 ((void *)0)
+# 133 "apps/my_sensor_app/src/send_coap.c"
+                 , 
+# 133 "apps/my_sensor_app/src/send_coap.c" 3 4
+                 ((void *)0)
+# 133 "apps/my_sensor_app/src/send_coap.c"
+                 ));
+    if (!network_is_ready) { return (-6); }
+    const char *device_id = get_device_id(); ((device_id) ? (void)0 : __assert_func(
+# 135 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                             ((void *)0)
+# 135 "apps/my_sensor_app/src/send_coap.c"
+                                             , 0, 
+# 135 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                             ((void *)0)
+# 135 "apps/my_sensor_app/src/send_coap.c"
+                                             , 
+# 135 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                             ((void *)0)
+# 135 "apps/my_sensor_app/src/send_coap.c"
+                                             ));
+
+
+
+
+    int rc = init_server_post(
+# 140 "apps/my_sensor_app/src/send_coap.c" 3 4
+                             ((void *)0)
+# 140 "apps/my_sensor_app/src/send_coap.c"
+                                 ); ((rc != 0) ? (void)0 : __assert_func(
+# 140 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                     ((void *)0)
+# 140 "apps/my_sensor_app/src/send_coap.c"
+                                     , 0, 
+# 140 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                     ((void *)0)
+# 140 "apps/my_sensor_app/src/send_coap.c"
+                                     , 
+# 140 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                     ((void *)0)
+# 140 "apps/my_sensor_app/src/send_coap.c"
+                                     ));
+
+
+    { g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength); if ((oc_content_format == APPLICATION_JSON)) { json_rep_start_root_object(); }; { { { g_err |= cbor_encode_text_string(&root_map, "values", strlen("values")); do { CborEncoder values_array; g_err |= cbor_encoder_create_array(&root_map, &values_array, CborIndefiniteLength); if ((oc_content_format == APPLICATION_JSON)) { { json_encode_array_name(&coap_json_encoder, "values"); json_encode_array_start(&coap_json_encoder); }; }; { { { { do { CborEncoder values_map; g_err |= cbor_encoder_create_map(&values_array, &values_map, CborIndefiniteLength); if ((oc_content_format == APPLICATION_JSON)) { { json_encode_object_start(&coap_json_encoder); }; }; { { { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (3); (&coap_json_value)->jv_len = strlen((char *) "device"); (&coap_json_value)->jv_val.str = ((char *) "device");; json_encode_object_entry (&coap_json_encoder, "key", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&values_map, "key", strlen("key")); g_err |= cbor_encode_text_string(&values_map, "device", strlen("device")); } while (0); } }; { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (3); (&coap_json_value)->jv_len = strlen((char *) device_id); (&coap_json_value)->jv_val.str = ((char *) device_id);; json_encode_object_entry (&coap_json_encoder, "value", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&values_map, "value", strlen("value")); g_err |= cbor_encode_text_string(&values_map, device_id, strlen(device_id)); } while (0); } }; }; } if ((oc_content_format == APPLICATION_JSON)) { { json_encode_object_finish(&coap_json_encoder); }; } g_err |= cbor_encoder_close_container(&values_array, &values_map); } while (0);; } }; { { do { CborEncoder values_map; g_err |= cbor_encoder_create_map(&values_array, &values_map, CborIndefiniteLength); if ((oc_content_format == APPLICATION_JSON)) { { json_encode_object_start(&coap_json_encoder); }; }; { { { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (3); (&coap_json_value)->jv_len = strlen((char *) "node"); (&coap_json_value)->jv_val.str = ((char *) "node");; json_encode_object_entry (&coap_json_encoder, "key", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&values_map, "key", strlen("key")); g_err |= cbor_encode_text_string(&values_map, "node", strlen("node")); } while (0); } }; { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (3); (&coap_json_value)->jv_len = strlen((char *) node_id); (&coap_json_value)->jv_val.str = ((char *) node_id);; json_encode_object_entry (&coap_json_encoder, "value", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&values_map, "value", strlen("value")); g_err |= cbor_encode_text_string(&values_map, node_id, strlen(node_id)); } while (0); } }; }; } if ((oc_content_format == APPLICATION_JSON)) { { json_encode_object_finish(&coap_json_encoder); }; } g_err |= cbor_encoder_close_container(&values_array, &values_map); } while (0);; } }; { ((val->val_type == (1)) ? (void)0 : __assert_func(
+# 143 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 143 "apps/my_sensor_app/src/send_coap.c"
+   , 0, 
+# 143 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 143 "apps/my_sensor_app/src/send_coap.c"
+   , 
+# 143 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 143 "apps/my_sensor_app/src/send_coap.c"
+   )); { { do { CborEncoder values_map; g_err |= cbor_encoder_create_map(&values_array, &values_map, CborIndefiniteLength); if ((oc_content_format == APPLICATION_JSON)) { { json_encode_object_start(&coap_json_encoder); }; }; { { { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (3); (&coap_json_value)->jv_len = strlen((char *) val->key); (&coap_json_value)->jv_val.str = ((char *) val->key);; json_encode_object_entry (&coap_json_encoder, "key", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&values_map, "key", strlen("key")); g_err |= cbor_encode_text_string(&values_map, val->key, strlen(val->key)); } while (0); } }; { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (2); (&coap_json_value)->jv_val.u = (uint64_t) val->int_val;; json_encode_object_entry (&coap_json_encoder, "value", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&values_map, "value", strlen("value")); g_err |= cbor_encode_int(&values_map, val->int_val); } while (0); } }; }; } if ((oc_content_format == APPLICATION_JSON)) { { json_encode_object_finish(&coap_json_encoder); }; } g_err |= cbor_encoder_close_container(&values_array, &values_map); } while (0);; } }; }; }; } if ((oc_content_format == APPLICATION_JSON)) { json_encode_array_finish(&coap_json_encoder); } g_err |= cbor_encoder_close_container(&root_map, &values_array); } while (0);; }; }; } if ((oc_content_format == APPLICATION_JSON)) { json_rep_end_root_object(); } g_err |= cbor_encoder_close_container(&g_encoder, &root_map);; }
+# 165 "apps/my_sensor_app/src/send_coap.c"
+      ;
+
+
+
+
+    rc = do_server_post(); ((rc != 0) ? (void)0 : __assert_func(
+# 170 "apps/my_sensor_app/src/send_coap.c" 3 4
+                           ((void *)0)
+# 170 "apps/my_sensor_app/src/send_coap.c"
+                           , 0, 
+# 170 "apps/my_sensor_app/src/send_coap.c" 3 4
+                           ((void *)0)
+# 170 "apps/my_sensor_app/src/send_coap.c"
+                           , 
+# 170 "apps/my_sensor_app/src/send_coap.c" 3 4
+                           ((void *)0)
+# 170 "apps/my_sensor_app/src/send_coap.c"
+                           ));
+
+    console_printf("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n", device_id);
+
+
+
+
     return 0;
+}
+# 187 "apps/my_sensor_app/src/send_coap.c"
+static int send_sensor_data_to_collector(struct sensor_value *val, const char *node_id) {
+# 197 "apps/my_sensor_app/src/send_coap.c"
+    ((val) ? (void)0 : __assert_func(
+# 197 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 197 "apps/my_sensor_app/src/send_coap.c"
+   , 0, 
+# 197 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 197 "apps/my_sensor_app/src/send_coap.c"
+   , 
+# 197 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 197 "apps/my_sensor_app/src/send_coap.c"
+   ));
+    if (!network_is_ready) { return (-6); }
+
+
+
+
+    int rc = init_collector_post(); ((rc != 0) ? (void)0 : __assert_func(
+# 203 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                    ((void *)0)
+# 203 "apps/my_sensor_app/src/send_coap.c"
+                                    , 0, 
+# 203 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                    ((void *)0)
+# 203 "apps/my_sensor_app/src/send_coap.c"
+                                    , 
+# 203 "apps/my_sensor_app/src/send_coap.c" 3 4
+                                    ((void *)0)
+# 203 "apps/my_sensor_app/src/send_coap.c"
+                                    ));
+
+
+    { g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength); if ((oc_content_format == APPLICATION_JSON)) { json_rep_start_root_object(); }; { { { ((val->val_type == (1)) ? (void)0 : __assert_func(
+# 206 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 206 "apps/my_sensor_app/src/send_coap.c"
+   , 0, 
+# 206 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 206 "apps/my_sensor_app/src/send_coap.c"
+   , 
+# 206 "apps/my_sensor_app/src/send_coap.c" 3 4
+   ((void *)0)
+# 206 "apps/my_sensor_app/src/send_coap.c"
+   )); { if ((oc_content_format == APPLICATION_JSON)) { { (&coap_json_value)->jv_type = (2); (&coap_json_value)->jv_val.u = (uint64_t) val->int_val;; json_encode_object_entry (&coap_json_encoder, "val->key", &coap_json_value); }; } else { do { g_err |= cbor_encode_text_string(&root_map, val->key, strlen(val->key)); g_err |= cbor_encode_int(&root_map, val->int_val); } while (0); } }; }; }; } if ((oc_content_format == APPLICATION_JSON)) { json_rep_end_root_object(); } g_err |= cbor_encoder_close_container(&g_encoder, &root_map);; }
+
+
+      ;
+
+
+
+
+    rc = do_collector_post(); ((rc != 0) ? (void)0 : __assert_func(
+# 214 "apps/my_sensor_app/src/send_coap.c" 3 4
+                              ((void *)0)
+# 214 "apps/my_sensor_app/src/send_coap.c"
+                              , 0, 
+# 214 "apps/my_sensor_app/src/send_coap.c" 3 4
+                              ((void *)0)
+# 214 "apps/my_sensor_app/src/send_coap.c"
+                              , 
+# 214 "apps/my_sensor_app/src/send_coap.c" 3 4
+                              ((void *)0)
+# 214 "apps/my_sensor_app/src/send_coap.c"
+                              ));
+
+    console_printf("NRF send to collector: rawtmp %d\n", val->int_val);
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+int __wrap_coap_receive( ) {
+
+
+
+
+    console_printf("coap_receive NOT IMPLEMENTED\n");
+    return -1;
 }

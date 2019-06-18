@@ -4,7 +4,6 @@ pub const SENSOR_NETWORK_SIZE: u32 = 5;
 pub type __uint8_t = ::cty::c_uchar;
 pub type __uint16_t = ::cty::c_ushort;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct oc_server_handle {
     _unused: [u8; 0],
 }
@@ -19,7 +18,6 @@ extern "C" {
     pub fn do_sensor_post() -> bool;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct sensor_network_interface {
     pub iface_type: u8,
     pub network_device: *const ::cty::c_char,
@@ -65,7 +63,6 @@ extern "C" {
     ) -> ::cty::c_int;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct sensor_network_endpoint {
     pub endpoint: [u8; 16usize],
 }

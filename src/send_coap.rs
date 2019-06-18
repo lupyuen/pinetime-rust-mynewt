@@ -1,7 +1,6 @@
-use cstr_core::CStr;     //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
-use crate::base::*;      //  Import base.rs for common declarations
-use crate::tinycbor::*;  //  Import tinycbor.rs for TinyCBOR C API
-//  use crate::sensor::*;    //  Import sensor.rs for sensor declarations
+use cstr_core::CStr;             //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
+use crate::base::*;              //  Import base.rs for common declarations
+use crate::mynewt::tinycbor::*;  //  Import tinycbor.rs for TinyCBOR C API
 
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);   //  Start tracing macros
@@ -160,6 +159,16 @@ fn test_macro2() {
   }); //  Close the payload root
   */
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//  Network Task
+
+//  Storage for Network Task
+const NETWORK_TASK_STACK_SIZE: usize = 256;  //  Previously OS_STACK_ALIGN(256).  Size of the stack (in 8-byte units)
+const OS_STACK_SIZE: usize = 8;  //  Previously sizeof(os_stack_t).  Size of each stack unit.
+static mut network_task_stack: [u8; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE] = [0; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE];  //  Stack space, initialised to 0
+static mut network_task: os_task = os_task{};  //  Mynewt task object will be saved here
+static mut network_is_ready: bool = false;     //  Set to true when network tasks have been completed
 
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
 ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  

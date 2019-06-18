@@ -11,7 +11,8 @@ function generate_bindings_apps() {
     local modname=$2
     local libdir=apps/$libname
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
-    generate_bindings $libname $modname $libdir $libcmd
+    local whitelist=
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
 function generate_bindings_libs() {
@@ -28,7 +29,6 @@ function generate_bindings_libs() {
         --whitelist-var      (?i)$modname.* 
 EOF
 `
-
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
@@ -72,11 +72,13 @@ EOF
 
     #  Generate Rust bindings for the expanded macros.
     bindgen \
-        --no-layout-tests \
         --use-core \
         --ctypes-prefix "::cty" \
+        --no-layout-tests \
+        --no-derive-copy \
+        --no-derive-debug \
         $whitelist \
-        -o src/$modname.rs \
+        -o src/mynewt/$modname.rs \
         $expandfile
 }
 
@@ -88,11 +90,6 @@ generate_bindings_libs sensor_network
 
 exit
 
-        --whitelist-function "(?i)init_.*_post" \
-        --whitelist-function "(?i)do_.*_post" \
-        --whitelist-function "(?i)$modname.*" \
-        --whitelist-type     "(?i)$modname.*" \
-        --whitelist-var      "(?i)$modname.*" \
 
 #  Generate Rust bindings for tinycbor.
 bindgen \
@@ -104,13 +101,6 @@ bindgen \
     --whitelist-var      "(?i)cbor.*" \
     -o src/tinycbor.rs \
     logs/cborencoder.h
-
-# /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o
-# /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h
-# /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/include/assert.h
-# /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h
-
-exit
 
 → bindgen --help
 bindgen 0.49.2

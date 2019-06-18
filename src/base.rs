@@ -1,7 +1,7 @@
 //!  Common declarations for the application.  Includes custom sensor declarations.
 
 use cty::*;            //  Import string utilities from cty library: https://crates.io/crates/cty
-use crate::sensor::*;  //  Import sensor.rs for Mynewt Sensor API
+use crate::mynewt::sensor::*;  //  Import sensor.rs for Mynewt Sensor API
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
 pub fn console_print(msg: &[u8]) {
