@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 #  Build Rust library mylib with macros expanded
+set -x -e
 
 #  Extract this module into its own file.
 extract_module=send_coap
 
-set -x -e
-cortex_m=`ls target/thumbv7m-none-eabi/debug/deps/libcortex_m-*.rlib | head -1`
-cstr_core=`ls target/thumbv7m-none-eabi/debug/deps/libcstr_core-*.rlib | head -1`
-cty=`ls target/thumbv7m-none-eabi/debug/deps/libcty-*.rlib | head -1`
-memchr=`ls target/thumbv7m-none-eabi/debug/deps/libmemchr-*.rlib | head -1`
+#  Rust build profile: debug or release
+#  rust_build_profile=debug
+rust_build_profile=release
+
+cortex_m=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcortex_m-*.rlib | head -1`
+cstr_core=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcstr_core-*.rlib | head -1`
+cty=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcty-*.rlib | head -1`
+memchr=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libmemchr-*.rlib | head -1`
 
 #  Compile with macros expanded.
 set +e  #  Ignore errors
@@ -22,11 +26,11 @@ rustc \
 -C debuginfo=2 \
 -C metadata=ac95891f38e7979c \
 -C extra-filename=-ac95891f38e7979c \
---out-dir target/thumbv7m-none-eabi/debug/deps \
+--out-dir target/thumbv7m-none-eabi/$rust_build_profile/deps \
 --target thumbv7m-none-eabi \
--C incremental=target/thumbv7m-none-eabi/debug/incremental \
--L dependency=target/thumbv7m-none-eabi/debug/deps \
--L dependency=target/debug/deps \
+-C incremental=target/thumbv7m-none-eabi/$rust_build_profile/incremental \
+-L dependency=target/thumbv7m-none-eabi/$rust_build_profile/deps \
+-L dependency=target/$rust_build_profile/deps \
 --extern cortex_m=$cortex_m \
 --extern cstr_core=$cstr_core \
 --extern cty=$cty \

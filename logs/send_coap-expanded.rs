@@ -13,64 +13,8 @@
     use crate::mynewt::os::*;
     use crate::mynewt::sensor_network::*;
     use crate::mynewt::{g_encoder, root_map};
-    fn send_sensor_data_cbor() {
-        let int_sensor_value =
-            SensorValue{key: "t", val: SensorValueType::Uint(2870),};
-        ();
-        let payload =
-            {
-                "begin cbor root";
-                let root = "root";
-                {
-                    "begin coap_root";
-                    {
-                        "begin oc_rep_start_root_object";
-                        unsafe {
-                            cbor_encoder_create_map(&mut g_encoder,
-                                                    &mut root_map,
-                                                    CborIndefiniteLength)
-                        };
-                        "end oc_rep_start_root_object";
-                    };
-                    {
-                        " >>  >> int_sensor_value >> ,";
-                        "TODO : extract key , value from _sensor_value : int_sensor_value and add to\n_object : root";
-                        "--------------------";
-                        {
-                            "begin coap_set_int_val , parent : root , val : int_sensor_value";
-                            "> TODO : assert ( int_sensor_value . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                            {
-                                "begin oc_rep_set_int , object: root, key: int_sensor_value.key, value: 1234, child: root_map";
-                                unsafe {
-                                    cbor_encode_text_string(&mut root_map,
-                                                            int_sensor_value.key.as_ptr(),
-                                                            int_sensor_value.key.len());
-                                    cbor_encode_int(&mut root_map, 1234);
-                                }
-                                "end oc_rep_set_int";
-                            };
-                            "end coap_set_int_val";
-                        };
-                        "--------------------";
-                    };
-                    {
-                        "begin oc_rep_end_root_object";
-                        unsafe {
-                            cbor_encoder_close_container(&mut g_encoder,
-                                                         &mut root_map);
-                        }
-                        "end oc_rep_end_root_object";
-                    };
-                    "end coap_root";
-                };
-                "end cbor root";
-                "return cbor root to caller";
-                root
-            };
-        ();
-    }
     ///  Storage for Network Task: Mynewt task object will be saved here.
-    static mut network_task: os_task =
+    static mut NETWORK_TASK: os_task =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<os_task>()],
                                      os_task>([0;
@@ -88,10 +32,10 @@
     ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
     ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
     pub fn start_network_task() -> Result<(), i32> {
-        console_print(b"start_network_task\n");
+        console_print(b"NET start\n");
         let rc =
             unsafe {
-                os_task_init(&mut network_task, b"network\0".as_ptr(),
+                os_task_init(&mut NETWORK_TASK, b"network\0".as_ptr(),
                              Some(network_task_func), 0 as *mut ::cty::c_void,
                              10, OS_WAIT_FOREVER as u32,
                              NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,
@@ -117,7 +61,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           77u32, 3u32))
+                                                           46u32, 5u32))
                         }
                     }
                 }
@@ -137,7 +81,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 90u32, 34u32))
+                                           "src/send_coap.rs", 58u32, 34u32))
             }
         };
         if unsafe { is_standalone_node() } || unsafe { is_collector_node() } {
@@ -162,7 +106,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               95u32, 53u32))
+                                                               63u32, 53u32))
                             }
                         }
                     }
@@ -191,7 +135,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               100u32, 56u32))
+                                                               68u32, 56u32))
                             }
                         }
                     }
@@ -203,14 +147,8 @@
             console_print(b"NET free mbuf %d\n");
             unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }
         }
-        if !false {
-            {
-                ::core::panicking::panic(&("assertion failed: false",
-                                           "src/send_coap.rs", 111u32, 2u32))
-            }
-        };
     }
-    ///  TODO: Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
+    ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
     ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
     ///  or Standalone Node).  
     ///  For Sensor Node or Standalone Node: sensor_node is the sensor name (`bme280_0` or `temp_stm32_0`)
@@ -220,7 +158,7 @@
     ///  so this function will return without waiting for the message to be transmitted.  
     ///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
     pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr)
-     -> i32 {
+     -> Result<(), i32> {
         console_print(b"send_sensor_data\n");
         let mut val =
             sensor_value{key: b"\0".as_ptr(),
@@ -249,7 +187,16 @@
     ///    ... ]}
     ///  ```
     fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr)
-     -> i32 {
+     -> Result<(), i32> {
+        if let SensorValueType::None = sensor_val.val {
+            if !false {
+                {
+                    ::core::panicking::panic(&("assertion failed: false",
+                                               "src/send_coap.rs", 127u32,
+                                               53u32))
+                }
+            };
+        }
         {
             match (&node_id.to_bytes()[0], &0) {
                 (left_val, right_val) => {
@@ -270,13 +217,13 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           161u32, 5u32))
+                                                           129u32, 5u32))
                         }
                     }
                 }
             }
         };
-        if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }
+        if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }
         let device_id = unsafe { get_device_id() };
         {
             match (&device_id, &(0 as *const ::cty::c_char)) {
@@ -298,7 +245,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           163u32, 47u32))
+                                                           131u32, 47u32))
                         }
                     }
                 }
@@ -308,18 +255,18 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 168u32, 68u32))
+                                           "src/send_coap.rs", 136u32, 68u32))
             }
         };
         let rc = unsafe { do_server_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 187u32, 44u32))
+                                           "src/send_coap.rs", 155u32, 44u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
-        0
+        Ok(())
     }
     ///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
     ///  transmit to the Collector Node.  The Sensor Value should be integer not float since
@@ -330,14 +277,14 @@
     ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
     ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
     ///  `{ t: 2870 }`
-    fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr)
-     -> i32 {
-        if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }
+    fn send_sensor_data_to_collector(sensor_val: &SensorValue,
+                                     _node_id: &CStr) -> Result<(), i32> {
+        if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }
         let rc = unsafe { init_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 216u32, 49u32))
+                                           "src/send_coap.rs", 184u32, 49u32))
             }
         };
         let _payload =
@@ -394,11 +341,11 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 227u32, 47u32))
+                                           "src/send_coap.rs", 195u32, 47u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
-        0
+        Ok(())
     }
 }
 use core::panic::PanicInfo;
@@ -411,15 +358,8 @@ use crate::send_coap::*;
 pub extern "C" fn main() -> ! {
     unsafe { rust_sysinit() };
     unsafe { console_flush() };
-    let rc = start_network_task();
-    rc.expect("");
-    let rc = start_sensor_listener();
-    if !(rc == 0) {
-        {
-            ::core::panicking::panic(&("assertion failed: rc == 0",
-                                       "src/lib.rs", 41u32, 40u32))
-        }
-    };
+    start_network_task().expect("NET fail");
+    start_sensor_listener().expect("TMP fail");
     loop  { unsafe { os_eventq_run(os_eventq_dflt_get()) } }
 }
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
