@@ -32,11 +32,11 @@ pub fn start_sensor_listener() -> i32 {
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
     let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
-    assert!(rc == 0);
+    assert_eq!(rc, 0);
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
-    assert!(!unsafe{ is_null_sensor(listen_sensor) });
+    assert!(unsafe{ !is_null_sensor(listen_sensor) });
 
     //  Define the listener function to be called after polling the temperature sensor.
     let listener = SensorListener {
@@ -84,7 +84,7 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
         
         //  Get the temperature sensor value. It could be raw or computed.
         let temp_sensor_value = get_temperature(sensor_data, sensor_type);
-        ////  TODO: if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
+        if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
 
         //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
         //  Compose a CoAP message with the temperature sensor data and send to the 

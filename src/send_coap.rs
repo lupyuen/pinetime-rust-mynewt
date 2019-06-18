@@ -15,25 +15,11 @@ use crate::mynewt::os::*;        //  Import `mynewt/os.rs` for Mynewt `kernel/os
 use crate::mynewt::sensor_network::*;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
 use crate::mynewt::{g_encoder, root_map};  //  Import Mynewt TinyCBOR encoder and root map
 
-fn send_sensor_data_cbor() {
-  //  Sensor `t` has int value 2870.
-  let int_sensor_value = SensorValue {
-	key: "t",
-	val: SensorValueType::Uint(2870)
-  };
-  //  Compose the CoAP Payload in CBOR using the `coap` macro.
-  trace_macros!(true);
-  let payload = coap!(@cbor {
-	int_sensor_value,    //  Send `{t: 2870}`
-  });
-  trace_macros!(false);
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
 
 ///  Storage for Network Task: Mynewt task object will be saved here.
-static mut network_task: os_task = 
+static mut NETWORK_TASK: os_task = 
   unsafe { 
 	::core::mem::transmute::
 	<
@@ -64,19 +50,19 @@ static mut NETWORK_IS_READY: bool = false;
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
 //  pub fn start_network_task() -> i32  {
-  console_print(b"start_network_task\n");
-  let rc = unsafe { os_task_init( //  Create a new task and start it...
-	&mut network_task,            //  Task object will be saved here.
-	b"network\0".as_ptr(),        //  Name of task.
-	Some(network_task_func),      //  Function to execute when task starts.
-	0 as *mut ::cty::c_void,      //  Argument to be passed to above function.
-	10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-	OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking.
-	NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
-	NETWORK_TASK_STACK_SIZE as u16) };  //  Size of the stack (in 4-byte units).
-  assert_eq!(rc, 0);
-  Ok(())
-  //  0
+    console_print(b"start_network_task\n");
+    let rc = unsafe { os_task_init( //  Create a new task and start it...
+        &mut NETWORK_TASK,            //  Task object will be saved here.
+        b"network\0".as_ptr(),        //  Name of task.
+        Some(network_task_func),      //  Function to execute when task starts.
+        0 as *mut ::cty::c_void,      //  Argument to be passed to above function.
+        10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
+        OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking.
+        NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
+        NETWORK_TASK_STACK_SIZE as u16) };  //  Size of the stack (in 4-byte units).
+    assert_eq!(rc, 0);
+    Ok(())
+    //  0
 }
 
 ///  Network Task runs this function in the background to prepare the network drivers
@@ -111,7 +97,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 	assert!(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
-///  TODO: Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
+///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
 ///  Collector Node (if this is a Sensor Node) or to the CoAP Server (if this is a Collector Node
 ///  or Standalone Node).  
 ///  For Sensor Node or Standalone Node: sensor_node is the sensor name (`bme280_0` or `temp_stm32_0`)
@@ -156,8 +142,8 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
 ///    ... ]}
 ///  ```
 fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
-	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
-	////  TODO: assert!(node_id.to_str().unwrap().len() > 0);
+    if let SensorValueType::None = sensor_val.val { assert!(false); }
+    //  assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
@@ -234,6 +220,20 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
 }
 
 /*
+fn send_sensor_data_cbor() {
+  //  Sensor `t` has int value 2870.
+  let int_sensor_value = SensorValue {
+	key: "t",
+	val: SensorValueType::Uint(2870)
+  };
+  //  Compose the CoAP Payload in CBOR using the `coap` macro.
+  trace_macros!(true);
+  let payload = coap!(@cbor {
+	int_sensor_value,    //  Send `{t: 2870}`
+  });
+  trace_macros!(false);
+}
+
 ///  Null-terminated string "t".
 const int_sensor_key: &'static [u8] = b"t\0";
 ///  Null-terminated string "tmp".
