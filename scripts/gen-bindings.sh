@@ -15,6 +15,7 @@ function generate_bindings_kernel() {
     #  libcmd looks like bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname.o.cmd
     local whitelist=`cat << EOF
+        --whitelist-var      (?i)SYS_E.* \
         --whitelist-function (?i)${modname}_.* \
         --whitelist-type     (?i)${modname}_.* \
         --whitelist-var      (?i)${modname}_.* 
