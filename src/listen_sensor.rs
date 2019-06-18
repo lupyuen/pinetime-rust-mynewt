@@ -117,7 +117,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
                 strd_temp_raw: 0,
                 strd_temp_raw_is_valid: 0,
             };
-            let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
+            let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
             assert!(rc == 0);
 
             //  Check that the raw temperature data is valid.
@@ -133,7 +133,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
                 std_temp: 0.0,
                 std_temp_is_valid: 0,
             };
-            let rc = get_temp_data(sensor_data, &mut tempdata);
+            let rc = unsafe { get_temp_data(sensor_data, &mut tempdata) };
             assert!(rc == 0);
 
             //  Check that the computed temperature data is valid.

@@ -1,5 +1,5 @@
-///  Macros for composing CoAP payloads with JSON or CBOR encoding
-///  Adapted From https://docs.serde.rs/src/serde_json/macros.rs.html
+//!  Macros for composing CoAP payloads with JSON or CBOR encoding.
+//!  Adapted from https://docs.serde.rs/src/serde_json/macros.rs.html
 
 #[macro_export(local_inner_macros)]
 macro_rules! coap {
@@ -317,6 +317,7 @@ macro_rules! parse {
     let root = "root";  //  Top level object is named "root".
     coap_root!(@json {  //  Create the payload root
         let values = "values";  //  "values" will be an array of items under the root
+        let mut values_map: CborEncoder = CborEncoder{};
         coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
           parse!(@json @object values () ($($tt)+) ($($tt)+));

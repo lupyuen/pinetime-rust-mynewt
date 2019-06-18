@@ -10,11 +10,10 @@
 extern crate cortex_m;       //  Declare the external library `cortex_m`
 
 #[macro_use]
-mod macros;         //  Declare macros.rs as Rust module `macros` and import the macros
-mod mynewt;         //  Declare mynewt/mod.rs as Rust module `mynewt`
-mod base;           //  Declare base.rs as Rust module `base`
-mod listen_sensor;  //  Declare listen_sensor.rs as Rust module `listen_sensor`
-mod send_coap;      //  Declare send_coap.rs as Rust module `send_coap`
+mod mynewt;         //  Declare `mynewt/mod.rs` as Rust module `mynewt`. Use macros from the module.
+mod base;           //  Declare `base.rs` as Rust module `base`
+mod listen_sensor;  //  Declare `listen_sensor.rs` as Rust module `listen_sensor`
+mod send_coap;      //  Declare `send_coap.rs` as Rust module `send_coap`
 
 use core::panic::PanicInfo;     //  Import the PanicInfo type which is used by panic() below
 use cortex_m::asm::bkpt;        //  Import the cortex_m assembly function to inject breakpoint

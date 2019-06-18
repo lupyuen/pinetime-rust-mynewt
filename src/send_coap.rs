@@ -8,11 +8,12 @@
 //!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
-use cstr_core::CStr;             //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
-use crate::base::*;              //  Import base.rs for common declarations
-use crate::mynewt::tinycbor::*;  //  Import mynewt/tinycbor.rs for TinyCBOR C API
-use crate::mynewt::os::*;        //  Import mynewt/os.rs for Mynewt `kernel/os` API
-use crate::mynewt::sensor_network::*;  //  Import mynewt/sensor_network.rs for Mynewt `sensor_network` library
+use cstr_core::CStr;             //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
+use crate::base::*;              //  Import `base.rs` for common declarations
+use crate::mynewt::tinycbor::*;  //  Import `mynewt/tinycbor.rs` for TinyCBOR C API
+use crate::mynewt::os::*;        //  Import `mynewt/os.rs` for Mynewt `kernel/os` API
+use crate::mynewt::sensor_network::*;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
+use crate::mynewt::{g_encoder, root_map};  //  Import Mynewt TinyCBOR encoder and root map
 
 fn send_sensor_data_cbor() {
   //  Sensor `t` has int value 2870.
@@ -133,7 +134,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
         float_val: 0.0,
     };
 	//  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
-	if should_send_to_collector(&mut val, sensor_node.as_ptr()) { 
+	if unsafe { should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
 		return send_sensor_data_to_collector(sensor_val, sensor_node); 
 	}
 	//  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
@@ -161,16 +162,16 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
 fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
 	assert!(node_id.to_str().unwrap().len() > 0);
-	if !NETWORK_IS_READY { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-	let device_id = get_device_id();  assert_ne!(device_id, 0 as *const ::cty::c_char);
+	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
 
 	//  Start composing the CoAP Server message with the sensor data in the payload.  This will 
 	//  block other tasks from composing and posting CoAP messages (through a semaphore).
 	//  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-	let rc = init_server_post(0 as *const ::cty::c_char);  assert!(rc);
+	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
 
     //  Compose the CoAP Payload in JSON using the coap!() macro.
-    let payload = coap!(@json {
+    /* let payload = coap!(@json {
         //  Create "values" as an array of items under the root.
         //  Append to the "values" array:
         //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
@@ -181,12 +182,12 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
         //    {"key":"t",   "value":2870} for raw temperature (integer)
         //    {"key":"tmp", "value":28.7} for computed temperature (float)
 	    sensor_val,
-    });
+    }); */
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    let rc = do_server_post();  assert!(rc);
+    let rc = unsafe { do_server_post() };  assert!(rc);
 
     console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
@@ -210,12 +211,12 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 ///  `{ t: 2870 }`
 fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
-    if !NETWORK_IS_READY { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    let rc = init_collector_post();  assert!(rc);
+    let rc = unsafe { init_collector_post() };  assert!(rc);
 
     //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
     let payload = coap!(@cbor {
@@ -226,7 +227,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    let rc = do_collector_post();  assert!(rc);
+    let rc = unsafe { do_collector_post() };  assert!(rc);
 
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
 
