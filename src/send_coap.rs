@@ -19,23 +19,7 @@ use crate::mynewt::{g_encoder, root_map};  //  Import Mynewt TinyCBOR encoder an
 //  Network Task
 
 ///  Storage for Network Task: Mynewt task object will be saved here.
-static mut NETWORK_TASK: os_task = 
-  unsafe { 
-	::core::mem::transmute::
-	<
-	  [
-		u8; 
-		::core::mem::size_of::<os_task>()
-	  ], 
-	  os_task
-	>
-	(
-	  [
-		0; 
-		::core::mem::size_of::<os_task>()
-	  ]
-	) 
-  };
+static mut NETWORK_TASK: os_task = zero!(os_task);
 ///  Stack space for Network Task, initialised to 0.
 static mut NETWORK_TASK_STACK: [os_stack_t; NETWORK_TASK_STACK_SIZE] = 
   [0; NETWORK_TASK_STACK_SIZE];

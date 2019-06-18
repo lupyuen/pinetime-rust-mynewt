@@ -793,3 +793,44 @@ macro_rules! nx {
     );
   };
 }
+
+///  TODO: Return a struct that is set to 0. zero!(os_task) expands to
+///  ```
+/// unsafe { 
+///	::core::mem::transmute::
+///	<
+///	  [
+///		u8; 
+///		::core::mem::size_of::<os_task>()
+///	  ], 
+///	  os_task
+///	>
+///	(
+///	  [
+///		0; 
+///		::core::mem::size_of::<os_task>()
+///	  ]
+///	) 
+/// }
+///  ```
+#[macro_export]
+macro_rules! zero {
+  ($type:ident) => {
+    unsafe { 
+        ::core::mem::transmute::
+        <
+        [
+            u8; 
+            ::core::mem::size_of::<$type>()
+        ], 
+        $type
+        >
+        (
+        [
+            0; 
+            ::core::mem::size_of::<$type>()
+        ]
+        ) 
+    }      
+  };
+}

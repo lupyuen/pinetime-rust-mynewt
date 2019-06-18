@@ -24,10 +24,8 @@ pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> Result<
 ///  This is a static mutable copy of the listener passed in through `register_listener`.
 ///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
 static mut LISTENER_INTERNAL: SensorListener = SensorListener {  
-    sl_sensor_type: 0, 
-    sl_func       : null_sensor_data_func,
-    sl_arg        : 0,
-    sl_next       : 0,
+    sl_func: null_sensor_data_func,
+    ..zero!(SensorListener)
 };
 
 ///  Define a dummy sensor data function in case there is none.
