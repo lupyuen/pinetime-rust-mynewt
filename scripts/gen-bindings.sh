@@ -6,6 +6,38 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+function generate_bindings_encoding() {
+    #  Generate bindings for encoding/$1 e.g. tinycbor.
+    local libname=$1
+    local modname=$1
+    #  modname2 looks like cborencoder
+    local modname2=$2
+    #  modname3 looks like cbor
+    local modname3=$3
+    #  libdir looks like encoding/tinycbor
+    local libdir=encoding/$libname
+    #  libcmd looks like bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname2.o.cmd
+    local whitelist=`cat << EOF
+        --whitelist-function (?i)${modname3}.* \
+        --whitelist-type     (?i)${modname3}.* \
+        --whitelist-var      (?i)${modname3}.* 
+EOF
+`
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
+#  Generate Rust bindings for tinycbor.
+echo bindgen \
+    --no-layout-tests \
+    --use-core \
+    --ctypes-prefix "::cty" \
+    --whitelist-function "(?i)cbor.*" \
+    --whitelist-type     "(?i)cbor.*" \
+    --whitelist-var      "(?i)cbor.*" \
+    -o src/tinycbor.rs \
+    logs/cborencoder.h
+
 function generate_bindings_kernel() {
     #  Generate bindings for kernel/$1 e.g. os.
     local libname=$1
@@ -109,25 +141,12 @@ EOF
         $expandfile
 }
 
-
+generate_bindings_encoding tinycbor cborencoder cbor  #  Generate bindings for encoding/tinycbor
+generate_bindings_kernel   os              #  Generate bindings for kernel/os
+generate_bindings_libs     sensor_network  #  Generate bindings for libs/sensor_network
 #  generate_bindings_apps my_sensor_app send_coap  #  Generate bindings for my_sensor_app/send_coap.c
 
-generate_bindings_libs   sensor_network  #  Generate bindings for libs/sensor_network
-generate_bindings_kernel os              #  Generate bindings for kernel/os
-
 exit
-
-
-#  Generate Rust bindings for tinycbor.
-bindgen \
-    --no-layout-tests \
-    --use-core \
-    --ctypes-prefix "::cty" \
-    --whitelist-function "(?i)cbor.*" \
-    --whitelist-type     "(?i)cbor.*" \
-    --whitelist-var      "(?i)cbor.*" \
-    -o src/tinycbor.rs \
-    logs/cborencoder.h
 
 → bindgen --help
 bindgen 0.49.2

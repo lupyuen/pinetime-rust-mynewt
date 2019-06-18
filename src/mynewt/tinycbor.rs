@@ -8,7 +8,7 @@ pub type __uint64_t = ::cty::c_ulonglong;
 pub type __uintptr_t = ::cty::c_uint;
 pub type FILE = File;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Default)]
 pub struct File_methods {
     pub write: ::core::option::Option<
         unsafe extern "C" fn(instance: *mut FILE, bp: *const ::cty::c_char, n: usize) -> usize,
@@ -17,61 +17,14 @@ pub struct File_methods {
         unsafe extern "C" fn(instance: *mut FILE, bp: *mut ::cty::c_char, n: usize) -> usize,
     >,
 }
-#[test]
-fn bindgen_test_layout_File_methods() {
-    assert_eq!(
-        ::core::mem::size_of::<File_methods>(),
-        16usize,
-        concat!("Size of: ", stringify!(File_methods))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<File_methods>(),
-        8usize,
-        concat!("Alignment of ", stringify!(File_methods))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<File_methods>())).write as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(File_methods),
-            "::",
-            stringify!(write)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<File_methods>())).read as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(File_methods),
-            "::",
-            stringify!(read)
-        )
-    );
-}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct File {
     pub vmt: *const File_methods,
 }
-#[test]
-fn bindgen_test_layout_File() {
-    assert_eq!(
-        ::core::mem::size_of::<File>(),
-        8usize,
-        concat!("Size of: ", stringify!(File))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<File>(),
-        8usize,
-        concat!("Alignment of ", stringify!(File))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<File>())).vmt as *const _ as usize },
-        0usize,
-        concat!("Offset of field: ", stringify!(File), "::", stringify!(vmt))
-    );
+impl Default for File {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 pub const CborType_CborIntegerType: CborType = 0;
 pub const CborType_CborByteStringType: CborType = 64;
@@ -144,147 +97,36 @@ pub type cbor_encoder_write = ::core::option::Option<
     ) -> ::cty::c_int,
 >;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Default)]
 pub struct cbor_encoder_writer {
     pub write: cbor_encoder_write,
     pub bytes_written: ::cty::c_int,
 }
-#[test]
-fn bindgen_test_layout_cbor_encoder_writer() {
-    assert_eq!(
-        ::core::mem::size_of::<cbor_encoder_writer>(),
-        16usize,
-        concat!("Size of: ", stringify!(cbor_encoder_writer))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<cbor_encoder_writer>(),
-        8usize,
-        concat!("Alignment of ", stringify!(cbor_encoder_writer))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_encoder_writer>())).write as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_encoder_writer),
-            "::",
-            stringify!(write)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<cbor_encoder_writer>())).bytes_written as *const _ as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_encoder_writer),
-            "::",
-            stringify!(bytes_written)
-        )
-    );
-}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct cbor_iovec {
     pub iov_base: *mut ::cty::c_void,
     pub iov_len: usize,
 }
-#[test]
-fn bindgen_test_layout_cbor_iovec() {
-    assert_eq!(
-        ::core::mem::size_of::<cbor_iovec>(),
-        16usize,
-        concat!("Size of: ", stringify!(cbor_iovec))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<cbor_iovec>(),
-        8usize,
-        concat!("Alignment of ", stringify!(cbor_iovec))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_iovec>())).iov_base as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_iovec),
-            "::",
-            stringify!(iov_base)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_iovec>())).iov_len as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_iovec),
-            "::",
-            stringify!(iov_len)
-        )
-    );
+impl Default for cbor_iovec {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct CborEncoder {
     pub writer: *mut cbor_encoder_writer,
     pub writer_arg: *mut ::cty::c_void,
     pub added: usize,
     pub flags: ::cty::c_int,
 }
-#[test]
-fn bindgen_test_layout_CborEncoder() {
-    assert_eq!(
-        ::core::mem::size_of::<CborEncoder>(),
-        24usize,
-        concat!("Size of: ", stringify!(CborEncoder))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<CborEncoder>(),
-        8usize,
-        concat!("Alignment of ", stringify!(CborEncoder))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborEncoder>())).writer as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborEncoder),
-            "::",
-            stringify!(writer)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborEncoder>())).writer_arg as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborEncoder),
-            "::",
-            stringify!(writer_arg)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborEncoder>())).added as *const _ as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborEncoder),
-            "::",
-            stringify!(added)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborEncoder>())).flags as *const _ as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborEncoder),
-            "::",
-            stringify!(flags)
-        )
-    );
+impl Default for CborEncoder {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
-pub const CborIndefiniteLength: usize = 4294967295;
+extern "C" {
+    pub static CborIndefiniteLength: usize;
+}
 extern "C" {
     pub fn cbor_encoder_init(
         encoder: *mut CborEncoder,
@@ -402,7 +244,7 @@ pub type cbor_memcpy = ::core::option::Option<
     ) -> usize,
 >;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Default)]
 pub struct cbor_decoder_reader {
     pub get8: cbor_reader_get8,
     pub get16: cbor_reader_get16,
@@ -412,143 +254,18 @@ pub struct cbor_decoder_reader {
     pub cpy: cbor_memcpy,
     pub message_size: usize,
 }
-#[test]
-fn bindgen_test_layout_cbor_decoder_reader() {
-    assert_eq!(
-        ::core::mem::size_of::<cbor_decoder_reader>(),
-        56usize,
-        concat!("Size of: ", stringify!(cbor_decoder_reader))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<cbor_decoder_reader>(),
-        8usize,
-        concat!("Alignment of ", stringify!(cbor_decoder_reader))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_decoder_reader>())).get8 as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(get8)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_decoder_reader>())).get16 as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(get16)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_decoder_reader>())).get32 as *const _ as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(get32)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_decoder_reader>())).get64 as *const _ as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(get64)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_decoder_reader>())).cmp as *const _ as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(cmp)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<cbor_decoder_reader>())).cpy as *const _ as usize },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(cpy)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::core::ptr::null::<cbor_decoder_reader>())).message_size as *const _ as usize
-        },
-        48usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(cbor_decoder_reader),
-            "::",
-            stringify!(message_size)
-        )
-    );
-}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct CborParser {
     pub d: *mut cbor_decoder_reader,
     pub end: ::cty::c_int,
     pub flags: ::cty::c_int,
 }
-#[test]
-fn bindgen_test_layout_CborParser() {
-    assert_eq!(
-        ::core::mem::size_of::<CborParser>(),
-        16usize,
-        concat!("Size of: ", stringify!(CborParser))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<CborParser>(),
-        8usize,
-        concat!("Alignment of ", stringify!(CborParser))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborParser>())).d as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborParser),
-            "::",
-            stringify!(d)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborParser>())).end as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborParser),
-            "::",
-            stringify!(end)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborParser>())).flags as *const _ as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborParser),
-            "::",
-            stringify!(flags)
-        )
-    );
+impl Default for CborParser {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct CborValue {
     pub parser: *const CborParser,
     pub offset: ::cty::c_int,
@@ -557,78 +274,10 @@ pub struct CborValue {
     pub type_: u8,
     pub flags: u8,
 }
-#[test]
-fn bindgen_test_layout_CborValue() {
-    assert_eq!(
-        ::core::mem::size_of::<CborValue>(),
-        32usize,
-        concat!("Size of: ", stringify!(CborValue))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<CborValue>(),
-        8usize,
-        concat!("Alignment of ", stringify!(CborValue))
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborValue>())).parser as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborValue),
-            "::",
-            stringify!(parser)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborValue>())).offset as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborValue),
-            "::",
-            stringify!(offset)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborValue>())).remaining as *const _ as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborValue),
-            "::",
-            stringify!(remaining)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborValue>())).extra as *const _ as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborValue),
-            "::",
-            stringify!(extra)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborValue>())).type_ as *const _ as usize },
-        26usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborValue),
-            "::",
-            stringify!(type_)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::core::ptr::null::<CborValue>())).flags as *const _ as usize },
-        27usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CborValue),
-            "::",
-            stringify!(flags)
-        )
-    );
+impl Default for CborValue {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
 }
 extern "C" {
     pub fn cbor_parser_init(
@@ -690,6 +339,167 @@ extern "C" {
 }
 extern "C" {
     pub fn cbor_value_to_pretty_advance(out: *mut FILE, value: *mut CborValue) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_text_stringz(
+        encoder: *mut CborEncoder,
+        string: *const ::cty::c_char,
+    ) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_bytes_written(encoder: *mut CborEncoder) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_boolean(encoder: *mut CborEncoder, value: bool) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_null(encoder: *mut CborEncoder) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_undefined(encoder: *mut CborEncoder) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_half_float(
+        encoder: *mut CborEncoder,
+        value: *const ::cty::c_void,
+    ) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_float(encoder: *mut CborEncoder, value: f32) -> CborError;
+}
+extern "C" {
+    pub fn cbor_encode_double(encoder: *mut CborEncoder, value: f64) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_at_end(it: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_container(it: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_valid(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_type(value: *const CborValue) -> CborType;
+}
+extern "C" {
+    pub fn cbor_value_is_null(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_undefined(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_boolean(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_boolean(value: *const CborValue, result: *mut bool) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_simple_type(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_simple_type(value: *const CborValue, result: *mut u8) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_integer(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_unsigned_integer(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_negative_integer(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_raw_integer(value: *const CborValue, result: *mut u64) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_get_uint64(value: *const CborValue, result: *mut u64) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_get_int64(value: *const CborValue, result: *mut i64) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_get_int(value: *const CborValue, result: *mut ::cty::c_int) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_length_known(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_tag(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_tag(value: *const CborValue, result: *mut CborTag) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_byte_string(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_text_string(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_string_length(value: *const CborValue, length: *mut usize) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_copy_text_string(
+        value: *const CborValue,
+        buffer: *mut ::cty::c_char,
+        buflen: *mut usize,
+        next: *mut CborValue,
+    ) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_copy_byte_string(
+        value: *const CborValue,
+        buffer: *mut u8,
+        buflen: *mut usize,
+        next: *mut CborValue,
+    ) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_dup_text_string(
+        value: *const CborValue,
+        buffer: *mut *mut ::cty::c_char,
+        buflen: *mut usize,
+        next: *mut CborValue,
+    ) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_dup_byte_string(
+        value: *const CborValue,
+        buffer: *mut *mut u8,
+        buflen: *mut usize,
+        next: *mut CborValue,
+    ) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_array(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_map(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_array_length(value: *const CborValue, length: *mut usize) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_get_map_length(value: *const CborValue, length: *mut usize) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_half_float(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_is_float(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_float(value: *const CborValue, result: *mut f32) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_is_double(value: *const CborValue) -> bool;
+}
+extern "C" {
+    pub fn cbor_value_get_double(value: *const CborValue, result: *mut f64) -> CborError;
+}
+extern "C" {
+    pub fn cbor_value_to_pretty(out: *mut FILE, value: *const CborValue) -> CborError;
 }
 pub const CborMajorTypes_UnsignedIntegerType: CborMajorTypes = 0;
 pub const CborMajorTypes_NegativeIntegerType: CborMajorTypes = 1;

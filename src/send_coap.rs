@@ -156,7 +156,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
 ///    ... ]}
 ///  ```
 fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
-	if let SensorValueType::None = sensor_val.val { assert!(false); }
+	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
 	////  TODO: assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
@@ -207,7 +207,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
 fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
-	if let SensorValueType::None = sensor_val.val { assert!(false); }
+	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
     if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 

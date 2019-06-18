@@ -143,20 +143,18 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.15	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.15
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.16	00000011 .Lanon.b35cb14c59c8833032407cee1d6d75cf.16
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.17	00000001 .Lanon.b35cb14c59c8833032407cee1d6d75cf.17
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.19	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.19
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.18	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.18
 00000000 l     O .rodata.cst4	00000004 .Lanon.b35cb14c59c8833032407cee1d6d75cf.2
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.20	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.20
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.22	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.22
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.23	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.23
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.24	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.24
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.26	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.26
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.20	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.20
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.21	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.21
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.22	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.22
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.24	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.24
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.25	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.25
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.26	0000004b .Lanon.b35cb14c59c8833032407cee1d6d75cf.26
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.27	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.27
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.28	0000004b .Lanon.b35cb14c59c8833032407cee1d6d75cf.28
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.29	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.29
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.30	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.30
-00000004 l     O .rodata.cst4	00000004 .Lanon.b35cb14c59c8833032407cee1d6d75cf.32
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.49	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.49
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.50	00000021 .Lanon.b35cb14c59c8833032407cee1d6d75cf.50
+00000004 l     O .rodata.cst4	00000004 .Lanon.b35cb14c59c8833032407cee1d6d75cf.29
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.46	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.46
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.47	00000021 .Lanon.b35cb14c59c8833032407cee1d6d75cf.47
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.6	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.6
 00000000 l     O .rodata.cst16	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.7
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.8	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.8
@@ -165,8 +163,8 @@ SYMBOL TABLE:
 00000000 l     O .bss._ZN5mylib9send_coap16NETWORK_IS_READY17hd5f4779bc1ae0f1fE	00000001 _ZN5mylib9send_coap16NETWORK_IS_READY17hd5f4779bc1ae0f1fE
 00000000 l     F .text._ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE	00000250 _ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE
 00000000 l     O .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17h1ff48088257b8937E	00000400 _ZN5mylib9send_coap18NETWORK_TASK_STACK17h1ff48088257b8937E
-00000000 l     F .text._ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE	00000232 _ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE
-00000000 l     F .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E	00000156 _ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
+00000000 l     F .text._ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE	00000210 _ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE
+00000000 l     F .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E	00000134 _ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
 00000000 l     O .rodata.str.0	00000010 str.0
 00000000 l     O .rodata.str.1	00000021 str.1
 00000000 l    d  .text._ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE	00000000 .text._ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE
@@ -183,9 +181,8 @@ SYMBOL TABLE:
 00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.10	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.10
 00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
 00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
-00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.18	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.18
-00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.21	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.21
-00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.25	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.25
+00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.19	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.19
+00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.23	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.23
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
@@ -781,124 +778,109 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
    a:	900e      	str	r0, [sp, #56]	; 0x38
    c:	910f      	str	r1, [sp, #60]	; 0x3c
    e:	9210      	str	r2, [sp, #64]	; 0x40
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:159
-	if let SensorValueType::None = sensor_val.val { assert!(false); }
-  10:	980e      	ldr	r0, [sp, #56]	; 0x38
-  12:	6880      	ldr	r0, [r0, #8]
-  14:	2800      	cmp	r0, #0
-  16:	930d      	str	r3, [sp, #52]	; 0x34
-  18:	f8cd c030 	str.w	ip, [sp, #48]	; 0x30
-  1c:	f8cd e02c 	str.w	lr, [sp, #44]	; 0x2c
-  20:	d10c      	bne.n	3c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x3c>
-  22:	e7ff      	b.n	24 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x24>
-  24:	2000      	movs	r0, #0
-  26:	2800      	cmp	r0, #0
-  28:	d107      	bne.n	3a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x3a>
-  2a:	e7ff      	b.n	2c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2c>
-  2c:	f240 0000 	movw	r0, #0
-  30:	f2c0 0000 	movt	r0, #0
-  34:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  38:	defe      	udf	#254	; 0xfe
-  3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x3c>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
+	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
 	////  TODO: assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
-  3c:	980f      	ldr	r0, [sp, #60]	; 0x3c
-  3e:	9910      	ldr	r1, [sp, #64]	; 0x40
-  40:	f7ff fffe 	bl	0 <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E>
-  44:	900a      	str	r0, [sp, #40]	; 0x28
-  46:	9109      	str	r1, [sp, #36]	; 0x24
-  48:	e7ff      	b.n	4a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x4a>
-  4a:	9809      	ldr	r0, [sp, #36]	; 0x24
-  4c:	2800      	cmp	r0, #0
-  4e:	f000 80e7 	beq.w	220 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x220>
-  52:	e7ff      	b.n	54 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x54>
-  54:	980a      	ldr	r0, [sp, #40]	; 0x28
-  56:	9012      	str	r0, [sp, #72]	; 0x48
-  58:	f240 0100 	movw	r1, #0
-  5c:	f2c0 0100 	movt	r1, #0
-  60:	9113      	str	r1, [sp, #76]	; 0x4c
-  62:	9912      	ldr	r1, [sp, #72]	; 0x48
-  64:	9114      	str	r1, [sp, #80]	; 0x50
-  66:	9913      	ldr	r1, [sp, #76]	; 0x4c
-  68:	9115      	str	r1, [sp, #84]	; 0x54
-  6a:	9914      	ldr	r1, [sp, #80]	; 0x50
-  6c:	7809      	ldrb	r1, [r1, #0]
-  6e:	9a15      	ldr	r2, [sp, #84]	; 0x54
-  70:	7812      	ldrb	r2, [r2, #0]
-  72:	4291      	cmp	r1, r2
-  74:	d116      	bne.n	a4 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xa4>
-  76:	e7ff      	b.n	78 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x78>
-  78:	9814      	ldr	r0, [sp, #80]	; 0x50
-  7a:	9022      	str	r0, [sp, #136]	; 0x88
-  7c:	9815      	ldr	r0, [sp, #84]	; 0x54
-  7e:	9023      	str	r0, [sp, #140]	; 0x8c
-  80:	a822      	add	r0, sp, #136	; 0x88
-  82:	9020      	str	r0, [sp, #128]	; 0x80
-  84:	a823      	add	r0, sp, #140	; 0x8c
-  86:	9021      	str	r0, [sp, #132]	; 0x84
-  88:	9820      	ldr	r0, [sp, #128]	; 0x80
-  8a:	9024      	str	r0, [sp, #144]	; 0x90
-  8c:	9821      	ldr	r0, [sp, #132]	; 0x84
-  8e:	9025      	str	r0, [sp, #148]	; 0x94
-  90:	9824      	ldr	r0, [sp, #144]	; 0x90
-  92:	f240 0100 	movw	r1, #0
-  96:	f2c0 0100 	movt	r1, #0
-  9a:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>
-  9e:	9008      	str	r0, [sp, #32]
-  a0:	9107      	str	r1, [sp, #28]
-  a2:	e008      	b.n	b6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xb6>
+  10:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  12:	9910      	ldr	r1, [sp, #64]	; 0x40
+  14:	930d      	str	r3, [sp, #52]	; 0x34
+  16:	f8cd c030 	str.w	ip, [sp, #48]	; 0x30
+  1a:	f8cd e02c 	str.w	lr, [sp, #44]	; 0x2c
+  1e:	f7ff fffe 	bl	0 <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E>
+  22:	900a      	str	r0, [sp, #40]	; 0x28
+  24:	9109      	str	r1, [sp, #36]	; 0x24
+  26:	e7ff      	b.n	28 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x28>
+  28:	9809      	ldr	r0, [sp, #36]	; 0x24
+  2a:	2800      	cmp	r0, #0
+  2c:	f000 80e7 	beq.w	1fe <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1fe>
+  30:	e7ff      	b.n	32 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x32>
+  32:	980a      	ldr	r0, [sp, #40]	; 0x28
+  34:	9012      	str	r0, [sp, #72]	; 0x48
+  36:	f240 0100 	movw	r1, #0
+  3a:	f2c0 0100 	movt	r1, #0
+  3e:	9113      	str	r1, [sp, #76]	; 0x4c
+  40:	9912      	ldr	r1, [sp, #72]	; 0x48
+  42:	9114      	str	r1, [sp, #80]	; 0x50
+  44:	9913      	ldr	r1, [sp, #76]	; 0x4c
+  46:	9115      	str	r1, [sp, #84]	; 0x54
+  48:	9914      	ldr	r1, [sp, #80]	; 0x50
+  4a:	7809      	ldrb	r1, [r1, #0]
+  4c:	9a15      	ldr	r2, [sp, #84]	; 0x54
+  4e:	7812      	ldrb	r2, [r2, #0]
+  50:	4291      	cmp	r1, r2
+  52:	d116      	bne.n	82 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x82>
+  54:	e7ff      	b.n	56 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x56>
+  56:	9814      	ldr	r0, [sp, #80]	; 0x50
+  58:	9022      	str	r0, [sp, #136]	; 0x88
+  5a:	9815      	ldr	r0, [sp, #84]	; 0x54
+  5c:	9023      	str	r0, [sp, #140]	; 0x8c
+  5e:	a822      	add	r0, sp, #136	; 0x88
+  60:	9020      	str	r0, [sp, #128]	; 0x80
+  62:	a823      	add	r0, sp, #140	; 0x8c
+  64:	9021      	str	r0, [sp, #132]	; 0x84
+  66:	9820      	ldr	r0, [sp, #128]	; 0x80
+  68:	9024      	str	r0, [sp, #144]	; 0x90
+  6a:	9821      	ldr	r0, [sp, #132]	; 0x84
+  6c:	9025      	str	r0, [sp, #148]	; 0x94
+  6e:	9824      	ldr	r0, [sp, #144]	; 0x90
+  70:	f240 0100 	movw	r1, #0
+  74:	f2c0 0100 	movt	r1, #0
+  78:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>
+  7c:	9008      	str	r0, [sp, #32]
+  7e:	9107      	str	r1, [sp, #28]
+  80:	e008      	b.n	94 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x94>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-  a4:	f240 0000 	movw	r0, #0
-  a8:	f2c0 0000 	movt	r0, #0
-  ac:	7800      	ldrb	r0, [r0, #0]
-  ae:	07c0      	lsls	r0, r0, #31
-  b0:	2800      	cmp	r0, #0
-  b2:	d02d      	beq.n	110 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x110>
-  b4:	e028      	b.n	108 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x108>
+  82:	f240 0000 	movw	r0, #0
+  86:	f2c0 0000 	movt	r0, #0
+  8a:	7800      	ldrb	r0, [r0, #0]
+  8c:	07c0      	lsls	r0, r0, #31
+  8e:	2800      	cmp	r0, #0
+  90:	d02d      	beq.n	ee <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xee>
+  92:	e028      	b.n	e6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xe6>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
     assert_ne!(node_id.to_bytes()[0], 0);
-  b6:	9825      	ldr	r0, [sp, #148]	; 0x94
-  b8:	f240 0100 	movw	r1, #0
-  bc:	f2c0 0100 	movt	r1, #0
-  c0:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>
-  c4:	9006      	str	r0, [sp, #24]
-  c6:	9105      	str	r1, [sp, #20]
-  c8:	e7ff      	b.n	ca <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xca>
-  ca:	9808      	ldr	r0, [sp, #32]
-  cc:	901c      	str	r0, [sp, #112]	; 0x70
-  ce:	9907      	ldr	r1, [sp, #28]
-  d0:	911d      	str	r1, [sp, #116]	; 0x74
-  d2:	9a06      	ldr	r2, [sp, #24]
-  d4:	921e      	str	r2, [sp, #120]	; 0x78
-  d6:	9b05      	ldr	r3, [sp, #20]
-  d8:	931f      	str	r3, [sp, #124]	; 0x7c
-  da:	46ec      	mov	ip, sp
-  dc:	f04f 0e02 	mov.w	lr, #2
-  e0:	f8cc e000 	str.w	lr, [ip]
-  e4:	f240 0100 	movw	r1, #0
-  e8:	f2c0 0100 	movt	r1, #0
-  ec:	a816      	add	r0, sp, #88	; 0x58
-  ee:	2203      	movs	r2, #3
-  f0:	ab1c      	add	r3, sp, #112	; 0x70
-  f2:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
-  f6:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
-  f8:	f240 0100 	movw	r1, #0
-  fc:	f2c0 0100 	movt	r1, #0
- 100:	a816      	add	r0, sp, #88	; 0x58
- 102:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 106:	defe      	udf	#254	; 0xfe
+  94:	9825      	ldr	r0, [sp, #148]	; 0x94
+  96:	f240 0100 	movw	r1, #0
+  9a:	f2c0 0100 	movt	r1, #0
+  9e:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>
+  a2:	9006      	str	r0, [sp, #24]
+  a4:	9105      	str	r1, [sp, #20]
+  a6:	e7ff      	b.n	a8 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xa8>
+  a8:	9808      	ldr	r0, [sp, #32]
+  aa:	901c      	str	r0, [sp, #112]	; 0x70
+  ac:	9907      	ldr	r1, [sp, #28]
+  ae:	911d      	str	r1, [sp, #116]	; 0x74
+  b0:	9a06      	ldr	r2, [sp, #24]
+  b2:	921e      	str	r2, [sp, #120]	; 0x78
+  b4:	9b05      	ldr	r3, [sp, #20]
+  b6:	931f      	str	r3, [sp, #124]	; 0x7c
+  b8:	46ec      	mov	ip, sp
+  ba:	f04f 0e02 	mov.w	lr, #2
+  be:	f8cc e000 	str.w	lr, [ip]
+  c2:	f240 0100 	movw	r1, #0
+  c6:	f2c0 0100 	movt	r1, #0
+  ca:	a816      	add	r0, sp, #88	; 0x58
+  cc:	2203      	movs	r2, #3
+  ce:	ab1c      	add	r3, sp, #112	; 0x70
+  d0:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
+  d4:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
+  d6:	f240 0100 	movw	r1, #0
+  da:	f2c0 0100 	movt	r1, #0
+  de:	a816      	add	r0, sp, #88	; 0x58
+  e0:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+  e4:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
- 108:	f7ff fffe 	bl	0 <get_device_id>
- 10c:	9026      	str	r0, [sp, #152]	; 0x98
- 10e:	e006      	b.n	11e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x11e>
- 110:	f06f 0005 	mvn.w	r0, #5
+  e6:	f7ff fffe 	bl	0 <get_device_id>
+  ea:	9026      	str	r0, [sp, #152]	; 0x98
+  ec:	e006      	b.n	fc <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xfc>
+  ee:	f06f 0005 	mvn.w	r0, #5
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
- 114:	9011      	str	r0, [sp, #68]	; 0x44
- 116:	e7ff      	b.n	118 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x118>
+  f2:	9011      	str	r0, [sp, #68]	; 0x44
+  f4:	e7ff      	b.n	f6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xf6>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:195
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
@@ -906,131 +888,131 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
     //  transmit the message: libs/esp8266/src/transport.cpp
     0
 }
- 118:	9811      	ldr	r0, [sp, #68]	; 0x44
- 11a:	b03c      	add	sp, #240	; 0xf0
- 11c:	bd80      	pop	{r7, pc}
- 11e:	a826      	add	r0, sp, #152	; 0x98
+  f6:	9811      	ldr	r0, [sp, #68]	; 0x44
+  f8:	b03c      	add	sp, #240	; 0xf0
+  fa:	bd80      	pop	{r7, pc}
+  fc:	a826      	add	r0, sp, #152	; 0x98
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
- 120:	9027      	str	r0, [sp, #156]	; 0x9c
- 122:	f240 0000 	movw	r0, #0
- 126:	f2c0 0000 	movt	r0, #0
- 12a:	9028      	str	r0, [sp, #160]	; 0xa0
- 12c:	9827      	ldr	r0, [sp, #156]	; 0x9c
- 12e:	9029      	str	r0, [sp, #164]	; 0xa4
- 130:	9828      	ldr	r0, [sp, #160]	; 0xa0
- 132:	902a      	str	r0, [sp, #168]	; 0xa8
- 134:	9829      	ldr	r0, [sp, #164]	; 0xa4
- 136:	6800      	ldr	r0, [r0, #0]
- 138:	992a      	ldr	r1, [sp, #168]	; 0xa8
- 13a:	6809      	ldr	r1, [r1, #0]
- 13c:	4288      	cmp	r0, r1
- 13e:	d116      	bne.n	16e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x16e>
- 140:	e7ff      	b.n	142 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x142>
- 142:	9829      	ldr	r0, [sp, #164]	; 0xa4
- 144:	9037      	str	r0, [sp, #220]	; 0xdc
- 146:	982a      	ldr	r0, [sp, #168]	; 0xa8
- 148:	9038      	str	r0, [sp, #224]	; 0xe0
- 14a:	a837      	add	r0, sp, #220	; 0xdc
- 14c:	9035      	str	r0, [sp, #212]	; 0xd4
- 14e:	a838      	add	r0, sp, #224	; 0xe0
- 150:	9036      	str	r0, [sp, #216]	; 0xd8
- 152:	9835      	ldr	r0, [sp, #212]	; 0xd4
- 154:	9039      	str	r0, [sp, #228]	; 0xe4
- 156:	9836      	ldr	r0, [sp, #216]	; 0xd8
- 158:	903a      	str	r0, [sp, #232]	; 0xe8
- 15a:	9839      	ldr	r0, [sp, #228]	; 0xe4
- 15c:	f240 0100 	movw	r1, #0
- 160:	f2c0 0100 	movt	r1, #0
- 164:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
- 168:	9004      	str	r0, [sp, #16]
- 16a:	9103      	str	r1, [sp, #12]
- 16c:	e005      	b.n	17a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x17a>
- 16e:	2000      	movs	r0, #0
+  fe:	9027      	str	r0, [sp, #156]	; 0x9c
+ 100:	f240 0000 	movw	r0, #0
+ 104:	f2c0 0000 	movt	r0, #0
+ 108:	9028      	str	r0, [sp, #160]	; 0xa0
+ 10a:	9827      	ldr	r0, [sp, #156]	; 0x9c
+ 10c:	9029      	str	r0, [sp, #164]	; 0xa4
+ 10e:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 110:	902a      	str	r0, [sp, #168]	; 0xa8
+ 112:	9829      	ldr	r0, [sp, #164]	; 0xa4
+ 114:	6800      	ldr	r0, [r0, #0]
+ 116:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 118:	6809      	ldr	r1, [r1, #0]
+ 11a:	4288      	cmp	r0, r1
+ 11c:	d116      	bne.n	14c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x14c>
+ 11e:	e7ff      	b.n	120 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x120>
+ 120:	9829      	ldr	r0, [sp, #164]	; 0xa4
+ 122:	9037      	str	r0, [sp, #220]	; 0xdc
+ 124:	982a      	ldr	r0, [sp, #168]	; 0xa8
+ 126:	9038      	str	r0, [sp, #224]	; 0xe0
+ 128:	a837      	add	r0, sp, #220	; 0xdc
+ 12a:	9035      	str	r0, [sp, #212]	; 0xd4
+ 12c:	a838      	add	r0, sp, #224	; 0xe0
+ 12e:	9036      	str	r0, [sp, #216]	; 0xd8
+ 130:	9835      	ldr	r0, [sp, #212]	; 0xd4
+ 132:	9039      	str	r0, [sp, #228]	; 0xe4
+ 134:	9836      	ldr	r0, [sp, #216]	; 0xd8
+ 136:	903a      	str	r0, [sp, #232]	; 0xe8
+ 138:	9839      	ldr	r0, [sp, #228]	; 0xe4
+ 13a:	f240 0100 	movw	r1, #0
+ 13e:	f2c0 0100 	movt	r1, #0
+ 142:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
+ 146:	9004      	str	r0, [sp, #16]
+ 148:	9103      	str	r1, [sp, #12]
+ 14a:	e005      	b.n	158 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x158>
+ 14c:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:168
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
- 170:	f7ff fffe 	bl	0 <init_server_post>
- 174:	f88d 00ee 	strb.w	r0, [sp, #238]	; 0xee
- 178:	e028      	b.n	1cc <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1cc>
+ 14e:	f7ff fffe 	bl	0 <init_server_post>
+ 152:	f88d 00ee 	strb.w	r0, [sp, #238]	; 0xee
+ 156:	e028      	b.n	1aa <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1aa>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
- 17a:	983a      	ldr	r0, [sp, #232]	; 0xe8
- 17c:	f240 0100 	movw	r1, #0
- 180:	f2c0 0100 	movt	r1, #0
- 184:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
- 188:	9002      	str	r0, [sp, #8]
- 18a:	9101      	str	r1, [sp, #4]
- 18c:	e7ff      	b.n	18e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x18e>
- 18e:	9804      	ldr	r0, [sp, #16]
- 190:	9031      	str	r0, [sp, #196]	; 0xc4
- 192:	9903      	ldr	r1, [sp, #12]
- 194:	9132      	str	r1, [sp, #200]	; 0xc8
- 196:	9a02      	ldr	r2, [sp, #8]
- 198:	9233      	str	r2, [sp, #204]	; 0xcc
- 19a:	9b01      	ldr	r3, [sp, #4]
- 19c:	9334      	str	r3, [sp, #208]	; 0xd0
- 19e:	46ec      	mov	ip, sp
- 1a0:	f04f 0e02 	mov.w	lr, #2
- 1a4:	f8cc e000 	str.w	lr, [ip]
- 1a8:	f240 0100 	movw	r1, #0
- 1ac:	f2c0 0100 	movt	r1, #0
- 1b0:	a82b      	add	r0, sp, #172	; 0xac
- 1b2:	2203      	movs	r2, #3
- 1b4:	ab31      	add	r3, sp, #196	; 0xc4
- 1b6:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
- 1ba:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
- 1bc:	f240 0100 	movw	r1, #0
- 1c0:	f2c0 0100 	movt	r1, #0
- 1c4:	a82b      	add	r0, sp, #172	; 0xac
- 1c6:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 1ca:	defe      	udf	#254	; 0xfe
+ 158:	983a      	ldr	r0, [sp, #232]	; 0xe8
+ 15a:	f240 0100 	movw	r1, #0
+ 15e:	f2c0 0100 	movt	r1, #0
+ 162:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
+ 166:	9002      	str	r0, [sp, #8]
+ 168:	9101      	str	r1, [sp, #4]
+ 16a:	e7ff      	b.n	16c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x16c>
+ 16c:	9804      	ldr	r0, [sp, #16]
+ 16e:	9031      	str	r0, [sp, #196]	; 0xc4
+ 170:	9903      	ldr	r1, [sp, #12]
+ 172:	9132      	str	r1, [sp, #200]	; 0xc8
+ 174:	9a02      	ldr	r2, [sp, #8]
+ 176:	9233      	str	r2, [sp, #204]	; 0xcc
+ 178:	9b01      	ldr	r3, [sp, #4]
+ 17a:	9334      	str	r3, [sp, #208]	; 0xd0
+ 17c:	46ec      	mov	ip, sp
+ 17e:	f04f 0e02 	mov.w	lr, #2
+ 182:	f8cc e000 	str.w	lr, [ip]
+ 186:	f240 0100 	movw	r1, #0
+ 18a:	f2c0 0100 	movt	r1, #0
+ 18e:	a82b      	add	r0, sp, #172	; 0xac
+ 190:	2203      	movs	r2, #3
+ 192:	ab31      	add	r3, sp, #196	; 0xc4
+ 194:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
+ 198:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
+ 19a:	f240 0100 	movw	r1, #0
+ 19e:	f2c0 0100 	movt	r1, #0
+ 1a2:	a82b      	add	r0, sp, #172	; 0xac
+ 1a4:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 1a8:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:168
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
- 1cc:	f89d 00ee 	ldrb.w	r0, [sp, #238]	; 0xee
- 1d0:	07c0      	lsls	r0, r0, #31
- 1d2:	2800      	cmp	r0, #0
- 1d4:	d107      	bne.n	1e6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1e6>
- 1d6:	e7ff      	b.n	1d8 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1d8>
- 1d8:	f240 0000 	movw	r0, #0
- 1dc:	f2c0 0000 	movt	r0, #0
- 1e0:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 1e4:	defe      	udf	#254	; 0xfe
+ 1aa:	f89d 00ee 	ldrb.w	r0, [sp, #238]	; 0xee
+ 1ae:	07c0      	lsls	r0, r0, #31
+ 1b0:	2800      	cmp	r0, #0
+ 1b2:	d107      	bne.n	1c4 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1c4>
+ 1b4:	e7ff      	b.n	1b6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1b6>
+ 1b6:	f240 0000 	movw	r0, #0
+ 1ba:	f2c0 0000 	movt	r0, #0
+ 1be:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+ 1c2:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:187
     let rc = unsafe { do_server_post() };  assert!(rc);
- 1e6:	f7ff fffe 	bl	0 <do_server_post>
- 1ea:	f88d 00ef 	strb.w	r0, [sp, #239]	; 0xef
- 1ee:	e7ff      	b.n	1f0 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1f0>
- 1f0:	f89d 00ef 	ldrb.w	r0, [sp, #239]	; 0xef
- 1f4:	07c0      	lsls	r0, r0, #31
- 1f6:	2800      	cmp	r0, #0
- 1f8:	d107      	bne.n	20a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x20a>
- 1fa:	e7ff      	b.n	1fc <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1fc>
- 1fc:	f240 0000 	movw	r0, #0
- 200:	f2c0 0000 	movt	r0, #0
- 204:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 208:	defe      	udf	#254	; 0xfe
+ 1c4:	f7ff fffe 	bl	0 <do_server_post>
+ 1c8:	f88d 00ef 	strb.w	r0, [sp, #239]	; 0xef
+ 1cc:	e7ff      	b.n	1ce <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1ce>
+ 1ce:	f89d 00ef 	ldrb.w	r0, [sp, #239]	; 0xef
+ 1d2:	07c0      	lsls	r0, r0, #31
+ 1d4:	2800      	cmp	r0, #0
+ 1d6:	d107      	bne.n	1e8 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1e8>
+ 1d8:	e7ff      	b.n	1da <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1da>
+ 1da:	f240 0000 	movw	r0, #0
+ 1de:	f2c0 0000 	movt	r0, #0
+ 1e2:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+ 1e6:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:189
     console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
- 20a:	f240 0000 	movw	r0, #0
- 20e:	f2c0 0000 	movt	r0, #0
- 212:	214b      	movs	r1, #75	; 0x4b
- 214:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
- 218:	e7ff      	b.n	21a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x21a>
- 21a:	2000      	movs	r0, #0
+ 1e8:	f240 0000 	movw	r0, #0
+ 1ec:	f2c0 0000 	movt	r0, #0
+ 1f0:	214b      	movs	r1, #75	; 0x4b
+ 1f2:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
+ 1f6:	e7ff      	b.n	1f8 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1f8>
+ 1f8:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:194
     0
- 21c:	9011      	str	r0, [sp, #68]	; 0x44
+ 1fa:	9011      	str	r0, [sp, #68]	; 0x44
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:195
 }
- 21e:	e77b      	b.n	118 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x118>
+ 1fc:	e77b      	b.n	f6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xf6>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
     assert_ne!(node_id.to_bytes()[0], 0);
- 220:	f240 0000 	movw	r0, #0
- 224:	f2c0 0000 	movt	r0, #0
- 228:	2100      	movs	r1, #0
- 22a:	9a09      	ldr	r2, [sp, #36]	; 0x24
- 22c:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
- 230:	defe      	udf	#254	; 0xfe
+ 1fe:	f240 0000 	movw	r0, #0
+ 202:	f2c0 0000 	movt	r0, #0
+ 206:	2100      	movs	r1, #0
+ 208:	9a09      	ldr	r2, [sp, #36]	; 0x24
+ 20a:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
+ 20e:	defe      	udf	#254	; 0xfe
 
 Disassembly of section .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E:
 
@@ -1051,37 +1033,22 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
    a:	900c      	str	r0, [sp, #48]	; 0x30
    c:	910d      	str	r1, [sp, #52]	; 0x34
    e:	920e      	str	r2, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:210
-	if let SensorValueType::None = sensor_val.val { assert!(false); }
-  10:	980c      	ldr	r0, [sp, #48]	; 0x30
-  12:	6880      	ldr	r0, [r0, #8]
-  14:	2800      	cmp	r0, #0
-  16:	930b      	str	r3, [sp, #44]	; 0x2c
-  18:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
-  1c:	f8cd e024 	str.w	lr, [sp, #36]	; 0x24
-  20:	d10c      	bne.n	3c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x3c>
-  22:	e7ff      	b.n	24 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x24>
-  24:	2000      	movs	r0, #0
-  26:	2800      	cmp	r0, #0
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:211
+	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
+    if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+  10:	f240 0000 	movw	r0, #0
+  14:	f2c0 0000 	movt	r0, #0
+  18:	7800      	ldrb	r0, [r0, #0]
+  1a:	07c0      	lsls	r0, r0, #31
+  1c:	2800      	cmp	r0, #0
+  1e:	930b      	str	r3, [sp, #44]	; 0x2c
+  20:	f8cd c028 	str.w	ip, [sp, #40]	; 0x28
+  24:	f8cd e024 	str.w	lr, [sp, #36]	; 0x24
   28:	d107      	bne.n	3a <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x3a>
   2a:	e7ff      	b.n	2c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x2c>
-  2c:	f240 0000 	movw	r0, #0
-  30:	f2c0 0000 	movt	r0, #0
-  34:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  38:	defe      	udf	#254	; 0xfe
-  3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x3c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:211
-    if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-  3c:	f240 0000 	movw	r0, #0
-  40:	f2c0 0000 	movt	r0, #0
-  44:	7800      	ldrb	r0, [r0, #0]
-  46:	07c0      	lsls	r0, r0, #31
-  48:	2800      	cmp	r0, #0
-  4a:	d107      	bne.n	5c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x5c>
-  4c:	e7ff      	b.n	4e <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x4e>
-  4e:	f06f 0005 	mvn.w	r0, #5
-  52:	900f      	str	r0, [sp, #60]	; 0x3c
-  54:	e7ff      	b.n	56 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x56>
+  2c:	f06f 0005 	mvn.w	r0, #5
+  30:	900f      	str	r0, [sp, #60]	; 0x3c
+  32:	e7ff      	b.n	34 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x34>
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:234
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
 
@@ -1089,109 +1056,109 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
     //  transmit the message: libs/nrf24l01/src/transport.cpp
     0
 }
-  56:	980f      	ldr	r0, [sp, #60]	; 0x3c
-  58:	b016      	add	sp, #88	; 0x58
-  5a:	bd80      	pop	{r7, pc}
+  34:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  36:	b016      	add	sp, #88	; 0x58
+  38:	bd80      	pop	{r7, pc}
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:216
     let rc = unsafe { init_collector_post() };  assert!(rc);
-  5c:	f7ff fffe 	bl	0 <init_collector_post>
-  60:	f88d 0043 	strb.w	r0, [sp, #67]	; 0x43
-  64:	e7ff      	b.n	66 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x66>
-  66:	f89d 0043 	ldrb.w	r0, [sp, #67]	; 0x43
-  6a:	07c0      	lsls	r0, r0, #31
-  6c:	2800      	cmp	r0, #0
-  6e:	d107      	bne.n	80 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x80>
-  70:	e7ff      	b.n	72 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x72>
-  72:	f240 0000 	movw	r0, #0
-  76:	f2c0 0000 	movt	r0, #0
-  7a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  7e:	defe      	udf	#254	; 0xfe
+  3a:	f7ff fffe 	bl	0 <init_collector_post>
+  3e:	f88d 0043 	strb.w	r0, [sp, #67]	; 0x43
+  42:	e7ff      	b.n	44 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x44>
+  44:	f89d 0043 	ldrb.w	r0, [sp, #67]	; 0x43
+  48:	07c0      	lsls	r0, r0, #31
+  4a:	2800      	cmp	r0, #0
+  4c:	d107      	bne.n	5e <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x5e>
+  4e:	e7ff      	b.n	50 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x50>
+  50:	f240 0000 	movw	r0, #0
+  54:	f2c0 0000 	movt	r0, #0
+  58:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+  5c:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:219
     let _payload = coap!(@cbor {
-  80:	f240 0000 	movw	r0, #0
-  84:	f2c0 0000 	movt	r0, #0
-  88:	9013      	str	r0, [sp, #76]	; 0x4c
-  8a:	2004      	movs	r0, #4
-  8c:	9014      	str	r0, [sp, #80]	; 0x50
-  8e:	f240 0000 	movw	r0, #0
-  92:	f2c0 0000 	movt	r0, #0
-  96:	f240 0100 	movw	r1, #0
-  9a:	f2c0 0100 	movt	r1, #0
-  9e:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
-  a2:	f7ff fffe 	bl	0 <cbor_encoder_create_map>
-  a6:	9008      	str	r0, [sp, #32]
-  a8:	e7ff      	b.n	aa <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xaa>
-  aa:	980c      	ldr	r0, [sp, #48]	; 0x30
-  ac:	6801      	ldr	r1, [r0, #0]
-  ae:	6840      	ldr	r0, [r0, #4]
-  b0:	9007      	str	r0, [sp, #28]
-  b2:	4608      	mov	r0, r1
-  b4:	9907      	ldr	r1, [sp, #28]
-  b6:	f7ff fffe 	bl	0 <_ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hca80eebebc99ccd9E>
-  ba:	9006      	str	r0, [sp, #24]
-  bc:	e7ff      	b.n	be <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xbe>
-  be:	980c      	ldr	r0, [sp, #48]	; 0x30
-  c0:	6801      	ldr	r1, [r0, #0]
-  c2:	6840      	ldr	r0, [r0, #4]
-  c4:	9005      	str	r0, [sp, #20]
-  c6:	4608      	mov	r0, r1
-  c8:	9905      	ldr	r1, [sp, #20]
-  ca:	f7ff fffe 	bl	0 <_ZN4core3str21_$LT$impl$u20$str$GT$3len17ha2e0db4a9f502071E>
-  ce:	9004      	str	r0, [sp, #16]
-  d0:	e7ff      	b.n	d2 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xd2>
-  d2:	f240 0000 	movw	r0, #0
-  d6:	f2c0 0000 	movt	r0, #0
-  da:	9906      	ldr	r1, [sp, #24]
-  dc:	9a04      	ldr	r2, [sp, #16]
-  de:	f7ff fffe 	bl	0 <cbor_encode_text_string>
-  e2:	9003      	str	r0, [sp, #12]
-  e4:	e7ff      	b.n	e6 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xe6>
-  e6:	f240 0000 	movw	r0, #0
-  ea:	f2c0 0000 	movt	r0, #0
-  ee:	f240 42d2 	movw	r2, #1234	; 0x4d2
-  f2:	2300      	movs	r3, #0
-  f4:	f7ff fffe 	bl	0 <cbor_encode_int>
-  f8:	9002      	str	r0, [sp, #8]
-  fa:	e7ff      	b.n	fc <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xfc>
-  fc:	f240 0000 	movw	r0, #0
- 100:	f2c0 0000 	movt	r0, #0
- 104:	f240 0100 	movw	r1, #0
- 108:	f2c0 0100 	movt	r1, #0
- 10c:	f7ff fffe 	bl	0 <cbor_encoder_close_container>
- 110:	9001      	str	r0, [sp, #4]
- 112:	e7ff      	b.n	114 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x114>
- 114:	9813      	ldr	r0, [sp, #76]	; 0x4c
- 116:	9914      	ldr	r1, [sp, #80]	; 0x50
- 118:	9011      	str	r0, [sp, #68]	; 0x44
- 11a:	9112      	str	r1, [sp, #72]	; 0x48
+  5e:	f240 0000 	movw	r0, #0
+  62:	f2c0 0000 	movt	r0, #0
+  66:	9013      	str	r0, [sp, #76]	; 0x4c
+  68:	2004      	movs	r0, #4
+  6a:	9014      	str	r0, [sp, #80]	; 0x50
+  6c:	f240 0000 	movw	r0, #0
+  70:	f2c0 0000 	movt	r0, #0
+  74:	f240 0100 	movw	r1, #0
+  78:	f2c0 0100 	movt	r1, #0
+  7c:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
+  80:	f7ff fffe 	bl	0 <cbor_encoder_create_map>
+  84:	9008      	str	r0, [sp, #32]
+  86:	e7ff      	b.n	88 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x88>
+  88:	980c      	ldr	r0, [sp, #48]	; 0x30
+  8a:	6801      	ldr	r1, [r0, #0]
+  8c:	6840      	ldr	r0, [r0, #4]
+  8e:	9007      	str	r0, [sp, #28]
+  90:	4608      	mov	r0, r1
+  92:	9907      	ldr	r1, [sp, #28]
+  94:	f7ff fffe 	bl	0 <_ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hca80eebebc99ccd9E>
+  98:	9006      	str	r0, [sp, #24]
+  9a:	e7ff      	b.n	9c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x9c>
+  9c:	980c      	ldr	r0, [sp, #48]	; 0x30
+  9e:	6801      	ldr	r1, [r0, #0]
+  a0:	6840      	ldr	r0, [r0, #4]
+  a2:	9005      	str	r0, [sp, #20]
+  a4:	4608      	mov	r0, r1
+  a6:	9905      	ldr	r1, [sp, #20]
+  a8:	f7ff fffe 	bl	0 <_ZN4core3str21_$LT$impl$u20$str$GT$3len17ha2e0db4a9f502071E>
+  ac:	9004      	str	r0, [sp, #16]
+  ae:	e7ff      	b.n	b0 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xb0>
+  b0:	f240 0000 	movw	r0, #0
+  b4:	f2c0 0000 	movt	r0, #0
+  b8:	9906      	ldr	r1, [sp, #24]
+  ba:	9a04      	ldr	r2, [sp, #16]
+  bc:	f7ff fffe 	bl	0 <cbor_encode_text_string>
+  c0:	9003      	str	r0, [sp, #12]
+  c2:	e7ff      	b.n	c4 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xc4>
+  c4:	f240 0000 	movw	r0, #0
+  c8:	f2c0 0000 	movt	r0, #0
+  cc:	f240 42d2 	movw	r2, #1234	; 0x4d2
+  d0:	2300      	movs	r3, #0
+  d2:	f7ff fffe 	bl	0 <cbor_encode_int>
+  d6:	9002      	str	r0, [sp, #8]
+  d8:	e7ff      	b.n	da <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xda>
+  da:	f240 0000 	movw	r0, #0
+  de:	f2c0 0000 	movt	r0, #0
+  e2:	f240 0100 	movw	r1, #0
+  e6:	f2c0 0100 	movt	r1, #0
+  ea:	f7ff fffe 	bl	0 <cbor_encoder_close_container>
+  ee:	9001      	str	r0, [sp, #4]
+  f0:	e7ff      	b.n	f2 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0xf2>
+  f2:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  f4:	9914      	ldr	r1, [sp, #80]	; 0x50
+  f6:	9011      	str	r0, [sp, #68]	; 0x44
+  f8:	9112      	str	r1, [sp, #72]	; 0x48
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:227
     let rc = unsafe { do_collector_post() };  assert!(rc);
- 11c:	f7ff fffe 	bl	0 <do_collector_post>
- 120:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
- 124:	e7ff      	b.n	126 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x126>
- 126:	f89d 0057 	ldrb.w	r0, [sp, #87]	; 0x57
- 12a:	07c0      	lsls	r0, r0, #31
- 12c:	2800      	cmp	r0, #0
- 12e:	d107      	bne.n	140 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x140>
- 130:	e7ff      	b.n	132 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x132>
- 132:	f240 0000 	movw	r0, #0
- 136:	f2c0 0000 	movt	r0, #0
- 13a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 13e:	defe      	udf	#254	; 0xfe
+  fa:	f7ff fffe 	bl	0 <do_collector_post>
+  fe:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
+ 102:	e7ff      	b.n	104 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x104>
+ 104:	f89d 0057 	ldrb.w	r0, [sp, #87]	; 0x57
+ 108:	07c0      	lsls	r0, r0, #31
+ 10a:	2800      	cmp	r0, #0
+ 10c:	d107      	bne.n	11e <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x11e>
+ 10e:	e7ff      	b.n	110 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x110>
+ 110:	f240 0000 	movw	r0, #0
+ 114:	f2c0 0000 	movt	r0, #0
+ 118:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+ 11c:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:229
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
- 140:	f240 0000 	movw	r0, #0
- 144:	f2c0 0000 	movt	r0, #0
- 148:	2121      	movs	r1, #33	; 0x21
- 14a:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
- 14e:	e7ff      	b.n	150 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x150>
- 150:	2000      	movs	r0, #0
+ 11e:	f240 0000 	movw	r0, #0
+ 122:	f2c0 0000 	movt	r0, #0
+ 126:	2121      	movs	r1, #33	; 0x21
+ 128:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
+ 12c:	e7ff      	b.n	12e <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x12e>
+ 12e:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
     0
- 152:	900f      	str	r0, [sp, #60]	; 0x3c
+ 130:	900f      	str	r0, [sp, #60]	; 0x3c
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:234
 }
- 154:	e77f      	b.n	56 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x56>
+ 132:	e77f      	b.n	34 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x34>
 
 mylib-ac95891f38e7979c.1p0bleeal0c8ffkh.rcgu.o:     file format elf32-littlearm
 
@@ -1936,19 +1903,18 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.0	0000000a .Lanon.32e44b06c4d24b342963a6a6b9d75415.0
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.1	0000000d .Lanon.32e44b06c4d24b342963a6a6b9d75415.1
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.10	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.10
+00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.11	00000016 .Lanon.32e44b06c4d24b342963a6a6b9d75415.11
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.12	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.12
-00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.13	00000016 .Lanon.32e44b06c4d24b342963a6a6b9d75415.13
+00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.13	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.13
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.14	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.14
-00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.15	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.15
-00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.16	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.16
-00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.17	00000019 .Lanon.32e44b06c4d24b342963a6a6b9d75415.17
-00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.18	00000001 .Lanon.32e44b06c4d24b342963a6a6b9d75415.18
+00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.15	00000019 .Lanon.32e44b06c4d24b342963a6a6b9d75415.15
+00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.16	00000001 .Lanon.32e44b06c4d24b342963a6a6b9d75415.16
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.4	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.4
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.6	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.6
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.7	00000018 .Lanon.32e44b06c4d24b342963a6a6b9d75415.7
 00000000 l     O .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.8	00000011 .Lanon.32e44b06c4d24b342963a6a6b9d75415.8
 00000000 l     F .text._ZN5mylib13listen_sensor15get_temperature17hf02a882c2141679eE	00000138 _ZN5mylib13listen_sensor15get_temperature17hf02a882c2141679eE
-00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E	00000118 _ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E
+00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E	000000f8 _ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E
 00000000 l    d  .text._ZN5mylib13listen_sensor21start_sensor_listener17h20948f110386186dE	00000000 .text._ZN5mylib13listen_sensor21start_sensor_listener17h20948f110386186dE
 00000000 l    d  .text._ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E	00000000 .text._ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E
 00000000 l    d  .text._ZN5mylib13listen_sensor15get_temperature17hf02a882c2141679eE	00000000 .text._ZN5mylib13listen_sensor15get_temperature17hf02a882c2141679eE
@@ -1956,7 +1922,6 @@ SYMBOL TABLE:
 00000000 l    d  .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.3	00000000 .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.3
 00000000 l    d  .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.5	00000000 .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.5
 00000000 l    d  .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.9	00000000 .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.9
-00000000 l    d  .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.11	00000000 .rodata..Lanon.32e44b06c4d24b342963a6a6b9d75415.11
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
@@ -2205,65 +2170,50 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
   a6:	a811      	add	r0, sp, #68	; 0x44
   a8:	f7ff fffe 	bl	0 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E>
   ac:	e7ff      	b.n	ae <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xae>
-/mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:87
-        if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
-  ae:	9813      	ldr	r0, [sp, #76]	; 0x4c
-  b0:	2800      	cmp	r0, #0
-  b2:	d10c      	bne.n	ce <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xce>
-  b4:	e7ff      	b.n	b6 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xb6>
-  b6:	2000      	movs	r0, #0
-  b8:	2800      	cmp	r0, #0
-  ba:	d107      	bne.n	cc <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xcc>
-  bc:	e7ff      	b.n	be <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xbe>
-  be:	f240 0000 	movw	r0, #0
-  c2:	f2c0 0000 	movt	r0, #0
-  c6:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  ca:	defe      	udf	#254	; 0xfe
-  cc:	e7ff      	b.n	ce <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xce>
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:94
         let rc = send_sensor_data(&temp_sensor_value, device_name);
-  ce:	990f      	ldr	r1, [sp, #60]	; 0x3c
-  d0:	9a10      	ldr	r2, [sp, #64]	; 0x40
-  d2:	a811      	add	r0, sp, #68	; 0x44
-  d4:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E>
-  d8:	9015      	str	r0, [sp, #84]	; 0x54
-  da:	e7ff      	b.n	dc <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xdc>
+  ae:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  b0:	9a10      	ldr	r2, [sp, #64]	; 0x40
+  b2:	a811      	add	r0, sp, #68	; 0x44
+  b4:	f7ff fffe 	bl	0 <_ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E>
+  b8:	9015      	str	r0, [sp, #84]	; 0x54
+  ba:	e7ff      	b.n	bc <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xbc>
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:98
         if rc == SYS_EAGAIN {
-  dc:	9815      	ldr	r0, [sp, #84]	; 0x54
-  de:	3006      	adds	r0, #6
-  e0:	2800      	cmp	r0, #0
-  e2:	d10b      	bne.n	fc <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xfc>
-  e4:	e7ff      	b.n	e6 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xe6>
+  bc:	9815      	ldr	r0, [sp, #84]	; 0x54
+  be:	3006      	adds	r0, #6
+  c0:	2800      	cmp	r0, #0
+  c2:	d10b      	bne.n	dc <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xdc>
+  c4:	e7ff      	b.n	c6 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xc6>
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:99
             console_print(b"TMP network not ready\n");
-  e6:	f240 0000 	movw	r0, #0
-  ea:	f2c0 0000 	movt	r0, #0
-  ee:	2116      	movs	r1, #22
-  f0:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
-  f4:	e7ff      	b.n	f6 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xf6>
-  f6:	2000      	movs	r0, #0
+  c6:	f240 0000 	movw	r0, #0
+  ca:	f2c0 0000 	movt	r0, #0
+  ce:	2116      	movs	r1, #22
+  d0:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
+  d4:	e7ff      	b.n	d6 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xd6>
+  d6:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:100
             return 0; 
-  f8:	900c      	str	r0, [sp, #48]	; 0x30
-  fa:	e7a9      	b.n	50 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0x50>
+  d8:	900c      	str	r0, [sp, #48]	; 0x30
+  da:	e7b9      	b.n	50 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0x50>
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:102
         assert!(rc == 0);
-  fc:	9815      	ldr	r0, [sp, #84]	; 0x54
-  fe:	2800      	cmp	r0, #0
- 100:	d007      	beq.n	112 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0x112>
- 102:	e7ff      	b.n	104 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0x104>
- 104:	f240 0000 	movw	r0, #0
- 108:	f2c0 0000 	movt	r0, #0
- 10c:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 110:	defe      	udf	#254	; 0xfe
- 112:	2000      	movs	r0, #0
+  dc:	9815      	ldr	r0, [sp, #84]	; 0x54
+  de:	2800      	cmp	r0, #0
+  e0:	d007      	beq.n	f2 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xf2>
+  e2:	e7ff      	b.n	e4 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0xe4>
+  e4:	f240 0000 	movw	r0, #0
+  e8:	f2c0 0000 	movt	r0, #0
+  ec:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+  f0:	defe      	udf	#254	; 0xfe
+  f2:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:105
     0
- 114:	900c      	str	r0, [sp, #48]	; 0x30
+  f4:	900c      	str	r0, [sp, #48]	; 0x30
 /mnt/c/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:106
 }
- 116:	e79b      	b.n	50 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0x50>
+  f6:	e7ab      	b.n	50 <_ZN5mylib13listen_sensor16read_temperature17h98575e0f2df03735E+0x50>
 
 Disassembly of section .text._ZN5mylib13listen_sensor15get_temperature17hf02a882c2141679eE:
 
