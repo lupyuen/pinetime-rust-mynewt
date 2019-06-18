@@ -1,6 +1,7 @@
 use cstr_core::CStr;             //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;              //  Import base.rs for common declarations
-use crate::mynewt::tinycbor::*;  //  Import tinycbor.rs for TinyCBOR C API
+use crate::mynewt::tinycbor::*;  //  Import mynewt/tinycbor.rs for TinyCBOR C API
+use crate::mynewt::os::*;        //  Import mynewt/os.rs for Mynewt `kernel/os` API
 
 fn send_sensor_data_without_encoding() {
   trace_macros!(true);   //  Start tracing macros
@@ -166,7 +167,10 @@ fn test_macro2() {
 ///  Stack space for Network Task, initialised to 0.
 static mut network_task_stack: [u8; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE] = [0; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE];
 ///  Mynewt task object will be saved here.
-static mut network_task: os_task = os_task{};
+static mut network_task: os_task = os_task{
+    t_stackptr: 0 as os_stack_t,
+
+};
 ///  Set to true when network tasks have been completed
 static mut network_is_ready: bool = false;
 ///  Size of the stack (in 8-byte units). Previously `OS_STACK_ALIGN(256)`  

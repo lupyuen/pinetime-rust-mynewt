@@ -3,6 +3,7 @@
 #![feature(trace_macros)]   //  To support macro tracing: trace_macros!(true)
 #![feature(concat_idents)]  //  To support concat_idents!() macro used in coap!() macro
 
-pub mod tinycbor;       //  Export tinycbor.rs as Rust module `tinycbor`
-pub mod sensor;         //  Export sensor.rs as Rust module `sensor`
-pub mod sensor_network; //  Export sensor_network.rs as Rust module `sensor_network`
+pub mod tinycbor;       //  Export tinycbor.rs as Rust module `tinycbor`. Contains `tinycbor` bindings.
+pub mod os;             //  Export os.rs as Rust module `os`. Contains Mynewt `kernel/os` bindings.
+pub mod sensor;         //  Export sensor.rs as Rust module `sensor`.  Contains Mynewt `hw/sensor` bindings.
+pub mod sensor_network; //  Export sensor_network.rs as Rust module `sensor_network`  Contains Mynewt `libs/sensor_network` bindings.

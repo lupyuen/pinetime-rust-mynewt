@@ -1,9 +1,46 @@
 #!/usr/bin/env bash
-#  Generate Rust bindings for C libraries. Install "bindgen" before running:
+#  Generate Rust bindings for Mynewt C API. Install "bindgen" before running:
 #  cargo install bindgen
+#  Also install rustfmt when prompted
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
+
+function generate_bindings_kernel() {
+    #  Generate bindings for kernel/$1 e.g. os.
+    local libname=$1
+    local modname=$1
+    #  libdir looks like kernel/os
+    local libdir=kernel/$libname
+    #  libcmd looks like bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname.o.cmd
+    local whitelist=`cat << EOF
+        --whitelist-function (?i)${modname}_.* \
+        --whitelist-type     (?i)${modname}_.* \
+        --whitelist-var      (?i)${modname}_.* 
+EOF
+`
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
+function generate_bindings_libs() {
+    #  Generate bindings for libs/$1 e.g. sensor_network.
+    local libname=$1
+    local modname=$1
+    #  libdir looks like libs/sensor_network
+    local libdir=libs/$libname
+    #  libcmd looks like bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+    local whitelist=`cat << EOF
+        --whitelist-function (?i)init_.*_post \
+        --whitelist-function (?i)do_.*_post \
+        --whitelist-function (?i)${modname}.* \
+        --whitelist-type     (?i)${modname}.* \
+        --whitelist-var      (?i)${modname}.* 
+EOF
+`
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
 
 function generate_bindings_apps() {
     #  Generate bindings for apps/$1 e.g. my_sensor_app.
@@ -15,28 +52,12 @@ function generate_bindings_apps() {
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
-function generate_bindings_libs() {
-    #  Generate bindings for libs/$1 e.g. sensor_network.
-    local libname=$1
-    local modname=$1
-    local libdir=libs/$libname
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
-    local whitelist=`cat << EOF
-        --whitelist-function (?i)init_.*_post \
-        --whitelist-function (?i)do_.*_post \
-        --whitelist-function (?i)$modname.* \
-        --whitelist-type     (?i)$modname.* \
-        --whitelist-var      (?i)$modname.* 
-EOF
-`
-    generate_bindings $libname $modname $libdir $libcmd $whitelist
-}
-
 function generate_bindings() {
-    #  Generate bindings for libs/$1 e.g. sensor_network.
+    #  Generate bindings for the module.
     local libname=$1
     local modname=$2
     local libdir=$3
+    # libcmd looks like bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
     local libcmd=$4
     shift 4
     local whitelist="$@"
@@ -86,7 +107,9 @@ EOF
 #  generate_bindings_apps my_sensor_app send_coap
 
 #  Generate bindings for libs/sensor_network.
-generate_bindings_libs sensor_network
+#  generate_bindings_libs sensor_network
+
+generate_bindings_kernel os  #  Generate bindings for kernel/os
 
 exit
 
