@@ -93,7 +93,7 @@ extern {
 ///  We will open internal temperature sensor `temp_stm32_0`.
 ///  Must sync with apps/my_sensor_app/src/listen_sensor.h
 pub const SENSOR_DEVICE: *const u8 = TEMP_STM32_DEVICE;
-pub const TEMP_STM32_DEVICE: *const u8 = b"temp_stm32_0\0".as_ptr();
+pub const TEMP_STM32_DEVICE: *const u8 = b"temp_stm32_0\0".as_ptr();  //  TODO
 
 //  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
 //  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...
@@ -102,7 +102,7 @@ pub const TEMP_SENSOR_TYPE: SensorType = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 ///  Return integer sensor values
 pub const TEMP_SENSOR_VALUE_TYPE: i32 = SENSOR_VALUE_TYPE_INT32;         
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server or Collector Node
-pub const TEMP_SENSOR_KEY: *const u8 = b"t\0".as_ptr();  
+pub const TEMP_SENSOR_KEY: &'static str = "t";
 
 //  #else                                                          //  If we are returning computed temperature (floating-point)...
 //  pub const TEMP_SENSOR_TYPE       SENSOR_TYPE_AMBIENT_TEMPERATURE //  Set to floating-point sensor type
@@ -119,7 +119,7 @@ pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: SensorType = SENSOR_TYPE_USER_DEF
 ///  `val_type` indicates whether it's an integer or float.
 ///  Must sync with libs/sensor_coap/include/sensor_coap/sensor_coap.h
 #[repr(C)]  //  This struct is common to C and Rust, tell Rust not to reorder the fields.
-pub struct SensorValue {
+pub struct SensorValueOld {
     ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
     pub key: *const u8,  
     ///  The type of the sensor value. `SENSOR_VALUE_TYPE_INT32` for int, `SENSOR_VALUE_TYPE_FLOAT` for float.
@@ -132,16 +132,28 @@ pub struct SensorValue {
 
 ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
 ///  or float (computed), we use the struct to return both integer and float values.
-pub struct SensorValueNew {
+pub struct SensorValue {
   ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-  //  pub key: &'static [u8],
-  pub key: &'static str,
+  pub key: &'static str,  //  Previously: pub key: &'static [u8],
   ///  The type of the sensor value and the value.
   pub val: SensorValueType,
 }
 
+///  Default sensor value is `None`
+impl Default for SensorValue {
+  #[inline]
+  fn default() -> SensorValue {
+    SensorValue {
+      key: "",
+      val: SensorValueType::None,
+    }
+  }
+}
+
 ///  Represents the type and value of a sensor data value.
 pub enum SensorValueType {
+  ///  No value.
+  None,
   ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
   Uint(u32),
   ///  32-bit float. For computed temp, contains the computed temp float value

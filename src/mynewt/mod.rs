@@ -7,3 +7,10 @@ pub mod tinycbor;       //  Export tinycbor.rs as Rust module `tinycbor`. Contai
 pub mod os;             //  Export os.rs as Rust module `os`. Contains Mynewt `kernel/os` bindings.
 pub mod sensor;         //  Export sensor.rs as Rust module `sensor`.  Contains Mynewt `hw/sensor` bindings.
 pub mod sensor_network; //  Export sensor_network.rs as Rust module `sensor_network`  Contains Mynewt `libs/sensor_network` bindings.
+
+///  Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+#[link(name = "net_oic")]
+extern {
+    pub static mut g_encoder: tinycbor::CborEncoder;
+    pub static mut root_map: tinycbor::CborEncoder;
+}

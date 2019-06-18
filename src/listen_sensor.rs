@@ -78,21 +78,21 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
         //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
         //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
         let device = sensor_get_device(sensor);
-        let c_buf: *const c_char = device_get_name(device);
-        let device_name: &CStr = CStr::from_ptr(c_buf);
+        let device_name_ptr: *const c_char = device_get_name(device);
+        let device_name: &CStr = CStr::from_ptr(device_name_ptr);
         //assert!(device_name.len() > 0);  //  console_printf("device_name %s\n", device_name);
         
         //  Get the temperature sensor value. It could be raw or computed.
         let temp_sensor_value = get_temperature(sensor_data, sensor_type);
-        assert!(temp_sensor_value.val_type != 0);
-        if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
+        ////assert_ne!(temp_sensor_value.val, SensorValueType::None);
+        ////if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
 
         //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
         //  Compose a CoAP message with the temperature sensor data and send to the 
         //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
         //  background task so this function will return without waiting for the message 
         //  to be transmitted.
-        let rc = send_sensor_data(&temp_sensor_value, device_name);
+        let rc = send_sensor_data(&temp_sensor_value, device_name.to_str().unwrap());
 
         //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
         //  We drop the sensor data and send at the next poll.
@@ -110,59 +110,50 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
 ///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
 ///  the raw or computed temperature, as well as the key and value type.
 fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
-    let mut return_value = SensorValue {
-        key: b"\0".as_ptr(),
-        val_type: 0,
-        int_val: 0,
-        float_val: 0.0,
-    };
-    unsafe {
-        //assert!(sensor_data);
-        match sensor_type {                                //  Is this raw or computed temperature?
-            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
-                //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
-                let mut rawtempdata = SensorTempRawData {
-                    strd_temp_raw: 0,
-                    strd_temp_raw_is_valid: 0,
-                };
-                let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
-                assert!(rc == 0);
+    let mut return_value = SensorValue::default();
+    match sensor_type {                                //  Is this raw or computed temperature?
+        SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
+            //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
+            let mut rawtempdata = SensorTempRawData {
+                strd_temp_raw: 0,
+                strd_temp_raw_is_valid: 0,
+            };
+            let rc = get_temp_raw_data(sensor_data, &mut rawtempdata);
+            assert!(rc == 0);
 
-                //  Check that the raw temperature data is valid.
-                if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+            //  Check that the raw temperature data is valid.
+            if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
 
-                //  Raw temperature data is valid.  Copy and display it.
-                return_value.int_val = rawtempdata.strd_temp_raw as u16;  //  Raw Temperature in integer (0 to 4095)
-                console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
-            },
-            SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
-                //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
-                let mut tempdata = SensorTempData {
-                    std_temp: 0.0,
-                    std_temp_is_valid: 0,
-                };
-                let rc = get_temp_data(sensor_data, &mut tempdata);
-                assert!(rc == 0);
+            //  Raw temperature data is valid.  Copy and display it.
+            return_value.val = SensorValueType::Uint(rawtempdata.strd_temp_raw);  //  Raw Temperature in integer (0 to 4095)
+            console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
+        },
+        SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
+            //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
+            let mut tempdata = SensorTempData {
+                std_temp: 0.0,
+                std_temp_is_valid: 0,
+            };
+            let rc = get_temp_data(sensor_data, &mut tempdata);
+            assert!(rc == 0);
 
-                //  Check that the computed temperature data is valid.
-                if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+            //  Check that the computed temperature data is valid.
+            if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
 
-                //  Computed temperature data is valid.  Copy and display it.
-                return_value.float_val = tempdata.std_temp;  //  Temperature in floating point.
-                /*
-                #if !MYNEWT_VAL(RAW_TEMP)  //  The following line contains floating-point code. We should compile only if we are not using raw temp.
-                            console_printf("TMP poll data: tmp ");  console_printfloat(return_value->float_val);  console_printf("\n");  ////
-                #endif  //  !MYNEWT_VAL(RAW_TEMP)
-                */
-            },
-            _ => {
-                assert!(false);  //  Unknown temperature sensor type
-                return return_value;
-            }
+            //  Computed temperature data is valid.  Copy and display it.
+            return_value.val = SensorValueType::Float(tempdata.std_temp);  //  Temperature in floating point.
+            /*
+            #if !MYNEWT_VAL(RAW_TEMP)  //  The following line contains floating-point code. We should compile only if we are not using raw temp.
+                        console_printf("TMP poll data: tmp ");  console_printfloat(return_value->float_val);  console_printf("\n");  ////
+            #endif  //  !MYNEWT_VAL(RAW_TEMP)
+            */
+        },
+        _ => {
+            assert!(false);  //  Unknown temperature sensor type
+            return return_value;
         }
-        //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
-        return_value.key = TEMP_SENSOR_KEY;
-        return_value.val_type = TEMP_SENSOR_VALUE_TYPE;
-    };
+    }
+    //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
+    return_value.key = TEMP_SENSOR_KEY;
     return_value
 }
