@@ -63,7 +63,7 @@ pkg.deps.SEMIHOSTING_CONSOLE:
 #  C compiler flags
 pkg.cflags:
     - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
-#   - -Os                     #  Optimise for smallest size
+    - -Os                     #  Optimise for smallest size
 
 #  To test expansion of macros, enable both options below.  Expanded source code will appear at "bin" folder,
 #  like bin\targets\bluepill_my_sensor\app\libs\remote_sensor\libs\remote_sensor\src\remote_sensor.o
@@ -73,10 +73,3 @@ pkg.cflags:
 #  Linker flags
 pkg.lflags:
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation
-    #- -Wl,--require-defined=rust_sysinit  # TODO
-    #- -Wl,--require-defined=null_sensor   # TODO
-    #- -Wl,--require-defined=_ZN4core9panicking5panic17h5137ce59069236b2E  # TODO: core::panicking::panic 
-    #- -Wl,--require-defined=_ZN9cstr_core4CStr8from_ptr17ha5d4992c233d069bE
-    #- target/thumbv7m-none-eabi/debug/libmylib.rlib  # Compiled Rust application, containing main()
-    #- src/libcore-8010f7064010be9c.rlib              # Rust Core library
-    #- src/libcompiler_builtins-26b11cd3df3b5c44.rlib # Rust Compiler Builtins library
