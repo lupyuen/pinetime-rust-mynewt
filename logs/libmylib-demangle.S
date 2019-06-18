@@ -1059,7 +1059,7 @@ Disassembly of section .text._ZN5mylib6mynewt6sensor21null_sensor_data_func17hd8
 _ZN5mylib6mynewt6sensor21null_sensor_data_func17hd8c42d7d02a586efE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/sensor.rs:32
     sl_func: null_sensor_data_func,
-    ..zero!(SensorListener)
+    ..fill_zero!(SensorListener)
 };
 
 ///  Define a dummy sensor data function in case there is none.

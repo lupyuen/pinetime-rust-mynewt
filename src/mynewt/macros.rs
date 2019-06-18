@@ -1,6 +1,49 @@
-//!  Macros for composing CoAP payloads with JSON or CBOR encoding.
-//!  Adapted from https://docs.serde.rs/src/serde_json/macros.rs.html
+//!  Macros for hosting embedded Rust applications on Mynewt
 
+///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
+///  `fill_zero!(os_task)` expands to
+///  ```
+/// unsafe { 
+///	::core::mem::transmute::
+///	<
+///	  [
+///		u8; 
+///		::core::mem::size_of::<os_task>()
+///	  ], 
+///	  os_task
+///	>
+///	(
+///	  [
+///		0; 
+///		::core::mem::size_of::<os_task>()
+///	  ]
+///	) 
+/// }
+///  ```
+#[macro_export]
+macro_rules! fill_zero {
+  ($type:ident) => {
+    unsafe { 
+        ::core::mem::transmute::
+        <
+        [
+            u8; 
+            ::core::mem::size_of::<$type>()
+        ], 
+        $type
+        >
+        (
+        [
+            0; 
+            ::core::mem::size_of::<$type>()
+        ]
+        ) 
+    }      
+  };
+}
+
+///  Macro to compose a CoAP payloads with JSON or CBOR encoding.
+///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
 #[macro_export(local_inner_macros)]
 macro_rules! coap {
   //  No encoding
@@ -791,46 +834,5 @@ macro_rules! nx {
       " >> ",
       stringify!($($rest)*)
     );
-  };
-}
-
-///  TODO: Return a struct that is set to 0. zero!(os_task) expands to
-///  ```
-/// unsafe { 
-///	::core::mem::transmute::
-///	<
-///	  [
-///		u8; 
-///		::core::mem::size_of::<os_task>()
-///	  ], 
-///	  os_task
-///	>
-///	(
-///	  [
-///		0; 
-///		::core::mem::size_of::<os_task>()
-///	  ]
-///	) 
-/// }
-///  ```
-#[macro_export]
-macro_rules! zero {
-  ($type:ident) => {
-    unsafe { 
-        ::core::mem::transmute::
-        <
-        [
-            u8; 
-            ::core::mem::size_of::<$type>()
-        ], 
-        $type
-        >
-        (
-        [
-            0; 
-            ::core::mem::size_of::<$type>()
-        ]
-        ) 
-    }      
   };
 }
