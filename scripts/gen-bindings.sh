@@ -20,9 +20,11 @@ function generate_bindings_encoding() {
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname2.o.cmd
     #  Skip incorrect binding "pub static CborIndefiniteLength: usize", replace by const:
     #  static const size_t CborIndefiniteLength = (0xffffffffU)
-    local line="pub const CborIndefiniteLength: usize = 0xffffffffusize;"
+    local line="pub\ const\ CborIndefiniteLength:usize=0xffffffffusize;"
     local whitelist=`cat << EOF
-        --raw-line ${line} \
+        --raw-line pub \
+        --raw-line const \
+        --raw-line CborIndefiniteLength:usize=0xffffffffusize; \
         --blacklist-item     CborIndefiniteLength \
         --whitelist-function (?i)${modname3}.* \
         --whitelist-type     (?i)${modname3}.* \

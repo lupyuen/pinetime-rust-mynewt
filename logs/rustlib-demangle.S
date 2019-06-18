@@ -26697,7 +26697,7 @@ SYMBOL TABLE:
 00000000 l     F .text._ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE	00000250 mylib::send_coap::network_task_func
 00000000 l     O .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17h1ff48088257b8937E	00000400 mylib::send_coap::NETWORK_TASK_STACK
 00000000 l     F .text._ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE	00000210 mylib::send_coap::send_sensor_data_to_server
-00000000 l     F .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E	0000013a mylib::send_coap::send_sensor_data_to_collector
+00000000 l     F .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E	00000134 mylib::send_coap::send_sensor_data_to_collector
 00000000 l     O .rodata.str.0	00000010 str.0
 00000000 l     O .rodata.str.1	00000021 str.1
 00000000 l    d  .text._ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE	00000000 .text._ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE
@@ -26721,7 +26721,6 @@ SYMBOL TABLE:
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000         *UND*	00000000 CborIndefiniteLength
 00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
 00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
 00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
@@ -27616,85 +27615,83 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   6a:	9014      	str	r0, [sp, #80]	; 0x50
   6c:	f240 0000 	movw	r0, #0
   70:	f2c0 0000 	movt	r0, #0
-  74:	6802      	ldr	r2, [r0, #0]
-  76:	f240 0000 	movw	r0, #0
-  7a:	f2c0 0000 	movt	r0, #0
-  7e:	f240 0100 	movw	r1, #0
-  82:	f2c0 0100 	movt	r1, #0
-  86:	f7ff fffe 	bl	0 <cbor_encoder_create_map>
-  8a:	9008      	str	r0, [sp, #32]
-  8c:	e7ff      	b.n	8e <mylib::send_coap::send_sensor_data_to_collector+0x8e>
-  8e:	980c      	ldr	r0, [sp, #48]	; 0x30
-  90:	6801      	ldr	r1, [r0, #0]
-  92:	6840      	ldr	r0, [r0, #4]
-  94:	9007      	str	r0, [sp, #28]
-  96:	4608      	mov	r0, r1
-  98:	9907      	ldr	r1, [sp, #28]
-  9a:	f7ff fffe 	bl	0 <core::str::<impl str>::as_ptr>
-  9e:	9006      	str	r0, [sp, #24]
-  a0:	e7ff      	b.n	a2 <mylib::send_coap::send_sensor_data_to_collector+0xa2>
-  a2:	980c      	ldr	r0, [sp, #48]	; 0x30
-  a4:	6801      	ldr	r1, [r0, #0]
-  a6:	6840      	ldr	r0, [r0, #4]
-  a8:	9005      	str	r0, [sp, #20]
-  aa:	4608      	mov	r0, r1
-  ac:	9905      	ldr	r1, [sp, #20]
-  ae:	f7ff fffe 	bl	0 <core::str::<impl str>::len>
-  b2:	9004      	str	r0, [sp, #16]
-  b4:	e7ff      	b.n	b6 <mylib::send_coap::send_sensor_data_to_collector+0xb6>
-  b6:	f240 0000 	movw	r0, #0
-  ba:	f2c0 0000 	movt	r0, #0
-  be:	9906      	ldr	r1, [sp, #24]
-  c0:	9a04      	ldr	r2, [sp, #16]
-  c2:	f7ff fffe 	bl	0 <cbor_encode_text_string>
-  c6:	9003      	str	r0, [sp, #12]
-  c8:	e7ff      	b.n	ca <mylib::send_coap::send_sensor_data_to_collector+0xca>
-  ca:	f240 0000 	movw	r0, #0
-  ce:	f2c0 0000 	movt	r0, #0
-  d2:	f240 42d2 	movw	r2, #1234	; 0x4d2
-  d6:	2300      	movs	r3, #0
-  d8:	f7ff fffe 	bl	0 <cbor_encode_int>
-  dc:	9002      	str	r0, [sp, #8]
-  de:	e7ff      	b.n	e0 <mylib::send_coap::send_sensor_data_to_collector+0xe0>
-  e0:	f240 0000 	movw	r0, #0
-  e4:	f2c0 0000 	movt	r0, #0
-  e8:	f240 0100 	movw	r1, #0
-  ec:	f2c0 0100 	movt	r1, #0
-  f0:	f7ff fffe 	bl	0 <cbor_encoder_close_container>
-  f4:	9001      	str	r0, [sp, #4]
-  f6:	e7ff      	b.n	f8 <mylib::send_coap::send_sensor_data_to_collector+0xf8>
-  f8:	9813      	ldr	r0, [sp, #76]	; 0x4c
-  fa:	9914      	ldr	r1, [sp, #80]	; 0x50
-  fc:	9011      	str	r0, [sp, #68]	; 0x44
-  fe:	9112      	str	r1, [sp, #72]	; 0x48
+  74:	f240 0100 	movw	r1, #0
+  78:	f2c0 0100 	movt	r1, #0
+  7c:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
+  80:	f7ff fffe 	bl	0 <cbor_encoder_create_map>
+  84:	9008      	str	r0, [sp, #32]
+  86:	e7ff      	b.n	88 <mylib::send_coap::send_sensor_data_to_collector+0x88>
+  88:	980c      	ldr	r0, [sp, #48]	; 0x30
+  8a:	6801      	ldr	r1, [r0, #0]
+  8c:	6840      	ldr	r0, [r0, #4]
+  8e:	9007      	str	r0, [sp, #28]
+  90:	4608      	mov	r0, r1
+  92:	9907      	ldr	r1, [sp, #28]
+  94:	f7ff fffe 	bl	0 <core::str::<impl str>::as_ptr>
+  98:	9006      	str	r0, [sp, #24]
+  9a:	e7ff      	b.n	9c <mylib::send_coap::send_sensor_data_to_collector+0x9c>
+  9c:	980c      	ldr	r0, [sp, #48]	; 0x30
+  9e:	6801      	ldr	r1, [r0, #0]
+  a0:	6840      	ldr	r0, [r0, #4]
+  a2:	9005      	str	r0, [sp, #20]
+  a4:	4608      	mov	r0, r1
+  a6:	9905      	ldr	r1, [sp, #20]
+  a8:	f7ff fffe 	bl	0 <core::str::<impl str>::len>
+  ac:	9004      	str	r0, [sp, #16]
+  ae:	e7ff      	b.n	b0 <mylib::send_coap::send_sensor_data_to_collector+0xb0>
+  b0:	f240 0000 	movw	r0, #0
+  b4:	f2c0 0000 	movt	r0, #0
+  b8:	9906      	ldr	r1, [sp, #24]
+  ba:	9a04      	ldr	r2, [sp, #16]
+  bc:	f7ff fffe 	bl	0 <cbor_encode_text_string>
+  c0:	9003      	str	r0, [sp, #12]
+  c2:	e7ff      	b.n	c4 <mylib::send_coap::send_sensor_data_to_collector+0xc4>
+  c4:	f240 0000 	movw	r0, #0
+  c8:	f2c0 0000 	movt	r0, #0
+  cc:	f240 42d2 	movw	r2, #1234	; 0x4d2
+  d0:	2300      	movs	r3, #0
+  d2:	f7ff fffe 	bl	0 <cbor_encode_int>
+  d6:	9002      	str	r0, [sp, #8]
+  d8:	e7ff      	b.n	da <mylib::send_coap::send_sensor_data_to_collector+0xda>
+  da:	f240 0000 	movw	r0, #0
+  de:	f2c0 0000 	movt	r0, #0
+  e2:	f240 0100 	movw	r1, #0
+  e6:	f2c0 0100 	movt	r1, #0
+  ea:	f7ff fffe 	bl	0 <cbor_encoder_close_container>
+  ee:	9001      	str	r0, [sp, #4]
+  f0:	e7ff      	b.n	f2 <mylib::send_coap::send_sensor_data_to_collector+0xf2>
+  f2:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  f4:	9914      	ldr	r1, [sp, #80]	; 0x50
+  f6:	9011      	str	r0, [sp, #68]	; 0x44
+  f8:	9112      	str	r1, [sp, #72]	; 0x48
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:227
     let rc = unsafe { do_collector_post() };  assert!(rc);
- 100:	f7ff fffe 	bl	0 <do_collector_post>
- 104:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
- 108:	e7ff      	b.n	10a <mylib::send_coap::send_sensor_data_to_collector+0x10a>
- 10a:	f89d 0057 	ldrb.w	r0, [sp, #87]	; 0x57
- 10e:	07c0      	lsls	r0, r0, #31
- 110:	2800      	cmp	r0, #0
- 112:	d107      	bne.n	124 <mylib::send_coap::send_sensor_data_to_collector+0x124>
- 114:	e7ff      	b.n	116 <mylib::send_coap::send_sensor_data_to_collector+0x116>
- 116:	f240 0000 	movw	r0, #0
- 11a:	f2c0 0000 	movt	r0, #0
- 11e:	f7ff fffe 	bl	0 <core::panicking::panic>
- 122:	defe      	udf	#254	; 0xfe
+  fa:	f7ff fffe 	bl	0 <do_collector_post>
+  fe:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
+ 102:	e7ff      	b.n	104 <mylib::send_coap::send_sensor_data_to_collector+0x104>
+ 104:	f89d 0057 	ldrb.w	r0, [sp, #87]	; 0x57
+ 108:	07c0      	lsls	r0, r0, #31
+ 10a:	2800      	cmp	r0, #0
+ 10c:	d107      	bne.n	11e <mylib::send_coap::send_sensor_data_to_collector+0x11e>
+ 10e:	e7ff      	b.n	110 <mylib::send_coap::send_sensor_data_to_collector+0x110>
+ 110:	f240 0000 	movw	r0, #0
+ 114:	f2c0 0000 	movt	r0, #0
+ 118:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 11c:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:229
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
- 124:	f240 0000 	movw	r0, #0
- 128:	f2c0 0000 	movt	r0, #0
- 12c:	2121      	movs	r1, #33	; 0x21
- 12e:	f7ff fffe 	bl	0 <mylib::base::console_print>
- 132:	e7ff      	b.n	134 <mylib::send_coap::send_sensor_data_to_collector+0x134>
- 134:	2000      	movs	r0, #0
+ 11e:	f240 0000 	movw	r0, #0
+ 122:	f2c0 0000 	movt	r0, #0
+ 126:	2121      	movs	r1, #33	; 0x21
+ 128:	f7ff fffe 	bl	0 <mylib::base::console_print>
+ 12c:	e7ff      	b.n	12e <mylib::send_coap::send_sensor_data_to_collector+0x12e>
+ 12e:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
     0
- 136:	900f      	str	r0, [sp, #60]	; 0x3c
+ 130:	900f      	str	r0, [sp, #60]	; 0x3c
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:234
 }
- 138:	e77c      	b.n	34 <mylib::send_coap::send_sensor_data_to_collector+0x34>
+ 132:	e77f      	b.n	34 <mylib::send_coap::send_sensor_data_to_collector+0x34>
 
 mylib-ac95891f38e7979c.1p0bleeal0c8ffkh.rcgu.o:     file format elf32-littlearm
 
@@ -29254,7 +29251,7 @@ Disassembly of section .text._ZN72_$LT$mylib..mynewt..tinycbor..File$u20$as$u20$
 
 00000000 <<mylib::mynewt::tinycbor::File as core::default::Default>::default>:
 _ZN72_$LT$mylib..mynewt..tinycbor..File$u20$as$u20$core..default..Default$GT$7default17hee82c7bb106ed65eE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:25
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:29
 #[repr(C)]
 pub struct File {
     pub vmt: *const File_methods,
@@ -29263,14 +29260,14 @@ impl Default for File {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:26
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:30
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9801      	ldr	r0, [sp, #4]
    c:	9000      	str	r0, [sp, #0]
    e:	e7ff      	b.n	10 <<mylib::mynewt::tinycbor::File as core::default::Default>::default+0x10>
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:27
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:31
     }
   10:	9800      	ldr	r0, [sp, #0]
   12:	b002      	add	sp, #8
@@ -29280,7 +29277,7 @@ Disassembly of section .text._ZN78_$LT$mylib..mynewt..tinycbor..cbor_iovec$u20$a
 
 00000000 <<mylib::mynewt::tinycbor::cbor_iovec as core::default::Default>::default>:
 _ZN78_$LT$mylib..mynewt..tinycbor..cbor_iovec$u20$as$u20$core..default..Default$GT$7default17hfa4f6e98420876eaE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:111
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:115
 pub struct cbor_iovec {
     pub iov_base: *mut ::cty::c_void,
     pub iov_len: usize,
@@ -29289,13 +29286,13 @@ impl Default for cbor_iovec {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:112
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:116
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9100      	str	r1, [sp, #0]
    c:	e7ff      	b.n	e <<mylib::mynewt::tinycbor::cbor_iovec as core::default::Default>::default+0xe>
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:113
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:117
     }
    e:	9801      	ldr	r0, [sp, #4]
   10:	9900      	ldr	r1, [sp, #0]
@@ -29306,7 +29303,7 @@ Disassembly of section .text._ZN79_$LT$mylib..mynewt..tinycbor..CborEncoder$u20$
 
 00000000 <<mylib::mynewt::tinycbor::CborEncoder as core::default::Default>::default>:
 _ZN79_$LT$mylib..mynewt..tinycbor..CborEncoder$u20$as$u20$core..default..Default$GT$7default17hf285609c5642ec10E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:123
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:127
     pub writer_arg: *mut ::cty::c_void,
     pub added: usize,
     pub flags: ::cty::c_int,
@@ -29316,12 +29313,12 @@ impl Default for CborEncoder {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:124
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:128
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mylib::mynewt::tinycbor::CborEncoder as core::default::Default>::default+0xe>
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:125
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:129
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
@@ -29330,7 +29327,7 @@ Disassembly of section .text._ZN78_$LT$mylib..mynewt..tinycbor..CborParser$u20$a
 
 00000000 <<mylib::mynewt::tinycbor::CborParser as core::default::Default>::default>:
 _ZN78_$LT$mylib..mynewt..tinycbor..CborParser$u20$as$u20$core..default..Default$GT$7default17h3df4cdcdab999ddeE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:264
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:265
     pub d: *mut cbor_decoder_reader,
     pub end: ::cty::c_int,
     pub flags: ::cty::c_int,
@@ -29340,12 +29337,12 @@ impl Default for CborParser {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:265
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:266
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mylib::mynewt::tinycbor::CborParser as core::default::Default>::default+0xe>
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:266
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:267
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
@@ -29354,7 +29351,7 @@ Disassembly of section .text._ZN77_$LT$mylib..mynewt..tinycbor..CborValue$u20$as
 
 00000000 <<mylib::mynewt::tinycbor::CborValue as core::default::Default>::default>:
 _ZN77_$LT$mylib..mynewt..tinycbor..CborValue$u20$as$u20$core..default..Default$GT$7default17hfe8f3ad2a99b901dE():
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:278
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:279
     pub extra: u16,
     pub type_: u8,
     pub flags: u8,
@@ -29364,12 +29361,12 @@ impl Default for CborValue {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:279
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:280
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mylib::mynewt::tinycbor::CborValue as core::default::Default>::default+0xe>
-/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:280
+/mnt/c/stm32bluepill-mynewt-sensor/src/mynewt/tinycbor.rs:281
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
