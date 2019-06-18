@@ -123,14 +123,21 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 ///  The message will be enqueued for transmission by the CoAP / OIC Background Task 
 ///  so this function will return without waiting for the message to be transmitted.  
 ///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-pub fn send_sensor_data(val: &SensorValue, sensor_node: &'static str) -> i32 {
+pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
 	console_print(b"send_sensor_data\n");
+    //  TODO: Remove val
+    let mut val = sensor_value{
+        key: b"\0".as_ptr(),
+        val_type: 0,
+        int_val: 0,
+        float_val: 0.0,
+    };
 	//  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
-	if should_send_to_collector(val, sensor_node) { 
-		return send_sensor_data_to_collector(val, sensor_node); 
+	if should_send_to_collector(&mut val, sensor_node.as_ptr()) { 
+		return send_sensor_data_to_collector(sensor_val, sensor_node); 
 	}
 	//  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
-	send_sensor_data_to_server(val, sensor_node);
+	send_sensor_data_to_server(sensor_val, sensor_node)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -138,11 +145,11 @@ pub fn send_sensor_data(val: &SensorValue, sensor_node: &'static str) -> i32 {
 
 ///  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
 ///  and send to the CoAP server and URI.  The Sensor Value may be integer or float.
-///  For temperature, the Sensor Key is either "t" for raw temperature (integer, from 0 to 4095) 
-///  or "tmp" for computed temperature (float).
+///  For temperature, the Sensor Key is either `t` for raw temperature (integer, from 0 to 4095) 
+///  or `tmp` for computed temperature (float).
 ///  The message will be enqueued for transmission by the CoAP / OIC 
 ///  Background Task so this function will return without waiting for the message 
-///  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
 ///  ```
 ///  {"values":[
@@ -151,9 +158,9 @@ pub fn send_sensor_data(val: &SensorValue, sensor_node: &'static str) -> i32 {
 ///    {"key":"...",    "value":... },
 ///    ... ]}
 ///  ```
-fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &'static str) -> i32 {
+fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
-	assert!(node_id.len() > 0);
+	assert!(node_id.to_str().unwrap().len() > 0);
 	if !NETWORK_IS_READY { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 	let device_id = get_device_id();  assert_ne!(device_id, 0 as *const ::cty::c_char);
 
@@ -195,37 +202,37 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &'static str) -
 ///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
 ///  transmit to the Collector Node.  The Sensor Value should be integer not float since
 ///  we transmit integers only to the Collector Node.
-///  For temperature, the Sensor Key is "t" for raw temperature (integer, from 0 to 4095).
+///  For temperature, the Sensor Key is `t` for raw temperature (integer, from 0 to 4095).
 ///  The message will be enqueued for transmission by the CoAP / OIC 
 ///  Background Task so this function will return without waiting for the message 
-///  to be transmitted.  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
+///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
-fn send_sensor_data_to_collector(val: &SensorValue, node_id: &'static str) -> i32 {
-  assert(val);
-  if (!NETWORK_IS_READY) { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
+	if let SensorValueType::None = sensor_val.val { assert!(false); }
+    if !NETWORK_IS_READY { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
-  //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
-  //  block other tasks from composing and posting CoAP messages (through a semaphore).
-  //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-  int rc = init_collector_post();  assert(rc != 0);
+    //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    let rc = init_collector_post();  assert!(rc);
 
-  //  Compose the CoAP Payload in CBOR using the CBOR macros.
-  CP_ROOT({  //  Create the payload root
-	//  Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-	CP_SET_INT_VAL(root, val);
-  });  //  End CP_ROOT:  Close the payload root
+    //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
+    let payload = coap!(@cbor {
+    	//  Set the Sensor Key and integer Sensor Value, e.g. `{ t: 2870 }`
+        sensor_val,
+    });
 
-  //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
-  //  message to the background task, we release a semaphore that unblocks other requests
-  //  to compose and post CoAP messages.
-  rc = do_collector_post();  assert(rc != 0);
+    //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
+    //  message to the background task, we release a semaphore that unblocks other requests
+    //  to compose and post CoAP messages.
+    let rc = do_collector_post();  assert!(rc);
 
-  console_printf("NRF send to collector: rawtmp %d\n", val->int_val);  ////
+    console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
 
-  //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
-  //  transmit the message: libs/nrf24l01/src/transport.cpp
-  return 0;
+    //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
+    //  transmit the message: libs/nrf24l01/src/transport.cpp
+    0
 }
 
 /*

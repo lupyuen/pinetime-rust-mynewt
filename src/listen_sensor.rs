@@ -84,15 +84,14 @@ extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: Sens
         
         //  Get the temperature sensor value. It could be raw or computed.
         let temp_sensor_value = get_temperature(sensor_data, sensor_type);
-        if let SensorValueType::None = temp_sensor_value { assert!(false); }
-        ////if temp_sensor_value.val_type == 0 { return -1; }  //  Invalid type.
+        if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
 
         //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
         //  Compose a CoAP message with the temperature sensor data and send to the 
         //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
         //  background task so this function will return without waiting for the message 
         //  to be transmitted.
-        let rc = send_sensor_data(&temp_sensor_value, device_name.to_str().unwrap());
+        let rc = send_sensor_data(&temp_sensor_value, device_name);
 
         //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
         //  We drop the sensor data and send at the next poll.
