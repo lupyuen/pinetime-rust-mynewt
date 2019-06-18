@@ -157,7 +157,8 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> i32 {
 ///  ```
 fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
-	assert!(node_id.to_str().unwrap().len() > 0);
+	////  TODO: assert!(node_id.to_str().unwrap().len() > 0);
+    assert_ne!(node_id.to_bytes()[0], 0);
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
 

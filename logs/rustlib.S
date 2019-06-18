@@ -26661,10 +26661,12 @@ SYMBOL TABLE:
 000007f1 l       .debug_str	00000000 
 000007fe l       .debug_str	00000000 
 00000806 l       .debug_str	00000000 
-00000810 l       .debug_str	00000000 
-0000081b l       .debug_str	00000000 
-00000827 l       .debug_str	00000000 
+0000080a l       .debug_str	00000000 
+0000080f l       .debug_str	00000000 
+00000819 l       .debug_str	00000000 
+00000824 l       .debug_str	00000000 
 00000830 l       .debug_str	00000000 
+00000839 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.0	00000013 .Lanon.b35cb14c59c8833032407cee1d6d75cf.0
 00000000 l     O .rodata.cst8	00000008 .Lanon.b35cb14c59c8833032407cee1d6d75cf.1
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.11	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.11
@@ -26676,8 +26678,9 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.17	00000001 .Lanon.b35cb14c59c8833032407cee1d6d75cf.17
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.19	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.19
 00000000 l     O .rodata.cst4	00000004 .Lanon.b35cb14c59c8833032407cee1d6d75cf.2
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.21	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.21
-00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.23	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.23
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.20	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.20
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.22	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.22
+00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.23	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.23
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.24	00000010 .Lanon.b35cb14c59c8833032407cee1d6d75cf.24
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.26	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.26
 00000000 l     O .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.27	00000018 .Lanon.b35cb14c59c8833032407cee1d6d75cf.27
@@ -26695,7 +26698,7 @@ SYMBOL TABLE:
 00000000 l     O .bss._ZN5mylib9send_coap16NETWORK_IS_READY17hd5f4779bc1ae0f1fE	00000001 _ZN5mylib9send_coap16NETWORK_IS_READY17hd5f4779bc1ae0f1fE
 00000000 l     F .text._ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE	00000250 _ZN5mylib9send_coap17network_task_func17h008f672c6f393e1dE
 00000000 l     O .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17h1ff48088257b8937E	00000400 _ZN5mylib9send_coap18NETWORK_TASK_STACK17h1ff48088257b8937E
-00000000 l     F .text._ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE	000001a0 _ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE
+00000000 l     F .text._ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE	00000232 _ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE
 00000000 l     F .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E	00000156 _ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E
 00000000 l     O .rodata.str.0	00000010 str.0
 00000000 l     O .rodata.str.1	00000021 str.1
@@ -26714,16 +26717,17 @@ SYMBOL TABLE:
 00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
 00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
 00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.18	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.18
-00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.20	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.20
-00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.22	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.22
+00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.21	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.21
 00000000 l    d  .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.25	00000000 .rodata..Lanon.b35cb14c59c8833032407cee1d6d75cf.25
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h0aaf8bc5a80c634eE
 00000000         *UND*	00000000 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h6b54cd33c0767134E
 00000000         *UND*	00000000 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h6e7c3bfec75bb04cE
+00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E
 00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h26e8f734fca6286bE
 00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E
 00000000         *UND*	00000000 .hidden _ZN4core3fmt9Arguments6new_v117h0330c13173882f69E
@@ -26731,14 +26735,14 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 .hidden _ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17hca80eebebc99ccd9E
 00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h6e6820e87d479c61E
 00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h7ab41fd71c3f64d3E
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E
+00000000         *UND*	00000000 _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
 00000000         *UND*	00000000 _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 00000000         *UND*	00000000 _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
 00000000         *UND*	00000000 .hidden _ZN5mylib4base13console_print17h47a7ec4e529b3d82E
 00000000 g     F .text._ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E	00000092 .hidden _ZN5mylib9send_coap16send_sensor_data17h610afad13e46ff09E
 00000000 g     F .text._ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE	0000011e .hidden _ZN5mylib9send_coap18start_network_task17hca6051abf27965cbE
 00000000         *UND*	00000000 .hidden _ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E
-00000000         *UND*	00000000 _ZN9cstr_core4CStr6to_str17h982f51aed0d8bc58E
+00000000         *UND*	00000000 .hidden _ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E
 00000000         *UND*	00000000 cbor_encode_int
 00000000         *UND*	00000000 cbor_encode_text_string
 00000000         *UND*	00000000 cbor_encoder_close_container
@@ -27303,21 +27307,21 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE():
 ///  ```
 fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
    0:	b580      	push	{r7, lr}
-   2:	b0a8      	sub	sp, #160	; 0xa0
+   2:	b0bc      	sub	sp, #240	; 0xf0
    4:	4613      	mov	r3, r2
    6:	468c      	mov	ip, r1
    8:	4686      	mov	lr, r0
-   a:	900b      	str	r0, [sp, #44]	; 0x2c
-   c:	910c      	str	r1, [sp, #48]	; 0x30
-   e:	920d      	str	r2, [sp, #52]	; 0x34
+   a:	900e      	str	r0, [sp, #56]	; 0x38
+   c:	910f      	str	r1, [sp, #60]	; 0x3c
+   e:	9210      	str	r2, [sp, #64]	; 0x40
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:159
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
-  10:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  10:	980e      	ldr	r0, [sp, #56]	; 0x38
   12:	6880      	ldr	r0, [r0, #8]
   14:	2800      	cmp	r0, #0
-  16:	930a      	str	r3, [sp, #40]	; 0x28
-  18:	f8cd c024 	str.w	ip, [sp, #36]	; 0x24
-  1c:	f8cd e020 	str.w	lr, [sp, #32]
+  16:	930d      	str	r3, [sp, #52]	; 0x34
+  18:	f8cd c030 	str.w	ip, [sp, #48]	; 0x30
+  1c:	f8cd e02c 	str.w	lr, [sp, #44]	; 0x2c
   20:	d10c      	bne.n	3c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x3c>
   22:	e7ff      	b.n	24 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x24>
   24:	2000      	movs	r0, #0
@@ -27329,176 +27333,243 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> i32 {
   34:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   38:	defe      	udf	#254	; 0xfe
   3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x3c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:160
-	assert!(node_id.to_str().unwrap().len() > 0);
-  3c:	990c      	ldr	r1, [sp, #48]	; 0x30
-  3e:	9a0d      	ldr	r2, [sp, #52]	; 0x34
-  40:	a80f      	add	r0, sp, #60	; 0x3c
-  42:	f7ff fffe 	bl	0 <_ZN9cstr_core4CStr6to_str17h982f51aed0d8bc58E>
-  46:	e7ff      	b.n	48 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x48>
-  48:	a80f      	add	r0, sp, #60	; 0x3c
-  4a:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E>
-  4e:	9007      	str	r0, [sp, #28]
-  50:	9106      	str	r1, [sp, #24]
-  52:	e7ff      	b.n	54 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x54>
-  54:	9807      	ldr	r0, [sp, #28]
-  56:	9906      	ldr	r1, [sp, #24]
-  58:	f7ff fffe 	bl	0 <_ZN4core3str21_$LT$impl$u20$str$GT$3len17ha2e0db4a9f502071E>
-  5c:	9005      	str	r0, [sp, #20]
-  5e:	e7ff      	b.n	60 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x60>
-  60:	9805      	ldr	r0, [sp, #20]
-  62:	2800      	cmp	r0, #0
-  64:	d107      	bne.n	76 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x76>
-  66:	e7ff      	b.n	68 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x68>
-  68:	f240 0000 	movw	r0, #0
-  6c:	f2c0 0000 	movt	r0, #0
-  70:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  74:	defe      	udf	#254	; 0xfe
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
+	////  TODO: assert!(node_id.to_str().unwrap().len() > 0);
+    assert_ne!(node_id.to_bytes()[0], 0);
+  3c:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  3e:	9910      	ldr	r1, [sp, #64]	; 0x40
+  40:	f7ff fffe 	bl	0 <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E>
+  44:	900a      	str	r0, [sp, #40]	; 0x28
+  46:	9109      	str	r1, [sp, #36]	; 0x24
+  48:	e7ff      	b.n	4a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x4a>
+  4a:	9809      	ldr	r0, [sp, #36]	; 0x24
+  4c:	2800      	cmp	r0, #0
+  4e:	f000 80e7 	beq.w	220 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x220>
+  52:	e7ff      	b.n	54 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x54>
+  54:	980a      	ldr	r0, [sp, #40]	; 0x28
+  56:	9012      	str	r0, [sp, #72]	; 0x48
+  58:	f240 0100 	movw	r1, #0
+  5c:	f2c0 0100 	movt	r1, #0
+  60:	9113      	str	r1, [sp, #76]	; 0x4c
+  62:	9912      	ldr	r1, [sp, #72]	; 0x48
+  64:	9114      	str	r1, [sp, #80]	; 0x50
+  66:	9913      	ldr	r1, [sp, #76]	; 0x4c
+  68:	9115      	str	r1, [sp, #84]	; 0x54
+  6a:	9914      	ldr	r1, [sp, #80]	; 0x50
+  6c:	7809      	ldrb	r1, [r1, #0]
+  6e:	9a15      	ldr	r2, [sp, #84]	; 0x54
+  70:	7812      	ldrb	r2, [r2, #0]
+  72:	4291      	cmp	r1, r2
+  74:	d116      	bne.n	a4 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xa4>
+  76:	e7ff      	b.n	78 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x78>
+  78:	9814      	ldr	r0, [sp, #80]	; 0x50
+  7a:	9022      	str	r0, [sp, #136]	; 0x88
+  7c:	9815      	ldr	r0, [sp, #84]	; 0x54
+  7e:	9023      	str	r0, [sp, #140]	; 0x8c
+  80:	a822      	add	r0, sp, #136	; 0x88
+  82:	9020      	str	r0, [sp, #128]	; 0x80
+  84:	a823      	add	r0, sp, #140	; 0x8c
+  86:	9021      	str	r0, [sp, #132]	; 0x84
+  88:	9820      	ldr	r0, [sp, #128]	; 0x80
+  8a:	9024      	str	r0, [sp, #144]	; 0x90
+  8c:	9821      	ldr	r0, [sp, #132]	; 0x84
+  8e:	9025      	str	r0, [sp, #148]	; 0x94
+  90:	9824      	ldr	r0, [sp, #144]	; 0x90
+  92:	f240 0100 	movw	r1, #0
+  96:	f2c0 0100 	movt	r1, #0
+  9a:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>
+  9e:	9008      	str	r0, [sp, #32]
+  a0:	9107      	str	r1, [sp, #28]
+  a2:	e008      	b.n	b6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xb6>
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
 	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-  76:	f240 0000 	movw	r0, #0
-  7a:	f2c0 0000 	movt	r0, #0
-  7e:	7800      	ldrb	r0, [r0, #0]
-  80:	07c0      	lsls	r0, r0, #31
-  82:	2800      	cmp	r0, #0
-  84:	d107      	bne.n	96 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x96>
-  86:	e7ff      	b.n	88 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x88>
-  88:	f06f 0005 	mvn.w	r0, #5
-  8c:	900e      	str	r0, [sp, #56]	; 0x38
-  8e:	e7ff      	b.n	90 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x90>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:194
+  a4:	f240 0000 	movw	r0, #0
+  a8:	f2c0 0000 	movt	r0, #0
+  ac:	7800      	ldrb	r0, [r0, #0]
+  ae:	07c0      	lsls	r0, r0, #31
+  b0:	2800      	cmp	r0, #0
+  b2:	d02d      	beq.n	110 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x110>
+  b4:	e028      	b.n	108 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x108>
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
+    assert_ne!(node_id.to_bytes()[0], 0);
+  b6:	9825      	ldr	r0, [sp, #148]	; 0x94
+  b8:	f240 0100 	movw	r1, #0
+  bc:	f2c0 0100 	movt	r1, #0
+  c0:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>
+  c4:	9006      	str	r0, [sp, #24]
+  c6:	9105      	str	r1, [sp, #20]
+  c8:	e7ff      	b.n	ca <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xca>
+  ca:	9808      	ldr	r0, [sp, #32]
+  cc:	901c      	str	r0, [sp, #112]	; 0x70
+  ce:	9907      	ldr	r1, [sp, #28]
+  d0:	911d      	str	r1, [sp, #116]	; 0x74
+  d2:	9a06      	ldr	r2, [sp, #24]
+  d4:	921e      	str	r2, [sp, #120]	; 0x78
+  d6:	9b05      	ldr	r3, [sp, #20]
+  d8:	931f      	str	r3, [sp, #124]	; 0x7c
+  da:	46ec      	mov	ip, sp
+  dc:	f04f 0e02 	mov.w	lr, #2
+  e0:	f8cc e000 	str.w	lr, [ip]
+  e4:	f240 0100 	movw	r1, #0
+  e8:	f2c0 0100 	movt	r1, #0
+  ec:	a816      	add	r0, sp, #88	; 0x58
+  ee:	2203      	movs	r2, #3
+  f0:	ab1c      	add	r3, sp, #112	; 0x70
+  f2:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
+  f6:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
+  f8:	f240 0100 	movw	r1, #0
+  fc:	f2c0 0100 	movt	r1, #0
+ 100:	a816      	add	r0, sp, #88	; 0x58
+ 102:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 106:	defe      	udf	#254	; 0xfe
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
+	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
+ 108:	f7ff fffe 	bl	0 <get_device_id>
+ 10c:	9026      	str	r0, [sp, #152]	; 0x98
+ 10e:	e006      	b.n	11e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x11e>
+ 110:	f06f 0005 	mvn.w	r0, #5
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
+	if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+ 114:	9011      	str	r0, [sp, #68]	; 0x44
+ 116:	e7ff      	b.n	118 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x118>
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:195
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
     0
 }
-  90:	980e      	ldr	r0, [sp, #56]	; 0x38
-  92:	b028      	add	sp, #160	; 0xa0
-  94:	bd80      	pop	{r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
+ 118:	9811      	ldr	r0, [sp, #68]	; 0x44
+ 11a:	b03c      	add	sp, #240	; 0xf0
+ 11c:	bd80      	pop	{r7, pc}
+ 11e:	a826      	add	r0, sp, #152	; 0x98
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
-  96:	f7ff fffe 	bl	0 <get_device_id>
-  9a:	9012      	str	r0, [sp, #72]	; 0x48
-  9c:	e7ff      	b.n	9e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x9e>
-  9e:	a812      	add	r0, sp, #72	; 0x48
-  a0:	9013      	str	r0, [sp, #76]	; 0x4c
-  a2:	f240 0000 	movw	r0, #0
-  a6:	f2c0 0000 	movt	r0, #0
-  aa:	9014      	str	r0, [sp, #80]	; 0x50
-  ac:	9813      	ldr	r0, [sp, #76]	; 0x4c
-  ae:	9015      	str	r0, [sp, #84]	; 0x54
-  b0:	9814      	ldr	r0, [sp, #80]	; 0x50
-  b2:	9016      	str	r0, [sp, #88]	; 0x58
-  b4:	9815      	ldr	r0, [sp, #84]	; 0x54
-  b6:	6800      	ldr	r0, [r0, #0]
-  b8:	9916      	ldr	r1, [sp, #88]	; 0x58
-  ba:	6809      	ldr	r1, [r1, #0]
-  bc:	4288      	cmp	r0, r1
-  be:	d116      	bne.n	ee <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xee>
-  c0:	e7ff      	b.n	c2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xc2>
-  c2:	9815      	ldr	r0, [sp, #84]	; 0x54
-  c4:	9023      	str	r0, [sp, #140]	; 0x8c
-  c6:	9816      	ldr	r0, [sp, #88]	; 0x58
-  c8:	9024      	str	r0, [sp, #144]	; 0x90
-  ca:	a823      	add	r0, sp, #140	; 0x8c
-  cc:	9021      	str	r0, [sp, #132]	; 0x84
-  ce:	a824      	add	r0, sp, #144	; 0x90
-  d0:	9022      	str	r0, [sp, #136]	; 0x88
-  d2:	9821      	ldr	r0, [sp, #132]	; 0x84
-  d4:	9025      	str	r0, [sp, #148]	; 0x94
-  d6:	9822      	ldr	r0, [sp, #136]	; 0x88
-  d8:	9026      	str	r0, [sp, #152]	; 0x98
-  da:	9825      	ldr	r0, [sp, #148]	; 0x94
-  dc:	f240 0100 	movw	r1, #0
-  e0:	f2c0 0100 	movt	r1, #0
-  e4:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
-  e8:	9004      	str	r0, [sp, #16]
-  ea:	9103      	str	r1, [sp, #12]
-  ec:	e005      	b.n	fa <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0xfa>
-  ee:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:167
+ 120:	9027      	str	r0, [sp, #156]	; 0x9c
+ 122:	f240 0000 	movw	r0, #0
+ 126:	f2c0 0000 	movt	r0, #0
+ 12a:	9028      	str	r0, [sp, #160]	; 0xa0
+ 12c:	9827      	ldr	r0, [sp, #156]	; 0x9c
+ 12e:	9029      	str	r0, [sp, #164]	; 0xa4
+ 130:	9828      	ldr	r0, [sp, #160]	; 0xa0
+ 132:	902a      	str	r0, [sp, #168]	; 0xa8
+ 134:	9829      	ldr	r0, [sp, #164]	; 0xa4
+ 136:	6800      	ldr	r0, [r0, #0]
+ 138:	992a      	ldr	r1, [sp, #168]	; 0xa8
+ 13a:	6809      	ldr	r1, [r1, #0]
+ 13c:	4288      	cmp	r0, r1
+ 13e:	d116      	bne.n	16e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x16e>
+ 140:	e7ff      	b.n	142 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x142>
+ 142:	9829      	ldr	r0, [sp, #164]	; 0xa4
+ 144:	9037      	str	r0, [sp, #220]	; 0xdc
+ 146:	982a      	ldr	r0, [sp, #168]	; 0xa8
+ 148:	9038      	str	r0, [sp, #224]	; 0xe0
+ 14a:	a837      	add	r0, sp, #220	; 0xdc
+ 14c:	9035      	str	r0, [sp, #212]	; 0xd4
+ 14e:	a838      	add	r0, sp, #224	; 0xe0
+ 150:	9036      	str	r0, [sp, #216]	; 0xd8
+ 152:	9835      	ldr	r0, [sp, #212]	; 0xd4
+ 154:	9039      	str	r0, [sp, #228]	; 0xe4
+ 156:	9836      	ldr	r0, [sp, #216]	; 0xd8
+ 158:	903a      	str	r0, [sp, #232]	; 0xe8
+ 15a:	9839      	ldr	r0, [sp, #228]	; 0xe4
+ 15c:	f240 0100 	movw	r1, #0
+ 160:	f2c0 0100 	movt	r1, #0
+ 164:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
+ 168:	9004      	str	r0, [sp, #16]
+ 16a:	9103      	str	r1, [sp, #12]
+ 16c:	e005      	b.n	17a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x17a>
+ 16e:	2000      	movs	r0, #0
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:168
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
-  f0:	f7ff fffe 	bl	0 <init_server_post>
-  f4:	f88d 009e 	strb.w	r0, [sp, #158]	; 0x9e
-  f8:	e028      	b.n	14c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x14c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
+ 170:	f7ff fffe 	bl	0 <init_server_post>
+ 174:	f88d 00ee 	strb.w	r0, [sp, #238]	; 0xee
+ 178:	e028      	b.n	1cc <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1cc>
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
 	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
-  fa:	9826      	ldr	r0, [sp, #152]	; 0x98
-  fc:	f240 0100 	movw	r1, #0
- 100:	f2c0 0100 	movt	r1, #0
- 104:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
- 108:	9002      	str	r0, [sp, #8]
- 10a:	9101      	str	r1, [sp, #4]
- 10c:	e7ff      	b.n	10e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x10e>
- 10e:	9804      	ldr	r0, [sp, #16]
- 110:	901d      	str	r0, [sp, #116]	; 0x74
- 112:	9903      	ldr	r1, [sp, #12]
- 114:	911e      	str	r1, [sp, #120]	; 0x78
- 116:	9a02      	ldr	r2, [sp, #8]
- 118:	921f      	str	r2, [sp, #124]	; 0x7c
- 11a:	9b01      	ldr	r3, [sp, #4]
- 11c:	9320      	str	r3, [sp, #128]	; 0x80
- 11e:	46ec      	mov	ip, sp
- 120:	f04f 0e02 	mov.w	lr, #2
- 124:	f8cc e000 	str.w	lr, [ip]
- 128:	f240 0100 	movw	r1, #0
- 12c:	f2c0 0100 	movt	r1, #0
- 130:	a817      	add	r0, sp, #92	; 0x5c
- 132:	2203      	movs	r2, #3
- 134:	ab1d      	add	r3, sp, #116	; 0x74
- 136:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
- 13a:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
- 13c:	f240 0100 	movw	r1, #0
- 140:	f2c0 0100 	movt	r1, #0
- 144:	a817      	add	r0, sp, #92	; 0x5c
- 146:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 14a:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:167
+ 17a:	983a      	ldr	r0, [sp, #232]	; 0xe8
+ 17c:	f240 0100 	movw	r1, #0
+ 180:	f2c0 0100 	movt	r1, #0
+ 184:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E>
+ 188:	9002      	str	r0, [sp, #8]
+ 18a:	9101      	str	r1, [sp, #4]
+ 18c:	e7ff      	b.n	18e <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x18e>
+ 18e:	9804      	ldr	r0, [sp, #16]
+ 190:	9031      	str	r0, [sp, #196]	; 0xc4
+ 192:	9903      	ldr	r1, [sp, #12]
+ 194:	9132      	str	r1, [sp, #200]	; 0xc8
+ 196:	9a02      	ldr	r2, [sp, #8]
+ 198:	9233      	str	r2, [sp, #204]	; 0xcc
+ 19a:	9b01      	ldr	r3, [sp, #4]
+ 19c:	9334      	str	r3, [sp, #208]	; 0xd0
+ 19e:	46ec      	mov	ip, sp
+ 1a0:	f04f 0e02 	mov.w	lr, #2
+ 1a4:	f8cc e000 	str.w	lr, [ip]
+ 1a8:	f240 0100 	movw	r1, #0
+ 1ac:	f2c0 0100 	movt	r1, #0
+ 1b0:	a82b      	add	r0, sp, #172	; 0xac
+ 1b2:	2203      	movs	r2, #3
+ 1b4:	ab31      	add	r3, sp, #196	; 0xc4
+ 1b6:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
+ 1ba:	e7ff      	b.n	2 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x2>
+ 1bc:	f240 0100 	movw	r1, #0
+ 1c0:	f2c0 0100 	movt	r1, #0
+ 1c4:	a82b      	add	r0, sp, #172	; 0xac
+ 1c6:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 1ca:	defe      	udf	#254	; 0xfe
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:168
 	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
- 14c:	f89d 009e 	ldrb.w	r0, [sp, #158]	; 0x9e
- 150:	07c0      	lsls	r0, r0, #31
- 152:	2800      	cmp	r0, #0
- 154:	d107      	bne.n	166 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x166>
- 156:	e7ff      	b.n	158 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x158>
- 158:	f240 0000 	movw	r0, #0
- 15c:	f2c0 0000 	movt	r0, #0
- 160:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 164:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:186
+ 1cc:	f89d 00ee 	ldrb.w	r0, [sp, #238]	; 0xee
+ 1d0:	07c0      	lsls	r0, r0, #31
+ 1d2:	2800      	cmp	r0, #0
+ 1d4:	d107      	bne.n	1e6 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1e6>
+ 1d6:	e7ff      	b.n	1d8 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1d8>
+ 1d8:	f240 0000 	movw	r0, #0
+ 1dc:	f2c0 0000 	movt	r0, #0
+ 1e0:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+ 1e4:	defe      	udf	#254	; 0xfe
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:187
     let rc = unsafe { do_server_post() };  assert!(rc);
- 166:	f7ff fffe 	bl	0 <do_server_post>
- 16a:	f88d 009f 	strb.w	r0, [sp, #159]	; 0x9f
- 16e:	e7ff      	b.n	170 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x170>
- 170:	f89d 009f 	ldrb.w	r0, [sp, #159]	; 0x9f
- 174:	07c0      	lsls	r0, r0, #31
- 176:	2800      	cmp	r0, #0
- 178:	d107      	bne.n	18a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x18a>
- 17a:	e7ff      	b.n	17c <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x17c>
- 17c:	f240 0000 	movw	r0, #0
- 180:	f2c0 0000 	movt	r0, #0
- 184:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 188:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:188
+ 1e6:	f7ff fffe 	bl	0 <do_server_post>
+ 1ea:	f88d 00ef 	strb.w	r0, [sp, #239]	; 0xef
+ 1ee:	e7ff      	b.n	1f0 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1f0>
+ 1f0:	f89d 00ef 	ldrb.w	r0, [sp, #239]	; 0xef
+ 1f4:	07c0      	lsls	r0, r0, #31
+ 1f6:	2800      	cmp	r0, #0
+ 1f8:	d107      	bne.n	20a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x20a>
+ 1fa:	e7ff      	b.n	1fc <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x1fc>
+ 1fc:	f240 0000 	movw	r0, #0
+ 200:	f2c0 0000 	movt	r0, #0
+ 204:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+ 208:	defe      	udf	#254	; 0xfe
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:189
     console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
- 18a:	f240 0000 	movw	r0, #0
- 18e:	f2c0 0000 	movt	r0, #0
- 192:	214b      	movs	r1, #75	; 0x4b
- 194:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
- 198:	e7ff      	b.n	19a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x19a>
- 19a:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:193
-    0
- 19c:	900e      	str	r0, [sp, #56]	; 0x38
+ 20a:	f240 0000 	movw	r0, #0
+ 20e:	f2c0 0000 	movt	r0, #0
+ 212:	214b      	movs	r1, #75	; 0x4b
+ 214:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
+ 218:	e7ff      	b.n	21a <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x21a>
+ 21a:	2000      	movs	r0, #0
 /mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:194
+    0
+ 21c:	9011      	str	r0, [sp, #68]	; 0x44
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:195
 }
- 19e:	e777      	b.n	90 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x90>
+ 21e:	e77b      	b.n	118 <_ZN5mylib9send_coap26send_sensor_data_to_server17h0ee163faf4e6461fE+0x118>
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
+    assert_ne!(node_id.to_bytes()[0], 0);
+ 220:	f240 0000 	movw	r0, #0
+ 224:	f2c0 0000 	movt	r0, #0
+ 228:	2100      	movs	r1, #0
+ 22a:	9a09      	ldr	r2, [sp, #36]	; 0x24
+ 22c:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
+ 230:	defe      	udf	#254	; 0xfe
 
 Disassembly of section .text._ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E:
 
 00000000 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E>:
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:208
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:209
 ///  The message will be enqueued for transmission by the CoAP / OIC 
 ///  Background Task so this function will return without waiting for the message 
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
@@ -27513,7 +27584,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
    a:	900c      	str	r0, [sp, #48]	; 0x30
    c:	910d      	str	r1, [sp, #52]	; 0x34
    e:	920e      	str	r2, [sp, #56]	; 0x38
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:209
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:210
 	if let SensorValueType::None = sensor_val.val { assert!(false); }
   10:	980c      	ldr	r0, [sp, #48]	; 0x30
   12:	6880      	ldr	r0, [r0, #8]
@@ -27532,7 +27603,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   34:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   38:	defe      	udf	#254	; 0xfe
   3a:	e7ff      	b.n	3c <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x3c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:210
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:211
     if unsafe { !NETWORK_IS_READY } { return SYS_EAGAIN; }  //  If network is not ready, tell caller (Sensor Listener) to try later.
   3c:	f240 0000 	movw	r0, #0
   40:	f2c0 0000 	movt	r0, #0
@@ -27544,7 +27615,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   4e:	f06f 0005 	mvn.w	r0, #5
   52:	900f      	str	r0, [sp, #60]	; 0x3c
   54:	e7ff      	b.n	56 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x56>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:234
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
 
     //  The CoAP Background Task will call oc_tx_ucast() in the nRF24L01 driver to 
@@ -27554,7 +27625,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   56:	980f      	ldr	r0, [sp, #60]	; 0x3c
   58:	b016      	add	sp, #88	; 0x58
   5a:	bd80      	pop	{r7, pc}
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:215
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:216
     let rc = unsafe { init_collector_post() };  assert!(rc);
   5c:	f7ff fffe 	bl	0 <init_collector_post>
   60:	f88d 0043 	strb.w	r0, [sp, #67]	; 0x43
@@ -27568,7 +27639,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
   76:	f2c0 0000 	movt	r0, #0
   7a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   7e:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:218
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:219
     let _payload = coap!(@cbor {
   80:	f240 0000 	movw	r0, #0
   84:	f2c0 0000 	movt	r0, #0
@@ -27626,7 +27697,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
  116:	9914      	ldr	r1, [sp, #80]	; 0x50
  118:	9011      	str	r0, [sp, #68]	; 0x44
  11a:	9112      	str	r1, [sp, #72]	; 0x48
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:226
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:227
     let rc = unsafe { do_collector_post() };  assert!(rc);
  11c:	f7ff fffe 	bl	0 <do_collector_post>
  120:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
@@ -27640,7 +27711,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
  136:	f2c0 0000 	movt	r0, #0
  13a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  13e:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:228
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:229
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
  140:	f240 0000 	movw	r0, #0
  144:	f2c0 0000 	movt	r0, #0
@@ -27648,10 +27719,10 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, node_id: &CStr) -> i3
  14a:	f7ff fffe 	bl	0 <_ZN5mylib4base13console_print17h47a7ec4e529b3d82E>
  14e:	e7ff      	b.n	150 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x150>
  150:	2000      	movs	r0, #0
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:232
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
     0
  152:	900f      	str	r0, [sp, #60]	; 0x3c
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:233
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:234
 }
  154:	e77f      	b.n	56 <_ZN5mylib9send_coap29send_sensor_data_to_collector17h2775c8d6cc261bd7E+0x56>
 
@@ -28176,30 +28247,74 @@ SYMBOL TABLE:
 00000082 l       .debug_str	00000000 
 00000096 l       .debug_str	00000000 
 0000009b l       .debug_str	00000000 
-000000c9 l       .debug_str	00000000 
-000000d0 l       .debug_str	00000000 
-000000da l       .debug_str	00000000 
-000000df l       .debug_str	00000000 
+000000d5 l       .debug_str	00000000 
+000000e7 l       .debug_str	00000000 
+000000f0 l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000107 l       .debug_str	00000000 
+0000010d l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
+00000142 l       .debug_str	00000000 
+00000172 l       .debug_str	00000000 
+0000017b l       .debug_str	00000000 
+00000180 l       .debug_str	00000000 
+00000191 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.dc33403061768eb3c9c87766cc08a14e.0	00000018 .Lanon.dc33403061768eb3c9c87766cc08a14e.0
+00000000 l     F .text._ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E	00000016 _ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E
+00000000 l     O .rodata.str.0	00000055 str.0
+00000000 l     O .rodata.str.1	00000021 str.1
+00000000 l    d  .text._ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E	00000000 .text._ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E
 00000000 l    d  .text._ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E	00000000 .text._ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E
+00000000 l    d  .text._ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E	00000000 .text._ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E
+00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
+00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h8c76a39fea4234d0E
 00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17h6e6820e87d479c61E
+00000000         *UND*	00000000 _ZN4core5slice74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17h23d2cad5b81b9edeE
+00000000         *UND*	00000000 _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 00000000 g     F .text._ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E	00000022 .hidden _ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E
+00000000 g     F .text._ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E	00000064 .hidden _ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E
 
 
+
+Disassembly of section .text._ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E:
+
+00000000 <_ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E>:
+_ZN9cstr_core4CStr17to_bytes_with_nul17hf88d190b0f53f380E():
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1056
+    ///
+    /// let c_str = CStr::from_bytes_with_nul(b"foo\0").unwrap();
+    /// assert_eq!(c_str.to_bytes_with_nul(), b"foo\0");
+    /// ```
+    #[inline]
+    pub fn to_bytes_with_nul(&self) -> &[u8] {
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1057
+        unsafe { &*(&self.inner as *const [c_char] as *const [u8]) }
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1058
+    }
+   e:	9201      	str	r2, [sp, #4]
+  10:	9300      	str	r3, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
 
 Disassembly of section .text._ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E:
 
 00000000 <_ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E>:
 _ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E():
 /home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1005
-    ///     // `ptr` is valid because `hello` is in scope
-    ///     *ptr;
-    /// }
-    /// ```
-    #[inline]
     pub fn as_ptr(&self) -> *const c_char {
    0:	b580      	push	{r7, lr}
    2:	b086      	sub	sp, #24
@@ -28221,6 +28336,65 @@ _ZN9cstr_core4CStr6as_ptr17he24d76f5592466e4E():
   1c:	9801      	ldr	r0, [sp, #4]
   1e:	b006      	add	sp, #24
   20:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E:
+
+00000000 <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E>:
+_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E():
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1031
+    pub fn to_bytes(&self) -> &[u8] {
+   0:	b580      	push	{r7, lr}
+   2:	b08e      	sub	sp, #56	; 0x38
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9009      	str	r0, [sp, #36]	; 0x24
+   a:	910a      	str	r1, [sp, #40]	; 0x28
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1032
+        let bytes = self.to_bytes_with_nul();
+   c:	9809      	ldr	r0, [sp, #36]	; 0x24
+   e:	990a      	ldr	r1, [sp, #40]	; 0x28
+  10:	9208      	str	r2, [sp, #32]
+  12:	9307      	str	r3, [sp, #28]
+  14:	f7ff fffe 	bl	0 <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E>
+  18:	910c      	str	r1, [sp, #48]	; 0x30
+  1a:	900b      	str	r0, [sp, #44]	; 0x2c
+  1c:	e7ff      	b.n	1e <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E+0x1e>
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1033
+        &bytes[..bytes.len() - 1]
+  1e:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  20:	990c      	ldr	r1, [sp, #48]	; 0x30
+  22:	9006      	str	r0, [sp, #24]
+  24:	9105      	str	r1, [sp, #20]
+  26:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h8c76a39fea4234d0E>
+  2a:	9004      	str	r0, [sp, #16]
+  2c:	e7ff      	b.n	2e <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E+0x2e>
+  2e:	9804      	ldr	r0, [sp, #16]
+  30:	1e41      	subs	r1, r0, #1
+  32:	2801      	cmp	r0, #1
+  34:	9103      	str	r1, [sp, #12]
+  36:	d30e      	bcc.n	56 <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E+0x56>
+  38:	e7ff      	b.n	3a <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E+0x3a>
+  3a:	9803      	ldr	r0, [sp, #12]
+  3c:	900d      	str	r0, [sp, #52]	; 0x34
+  3e:	9a0d      	ldr	r2, [sp, #52]	; 0x34
+  40:	9806      	ldr	r0, [sp, #24]
+  42:	9905      	ldr	r1, [sp, #20]
+  44:	f7ff fffe 	bl	0 <_ZN4core5slice74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17h23d2cad5b81b9edeE>
+  48:	9002      	str	r0, [sp, #8]
+  4a:	9101      	str	r1, [sp, #4]
+  4c:	e7ff      	b.n	4e <_ZN9cstr_core4CStr8to_bytes17h69a4c26bfbbcb548E+0x4e>
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1034
+    }
+  4e:	9802      	ldr	r0, [sp, #8]
+  50:	9901      	ldr	r1, [sp, #4]
+  52:	b00e      	add	sp, #56	; 0x38
+  54:	bd80      	pop	{r7, pc}
+/home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1033
+        &bytes[..bytes.len() - 1]
+  56:	f240 0000 	movw	r0, #0
+  5a:	f2c0 0000 	movt	r0, #0
+  5e:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+  62:	defe      	udf	#254	; 0xfe
 
 mylib-ac95891f38e7979c.29x7oqvwgrpr4c8r.rcgu.o:     file format elf32-littlearm
 
@@ -34894,50 +35068,32 @@ SYMBOL TABLE:
 00000091 l       .debug_str	00000000 
 00000095 l       .debug_str	00000000 
 000000a5 l       .debug_str	00000000 
-000000ae l       .debug_str	00000000 
-000000b1 l       .debug_str	00000000 
-000000bb l       .debug_str	00000000 
-000000c2 l       .debug_str	00000000 
-000000c8 l       .debug_str	00000000 
-000000cd l       .debug_str	00000000 
-000000d1 l       .debug_str	00000000 
-000000dd l       .debug_str	00000000 
-000000e7 l       .debug_str	00000000 
-000000ee l       .debug_str	00000000 
-000000f3 l       .debug_str	00000000 
-000000f8 l       .debug_str	00000000 
-00000103 l       .debug_str	00000000 
-0000010d l       .debug_str	00000000 
-00000130 l       .debug_str	00000000 
+000000d8 l       .debug_str	00000000 
+000000eb l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+0000012d l       .debug_str	00000000 
+0000013c l       .debug_str	00000000 
+00000140 l       .debug_str	00000000 
+00000149 l       .debug_str	00000000 
+0000014c l       .debug_str	00000000 
+00000156 l       .debug_str	00000000 
+0000015d l       .debug_str	00000000 
 00000163 l       .debug_str	00000000 
-00000176 l       .debug_str	00000000 
-00000178 l       .debug_str	00000000 
-000001ab l       .debug_str	00000000 
-000001cf l       .debug_str	00000000 
-0000020f l       .debug_str	00000000 
-0000021e l       .debug_str	00000000 
-0000025e l       .debug_str	00000000 
-00000280 l       .debug_str	00000000 
-00000284 l       .debug_str	00000000 
-0000028a l       .debug_str	00000000 
-0000028f l       .debug_str	00000000 
-00000295 l       .debug_str	00000000 
-0000029a l       .debug_str	00000000 
-0000029f l       .debug_str	00000000 
-000002b5 l       .debug_str	00000000 
-000002ba l       .debug_str	00000000 
-000002bc l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.2	00000010 .Lanon.d35c9527ecde8494e31bc44e537c9d71.2
-00000000 l     O .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.4	00000010 .Lanon.d35c9527ecde8494e31bc44e537c9d71.4
-00000000 l     O .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.5	0000002b .Lanon.d35c9527ecde8494e31bc44e537c9d71.5
+00000168 l       .debug_str	00000000 
+0000016e l       .debug_str	00000000 
+00000173 l       .debug_str	00000000 
+00000179 l       .debug_str	00000000 
+0000017e l       .debug_str	00000000 
+00000183 l       .debug_str	00000000 
+00000188 l       .debug_str	00000000 
+0000018a l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.2	00000010 .Lanon.f53c71e115d2729da6dd16a088e85c6e.2
+00000000 l     O .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.4	00000010 .Lanon.f53c71e115d2729da6dd16a088e85c6e.4
 00000000 l    d  .text._ZN4core6result13unwrap_failed17h07a2116b0728a952E	00000000 .text._ZN4core6result13unwrap_failed17h07a2116b0728a952E
-00000000 l    d  .text._ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E	00000000 .text._ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E
 00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E
-00000000 l    d  .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.0	00000000 .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.0
-00000000 l    d  .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.1	00000000 .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.1
-00000000 l    d  .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.3	00000000 .rodata..Lanon.d35c9527ecde8494e31bc44e537c9d71.3
-00000000 l    d  .debug_loc	00000000 .debug_loc
+00000000 l    d  .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.0	00000000 .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.0
+00000000 l    d  .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.1	00000000 .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.1
+00000000 l    d  .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.3	00000000 .rodata..Lanon.f53c71e115d2729da6dd16a088e85c6e.3
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
@@ -34945,16 +35101,12 @@ SYMBOL TABLE:
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3783dcd2d2b56f30E
 00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE
-00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE
 00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h47ed94b94e242b01E
 00000000         *UND*	00000000 .hidden _ZN4core3fmt3num50_$LT$impl$u20$core..fmt..Debug$u20$for$u20$i32$GT$3fmt17hbbb46498fb3ead3eE
 00000000         *UND*	00000000 .hidden _ZN4core3fmt9Arguments6new_v117h0330c13173882f69E
 00000000 g     F .text._ZN4core6result13unwrap_failed17h07a2116b0728a952E	0000008e _ZN4core6result13unwrap_failed17h07a2116b0728a952E
-00000000 g     F .text._ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E	0000008a _ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E
 00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E	00000052 _ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E	00000064 _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E
 00000000         *UND*	00000000 _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
-00000000         *UND*	00000000 _ZN57_$LT$core..str..Utf8Error$u20$as$u20$core..fmt..Debug$GT$3fmt17hc66d297e3f1f7289E
 
 
 
@@ -35028,73 +35180,6 @@ _ZN4core6result13unwrap_failed17h07a2116b0728a952E():
   88:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
   8c:	defe      	udf	#254	; 0xfe
 
-Disassembly of section .text._ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E:
-
-00000000 <_ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E>:
-_ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:998
-   0:	b098      	sub	sp, #96	; 0x60
-   2:	4613      	mov	r3, r2
-   4:	468c      	mov	ip, r1
-   6:	4686      	mov	lr, r0
-   8:	9008      	str	r0, [sp, #32]
-   a:	9109      	str	r1, [sp, #36]	; 0x24
-   c:	a808      	add	r0, sp, #32
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:999
-   e:	9014      	str	r0, [sp, #80]	; 0x50
-  10:	9215      	str	r2, [sp, #84]	; 0x54
-/mnt/c/stm32bluepill-mynewt-sensor/src/lib.rs:1
-  12:	9814      	ldr	r0, [sp, #80]	; 0x50
-  14:	9016      	str	r0, [sp, #88]	; 0x58
-  16:	9815      	ldr	r0, [sp, #84]	; 0x54
-  18:	9017      	str	r0, [sp, #92]	; 0x5c
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:999
-  1a:	9816      	ldr	r0, [sp, #88]	; 0x58
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-  1c:	f240 0100 	movw	r1, #0
-  20:	f2c0 0100 	movt	r1, #0
-  24:	9307      	str	r3, [sp, #28]
-  26:	f8cd c018 	str.w	ip, [sp, #24]
-  2a:	f8cd e014 	str.w	lr, [sp, #20]
-  2e:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE>
-  32:	9004      	str	r0, [sp, #16]
-  34:	9103      	str	r1, [sp, #12]
-  36:	e7ff      	b.n	38 <_ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E+0x38>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:999
-  38:	9817      	ldr	r0, [sp, #92]	; 0x5c
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-  3a:	f240 0100 	movw	r1, #0
-  3e:	f2c0 0100 	movt	r1, #0
-  42:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE>
-  46:	9002      	str	r0, [sp, #8]
-  48:	9101      	str	r1, [sp, #4]
-  4a:	e7ff      	b.n	4c <_ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E+0x4c>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:999
-  4c:	9804      	ldr	r0, [sp, #16]
-  4e:	9010      	str	r0, [sp, #64]	; 0x40
-  50:	9903      	ldr	r1, [sp, #12]
-  52:	9111      	str	r1, [sp, #68]	; 0x44
-  54:	9a02      	ldr	r2, [sp, #8]
-  56:	9212      	str	r2, [sp, #72]	; 0x48
-  58:	9b01      	ldr	r3, [sp, #4]
-  5a:	9313      	str	r3, [sp, #76]	; 0x4c
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-  5c:	46ec      	mov	ip, sp
-  5e:	f04f 0e02 	mov.w	lr, #2
-  62:	f8cc e000 	str.w	lr, [ip]
-  66:	f240 0100 	movw	r1, #0
-  6a:	f2c0 0100 	movt	r1, #0
-  6e:	a80a      	add	r0, sp, #40	; 0x28
-  70:	ab10      	add	r3, sp, #64	; 0x40
-  72:	4672      	mov	r2, lr
-  74:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117h0330c13173882f69E>
-  78:	e7ff      	b.n	2 <_ZN4core6result13unwrap_failed17ha5439a7aaa2e3875E+0x2>
-  7a:	f240 0100 	movw	r1, #0
-  7e:	f2c0 0100 	movt	r1, #0
-  82:	a80a      	add	r0, sp, #40	; 0x28
-  84:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
-  88:	defe      	udf	#254	; 0xfe
-
 Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E:
 
 00000000 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E>:
@@ -35142,65 +35227,6 @@ _ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E():
   4c:	b00c      	add	sp, #48	; 0x30
   4e:	bdb0      	pop	{r4, r5, r7, pc}
   50:	e7fc      	b.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hf656a3fd5c2cb345E+0x4c>
-
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E:
-
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E>:
-_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:797
-   0:	b08a      	sub	sp, #40	; 0x28
-   2:	4601      	mov	r1, r0
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:799
-   4:	6800      	ldr	r0, [r0, #0]
-   6:	2800      	cmp	r0, #0
-   8:	9103      	str	r1, [sp, #12]
-   a:	9002      	str	r0, [sp, #8]
-   c:	d005      	beq.n	1a <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x1a>
-   e:	e7ff      	b.n	10 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x10>
-  10:	9802      	ldr	r0, [sp, #8]
-  12:	2801      	cmp	r0, #1
-  14:	d00f      	beq.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x36>
-  16:	e7ff      	b.n	18 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x18>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:802
-  18:	defe      	udf	#254	; 0xfe
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:799
-  1a:	9803      	ldr	r0, [sp, #12]
-  1c:	6841      	ldr	r1, [r0, #4]
-  1e:	6882      	ldr	r2, [r0, #8]
-  20:	9104      	str	r1, [sp, #16]
-  22:	9205      	str	r2, [sp, #20]
-  24:	9804      	ldr	r0, [sp, #16]
-  26:	9905      	ldr	r1, [sp, #20]
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:802
-  28:	9a03      	ldr	r2, [sp, #12]
-  2a:	6813      	ldr	r3, [r2, #0]
-  2c:	2b00      	cmp	r3, #0
-  2e:	9001      	str	r0, [sp, #4]
-  30:	9100      	str	r1, [sp, #0]
-  32:	d012      	beq.n	5a <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x5a>
-  34:	e015      	b.n	62 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x62>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:800
-  36:	9803      	ldr	r0, [sp, #12]
-  38:	6841      	ldr	r1, [r0, #4]
-  3a:	6882      	ldr	r2, [r0, #8]
-  3c:	9207      	str	r2, [sp, #28]
-  3e:	9106      	str	r1, [sp, #24]
-  40:	9906      	ldr	r1, [sp, #24]
-  42:	9a07      	ldr	r2, [sp, #28]
-  44:	9209      	str	r2, [sp, #36]	; 0x24
-  46:	9108      	str	r1, [sp, #32]
-  48:	f240 0000 	movw	r0, #0
-  4c:	f2c0 0000 	movt	r0, #0
-  50:	212b      	movs	r1, #43	; 0x2b
-  52:	aa08      	add	r2, sp, #32
-  54:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E>
-  58:	defe      	udf	#254	; 0xfe
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:802
-  5a:	9801      	ldr	r0, [sp, #4]
-  5c:	9900      	ldr	r1, [sp, #0]
-  5e:	b00a      	add	sp, #40	; 0x28
-  60:	4770      	bx	lr
-  62:	e7fa      	b.n	5a <_ZN4core6result19Result$LT$T$C$E$GT$6unwrap17hadb06a13f157bef4E+0x5a>
 
 mylib-ac95891f38e7979c.5a1y3gwwctyoomvh.rcgu.o:     file format elf32-littlearm
 
@@ -36763,59 +36789,55 @@ SYMBOL TABLE:
 000010ec l       .debug_str	00000000 
 000010f6 l       .debug_str	00000000 
 000010fa l       .debug_str	00000000 
-00001106 l       .debug_str	00000000 
-00001110 l       .debug_str	00000000 
-0000111b l       .debug_str	00000000 
-00001125 l       .debug_str	00000000 
-00001156 l       .debug_str	00000000 
-00001170 l       .debug_str	00000000 
-00001175 l       .debug_str	00000000 
-000011a6 l       .debug_str	00000000 
-000011b0 l       .debug_str	00000000 
-000011e1 l       .debug_str	00000000 
+0000112b l       .debug_str	00000000 
+00001134 l       .debug_str	00000000 
+00001139 l       .debug_str	00000000 
+0000116a l       .debug_str	00000000 
+00001174 l       .debug_str	00000000 
+000011a5 l       .debug_str	00000000 
+000011ae l       .debug_str	00000000 
+000011b9 l       .debug_str	00000000 
 000011ea l       .debug_str	00000000 
-000011f5 l       .debug_str	00000000 
-00001226 l       .debug_str	00000000 
-00001236 l       .debug_str	00000000 
-00001288 l       .debug_str	00000000 
-00001290 l       .debug_str	00000000 
-000012e4 l       .debug_str	00000000 
-00001338 l       .debug_str	00000000 
-00001340 l       .debug_str	00000000 
-00001345 l       .debug_str	00000000 
-0000134a l       .debug_str	00000000 
-00001350 l       .debug_str	00000000 
-00001352 l       .debug_str	00000000 
-000013a6 l       .debug_str	00000000 
-000013fb l       .debug_str	00000000 
-00001450 l       .debug_str	00000000 
-000014a6 l       .debug_str	00000000 
-00001506 l       .debug_str	00000000 
-00001567 l       .debug_str	00000000 
-000015ce l       .debug_str	00000000 
-00001636 l       .debug_str	00000000 
-0000163c l       .debug_str	00000000 
-00001648 l       .debug_str	00000000 
-0000169d l       .debug_str	00000000 
-000016f3 l       .debug_str	00000000 
-00001748 l       .debug_str	00000000 
-0000179e l       .debug_str	00000000 
-000017f3 l       .debug_str	00000000 
-00001849 l       .debug_str	00000000 
-0000189c l       .debug_str	00000000 
-000018f0 l       .debug_str	00000000 
-000018f6 l       .debug_str	00000000 
-000018f8 l       .debug_str	00000000 
-0000194b l       .debug_str	00000000 
-00001961 l       .debug_str	00000000 
-000019c4 l       .debug_str	00000000 
-00001a17 l       .debug_str	00000000 
-00001a69 l       .debug_str	00000000 
-00001ac2 l       .debug_str	00000000 
-00001acc l       .debug_str	00000000 
-00001ad6 l       .debug_str	00000000 
-00001ada l       .debug_str	00000000 
-00001ae4 l       .debug_str	00000000 
+000011fa l       .debug_str	00000000 
+0000124c l       .debug_str	00000000 
+00001254 l       .debug_str	00000000 
+000012a8 l       .debug_str	00000000 
+000012fc l       .debug_str	00000000 
+00001304 l       .debug_str	00000000 
+00001309 l       .debug_str	00000000 
+0000130e l       .debug_str	00000000 
+00001314 l       .debug_str	00000000 
+00001316 l       .debug_str	00000000 
+0000136a l       .debug_str	00000000 
+000013bf l       .debug_str	00000000 
+00001414 l       .debug_str	00000000 
+0000146a l       .debug_str	00000000 
+000014ca l       .debug_str	00000000 
+0000152b l       .debug_str	00000000 
+00001592 l       .debug_str	00000000 
+000015fa l       .debug_str	00000000 
+00001600 l       .debug_str	00000000 
+0000160c l       .debug_str	00000000 
+00001661 l       .debug_str	00000000 
+000016b7 l       .debug_str	00000000 
+0000170c l       .debug_str	00000000 
+00001762 l       .debug_str	00000000 
+000017b7 l       .debug_str	00000000 
+0000180d l       .debug_str	00000000 
+00001860 l       .debug_str	00000000 
+000018b4 l       .debug_str	00000000 
+000018ba l       .debug_str	00000000 
+000018bc l       .debug_str	00000000 
+0000190f l       .debug_str	00000000 
+00001914 l       .debug_str	00000000 
+00001966 l       .debug_str	00000000 
+000019b9 l       .debug_str	00000000 
+00001a0b l       .debug_str	00000000 
+00001a64 l       .debug_str	00000000 
+00001a6e l       .debug_str	00000000 
+00001a78 l       .debug_str	00000000 
+00001a7c l       .debug_str	00000000 
+00001a86 l       .debug_str	00000000 
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h0c004dc6f6942d42E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h0c004dc6f6942d42E
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h0cdca961d1c557e8E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h0cdca961d1c557e8E
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h2ae6f5912530d6ebE	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h2ae6f5912530d6ebE
@@ -36829,7 +36851,7 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hd4db4b6915aedee5E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hd4db4b6915aedee5E
 00000000 l    d  .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3783dcd2d2b56f30E	00000000 .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3783dcd2d2b56f30E
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE	00000000 .text._ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE
-00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE	00000000 .text._ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE
+00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E	00000000 .text._ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h26e8f734fca6286bE	00000000 .text._ZN4core3fmt10ArgumentV13new17h26e8f734fca6286bE
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h47ed94b94e242b01E	00000000 .text._ZN4core3fmt10ArgumentV13new17h47ed94b94e242b01E
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E	00000000 .text._ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E
@@ -36855,7 +36877,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE
 00000000 g     F .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3783dcd2d2b56f30E	00000034 _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3783dcd2d2b56f30E
 00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE	00000032 _ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE
-00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE	00000032 _ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE
+00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E	00000032 _ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E
 00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h26e8f734fca6286bE	00000032 _ZN4core3fmt10ArgumentV13new17h26e8f734fca6286bE
 00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h47ed94b94e242b01E	00000032 _ZN4core3fmt10ArgumentV13new17h47ed94b94e242b01E
 00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E	00000032 _ZN4core3fmt10ArgumentV13new17h99468556cb7f6d86E
@@ -37206,10 +37228,10 @@ _ZN4core3fmt10ArgumentV13new17h05d4954a4919dcdbE():
   2e:	b00a      	add	sp, #40	; 0x28
   30:	4770      	bx	lr
 
-Disassembly of section .text._ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE:
+Disassembly of section .text._ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E:
 
-00000000 <_ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE>:
-_ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE():
+00000000 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E>:
+_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:278
    0:	b08a      	sub	sp, #40	; 0x28
    2:	460a      	mov	r2, r1
@@ -37223,13 +37245,13 @@ _ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE():
   10:	9203      	str	r2, [sp, #12]
   12:	9302      	str	r3, [sp, #8]
   14:	9001      	str	r0, [sp, #4]
-  16:	e7ff      	b.n	18 <_ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE+0x18>
+  16:	e7ff      	b.n	18 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E+0x18>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:283
   18:	9804      	ldr	r0, [sp, #16]
   1a:	9009      	str	r0, [sp, #36]	; 0x24
   1c:	9809      	ldr	r0, [sp, #36]	; 0x24
   1e:	9000      	str	r0, [sp, #0]
-  20:	e7ff      	b.n	22 <_ZN4core3fmt10ArgumentV13new17h0ee847a81af293feE+0x22>
+  20:	e7ff      	b.n	22 <_ZN4core3fmt10ArgumentV13new17h17eece399e82c5f4E+0x22>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:281
   22:	9800      	ldr	r0, [sp, #0]
   24:	9006      	str	r0, [sp, #24]
