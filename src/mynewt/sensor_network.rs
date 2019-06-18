@@ -33,6 +33,17 @@ pub struct sensor_network_interface {
     >,
     pub transport_registered: u8,
 }
+impl Default for sensor_network_interface {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+extern "C" {
+    pub fn register_server_transport() -> ::cty::c_int;
+}
+extern "C" {
+    pub fn register_collector_transport() -> ::cty::c_int;
+}
 extern "C" {
     pub fn sensor_network_register_transport(iface_type: u8) -> ::cty::c_int;
 }
@@ -55,6 +66,15 @@ extern "C" {
     pub fn sensor_network_do_post(iface_type: u8) -> bool;
 }
 extern "C" {
+    pub fn is_collector_node() -> bool;
+}
+extern "C" {
+    pub fn is_sensor_node() -> bool;
+}
+extern "C" {
+    pub fn is_standalone_node() -> bool;
+}
+extern "C" {
     pub fn sensor_network_init();
 }
 extern "C" {
@@ -63,6 +83,7 @@ extern "C" {
     ) -> ::cty::c_int;
 }
 #[repr(C)]
+#[derive(Default)]
 pub struct sensor_network_endpoint {
     pub endpoint: [u8; 16usize],
 }

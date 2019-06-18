@@ -34,6 +34,8 @@ function generate_bindings_libs() {
     local whitelist=`cat << EOF
         --whitelist-function (?i)init_.*_post \
         --whitelist-function (?i)do_.*_post \
+        --whitelist-function (?i)is_.*_node \
+        --whitelist-function (?i)register_.*_transport \
         --whitelist-function (?i)${modname}.* \
         --whitelist-type     (?i)${modname}.* \
         --whitelist-var      (?i)${modname}.* 
@@ -104,13 +106,11 @@ EOF
         $expandfile
 }
 
-#  Generate bindings for my_sensor_app/send_coap.c
-#  generate_bindings_apps my_sensor_app send_coap
 
-#  Generate bindings for libs/sensor_network.
-#  generate_bindings_libs sensor_network
+#  generate_bindings_apps my_sensor_app send_coap  #  Generate bindings for my_sensor_app/send_coap.c
 
-generate_bindings_kernel os  #  Generate bindings for kernel/os
+generate_bindings_libs   sensor_network  #  Generate bindings for libs/sensor_network
+generate_bindings_kernel os              #  Generate bindings for kernel/os
 
 exit
 
