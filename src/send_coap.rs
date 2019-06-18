@@ -164,37 +164,32 @@ fn test_macro2() {
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
 
-///  Stack space for Network Task, initialised to 0.
-static mut network_task_stack: [u8; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE] = [0; NETWORK_TASK_STACK_SIZE * OS_STACK_SIZE];
 ///  Mynewt task object will be saved here.
-static mut network_task: os_task = os_task {
-  t_stackptr: 0 as *mut os_stack_t,
-  t_stacktop: 0 as *mut os_stack_t,
-  t_stacksize: 0 as u16,
-  t_taskid: 0 as u8,
-  t_prio: 0 as u8,
-  t_state: 0 as u8,
-  t_flags: 0 as u8,
-  t_lockcnt: 0 as u8,
-  t_pad: 0 as u8,
-  t_name: 0 as *const ::cty::c_char,
-  t_func: 0 as os_task_func_t,
-  t_arg: 0 as *mut ::cty::c_void,
-  t_obj: 0 as *mut ::cty::c_void,
-  t_sanity_check: 0 as os_sanity_check,
-  t_next_wakeup: 0 as os_time_t,
-  t_run_time: 0 as os_time_t,
-  t_ctx_sw_cnt: 0 as u32,
-  t_os_task_list: 0 as os_task__bindgen_ty_1,
-  t_os_list: 0 as os_task__bindgen_ty_2,
-  t_obj_list: 0 as os_task__bindgen_ty_3,
-};
+static mut network_task: os_task = 
+  unsafe { 
+    ::core::mem::transmute::
+    <
+      [
+        u8; 
+        ::core::mem::size_of::<os_task>()
+      ], 
+      os_task
+    >
+    (
+      [
+        0; 
+        ::core::mem::size_of::<os_task>()
+      ]
+    ) 
+  };
+///  Stack space for Network Task, initialised to 0.
+static mut network_task_stack: 
+  [os_stack_t; NETWORK_TASK_STACK_SIZE] = 
+    [0; NETWORK_TASK_STACK_SIZE];
+///  Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+const NETWORK_TASK_STACK_SIZE: usize = 256;  
 ///  Set to true when network tasks have been completed
 static mut network_is_ready: bool = false;
-///  Size of the stack (in 8-byte units). Previously `OS_STACK_ALIGN(256)`  
-const NETWORK_TASK_STACK_SIZE: usize = 256;  
-///  Size of each stack unit (8 bytes). Previously `sizeof(os_stack_t)`
-const OS_STACK_SIZE: usize = 8;              
 
 ///  TODO: Start the Network Task in the background.  The Network Task prepares the network drivers
 ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
@@ -203,9 +198,19 @@ const OS_STACK_SIZE: usize = 8;
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
 //  pub fn start_network_task() -> i32  {
   console_print(b"start_network_task\n");
-  send_sensor_data_without_encoding();
-  send_sensor_data_json();
-  send_sensor_data_cbor();
+  send_sensor_data_without_encoding();  //  Testing
+  send_sensor_data_json();  //  Testing
+  send_sensor_data_cbor();  //  Testing
+  let rc = os_task_init(  //  Create a new task and start it...
+    &mut network_task,      //  Task object will be saved here.
+    b"network\0".as_ptr(),          //  Name of task.
+    network_task_func,  //  Function to execute when task starts.
+    0 as *mut ::cty::c_void,               //  Argument to be passed to above function.
+    10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
+    OS_WAIT_FOREVER as u32,    //  Don't do sanity / watchdog checking.
+    network_task_stack.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
+    NETWORK_TASK_STACK_SIZE as u16);           //  Size of the stack (in 4-byte units).
+  assert_eq!(rc, 0);
   Ok(())
   //  0
 }
