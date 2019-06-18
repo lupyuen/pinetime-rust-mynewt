@@ -31,23 +31,14 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  Start the Network Task in the background.  The Network Task prepares the ESP8266 or nRF24L01 transceiver for
     //  sending CoAP messages.  We connect the ESP8266 to the WiFi access point and register
     //  the ESP8266/nRF24L01 driver as the network transport for CoAP.  Also perform WiFi Geolocation if it is enabled.
-    let rc = start_network_task();  
-    rc.expect("");  //  TODO: Use ?
-    //  assert!(rc == 0);
+    start_network_task()
+        .expect("NET fail");
 
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
     //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
-    let rc = start_sensor_listener();  assert!(rc == 0);
-
-    /* `assert!(rc == 0)` expands to:
-    if !(rc == 0) {
-        {
-            ::core::panicking::panic(&("assertion failed: rc == 0",
-                                       "src/lib.rs", 39u32, 40u32))
-        }
-    }; */
-    // ::core::panicking::panic(expr_file_line_col: &(&'static str, &'static str, u32, u32))
+    start_sensor_listener()
+        .expect("TMP fail");
 
     //  Main event loop
     loop {                            //  Loop forever...

@@ -49,7 +49,7 @@ static mut NETWORK_IS_READY: bool = false;
 ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
-    console_print(b"start_network_task\n");
+    console_print(b"NET start\n");
     let rc = unsafe { os_task_init( //  Create a new task and start it...
         &mut NETWORK_TASK,            //  Task object will be saved here.
         b"network\0".as_ptr(),        //  Name of task.

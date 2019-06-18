@@ -27,7 +27,7 @@ const LISTENER_CB: SensorArg = 1;
 ///  For Collector Node: Start the Listeners for Remote Sensor 
 ///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
 ///  Return 0 if successful.
-pub fn start_sensor_listener() -> i32 {
+pub fn start_sensor_listener() -> Result<(), i32>  {  //  Returns an error code upon error.
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
@@ -47,11 +47,10 @@ pub fn start_sensor_listener() -> i32 {
     };
 
     //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
-    let rc = register_listener(listen_sensor, listener);
-    assert!(rc == 0);
+    register_listener(listen_sensor, listener)?;
 
     //  Return 0 to indicate success.  This line should not end with a semicolon (;).
-    0
+    Ok(())
 }
 
 /////////////////////////////////////////////////////////

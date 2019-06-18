@@ -11,12 +11,13 @@
 ///  `sensor`: The sensor to register a listener on.
 ///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
-pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> i32 {    
+pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> Result<(), i32>  {  //  Returns an error code upon error. 
     unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
     //  Copy the caller's listener to the internal listener.
     unsafe { LISTENER_INTERNAL = listener };
     //  Pass the internal listener to the unsafe Mynewt API.
-    unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) }
+    unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) };
+    Ok(())
 }
 
 ///  Define the listener function to be called after polling the sensor.
