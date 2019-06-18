@@ -19053,77 +19053,23 @@ modlog_printf(uint8_t module, uint8_t level, const char *msg, ...)
 # 30 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
 # 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
 # 31 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 57 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-#define CBOR_INLINE inline
-#define CBOR_INLINE_API static inline
-
-#define _ADDCOUNTER(prefix) JOIN( NOTUSED_, prefix )
-
-
-#define JOIN(symbol1,symbol2) _DO_JOIN( symbol1, symbol2 )
-#define _DO_JOIN(symbol1,symbol2) symbol1 ##symbol2
-
-
-
-
-#define cbor_encode_text_stringz _ADDCOUNTER(cbor_encode_text_stringz)
-#define cbor_encode_bytes_written _ADDCOUNTER(cbor_encode_bytes_written)
-#define cbor_encode_boolean _ADDCOUNTER(cbor_encode_boolean)
-#define cbor_encode_null _ADDCOUNTER(cbor_encode_null)
-#define cbor_encode_undefined _ADDCOUNTER(cbor_encode_undefined)
-#define cbor_encode_half_float _ADDCOUNTER(cbor_encode_half_float)
-#define cbor_encode_float _ADDCOUNTER(cbor_encode_float)
-#define cbor_encode_double _ADDCOUNTER(cbor_encode_double)
-#define cbor_value_at_end _ADDCOUNTER(cbor_value_at_end)
-#define cbor_value_is_container _ADDCOUNTER(cbor_value_is_container)
-#define _cbor_value_extract_int64_helper _ADDCOUNTER(_cbor_value_extract_int64_helper)
-#define cbor_value_is_valid _ADDCOUNTER(cbor_value_is_valid)
-#define cbor_value_get_type _ADDCOUNTER(cbor_value_get_type)
-#define cbor_value_is_null _ADDCOUNTER(cbor_value_is_null)
-#define cbor_value_is_undefined _ADDCOUNTER(cbor_value_is_undefined)
-#define cbor_value_is_boolean _ADDCOUNTER(cbor_value_is_boolean)
-#define cbor_value_get_boolean _ADDCOUNTER(cbor_value_get_boolean)
-#define cbor_value_is_simple_type _ADDCOUNTER(cbor_value_is_simple_type)
-#define cbor_value_get_simple_type _ADDCOUNTER(cbor_value_get_simple_type)
-#define cbor_value_is_integer _ADDCOUNTER(cbor_value_is_integer)
-#define cbor_value_is_unsigned_integer _ADDCOUNTER(cbor_value_is_unsigned_integer)
-#define cbor_value_is_negative_integer _ADDCOUNTER(cbor_value_is_negative_integer)
-#define cbor_value_get_raw_integer _ADDCOUNTER(cbor_value_get_raw_integer)
-#define cbor_value_get_uint64 _ADDCOUNTER(cbor_value_get_uint64)
-#define cbor_value_get_int64 _ADDCOUNTER(cbor_value_get_int64)
-#define cbor_value_get_int _ADDCOUNTER(cbor_value_get_int)
-#define cbor_value_is_length_known _ADDCOUNTER(cbor_value_is_length_known)
-#define cbor_value_is_tag _ADDCOUNTER(cbor_value_is_tag)
-#define cbor_value_get_tag _ADDCOUNTER(cbor_value_get_tag)
-#define cbor_value_is_byte_string _ADDCOUNTER(cbor_value_is_byte_string)
-#define cbor_value_is_text_string _ADDCOUNTER(cbor_value_is_text_string)
-#define cbor_value_get_string_length _ADDCOUNTER(cbor_value_get_string_length)
-#define cbor_value_copy_text_string _ADDCOUNTER(cbor_value_copy_text_string)
-#define cbor_value_copy_byte_string _ADDCOUNTER(cbor_value_copy_byte_string)
-#define cbor_value_dup_text_string _ADDCOUNTER(cbor_value_dup_text_string)
-#define cbor_value_dup_byte_string _ADDCOUNTER(cbor_value_dup_byte_string)
-#define cbor_value_is_array _ADDCOUNTER(cbor_value_is_array)
-#define cbor_value_is_map _ADDCOUNTER(cbor_value_is_map)
-#define cbor_value_get_array_length _ADDCOUNTER(cbor_value_get_array_length)
-#define cbor_value_get_map_length _ADDCOUNTER(cbor_value_get_map_length)
-#define cbor_value_is_half_float _ADDCOUNTER(cbor_value_is_half_float)
-#define cbor_value_is_float _ADDCOUNTER(cbor_value_is_float)
-#define cbor_value_get_float _ADDCOUNTER(cbor_value_get_float)
-#define cbor_value_is_double _ADDCOUNTER(cbor_value_is_double)
-#define cbor_value_get_double _ADDCOUNTER(cbor_value_get_double)
-#define cbor_value_to_pretty _ADDCOUNTER(cbor_value_to_pretty)
-
-
-
-
-
-
-
+# 53 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
 #define CBOR_API 
 
 
 #define CBOR_PRIVATE_API 
-# 145 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+
+
+
+
+
+
+#define CBOR_INLINE_API static CBOR_INLINE
+
+
+
+#define CBOR_INLINE __inline__
+# 76 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
 typedef enum CborType {
     CborIntegerType = 0x00,
     CborByteStringType = 0x40,
@@ -19232,9 +19178,9 @@ struct CborEncoder {
 typedef struct CborEncoder CborEncoder;
 
 static const size_t CborIndefiniteLength = 
-# 252 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 183 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                                           (0xffffffffU)
-# 252 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 183 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
                                                   ;
 
 
@@ -19245,31 +19191,31 @@ static const size_t CborIndefiniteLength =
  CborError cbor_encode_simple_value(CborEncoder *encoder, uint8_t value);
  CborError cbor_encode_tag(CborEncoder *encoder, CborTag tag);
  CborError cbor_encode_text_string(CborEncoder *encoder, const char *string, size_t length);
-static inline CborError NOTUSED_cbor_encode_text_stringz(CborEncoder *encoder, const char *string)
+static __inline__ CborError cbor_encode_text_stringz(CborEncoder *encoder, const char *string)
 { return cbor_encode_text_string(encoder, string, strlen(string)); }
  CborError cbor_encode_byte_string(CborEncoder *encoder, const uint8_t *string, size_t length);
  CborError cbor_encode_byte_iovec(CborEncoder *encoder,
                                           const struct cbor_iovec iov[],
                                           int iov_len);
  CborError cbor_encode_floating_point(CborEncoder *encoder, CborType fpType, const void *value);
-static inline CborError NOTUSED_cbor_encode_bytes_written(CborEncoder *encoder)
+static __inline__ CborError cbor_encode_bytes_written(CborEncoder *encoder)
 { return (CborError) encoder->writer->bytes_written; }
-static inline CborError NOTUSED_cbor_encode_boolean(CborEncoder *encoder, 
-# 271 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ CborError cbor_encode_boolean(CborEncoder *encoder, 
+# 202 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                                                                    _Bool 
-# 271 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 202 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
                                                                         value)
 { return cbor_encode_simple_value(encoder, (int)value - 1 + (CborBooleanType & 0x1f)); }
-static inline CborError NOTUSED_cbor_encode_null(CborEncoder *encoder)
+static __inline__ CborError cbor_encode_null(CborEncoder *encoder)
 { return cbor_encode_simple_value(encoder, CborNullType & 0x1f); }
-static inline CborError NOTUSED_cbor_encode_undefined(CborEncoder *encoder)
+static __inline__ CborError cbor_encode_undefined(CborEncoder *encoder)
 { return cbor_encode_simple_value(encoder, CborUndefinedType & 0x1f); }
 
-static inline CborError NOTUSED_cbor_encode_half_float(CborEncoder *encoder, const void *value)
+static __inline__ CborError cbor_encode_half_float(CborEncoder *encoder, const void *value)
 { return cbor_encode_floating_point(encoder, CborHalfFloatType, value); }
-static inline CborError NOTUSED_cbor_encode_float(CborEncoder *encoder, float value)
+static __inline__ CborError cbor_encode_float(CborEncoder *encoder, float value)
 { return cbor_encode_floating_point(encoder, CborFloatType, &value); }
-static inline CborError NOTUSED_cbor_encode_double(CborEncoder *encoder, double value)
+static __inline__ CborError cbor_encode_double(CborEncoder *encoder, double value)
 { return cbor_encode_floating_point(encoder, CborDoubleType, &value); }
 
  CborError cbor_encoder_create_array(CborEncoder *encoder, CborEncoder *arrayEncoder, size_t length);
@@ -19328,204 +19274,204 @@ typedef struct CborValue CborValue;
 
  CborError cbor_parser_init(struct cbor_decoder_reader *d, int flags, CborParser *parser, CborValue *it);
 
-static inline 
-# 341 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 272 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 341 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_at_end(const CborValue *it)
+# 272 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_at_end(const CborValue *it)
 { return it->remaining == 0; }
  CborError cbor_value_advance_fixed(CborValue *it);
  CborError cbor_value_advance(CborValue *it);
-static inline 
-# 345 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 276 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 345 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_container(const CborValue *it)
+# 276 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_container(const CborValue *it)
 { return it->type == CborArrayType || it->type == CborMapType; }
  CborError cbor_value_enter_container(const CborValue *it, CborValue *recursed);
  CborError cbor_value_leave_container(CborValue *it, const CborValue *recursed);
 
  uint64_t _cbor_value_decode_int64_internal(const CborValue *value);
-static inline uint64_t NOTUSED__cbor_value_extract_int64_helper(const CborValue *value)
+static __inline__ uint64_t _cbor_value_extract_int64_helper(const CborValue *value)
 {
     return value->flags & CborIteratorFlag_IntegerValueTooLarge ?
                 _cbor_value_decode_int64_internal(value) : value->extra;
 }
 
-static inline 
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 288 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_valid(const CborValue *value)
+# 288 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_valid(const CborValue *value)
 { return value && value->type != CborInvalidType; }
-static inline CborType NOTUSED_cbor_value_get_type(const CborValue *value)
+static __inline__ CborType cbor_value_get_type(const CborValue *value)
 { return (CborType)value->type; }
 
 
-static inline 
-# 363 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 294 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 363 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_null(const CborValue *value)
+# 294 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_null(const CborValue *value)
 { return value->type == CborNullType; }
-static inline 
-# 365 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 296 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 365 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_undefined(const CborValue *value)
+# 296 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_undefined(const CborValue *value)
 { return value->type == CborUndefinedType; }
 
 
-static inline 
-# 369 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 300 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 369 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_boolean(const CborValue *value)
+# 300 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_boolean(const CborValue *value)
 { return value->type == CborBooleanType; }
-static inline CborError NOTUSED_cbor_value_get_boolean(const CborValue *value, 
-# 371 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ CborError cbor_value_get_boolean(const CborValue *value, 
+# 302 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                                                                         _Bool 
-# 371 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 302 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
                                                                              *result)
 {
-    ((NOTUSED_cbor_value_is_boolean(value)) ? (void)0 : __assert_func(
-# 373 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_boolean(value)) ? (void)0 : __assert_func(
+# 304 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 373 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 304 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 373 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 304 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 373 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 304 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 373 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 304 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 373 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 304 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     *result = !!value->extra;
     return CborNoError;
 }
 
 
-static inline 
-# 379 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 310 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 379 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_simple_type(const CborValue *value)
+# 310 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_simple_type(const CborValue *value)
 { return value->type == CborSimpleType; }
-static inline CborError NOTUSED_cbor_value_get_simple_type(const CborValue *value, uint8_t *result)
+static __inline__ CborError cbor_value_get_simple_type(const CborValue *value, uint8_t *result)
 {
-    ((NOTUSED_cbor_value_is_simple_type(value)) ? (void)0 : __assert_func(
-# 383 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_simple_type(value)) ? (void)0 : __assert_func(
+# 314 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 383 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 314 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 383 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 314 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 383 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 314 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 383 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 314 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 383 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 314 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     *result = (uint8_t)value->extra;
     return CborNoError;
 }
 
 
-static inline 
-# 389 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 320 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 389 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_integer(const CborValue *value)
+# 320 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_integer(const CborValue *value)
 { return value->type == CborIntegerType; }
-static inline 
-# 391 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 322 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 391 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_unsigned_integer(const CborValue *value)
-{ return NOTUSED_cbor_value_is_integer(value) && (value->flags & CborIteratorFlag_NegativeInteger) == 0; }
-static inline 
-# 393 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 322 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_unsigned_integer(const CborValue *value)
+{ return cbor_value_is_integer(value) && (value->flags & CborIteratorFlag_NegativeInteger) == 0; }
+static __inline__ 
+# 324 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 393 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_negative_integer(const CborValue *value)
-{ return NOTUSED_cbor_value_is_integer(value) && (value->flags & CborIteratorFlag_NegativeInteger); }
+# 324 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_negative_integer(const CborValue *value)
+{ return cbor_value_is_integer(value) && (value->flags & CborIteratorFlag_NegativeInteger); }
 
-static inline CborError NOTUSED_cbor_value_get_raw_integer(const CborValue *value, uint64_t *result)
+static __inline__ CborError cbor_value_get_raw_integer(const CborValue *value, uint64_t *result)
 {
-    ((NOTUSED_cbor_value_is_integer(value)) ? (void)0 : __assert_func(
-# 398 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_integer(value)) ? (void)0 : __assert_func(
+# 329 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 398 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 329 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 398 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 329 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 398 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 329 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 398 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 329 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 398 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 329 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    *result = NOTUSED__cbor_value_extract_int64_helper(value);
+    *result = _cbor_value_extract_int64_helper(value);
     return CborNoError;
 }
 
-static inline CborError NOTUSED_cbor_value_get_uint64(const CborValue *value, uint64_t *result)
+static __inline__ CborError cbor_value_get_uint64(const CborValue *value, uint64_t *result)
 {
-    ((NOTUSED_cbor_value_is_unsigned_integer(value)) ? (void)0 : __assert_func(
-# 405 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_unsigned_integer(value)) ? (void)0 : __assert_func(
+# 336 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 405 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 336 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 405 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 336 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 405 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 336 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 405 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 336 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 405 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 336 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    *result = NOTUSED__cbor_value_extract_int64_helper(value);
+    *result = _cbor_value_extract_int64_helper(value);
     return CborNoError;
 }
 
-static inline CborError NOTUSED_cbor_value_get_int64(const CborValue *value, int64_t *result)
+static __inline__ CborError cbor_value_get_int64(const CborValue *value, int64_t *result)
 {
-    ((NOTUSED_cbor_value_is_integer(value)) ? (void)0 : __assert_func(
-# 412 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_integer(value)) ? (void)0 : __assert_func(
+# 343 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 412 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 343 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 412 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 343 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 412 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 343 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 412 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 343 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 412 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 343 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    *result = (int64_t) NOTUSED__cbor_value_extract_int64_helper(value);
+    *result = (int64_t) _cbor_value_extract_int64_helper(value);
     if (value->flags & CborIteratorFlag_NegativeInteger)
         *result = -*result - 1;
     return CborNoError;
 }
 
-static inline CborError NOTUSED_cbor_value_get_int(const CborValue *value, int *result)
+static __inline__ CborError cbor_value_get_int(const CborValue *value, int *result)
 {
-    ((NOTUSED_cbor_value_is_integer(value)) ? (void)0 : __assert_func(
-# 421 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_integer(value)) ? (void)0 : __assert_func(
+# 352 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 421 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 352 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 421 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 352 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 421 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 352 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 421 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 352 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 421 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 352 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    *result = (int) NOTUSED__cbor_value_extract_int64_helper(value);
+    *result = (int) _cbor_value_extract_int64_helper(value);
     if (value->flags & CborIteratorFlag_NegativeInteger)
         *result = -*result - 1;
     return CborNoError;
@@ -19534,72 +19480,72 @@ static inline CborError NOTUSED_cbor_value_get_int(const CborValue *value, int *
  CborError cbor_value_get_int64_checked(const CborValue *value, int64_t *result);
  CborError cbor_value_get_int_checked(const CborValue *value, int *result);
 
-static inline 
-# 431 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 362 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 431 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_length_known(const CborValue *value)
+# 362 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_length_known(const CborValue *value)
 { return (value->flags & CborIteratorFlag_UnknownLength) == 0; }
 
 
-static inline 
-# 435 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 366 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 435 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_tag(const CborValue *value)
+# 366 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_tag(const CborValue *value)
 { return value->type == CborTagType; }
-static inline CborError NOTUSED_cbor_value_get_tag(const CborValue *value, CborTag *result)
+static __inline__ CborError cbor_value_get_tag(const CborValue *value, CborTag *result)
 {
-    ((NOTUSED_cbor_value_is_tag(value)) ? (void)0 : __assert_func(
-# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_tag(value)) ? (void)0 : __assert_func(
+# 370 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 370 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 370 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 370 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 370 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 370 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    *result = NOTUSED__cbor_value_extract_int64_helper(value);
+    *result = _cbor_value_extract_int64_helper(value);
     return CborNoError;
 }
  CborError cbor_value_skip_tag(CborValue *it);
 
 
-static inline 
-# 446 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 377 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 446 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_byte_string(const CborValue *value)
+# 377 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_byte_string(const CborValue *value)
 { return value->type == CborByteStringType; }
-static inline 
-# 448 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 379 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 448 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_text_string(const CborValue *value)
+# 379 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_text_string(const CborValue *value)
 { return value->type == CborTextStringType; }
 
-static inline CborError NOTUSED_cbor_value_get_string_length(const CborValue *value, size_t *length)
+static __inline__ CborError cbor_value_get_string_length(const CborValue *value, size_t *length)
 {
-    ((NOTUSED_cbor_value_is_byte_string(value) || NOTUSED_cbor_value_is_text_string(value)) ? (void)0 : __assert_func(
-# 453 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_byte_string(value) || cbor_value_is_text_string(value)) ? (void)0 : __assert_func(
+# 384 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 453 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 384 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 453 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 384 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 453 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 384 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 453 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 384 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 453 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 384 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    if (!NOTUSED_cbor_value_is_length_known(value))
+    if (!cbor_value_is_length_known(value))
         return CborErrorUnknownLength;
-    uint64_t v = NOTUSED__cbor_value_extract_int64_helper(value);
+    uint64_t v = _cbor_value_extract_int64_helper(value);
     *length = v;
     if (*length != v)
         return CborErrorDataTooLarge;
@@ -19613,76 +19559,76 @@ static inline CborError NOTUSED_cbor_value_get_string_length(const CborValue *va
 
  CborError cbor_value_calculate_string_length(const CborValue *value, size_t *length);
 
-static inline CborError NOTUSED_cbor_value_copy_text_string(const CborValue *value, char *buffer,
+static __inline__ CborError cbor_value_copy_text_string(const CborValue *value, char *buffer,
                                                       size_t *buflen, CborValue *next)
 {
-    ((NOTUSED_cbor_value_is_text_string(value)) ? (void)0 : __assert_func(
-# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_text_string(value)) ? (void)0 : __assert_func(
+# 404 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 404 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 404 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 404 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 404 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 404 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     return _cbor_value_copy_string(value, buffer, buflen, next);
 }
-static inline CborError NOTUSED_cbor_value_copy_byte_string(const CborValue *value, uint8_t *buffer,
+static __inline__ CborError cbor_value_copy_byte_string(const CborValue *value, uint8_t *buffer,
                                                       size_t *buflen, CborValue *next)
 {
-    ((NOTUSED_cbor_value_is_byte_string(value)) ? (void)0 : __assert_func(
-# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_byte_string(value)) ? (void)0 : __assert_func(
+# 410 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 410 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 410 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 410 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 410 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 410 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     return _cbor_value_copy_string(value, buffer, buflen, next);
 }
 
-static inline CborError NOTUSED_cbor_value_dup_text_string(const CborValue *value, char **buffer,
+static __inline__ CborError cbor_value_dup_text_string(const CborValue *value, char **buffer,
                                                      size_t *buflen, CborValue *next)
 {
-    ((NOTUSED_cbor_value_is_text_string(value)) ? (void)0 : __assert_func(
-# 486 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_text_string(value)) ? (void)0 : __assert_func(
+# 417 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 486 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 417 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 486 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 417 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 486 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 417 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 486 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 417 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 486 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 417 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     return _cbor_value_dup_string(value, (void **)buffer, buflen, next);
 }
-static inline CborError NOTUSED_cbor_value_dup_byte_string(const CborValue *value, uint8_t **buffer,
+static __inline__ CborError cbor_value_dup_byte_string(const CborValue *value, uint8_t **buffer,
                                                      size_t *buflen, CborValue *next)
 {
-    ((NOTUSED_cbor_value_is_byte_string(value)) ? (void)0 : __assert_func(
-# 492 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_byte_string(value)) ? (void)0 : __assert_func(
+# 423 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 492 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 423 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 492 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 423 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 492 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 423 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 492 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 423 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 492 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 423 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     return _cbor_value_dup_string(value, (void **)buffer, buflen, next);
 }
@@ -19690,67 +19636,67 @@ static inline CborError NOTUSED_cbor_value_dup_byte_string(const CborValue *valu
 
 
  CborError cbor_value_text_string_equals(const CborValue *value, const char *string, 
-# 498 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 429 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                                                                                             _Bool 
-# 498 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 429 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
                                                                                                  *result);
 
 
-static inline 
-# 501 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 432 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 501 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_array(const CborValue *value)
+# 432 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_array(const CborValue *value)
 { return value->type == CborArrayType; }
-static inline 
-# 503 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 434 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 503 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_map(const CborValue *value)
+# 434 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_map(const CborValue *value)
 { return value->type == CborMapType; }
 
-static inline CborError NOTUSED_cbor_value_get_array_length(const CborValue *value, size_t *length)
+static __inline__ CborError cbor_value_get_array_length(const CborValue *value, size_t *length)
 {
-    ((NOTUSED_cbor_value_is_array(value)) ? (void)0 : __assert_func(
-# 508 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_array(value)) ? (void)0 : __assert_func(
+# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 508 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 508 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 508 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 508 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 508 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 439 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    if (!NOTUSED_cbor_value_is_length_known(value))
+    if (!cbor_value_is_length_known(value))
         return CborErrorUnknownLength;
-    uint64_t v = NOTUSED__cbor_value_extract_int64_helper(value);
+    uint64_t v = _cbor_value_extract_int64_helper(value);
     *length = v;
     if (*length != v)
         return CborErrorDataTooLarge;
     return CborNoError;
 }
 
-static inline CborError NOTUSED_cbor_value_get_map_length(const CborValue *value, size_t *length)
+static __inline__ CborError cbor_value_get_map_length(const CborValue *value, size_t *length)
 {
-    ((NOTUSED_cbor_value_is_map(value)) ? (void)0 : __assert_func(
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_map(value)) ? (void)0 : __assert_func(
+# 451 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 451 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 451 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 451 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 451 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 451 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
-    if (!NOTUSED_cbor_value_is_length_known(value))
+    if (!cbor_value_is_length_known(value))
         return CborErrorUnknownLength;
-    uint64_t v = NOTUSED__cbor_value_extract_int64_helper(value);
+    uint64_t v = _cbor_value_extract_int64_helper(value);
     *length = v;
     if (*length != v)
         return CborErrorDataTooLarge;
@@ -19760,86 +19706,86 @@ static inline CborError NOTUSED_cbor_value_get_map_length(const CborValue *value
  CborError cbor_value_map_find_value(const CborValue *map, const char *string, CborValue *element);
 
 
-static inline 
-# 533 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 464 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 533 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_half_float(const CborValue *value)
+# 464 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_half_float(const CborValue *value)
 { return value->type == CborHalfFloatType; }
  CborError cbor_value_get_half_float(const CborValue *value, void *result);
 
-static inline 
-# 537 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 468 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 537 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_float(const CborValue *value)
+# 468 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_float(const CborValue *value)
 { return value->type == CborFloatType; }
-static inline CborError NOTUSED_cbor_value_get_float(const CborValue *value, float *result)
+static __inline__ CborError cbor_value_get_float(const CborValue *value, float *result)
 {
-    ((NOTUSED_cbor_value_is_float(value)) ? (void)0 : __assert_func(
-# 541 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_float(value)) ? (void)0 : __assert_func(
+# 472 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 541 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 472 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 541 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 472 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 541 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 472 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 541 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 472 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 541 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 472 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     ((value->flags & CborIteratorFlag_IntegerValueTooLarge) ? (void)0 : __assert_func(
-# 542 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 542 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 542 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 542 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 542 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 542 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 473 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     uint32_t data = (uint32_t)_cbor_value_decode_int64_internal(value);
     memcpy(result, &data, sizeof(*result));
     return CborNoError;
 }
 
-static inline 
-# 548 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+static __inline__ 
+# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
-# 548 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                    NOTUSED_cbor_value_is_double(const CborValue *value)
+# 479 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+                    cbor_value_is_double(const CborValue *value)
 { return value->type == CborDoubleType; }
-static inline CborError NOTUSED_cbor_value_get_double(const CborValue *value, double *result)
+static __inline__ CborError cbor_value_get_double(const CborValue *value, double *result)
 {
-    ((NOTUSED_cbor_value_is_double(value)) ? (void)0 : __assert_func(
-# 552 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+    ((cbor_value_is_double(value)) ? (void)0 : __assert_func(
+# 483 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 552 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 483 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 552 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 483 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 552 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 483 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 552 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 483 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 552 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 483 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     ((value->flags & CborIteratorFlag_IntegerValueTooLarge) ? (void)0 : __assert_func(
-# 553 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 484 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 553 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 484 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 0, 
-# 553 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 484 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 553 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 484 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    , 
-# 553 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
+# 484 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
    ((void *)0)
-# 553 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+# 484 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
    ));
     uint64_t data = _cbor_value_decode_int64_internal(value);
     memcpy(result, &data, sizeof(*result));
@@ -19848,7 +19794,7 @@ static inline CborError NOTUSED_cbor_value_get_double(const CborValue *value, do
 
 
  CborError cbor_value_to_pretty_advance(FILE *out, CborValue *value);
-static inline CborError NOTUSED_cbor_value_to_pretty(FILE *out, const CborValue *value)
+static __inline__ CborError cbor_value_to_pretty(FILE *out, const CborValue *value)
 {
     CborValue copy = *value;
     return cbor_value_to_pretty_advance(out, &copy);
@@ -19859,194 +19805,6 @@ struct mgmt_cbuf {
     struct CborEncoder encoder;
     struct CborValue it;
 };
-# 583 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-#undef CBOR_INLINE
-#undef CBOR_INLINE_API
-
-#define CBOR_INLINE 
-#define CBOR_INLINE_API 
-
-#undef cbor_encode_text_stringz
-#undef cbor_encode_bytes_written
-#undef cbor_encode_boolean
-#undef cbor_encode_null
-#undef cbor_encode_undefined
-#undef cbor_encode_half_float
-#undef cbor_encode_float
-#undef cbor_encode_double
-#undef cbor_value_at_end
-#undef cbor_value_is_container
-#undef _cbor_value_extract_int64_helper
-#undef cbor_value_is_valid
-#undef cbor_value_get_type
-#undef cbor_value_is_null
-#undef cbor_value_is_undefined
-#undef cbor_value_is_boolean
-#undef cbor_value_get_boolean
-#undef cbor_value_is_simple_type
-#undef cbor_value_get_simple_type
-#undef cbor_value_is_integer
-#undef cbor_value_is_unsigned_integer
-#undef cbor_value_is_negative_integer
-#undef cbor_value_get_raw_integer
-#undef cbor_value_get_uint64
-#undef cbor_value_get_int64
-#undef cbor_value_get_int
-#undef cbor_value_is_length_known
-#undef cbor_value_is_tag
-#undef cbor_value_get_tag
-#undef cbor_value_is_byte_string
-#undef cbor_value_is_text_string
-#undef cbor_value_get_string_length
-#undef cbor_value_copy_text_string
-#undef cbor_value_copy_byte_string
-#undef cbor_value_dup_text_string
-#undef cbor_value_dup_byte_string
-#undef cbor_value_is_array
-#undef cbor_value_is_map
-#undef cbor_value_get_array_length
-#undef cbor_value_get_map_length
-#undef cbor_value_is_half_float
-#undef cbor_value_is_float
-#undef cbor_value_get_float
-#undef cbor_value_is_double
-#undef cbor_value_get_double
-#undef cbor_value_to_pretty
-
-    CborError cbor_encode_text_stringz(CborEncoder *encoder, const char *string);
-    CborError cbor_encode_bytes_written(CborEncoder *encoder);
-    CborError cbor_encode_boolean(CborEncoder *encoder, 
-# 638 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                                                                       _Bool 
-# 638 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                                                                            value);
-    CborError cbor_encode_null(CborEncoder *encoder);
-    CborError cbor_encode_undefined(CborEncoder *encoder);
-    CborError cbor_encode_half_float(CborEncoder *encoder, const void *value);
-    CborError cbor_encode_float(CborEncoder *encoder, float value);
-    CborError cbor_encode_double(CborEncoder *encoder, double value);
-    
-# 644 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 644 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_at_end(const CborValue *it);
-    
-# 645 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 645 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_container(const CborValue *it);
-    uint64_t _cbor_value_extract_int64_helper(const CborValue *value);
-    
-# 647 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 647 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_valid(const CborValue *value);
-    CborType cbor_value_get_type(const CborValue *value);
-    
-# 649 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 649 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_null(const CborValue *value);
-    
-# 650 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 650 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_undefined(const CborValue *value);
-    
-# 651 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 651 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_boolean(const CborValue *value);
-    CborError cbor_value_get_boolean(const CborValue *value, 
-# 652 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                                                                            _Bool 
-# 652 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                                                                                 *result);
-    
-# 653 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 653 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_simple_type(const CborValue *value);
-    CborError cbor_value_get_simple_type(const CborValue *value, uint8_t *result);
-    
-# 655 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 655 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_integer(const CborValue *value);
-    
-# 656 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 656 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_unsigned_integer(const CborValue *value);
-    
-# 657 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 657 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_negative_integer(const CborValue *value);
-    CborError cbor_value_get_raw_integer(const CborValue *value, uint64_t *result);
-    CborError cbor_value_get_uint64(const CborValue *value, uint64_t *result);
-    CborError cbor_value_get_int64(const CborValue *value, int64_t *result);
-    CborError cbor_value_get_int(const CborValue *value, int *result);
-    
-# 662 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 662 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_length_known(const CborValue *value);
-    
-# 663 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 663 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_tag(const CborValue *value);
-    CborError cbor_value_get_tag(const CborValue *value, CborTag *result);
-    
-# 665 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 665 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_byte_string(const CborValue *value);
-    
-# 666 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 666 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_text_string(const CborValue *value);
-    CborError cbor_value_get_string_length(const CborValue *value, size_t *length);
-    CborError cbor_value_copy_text_string(const CborValue *value, char *buffer,
-                                                        size_t *buflen, CborValue *next);
-    CborError cbor_value_copy_byte_string(const CborValue *value, uint8_t *buffer,
-                                                        size_t *buflen, CborValue *next);
-    CborError cbor_value_dup_text_string(const CborValue *value, char **buffer,
-                                                        size_t *buflen, CborValue *next);
-    CborError cbor_value_dup_byte_string(const CborValue *value, uint8_t **buffer,
-                                                        size_t *buflen, CborValue *next);
-    
-# 676 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 676 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_array(const CborValue *value);
-    
-# 677 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 677 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_map(const CborValue *value);
-    CborError cbor_value_get_array_length(const CborValue *value, size_t *length);
-    CborError cbor_value_get_map_length(const CborValue *value, size_t *length);
-    
-# 680 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 680 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_half_float(const CborValue *value);
-    
-# 681 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 681 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_float(const CborValue *value);
-    CborError cbor_value_get_float(const CborValue *value, float *result);
-    
-# 683 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
-                   _Bool 
-# 683 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
-                        cbor_value_is_double(const CborValue *value);
-    CborError cbor_value_get_double(const CborValue *value, double *result);
-    CborError cbor_value_to_pretty(FILE *out, const CborValue *value);
 # 24 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 2
 # 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_constants.h" 1
 # 18 "repos/apache-mynewt-core/net/oic/include/oic/oc_constants.h"

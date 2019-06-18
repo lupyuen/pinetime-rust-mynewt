@@ -18,7 +18,12 @@ function generate_bindings_encoding() {
     local libdir=encoding/$libname
     #  libcmd looks like bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname2.o.cmd
+    #  Skip incorrect binding "pub static CborIndefiniteLength: usize", replace by const:
+    #  static const size_t CborIndefiniteLength = (0xffffffffU)
+    local line="pub const CborIndefiniteLength: usize = 0xffffffffusize;"
     local whitelist=`cat << EOF
+        --raw-line ${line} \
+        --blacklist-item     CborIndefiniteLength \
         --whitelist-function (?i)${modname3}.* \
         --whitelist-type     (?i)${modname3}.* \
         --whitelist-var      (?i)${modname3}.* 
@@ -26,17 +31,6 @@ EOF
 `
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
-
-#  Generate Rust bindings for tinycbor.
-echo bindgen \
-    --no-layout-tests \
-    --use-core \
-    --ctypes-prefix "::cty" \
-    --whitelist-function "(?i)cbor.*" \
-    --whitelist-type     "(?i)cbor.*" \
-    --whitelist-var      "(?i)cbor.*" \
-    -o src/tinycbor.rs \
-    logs/cborencoder.h
 
 function generate_bindings_kernel() {
     #  Generate bindings for kernel/$1 e.g. os.
