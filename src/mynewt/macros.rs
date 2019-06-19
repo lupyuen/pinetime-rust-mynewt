@@ -433,9 +433,9 @@ macro_rules! coap_root {
 
   (@json $children0:block) => {{  //  JSON
     d!(begin json coap_root);
-    json_rep_start_root_object!();
+    unsafe { json_rep_start_root_object() }
     $children0;
-    json_rep_end_root_object!();
+    unsafe { json_rep_end_root_object() }
     d!(end json coap_root);
   }};
 }
@@ -577,105 +577,8 @@ macro_rules! coap_item_int_val {
 //  JSON macros ported from C to Rust:
 //  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
 
-#[macro_export(local_inner_macros)]
-macro_rules! json_rep_start_root_object {
-  () => {{
-    d!(begin json_rep_start_root_object);
-    //  TODO
-    //  d!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_map(&mut g_encoder, &mut root_map, CborIndefiniteLength) };
-    d!(end json_rep_start_root_object);
-  }};
-}
-
-#[macro_export(local_inner_macros)]
-macro_rules! json_rep_end_root_object {
-  () => {{
-    d!(begin json_rep_end_root_object);
-    //  d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
-    unsafe { cbor_encoder_close_container(&mut g_encoder, &mut root_map); }
-    d!(end json_rep_end_root_object);
-  }};
-}
-
-#[macro_export]
-macro_rules! json_rep_start_object {
-  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
-    concat!(
-      "begin json_rep_start_object ",
-      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
-      ", key: ",    stringify!($key),
-      ", child: ",  stringify!($key), "_map"  //  key##_map
-    );
-    //  d!(> TODO: CborEncoder key##_map);
-    //  concat_idents!($key, _map) = CborEncoder{};
-    //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_map(
-      &mut $parent, 
-      &mut concat_idents!($key, _map), 
-      CborIndefiniteLength) 
-    };
-    d!(end json_rep_start_object);
-  }};
-}
-
-#[macro_export]
-macro_rules! json_rep_end_object {
-  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
-    concat!(
-      "begin json_rep_end_object ",
-      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
-      ", key: ",    stringify!($key),
-      ", child: ",  stringify!($key), "_map"  //  key##_map
-    );
-    //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    unsafe { cbor_encoder_close_container(
-      &mut concat_idents!($parent, $parent_suffix), 
-      &mut concat_idents!($key, _map)) 
-    };
-    d!(end json_rep_end_object);
-  }};
-}
-
-#[macro_export]
-macro_rules! json_rep_start_array {
-  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
-    concat!(
-      "begin json_rep_start_array ",
-      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
-      ", key: ",    stringify!($key),
-      ", child: ",  stringify!($key), "_array"  //  key##_array
-    );
-    //  d!(> TODO: CborEncoder key##_array);
-    //  concat_idents!($key, _array) = CborEncoder{};
-    //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_array(
-      &mut concat_idents!($parent, $parent_suffix), 
-      &mut concat_idents!($key, _array), 
-      CborIndefiniteLength) 
-    };
-    d!(end json_rep_start_array);
-  }};
-}
-
-#[macro_export]
-macro_rules! json_rep_end_array {
-  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
-    concat!(
-      "begin json_rep_end_array ",
-      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
-      ", key: ",    stringify!($key),
-      ", child: ",  stringify!($key), "_array"  //  key##_array
-    );
-    //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
-    unsafe { cbor_encoder_close_container(
-      &mut $parent, 
-      &mut concat_idents!($parent, $parent_suffix)) 
-    };
-    d!(end json_rep_end_array);
-  }};
-}
-
+//  Assume we are writing an object now.  Write the key name and start a child array.
+//  {a:b --> {a:b, key:[
 #[macro_export]
 macro_rules! json_rep_set_array {
   ($object:ident, $key:ident) => {{
@@ -685,14 +588,19 @@ macro_rules! json_rep_set_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
+    json_encode_array_name(&coap_json_encoder, #key); 
+    json_encode_array_start(&coap_json_encoder);
+
     //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
-    unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
+    //  unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
     //  concat!("> TODO: json_rep_start_array!(object##_map, key);");
-    json_rep_start_array!($object, $key, _map);
+
     d!(end json_rep_set_array);
   }};
 }
 
+//  End the child array and resume writing the parent object.
+//  {a:b, key:[... --> {a:b, key:[...]
 #[macro_export]
 macro_rules! json_rep_close_array {
   ($object:ident, $key:ident) => {{
@@ -702,8 +610,11 @@ macro_rules! json_rep_close_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
+    json_encode_array_finish(&coap_json_encoder);
+
     //  d!(> TODO: json_rep_end_array(object##_map, key));
-    json_rep_end_array!($object, $key, _map);
+    //  json_rep_end_array!($object, $key, _map);
+
     d!(end json_rep_close_array);
   }};
 }
@@ -716,8 +627,11 @@ macro_rules! json_rep_object_array_start_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
+    { json_encode_object_start(&coap_json_encoder); }
+
     //  d!(> TODO: json_rep_start_object(key##_array, key));        
-    json_rep_start_object!($key, $key, _array);
+    //  json_rep_start_object!($key, $key, _array);
+
     d!(end json_rep_object_array_start_item);
   }};
 }
@@ -730,8 +644,11 @@ macro_rules! json_rep_object_array_end_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
+    { json_encode_object_finish(&coap_json_encoder); }   
+
     //  d!(> TODO: json_rep_end_object(key##_array, key));
-    json_rep_end_object!($key, $key, _array);
+    //  json_rep_end_object!($key, $key, _array);
+
     d!(end json_rep_object_array_end_item);
   }};
 }
@@ -747,50 +664,17 @@ macro_rules! json_rep_set_int {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     unsafe {
+      JSON_VALUE_INT(&coap_json_value, value);          
+      json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value);
+
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      cbor_encode_text_string(&mut concat_idents!($object,_map), $key.as_ptr(), $key.len());
+      //  cbor_encode_text_string(&mut concat_idents!($object,_map), $key.as_ptr(), $key.len());
       //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-      cbor_encode_int(&mut concat_idents!($object,_map), $value);
+      //  cbor_encode_int(&mut concat_idents!($object,_map), $value);
     }
     d!(end json_rep_set_int);
   }};
 }
-
-/*
-///  Same as json_rep_set_int but changed "#key" to "key" so that the key won't be stringified.
-#[macro_export]
-macro_rules! json_rep_set_int_k {
-  ($object:ident, $key:expr, $value:expr) => {{
-    concat!(
-      "begin json_rep_set_int_k ",
-      ", object: ", stringify!($object),
-      ", key: ",    stringify!($key),
-      ", value: ",  stringify!($value),
-      ", child: ",  stringify!($object), "_map"  //  object##_map
-    );
-    //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, key, strlen(key)));
-    concat!(
-      "> TODO: g_err |= cbor_encode_text_string(&",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($key),  //  key
-      ", strlen(",
-      stringify!($key),  //  key
-      "));"
-    );
-
-    //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-    concat!(
-      "> TODO: g_err |= cbor_encode_int(&",
-      stringify!($object), "_map",  //  object##_map
-      ", ",
-      stringify!($value),  //  value
-      ");"
-    );
-    d!(end json_rep_set_int_k);
-  }};
-}
-*/
 
 #[macro_export]
 macro_rules! json_rep_set_text_string {
@@ -803,10 +687,13 @@ macro_rules! json_rep_set_text_string {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     unsafe {
+      JSON_VALUE_STRING(&coap_json_value, (char *) value); 
+      json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value);
+
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());
+      //  cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
-      cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
+      //  cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
     }
     d!(end json_rep_set_text_string);
   }};
