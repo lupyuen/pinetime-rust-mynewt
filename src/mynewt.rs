@@ -31,6 +31,7 @@ use self::kernel::os;
 
 /// Error codes for Mynewt API
 #[repr(i32)]
+#[derive(Debug)]
 pub enum MynewtError {
     SYS_EOK         = os::SYS_EOK as i32,
     SYS_ENOMEM      = os::SYS_ENOMEM,

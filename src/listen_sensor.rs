@@ -6,10 +6,11 @@
 //!  If this is the Collector Node, send the sensor data to the CoAP Server after polling.
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
 
-use cty::c_void;                        //  Import C types from cty library: https://crates.io/crates/cty
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
+use cty::{ c_void, c_char };            //  Import C types from cty library: https://crates.io/crates/cty
 use crate::base::*;                     //  Import base.rs for common declarations
 use crate::mynewt::MynewtResult;        //  Import Mynewt API Result type
+use crate::mynewt::kernel::os;          //  Import Mynewt OS API functions
 use crate::mynewt::hw::sensor;          //  Import Mynewt Sensor API functions
 use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API types
     sensor_ptr,
@@ -77,7 +78,7 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: *mut c_void,
     console_print(b"read_temperature\n");
     //  Check that the temperature data is valid.
     //  TODO
-    if unsafe { is_null_sensor_data(sensor_data) } { return SYS_EINVAL; }  //  Exit if data is missing
+    if unsafe { is_null_sensor_data(sensor_data) } { return os::SYS_EINVAL; }  //  Exit if data is missing
     assert!(unsafe { !is_null_sensor(sensor) });
 
     //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
@@ -101,7 +102,7 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: *mut c_void,
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
     if let Err(err) = rc {
-        if err == SYS_EAGAIN {
+        if err == os::SYS_EAGAIN {
             console_print(b"TMP network not ready\n");
             return 0; 
         }            
@@ -115,7 +116,7 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: *mut c_void,
 ///  the raw or computed temperature, as well as the key and value type.
 #[allow(unreachable_patterns)]
 #[allow(unused_variables)]
-fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> SensorValue {
+fn get_temperature(sensor_data: *const c_void, sensor_type: sensor_type_t) -> SensorValue {
     let mut return_value = SensorValue::default();
     match sensor_type {                                //  Is this raw or computed temperature?
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...

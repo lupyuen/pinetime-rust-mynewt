@@ -2,6 +2,7 @@
 //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
 use ::cty::c_void;
+use super::super::MynewtResult;
 
 /// Import all Mynewt Sensor API bindings.
 mod bindings;
@@ -20,7 +21,7 @@ pub type sensor_ptr = *mut sensor;
 ///  `sensor`: The sensor to register a listener on.
 ///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
-pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Result<(), i32>  {  //  Returns an error code upon error. 
+pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> MynewtResult<()> {  //  Returns an error code upon error. 
     unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
     //  Copy the caller's listener to the internal listener.
     unsafe { LISTENER_INTERNAL = listener };

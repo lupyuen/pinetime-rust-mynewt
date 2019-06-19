@@ -10,10 +10,10 @@
 
 use cstr_core::CStr;             //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use crate::base;              //  Import `base.rs` for common declarations
-use crate::mynewt::tinycbor;  //  Import `mynewt/tinycbor.rs` for TinyCBOR C API
-use crate::mynewt::os;        //  Import `mynewt/os.rs` for Mynewt `kernel/os` API
-use crate::mynewt::sensor_network;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
-use crate::mynewt::{g_encoder, root_map};  //  Import Mynewt TinyCBOR encoder and root map
+use crate::mynewt::encoding::tinycbor;  //  Import `mynewt/tinycbor.rs` for TinyCBOR C API
+use crate::mynewt::kernel::os::{ self, os_task, os_stack_t };        //  Import `mynewt/os.rs` for Mynewt `kernel/os` API
+use crate::mynewt::libs::sensor_network;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
+use crate::mynewt::{ MynewtResult, g_encoder, root_map };  //  Import Mynewt TinyCBOR encoder and root map
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
@@ -34,13 +34,13 @@ static mut NETWORK_IS_READY: bool = false;
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"NET start\n");
-    let rc = unsafe { os_task_init( //  Create a new task and start it...
+    let rc = unsafe { os::os_task_init( //  Create a new task and start it...
         &mut NETWORK_TASK,            //  Task object will be saved here.
         b"network\0".as_ptr(),        //  Name of task.
         Some(network_task_func),      //  Function to execute when task starts.
         0 as *mut ::cty::c_void,      //  Argument to be passed to above function.
         10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking.
+        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking.
         NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
         NETWORK_TASK_STACK_SIZE as u16) };  //  Size of the stack (in 4-byte units).
     assert_eq!(rc, 0);
@@ -80,7 +80,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 
     loop {  //  Loop forever...        
         console_print(b"NET free mbuf %d\n");  //  , os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
-        unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
+        unsafe { os::os_time_delay(10 * os::OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
     }
     //  Never comes here.  If this task function terminates, the program will crash.
 }
@@ -128,7 +128,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     if let SensorValueType::None = sensor_val.val { assert!(false); }
     //  assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
-    if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    if unsafe { !NETWORK_IS_READY } { return Err(MynewtError::SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
     let device_id = unsafe { sensor_network::get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
