@@ -9,7 +9,10 @@
 use cty::*;                             //  Import string utilities from cty library: https://crates.io/crates/cty
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;                     //  Import base.rs for common declarations
-use crate::mynewt::hw::sensor::*;       //  Import Mynewt Sensor API
+use crate::mynewt::hw::sensor;          //  Import Mynewt Sensor API functions
+use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API types
+    SensorListener,
+};       
 use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sensor data
 
 ///  Poll every 10,000 milliseconds (10 seconds)  
@@ -31,12 +34,12 @@ pub fn start_sensor_listener() -> Result<(), i32>  {  //  Returns an error code 
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-    let rc = unsafe { sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
+    let rc = unsafe { sensor::sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
     assert_eq!(rc, 0);
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let listen_sensor = unsafe { sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
-    assert!(unsafe{ !is_null_sensor(listen_sensor) });
+    let sensor = unsafe { sensor::sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
+    assert!(unsafe{ !is_null_sensor(sensor) });
 
     //  Define the listener function to be called after polling the temperature sensor.
     let listener = SensorListener {
@@ -47,7 +50,7 @@ pub fn start_sensor_listener() -> Result<(), i32>  {  //  Returns an error code 
     };
 
     //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
-    register_listener(listen_sensor, listener)?;
+    sensor::register_listener(sensor, listener)?;
 
     //  Return 0 to indicate success.  This line should not end with a semicolon (;).
     Ok(())

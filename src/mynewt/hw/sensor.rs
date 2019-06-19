@@ -4,6 +4,8 @@
 mod bindings;
 
 /// Export all bindings.
+//pub use self::bindings::sensor_set_poll_rate_ms as _;
+//pub use self::bindings::sensor_mgr_find_next_bydevname as sensor_mgr_find_next_bydevname;
 pub use self::bindings::*;
 
 ///  Register a sensor listener. This allows a calling application to receive
