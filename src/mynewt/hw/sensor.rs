@@ -1,12 +1,16 @@
 //!  Import the Mynewt Sensor API and export the safe version of the API. Based on
 //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
+use ::cty::c_void;
+
+/// Import all Mynewt Sensor API bindings.
 mod bindings;
 
-/// Export all bindings.
-//pub use self::bindings::sensor_set_poll_rate_ms as _;
-//pub use self::bindings::sensor_mgr_find_next_bydevname as sensor_mgr_find_next_bydevname;
+/// Export all bindings. TODO: Export only the API bindings.
 pub use self::bindings::*;
+
+/// Needed because sensor also refers to a namespace.
+pub type sensor_ptr = *mut sensor;
 
 ///  Register a sensor listener. This allows a calling application to receive
 ///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
@@ -16,7 +20,7 @@ pub use self::bindings::*;
 ///  `sensor`: The sensor to register a listener on.
 ///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
-pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> Result<(), i32>  {  //  Returns an error code upon error. 
+pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Result<(), i32>  {  //  Returns an error code upon error. 
     unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
     //  Copy the caller's listener to the internal listener.
     unsafe { LISTENER_INTERNAL = listener };
@@ -28,14 +32,15 @@ pub fn register_listener(sensor: SensorPtr, listener: SensorListener) -> Result<
 ///  Define the listener function to be called after polling the sensor.
 ///  This is a static mutable copy of the listener passed in through `register_listener`.
 ///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
-static mut LISTENER_INTERNAL: SensorListener = SensorListener {  
-    sl_func: null_sensor_data_func,
-    ..fill_zero!(SensorListener)
+static mut LISTENER_INTERNAL: sensor_listener = sensor_listener {  
+    sl_func: Some(null_sensor_data_func),
+    ..fill_zero!(sensor_listener)
 };
 
 ///  Define a dummy sensor data function in case there is none.
-extern fn null_sensor_data_func(_sensor: SensorPtr, _arg: SensorArg, _sensor_data: SensorDataPtr, _sensor_type: SensorType) -> i32 { 0 }
+extern fn null_sensor_data_func(_sensor: *mut sensor, _arg: *mut c_void, _sensor_data: *mut c_void, _sensor_type: sensor_type_t) -> i32 { 0 }
 
+/*
 ///  Import the Mynewt Sensor API for C.
 ///  Must sync with repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h
 #[link(name = "hw_sensor")]  //  Functions below are located in the Mynewt build output `hw_sensor.a`
@@ -141,3 +146,4 @@ pub const SYS_EUNKNOWN    : i32 = -13;
 pub const SYS_EREMOTEIO   : i32 = -14;
 pub const SYS_EDONE       : i32 = -15;
 pub const SYS_EPERUSER : i32 = -65535;
+*/

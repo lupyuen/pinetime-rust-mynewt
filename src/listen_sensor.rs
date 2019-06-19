@@ -6,19 +6,21 @@
 //!  If this is the Collector Node, send the sensor data to the CoAP Server after polling.
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
 
-use cty::*;                             //  Import string utilities from cty library: https://crates.io/crates/cty
+use cty::c_void;                        //  Import C types from cty library: https://crates.io/crates/cty
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;                     //  Import base.rs for common declarations
 use crate::mynewt::hw::sensor;          //  Import Mynewt Sensor API functions
 use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API types
-    SensorListener,
+    sensor_ptr,
+    sensor_listener,
+    sensor_type_t,
 };       
 use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sensor data
 
 ///  Poll every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  
 ///  Indicate that this is a listener callback
-const LISTENER_CB: SensorArg = 1;           
+const LISTENER_CB: *mut c_void = 1 as *mut c_void;           
 
 /////////////////////////////////////////////////////////
 //  Listen To Local Sensor
@@ -42,17 +44,17 @@ pub fn start_sensor_listener() -> Result<(), i32>  {  //  Returns an error code 
     assert!(unsafe{ !is_null_sensor(sensor) });
 
     //  Define the listener function to be called after polling the temperature sensor.
-    let listener = SensorListener {
-        sl_sensor_type: TEMP_SENSOR_TYPE,      //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
-        sl_func       : read_temperature,      //  Listener function to be called with the sensor data
-        sl_arg        : LISTENER_CB,           //  Indicate to the listener function that this is a listener callback
-        sl_next       : 0,                     //  Must be 0
+    let listener = sensor_listener {
+        sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
+        sl_func       : Some(read_temperature), //  Listener function to be called with the sensor data
+        sl_arg        : LISTENER_CB,            //  Indicate to the listener function that this is a listener callback
+        ..fill_zero!(sensor_listener)
     };
 
     //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
     sensor::register_listener(sensor, listener)?;
 
-    //  Return 0 to indicate success.  This line should not end with a semicolon (;).
+    //  Return () to indicate success.  This line should not end with a semicolon (;).
     Ok(())
 }
 
@@ -69,7 +71,8 @@ pub fn start_sensor_listener() -> Result<(), i32>  {  //  Returns an error code 
 ///  If this is a Sensor Node, we send the sensor data to the Collector Node.
 ///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
 ///  Return 0 if we have processed the sensor data successfully.
-extern fn read_temperature(sensor: SensorPtr, _arg: SensorArg, sensor_data: SensorDataPtr, sensor_type: SensorType) -> i32 {
+extern fn read_temperature(sensor: sensor_ptr, _arg: *mut c_void, 
+    sensor_data: *mut c_void, sensor_type: sensor_type_t) -> i32 {
     console_print(b"read_temperature\n");
     //  Check that the temperature data is valid.
     //  TODO
