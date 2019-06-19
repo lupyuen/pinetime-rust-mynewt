@@ -136,7 +136,7 @@ function generate_bindings_hw() {
     #  prefixname: sensor
     local prefixname=$3
     #  libdir looks like hw/sensor
-    local libdir=encoding/$libname
+    local libdir=hw/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
@@ -177,6 +177,12 @@ function generate_bindings_libs() {
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
             --whitelist-var      (?i)${prefixname}.* 
+EOF
+`
+    elif [ "$libname" == 'sensor_coap' ]; then
+        #  Add sensor coap + whitelist.
+        local whitelist=`cat << EOF
+            --whitelist-function (?i)${prefixname}.*
 EOF
 `
     else

@@ -7,8 +7,6 @@
 -DFLOAT_SUPPORT
 -DMYNEWT=1
 -DSTM32F103xB
--DWITHOUT_OPEN_MEMSTREAM
--Irepos/apache-mynewt-core/encoding/tinycbor/include/tinycbor
 -Os
 -Wall
 -Werror
@@ -46,6 +44,8 @@
 -Ilibs/semihosting_console/include/semihosting_console/arch/cortex_m3
 -Ilibs/sensor_coap/include
 -Ilibs/sensor_coap/include/sensor_coap/arch/cortex_m3
+-Ilibs/sensor_coap/src
+-Ilibs/sensor_coap/src/arch/cortex_m3
 -Ilibs/sensor_network/include
 -Ilibs/sensor_network/include/sensor_network/arch/cortex_m3
 -Ilibs/temp_stm32/include
@@ -58,8 +58,6 @@
 -Irepos/apache-mynewt-core/encoding/json/include/json/arch/cortex_m3
 -Irepos/apache-mynewt-core/encoding/tinycbor/include
 -Irepos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/arch/cortex_m3
--Irepos/apache-mynewt-core/encoding/tinycbor/src
--Irepos/apache-mynewt-core/encoding/tinycbor/src/arch/cortex_m3
 -Irepos/apache-mynewt-core/hw/bsp/bluepill/include
 -Irepos/apache-mynewt-core/hw/bsp/bluepill/include/bluepill/arch/cortex_m3
 -Irepos/apache-mynewt-core/hw/bsp/bluepill/include/bsp
@@ -137,5 +135,5 @@
         -E 
         -dD
         -o
-logs/tinycbor-expanded.h
-repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c
+logs/sensor_coap-expanded.h
+libs/sensor_coap/src/sensor_coap.c
