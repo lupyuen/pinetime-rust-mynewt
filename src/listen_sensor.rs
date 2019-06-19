@@ -113,10 +113,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
     match sensor_type {                                //  Is this raw or computed temperature?
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
             //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
-            let mut rawtempdata = SensorTempRawData {
-                strd_temp_raw: 0,
-                strd_temp_raw_is_valid: 0,
-            };
+            let mut rawtempdata = fill_zero!(SensorTempRawData);
             let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
             assert!(rc == 0);
 
@@ -129,10 +126,7 @@ fn get_temperature(sensor_data: *const CVoid, sensor_type: SensorType) -> Sensor
         },
         SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
             //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
-            let mut tempdata = SensorTempData {
-                std_temp: 0.0,
-                std_temp_is_valid: 0,
-            };
+            let mut tempdata = fill_zero!(SensorTempData);
             let rc = unsafe { get_temp_data(sensor_data, &mut tempdata) };
             assert!(rc == 0);
 
