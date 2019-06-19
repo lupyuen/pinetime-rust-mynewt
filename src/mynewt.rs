@@ -4,23 +4,49 @@
 #[macro_use]            //  Allow macros from Rust module `macros`
 pub mod macros;         //  Export `macros.rs` as Rust module `macros`. Contains Mynewt macros.
 
-//  encoding/*: Encoding Libraries
-pub mod tinycbor;       //  Export `tinycbor.rs` as Rust module `tinycbor`. Contains Rust bindings for Mynewt Encoding Library `encoding/tinycbor`.
-pub mod json;           //  Export `json.rs` as Rust module `json`. Contains Rust bindings for Mynewt Encoding Library `encoding/json`.
+/// `encoding`: Mynewt Encoding API
+pub mod encoding;   //  Export folder `encoding` as Rust module `mynewt::encoding`
 
-//  kernel/*: Kernel API
-pub mod os;             //  Export `os.rs` as Rust module `os`. Contains Rust bindings for Mynewt OS API `kernel/os`.
+/// `kernel`: Mynewt Kernel API
+pub mod kernel;     //  Export folder `kernel` as Rust module `mynewt::kernel`
 
-///  `hw`: Mynewt Hardware API
-pub mod hw;  //  Export folder `hw` as Rust module `mynewt::hw`
+/// `hw`: Mynewt Hardware API
+pub mod hw;         //  Export folder `hw` as Rust module `mynewt::hw`
 
-//  libs/*: Custom Libraries
-pub mod sensor_coap;    //  Export `sensor_coap.rs` as Rust module `sensor_coap`.  Contains Rust bindings for Mynewt Custom Library `libs/sensor_coap`.
-pub mod sensor_network; //  Export `sensor_network.rs` as Rust module `sensor_network`.  Contains Rust bindings for Mynewt Custom Library `libs/sensor_network`.
+/// `libs`: Mynewt Custom API
+pub mod libs;       //  Export folder `libs` as Rust module `mynewt::libs`
 
-///  Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+/// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
 #[link(name = "net_oic")]
 extern {
-    pub static mut g_encoder: tinycbor::CborEncoder;
-    pub static mut root_map: tinycbor::CborEncoder;
+    pub static mut g_encoder: encoding::tinycbor::CborEncoder;
+    pub static mut root_map:  encoding::tinycbor::CborEncoder;
+}
+
+/// Common return type for Mynewt API.  If no error, returns `Ok(val)` where val has type T.
+/// Upon error, returns `Err(err)` where err is the MynewtError error code.
+pub type MynewtResult<T> = ::core::result::Result<T, MynewtError>;
+
+use self::kernel::os;
+
+/// Error codes for Mynewt API
+#[repr(i32)]
+pub enum MynewtError {
+    SYS_EOK         = os::SYS_EOK as i32,
+    SYS_ENOMEM      = os::SYS_ENOMEM,
+    SYS_EINVAL      = os::SYS_EINVAL,
+    SYS_ETIMEOUT    = os::SYS_ETIMEOUT,
+    SYS_ENOENT      = os::SYS_ENOENT,
+    SYS_EIO         = os::SYS_EIO,
+    SYS_EAGAIN      = os::SYS_EAGAIN,
+    SYS_EACCES      = os::SYS_EACCES,
+    SYS_EBUSY       = os::SYS_EBUSY,
+    SYS_ENODEV      = os::SYS_ENODEV,
+    SYS_ERANGE      = os::SYS_ERANGE,
+    SYS_EALREADY    = os::SYS_EALREADY,
+    SYS_ENOTSUP     = os::SYS_ENOTSUP,
+    SYS_EUNKNOWN    = os::SYS_EUNKNOWN,
+    SYS_EREMOTEIO   = os::SYS_EREMOTEIO,
+    SYS_EDONE       = os::SYS_EDONE,
+    SYS_EPERUSER    = os::SYS_EPERUSER,
 }

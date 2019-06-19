@@ -9,6 +9,7 @@
 use cty::c_void;                        //  Import C types from cty library: https://crates.io/crates/cty
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use crate::base::*;                     //  Import base.rs for common declarations
+use crate::mynewt::MynewtResult;        //  Import Mynewt API Result type
 use crate::mynewt::hw::sensor;          //  Import Mynewt Sensor API functions
 use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API types
     sensor_ptr,
@@ -32,7 +33,7 @@ const LISTENER_CB: *mut c_void = 1 as *mut c_void;
 ///  For Collector Node: Start the Listeners for Remote Sensor 
 ///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
 ///  Return 0 if successful.
-pub fn start_sensor_listener() -> Result<(), i32>  {  //  Returns an error code upon error.
+pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"

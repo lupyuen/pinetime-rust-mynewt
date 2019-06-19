@@ -9,10 +9,10 @@
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
 use cstr_core::CStr;             //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
-use crate::base::*;              //  Import `base.rs` for common declarations
-use crate::mynewt::tinycbor::*;  //  Import `mynewt/tinycbor.rs` for TinyCBOR C API
-use crate::mynewt::os::*;        //  Import `mynewt/os.rs` for Mynewt `kernel/os` API
-use crate::mynewt::sensor_network::*;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
+use crate::base;              //  Import `base.rs` for common declarations
+use crate::mynewt::tinycbor;  //  Import `mynewt/tinycbor.rs` for TinyCBOR C API
+use crate::mynewt::os;        //  Import `mynewt/os.rs` for Mynewt `kernel/os` API
+use crate::mynewt::sensor_network;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
 use crate::mynewt::{g_encoder, root_map};  //  Import Mynewt TinyCBOR encoder and root map
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ static mut NETWORK_IS_READY: bool = false;
 ///  (ESP8266 and nRF24L01) for transmitting sensor data messages.  
 ///  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
-pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upon error.
+pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"NET start\n");
     let rc = unsafe { os_task_init( //  Create a new task and start it...
         &mut NETWORK_TASK,            //  Task object will be saved here.
@@ -59,13 +59,19 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 
     //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
     //  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
-    if unsafe { is_standalone_node() } || unsafe { is_collector_node() } {
-        let rc = unsafe { register_server_transport() };  assert_eq!(rc, 0);
+    if unsafe { 
+        sensor_network::is_standalone_node() || 
+        sensor_network::is_collector_node() 
+        } {
+        let rc = unsafe { sensor_network::register_server_transport() };  assert_eq!(rc, 0);
     }
 
     //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
-    if unsafe { is_collector_node() } || unsafe { is_sensor_node() } {
-        let rc = unsafe { register_collector_transport() };  assert_eq!(rc, 0);
+    if unsafe { 
+        sensor_network::is_collector_node() || 
+        sensor_network::is_sensor_node() 
+        } {
+        let rc = unsafe { sensor_network::register_collector_transport() };  assert_eq!(rc, 0);
     }
 
     //  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
@@ -88,12 +94,12 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 ///  The message will be enqueued for transmission by the CoAP / OIC Background Task 
 ///  so this function will return without waiting for the message to be transmitted.  
 ///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
-pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
+pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"send_sensor_data\n");
     //  TODO: Remove val
     let mut val = fill_zero!(sensor_value);
     //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
-    if unsafe { should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
+    if unsafe { sensor_network::should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
         return send_sensor_data_to_collector(sensor_val, sensor_node); 
     }
     //  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
@@ -118,17 +124,17 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> Result<
 ///    {"key":"...",    "value":... },
 ///    ... ]}
 ///  ```
-fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
+fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
     if let SensorValueType::None = sensor_val.val { assert!(false); }
     //  assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
     if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
+    let device_id = unsafe { sensor_network::get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
+    let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
 
     //  Compose the CoAP Payload in JSON using the coap!() macro.
     let _payload = coap!(@json {
@@ -147,7 +153,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Resul
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    let rc = unsafe { do_server_post() };  assert!(rc);
+    let rc = unsafe { sensor_network::do_server_post() };  assert!(rc);
 
     console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
     //  console_printf("NET send data: tmp "); console_printfloat(tmp); console_printf("\n");  ////
@@ -169,7 +175,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Resul
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
-fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
+fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
     ////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
     if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 

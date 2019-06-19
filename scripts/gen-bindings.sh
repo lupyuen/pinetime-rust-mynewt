@@ -61,8 +61,8 @@ EOF
 function generate_bindings_kernel() {
     #  Generate bindings for kernel/$1 e.g. os.
     local libname=$1
-    local modname=$1
     #  libdir looks like kernel/os
+    local modname=kernel/$libname
     local libdir=kernel/$libname
     #  libcmd looks like bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname.o.cmd
@@ -90,12 +90,12 @@ function generate_bindings_encoding() {
     #  Generate bindings for encoding/*
     #  libname: tinycbor, json
     local libname=$1
-    local modname=$1
     #  srcname looks like cborencoder, json_encode
     local srcname=$2
     #  prefixname looks like cbor, json
     local prefixname=$3
     #  libdir looks like encoding/tinycbor, encoding/json_encode
+    local modname=encoding/$libname
     local libdir=encoding/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
@@ -130,12 +130,12 @@ function generate_bindings_hw() {
     #  Generate bindings for hw/*
     #  libname: sensor
     local libname=$1
-    local modname=$1
     #  srcname: sensor
     local srcname=$2
     #  prefixname: sensor
     local prefixname=$3
     #  libdir looks like hw/sensor
+    local modname=hw/$libname
     local libdir=hw/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
@@ -154,12 +154,12 @@ function generate_bindings_libs() {
     #  Generate bindings for libs/*
     #  libname: sensor_network, sensor_coap
     local libname=$1
-    local modname=$1
     #  srcname: sensor_network, sensor_coap
     local srcname=$2
     #  prefixname: sensor_network, sensor_coap
     local prefixname=$3    
     #  libdir looks like libs/sensor_network, libs/sensor_coap
+    local modname=libs/$libname
     local libdir=libs/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
@@ -203,12 +203,12 @@ EOF
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
-# generate_bindings_encoding json     json_encode json  #  Generate bindings for encoding/json
-# generate_bindings_encoding tinycbor cborencoder cbor  #  Generate bindings for encoding/tinycbor
-# generate_bindings_kernel   os              #  Generate bindings for kernel/os
-generate_bindings_hw sensor sensor sensor               #  Generate bindings for hw/sensor
-generate_bindings_libs sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
-generate_bindings_libs sensor_coap sensor_coap sensor_coap #  Generate bindings for libs/sensor_coap
+generate_bindings_encoding json         json_encode json  #  Generate bindings for encoding/json
+generate_bindings_encoding tinycbor     cborencoder cbor  #  Generate bindings for encoding/tinycbor
+generate_bindings_kernel   os                             #  Generate bindings for kernel/os
+generate_bindings_hw       sensor       sensor sensor     #  Generate bindings for hw/sensor
+generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
+generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap
 
 # For testing only:
 # generate_bindings_apps my_sensor_app send_coap  #  Generate bindings for my_sensor_app/send_coap.c
