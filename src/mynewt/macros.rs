@@ -422,25 +422,41 @@ macro_rules! unexpected_token {
 
 ///  Compose the payload root.
 #[macro_export(local_inner_macros)]
-macro_rules! coap_root {
-  (@$enc:ident $children0:block) => {{
-    d!(begin coap_root);
+macro_rules! coap_root {  
+  (@cbor $children0:block) => {{  //  CBOR
+    d!(begin cbor coap_root);
     oc_rep_start_root_object!();
     $children0;
     oc_rep_end_root_object!();
-    d!(end coap_root);
+    d!(end cbor coap_root);
+  }};
+
+  (@json $children0:block) => {{  //  JSON
+    d!(begin json coap_root);
+    json_rep_start_root_object!();
+    $children0;
+    json_rep_end_root_object!();
+    d!(end json coap_root);
   }};
 }
 
 ///  Compose an array under "object", named as "key".  Add "children" as array elements.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
-  (@$enc:ident $object0:ident, $key0:ident, $children0:block) => {{
-    d!(begin coap_array _object0: $object0  _key0: $key0);
+  (@cbor $object0:ident, $key0:ident, $children0:block) => {{  //  CBOR
+    d!(begin cbor coap_array, object: $object0, key: $key0);
     oc_rep_set_array!($object0, $key0);
     $children0;
     oc_rep_close_array!($object0, $key0);
-    d!(end coap_array);
+    d!(end cbor coap_array);
+  }};
+
+  (@json $object0:ident, $key0:ident, $children0:block) => {{  //  JSON
+    d!(begin json coap_array, object: $object0, key: $key0);
+    json_rep_set_array!($object0, $key0);
+    $children0;
+    json_rep_close_array!($object0, $key0);
+    d!(end json coap_array);
   }};
 }
 
@@ -448,25 +464,28 @@ macro_rules! coap_array {
 ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_str {
-  //  TODO: Allow key to be ident.
-  (@$enc:ident $parent:ident, $key:expr, $val:expr) => {{
-    d!(begin coap_item_str _parent: $parent _key: $key _val: $val);
-    coap_item!(@$enc
-      $parent,  //  _parent,
+  (@cbor $parent:ident, $key:expr, $val:expr) => {{  //  CBOR
+    d!(begin cbor coap_item_str, parent: $parent, key: $key, val: $val);
+    coap_item!(@cbor
+      $parent,
       {
-        oc_rep_set_text_string!(
-          $parent,  //  _parent, 
-          "key",   
-          $key      //  _key
-        );
-        oc_rep_set_text_string!(
-          $parent,  //  _parent, 
-          "value", 
-          $val      //  _val
-        );
+        oc_rep_set_text_string!($parent, "key", $key);
+        oc_rep_set_text_string!($parent, "value", $val);
       }
     );
-    d!(end coap_item_str);
+    d!(end cbor coap_item_str);
+  }};
+
+  (@json $parent:ident, $key:expr, $val:expr) => {{  //  JSON
+    d!(begin json coap_item_str, parent: $parent, key: $key, val: $val);
+    coap_item!(@json
+      $parent,
+      {
+        json_rep_set_text_string!($parent, "key", $key);
+        json_rep_set_text_string!($parent, "value", $val);
+      }
+    );
+    d!(end json coap_item_str);
   }};
 }
 
@@ -474,12 +493,20 @@ macro_rules! coap_item_str {
 ///    `{ <array0>: [ ..., { <children0> } ] }`
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item {
-  (@$enc:ident $array0:ident, $children0:block) => {{
-    d!(begin coap_item array: $array0);
+  (@cbor $array0:ident, $children0:block) => {{  //  CBOR
+    d!(begin cbor coap_item, array: $array0);
     oc_rep_object_array_start_item!($array0);
     $children0;
     oc_rep_object_array_end_item!($array0);
-    d!(end coap_item);
+    d!(end cbor coap_item);
+  }};
+
+  (@json $array0:ident, $children0:block) => {{  //  JSON
+    d!(begin json coap_item, array: $array0);
+    json_rep_object_array_start_item!($array0);
+    $children0;
+    json_rep_object_array_end_item!($array0);
+    d!(end json coap_item);
   }};
 }
 
@@ -487,42 +514,306 @@ macro_rules! coap_item {
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int {
-  (@$enc:ident $array0:ident, $key0:expr, $value0:expr) => {{
-    d!(begin coap_item_int, key: $key0, value: $value0);
+  (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
+    d!(begin cbor coap_item_int, key: $key0, value: $value0);
     coap_item!(@$enc $array0, {
       oc_rep_set_text_string!($array0, "key",   $key0);
       oc_rep_set_int!(        $array0, "value", $value0);
     });
-    d!(end coap_item_int);
+    d!(end cbor coap_item_int);
+  }};
+
+  (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
+    d!(begin json coap_item_int, key: $key0, value: $value0);
+    coap_item!(@json $array0, {
+      json_rep_set_text_string!($array0, "key",   $key0);
+      json_rep_set_int!(        $array0, "value", $value0);
+    });
+    d!(end json coap_item_int);
   }};
 }
 
 ///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
-  (@$enc:ident $parent0:ident, $val0:expr) => {{
-    d!(begin coap_set_int_val, parent: $parent0, val: $val0);
+  (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
+    d!(begin cbor coap_set_int_val, parent: $parent0, val: $val0);
     d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
     //  d!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
     oc_rep_set_int!($parent0, $val0.key, 1234);  //  TODO
-    d!(end coap_set_int_val);
+    d!(end cbor coap_set_int_val);
+  }};
+
+  (@json $parent0:ident, $val0:expr) => {{  //  JSON
+    d!(begin json coap_set_int_val, parent: $parent0, val: $val0);
+    d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
+    //  d!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
+    json_rep_set_int!($parent0, $val0.key, 1234);  //  TODO
+    d!(end json coap_set_int_val);
   }};
 }
 
 ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int_val {
-  (@$enc:ident $parent0:ident, $val0:expr) => {{
-    d!(begin coap_item_int_val, parent: $parent0, val: $val0);
+  (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
+    d!(begin cbor coap_item_int_val, parent: $parent0, val: $val0);
     d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    d!(> TODO: coap_item_int($parent0, $val0.key, $val0.int_val));
-    coap_item_int!(@$enc $parent0, $val0.key, 1234);  //  TODO
-    d!(end coap_item_int_val);
+    d!(> TODO: coap_item_int(@cbor $parent0, $val0.key, $val0.int_val));
+    coap_item_int!(@cbor $parent0, $val0.key, 1234);  //  TODO
+    d!(end cbor coap_item_int_val);
+  }};
+
+  (@json $parent0:ident, $val0:expr) => {{  //  JSON
+    d!(begin json coap_item_int_val, parent: $parent0, val: $val0);
+    d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
+    d!(> TODO: coap_item_int(@json $parent0, $val0.key, $val0.int_val));
+    coap_item_int!(@json $parent0, $val0.key, 1234);  //  TODO
+    d!(end json coap_item_int_val);
   }};
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  CoAP macros ported from C to Rust:
+//  JSON macros ported from C to Rust:
+//  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
+
+#[macro_export(local_inner_macros)]
+macro_rules! json_rep_start_root_object {
+  () => {{
+    d!(begin json_rep_start_root_object);
+    //  TODO
+    //  d!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
+    unsafe { cbor_encoder_create_map(&mut g_encoder, &mut root_map, CborIndefiniteLength) };
+    d!(end json_rep_start_root_object);
+  }};
+}
+
+#[macro_export(local_inner_macros)]
+macro_rules! json_rep_end_root_object {
+  () => {{
+    d!(begin json_rep_end_root_object);
+    //  d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
+    unsafe { cbor_encoder_close_container(&mut g_encoder, &mut root_map); }
+    d!(end json_rep_end_root_object);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_start_object {
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
+    concat!(
+      "begin json_rep_start_object ",
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_map"  //  key##_map
+    );
+    //  d!(> TODO: CborEncoder key##_map);
+    //  concat_idents!($key, _map) = CborEncoder{};
+    //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
+    unsafe { cbor_encoder_create_map(
+      &mut $parent, 
+      &mut concat_idents!($key, _map), 
+      CborIndefiniteLength) 
+    };
+    d!(end json_rep_start_object);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_end_object {
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
+    concat!(
+      "begin json_rep_end_object ",
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_map"  //  key##_map
+    );
+    //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
+    unsafe { cbor_encoder_close_container(
+      &mut concat_idents!($parent, $parent_suffix), 
+      &mut concat_idents!($key, _map)) 
+    };
+    d!(end json_rep_end_object);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_start_array {
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
+    concat!(
+      "begin json_rep_start_array ",
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array"  //  key##_array
+    );
+    //  d!(> TODO: CborEncoder key##_array);
+    //  concat_idents!($key, _array) = CborEncoder{};
+    //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
+    unsafe { cbor_encoder_create_array(
+      &mut concat_idents!($parent, $parent_suffix), 
+      &mut concat_idents!($key, _array), 
+      CborIndefiniteLength) 
+    };
+    d!(end json_rep_start_array);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_end_array {
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
+    concat!(
+      "begin json_rep_end_array ",
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array"  //  key##_array
+    );
+    //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
+    unsafe { cbor_encoder_close_container(
+      &mut $parent, 
+      &mut concat_idents!($parent, $parent_suffix)) 
+    };
+    d!(end json_rep_end_array);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_set_array {
+  ($object:ident, $key:ident) => {{
+    concat!(
+      "begin json_rep_set_array ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
+    unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
+    //  concat!("> TODO: json_rep_start_array!(object##_map, key);");
+    json_rep_start_array!($object, $key, _map);
+    d!(end json_rep_set_array);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_close_array {
+  ($object:ident, $key:ident) => {{
+    concat!(
+      "begin json_rep_close_array ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    //  d!(> TODO: json_rep_end_array(object##_map, key));
+    json_rep_end_array!($object, $key, _map);
+    d!(end json_rep_close_array);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_object_array_start_item {
+  ($key:ident) => {{
+    concat!(
+      "begin json_rep_object_array_start_item ",
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array",  //  key##_array
+    );
+    //  d!(> TODO: json_rep_start_object(key##_array, key));        
+    json_rep_start_object!($key, $key, _array);
+    d!(end json_rep_object_array_start_item);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_object_array_end_item {
+  ($key:ident) => {{
+    concat!(
+      "begin json_rep_object_array_end_item ",
+      ", key: ",    stringify!($key),
+      ", child: ",  stringify!($key), "_array",  //  key##_array
+    );
+    //  d!(> TODO: json_rep_end_object(key##_array, key));
+    json_rep_end_object!($key, $key, _array);
+    d!(end json_rep_object_array_end_item);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_rep_set_int {
+  ($object:ident, $key:expr, $value:expr) => {{
+    concat!(
+      "begin json_rep_set_int ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    unsafe {
+      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      cbor_encode_text_string(&mut concat_idents!($object,_map), $key.as_ptr(), $key.len());
+      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+      cbor_encode_int(&mut concat_idents!($object,_map), $value);
+    }
+    d!(end json_rep_set_int);
+  }};
+}
+
+/*
+///  Same as json_rep_set_int but changed "#key" to "key" so that the key won't be stringified.
+#[macro_export]
+macro_rules! json_rep_set_int_k {
+  ($object:ident, $key:expr, $value:expr) => {{
+    concat!(
+      "begin json_rep_set_int_k ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, key, strlen(key)));
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
+      stringify!($object), "_map",  //  object##_map
+      ", ",
+      stringify!($key),  //  key
+      ", strlen(",
+      stringify!($key),  //  key
+      "));"
+    );
+
+    //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+    concat!(
+      "> TODO: g_err |= cbor_encode_int(&",
+      stringify!($object), "_map",  //  object##_map
+      ", ",
+      stringify!($value),  //  value
+      ");"
+    );
+    d!(end json_rep_set_int_k);
+  }};
+}
+*/
+
+#[macro_export]
+macro_rules! json_rep_set_text_string {
+  ($object:ident, $key:expr, $value:expr) => {{
+    concat!(
+      "begin json_rep_set_text_string ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    unsafe {
+      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());
+      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
+      cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
+    }
+    d!(end json_rep_set_text_string);
+  }};
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  CBOR macros ported from C to Rust:
 //  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
 
 #[macro_export(local_inner_macros)]
