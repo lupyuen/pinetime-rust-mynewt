@@ -6,61 +6,6 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-# bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
-# bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
-# bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
-
-function generate_bindings_kernel() {
-    #  Generate bindings for kernel/$1 e.g. os.
-    local libname=$1
-    local modname=$1
-    #  libdir looks like kernel/os
-    local libdir=kernel/$libname
-    #  libcmd looks like bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname.o.cmd
-    local whitelist=`cat << EOF
-        --whitelist-var      (?i)SYS_E.* \
-        --whitelist-function (?i)${modname}_.* \
-        --whitelist-type     (?i)${modname}_.* \
-        --whitelist-var      (?i)${modname}_.* 
-EOF
-`
-    generate_bindings $libname $modname $libdir $libcmd $whitelist
-}
-
-function generate_bindings_libs() {
-    #  Generate bindings for libs/$1 e.g. sensor_network.
-    local libname=$1
-    local modname=$1
-    #  libdir looks like libs/sensor_network
-    local libdir=libs/$libname
-    #  libcmd looks like bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
-    local whitelist=`cat << EOF
-        --whitelist-function (?i)init_.*_post \
-        --whitelist-function (?i)do_.*_post \
-        --whitelist-function (?i)is_.*_node \
-        --whitelist-function (?i)register_.*_transport \
-        --whitelist-function (?i)should_send_to_.* \
-        --whitelist-function (?i)get_device_id \
-        --whitelist-function (?i)${modname}.* \
-        --whitelist-type     (?i)${modname}.* \
-        --whitelist-var      (?i)${modname}.* 
-EOF
-`
-    generate_bindings $libname $modname $libdir $libcmd $whitelist
-}
-
-function generate_bindings_apps() {
-    #  Generate bindings for apps/$1 e.g. my_sensor_app.
-    local libname=$1
-    local modname=$2
-    local libdir=apps/$libname
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
-    local whitelist=
-    generate_bindings $libname $modname $libdir $libcmd $whitelist
-}
-
 function generate_bindings() {
     #  Generate bindings for the module.
     local libname=$1
@@ -113,6 +58,34 @@ EOF
         $expandfile
 }
 
+function generate_bindings_kernel() {
+    #  Generate bindings for kernel/$1 e.g. os.
+    local libname=$1
+    local modname=$1
+    #  libdir looks like kernel/os
+    local libdir=kernel/$libname
+    #  libcmd looks like bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname.o.cmd
+    local whitelist=`cat << EOF
+        --whitelist-var      (?i)SYS_E.* \
+        --whitelist-function (?i)${modname}_.* \
+        --whitelist-type     (?i)${modname}_.* \
+        --whitelist-var      (?i)${modname}_.* 
+EOF
+`
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
+function generate_bindings_apps() {
+    #  Generate bindings for apps/$1 e.g. my_sensor_app.
+    local libname=$1
+    local modname=$2
+    local libdir=apps/$libname
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+    local whitelist=
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
 function generate_bindings_encoding() {
     #  Generate bindings for encoding/*
     #  libname: tinycbor, json
@@ -153,10 +126,77 @@ EOF
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
-generate_bindings_encoding json     json_encode json  #  Generate bindings for encoding/json
-generate_bindings_encoding tinycbor cborencoder cbor  #  Generate bindings for encoding/tinycbor
+function generate_bindings_hw() {
+    #  Generate bindings for hw/*
+    #  libname: sensor
+    local libname=$1
+    local modname=$1
+    #  srcname: sensor
+    local srcname=$2
+    #  prefixname: sensor
+    local prefixname=$3
+    #  libdir looks like hw/sensor
+    local libdir=encoding/$libname
+    #  libcmd looks like 
+    #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
+    #  Add whitelist only.
+    local whitelist=`cat << EOF
+        --whitelist-function (?i)${prefixname}.* \
+        --whitelist-type     (?i)${prefixname}.* \
+        --whitelist-var      (?i)${prefixname}.* 
+EOF
+`
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
+function generate_bindings_libs() {
+    #  Generate bindings for libs/*
+    #  libname: sensor_network
+    local libname=$1
+    local modname=$1
+    #  srcname: sensor_network
+    local srcname=$2
+    #  prefixname: sensor_network
+    local prefixname=$3    
+    #  libdir looks like libs/sensor_network
+    local libdir=libs/$libname
+    #  libcmd looks like 
+    #  bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
+    #  bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$srcname.o.cmd
+    if [ "$libname" == 'sensor_network' ]; then
+        #  Add sensor network + whitelist.
+        local whitelist=`cat << EOF
+            --whitelist-function (?i)init_.*_post \
+            --whitelist-function (?i)do_.*_post \
+            --whitelist-function (?i)is_.*_node \
+            --whitelist-function (?i)register_.*_transport \
+            --whitelist-function (?i)should_send_to_.* \
+            --whitelist-function (?i)get_device_id \
+            --whitelist-function (?i)${prefixname}.* \
+            --whitelist-type     (?i)${prefixname}.* \
+            --whitelist-var      (?i)${prefixname}.* 
+EOF
+`
+    else
+        #  Add whitelist only.
+        local whitelist=`cat << EOF
+            --whitelist-function (?i)${prefixname}.* \
+            --whitelist-type     (?i)${prefixname}.* \
+            --whitelist-var      (?i)${prefixname}.* 
+EOF
+`
+    fi
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
+# generate_bindings_encoding json     json_encode json  #  Generate bindings for encoding/json
+# generate_bindings_encoding tinycbor cborencoder cbor  #  Generate bindings for encoding/tinycbor
 # generate_bindings_kernel   os              #  Generate bindings for kernel/os
-# generate_bindings_libs     sensor_network  #  Generate bindings for libs/sensor_network
+generate_bindings_hw sensor sensor sensor               #  Generate bindings for hw/sensor
+generate_bindings_libs sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
+generate_bindings_libs sensor_coap sensor_coap sensor_coap #  Generate bindings for libs/sensor_coap
 
 # For testing only:
 # generate_bindings_apps my_sensor_app send_coap  #  Generate bindings for my_sensor_app/send_coap.c
