@@ -38,14 +38,14 @@ extern {
     ///  Set the sensor poll rate.
     ///  `devname`: Name of the sensor.
     ///  `poll_rate`: The poll rate in milli seconds.
-    pub fn sensor_set_poll_rate_ms(devname: *const u8, poll_rate: u32) -> i32;
+    ////pub fn sensor_set_poll_rate_ms(devname: *const u8, poll_rate: u32) -> i32;
 
     ///  Search the sensor list and find the next sensor that corresponds
     ///  to a given device name.
     ///  `devname`: The device name to search for.
     ///  `sensor`: The previous sensor found with this device name.
     ///  Return 0 on success, non-zero error code on failure
-    pub fn sensor_mgr_find_next_bydevname(devname: *const u8, prev_cursor: SensorPtr) -> SensorPtr;
+    ////pub fn sensor_mgr_find_next_bydevname(devname: *const u8, prev_cursor: SensorPtr) -> SensorPtr;
 
     ///  Register a sensor listener. This allows a calling application to receive
     ///  callbacks for data from a given sensor object.
