@@ -4,17 +4,18 @@
 pub mod macros;         //  Export `macros.rs` as Rust module `macros`. Contains Mynewt macros.
 
 //  encoding/*: Encoding Libraries
-pub mod tinycbor;       //  Export `tinycbor.rs` as Rust module `tinycbor`. Contains `encoding/tinycbor` bindings.
-pub mod json;           //  Export `json.rs` as Rust module `json`. Contains `encoding/json` bindings.
+pub mod tinycbor;       //  Export `tinycbor.rs` as Rust module `tinycbor`. Contains Rust bindings for Mynewt Encoding Library `encoding/tinycbor`.
+pub mod json;           //  Export `json.rs` as Rust module `json`. Contains Rust bindings for Mynewt Encoding Library `encoding/json`.
 
 //  kernel/*: Kernel API
-pub mod os;             //  Export `os.rs` as Rust module `os`. Contains Mynewt `kernel/os` bindings.
+pub mod os;             //  Export `os.rs` as Rust module `os`. Contains Rust bindings for Mynewt OS API `kernel/os`.
 
 //  hw/*: Hardware API
-pub mod sensor;         //  Export `sensor.rs` as Rust module `sensor`.  Contains Mynewt `hw/sensor` bindings.
+pub mod sensor;         //  Export `sensor.rs` as Rust module `sensor`.  Contains Rust bindings for Mynewt Sensor API `hw/sensor`.
 
 //  libs/*: Custom Libraries
-pub mod sensor_network; //  Export `sensor_network.rs` as Rust module `sensor_network`  Contains Mynewt `libs/sensor_network` bindings.
+pub mod sensor_coap;    //  Export `sensor_coap.rs` as Rust module `sensor_coap`.  Contains Rust bindings for Mynewt Custom Library `libs/sensor_coap`.
+pub mod sensor_network; //  Export `sensor_network.rs` as Rust module `sensor_network`.  Contains Rust bindings for Mynewt Custom Library `libs/sensor_network`.
 
 ///  Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
 #[link(name = "net_oic")]

@@ -152,14 +152,14 @@ EOF
 
 function generate_bindings_libs() {
     #  Generate bindings for libs/*
-    #  libname: sensor_network
+    #  libname: sensor_network, sensor_coap
     local libname=$1
     local modname=$1
-    #  srcname: sensor_network
+    #  srcname: sensor_network, sensor_coap
     local srcname=$2
-    #  prefixname: sensor_network
+    #  prefixname: sensor_network, sensor_coap
     local prefixname=$3    
-    #  libdir looks like libs/sensor_network
+    #  libdir looks like libs/sensor_network, libs/sensor_coap
     local libdir=libs/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
@@ -182,6 +182,12 @@ EOF
     elif [ "$libname" == 'sensor_coap' ]; then
         #  Add sensor coap + whitelist.
         local whitelist=`cat << EOF
+            --whitelist-type     (?i)sensor_value \
+            --whitelist-function (?i)init_sensor_.* \
+            --whitelist-function (?i)sensor_coap_.* \
+            --whitelist-function (?i)do_sensor_.* \
+            --whitelist-function (?i)json_.* \
+            --whitelist-var      (?i)coap_.* \
             --whitelist-function (?i)${prefixname}.*
 EOF
 `
