@@ -91,12 +91,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
     console_print(b"send_sensor_data\n");
     //  TODO: Remove val
-    let mut val = sensor_value{
-        key: b"\0".as_ptr(),
-        val_type: 0,
-        int_val: 0,
-        float_val: 0.0,
-    };
+    let mut val = fill_zero!(sensor_value);
     //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
     if unsafe { should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
         return send_sensor_data_to_collector(sensor_val, sensor_node); 
