@@ -55,28 +55,28 @@ pub fn start_network_task() -> Result<(), i32>  {  //  Returns an error code upo
 ///  For Collector Node and Sensor Nodes: We register the nRF24L01 driver as the network transport for 
 ///  CoAP Collector.
 extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
-	console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
+    console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
 
-	//  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
-	//  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
-	if unsafe { is_standalone_node() } || unsafe { is_collector_node() } {
-		let rc = unsafe { register_server_transport() };  assert_eq!(rc, 0);
-	}
+    //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+    //  Connecting the ESP8266 to the WiFi access point may be slow so we do this in the background.
+    if unsafe { is_standalone_node() } || unsafe { is_collector_node() } {
+        let rc = unsafe { register_server_transport() };  assert_eq!(rc, 0);
+    }
 
-	//  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
-	if unsafe { is_collector_node() } || unsafe { is_sensor_node() } {
-		let rc = unsafe { register_collector_transport() };  assert_eq!(rc, 0);
-	}
+    //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+    if unsafe { is_collector_node() } || unsafe { is_sensor_node() } {
+        let rc = unsafe { register_collector_transport() };  assert_eq!(rc, 0);
+    }
 
-	//  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
-	//  run in the background and send sensor data to the server.
-	unsafe { NETWORK_IS_READY = true; }  //  Indicate that network is ready.
+    //  Network Task has successfully started the ESP8266 or nRF24L01 transceiver. The Sensor Listener will still continue to
+    //  run in the background and send sensor data to the server.
+    unsafe { NETWORK_IS_READY = true; }  //  Indicate that network is ready.
 
-	loop {  //  Loop forever...        
-		console_print(b"NET free mbuf %d\n");  //  , os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
-		unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
-	}
-	//  Never comes here.  If this task function terminates, the program will crash.
+    loop {  //  Loop forever...        
+        console_print(b"NET free mbuf %d\n");  //  , os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
+        unsafe { os_time_delay(10 * OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
+    }
+    //  Never comes here.  If this task function terminates, the program will crash.
 }
 
 ///  Compose a CoAP message (CBOR or JSON) with the sensor value in `val` and transmit to the
@@ -89,7 +89,7 @@ extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
 ///  so this function will return without waiting for the message to be transmitted.  
 ///  Return 0 if successful, SYS_EAGAIN if network is not ready yet.
 pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
-	console_print(b"send_sensor_data\n");
+    console_print(b"send_sensor_data\n");
     //  TODO: Remove val
     let mut val = sensor_value{
         key: b"\0".as_ptr(),
@@ -97,12 +97,12 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> Result<
         int_val: 0,
         float_val: 0.0,
     };
-	//  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
-	if unsafe { should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
-		return send_sensor_data_to_collector(sensor_val, sensor_node); 
-	}
-	//  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
-	send_sensor_data_to_server(sensor_val, sensor_node)
+    //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
+    if unsafe { should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
+        return send_sensor_data_to_collector(sensor_val, sensor_node); 
+    }
+    //  For Collector Node and Standalone Node: Transmit the sensor data to the CoAP Server as CoAP JSON.
+    send_sensor_data_to_server(sensor_val, sensor_node)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,27 +127,27 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Resul
     if let SensorValueType::None = sensor_val.val { assert!(false); }
     //  assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
-	if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-	let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
+    if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    let device_id = unsafe { get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
 
-	//  Start composing the CoAP Server message with the sensor data in the payload.  This will 
-	//  block other tasks from composing and posting CoAP messages (through a semaphore).
-	//  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-	let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
+    //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
+    //  block other tasks from composing and posting CoAP messages (through a semaphore).
+    //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    let rc = unsafe { init_server_post(0 as *const ::cty::c_char) };  assert!(rc);
 
     //  Compose the CoAP Payload in JSON using the coap!() macro.
-    /* let _payload = coap!(@json {
+    let _payload = coap!(@json {
         //  Create "values" as an array of items under the root.
         //  Append to the "values" array:
         //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-	    "device": device_id,
-	    //    {"key":"node", "value":"b3b4b5b6f1"},
-	    "node":   node_id,
+        "device": device_id,
+        //    {"key":"node", "value":"b3b4b5b6f1"},
+        "node":   node_id,
         //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
         //    {"key":"t",   "value":2870} for raw temperature (integer)
         //    {"key":"tmp", "value":28.7} for computed temperature (float)
-	    sensor_val,
-    }); */
+        sensor_val,
+    });
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
@@ -175,7 +175,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Resul
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
 fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> Result<(), i32>  {  //  Returns an error code upon error.
-	////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
+    ////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
     if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
@@ -185,7 +185,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> R
 
     //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
     let _payload = coap!(@cbor {
-    	//  Set the Sensor Key and integer Sensor Value, e.g. `{ t: 2870 }`
+        //  Set the Sensor Key and integer Sensor Value, e.g. `{ t: 2870 }`
         sensor_val,
     });
 
@@ -205,13 +205,13 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> R
 fn send_sensor_data_cbor() {
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {
-	key: "t",
-	val: SensorValueType::Uint(2870)
+    key: "t",
+    val: SensorValueType::Uint(2870)
   };
   //  Compose the CoAP Payload in CBOR using the `coap` macro.
   trace_macros!(true);
   let payload = coap!(@cbor {
-	int_sensor_value,    //  Send `{t: 2870}`
+    int_sensor_value,    //  Send `{t: 2870}`
   });
   trace_macros!(false);
 }
@@ -223,8 +223,8 @@ const float_sensor_key: &'static [u8] = b"tmp\0";
 const k: &'static [u8] = b"t\0";
 const k2: &'static str = "t";
 cbor_encode_text_string(&mut root_map,
-						int_sensor_value.key.as_ptr(),
-						int_sensor_value.key.len());
+                        int_sensor_value.key.as_ptr(),
+                        int_sensor_value.key.len());
 cbor_encode_int(&mut root_map, 1234);
 */
 
@@ -236,8 +236,8 @@ fn send_sensor_data_without_encoding() {
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {
-	key: "t",
-	val: SensorValueType::Uint(2870)
+    key: "t",
+    val: SensorValueType::Uint(2870)
   };
   let device_id = b"0102030405060708090a0b0c0d0e0f10";
   let node_id =   b"b3b4b5b6f1";
@@ -245,9 +245,9 @@ fn send_sensor_data_without_encoding() {
   //  Compose the CoAP Payload without encoding using the `coap` macro.
   trace_macros!(true);   //  Start tracing macros
   let payload = coap!(@none {
-	"device": device_id,
-	"node":   node_id,
-	int_sensor_value,  //  Send `{t: 2870}`
+    "device": device_id,
+    "node":   node_id,
+    int_sensor_value,  //  Send `{t: 2870}`
   });
   trace_macros!(false);  //  Stop tracing macros
 }
@@ -258,15 +258,15 @@ fn send_sensor_data_json() {
 
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {
-	key: "t",
-	val: SensorValueType::Uint(2870)
+    key: "t",
+    val: SensorValueType::Uint(2870)
   };
   //  Compose the CoAP Payload in JSON using the `coap` macro.
   trace_macros!(true);
   let payload = coap!(@json {
-	//  "device": device_id,
-	//  "node":   node_id,
-	int_sensor_value,  //  Send `{t: 2870}`
+    //  "device": device_id,
+    //  "node":   node_id,
+    int_sensor_value,  //  Send `{t: 2870}`
   });
   trace_macros!(false);
 }
@@ -299,41 +299,41 @@ fn test_macro2() {
   let node_id = b"b3b4b5b6f1";
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {
-	key: "t",
-	val: SensorValueType::Uint(2870)
+    key: "t",
+    val: SensorValueType::Uint(2870)
   };
 
   coap_set_int_val! (@cbor root, int_sensor_value);
   coap_item_str! (@json values, "device", device_id);  ////
   coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-	coap_item_str! (@json values, "device", device_id);
-	coap_item_str! (@json values, "node", node_id);
-	//  coap_set_int_val! (root, int_sensor_value);
+    coap_item_str! (@json values, "device", device_id);
+    coap_item_str! (@json values, "node", node_id);
+    //  coap_set_int_val! (root, int_sensor_value);
   });  ////
 
   let payload = coap_root!(@json {  //  Create the payload root
-	coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-	  //  Append to the "values" array:
-	  //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-	  coap_item_str! (@json values, "device", device_id);
+    coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
+      //  Append to the "values" array:
+      //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+      coap_item_str! (@json values, "device", device_id);
 
-	  //    {"key":"node", "value":"b3b4b5b6f1"},
-	  coap_item_str! (@json values, "node", node_id);
+      //    {"key":"node", "value":"b3b4b5b6f1"},
+      coap_item_str! (@json values, "node", node_id);
 
-	  //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-	  coap_set_int_val! (@json root, int_sensor_value);
-	  
-	  //  If we are using raw temperature (integer) instead of computed temperature (float)...
-	  //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
-	  //    {"key":"t",   "value":2870} for raw temperature (integer)
-	  ////TODO: coap_item_int_val! (values, val);
-	  //    {"key":"tmp", "value":28.7} for computed temperature (float)
-	  //  coap_item_float_val! (values, val);
+      //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
+      coap_set_int_val! (@json root, int_sensor_value);
+      
+      //  If we are using raw temperature (integer) instead of computed temperature (float)...
+      //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
+      //    {"key":"t",   "value":2870} for raw temperature (integer)
+      ////TODO: coap_item_int_val! (values, val);
+      //    {"key":"tmp", "value":28.7} for computed temperature (float)
+      //  coap_item_float_val! (values, val);
 
-	  //  If there are more sensor values, add them here with
-	  //  coap_item_int_val, coap_item_int, coap_item_uint, coap_item_float or coap_item_str
+      //  If there are more sensor values, add them here with
+      //  coap_item_int_val, coap_item_int, coap_item_uint, coap_item_float or coap_item_str
 
-	}) //  Close the "values" array
+    }) //  Close the "values" array
   }); //  Close the payload root
 }
 */

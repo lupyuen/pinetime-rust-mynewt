@@ -326,11 +326,12 @@ mod mynewt {
                            return none root to caller ) ; root } } ; (
                            @ json { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin json root ) ; let root = "root" ;
-                           coap_root ! (
+                           d ! ( begin json root ) ; let mut values_map :
+                           CborEncoder = fill_zero ! ( CborEncoder ) ; let mut
+                           values_array : CborEncoder = fill_zero ! (
+                           CborEncoder ) ; coap_root ! (
                            @ json {
-                           let values = "values" ; let mut values_map :
-                           CborEncoder = CborEncoder {  } ; coap_array ! (
+                           coap_array ! (
                            @ json root , values , {
                            parse ! (
                            @ json @ object values (  ) ( $ ( $ tt ) + ) (
@@ -479,14 +480,12 @@ mod mynewt {
                                          ) , stringify ! ( $ parent_suffix ) ,
                                          ", key: " , stringify ! ( $ key ) ,
                                          ", child: " , stringify ! ( $ key ) ,
-                                         "_map" ) ; concat_idents ! (
-                                         $ key , _map ) = CborEncoder {  } ;
-                                         unsafe {
+                                         "_map" ) ; unsafe {
                                          cbor_encoder_create_map (
-                                         & $ parent , & concat_idents ! (
-                                         $ key , _map ) , CborIndefiniteLength
-                                         ) } ; d ! ( end oc_rep_start_object )
-                                         ; } } ;);
+                                         & mut $ parent , & mut concat_idents
+                                         ! ( $ key , _map ) ,
+                                         CborIndefiniteLength ) } ; d ! (
+                                         end oc_rep_start_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_object((
                                        $ parent : ident , $ key : ident , $
@@ -500,11 +499,10 @@ mod mynewt {
                                        ", child: " , stringify ! ( $ key ) ,
                                        "_map" ) ; unsafe {
                                        cbor_encoder_close_container (
-                                       & concat_idents ! (
-                                       $ parent , $ parent_suffix ) , &
-                                       concat_idents ! ( $ key , # # _map ) )
-                                       } ; d ! ( end oc_rep_end_object ) ; } }
-                                       ;);
+                                       & mut concat_idents ! (
+                                       $ parent , $ parent_suffix ) , & mut
+                                       concat_idents ! ( $ key , _map ) ) } ;
+                                       d ! ( end oc_rep_end_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_start_array((
                                         $ parent : ident , $ key : ident , $
@@ -516,28 +514,27 @@ mod mynewt {
                                         ) , stringify ! ( $ parent_suffix ) ,
                                         ", key: " , stringify ! ( $ key ) ,
                                         ", child: " , stringify ! ( $ key ) ,
-                                        "_array" ) ; concat_idents ! (
-                                        $ key , _array ) = CborEncoder {  } ;
-                                        unsafe {
+                                        "_array" ) ; unsafe {
                                         cbor_encoder_create_array (
-                                        & concat_idents ! (
-                                        $ parent , $ parent_suffix ) , &
+                                        & mut concat_idents ! (
+                                        $ parent , $ parent_suffix ) , & mut
                                         concat_idents ! ( $ key , _array ) ,
                                         CborIndefiniteLength ) } ; d ! (
                                         end oc_rep_start_array ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_array((
                                       $ parent : ident , $ key : ident , $
-                                      parent_suffix : literal ) => {
+                                      parent_suffix : ident ) => {
                                       {
                                       concat ! (
                                       "begin oc_rep_end_array " , ", parent: "
-                                      , stringify ! ( $ parent ) , $
-                                      parent_suffix , ", key: " , stringify !
-                                      ( $ key ) , ", child: " , stringify ! (
-                                      $ key ) , "_array" ) ; unsafe {
+                                      , stringify ! ( $ parent ) , stringify !
+                                      ( $ parent_suffix ) , ", key: " ,
+                                      stringify ! ( $ key ) , ", child: " ,
+                                      stringify ! ( $ key ) , "_array" ) ;
+                                      unsafe {
                                       cbor_encoder_close_container (
-                                      $ parent , & concat_idents ! (
+                                      & mut $ parent , & mut concat_idents ! (
                                       $ parent , $ parent_suffix ) ) } ; d ! (
                                       end oc_rep_end_array ) ; } } ;);
         #[macro_export]
@@ -551,9 +548,9 @@ mod mynewt {
                                       stringify ! ( $ object ) , "_map" ) ;
                                       unsafe {
                                       cbor_encode_text_string (
-                                      concat_idents ! ( $ object , _map ) , $
-                                      key . as_ptr (  ) , $ key . len (  ) ) }
-                                      ; oc_rep_start_array ! (
+                                      & mut concat_idents ! ( $ object , _map
+                                      ) , $ key . as_ptr (  ) , $ key . len (
+                                      ) ) } ; oc_rep_start_array ! (
                                       $ object , $ key , _map ) ; d ! (
                                       end oc_rep_set_array ) ; } } ;);
         #[macro_export]
@@ -565,9 +562,8 @@ mod mynewt {
                                         ", object: " , stringify ! ( $ object
                                         ) , ", key: " , stringify ! ( $ key )
                                         , ", child: " , stringify ! ( $ object
-                                        ) , "_map" ) ; unsafe {
-                                        oc_rep_end_array ! (
-                                        $ object , $ key , "_map" ) } ; d ! (
+                                        ) , "_map" ) ; oc_rep_end_array ! (
+                                        $ object , $ key , _map ) ; d ! (
                                         end oc_rep_close_array ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
@@ -577,10 +573,10 @@ mod mynewt {
                                                     , ", key: " , stringify !
                                                     ( $ key ) , ", child: " ,
                                                     stringify ! ( $ key ) ,
-                                                    "_array" , ) ; unsafe {
+                                                    "_array" , ) ;
                                                     oc_rep_start_object ! (
-                                                    $ key , $ key , _array ) }
-                                                    ; d ! (
+                                                    $ key , $ key , _array ) ;
+                                                    d ! (
                                                     end
                                                     oc_rep_object_array_start_item
                                                     ) ; } } ;);
@@ -592,10 +588,10 @@ mod mynewt {
                                                   , ", key: " , stringify ! (
                                                   $ key ) , ", child: " ,
                                                   stringify ! ( $ key ) ,
-                                                  "_array" , ) ; unsafe {
+                                                  "_array" , ) ;
                                                   oc_rep_end_object ! (
-                                                  $ key , $ key , _array ) } ;
-                                                  d ! (
+                                                  $ key , $ key , _array ) ; d
+                                                  ! (
                                                   end
                                                   oc_rep_object_array_end_item
                                                   ) ; } } ;);
@@ -632,11 +628,11 @@ mod mynewt {
                                             ", child: " , stringify ! (
                                             $ object ) , "_map" ) ; unsafe {
                                             cbor_encode_text_string (
-                                            & concat_idents ! (
+                                            & mut concat_idents ! (
                                             $ object , _map ) , $ key . as_ptr
                                             (  ) , $ key . len (  ) ) ;
                                             cbor_encode_text_string (
-                                            & concat_idents ! (
+                                            & mut concat_idents ! (
                                             $ object , _map ) , $ value .
                                             as_ptr (  ) , $ value . len (  ) )
                                             ; } d ! (
@@ -3025,7 +3021,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 58u32, 34u32))
+                                           "src/send_coap.rs", 58u32, 37u32))
             }
         };
         if unsafe { is_standalone_node() } || unsafe { is_collector_node() } {
@@ -3050,7 +3046,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               63u32, 53u32))
+                                                               63u32, 59u32))
                             }
                         }
                     }
@@ -3079,7 +3075,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               68u32, 56u32))
+                                                               68u32, 62u32))
                             }
                         }
                     }
@@ -3189,7 +3185,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           131u32, 47u32))
+                                                           131u32, 50u32))
                         }
                     }
                 }
@@ -3199,9 +3195,279 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 136u32, 68u32))
+                                           "src/send_coap.rs", 136u32, 71u32))
             }
         };
+        let _payload =
+            {
+                "begin json root";
+                let mut values_map: CborEncoder =
+                    unsafe {
+                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                                 CborEncoder>([0;
+                                                                  ::core::mem::size_of::<CborEncoder>()])
+                    };
+                let mut values_array: CborEncoder =
+                    unsafe {
+                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                                 CborEncoder>([0;
+                                                                  ::core::mem::size_of::<CborEncoder>()])
+                    };
+                {
+                    "begin coap_root";
+                    {
+                        "begin oc_rep_start_root_object";
+                        unsafe {
+                            cbor_encoder_create_map(&mut g_encoder,
+                                                    &mut root_map,
+                                                    CborIndefiniteLength)
+                        };
+                        "end oc_rep_start_root_object";
+                    };
+                    {
+                        {
+                            "begin coap_array _object0 : root _key0 : values";
+                            {
+                                "begin oc_rep_set_array , object: root, key: values, child: root_map";
+                                unsafe {
+                                    cbor_encode_text_string(&mut root_map,
+                                                            values.as_ptr(),
+                                                            values.len())
+                                };
+                                {
+                                    "begin oc_rep_start_array , parent: root_map, key: values, child: values_array";
+                                    unsafe {
+                                        cbor_encoder_create_array(&mut root_map,
+                                                                  &mut values_array,
+                                                                  CborIndefiniteLength)
+                                    };
+                                    "end oc_rep_start_array";
+                                };
+                                "end oc_rep_set_array";
+                            };
+                            {
+                                " >>  >> \"device\" >> : device_id , \"node\" : node_id , sensor_val ,";
+                                "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
+                                {
+                                    "begin coap_item_str _parent : values _key : \"device\" _val :\nparse!(@ json device_id)";
+                                    {
+                                        "begin coap_item array : values";
+                                        {
+                                            "begin oc_rep_object_array_start_item , key: values, child: values_array";
+                                            {
+                                                "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
+                                                unsafe {
+                                                    cbor_encoder_create_map(&mut values,
+                                                                            &mut values_map,
+                                                                            CborIndefiniteLength)
+                                                };
+                                                "end oc_rep_start_object";
+                                            };
+                                            "end oc_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
+                                                unsafe {
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            "key".as_ptr(),
+                                                                            "key".len());
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            "device".as_ptr(),
+                                                                            "device".len());
+                                                }
+                                                "end oc_rep_set_text_string";
+                                            };
+                                            {
+                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
+                                                unsafe {
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            "value".as_ptr(),
+                                                                            "value".len());
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            device_id.as_ptr(),
+                                                                            device_id.len());
+                                                }
+                                                "end oc_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            "begin oc_rep_object_array_end_item , key: values, child: values_array";
+                                            {
+                                                "begin oc_rep_end_object , parent: values_array, key: values, child: values_map";
+                                                unsafe {
+                                                    cbor_encoder_close_container(&mut values_array,
+                                                                                 &mut values_map)
+                                                };
+                                                "end oc_rep_end_object";
+                                            };
+                                            "end oc_rep_object_array_end_item";
+                                        };
+                                        "end coap_item";
+                                    };
+                                    "end coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> \"node\" >> : node_id , sensor_val ,";
+                                "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
+                                {
+                                    "begin coap_item_str _parent : values _key : \"node\" _val :\nparse!(@ json node_id)";
+                                    {
+                                        "begin coap_item array : values";
+                                        {
+                                            "begin oc_rep_object_array_start_item , key: values, child: values_array";
+                                            {
+                                                "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
+                                                unsafe {
+                                                    cbor_encoder_create_map(&mut values,
+                                                                            &mut values_map,
+                                                                            CborIndefiniteLength)
+                                                };
+                                                "end oc_rep_start_object";
+                                            };
+                                            "end oc_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                "begin oc_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
+                                                unsafe {
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            "key".as_ptr(),
+                                                                            "key".len());
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            "node".as_ptr(),
+                                                                            "node".len());
+                                                }
+                                                "end oc_rep_set_text_string";
+                                            };
+                                            {
+                                                "begin oc_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
+                                                unsafe {
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            "value".as_ptr(),
+                                                                            "value".len());
+                                                    cbor_encode_text_string(&mut values_map,
+                                                                            node_id.as_ptr(),
+                                                                            node_id.len());
+                                                }
+                                                "end oc_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            "begin oc_rep_object_array_end_item , key: values, child: values_array";
+                                            {
+                                                "begin oc_rep_end_object , parent: values_array, key: values, child: values_map";
+                                                unsafe {
+                                                    cbor_encoder_close_container(&mut values_array,
+                                                                                 &mut values_map)
+                                                };
+                                                "end oc_rep_end_object";
+                                            };
+                                            "end oc_rep_object_array_end_item";
+                                        };
+                                        "end coap_item";
+                                    };
+                                    "end coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> sensor_val >> ,";
+                                "TODO : extract key , value from _sensor_value : sensor_val and add to _object\n: values";
+                                "--------------------";
+                                {
+                                    "begin coap_item_int_val , parent : values , val : sensor_val";
+                                    "> TODO : assert ( sensor_val . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                    "> TODO : coap_item_int ( values , sensor_val . key , sensor_val . int_val )";
+                                    {
+                                        "begin coap_item_int , key : sensor_val.key , value : 1234";
+                                        {
+                                            "begin coap_item array : values";
+                                            {
+                                                "begin oc_rep_object_array_start_item , key: values, child: values_array";
+                                                {
+                                                    "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
+                                                    unsafe {
+                                                        cbor_encoder_create_map(&mut values,
+                                                                                &mut values_map,
+                                                                                CborIndefiniteLength)
+                                                    };
+                                                    "end oc_rep_start_object";
+                                                };
+                                                "end oc_rep_object_array_start_item";
+                                            };
+                                            {
+                                                {
+                                                    "begin oc_rep_set_text_string , object: values, key: \"key\", value: sensor_val.key, child: values_map";
+                                                    unsafe {
+                                                        cbor_encode_text_string(&mut values_map,
+                                                                                "key".as_ptr(),
+                                                                                "key".len());
+                                                        cbor_encode_text_string(&mut values_map,
+                                                                                sensor_val.key.as_ptr(),
+                                                                                sensor_val.key.len());
+                                                    }
+                                                    "end oc_rep_set_text_string";
+                                                };
+                                                {
+                                                    "begin oc_rep_set_int , object: values, key: \"value\", value: 1234, child: values_map";
+                                                    unsafe {
+                                                        cbor_encode_text_string(&mut values_map,
+                                                                                "value".as_ptr(),
+                                                                                "value".len());
+                                                        cbor_encode_int(&mut values_map,
+                                                                        1234);
+                                                    }
+                                                    "end oc_rep_set_int";
+                                                };
+                                            };
+                                            {
+                                                "begin oc_rep_object_array_end_item , key: values, child: values_array";
+                                                {
+                                                    "begin oc_rep_end_object , parent: values_array, key: values, child: values_map";
+                                                    unsafe {
+                                                        cbor_encoder_close_container(&mut values_array,
+                                                                                     &mut values_map)
+                                                    };
+                                                    "end oc_rep_end_object";
+                                                };
+                                                "end oc_rep_object_array_end_item";
+                                            };
+                                            "end coap_item";
+                                        };
+                                        "end coap_item_int";
+                                    };
+                                    "end coap_item_int_val";
+                                };
+                                "--------------------";
+                            };
+                            {
+                                "begin oc_rep_close_array , object: root, key: values, child: root_map";
+                                {
+                                    "begin oc_rep_end_array , parent: root_map, key: values, child: values_array";
+                                    unsafe {
+                                        cbor_encoder_close_container(&mut root,
+                                                                     &mut root_map)
+                                    };
+                                    "end oc_rep_end_array";
+                                };
+                                "end oc_rep_close_array";
+                            };
+                            "end coap_array";
+                        };
+                    };
+                    {
+                        "begin oc_rep_end_root_object";
+                        unsafe {
+                            cbor_encoder_close_container(&mut g_encoder,
+                                                         &mut root_map);
+                        }
+                        "end oc_rep_end_root_object";
+                    };
+                    "end coap_root";
+                };
+                "end json root";
+                "return json root to caller";
+                root
+            };
         let rc = unsafe { do_server_post() };
         if !rc {
             {

@@ -357,10 +357,11 @@ macro_rules! parse {
   (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin json root);
-    let root = "root";  //  Top level object is named "root".
+    //  let root = "root";  //  Top level object is named "root".
+    //  let values = "values";  //  "values" will be an array of items under the root
+    let mut values_map: CborEncoder = fill_zero!(CborEncoder);
+    let mut values_array: CborEncoder = fill_zero!(CborEncoder);
     coap_root!(@json {  //  Create the payload root
-        let values = "values";  //  "values" will be an array of items under the root
-        let mut values_map: CborEncoder = CborEncoder{};
         coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
           parse!(@json @object values () ($($tt)+) ($($tt)+));
@@ -555,9 +556,13 @@ macro_rules! oc_rep_start_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  d!(> TODO: CborEncoder key##_map);
-    concat_idents!($key, _map) = CborEncoder{};
+    //  concat_idents!($key, _map) = CborEncoder{};
     //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_map(&$parent, &concat_idents!($key, _map), CborIndefiniteLength) };
+    unsafe { cbor_encoder_create_map(
+      &mut $parent, 
+      &mut concat_idents!($key, _map), 
+      CborIndefiniteLength) 
+    };
     d!(end oc_rep_start_object);
   }};
 }
@@ -572,7 +577,10 @@ macro_rules! oc_rep_end_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    unsafe { cbor_encoder_close_container(&concat_idents!($parent, $parent_suffix), &concat_idents!($key,##_map)) };
+    unsafe { cbor_encoder_close_container(
+      &mut concat_idents!($parent, $parent_suffix), 
+      &mut concat_idents!($key, _map)) 
+    };
     d!(end oc_rep_end_object);
   }};
 }
@@ -587,24 +595,31 @@ macro_rules! oc_rep_start_array {
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     //  d!(> TODO: CborEncoder key##_array);
-    concat_idents!($key, _array) = CborEncoder{};
+    //  concat_idents!($key, _array) = CborEncoder{};
     //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_array(&concat_idents!($parent, $parent_suffix), &concat_idents!($key, _array), CborIndefiniteLength) };
+    unsafe { cbor_encoder_create_array(
+      &mut concat_idents!($parent, $parent_suffix), 
+      &mut concat_idents!($key, _array), 
+      CborIndefiniteLength) 
+    };
     d!(end oc_rep_start_array);
   }};
 }
 
 #[macro_export]
 macro_rules! oc_rep_end_array {
-  ($parent:ident, $key:ident, $parent_suffix:literal) => {{
+  ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
       "begin oc_rep_end_array ",
-      ", parent: ", stringify!($parent), $parent_suffix,  //  parent##parent_suffix
+      ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
-    unsafe { cbor_encoder_close_container($parent, &concat_idents!($parent, $parent_suffix)) };
+    unsafe { cbor_encoder_close_container(
+      &mut $parent, 
+      &mut concat_idents!($parent, $parent_suffix)) 
+    };
     d!(end oc_rep_end_array);
   }};
 }
@@ -619,13 +634,9 @@ macro_rules! oc_rep_set_array {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
-    unsafe { cbor_encode_text_string(concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
+    unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
     //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
-    oc_rep_start_array!(
-      $object,
-      $key,
-      _map
-    ); //  TODO
+    oc_rep_start_array!($object, $key, _map);
     d!(end oc_rep_set_array);
   }};
 }
@@ -640,11 +651,7 @@ macro_rules! oc_rep_close_array {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  d!(> TODO: oc_rep_end_array(object##_map, key));
-    unsafe { oc_rep_end_array!(
-      $object, 
-      $key,
-      "_map"
-    ) };  //  TODO
+    oc_rep_end_array!($object, $key, _map);
     d!(end oc_rep_close_array);
   }};
 }
@@ -658,11 +665,7 @@ macro_rules! oc_rep_object_array_start_item {
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
     //  d!(> TODO: oc_rep_start_object(key##_array, key));        
-    unsafe { oc_rep_start_object!(
-      $key, 
-      $key,
-      _array
-    ) };  //  TODO
+    oc_rep_start_object!($key, $key, _array);
     d!(end oc_rep_object_array_start_item);
   }};
 }
@@ -676,11 +679,7 @@ macro_rules! oc_rep_object_array_end_item {
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
     //  d!(> TODO: oc_rep_end_object(key##_array, key));
-    unsafe{ oc_rep_end_object!(
-      $key, 
-      $key,
-      _array
-    ) };  //  TODO
+    oc_rep_end_object!($key, $key, _array);
     d!(end oc_rep_object_array_end_item);
   }};
 }
@@ -753,9 +752,9 @@ macro_rules! oc_rep_set_text_string {
     );
     unsafe {
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      cbor_encode_text_string(&concat_idents!($object, _map), $key.as_ptr(), $key.len());
+      cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
-      cbor_encode_text_string(&concat_idents!($object, _map), $value.as_ptr(), $value.len());
+      cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
     }
     d!(end oc_rep_set_text_string);
   }};
