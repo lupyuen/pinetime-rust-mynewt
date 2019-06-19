@@ -1,13 +1,16 @@
 //!  Import the Mynewt Sensor API and export the safe version of the API. Based on
 //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
+mod bindings;
+
+/// Export all bindings.
+pub use self::bindings::*;
+
 ///  Register a sensor listener. This allows a calling application to receive
 ///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
 ///  that copies the listener locally before passing to Mynewt.
-///
 ///  For more information on the type of callbacks available, see the documentation
 ///  for the sensor listener structure.
-///
 ///  `sensor`: The sensor to register a listener on.
 ///  `listener`: The listener to register onto the sensor.
 ///  Return 0 on success, non-zero error code on failure.
