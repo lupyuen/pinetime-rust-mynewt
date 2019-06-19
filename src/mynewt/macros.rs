@@ -574,7 +574,7 @@ macro_rules! coap_item_int_val {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  JSON macros ported from C to Rust:
+//  JSON Sensor CoAP macros ported from C to Rust:
 //  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
 
 //  Assume we are writing an object now.  Write the key name and start a child array.
@@ -664,7 +664,7 @@ macro_rules! json_rep_set_int {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     unsafe {
-      JSON_VALUE_INT(&coap_json_value, value);          
+      json_value_int(&coap_json_value, value);          
       json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value);
 
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
@@ -687,7 +687,7 @@ macro_rules! json_rep_set_text_string {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     unsafe {
-      JSON_VALUE_STRING(&coap_json_value, (char *) value); 
+      json_value_string(&coap_json_value, (char *) value); 
       json_encode_object_entry(&coap_json_encoder, #key, &coap_json_value);
 
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
@@ -696,6 +696,43 @@ macro_rules! json_rep_set_text_string {
       //  cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
     }
     d!(end json_rep_set_text_string);
+  }};
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  JSON Encoding macros ported from C to Rust:
+//  https://github.com/apache/mynewt-core/blob/master/encoding/json/include/json/json.h
+
+#[macro_export]
+macro_rules! json_value_int {
+  ($json_value:ident, $value:expr) => {{
+    concat!(
+      "begin json_value_int ",
+      ", json_value: ", stringify!($json_value),
+      ", value: ",  stringify!($value)
+    );
+    unsafe {
+      $json_value->jv_type = JSON_VALUE_TYPE_INT64;
+      $json_value->jv_val.u = (uint64_t) $value;
+    }
+    d!(end json_value_int);
+  }};
+}
+
+#[macro_export]
+macro_rules! json_value_string {
+  ($json_value:ident, $value:expr) => {{
+    concat!(
+      "begin json_value_string ",
+      ", json_value: ", stringify!($json_value),
+      ", value: ",  stringify!($value)
+    );
+    unsafe {
+      $json_value->jv_type = JSON_VALUE_TYPE_STRING;
+      $json_value->jv_len = strlen($value);
+      $json_value->jv_val.str = ($value);
+    }
+    d!(end json_value_string);
   }};
 }
 
