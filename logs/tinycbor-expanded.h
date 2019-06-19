@@ -1,21 +1,22 @@
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
-# 1 "/mnt/c/stm32bluepill-mynewt-sensor//"
+# 1 "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor//"
 # 1 "<built-in>"
 #define __STDC__ 1
-#define __STDC_VERSION__ 201710L
+#define __STDC_VERSION__ 201112L
 #define __STDC_UTF_16__ 1
 #define __STDC_UTF_32__ 1
 #define __STDC_HOSTED__ 1
-#define __GNUC__ 8
-#define __GNUC_MINOR__ 2
+#define __GNUC__ 7
+#define __GNUC_MINOR__ 3
 #define __GNUC_PATCHLEVEL__ 1
-#define __VERSION__ "8.2.1 20181213 (release) [gcc-8-branch revision 267074]"
+#define __VERSION__ "7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]"
 #define __ATOMIC_RELAXED 0
 #define __ATOMIC_SEQ_CST 5
 #define __ATOMIC_ACQUIRE 2
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
+#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4
@@ -71,7 +72,7 @@
 #define __UINTPTR_TYPE__ unsigned int
 #define __has_include(STR) __has_include__(STR)
 #define __has_include_next(STR) __has_include_next__(STR)
-#define __GXX_ABI_VERSION 1013
+#define __GXX_ABI_VERSION 1011
 #define __SCHAR_MAX__ 0x7f
 #define __SHRT_MAX__ 0x7fff
 #define __INT_MAX__ 0x7fffffff
@@ -403,15 +404,7 @@
 #define __ARM_FEATURE_UNALIGNED 1
 #undef __ARM_FEATURE_QRDMX
 # 1 "<built-in>"
-#undef __ARM_FEATURE_CRC32
-# 1 "<built-in>"
-#undef __ARM_FEATURE_DOTPROD
-# 1 "<built-in>"
 #define __ARM_32BIT_STATE 1
-#undef __ARM_FEATURE_CMSE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_LDREX
-# 1 "<built-in>"
 #define __ARM_FEATURE_LDREX 7
 #define __ARM_FEATURE_CLZ 1
 #undef __ARM_FEATURE_NUMERIC_MAXMIN
@@ -420,19 +413,13 @@
 # 1 "<built-in>"
 #define __ARM_SIZEOF_MINIMAL_ENUM 1
 #define __ARM_SIZEOF_WCHAR_T 4
-#undef __ARM_ARCH_PROFILE
-# 1 "<built-in>"
 #define __ARM_ARCH_PROFILE 77
 #define __arm__ 1
-#undef __ARM_ARCH
-# 1 "<built-in>"
 #define __ARM_ARCH 7
 #define __APCS_32__ 1
 #define __thumb__ 1
 #define __thumb2__ 1
 #define __THUMBEL__ 1
-#undef __ARM_ARCH_ISA_THUMB
-# 1 "<built-in>"
 #define __ARM_ARCH_ISA_THUMB 2
 #define __ARMEL__ 1
 #define __SOFTFP__ 1
@@ -449,8 +436,6 @@
 # 1 "<built-in>"
 #undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
 # 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_FML
-# 1 "<built-in>"
 #undef __ARM_FEATURE_FMA
 # 1 "<built-in>"
 #undef __ARM_NEON__
@@ -466,8 +451,6 @@
 #define __ARM_ARCH_EXT_IDIV__ 1
 #define __ARM_FEATURE_IDIV 1
 #define __ARM_ASM_SYNTAX_UNIFIED__ 1
-#undef __ARM_FEATURE_COPROC
-# 1 "<built-in>"
 #define __ARM_FEATURE_COPROC 15
 #define __GXX_TYPEINFO_EQUALITY_INLINE 0
 #define __ELF__ 1
@@ -503,13 +486,13 @@
 
 #define _ASSERT_H 
 # 23 "repos/apache-mynewt-core/libc/baselibc/include/assert.h"
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
-# 39 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 39 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #define _STDDEF_H 
 #define _STDDEF_H_ 
 
 #define _ANSI_STDDEF_H 
-# 137 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 137 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #define _PTRDIFF_T 
 #define _T_PTRDIFF_ 
 #define _T_PTRDIFF 
@@ -523,11 +506,11 @@
 
 
 
-# 149 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 149 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 typedef int ptrdiff_t;
-# 161 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 161 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #undef __need_ptrdiff_t
-# 187 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 187 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #define __size_t__ 
 #define __SIZE_T__ 
 #define _SIZE_T 
@@ -558,9 +541,9 @@ typedef int ptrdiff_t;
 
 
 typedef unsigned int size_t;
-# 238 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 238 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #undef __need_size_t
-# 267 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 267 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #define __wchar_t__ 
 #define __WCHAR_T__ 
 #define _WCHAR_T 
@@ -576,13 +559,13 @@ typedef unsigned int size_t;
 #define __INT_WCHAR_T_H 
 #define _GCC_WCHAR_T 
 #define _WCHAR_T_DECLARED 
-# 294 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 294 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #undef _BSD_WCHAR_T_
-# 328 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 328 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 typedef unsigned int wchar_t;
-# 347 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 347 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #undef __need_wchar_t
-# 401 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 401 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 #undef NULL
 
 
@@ -611,7 +594,7 @@ typedef unsigned int wchar_t;
 typedef struct {
   long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
   long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
-# 437 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+# 437 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 } max_align_t;
 # 24 "repos/apache-mynewt-core/libc/baselibc/include/assert.h" 2
 # 1 "repos/apache-mynewt-core/kernel/os/include/os/os_fault.h" 1
@@ -1733,8 +1716,635 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 #define assert(x) ((x) ? (void)0 : OS_CRASH())
 # 29 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include-fixed/limits.h" 1 3 4
-# 25 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include-fixed/limits.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
+# 30 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
+#define _GCC_LIMITS_H_ 
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/syslimits.h" 1 3 4
+
+
+
+
+
+#define _GCC_NEXT_LIMITS_H 
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
+# 194 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 1 3 4
+
+#define _LIBC_LIMITS_H_ 1
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 1 3 4
+
+
+
+
+
+
+
+#define __NEWLIB_H__ 1
+
+
+
+
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_newlib_version.h" 1 3 4
+
+
+
+#define _NEWLIB_VERSION_H__ 1
+
+#define _NEWLIB_VERSION "3.0.0"
+#define __NEWLIB__ 3
+#define __NEWLIB_MINOR__ 0
+#define __NEWLIB_PATCHLEVEL__ 0
+# 15 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 2 3 4
+
+
+
+#define _WANT_IO_C99_FORMATS 1
+
+
+#define _WANT_IO_LONG_LONG 1
+
+
+#define _WANT_REGISTER_FINI 1
+# 40 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+#define _MB_LEN_MAX 1
+# 50 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+#define HAVE_INITFINI_ARRAY 1
+
+
+
+#define _ATEXIT_DYNAMIC_ALLOC 1
+
+
+#define _HAVE_LONG_DOUBLE 1
+
+
+#define _HAVE_CC_INHIBIT_LOOP_TO_LIBCALL 1
+
+
+#define _LDBL_EQ_DBL 1
+
+
+#define _FVWRITE_IN_STREAMIO 1
+
+
+#define _FSEEK_OPTIMIZATION 1
+
+
+#define _WIDE_ORIENT 1
+
+
+#define _UNBUF_STREAM_OPT 1
+# 92 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
+#define _RETARGETABLE_LOCKING 1
+# 5 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 2 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 1 3 4
+# 41 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define _SYS_CDEFS_H_ 
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 1 3 4
+
+
+
+
+
+#define _MACHINE__DEFAULT_TYPES_H 
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 1 3 4
+# 22 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define _SYS_FEATURES_H 
+# 33 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
+
+
+
+
+
+
+#define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
+# 131 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#undef _DEFAULT_SOURCE
+#define _DEFAULT_SOURCE 1
+
+
+
+#undef _POSIX_SOURCE
+#define _POSIX_SOURCE 1
+#undef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200809L
+# 158 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#undef _ATFILE_SOURCE
+#define _ATFILE_SOURCE 1
+# 247 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define __ATFILE_VISIBLE 1
+
+
+
+
+
+#define __BSD_VISIBLE 1
+
+
+
+
+
+
+
+#define __GNU_VISIBLE 0
+
+
+
+
+#define __ISO_C_VISIBLE 2011
+# 277 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define __LARGEFILE_VISIBLE 0
+
+
+
+#define __MISC_VISIBLE 1
+
+
+
+
+
+#define __POSIX_VISIBLE 200809
+# 303 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define __SVID_VISIBLE 1
+# 319 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define __XSI_VISIBLE 0
+# 330 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+#define __SSP_FORTIFY_LEVEL 0
+# 9 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 2 3 4
+
+
+
+
+
+
+#define __EXP(x) __ ##x ##__
+# 26 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+#define __have_longlong64 1
+
+
+
+
+
+
+#define __have_long32 1
+
+
+
+
+
+
+
+
+# 41 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef signed char __int8_t;
+
+typedef unsigned char __uint8_t;
+
+
+
+#define ___int8_t_defined 1
+
+
+
+
+
+
+
+typedef short int __int16_t;
+
+typedef short unsigned int __uint16_t;
+
+
+
+#define ___int16_t_defined 1
+# 77 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long int __int32_t;
+
+typedef long unsigned int __uint32_t;
+
+
+
+#define ___int32_t_defined 1
+# 103 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long long int __int64_t;
+
+typedef long long unsigned int __uint64_t;
+
+
+
+#define ___int64_t_defined 1
+# 134 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef signed char __int_least8_t;
+
+typedef unsigned char __uint_least8_t;
+
+
+
+#define ___int_least8_t_defined 1
+# 160 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef short int __int_least16_t;
+
+typedef short unsigned int __uint_least16_t;
+
+
+
+#define ___int_least16_t_defined 1
+# 182 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long int __int_least32_t;
+
+typedef long unsigned int __uint_least32_t;
+
+
+
+#define ___int_least32_t_defined 1
+# 200 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long long int __int_least64_t;
+
+typedef long long unsigned int __uint_least64_t;
+
+
+
+#define ___int_least64_t_defined 1
+
+
+
+
+
+
+
+typedef long long int __intmax_t;
+
+
+
+
+
+
+
+typedef long long unsigned int __uintmax_t;
+
+
+
+
+
+
+
+typedef int __intptr_t;
+
+typedef unsigned int __uintptr_t;
+# 244 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+#undef __EXP
+# 44 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 2 3 4
+
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 46 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 2 3 4
+
+#define __PMT(args) args
+#define __DOTS , ...
+#define __THROW 
+
+
+#define __ASMNAME(cname) __XSTRING (__USER_LABEL_PREFIX__) cname
+
+
+#define __ptr_t void *
+#define __long_double_t long double
+
+#define __attribute_malloc__ 
+#define __attribute_pure__ 
+#define __attribute_format_strfmon__(a,b) 
+#define __flexarr [0]
+
+
+#define __bounded 
+#define __unbounded 
+#define __ptrvalue 
+# 76 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __has_extension __has_feature
+
+
+#define __has_feature(x) 0
+
+
+
+
+
+#define __has_builtin(x) 0
+
+
+
+
+
+
+#define __BEGIN_DECLS 
+#define __END_DECLS 
+# 105 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __GNUCLIKE_ASM 3
+#define __GNUCLIKE_MATH_BUILTIN_CONSTANTS 
+
+
+
+#define __GNUCLIKE___TYPEOF 1
+#define __GNUCLIKE___OFFSETOF 1
+#define __GNUCLIKE___SECTION 1
+
+
+#define __GNUCLIKE_CTOR_SECTION_HANDLING 1
+
+
+#define __GNUCLIKE_BUILTIN_CONSTANT_P 1
+
+
+
+
+
+
+#define __GNUCLIKE_BUILTIN_VARARGS 1
+#define __GNUCLIKE_BUILTIN_STDARG 1
+#define __GNUCLIKE_BUILTIN_VAALIST 1
+
+
+
+#define __GNUC_VA_LIST_COMPATIBILITY 1
+
+
+
+
+
+
+#define __compiler_membar() __asm __volatile(" " : : : "memory")
+
+
+
+#define __GNUCLIKE_BUILTIN_NEXT_ARG 1
+#define __GNUCLIKE_MATH_BUILTIN_RELOPS 
+
+
+#define __GNUCLIKE_BUILTIN_MEMCPY 1
+
+
+#define __CC_SUPPORTS_INLINE 1
+#define __CC_SUPPORTS___INLINE 1
+#define __CC_SUPPORTS___INLINE__ 1
+
+#define __CC_SUPPORTS___FUNC__ 1
+#define __CC_SUPPORTS_WARNING 1
+
+#define __CC_SUPPORTS_VARADIC_XXX 1
+
+#define __CC_SUPPORTS_DYNAMIC_ARRAY_INIT 1
+# 175 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __P(protos) protos
+#define __CONCAT1(x,y) x ## y
+#define __CONCAT(x,y) __CONCAT1(x,y)
+#define __STRING(x) #x
+#define __XSTRING(x) __STRING(x)
+
+#define __const const
+#define __signed signed
+#define __volatile volatile
+# 239 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __weak_symbol __attribute__((__weak__))
+# 252 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __dead2 __attribute__((__noreturn__))
+#define __pure2 __attribute__((__const__))
+#define __unused __attribute__((__unused__))
+#define __used __attribute__((__used__))
+#define __packed __attribute__((__packed__))
+#define __aligned(x) __attribute__((__aligned__(x)))
+#define __section(x) __attribute__((__section__(x)))
+
+
+#define __alloc_size(x) __attribute__((__alloc_size__(x)))
+
+
+
+
+#define __alloc_align(x) __attribute__((__alloc_align__(x)))
+# 356 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __generic(expr,t,yes,no) _Generic(expr, t: yes, default: no)
+# 374 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __min_size(x) static (x)
+
+
+
+
+
+#define __malloc_like __attribute__((__malloc__))
+#define __pure __attribute__((__pure__))
+
+
+
+
+
+
+#define __always_inline __inline__ __attribute__((__always_inline__))
+
+
+
+
+
+#define __noinline __attribute__ ((__noinline__))
+
+
+
+
+
+#define __nonnull(x) __attribute__((__nonnull__ x))
+#define __nonnull_all __attribute__((__nonnull__))
+
+
+
+
+
+
+#define __fastcall __attribute__((__fastcall__))
+#define __result_use_check __attribute__((__warn_unused_result__))
+
+
+
+
+
+
+#define __returns_twice __attribute__((__returns_twice__))
+
+
+
+
+
+#define __unreachable() __builtin_unreachable()
+# 442 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __restrict restrict
+# 475 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __predict_true(exp) __builtin_expect((exp), 1)
+#define __predict_false(exp) __builtin_expect((exp), 0)
+
+
+
+
+
+
+#define __null_sentinel __attribute__((__sentinel__))
+#define __exported __attribute__((__visibility__("default")))
+
+
+#define __hidden __attribute__((__visibility__("hidden")))
+# 497 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __offsetof(type,field) offsetof(type, field)
+#define __rangeof(type,start,end) (__offsetof(type, end) - __offsetof(type, start))
+# 508 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __containerof(x,s,m) ({ const volatile __typeof(((s *)0)->m) *__x = (x); __DEQUALIFY(s *, (const volatile char *)__x - __offsetof(s, m));})
+# 530 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __printflike(fmtarg,firstvararg) __attribute__((__format__ (__printf__, fmtarg, firstvararg)))
+
+#define __scanflike(fmtarg,firstvararg) __attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
+
+#define __format_arg(fmtarg) __attribute__((__format_arg__ (fmtarg)))
+#define __strfmonlike(fmtarg,firstvararg) __attribute__((__format__ (__strfmon__, fmtarg, firstvararg)))
+
+#define __strftimelike(fmtarg,firstvararg) __attribute__((__format__ (__strftime__, fmtarg, firstvararg)))
+# 547 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __printf0like(fmtarg,firstvararg) 
+
+
+
+
+#define __strong_reference(sym,aliassym) extern __typeof (sym) aliassym __attribute__ ((__alias__ (#sym)))
+
+
+
+
+#define __weak_reference(sym,alias) __asm__(".weak " #alias); __asm__(".equ " #alias ", " #sym)
+
+
+#define __warn_references(sym,msg) __asm__(".section .gnu.warning." #sym); __asm__(".asciz \"" msg "\""); __asm__(".previous")
+
+
+
+#define __sym_compat(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@" #verid)
+
+#define __sym_default(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@@" #verid)
+# 601 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __FBSDID(s) struct __hack
+
+
+
+#define __RCSID(s) struct __hack
+
+
+
+#define __RCSID_SOURCE(s) struct __hack
+
+
+
+#define __SCCSID(s) struct __hack
+
+
+
+#define __COPYRIGHT(s) struct __hack
+
+
+
+#define __DECONST(type,var) ((type)(__uintptr_t)(const void *)(var))
+
+
+
+#define __DEVOLATILE(type,var) ((type)(__uintptr_t)(volatile void *)(var))
+
+
+
+#define __DEQUALIFY(type,var) ((type)(__uintptr_t)(const volatile void *)(var))
+
+
+
+
+
+
+#define _Nonnull 
+#define _Nullable 
+#define _Null_unspecified 
+#define __NULLABILITY_PRAGMA_PUSH 
+#define __NULLABILITY_PRAGMA_POP 
+# 661 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __arg_type_tag(arg_kind,arg_idx,type_tag_idx) 
+#define __datatype_type_tag(kind,type) 
+# 680 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __lock_annotate(x) 
+
+
+
+
+
+#define __lockable __lock_annotate(lockable)
+
+
+#define __locks_exclusive(...) __lock_annotate(exclusive_lock_function(__VA_ARGS__))
+
+#define __locks_shared(...) __lock_annotate(shared_lock_function(__VA_ARGS__))
+
+
+
+#define __trylocks_exclusive(...) __lock_annotate(exclusive_trylock_function(__VA_ARGS__))
+
+#define __trylocks_shared(...) __lock_annotate(shared_trylock_function(__VA_ARGS__))
+
+
+
+#define __unlocks(...) __lock_annotate(unlock_function(__VA_ARGS__))
+
+
+#define __asserts_exclusive(...) __lock_annotate(assert_exclusive_lock(__VA_ARGS__))
+
+#define __asserts_shared(...) __lock_annotate(assert_shared_lock(__VA_ARGS__))
+
+
+
+#define __requires_exclusive(...) __lock_annotate(exclusive_locks_required(__VA_ARGS__))
+
+#define __requires_shared(...) __lock_annotate(shared_locks_required(__VA_ARGS__))
+
+#define __requires_unlocked(...) __lock_annotate(locks_excluded(__VA_ARGS__))
+
+
+
+#define __no_lock_analysis __lock_annotate(no_thread_safety_analysis)
+
+
+#define __guarded_by(x) __lock_annotate(guarded_by(x))
+#define __pt_guarded_by(x) __lock_annotate(pt_guarded_by(x))
+# 6 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 2 3 4
+
+
+#define MB_LEN_MAX _MB_LEN_MAX
+
+
+
+
+
+
+#define NL_ARGMAX 32
+# 137 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 3 4
+#define _POSIX2_RE_DUP_MAX 255
+
+
+
+#define ARG_MAX 4096
+
+
+
+#define PATH_MAX 4096
+# 195 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 2 3 4
+# 8 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/syslimits.h" 2 3 4
+#undef _GCC_NEXT_LIMITS_H
+# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 2 3 4
+# 60 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
 #define _LIMITS_H___ 
 
 
@@ -1743,7 +2353,7 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 
 
-#define MB_LEN_MAX 1
+
 
 
 
@@ -1770,7 +2380,7 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 #undef CHAR_MAX
 #define CHAR_MAX UCHAR_MAX
-# 68 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include-fixed/limits.h" 3 4
+# 103 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
 #undef SHRT_MIN
 #define SHRT_MIN (-SHRT_MAX - 1)
 #undef SHRT_MAX
@@ -1828,231 +2438,17 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 #undef ULONG_LONG_MAX
 #define ULONG_LONG_MAX (LONG_LONG_MAX * 2ULL + 1ULL)
 # 30 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
 # 31 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdint.h" 1 3 4
-# 9 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdint.h" 3 4
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 1 3 4
-# 10 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h" 1 3 4
+# 9 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 1 3 4
+# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define _STDINT_H 
 
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 1 3 4
 
-
-
-
-
-#define _MACHINE__DEFAULT_TYPES_H 
-
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 1 3 4
-# 22 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#define _SYS_FEATURES_H 
-
-
-
-
-
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/_newlib_version.h" 1 3 4
-
-
-
-#define _NEWLIB_VERSION_H__ 1
-
-#define _NEWLIB_VERSION "3.0.0"
-#define __NEWLIB__ 3
-#define __NEWLIB_MINOR__ 0
-#define __NEWLIB_PATCHLEVEL__ 0
-# 29 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 2 3 4
-
-
-
-
-#define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-
-
-
-
-
-
-#define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
-# 131 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#undef _DEFAULT_SOURCE
-#define _DEFAULT_SOURCE 1
-
-
-
-#undef _POSIX_SOURCE
-#define _POSIX_SOURCE 1
-#undef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 200809L
-# 158 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#undef _ATFILE_SOURCE
-#define _ATFILE_SOURCE 1
-# 247 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#define __ATFILE_VISIBLE 1
-
-
-
-
-
-#define __BSD_VISIBLE 1
-
-
-
-
-
-
-
-#define __GNU_VISIBLE 0
-
-
-
-
-#define __ISO_C_VISIBLE 2011
-# 277 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#define __LARGEFILE_VISIBLE 0
-
-
-
-#define __MISC_VISIBLE 1
-
-
-
-
-
-#define __POSIX_VISIBLE 200809
-# 303 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#define __SVID_VISIBLE 1
-# 319 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#define __XSI_VISIBLE 0
-# 330 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
-#define __SSP_FORTIFY_LEVEL 0
-# 9 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 2 3 4
-
-
-
-
-
-
-#define __EXP(x) __ ##x ##__
-# 26 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-#define __have_longlong64 1
-
-
-
-
-
-
-#define __have_long32 1
-
-
-
-
-
-
-
-
-# 41 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef signed char __int8_t;
-
-typedef unsigned char __uint8_t;
-
-
-
-#define ___int8_t_defined 1
-
-
-
-
-
-
-
-typedef short int __int16_t;
-
-typedef short unsigned int __uint16_t;
-
-
-
-#define ___int16_t_defined 1
-# 77 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long int __int32_t;
-
-typedef long unsigned int __uint32_t;
-
-
-
-#define ___int32_t_defined 1
-# 103 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long long int __int64_t;
-
-typedef long long unsigned int __uint64_t;
-
-
-
-#define ___int64_t_defined 1
-# 134 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef signed char __int_least8_t;
-
-typedef unsigned char __uint_least8_t;
-
-
-
-#define ___int_least8_t_defined 1
-# 160 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef short int __int_least16_t;
-
-typedef short unsigned int __uint_least16_t;
-
-
-
-#define ___int_least16_t_defined 1
-# 182 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long int __int_least32_t;
-
-typedef long unsigned int __uint_least32_t;
-
-
-
-#define ___int_least32_t_defined 1
-# 200 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long long int __int_least64_t;
-
-typedef long long unsigned int __uint_least64_t;
-
-
-
-#define ___int_least64_t_defined 1
-
-
-
-
-
-
-
-typedef long long int __intmax_t;
-
-
-
-
-
-
-
-typedef long long unsigned int __uintmax_t;
-
-
-
-
-
-
-
-typedef int __intptr_t;
-
-typedef unsigned int __uintptr_t;
-# 244 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
-#undef __EXP
-# 13 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 1 3 4
-# 10 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 1 3 4
+# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define _SYS__INTSUP_H 
 
 
@@ -2060,7 +2456,7 @@ typedef unsigned int __uintptr_t;
 
 
 #define __STDINT_EXP(x) __ ##x ##__
-# 35 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
        
        
        
@@ -2082,7 +2478,7 @@ typedef unsigned int __uintptr_t;
 #define __int20 +2
 #define int +2
 #define long +4
-# 64 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 64 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define _INTPTR_EQ_INT 
 
 
@@ -2099,11 +2495,11 @@ typedef unsigned int __uintptr_t;
 
 
 #define __INT8 "hh"
-# 90 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 90 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __INT16 "h"
-# 101 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 101 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __INT32 "l"
-# 110 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 110 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __INT64 "ll"
 
 
@@ -2112,7 +2508,7 @@ typedef unsigned int __uintptr_t;
 
 
 #define __FAST8 
-# 126 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 126 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __FAST16 
 
 
@@ -2121,17 +2517,17 @@ typedef unsigned int __uintptr_t;
 
 
 #define __FAST32 
-# 144 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 144 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __FAST64 "ll"
 
 
 
 #define __LEAST8 "hh"
-# 159 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 159 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __LEAST16 "h"
-# 170 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 170 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __LEAST32 "l"
-# 179 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 179 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __LEAST64 "ll"
 
 #undef signed
@@ -2145,15 +2541,15 @@ typedef unsigned int __uintptr_t;
        
        
        
-# 191 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 191 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #undef __int20
        
        
-# 14 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_stdint.h" 1 3 4
-# 10 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_stdint.h" 3 4
+# 14 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 2 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_stdint.h" 1 3 4
+# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_stdint.h" 3 4
 #define _SYS__STDINT_H 
-# 20 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_stdint.h" 3 4
+# 20 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_stdint.h" 3 4
 typedef __int8_t int8_t ;
 #define _INT8_T_DECLARED 
 
@@ -2218,7 +2614,7 @@ typedef __intptr_t intptr_t;
 
 typedef __uintptr_t uintptr_t;
 #define _UINTPTR_T_DECLARED 
-# 15 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 2 3 4
+# 15 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 2 3 4
 
 
 
@@ -2246,7 +2642,7 @@ typedef __uint_least32_t uint_least32_t;
 typedef __int_least64_t int_least64_t;
 typedef __uint_least64_t uint_least64_t;
 #define __int_least64_t_defined 1
-# 51 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 51 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
   typedef int int_fast8_t;
   typedef unsigned int uint_fast8_t;
 #define __int_fast8_t_defined 1
@@ -2280,11 +2676,11 @@ typedef __uint_least64_t uint_least64_t;
   typedef long long int int_fast64_t;
   typedef long long unsigned int uint_fast64_t;
 #define __int_fast64_t_defined 1
-# 128 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 128 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INTPTR_MIN (-__INTPTR_MAX__ - 1)
 #define INTPTR_MAX (__INTPTR_MAX__)
 #define UINTPTR_MAX (__UINTPTR_MAX__)
-# 152 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 152 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT8_MIN (-__INT8_MAX__ - 1)
 #define INT8_MAX (__INT8_MAX__)
 #define UINT8_MAX (__UINT8_MAX__)
@@ -2298,7 +2694,7 @@ typedef __uint_least64_t uint_least64_t;
 #define INT_LEAST8_MIN (-__INT_LEAST8_MAX__ - 1)
 #define INT_LEAST8_MAX (__INT_LEAST8_MAX__)
 #define UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)
-# 174 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 174 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT16_MIN (-__INT16_MAX__ - 1)
 #define INT16_MAX (__INT16_MAX__)
 #define UINT16_MAX (__UINT16_MAX__)
@@ -2312,39 +2708,39 @@ typedef __uint_least64_t uint_least64_t;
 #define INT_LEAST16_MIN (-__INT_LEAST16_MAX__ - 1)
 #define INT_LEAST16_MAX (__INT_LEAST16_MAX__)
 #define UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)
-# 196 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 196 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT32_MIN (-__INT32_MAX__ - 1)
 #define INT32_MAX (__INT32_MAX__)
 #define UINT32_MAX (__UINT32_MAX__)
-# 212 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 212 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT_LEAST32_MIN (-__INT_LEAST32_MAX__ - 1)
 #define INT_LEAST32_MAX (__INT_LEAST32_MAX__)
 #define UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)
-# 230 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 230 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT64_MIN (-__INT64_MAX__ - 1)
 #define INT64_MAX (__INT64_MAX__)
 #define UINT64_MAX (__UINT64_MAX__)
-# 246 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 246 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)
 #define INT_LEAST64_MAX (__INT_LEAST64_MAX__)
 #define UINT_LEAST64_MAX (__UINT_LEAST64_MAX__)
-# 262 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 262 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST8_MIN (-__INT_FAST8_MAX__ - 1)
 #define INT_FAST8_MAX (__INT_FAST8_MAX__)
 #define UINT_FAST8_MAX (__UINT_FAST8_MAX__)
-# 278 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 278 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST16_MIN (-__INT_FAST16_MAX__ - 1)
 #define INT_FAST16_MAX (__INT_FAST16_MAX__)
 #define UINT_FAST16_MAX (__UINT_FAST16_MAX__)
-# 294 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 294 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST32_MIN (-__INT_FAST32_MAX__ - 1)
 #define INT_FAST32_MAX (__INT_FAST32_MAX__)
 #define UINT_FAST32_MAX (__UINT_FAST32_MAX__)
-# 310 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 310 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST64_MIN (-__INT_FAST64_MAX__ - 1)
 #define INT_FAST64_MAX (__INT_FAST64_MAX__)
 #define UINT_FAST64_MAX (__UINT_FAST64_MAX__)
-# 326 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 326 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INTMAX_MAX (__INTMAX_MAX__)
 #define INTMAX_MIN (-INTMAX_MAX - 1)
 
@@ -2383,9 +2779,9 @@ typedef __uint_least64_t uint_least64_t;
 
 
 #define WCHAR_MIN (__WCHAR_MIN__)
-# 374 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 374 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define WCHAR_MAX (__WCHAR_MAX__)
-# 384 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 384 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define WINT_MAX (__WINT_MAX__)
 
 
@@ -2400,19 +2796,19 @@ typedef __uint_least64_t uint_least64_t;
 
 #define INT8_C(x) __INT8_C(x)
 #define UINT8_C(x) __UINT8_C(x)
-# 408 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 408 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT16_C(x) __INT16_C(x)
 #define UINT16_C(x) __UINT16_C(x)
-# 420 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 420 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT32_C(x) __INT32_C(x)
 #define UINT32_C(x) __UINT32_C(x)
-# 433 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 433 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INT64_C(x) __INT64_C(x)
 #define UINT64_C(x) __UINT64_C(x)
-# 449 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+# 449 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
 #define INTMAX_C(x) __INTMAX_C(x)
 #define UINTMAX_C(x) __UINTMAX_C(x)
-# 10 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdint.h" 2 3 4
+# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h" 2 3 4
 
 
 
@@ -2439,7 +2835,7 @@ typedef __uint_least64_t uint_least64_t;
 
 #define __alias(x) __attribute__((weak, alias(x)))
 # 9 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
 # 10 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 2
 
 
@@ -2521,8 +2917,8 @@ inline static size_t strxfrm(char *dest, const char *src, size_t n)
 
 #define __extern_inline extern inline __attribute__((gnu_inline))
 # 10 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 1 3 4
-# 31 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 1 3 4
+# 31 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 3 4
 #define _STDARG_H 
 #define _ANSI_STDARG_H_ 
 
@@ -2533,7 +2929,7 @@ inline static size_t strxfrm(char *dest, const char *src, size_t n)
 
 #define __GNUC_VA_LIST 
 
-# 40 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 3 4
+# 40 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 3 4
 typedef __builtin_va_list __gnuc_va_list;
 
 
@@ -2549,7 +2945,7 @@ typedef __builtin_va_list __gnuc_va_list;
 #define va_copy(d,s) __builtin_va_copy(d,s)
 
 #define __va_copy(d,s) __builtin_va_copy(d,s)
-# 99 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 3 4
+# 99 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 3 4
 typedef __gnuc_va_list va_list;
 
 
@@ -2570,7 +2966,7 @@ typedef __gnuc_va_list va_list;
 
 #define __va_list__ 
 # 11 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
 # 12 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
 # 21 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h"
 
@@ -2693,8 +3089,8 @@ FILE *fmemopen_w(struct MemFile* storage, char *buffer, size_t size);
 
 
 
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 1 3 4
-# 29 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h" 1 3 4
+# 29 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h" 3 4
 #define _STDBOOL_H 
 
 
@@ -2702,7 +3098,7 @@ FILE *fmemopen_w(struct MemFile* storage, char *buffer, size_t size);
 #define bool _Bool
 #define true 1
 #define false 0
-# 52 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 3 4
+# 52 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h" 3 4
 #define __bool_true_false_are_defined 1
 # 39 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
 # 53 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
@@ -3512,8 +3908,8 @@ enum {
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
 # 29 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
 # 41 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 1 3 4
-# 29 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 1 3 4
+# 29 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
 #define _FLOAT_H___ 
 
 
@@ -3527,7 +3923,7 @@ enum {
 #define FLT_MANT_DIG __FLT_MANT_DIG__
 #define DBL_MANT_DIG __DBL_MANT_DIG__
 #define LDBL_MANT_DIG __LDBL_MANT_DIG__
-# 50 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 3 4
+# 50 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
 #undef FLT_DIG
 #undef DBL_DIG
 #undef LDBL_DIG
@@ -3607,13 +4003,13 @@ enum {
 
 #undef FLT_ROUNDS
 #define FLT_ROUNDS 1
-# 193 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 3 4
+# 193 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
 #undef FLT_EVAL_METHOD
 
 
 
 #define FLT_EVAL_METHOD __FLT_EVAL_METHOD__
-# 208 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 3 4
+# 208 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
 #undef DECIMAL_DIG
 #define DECIMAL_DIG __DECIMAL_DIG__
 
@@ -3644,7 +4040,7 @@ enum {
 #define DBL_TRUE_MIN __DBL_DENORM_MIN__
 #define LDBL_TRUE_MIN __LDBL_DENORM_MIN__
 # 42 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
 # 43 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
 # 55 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
 #define cbor_static_assert(x) _Static_assert(x, #x)
@@ -3653,14 +4049,7 @@ enum {
 #define STRINGIFY2(x) #x
 # 80 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
 #define DBL_DECIMAL_DIG_STR STRINGIFY(DBL_DECIMAL_DIG)
-
-
-#define __has_builtin(x) 0
-
-
-
-
-
+# 89 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
 #define cbor_ntohll __builtin_bswap64
 #define cbor_htonll __builtin_bswap64
 #define cbor_ntohl __builtin_bswap32
@@ -3741,7 +4130,7 @@ static inline unsigned short encode_half(double val)
 
 
 
-# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
 # 11 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 2
 
 
@@ -3899,6 +4288,19 @@ static inline void put64(void *where, uint64_t v)
 
 static inline CborError append_to_buffer(CborEncoder *encoder, const void *data, size_t len)
 {
+    ((encoder->writer) ? (void)0 : __assert_func(
+# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+   ((void *)0)
+# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+   , 0, 
+# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+   ((void *)0)
+# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+   , 
+# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+   ((void *)0)
+# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+   ));
     return encoder->writer->write(encoder->writer, data, len);
 }
 
@@ -3978,7 +4380,7 @@ CborError cbor_encode_int(CborEncoder *encoder, int64_t value)
     ui ^= value;
     return encode_number(encoder, ui, majorType);
 }
-# 331 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 332 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encode_simple_value(CborEncoder *encoder, uint8_t value)
 {
 
@@ -3988,22 +4390,22 @@ CborError cbor_encode_simple_value(CborEncoder *encoder, uint8_t value)
 
     return encode_number(encoder, value, SimpleTypesType << MajorTypeShift);
 }
-# 353 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 354 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encode_floating_point(CborEncoder *encoder, CborType fpType, const void *value)
 {
     uint8_t buf[1 + sizeof(uint64_t)];
     ((fpType == CborHalfFloatType || fpType == CborFloatType || fpType == CborDoubleType) ? (void)0 : __assert_func(
-# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
    ((void *)0)
-# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
    , 0, 
-# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
    ((void *)0)
-# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
    , 
-# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
    ((void *)0)
-# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
    ));
     buf[0] = fpType;
 
@@ -4037,7 +4439,7 @@ static CborError encode_string(CborEncoder *encoder, size_t length, uint8_t shif
         return err;
     return append_to_buffer(encoder, string, length);
 }
-# 408 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 409 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encode_byte_string(CborEncoder *encoder, const uint8_t *string, size_t length)
 {
     return encode_string(encoder, length, ByteStringType << MajorTypeShift, string);
@@ -4109,28 +4511,28 @@ static CborError create_container(CborEncoder *encoder, CborEncoder *container, 
 
     return CborNoError;
 }
-# 494 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 495 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encoder_create_array(CborEncoder *encoder, CborEncoder *arrayEncoder, size_t length)
 {
     return create_container(encoder, arrayEncoder, length, ArrayType << MajorTypeShift);
 }
-# 517 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 518 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encoder_create_map(CborEncoder *encoder, CborEncoder *mapEncoder, size_t length)
 {
     if (length != CborIndefiniteLength && length > 
-# 519 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 520 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
                                                   (0xffffffffU) 
-# 519 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 520 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
                                                            / 2)
         return CborErrorDataTooLarge;
     return create_container(encoder, mapEncoder, length, MapType << MajorTypeShift);
 }
-# 533 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 534 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encoder_create_indef_byte_string(CborEncoder *encoder, CborEncoder *stringEncoder)
 {
     return create_container(encoder, stringEncoder, CborIndefiniteLength, ByteStringType << MajorTypeShift);
 }
-# 550 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 551 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
 CborError cbor_encoder_close_container(CborEncoder *encoder, const CborEncoder *containerEncoder)
 {
     encoder->writer = containerEncoder->writer;

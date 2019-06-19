@@ -6,33 +6,9 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-function generate_bindings_encoding() {
-    #  Generate bindings for encoding/$1 e.g. tinycbor.
-    local libname=$1
-    local modname=$1
-    #  modname2 looks like cborencoder
-    local modname2=$2
-    #  modname3 looks like cbor
-    local modname3=$3
-    #  libdir looks like encoding/tinycbor
-    local libdir=encoding/$libname
-    #  libcmd looks like bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname2.o.cmd
-    #  Skip incorrect binding "pub static CborIndefiniteLength: usize", replace by const:
-    #  static const size_t CborIndefiniteLength = (0xffffffffU)
-    local line="pub\ const\ CborIndefiniteLength:usize=0xffffffffusize;"
-    local whitelist=`cat << EOF
-        --raw-line pub \
-        --raw-line const \
-        --raw-line CborIndefiniteLength:usize=0xffffffffusize; \
-        --blacklist-item     CborIndefiniteLength \
-        --whitelist-function (?i)${modname3}.* \
-        --whitelist-type     (?i)${modname3}.* \
-        --whitelist-var      (?i)${modname3}.* 
-EOF
-`
-    generate_bindings $libname $modname $libdir $libcmd $whitelist
-}
+# bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
+# bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
+# bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
 
 function generate_bindings_kernel() {
     #  Generate bindings for kernel/$1 e.g. os.
@@ -137,10 +113,53 @@ EOF
         $expandfile
 }
 
+function generate_bindings_encoding() {
+    #  Generate bindings for encoding/*
+    #  libname: tinycbor, json
+    local libname=$1
+    local modname=$1
+    #  srcname looks like cborencoder, json_encode
+    local srcname=$2
+    #  prefixname looks like cbor, json
+    local prefixname=$3
+    #  libdir looks like encoding/tinycbor, encoding/json_encode
+    local libdir=encoding/$libname
+    #  libcmd looks like 
+    #  bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
+    #  bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
+    if [ "$libname" == 'tinycbor' ]; then
+        #  Skip incorrect binding "pub static CborIndefiniteLength: usize", replace by const:
+        #  static const size_t CborIndefiniteLength = (0xffffffffU)
+        local whitelist=`cat << EOF
+            --raw-line pub \
+            --raw-line const \
+            --raw-line CborIndefiniteLength:usize=0xffffffffusize; \
+            --blacklist-item     CborIndefiniteLength \
+            --whitelist-function (?i)${prefixname}.* \
+            --whitelist-type     (?i)${prefixname}.* \
+            --whitelist-var      (?i)${prefixname}.* 
+EOF
+`
+    else
+        #  Add whitelist only.
+        local whitelist=`cat << EOF
+            --whitelist-function (?i)${prefixname}.* \
+            --whitelist-type     (?i)${prefixname}.* \
+            --whitelist-var      (?i)${prefixname}.* 
+EOF
+`
+    fi
+    generate_bindings $libname $modname $libdir $libcmd $whitelist
+}
+
+generate_bindings_encoding json     json_encode json  #  Generate bindings for encoding/json
 generate_bindings_encoding tinycbor cborencoder cbor  #  Generate bindings for encoding/tinycbor
-generate_bindings_kernel   os              #  Generate bindings for kernel/os
-generate_bindings_libs     sensor_network  #  Generate bindings for libs/sensor_network
-#  generate_bindings_apps my_sensor_app send_coap  #  Generate bindings for my_sensor_app/send_coap.c
+# generate_bindings_kernel   os              #  Generate bindings for kernel/os
+# generate_bindings_libs     sensor_network  #  Generate bindings for libs/sensor_network
+
+# For testing only:
+# generate_bindings_apps my_sensor_app send_coap  #  Generate bindings for my_sensor_app/send_coap.c
 
 exit
 

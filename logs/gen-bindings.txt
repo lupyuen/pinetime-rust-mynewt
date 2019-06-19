@@ -7,7 +7,9 @@
 -DFLOAT_SUPPORT
 -DMYNEWT=1
 -DSTM32F103xB
--Og
+-DWITHOUT_OPEN_MEMSTREAM
+-Irepos/apache-mynewt-core/encoding/tinycbor/include/tinycbor
+-Os
 -Wall
 -Werror
 -fdata-sections
@@ -46,8 +48,6 @@
 -Ilibs/sensor_coap/include/sensor_coap/arch/cortex_m3
 -Ilibs/sensor_network/include
 -Ilibs/sensor_network/include/sensor_network/arch/cortex_m3
--Ilibs/sensor_network/src
--Ilibs/sensor_network/src/arch/cortex_m3
 -Ilibs/temp_stm32/include
 -Ilibs/temp_stm32/include/temp_stm32/arch/cortex_m3
 -Irepos/apache-mynewt-core/crypto/tinycrypt/include
@@ -58,6 +58,8 @@
 -Irepos/apache-mynewt-core/encoding/json/include/json/arch/cortex_m3
 -Irepos/apache-mynewt-core/encoding/tinycbor/include
 -Irepos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/arch/cortex_m3
+-Irepos/apache-mynewt-core/encoding/tinycbor/src
+-Irepos/apache-mynewt-core/encoding/tinycbor/src/arch/cortex_m3
 -Irepos/apache-mynewt-core/hw/bsp/bluepill/include
 -Irepos/apache-mynewt-core/hw/bsp/bluepill/include/bluepill/arch/cortex_m3
 -Irepos/apache-mynewt-core/hw/bsp/bluepill/include/bsp
@@ -135,5 +137,5 @@
         -E 
         -dD
         -o
-logs/sensor_network-expanded.h
-libs/sensor_network/src/sensor_network.c
+logs/tinycbor-expanded.h
+repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c

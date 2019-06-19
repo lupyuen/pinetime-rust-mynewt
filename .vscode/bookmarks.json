@@ -153,5 +153,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/scripts/gen-bindings.sh",
+		"bookmarks": [
+			{
+				"line": 1,
+				"column": 5,
+				"label": ""
+			}
+		]
 	}
 ]
