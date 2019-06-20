@@ -37,7 +37,7 @@ const LISTENER_CB: sensor_arg = 1 as sensor_arg;
 ///  or CoAP Server (is this is a Standalone Node).
 ///  For Collector Node: Start the Listeners for Remote Sensor 
 ///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-///  Return 0 if successful.
+///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
@@ -51,16 +51,16 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 
     //  Define the listener function to be called after polling the temperature sensor.
     let listener = sensor_listener {
-        sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
-        sl_func       : sensor::as_untyped(read_temperature), //  Listener function to be called with the sensor data
-        sl_arg        : LISTENER_CB,            //  Indicate to the listener function that this is a listener callback
-        ..fill_zero!(sensor_listener)
+        sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature
+        sl_func       : sensor::as_untyped(read_temperature),  //  Listener function
+        sl_arg        : LISTENER_CB,            //  Indicate that this is a listener callback
+        ..fill_zero!(sensor_listener)           //  Set other fields to 0
     };
 
     //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
-    sensor::register_listener(sensor, listener)?;
+    sensor::register_listener(sensor, listener)?;  //  `?` means in case of error, return error now.
 
-    //  Return () to indicate success.  This line should not end with a semicolon (;).
+    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
 }
 
@@ -86,7 +86,8 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg,
     assert!(unsafe { !is_null_sensor(sensor) });
 
     //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
-    //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node that transmitted the sensor data, like "b3b4b5b6f1"
+    //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node 
+    //  that transmitted the sensor data, like "b3b4b5b6f1"
     let device = unsafe { sensor_get_device(sensor) };
     let device_name_ptr: *const c_char = unsafe { device_get_name(device) };
     let device_name: &CStr = unsafe { CStr::from_ptr(device_name_ptr) };
@@ -96,7 +97,6 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg,
     let temp_sensor_value = get_temperature(sensor_data, sensor_type);
     if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
 
-    //#if MYNEWT_VAL(SENSOR_COAP)   //  If we are sending sensor data to CoAP server or Collector Node...
     //  Compose a CoAP message with the temperature sensor data and send to the 
     //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
@@ -105,13 +105,13 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg,
 
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
-    if let Err(err) = rc {
+    if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
         if err == MynewtError::SYS_EAGAIN {
             console_print(b"TMP network not ready\n");
             return MynewtError::SYS_EOK; 
         }            
     }
-    //#endif  //  MYNEWT_VAL(SENSOR_COAP)
+    //  Return 0 to Mynewt to indicate no error.  Should not end with a semicolon (;).
     MynewtError::SYS_EOK
 }
 
@@ -122,7 +122,7 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg,
 #[allow(unused_variables)]
 fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
     let mut return_value = SensorValue::default();
-    match sensor_type {                                //  Is this raw or computed temperature?
+    match sensor_type {                           //  Is this raw or computed temperature?
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
             //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
             let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
@@ -160,5 +160,5 @@ fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> 
     }
     //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
     return_value.key = TEMP_SENSOR_KEY;
-    return_value
+    return_value  //  Should not end with a semicolon (;)
 }
