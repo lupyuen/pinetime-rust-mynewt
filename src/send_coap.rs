@@ -157,6 +157,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
 
+/*
     //  Compose the CoAP Payload in JSON using the coap!() macro.
     let _payload = coap!(@json {
         //  Create "values" as an array of items under the root.
@@ -170,7 +171,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
         //    {"key":"tmp", "value":28.7} for computed temperature (float)
         sensor_val,
     });
-
+*/
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
@@ -205,11 +206,13 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = unsafe { sensor_network::init_collector_post() };  assert!(rc);
 
+    /*
     //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
     let _payload = coap!(@cbor {
         //  Set the Sensor Key and integer Sensor Value, e.g. `{ t: 2870 }`
         sensor_val,
     });
+    */
 
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests

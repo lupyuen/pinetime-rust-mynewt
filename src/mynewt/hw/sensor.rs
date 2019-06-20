@@ -75,7 +75,7 @@ pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Myne
 ///  This is a static mutable copy of the listener passed in through `register_listener`.
 ///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
 static mut LISTENER_INTERNAL: sensor_listener = sensor_listener {  
-    sl_func: as_untyped(null_sensor_data_func),
+    sl_func: Some(null_sensor_data_func),
     ..fill_zero!(sensor_listener)
 };
 
@@ -84,8 +84,8 @@ extern fn null_sensor_data_func(
     _sensor: sensor_ptr, 
     _arg: sensor_arg, 
     _sensor_data: sensor_data_ptr, 
-    _sensor_type: sensor_type_t) -> MynewtError
-    { MynewtError::SYS_EOK }
+    _sensor_type: sensor_type_t) -> i32
+    { os::SYS_EOK as i32 }
 
 /*
 ///  Import the Mynewt Sensor API for C.

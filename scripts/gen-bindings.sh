@@ -29,6 +29,7 @@ function generate_bindings() {
     cat \
         >> $expandcmd \
         << "EOF"
+        -CC
         -E 
         -dD
         -o
@@ -209,9 +210,12 @@ EOF
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
+generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
+
+exit
+
 generate_bindings_encoding json           json_encode    json  #  Generate bindings for encoding/json
 generate_bindings_encoding tinycbor       cborencoder    cbor  #  Generate bindings for encoding/tinycbor
-generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
 generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
 generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
 generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap
