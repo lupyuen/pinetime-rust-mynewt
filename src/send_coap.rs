@@ -162,6 +162,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
 
+    /*
     //  Compose the CoAP Payload in JSON using the coap!() macro.
     let _payload = coap!(@json {
         //  Create "values" as an array of items under the root.
@@ -175,6 +176,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
         //    {"key":"tmp", "value":28.7} for computed temperature (float)
         sensor_val,
     });
+    */
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
@@ -187,6 +189,51 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
     Ok(())
+}
+
+fn test_json() {
+  let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0");
+  let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0");
+  //  Sensor `t` has int value 2870.
+  let int_sensor_value = SensorValue {
+    key: "t",
+    val: SensorValueType::Uint(2870)
+  };
+
+  coap_item_str! (@json values, "device", device_id);
+
+  //  coap_set_int_val! (@json root, int_sensor_value);
+
+  /*
+  coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
+    //  coap_item_str! (@json values, "device", device_id);
+    //  coap_item_str! (@json values, "node", node_id);
+    //  coap_set_int_val! (root, int_sensor_value);
+  });
+  */
+
+  /*
+  let payload = coap_root!(@json {  //  Create the payload root
+    coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
+      //  Append to the "values" array:
+      //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+      //  coap_item_str! (@json values, "device", device_id);
+
+      //    {"key":"node", "value":"b3b4b5b6f1"},
+      //  coap_item_str! (@json values, "node", node_id);
+
+      //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
+      //  coap_set_int_val! (@json root, int_sensor_value);
+      
+      //  If we are using raw temperature (integer) instead of computed temperature (float)...
+      //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
+      //    {"key":"t",   "value":2870} for raw temperature (integer)
+      ////TODO: coap_item_int_val! (values, val);
+      //    {"key":"tmp", "value":28.7} for computed temperature (float)
+      //  coap_item_float_val! (values, val);
+    }) //  Close the "values" array
+  }); //  Close the payload root
+  */
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -281,26 +328,6 @@ fn send_sensor_data_without_encoding() {
   trace_macros!(false);  //  Stop tracing macros
 }
 
-fn send_sensor_data_json() {
-  let device_id = b"0102030405060708090a0b0c0d0e0f10";
-  let node_id  =  b"b3b4b5b6f1";
-
-  //  Sensor `t` has int value 2870.
-  let int_sensor_value = SensorValue {
-    key: "t",
-    val: SensorValueType::Uint(2870)
-  };
-  //  Compose the CoAP Payload in JSON using the `coap` macro.
-  trace_macros!(true);
-  let payload = coap!(@json {
-    //  "device": device_id,
-    //  "node":   node_id,
-    int_sensor_value,  //  Send `{t: 2870}`
-  });
-  trace_macros!(false);
-}
-
-
 //  static mut g_encoder: CborEncoder = CborEncoder{};
 static mut root_map: CborEncoder = CborEncoder{  //  TODO: Prevent concurrent access.
   writer: 0 as *mut cbor_encoder_writer,
@@ -309,60 +336,24 @@ static mut root_map: CborEncoder = CborEncoder{  //  TODO: Prevent concurrent ac
   flags: 0,
 };
 
-fn test_macro2() {
-  //  Send the payload.
-  //  On Collector Node: Device sends JSON to CoAP server via ESP8266...
-  // {"values":[
-  //   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-  //   {"key":"node",   "value":"b3b4b5b6f1"},
-  //   {"key":"t",      "value":2870},
-  //   {"key":"tmp",    "value":28.7}
-  // ]}
+fn send_sensor_data_json() {
+  let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0");
+  let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0");
 
-  //  On Sensor Node: Device sends CBOR to Collector Node via nRF24L01...
-  //  { "t": 2870 }
-
-  let root = "root_var";
-  let values = "values_var";
-  let device_id = b"0102030405060708090a0b0c0d0e0f10";
-  let node_id = b"b3b4b5b6f1";
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {
     key: "t",
     val: SensorValueType::Uint(2870)
   };
 
-  coap_set_int_val! (@cbor root, int_sensor_value);
-  coap_item_str! (@json values, "device", device_id);  ////
-  coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-    coap_item_str! (@json values, "device", device_id);
-    coap_item_str! (@json values, "node", node_id);
-    //  coap_set_int_val! (root, int_sensor_value);
-  });  ////
-
-  let payload = coap_root!(@json {  //  Create the payload root
-    coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-      //  Append to the "values" array:
-      //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-      coap_item_str! (@json values, "device", device_id);
-
-      //    {"key":"node", "value":"b3b4b5b6f1"},
-      coap_item_str! (@json values, "node", node_id);
-
-      //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-      coap_set_int_val! (@json root, int_sensor_value);
-      
-      //  If we are using raw temperature (integer) instead of computed temperature (float)...
-      //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
-      //    {"key":"t",   "value":2870} for raw temperature (integer)
-      ////TODO: coap_item_int_val! (values, val);
-      //    {"key":"tmp", "value":28.7} for computed temperature (float)
-      //  coap_item_float_val! (values, val);
-
-      //  If there are more sensor values, add them here with
-      //  coap_item_int_val, coap_item_int, coap_item_uint, coap_item_float or coap_item_str
-
-    }) //  Close the "values" array
-  }); //  Close the payload root
+  //  Compose the CoAP Payload in JSON using the `coap` macro.
+  //  trace_macros!(true);
+  let payload = coap!(@json {
+    "device": device_id,
+    //  "node":   node_id,
+    //  int_sensor_value,  //  Send `{t: 2870}`
+  });
+  //  trace_macros!(false);
 }
+
 */

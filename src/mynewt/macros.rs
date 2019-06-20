@@ -483,8 +483,8 @@ macro_rules! coap_item_str {
     coap_item!(@json
       $parent,
       {
-        json_rep_set_text_string!($parent, "key", $key.to_str());
-        json_rep_set_text_string!($parent, "value", $val.to_str());
+        json_rep_set_text_string!($parent, "key".to_str(), $key.to_str());
+        json_rep_set_text_string!($parent, "value".to_str(), $val.to_str());
       }
     );
     d!(end json coap_item_str);
@@ -528,7 +528,7 @@ macro_rules! coap_item_int {
   (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
     d!(begin json coap_item_int, key: $key0, value: $value0);
     coap_item!(@json $array0, {
-      json_rep_set_text_string!($array0, "key",   $key0);
+      json_rep_set_text_string!($array0, "key",   $key0.to_str());
       json_rep_set_int!(        $array0, "value", $value0);
     });
     d!(end json coap_item_int);
