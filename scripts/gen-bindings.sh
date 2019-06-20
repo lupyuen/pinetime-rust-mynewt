@@ -186,7 +186,6 @@ EOF
             --whitelist-function (?i)init_sensor_.* \
             --whitelist-function (?i)sensor_coap_.* \
             --whitelist-function (?i)do_sensor_.* \
-            --whitelist-function (?i)json_.* \
             --whitelist-var      (?i)coap_.* \
             --whitelist-function (?i)${prefixname}.*
 EOF

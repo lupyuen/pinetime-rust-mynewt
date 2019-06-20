@@ -369,7 +369,7 @@ macro_rules! parse {
     });  //  Close the payload root
     d!(end json root);
     d!(return json root to caller);
-    root
+    ()
   }};
 
   //  CBOR encoding: If we match the top level of the JSON: { ... }
@@ -433,9 +433,9 @@ macro_rules! coap_root {
 
   (@json $children0:block) => {{  //  JSON
     d!(begin json coap_root);
-    unsafe { json_rep_start_root_object() }
+    unsafe { sensor_coap::json_rep_start_root_object() }
     $children0;
-    unsafe { json_rep_end_root_object() }
+    unsafe { sensor_coap::json_rep_end_root_object() }
     d!(end json coap_root);
   }};
 }
@@ -588,8 +588,8 @@ macro_rules! json_rep_set_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    json_encode_array_name(&coap_json_encoder, #key); 
-    json_encode_array_start(&coap_json_encoder);
+    json::json_encode_array_name(&mut sensor_coap::coap_json_encoder, $key); 
+    json::json_encode_array_start(&mut sensor_coap::coap_json_encoder);
 
     //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
     //  unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };

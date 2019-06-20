@@ -19,7 +19,10 @@ use crate::mynewt::{
     },
     encoding::{
         json,             //  Import Mynewt JSON API
-        tinycbor,         //  Import Mynewt TinyCBOR API
+        tinycbor::{       //  Import Mynewt TinyCBOR API
+            self,
+            CborEncoder,
+        },         
     },
     libs::{
         sensor_coap,      //  Import Mynewt Sensor CoAP API
