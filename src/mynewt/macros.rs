@@ -590,7 +590,10 @@ macro_rules! json_rep_set_array {
       ", key: ",    stringify!($key)
     );
     unsafe {
-      json::json_encode_array_name(&mut coap_json_encoder, $key); 
+      json::json_encode_array_name(
+        &mut coap_json_encoder,
+        b"values\0".as_mut_ptr()  //  TODO: Replace by $key
+      ); 
       json::json_encode_array_start(&mut coap_json_encoder);
     };
 
@@ -710,8 +713,8 @@ macro_rules! json_value_int {
       ", value: ",  stringify!($value)
     );
     unsafe {
-      $json_value.jv_type = json::JSON_VALUE_TYPE_INT64;
-      $json_value.jv_val.u = $value as u64;
+      $json_value.jv_type = json::JSON_VALUE_TYPE_INT64 as u8;
+      $json_value.jv_val.u = 1234; //// $value as u64;
     }
     d!(end json_value_int);
   }};
@@ -726,8 +729,8 @@ macro_rules! json_value_string {
       ", value: ",  stringify!($value)
     );
     unsafe {
-      $json_value.jv_type = json::JSON_VALUE_TYPE_STRING;
-      $json_value.jv_len = $value.len();
+      $json_value.jv_type = json::JSON_VALUE_TYPE_STRING as u8;
+      $json_value.jv_len = $value.len() as u16;
       $json_value.jv_val.str = $value;
     }
     d!(end json_value_string);
