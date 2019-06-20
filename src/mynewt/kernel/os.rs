@@ -892,11 +892,11 @@ extern "C" {
 extern "C" {
     #[doc = " Open a device."]
     #[doc = ""]
-    #[doc = " - __`dev`__: The device to open"]
-    #[doc = " - __`timo`__: The timeout to open the device, if not specified."]
-    #[doc = " - __`arg`__: The argument to the device open() call."]
+    #[doc = " @param dev The device to open"]
+    #[doc = " @param timo The timeout to open the device, if not specified."]
+    #[doc = " @param arg The argument to the device open() call."]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure."]
+    #[doc = " @return 0 on success, non-zero on failure."]
     pub fn os_dev_open(
         devname: *const ::cty::c_char,
         timo: u32,

@@ -19,6 +19,7 @@ function generate_bindings() {
 
     local expandcmd=logs/gen-bindings.txt
     local expandfile=logs/$modname-expanded.h
+    local expandpath=src/mynewt/$modname.rs
 
     #  Remove first line: arm-none-eabi-gcc
     tail +2 $libcmd \
@@ -58,8 +59,13 @@ EOF
         --no-derive-debug \
         --no-layout-tests \
         $whitelist \
-        -o src/mynewt/$modname.rs \
+        -o $expandpath \
         $expandfile
+
+    # Change #[doc = " @param dev The device to open"]
+    # to     #[doc = " - __`dev`__: The device to open"]
+    # Change @return to Return
+    sed 's/@param /zzz /g' $expandpath
 }
 
 function generate_bindings_kernel() {
@@ -213,9 +219,12 @@ EOF
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
+generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
+
+exit
+
 generate_bindings_encoding json           json_encode    json  #  Generate bindings for encoding/json
 generate_bindings_encoding tinycbor       cborencoder    cbor  #  Generate bindings for encoding/tinycbor
-generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
 generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
 generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
 generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap
