@@ -264,10 +264,9 @@
         val: i32,
     }
     #[macro_export]
-    macro_rules! test_macro1((
-                             $ object : ident , $ key : ident , $ value : expr
-                             ) => { concat ! ( stringify ! ( $ key ) , "\0" )
-                             } ;);
+    macro_rules! stringify_null(( $ key : ident ) => {
+                                concat ! ( stringify ! ( $ key ) , "\0" ) }
+                                ;);
     fn test_json() {
         let device_id =
             CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0");
@@ -276,7 +275,7 @@
             SensorValue{key: "t", val: SensorValueType::Uint(2870),};
         let mut context = Context{val: 0,};
         ();
-        "device\u{0}";
+        let a = "device\u{0}";
         ();
     }
     ///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
@@ -297,14 +296,14 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 288u32, 65u32))
+                                           "src/send_coap.rs", 280u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 301u32, 63u32))
+                                           "src/send_coap.rs", 293u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

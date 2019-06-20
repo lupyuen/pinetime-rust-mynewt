@@ -689,8 +689,8 @@ macro_rules! json_rep_set_text_string {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    ////TODO json_value_string!(coap_json_value, $value); 
-    unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
+    json_value_string!(coap_json_value, $value); 
+    unsafe { json::json_encode_object_entry(&mut coap_json_encoder, stringify_null!($key), &mut coap_json_value) };
     d!(end json_rep_set_text_string);
   }};
 
@@ -702,7 +702,7 @@ macro_rules! json_rep_set_text_string {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    ////TODO json_value_string!(coap_json_value, $value); 
+    json_value_string!(coap_json_value, $value); 
     ////TODO unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
     d!(end json_rep_set_text_string);
   }};
@@ -1034,6 +1034,18 @@ macro_rules! test_internal_rules {
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Utility Macros
+
+///  Macro that takes an identifier and returns a `[u8]` containing the identifier, terminated by 0.
+///  Used to convert an identifier to a C null-terminated string.
+#[macro_export]
+macro_rules! stringify_null {
+  ($key:ident) => {  //  If $key is identifier...
+    concat!(
+      stringify!($key),
+      "\0"
+    )
+  };
+}
 
 ///  Macro to dump all tokens received as a literal string, e.g.
 ///  `d!(a b c)` returns `"a b c"`

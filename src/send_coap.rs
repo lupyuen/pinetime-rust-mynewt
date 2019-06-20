@@ -195,24 +195,6 @@ struct Context {
   val: i32,
 }
 
-#[macro_export]
-macro_rules! test_macro1 {
-  ($object:ident, $key:ident, $value:expr) => {  //  If $key is identifier...
-    /*
-    concat!(
-      "begin test_macro1 ident",
-      ", object: ", stringify!($object),
-      ", key: ",    stringify!($key),
-      ", value: ",  stringify!($value),
-    )
-    */
-    concat!(
-      stringify!($key),
-      "\0"
-    )
-  };
-}
-
 fn test_json() {
   let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0");
   let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0");
@@ -223,11 +205,13 @@ fn test_json() {
   };
   let mut context = Context{ val: 0 };
 
-  trace_macros!(true);
-  test_macro1!(context, device, device_id);
+  //trace_macros!(true);
 
-  //json_rep_set_text_string!(context, device1, device_id);
-  //json_rep_set_text_string!(context, "device2", device_id);
+  let a = stringify_null!(device);
+
+  json_rep_set_text_string!(context, device1, device_id);
+
+  json_rep_set_text_string!(context, "device2", device_id);
 
   // coap_item_str! (@json context, "device", device_id);
 
