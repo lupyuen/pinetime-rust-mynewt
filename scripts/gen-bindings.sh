@@ -59,18 +59,24 @@ EOF
 }
 
 function generate_bindings_kernel() {
-    #  Generate bindings for kernel/$1 e.g. os.
+    #  Generate bindings for kernel/*
+    #  libname: os
     local libname=$1
+    #  srcname: os
+    local srcname=$2
+    #  prefixname: os
+    local prefixname=$3
     #  libdir looks like kernel/os
     local modname=kernel/$libname
     local libdir=kernel/$libname
-    #  libcmd looks like bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$modname.o.cmd
+    #  libcmd looks like 
+    #  bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
+    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     local whitelist=`cat << EOF
         --whitelist-var      (?i)SYS_E.* \
-        --whitelist-function (?i)${modname}_.* \
-        --whitelist-type     (?i)${modname}_.* \
-        --whitelist-var      (?i)${modname}_.* 
+        --whitelist-function (?i)${prefixname}_.* \
+        --whitelist-type     (?i)${prefixname}_.* \
+        --whitelist-var      (?i)${prefixname}_.* 
 EOF
 `
     generate_bindings $libname $modname $libdir $libcmd $whitelist
@@ -202,10 +208,10 @@ EOF
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
 
-generate_bindings_encoding json         json_encode json  #  Generate bindings for encoding/json
-generate_bindings_encoding tinycbor     cborencoder cbor  #  Generate bindings for encoding/tinycbor
-generate_bindings_kernel   os                             #  Generate bindings for kernel/os
-generate_bindings_hw       sensor       sensor sensor     #  Generate bindings for hw/sensor
+generate_bindings_encoding json           json_encode    json  #  Generate bindings for encoding/json
+generate_bindings_encoding tinycbor       cborencoder    cbor  #  Generate bindings for encoding/tinycbor
+generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
+generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
 generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
 generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap
 

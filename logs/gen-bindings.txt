@@ -135,5 +135,5 @@
         -E 
         -dD
         -o
-logs/sensor_coap-expanded.h
+logs/libs/sensor_coap-expanded.h
 libs/sensor_coap/src/sensor_coap.c
