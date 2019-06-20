@@ -359,9 +359,8 @@ macro_rules! parse {
     d!(begin json root);
     //  let root = "root";  //  Top level object is named "root".
     //  let values = "values";  //  "values" will be an array of items under the root
-    //  Alias the JSON encoder and value locally so that the scope will end after this macro.
-    let mut local_json_encoder = &mut sensor_coap::coap_json_encoder;
-    let mut local_json_value   = &mut sensor_coap::coap_json_value;
+    //  let mut local_json_encoder = &mut sensor_coap::coap_json_encoder;
+    //  let mut local_json_value   = &mut sensor_coap::coap_json_value;
     coap_root!(@json {  //  Create the payload root
         coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
@@ -591,8 +590,8 @@ macro_rules! json_rep_set_array {
       ", key: ",    stringify!($key)
     );
     unsafe {
-      json::json_encode_array_name(&mut local_json_encoder, $key); 
-      json::json_encode_array_start(&mut local_json_encoder);
+      json::json_encode_array_name(&mut coap_json_encoder, $key); 
+      json::json_encode_array_start(&mut coap_json_encoder);
     };
 
     //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
@@ -613,7 +612,7 @@ macro_rules! json_rep_close_array {
       ", object: ", stringify!($object),
       ", key: ",    stringify!($key)
     );
-    unsafe { json::json_encode_array_finish(&mut local_json_encoder) };
+    unsafe { json::json_encode_array_finish(&mut coap_json_encoder) };
 
     //  d!(> TODO: json_rep_end_array(object##_map, key));
     //  json_rep_end_array!($object, $key, _map);
@@ -630,7 +629,7 @@ macro_rules! json_rep_object_array_start_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
-    unsafe { json::json_encode_object_start(&mut local_json_encoder) };
+    unsafe { json::json_encode_object_start(&mut coap_json_encoder) };
 
     //  d!(> TODO: json_rep_start_object(key##_array, key));        
     //  json_rep_start_object!($key, $key, _array);
@@ -647,7 +646,7 @@ macro_rules! json_rep_object_array_end_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
-    unsafe { json::json_encode_object_finish(&mut local_json_encoder) };
+    unsafe { json::json_encode_object_finish(&mut coap_json_encoder) };
 
     //  d!(> TODO: json_rep_end_object(key##_array, key));
     //  json_rep_end_object!($key, $key, _array);
@@ -666,8 +665,8 @@ macro_rules! json_rep_set_int {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    json_value_int!(local_json_value, $value);          
-    unsafe { json::json_encode_object_entry(&mut local_json_encoder, $key, &mut local_json_value) };
+    json_value_int!(coap_json_value, $value);          
+    unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
 
     //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
     //  cbor_encode_text_string(&mut concat_idents!($object,_map), $key.as_ptr(), $key.len());
@@ -687,8 +686,8 @@ macro_rules! json_rep_set_text_string {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    json_value_string!(local_json_value, $value); 
-    unsafe { json::json_encode_object_entry(&mut local_json_encoder, $key, &mut local_json_value) };
+    json_value_string!(coap_json_value, $value); 
+    unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
 
     //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
     //  cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());

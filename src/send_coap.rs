@@ -10,6 +10,7 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::c_char;          //  Import C types from cty library: https://crates.io/crates/cty
+use crate::base::*;       //  Import `base.rs` for common declarations
 use crate::mynewt::{
     result::*,            //  Import Mynewt result and error types
     kernel::os::{  
@@ -25,16 +26,19 @@ use crate::mynewt::{
         },         
     },
     libs::{
-        sensor_coap,      //  Import Mynewt Sensor CoAP API
+        sensor_coap::{    //  Import Mynewt Sensor CoAP API
+            self,
+            coap_json_encoder,  //  Global JSON encoder
+            coap_json_value,    //  Global JSON value being encoded
+            sensor_value,
+        },
         sensor_network::{ //  Import Mynewt Sensor Network API
             self,
-            sensor_value,
         },   
     },
-    g_encoder,            //  Import Mynewt TinyCBOR encoder and root map
+    g_encoder,            //  Import Global TinyCBOR encoder and root map
     root_map,  
 };
-use crate::base::*;       //  Import `base.rs` for common declarations
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
