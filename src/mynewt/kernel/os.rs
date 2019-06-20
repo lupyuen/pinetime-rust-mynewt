@@ -892,9 +892,9 @@ extern "C" {
 extern "C" {
     #[doc = " Open a device."]
     #[doc = ""]
-    #[doc = " @param dev The device to open"]
-    #[doc = " @param timo The timeout to open the device, if not specified."]
-    #[doc = " @param arg The argument to the device open() call."]
+    #[doc = " ` dev ` The device to open"]
+    #[doc = " ` timo ` The timeout to open the device, if not specified."]
+    #[doc = " ` arg ` The argument to the device open() call."]
     #[doc = ""]
     #[doc = " @return 0 on success, non-zero on failure."]
     pub fn os_dev_open(
