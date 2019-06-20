@@ -210,8 +210,12 @@ function generate_bindings_libs() {
 EOF
 `
     elif [ "$libname" == 'sensor_coap' ]; then
-        #  Add sensor coap + whitelist.
+        #  Add sensor coap + whitelist + blacklist.  json_encoder and json_value are defined in encoding/json.
         local whitelist=`cat << EOF
+            --raw-line use \
+            --raw-line super::super::encoding::json::*; \
+            --blacklist-item     json_encoder \
+            --blacklist-item     json_value \
             --whitelist-type     (?i)sensor_value \
             --whitelist-function (?i)init_sensor_.* \
             --whitelist-function (?i)sensor_coap_.* \
