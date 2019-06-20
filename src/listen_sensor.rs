@@ -8,21 +8,26 @@
 
 use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
 use cty::{ c_void, c_char };            //  Import C types from cty library: https://crates.io/crates/cty
+use crate::mynewt::{
+    kernel::os,                         //  Import Mynewt OS API functions
+    result::*,                          //  Import Mynewt API Result and Error types
+    hw::sensor::{        
+        self,                           //  Import Mynewt Sensor API functions
+        sensor_ptr,                     //  Import Mynewt Sensor API types
+        sensor_arg,
+        sensor_data_ptr,
+        sensor_listener,
+        sensor_temp_data,
+        sensor_type_t,
+    }
+};
 use crate::base::*;                     //  Import base.rs for common declarations
-use crate::mynewt::MynewtResult;        //  Import Mynewt API Result type
-use crate::mynewt::kernel::os;          //  Import Mynewt OS API functions
-use crate::mynewt::hw::sensor;          //  Import Mynewt Sensor API functions
-use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API types
-    sensor_ptr,
-    sensor_listener,
-    sensor_type_t,
-};       
 use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sensor data
 
 ///  Poll every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  
 ///  Indicate that this is a listener callback
-const LISTENER_CB: *mut c_void = 1 as *mut c_void;           
+const LISTENER_CB: sensor_arg = 1 as sensor_arg;
 
 /////////////////////////////////////////////////////////
 //  Listen To Local Sensor
@@ -48,7 +53,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     //  Define the listener function to be called after polling the temperature sensor.
     let listener = sensor_listener {
         sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature. Either computed (floating-point) or raw (integer)
-        sl_func       : Some(read_temperature), //  Listener function to be called with the sensor data
+        sl_func       : sensor::as_untyped(read_temperature), //  Listener function to be called with the sensor data
         sl_arg        : LISTENER_CB,            //  Indicate to the listener function that this is a listener callback
         ..fill_zero!(sensor_listener)
     };
@@ -73,12 +78,12 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 ///  If this is a Sensor Node, we send the sensor data to the Collector Node.
 ///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
 ///  Return 0 if we have processed the sensor data successfully.
-extern fn read_temperature(sensor: sensor_ptr, _arg: *mut c_void, 
-    sensor_data: *mut c_void, sensor_type: sensor_type_t) -> i32 {
+extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg, 
+    sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
     console_print(b"read_temperature\n");
     //  Check that the temperature data is valid.
     //  TODO
-    if unsafe { is_null_sensor_data(sensor_data) } { return os::SYS_EINVAL; }  //  Exit if data is missing
+    if unsafe { is_null_sensor_data(sensor_data) } { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
     assert!(unsafe { !is_null_sensor(sensor) });
 
     //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
@@ -102,13 +107,13 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: *mut c_void,
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
     if let Err(err) = rc {
-        if err == os::SYS_EAGAIN {
+        if err == MynewtError::SYS_EAGAIN {
             console_print(b"TMP network not ready\n");
-            return 0; 
+            return MynewtError::SYS_EOK; 
         }            
     }
     //#endif  //  MYNEWT_VAL(SENSOR_COAP)
-    0
+    MynewtError::SYS_EOK
 }
 
 ///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
@@ -134,12 +139,12 @@ fn get_temperature(sensor_data: *const c_void, sensor_type: sensor_type_t) -> Se
         },
         SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
             //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
-            let mut tempdata = fill_zero!(SensorTempData);
+            let mut tempdata = fill_zero!(sensor_temp_data);
             let rc = unsafe { get_temp_data(sensor_data, &mut tempdata) };
             assert!(rc == 0);
 
             //  Check that the computed temperature data is valid.
-            if tempdata.std_temp_is_valid == 0 { return return_value; }  //  Exit if data is not valid
+            if tempdata.std_temp_is_valid() == 0 { return return_value; }  //  Exit if data is not valid
 
             //  Computed temperature data is valid.  Copy and display it.
             return_value.val = SensorValueType::Float(tempdata.std_temp);  //  Temperature in floating point.

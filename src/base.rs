@@ -1,7 +1,9 @@
 //!  Common declarations for the application.  Includes custom sensor declarations.
 
-use cty::*;            //  Import string utilities from cty library: https://crates.io/crates/cty
-use crate::mynewt::sensor::*;  //  Import sensor.rs for Mynewt Sensor API
+use cty::c_char;            //  Import C types from `cty` library: https://crates.io/crates/cty
+use crate::mynewt::hw::sensor::{  //  Import Mynewt Sensor API
+   sensor_ptr,
+};  
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
 pub fn console_print(msg: &[u8]) {
@@ -32,7 +34,7 @@ extern {
 
     ///  Return the Mynewt device for the Mynewt sensor.
     ///  C API: `struct os_dev *sensor_get_device(struct sensor *s)`
-    pub fn sensor_get_device(sensor: SensorPtr) -> DevicePtr;
+    pub fn sensor_get_device(sensor: sensor_ptr) -> DevicePtr;
 
     ///  Return the name for the Mynewt device.  Assumes name is non-null.
     ///  C API: `const char *device_get_name(struct os_dev *device)`
@@ -40,11 +42,11 @@ extern {
 
     ///  Return the NULL sensor.
     ///  C API: `struct sensor *null_sensor(void)`
-    pub fn null_sensor() -> SensorPtr;
+    pub fn null_sensor() -> sensor_ptr;
 
     ///  Return non-zero if sensor is NULL.
     ///  C API: `int is_null_sensor(struct sensor *p)`
-    pub fn is_null_sensor(sensor: SensorPtr) -> bool;
+    pub fn is_null_sensor(sensor: sensor_ptr) -> bool;
 
     ///  Return non-zero if sensor data is NULL.
     ///  C API: `int is_null_sensor_data(void *p)`

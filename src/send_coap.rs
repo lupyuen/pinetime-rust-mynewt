@@ -177,7 +177,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
 ///  `{ t: 2870 }`
 fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
     ////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
-    if unsafe { !NETWORK_IS_READY } { return Err(SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
+    if unsafe { !NETWORK_IS_READY } { return Err(MynewtError::SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).

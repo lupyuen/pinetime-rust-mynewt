@@ -23,31 +23,53 @@ extern {
     pub static mut root_map:  encoding::tinycbor::CborEncoder;
 }
 
-/// Common return type for Mynewt API.  If no error, returns `Ok(val)` where val has type T.
-/// Upon error, returns `Err(err)` where err is the MynewtError error code.
-pub type MynewtResult<T> = ::core::result::Result<T, MynewtError>;
+/// Return type and error codes for Mynewt API
+pub mod result {
+    use super::kernel::os;
 
-use self::kernel::os;
+    /// Common return type for Mynewt API.  If no error, returns `Ok(val)` where val has type T.
+    /// Upon error, returns `Err(err)` where err is the MynewtError error code.
+    pub type MynewtResult<T> = ::core::result::Result<T, MynewtError>;
 
-/// Error codes for Mynewt API
-#[repr(i32)]
-#[derive(Debug)]
-pub enum MynewtError {
-    SYS_EOK         = os::SYS_EOK as i32,
-    SYS_ENOMEM      = os::SYS_ENOMEM,
-    SYS_EINVAL      = os::SYS_EINVAL,
-    SYS_ETIMEOUT    = os::SYS_ETIMEOUT,
-    SYS_ENOENT      = os::SYS_ENOENT,
-    SYS_EIO         = os::SYS_EIO,
-    SYS_EAGAIN      = os::SYS_EAGAIN,
-    SYS_EACCES      = os::SYS_EACCES,
-    SYS_EBUSY       = os::SYS_EBUSY,
-    SYS_ENODEV      = os::SYS_ENODEV,
-    SYS_ERANGE      = os::SYS_ERANGE,
-    SYS_EALREADY    = os::SYS_EALREADY,
-    SYS_ENOTSUP     = os::SYS_ENOTSUP,
-    SYS_EUNKNOWN    = os::SYS_EUNKNOWN,
-    SYS_EREMOTEIO   = os::SYS_EREMOTEIO,
-    SYS_EDONE       = os::SYS_EDONE,
-    SYS_EPERUSER    = os::SYS_EPERUSER,
+    /// Error codes for Mynewt API
+    #[repr(i32)]
+    #[derive(Debug, PartialEq)]
+    pub enum MynewtError {
+        /// Error code 0 means no error.
+        SYS_EOK         = os::SYS_EOK as i32,
+        SYS_ENOMEM      = os::SYS_ENOMEM,
+        SYS_EINVAL      = os::SYS_EINVAL,
+        SYS_ETIMEOUT    = os::SYS_ETIMEOUT,
+        SYS_ENOENT      = os::SYS_ENOENT,
+        SYS_EIO         = os::SYS_EIO,
+        SYS_EAGAIN      = os::SYS_EAGAIN,
+        SYS_EACCES      = os::SYS_EACCES,
+        SYS_EBUSY       = os::SYS_EBUSY,
+        SYS_ENODEV      = os::SYS_ENODEV,
+        SYS_ERANGE      = os::SYS_ERANGE,
+        SYS_EALREADY    = os::SYS_EALREADY,
+        SYS_ENOTSUP     = os::SYS_ENOTSUP,
+        SYS_EUNKNOWN    = os::SYS_EUNKNOWN,
+        SYS_EREMOTEIO   = os::SYS_EREMOTEIO,
+        SYS_EDONE       = os::SYS_EDONE,
+        SYS_EPERUSER    = os::SYS_EPERUSER,
+    }
+
+    /// Cast `MynewtError` to `i32`
+    impl From<MynewtError> for i32 {
+        fn from(err: MynewtError) -> Self {
+            err as i32
+        }
+    }
+
+    /// Cast `i32` to `MynewtError`
+    impl From<i32> for MynewtError {
+        fn from(num: i32) -> Self {
+            unsafe { 
+                ::core::mem::transmute::
+                    <i32, MynewtError>
+                    (num)
+            }  
+        }
+    }
 }

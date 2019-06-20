@@ -2,7 +2,7 @@
 //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
 
 use ::cty::c_void;
-use super::super::MynewtResult;
+use super::super::result::*;
 
 /// Import all Mynewt Sensor API bindings.
 mod bindings;
@@ -10,8 +10,49 @@ mod bindings;
 /// Export all bindings. TODO: Export only the API bindings.
 pub use self::bindings::*;
 
-/// Needed because sensor also refers to a namespace.
+/// Needed because `sensor` also refers to a namespace.
 pub type sensor_ptr = *mut sensor;
+/// Points to sensor arg passed by Mynewt to sensor listener.
+pub type sensor_arg = *mut c_void;
+/// Points to sensor data passed by Mynewt to sensor listener.
+pub type sensor_data_ptr = *mut c_void;
+/// Sensor data function that returns `MynewtError` instead of `i32`
+pub type sensor_data_func =
+    unsafe extern "C" fn(
+        sensor: sensor_ptr,
+        arg:    sensor_arg,
+        data:   sensor_data_ptr,
+        stype:  sensor_type_t,
+    ) -> MynewtError;
+/// Sensor data function that returns `i32` instead of `MynewtError`
+pub type sensor_data_func_untyped =
+    unsafe extern "C" fn(
+        sensor: sensor_ptr,
+        arg:    sensor_arg,
+        data:   sensor_data_ptr,
+        stype:  sensor_type_t,
+    ) -> i32;
+
+/// Cast sensor data function from typed to untyped
+pub fn as_untyped(typed: sensor_data_func) -> Option<sensor_data_func_untyped> {
+    let untyped = unsafe { 
+        ::core::mem::transmute::
+            <sensor_data_func, sensor_data_func_untyped>
+            (typed)
+    };
+    Some(untyped)
+}
+
+/* Doesn't work:
+impl From<sensor_data_func> for sensor_data_func_untyped {
+    fn from(typed: sensor_data_func) -> Self {
+        unsafe { 
+            ::core::mem::transmute::
+                <sensor_data_func, sensor_data_func_untyped>
+                (typed)
+        }  
+    }
+} */
 
 ///  Register a sensor listener. This allows a calling application to receive
 ///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
@@ -34,12 +75,17 @@ pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Myne
 ///  This is a static mutable copy of the listener passed in through `register_listener`.
 ///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
 static mut LISTENER_INTERNAL: sensor_listener = sensor_listener {  
-    sl_func: Some(null_sensor_data_func),
+    sl_func: as_untyped(null_sensor_data_func),
     ..fill_zero!(sensor_listener)
 };
 
 ///  Define a dummy sensor data function in case there is none.
-extern fn null_sensor_data_func(_sensor: *mut sensor, _arg: *mut c_void, _sensor_data: *mut c_void, _sensor_type: sensor_type_t) -> i32 { 0 }
+extern fn null_sensor_data_func(
+    _sensor: sensor_ptr, 
+    _arg: sensor_arg, 
+    _sensor_data: sensor_data_ptr, 
+    _sensor_type: sensor_type_t) -> MynewtError
+    { MynewtError::SYS_EOK }
 
 /*
 ///  Import the Mynewt Sensor API for C.
