@@ -129,6 +129,9 @@ impl Default for CborEncoder {
     }
 }
 extern "C" {
+    #[doc = " Initializes a CborEncoder structure \\a encoder by pointing it to buffer \\a"]
+    #[doc = " buffer of size \\a size. The \\a flags field is currently unused and must be"]
+    #[doc = " zero."]
     pub fn cbor_encoder_init(
         encoder: *mut CborEncoder,
         pwriter: *mut cbor_encoder_writer,
@@ -136,21 +139,45 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " Appends the unsigned 64-bit integer \\a value to the CBOR stream provided by"]
+    #[doc = " \\a encoder."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encode_negative_int, cbor_encode_int"]
     pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the signed 64-bit integer \\a value to the CBOR stream provided by"]
+    #[doc = " \\a encoder."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encode_negative_int, cbor_encode_uint"]
     pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the negative 64-bit integer whose absolute value is \\a"]
+    #[doc = " absolute_value to the CBOR stream provided by \\a encoder."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encode_uint, cbor_encode_int"]
     pub fn cbor_encode_negative_int(encoder: *mut CborEncoder, absolute_value: u64) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the CBOR Simple Type of value \\a value to the CBOR stream provided by"]
+    #[doc = " \\a encoder."]
+    #[doc = ""]
+    #[doc = " This function may return error CborErrorIllegalSimpleType if the \\a value"]
+    #[doc = " variable contains a number that is not a valid simple type."]
     pub fn cbor_encode_simple_value(encoder: *mut CborEncoder, value: u8) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the CBOR tag \\a tag to the CBOR stream provided by \\a encoder."]
+    #[doc = ""]
+    #[doc = " \\sa CborTag"]
     pub fn cbor_encode_tag(encoder: *mut CborEncoder, tag: CborTag) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the byte string \\a string of length \\a length to the CBOR stream"]
+    #[doc = " provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encode_text_stringz, cbor_encode_text_string"]
     pub fn cbor_encode_text_string(
         encoder: *mut CborEncoder,
         string: *const ::cty::c_char,
@@ -158,6 +185,11 @@ extern "C" {
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the text string \\a string of length \\a length to the CBOR stream"]
+    #[doc = " provided by \\a encoder. CBOR requires that \\a string be valid UTF-8, but"]
+    #[doc = " TinyCBOR makes no verification of correctness."]
+    #[doc = ""]
+    #[doc = " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
     pub fn cbor_encode_byte_string(
         encoder: *mut CborEncoder,
         string: *const u8,
@@ -165,6 +197,10 @@ extern "C" {
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the byte string passed as \\a iov and \\a iov_len to the CBOR"]
+    #[doc = " stream provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
+    #[doc = ""]
+    #[doc = " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
     pub fn cbor_encode_byte_iovec(
         encoder: *mut CborEncoder,
         iov: *const cbor_iovec,
@@ -172,6 +208,15 @@ extern "C" {
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Appends the floating-point value of type \\a fpType and pointed to by \\a"]
+    #[doc = " value to the CBOR stream provided by \\a encoder. The value of \\a fpType must"]
+    #[doc = " be one of CborHalfFloatType, CborFloatType or CborDoubleType, otherwise the"]
+    #[doc = " behavior of this function is undefined."]
+    #[doc = ""]
+    #[doc = " This function is useful for code that needs to pass through floating point"]
+    #[doc = " values but does not wish to have the actual floating-point code."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encode_half_float, cbor_encode_float, cbor_encode_double"]
     pub fn cbor_encode_floating_point(
         encoder: *mut CborEncoder,
         fpType: CborType,
@@ -179,6 +224,18 @@ extern "C" {
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Creates a CBOR array in the CBOR stream provided by \\a encoder and"]
+    #[doc = " initializes \\a arrayEncoder so that items can be added to the array using"]
+    #[doc = " the CborEncoder functions. The array must be terminated by calling either"]
+    #[doc = " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
+    #[doc = " with the same \\a encoder and \\a arrayEncoder parameters."]
+    #[doc = ""]
+    #[doc = " The number of items inserted into the array must be exactly \\a length items,"]
+    #[doc = " otherwise the stream is invalid. If the number of items is not known when"]
+    #[doc = " creating the array, the constant \\ref CborIndefiniteLength may be passed as"]
+    #[doc = " length instead."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encoder_create_map"]
     pub fn cbor_encoder_create_array(
         encoder: *mut CborEncoder,
         arrayEncoder: *mut CborEncoder,
@@ -186,6 +243,22 @@ extern "C" {
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Creates a CBOR map in the CBOR stream provided by \\a encoder and"]
+    #[doc = " initializes \\a mapEncoder so that items can be added to the map using"]
+    #[doc = " the CborEncoder functions. The map must be terminated by calling either"]
+    #[doc = " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
+    #[doc = " with the same \\a encoder and \\a mapEncoder parameters."]
+    #[doc = ""]
+    #[doc = " The number of pair of items inserted into the map must be exactly \\a length"]
+    #[doc = " items, otherwise the stream is invalid. If the number of items is not known"]
+    #[doc = " when creating the map, the constant \\ref CborIndefiniteLength may be passed as"]
+    #[doc = " length instead."]
+    #[doc = ""]
+    #[doc = " \\b{Implementation limitation:} TinyCBOR cannot encode more than SIZE_MAX/2"]
+    #[doc = " key-value pairs in the stream. If the length \\a length is larger than this"]
+    #[doc = " value, this function returns error CborErrorDataTooLarge."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encoder_create_array"]
     pub fn cbor_encoder_create_map(
         encoder: *mut CborEncoder,
         mapEncoder: *mut CborEncoder,
@@ -193,12 +266,29 @@ extern "C" {
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Creates a indefinite-length byte string in the CBOR stream provided by"]
+    #[doc = " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
+    #[doc = " can be added using the CborEncoder functions. The string must be terminated by"]
+    #[doc = " calling cbor_encoder_close_container() with the same \\a encoder and"]
+    #[doc = " \\a stringEncoder parameters."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encoder_create_array"]
     pub fn cbor_encoder_create_indef_byte_string(
         encoder: *mut CborEncoder,
         stringEncoder: *mut CborEncoder,
     ) -> CborError;
 }
 extern "C" {
+    #[doc = " Closes the CBOR container (array, map or indefinite-length string) provided"]
+    #[doc = " by \\a containerEncoder and updates the CBOR stream provided by \\a encoder."]
+    #[doc = " Both parameters must be the same as were passed to cbor_encoder_create_array() or"]
+    #[doc = " cbor_encoder_create_map() or cbor_encoder_create_indef_byte_string()."]
+    #[doc = ""]
+    #[doc = " This function does not verify that the number of items (or pair of items, in"]
+    #[doc = " the case of a map) was correct. To execute that verification, call"]
+    #[doc = " cbor_encoder_close_container_checked() instead."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encoder_create_array(), cbor_encoder_create_map()"]
     pub fn cbor_encoder_close_container(
         encoder: *mut CborEncoder,
         containerEncoder: *const CborEncoder,

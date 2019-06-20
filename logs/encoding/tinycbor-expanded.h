@@ -1,15 +1,15 @@
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
-# 1 "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor//"
+# 1 "/mnt/c/stm32bluepill-mynewt-sensor//"
 # 1 "<built-in>"
 #define __STDC__ 1
-#define __STDC_VERSION__ 201112L
+#define __STDC_VERSION__ 201710L
 #define __STDC_UTF_16__ 1
 #define __STDC_UTF_32__ 1
 #define __STDC_HOSTED__ 1
-#define __GNUC__ 7
-#define __GNUC_MINOR__ 3
+#define __GNUC__ 8
+#define __GNUC_MINOR__ 2
 #define __GNUC_PATCHLEVEL__ 1
-#define __VERSION__ "7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]"
+#define __VERSION__ "8.2.1 20181213 (release) [gcc-8-branch revision 267074]"
 #define __ATOMIC_RELAXED 0
 #define __ATOMIC_SEQ_CST 5
 #define __ATOMIC_ACQUIRE 2
@@ -72,7 +72,7 @@
 #define __UINTPTR_TYPE__ unsigned int
 #define __has_include(STR) __has_include__(STR)
 #define __has_include_next(STR) __has_include_next__(STR)
-#define __GXX_ABI_VERSION 1011
+#define __GXX_ABI_VERSION 1013
 #define __SCHAR_MAX__ 0x7f
 #define __SHRT_MAX__ 0x7fff
 #define __INT_MAX__ 0x7fffffff
@@ -404,7 +404,15 @@
 #define __ARM_FEATURE_UNALIGNED 1
 #undef __ARM_FEATURE_QRDMX
 # 1 "<built-in>"
+#undef __ARM_FEATURE_CRC32
+# 1 "<built-in>"
+#undef __ARM_FEATURE_DOTPROD
+# 1 "<built-in>"
 #define __ARM_32BIT_STATE 1
+#undef __ARM_FEATURE_CMSE
+# 1 "<built-in>"
+#undef __ARM_FEATURE_LDREX
+# 1 "<built-in>"
 #define __ARM_FEATURE_LDREX 7
 #define __ARM_FEATURE_CLZ 1
 #undef __ARM_FEATURE_NUMERIC_MAXMIN
@@ -413,13 +421,19 @@
 # 1 "<built-in>"
 #define __ARM_SIZEOF_MINIMAL_ENUM 1
 #define __ARM_SIZEOF_WCHAR_T 4
+#undef __ARM_ARCH_PROFILE
+# 1 "<built-in>"
 #define __ARM_ARCH_PROFILE 77
 #define __arm__ 1
+#undef __ARM_ARCH
+# 1 "<built-in>"
 #define __ARM_ARCH 7
 #define __APCS_32__ 1
 #define __thumb__ 1
 #define __thumb2__ 1
 #define __THUMBEL__ 1
+#undef __ARM_ARCH_ISA_THUMB
+# 1 "<built-in>"
 #define __ARM_ARCH_ISA_THUMB 2
 #define __ARMEL__ 1
 #define __SOFTFP__ 1
@@ -436,6 +450,8 @@
 # 1 "<built-in>"
 #undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
 # 1 "<built-in>"
+#undef __ARM_FEATURE_FP16_FML
+# 1 "<built-in>"
 #undef __ARM_FEATURE_FMA
 # 1 "<built-in>"
 #undef __ARM_NEON__
@@ -451,6 +467,8 @@
 #define __ARM_ARCH_EXT_IDIV__ 1
 #define __ARM_FEATURE_IDIV 1
 #define __ARM_ASM_SYNTAX_UNIFIED__ 1
+#undef __ARM_FEATURE_COPROC
+# 1 "<built-in>"
 #define __ARM_FEATURE_COPROC 15
 #define __GXX_TYPEINFO_EQUALITY_INLINE 0
 #define __ELF__ 1
@@ -467,7 +485,30 @@
 #define STM32F103xB 1
 #define WITHOUT_OPEN_MEMSTREAM 1
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
-# 25 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+/****************************************************************************
+**
+** Copyright (C) 2016 Intel Corporation
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+**
+****************************************************************************/
+
 #define _BSD_SOURCE 1
 #define _DEFAULT_SOURCE 1
 
@@ -475,24 +516,131 @@
 
 
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
-# 26 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+/****************************************************************************
+**
+** Copyright (C) 2015 Intel Corporation
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+**
+****************************************************************************/
+
+
 #define CBOR_H 
 
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/assert.h" 1
-
-
-
+/*
+ * assert.h
+ */
 
 
 #define _ASSERT_H 
 # 23 "repos/apache-mynewt-core/libc/baselibc/include/assert.h"
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 39 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.17  Common definitions  <stddef.h>
+ */
+
+
+
+
+
+
+/* Any one of these symbols __need_* means that GNU libc
+   wants us just to define one data type.  So don't define
+   the symbols that indicate this file's entire job has been done.  */
+
+
+
 #define _STDDEF_H 
 #define _STDDEF_H_ 
-
+/* snaroff@next.com says the NeXT needs this.  */
 #define _ANSI_STDDEF_H 
-# 137 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+
+
+
+/* This avoids lossage on SunOS but only if stdtypes.h comes first.
+   There's no way to win with the other order!  Sun lossage.  */
+
+/* On 4.3bsd-net2, make sure ansi.h is included, so we have
+   one less case to deal with in the following.  */
+
+
+
+/* On FreeBSD 5, machine/ansi.h does not exist anymore... */
+
+
+
+
+/* In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
+   defined if the corresponding type is *not* defined.
+   FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
+   NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_ */
+# 92 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* Sequent's header files use _PTRDIFF_T_ in some conflicting way.
+   Just ignore it.  */
+
+
+
+
+/* On VxWorks, <type/vxTypesBase.h> may have defined macros like
+   _TYPE_size_t which will typedef size_t.  fixincludes patched the
+   vxTypesBase.h so that this macro is only defined if _GCC_SIZE_T is
+   not defined, and so that defining this macro defines _GCC_SIZE_T.
+   If we find that the macros are still defined at this point, we must
+   invoke them so that the type is defined as expected.  */
+# 117 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* In case nobody has defined these types, but we aren't running under
+   GCC 2.00, make sure that __PTRDIFF_TYPE__, __SIZE_TYPE__, and
+   __WCHAR_TYPE__ have reasonable values.  This can happen if the
+   parts of GCC is compiled by an older compiler, that actually
+   include gstddef.h, such as collect2.  */
+
+/* Signed type of difference of two pointers.  */
+
+/* Define this type if we are doing the whole job,
+   or if we want this type in particular.  */
+# 137 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
 #define _PTRDIFF_T 
 #define _T_PTRDIFF_ 
 #define _T_PTRDIFF 
@@ -505,14 +653,20 @@
 
 
 
-
-# 149 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
 typedef int ptrdiff_t;
-# 161 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+# 160 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* If this symbol has done its job, get rid of it.  */
 #undef __need_ptrdiff_t
-# 187 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
-#define __size_t__ 
-#define __SIZE_T__ 
+
+
+
+/* Unsigned type of `sizeof' something.  */
+
+/* Define this type if we are doing the whole job,
+   or if we want this type in particular.  */
+# 187 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+#define __size_t__ /* BeOS */
+#define __SIZE_T__ /* Cray Unicos/Mk */
 #define _SIZE_T 
 #define _SYS_SIZE_T_H 
 #define _T_SIZE_ 
@@ -522,8 +676,8 @@ typedef int ptrdiff_t;
 #define _BSD_SIZE_T_ 
 #define _SIZE_T_DEFINED_ 
 #define _SIZE_T_DEFINED 
-#define _BSD_SIZE_T_DEFINED_ 
-#define _SIZE_T_DECLARED 
+#define _BSD_SIZE_T_DEFINED_ /* Darwin */
+#define _SIZE_T_DECLARED /* FreeBSD 5 */
 #define ___int_size_t_h 
 #define _GCC_SIZE_T 
 #define _SIZET_ 
@@ -541,11 +695,21 @@ typedef int ptrdiff_t;
 
 
 typedef unsigned int size_t;
-# 238 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+# 238 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
 #undef __need_size_t
-# 267 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
-#define __wchar_t__ 
-#define __WCHAR_T__ 
+
+
+
+/* Wide character type.
+   Locale-writers should change this as necessary to
+   be big enough to hold unique values not between 0 and 127,
+   and not (wchar_t) -1, for each defined multibyte character.  */
+
+/* Define this type if we are doing the whole job,
+   or if we want this type in particular.  */
+# 267 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+#define __wchar_t__ /* BeOS */
+#define __WCHAR_T__ /* Cray Unicos/Mk */
 #define _WCHAR_T 
 #define _T_WCHAR_ 
 #define _T_WCHAR 
@@ -559,13 +723,36 @@ typedef unsigned int size_t;
 #define __INT_WCHAR_T_H 
 #define _GCC_WCHAR_T 
 #define _WCHAR_T_DECLARED 
-# 294 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+
+/* On BSD/386 1.1, at least, machine/ansi.h defines _BSD_WCHAR_T_
+   instead of _WCHAR_T_, and _BSD_RUNE_T_ (which, unlike the other
+   symbols in the _FOO_T_ family, stays defined even after its
+   corresponding type is defined).  If we define wchar_t, then we
+   must undef _WCHAR_T_; for BSD/386 1.1 (and perhaps others), if
+   we undef _WCHAR_T_, then we must also define rune_t, since 
+   headers like runetype.h assume that if machine/ansi.h is included,
+   and _BSD_WCHAR_T_ is not defined, then rune_t is available.
+   machine/ansi.h says, "Note that _WCHAR_T_ and _RUNE_T_ must be of
+   the same type." */
+
 #undef _BSD_WCHAR_T_
-# 328 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+# 310 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* FreeBSD 5 can't be handled well using "traditional" logic above
+   since it no longer defines _BSD_RUNE_T_ yet still desires to export
+   rune_t in some cases... */
+# 328 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
 typedef unsigned int wchar_t;
-# 347 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+# 347 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
 #undef __need_wchar_t
-# 401 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+# 362 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/*  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
+    are already defined.  */
+/*  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.  */
+/*  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.  */
+# 398 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* A null pointer constant.  */
+
+
 #undef NULL
 
 
@@ -581,40 +768,75 @@ typedef unsigned int wchar_t;
 
 
 
-
+/* Offset of member MEMBER in a struct of type TYPE. */
 #define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
 
 
 
 
 #define _GCC_MAX_ALIGN_T 
-
-
-
+/* Type whose alignment is supported in every context and is at least
+   as great as that of any standard type not using alignment
+   specifiers.  */
 typedef struct {
   long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
   long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
-# 437 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 3 4
+  /* _Float128 is defined as a basic type, so max_align_t must be
+     sufficiently aligned for it.  This code must work in C++, so we
+     use __float128 here; that is only available on some
+     architectures, but only on i386 is extra alignment needed for
+     __float128.  */
+
+
+
 } max_align_t;
 # 24 "repos/apache-mynewt-core/libc/baselibc/include/assert.h" 2
 # 1 "repos/apache-mynewt-core/kernel/os/include/os/os_fault.h" 1
-# 21 "repos/apache-mynewt-core/kernel/os/include/os/os_fault.h"
+
+# 1 "repos/apache-mynewt-core/kernel/os/include/os/os_fault.h"
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
 #define _OS_FAULT_H 
 
 # 1 "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h" 1
-
-
-
+/**
+ * This file was generated by Apache newt version: 1.6.0
+ */
 
 
 #define H_MYNEWT_SYSCFG_ 
-# 15 "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
+
+/**
+ * This macro exists to ensure code includes this header when needed.  If code
+ * checks the existence of a setting directly via ifdef without including this
+ * header, the setting macro will silently evaluate to 0.  In contrast, an
+ * attempt to use these macros without including this header will result in a
+ * compiler error.
+ */
 #define MYNEWT_VAL(_name) MYNEWT_VAL_ ## _name
 #define MYNEWT_VAL_CHOICE(_name,_val) MYNEWT_VAL_ ## _name ## __ ## _val
 
 
 
-
+/*** @apache-mynewt-core/crypto/tinycrypt */
 
 #define MYNEWT_VAL_TINYCRYPT_SYSINIT_STAGE (200)
 
@@ -627,12 +849,12 @@ typedef struct {
 #define MYNEWT_VAL_TINYCRYPT_UECC_RNG_USE_TRNG (0)
 
 
-
+/*** @apache-mynewt-core/encoding/cborattr */
 
 #define MYNEWT_VAL_CBORATTR_MAX_SIZE (512)
 
 
-
+/*** @apache-mynewt-core/hw/bsp/bluepill */
 
 #define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
 
@@ -653,7 +875,7 @@ typedef struct {
 #define MYNEWT_VAL_UART_0 (1)
 
 
-
+/*** @apache-mynewt-core/hw/hal */
 
 #define MYNEWT_VAL_HAL_FLASH_VERIFY_BUF_SZ (16)
 
@@ -666,7 +888,7 @@ typedef struct {
 #define MYNEWT_VAL_HAL_FLASH_VERIFY_WRITES (0)
 
 
-
+/*** @apache-mynewt-core/hw/mcu/stm/stm32f1xx */
 
 #define MYNEWT_VAL_I2C_0 (0)
 
@@ -687,7 +909,7 @@ typedef struct {
 #define MYNEWT_VAL_SPI_0 (MYNEWT_VAL_SPI_0_MASTER || MYNEWT_VAL_SPI_0_SLAVE)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/stm/stm32f1xx) */
 
 #define MYNEWT_VAL_SPI_0_MASTER (1)
 
@@ -728,12 +950,12 @@ typedef struct {
 #define MYNEWT_VAL_STM32_HAL_UART_HAS_SR (1)
 
 
-
+/*** @apache-mynewt-core/hw/sensor */
 
 #define MYNEWT_VAL_MATHLIB_SUPPORT (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/sensor) */
 
 #define MYNEWT_VAL_SENSOR_CLI (0)
 
@@ -748,7 +970,7 @@ typedef struct {
 #define MYNEWT_VAL_SENSOR_NOTIF_EVENTS_MAX (5)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/sensor) */
 
 #define MYNEWT_VAL_SENSOR_OIC (0)
 
@@ -769,7 +991,7 @@ typedef struct {
 #define MYNEWT_VAL_SENSOR_SYSINIT_STAGE (501)
 
 
-
+/*** @apache-mynewt-core/hw/sensor/creator */
 
 #define MYNEWT_VAL_ADXL345_OFB (0)
 
@@ -850,7 +1072,7 @@ typedef struct {
 #define MYNEWT_VAL_TSL2591_OFB (0)
 
 
-
+/*** @apache-mynewt-core/kernel/os */
 
 #define MYNEWT_VAL_FLOAT_USER (0)
 
@@ -975,12 +1197,12 @@ typedef struct {
 #define MYNEWT_VAL_OS_SYSVIEW (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/kernel/os) */
 
 #define MYNEWT_VAL_OS_SYSVIEW_TRACE_CALLOUT (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/kernel/os) */
 
 #define MYNEWT_VAL_OS_SYSVIEW_TRACE_EVENTQ (0)
 
@@ -993,12 +1215,12 @@ typedef struct {
 #define MYNEWT_VAL_OS_SYSVIEW_TRACE_MEMPOOL (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/kernel/os) */
 
 #define MYNEWT_VAL_OS_SYSVIEW_TRACE_MUTEX (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/kernel/os) */
 
 #define MYNEWT_VAL_OS_SYSVIEW_TRACE_SEM (0)
 
@@ -1019,7 +1241,7 @@ typedef struct {
 #define MYNEWT_VAL_WATCHDOG_INTERVAL (30000)
 
 
-
+/*** @apache-mynewt-core/libc/baselibc */
 
 #define MYNEWT_VAL_BASELIBC_ASSERT_FILE_LINE (0)
 
@@ -1028,18 +1250,18 @@ typedef struct {
 #define MYNEWT_VAL_BASELIBC_PRESENT (1)
 
 
-
-
+/*** @apache-mynewt-core/net/oic */
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_APP_RESOURCES (2)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_CLIENT (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_CLIENT_DISCOVERY_ENABLE (0)
 
@@ -1048,12 +1270,12 @@ typedef struct {
 #define MYNEWT_VAL_OC_COAP_RESPONSE_TIMEOUT (4)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_CONCURRENT_REQUESTS (2)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_CONN_EV_CB_CNT (2)
 
@@ -1070,12 +1292,12 @@ typedef struct {
 #define MYNEWT_VAL_OC_LORA_PORT (0xbb)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_MAX_PAYLOAD (400)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_MAX_PAYLOAD_SIZE (400)
 
@@ -1084,7 +1306,7 @@ typedef struct {
 #define MYNEWT_VAL_OC_NUM_DEVICES (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_NUM_REP_OBJECTS (2)
 
@@ -1093,7 +1315,7 @@ typedef struct {
 #define MYNEWT_VAL_OC_SEPARATE_RESPONSES (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_SERVER (0)
 
@@ -1134,7 +1356,7 @@ typedef struct {
 #define MYNEWT_VAL_OC_TRANSPORT_IPV4 (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_TRANSPORT_IPV6 (0)
 
@@ -1147,12 +1369,12 @@ typedef struct {
 #define MYNEWT_VAL_OC_TRANSPORT_SERIAL (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/net/oic) */
 
 #define MYNEWT_VAL_OC_TRANS_SECURITY (0)
 
 
-
+/*** @apache-mynewt-core/sys/flash_map */
 
 #define MYNEWT_VAL_FLASH_MAP_MAX_AREAS (10)
 
@@ -1161,7 +1383,7 @@ typedef struct {
 #define MYNEWT_VAL_FLASH_MAP_SYSINIT_STAGE (2)
 
 
-
+/*** @apache-mynewt-core/sys/log/modlog */
 
 #define MYNEWT_VAL_MODLOG_CONSOLE_DFLT (1)
 
@@ -1182,7 +1404,7 @@ typedef struct {
 #define MYNEWT_VAL_MODLOG_SYSINIT_STAGE (100)
 
 
-
+/*** @apache-mynewt-core/sys/log/stub */
 
 #define MYNEWT_VAL_LOG_CONSOLE (1)
 
@@ -1195,12 +1417,12 @@ typedef struct {
 #define MYNEWT_VAL_LOG_FCB_SLOT1 (0)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/sys/log/stub) */
 
 #define MYNEWT_VAL_LOG_LEVEL (255)
 
 
-
+/*** @apache-mynewt-core/sys/mfg */
 
 #define MYNEWT_VAL_MFG_LOG_MODULE (128)
 
@@ -1213,12 +1435,12 @@ typedef struct {
 #define MYNEWT_VAL_MFG_SYSINIT_STAGE (100)
 
 
-
+/*** @apache-mynewt-core/sys/sys */
 
 #define MYNEWT_VAL_DEBUG_PANIC_ENABLED (1)
 
 
-
+/*** @apache-mynewt-core/sys/sysdown */
 
 #define MYNEWT_VAL_SYSDOWN_CONSTRAIN_DOWN (1)
 
@@ -1235,7 +1457,7 @@ typedef struct {
 #define MYNEWT_VAL_SYSDOWN_TIMEOUT_MS (10000)
 
 
-
+/*** @apache-mynewt-core/sys/sysinit */
 
 #define MYNEWT_VAL_SYSINIT_CONSTRAIN_INIT (1)
 
@@ -1248,38 +1470,38 @@ typedef struct {
 #define MYNEWT_VAL_SYSINIT_PANIC_MESSAGE (0)
 
 
-
+/*** @apache-mynewt-core/util/rwlock */
 
 #define MYNEWT_VAL_RWLOCK_DEBUG (0)
 
 
-
-
+/*** apps/my_sensor_app */
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_ADC_1 (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_ESP8266 (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_HMAC_PRNG (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_NRF24L01 (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_RAW_TEMP (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR (1)
 
@@ -1288,17 +1510,17 @@ typedef struct {
 #define MYNEWT_VAL_SEMIHOSTING_CONSOLE (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_COAP (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_TEMP_STM32 (1)
 
@@ -1311,7 +1533,7 @@ typedef struct {
 #define MYNEWT_VAL_TUTORIAL2 (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_TUTORIAL3 (1)
 
@@ -1320,200 +1542,200 @@ typedef struct {
 #define MYNEWT_VAL_WIFI_GEOLOCATION (0)
 
 
-
-
+/*** libs/esp8266 */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
 
 #define MYNEWT_VAL_WIFI_PASSWORD ("my_password_is_secret")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
 
 #define MYNEWT_VAL_WIFI_SSID ("my_ssid")
 
 
-
-
+/*** libs/nrf24l01 */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_AUTO_ACK (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_AUTO_RETRANSMIT (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_CE_PIN (MCU_GPIO_PORTB(0))
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_CRC_WIDTH (8)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_CS_PIN (MCU_GPIO_PORTB(2))
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_DATA_RATE (250)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_FREQ (2476)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_IRQ_PIN (MCU_GPIO_PORTA(15))
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_POWER (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_SPI_BAUDRATE (200)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_SPI_NUM (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
 #define MYNEWT_VAL_NRF24L01_TX_SIZE (12)
 
 
-
-
+/*** libs/remote_sensor */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__DOUBLE (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD ("t")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__INT (1)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__NAME (temp_raw)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__UNION (strd)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__DOUBLE (1)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD ("tf")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__INT (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__NAME (temp)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__SENSOR_TYPE (AMBIENT_TEMPERATURE)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__UNION (std)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__DOUBLE (1)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD ("p")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__INT (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__NAME (press)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__SENSOR_TYPE (PRESSURE)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__UNION (spd)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__DOUBLE (1)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD ("h")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__INT (0)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__NAME (humid)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__SENSOR_TYPE (RELATIVE_HUMIDITY)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
 
 #define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__UNION (shd)
 
 
-
+/*** libs/semihosting_console */
 
 #define MYNEWT_VAL_CONSOLE_COMPAT (1)
 
@@ -1566,99 +1788,99 @@ typedef struct {
 #define MYNEWT_VAL_CONSOLE_TICKS (0)
 
 
-
-
+/*** libs/sensor_coap */
+/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
 
 
-
+/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
 
-
-
+/*** libs/sensor_network */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COAP_HOST ("coap.thethings.io")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COAP_PORT (5683)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_ADDRESS (0x7878787878ull)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_HW_ID (0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK_ADDRESS (0xb3b4b5b6ull)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_1 (0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_2 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x02)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_3 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x03)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_4 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x04)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_5 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x05)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_1 (0xf1)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_2 (0xcd)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_3 (0xa3)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_4 (0x0f)
 
 
-
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_5 (0x05)
 
 
-
+/*** newt */
 
 #define MYNEWT_VAL_APP_NAME ("my_sensor_app")
 
@@ -1703,8 +1925,6 @@ typedef struct {
 
 
 
-
-# 29 "repos/apache-mynewt-core/kernel/os/include/os/os_fault.h"
 void __assert_func(const char *file, int line, const char *func, const char *e)
     __attribute((noreturn));
 
@@ -1716,42 +1936,214 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 #define assert(x) ((x) ? (void)0 : OS_CRASH())
 # 29 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
-# 30 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
-#define _GCC_LIMITS_H_ 
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include-fixed/limits.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include-fixed/limits.h" 3 4
+/* Copyright (C) 1991-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3, or (at your option) any later
+version.
+
+GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+
+#define _LIMITS_H___ 
+
+/* Number of bits in a `char'.  */
+#undef CHAR_BIT
+#define CHAR_BIT __CHAR_BIT__
+
+/* Maximum length of a multibyte character.  */
+
+#define MB_LEN_MAX 1
+
+
+/* Minimum and maximum values a `signed char' can hold.  */
+#undef SCHAR_MIN
+#define SCHAR_MIN (-SCHAR_MAX - 1)
+#undef SCHAR_MAX
+#define SCHAR_MAX __SCHAR_MAX__
+
+/* Maximum value an `unsigned char' can hold.  (Minimum is 0).  */
+#undef UCHAR_MAX
 
 
 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/syslimits.h" 1 3 4
+#define UCHAR_MAX (SCHAR_MAX * 2 + 1)
+
+
+/* Minimum and maximum values a `char' can hold.  */
+
+#undef CHAR_MIN
+
+
+
+#define CHAR_MIN 0
+
+#undef CHAR_MAX
+#define CHAR_MAX UCHAR_MAX
 
 
 
 
 
-#define _GCC_NEXT_LIMITS_H 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 1 3 4
-# 194 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 1 3 4
-
-#define _LIBC_LIMITS_H_ 1
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 1 3 4
 
 
+/* Minimum and maximum values a `signed short int' can hold.  */
+#undef SHRT_MIN
+#define SHRT_MIN (-SHRT_MAX - 1)
+#undef SHRT_MAX
+#define SHRT_MAX __SHRT_MAX__
 
-
+/* Maximum value an `unsigned short int' can hold.  (Minimum is 0).  */
+#undef USHRT_MAX
 
 
 
-#define __NEWLIB_H__ 1
+#define USHRT_MAX (SHRT_MAX * 2 + 1)
+
+
+/* Minimum and maximum values a `signed int' can hold.  */
+#undef INT_MIN
+#define INT_MIN (-INT_MAX - 1)
+#undef INT_MAX
+#define INT_MAX __INT_MAX__
+
+/* Maximum value an `unsigned int' can hold.  (Minimum is 0).  */
+#undef UINT_MAX
+#define UINT_MAX (INT_MAX * 2U + 1U)
+
+/* Minimum and maximum values a `signed long int' can hold.
+   (Same as `int').  */
+#undef LONG_MIN
+#define LONG_MIN (-LONG_MAX - 1L)
+#undef LONG_MAX
+#define LONG_MAX __LONG_MAX__
+
+/* Maximum value an `unsigned long int' can hold.  (Minimum is 0).  */
+#undef ULONG_MAX
+#define ULONG_MAX (LONG_MAX * 2UL + 1UL)
+
+
+/* Minimum and maximum values a `signed long long int' can hold.  */
+#undef LLONG_MIN
+#define LLONG_MIN (-LLONG_MAX - 1LL)
+#undef LLONG_MAX
+#define LLONG_MAX __LONG_LONG_MAX__
+
+/* Maximum value an `unsigned long long int' can hold.  (Minimum is 0).  */
+#undef ULLONG_MAX
+#define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+
+
+
+/* Minimum and maximum values a `signed long long int' can hold.  */
+#undef LONG_LONG_MIN
+#define LONG_LONG_MIN (-LONG_LONG_MAX - 1LL)
+#undef LONG_LONG_MAX
+#define LONG_LONG_MAX __LONG_LONG_MAX__
+
+/* Maximum value an `unsigned long long int' can hold.  (Minimum is 0).  */
+#undef ULONG_LONG_MAX
+#define ULONG_LONG_MAX (LONG_LONG_MAX * 2ULL + 1ULL)
+# 30 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.17  Common definitions  <stddef.h>
+ */
+# 31 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdint.h" 1 3 4
+# 9 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdint.h" 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 1 3 4
+/*
+ * Copyright (c) 2004, 2005 by
+ * Ralf Corsepius, Ulm/Germany. All rights reserved.
+ *
+ * Permission to use, copy, modify, and distribute this software
+ * is freely granted, provided that this notice is preserved.
+ */
+
+
+#define _STDINT_H 
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 1 3 4
+/*
+ *  $Id$
+ */
+
+
+#define _MACHINE__DEFAULT_TYPES_H 
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 1 3 4
+/*
+ *  Written by Joel Sherrill <joel@OARcorp.com>.
+ *
+ *  COPYRIGHT (c) 1989-2014.
+ *
+ *  On-Line Applications Research Corporation (OAR).
+ *
+ *  Permission to use, copy, modify, and distribute this software for any
+ *  purpose without fee is hereby granted, provided that this entire notice
+ *  is included in all copies of any software which is or includes a copy
+ *  or modification of this software.
+ *
+ *  THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  WARRANTY.  IN PARTICULAR,  THE AUTHOR MAKES NO REPRESENTATION
+ *  OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY OF THIS
+ *  SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
+ *
+ *  $Id$
+ */
+
+
+#define _SYS_FEATURES_H 
 
 
 
 
 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/_newlib_version.h" 1 3 4
-
-
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/_newlib_version.h" 1 3 4
+/* _newlib_version.h.  Generated from _newlib_version.hin by configure.  */
+/* Version macros for internal and downstream use. */
 
 #define _NEWLIB_VERSION_H__ 1
 
@@ -1759,74 +2151,86 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 #define __NEWLIB__ 3
 #define __NEWLIB_MINOR__ 0
 #define __NEWLIB_PATCHLEVEL__ 0
-# 15 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 2 3 4
+# 29 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 2 3 4
+
+/* Macro to test version of GCC.  Returns 0 for non-GCC or too old GCC. */
 
 
-
-#define _WANT_IO_C99_FORMATS 1
-
-
-#define _WANT_IO_LONG_LONG 1
-
-
-#define _WANT_REGISTER_FINI 1
-# 40 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
-#define _MB_LEN_MAX 1
-# 50 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
-#define HAVE_INITFINI_ARRAY 1
-
-
-
-#define _ATEXIT_DYNAMIC_ALLOC 1
-
-
-#define _HAVE_LONG_DOUBLE 1
-
-
-#define _HAVE_CC_INHIBIT_LOOP_TO_LIBCALL 1
-
-
-#define _LDBL_EQ_DBL 1
-
-
-#define _FVWRITE_IN_STREAMIO 1
-
-
-#define _FSEEK_OPTIMIZATION 1
-
-
-#define _WIDE_ORIENT 1
-
-
-#define _UNBUF_STREAM_OPT 1
-# 92 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/newlib.h" 3 4
-#define _RETARGETABLE_LOCKING 1
-# 5 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 2 3 4
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 1 3 4
-# 41 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define _SYS_CDEFS_H_ 
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 1 3 4
-
-
-
-
-
-#define _MACHINE__DEFAULT_TYPES_H 
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 1 3 4
-# 22 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
-#define _SYS_FEATURES_H 
-# 33 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
 #define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
 
 
 
 
 
-
+/* Version with trailing underscores for BSD compatibility. */
 #define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
-# 131 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+
+
+/*
+ * Feature test macros control which symbols are exposed by the system
+ * headers.  Any of these must be defined before including any headers.
+ *
+ * __STRICT_ANSI__ (defined by gcc -ansi, -std=c90, -std=c99, or -std=c11)
+ *	ISO C
+ *
+ * _POSIX_SOURCE (deprecated by _POSIX_C_SOURCE=1)
+ * _POSIX_C_SOURCE >= 1
+ * 	POSIX.1-1990
+ *
+ * _POSIX_C_SOURCE >= 2
+ * 	POSIX.2-1992
+ *
+ * _POSIX_C_SOURCE >= 199309L
+ * 	POSIX.1b-1993 Real-time extensions
+ *
+ * _POSIX_C_SOURCE >= 199506L
+ * 	POSIX.1c-1995 Threads extensions
+ *
+ * _POSIX_C_SOURCE >= 200112L
+ * 	POSIX.1-2001 and C99
+ *
+ * _POSIX_C_SOURCE >= 200809L
+ * 	POSIX.1-2008
+ *
+ * _XOPEN_SOURCE
+ *	POSIX.1-1990 and XPG4
+ *
+ * _XOPEN_SOURCE_EXTENDED
+ *	SUSv1 (POSIX.2-1992 plus XPG4v2)
+ *
+ * _XOPEN_SOURCE >= 500
+ *	SUSv2 (POSIX.1c-1995 plus XSI)
+ *
+ * _XOPEN_SOURCE >= 600
+ *	SUSv3 (POSIX.1-2001 plus XSI) and C99
+ *
+ * _XOPEN_SOURCE >= 700
+ *	SUSv4 (POSIX.1-2008 plus XSI)
+ *
+ * _ISOC99_SOURCE or gcc -std=c99 or g++
+ * 	ISO C99
+ *
+ * _ISOC11_SOURCE or gcc -std=c11 or g++ -std=c++11
+ * 	ISO C11
+ *
+ * _ATFILE_SOURCE (implied by _POSIX_C_SOURCE >= 200809L)
+ *	"at" functions
+ *
+ * _LARGEFILE_SOURCE (deprecated by _XOPEN_SOURCE >= 500)
+ *	fseeko, ftello
+ *
+ * _GNU_SOURCE
+ * 	All of the above plus GNU extensions
+ *
+ * _BSD_SOURCE (deprecated by _DEFAULT_SOURCE)
+ * _SVID_SOURCE (deprecated by _DEFAULT_SOURCE)
+ * _DEFAULT_SOURCE (or none of the above)
+ * 	POSIX-1.2008 with BSD and SVr4 extensions
+ *
+ * _FORTIFY_SOURCE = 1 or 2
+ * 	Object Size Checking function wrappers
+ */
+# 131 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
 #undef _DEFAULT_SOURCE
 #define _DEFAULT_SOURCE 1
 
@@ -1836,10 +2240,96 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 #define _POSIX_SOURCE 1
 #undef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200809L
-# 158 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+# 158 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
 #undef _ATFILE_SOURCE
 #define _ATFILE_SOURCE 1
-# 247 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+
+
+/*
+ * The following private macros are used throughout the headers to control
+ * which symbols should be exposed.  They are for internal use only, as
+ * indicated by the leading double underscore, and must never be used outside
+ * of these headers.
+ *
+ * __POSIX_VISIBLE
+ * 	any version of POSIX.1; enabled by default, or with _POSIX_SOURCE,
+ * 	any value of _POSIX_C_SOURCE, or _XOPEN_SOURCE >= 500.
+ *
+ * __POSIX_VISIBLE >= 2
+ * 	POSIX.2-1992; enabled by default, with _POSIX_C_SOURCE >= 2,
+ * 	or _XOPEN_SOURCE >= 500.
+ *
+ * __POSIX_VISIBLE >= 199309
+ * 	POSIX.1b-1993; enabled by default, with _POSIX_C_SOURCE >= 199309L,
+ * 	or _XOPEN_SOURCE >= 500.
+ *
+ * __POSIX_VISIBLE >= 199506
+ * 	POSIX.1c-1995; enabled by default, with _POSIX_C_SOURCE >= 199506L,
+ * 	or _XOPEN_SOURCE >= 500.
+ *
+ * __POSIX_VISIBLE >= 200112
+ * 	POSIX.1-2001; enabled by default, with _POSIX_C_SOURCE >= 200112L,
+ * 	or _XOPEN_SOURCE >= 600.
+ *
+ * __POSIX_VISIBLE >= 200809
+ * 	POSIX.1-2008; enabled by default, with _POSIX_C_SOURCE >= 200809L,
+ * 	or _XOPEN_SOURCE >= 700.
+ *
+ * __XSI_VISIBLE
+ *	XPG4 XSI extensions; enabled with any version of _XOPEN_SOURCE.
+ *
+ * __XSI_VISIBLE >= 4
+ *	SUSv1 XSI extensions; enabled with both _XOPEN_SOURCE and
+ * 	_XOPEN_SOURCE_EXTENDED together.
+ *
+ * __XSI_VISIBLE >= 500
+ *	SUSv2 XSI extensions; enabled with _XOPEN_SOURCE >= 500.
+ *
+ * __XSI_VISIBLE >= 600
+ *	SUSv3 XSI extensions; enabled with _XOPEN_SOURCE >= 600.
+ *
+ * __XSI_VISIBLE >= 700
+ *	SUSv4 XSI extensions; enabled with _XOPEN_SOURCE >= 700.
+ *
+ * __ISO_C_VISIBLE >= 1999
+ * 	ISO C99; enabled with gcc -std=c99 or newer (on by default since GCC 5),
+ * 	any version of C++, or with _ISOC99_SOURCE, _POSIX_C_SOURCE >= 200112L,
+ * 	or _XOPEN_SOURCE >= 600.
+ *
+ * __ISO_C_VISIBLE >= 2011
+ * 	ISO C11; enabled with gcc -std=c11 or newer (on by default since GCC 5),
+ * 	g++ -std=c++11 or newer (on by default since GCC 6), or with
+ * 	_ISOC11_SOURCE.
+ *
+ * __ATFILE_VISIBLE
+ *	"at" functions; enabled by default, with _ATFILE_SOURCE,
+ * 	_POSIX_C_SOURCE >= 200809L, or _XOPEN_SOURCE >= 700.
+ *
+ * __LARGEFILE_VISIBLE
+ *	fseeko, ftello; enabled with _LARGEFILE_SOURCE or _XOPEN_SOURCE >= 500.
+ *
+ * __BSD_VISIBLE
+ * 	BSD extensions; enabled by default, or with _BSD_SOURCE.
+ *
+ * __SVID_VISIBLE
+ * 	SVr4 extensions; enabled by default, or with _SVID_SOURCE.
+ *
+ * __MISC_VISIBLE
+ * 	Extensions found in both BSD and SVr4 (shorthand for
+ * 	(__BSD_VISIBLE || __SVID_VISIBLE)), or newlib-specific
+ * 	extensions; enabled by default.
+ *
+ * __GNU_VISIBLE
+ * 	GNU extensions; enabled with _GNU_SOURCE.
+ *
+ * __SSP_FORTIFY_LEVEL
+ * 	Object Size Checking; defined to 0 (off), 1, or 2.
+ *
+ * In all cases above, "enabled by default" means either by defining
+ * _DEFAULT_SOURCE, or by not defining any of the public feature test macros.
+ */
+
+
 #define __ATFILE_VISIBLE 1
 
 
@@ -1860,7 +2350,7 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 
 #define __ISO_C_VISIBLE 2011
-# 277 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+# 277 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
 #define __LARGEFILE_VISIBLE 0
 
 
@@ -1872,25 +2362,39 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 
 #define __POSIX_VISIBLE 200809
-# 303 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+# 303 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
 #define __SVID_VISIBLE 1
-# 319 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+# 319 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
 #define __XSI_VISIBLE 0
-# 330 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/features.h" 3 4
+# 330 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
 #define __SSP_FORTIFY_LEVEL 0
-# 9 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 2 3 4
 
 
+/* RTEMS adheres to POSIX -- 1003.1b with some features from annexes.  */
+# 390 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 3 4
+/* XMK loosely adheres to POSIX -- 1003.1 */
+# 9 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 2 3 4
 
+/*
+ * Guess on types by examining *_MIN / *_MAX defines.
+ */
 
-
-
+/* GCC >= 3.3.0 has __<val>__ implicitly defined. */
 #define __EXP(x) __ ##x ##__
-# 26 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+
+
+
+
+
+
+/* Check if "long long" is 64bit wide */
+/* Modern GCCs provide __LONG_LONG_MAX__, SUSv3 wants LLONG_MAX */
+
+
 #define __have_longlong64 1
 
 
-
+/* Check if "long" is 64bit or 32bit wide */
 
 
 
@@ -1902,8 +2406,6 @@ void __assert_func(const char *file, int line, const char *func, const char *e)
 
 
 
-
-# 41 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef signed char __int8_t;
 
 typedef unsigned char __uint8_t;
@@ -1925,7 +2427,7 @@ typedef short unsigned int __uint16_t;
 
 
 #define ___int16_t_defined 1
-# 77 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 77 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef long int __int32_t;
 
 typedef long unsigned int __uint32_t;
@@ -1933,7 +2435,7 @@ typedef long unsigned int __uint32_t;
 
 
 #define ___int32_t_defined 1
-# 103 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 103 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef long long int __int64_t;
 
 typedef long long unsigned int __uint64_t;
@@ -1941,7 +2443,7 @@ typedef long long unsigned int __uint64_t;
 
 
 #define ___int64_t_defined 1
-# 134 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 134 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef signed char __int_least8_t;
 
 typedef unsigned char __uint_least8_t;
@@ -1949,7 +2451,7 @@ typedef unsigned char __uint_least8_t;
 
 
 #define ___int_least8_t_defined 1
-# 160 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 160 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef short int __int_least16_t;
 
 typedef short unsigned int __uint_least16_t;
@@ -1957,7 +2459,7 @@ typedef short unsigned int __uint_least16_t;
 
 
 #define ___int_least16_t_defined 1
-# 182 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 182 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef long int __int_least32_t;
 
 typedef long unsigned int __uint_least32_t;
@@ -1965,7 +2467,7 @@ typedef long unsigned int __uint_least32_t;
 
 
 #define ___int_least32_t_defined 1
-# 200 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 200 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 typedef long long int __int_least64_t;
 
 typedef long long unsigned int __uint_least64_t;
@@ -1999,464 +2501,64 @@ typedef long long unsigned int __uintmax_t;
 typedef int __intptr_t;
 
 typedef unsigned int __uintptr_t;
-# 244 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/machine/_default_types.h" 3 4
+# 244 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 3 4
 #undef __EXP
-# 44 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 2 3 4
+# 13 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 2 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 1 3 4
+/*
+ * Copyright (c) 2004, 2005 by
+ * Ralf Corsepius, Ulm/Germany. All rights reserved.
+ *
+ * Permission to use, copy, modify, and distribute this software
+ * is freely granted, provided that this notice is preserved.
+ */
 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 46 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 2 3 4
 
-#define __PMT(args) args
-#define __DOTS , ...
-#define __THROW 
-
-
-#define __ASMNAME(cname) __XSTRING (__USER_LABEL_PREFIX__) cname
-
-
-#define __ptr_t void *
-#define __long_double_t long double
-
-#define __attribute_malloc__ 
-#define __attribute_pure__ 
-#define __attribute_format_strfmon__(a,b) 
-#define __flexarr [0]
-
-
-#define __bounded 
-#define __unbounded 
-#define __ptrvalue 
-# 76 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __has_extension __has_feature
-
-
-#define __has_feature(x) 0
-
-
-
-
-
-#define __has_builtin(x) 0
-
-
-
-
-
-
-#define __BEGIN_DECLS 
-#define __END_DECLS 
-# 105 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __GNUCLIKE_ASM 3
-#define __GNUCLIKE_MATH_BUILTIN_CONSTANTS 
-
-
-
-#define __GNUCLIKE___TYPEOF 1
-#define __GNUCLIKE___OFFSETOF 1
-#define __GNUCLIKE___SECTION 1
-
-
-#define __GNUCLIKE_CTOR_SECTION_HANDLING 1
-
-
-#define __GNUCLIKE_BUILTIN_CONSTANT_P 1
-
-
-
-
-
-
-#define __GNUCLIKE_BUILTIN_VARARGS 1
-#define __GNUCLIKE_BUILTIN_STDARG 1
-#define __GNUCLIKE_BUILTIN_VAALIST 1
-
-
-
-#define __GNUC_VA_LIST_COMPATIBILITY 1
-
-
-
-
-
-
-#define __compiler_membar() __asm __volatile(" " : : : "memory")
-
-
-
-#define __GNUCLIKE_BUILTIN_NEXT_ARG 1
-#define __GNUCLIKE_MATH_BUILTIN_RELOPS 
-
-
-#define __GNUCLIKE_BUILTIN_MEMCPY 1
-
-
-#define __CC_SUPPORTS_INLINE 1
-#define __CC_SUPPORTS___INLINE 1
-#define __CC_SUPPORTS___INLINE__ 1
-
-#define __CC_SUPPORTS___FUNC__ 1
-#define __CC_SUPPORTS_WARNING 1
-
-#define __CC_SUPPORTS_VARADIC_XXX 1
-
-#define __CC_SUPPORTS_DYNAMIC_ARRAY_INIT 1
-# 175 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __P(protos) protos
-#define __CONCAT1(x,y) x ## y
-#define __CONCAT(x,y) __CONCAT1(x,y)
-#define __STRING(x) #x
-#define __XSTRING(x) __STRING(x)
-
-#define __const const
-#define __signed signed
-#define __volatile volatile
-# 239 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __weak_symbol __attribute__((__weak__))
-# 252 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __dead2 __attribute__((__noreturn__))
-#define __pure2 __attribute__((__const__))
-#define __unused __attribute__((__unused__))
-#define __used __attribute__((__used__))
-#define __packed __attribute__((__packed__))
-#define __aligned(x) __attribute__((__aligned__(x)))
-#define __section(x) __attribute__((__section__(x)))
-
-
-#define __alloc_size(x) __attribute__((__alloc_size__(x)))
-
-
-
-
-#define __alloc_align(x) __attribute__((__alloc_align__(x)))
-# 356 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __generic(expr,t,yes,no) _Generic(expr, t: yes, default: no)
-# 374 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __min_size(x) static (x)
-
-
-
-
-
-#define __malloc_like __attribute__((__malloc__))
-#define __pure __attribute__((__pure__))
-
-
-
-
-
-
-#define __always_inline __inline__ __attribute__((__always_inline__))
-
-
-
-
-
-#define __noinline __attribute__ ((__noinline__))
-
-
-
-
-
-#define __nonnull(x) __attribute__((__nonnull__ x))
-#define __nonnull_all __attribute__((__nonnull__))
-
-
-
-
-
-
-#define __fastcall __attribute__((__fastcall__))
-#define __result_use_check __attribute__((__warn_unused_result__))
-
-
-
-
-
-
-#define __returns_twice __attribute__((__returns_twice__))
-
-
-
-
-
-#define __unreachable() __builtin_unreachable()
-# 442 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __restrict restrict
-# 475 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __predict_true(exp) __builtin_expect((exp), 1)
-#define __predict_false(exp) __builtin_expect((exp), 0)
-
-
-
-
-
-
-#define __null_sentinel __attribute__((__sentinel__))
-#define __exported __attribute__((__visibility__("default")))
-
-
-#define __hidden __attribute__((__visibility__("hidden")))
-# 497 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __offsetof(type,field) offsetof(type, field)
-#define __rangeof(type,start,end) (__offsetof(type, end) - __offsetof(type, start))
-# 508 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __containerof(x,s,m) ({ const volatile __typeof(((s *)0)->m) *__x = (x); __DEQUALIFY(s *, (const volatile char *)__x - __offsetof(s, m));})
-# 530 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __printflike(fmtarg,firstvararg) __attribute__((__format__ (__printf__, fmtarg, firstvararg)))
-
-#define __scanflike(fmtarg,firstvararg) __attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
-
-#define __format_arg(fmtarg) __attribute__((__format_arg__ (fmtarg)))
-#define __strfmonlike(fmtarg,firstvararg) __attribute__((__format__ (__strfmon__, fmtarg, firstvararg)))
-
-#define __strftimelike(fmtarg,firstvararg) __attribute__((__format__ (__strftime__, fmtarg, firstvararg)))
-# 547 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __printf0like(fmtarg,firstvararg) 
-
-
-
-
-#define __strong_reference(sym,aliassym) extern __typeof (sym) aliassym __attribute__ ((__alias__ (#sym)))
-
-
-
-
-#define __weak_reference(sym,alias) __asm__(".weak " #alias); __asm__(".equ " #alias ", " #sym)
-
-
-#define __warn_references(sym,msg) __asm__(".section .gnu.warning." #sym); __asm__(".asciz \"" msg "\""); __asm__(".previous")
-
-
-
-#define __sym_compat(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@" #verid)
-
-#define __sym_default(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@@" #verid)
-# 601 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __FBSDID(s) struct __hack
-
-
-
-#define __RCSID(s) struct __hack
-
-
-
-#define __RCSID_SOURCE(s) struct __hack
-
-
-
-#define __SCCSID(s) struct __hack
-
-
-
-#define __COPYRIGHT(s) struct __hack
-
-
-
-#define __DECONST(type,var) ((type)(__uintptr_t)(const void *)(var))
-
-
-
-#define __DEVOLATILE(type,var) ((type)(__uintptr_t)(volatile void *)(var))
-
-
-
-#define __DEQUALIFY(type,var) ((type)(__uintptr_t)(const volatile void *)(var))
-
-
-
-
-
-
-#define _Nonnull 
-#define _Nullable 
-#define _Null_unspecified 
-#define __NULLABILITY_PRAGMA_PUSH 
-#define __NULLABILITY_PRAGMA_POP 
-# 661 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __arg_type_tag(arg_kind,arg_idx,type_tag_idx) 
-#define __datatype_type_tag(kind,type) 
-# 680 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/cdefs.h" 3 4
-#define __lock_annotate(x) 
-
-
-
-
-
-#define __lockable __lock_annotate(lockable)
-
-
-#define __locks_exclusive(...) __lock_annotate(exclusive_lock_function(__VA_ARGS__))
-
-#define __locks_shared(...) __lock_annotate(shared_lock_function(__VA_ARGS__))
-
-
-
-#define __trylocks_exclusive(...) __lock_annotate(exclusive_trylock_function(__VA_ARGS__))
-
-#define __trylocks_shared(...) __lock_annotate(shared_trylock_function(__VA_ARGS__))
-
-
-
-#define __unlocks(...) __lock_annotate(unlock_function(__VA_ARGS__))
-
-
-#define __asserts_exclusive(...) __lock_annotate(assert_exclusive_lock(__VA_ARGS__))
-
-#define __asserts_shared(...) __lock_annotate(assert_shared_lock(__VA_ARGS__))
-
-
-
-#define __requires_exclusive(...) __lock_annotate(exclusive_locks_required(__VA_ARGS__))
-
-#define __requires_shared(...) __lock_annotate(shared_locks_required(__VA_ARGS__))
-
-#define __requires_unlocked(...) __lock_annotate(locks_excluded(__VA_ARGS__))
-
-
-
-#define __no_lock_analysis __lock_annotate(no_thread_safety_analysis)
-
-
-#define __guarded_by(x) __lock_annotate(guarded_by(x))
-#define __pt_guarded_by(x) __lock_annotate(pt_guarded_by(x))
-# 6 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 2 3 4
-
-
-#define MB_LEN_MAX _MB_LEN_MAX
-
-
-
-
-
-
-#define NL_ARGMAX 32
-# 137 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/limits.h" 3 4
-#define _POSIX2_RE_DUP_MAX 255
-
-
-
-#define ARG_MAX 4096
-
-
-
-#define PATH_MAX 4096
-# 195 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 2 3 4
-# 8 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/syslimits.h" 2 3 4
-#undef _GCC_NEXT_LIMITS_H
-# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 2 3 4
-# 60 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
-#define _LIMITS_H___ 
-
-
-#undef CHAR_BIT
-#define CHAR_BIT __CHAR_BIT__
-
-
-
-
-
-
-
-#undef SCHAR_MIN
-#define SCHAR_MIN (-SCHAR_MAX - 1)
-#undef SCHAR_MAX
-#define SCHAR_MAX __SCHAR_MAX__
-
-
-#undef UCHAR_MAX
-
-
-
-#define UCHAR_MAX (SCHAR_MAX * 2 + 1)
-
-
-
-
-#undef CHAR_MIN
-
-
-
-#define CHAR_MIN 0
-
-#undef CHAR_MAX
-#define CHAR_MAX UCHAR_MAX
-# 103 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include-fixed/limits.h" 3 4
-#undef SHRT_MIN
-#define SHRT_MIN (-SHRT_MAX - 1)
-#undef SHRT_MAX
-#define SHRT_MAX __SHRT_MAX__
-
-
-#undef USHRT_MAX
-
-
-
-#define USHRT_MAX (SHRT_MAX * 2 + 1)
-
-
-
-#undef INT_MIN
-#define INT_MIN (-INT_MAX - 1)
-#undef INT_MAX
-#define INT_MAX __INT_MAX__
-
-
-#undef UINT_MAX
-#define UINT_MAX (INT_MAX * 2U + 1U)
-
-
-
-#undef LONG_MIN
-#define LONG_MIN (-LONG_MAX - 1L)
-#undef LONG_MAX
-#define LONG_MAX __LONG_MAX__
-
-
-#undef ULONG_MAX
-#define ULONG_MAX (LONG_MAX * 2UL + 1UL)
-
-
-
-#undef LLONG_MIN
-#define LLONG_MIN (-LLONG_MAX - 1LL)
-#undef LLONG_MAX
-#define LLONG_MAX __LONG_LONG_MAX__
-
-
-#undef ULLONG_MAX
-#define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-
-
-
-
-#undef LONG_LONG_MIN
-#define LONG_LONG_MIN (-LONG_LONG_MAX - 1LL)
-#undef LONG_LONG_MAX
-#define LONG_LONG_MAX __LONG_LONG_MAX__
-
-
-#undef ULONG_LONG_MAX
-#define ULONG_LONG_MAX (LONG_LONG_MAX * 2ULL + 1ULL)
-# 30 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 31 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h" 1 3 4
-# 9 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h" 3 4
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 1 3 4
-# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
-#define _STDINT_H 
-
-
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 1 3 4
-# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define _SYS__INTSUP_H 
 
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/features.h" 1 3 4
+/*
+ *  Written by Joel Sherrill <joel@OARcorp.com>.
+ *
+ *  COPYRIGHT (c) 1989-2014.
+ *
+ *  On-Line Applications Research Corporation (OAR).
+ *
+ *  Permission to use, copy, modify, and distribute this software for any
+ *  purpose without fee is hereby granted, provided that this entire notice
+ *  is included in all copies of any software which is or includes a copy
+ *  or modification of this software.
+ *
+ *  THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  WARRANTY.  IN PARTICULAR,  THE AUTHOR MAKES NO REPRESENTATION
+ *  OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY OF THIS
+ *  SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
+ *
+ *  $Id$
+ */
+# 13 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 2 3 4
 
 
-
-
+/* gcc > 3.2 implicitly defines the values we are interested */
 #define __STDINT_EXP(x) __ ##x ##__
-# 35 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+
+
+
+
+
+/* Determine how intptr_t and intN_t fastN_t and leastN_t are defined by gcc
+   for this target.  This is used to determine the correct printf() constant in
+   inttypes.h and other  constants in stdint.h.
+   So we end up with
+   ?(signed|unsigned) char == 0
+   ?(signed|unsigned) short == 1
+   ?(signed|unsigned) int == 2
+   ?(signed|unsigned) short int == 3
+   ?(signed|unsigned) long == 4
+   ?(signed|unsigned) long int == 6
+   ?(signed|unsigned) long long == 8
+   ?(signed|unsigned) long long int == 10
+ */
        
        
        
@@ -2478,7 +2580,7 @@ typedef unsigned int __uintptr_t;
 #define __int20 +2
 #define int +2
 #define long +4
-# 64 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 64 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define _INTPTR_EQ_INT 
 
 
@@ -2495,11 +2597,11 @@ typedef unsigned int __uintptr_t;
 
 
 #define __INT8 "hh"
-# 90 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 90 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __INT16 "h"
-# 101 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 101 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __INT32 "l"
-# 110 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 110 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __INT64 "ll"
 
 
@@ -2508,7 +2610,7 @@ typedef unsigned int __uintptr_t;
 
 
 #define __FAST8 
-# 126 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 126 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __FAST16 
 
 
@@ -2517,17 +2619,17 @@ typedef unsigned int __uintptr_t;
 
 
 #define __FAST32 
-# 144 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 144 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __FAST64 "ll"
 
 
 
 #define __LEAST8 "hh"
-# 159 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 159 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __LEAST16 "h"
-# 170 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 170 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __LEAST32 "l"
-# 179 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 179 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #define __LEAST64 "ll"
 
 #undef signed
@@ -2541,15 +2643,35 @@ typedef unsigned int __uintptr_t;
        
        
        
-# 191 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_intsup.h" 3 4
+# 191 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_intsup.h" 3 4
 #undef __int20
        
        
-# 14 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_stdint.h" 1 3 4
-# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_stdint.h" 3 4
+# 14 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 2 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_stdint.h" 1 3 4
+/*
+ * Copyright (c) 2004, 2005 by
+ * Ralf Corsepius, Ulm/Germany. All rights reserved.
+ *
+ * Permission to use, copy, modify, and distribute this software
+ * is freely granted, provided that this notice is preserved.
+ */
+
+
 #define _SYS__STDINT_H 
-# 20 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/sys/_stdint.h" 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/machine/_default_types.h" 1 3 4
+/*
+ *  $Id$
+ */
+# 13 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/sys/_stdint.h" 2 3 4
+
+
+
+
+
+
+
 typedef __int8_t int8_t ;
 #define _INT8_T_DECLARED 
 
@@ -2614,7 +2736,7 @@ typedef __intptr_t intptr_t;
 
 typedef __uintptr_t uintptr_t;
 #define _UINTPTR_T_DECLARED 
-# 15 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 2 3 4
+# 15 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 2 3 4
 
 
 
@@ -2642,7 +2764,15 @@ typedef __uint_least32_t uint_least32_t;
 typedef __int_least64_t int_least64_t;
 typedef __uint_least64_t uint_least64_t;
 #define __int_least64_t_defined 1
-# 51 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+
+
+/*
+ * Fastest minimum-width integer types
+ *
+ * Assume int to be the fastest type for all types with a width 
+ * less than __INT_MAX__ rsp. INT_MAX
+ */
+
   typedef int int_fast8_t;
   typedef unsigned int uint_fast8_t;
 #define __int_fast8_t_defined 1
@@ -2676,11 +2806,25 @@ typedef __uint_least64_t uint_least64_t;
   typedef long long int int_fast64_t;
   typedef long long unsigned int uint_fast64_t;
 #define __int_fast64_t_defined 1
-# 128 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+
+
+
+
+
+
+/*
+ * Fall back to [u]int_least<N>_t for [u]int_fast<N>_t types
+ * not having been defined, yet.
+ * Leave undefined, if [u]int_least<N>_t should not be available.
+ */
+# 128 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INTPTR_MIN (-__INTPTR_MAX__ - 1)
 #define INTPTR_MAX (__INTPTR_MAX__)
 #define UINTPTR_MAX (__UINTPTR_MAX__)
-# 152 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 149 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+/* Limits of Specified-Width Integer Types */
+
+
 #define INT8_MIN (-__INT8_MAX__ - 1)
 #define INT8_MAX (__INT8_MAX__)
 #define UINT8_MAX (__UINT8_MAX__)
@@ -2694,7 +2838,7 @@ typedef __uint_least64_t uint_least64_t;
 #define INT_LEAST8_MIN (-__INT_LEAST8_MAX__ - 1)
 #define INT_LEAST8_MAX (__INT_LEAST8_MAX__)
 #define UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)
-# 174 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 174 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT16_MIN (-__INT16_MAX__ - 1)
 #define INT16_MAX (__INT16_MAX__)
 #define UINT16_MAX (__UINT16_MAX__)
@@ -2708,39 +2852,39 @@ typedef __uint_least64_t uint_least64_t;
 #define INT_LEAST16_MIN (-__INT_LEAST16_MAX__ - 1)
 #define INT_LEAST16_MAX (__INT_LEAST16_MAX__)
 #define UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)
-# 196 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 196 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT32_MIN (-__INT32_MAX__ - 1)
 #define INT32_MAX (__INT32_MAX__)
 #define UINT32_MAX (__UINT32_MAX__)
-# 212 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 212 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT_LEAST32_MIN (-__INT_LEAST32_MAX__ - 1)
 #define INT_LEAST32_MAX (__INT_LEAST32_MAX__)
 #define UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)
-# 230 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 230 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT64_MIN (-__INT64_MAX__ - 1)
 #define INT64_MAX (__INT64_MAX__)
 #define UINT64_MAX (__UINT64_MAX__)
-# 246 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 246 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)
 #define INT_LEAST64_MAX (__INT_LEAST64_MAX__)
 #define UINT_LEAST64_MAX (__UINT_LEAST64_MAX__)
-# 262 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 262 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST8_MIN (-__INT_FAST8_MAX__ - 1)
 #define INT_FAST8_MAX (__INT_FAST8_MAX__)
 #define UINT_FAST8_MAX (__UINT_FAST8_MAX__)
-# 278 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 278 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST16_MIN (-__INT_FAST16_MAX__ - 1)
 #define INT_FAST16_MAX (__INT_FAST16_MAX__)
 #define UINT_FAST16_MAX (__UINT_FAST16_MAX__)
-# 294 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 294 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST32_MIN (-__INT_FAST32_MAX__ - 1)
 #define INT_FAST32_MAX (__INT_FAST32_MAX__)
 #define UINT_FAST32_MAX (__UINT_FAST32_MAX__)
-# 310 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 310 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT_FAST64_MIN (-__INT_FAST64_MAX__ - 1)
 #define INT_FAST64_MAX (__INT_FAST64_MAX__)
 #define UINT_FAST64_MAX (__UINT_FAST64_MAX__)
-# 326 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 326 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INTMAX_MAX (__INTMAX_MAX__)
 #define INTMAX_MIN (-INTMAX_MAX - 1)
 
@@ -2756,18 +2900,18 @@ typedef __uint_least64_t uint_least64_t;
 
 
 
-
+/* This must match size_t in stddef.h, currently long unsigned int */
 
 #define SIZE_MAX (__SIZE_MAX__)
 
 
 
 
-
+/* This must match sig_atomic_t in <signal.h> (currently int) */
 #define SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)
 #define SIG_ATOMIC_MAX (__STDINT_EXP(INT_MAX))
 
-
+/* This must match ptrdiff_t  in <stddef.h> (currently long int) */
 
 #define PTRDIFF_MAX (__PTRDIFF_MAX__)
 
@@ -2775,13 +2919,30 @@ typedef __uint_least64_t uint_least64_t;
 
 #define PTRDIFF_MIN (-PTRDIFF_MAX - 1)
 
-
+/* This must match definition in <wchar.h> */
 
 
 #define WCHAR_MIN (__WCHAR_MIN__)
-# 374 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+
+
+
+
+
+
+
+/* This must match definition in <wchar.h> */
+
+
 #define WCHAR_MAX (__WCHAR_MAX__)
-# 384 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+
+
+
+
+
+
+
+/* wint_t is unsigned int on almost all GCC targets.  */
+
 #define WINT_MAX (__WINT_MAX__)
 
 
@@ -2792,23 +2953,25 @@ typedef __uint_least64_t uint_least64_t;
 
 
 
-
+/** Macros for minimum-width integer constant expressions */
 
 #define INT8_C(x) __INT8_C(x)
 #define UINT8_C(x) __UINT8_C(x)
-# 408 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 408 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT16_C(x) __INT16_C(x)
 #define UINT16_C(x) __UINT16_C(x)
-# 420 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 420 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT32_C(x) __INT32_C(x)
 #define UINT32_C(x) __UINT32_C(x)
-# 433 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 433 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
 #define INT64_C(x) __INT64_C(x)
 #define UINT64_C(x) __UINT64_C(x)
-# 449 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/arm-none-eabi/include/stdint.h" 3 4
+# 447 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/arm-none-eabi/include/stdint.h" 3 4
+/** Macros for greatest-width integer constant expression */
+
 #define INTMAX_C(x) __INTMAX_C(x)
 #define UINTMAX_C(x) __UINTMAX_C(x)
-# 10 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h" 2 3 4
+# 10 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdint.h" 2 3 4
 
 
 
@@ -2816,16 +2979,18 @@ typedef __uint_least64_t uint_least64_t;
 # 32 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 1
 
-
-
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h"
+/*
+ * string.h
+ */
 
 
 #define _STRING_H 
 
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/klibc/extern.h" 1
-
-
-
+/*
+ * klibc/extern.h
+ */
 
 
 #define _KLIBC_EXTERN_H 
@@ -2835,7 +3000,35 @@ typedef __uint_least64_t uint_least64_t;
 
 #define __alias(x) __attribute__((weak, alias(x)))
 # 9 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.17  Common definitions  <stddef.h>
+ */
 # 10 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 2
 
 
@@ -2881,7 +3074,7 @@ extern char *strnstr(const char *, const char *, size_t);
 extern char *strtok(char *, const char *);
 extern char *strtok_r(char *, const char *, char **);
 
-
+/* Some dummy functions to avoid errors with C++ cstring */
 inline static int strcoll(const char *s1, const char *s2)
 {
  return strcmp(s1, s2);
@@ -2894,18 +3087,22 @@ inline static size_t strxfrm(char *dest, const char *src, size_t n)
 }
 # 33 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 1
-
-
-
+/*
+ * stdio.h
+ */
 
 
 #define _STDIO_H 
 
-
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/klibc/extern.h" 1
+/*
+ * klibc/extern.h
+ */
+# 9 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/klibc/inline.h" 1
-
-
-
+/*
+ * klibc/inline.h
+ */
 
 
 #define _KLIBC_INLINE_H 
@@ -2917,24 +3114,53 @@ inline static size_t strxfrm(char *dest, const char *src, size_t n)
 
 #define __extern_inline extern inline __attribute__((gnu_inline))
 # 10 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 1 3 4
-# 31 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.15  Variable arguments  <stdarg.h>
+ */
+
+
+
+
 #define _STDARG_H 
 #define _ANSI_STDARG_H_ 
 
 #undef __need___va_list
 
-
+/* Define __gnuc_va_list.  */
 
 
 #define __GNUC_VA_LIST 
-
-# 40 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 3 4
 typedef __builtin_va_list __gnuc_va_list;
 
 
-
-
+/* Define the standard macros for the user,
+   if this invocation was from the user program.  */
 
 
 #define va_start(v,l) __builtin_va_start(v,l)
@@ -2945,7 +3171,27 @@ typedef __builtin_va_list __gnuc_va_list;
 #define va_copy(d,s) __builtin_va_copy(d,s)
 
 #define __va_copy(d,s) __builtin_va_copy(d,s)
-# 99 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h" 3 4
+
+/* Define va_list, if desired, from __gnuc_va_list. */
+/* We deliberately do not define va_list when called from
+   stdio.h, because ANSI C says that stdio.h is not supposed to define
+   va_list.  stdio.h needs to have access to that data type, 
+   but must not use that name.  It should use the name __gnuc_va_list,
+   which is safe because it is reserved for the implementation.  */
+# 86 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdarg.h" 3 4
+/* The macro _VA_LIST_ is the same thing used by this file in Ultrix.
+   But on BSD NET2 we must not test or define or undef it.
+   (Note that the comments in NET 2's ansi.h
+   are incorrect for _VA_LIST_--see stdio.h!)  */
+
+/* The macro _VA_LIST_DEFINED is used in Windows NT 3.5  */
+
+/* The macro _VA_LIST is used in SCO Unix 3.2.  */
+
+/* The macro _VA_LIST_T_H is used in the Bull dpx2  */
+
+/* The macro __va_list__ is used by BeOS.  */
+
 typedef __gnuc_va_list va_list;
 
 
@@ -2966,11 +3212,49 @@ typedef __gnuc_va_list va_list;
 
 #define __va_list__ 
 # 11 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
-# 12 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
-# 21 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h"
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
 
-# 21 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h"
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.17  Common definitions  <stddef.h>
+ */
+# 12 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 1
+
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h"
+/*
+ * string.h
+ */
+# 13 "repos/apache-mynewt-core/libc/baselibc/include/stdio.h" 2
+
+
+
+
+
+/* The File structure is designed to be compatible with ChibiOS/RT type
+ * BaseSequentialStream.
+ */
 struct File;
 
 typedef struct File FILE;
@@ -2994,12 +3278,12 @@ struct File
 #define BUFSIZ 1
 
 
-
+/* Standard file descriptors - implement these globals yourself. */
 extern FILE* const stdin;
 extern FILE* const stdout;
 extern FILE* const stderr;
 
-
+/* Wrappers around stream write and read */
 extern inline __attribute__((gnu_inline)) size_t fread(void *buf, size_t size, size_t nmemb, FILE *stream)
 {
     if (stream->vmt->read == 
@@ -3073,8 +3357,8 @@ extern int vasprintf(char **, const char *, va_list);
 extern int sscanf(const char *, const char *, ...);
 extern int vsscanf(const char *, const char *, va_list);
 
-
-
+/* Open a memory buffer for writing.
+ Note: Does not write null terminator.*/
 struct MemFile
 {
     struct File file;
@@ -3089,8 +3373,37 @@ FILE *fmemopen_w(struct MemFile* storage, char *buffer, size_t size);
 
 
 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h" 1 3 4
-# 29 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h" 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 3 4
+/* Copyright (C) 1998-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.16  Boolean type and values  <stdbool.h>
+ */
+
+
 #define _STDBOOL_H 
 
 
@@ -3098,7 +3411,8 @@ FILE *fmemopen_w(struct MemFile* storage, char *buffer, size_t size);
 #define bool _Bool
 #define true 1
 #define false 0
-# 52 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h" 3 4
+# 51 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 3 4
+/* Signal that all the definitions are present.  */
 #define __bool_true_false_are_defined 1
 # 39 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 2
 # 53 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
@@ -3118,6 +3432,8 @@ FILE *fmemopen_w(struct MemFile* storage, char *buffer, size_t size);
 
 #define CBOR_INLINE __inline__
 # 76 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
+
+# 76 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
 typedef enum CborType {
     CborIntegerType = 0x00,
     CborByteStringType = 0x40,
@@ -3133,12 +3449,12 @@ typedef enum CborType {
     CborFloatType = 0xfa,
     CborDoubleType = 0xfb,
 
-    CborInvalidType = 0xff
+    CborInvalidType = 0xff /* equivalent to the break byte, so it will never be used */
 } CborType;
 
 typedef uint64_t CborTag;
 typedef enum CborKnownTags {
-    CborDateTimeStringTag = 0,
+    CborDateTimeStringTag = 0, /* RFC 3339 format: YYYY-MM-DD hh:mm:ss+zzzz */
     CborUnixTime_tTag = 1,
     CborPositiveBignumTag = 2,
     CborNegativeBignumTag = 3,
@@ -3151,47 +3467,47 @@ typedef enum CborKnownTags {
     CborBase64urlTag = 33,
     CborBase64Tag = 34,
     CborRegularExpressionTag = 35,
-    CborMimeMessageTag = 36,
+    CborMimeMessageTag = 36, /* RFC 2045-2047 */
     CborSignatureTag = 55799
 } CborKnownTags;
 
-
+/* Error API */
 
 typedef enum CborError {
     CborNoError = 0,
 
-
+    /* errors in all modes */
     CborUnknownError,
-    CborErrorUnknownLength,
+    CborErrorUnknownLength, /* request for length in array, map, or string with indeterminate length */
     CborErrorAdvancePastEOF,
     CborErrorIO,
 
-
+    /* parser errors streaming errors */
     CborErrorGarbageAtEnd = 256,
     CborErrorUnexpectedEOF,
     CborErrorUnexpectedBreak,
-    CborErrorUnknownType,
-    CborErrorIllegalType,
+    CborErrorUnknownType, /* can only heppen in major type 7 */
+    CborErrorIllegalType, /* type not allowed here */
     CborErrorIllegalNumber,
-    CborErrorIllegalSimpleType,
+    CborErrorIllegalSimpleType, /* types of value less than 32 encoded in two bytes */
 
-
+    /* parser errors in strict mode parsing only */
     CborErrorUnknownSimpleType = 512,
     CborErrorUnknownTag,
     CborErrorInappropriateTagForType,
     CborErrorDuplicateObjectKeys,
     CborErrorInvalidUtf8TextString,
 
-
+    /* encoder errors */
     CborErrorTooManyItems = 768,
     CborErrorTooFewItems,
 
-
+    /* internal implementation errors */
     CborErrorDataTooLarge = 1024,
     CborErrorNestingTooDeep,
     CborErrorUnsupportedType,
 
-
+    /* errors in converting to JSON */
     CborErrorJsonObjectKeyIsAggregate,
     CborErrorJsonObjectKeyNotString,
     CborErrorJsonNotImplemented,
@@ -3216,7 +3532,7 @@ struct cbor_iovec {
     size_t iov_len;
 };
 
-
+/* Encoder API */
 struct CborEncoder {
     cbor_encoder_writer *writer;
     void *writer_arg;
@@ -3272,7 +3588,7 @@ static __inline__ CborError cbor_encode_double(CborEncoder *encoder, double valu
  CborError cbor_encoder_close_container(CborEncoder *encoder, const CborEncoder *containerEncoder);
  CborError cbor_encoder_close_container_checked(CborEncoder *encoder, const CborEncoder *containerEncoder);
 
-
+/* Parser API */
 
 enum CborParserIteratorFlags
 {
@@ -3355,7 +3671,7 @@ static __inline__
 static __inline__ CborType cbor_value_get_type(const CborValue *value)
 { return (CborType)value->type; }
 
-
+/* Null & undefined type */
 static __inline__ 
 # 294 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3369,7 +3685,7 @@ static __inline__
                     cbor_value_is_undefined(const CborValue *value)
 { return value->type == CborUndefinedType; }
 
-
+/* Booleans */
 static __inline__ 
 # 300 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3399,7 +3715,7 @@ static __inline__ CborError cbor_value_get_boolean(const CborValue *value,
     return CborNoError;
 }
 
-
+/* Simple types */
 static __inline__ 
 # 310 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3425,7 +3741,7 @@ static __inline__ CborError cbor_value_get_simple_type(const CborValue *value, u
     return CborNoError;
 }
 
-
+/* Integers */
 static __inline__ 
 # 320 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3535,7 +3851,7 @@ static __inline__
                     cbor_value_is_length_known(const CborValue *value)
 { return (value->flags & CborIteratorFlag_UnknownLength) == 0; }
 
-
+/* Tags */
 static __inline__ 
 # 366 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3562,7 +3878,7 @@ static __inline__ CborError cbor_value_get_tag(const CborValue *value, CborTag *
 }
  CborError cbor_value_skip_tag(CborValue *it);
 
-
+/* Strings */
 static __inline__ 
 # 377 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3681,7 +3997,7 @@ static __inline__ CborError cbor_value_dup_byte_string(const CborValue *value, u
     return _cbor_value_dup_string(value, (void **)buffer, buflen, next);
 }
 
-
+/* ### TBD: partial reading API */
 
  CborError cbor_value_text_string_equals(const CborValue *value, const char *string, 
 # 429 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
@@ -3689,7 +4005,7 @@ static __inline__ CborError cbor_value_dup_byte_string(const CborValue *value, u
 # 429 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h"
                                                                                                  *result);
 
-
+/* Maps and arrays */
 static __inline__ 
 # 432 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3753,7 +4069,7 @@ static __inline__ CborError cbor_value_get_map_length(const CborValue *value, si
 
  CborError cbor_value_map_find_value(const CborValue *map, const char *string, CborValue *element);
 
-
+/* Floating point */
 static __inline__ 
 # 464 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 3 4
                _Bool 
@@ -3840,7 +4156,7 @@ static __inline__ CborError cbor_value_get_double(const CborValue *value, double
     return CborNoError;
 }
 
-
+/* Human-readable (dump) API */
  CborError cbor_value_to_pretty_advance(FILE *out, CborValue *value);
 static __inline__ CborError cbor_value_to_pretty(FILE *out, const CborValue *value)
 {
@@ -3855,40 +4171,68 @@ struct mgmt_cbuf {
 };
 # 32 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cborconstants_p.h" 1
-# 21 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cborconstants_p.h"
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
 #define CBORCONSTANTS_P_H 
-# 32 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cborconstants_p.h"
+
+
+
+
+
+/*
+ * CBOR Major types
+ * Encoded in the high 3 bits of the descriptor byte
+ * See http://tools.ietf.org/html/rfc7049#section-2.1
+ */
 typedef enum CborMajorTypes {
     UnsignedIntegerType = 0U,
     NegativeIntegerType = 1U,
     ByteStringType = 2U,
     TextStringType = 3U,
     ArrayType = 4U,
-    MapType = 5U,
+    MapType = 5U, /* a.k.a. object */
     TagType = 6U,
     SimpleTypesType = 7U
 } CborMajorTypes;
 
-
-
-
-
-
+/*
+ * CBOR simple and floating point types
+ * Encoded in the low 8 bits of the descriptor byte when the
+ * Major Type is 7.
+ */
 typedef enum CborSimpleTypes {
     FalseValue = 20,
     TrueValue = 21,
     NullValue = 22,
     UndefinedValue = 23,
-    SimpleTypeInNextByte = 24,
-    HalfPrecisionFloat = 25,
-    SinglePrecisionFloat = 26,
-    DoublePrecisionFloat = 27,
+    SimpleTypeInNextByte = 24, /* not really a simple type */
+    HalfPrecisionFloat = 25, /* ditto */
+    SinglePrecisionFloat = 26, /* ditto */
+    DoublePrecisionFloat = 27, /* ditto */
     Break = 31
 } CborSimpleTypes;
 
 enum {
     SmallValueBitLength = 5U,
-    SmallValueMask = (1U << SmallValueBitLength) - 1,
+    SmallValueMask = (1U << SmallValueBitLength) - 1, /* 31 */
     Value8Bit = 24U,
     Value16Bit = 25U,
     Value32Bit = 26U,
@@ -3902,28 +4246,116 @@ enum {
 };
 # 33 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 1
-# 26 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+/****************************************************************************
+**
+** Copyright (C) 2015 Intel Corporation
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+**
+****************************************************************************/
+
+
 #define COMPILERSUPPORT_H 
 
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
+/****************************************************************************
+**
+** Copyright (C) 2015 Intel Corporation
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+**
+****************************************************************************/
 # 29 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
-# 41 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 1 3 4
-# 29 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
+# 40 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/assert.h" 1
+/*
+ * assert.h
+ */
+# 41 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/float.h" 3 4
+/* Copyright (C) 2002-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  5.2.4.2.2  Characteristics of floating types <float.h>
+ */
+
+
 #define _FLOAT_H___ 
 
-
+/* Radix of exponent representation, b. */
 #undef FLT_RADIX
 #define FLT_RADIX __FLT_RADIX__
 
-
+/* Number of base-FLT_RADIX digits in the significand, p.  */
 #undef FLT_MANT_DIG
 #undef DBL_MANT_DIG
 #undef LDBL_MANT_DIG
 #define FLT_MANT_DIG __FLT_MANT_DIG__
 #define DBL_MANT_DIG __DBL_MANT_DIG__
 #define LDBL_MANT_DIG __LDBL_MANT_DIG__
-# 50 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
+
+/* Number of decimal digits, q, such that any floating-point number with q
+   decimal digits can be rounded into a floating-point number with p radix b
+   digits and back again without change to the q decimal digits,
+
+	p * log10(b)			if b is a power of 10
+	floor((p - 1) * log10(b))	otherwise
+*/
 #undef FLT_DIG
 #undef DBL_DIG
 #undef LDBL_DIG
@@ -3931,7 +4363,7 @@ enum {
 #define DBL_DIG __DBL_DIG__
 #define LDBL_DIG __LDBL_DIG__
 
-
+/* Minimum int x such that FLT_RADIX**(x-1) is a normalized float, emin */
 #undef FLT_MIN_EXP
 #undef DBL_MIN_EXP
 #undef LDBL_MIN_EXP
@@ -3939,11 +4371,11 @@ enum {
 #define DBL_MIN_EXP __DBL_MIN_EXP__
 #define LDBL_MIN_EXP __LDBL_MIN_EXP__
 
+/* Minimum negative integer such that 10 raised to that power is in the
+   range of normalized floating-point numbers,
 
-
-
-
-
+	ceil(log10(b) * (emin - 1))
+*/
 #undef FLT_MIN_10_EXP
 #undef DBL_MIN_10_EXP
 #undef LDBL_MIN_10_EXP
@@ -3951,7 +4383,7 @@ enum {
 #define DBL_MIN_10_EXP __DBL_MIN_10_EXP__
 #define LDBL_MIN_10_EXP __LDBL_MIN_10_EXP__
 
-
+/* Maximum int x such that FLT_RADIX**(x-1) is a representable float, emax.  */
 #undef FLT_MAX_EXP
 #undef DBL_MAX_EXP
 #undef LDBL_MAX_EXP
@@ -3959,11 +4391,11 @@ enum {
 #define DBL_MAX_EXP __DBL_MAX_EXP__
 #define LDBL_MAX_EXP __LDBL_MAX_EXP__
 
+/* Maximum integer such that 10 raised to that power is in the range of
+   representable finite floating-point numbers,
 
-
-
-
-
+	floor(log10((1 - b**-p) * b**emax))
+*/
 #undef FLT_MAX_10_EXP
 #undef DBL_MAX_10_EXP
 #undef LDBL_MAX_10_EXP
@@ -3971,10 +4403,10 @@ enum {
 #define DBL_MAX_10_EXP __DBL_MAX_10_EXP__
 #define LDBL_MAX_10_EXP __LDBL_MAX_10_EXP__
 
+/* Maximum representable finite floating-point number,
 
-
-
-
+	(1 - b**-p) * b**emax
+*/
 #undef FLT_MAX
 #undef DBL_MAX
 #undef LDBL_MAX
@@ -3982,8 +4414,8 @@ enum {
 #define DBL_MAX __DBL_MAX__
 #define LDBL_MAX __LDBL_MAX__
 
-
-
+/* The difference between 1 and the least value greater than 1 that is
+   representable in the given floating point type, b**1-p.  */
 #undef FLT_EPSILON
 #undef DBL_EPSILON
 #undef LDBL_EPSILON
@@ -3991,7 +4423,7 @@ enum {
 #define DBL_EPSILON __DBL_EPSILON__
 #define LDBL_EPSILON __LDBL_EPSILON__
 
-
+/* Minimum normalized positive floating-point number, b**(emin - 1).  */
 #undef FLT_MIN
 #undef DBL_MIN
 #undef LDBL_MIN
@@ -3999,24 +4431,96 @@ enum {
 #define DBL_MIN __DBL_MIN__
 #define LDBL_MIN __LDBL_MIN__
 
-
-
+/* Addition rounds to 0: zero, 1: nearest, 2: +inf, 3: -inf, -1: unknown.  */
+/* ??? This is supposed to change with calls to fesetround in <fenv.h>.  */
 #undef FLT_ROUNDS
 #define FLT_ROUNDS 1
-# 193 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
+
+
+
+/* The floating-point expression evaluation method.  The precise
+   definitions of these values are generalised to include support for
+   the interchange and extended types defined in ISO/IEC TS 18661-3.
+   Prior to this (for C99/C11) the definitions were:
+
+	-1  indeterminate
+	 0  evaluate all operations and constants just to the range and
+	    precision of the type
+	 1  evaluate operations and constants of type float and double
+	    to the range and precision of the double type, evaluate
+	    long double operations and constants to the range and
+	    precision of the long double type
+	 2  evaluate all operations and constants to the range and
+	    precision of the long double type
+
+   The TS 18661-3 definitions are:
+
+	-1  indeterminate
+	 0  evaluate all operations and constants, whose semantic type has
+	    at most the range and precision of float, to the range and
+	    precision of float; evaluate all other operations and constants
+	    to the range and precision of the semantic type.
+	 1  evaluate all operations and constants, whose semantic type has
+	    at most the range and precision of double, to the range and
+	    precision of double; evaluate all other operations and constants
+	    to the range and precision of the semantic type.
+	 2  evaluate all operations and constants, whose semantic type has
+	    at most the range and precision of long double, to the range and
+	    precision of long double; evaluate all other operations and
+	    constants to the range and precision of the semantic type.
+	 N  where _FloatN  is a supported interchange floating type
+	    evaluate all operations and constants, whose semantic type has
+	    at most the range and precision of the _FloatN type, to the
+	    range and precision of the _FloatN type; evaluate all other
+	    operations and constants to the range and precision of the
+	    semantic type.
+	 N + 1, where _FloatNx is a supported extended floating type
+	    evaluate operations and constants, whose semantic type has at
+	    most the range and precision of the _FloatNx type, to the range
+	    and precision of the _FloatNx type; evaluate all other
+	    operations and constants to the range and precision of the
+	    semantic type.
+
+   The compiler predefines two macros:
+
+      __FLT_EVAL_METHOD__
+      Which, depending on the value given for
+      -fpermitted-flt-eval-methods, may be limited to only those values
+      for FLT_EVAL_METHOD defined in C99/C11.
+
+     __FLT_EVAL_METHOD_TS_18661_3__
+      Which always permits the values for FLT_EVAL_METHOD defined in
+      ISO/IEC TS 18661-3.
+
+     Here we want to use __FLT_EVAL_METHOD__, unless
+     __STDC_WANT_IEC_60559_TYPES_EXT__ is defined, in which case the user
+     is specifically asking for the ISO/IEC TS 18661-3 types, so we use
+     __FLT_EVAL_METHOD_TS_18661_3__.
+
+   ??? This ought to change with the setting of the fp control word;
+   the value provided by the compiler assumes the widest setting.  */
 #undef FLT_EVAL_METHOD
 
 
 
 #define FLT_EVAL_METHOD __FLT_EVAL_METHOD__
-# 208 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/float.h" 3 4
+
+
+/* Number of decimal digits, n, such that any floating-point number in the
+   widest supported floating type with pmax radix b digits can be rounded
+   to a floating-point number with n decimal digits and back again without
+   change to the value,
+
+	pmax * log10(b)			if b is a power of 10
+	ceil(1 + pmax * log10(b))	otherwise
+*/
 #undef DECIMAL_DIG
 #define DECIMAL_DIG __DECIMAL_DIG__
 
 
 
 
-
+/* Versions of DECIMAL_DIG for each floating-point type.  */
 #undef FLT_DECIMAL_DIG
 #undef DBL_DECIMAL_DIG
 #undef LDBL_DECIMAL_DIG
@@ -4024,7 +4528,7 @@ enum {
 #define DBL_DECIMAL_DIG __DBL_DECIMAL_DIG__
 #define LDBL_DECIMAL_DIG __LDBL_DECIMAL_DIG__
 
-
+/* Whether types support subnormal numbers.  */
 #undef FLT_HAS_SUBNORM
 #undef DBL_HAS_SUBNORM
 #undef LDBL_HAS_SUBNORM
@@ -4032,7 +4536,7 @@ enum {
 #define DBL_HAS_SUBNORM __DBL_HAS_DENORM__
 #define LDBL_HAS_SUBNORM __LDBL_HAS_DENORM__
 
-
+/* Minimum positive values, including subnormals.  */
 #undef FLT_TRUE_MIN
 #undef DBL_TRUE_MIN
 #undef LDBL_TRUE_MIN
@@ -4040,16 +4544,108 @@ enum {
 #define DBL_TRUE_MIN __DBL_DENORM_MIN__
 #define LDBL_TRUE_MIN __LDBL_DENORM_MIN__
 # 42 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.17  Common definitions  <stddef.h>
+ */
 # 43 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
-# 55 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 1
+
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h"
+/*
+ * string.h
+ */
+# 45 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
+
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 1 3 4
+
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 3 4
+/* Copyright (C) 1998-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.16  Boolean type and values  <stdbool.h>
+ */
+# 48 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h" 2
+
+
+
+
+
+
+
 #define cbor_static_assert(x) _Static_assert(x, #x)
-# 68 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+
+
+
+
+
+
+
+# 62 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+/* inline is a keyword */
+
+
+
+
+
 #define STRINGIFY(x) STRINGIFY2(x)
 #define STRINGIFY2(x) #x
 # 80 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
 #define DBL_DECIMAL_DIG_STR STRINGIFY(DBL_DECIMAL_DIG)
-# 89 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+
+
+#define __has_builtin(x) 0
+
+
+
+
+
 #define cbor_ntohll __builtin_bswap64
 #define cbor_htonll __builtin_bswap64
 #define cbor_ntohl __builtin_bswap32
@@ -4060,7 +4656,8 @@ enum {
 
 #define cbor_ntohs __builtin_bswap16
 #define cbor_htons __builtin_bswap16
-# 154 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+# 153 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/compilersupport_p.h"
+/* C-style const_cast without triggering a warning with -Wcast-qual */
 #define CONST_CAST(t,v) (t)(uintptr_t)(v)
 
 
@@ -4093,25 +4690,25 @@ static inline unsigned short encode_half(double val)
     memcpy(&v, &val, sizeof(v));
     int sign = v >> 63 << 15;
     int exp = (v >> 52) & 0x7ff;
-    int mant = v << 12 >> 12 >> (53-11);
+    int mant = v << 12 >> 12 >> (53-11); /* keep only the 11 most significant bits of the mantissa */
     exp -= 1023;
     if (exp == 1024) {
-
+        /* infinity or NaN */
         exp = 16;
         mant >>= 1;
     } else if (exp >= 16) {
-
+        /* overflow, as largest number */
         exp = 15;
         mant = 1023;
     } else if (exp >= -14) {
-
+        /* regular normal */
     } else if (exp >= -24) {
-
+        /* subnormal */
         mant |= 1024;
         mant >>= -(exp + 14);
         exp = -15;
     } else {
-
+        /* underflow, make zero */
         return 0;
     }
     return sign | ((exp + 15) << 10) | mant;
@@ -4119,25 +4716,94 @@ static inline unsigned short encode_half(double val)
 }
 # 34 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
 
-
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/assert.h" 1
+/*
+ * assert.h
+ */
+# 36 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 1
-
-
-
+/*
+ * stdlib.h
+ */
 
 
 #define _STDLIB_H 
 
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/klibc/extern.h" 1
+/*
+ * klibc/extern.h
+ */
+# 9 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 2
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/klibc/inline.h" 1
+/*
+ * klibc/inline.h
+ */
+# 10 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 2
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 1 3 4
 
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stddef.h" 3 4
+/* Copyright (C) 1989-2018 Free Software Foundation, Inc.
 
-# 1 "/usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h" 1 3 4
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.17  Common definitions  <stddef.h>
+ */
 # 11 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 2
+# 1 "/home/user/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.4.1/.content/lib/gcc/arm-none-eabi/8.2.1/include/stdbool.h" 1 3 4
+/* Copyright (C) 1998-2018 Free Software Foundation, Inc.
+
+This file is part of GCC.
+
+GCC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3, or (at your option)
+any later version.
+
+GCC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+Under Section 7 of GPL version 3, you are granted additional
+permissions described in the GCC Runtime Library Exception, version
+3.1, as published by the Free Software Foundation.
+
+You should have received a copy of the GNU General Public License and
+a copy of the GCC Runtime Library Exception along with this program;
+see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+<http://www.gnu.org/licenses/>.  */
+
+/*
+ * ISO C Standard:  7.16  Boolean type and values  <stdbool.h>
+ */
+# 12 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 2
 
 
 
 
 
 
+# 17 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h"
 extern inline __attribute__((gnu_inline)) int abs(int __n)
 {
  return (__n < 0) ? -__n : __n;
@@ -4165,14 +4831,14 @@ extern void *malloc(size_t);
 extern void *calloc(size_t, size_t);
 extern void *realloc(void *, size_t);
 
-
+/* Giving malloc some memory from which to allocate */
 extern void add_malloc_block(void *, size_t);
 extern void get_malloc_memory_status(size_t *, size_t *);
 
-
-
-
-
+/* Malloc locking
+ * Until the callbacks are set, malloc doesn't do any locking.
+ * malloc_lock() *may* timeout, in which case malloc() will return NULL.
+ */
 typedef 
 # 52 "repos/apache-mynewt-core/libc/baselibc/include/stdlib.h" 3 4
        _Bool 
@@ -4233,11 +4899,205 @@ extern inline __attribute__((gnu_inline)) void srandom(unsigned int __s)
  srand48(__s);
 }
 # 37 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
-
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/string.h" 1
+/*
+ * string.h
+ */
+# 38 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
 
 # 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/assert_p.h" 1
+/****************************************************************************
+**
+** Copyright (C) 2015 Intel Corporation
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+**
+****************************************************************************/
+
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/assert.h" 1
+/*
+ * assert.h
+ */
+# 26 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/assert_p.h" 2
 # 40 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 2
-# 202 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * \defgroup CborEncoding Encoding to CBOR
+ * \brief Group of functions used to encode data to CBOR.
+ *
+ * CborEncoder is used to encode data into a CBOR stream. The outermost
+ * CborEncoder is initialized by calling cbor_encoder_init(), with the buffer
+ * where the CBOR stream will be stored. The outermost CborEncoder is usually
+ * used to encode exactly one item, most often an array or map. It is possible
+ * to encode more than one item, but care must then be taken on the decoder
+ * side to ensure the state is reset after each item was decoded.
+ *
+ * Nested CborEncoder objects are created using cbor_encoder_create_array() and
+ * cbor_encoder_create_map(), later closed with cbor_encoder_close_container()
+ * or cbor_encoder_close_container_checked(). The pairs of creation and closing
+ * must be exactly matched and their parameters are always the same.
+ *
+ * CborEncoder writes directly to the user-supplied buffer, without extra
+ * buffering. CborEncoder does not allocate memory and CborEncoder objects are
+ * usually created on the stack of the encoding functions.
+ *
+ * The example below initializes a CborEncoder object with a buffer and encodes
+ * a single integer.
+ *
+ * \code
+ *      uint8_t buf[16];
+ *      CborEncoder encoder;
+ *      cbor_encoder_init(&encoder, &buf, sizeof(buf), 0);
+ *      cbor_encode_int(&encoder, some_value);
+ * \endcode
+ *
+ * As explained before, usually the outermost CborEncoder object is used to add
+ * one array or map, which in turn contains multiple elements. The example
+ * below creates a CBOR map with one element: a key "foo" and a boolean value.
+ *
+ * \code
+ *      uint8_t buf[16];
+ *      CborEncoder encoder, mapEncoder;
+ *      cbor_encoder_init(&encoder, &buf, sizeof(buf), 0);
+ *      cbor_encoder_create_map(&encoder, &mapEncoder, 1);
+ *      cbor_encode_text_stringz(&mapEncoder, "foo");
+ *      cbor_encode_boolean(&mapEncoder, some_value);
+ *      cbor_encoder_close_container(&encoder, &mapEncoder);
+ * \endcode
+ *
+ * <h3 class="groupheader">Error checking and buffer size</h2>
+ *
+ * All functions operating on CborEncoder return a condition of type CborError.
+ * If the encoding was successful, they return CborNoError. Some functions do
+ * extra checking on the input provided and may return some other error
+ * conditions (for example, cbor_encode_simple_value() checks that the type is
+ * of the correct type).
+ *
+ * In addition, all functions check whether the buffer has enough bytes to
+ * encode the item being appended. If that is not possible, they return
+ * CborErrorOutOfMemory.
+ *
+ * It is possible to continue with the encoding of data past the first function
+ * that returns CborErrorOutOfMemory. CborEncoder functions will not overrun
+ * the buffer, but will instead count how many more bytes are needed to
+ * complete the encoding. At the end, you can obtain that count by calling
+ * cbor_encoder_get_extra_bytes_needed().
+ *
+ * \section1 Finalizing the encoding
+ *
+ * Once all items have been appended and the containers have all been properly
+ * closed, the user-supplied buffer will contain the CBOR stream and may be
+ * immediately used. To obtain the size of the buffer, call
+ * cbor_encoder_get_buffer_size() with the original buffer pointer.
+ *
+ * The example below illustrates how one can encode an item with error checking
+ * and then pass on the buffer for network sending.
+ *
+ * \code
+ *      uint8_t buf[16];
+ *      CborError err;
+ *      CborEncoder encoder, mapEncoder;
+ *      cbor_encoder_init(&encoder, &buf, sizeof(buf), 0);
+ *      err = cbor_encoder_create_map(&encoder, &mapEncoder, 1);
+ *      if (!err)
+ *          return err;
+ *      err = cbor_encode_text_stringz(&mapEncoder, "foo");
+ *      if (!err)
+ *          return err;
+ *      err = cbor_encode_boolean(&mapEncoder, some_value);
+ *      if (!err)
+ *          return err;
+ *      err = cbor_encoder_close_container_checked(&encoder, &mapEncoder);
+ *      if (!err)
+ *          return err;
+ *
+ *      size_t len = cbor_encoder_get_buffer_size(&encoder, buf);
+ *      send_payload(buf, len);
+ *      return CborNoError;
+ * \endcode
+ *
+ * Finally, the example below illustrates expands on the one above and also
+ * deals with dynamically growing the buffer if the initial allocation wasn't
+ * big enough. Note the two places where the error checking was replaced with
+ * an assertion, showing where the author assumes no error can occur.
+ *
+ * \code
+ * uint8_t *encode_string_array(const char **strings, int n, size_t *bufsize)
+ * {
+ *     CborError err;
+ *     CborEncoder encoder, arrayEncoder;
+ *     size_t size = 256;
+ *     uint8_t *buf = NULL;
+ *
+ *     while (1) {
+ *         int i;
+ *         size_t more_bytes;
+ *         uint8_t *nbuf = realloc(buf, size);
+ *         if (nbuf == NULL)
+ *             goto error;
+ *         buf = nbuf;
+ *
+ *         cbor_encoder_init(&encoder, &buf, size, 0);
+ *         err = cbor_encoder_create_array(&encoder, &arrayEncoder, n);
+ *         assert(err);         // can't fail, the buffer is always big enough
+ *
+ *         for (i = 0; i < n; ++i) {
+ *             err = cbor_encode_text_stringz(&arrayEncoder, strings[i]);
+ *             if (err && err != CborErrorOutOfMemory)
+ *                 goto error;
+ *         }
+ *
+ *         err = cbor_encoder_close_container_checked(&encoder, &arrayEncoder);
+ *         assert(err);         // shouldn't fail!
+ *
+ *         more_bytes = cbor_encoder_get_extra_bytes_needed(encoder);
+ *         if (more_size) {
+ *             // buffer wasn't big enough, try again
+ *             size += more_bytes;
+ *             continue;
+ *         }
+ *
+ *         *bufsize = cbor_encoder_get_buffer_size(encoder, buf);
+ *         return buf;
+ *     }
+ *  error:
+ *     free(buf);
+ *     return NULL;
+ *  }
+ * \endcode
+ */
+
+/**
+ * \addtogroup CborEncoding
+ * @{
+ */
+
+/**
+ * \struct CborEncoder
+ * Structure used to encode to CBOR.
+ */
+
+/**
+ * Initializes a CborEncoder structure \a encoder by pointing it to buffer \a
+ * buffer of size \a size. The \a flags field is currently unused and must be
+ * zero.
+ */
 void cbor_encoder_init(CborEncoder *encoder, cbor_encoder_writer *writer, int flags)
 {
     encoder->writer = writer;
@@ -4253,11 +5113,11 @@ static inline void put16(void *where, uint16_t v)
 }
 
 
-
-
-
-
-
+/* Note: Since this is currently only used in situations where OOM is the only
+ * valid error, we KNOW this to be true.  Thus, this function now returns just 'true',
+ * but if in the future, any function starts returning a non-OOM error, this will need
+ * to be changed to the test.  At the moment, this is done to prevent more branches
+ * being created in the tinycbor output */
 static inline 
 # 222 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
              _Bool 
@@ -4288,19 +5148,6 @@ static inline void put64(void *where, uint64_t v)
 
 static inline CborError append_to_buffer(CborEncoder *encoder, const void *data, size_t len)
 {
-    ((encoder->writer) ? (void)0 : __assert_func(
-# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
-   ((void *)0)
-# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
-   , 0, 
-# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
-   ((void *)0)
-# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
-   , 
-# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
-   ((void *)0)
-# 244 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
-   ));
     return encoder->writer->write(encoder->writer, data, len);
 }
 
@@ -4311,15 +5158,15 @@ static inline CborError append_byte_to_buffer(CborEncoder *encoder, uint8_t byte
 
 static inline CborError encode_number_no_update(CborEncoder *encoder, uint64_t ui, uint8_t shiftedMajorType)
 {
-
-
-
-
-
+    /* Little-endian would have been so much more convenient here:
+     * We could just write at the beginning of buf but append_to_buffer
+     * only the necessary bytes.
+     * Since it has to be big endian, do it the other way around:
+     * write from the end. */
     uint64_t buf[2];
     uint8_t *const bufend = (uint8_t *)buf + sizeof(buf);
     uint8_t *bufstart = bufend - 1;
-    put64(buf + 1, ui);
+    put64(buf + 1, ui); /* we probably have a bunch of zeros in the beginning */
 
     if (ui < Value8Bit) {
         *bufstart += shiftedMajorType;
@@ -4344,68 +5191,87 @@ static inline CborError encode_number(CborEncoder *encoder, uint64_t ui, uint8_t
     return encode_number_no_update(encoder, ui, shiftedMajorType);
 }
 
-
-
-
-
-
-
+/**
+ * Appends the unsigned 64-bit integer \a value to the CBOR stream provided by
+ * \a encoder.
+ *
+ * \sa cbor_encode_negative_int, cbor_encode_int
+ */
 CborError cbor_encode_uint(CborEncoder *encoder, uint64_t value)
 {
     return encode_number(encoder, value, UnsignedIntegerType << MajorTypeShift);
 }
 
-
-
-
-
-
-
+/**
+ * Appends the negative 64-bit integer whose absolute value is \a
+ * absolute_value to the CBOR stream provided by \a encoder.
+ *
+ * \sa cbor_encode_uint, cbor_encode_int
+ */
 CborError cbor_encode_negative_int(CborEncoder *encoder, uint64_t absolute_value)
 {
     return encode_number(encoder, absolute_value, NegativeIntegerType << MajorTypeShift);
 }
 
-
-
-
-
-
-
+/**
+ * Appends the signed 64-bit integer \a value to the CBOR stream provided by
+ * \a encoder.
+ *
+ * \sa cbor_encode_negative_int, cbor_encode_uint
+ */
 CborError cbor_encode_int(CborEncoder *encoder, int64_t value)
 {
-
-    uint64_t ui = value >> 63;
-    uint8_t majorType = ui & 0x20;
-    ui ^= value;
+    /* adapted from code in RFC 7049 appendix C (pseudocode) */
+    uint64_t ui = value >> 63; /* extend sign to whole length */
+    uint8_t majorType = ui & 0x20; /* extract major type */
+    ui ^= value; /* complement negatives */
     return encode_number(encoder, ui, majorType);
 }
-# 332 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * Appends the CBOR Simple Type of value \a value to the CBOR stream provided by
+ * \a encoder.
+ *
+ * This function may return error CborErrorIllegalSimpleType if the \a value
+ * variable contains a number that is not a valid simple type.
+ */
 CborError cbor_encode_simple_value(CborEncoder *encoder, uint8_t value)
 {
 
-
+    /* check if this is a valid simple type */
     if (value >= HalfPrecisionFloat && value <= Break)
         return CborErrorIllegalSimpleType;
 
     return encode_number(encoder, value, SimpleTypesType << MajorTypeShift);
 }
-# 354 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+
+/**
+ * Appends the floating-point value of type \a fpType and pointed to by \a
+ * value to the CBOR stream provided by \a encoder. The value of \a fpType must
+ * be one of CborHalfFloatType, CborFloatType or CborDoubleType, otherwise the
+ * behavior of this function is undefined.
+ *
+ * This function is useful for code that needs to pass through floating point
+ * values but does not wish to have the actual floating-point code.
+ *
+ * \sa cbor_encode_half_float, cbor_encode_float, cbor_encode_double
+ */
 CborError cbor_encode_floating_point(CborEncoder *encoder, CborType fpType, const void *value)
 {
     uint8_t buf[1 + sizeof(uint64_t)];
     ((fpType == CborHalfFloatType || fpType == CborFloatType || fpType == CborDoubleType) ? (void)0 : __assert_func(
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
    ((void *)0)
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
    , 0, 
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
    ((void *)0)
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
    , 
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
    ((void *)0)
-# 357 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 356 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
    ));
     buf[0] = fpType;
 
@@ -4421,14 +5287,14 @@ CborError cbor_encode_floating_point(CborEncoder *encoder, CborType fpType, cons
 }
 
 
-
-
-
-
-
+/**
+ * Appends the CBOR tag \a tag to the CBOR stream provided by \a encoder.
+ *
+ * \sa CborTag
+ */
 CborError cbor_encode_tag(CborEncoder *encoder, CborTag tag)
 {
-
+    /* tags don't count towards the number of elements in an array or map */
     return encode_number_no_update(encoder, tag, TagType << MajorTypeShift);
 }
 
@@ -4439,18 +5305,36 @@ static CborError encode_string(CborEncoder *encoder, size_t length, uint8_t shif
         return err;
     return append_to_buffer(encoder, string, length);
 }
-# 409 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * \fn CborError cbor_encode_text_stringz(CborEncoder *encoder, const char *string)
+ *
+ * Appends the null-terminated text string \a string to the CBOR stream
+ * provided by \a encoder. CBOR requires that \a string be valid UTF-8, but
+ * TinyCBOR makes no verification of correctness. The terminating null is not
+ * included in the stream.
+ *
+ * \sa cbor_encode_text_string, cbor_encode_byte_string
+ */
+
+/**
+ * Appends the text string \a string of length \a length to the CBOR stream
+ * provided by \a encoder. CBOR requires that \a string be valid UTF-8, but
+ * TinyCBOR makes no verification of correctness.
+ *
+ * \sa CborError cbor_encode_text_stringz, cbor_encode_byte_string
+ */
 CborError cbor_encode_byte_string(CborEncoder *encoder, const uint8_t *string, size_t length)
 {
     return encode_string(encoder, length, ByteStringType << MajorTypeShift, string);
 }
 
-
-
-
-
-
-
+/**
+ * Appends the byte string passed as \a iov and \a iov_len to the CBOR
+ * stream provided by \a encoder. CBOR byte strings are arbitrary raw data.
+ *
+ * \sa CborError cbor_encode_text_stringz, cbor_encode_byte_string
+ */
 CborError cbor_encode_byte_iovec(CborEncoder *encoder,
                                  const struct cbor_iovec iov[], int iov_len)
 {
@@ -4475,12 +5359,12 @@ CborError cbor_encode_byte_iovec(CborEncoder *encoder,
     return 0;
 }
 
-
-
-
-
-
-
+/**
+ * Appends the byte string \a string of length \a length to the CBOR stream
+ * provided by \a encoder. CBOR byte strings are arbitrary raw data.
+ *
+ * \sa cbor_encode_text_stringz, cbor_encode_text_string
+ */
 CborError cbor_encode_text_string(CborEncoder *encoder, const char *string, size_t length)
 {
     return encode_string(encoder, length, TextStringType << MajorTypeShift, string);
@@ -4511,28 +5395,81 @@ static CborError create_container(CborEncoder *encoder, CborEncoder *container, 
 
     return CborNoError;
 }
-# 495 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * Creates a CBOR array in the CBOR stream provided by \a encoder and
+ * initializes \a arrayEncoder so that items can be added to the array using
+ * the CborEncoder functions. The array must be terminated by calling either
+ * cbor_encoder_close_container() or cbor_encoder_close_container_checked()
+ * with the same \a encoder and \a arrayEncoder parameters.
+ *
+ * The number of items inserted into the array must be exactly \a length items,
+ * otherwise the stream is invalid. If the number of items is not known when
+ * creating the array, the constant \ref CborIndefiniteLength may be passed as
+ * length instead.
+ *
+ * \sa cbor_encoder_create_map
+ */
 CborError cbor_encoder_create_array(CborEncoder *encoder, CborEncoder *arrayEncoder, size_t length)
 {
     return create_container(encoder, arrayEncoder, length, ArrayType << MajorTypeShift);
 }
-# 518 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * Creates a CBOR map in the CBOR stream provided by \a encoder and
+ * initializes \a mapEncoder so that items can be added to the map using
+ * the CborEncoder functions. The map must be terminated by calling either
+ * cbor_encoder_close_container() or cbor_encoder_close_container_checked()
+ * with the same \a encoder and \a mapEncoder parameters.
+ *
+ * The number of pair of items inserted into the map must be exactly \a length
+ * items, otherwise the stream is invalid. If the number of items is not known
+ * when creating the map, the constant \ref CborIndefiniteLength may be passed as
+ * length instead.
+ *
+ * \b{Implementation limitation:} TinyCBOR cannot encode more than SIZE_MAX/2
+ * key-value pairs in the stream. If the length \a length is larger than this
+ * value, this function returns error CborErrorDataTooLarge.
+ *
+ * \sa cbor_encoder_create_array
+ */
 CborError cbor_encoder_create_map(CborEncoder *encoder, CborEncoder *mapEncoder, size_t length)
 {
     if (length != CborIndefiniteLength && length > 
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
+# 519 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c" 3 4
                                                   (0xffffffffU) 
-# 520 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+# 519 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
                                                            / 2)
         return CborErrorDataTooLarge;
     return create_container(encoder, mapEncoder, length, MapType << MajorTypeShift);
 }
-# 534 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * Creates a indefinite-length byte string in the CBOR stream provided by
+ * \a encoder and initializes \a stringEncoder so that chunks of original string
+ * can be added using the CborEncoder functions. The string must be terminated by
+ * calling cbor_encoder_close_container() with the same \a encoder and
+ * \a stringEncoder parameters.
+ *
+ * \sa cbor_encoder_create_array
+ */
 CborError cbor_encoder_create_indef_byte_string(CborEncoder *encoder, CborEncoder *stringEncoder)
 {
     return create_container(encoder, stringEncoder, CborIndefiniteLength, ByteStringType << MajorTypeShift);
 }
-# 551 "repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c"
+
+/**
+ * Closes the CBOR container (array, map or indefinite-length string) provided
+ * by \a containerEncoder and updates the CBOR stream provided by \a encoder.
+ * Both parameters must be the same as were passed to cbor_encoder_create_array() or
+ * cbor_encoder_create_map() or cbor_encoder_create_indef_byte_string().
+ *
+ * This function does not verify that the number of items (or pair of items, in
+ * the case of a map) was correct. To execute that verification, call
+ * cbor_encoder_close_container_checked() instead.
+ *
+ * \sa cbor_encoder_create_array(), cbor_encoder_create_map()
+ */
 CborError cbor_encoder_close_container(CborEncoder *encoder, const CborEncoder *containerEncoder)
 {
     encoder->writer = containerEncoder->writer;
@@ -4541,3 +5478,91 @@ CborError cbor_encoder_close_container(CborEncoder *encoder, const CborEncoder *
         return append_byte_to_buffer(encoder, BreakByte);
     return CborNoError;
 }
+
+/**
+ * \fn CborError cbor_encode_boolean(CborEncoder *encoder, bool value)
+ *
+ * Appends the boolean value \a value to the CBOR stream provided by \a encoder.
+ */
+
+/**
+ * \fn CborError cbor_encode_null(CborEncoder *encoder)
+ *
+ * Appends the CBOR type representing a null value to the CBOR stream provided
+ * by \a encoder.
+ *
+ * \sa cbor_encode_undefined()
+ */
+
+/**
+ * \fn CborError cbor_encode_undefined(CborEncoder *encoder)
+ *
+ * Appends the CBOR type representing an undefined value to the CBOR stream
+ * provided by \a encoder.
+ *
+ * \sa cbor_encode_null()
+ */
+
+/**
+ * \fn CborError cbor_encode_half_float(CborEncoder *encoder, const void *value)
+ *
+ * Appends the IEEE 754 half-precision (16-bit) floating point value pointed to
+ * by \a value to the CBOR stream provided by \a encoder.
+ *
+ * \sa cbor_encode_floating_point(), cbor_encode_float(), cbor_encode_double()
+ */
+
+/**
+ * \fn CborError cbor_encode_float(CborEncoder *encoder, float value)
+ *
+ * Appends the IEEE 754 single-precision (32-bit) floating point value \a value
+ * to the CBOR stream provided by \a encoder.
+ *
+ * \sa cbor_encode_floating_point(), cbor_encode_half_float(), cbor_encode_double()
+ */
+
+/**
+ * \fn CborError cbor_encode_double(CborEncoder *encoder, double value)
+ *
+ * Appends the IEEE 754 double-precision (64-bit) floating point value \a value
+ * to the CBOR stream provided by \a encoder.
+ *
+ * \sa cbor_encode_floating_point(), cbor_encode_half_float(), cbor_encode_float()
+ */
+
+/**
+ * \fn size_t cbor_encoder_get_buffer_size(const CborEncoder *encoder, const uint8_t *buffer)
+ *
+ * Returns the total size of the buffer starting at \a buffer after the
+ * encoding finished without errors. The \a encoder and \a buffer arguments
+ * must be the same as supplied to cbor_encoder_init().
+ *
+ * If the encoding process had errors, the return value of this function is
+ * meaningless. If the only errors were CborErrorOutOfMemory, instead use
+ * cbor_encoder_get_extra_bytes_needed() to find out by how much to grow the
+ * buffer before encoding again.
+ *
+ * See \ref CborEncoding for an example of using this function.
+ *
+ * \sa cbor_encoder_init(), cbor_encoder_get_extra_bytes_needed(), CborEncoding
+ */
+
+/**
+ * \fn size_t cbor_encoder_get_extra_bytes_needed(const CborEncoder *encoder)
+ *
+ * Returns how many more bytes the original buffer supplied to
+ * cbor_encoder_init() needs to be extended by so that no CborErrorOutOfMemory
+ * condition will happen for the encoding. If the buffer was big enough, this
+ * function returns 0. The \a encoder must be the original argument as passed
+ * to cbor_encoder_init().
+ *
+ * This function is usually called after an encoding sequence ended with one or
+ * more CborErrorOutOfMemory errors, but no other error. If any other error
+ * happened, the return value of this function is meaningless.
+ *
+ * See \ref CborEncoding for an example of using this function.
+ *
+ * \sa cbor_encoder_init(), cbor_encoder_get_buffer_size(), CborEncoding
+ */
+
+/** @} */

@@ -188,9 +188,17 @@ pub type __uint8_t = ::cty::c_uchar;
 pub type __uint16_t = ::cty::c_ushort;
 pub type __uint32_t = ::cty::c_ulong;
 pub type __uint64_t = ::cty::c_ulonglong;
+#[doc = " A mbuf pool from which to allocate mbufs. This contains a pointer to the os"]
+#[doc = " mempool to allocate mbufs out of, the total number of elements in the pool,"]
+#[doc = " and the amount of \"user\" data in a non-packet header mbuf. The total pool"]
+#[doc = " size, in bytes, should be:"]
+#[doc = "  os_mbuf_count * (omp_databuf_len + sizeof(struct os_mbuf))"]
 #[repr(C)]
 pub struct os_mbuf_pool {
+    #[doc = " Total length of the databuf in each mbuf.  This is the size of the"]
+    #[doc = " mempool block, minus the mbuf header"]
     pub omp_databuf_len: u16,
+    #[doc = " The memory pool which to allocate mbufs out of"]
     pub omp_pool: *mut os_mempool,
     pub omp_next: os_mbuf_pool__bindgen_ty_1,
 }
@@ -208,14 +216,21 @@ impl Default for os_mbuf_pool {
         unsafe { ::core::mem::zeroed() }
     }
 }
+#[doc = " Chained memory buffer."]
 #[repr(C)]
 pub struct os_mbuf {
+    #[doc = " Current pointer to data in the structure"]
     pub om_data: *mut u8,
+    #[doc = " Flags associated with this buffer, see OS_MBUF_F_* defintions"]
     pub om_flags: u8,
+    #[doc = " Length of packet header"]
     pub om_pkthdr_len: u8,
+    #[doc = " Length of data in this buffer"]
     pub om_len: u16,
+    #[doc = " The mbuf pool this mbuf was allocated out of"]
     pub om_omp: *mut os_mbuf_pool,
     pub om_next: os_mbuf__bindgen_ty_1,
+    #[doc = " Pointer to the beginning of the data, after this buffer"]
     pub om_databuf: __IncompleteArrayField<u8>,
 }
 #[repr(C)]
@@ -232,6 +247,10 @@ impl Default for os_mbuf {
         unsafe { ::core::mem::zeroed() }
     }
 }
+#[doc = " A memory block structure. This simply contains a pointer to the free list"]
+#[doc = " chain and is only used when the block is on the free list. When the block"]
+#[doc = " has been removed from the free list the entire memory block is usable by the"]
+#[doc = " caller."]
 #[repr(C)]
 pub struct os_memblock {
     pub mb_next: os_memblock__bindgen_ty_1,
@@ -250,16 +269,24 @@ impl Default for os_memblock {
         unsafe { ::core::mem::zeroed() }
     }
 }
+#[doc = " Memory pool"]
 #[repr(C)]
 pub struct os_mempool {
+    #[doc = " Size of the memory blocks, in bytes."]
     pub mp_block_size: u32,
+    #[doc = " The number of memory blocks."]
     pub mp_num_blocks: u16,
+    #[doc = " The number of free blocks left"]
     pub mp_num_free: u16,
+    #[doc = " The lowest number of free blocks seen"]
     pub mp_min_free: u16,
+    #[doc = " Bitmap of OS_MEMPOOL_F_[...] values."]
     pub mp_flags: u8,
+    #[doc = " Address of memory buffer used by pool"]
     pub mp_membuf_addr: u32,
     pub mp_list: os_mempool__bindgen_ty_1,
     pub __bindgen_anon_1: os_mempool__bindgen_ty_2,
+    #[doc = " Name for memory block"]
     pub name: *mut ::cty::c_char,
 }
 #[repr(C)]
@@ -362,6 +389,7 @@ impl Default for sensor_value {
     }
 }
 extern "C" {
+    #[doc = ""]
     pub fn init_sensor_coap();
 }
 extern "C" {

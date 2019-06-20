@@ -51,6 +51,7 @@ impl Default for sensor_network_interface {
     }
 }
 extern "C" {
+    #[doc = ""]
     pub fn register_server_transport() -> ::cty::c_int;
 }
 extern "C" {
@@ -96,6 +97,7 @@ extern "C" {
     pub fn get_device_id() -> *const ::cty::c_char;
 }
 extern "C" {
+    #[doc = ""]
     pub fn sensor_network_init();
 }
 extern "C" {
@@ -103,6 +105,7 @@ extern "C" {
         iface: *const sensor_network_interface,
     ) -> ::cty::c_int;
 }
+#[doc = ""]
 #[repr(C)]
 #[derive(Default)]
 pub struct sensor_network_endpoint {

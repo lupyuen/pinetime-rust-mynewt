@@ -44,6 +44,8 @@
 -Ilibs/semihosting_console/include/semihosting_console/arch/cortex_m3
 -Ilibs/sensor_coap/include
 -Ilibs/sensor_coap/include/sensor_coap/arch/cortex_m3
+-Ilibs/sensor_coap/src
+-Ilibs/sensor_coap/src/arch/cortex_m3
 -Ilibs/sensor_network/include
 -Ilibs/sensor_network/include/sensor_network/arch/cortex_m3
 -Ilibs/temp_stm32/include
@@ -97,8 +99,6 @@
 -Irepos/apache-mynewt-core/hw/sensor/include/sensor/arch/cortex_m3
 -Irepos/apache-mynewt-core/kernel/os/include
 -Irepos/apache-mynewt-core/kernel/os/include/os/arch/cortex_m3
--Irepos/apache-mynewt-core/kernel/os/src
--Irepos/apache-mynewt-core/kernel/os/src/arch/cortex_m3
 -Irepos/apache-mynewt-core/libc/baselibc/include
 -Irepos/apache-mynewt-core/libc/baselibc/include/baselibc/arch/cortex_m3
 -Irepos/apache-mynewt-core/net/oic/include
@@ -136,5 +136,5 @@
         -E 
         -dD
         -o
-logs/kernel/os-expanded.h
-repos/apache-mynewt-core/kernel/os/src/os.c
+logs/libs/sensor_coap-expanded.h
+libs/sensor_coap/src/sensor_coap.c
