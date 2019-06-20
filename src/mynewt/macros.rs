@@ -483,8 +483,8 @@ macro_rules! coap_item_str {
     coap_item!(@json
       $parent,
       {
-        json_rep_set_text_string!($parent, "key", $key);
-        json_rep_set_text_string!($parent, "value", $val);
+        json_rep_set_text_string!($parent, "key", $key.to_str());
+        json_rep_set_text_string!($parent, "value", $val.to_str());
       }
     );
     d!(end json coap_item_str);
@@ -714,12 +714,13 @@ macro_rules! json_value_int {
     );
     unsafe {
       $json_value.jv_type = json::JSON_VALUE_TYPE_INT64 as u8;
-      $json_value.jv_val.u = 1234; //// $value as u64;
+      $json_value.jv_val.u = 1234 as u64; //// $value as u64;
     }
     d!(end json_value_int);
   }};
 }
 
+/// `$value` must be an `str`
 #[macro_export]
 macro_rules! json_value_string {
   ($json_value:ident, $value:expr) => {{

@@ -412,10 +412,11 @@ mod mynewt {
                                    coap_item ! (
                                    @ json $ parent , {
                                    json_rep_set_text_string ! (
-                                   $ parent , "key" , $ key ) ;
+                                   $ parent , "key" , $ key . to_str (  ) ) ;
                                    json_rep_set_text_string ! (
-                                   $ parent , "value" , $ val ) ; } ) ; d ! (
-                                   end json coap_item_str ) ; } } ;);
+                                   $ parent , "value" , $ val . to_str (  ) )
+                                   ; } ) ; d ! ( end json coap_item_str ) ; }
+                                   } ;);
         ///  Append an array item under the array named `array0`.  Add `children0` as the items (key and value).
         ///    `{ <array0>: [ ..., { <children0> } ] }`
         #[macro_export(local_inner_macros)]
@@ -632,8 +633,9 @@ mod mynewt {
                                     unsafe {
                                     $ json_value . jv_type = json ::
                                     JSON_VALUE_TYPE_INT64 as u8 ; $ json_value
-                                    . jv_val . u = 1234 ; } d ! (
+                                    . jv_val . u = 1234 as u64 ; } d ! (
                                     end json_value_int ) ; } } ;);
+        /// `$value` must be an `str`
         #[macro_export]
         macro_rules! json_value_string(( $ json_value : ident , $ value : expr
                                        ) => {
@@ -9896,39 +9898,14 @@ mod send_coap {
         if unsafe { !NETWORK_IS_READY } {
             return Err(MynewtError::SYS_EAGAIN);
         }
-        let device_id = unsafe { sensor_network::get_device_id() };
-        {
-            match (&device_id, &(0 as *const ::cty::c_char)) {
-                (left_val, right_val) => {
-                    if *left_val == *right_val {
-                        {
-                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left != right)`\n  left: `",
-                                                                                          "`,\n right: `",
-                                                                                          "`"],
-                                                                                        &match (&&*left_val,
-                                                                                                &&*right_val)
-                                                                                             {
-                                                                                             (arg0,
-                                                                                              arg1)
-                                                                                             =>
-                                                                                             [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                              ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt)],
-                                                                                         }),
-                                                         &("src/send_coap.rs",
-                                                           157u32, 66u32))
-                        }
-                    }
-                }
-            }
-        };
+        let device_id_ptr = unsafe { sensor_network::get_device_id() };
+        let device_id: &CStr = unsafe { CStr::from_ptr(device_id_ptr) };
         let rc =
             unsafe { sensor_network::init_server_post(0 as *const c_char) };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 162u32, 80u32))
+                                           "src/send_coap.rs", 163u32, 80u32))
             }
         };
         let _payload =
@@ -9965,9 +9942,9 @@ mod send_coap {
                                         };
                                         {
                                             {
-                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
+                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"device\".to_str(), child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: \"device\"";
+                                                    "begin json_value_string , json_value: coap_json_value, value: \"device\".to_str()";
                                                     unsafe {
                                                         coap_json_value.jv_type
                                                             =
@@ -9975,10 +9952,11 @@ mod send_coap {
                                                                 as u8;
                                                         coap_json_value.jv_len
                                                             =
-                                                            "device".len() as
-                                                                u16;
+                                                            "device".to_str().len()
+                                                                as u16;
                                                         coap_json_value.jv_val.str
-                                                            = "device";
+                                                            =
+                                                            "device".to_str();
                                                     }
                                                     "end json_value_string";
                                                 };
@@ -9990,9 +9968,9 @@ mod send_coap {
                                                 "end json_rep_set_text_string";
                                             };
                                             {
-                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
+                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id).to_str(), child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: parse!(@ json device_id)";
+                                                    "begin json_value_string , json_value: coap_json_value, value: parse!(@ json device_id).to_str()";
                                                     unsafe {
                                                         coap_json_value.jv_type
                                                             =
@@ -10000,10 +9978,11 @@ mod send_coap {
                                                                 as u8;
                                                         coap_json_value.jv_len
                                                             =
-                                                            device_id.len() as
-                                                                u16;
+                                                            device_id.to_str().len()
+                                                                as u16;
                                                         coap_json_value.jv_val.str
-                                                            = device_id;
+                                                            =
+                                                            device_id.to_str();
                                                     }
                                                     "end json_value_string";
                                                 };
@@ -10042,9 +10021,9 @@ mod send_coap {
                                         };
                                         {
                                             {
-                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
+                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"node\".to_str(), child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: \"node\"";
+                                                    "begin json_value_string , json_value: coap_json_value, value: \"node\".to_str()";
                                                     unsafe {
                                                         coap_json_value.jv_type
                                                             =
@@ -10052,10 +10031,10 @@ mod send_coap {
                                                                 as u8;
                                                         coap_json_value.jv_len
                                                             =
-                                                            "node".len() as
-                                                                u16;
+                                                            "node".to_str().len()
+                                                                as u16;
                                                         coap_json_value.jv_val.str
-                                                            = "node";
+                                                            = "node".to_str();
                                                     }
                                                     "end json_value_string";
                                                 };
@@ -10067,9 +10046,9 @@ mod send_coap {
                                                 "end json_rep_set_text_string";
                                             };
                                             {
-                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
+                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id).to_str(), child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: parse!(@ json node_id)";
+                                                    "begin json_value_string , json_value: coap_json_value, value: parse!(@ json node_id).to_str()";
                                                     unsafe {
                                                         coap_json_value.jv_type
                                                             =
@@ -10077,10 +10056,11 @@ mod send_coap {
                                                                 as u8;
                                                         coap_json_value.jv_len
                                                             =
-                                                            node_id.len() as
-                                                                u16;
+                                                            node_id.to_str().len()
+                                                                as u16;
                                                         coap_json_value.jv_val.str
-                                                            = node_id;
+                                                            =
+                                                            node_id.to_str();
                                                     }
                                                     "end json_value_string";
                                                 };
@@ -10159,7 +10139,7 @@ mod send_coap {
                                                                 json::JSON_VALUE_TYPE_INT64
                                                                     as u8;
                                                             coap_json_value.jv_val.u
-                                                                = 1234;
+                                                                = 1234 as u64;
                                                         }
                                                         "end json_value_int";
                                                     };
@@ -10207,7 +10187,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 183u32, 60u32))
+                                           "src/send_coap.rs", 182u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -10231,14 +10211,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 212u32, 65u32))
+                                           "src/send_coap.rs", 211u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 225u32, 63u32))
+                                           "src/send_coap.rs", 224u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

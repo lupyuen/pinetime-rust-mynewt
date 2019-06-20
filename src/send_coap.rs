@@ -154,7 +154,8 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     //  assert!(node_id.to_str().unwrap().len() > 0);
     assert_ne!(node_id.to_bytes()[0], 0);
     if unsafe { !NETWORK_IS_READY } { return Err(MynewtError::SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-    let device_id = unsafe { sensor_network::get_device_id() };  assert_ne!(device_id, 0 as *const ::cty::c_char);
+    let device_id_ptr = unsafe { sensor_network::get_device_id() };
+    let device_id: &CStr = unsafe { CStr::from_ptr(device_id_ptr) };
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
