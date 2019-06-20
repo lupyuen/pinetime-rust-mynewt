@@ -483,8 +483,8 @@ macro_rules! coap_item_str {
     coap_item!(@json
       $parent,
       {
-        json_rep_set_text_string!($parent, "key".to_str(), $key.to_str());
-        json_rep_set_text_string!($parent, "value".to_str(), $val.to_str());
+        json_rep_set_text_string!($parent, key, $key);
+        json_rep_set_text_string!($parent, value, $val);
       }
     );
     d!(end json coap_item_str);
@@ -681,21 +681,29 @@ macro_rules! json_rep_set_int {
 
 #[macro_export]
 macro_rules! json_rep_set_text_string {
-  ($object:ident, $key:expr, $value:expr) => {{
+  ($object:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
-      "begin json_rep_set_text_string ",
+      "begin json_rep_set_text_string ident",
       ", object: ", stringify!($object),
       ", key: ",    stringify!($key),
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    json_value_string!(coap_json_value, $value); 
+    ////TODO json_value_string!(coap_json_value, $value); 
     unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
+    d!(end json_rep_set_text_string);
+  }};
 
-    //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-    //  cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());
-    //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
-    //  cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
+  ($object:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
+    concat!(
+      "begin json_rep_set_text_string expr",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    ////TODO json_value_string!(coap_json_value, $value); 
+    ////TODO unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
     d!(end json_rep_set_text_string);
   }};
 }
