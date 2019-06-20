@@ -326,10 +326,10 @@ mod mynewt {
                            return none root to caller ) ; root } } ; (
                            @ json { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin json root ) ; let mut values_map :
-                           CborEncoder = fill_zero ! ( CborEncoder ) ; let mut
-                           values_array : CborEncoder = fill_zero ! (
-                           CborEncoder ) ; coap_root ! (
+                           d ! ( begin json root ) ; let mut
+                           local_json_encoder = & mut sensor_coap ::
+                           coap_json_encoder ; let mut local_json_value = &
+                           mut sensor_coap :: coap_json_value ; coap_root ! (
                            @ json {
                            coap_array ! (
                            @ json root , values , {
@@ -339,8 +339,7 @@ mod mynewt {
                            ) ; d ! ( return json root to caller ) ; (  ) } } ;
                            ( @ cbor { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin cbor root ) ; let root = "root" ;
-                           coap_root ! (
+                           d ! ( begin cbor root ) ; coap_root ! (
                            @ cbor {
                            parse ! (
                            @ cbor @ object root (  ) ( $ ( $ tt ) + ) (
@@ -533,15 +532,12 @@ mod mynewt {
                                         "begin json_rep_set_array " ,
                                         ", object: " , stringify ! ( $ object
                                         ) , ", key: " , stringify ! ( $ key )
-                                        , ", child: " , stringify ! ( $ object
-                                        ) , "_map" ) ; unsafe {
+                                        ) ; unsafe {
                                         json :: json_encode_array_name (
-                                        & mut sensor_coap :: coap_json_encoder
-                                        , $ key ) ; json ::
-                                        json_encode_array_start (
-                                        & mut sensor_coap :: coap_json_encoder
-                                        ) ; } d ! ( end json_rep_set_array ) ;
-                                        } } ;);
+                                        & mut local_json_encoder , $ key ) ;
+                                        json :: json_encode_array_start (
+                                        & mut local_json_encoder ) ; } ; d ! (
+                                        end json_rep_set_array ) ; } } ;);
         #[macro_export]
         macro_rules! json_rep_close_array(( $ object : ident , $ key : ident )
                                           => {
@@ -550,11 +546,9 @@ mod mynewt {
                                           "begin json_rep_close_array " ,
                                           ", object: " , stringify ! (
                                           $ object ) , ", key: " , stringify !
-                                          ( $ key ) , ", child: " , stringify
-                                          ! ( $ object ) , "_map" ) ; unsafe {
+                                          ( $ key ) ) ; unsafe {
                                           json :: json_encode_array_finish (
-                                          & mut sensor_coap ::
-                                          coap_json_encoder ) } d ! (
+                                          & mut local_json_encoder ) } ; d ! (
                                           end json_rep_close_array ) ; } } ;);
         #[macro_export]
         macro_rules! json_rep_object_array_start_item(( $ key : ident ) => {
@@ -569,9 +563,8 @@ mod mynewt {
                                                       json ::
                                                       json_encode_object_start
                                                       (
-                                                      & mut sensor_coap ::
-                                                      coap_json_encoder ) } d
-                                                      ! (
+                                                      & mut local_json_encoder
+                                                      ) } ; d ! (
                                                       end
                                                       json_rep_object_array_start_item
                                                       ) ; } } ;);
@@ -586,10 +579,8 @@ mod mynewt {
                                                     "_array" , ) ; unsafe {
                                                     json ::
                                                     json_encode_object_finish
-                                                    (
-                                                    & mut sensor_coap ::
-                                                    coap_json_encoder ) } d !
-                                                    (
+                                                    ( & mut local_json_encoder
+                                                    ) } ; d ! (
                                                     end
                                                     json_rep_object_array_end_item
                                                     ) ; } } ;);
@@ -605,10 +596,10 @@ mod mynewt {
                                       stringify ! ( $ value ) , ", child: " ,
                                       stringify ! ( $ object ) , "_map" ) ;
                                       json_value_int ! (
-                                      coap_json_value , value ) ; unsafe {
+                                      local_json_value , $ value ) ; unsafe {
                                       json :: json_encode_object_entry (
-                                      & mut sensor_coap :: coap_json_encoder ,
-                                      # key , & coap_json_value ) } d ! (
+                                      & mut local_json_encoder , $ key , & mut
+                                      local_json_value ) } ; d ! (
                                       end json_rep_set_int ) ; } } ;);
         #[macro_export]
         macro_rules! json_rep_set_text_string((
@@ -624,15 +615,14 @@ mod mynewt {
                                               $ value ) , ", child: " ,
                                               stringify ! ( $ object ) ,
                                               "_map" ) ; json_value_string ! (
-                                              coap_json_value , value ) ;
+                                              local_json_value , $ value ) ;
                                               unsafe {
                                               json :: json_encode_object_entry
                                               (
-                                              & mut sensor_coap ::
-                                              coap_json_encoder , # key , &
-                                              coap_json_value ) } d ! (
-                                              end json_rep_set_text_string ) ;
-                                              } } ;);
+                                              & mut local_json_encoder , $ key
+                                              , & mut local_json_value ) } ; d
+                                              ! ( end json_rep_set_text_string
+                                              ) ; } } ;);
         #[macro_export]
         macro_rules! json_value_int(( $ json_value : ident , $ value : expr )
                                     => {
@@ -9058,19 +9048,10 @@ mod mynewt {
         }
         /// Contains Rust bindings for Mynewt Custom API `libs/sensor_network`
         pub mod sensor_network {
+            use super::sensor_coap::*;
             pub const SENSOR_NETWORK_SIZE: u32 = 5;
             pub type __uint8_t = ::cty::c_uchar;
             pub type __uint16_t = ::cty::c_ushort;
-            #[repr(C)]
-            pub struct sensor_value {
-                pub key: *const ::cty::c_char,
-                pub val_type: ::cty::c_int,
-                pub int_val: u16,
-                pub float_val: f32,
-            }
-            impl Default for sensor_value {
-                fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-            }
             #[repr(C)]
             pub struct oc_server_handle {
                 _unused: [u8; 0],
@@ -9954,18 +9935,9 @@ mod send_coap {
         let _payload =
             {
                 "begin json root";
-                let mut values_map: CborEncoder =
-                    unsafe {
-                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
-                                                 CborEncoder>([0;
-                                                                  ::core::mem::size_of::<CborEncoder>()])
-                    };
-                let mut values_array: CborEncoder =
-                    unsafe {
-                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
-                                                 CborEncoder>([0;
-                                                                  ::core::mem::size_of::<CborEncoder>()])
-                    };
+                let mut local_json_encoder =
+                    &mut sensor_coap::coap_json_encoder;
+                let mut local_json_value = &mut sensor_coap::coap_json_value;
                 {
                     "begin json coap_root";
                     unsafe { sensor_coap::json_rep_start_root_object() }
@@ -9973,12 +9945,12 @@ mod send_coap {
                         {
                             "begin json coap_array , object : root , key : values";
                             {
-                                "begin json_rep_set_array , object: root, key: values, child: root_map";
+                                "begin json_rep_set_array , object: root, key: values";
                                 unsafe {
-                                    json::json_encode_array_name(&mut sensor_coap::coap_json_encoder,
+                                    json::json_encode_array_name(&mut local_json_encoder,
                                                                  values);
-                                    json::json_encode_array_start(&mut sensor_coap::coap_json_encoder);
-                                }
+                                    json::json_encode_array_start(&mut local_json_encoder);
+                                };
                                 "end json_rep_set_array";
                             };
                             {
@@ -9991,53 +9963,61 @@ mod send_coap {
                                         {
                                             "begin json_rep_object_array_start_item , key: values, child: values_array";
                                             unsafe {
-                                                json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
-                                            }
+                                                json::json_encode_object_start(&mut local_json_encoder)
+                                            };
                                             "end json_rep_object_array_start_item";
                                         };
                                         {
                                             {
                                                 "begin json_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    "begin json_value_string , json_value: local_json_value, value: \"device\"";
                                                     unsafe {
-                                                        coap_json_value.jv_type
+                                                        local_json_value.jv_type
                                                             =
                                                             json::JSON_VALUE_TYPE_STRING;
-                                                        coap_json_value.jv_len
-                                                            = value.len();
-                                                        coap_json_value.jv_val.str
-                                                            = value;
+                                                        local_json_value.jv_len
+                                                            = "device".len();
+                                                        local_json_value.jv_val.str
+                                                            = "device";
                                                     }
                                                     "end json_value_string";
                                                 };
-                                                unsafe { (/*ERROR*/) }
+                                                unsafe {
+                                                    json::json_encode_object_entry(&mut local_json_encoder,
+                                                                                   "key",
+                                                                                   &mut local_json_value)
+                                                };
                                                 "end json_rep_set_text_string";
                                             };
                                             {
                                                 "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    "begin json_value_string , json_value: local_json_value, value: parse!(@ json device_id)";
                                                     unsafe {
-                                                        coap_json_value.jv_type
+                                                        local_json_value.jv_type
                                                             =
                                                             json::JSON_VALUE_TYPE_STRING;
-                                                        coap_json_value.jv_len
-                                                            = value.len();
-                                                        coap_json_value.jv_val.str
-                                                            = value;
+                                                        local_json_value.jv_len
+                                                            = device_id.len();
+                                                        local_json_value.jv_val.str
+                                                            = device_id;
                                                     }
                                                     "end json_value_string";
                                                 };
-                                                unsafe { (/*ERROR*/) }
+                                                unsafe {
+                                                    json::json_encode_object_entry(&mut local_json_encoder,
+                                                                                   "value",
+                                                                                   &mut local_json_value)
+                                                };
                                                 "end json_rep_set_text_string";
                                             };
                                         };
                                         {
                                             "begin json_rep_object_array_end_item , key: values, child: values_array";
                                             unsafe {
-                                                json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
-                                            }
+                                                json::json_encode_object_finish(&mut local_json_encoder)
+                                            };
                                             "end json_rep_object_array_end_item";
                                         };
                                         "end json coap_item";
@@ -10054,53 +10034,61 @@ mod send_coap {
                                         {
                                             "begin json_rep_object_array_start_item , key: values, child: values_array";
                                             unsafe {
-                                                json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
-                                            }
+                                                json::json_encode_object_start(&mut local_json_encoder)
+                                            };
                                             "end json_rep_object_array_start_item";
                                         };
                                         {
                                             {
                                                 "begin json_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    "begin json_value_string , json_value: local_json_value, value: \"node\"";
                                                     unsafe {
-                                                        coap_json_value.jv_type
+                                                        local_json_value.jv_type
                                                             =
                                                             json::JSON_VALUE_TYPE_STRING;
-                                                        coap_json_value.jv_len
-                                                            = value.len();
-                                                        coap_json_value.jv_val.str
-                                                            = value;
+                                                        local_json_value.jv_len
+                                                            = "node".len();
+                                                        local_json_value.jv_val.str
+                                                            = "node";
                                                     }
                                                     "end json_value_string";
                                                 };
-                                                unsafe { (/*ERROR*/) }
+                                                unsafe {
+                                                    json::json_encode_object_entry(&mut local_json_encoder,
+                                                                                   "key",
+                                                                                   &mut local_json_value)
+                                                };
                                                 "end json_rep_set_text_string";
                                             };
                                             {
                                                 "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
                                                 {
-                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    "begin json_value_string , json_value: local_json_value, value: parse!(@ json node_id)";
                                                     unsafe {
-                                                        coap_json_value.jv_type
+                                                        local_json_value.jv_type
                                                             =
                                                             json::JSON_VALUE_TYPE_STRING;
-                                                        coap_json_value.jv_len
-                                                            = value.len();
-                                                        coap_json_value.jv_val.str
-                                                            = value;
+                                                        local_json_value.jv_len
+                                                            = node_id.len();
+                                                        local_json_value.jv_val.str
+                                                            = node_id;
                                                     }
                                                     "end json_value_string";
                                                 };
-                                                unsafe { (/*ERROR*/) }
+                                                unsafe {
+                                                    json::json_encode_object_entry(&mut local_json_encoder,
+                                                                                   "value",
+                                                                                   &mut local_json_value)
+                                                };
                                                 "end json_rep_set_text_string";
                                             };
                                         };
                                         {
                                             "begin json_rep_object_array_end_item , key: values, child: values_array";
                                             unsafe {
-                                                json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
-                                            }
+                                                json::json_encode_object_finish(&mut local_json_encoder)
+                                            };
                                             "end json_rep_object_array_end_item";
                                         };
                                         "end json coap_item";
@@ -10122,52 +10110,61 @@ mod send_coap {
                                             {
                                                 "begin json_rep_object_array_start_item , key: values, child: values_array";
                                                 unsafe {
-                                                    json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
-                                                }
+                                                    json::json_encode_object_start(&mut local_json_encoder)
+                                                };
                                                 "end json_rep_object_array_start_item";
                                             };
                                             {
                                                 {
                                                     "begin json_rep_set_text_string , object: values, key: \"key\", value: sensor_val.key, child: values_map";
                                                     {
-                                                        "begin json_value_string , json_value: coap_json_value, value: value";
+                                                        "begin json_value_string , json_value: local_json_value, value: sensor_val.key";
                                                         unsafe {
-                                                            coap_json_value.jv_type
+                                                            local_json_value.jv_type
                                                                 =
                                                                 json::JSON_VALUE_TYPE_STRING;
-                                                            coap_json_value.jv_len
-                                                                = value.len();
-                                                            coap_json_value.jv_val.str
-                                                                = value;
+                                                            local_json_value.jv_len
+                                                                =
+                                                                sensor_val.key.len();
+                                                            local_json_value.jv_val.str
+                                                                =
+                                                                sensor_val.key;
                                                         }
                                                         "end json_value_string";
                                                     };
-                                                    unsafe { (/*ERROR*/) }
+                                                    unsafe {
+                                                        json::json_encode_object_entry(&mut local_json_encoder,
+                                                                                       "key",
+                                                                                       &mut local_json_value)
+                                                    };
                                                     "end json_rep_set_text_string";
                                                 };
                                                 {
                                                     "begin json_rep_set_int , object: values, key: \"value\", value: 1234, child: values_map";
                                                     {
-                                                        "begin json_value_int , json_value: coap_json_value, value: value";
+                                                        "begin json_value_int , json_value: local_json_value, value: 1234";
                                                         unsafe {
-                                                            coap_json_value.jv_type
+                                                            local_json_value.jv_type
                                                                 =
                                                                 json::JSON_VALUE_TYPE_INT64;
-                                                            coap_json_value.jv_val.u
-                                                                =
-                                                                value as u64;
+                                                            local_json_value.jv_val.u
+                                                                = 1234 as u64;
                                                         }
                                                         "end json_value_int";
                                                     };
-                                                    unsafe { (/*ERROR*/) }
+                                                    unsafe {
+                                                        json::json_encode_object_entry(&mut local_json_encoder,
+                                                                                       "value",
+                                                                                       &mut local_json_value)
+                                                    };
                                                     "end json_rep_set_int";
                                                 };
                                             };
                                             {
                                                 "begin json_rep_object_array_end_item , key: values, child: values_array";
                                                 unsafe {
-                                                    json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
-                                                }
+                                                    json::json_encode_object_finish(&mut local_json_encoder)
+                                                };
                                                 "end json_rep_object_array_end_item";
                                             };
                                             "end json coap_item";
@@ -10179,10 +10176,10 @@ mod send_coap {
                                 "--------------------";
                             };
                             {
-                                "begin json_rep_close_array , object: root, key: values, child: root_map";
+                                "begin json_rep_close_array , object: root, key: values";
                                 unsafe {
-                                    json::json_encode_array_finish(&mut sensor_coap::coap_json_encoder)
-                                }
+                                    json::json_encode_array_finish(&mut local_json_encoder)
+                                };
                                 "end json_rep_close_array";
                             };
                             "end json coap_array";
