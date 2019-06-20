@@ -247,7 +247,7 @@ impl Default for os_callout {
 #[doc = " - __`dev`__: The device to initialize."]
 #[doc = " - __`arg`__: User defined argument to pass to the device initalization"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type os_dev_init_func_t = ::core::option::Option<
     unsafe extern "C" fn(arg1: *mut os_dev, arg2: *mut ::cty::c_void) -> ::cty::c_int,
 >;
@@ -592,7 +592,7 @@ impl Default for sensor_data_t {
 #[doc = " - __`data`__: A single sensor reading for that sensor listener"]
 #[doc = " - __`type`__: The sensor type for the data function"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_data_func_t = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut sensor,
@@ -762,7 +762,7 @@ impl Default for sensor_notify_os_ev {
 #[doc = " - __`timeout`__: Timeout. If block until result, specify OS_TIMEOUT_NEVER, 0 returns"]
 #[doc = "        immediately (no wait.)"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_read_func_t = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut sensor,
@@ -779,7 +779,7 @@ pub type sensor_read_func_t = ::core::option::Option<
 #[doc = " - __`type`__: The type of sensor value to get configuration for"]
 #[doc = " - __`cfg`__: A pointer to the sensor value to place the returned result into."]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_get_config_func_t = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut sensor,
@@ -792,7 +792,7 @@ pub type sensor_get_config_func_t = ::core::option::Option<
 #[doc = " - __`sensor`__: Ptr to the sensor-specific stucture"]
 #[doc = " - __`arg`__: Ptr to the sensor-specific configuration structure"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_set_config_func_t = ::core::option::Option<
     unsafe extern "C" fn(arg1: *mut sensor, arg2: *mut ::cty::c_void) -> ::cty::c_int,
 >;
@@ -803,7 +803,7 @@ pub type sensor_set_config_func_t = ::core::option::Option<
 #[doc = " - __`type`__: type of sensor"]
 #[doc = " - __`stt`__: Ptr to teh sensor traits"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_set_trigger_thresh_t = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut sensor,
@@ -817,7 +817,7 @@ pub type sensor_set_trigger_thresh_t = ::core::option::Option<
 #[doc = " - __`sensor`__: Ptr to the sensor"]
 #[doc = " - __`type`__: Type of sensor"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_clear_trigger_thresh_t = ::core::option::Option<
     unsafe extern "C" fn(sensor: *mut sensor, type_: sensor_type_t) -> ::cty::c_int,
 >;
@@ -828,7 +828,7 @@ pub type sensor_clear_trigger_thresh_t = ::core::option::Option<
 #[doc = " - __`sensor`__: The sensor to expect notifications from."]
 #[doc = " - __`event`__: The mask of event types to expect notifications from."]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_set_notification_t = ::core::option::Option<
     unsafe extern "C" fn(arg1: *mut sensor, arg2: sensor_event_type_t) -> ::cty::c_int,
 >;
@@ -838,7 +838,7 @@ pub type sensor_set_notification_t = ::core::option::Option<
 #[doc = " - __`sensor`__: The sensor."]
 #[doc = " - __`event`__: The mask of event types."]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_unset_notification_t = ::core::option::Option<
     unsafe extern "C" fn(arg1: *mut sensor, arg2: sensor_event_type_t) -> ::cty::c_int,
 >;
@@ -846,14 +846,14 @@ pub type sensor_unset_notification_t = ::core::option::Option<
 #[doc = ""]
 #[doc = " - __`sensor`__: Ptr to the sensor"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type sensor_handle_interrupt_t =
     ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor) -> ::cty::c_int>;
 #[doc = " Reset Sensor function Ptr"]
 #[doc = ""]
 #[doc = " - __`Ptr`__: to the sensor"]
 #[doc = ""]
-#[doc = " Return 0 on success, non-zero on failure"]
+#[doc = " Return: 0 on success, non-zero on failure"]
 pub type sensor_reset_t =
     ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor) -> ::cty::c_int>;
 #[repr(C)]
@@ -978,7 +978,7 @@ extern "C" {
     #[doc = " - __`si`__: The sensor_itf to lock"]
     #[doc = " - __`timeout`__: The timeout"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_itf_lock(si: *mut sensor_itf, timeout: os_time_t) -> ::cty::c_int;
 }
 extern "C" {
@@ -986,7 +986,7 @@ extern "C" {
     #[doc = ""]
     #[doc = " - __`si`__: The sensor_itf to unlock access to"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_itf_unlock(si: *mut sensor_itf);
 }
 extern "C" {
@@ -995,7 +995,7 @@ extern "C" {
     #[doc = " - __`sensor`__: The sensor to initialize"]
     #[doc = " - __`dev`__: The device to associate with this sensor."]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_init(sensor: *mut sensor, dev: *mut os_dev) -> ::cty::c_int;
 }
 extern "C" {
@@ -1003,7 +1003,7 @@ extern "C" {
     #[doc = ""]
     #[doc = " - __`sensor`__: The sensor to lock"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_lock(sensor: *mut sensor) -> ::cty::c_int;
 }
 extern "C" {
@@ -1022,7 +1022,7 @@ extern "C" {
     #[doc = " - __`sensor`__: The sensor to register a listener on"]
     #[doc = " - __`listener`__: The listener to register onto the sensor"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_register_listener(
         sensor: *mut sensor,
         listener: *mut sensor_listener,
@@ -1035,7 +1035,7 @@ extern "C" {
     #[doc = " - __`sensor`__: The sensor object"]
     #[doc = " - __`listener`__: The listener to remove from the sensor listener list"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_unregister_listener(
         sensor: *mut sensor,
         listener: *mut sensor_listener,
@@ -1049,7 +1049,7 @@ extern "C" {
     #[doc = " - __`err_fn`__: The function to execute when a read fails."]
     #[doc = " - __`arg`__: Optional argument to pass to the callback."]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_register_err_func(
         sensor: *mut sensor,
         err_fn: sensor_error_func_t,
@@ -1063,7 +1063,7 @@ extern "C" {
     #[doc = " - __`sensor`__: The sensor to register the notifier on"]
     #[doc = " - __`notifier`__: The notifier to register"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_register_notifier(
         sensor: *mut sensor,
         notifier: *mut sensor_notifier,
@@ -1076,7 +1076,7 @@ extern "C" {
     #[doc = " - __`sensor`__: The sensor object to un-register the notifier on"]
     #[doc = " - __`notifier`__: The notifier to remove from the notification list"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_unregister_notifier(
         sensor: *mut sensor,
         notifier: *mut sensor_notifier,
@@ -1092,7 +1092,7 @@ extern "C" {
     #[doc = " - __`arg`__: The argument to pass to this callback."]
     #[doc = " - __`timeout`__: Timeout before aborting sensor read"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_read(
         sensor: *mut sensor,
         type_: sensor_type_t,
@@ -1115,14 +1115,14 @@ extern "C" {
     #[doc = ""]
     #[doc = " - __`sensor`__: The sensor to register"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_mgr_register(sensor: *mut sensor) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Get the current eventq, the system is misconfigured if there is still"]
     #[doc = " no parent eventq."]
     #[doc = ""]
-    #[doc = " Return Ptr OS eventq that the sensor mgr is set to"]
+    #[doc = " Return: Ptr OS eventq that the sensor mgr is set to"]
     pub fn sensor_mgr_evq_get() -> *mut os_eventq;
 }
 pub type sensor_mgr_compare_func_t = ::core::option::Option<
@@ -1144,7 +1144,7 @@ extern "C" {
     #[doc = "        iteration.  If desire is to find first matching sensor, provide a"]
     #[doc = "        NULL value."]
     #[doc = ""]
-    #[doc = " Return A pointer to the first sensor found from prev_cursor, or"]
+    #[doc = " Return: A pointer to the first sensor found from prev_cursor, or"]
     #[doc = "         NULL, if none found."]
     #[doc = ""]
     pub fn sensor_mgr_find_next(
@@ -1162,7 +1162,7 @@ extern "C" {
     #[doc = " - __`type`__: The type of sensor to search for"]
     #[doc = " - __`sensor`__: The cursor to search from, or NULL to start from the beginning."]
     #[doc = ""]
-    #[doc = " Return A pointer to the sensor object matching that sensor type, or NULL if"]
+    #[doc = " Return: A pointer to the sensor object matching that sensor type, or NULL if"]
     #[doc = "         none found."]
     pub fn sensor_mgr_find_next_bytype(type_: sensor_type_t, sensor: *mut sensor) -> *mut sensor;
 }
@@ -1173,7 +1173,7 @@ extern "C" {
     #[doc = " - __`devname`__: The device name to search for"]
     #[doc = " - __`sensor`__: The previous sensor found with this device name"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero error code on failure"]
+    #[doc = " Return: 0 on success, non-zero error code on failure"]
     pub fn sensor_mgr_find_next_bydevname(
         devname: *const ::cty::c_char,
         prev_cursor: *mut sensor,
@@ -1185,7 +1185,7 @@ extern "C" {
     #[doc = " - __`sensor`__: The sensor object"]
     #[doc = " - __`arg`__: type to check"]
     #[doc = ""]
-    #[doc = " Return 1 if matches, 0 if it doesn't match."]
+    #[doc = " Return: 1 if matches, 0 if it doesn't match."]
     pub fn sensor_mgr_match_bytype(sensor: *mut sensor, arg1: *mut ::cty::c_void) -> ::cty::c_int;
 }
 extern "C" {
@@ -1212,7 +1212,7 @@ extern "C" {
     #[doc = " - __`arg`__: Ptr to sensor data"]
     #[doc = " - __`type`__: The sensor type"]
     #[doc = ""]
-    #[doc = " Return 0 on sucess, non-zero on failure"]
+    #[doc = " Return: 0 on sucess, non-zero on failure"]
     pub fn sensor_oic_tx_trigger(
         sensor: *mut sensor,
         arg: *mut ::cty::c_void,
@@ -1237,7 +1237,7 @@ extern "C" {
     #[doc = " - __`type`__: The sensor type to search for"]
     #[doc = " - __`sensor`__: Ptr to a sensor"]
     #[doc = ""]
-    #[doc = " Return NULL when no sensor type is found, ptr to sensor_type_traits structure"]
+    #[doc = " Return: NULL when no sensor type is found, ptr to sensor_type_traits structure"]
     #[doc = " when found"]
     pub fn sensor_get_type_traits_bytype(
         type_: sensor_type_t,
@@ -1251,7 +1251,7 @@ extern "C" {
     #[doc = " - __`stt`__: Ptr to sensor types trait struct"]
     #[doc = " - __`type`__: The sensor type"]
     #[doc = ""]
-    #[doc = " Return NULL on failure, sensor struct on success"]
+    #[doc = " Return: NULL on failure, sensor struct on success"]
     pub fn sensor_get_type_traits_byname(
         arg1: *const ::cty::c_char,
         arg2: *mut *mut sensor_type_traits,
@@ -1264,7 +1264,7 @@ extern "C" {
     #[doc = " - __`devname`__: Name of the sensor"]
     #[doc = " - __`stt`__: Ptr to sensor type traits containing thresholds"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure"]
+    #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn sensor_set_thresh(
         devname: *const ::cty::c_char,
         stt: *mut sensor_type_traits,
@@ -1276,7 +1276,7 @@ extern "C" {
     #[doc = " - __`devname`__: Name of the sensor"]
     #[doc = " - __`type`__: The sensor type"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure"]
+    #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn sensor_clear_low_thresh(
         devname: *const ::cty::c_char,
         type_: sensor_type_t,
@@ -1288,7 +1288,7 @@ extern "C" {
     #[doc = " - __`devname`__: Name of the sensor"]
     #[doc = " - __`type`__: The sensor type"]
     #[doc = ""]
-    #[doc = " Return 0 on success, non-zero on failure"]
+    #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn sensor_clear_high_thresh(
         devname: *const ::cty::c_char,
         type_: sensor_type_t,

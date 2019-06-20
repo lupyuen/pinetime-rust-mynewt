@@ -69,11 +69,14 @@ EOF
     # Change @code{.c} to ```c
     # Change @code{...} to ```
     # Change @endcode to ```
-    sed -r 's/@param ([^ ]+) /- __`\1`__: /g' $tmpexpandpath | \
-        sed -r 's/@return /Return /g' | \
-        sed -r 's/@code\{\.c\}/```c/g' | \
-        sed -r 's/@code/```/g' | \
-        sed -r 's/@endcode/```/g' \
+    # Change @note to __Note:__
+    cat $tmpexpandpath \
+        | sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /' \
+        | sed 's/@return /Return: /' \
+        | sed 's/@code{.c}/```c/' \
+        | sed 's/@code/```/' \
+        | sed 's/@endcode/```/' \
+        | sed 's/@note/__Note:__/' \
         >$expandpath
     rm $tmpexpandpath
 }

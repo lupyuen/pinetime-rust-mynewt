@@ -122,14 +122,14 @@ extern "C" {
 extern "C" {
     #[doc = " Check whether or not the OS has been started."]
     #[doc = ""]
-    #[doc = " @return 1 if the OS has been started and 0 if it has not yet been started."]
+    #[doc = " Return: 1 if the OS has been started and 0 if it has not yet been started."]
     pub fn os_started() -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Initialize the OS, including memory areas and housekeeping functions."]
     #[doc = " This calls into the architecture specific OS initialization."]
     #[doc = ""]
-    #[doc = " @param fn The system \"main\" function to start the main task with."]
+    #[doc = " - __`fn`__: The system \"main\" function to start the main task with."]
     pub fn os_init(
         fn_: ::core::option::Option<
             unsafe extern "C" fn(argc: ::cty::c_int, argv: *mut *mut ::cty::c_char) -> ::cty::c_int,
@@ -215,20 +215,20 @@ pub type os_stime_t = i32;
 extern "C" {
     #[doc = " Get the current OS time in ticks"]
     #[doc = ""]
-    #[doc = " @return OS time in ticks"]
+    #[doc = " Return: OS time in ticks"]
     pub fn os_time_get() -> os_time_t;
 }
 extern "C" {
     #[doc = " Move OS time forward ticks."]
     #[doc = ""]
-    #[doc = " @param ticks The number of ticks to move time forward."]
+    #[doc = " - __`ticks`__: The number of ticks to move time forward."]
     pub fn os_time_advance(ticks: ::cty::c_int);
 }
 extern "C" {
     #[doc = " Puts the current task to sleep for the specified number of os ticks. There"]
     #[doc = " is no delay if ticks is 0."]
     #[doc = ""]
-    #[doc = " @param osticks Number of ticks to delay (0 means no delay)."]
+    #[doc = " - __`osticks`__: Number of ticks to delay (0 means no delay)."]
     pub fn os_time_delay(osticks: os_time_t);
 }
 #[doc = " Structure representing time since Jan 1 1970 with microsecond"]
@@ -269,8 +269,8 @@ impl Default for os_time_change_info {
 }
 #[doc = " Callback that is executed when the time-of-day is set."]
 #[doc = ""]
-#[doc = " @param info                  Describes the time change that just occurred."]
-#[doc = " @param arg                   Optional argument correponding to listener."]
+#[doc = " - __`info`__:                  Describes the time change that just occurred."]
+#[doc = " - __`arg`__:                   Optional argument correponding to listener."]
 pub type os_time_change_fn = ::core::option::Option<
     unsafe extern "C" fn(info: *const os_time_change_info, arg: *mut ::cty::c_void),
 >;
@@ -302,10 +302,10 @@ extern "C" {
     #[doc = " the offset by which we are tracking real time against os time.  This"]
     #[doc = " function notifies all registered time change listeners."]
     #[doc = ""]
-    #[doc = " @param utctime A timeval representing the UTC time we are setting"]
-    #[doc = " @param tz The time-zone to apply against the utctime being set."]
+    #[doc = " - __`utctime`__: A timeval representing the UTC time we are setting"]
+    #[doc = " - __`tz`__: The time-zone to apply against the utctime being set."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_settimeofday(utctime: *mut os_timeval, tz: *mut os_timezone) -> ::cty::c_int;
 }
 extern "C" {
@@ -313,10 +313,10 @@ extern "C" {
     #[doc = " into the tv argument, and returns the timezone (if set) into"]
     #[doc = " tz."]
     #[doc = ""]
-    #[doc = " @param tv The structure to put the UTC time of day into"]
-    #[doc = " @param tz The structure to put the timezone information into"]
+    #[doc = " - __`tv`__: The structure to put the UTC time of day into"]
+    #[doc = " - __`tz`__: The structure to put the timezone information into"]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure"]
+    #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn os_gettimeofday(utctime: *mut os_timeval, tz: *mut os_timezone) -> ::cty::c_int;
 }
 extern "C" {
@@ -325,32 +325,32 @@ extern "C" {
 extern "C" {
     #[doc = " Get time since boot in microseconds."]
     #[doc = ""]
-    #[doc = " @return time since boot in microseconds"]
+    #[doc = " Return: time since boot in microseconds"]
     pub fn os_get_uptime_usec() -> i64;
 }
 extern "C" {
     #[doc = " Get time since boot as os_timeval."]
     #[doc = ""]
-    #[doc = " @param tv Structure to put the time since boot."]
+    #[doc = " - __`tv`__: Structure to put the time since boot."]
     pub fn os_get_uptime(tvp: *mut os_timeval);
 }
 extern "C" {
     #[doc = " Converts milliseconds to OS ticks."]
     #[doc = ""]
-    #[doc = " @param ms                    The milliseconds input."]
-    #[doc = " @param out_ticks             The OS ticks output."]
+    #[doc = " - __`ms`__:                    The milliseconds input."]
+    #[doc = " - __`out_ticks`__:             The OS ticks output."]
     #[doc = ""]
-    #[doc = " @return                      0 on success; OS_EINVAL if the result is too"]
+    #[doc = " Return:                      0 on success; OS_EINVAL if the result is too"]
     #[doc = "                                  large to fit in a uint32_t."]
     pub fn os_time_ms_to_ticks(ms: u32, out_ticks: *mut os_time_t) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Converts OS ticks to milliseconds."]
     #[doc = ""]
-    #[doc = " @param ticks                 The OS ticks input."]
-    #[doc = " @param out_ms                The milliseconds output."]
+    #[doc = " - __`ticks`__:                 The OS ticks input."]
+    #[doc = " - __`out_ms`__:                The milliseconds output."]
     #[doc = ""]
-    #[doc = " @return                      0 on success; OS_EINVAL if the result is too"]
+    #[doc = " Return:                      0 on success; OS_EINVAL if the result is too"]
     #[doc = "                                  large to fit in a uint32_t."]
     pub fn os_time_ticks_to_ms(ticks: os_time_t, out_ms: *mut u32) -> ::cty::c_int;
 }
@@ -366,7 +366,7 @@ extern "C" {
     #[doc = "     o Removal of listener"]
     #[doc = "     o Setting time"]
     #[doc = ""]
-    #[doc = " @param listener              The listener to register."]
+    #[doc = " - __`listener`__:              The listener to register."]
     pub fn os_time_change_listen(listener: *mut os_time_change_listener);
 }
 extern "C" {
@@ -378,7 +378,7 @@ extern "C" {
     #[doc = "     o Removal of listener"]
     #[doc = "     o Setting time"]
     #[doc = ""]
-    #[doc = " @param listener              The listener to unregister."]
+    #[doc = " - __`listener`__:              The listener to unregister."]
     pub fn os_time_change_remove(listener: *const os_time_change_listener) -> ::cty::c_int;
 }
 pub type os_event_fn = ::core::option::Option<unsafe extern "C" fn(ev: *mut os_event)>;
@@ -437,43 +437,43 @@ impl Default for os_eventq {
 extern "C" {
     #[doc = " Initialize the event queue"]
     #[doc = ""]
-    #[doc = " @param evq The event queue to initialize"]
+    #[doc = " - __`evq`__: The event queue to initialize"]
     pub fn os_eventq_init(arg1: *mut os_eventq);
 }
 extern "C" {
     #[doc = " Check whether the event queue is initialized."]
     #[doc = ""]
-    #[doc = " @param evq The event queue to check"]
+    #[doc = " - __`evq`__: The event queue to check"]
     pub fn os_eventq_inited(evq: *const os_eventq) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Put an event on the event queue."]
     #[doc = ""]
-    #[doc = " @param evq The event queue to put an event on"]
-    #[doc = " @param ev The event to put on the queue"]
+    #[doc = " - __`evq`__: The event queue to put an event on"]
+    #[doc = " - __`ev`__: The event to put on the queue"]
     pub fn os_eventq_put(arg1: *mut os_eventq, arg2: *mut os_event);
 }
 extern "C" {
     #[doc = " Poll an event from the event queue and return it immediately."]
     #[doc = " If no event is available, don't block, just return NULL."]
     #[doc = ""]
-    #[doc = " @return Event from the queue, or NULL if none available."]
+    #[doc = " Return: Event from the queue, or NULL if none available."]
     pub fn os_eventq_get_no_wait(evq: *mut os_eventq) -> *mut os_event;
 }
 extern "C" {
     #[doc = " Pull a single item from an event queue.  This function blocks until there"]
     #[doc = " is an item on the event queue to read."]
     #[doc = ""]
-    #[doc = " @param evq The event queue to pull an event from"]
+    #[doc = " - __`evq`__: The event queue to pull an event from"]
     #[doc = ""]
-    #[doc = " @return The event from the queue"]
+    #[doc = " Return: The event from the queue"]
     pub fn os_eventq_get(arg1: *mut os_eventq) -> *mut os_event;
 }
 extern "C" {
     #[doc = " Pull a single item off the event queue and call it's event"]
     #[doc = " callback."]
     #[doc = ""]
-    #[doc = " @param evq The event queue to pull the item off."]
+    #[doc = " - __`evq`__: The event queue to pull the item off."]
     pub fn os_eventq_run(evq: *mut os_eventq);
 }
 extern "C" {
@@ -482,11 +482,11 @@ extern "C" {
     #[doc = " the queues.  Event queues are searched in the order that they"]
     #[doc = " are passed in the array."]
     #[doc = ""]
-    #[doc = " @param evq Array of event queues"]
-    #[doc = " @param nevqs Number of event queues in evq"]
-    #[doc = " @param timo Timeout, forever if OS_WAIT_FOREVER is passed to poll."]
+    #[doc = " - __`evq`__: Array of event queues"]
+    #[doc = " - __`nevqs`__: Number of event queues in evq"]
+    #[doc = " - __`timo`__: Timeout, forever if OS_WAIT_FOREVER is passed to poll."]
     #[doc = ""]
-    #[doc = " @return An event, or NULL if no events available"]
+    #[doc = " Return: An event, or NULL if no events available"]
     pub fn os_eventq_poll(
         arg1: *mut *mut os_eventq,
         arg2: ::cty::c_int,
@@ -496,14 +496,14 @@ extern "C" {
 extern "C" {
     #[doc = " Remove an event from the queue."]
     #[doc = ""]
-    #[doc = " @param evq The event queue to remove the event from"]
-    #[doc = " @param ev  The event to remove from the queue"]
+    #[doc = " - __`evq`__: The event queue to remove the event from"]
+    #[doc = " - __`ev`__:  The event to remove from the queue"]
     pub fn os_eventq_remove(arg1: *mut os_eventq, arg2: *mut os_event);
 }
 extern "C" {
     #[doc = " Retrieves the default event queue processed by OS main task."]
     #[doc = ""]
-    #[doc = " @return                      The default event queue."]
+    #[doc = " Return:                      The default event queue."]
     pub fn os_eventq_dflt_get() -> *mut os_eventq;
 }
 extern "C" {
@@ -562,12 +562,12 @@ extern "C" {
     #[doc = " queue specified in os_callout_init().  The event argument given here"]
     #[doc = " is posted in the ev_arg field of that event."]
     #[doc = ""]
-    #[doc = " @param c The callout to initialize"]
-    #[doc = " @param evq The event queue to post an OS_EVENT_T_TIMER event to"]
-    #[doc = " @param timo_func The function to call on this callout for the host task"]
+    #[doc = " - __`c`__: The callout to initialize"]
+    #[doc = " - __`evq`__: The event queue to post an OS_EVENT_T_TIMER event to"]
+    #[doc = " - __`timo_func`__: The function to call on this callout for the host task"]
     #[doc = "                  used to provide multiple timer events to a task"]
     #[doc = "                  (this can be NULL.)"]
-    #[doc = " @param ev_arg The argument to provide to the event when posting the"]
+    #[doc = " - __`ev_arg`__: The argument to provide to the event when posting the"]
     #[doc = "               timer."]
     pub fn os_callout_init(
         cf: *mut os_callout,
@@ -579,25 +579,25 @@ extern "C" {
 extern "C" {
     #[doc = " Stop the callout from firing off, any pending events will be cleared."]
     #[doc = ""]
-    #[doc = " @param c The callout to stop"]
+    #[doc = " - __`c`__: The callout to stop"]
     pub fn os_callout_stop(arg1: *mut os_callout);
 }
 extern "C" {
     #[doc = " Reset the callout to fire off in 'ticks' ticks."]
     #[doc = ""]
-    #[doc = " @param c The callout to reset"]
-    #[doc = " @param ticks The number of ticks to wait before posting an event"]
+    #[doc = " - __`c`__: The callout to reset"]
+    #[doc = " - __`ticks`__: The number of ticks to wait before posting an event"]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure"]
+    #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn os_callout_reset(arg1: *mut os_callout, arg2: os_time_t) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Returns the number of ticks which remains to callout."]
     #[doc = ""]
-    #[doc = " @param c The callout to check"]
-    #[doc = " @param now The current time in OS ticks"]
+    #[doc = " - __`c`__: The callout to check"]
+    #[doc = " - __`now`__: The current time in OS ticks"]
     #[doc = ""]
-    #[doc = " @return Number of ticks to first pending callout"]
+    #[doc = " Return: Number of ticks to first pending callout"]
     pub fn os_callout_remaining_ticks(arg1: *mut os_callout, arg2: os_time_t) -> os_time_t;
 }
 extern "C" {
@@ -648,33 +648,33 @@ extern "C" {
     #[doc = " and before any other timer API are used. This should be called only once"]
     #[doc = " and should be called before the hardware timer is used."]
     #[doc = ""]
-    #[doc = " @param clock_freq The desired cputime frequency, in hertz (Hz)."]
+    #[doc = " - __`clock_freq`__: The desired cputime frequency, in hertz (Hz)."]
     #[doc = ""]
-    #[doc = " @return int 0 on success; -1 on error."]
+    #[doc = " Return: int 0 on success; -1 on error."]
     pub fn os_cputime_init(clock_freq: u32) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Returns the low 32 bits of cputime."]
     #[doc = ""]
-    #[doc = " @return uint32_t The lower 32 bits of cputime"]
+    #[doc = " Return: uint32_t The lower 32 bits of cputime"]
     pub fn os_cputime_get32() -> u32;
 }
 extern "C" {
     #[doc = " Converts the given number of nanoseconds into cputime ticks."]
     #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
     #[doc = ""]
-    #[doc = " @param usecs The number of nanoseconds to convert to ticks"]
+    #[doc = " - __`usecs`__: The number of nanoseconds to convert to ticks"]
     #[doc = ""]
-    #[doc = " @return uint32_t The number of ticks corresponding to 'nsecs'"]
+    #[doc = " Return: uint32_t The number of ticks corresponding to 'nsecs'"]
     pub fn os_cputime_nsecs_to_ticks(nsecs: u32) -> u32;
 }
 extern "C" {
     #[doc = " Convert the given number of ticks into nanoseconds."]
     #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
     #[doc = ""]
-    #[doc = " @param ticks The number of ticks to convert to nanoseconds."]
+    #[doc = " - __`ticks`__: The number of ticks to convert to nanoseconds."]
     #[doc = ""]
-    #[doc = " @return uint32_t The number of nanoseconds corresponding to 'ticks'"]
+    #[doc = " Return: uint32_t The number of nanoseconds corresponding to 'ticks'"]
     pub fn os_cputime_ticks_to_nsecs(ticks: u32) -> u32;
 }
 extern "C" {
@@ -682,27 +682,27 @@ extern "C" {
     #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
     #[doc = ""]
     #[doc = ""]
-    #[doc = " @param nsecs The number of nanoseconds to wait."]
+    #[doc = " - __`nsecs`__: The number of nanoseconds to wait."]
     pub fn os_cputime_delay_nsecs(nsecs: u32);
 }
 extern "C" {
     #[doc = " Wait until the number of ticks has elapsed. This is a blocking delay."]
     #[doc = ""]
-    #[doc = " @param ticks The number of ticks to wait."]
+    #[doc = " - __`ticks`__: The number of ticks to wait."]
     pub fn os_cputime_delay_ticks(ticks: u32);
 }
 extern "C" {
     #[doc = " Wait until 'usecs' microseconds has elapsed. This is a blocking delay."]
     #[doc = ""]
-    #[doc = " @param usecs The number of usecs to wait."]
+    #[doc = " - __`usecs`__: The number of usecs to wait."]
     pub fn os_cputime_delay_usecs(usecs: u32);
 }
 extern "C" {
     #[doc = " Initialize a CPU timer, using the given HAL timer."]
     #[doc = ""]
-    #[doc = " @param timer The timer to initialize. Cannot be NULL."]
-    #[doc = " @param fp    The timer callback function. Cannot be NULL."]
-    #[doc = " @param arg   Pointer to data object to pass to timer."]
+    #[doc = " - __`timer`__: The timer to initialize. Cannot be NULL."]
+    #[doc = " - __`fp`__:    The timer callback function. Cannot be NULL."]
+    #[doc = " - __`arg`__:   Pointer to data object to pass to timer."]
     pub fn os_cputime_timer_init(timer: *mut hal_timer, fp: hal_timer_cb, arg: *mut ::cty::c_void);
 }
 extern "C" {
@@ -711,10 +711,10 @@ extern "C" {
     #[doc = ""]
     #[doc = " NOTE: This must be called when the timer is stopped."]
     #[doc = ""]
-    #[doc = " @param timer     Pointer to timer to start. Cannot be NULL."]
-    #[doc = " @param cputime   The cputime at which the timer should expire."]
+    #[doc = " - __`timer`__:     Pointer to timer to start. Cannot be NULL."]
+    #[doc = " - __`cputime`__:   The cputime at which the timer should expire."]
     #[doc = ""]
-    #[doc = " @return int 0 on success; EINVAL if timer already started or timer struct"]
+    #[doc = " Return: int 0 on success; EINVAL if timer already started or timer struct"]
     #[doc = "         invalid"]
     #[doc = ""]
     pub fn os_cputime_timer_start(timer: *mut hal_timer, cputime: u32) -> ::cty::c_int;
@@ -725,10 +725,10 @@ extern "C" {
     #[doc = ""]
     #[doc = " NOTE: This must be called when the timer is stopped."]
     #[doc = ""]
-    #[doc = " @param timer Pointer to timer. Cannot be NULL."]
-    #[doc = " @param usecs The number of usecs from now at which the timer will expire."]
+    #[doc = " - __`timer`__: Pointer to timer. Cannot be NULL."]
+    #[doc = " - __`usecs`__: The number of usecs from now at which the timer will expire."]
     #[doc = ""]
-    #[doc = " @return int 0 on success; EINVAL if timer already started or timer struct"]
+    #[doc = " Return: int 0 on success; EINVAL if timer already started or timer struct"]
     #[doc = "         invalid"]
     pub fn os_cputime_timer_relative(timer: *mut hal_timer, usecs: u32) -> ::cty::c_int;
 }
@@ -737,15 +737,15 @@ extern "C" {
     #[doc = " and interrupts are disabled if no timers are left on the queue. Can be"]
     #[doc = " called even if timer is not running."]
     #[doc = ""]
-    #[doc = " @param timer Pointer to cputimer to stop. Cannot be NULL."]
+    #[doc = " - __`timer`__: Pointer to cputimer to stop. Cannot be NULL."]
     pub fn os_cputime_timer_stop(timer: *mut hal_timer);
 }
 #[doc = " Initialize a device."]
 #[doc = ""]
-#[doc = " @param dev The device to initialize."]
-#[doc = " @param arg User defined argument to pass to the device initalization"]
+#[doc = " - __`dev`__: The device to initialize."]
+#[doc = " - __`arg`__: User defined argument to pass to the device initalization"]
 #[doc = ""]
-#[doc = " @return 0 on success, non-zero error code on failure."]
+#[doc = " Return: 0 on success, non-zero error code on failure."]
 pub type os_dev_init_func_t = ::core::option::Option<
     unsafe extern "C" fn(arg1: *mut os_dev, arg2: *mut ::cty::c_void) -> ::cty::c_int,
 >;
@@ -816,35 +816,35 @@ impl Default for os_dev {
 extern "C" {
     #[doc = " Suspend the operation of the device."]
     #[doc = ""]
-    #[doc = " @param dev The device to suspend."]
-    #[doc = " @param suspend_t When the device should be suspended."]
-    #[doc = " @param force Whether not the suspend operation can be overridden by the"]
+    #[doc = " - __`dev`__: The device to suspend."]
+    #[doc = " - __`suspend_t`__: When the device should be suspended."]
+    #[doc = " - __`force`__: Whether not the suspend operation can be overridden by the"]
     #[doc = "        device handler."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn os_dev_suspend(dev: *mut os_dev, suspend_t: os_time_t, force: u8) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Resume the device operation."]
     #[doc = ""]
-    #[doc = " @param dev The device to resume"]
+    #[doc = " - __`dev`__: The device to resume"]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero error code on failure."]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn os_dev_resume(dev: *mut os_dev) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Create a new device in the kernel."]
     #[doc = ""]
-    #[doc = " @param dev The device to create."]
-    #[doc = " @param name The name of the device to create."]
-    #[doc = " @param stage The stage to initialize that device to."]
-    #[doc = " @param priority The priority of initializing that device"]
-    #[doc = " @param od_init The initialization function to call for this"]
+    #[doc = " - __`dev`__: The device to create."]
+    #[doc = " - __`name`__: The name of the device to create."]
+    #[doc = " - __`stage`__: The stage to initialize that device to."]
+    #[doc = " - __`priority`__: The priority of initializing that device"]
+    #[doc = " - __`od_init`__: The initialization function to call for this"]
     #[doc = "                device."]
-    #[doc = " @param arg The argument to provide this device initialization"]
+    #[doc = " - __`arg`__: The argument to provide this device initialization"]
     #[doc = "            function."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_dev_create(
         dev: *mut os_dev,
         name: *const ::cty::c_char,
@@ -860,43 +860,43 @@ extern "C" {
     #[doc = " WARNING: This should be called before any locking on the device is done, or"]
     #[doc = " the device list itself is modified in any context.  There is no locking."]
     #[doc = ""]
-    #[doc = " @param name The name of the device to look up."]
+    #[doc = " - __`name`__: The name of the device to look up."]
     #[doc = ""]
-    #[doc = " @return A pointer to the device corresponding to name, or NULL if not found."]
+    #[doc = " Return: A pointer to the device corresponding to name, or NULL if not found."]
     pub fn os_dev_lookup(name: *const ::cty::c_char) -> *mut os_dev;
 }
 extern "C" {
     #[doc = " Initialize all devices for a given state."]
     #[doc = ""]
-    #[doc = " @param stage The stage to initialize."]
+    #[doc = " - __`stage`__: The stage to initialize."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_dev_initialize_all(arg1: u8) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Suspend all devices."]
     #[doc = ""]
-    #[doc = " @param suspend_t The number of ticks to suspend this device for"]
-    #[doc = " @param force Whether or not to force suspending the device"]
+    #[doc = " - __`suspend_t`__: The number of ticks to suspend this device for"]
+    #[doc = " - __`force`__: Whether or not to force suspending the device"]
     #[doc = ""]
-    #[doc = " @return 0 on success, or a non-zero error code if one of the devices"]
+    #[doc = " Return: 0 on success, or a non-zero error code if one of the devices"]
     #[doc = "                       returned it."]
     pub fn os_dev_suspend_all(arg1: os_time_t, arg2: u8) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Resume all the devices that were suspended."]
     #[doc = ""]
-    #[doc = " @return 0 on success, -1 if any of the devices have failed to resume."]
+    #[doc = " Return: 0 on success, -1 if any of the devices have failed to resume."]
     pub fn os_dev_resume_all() -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Open a device."]
     #[doc = ""]
-    #[doc = " @param dev The device to open"]
-    #[doc = " @param timo The timeout to open the device, if not specified."]
-    #[doc = " @param arg The argument to the device open() call."]
+    #[doc = " - __`dev`__: The device to open"]
+    #[doc = " - __`timo`__: The timeout to open the device, if not specified."]
+    #[doc = " - __`arg`__: The argument to the device open() call."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_dev_open(
         devname: *const ::cty::c_char,
         timo: u32,
@@ -906,9 +906,9 @@ extern "C" {
 extern "C" {
     #[doc = " Close a device."]
     #[doc = ""]
-    #[doc = " @param dev The device to close"]
+    #[doc = " - __`dev`__: The device to close"]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_dev_close(dev: *mut os_dev) -> ::cty::c_int;
 }
 extern "C" {
@@ -920,7 +920,7 @@ extern "C" {
 extern "C" {
     #[doc = " Walk through all devices, calling callback for every device."]
     #[doc = ""]
-    #[doc = " @param walk_func Function to call"]
+    #[doc = " - __`walk_func`__: Function to call"]
     #[doc = " @aparm arg       Argument to pass to walk_func"]
     pub fn os_dev_walk(
         walk_func: ::core::option::Option<
@@ -935,9 +935,9 @@ extern "C" {
     #[doc = " libc's malloc() implementation, which is not guaranteed to be thread-safe."]
     #[doc = " This malloc() will always be thread-safe."]
     #[doc = ""]
-    #[doc = " @param size The number of bytes to allocate"]
+    #[doc = " - __`size`__: The number of bytes to allocate"]
     #[doc = ""]
-    #[doc = " @return A pointer to the memory region allocated."]
+    #[doc = " Return: A pointer to the memory region allocated."]
     pub fn os_malloc(size: usize) -> *mut ::cty::c_void;
 }
 extern "C" {
@@ -945,7 +945,7 @@ extern "C" {
     #[doc = ""]
     #[doc = " Free's memory allocated by malloc."]
     #[doc = ""]
-    #[doc = " @param mem The memory to free."]
+    #[doc = " - __`mem`__: The memory to free."]
     pub fn os_free(mem: *mut ::cty::c_void);
 }
 extern "C" {
@@ -953,10 +953,10 @@ extern "C" {
     #[doc = ""]
     #[doc = " Reallocates the memory at ptr, to be size contiguouos bytes."]
     #[doc = ""]
-    #[doc = " @param ptr A pointer to the memory to allocate"]
-    #[doc = " @param size The number of contiguouos bytes to allocate at that location"]
+    #[doc = " - __`ptr`__: A pointer to the memory to allocate"]
+    #[doc = " - __`size`__: The number of contiguouos bytes to allocate at that location"]
     #[doc = ""]
-    #[doc = " @return A pointer to memory of size, or NULL on failure to allocate"]
+    #[doc = " Return: A pointer to memory of size, or NULL on failure to allocate"]
     pub fn os_realloc(ptr: *mut ::cty::c_void, size: usize) -> *mut ::cty::c_void;
 }
 #[doc = " A mbuf pool from which to allocate mbufs. This contains a pointer to the os"]
@@ -1072,13 +1072,13 @@ extern "C" {
     #[doc = " When mbufs are available on the queue, an event OS_EVENT_T_MQUEUE_DATA"]
     #[doc = " will be posted to the task's mbuf queue."]
     #[doc = ""]
-    #[doc = " @param mq                    The mqueue to initialize"]
-    #[doc = " @param ev_cb                 The callback to associate with the mqeueue"]
+    #[doc = " - __`mq`__:                    The mqueue to initialize"]
+    #[doc = " - __`ev_cb`__:                 The callback to associate with the mqeueue"]
     #[doc = "                                  event.  Typically, this callback pulls each"]
     #[doc = "                                  packet off the mqueue and processes them."]
-    #[doc = " @param arg                   The argument to associate with the mqueue event."]
+    #[doc = " - __`arg`__:                   The argument to associate with the mqueue event."]
     #[doc = ""]
-    #[doc = " @return                      0 on success, non-zero on failure."]
+    #[doc = " Return:                      0 on success, non-zero on failure."]
     pub fn os_mqueue_init(
         mq: *mut os_mqueue,
         ev_cb: os_event_fn,
@@ -1088,20 +1088,20 @@ extern "C" {
 extern "C" {
     #[doc = " Remove and return a single mbuf from the mbuf queue.  Does not block."]
     #[doc = ""]
-    #[doc = " @param mq The mbuf queue to pull an element off of."]
+    #[doc = " - __`mq`__: The mbuf queue to pull an element off of."]
     #[doc = ""]
-    #[doc = " @return The next mbuf in the queue, or NULL if queue has no mbufs."]
+    #[doc = " Return: The next mbuf in the queue, or NULL if queue has no mbufs."]
     pub fn os_mqueue_get(arg1: *mut os_mqueue) -> *mut os_mbuf;
 }
 extern "C" {
     #[doc = " Adds a packet (i.e. packet header mbuf) to an mqueue. The event associated"]
     #[doc = " with the mqueue gets posted to the specified eventq."]
     #[doc = ""]
-    #[doc = " @param mq                    The mbuf queue to append the mbuf to."]
-    #[doc = " @param evq                   The event queue to post an event to."]
-    #[doc = " @param m                     The mbuf to append to the mbuf queue."]
+    #[doc = " - __`mq`__:                    The mbuf queue to append the mbuf to."]
+    #[doc = " - __`evq`__:                   The event queue to post an event to."]
+    #[doc = " - __`m`__:                     The mbuf to append to the mbuf queue."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_mqueue_put(
         arg1: *mut os_mqueue,
         arg2: *mut os_eventq,
@@ -1120,19 +1120,19 @@ extern "C" {
     #[doc = " os_msys_register() registers a mbuf pool with MSYS, and allows MSYS to"]
     #[doc = " allocate mbufs out of it."]
     #[doc = ""]
-    #[doc = " @param new_pool The pool to register with MSYS"]
+    #[doc = " - __`new_pool`__: The pool to register with MSYS"]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure"]
+    #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn os_msys_register(arg1: *mut os_mbuf_pool) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Allocate a mbuf from msys.  Based upon the data size requested,"]
     #[doc = " os_msys_get() will choose the mbuf pool that has the best fit."]
     #[doc = ""]
-    #[doc = " @param dsize The estimated size of the data being stored in the mbuf"]
-    #[doc = " @param leadingspace The amount of leadingspace to allocate in the mbuf"]
+    #[doc = " - __`dsize`__: The estimated size of the data being stored in the mbuf"]
+    #[doc = " - __`leadingspace`__: The amount of leadingspace to allocate in the mbuf"]
     #[doc = ""]
-    #[doc = " @return A freshly allocated mbuf on success, NULL on failure."]
+    #[doc = " Return: A freshly allocated mbuf on success, NULL on failure."]
     pub fn os_msys_get(dsize: u16, leadingspace: u16) -> *mut os_mbuf;
 }
 extern "C" {
@@ -1143,33 +1143,33 @@ extern "C" {
     #[doc = " Allocate a packet header structure from the MSYS pool.  See"]
     #[doc = " os_msys_register() for a description of MSYS."]
     #[doc = ""]
-    #[doc = " @param dsize The estimated size of the data being stored in the mbuf"]
-    #[doc = " @param user_hdr_len The length to allocate for the packet header structure"]
+    #[doc = " - __`dsize`__: The estimated size of the data being stored in the mbuf"]
+    #[doc = " - __`user_hdr_len`__: The length to allocate for the packet header structure"]
     #[doc = ""]
-    #[doc = " @return A freshly allocated mbuf on success, NULL on failure."]
+    #[doc = " Return: A freshly allocated mbuf on success, NULL on failure."]
     pub fn os_msys_get_pkthdr(dsize: u16, user_hdr_len: u16) -> *mut os_mbuf;
 }
 extern "C" {
     #[doc = " Count the number of blocks in all the mbuf pools that are allocated."]
     #[doc = ""]
-    #[doc = " @return total number of blocks allocated in Msys"]
+    #[doc = " Return: total number of blocks allocated in Msys"]
     pub fn os_msys_count() -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Return the number of free blocks in Msys"]
     #[doc = ""]
-    #[doc = " @return Number of free blocks available in Msys"]
+    #[doc = " Return: Number of free blocks available in Msys"]
     pub fn os_msys_num_free() -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Initialize a pool of mbufs."]
     #[doc = ""]
-    #[doc = " @param omp     The mbuf pool to initialize"]
-    #[doc = " @param mp      The memory pool that will hold this mbuf pool"]
-    #[doc = " @param buf_len The length of the buffer itself."]
-    #[doc = " @param nbufs   The number of buffers in the pool"]
+    #[doc = " - __`omp`__:     The mbuf pool to initialize"]
+    #[doc = " - __`mp`__:      The memory pool that will hold this mbuf pool"]
+    #[doc = " - __`buf_len`__: The length of the buffer itself."]
+    #[doc = " - __`nbufs`__:   The number of buffers in the pool"]
     #[doc = ""]
-    #[doc = " @return 0 on success, error code on failure."]
+    #[doc = " Return: 0 on success, error code on failure."]
     pub fn os_mbuf_pool_init(
         arg1: *mut os_mbuf_pool,
         mp: *mut os_mempool,
@@ -1181,41 +1181,41 @@ extern "C" {
     #[doc = " Get an mbuf from the mbuf pool.  The mbuf is allocated, and initialized"]
     #[doc = " prior to being returned."]
     #[doc = ""]
-    #[doc = " @param omp The mbuf pool to return the packet from"]
-    #[doc = " @param leadingspace The amount of leadingspace to put before the data"]
+    #[doc = " - __`omp`__: The mbuf pool to return the packet from"]
+    #[doc = " - __`leadingspace`__: The amount of leadingspace to put before the data"]
     #[doc = "     section by default."]
     #[doc = ""]
-    #[doc = " @return An initialized mbuf on success, and NULL on failure."]
+    #[doc = " Return: An initialized mbuf on success, and NULL on failure."]
     pub fn os_mbuf_get(omp: *mut os_mbuf_pool, arg1: u16) -> *mut os_mbuf;
 }
 extern "C" {
     #[doc = " Allocate a new packet header mbuf out of the os_mbuf_pool."]
     #[doc = ""]
-    #[doc = " @param omp The mbuf pool to allocate out of"]
-    #[doc = " @param user_pkthdr_len The packet header length to reserve for the caller."]
+    #[doc = " - __`omp`__: The mbuf pool to allocate out of"]
+    #[doc = " - __`user_pkthdr_len`__: The packet header length to reserve for the caller."]
     #[doc = ""]
-    #[doc = " @return A freshly allocated mbuf on success, NULL on failure."]
+    #[doc = " Return: A freshly allocated mbuf on success, NULL on failure."]
     pub fn os_mbuf_get_pkthdr(omp: *mut os_mbuf_pool, pkthdr_len: u8) -> *mut os_mbuf;
 }
 extern "C" {
     #[doc = " Duplicate a chain of mbufs.  Return the start of the duplicated chain."]
     #[doc = ""]
-    #[doc = " @param omp The mbuf pool to duplicate out of"]
-    #[doc = " @param om  The mbuf chain to duplicate"]
+    #[doc = " - __`omp`__: The mbuf pool to duplicate out of"]
+    #[doc = " - __`om`__:  The mbuf chain to duplicate"]
     #[doc = ""]
-    #[doc = " @return A pointer to the new chain of mbufs"]
+    #[doc = " Return: A pointer to the new chain of mbufs"]
     pub fn os_mbuf_dup(m: *mut os_mbuf) -> *mut os_mbuf;
 }
 extern "C" {
     #[doc = " Locates the specified absolute offset within an mbuf chain.  The offset"]
     #[doc = " can be one past than the total length of the chain, but no greater."]
     #[doc = ""]
-    #[doc = " @param om                    The start of the mbuf chain to seek within."]
-    #[doc = " @param off                   The absolute address to find."]
-    #[doc = " @param out_off               On success, this points to the relative offset"]
+    #[doc = " - __`om`__:                    The start of the mbuf chain to seek within."]
+    #[doc = " - __`off`__:                   The absolute address to find."]
+    #[doc = " - __`out_off`__:               On success, this points to the relative offset"]
     #[doc = "                                  within the returned mbuf."]
     #[doc = ""]
-    #[doc = " @return                      The mbuf containing the specified offset on"]
+    #[doc = " Return:                      The mbuf containing the specified offset on"]
     #[doc = "                                  success."]
     #[doc = "                              NULL if the specified offset is out of bounds."]
     pub fn os_mbuf_off(om: *const os_mbuf, off: ::cty::c_int, out_off: *mut u16) -> *mut os_mbuf;
@@ -1235,20 +1235,20 @@ extern "C" {
     #[doc = " header, you should use `OS_MBUF_PKTLEN()` as a more efficient alternative to"]
     #[doc = " this function."]
     #[doc = ""]
-    #[doc = " @param om                    The mbuf to measure."]
+    #[doc = " - __`om`__:                    The mbuf to measure."]
     #[doc = ""]
-    #[doc = " @return                      The length, in bytes, of the provided mbuf"]
+    #[doc = " Return:                      The length, in bytes, of the provided mbuf"]
     #[doc = "                                  chain."]
     pub fn os_mbuf_len(om: *const os_mbuf) -> u16;
 }
 extern "C" {
     #[doc = " Append data onto a mbuf"]
     #[doc = ""]
-    #[doc = " @param om   The mbuf to append the data onto"]
-    #[doc = " @param data The data to append onto the mbuf"]
-    #[doc = " @param len  The length of the data to append"]
+    #[doc = " - __`om`__:   The mbuf to append the data onto"]
+    #[doc = " - __`data`__: The data to append onto the mbuf"]
+    #[doc = " - __`len`__:  The length of the data to append"]
     #[doc = ""]
-    #[doc = " @return 0 on success, and an error code on failure"]
+    #[doc = " Return: 0 on success, and an error code on failure"]
     pub fn os_mbuf_append(m: *mut os_mbuf, arg1: *const ::cty::c_void, arg2: u16) -> ::cty::c_int;
 }
 extern "C" {
@@ -1256,13 +1256,13 @@ extern "C" {
     #[doc = " data range may be partially appended.  Neither mbuf is required to contain"]
     #[doc = " an mbuf packet header."]
     #[doc = ""]
-    #[doc = " @param dst                   The mbuf to append to."]
-    #[doc = " @param src                   The mbuf to copy data from."]
-    #[doc = " @param src_off               The absolute offset within the source mbuf"]
+    #[doc = " - __`dst`__:                   The mbuf to append to."]
+    #[doc = " - __`src`__:                   The mbuf to copy data from."]
+    #[doc = " - __`src_off`__:               The absolute offset within the source mbuf"]
     #[doc = "                                  chain to read from."]
-    #[doc = " @param len                   The number of bytes to append."]
+    #[doc = " - __`len`__:                   The number of bytes to append."]
     #[doc = ""]
-    #[doc = " @return                      0 on success;"]
+    #[doc = " Return:                      0 on success;"]
     #[doc = "                              OS_EINVAL if the specified range extends beyond"]
     #[doc = "                                  the end of the source mbuf chain."]
     pub fn os_mbuf_appendfrom(
@@ -1275,27 +1275,27 @@ extern "C" {
 extern "C" {
     #[doc = " Release a mbuf back to the pool"]
     #[doc = ""]
-    #[doc = " @param omp The Mbuf pool to release back to"]
-    #[doc = " @param om  The Mbuf to release back to the pool"]
+    #[doc = " - __`omp`__: The Mbuf pool to release back to"]
+    #[doc = " - __`om`__:  The Mbuf to release back to the pool"]
     #[doc = ""]
-    #[doc = " @return 0 on success, -1 on failure"]
+    #[doc = " Return: 0 on success, -1 on failure"]
     pub fn os_mbuf_free(mb: *mut os_mbuf) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Free a chain of mbufs"]
     #[doc = ""]
-    #[doc = " @param omp The mbuf pool to free the chain of mbufs into"]
-    #[doc = " @param om  The starting mbuf of the chain to free back into the pool"]
+    #[doc = " - __`omp`__: The mbuf pool to free the chain of mbufs into"]
+    #[doc = " - __`om`__:  The starting mbuf of the chain to free back into the pool"]
     #[doc = ""]
-    #[doc = " @return 0 on success, -1 on failure"]
+    #[doc = " Return: 0 on success, -1 on failure"]
     pub fn os_mbuf_free_chain(om: *mut os_mbuf) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Adjust the length of a mbuf, trimming either from the head or the tail"]
     #[doc = " of the mbuf."]
     #[doc = ""]
-    #[doc = " @param mp The mbuf chain to adjust"]
-    #[doc = " @param req_len The length to trim from the mbuf.  If positive, trims"]
+    #[doc = " - __`mp`__: The mbuf chain to adjust"]
+    #[doc = " - __`req_len`__: The length to trim from the mbuf.  If positive, trims"]
     #[doc = "                from the head of the mbuf, if negative, trims from the"]
     #[doc = "                tail of the mbuf."]
     pub fn os_mbuf_adj(mp: *mut os_mbuf, req_len: ::cty::c_int);
@@ -1304,13 +1304,13 @@ extern "C" {
     #[doc = " Performs a memory compare of the specified region of an mbuf chain against a"]
     #[doc = " flat buffer."]
     #[doc = ""]
-    #[doc = " @param om                    The start of the mbuf chain to compare."]
-    #[doc = " @param off                   The offset within the mbuf chain to start the"]
+    #[doc = " - __`om`__:                    The start of the mbuf chain to compare."]
+    #[doc = " - __`off`__:                   The offset within the mbuf chain to start the"]
     #[doc = "                                  comparison."]
-    #[doc = " @param data                  The flat buffer to compare."]
-    #[doc = " @param len                   The length of the flat buffer."]
+    #[doc = " - __`data`__:                  The flat buffer to compare."]
+    #[doc = " - __`len`__:                   The length of the flat buffer."]
     #[doc = ""]
-    #[doc = " @return                      0 if both memory regions are identical;"]
+    #[doc = " Return:                      0 if both memory regions are identical;"]
     #[doc = "                              A memcmp return code if there is a mismatch;"]
     #[doc = "                              INT_MAX if the mbuf is too short."]
     pub fn os_mbuf_cmpf(
@@ -1325,15 +1325,15 @@ extern "C" {
     #[doc = " be compared are specified via the two offset parameters and the len"]
     #[doc = " parameter.  Neither mbuf chain is required to contain a packet header."]
     #[doc = ""]
-    #[doc = " @param om1                   The first mbuf chain to compare."]
-    #[doc = " @param offset1               The absolute offset within om1 at which to"]
+    #[doc = " - __`om1`__:                   The first mbuf chain to compare."]
+    #[doc = " - __`offset1`__:               The absolute offset within om1 at which to"]
     #[doc = "                                  start the comparison."]
-    #[doc = " @param om2                   The second mbuf chain to compare."]
-    #[doc = " @param offset2               The absolute offset within om2 at which to"]
+    #[doc = " - __`om2`__:                   The second mbuf chain to compare."]
+    #[doc = " - __`offset2`__:               The absolute offset within om2 at which to"]
     #[doc = "                                  start the comparison."]
-    #[doc = " @param len                   The number of bytes to compare."]
+    #[doc = " - __`len`__:                   The number of bytes to compare."]
     #[doc = ""]
-    #[doc = " @return                      0 if both mbuf segments are identical;"]
+    #[doc = " Return:                      0 if both mbuf segments are identical;"]
     #[doc = "                              A memcmp() return code if the segment contents"]
     #[doc = "                                  differ;"]
     #[doc = "                              INT_MAX if a specified range extends beyond the"]
@@ -1354,11 +1354,11 @@ extern "C" {
     #[doc = ""]
     #[doc = " The specified mbuf chain does not need to contain a packet header."]
     #[doc = ""]
-    #[doc = " @param omp                   The mbuf pool to allocate from."]
-    #[doc = " @param om                    The head of the mbuf chain."]
-    #[doc = " @param len                   The number of bytes to prepend."]
+    #[doc = " - __`omp`__:                   The mbuf pool to allocate from."]
+    #[doc = " - __`om`__:                    The head of the mbuf chain."]
+    #[doc = " - __`len`__:                   The number of bytes to prepend."]
     #[doc = ""]
-    #[doc = " @return                      The new head of the chain on success;"]
+    #[doc = " Return:                      The new head of the chain on success;"]
     #[doc = "                              NULL on failure."]
     pub fn os_mbuf_prepend(om: *mut os_mbuf, len: ::cty::c_int) -> *mut os_mbuf;
 }
@@ -1367,10 +1367,10 @@ extern "C" {
     #[doc = " chunk is contiguous.  If either operation fails, the specified mbuf chain is"]
     #[doc = " freed and NULL is returned."]
     #[doc = ""]
-    #[doc = " @param om                    The mbuf chain to prepend to."]
-    #[doc = " @param len                   The number of bytes to prepend and pullup."]
+    #[doc = " - __`om`__:                    The mbuf chain to prepend to."]
+    #[doc = " - __`len`__:                   The number of bytes to prepend and pullup."]
     #[doc = ""]
-    #[doc = " @return                      The modified mbuf on success;"]
+    #[doc = " Return:                      The modified mbuf on success;"]
     #[doc = "                              NULL on failure (and the mbuf chain is freed)."]
     pub fn os_mbuf_prepend_pullup(om: *mut os_mbuf, len: u16) -> *mut os_mbuf;
 }
@@ -1380,13 +1380,13 @@ extern "C" {
     #[doc = " it is extended as necessary.  If the destination mbuf contains a packet"]
     #[doc = " header, the header length is updated."]
     #[doc = ""]
-    #[doc = " @param omp                   The mbuf pool to allocate from."]
-    #[doc = " @param om                    The mbuf chain to copy into."]
-    #[doc = " @param off                   The offset within the chain to copy to."]
-    #[doc = " @param src                   The source buffer to copy from."]
-    #[doc = " @param len                   The number of bytes to copy."]
+    #[doc = " - __`omp`__:                   The mbuf pool to allocate from."]
+    #[doc = " - __`om`__:                    The mbuf chain to copy into."]
+    #[doc = " - __`off`__:                   The offset within the chain to copy to."]
+    #[doc = " - __`src`__:                   The source buffer to copy from."]
+    #[doc = " - __`len`__:                   The number of bytes to copy."]
     #[doc = ""]
-    #[doc = " @return                      0 on success; nonzero on failure."]
+    #[doc = " Return:                      0 on success; nonzero on failure."]
     pub fn os_mbuf_copyinto(
         om: *mut os_mbuf,
         off: ::cty::c_int,
@@ -1399,8 +1399,8 @@ extern "C" {
     #[doc = " contains a packet header, the header's length is updated.  If the second"]
     #[doc = " chain has a packet header, its header is cleared."]
     #[doc = ""]
-    #[doc = " @param first                 The mbuf chain being attached to."]
-    #[doc = " @param second                The mbuf chain that gets attached."]
+    #[doc = " - __`first`__:                 The mbuf chain being attached to."]
+    #[doc = " - __`second`__:                The mbuf chain that gets attached."]
     pub fn os_mbuf_concat(first: *mut os_mbuf, second: *mut os_mbuf);
 }
 extern "C" {
@@ -1410,10 +1410,10 @@ extern "C" {
     #[doc = " a single buffer."]
     #[doc = ""]
     #[doc = " @param omp"]
-    #[doc = " @param om                    The head of the chain to extend."]
-    #[doc = " @param len                   The number of bytes to extend by."]
+    #[doc = " - __`om`__:                    The head of the chain to extend."]
+    #[doc = " - __`len`__:                   The number of bytes to extend by."]
     #[doc = ""]
-    #[doc = " @return                      A pointer to the new data on success;"]
+    #[doc = " Return:                      A pointer to the new data on success;"]
     #[doc = "                              NULL on failure."]
     pub fn os_mbuf_extend(om: *mut os_mbuf, len: u16) -> *mut ::cty::c_void;
 }
@@ -1427,20 +1427,20 @@ extern "C" {
     #[doc = " extra bytes to the contiguous region, in an attempt to avoid being"]
     #[doc = " called next time."]
     #[doc = ""]
-    #[doc = " @param omp The mbuf pool to take the mbufs out of"]
-    #[doc = " @param om The mbuf chain to make contiguous"]
-    #[doc = " @param len The number of bytes in the chain to make contiguous"]
+    #[doc = " - __`omp`__: The mbuf pool to take the mbufs out of"]
+    #[doc = " - __`om`__: The mbuf chain to make contiguous"]
+    #[doc = " - __`len`__: The number of bytes in the chain to make contiguous"]
     #[doc = ""]
-    #[doc = " @return The contiguous mbuf chain on success, NULL on failure."]
+    #[doc = " Return: The contiguous mbuf chain on success, NULL on failure."]
     pub fn os_mbuf_pullup(om: *mut os_mbuf, len: u16) -> *mut os_mbuf;
 }
 extern "C" {
     #[doc = " Removes and frees empty mbufs from the front of a chain.  If the chain"]
     #[doc = " contains a packet header, it is preserved."]
     #[doc = ""]
-    #[doc = " @param om                    The mbuf chain to trim."]
+    #[doc = " - __`om`__:                    The mbuf chain to trim."]
     #[doc = ""]
-    #[doc = " @return                      The head of the trimmed mbuf chain."]
+    #[doc = " Return:                      The head of the trimmed mbuf chain."]
     pub fn os_mbuf_trim_front(om: *mut os_mbuf) -> *mut os_mbuf;
 }
 extern "C" {
@@ -1450,11 +1450,11 @@ extern "C" {
     #[doc = ""]
     #[doc = " This function never frees the provided mbuf chain."]
     #[doc = ""]
-    #[doc = " @param om                    The mbuf chain to widen."]
-    #[doc = " @param off                   The offset at which to insert the gap."]
-    #[doc = " @param len                   The size of the gap to insert."]
+    #[doc = " - __`om`__:                    The mbuf chain to widen."]
+    #[doc = " - __`off`__:                   The offset at which to insert the gap."]
+    #[doc = " - __`len`__:                   The size of the gap to insert."]
     #[doc = ""]
-    #[doc = " @return                      0 on success; SYS_[...] error code on failure."]
+    #[doc = " Return:                      0 on success; SYS_[...] error code on failure."]
     pub fn os_mbuf_widen(om: *mut os_mbuf, off: u16, len: u16) -> ::cty::c_int;
 }
 #[doc = " A memory block structure. This simply contains a pointer to the free list"]
@@ -1528,13 +1528,13 @@ impl Default for os_mempool {
 #[doc = " itself.  Therefore, it is the callback's responsibility to free the block"]
 #[doc = " via a call to os_memblock_put_from_cb()."]
 #[doc = ""]
-#[doc = " @param ome                   The extended mempool that a block is being"]
+#[doc = " - __`ome`__:                   The extended mempool that a block is being"]
 #[doc = "                                  freed back to."]
-#[doc = " @param data                  The block being freed."]
-#[doc = " @param arg                   Optional argument configured along with the"]
+#[doc = " - __`data`__:                  The block being freed."]
+#[doc = " - __`arg`__:                   Optional argument configured along with the"]
 #[doc = "                                  callback."]
 #[doc = ""]
-#[doc = " @return                      Indicates whether the block was successfully"]
+#[doc = " Return:                      Indicates whether the block was successfully"]
 #[doc = "                                  freed.  A non-zero value should only be"]
 #[doc = "                                  returned if the block was not successfully"]
 #[doc = "                                  released back to its pool."]
@@ -1575,11 +1575,11 @@ pub struct os_mempool_info {
 extern "C" {
     #[doc = " Get information about the next system memory pool."]
     #[doc = ""]
-    #[doc = " @param mempool The current memory pool, or NULL if starting iteration."]
-    #[doc = " @param info    A pointer to the structure to return memory pool information"]
+    #[doc = " - __`mempool`__: The current memory pool, or NULL if starting iteration."]
+    #[doc = " - __`info`__:    A pointer to the structure to return memory pool information"]
     #[doc = "                into."]
     #[doc = ""]
-    #[doc = " @return The next memory pool in the list to get information about, or NULL"]
+    #[doc = " Return: The next memory pool in the list to get information about, or NULL"]
     #[doc = "         when at the last memory pool."]
     pub fn os_mempool_info_get_next(
         arg1: *mut os_mempool,
@@ -1590,13 +1590,13 @@ pub type os_membuf_t = u32;
 extern "C" {
     #[doc = " Initialize a memory pool."]
     #[doc = ""]
-    #[doc = " @param mp            Pointer to a pointer to a mempool"]
-    #[doc = " @param blocks        The number of blocks in the pool"]
-    #[doc = " @param blocks_size   The size of the block, in bytes."]
-    #[doc = " @param membuf        Pointer to memory to contain blocks."]
-    #[doc = " @param name          Name of the pool."]
+    #[doc = " - __`mp`__:            Pointer to a pointer to a mempool"]
+    #[doc = " - __`blocks`__:        The number of blocks in the pool"]
+    #[doc = " - __`blocks_size`__:   The size of the block, in bytes."]
+    #[doc = " - __`membuf`__:        Pointer to memory to contain blocks."]
+    #[doc = " - __`name`__:          Name of the pool."]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     pub fn os_mempool_init(
         mp: *mut os_mempool,
         blocks: u16,
@@ -1610,13 +1610,13 @@ extern "C" {
     #[doc = " are not specified when this function is called; they are assigned manually"]
     #[doc = " after initialization."]
     #[doc = ""]
-    #[doc = " @param mpe           The extended memory pool to initialize."]
-    #[doc = " @param blocks        The number of blocks in the pool."]
-    #[doc = " @param block_size    The size of each block, in bytes."]
-    #[doc = " @param membuf        Pointer to memory to contain blocks."]
-    #[doc = " @param name          Name of the pool."]
+    #[doc = " - __`mpe`__:           The extended memory pool to initialize."]
+    #[doc = " - __`blocks`__:        The number of blocks in the pool."]
+    #[doc = " - __`block_size`__:    The size of each block, in bytes."]
+    #[doc = " - __`membuf`__:        Pointer to memory to contain blocks."]
+    #[doc = " - __`name`__:          Name of the pool."]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     pub fn os_mempool_ext_init(
         mpe: *mut os_mempool_ext,
         blocks: u16,
@@ -1628,9 +1628,9 @@ extern "C" {
 extern "C" {
     #[doc = " Removes the specified mempool from the list of initialized mempools."]
     #[doc = ""]
-    #[doc = " @param mp                    The mempool to unregister."]
+    #[doc = " - __`mp`__:                    The mempool to unregister."]
     #[doc = ""]
-    #[doc = " @return                      0 on success;"]
+    #[doc = " Return:                      0 on success;"]
     #[doc = "                              OS_INVALID_PARM if the mempool is not"]
     #[doc = "                                  registered."]
     pub fn os_mempool_unregister(mp: *mut os_mempool) -> os_error_t;
@@ -1638,9 +1638,9 @@ extern "C" {
 extern "C" {
     #[doc = " Clears a memory pool."]
     #[doc = ""]
-    #[doc = " @param mp            The mempool to clear."]
+    #[doc = " - __`mp`__:            The mempool to clear."]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     pub fn os_mempool_clear(mp: *mut os_mempool) -> os_error_t;
 }
 extern "C" {
@@ -1649,10 +1649,10 @@ extern "C" {
 extern "C" {
     #[doc = " Checks if a memory block was allocated from the specified mempool."]
     #[doc = ""]
-    #[doc = " @param mp                    The mempool to check as parent."]
-    #[doc = " @param block_addr            The memory block to check as child."]
+    #[doc = " - __`mp`__:                    The mempool to check as parent."]
+    #[doc = " - __`block_addr`__:            The memory block to check as child."]
     #[doc = ""]
-    #[doc = " @return                      0 if the block does not belong to the mempool;"]
+    #[doc = " Return:                      0 if the block does not belong to the mempool;"]
     #[doc = "                              1 if the block does belong to the mempool."]
     pub fn os_memblock_from(
         mp: *const os_mempool,
@@ -1662,9 +1662,9 @@ extern "C" {
 extern "C" {
     #[doc = " Get a memory block from a memory pool"]
     #[doc = ""]
-    #[doc = " @param mp Pointer to the memory pool"]
+    #[doc = " - __`mp`__: Pointer to the memory pool"]
     #[doc = ""]
-    #[doc = " @return void* Pointer to block if available; NULL otherwise"]
+    #[doc = " Return: void* Pointer to block if available; NULL otherwise"]
     pub fn os_memblock_get(mp: *mut os_mempool) -> *mut ::cty::c_void;
 }
 extern "C" {
@@ -1672,10 +1672,10 @@ extern "C" {
     #[doc = " This function should only be called from a put callback to free a block"]
     #[doc = " without causing infinite recursion."]
     #[doc = ""]
-    #[doc = " @param mp Pointer to memory pool"]
-    #[doc = " @param block_addr Pointer to memory block"]
+    #[doc = " - __`mp`__: Pointer to memory pool"]
+    #[doc = " - __`block_addr`__: Pointer to memory block"]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     pub fn os_memblock_put_from_cb(
         mp: *mut os_mempool,
         block_addr: *mut ::cty::c_void,
@@ -1684,10 +1684,10 @@ extern "C" {
 extern "C" {
     #[doc = " Puts the memory block back into the pool"]
     #[doc = ""]
-    #[doc = " @param mp Pointer to memory pool"]
-    #[doc = " @param block_addr Pointer to memory block"]
+    #[doc = " - __`mp`__: Pointer to memory pool"]
+    #[doc = " - __`block_addr`__: Pointer to memory block"]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     pub fn os_memblock_put(mp: *mut os_mempool, block_addr: *mut ::cty::c_void) -> os_error_t;
 }
 #[doc = " OS mutex structure"]
@@ -1719,9 +1719,9 @@ impl Default for os_mutex {
 extern "C" {
     #[doc = " Create a mutex and initialize it."]
     #[doc = ""]
-    #[doc = " @param mu Pointer to mutex"]
+    #[doc = " - __`mu`__: Pointer to mutex"]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     #[doc = "      OS_INVALID_PARM     Mutex passed in was NULL."]
     #[doc = "      OS_OK               no error."]
     pub fn os_mutex_init(mu: *mut os_mutex) -> os_error_t;
@@ -1729,9 +1729,9 @@ extern "C" {
 extern "C" {
     #[doc = " Release a mutex."]
     #[doc = ""]
-    #[doc = " @param mu Pointer to the mutex to be released"]
+    #[doc = " - __`mu`__: Pointer to the mutex to be released"]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     #[doc = "      OS_INVALID_PARM Mutex passed in was NULL."]
     #[doc = "      OS_BAD_MUTEX    Mutex was not granted to current task (not owner)."]
     #[doc = "      OS_OK           No error"]
@@ -1740,13 +1740,13 @@ extern "C" {
 extern "C" {
     #[doc = " Pend (wait) for a mutex."]
     #[doc = ""]
-    #[doc = " @param mu Pointer to mutex."]
-    #[doc = " @param timeout Timeout, in os ticks."]
+    #[doc = " - __`mu`__: Pointer to mutex."]
+    #[doc = " - __`timeout`__: Timeout, in os ticks."]
     #[doc = "                A timeout of 0 means do not wait if not available."]
     #[doc = "                A timeout of OS_TIMEOUT_NEVER means wait forever."]
     #[doc = ""]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     #[doc = "      OS_INVALID_PARM     Mutex passed in was NULL."]
     #[doc = "      OS_TIMEOUT          Mutex was owned by another task and timeout=0"]
     #[doc = "      OS_OK               no error."]
@@ -1791,34 +1791,34 @@ extern "C" {
 extern "C" {
     #[doc = " Provide a \"task checkin\" for the sanity task."]
     #[doc = ""]
-    #[doc = " @param t The task to check in"]
+    #[doc = " - __`t`__: The task to check in"]
     #[doc = ""]
-    #[doc = " @return 0 on success, error code on failure"]
+    #[doc = " Return: 0 on success, error code on failure"]
     pub fn os_sanity_task_checkin(arg1: *mut os_task) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Initialize a sanity check"]
     #[doc = ""]
-    #[doc = " @param sc The sanity check to initialize"]
+    #[doc = " - __`sc`__: The sanity check to initialize"]
     #[doc = ""]
-    #[doc = " @return 0 on success, error code on failure."]
+    #[doc = " Return: 0 on success, error code on failure."]
     pub fn os_sanity_check_init(arg1: *mut os_sanity_check) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Register a sanity check"]
     #[doc = ""]
-    #[doc = " @param sc The sanity check to register"]
+    #[doc = " - __`sc`__: The sanity check to register"]
     #[doc = ""]
-    #[doc = " @return 0 on success, error code on failure"]
+    #[doc = " Return: 0 on success, error code on failure"]
     pub fn os_sanity_check_register(arg1: *mut os_sanity_check) -> ::cty::c_int;
 }
 extern "C" {
     #[doc = " Reset the os sanity check, so that it doesn't trip up the"]
     #[doc = " sanity timer."]
     #[doc = ""]
-    #[doc = " @param sc The sanity check to reset"]
+    #[doc = " - __`sc`__: The sanity check to reset"]
     #[doc = ""]
-    #[doc = " @return 0 on success, error code on failure"]
+    #[doc = " Return: 0 on success, error code on failure"]
     pub fn os_sanity_check_reset(arg1: *mut os_sanity_check) -> ::cty::c_int;
 }
 #[repr(C)]
@@ -1938,18 +1938,18 @@ extern "C" {
     #[doc = " and sets the task as ready to run, and inserts it into the operating"]
     #[doc = " system scheduler."]
     #[doc = ""]
-    #[doc = " @param t The task to initialize"]
-    #[doc = " @param name The name of the task to initialize"]
-    #[doc = " @param func The task function to call"]
-    #[doc = " @param arg The argument to pass to this task function"]
-    #[doc = " @param prio The priority at which to run this task"]
-    #[doc = " @param sanity_itvl The time at which this task should check in with the"]
+    #[doc = " - __`t`__: The task to initialize"]
+    #[doc = " - __`name`__: The name of the task to initialize"]
+    #[doc = " - __`func`__: The task function to call"]
+    #[doc = " - __`arg`__: The argument to pass to this task function"]
+    #[doc = " - __`prio`__: The priority at which to run this task"]
+    #[doc = " - __`sanity_itvl`__: The time at which this task should check in with the"]
     #[doc = "                    sanity task.  OS_WAIT_FOREVER means never check in"]
     #[doc = "                    here."]
-    #[doc = " @param stack_bottom A pointer to the bottom of a task's stack"]
-    #[doc = " @param stack_size The overall size of the task's stack."]
+    #[doc = " - __`stack_bottom`__: A pointer to the bottom of a task's stack"]
+    #[doc = " - __`stack_size`__: The overall size of the task's stack."]
     #[doc = ""]
-    #[doc = " @return 0 on success, non-zero on failure."]
+    #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_task_init(
         arg1: *mut os_task,
         arg2: *const ::cty::c_char,
@@ -1970,7 +1970,7 @@ extern "C" {
 extern "C" {
     #[doc = " Return the number of tasks initialized."]
     #[doc = ""]
-    #[doc = " @return number of tasks initialized"]
+    #[doc = " Return: number of tasks initialized"]
     pub fn os_task_count() -> u8;
 }
 #[doc = " Information about an individual task, returned for management APIs."]
@@ -2021,11 +2021,11 @@ extern "C" {
     #[doc = " will fill out the task structure pointed to by oti again, and return"]
     #[doc = " the next task in the list."]
     #[doc = ""]
-    #[doc = " @param prev The previous task returned by os_task_info_get_next(), or NULL"]
+    #[doc = " - __`prev`__: The previous task returned by os_task_info_get_next(), or NULL"]
     #[doc = "             to begin iteration."]
-    #[doc = " @param oti  The OS task info structure to fill out."]
+    #[doc = " - __`oti`__:  The OS task info structure to fill out."]
     #[doc = ""]
-    #[doc = " @return A pointer to the OS task that has been read, or NULL when finished"]
+    #[doc = " Return: A pointer to the OS task that has been read, or NULL when finished"]
     #[doc = "         iterating through all tasks."]
     pub fn os_task_info_get_next(arg1: *const os_task, arg2: *mut os_task_info) -> *mut os_task;
 }
@@ -2046,7 +2046,7 @@ extern "C" {
     #[doc = " Returns the currently running task. Note that this task may or may not be"]
     #[doc = " the highest priority task ready to run."]
     #[doc = ""]
-    #[doc = " @return The currently running task."]
+    #[doc = " Return: The currently running task."]
     pub fn os_sched_get_current_task() -> *mut os_task;
 }
 extern "C" {
@@ -2063,13 +2063,13 @@ extern "C" {
     #[doc = ""]
     #[doc = " This function will call the architecture specific routine to swap in the new task."]
     #[doc = ""]
-    #[doc = " @param next_t Pointer to task which must run next (optional)"]
+    #[doc = " - __`next_t`__: Pointer to task which must run next (optional)"]
     #[doc = ""]
-    #[doc = " @return n/a"]
+    #[doc = " Return: n/a"]
     #[doc = ""]
-    #[doc = " @note Interrupts must be disabled when calling this."]
+    #[doc = " __Note:__ Interrupts must be disabled when calling this."]
     #[doc = ""]
-    #[doc = " @code{.c}"]
+    #[doc = " ```c"]
     #[doc = " // example"]
     #[doc = " os_error_t"]
     #[doc = " os_mutex_release(struct os_mutex *mu)"]
@@ -2085,7 +2085,7 @@ extern "C" {
     #[doc = "     return OS_OK;"]
     #[doc = ""]
     #[doc = " }"]
-    #[doc = " @endcode"]
+    #[doc = " ```"]
     pub fn os_sched(arg1: *mut os_task);
 }
 extern "C" {
@@ -2135,10 +2135,10 @@ impl Default for os_sem {
 extern "C" {
     #[doc = " Initialize a semaphore"]
     #[doc = ""]
-    #[doc = " @param sem Pointer to semaphore"]
+    #[doc = " - __`sem`__: Pointer to semaphore"]
     #[doc = "        tokens: # of tokens the semaphore should contain initially."]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     #[doc = "      OS_INVALID_PARM     Semaphore passed in was NULL."]
     #[doc = "      OS_OK               no error."]
     pub fn os_sem_init(sem: *mut os_sem, tokens: u16) -> os_error_t;
@@ -2146,9 +2146,9 @@ extern "C" {
 extern "C" {
     #[doc = " Release a semaphore."]
     #[doc = ""]
-    #[doc = " @param sem Pointer to the semaphore to be released"]
+    #[doc = " - __`sem`__: Pointer to the semaphore to be released"]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     #[doc = "      OS_INVALID_PARM Semaphore passed in was NULL."]
     #[doc = "      OS_OK No error"]
     pub fn os_sem_release(sem: *mut os_sem) -> os_error_t;
@@ -2158,13 +2158,13 @@ extern "C" {
     #[doc = ""]
     #[doc = " Pend (wait) for a semaphore."]
     #[doc = ""]
-    #[doc = " @param mu Pointer to semaphore."]
-    #[doc = " @param timeout Timeout, in os ticks."]
+    #[doc = " - __`mu`__: Pointer to semaphore."]
+    #[doc = " - __`timeout`__: Timeout, in os ticks."]
     #[doc = "                A timeout of 0 means do not wait if not available."]
     #[doc = "                A timeout of OS_TIMEOUT_NEVER means wait forever."]
     #[doc = ""]
     #[doc = ""]
-    #[doc = " @return os_error_t"]
+    #[doc = " Return: os_error_t"]
     #[doc = "      OS_INVALID_PARM     Semaphore passed in was NULL."]
     #[doc = "      OS_TIMEOUT          Semaphore was owned by another task and timeout=0"]
     #[doc = "      OS_OK               no error."]
@@ -2180,14 +2180,14 @@ extern "C" {
     #[doc = " Set up the periodic timer to interrupt at a frequency of 'os_ticks_per_sec'."]
     #[doc = " 'prio' is the cpu-specific priority of the periodic timer interrupt."]
     #[doc = ""]
-    #[doc = " @param os_ticks_per_sec Frequency of the OS tick timer"]
-    #[doc = " @param prio             Priority of the OS tick timer"]
+    #[doc = " - __`os_ticks_per_sec`__: Frequency of the OS tick timer"]
+    #[doc = " - __`prio`__:             Priority of the OS tick timer"]
     pub fn os_tick_init(os_ticks_per_sec: u32, prio: ::cty::c_int);
 }
 extern "C" {
     #[doc = " Halt CPU for up to 'n' ticks."]
     #[doc = ""]
-    #[doc = " @param n The number of ticks to halt the CPU for"]
+    #[doc = " - __`n`__: The number of ticks to halt the CPU for"]
     pub fn os_tick_idle(n: os_time_t);
 }
 extern "C" {
@@ -2202,7 +2202,7 @@ extern "C" {
     #[doc = " the next time an event in the system needs to run, and then tells"]
     #[doc = " the architecture specific functions to sleep until that time."]
     #[doc = ""]
-    #[doc = " @param arg unused"]
+    #[doc = " - __`arg`__: unused"]
     pub fn os_idle_task(arg: *mut ::cty::c_void);
 }
 extern "C" {
