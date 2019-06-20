@@ -9,11 +9,11 @@
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
-use cty::{ c_void, c_char };  //  Import C types from cty library: https://crates.io/crates/cty
+use cty::c_char;          //  Import C types from cty library: https://crates.io/crates/cty
 use crate::mynewt::{
     result::*,            //  Import Mynewt result and error types
     kernel::os::{  
-        self,             //  Import Mynewt OS functiond
+        self,             //  Import Mynewt OS functions
         os_task,          //  Import Mynewt OS types
         os_stack_t
     },
