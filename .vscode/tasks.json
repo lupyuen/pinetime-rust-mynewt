@@ -116,8 +116,30 @@
             "problemMatcher": []
         },
         {
+            //  Generate Rust bindings for C libraries.
+            "label": "⛓ Generate Rust bindings",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c", "-l",
+                " set -e -x ; ./scripts/gen-bindings.sh ; echo ✅ ◾ ️Done! "
+            ],
+            "problemMatcher": []
+        },
+        {
+            //  Build Rust library with macros expanded, output to logs/libmylib-expanded.rs.
+            "label": "👓 Expand Rust macros",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c", "-l",
+                " set -e -x ; ./scripts/build-rustlib.sh ; echo ✅ ◾ ️Done! "
+            ],
+            "problemMatcher": []
+        },
+        {
             //  Generate documentation.
-            "label": "📄 Generate Doc",
+            "label": "📖 Generate Doc",
             "type": "shell",
             "command": "bash",
             "args": [
@@ -134,28 +156,6 @@
             "args": [
                 "-c", "-l",
                 " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
-            ],
-            "problemMatcher": []
-        },
-        {
-            //  Build Rust library with macros expanded, output to logs/libmylib-expanded.rs.
-            "label": "Expand Rust macros",
-            "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " set -e -x ; ./scripts/build-rustlib.sh ; echo ✅ ◾ ️Done! "
-            ],
-            "problemMatcher": []
-        },
-        {
-            //  Generate Rust bindings for C libraries.
-            "label": "Generate Rust bindings",
-            "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " set -e -x ; ./scripts/gen-bindings.sh ; echo ✅ ◾ ️Done! "
             ],
             "problemMatcher": []
         },

@@ -71,7 +71,7 @@ mod mynewt {
     //! Also includes safe versions of Mynewt APIs created specially for Rust.
     #[macro_use]
     pub mod macros {
-        //!  Macros for hosting embedded Rust applications on Mynewt
+        //!  Mynewt Macros for Rust
         ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
         ///  `fill_zero!(os_task)` expands to
         ///  ```
@@ -534,14 +534,14 @@ mod mynewt {
                                         ", object: " , stringify ! ( $ object
                                         ) , ", key: " , stringify ! ( $ key )
                                         , ", child: " , stringify ! ( $ object
-                                        ) , "_map" ) ; json ::
-                                        json_encode_array_name (
+                                        ) , "_map" ) ; unsafe {
+                                        json :: json_encode_array_name (
                                         & mut sensor_coap :: coap_json_encoder
                                         , $ key ) ; json ::
                                         json_encode_array_start (
                                         & mut sensor_coap :: coap_json_encoder
-                                        ) ; d ! ( end json_rep_set_array ) ; }
-                                        } ;);
+                                        ) ; } d ! ( end json_rep_set_array ) ;
+                                        } } ;);
         #[macro_export]
         macro_rules! json_rep_close_array(( $ object : ident , $ key : ident )
                                           => {
@@ -551,9 +551,10 @@ mod mynewt {
                                           ", object: " , stringify ! (
                                           $ object ) , ", key: " , stringify !
                                           ( $ key ) , ", child: " , stringify
-                                          ! ( $ object ) , "_map" ) ;
-                                          json_encode_array_finish (
-                                          & coap_json_encoder ) ; d ! (
+                                          ! ( $ object ) , "_map" ) ; unsafe {
+                                          json :: json_encode_array_finish (
+                                          & mut sensor_coap ::
+                                          coap_json_encoder ) } d ! (
                                           end json_rep_close_array ) ; } } ;);
         #[macro_export]
         macro_rules! json_rep_object_array_start_item(( $ key : ident ) => {
@@ -564,10 +565,13 @@ mod mynewt {
                                                       ! ( $ key ) ,
                                                       ", child: " , stringify
                                                       ! ( $ key ) , "_array" ,
-                                                      ) ; {
+                                                      ) ; unsafe {
+                                                      json ::
                                                       json_encode_object_start
-                                                      ( & coap_json_encoder )
-                                                      ; } d ! (
+                                                      (
+                                                      & mut sensor_coap ::
+                                                      coap_json_encoder ) } d
+                                                      ! (
                                                       end
                                                       json_rep_object_array_start_item
                                                       ) ; } } ;);
@@ -579,10 +583,13 @@ mod mynewt {
                                                     , ", key: " , stringify !
                                                     ( $ key ) , ", child: " ,
                                                     stringify ! ( $ key ) ,
-                                                    "_array" , ) ; {
+                                                    "_array" , ) ; unsafe {
+                                                    json ::
                                                     json_encode_object_finish
-                                                    ( & coap_json_encoder ) ;
-                                                    } d ! (
+                                                    (
+                                                    & mut sensor_coap ::
+                                                    coap_json_encoder ) } d !
+                                                    (
                                                     end
                                                     json_rep_object_array_end_item
                                                     ) ; } } ;);
@@ -597,12 +604,11 @@ mod mynewt {
                                       stringify ! ( $ key ) , ", value: " ,
                                       stringify ! ( $ value ) , ", child: " ,
                                       stringify ! ( $ object ) , "_map" ) ;
-                                      unsafe {
-                                      json_value_int (
-                                      & coap_json_value , value ) ;
-                                      json_encode_object_entry (
-                                      & coap_json_encoder , # key , &
-                                      coap_json_value ) ; } d ! (
+                                      json_value_int ! (
+                                      coap_json_value , value ) ; unsafe {
+                                      json :: json_encode_object_entry (
+                                      & mut sensor_coap :: coap_json_encoder ,
+                                      # key , & coap_json_value ) } d ! (
                                       end json_rep_set_int ) ; } } ;);
         #[macro_export]
         macro_rules! json_rep_set_text_string((
@@ -617,13 +623,14 @@ mod mynewt {
                                               ", value: " , stringify ! (
                                               $ value ) , ", child: " ,
                                               stringify ! ( $ object ) ,
-                                              "_map" ) ; unsafe {
-                                              json_value_string (
-                                              & coap_json_value , ( char * )
-                                              value ) ;
-                                              json_encode_object_entry (
-                                              & coap_json_encoder , # key , &
-                                              coap_json_value ) ; } d ! (
+                                              "_map" ) ; json_value_string ! (
+                                              coap_json_value , value ) ;
+                                              unsafe {
+                                              json :: json_encode_object_entry
+                                              (
+                                              & mut sensor_coap ::
+                                              coap_json_encoder , # key , &
+                                              coap_json_value ) } d ! (
                                               end json_rep_set_text_string ) ;
                                               } } ;);
         #[macro_export]
@@ -635,10 +642,10 @@ mod mynewt {
                                     , stringify ! ( $ json_value ) ,
                                     ", value: " , stringify ! ( $ value ) ) ;
                                     unsafe {
-                                    $ json_value -> jv_type =
-                                    JSON_VALUE_TYPE_INT64 ; $ json_value ->
-                                    jv_val . u = ( uint64_t ) $ value ; } d !
-                                    ( end json_value_int ) ; } } ;);
+                                    $ json_value . jv_type = json ::
+                                    JSON_VALUE_TYPE_INT64 ; $ json_value .
+                                    jv_val . u = $ value as u64 ; } d ! (
+                                    end json_value_int ) ; } } ;);
         #[macro_export]
         macro_rules! json_value_string(( $ json_value : ident , $ value : expr
                                        ) => {
@@ -648,12 +655,11 @@ mod mynewt {
                                        ", json_value: " , stringify ! (
                                        $ json_value ) , ", value: " ,
                                        stringify ! ( $ value ) ) ; unsafe {
-                                       $ json_value -> jv_type =
-                                       JSON_VALUE_TYPE_STRING ; $ json_value
-                                       -> jv_len = strlen ( $ value ) ; $
-                                       json_value -> jv_val . str = ( $ value
-                                       ) ; } d ! ( end json_value_string ) ; }
-                                       } ;);
+                                       $ json_value . jv_type = json ::
+                                       JSON_VALUE_TYPE_STRING ; $ json_value .
+                                       jv_len = $ value . len (  ) ; $
+                                       json_value . jv_val . str = $ value ; }
+                                       d ! ( end json_value_string ) ; } } ;);
         #[macro_export(local_inner_macros)]
         macro_rules! oc_rep_start_root_object((  ) => {
                                               {
@@ -896,10 +902,9 @@ mod mynewt {
                         stringify ! ( $ ( $ next ) * ) , " >> " , stringify !
                         ( $ ( $ rest ) * ) ) ; } ;);
     }
-    /// `encoding`: Mynewt Encoding API
     pub mod encoding {
-        //! Mynewt Encoding API
-        /// Export `json.rs` as Rust module `mynewt::encoding::json`.  Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`.
+        //! Mynewt Encoding API for Rust
+        /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
         pub mod json {
             #[repr(C)]
             #[structural_match]
@@ -1680,7 +1685,7 @@ mod mynewt {
                  -> ::cty::c_int;
             }
         }
-        /// Export `tinycbor.rs` as Rust module `mynewt::encoding::tinycbor`.  Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`.
+        /// Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`
         pub mod tinycbor {
             pub const CborIndefiniteLength: usize = 0xffffffffusize;
             pub type __uint8_t = ::cty::c_uchar;
@@ -1837,65 +1842,193 @@ mod mynewt {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
             extern "C" {
+                #[doc =
+                      " Initializes a CborEncoder structure \\a encoder by pointing it to buffer \\a"]
+                #[doc =
+                      " buffer of size \\a size. The \\a flags field is currently unused and must be"]
+                #[doc = " zero."]
                 pub fn cbor_encoder_init(encoder: *mut CborEncoder,
                                          pwriter: *mut cbor_encoder_writer,
                                          flags: ::cty::c_int);
             }
             extern "C" {
+                #[doc =
+                      " Appends the unsigned 64-bit integer \\a value to the CBOR stream provided by"]
+                #[doc = " \\a encoder."]
+                #[doc = ""]
+                #[doc = " \\sa cbor_encode_negative_int, cbor_encode_int"]
                 pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64)
                  -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the signed 64-bit integer \\a value to the CBOR stream provided by"]
+                #[doc = " \\a encoder."]
+                #[doc = ""]
+                #[doc = " \\sa cbor_encode_negative_int, cbor_encode_uint"]
                 pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64)
                  -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the negative 64-bit integer whose absolute value is \\a"]
+                #[doc =
+                      " absolute_value to the CBOR stream provided by \\a encoder."]
+                #[doc = ""]
+                #[doc = " \\sa cbor_encode_uint, cbor_encode_int"]
                 pub fn cbor_encode_negative_int(encoder: *mut CborEncoder,
                                                 absolute_value: u64)
                  -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the CBOR Simple Type of value \\a value to the CBOR stream provided by"]
+                #[doc = " \\a encoder."]
+                #[doc = ""]
+                #[doc =
+                      " This function may return error CborErrorIllegalSimpleType if the \\a value"]
+                #[doc =
+                      " variable contains a number that is not a valid simple type."]
                 pub fn cbor_encode_simple_value(encoder: *mut CborEncoder,
                                                 value: u8) -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the CBOR tag \\a tag to the CBOR stream provided by \\a encoder."]
+                #[doc = ""]
+                #[doc = " \\sa CborTag"]
                 pub fn cbor_encode_tag(encoder: *mut CborEncoder,
                                        tag: CborTag) -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the byte string \\a string of length \\a length to the CBOR stream"]
+                #[doc =
+                      " provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
+                #[doc = ""]
+                #[doc =
+                      " \\sa cbor_encode_text_stringz, cbor_encode_text_string"]
                 pub fn cbor_encode_text_string(encoder: *mut CborEncoder,
                                                string: *const ::cty::c_char,
                                                length: usize) -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the text string \\a string of length \\a length to the CBOR stream"]
+                #[doc =
+                      " provided by \\a encoder. CBOR requires that \\a string be valid UTF-8, but"]
+                #[doc = " TinyCBOR makes no verification of correctness."]
+                #[doc = ""]
+                #[doc =
+                      " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
                 pub fn cbor_encode_byte_string(encoder: *mut CborEncoder,
                                                string: *const u8,
                                                length: usize) -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the byte string passed as \\a iov and \\a iov_len to the CBOR"]
+                #[doc =
+                      " stream provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
+                #[doc = ""]
+                #[doc =
+                      " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
                 pub fn cbor_encode_byte_iovec(encoder: *mut CborEncoder,
                                               iov: *const cbor_iovec,
                                               iov_len: ::cty::c_int)
                  -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Appends the floating-point value of type \\a fpType and pointed to by \\a"]
+                #[doc =
+                      " value to the CBOR stream provided by \\a encoder. The value of \\a fpType must"]
+                #[doc =
+                      " be one of CborHalfFloatType, CborFloatType or CborDoubleType, otherwise the"]
+                #[doc = " behavior of this function is undefined."]
+                #[doc = ""]
+                #[doc =
+                      " This function is useful for code that needs to pass through floating point"]
+                #[doc =
+                      " values but does not wish to have the actual floating-point code."]
+                #[doc = ""]
+                #[doc =
+                      " \\sa cbor_encode_half_float, cbor_encode_float, cbor_encode_double"]
                 pub fn cbor_encode_floating_point(encoder: *mut CborEncoder,
                                                   fpType: CborType,
                                                   value: *const ::cty::c_void)
                  -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Creates a CBOR array in the CBOR stream provided by \\a encoder and"]
+                #[doc =
+                      " initializes \\a arrayEncoder so that items can be added to the array using"]
+                #[doc =
+                      " the CborEncoder functions. The array must be terminated by calling either"]
+                #[doc =
+                      " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
+                #[doc =
+                      " with the same \\a encoder and \\a arrayEncoder parameters."]
+                #[doc = ""]
+                #[doc =
+                      " The number of items inserted into the array must be exactly \\a length items,"]
+                #[doc =
+                      " otherwise the stream is invalid. If the number of items is not known when"]
+                #[doc =
+                      " creating the array, the constant \\ref CborIndefiniteLength may be passed as"]
+                #[doc = " length instead."]
+                #[doc = ""]
+                #[doc = " \\sa cbor_encoder_create_map"]
                 pub fn cbor_encoder_create_array(encoder: *mut CborEncoder,
                                                  arrayEncoder:
                                                      *mut CborEncoder,
                                                  length: usize) -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Creates a CBOR map in the CBOR stream provided by \\a encoder and"]
+                #[doc =
+                      " initializes \\a mapEncoder so that items can be added to the map using"]
+                #[doc =
+                      " the CborEncoder functions. The map must be terminated by calling either"]
+                #[doc =
+                      " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
+                #[doc =
+                      " with the same \\a encoder and \\a mapEncoder parameters."]
+                #[doc = ""]
+                #[doc =
+                      " The number of pair of items inserted into the map must be exactly \\a length"]
+                #[doc =
+                      " items, otherwise the stream is invalid. If the number of items is not known"]
+                #[doc =
+                      " when creating the map, the constant \\ref CborIndefiniteLength may be passed as"]
+                #[doc = " length instead."]
+                #[doc = ""]
+                #[doc =
+                      " \\b{Implementation limitation:} TinyCBOR cannot encode more than SIZE_MAX/2"]
+                #[doc =
+                      " key-value pairs in the stream. If the length \\a length is larger than this"]
+                #[doc =
+                      " value, this function returns error CborErrorDataTooLarge."]
+                #[doc = ""]
+                #[doc = " \\sa cbor_encoder_create_array"]
                 pub fn cbor_encoder_create_map(encoder: *mut CborEncoder,
                                                mapEncoder: *mut CborEncoder,
                                                length: usize) -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Creates a indefinite-length byte string in the CBOR stream provided by"]
+                #[doc =
+                      " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
+                #[doc =
+                      " can be added using the CborEncoder functions. The string must be terminated by"]
+                #[doc =
+                      " calling cbor_encoder_close_container() with the same \\a encoder and"]
+                #[doc = " \\a stringEncoder parameters."]
+                #[doc = ""]
+                #[doc = " \\sa cbor_encoder_create_array"]
                 pub fn cbor_encoder_create_indef_byte_string(encoder:
                                                                  *mut CborEncoder,
                                                              stringEncoder:
@@ -1903,6 +2036,23 @@ mod mynewt {
                  -> CborError;
             }
             extern "C" {
+                #[doc =
+                      " Closes the CBOR container (array, map or indefinite-length string) provided"]
+                #[doc =
+                      " by \\a containerEncoder and updates the CBOR stream provided by \\a encoder."]
+                #[doc =
+                      " Both parameters must be the same as were passed to cbor_encoder_create_array() or"]
+                #[doc =
+                      " cbor_encoder_create_map() or cbor_encoder_create_indef_byte_string()."]
+                #[doc = ""]
+                #[doc =
+                      " This function does not verify that the number of items (or pair of items, in"]
+                #[doc =
+                      " the case of a map) was correct. To execute that verification, call"]
+                #[doc = " cbor_encoder_close_container_checked() instead."]
+                #[doc = ""]
+                #[doc =
+                      " \\sa cbor_encoder_create_array(), cbor_encoder_create_map()"]
                 pub fn cbor_encoder_close_container(encoder: *mut CborEncoder,
                                                     containerEncoder:
                                                         *const CborEncoder)
@@ -2118,10 +2268,9 @@ mod mynewt {
             pub type CborSimpleTypes = u32;
         }
     }
-    /// `kernel`: Mynewt Kernel API
     pub mod kernel {
-        //! Mynewt Kernel API
-        /// Export `os.rs` as Rust module `mynewt::kernel::os`.  Contains Rust bindings for Mynewt OS API `kernel/os`.
+        //! Mynewt Kernel API for Rust
+        /// Contains Rust bindings for Mynewt OS API `kernel/os`
         pub mod os {
             #[repr(C)]
             pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>,
@@ -2256,7 +2405,7 @@ mod mynewt {
                 #[doc = " Check whether or not the OS has been started."]
                 #[doc = ""]
                 #[doc =
-                      " @return 1 if the OS has been started and 0 if it has not yet been started."]
+                      " Return: 1 if the OS has been started and 0 if it has not yet been started."]
                 pub fn os_started() -> ::cty::c_int;
             }
             extern "C" {
@@ -2266,7 +2415,7 @@ mod mynewt {
                       " This calls into the architecture specific OS initialization."]
                 #[doc = ""]
                 #[doc =
-                      " @param fn The system \"main\" function to start the main task with."]
+                      " - __`fn`__: The system \"main\" function to start the main task with."]
                 pub fn os_init(fn_:
                                    ::core::option::Option<unsafe extern "C" fn(argc:
                                                                                    ::cty::c_int,
@@ -2354,14 +2503,14 @@ mod mynewt {
             extern "C" {
                 #[doc = " Get the current OS time in ticks"]
                 #[doc = ""]
-                #[doc = " @return OS time in ticks"]
+                #[doc = " Return: OS time in ticks"]
                 pub fn os_time_get() -> os_time_t;
             }
             extern "C" {
                 #[doc = " Move OS time forward ticks."]
                 #[doc = ""]
                 #[doc =
-                      " @param ticks The number of ticks to move time forward."]
+                      " - __`ticks`__: The number of ticks to move time forward."]
                 pub fn os_time_advance(ticks: ::cty::c_int);
             }
             extern "C" {
@@ -2370,7 +2519,7 @@ mod mynewt {
                 #[doc = " is no delay if ticks is 0."]
                 #[doc = ""]
                 #[doc =
-                      " @param osticks Number of ticks to delay (0 means no delay)."]
+                      " - __`osticks`__: Number of ticks to delay (0 means no delay)."]
                 pub fn os_time_delay(osticks: os_time_t);
             }
             #[doc =
@@ -2430,9 +2579,9 @@ mod mynewt {
             #[doc = " Callback that is executed when the time-of-day is set."]
             #[doc = ""]
             #[doc =
-                  " @param info                  Describes the time change that just occurred."]
+                  " - __`info`__:                  Describes the time change that just occurred."]
             #[doc =
-                  " @param arg                   Optional argument correponding to listener."]
+                  " - __`arg`__:                   Optional argument correponding to listener."]
             pub type os_time_change_fn
                 =
                 ::core::option::Option<unsafe extern "C" fn(info:
@@ -2468,11 +2617,11 @@ mod mynewt {
                       " function notifies all registered time change listeners."]
                 #[doc = ""]
                 #[doc =
-                      " @param utctime A timeval representing the UTC time we are setting"]
+                      " - __`utctime`__: A timeval representing the UTC time we are setting"]
                 #[doc =
-                      " @param tz The time-zone to apply against the utctime being set."]
+                      " - __`tz`__: The time-zone to apply against the utctime being set."]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_settimeofday(utctime: *mut os_timeval,
                                        tz: *mut os_timezone) -> ::cty::c_int;
             }
@@ -2484,11 +2633,11 @@ mod mynewt {
                 #[doc = " tz."]
                 #[doc = ""]
                 #[doc =
-                      " @param tv The structure to put the UTC time of day into"]
+                      " - __`tv`__: The structure to put the UTC time of day into"]
                 #[doc =
-                      " @param tz The structure to put the timezone information into"]
+                      " - __`tz`__: The structure to put the timezone information into"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure"]
+                #[doc = " Return: 0 on success, non-zero on failure"]
                 pub fn os_gettimeofday(utctime: *mut os_timeval,
                                        tz: *mut os_timezone) -> ::cty::c_int;
             }
@@ -2498,24 +2647,25 @@ mod mynewt {
             extern "C" {
                 #[doc = " Get time since boot in microseconds."]
                 #[doc = ""]
-                #[doc = " @return time since boot in microseconds"]
+                #[doc = " Return: time since boot in microseconds"]
                 pub fn os_get_uptime_usec() -> i64;
             }
             extern "C" {
                 #[doc = " Get time since boot as os_timeval."]
                 #[doc = ""]
-                #[doc = " @param tv Structure to put the time since boot."]
+                #[doc = " - __`tv`__: Structure to put the time since boot."]
                 pub fn os_get_uptime(tvp: *mut os_timeval);
             }
             extern "C" {
                 #[doc = " Converts milliseconds to OS ticks."]
                 #[doc = ""]
                 #[doc =
-                      " @param ms                    The milliseconds input."]
-                #[doc = " @param out_ticks             The OS ticks output."]
+                      " - __`ms`__:                    The milliseconds input."]
+                #[doc =
+                      " - __`out_ticks`__:             The OS ticks output."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 on success; OS_EINVAL if the result is too"]
+                      " Return:                      0 on success; OS_EINVAL if the result is too"]
                 #[doc =
                       "                                  large to fit in a uint32_t."]
                 pub fn os_time_ms_to_ticks(ms: u32, out_ticks: *mut os_time_t)
@@ -2524,12 +2674,12 @@ mod mynewt {
             extern "C" {
                 #[doc = " Converts OS ticks to milliseconds."]
                 #[doc = ""]
-                #[doc = " @param ticks                 The OS ticks input."]
+                #[doc = " - __`ticks`__:                 The OS ticks input."]
                 #[doc =
-                      " @param out_ms                The milliseconds output."]
+                      " - __`out_ms`__:                The milliseconds output."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 on success; OS_EINVAL if the result is too"]
+                      " Return:                      0 on success; OS_EINVAL if the result is too"]
                 #[doc =
                       "                                  large to fit in a uint32_t."]
                 pub fn os_time_ticks_to_ms(ticks: os_time_t, out_ms: *mut u32)
@@ -2552,7 +2702,7 @@ mod mynewt {
                 #[doc = "     o Setting time"]
                 #[doc = ""]
                 #[doc =
-                      " @param listener              The listener to register."]
+                      " - __`listener`__:              The listener to register."]
                 pub fn os_time_change_listen(listener:
                                                  *mut os_time_change_listener);
             }
@@ -2567,7 +2717,7 @@ mod mynewt {
                 #[doc = "     o Setting time"]
                 #[doc = ""]
                 #[doc =
-                      " @param listener              The listener to unregister."]
+                      " - __`listener`__:              The listener to unregister."]
                 pub fn os_time_change_remove(listener:
                                                  *const os_time_change_listener)
                  -> ::cty::c_int;
@@ -2627,21 +2777,21 @@ mod mynewt {
             extern "C" {
                 #[doc = " Initialize the event queue"]
                 #[doc = ""]
-                #[doc = " @param evq The event queue to initialize"]
+                #[doc = " - __`evq`__: The event queue to initialize"]
                 pub fn os_eventq_init(arg1: *mut os_eventq);
             }
             extern "C" {
                 #[doc = " Check whether the event queue is initialized."]
                 #[doc = ""]
-                #[doc = " @param evq The event queue to check"]
+                #[doc = " - __`evq`__: The event queue to check"]
                 pub fn os_eventq_inited(evq: *const os_eventq)
                  -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Put an event on the event queue."]
                 #[doc = ""]
-                #[doc = " @param evq The event queue to put an event on"]
-                #[doc = " @param ev The event to put on the queue"]
+                #[doc = " - __`evq`__: The event queue to put an event on"]
+                #[doc = " - __`ev`__: The event to put on the queue"]
                 pub fn os_eventq_put(arg1: *mut os_eventq,
                                      arg2: *mut os_event);
             }
@@ -2652,7 +2802,7 @@ mod mynewt {
                       " If no event is available, don't block, just return NULL."]
                 #[doc = ""]
                 #[doc =
-                      " @return Event from the queue, or NULL if none available."]
+                      " Return: Event from the queue, or NULL if none available."]
                 pub fn os_eventq_get_no_wait(evq: *mut os_eventq)
                  -> *mut os_event;
             }
@@ -2661,9 +2811,9 @@ mod mynewt {
                       " Pull a single item from an event queue.  This function blocks until there"]
                 #[doc = " is an item on the event queue to read."]
                 #[doc = ""]
-                #[doc = " @param evq The event queue to pull an event from"]
+                #[doc = " - __`evq`__: The event queue to pull an event from"]
                 #[doc = ""]
-                #[doc = " @return The event from the queue"]
+                #[doc = " Return: The event from the queue"]
                 pub fn os_eventq_get(arg1: *mut os_eventq) -> *mut os_event;
             }
             extern "C" {
@@ -2671,7 +2821,7 @@ mod mynewt {
                       " Pull a single item off the event queue and call it's event"]
                 #[doc = " callback."]
                 #[doc = ""]
-                #[doc = " @param evq The event queue to pull the item off."]
+                #[doc = " - __`evq`__: The event queue to pull the item off."]
                 pub fn os_eventq_run(evq: *mut os_eventq);
             }
             extern "C" {
@@ -2683,12 +2833,12 @@ mod mynewt {
                       " the queues.  Event queues are searched in the order that they"]
                 #[doc = " are passed in the array."]
                 #[doc = ""]
-                #[doc = " @param evq Array of event queues"]
-                #[doc = " @param nevqs Number of event queues in evq"]
+                #[doc = " - __`evq`__: Array of event queues"]
+                #[doc = " - __`nevqs`__: Number of event queues in evq"]
                 #[doc =
-                      " @param timo Timeout, forever if OS_WAIT_FOREVER is passed to poll."]
+                      " - __`timo`__: Timeout, forever if OS_WAIT_FOREVER is passed to poll."]
                 #[doc = ""]
-                #[doc = " @return An event, or NULL if no events available"]
+                #[doc = " Return: An event, or NULL if no events available"]
                 pub fn os_eventq_poll(arg1: *mut *mut os_eventq,
                                       arg2: ::cty::c_int, arg3: os_time_t)
                  -> *mut os_event;
@@ -2697,8 +2847,8 @@ mod mynewt {
                 #[doc = " Remove an event from the queue."]
                 #[doc = ""]
                 #[doc =
-                      " @param evq The event queue to remove the event from"]
-                #[doc = " @param ev  The event to remove from the queue"]
+                      " - __`evq`__: The event queue to remove the event from"]
+                #[doc = " - __`ev`__:  The event to remove from the queue"]
                 pub fn os_eventq_remove(arg1: *mut os_eventq,
                                         arg2: *mut os_event);
             }
@@ -2707,7 +2857,7 @@ mod mynewt {
                       " Retrieves the default event queue processed by OS main task."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      The default event queue."]
+                      " Return:                      The default event queue."]
                 pub fn os_eventq_dflt_get() -> *mut os_eventq;
             }
             extern "C" {
@@ -2764,16 +2914,16 @@ mod mynewt {
                       " queue specified in os_callout_init().  The event argument given here"]
                 #[doc = " is posted in the ev_arg field of that event."]
                 #[doc = ""]
-                #[doc = " @param c The callout to initialize"]
+                #[doc = " - __`c`__: The callout to initialize"]
                 #[doc =
-                      " @param evq The event queue to post an OS_EVENT_T_TIMER event to"]
+                      " - __`evq`__: The event queue to post an OS_EVENT_T_TIMER event to"]
                 #[doc =
-                      " @param timo_func The function to call on this callout for the host task"]
+                      " - __`timo_func`__: The function to call on this callout for the host task"]
                 #[doc =
                       "                  used to provide multiple timer events to a task"]
                 #[doc = "                  (this can be NULL.)"]
                 #[doc =
-                      " @param ev_arg The argument to provide to the event when posting the"]
+                      " - __`ev_arg`__: The argument to provide to the event when posting the"]
                 #[doc = "               timer."]
                 pub fn os_callout_init(cf: *mut os_callout,
                                        evq: *mut os_eventq,
@@ -2784,17 +2934,17 @@ mod mynewt {
                 #[doc =
                       " Stop the callout from firing off, any pending events will be cleared."]
                 #[doc = ""]
-                #[doc = " @param c The callout to stop"]
+                #[doc = " - __`c`__: The callout to stop"]
                 pub fn os_callout_stop(arg1: *mut os_callout);
             }
             extern "C" {
                 #[doc = " Reset the callout to fire off in 'ticks' ticks."]
                 #[doc = ""]
-                #[doc = " @param c The callout to reset"]
+                #[doc = " - __`c`__: The callout to reset"]
                 #[doc =
-                      " @param ticks The number of ticks to wait before posting an event"]
+                      " - __`ticks`__: The number of ticks to wait before posting an event"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure"]
+                #[doc = " Return: 0 on success, non-zero on failure"]
                 pub fn os_callout_reset(arg1: *mut os_callout,
                                         arg2: os_time_t) -> ::cty::c_int;
             }
@@ -2802,10 +2952,10 @@ mod mynewt {
                 #[doc =
                       " Returns the number of ticks which remains to callout."]
                 #[doc = ""]
-                #[doc = " @param c The callout to check"]
-                #[doc = " @param now The current time in OS ticks"]
+                #[doc = " - __`c`__: The callout to check"]
+                #[doc = " - __`now`__: The current time in OS ticks"]
                 #[doc = ""]
-                #[doc = " @return Number of ticks to first pending callout"]
+                #[doc = " Return: Number of ticks to first pending callout"]
                 pub fn os_callout_remaining_ticks(arg1: *mut os_callout,
                                                   arg2: os_time_t)
                  -> os_time_t;
@@ -2866,15 +3016,15 @@ mod mynewt {
                       " and should be called before the hardware timer is used."]
                 #[doc = ""]
                 #[doc =
-                      " @param clock_freq The desired cputime frequency, in hertz (Hz)."]
+                      " - __`clock_freq`__: The desired cputime frequency, in hertz (Hz)."]
                 #[doc = ""]
-                #[doc = " @return int 0 on success; -1 on error."]
+                #[doc = " Return: int 0 on success; -1 on error."]
                 pub fn os_cputime_init(clock_freq: u32) -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Returns the low 32 bits of cputime."]
                 #[doc = ""]
-                #[doc = " @return uint32_t The lower 32 bits of cputime"]
+                #[doc = " Return: uint32_t The lower 32 bits of cputime"]
                 pub fn os_cputime_get32() -> u32;
             }
             extern "C" {
@@ -2883,10 +3033,10 @@ mod mynewt {
                 #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
                 #[doc = ""]
                 #[doc =
-                      " @param usecs The number of nanoseconds to convert to ticks"]
+                      " - __`usecs`__: The number of nanoseconds to convert to ticks"]
                 #[doc = ""]
                 #[doc =
-                      " @return uint32_t The number of ticks corresponding to 'nsecs'"]
+                      " Return: uint32_t The number of ticks corresponding to 'nsecs'"]
                 pub fn os_cputime_nsecs_to_ticks(nsecs: u32) -> u32;
             }
             extern "C" {
@@ -2895,10 +3045,10 @@ mod mynewt {
                 #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
                 #[doc = ""]
                 #[doc =
-                      " @param ticks The number of ticks to convert to nanoseconds."]
+                      " - __`ticks`__: The number of ticks to convert to nanoseconds."]
                 #[doc = ""]
                 #[doc =
-                      " @return uint32_t The number of nanoseconds corresponding to 'ticks'"]
+                      " Return: uint32_t The number of nanoseconds corresponding to 'ticks'"]
                 pub fn os_cputime_ticks_to_nsecs(ticks: u32) -> u32;
             }
             extern "C" {
@@ -2907,32 +3057,32 @@ mod mynewt {
                 #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
                 #[doc = ""]
                 #[doc = ""]
-                #[doc = " @param nsecs The number of nanoseconds to wait."]
+                #[doc = " - __`nsecs`__: The number of nanoseconds to wait."]
                 pub fn os_cputime_delay_nsecs(nsecs: u32);
             }
             extern "C" {
                 #[doc =
                       " Wait until the number of ticks has elapsed. This is a blocking delay."]
                 #[doc = ""]
-                #[doc = " @param ticks The number of ticks to wait."]
+                #[doc = " - __`ticks`__: The number of ticks to wait."]
                 pub fn os_cputime_delay_ticks(ticks: u32);
             }
             extern "C" {
                 #[doc =
                       " Wait until 'usecs' microseconds has elapsed. This is a blocking delay."]
                 #[doc = ""]
-                #[doc = " @param usecs The number of usecs to wait."]
+                #[doc = " - __`usecs`__: The number of usecs to wait."]
                 pub fn os_cputime_delay_usecs(usecs: u32);
             }
             extern "C" {
                 #[doc = " Initialize a CPU timer, using the given HAL timer."]
                 #[doc = ""]
                 #[doc =
-                      " @param timer The timer to initialize. Cannot be NULL."]
+                      " - __`timer`__: The timer to initialize. Cannot be NULL."]
                 #[doc =
-                      " @param fp    The timer callback function. Cannot be NULL."]
+                      " - __`fp`__:    The timer callback function. Cannot be NULL."]
                 #[doc =
-                      " @param arg   Pointer to data object to pass to timer."]
+                      " - __`arg`__:   Pointer to data object to pass to timer."]
                 pub fn os_cputime_timer_init(timer: *mut hal_timer,
                                              fp: hal_timer_cb,
                                              arg: *mut ::cty::c_void);
@@ -2947,12 +3097,12 @@ mod mynewt {
                       " NOTE: This must be called when the timer is stopped."]
                 #[doc = ""]
                 #[doc =
-                      " @param timer     Pointer to timer to start. Cannot be NULL."]
+                      " - __`timer`__:     Pointer to timer to start. Cannot be NULL."]
                 #[doc =
-                      " @param cputime   The cputime at which the timer should expire."]
+                      " - __`cputime`__:   The cputime at which the timer should expire."]
                 #[doc = ""]
                 #[doc =
-                      " @return int 0 on success; EINVAL if timer already started or timer struct"]
+                      " Return: int 0 on success; EINVAL if timer already started or timer struct"]
                 #[doc = "         invalid"]
                 #[doc = ""]
                 pub fn os_cputime_timer_start(timer: *mut hal_timer,
@@ -2966,12 +3116,12 @@ mod mynewt {
                 #[doc =
                       " NOTE: This must be called when the timer is stopped."]
                 #[doc = ""]
-                #[doc = " @param timer Pointer to timer. Cannot be NULL."]
+                #[doc = " - __`timer`__: Pointer to timer. Cannot be NULL."]
                 #[doc =
-                      " @param usecs The number of usecs from now at which the timer will expire."]
+                      " - __`usecs`__: The number of usecs from now at which the timer will expire."]
                 #[doc = ""]
                 #[doc =
-                      " @return int 0 on success; EINVAL if timer already started or timer struct"]
+                      " Return: int 0 on success; EINVAL if timer already started or timer struct"]
                 #[doc = "         invalid"]
                 pub fn os_cputime_timer_relative(timer: *mut hal_timer,
                                                  usecs: u32) -> ::cty::c_int;
@@ -2984,16 +3134,16 @@ mod mynewt {
                 #[doc = " called even if timer is not running."]
                 #[doc = ""]
                 #[doc =
-                      " @param timer Pointer to cputimer to stop. Cannot be NULL."]
+                      " - __`timer`__: Pointer to cputimer to stop. Cannot be NULL."]
                 pub fn os_cputime_timer_stop(timer: *mut hal_timer);
             }
             #[doc = " Initialize a device."]
             #[doc = ""]
-            #[doc = " @param dev The device to initialize."]
+            #[doc = " - __`dev`__: The device to initialize."]
             #[doc =
-                  " @param arg User defined argument to pass to the device initalization"]
+                  " - __`arg`__: User defined argument to pass to the device initalization"]
             #[doc = ""]
-            #[doc = " @return 0 on success, non-zero error code on failure."]
+            #[doc = " Return: 0 on success, non-zero error code on failure."]
             pub type os_dev_init_func_t
                 =
                 ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
@@ -3101,44 +3251,44 @@ mod mynewt {
             extern "C" {
                 #[doc = " Suspend the operation of the device."]
                 #[doc = ""]
-                #[doc = " @param dev The device to suspend."]
+                #[doc = " - __`dev`__: The device to suspend."]
                 #[doc =
-                      " @param suspend_t When the device should be suspended."]
+                      " - __`suspend_t`__: When the device should be suspended."]
                 #[doc =
-                      " @param force Whether not the suspend operation can be overridden by the"]
+                      " - __`force`__: Whether not the suspend operation can be overridden by the"]
                 #[doc = "        device handler."]
                 #[doc = ""]
                 #[doc =
-                      " @return 0 on success, non-zero error code on failure."]
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub fn os_dev_suspend(dev: *mut os_dev, suspend_t: os_time_t,
                                       force: u8) -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Resume the device operation."]
                 #[doc = ""]
-                #[doc = " @param dev The device to resume"]
+                #[doc = " - __`dev`__: The device to resume"]
                 #[doc = ""]
                 #[doc =
-                      " @return 0 on success, non-zero error code on failure."]
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub fn os_dev_resume(dev: *mut os_dev) -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Create a new device in the kernel."]
                 #[doc = ""]
-                #[doc = " @param dev The device to create."]
-                #[doc = " @param name The name of the device to create."]
+                #[doc = " - __`dev`__: The device to create."]
+                #[doc = " - __`name`__: The name of the device to create."]
                 #[doc =
-                      " @param stage The stage to initialize that device to."]
+                      " - __`stage`__: The stage to initialize that device to."]
                 #[doc =
-                      " @param priority The priority of initializing that device"]
+                      " - __`priority`__: The priority of initializing that device"]
                 #[doc =
-                      " @param od_init The initialization function to call for this"]
+                      " - __`od_init`__: The initialization function to call for this"]
                 #[doc = "                device."]
                 #[doc =
-                      " @param arg The argument to provide this device initialization"]
+                      " - __`arg`__: The argument to provide this device initialization"]
                 #[doc = "            function."]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_dev_create(dev: *mut os_dev,
                                      name: *const ::cty::c_char, stage: u8,
                                      priority: u8,
@@ -3153,31 +3303,31 @@ mod mynewt {
                 #[doc =
                       " the device list itself is modified in any context.  There is no locking."]
                 #[doc = ""]
-                #[doc = " @param name The name of the device to look up."]
+                #[doc = " - __`name`__: The name of the device to look up."]
                 #[doc = ""]
                 #[doc =
-                      " @return A pointer to the device corresponding to name, or NULL if not found."]
+                      " Return: A pointer to the device corresponding to name, or NULL if not found."]
                 pub fn os_dev_lookup(name: *const ::cty::c_char)
                  -> *mut os_dev;
             }
             extern "C" {
                 #[doc = " Initialize all devices for a given state."]
                 #[doc = ""]
-                #[doc = " @param stage The stage to initialize."]
+                #[doc = " - __`stage`__: The stage to initialize."]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_dev_initialize_all(arg1: u8) -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Suspend all devices."]
                 #[doc = ""]
                 #[doc =
-                      " @param suspend_t The number of ticks to suspend this device for"]
+                      " - __`suspend_t`__: The number of ticks to suspend this device for"]
                 #[doc =
-                      " @param force Whether or not to force suspending the device"]
+                      " - __`force`__: Whether or not to force suspending the device"]
                 #[doc = ""]
                 #[doc =
-                      " @return 0 on success, or a non-zero error code if one of the devices"]
+                      " Return: 0 on success, or a non-zero error code if one of the devices"]
                 #[doc = "                       returned it."]
                 pub fn os_dev_suspend_all(arg1: os_time_t, arg2: u8)
                  -> ::cty::c_int;
@@ -3186,7 +3336,7 @@ mod mynewt {
                 #[doc = " Resume all the devices that were suspended."]
                 #[doc = ""]
                 #[doc =
-                      " @return 0 on success, -1 if any of the devices have failed to resume."]
+                      " Return: 0 on success, -1 if any of the devices have failed to resume."]
                 pub fn os_dev_resume_all() -> ::cty::c_int;
             }
             extern "C" {
@@ -3198,16 +3348,16 @@ mod mynewt {
                 #[doc =
                       " - __`arg`__: The argument to the device open() call."]
                 #[doc = ""]
-                #[doc = " Return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_dev_open(devname: *const ::cty::c_char, timo: u32,
                                    arg: *mut ::cty::c_void) -> *mut os_dev;
             }
             extern "C" {
                 #[doc = " Close a device."]
                 #[doc = ""]
-                #[doc = " @param dev The device to close"]
+                #[doc = " - __`dev`__: The device to close"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_dev_close(dev: *mut os_dev) -> ::cty::c_int;
             }
             extern "C" {
@@ -3222,7 +3372,7 @@ mod mynewt {
                 #[doc =
                       " Walk through all devices, calling callback for every device."]
                 #[doc = ""]
-                #[doc = " @param walk_func Function to call"]
+                #[doc = " - __`walk_func`__: Function to call"]
                 #[doc = " @aparm arg       Argument to pass to walk_func"]
                 pub fn os_dev_walk(walk_func:
                                        ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -3242,9 +3392,9 @@ mod mynewt {
                       " libc's malloc() implementation, which is not guaranteed to be thread-safe."]
                 #[doc = " This malloc() will always be thread-safe."]
                 #[doc = ""]
-                #[doc = " @param size The number of bytes to allocate"]
+                #[doc = " - __`size`__: The number of bytes to allocate"]
                 #[doc = ""]
-                #[doc = " @return A pointer to the memory region allocated."]
+                #[doc = " Return: A pointer to the memory region allocated."]
                 pub fn os_malloc(size: usize) -> *mut ::cty::c_void;
             }
             extern "C" {
@@ -3253,7 +3403,7 @@ mod mynewt {
                 #[doc = ""]
                 #[doc = " Free's memory allocated by malloc."]
                 #[doc = ""]
-                #[doc = " @param mem The memory to free."]
+                #[doc = " - __`mem`__: The memory to free."]
                 pub fn os_free(mem: *mut ::cty::c_void);
             }
             extern "C" {
@@ -3263,12 +3413,12 @@ mod mynewt {
                 #[doc =
                       " Reallocates the memory at ptr, to be size contiguouos bytes."]
                 #[doc = ""]
-                #[doc = " @param ptr A pointer to the memory to allocate"]
+                #[doc = " - __`ptr`__: A pointer to the memory to allocate"]
                 #[doc =
-                      " @param size The number of contiguouos bytes to allocate at that location"]
+                      " - __`size`__: The number of contiguouos bytes to allocate at that location"]
                 #[doc = ""]
                 #[doc =
-                      " @return A pointer to memory of size, or NULL on failure to allocate"]
+                      " Return: A pointer to memory of size, or NULL on failure to allocate"]
                 pub fn os_realloc(ptr: *mut ::cty::c_void, size: usize)
                  -> *mut ::cty::c_void;
             }
@@ -3383,18 +3533,18 @@ mod mynewt {
                 #[doc = " will be posted to the task's mbuf queue."]
                 #[doc = ""]
                 #[doc =
-                      " @param mq                    The mqueue to initialize"]
+                      " - __`mq`__:                    The mqueue to initialize"]
                 #[doc =
-                      " @param ev_cb                 The callback to associate with the mqeueue"]
+                      " - __`ev_cb`__:                 The callback to associate with the mqeueue"]
                 #[doc =
                       "                                  event.  Typically, this callback pulls each"]
                 #[doc =
                       "                                  packet off the mqueue and processes them."]
                 #[doc =
-                      " @param arg                   The argument to associate with the mqueue event."]
+                      " - __`arg`__:                   The argument to associate with the mqueue event."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 on success, non-zero on failure."]
+                      " Return:                      0 on success, non-zero on failure."]
                 pub fn os_mqueue_init(mq: *mut os_mqueue, ev_cb: os_event_fn,
                                       arg: *mut ::cty::c_void)
                  -> ::cty::c_int;
@@ -3404,10 +3554,10 @@ mod mynewt {
                       " Remove and return a single mbuf from the mbuf queue.  Does not block."]
                 #[doc = ""]
                 #[doc =
-                      " @param mq The mbuf queue to pull an element off of."]
+                      " - __`mq`__: The mbuf queue to pull an element off of."]
                 #[doc = ""]
                 #[doc =
-                      " @return The next mbuf in the queue, or NULL if queue has no mbufs."]
+                      " Return: The next mbuf in the queue, or NULL if queue has no mbufs."]
                 pub fn os_mqueue_get(arg1: *mut os_mqueue) -> *mut os_mbuf;
             }
             extern "C" {
@@ -3417,13 +3567,13 @@ mod mynewt {
                       " with the mqueue gets posted to the specified eventq."]
                 #[doc = ""]
                 #[doc =
-                      " @param mq                    The mbuf queue to append the mbuf to."]
+                      " - __`mq`__:                    The mbuf queue to append the mbuf to."]
                 #[doc =
-                      " @param evq                   The event queue to post an event to."]
+                      " - __`evq`__:                   The event queue to post an event to."]
                 #[doc =
-                      " @param m                     The mbuf to append to the mbuf queue."]
+                      " - __`m`__:                     The mbuf to append to the mbuf queue."]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_mqueue_put(arg1: *mut os_mqueue,
                                      arg2: *mut os_eventq, arg3: *mut os_mbuf)
                  -> ::cty::c_int;
@@ -3445,9 +3595,9 @@ mod mynewt {
                       " os_msys_register() registers a mbuf pool with MSYS, and allows MSYS to"]
                 #[doc = " allocate mbufs out of it."]
                 #[doc = ""]
-                #[doc = " @param new_pool The pool to register with MSYS"]
+                #[doc = " - __`new_pool`__: The pool to register with MSYS"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure"]
+                #[doc = " Return: 0 on success, non-zero on failure"]
                 pub fn os_msys_register(arg1: *mut os_mbuf_pool)
                  -> ::cty::c_int;
             }
@@ -3458,12 +3608,12 @@ mod mynewt {
                       " os_msys_get() will choose the mbuf pool that has the best fit."]
                 #[doc = ""]
                 #[doc =
-                      " @param dsize The estimated size of the data being stored in the mbuf"]
+                      " - __`dsize`__: The estimated size of the data being stored in the mbuf"]
                 #[doc =
-                      " @param leadingspace The amount of leadingspace to allocate in the mbuf"]
+                      " - __`leadingspace`__: The amount of leadingspace to allocate in the mbuf"]
                 #[doc = ""]
                 #[doc =
-                      " @return A freshly allocated mbuf on success, NULL on failure."]
+                      " Return: A freshly allocated mbuf on success, NULL on failure."]
                 pub fn os_msys_get(dsize: u16, leadingspace: u16)
                  -> *mut os_mbuf;
             }
@@ -3477,12 +3627,12 @@ mod mynewt {
                 #[doc = " os_msys_register() for a description of MSYS."]
                 #[doc = ""]
                 #[doc =
-                      " @param dsize The estimated size of the data being stored in the mbuf"]
+                      " - __`dsize`__: The estimated size of the data being stored in the mbuf"]
                 #[doc =
-                      " @param user_hdr_len The length to allocate for the packet header structure"]
+                      " - __`user_hdr_len`__: The length to allocate for the packet header structure"]
                 #[doc = ""]
                 #[doc =
-                      " @return A freshly allocated mbuf on success, NULL on failure."]
+                      " Return: A freshly allocated mbuf on success, NULL on failure."]
                 pub fn os_msys_get_pkthdr(dsize: u16, user_hdr_len: u16)
                  -> *mut os_mbuf;
             }
@@ -3490,25 +3640,25 @@ mod mynewt {
                 #[doc =
                       " Count the number of blocks in all the mbuf pools that are allocated."]
                 #[doc = ""]
-                #[doc = " @return total number of blocks allocated in Msys"]
+                #[doc = " Return: total number of blocks allocated in Msys"]
                 pub fn os_msys_count() -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Return the number of free blocks in Msys"]
                 #[doc = ""]
-                #[doc = " @return Number of free blocks available in Msys"]
+                #[doc = " Return: Number of free blocks available in Msys"]
                 pub fn os_msys_num_free() -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Initialize a pool of mbufs."]
                 #[doc = ""]
-                #[doc = " @param omp     The mbuf pool to initialize"]
+                #[doc = " - __`omp`__:     The mbuf pool to initialize"]
                 #[doc =
-                      " @param mp      The memory pool that will hold this mbuf pool"]
-                #[doc = " @param buf_len The length of the buffer itself."]
-                #[doc = " @param nbufs   The number of buffers in the pool"]
+                      " - __`mp`__:      The memory pool that will hold this mbuf pool"]
+                #[doc = " - __`buf_len`__: The length of the buffer itself."]
+                #[doc = " - __`nbufs`__:   The number of buffers in the pool"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, error code on failure."]
+                #[doc = " Return: 0 on success, error code on failure."]
                 pub fn os_mbuf_pool_init(arg1: *mut os_mbuf_pool,
                                          mp: *mut os_mempool, arg2: u16,
                                          arg3: u16) -> ::cty::c_int;
@@ -3518,13 +3668,14 @@ mod mynewt {
                       " Get an mbuf from the mbuf pool.  The mbuf is allocated, and initialized"]
                 #[doc = " prior to being returned."]
                 #[doc = ""]
-                #[doc = " @param omp The mbuf pool to return the packet from"]
                 #[doc =
-                      " @param leadingspace The amount of leadingspace to put before the data"]
+                      " - __`omp`__: The mbuf pool to return the packet from"]
+                #[doc =
+                      " - __`leadingspace`__: The amount of leadingspace to put before the data"]
                 #[doc = "     section by default."]
                 #[doc = ""]
                 #[doc =
-                      " @return An initialized mbuf on success, and NULL on failure."]
+                      " Return: An initialized mbuf on success, and NULL on failure."]
                 pub fn os_mbuf_get(omp: *mut os_mbuf_pool, arg1: u16)
                  -> *mut os_mbuf;
             }
@@ -3532,12 +3683,12 @@ mod mynewt {
                 #[doc =
                       " Allocate a new packet header mbuf out of the os_mbuf_pool."]
                 #[doc = ""]
-                #[doc = " @param omp The mbuf pool to allocate out of"]
+                #[doc = " - __`omp`__: The mbuf pool to allocate out of"]
                 #[doc =
-                      " @param user_pkthdr_len The packet header length to reserve for the caller."]
+                      " - __`user_pkthdr_len`__: The packet header length to reserve for the caller."]
                 #[doc = ""]
                 #[doc =
-                      " @return A freshly allocated mbuf on success, NULL on failure."]
+                      " Return: A freshly allocated mbuf on success, NULL on failure."]
                 pub fn os_mbuf_get_pkthdr(omp: *mut os_mbuf_pool,
                                           pkthdr_len: u8) -> *mut os_mbuf;
             }
@@ -3545,10 +3696,10 @@ mod mynewt {
                 #[doc =
                       " Duplicate a chain of mbufs.  Return the start of the duplicated chain."]
                 #[doc = ""]
-                #[doc = " @param omp The mbuf pool to duplicate out of"]
-                #[doc = " @param om  The mbuf chain to duplicate"]
+                #[doc = " - __`omp`__: The mbuf pool to duplicate out of"]
+                #[doc = " - __`om`__:  The mbuf chain to duplicate"]
                 #[doc = ""]
-                #[doc = " @return A pointer to the new chain of mbufs"]
+                #[doc = " Return: A pointer to the new chain of mbufs"]
                 pub fn os_mbuf_dup(m: *mut os_mbuf) -> *mut os_mbuf;
             }
             extern "C" {
@@ -3558,16 +3709,16 @@ mod mynewt {
                       " can be one past than the total length of the chain, but no greater."]
                 #[doc = ""]
                 #[doc =
-                      " @param om                    The start of the mbuf chain to seek within."]
+                      " - __`om`__:                    The start of the mbuf chain to seek within."]
                 #[doc =
-                      " @param off                   The absolute address to find."]
+                      " - __`off`__:                   The absolute address to find."]
                 #[doc =
-                      " @param out_off               On success, this points to the relative offset"]
+                      " - __`out_off`__:               On success, this points to the relative offset"]
                 #[doc =
                       "                                  within the returned mbuf."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      The mbuf containing the specified offset on"]
+                      " Return:                      The mbuf containing the specified offset on"]
                 #[doc = "                                  success."]
                 #[doc =
                       "                              NULL if the specified offset is out of bounds."]
@@ -3589,21 +3740,22 @@ mod mynewt {
                       " header, you should use `OS_MBUF_PKTLEN()` as a more efficient alternative to"]
                 #[doc = " this function."]
                 #[doc = ""]
-                #[doc = " @param om                    The mbuf to measure."]
+                #[doc =
+                      " - __`om`__:                    The mbuf to measure."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      The length, in bytes, of the provided mbuf"]
+                      " Return:                      The length, in bytes, of the provided mbuf"]
                 #[doc = "                                  chain."]
                 pub fn os_mbuf_len(om: *const os_mbuf) -> u16;
             }
             extern "C" {
                 #[doc = " Append data onto a mbuf"]
                 #[doc = ""]
-                #[doc = " @param om   The mbuf to append the data onto"]
-                #[doc = " @param data The data to append onto the mbuf"]
-                #[doc = " @param len  The length of the data to append"]
+                #[doc = " - __`om`__:   The mbuf to append the data onto"]
+                #[doc = " - __`data`__: The data to append onto the mbuf"]
+                #[doc = " - __`len`__:  The length of the data to append"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, and an error code on failure"]
+                #[doc = " Return: 0 on success, and an error code on failure"]
                 pub fn os_mbuf_append(m: *mut os_mbuf,
                                       arg1: *const ::cty::c_void, arg2: u16)
                  -> ::cty::c_int;
@@ -3616,17 +3768,17 @@ mod mynewt {
                 #[doc = " an mbuf packet header."]
                 #[doc = ""]
                 #[doc =
-                      " @param dst                   The mbuf to append to."]
+                      " - __`dst`__:                   The mbuf to append to."]
                 #[doc =
-                      " @param src                   The mbuf to copy data from."]
+                      " - __`src`__:                   The mbuf to copy data from."]
                 #[doc =
-                      " @param src_off               The absolute offset within the source mbuf"]
+                      " - __`src_off`__:               The absolute offset within the source mbuf"]
                 #[doc =
                       "                                  chain to read from."]
                 #[doc =
-                      " @param len                   The number of bytes to append."]
+                      " - __`len`__:                   The number of bytes to append."]
                 #[doc = ""]
-                #[doc = " @return                      0 on success;"]
+                #[doc = " Return:                      0 on success;"]
                 #[doc =
                       "                              OS_EINVAL if the specified range extends beyond"]
                 #[doc =
@@ -3638,21 +3790,21 @@ mod mynewt {
             extern "C" {
                 #[doc = " Release a mbuf back to the pool"]
                 #[doc = ""]
-                #[doc = " @param omp The Mbuf pool to release back to"]
-                #[doc = " @param om  The Mbuf to release back to the pool"]
+                #[doc = " - __`omp`__: The Mbuf pool to release back to"]
+                #[doc = " - __`om`__:  The Mbuf to release back to the pool"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, -1 on failure"]
+                #[doc = " Return: 0 on success, -1 on failure"]
                 pub fn os_mbuf_free(mb: *mut os_mbuf) -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Free a chain of mbufs"]
                 #[doc = ""]
                 #[doc =
-                      " @param omp The mbuf pool to free the chain of mbufs into"]
+                      " - __`omp`__: The mbuf pool to free the chain of mbufs into"]
                 #[doc =
-                      " @param om  The starting mbuf of the chain to free back into the pool"]
+                      " - __`om`__:  The starting mbuf of the chain to free back into the pool"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, -1 on failure"]
+                #[doc = " Return: 0 on success, -1 on failure"]
                 pub fn os_mbuf_free_chain(om: *mut os_mbuf) -> ::cty::c_int;
             }
             extern "C" {
@@ -3660,9 +3812,9 @@ mod mynewt {
                       " Adjust the length of a mbuf, trimming either from the head or the tail"]
                 #[doc = " of the mbuf."]
                 #[doc = ""]
-                #[doc = " @param mp The mbuf chain to adjust"]
+                #[doc = " - __`mp`__: The mbuf chain to adjust"]
                 #[doc =
-                      " @param req_len The length to trim from the mbuf.  If positive, trims"]
+                      " - __`req_len`__: The length to trim from the mbuf.  If positive, trims"]
                 #[doc =
                       "                from the head of the mbuf, if negative, trims from the"]
                 #[doc = "                tail of the mbuf."]
@@ -3674,17 +3826,17 @@ mod mynewt {
                 #[doc = " flat buffer."]
                 #[doc = ""]
                 #[doc =
-                      " @param om                    The start of the mbuf chain to compare."]
+                      " - __`om`__:                    The start of the mbuf chain to compare."]
                 #[doc =
-                      " @param off                   The offset within the mbuf chain to start the"]
+                      " - __`off`__:                   The offset within the mbuf chain to start the"]
                 #[doc = "                                  comparison."]
                 #[doc =
-                      " @param data                  The flat buffer to compare."]
+                      " - __`data`__:                  The flat buffer to compare."]
                 #[doc =
-                      " @param len                   The length of the flat buffer."]
+                      " - __`len`__:                   The length of the flat buffer."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 if both memory regions are identical;"]
+                      " Return:                      0 if both memory regions are identical;"]
                 #[doc =
                       "                              A memcmp return code if there is a mismatch;"]
                 #[doc =
@@ -3702,22 +3854,22 @@ mod mynewt {
                       " parameter.  Neither mbuf chain is required to contain a packet header."]
                 #[doc = ""]
                 #[doc =
-                      " @param om1                   The first mbuf chain to compare."]
+                      " - __`om1`__:                   The first mbuf chain to compare."]
                 #[doc =
-                      " @param offset1               The absolute offset within om1 at which to"]
-                #[doc =
-                      "                                  start the comparison."]
-                #[doc =
-                      " @param om2                   The second mbuf chain to compare."]
-                #[doc =
-                      " @param offset2               The absolute offset within om2 at which to"]
+                      " - __`offset1`__:               The absolute offset within om1 at which to"]
                 #[doc =
                       "                                  start the comparison."]
                 #[doc =
-                      " @param len                   The number of bytes to compare."]
+                      " - __`om2`__:                   The second mbuf chain to compare."]
+                #[doc =
+                      " - __`offset2`__:               The absolute offset within om2 at which to"]
+                #[doc =
+                      "                                  start the comparison."]
+                #[doc =
+                      " - __`len`__:                   The number of bytes to compare."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 if both mbuf segments are identical;"]
+                      " Return:                      0 if both mbuf segments are identical;"]
                 #[doc =
                       "                              A memcmp() return code if the segment contents"]
                 #[doc = "                                  differ;"]
@@ -3742,14 +3894,14 @@ mod mynewt {
                       " The specified mbuf chain does not need to contain a packet header."]
                 #[doc = ""]
                 #[doc =
-                      " @param omp                   The mbuf pool to allocate from."]
+                      " - __`omp`__:                   The mbuf pool to allocate from."]
                 #[doc =
-                      " @param om                    The head of the mbuf chain."]
+                      " - __`om`__:                    The head of the mbuf chain."]
                 #[doc =
-                      " @param len                   The number of bytes to prepend."]
+                      " - __`len`__:                   The number of bytes to prepend."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      The new head of the chain on success;"]
+                      " Return:                      The new head of the chain on success;"]
                 #[doc = "                              NULL on failure."]
                 pub fn os_mbuf_prepend(om: *mut os_mbuf, len: ::cty::c_int)
                  -> *mut os_mbuf;
@@ -3762,12 +3914,12 @@ mod mynewt {
                 #[doc = " freed and NULL is returned."]
                 #[doc = ""]
                 #[doc =
-                      " @param om                    The mbuf chain to prepend to."]
+                      " - __`om`__:                    The mbuf chain to prepend to."]
                 #[doc =
-                      " @param len                   The number of bytes to prepend and pullup."]
+                      " - __`len`__:                   The number of bytes to prepend and pullup."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      The modified mbuf on success;"]
+                      " Return:                      The modified mbuf on success;"]
                 #[doc =
                       "                              NULL on failure (and the mbuf chain is freed)."]
                 pub fn os_mbuf_prepend_pullup(om: *mut os_mbuf, len: u16)
@@ -3783,18 +3935,18 @@ mod mynewt {
                 #[doc = " header, the header length is updated."]
                 #[doc = ""]
                 #[doc =
-                      " @param omp                   The mbuf pool to allocate from."]
+                      " - __`omp`__:                   The mbuf pool to allocate from."]
                 #[doc =
-                      " @param om                    The mbuf chain to copy into."]
+                      " - __`om`__:                    The mbuf chain to copy into."]
                 #[doc =
-                      " @param off                   The offset within the chain to copy to."]
+                      " - __`off`__:                   The offset within the chain to copy to."]
                 #[doc =
-                      " @param src                   The source buffer to copy from."]
+                      " - __`src`__:                   The source buffer to copy from."]
                 #[doc =
-                      " @param len                   The number of bytes to copy."]
+                      " - __`len`__:                   The number of bytes to copy."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 on success; nonzero on failure."]
+                      " Return:                      0 on success; nonzero on failure."]
                 pub fn os_mbuf_copyinto(om: *mut os_mbuf, off: ::cty::c_int,
                                         src: *const ::cty::c_void,
                                         len: ::cty::c_int) -> ::cty::c_int;
@@ -3807,9 +3959,9 @@ mod mynewt {
                 #[doc = " chain has a packet header, its header is cleared."]
                 #[doc = ""]
                 #[doc =
-                      " @param first                 The mbuf chain being attached to."]
+                      " - __`first`__:                 The mbuf chain being attached to."]
                 #[doc =
-                      " @param second                The mbuf chain that gets attached."]
+                      " - __`second`__:                The mbuf chain that gets attached."]
                 pub fn os_mbuf_concat(first: *mut os_mbuf,
                                       second: *mut os_mbuf);
             }
@@ -3824,12 +3976,12 @@ mod mynewt {
                 #[doc = ""]
                 #[doc = " @param omp"]
                 #[doc =
-                      " @param om                    The head of the chain to extend."]
+                      " - __`om`__:                    The head of the chain to extend."]
                 #[doc =
-                      " @param len                   The number of bytes to extend by."]
+                      " - __`len`__:                   The number of bytes to extend by."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      A pointer to the new data on success;"]
+                      " Return:                      A pointer to the new data on success;"]
                 #[doc = "                              NULL on failure."]
                 pub fn os_mbuf_extend(om: *mut os_mbuf, len: u16)
                  -> *mut ::cty::c_void;
@@ -3850,13 +4002,14 @@ mod mynewt {
                       " extra bytes to the contiguous region, in an attempt to avoid being"]
                 #[doc = " called next time."]
                 #[doc = ""]
-                #[doc = " @param omp The mbuf pool to take the mbufs out of"]
-                #[doc = " @param om The mbuf chain to make contiguous"]
                 #[doc =
-                      " @param len The number of bytes in the chain to make contiguous"]
+                      " - __`omp`__: The mbuf pool to take the mbufs out of"]
+                #[doc = " - __`om`__: The mbuf chain to make contiguous"]
+                #[doc =
+                      " - __`len`__: The number of bytes in the chain to make contiguous"]
                 #[doc = ""]
                 #[doc =
-                      " @return The contiguous mbuf chain on success, NULL on failure."]
+                      " Return: The contiguous mbuf chain on success, NULL on failure."]
                 pub fn os_mbuf_pullup(om: *mut os_mbuf, len: u16)
                  -> *mut os_mbuf;
             }
@@ -3866,10 +4019,10 @@ mod mynewt {
                 #[doc = " contains a packet header, it is preserved."]
                 #[doc = ""]
                 #[doc =
-                      " @param om                    The mbuf chain to trim."]
+                      " - __`om`__:                    The mbuf chain to trim."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      The head of the trimmed mbuf chain."]
+                      " Return:                      The head of the trimmed mbuf chain."]
                 pub fn os_mbuf_trim_front(om: *mut os_mbuf) -> *mut os_mbuf;
             }
             extern "C" {
@@ -3883,14 +4036,14 @@ mod mynewt {
                 #[doc = " This function never frees the provided mbuf chain."]
                 #[doc = ""]
                 #[doc =
-                      " @param om                    The mbuf chain to widen."]
+                      " - __`om`__:                    The mbuf chain to widen."]
                 #[doc =
-                      " @param off                   The offset at which to insert the gap."]
+                      " - __`off`__:                   The offset at which to insert the gap."]
                 #[doc =
-                      " @param len                   The size of the gap to insert."]
+                      " - __`len`__:                   The size of the gap to insert."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 on success; SYS_[...] error code on failure."]
+                      " Return:                      0 on success; SYS_[...] error code on failure."]
                 pub fn os_mbuf_widen(om: *mut os_mbuf, off: u16, len: u16)
                  -> ::cty::c_int;
             }
@@ -3963,15 +4116,15 @@ mod mynewt {
             #[doc = " via a call to os_memblock_put_from_cb()."]
             #[doc = ""]
             #[doc =
-                  " @param ome                   The extended mempool that a block is being"]
+                  " - __`ome`__:                   The extended mempool that a block is being"]
             #[doc = "                                  freed back to."]
-            #[doc = " @param data                  The block being freed."]
+            #[doc = " - __`data`__:                  The block being freed."]
             #[doc =
-                  " @param arg                   Optional argument configured along with the"]
+                  " - __`arg`__:                   Optional argument configured along with the"]
             #[doc = "                                  callback."]
             #[doc = ""]
             #[doc =
-                  " @return                      Indicates whether the block was successfully"]
+                  " Return:                      Indicates whether the block was successfully"]
             #[doc =
                   "                                  freed.  A non-zero value should only be"]
             #[doc =
@@ -4033,13 +4186,13 @@ mod mynewt {
                 #[doc = " Get information about the next system memory pool."]
                 #[doc = ""]
                 #[doc =
-                      " @param mempool The current memory pool, or NULL if starting iteration."]
+                      " - __`mempool`__: The current memory pool, or NULL if starting iteration."]
                 #[doc =
-                      " @param info    A pointer to the structure to return memory pool information"]
+                      " - __`info`__:    A pointer to the structure to return memory pool information"]
                 #[doc = "                into."]
                 #[doc = ""]
                 #[doc =
-                      " @return The next memory pool in the list to get information about, or NULL"]
+                      " Return: The next memory pool in the list to get information about, or NULL"]
                 #[doc = "         when at the last memory pool."]
                 pub fn os_mempool_info_get_next(arg1: *mut os_mempool,
                                                 arg2: *mut os_mempool_info)
@@ -4050,16 +4203,16 @@ mod mynewt {
                 #[doc = " Initialize a memory pool."]
                 #[doc = ""]
                 #[doc =
-                      " @param mp            Pointer to a pointer to a mempool"]
+                      " - __`mp`__:            Pointer to a pointer to a mempool"]
                 #[doc =
-                      " @param blocks        The number of blocks in the pool"]
+                      " - __`blocks`__:        The number of blocks in the pool"]
                 #[doc =
-                      " @param blocks_size   The size of the block, in bytes."]
+                      " - __`blocks_size`__:   The size of the block, in bytes."]
                 #[doc =
-                      " @param membuf        Pointer to memory to contain blocks."]
-                #[doc = " @param name          Name of the pool."]
+                      " - __`membuf`__:        Pointer to memory to contain blocks."]
+                #[doc = " - __`name`__:          Name of the pool."]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 pub fn os_mempool_init(mp: *mut os_mempool, blocks: u16,
                                        block_size: u32,
                                        membuf: *mut ::cty::c_void,
@@ -4074,16 +4227,16 @@ mod mynewt {
                 #[doc = " after initialization."]
                 #[doc = ""]
                 #[doc =
-                      " @param mpe           The extended memory pool to initialize."]
+                      " - __`mpe`__:           The extended memory pool to initialize."]
                 #[doc =
-                      " @param blocks        The number of blocks in the pool."]
+                      " - __`blocks`__:        The number of blocks in the pool."]
                 #[doc =
-                      " @param block_size    The size of each block, in bytes."]
+                      " - __`block_size`__:    The size of each block, in bytes."]
                 #[doc =
-                      " @param membuf        Pointer to memory to contain blocks."]
-                #[doc = " @param name          Name of the pool."]
+                      " - __`membuf`__:        Pointer to memory to contain blocks."]
+                #[doc = " - __`name`__:          Name of the pool."]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 pub fn os_mempool_ext_init(mpe: *mut os_mempool_ext,
                                            blocks: u16, block_size: u32,
                                            membuf: *mut ::cty::c_void,
@@ -4095,9 +4248,9 @@ mod mynewt {
                       " Removes the specified mempool from the list of initialized mempools."]
                 #[doc = ""]
                 #[doc =
-                      " @param mp                    The mempool to unregister."]
+                      " - __`mp`__:                    The mempool to unregister."]
                 #[doc = ""]
-                #[doc = " @return                      0 on success;"]
+                #[doc = " Return:                      0 on success;"]
                 #[doc =
                       "                              OS_INVALID_PARM if the mempool is not"]
                 #[doc = "                                  registered."]
@@ -4107,9 +4260,9 @@ mod mynewt {
             extern "C" {
                 #[doc = " Clears a memory pool."]
                 #[doc = ""]
-                #[doc = " @param mp            The mempool to clear."]
+                #[doc = " - __`mp`__:            The mempool to clear."]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 pub fn os_mempool_clear(mp: *mut os_mempool) -> os_error_t;
             }
             extern "C" {
@@ -4120,12 +4273,12 @@ mod mynewt {
                       " Checks if a memory block was allocated from the specified mempool."]
                 #[doc = ""]
                 #[doc =
-                      " @param mp                    The mempool to check as parent."]
+                      " - __`mp`__:                    The mempool to check as parent."]
                 #[doc =
-                      " @param block_addr            The memory block to check as child."]
+                      " - __`block_addr`__:            The memory block to check as child."]
                 #[doc = ""]
                 #[doc =
-                      " @return                      0 if the block does not belong to the mempool;"]
+                      " Return:                      0 if the block does not belong to the mempool;"]
                 #[doc =
                       "                              1 if the block does belong to the mempool."]
                 pub fn os_memblock_from(mp: *const os_mempool,
@@ -4135,10 +4288,10 @@ mod mynewt {
             extern "C" {
                 #[doc = " Get a memory block from a memory pool"]
                 #[doc = ""]
-                #[doc = " @param mp Pointer to the memory pool"]
+                #[doc = " - __`mp`__: Pointer to the memory pool"]
                 #[doc = ""]
                 #[doc =
-                      " @return void* Pointer to block if available; NULL otherwise"]
+                      " Return: void* Pointer to block if available; NULL otherwise"]
                 pub fn os_memblock_get(mp: *mut os_mempool)
                  -> *mut ::cty::c_void;
             }
@@ -4149,10 +4302,10 @@ mod mynewt {
                       " This function should only be called from a put callback to free a block"]
                 #[doc = " without causing infinite recursion."]
                 #[doc = ""]
-                #[doc = " @param mp Pointer to memory pool"]
-                #[doc = " @param block_addr Pointer to memory block"]
+                #[doc = " - __`mp`__: Pointer to memory pool"]
+                #[doc = " - __`block_addr`__: Pointer to memory block"]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 pub fn os_memblock_put_from_cb(mp: *mut os_mempool,
                                                block_addr: *mut ::cty::c_void)
                  -> os_error_t;
@@ -4160,10 +4313,10 @@ mod mynewt {
             extern "C" {
                 #[doc = " Puts the memory block back into the pool"]
                 #[doc = ""]
-                #[doc = " @param mp Pointer to memory pool"]
-                #[doc = " @param block_addr Pointer to memory block"]
+                #[doc = " - __`mp`__: Pointer to memory pool"]
+                #[doc = " - __`block_addr`__: Pointer to memory block"]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 pub fn os_memblock_put(mp: *mut os_mempool,
                                        block_addr: *mut ::cty::c_void)
                  -> os_error_t;
@@ -4193,9 +4346,9 @@ mod mynewt {
             extern "C" {
                 #[doc = " Create a mutex and initialize it."]
                 #[doc = ""]
-                #[doc = " @param mu Pointer to mutex"]
+                #[doc = " - __`mu`__: Pointer to mutex"]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 #[doc = "      OS_INVALID_PARM     Mutex passed in was NULL."]
                 #[doc = "      OS_OK               no error."]
                 pub fn os_mutex_init(mu: *mut os_mutex) -> os_error_t;
@@ -4203,9 +4356,9 @@ mod mynewt {
             extern "C" {
                 #[doc = " Release a mutex."]
                 #[doc = ""]
-                #[doc = " @param mu Pointer to the mutex to be released"]
+                #[doc = " - __`mu`__: Pointer to the mutex to be released"]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 #[doc = "      OS_INVALID_PARM Mutex passed in was NULL."]
                 #[doc =
                       "      OS_BAD_MUTEX    Mutex was not granted to current task (not owner)."]
@@ -4215,15 +4368,15 @@ mod mynewt {
             extern "C" {
                 #[doc = " Pend (wait) for a mutex."]
                 #[doc = ""]
-                #[doc = " @param mu Pointer to mutex."]
-                #[doc = " @param timeout Timeout, in os ticks."]
+                #[doc = " - __`mu`__: Pointer to mutex."]
+                #[doc = " - __`timeout`__: Timeout, in os ticks."]
                 #[doc =
                       "                A timeout of 0 means do not wait if not available."]
                 #[doc =
                       "                A timeout of OS_TIMEOUT_NEVER means wait forever."]
                 #[doc = ""]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 #[doc = "      OS_INVALID_PARM     Mutex passed in was NULL."]
                 #[doc =
                       "      OS_TIMEOUT          Mutex was owned by another task and timeout=0"]
@@ -4270,27 +4423,27 @@ mod mynewt {
             extern "C" {
                 #[doc = " Provide a \"task checkin\" for the sanity task."]
                 #[doc = ""]
-                #[doc = " @param t The task to check in"]
+                #[doc = " - __`t`__: The task to check in"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, error code on failure"]
+                #[doc = " Return: 0 on success, error code on failure"]
                 pub fn os_sanity_task_checkin(arg1: *mut os_task)
                  -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Initialize a sanity check"]
                 #[doc = ""]
-                #[doc = " @param sc The sanity check to initialize"]
+                #[doc = " - __`sc`__: The sanity check to initialize"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, error code on failure."]
+                #[doc = " Return: 0 on success, error code on failure."]
                 pub fn os_sanity_check_init(arg1: *mut os_sanity_check)
                  -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Register a sanity check"]
                 #[doc = ""]
-                #[doc = " @param sc The sanity check to register"]
+                #[doc = " - __`sc`__: The sanity check to register"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, error code on failure"]
+                #[doc = " Return: 0 on success, error code on failure"]
                 pub fn os_sanity_check_register(arg1: *mut os_sanity_check)
                  -> ::cty::c_int;
             }
@@ -4299,9 +4452,9 @@ mod mynewt {
                       " Reset the os sanity check, so that it doesn't trip up the"]
                 #[doc = " sanity timer."]
                 #[doc = ""]
-                #[doc = " @param sc The sanity check to reset"]
+                #[doc = " - __`sc`__: The sanity check to reset"]
                 #[doc = ""]
-                #[doc = " @return 0 on success, error code on failure"]
+                #[doc = " Return: 0 on success, error code on failure"]
                 pub fn os_sanity_check_reset(arg1: *mut os_sanity_check)
                  -> ::cty::c_int;
             }
@@ -4416,23 +4569,24 @@ mod mynewt {
                       " and sets the task as ready to run, and inserts it into the operating"]
                 #[doc = " system scheduler."]
                 #[doc = ""]
-                #[doc = " @param t The task to initialize"]
-                #[doc = " @param name The name of the task to initialize"]
-                #[doc = " @param func The task function to call"]
+                #[doc = " - __`t`__: The task to initialize"]
+                #[doc = " - __`name`__: The name of the task to initialize"]
+                #[doc = " - __`func`__: The task function to call"]
                 #[doc =
-                      " @param arg The argument to pass to this task function"]
-                #[doc = " @param prio The priority at which to run this task"]
+                      " - __`arg`__: The argument to pass to this task function"]
                 #[doc =
-                      " @param sanity_itvl The time at which this task should check in with the"]
+                      " - __`prio`__: The priority at which to run this task"]
+                #[doc =
+                      " - __`sanity_itvl`__: The time at which this task should check in with the"]
                 #[doc =
                       "                    sanity task.  OS_WAIT_FOREVER means never check in"]
                 #[doc = "                    here."]
                 #[doc =
-                      " @param stack_bottom A pointer to the bottom of a task's stack"]
+                      " - __`stack_bottom`__: A pointer to the bottom of a task's stack"]
                 #[doc =
-                      " @param stack_size The overall size of the task's stack."]
+                      " - __`stack_size`__: The overall size of the task's stack."]
                 #[doc = ""]
-                #[doc = " @return 0 on success, non-zero on failure."]
+                #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn os_task_init(arg1: *mut os_task,
                                     arg2: *const ::cty::c_char,
                                     arg3: os_task_func_t,
@@ -4450,7 +4604,7 @@ mod mynewt {
             extern "C" {
                 #[doc = " Return the number of tasks initialized."]
                 #[doc = ""]
-                #[doc = " @return number of tasks initialized"]
+                #[doc = " Return: number of tasks initialized"]
                 pub fn os_task_count() -> u8;
             }
             #[doc =
@@ -4537,13 +4691,13 @@ mod mynewt {
                 #[doc = " the next task in the list."]
                 #[doc = ""]
                 #[doc =
-                      " @param prev The previous task returned by os_task_info_get_next(), or NULL"]
+                      " - __`prev`__: The previous task returned by os_task_info_get_next(), or NULL"]
                 #[doc = "             to begin iteration."]
                 #[doc =
-                      " @param oti  The OS task info structure to fill out."]
+                      " - __`oti`__:  The OS task info structure to fill out."]
                 #[doc = ""]
                 #[doc =
-                      " @return A pointer to the OS task that has been read, or NULL when finished"]
+                      " Return: A pointer to the OS task that has been read, or NULL when finished"]
                 #[doc = "         iterating through all tasks."]
                 pub fn os_task_info_get_next(arg1: *const os_task,
                                              arg2: *mut os_task_info)
@@ -4565,7 +4719,7 @@ mod mynewt {
                       " Returns the currently running task. Note that this task may or may not be"]
                 #[doc = " the highest priority task ready to run."]
                 #[doc = ""]
-                #[doc = " @return The currently running task."]
+                #[doc = " Return: The currently running task."]
                 pub fn os_sched_get_current_task() -> *mut os_task;
             }
             extern "C" {
@@ -4587,14 +4741,14 @@ mod mynewt {
                       " This function will call the architecture specific routine to swap in the new task."]
                 #[doc = ""]
                 #[doc =
-                      " @param next_t Pointer to task which must run next (optional)"]
+                      " - __`next_t`__: Pointer to task which must run next (optional)"]
                 #[doc = ""]
-                #[doc = " @return n/a"]
+                #[doc = " Return: n/a"]
                 #[doc = ""]
                 #[doc =
-                      " @note Interrupts must be disabled when calling this."]
+                      " __Note:__ Interrupts must be disabled when calling this."]
                 #[doc = ""]
-                #[doc = " @code{.c}"]
+                #[doc = " ```c"]
                 #[doc = " // example"]
                 #[doc = " os_error_t"]
                 #[doc = " os_mutex_release(struct os_mutex *mu)"]
@@ -4610,7 +4764,7 @@ mod mynewt {
                 #[doc = "     return OS_OK;"]
                 #[doc = ""]
                 #[doc = " }"]
-                #[doc = " @endcode"]
+                #[doc = " ```"]
                 pub fn os_sched(arg1: *mut os_task);
             }
             extern "C" {
@@ -4657,11 +4811,11 @@ mod mynewt {
             extern "C" {
                 #[doc = " Initialize a semaphore"]
                 #[doc = ""]
-                #[doc = " @param sem Pointer to semaphore"]
+                #[doc = " - __`sem`__: Pointer to semaphore"]
                 #[doc =
                       "        tokens: # of tokens the semaphore should contain initially."]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 #[doc =
                       "      OS_INVALID_PARM     Semaphore passed in was NULL."]
                 #[doc = "      OS_OK               no error."]
@@ -4671,9 +4825,10 @@ mod mynewt {
             extern "C" {
                 #[doc = " Release a semaphore."]
                 #[doc = ""]
-                #[doc = " @param sem Pointer to the semaphore to be released"]
+                #[doc =
+                      " - __`sem`__: Pointer to the semaphore to be released"]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 #[doc = "      OS_INVALID_PARM Semaphore passed in was NULL."]
                 #[doc = "      OS_OK No error"]
                 pub fn os_sem_release(sem: *mut os_sem) -> os_error_t;
@@ -4683,15 +4838,15 @@ mod mynewt {
                 #[doc = ""]
                 #[doc = " Pend (wait) for a semaphore."]
                 #[doc = ""]
-                #[doc = " @param mu Pointer to semaphore."]
-                #[doc = " @param timeout Timeout, in os ticks."]
+                #[doc = " - __`mu`__: Pointer to semaphore."]
+                #[doc = " - __`timeout`__: Timeout, in os ticks."]
                 #[doc =
                       "                A timeout of 0 means do not wait if not available."]
                 #[doc =
                       "                A timeout of OS_TIMEOUT_NEVER means wait forever."]
                 #[doc = ""]
                 #[doc = ""]
-                #[doc = " @return os_error_t"]
+                #[doc = " Return: os_error_t"]
                 #[doc =
                       "      OS_INVALID_PARM     Semaphore passed in was NULL."]
                 #[doc =
@@ -4713,16 +4868,16 @@ mod mynewt {
                       " 'prio' is the cpu-specific priority of the periodic timer interrupt."]
                 #[doc = ""]
                 #[doc =
-                      " @param os_ticks_per_sec Frequency of the OS tick timer"]
+                      " - __`os_ticks_per_sec`__: Frequency of the OS tick timer"]
                 #[doc =
-                      " @param prio             Priority of the OS tick timer"]
+                      " - __`prio`__:             Priority of the OS tick timer"]
                 pub fn os_tick_init(os_ticks_per_sec: u32,
                                     prio: ::cty::c_int);
             }
             extern "C" {
                 #[doc = " Halt CPU for up to 'n' ticks."]
                 #[doc = ""]
-                #[doc = " @param n The number of ticks to halt the CPU for"]
+                #[doc = " - __`n`__: The number of ticks to halt the CPU for"]
                 pub fn os_tick_idle(n: os_time_t);
             }
             extern "C" {
@@ -4741,7 +4896,7 @@ mod mynewt {
                 #[doc =
                       " the architecture specific functions to sleep until that time."]
                 #[doc = ""]
-                #[doc = " @param arg unused"]
+                #[doc = " - __`arg`__: unused"]
                 pub fn os_idle_task(arg: *mut ::cty::c_void);
             }
             extern "C" {
@@ -4749,16 +4904,14 @@ mod mynewt {
             }
         }
     }
-    /// `hw`: Mynewt Hardware API
     pub mod hw {
-        //! Mynewt Hardware API
-        /// Export `sensor.rs` as Rust module `mynewt::hw::sensor`.  Contains Rust bindings for Mynewt Sensor API `hw/sensor`.
+        //! Mynewt Hardware API for Rust
         pub mod sensor {
-            //!  Import the Mynewt Sensor API and export the safe version of the API. Based on
-            //!  `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h`
+            //! Contains the Mynewt Sensor API for Rust, including the safe version of the API.
+            //! Auto-generated Rust bindings are in the `bindings` module.
             use ::cty::c_void;
             use super::super::result::*;
-            /// Import all Mynewt Sensor API bindings.
+            /// Contains the auto-generated Rust bindings for the Mynewt Sensor API
             mod bindings {
                 #[repr(C)]
                 #[structural_match]
@@ -5262,6 +5415,9 @@ mod mynewt {
                 pub type __int64_t = ::cty::c_longlong;
                 pub type os_stack_t = u32;
                 pub type os_time_t = u32;
+                #[doc =
+                      " Structure representing time since Jan 1 1970 with microsecond"]
+                #[doc = " granularity"]
                 #[repr(C)]
                 pub struct os_timeval {
                     pub tv_sec: i64,
@@ -5278,9 +5434,12 @@ mod mynewt {
                                        ::core::default::Default::default(),}
                     }
                 }
+                #[doc = " Structure representing a timezone offset"]
                 #[repr(C)]
                 pub struct os_timezone {
+                    #[doc = " Minutes west of GMT"]
                     pub tz_minuteswest: i16,
+                    #[doc = " Daylight savings time correction (if any)"]
                     pub tz_dsttime: i16,
                 }
                 #[automatically_derived]
@@ -5298,10 +5457,21 @@ mod mynewt {
                     =
                     ::core::option::Option<unsafe extern "C" fn(ev:
                                                                     *mut os_event)>;
+                #[doc =
+                      " Structure representing an OS event.  OS events get placed onto the"]
+                #[doc = " event queues and are consumed by tasks."]
                 #[repr(C)]
                 pub struct os_event {
+                    #[doc =
+                          " Whether this OS event is queued on an event queue."]
                     pub ev_queued: u8,
+                    #[doc =
+                          " Callback to call when the event is taken off of an event queue."]
+                    #[doc =
+                          " APIs, except for os_eventq_run(), assume this callback will be called by"]
+                    #[doc = " the user."]
                     pub ev_cb: os_event_fn,
+                    #[doc = " Argument to pass to the event queue callback."]
                     pub ev_arg: *mut ::cty::c_void,
                     pub ev_next: os_event__bindgen_ty_1,
                 }
@@ -5317,7 +5487,12 @@ mod mynewt {
                 }
                 #[repr(C)]
                 pub struct os_eventq {
+                    #[doc =
+                          " Pointer to task that \"owns\" this event queue."]
                     pub evq_owner: *mut os_task,
+                    #[doc =
+                          " Pointer to the task that is sleeping on this event queue, either NULL,"]
+                    #[doc = " or the owner task."]
                     pub evq_task: *mut os_task,
                     pub evq_list: os_eventq__bindgen_ty_1,
                 }
@@ -5332,10 +5507,19 @@ mod mynewt {
                 impl Default for os_eventq {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc =
+                      " Structure containing the definition of a callout, initialized"]
+                #[doc =
+                      " by os_callout_init() and passed to callout functions."]
                 #[repr(C)]
                 pub struct os_callout {
+                    #[doc = " Event to post when the callout expires."]
                     pub c_ev: os_event,
+                    #[doc =
+                          " Pointer to the event queue to post the event to"]
                     pub c_evq: *mut os_eventq,
+                    #[doc =
+                          " Number of ticks in the future to expire the callout"]
                     pub c_ticks: os_time_t,
                     pub c_next: os_callout__bindgen_ty_1,
                 }
@@ -5350,6 +5534,14 @@ mod mynewt {
                 impl Default for os_callout {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc = " Initialize a device."]
+                #[doc = ""]
+                #[doc = " - __`dev`__: The device to initialize."]
+                #[doc =
+                      " - __`arg`__: User defined argument to pass to the device initalization"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type os_dev_init_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5384,11 +5576,30 @@ mod mynewt {
                     ::core::option::Option<unsafe extern "C" fn(arg1:
                                                                     *mut os_dev)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Device handlers, implementers of device drivers should fill these"]
+                #[doc = " out to control device operation."]
                 #[repr(C)]
                 pub struct os_dev_handlers {
+                    #[doc =
+                          " Device open handler, called when the user opens the device."]
+                    #[doc =
+                          " Any locking of the device should be done within the open handler."]
                     pub od_open: os_dev_open_func_t,
+                    #[doc =
+                          " Suspend handler, called when the device is being suspended."]
+                    #[doc =
+                          " Up to the implementer to save device state before power down,"]
+                    #[doc =
+                          " so that the device can be cleanly resumed -- or error out and"]
+                    #[doc = " delay suspension."]
                     pub od_suspend: os_dev_suspend_func_t,
+                    #[doc =
+                          " Resume handler, restores device state after a suspend operation."]
                     pub od_resume: os_dev_resume_func_t,
+                    #[doc =
+                          " Close handler, releases the device, including any locks that"]
+                    #[doc = " may have been taken by open()."]
                     pub od_close: os_dev_close_func_t,
                 }
                 #[automatically_derived]
@@ -5408,13 +5619,26 @@ mod mynewt {
                 }
                 #[repr(C)]
                 pub struct os_dev {
+                    #[doc =
+                          " Device handlers.  Implementation of base device functions."]
                     pub od_handlers: os_dev_handlers,
+                    #[doc = " Device initialization function."]
                     pub od_init: os_dev_init_func_t,
+                    #[doc =
+                          " Argument to pass to device initialization function."]
                     pub od_init_arg: *mut ::cty::c_void,
+                    #[doc = " Stage during which to initialize this device."]
                     pub od_stage: u8,
+                    #[doc =
+                          " Priority within a given stage to initialize a device."]
                     pub od_priority: u8,
+                    #[doc =
+                          " Number of references to a device being open before marking"]
+                    #[doc = " the device closed."]
                     pub od_open_ref: u8,
+                    #[doc = " Device flags."]
                     pub od_flags: u8,
+                    #[doc = " Device name"]
                     pub od_name: *const ::cty::c_char,
                     pub od_next: os_dev__bindgen_ty_1,
                 }
@@ -5428,6 +5652,13 @@ mod mynewt {
                 impl Default for os_dev {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc =
+                      " A memory block structure. This simply contains a pointer to the free list"]
+                #[doc =
+                      " chain and is only used when the block is on the free list. When the block"]
+                #[doc =
+                      " has been removed from the free list the entire memory block is usable by the"]
+                #[doc = " caller."]
                 #[repr(C)]
                 pub struct os_memblock {
                     pub mb_next: os_memblock__bindgen_ty_1,
@@ -5442,16 +5673,24 @@ mod mynewt {
                 impl Default for os_memblock {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc = " Memory pool"]
                 #[repr(C)]
                 pub struct os_mempool {
+                    #[doc = " Size of the memory blocks, in bytes."]
                     pub mp_block_size: u32,
+                    #[doc = " The number of memory blocks."]
                     pub mp_num_blocks: u16,
+                    #[doc = " The number of free blocks left"]
                     pub mp_num_free: u16,
+                    #[doc = " The lowest number of free blocks seen"]
                     pub mp_min_free: u16,
+                    #[doc = " Bitmap of OS_MEMPOOL_F_[...] values."]
                     pub mp_flags: u8,
+                    #[doc = " Address of memory buffer used by pool"]
                     pub mp_membuf_addr: u32,
                     pub mp_list: os_mempool__bindgen_ty_1,
                     pub __bindgen_anon_1: os_mempool__bindgen_ty_2,
+                    #[doc = " Name for memory block"]
                     pub name: *mut ::cty::c_char,
                 }
                 #[repr(C)]
@@ -5472,12 +5711,16 @@ mod mynewt {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
                 pub type os_membuf_t = u32;
+                #[doc = " OS mutex structure"]
                 #[repr(C)]
                 pub struct os_mutex {
                     pub mu_head: os_mutex__bindgen_ty_1,
                     pub _pad: u8,
+                    #[doc = " Mutex owner's default priority"]
                     pub mu_prio: u8,
+                    #[doc = " Mutex call nesting level"]
                     pub mu_level: u16,
+                    #[doc = " Task that owns the mutex"]
                     pub mu_owner: *mut os_task,
                 }
                 #[repr(C)]
@@ -5499,9 +5742,13 @@ mod mynewt {
                                                -> ::cty::c_int>;
                 #[repr(C)]
                 pub struct os_sanity_check {
+                    #[doc = " Time this check last ran successfully."]
                     pub sc_checkin_last: os_time_t,
+                    #[doc = " Interval this task should check in at"]
                     pub sc_checkin_itvl: os_time_t,
+                    #[doc = " Sanity check to run"]
                     pub sc_func: os_sanity_check_func_t,
+                    #[doc = " Argument to pass to sanity check"]
                     pub sc_arg: *mut ::cty::c_void,
                     pub sc_next: os_sanity_check__bindgen_ty_1,
                 }
@@ -5519,24 +5766,42 @@ mod mynewt {
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
                                                                     *mut ::cty::c_void)>;
+                #[doc = " @cond INTERNAL_HIDDEN"]
                 #[repr(C)]
                 pub struct os_task {
+                    #[doc = " Current stack pointer for this task"]
                     pub t_stackptr: *mut os_stack_t,
+                    #[doc = " Pointer to top of this task's stack"]
                     pub t_stacktop: *mut os_stack_t,
+                    #[doc = " Size of this task's stack"]
                     pub t_stacksize: u16,
+                    #[doc = " Task ID"]
                     pub t_taskid: u8,
+                    #[doc = " Task Priority"]
                     pub t_prio: u8,
                     pub t_state: u8,
+                    #[doc = " Task flags, bitmask"]
                     pub t_flags: u8,
                     pub t_lockcnt: u8,
                     pub t_pad: u8,
+                    #[doc = " Task name"]
                     pub t_name: *const ::cty::c_char,
+                    #[doc = " Task function that executes"]
                     pub t_func: os_task_func_t,
+                    #[doc = " Argument to pass to task function when called"]
                     pub t_arg: *mut ::cty::c_void,
+                    #[doc =
+                          " Current object task is waiting on, either a semaphore or mutex"]
                     pub t_obj: *mut ::cty::c_void,
+                    #[doc = " Default sanity check for this task"]
                     pub t_sanity_check: os_sanity_check,
+                    #[doc = " Next scheduled wakeup if this task is sleeping"]
                     pub t_next_wakeup: os_time_t,
+                    #[doc = " Total task run time"]
                     pub t_run_time: os_time_t,
+                    #[doc =
+                          " Total number of times this task has been context switched during"]
+                    #[doc = " execution."]
                     pub t_ctx_sw_cnt: u32,
                     pub t_os_task_list: os_task__bindgen_ty_1,
                     pub t_os_list: os_task__bindgen_ty_2,
@@ -5568,6 +5833,8 @@ mod mynewt {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
                 extern "C" {
+                    #[doc =
+                          " Package init function. Remove when we have post-kernel init stages."]
                     pub fn sensor_pkg_init();
                 }
                 pub const sensor_type_t_SENSOR_TYPE_NONE: sensor_type_t = 0;
@@ -5679,6 +5946,9 @@ mod mynewt {
                           sensor_event_type_t =
                     32768;
                 pub type sensor_event_type_t = u32;
+                #[doc =
+                      " Configuration structure, describing a specific sensor type off of"]
+                #[doc = " an existing sensor."]
                 #[repr(C)]
                 pub struct sensor_cfg {
                     pub sc_valtype: u8,
@@ -5715,6 +5985,20 @@ mod mynewt {
                 impl Default for sensor_data_t {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc =
+                      " Callback for handling sensor data, specified in a sensor listener."]
+                #[doc = ""]
+                #[doc =
+                      " - __`sensor`__: The sensor for which data is being returned"]
+                #[doc =
+                      " - __`arg`__: The argument provided to sensor_read() function."]
+                #[doc =
+                      " - __`data`__: A single sensor reading for that sensor listener"]
+                #[doc =
+                      " - __`type`__: The sensor type for the data function"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_data_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5726,6 +6010,11 @@ mod mynewt {
                                                                 arg4:
                                                                     sensor_type_t)
                                                -> ::cty::c_int>;
+                #[doc = " Callback for sending trigger notification."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: Ptr to the sensor"]
+                #[doc = " - __`data`__: Ptr to sensor data"]
+                #[doc = " - __`type`__: The sensor type"]
                 pub type sensor_trigger_notify_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5735,6 +6024,12 @@ mod mynewt {
                                                                 arg3:
                                                                     sensor_type_t)
                                                -> ::cty::c_int>;
+                #[doc = " Callback for trigger compare functions."]
+                #[doc = ""]
+                #[doc = " - __`type`__: Type of sensor"]
+                #[doc = " - __`low_thresh`__: The sensor low threshold"]
+                #[doc = " - __`high_thresh`__: The sensor high threshold"]
+                #[doc = " - __`arg`__: Ptr to data"]
                 pub type sensor_trigger_cmp_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5746,6 +6041,13 @@ mod mynewt {
                                                                 arg4:
                                                                     *mut ::cty::c_void)
                                                -> ::cty::c_int>;
+                #[doc = " Callback for event notifications."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: The sensor that observed the event"]
+                #[doc =
+                      " - __`arg`__: The opaque argument provided during registration"]
+                #[doc =
+                      " - __`event`__: The sensor event type that was observed"]
                 pub type sensor_notifier_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5755,6 +6057,15 @@ mod mynewt {
                                                                 arg3:
                                                                     sensor_event_type_t)
                                                -> ::cty::c_int>;
+                #[doc = " Callback for reporting a sensor read error."]
+                #[doc = ""]
+                #[doc =
+                      " - __`sensor`__: The sensor for which a read failed."]
+                #[doc =
+                      " - __`arg`__: The optional argument registered with the callback."]
+                #[doc =
+                      " - __`status`__: Indicates the cause of the read failure.  Determined by the"]
+                #[doc = "               underlying sensor driver."]
                 pub type sensor_error_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(sensor:
@@ -5780,6 +6091,7 @@ mod mynewt {
                 impl Default for sensor_listener {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc = " Registration for sensor event notifications"]
                 #[repr(C)]
                 pub struct sensor_notifier {
                     pub sn_sensor_event_type: sensor_event_type_t,
@@ -5797,6 +6109,7 @@ mod mynewt {
                 impl Default for sensor_notifier {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc = " Context for sensor read events"]
                 #[repr(C)]
                 pub struct sensor_read_ev_ctx {
                     pub srec_sensor: *mut sensor,
@@ -5805,6 +6118,7 @@ mod mynewt {
                 impl Default for sensor_read_ev_ctx {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc = " Sensor type traits list"]
                 #[repr(C)]
                 pub struct sensor_type_traits {
                     pub stt_sensor_type: sensor_type_t,
@@ -5844,6 +6158,26 @@ mod mynewt {
                 impl Default for sensor_notify_os_ev {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc =
+                      " Read a single value from a sensor, given a specific sensor type"]
+                #[doc = " (e.g. SENSOR_TYPE_PROXIMITY)."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: The sensor to read from"]
+                #[doc =
+                      " - __`type`__: The type(s) of sensor values to read.  Mask containing that type, provide"]
+                #[doc = "        all, to get all values."]
+                #[doc =
+                      " - __`data_func`__: The function to call with each value read.  If NULL, it calls all"]
+                #[doc =
+                      "        sensor listeners associated with this function."]
+                #[doc =
+                      " - __`arg`__: The argument to pass to the read callback."]
+                #[doc =
+                      " - __`timeout`__: Timeout. If block until result, specify OS_TIMEOUT_NEVER, 0 returns"]
+                #[doc = "        immediately (no wait.)"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_read_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5856,6 +6190,18 @@ mod mynewt {
                                                                     *mut ::cty::c_void,
                                                                 arg5: u32)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Get the configuration of the sensor for the sensor type.  This includes"]
+                #[doc = " the value type of the sensor."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: Ptr to the sensor"]
+                #[doc =
+                      " - __`type`__: The type of sensor value to get configuration for"]
+                #[doc =
+                      " - __`cfg`__: A pointer to the sensor value to place the returned result into."]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_get_config_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5865,6 +6211,16 @@ mod mynewt {
                                                                 arg3:
                                                                     *mut sensor_cfg)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Send a new configuration register set to the sensor."]
+                #[doc = ""]
+                #[doc =
+                      " - __`sensor`__: Ptr to the sensor-specific stucture"]
+                #[doc =
+                      " - __`arg`__: Ptr to the sensor-specific configuration structure"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_set_config_func_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5872,6 +6228,16 @@ mod mynewt {
                                                                 arg2:
                                                                     *mut ::cty::c_void)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Set the trigger and threshold values for a specific sensor for the sensor"]
+                #[doc = " type."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: Ptr to the sensor"]
+                #[doc = " - __`type`__: type of sensor"]
+                #[doc = " - __`stt`__: Ptr to teh sensor traits"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_set_trigger_thresh_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5881,6 +6247,15 @@ mod mynewt {
                                                                 stt:
                                                                     *mut sensor_type_traits)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Clear the high/low threshold values for a specific sensor for the sensor"]
+                #[doc = " type."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: Ptr to the sensor"]
+                #[doc = " - __`type`__: Type of sensor"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_clear_trigger_thresh_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(sensor:
@@ -5888,6 +6263,20 @@ mod mynewt {
                                                                 type_:
                                                                     sensor_type_t)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Set the notification expectation for a targeted set of events for the"]
+                #[doc =
+                      " specific sensor. After this function returns successfully, the implementer"]
+                #[doc =
+                      " shall post corresponding event notifications to the sensor manager."]
+                #[doc = ""]
+                #[doc =
+                      " - __`sensor`__: The sensor to expect notifications from."]
+                #[doc =
+                      " - __`event`__: The mask of event types to expect notifications from."]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_set_notification_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5895,6 +6284,15 @@ mod mynewt {
                                                                 arg2:
                                                                     sensor_event_type_t)
                                                -> ::cty::c_int>;
+                #[doc =
+                      " Unset the notification expectation for a targeted set of events for the"]
+                #[doc = " specific sensor."]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: The sensor."]
+                #[doc = " - __`event`__: The mask of event types."]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_unset_notification_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -5902,11 +6300,22 @@ mod mynewt {
                                                                 arg2:
                                                                     sensor_event_type_t)
                                                -> ::cty::c_int>;
+                #[doc = " Let driver handle interrupt in the sensor context"]
+                #[doc = ""]
+                #[doc = " - __`sensor`__: Ptr to the sensor"]
+                #[doc = ""]
+                #[doc =
+                      " Return: 0 on success, non-zero error code on failure."]
                 pub type sensor_handle_interrupt_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(sensor:
                                                                     *mut sensor)
                                                -> ::cty::c_int>;
+                #[doc = " Reset Sensor function Ptr"]
+                #[doc = ""]
+                #[doc = " - __`Ptr`__: to the sensor"]
+                #[doc = ""]
+                #[doc = " Return: 0 on success, non-zero on failure"]
                 pub type sensor_reset_t
                     =
                     ::core::option::Option<unsafe extern "C" fn(arg1:
@@ -6010,6 +6419,7 @@ mod mynewt {
                     pub s_lock: os_mutex,
                     pub s_types: sensor_type_t,
                     pub s_mask: sensor_type_t,
+                    #[doc = " Poll rate in MS for this sensor."]
                     pub s_poll_rate: u32,
                     pub s_next_run: os_time_t,
                     pub s_funcs: *mut sensor_driver,
@@ -6054,6 +6464,8 @@ mod mynewt {
                 impl Default for sensor {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
+                #[doc =
+                      " Read context for calling user function with argument"]
                 #[repr(C)]
                 pub struct sensor_read_ctx {
                     pub user_func: sensor_data_func_t,
@@ -6063,36 +6475,106 @@ mod mynewt {
                     fn default() -> Self { unsafe { ::core::mem::zeroed() } }
                 }
                 extern "C" {
+                    #[doc =
+                          " Lock access to the sensor_itf specified by si.  Blocks until lock acquired."]
+                    #[doc = ""]
+                    #[doc = " - __`si`__: The sensor_itf to lock"]
+                    #[doc = " - __`timeout`__: The timeout"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure."]
                     pub fn sensor_itf_lock(si: *mut sensor_itf,
                                            timeout: os_time_t)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Unlock access to the sensor_itf specified by si."]
+                    #[doc = ""]
+                    #[doc = " - __`si`__: The sensor_itf to unlock access to"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure."]
                     pub fn sensor_itf_unlock(si: *mut sensor_itf);
                 }
                 extern "C" {
+                    #[doc = " Initialize a sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor to initialize"]
+                    #[doc =
+                          " - __`dev`__: The device to associate with this sensor."]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_init(sensor: *mut sensor, dev: *mut os_dev)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Lock access to the sensor specified by sensor.  Blocks until lock acquired."]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor to lock"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure."]
                     pub fn sensor_lock(sensor: *mut sensor) -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Unlock access to the sensor specified by sensor."]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`sensor`__: The sensor to unlock access to."]
                     pub fn sensor_unlock(sensor: *mut sensor);
                 }
                 extern "C" {
+                    #[doc =
+                          " Register a sensor listener. This allows a calling application to receive"]
+                    #[doc = " callbacks for data from a given sensor object."]
+                    #[doc = ""]
+                    #[doc =
+                          " For more information on the type of callbacks available, see the documentation"]
+                    #[doc = " for the sensor listener structure."]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`sensor`__: The sensor to register a listener on"]
+                    #[doc =
+                          " - __`listener`__: The listener to register onto the sensor"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_register_listener(sensor: *mut sensor,
                                                     listener:
                                                         *mut sensor_listener)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Un-register a sensor listener. This allows a calling application to clear"]
+                    #[doc = " callbacks for a given sensor object."]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor object"]
+                    #[doc =
+                          " - __`listener`__: The listener to remove from the sensor listener list"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_unregister_listener(sensor: *mut sensor,
                                                       listener:
                                                           *mut sensor_listener)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Register a sensor error callback.  The callback is executed when the sensor"]
+                    #[doc = " manager fails to read from the given sensor."]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`sensor`__: The sensor to register an error callback on."]
+                    #[doc =
+                          " - __`err_fn`__: The function to execute when a read fails."]
+                    #[doc =
+                          " - __`arg`__: Optional argument to pass to the callback."]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_register_err_func(sensor: *mut sensor,
                                                     err_fn:
                                                         sensor_error_func_t,
@@ -6100,18 +6582,57 @@ mod mynewt {
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Register a sensor notifier. This allows a calling application to receive"]
+                    #[doc =
+                          " callbacks any time a requested event is observed."]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`sensor`__: The sensor to register the notifier on"]
+                    #[doc = " - __`notifier`__: The notifier to register"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_register_notifier(sensor: *mut sensor,
                                                     notifier:
                                                         *mut sensor_notifier)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Un-register a sensor notifier. This allows a calling application to stop"]
+                    #[doc =
+                          " receiving callbacks for events on the sensor object."]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`sensor`__: The sensor object to un-register the notifier on"]
+                    #[doc =
+                          " - __`notifier`__: The notifier to remove from the notification list"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_unregister_notifier(sensor: *mut sensor,
                                                       notifier:
                                                           *mut sensor_notifier)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Read the data for sensor type \"type,\" from the given sensor and"]
+                    #[doc =
+                          " return the result into the \"value\" parameter."]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor to read data from"]
+                    #[doc =
+                          " - __`type`__: The type of sensor data to read from the sensor"]
+                    #[doc =
+                          " - __`data_func`__: The callback to call for data returned from that sensor"]
+                    #[doc =
+                          " - __`arg`__: The argument to pass to this callback."]
+                    #[doc =
+                          " - __`timeout`__: Timeout before aborting sensor read"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure."]
                     pub fn sensor_read(sensor: *mut sensor,
                                        type_: sensor_type_t,
                                        data_func: sensor_data_func_t,
@@ -6119,16 +6640,35 @@ mod mynewt {
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Lock sensor manager to access the list of sensors"]
                     pub fn sensor_mgr_lock() -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Unlock sensor manager once the list of sensors has been accessed"]
                     pub fn sensor_mgr_unlock();
                 }
                 extern "C" {
+                    #[doc =
+                          " Register the sensor with the global sensor list. This makes the sensor"]
+                    #[doc =
+                          " searchable by other packages, who may want to look it up by type."]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor to register"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure."]
                     pub fn sensor_mgr_register(sensor: *mut sensor)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Get the current eventq, the system is misconfigured if there is still"]
+                    #[doc = " no parent eventq."]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: Ptr OS eventq that the sensor mgr is set to"]
                     pub fn sensor_mgr_evq_get() -> *mut os_eventq;
                 }
                 pub type sensor_mgr_compare_func_t
@@ -6139,6 +6679,35 @@ mod mynewt {
                                                                     *mut ::cty::c_void)
                                                -> ::cty::c_int>;
                 extern "C" {
+                    #[doc =
+                          " The sensor manager contains a list of sensors, this function returns"]
+                    #[doc =
+                          " the next sensor in that list, for which compare_func() returns successful"]
+                    #[doc =
+                          " (one).  If prev_cursor is provided, the function starts at that point"]
+                    #[doc = " in the sensor list."]
+                    #[doc = ""]
+                    #[doc =
+                          " @warn This function MUST be locked by sensor_mgr_lock/unlock() if the goal is"]
+                    #[doc =
+                          " to iterate through sensors (as opposed to just finding one.)  As the"]
+                    #[doc =
+                          " \"prev_cursor\" may be resorted in the sensor list, in between calls."]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`compare_func`__: The comparison function to use against sensors in the list."]
+                    #[doc =
+                          " - __`arg`__: The argument to provide to that comparison function"]
+                    #[doc =
+                          " - __`prev_cursor`__: The previous sensor in the sensor manager list, in case of"]
+                    #[doc =
+                          "        iteration.  If desire is to find first matching sensor, provide a"]
+                    #[doc = "        NULL value."]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: A pointer to the first sensor found from prev_cursor, or"]
+                    #[doc = "         NULL, if none found."]
+                    #[doc = ""]
                     pub fn sensor_mgr_find_next(arg1:
                                                     sensor_mgr_compare_func_t,
                                                 arg2: *mut ::cty::c_void,
@@ -6146,11 +6715,36 @@ mod mynewt {
                      -> *mut sensor;
                 }
                 extern "C" {
+                    #[doc =
+                          " Find the \"next\" sensor available for a given sensor type."]
+                    #[doc = ""]
+                    #[doc =
+                          " If the sensor parameter, is present find the next entry from that"]
+                    #[doc =
+                          " parameter.  Otherwise, find the first matching sensor."]
+                    #[doc = ""]
+                    #[doc = " - __`type`__: The type of sensor to search for"]
+                    #[doc =
+                          " - __`sensor`__: The cursor to search from, or NULL to start from the beginning."]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: A pointer to the sensor object matching that sensor type, or NULL if"]
+                    #[doc = "         none found."]
                     pub fn sensor_mgr_find_next_bytype(type_: sensor_type_t,
                                                        sensor: *mut sensor)
                      -> *mut sensor;
                 }
                 extern "C" {
+                    #[doc =
+                          " Search the sensor list and find the next sensor that corresponds"]
+                    #[doc = " to a given device name."]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: The device name to search for"]
+                    #[doc =
+                          " - __`sensor`__: The previous sensor found with this device name"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: 0 on success, non-zero error code on failure"]
                     pub fn sensor_mgr_find_next_bydevname(devname:
                                                               *const ::cty::c_char,
                                                           prev_cursor:
@@ -6158,17 +6752,33 @@ mod mynewt {
                      -> *mut sensor;
                 }
                 extern "C" {
+                    #[doc = " Check if sensor type matches"]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor object"]
+                    #[doc = " - __`arg`__: type to check"]
+                    #[doc = ""]
+                    #[doc = " Return: 1 if matches, 0 if it doesn't match."]
                     pub fn sensor_mgr_match_bytype(sensor: *mut sensor,
                                                    arg1: *mut ::cty::c_void)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc = " Set the sensor poll rate"]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: Name of the sensor"]
+                    #[doc =
+                          " - __`poll_rate`__: The poll rate in milli seconds"]
                     pub fn sensor_set_poll_rate_ms(devname:
                                                        *const ::cty::c_char,
                                                    poll_rate: u32)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Set the sensor poll rate multiple based on the device name, sensor type"]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: Name of the sensor"]
+                    #[doc = " - __`stt`__: The sensor type trait"]
                     pub fn sensor_set_n_poll_rate(devname:
                                                       *const ::cty::c_char,
                                                   stt:
@@ -6176,23 +6786,54 @@ mod mynewt {
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc = " Transmit OIC trigger"]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: Ptr to the sensor"]
+                    #[doc = " - __`arg`__: Ptr to sensor data"]
+                    #[doc = " - __`type`__: The sensor type"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on sucess, non-zero on failure"]
                     pub fn sensor_oic_tx_trigger(sensor: *mut sensor,
                                                  arg: *mut ::cty::c_void,
                                                  type_: sensor_type_t)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc = " Sensor trigger initialization"]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: Ptr to the sensor"]
+                    #[doc =
+                          " - __`type`__: Sensor type to enable trigger for"]
+                    #[doc =
+                          " - __`notify`__: the function to call if the trigger condition is satisfied"]
                     pub fn sensor_trigger_init(sensor: *mut sensor,
                                                type_: sensor_type_t,
                                                notify:
                                                    sensor_trigger_notify_func_t);
                 }
                 extern "C" {
+                    #[doc =
+                          " Search the sensor type traits list for specific type of sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`type`__: The sensor type to search for"]
+                    #[doc = " - __`sensor`__: Ptr to a sensor"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: NULL when no sensor type is found, ptr to sensor_type_traits structure"]
+                    #[doc = " when found"]
                     pub fn sensor_get_type_traits_bytype(type_: sensor_type_t,
                                                          sensor: *mut sensor)
                      -> *mut sensor_type_traits;
                 }
                 extern "C" {
+                    #[doc = " Get the type traits for a sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: Name of the sensor"]
+                    #[doc = " - __`stt`__: Ptr to sensor types trait struct"]
+                    #[doc = " - __`type`__: The sensor type"]
+                    #[doc = ""]
+                    #[doc =
+                          " Return: NULL on failure, sensor struct on success"]
                     pub fn sensor_get_type_traits_byname(arg1:
                                                              *const ::cty::c_char,
                                                          arg2:
@@ -6201,35 +6842,71 @@ mod mynewt {
                      -> *mut sensor;
                 }
                 extern "C" {
+                    #[doc =
+                          " Set the thresholds along with the comparison algo for a sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: Name of the sensor"]
+                    #[doc =
+                          " - __`stt`__: Ptr to sensor type traits containing thresholds"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure"]
                     pub fn sensor_set_thresh(devname: *const ::cty::c_char,
                                              stt: *mut sensor_type_traits)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc = " Clears the low threshold for a sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: Name of the sensor"]
+                    #[doc = " - __`type`__: The sensor type"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure"]
                     pub fn sensor_clear_low_thresh(devname:
                                                        *const ::cty::c_char,
                                                    type_: sensor_type_t)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc = " Clears the high threshold for a sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`devname`__: Name of the sensor"]
+                    #[doc = " - __`type`__: The sensor type"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure"]
                     pub fn sensor_clear_high_thresh(devname:
                                                         *const ::cty::c_char,
                                                     type_: sensor_type_t)
                      -> ::cty::c_int;
                 }
                 extern "C" {
+                    #[doc =
+                          " Puts a notification event on the sensor manager evq"]
+                    #[doc = ""]
+                    #[doc = " - __`ctx`__: Notification event context"]
+                    #[doc = " - __`evtype`__: The notification event type"]
                     pub fn sensor_mgr_put_notify_evt(ctx:
                                                          *mut sensor_notify_ev_ctx,
                                                      evtype:
                                                          sensor_event_type_t);
                 }
                 extern "C" {
+                    #[doc =
+                          " Puts a interrupt event on the sensor manager evq"]
+                    #[doc = ""]
+                    #[doc =
+                          " - __`sensor`__: Sensor Ptr as interrupt event context"]
                     pub fn sensor_mgr_put_interrupt_evt(sensor: *mut sensor);
                 }
                 extern "C" {
+                    #[doc = " Puts read event on the sensor manager evq"]
+                    #[doc = ""]
+                    #[doc = " - __`arg`__: Argument"]
                     pub fn sensor_mgr_put_read_evt(arg: *mut ::cty::c_void);
                 }
                 extern "C" {
+                    #[doc = " Resets the sensor"]
+                    #[doc = ""]
+                    #[doc = " - __`Ptr`__: to sensor"]
                     pub fn sensor_reset(sensor: *mut sensor) -> ::cty::c_int;
                 }
                 #[repr(C, packed)]
@@ -7453,11 +8130,11 @@ mod mynewt {
             }
             /// Export all bindings. TODO: Export only the API bindings.
             pub use self::bindings::*;
-            /// Needed because `sensor` also refers to a namespace.
+            /// Points to a `sensor`.  Needed because `sensor` also refers to a namespace.
             pub type sensor_ptr = *mut sensor;
-            /// Points to sensor arg passed by Mynewt to sensor listener.
+            /// Points to sensor arg passed by Mynewt to sensor listener
             pub type sensor_arg = *mut c_void;
-            /// Points to sensor data passed by Mynewt to sensor listener.
+            /// Points to sensor data passed by Mynewt to sensor listener
             pub type sensor_data_ptr = *mut c_void;
             /// Sensor data function that returns `MynewtError` instead of `i32`
             pub type sensor_data_func
@@ -7488,7 +8165,7 @@ mod mynewt {
             ///  for the sensor listener structure.
             ///  `sensor`: The sensor to register a listener on.
             ///  `listener`: The listener to register onto the sensor.
-            ///  Return 0 on success, non-zero error code on failure.
+            ///  Returns `Ok()` on success, `Err()` containing `MynewtError` error code on failure.
             pub fn register_listener(sensor: *mut sensor,
                                      listener: sensor_listener)
              -> MynewtResult<()> {
@@ -7518,21 +8195,21 @@ mod mynewt {
                                                                                                   sensor_listener>([0;
                                                                                                                        ::core::mem::size_of::<sensor_listener>()])
                                                                      }};
-            ///  Define a dummy sensor data function in case there is none.
+            ///  Define a default sensor data function in case there is none.
             extern "C" fn null_sensor_data_func(_sensor: sensor_ptr,
                                                 _arg: sensor_arg,
                                                 _sensor_data: sensor_data_ptr,
                                                 _sensor_type: sensor_type_t)
              -> i32 {
-                os::SYS_EOK as i32
+                0
             }
         }
     }
-    /// `libs`: Mynewt Custom API
     pub mod libs {
-        //! Mynewt Custom API
-        /// Export `sensor_coap.rs` as Rust module `mynewt::libs::sensor_coap`.  Contains Rust bindings for Mynewt Custom API `libs/sensor_coap`.
+        //! Mynewt Custom API for Rust
+        /// Contains Rust bindings for Mynewt Custom API `libs/sensor_coap`
         pub mod sensor_coap {
+            use super::super::encoding::json::*;
             #[repr(C)]
             #[structural_match]
             #[rustc_copy_clone_marker]
@@ -7833,7 +8510,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           22u32, 9u32))
+                                                           25u32, 9u32))
                             }
                         };
                     };
@@ -7851,7 +8528,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           35u32, 9u32))
+                                                           38u32, 9u32))
                             }
                         };
                     };
@@ -7869,7 +8546,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           52u32, 9u32))
+                                                           55u32, 9u32))
                             }
                         };
                     };
@@ -7878,7 +8555,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           53u32, 9u32))
+                                                           56u32, 9u32))
                             }
                         };
                     };
@@ -7888,7 +8565,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           54u32, 9u32))
+                                                           57u32, 9u32))
                             }
                         };
                     };
@@ -7912,7 +8589,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           70u32, 9u32))
+                                                           73u32, 9u32))
                             }
                         };
                     };
@@ -7921,7 +8598,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           71u32, 9u32))
+                                                           74u32, 9u32))
                             }
                         };
                     };
@@ -7931,7 +8608,7 @@ mod mynewt {
                             {
                                 ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
                                                            "src/mynewt/libs/sensor_coap.rs",
-                                                           72u32, 9u32))
+                                                           75u32, 9u32))
                             }
                         };
                     };
@@ -8057,9 +8734,22 @@ mod mynewt {
             pub type __uint16_t = ::cty::c_ushort;
             pub type __uint32_t = ::cty::c_ulong;
             pub type __uint64_t = ::cty::c_ulonglong;
+            #[doc =
+                  " A mbuf pool from which to allocate mbufs. This contains a pointer to the os"]
+            #[doc =
+                  " mempool to allocate mbufs out of, the total number of elements in the pool,"]
+            #[doc =
+                  " and the amount of \"user\" data in a non-packet header mbuf. The total pool"]
+            #[doc = " size, in bytes, should be:"]
+            #[doc =
+                  "  os_mbuf_count * (omp_databuf_len + sizeof(struct os_mbuf))"]
             #[repr(C)]
             pub struct os_mbuf_pool {
+                #[doc =
+                      " Total length of the databuf in each mbuf.  This is the size of the"]
+                #[doc = " mempool block, minus the mbuf header"]
                 pub omp_databuf_len: u16,
+                #[doc = " The memory pool which to allocate mbufs out of"]
                 pub omp_pool: *mut os_mempool,
                 pub omp_next: os_mbuf_pool__bindgen_ty_1,
             }
@@ -8073,14 +8763,23 @@ mod mynewt {
             impl Default for os_mbuf_pool {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
+            #[doc = " Chained memory buffer."]
             #[repr(C)]
             pub struct os_mbuf {
+                #[doc = " Current pointer to data in the structure"]
                 pub om_data: *mut u8,
+                #[doc =
+                      " Flags associated with this buffer, see OS_MBUF_F_* defintions"]
                 pub om_flags: u8,
+                #[doc = " Length of packet header"]
                 pub om_pkthdr_len: u8,
+                #[doc = " Length of data in this buffer"]
                 pub om_len: u16,
+                #[doc = " The mbuf pool this mbuf was allocated out of"]
                 pub om_omp: *mut os_mbuf_pool,
                 pub om_next: os_mbuf__bindgen_ty_1,
+                #[doc =
+                      " Pointer to the beginning of the data, after this buffer"]
                 pub om_databuf: __IncompleteArrayField<u8>,
             }
             #[repr(C)]
@@ -8093,6 +8792,13 @@ mod mynewt {
             impl Default for os_mbuf {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
+            #[doc =
+                  " A memory block structure. This simply contains a pointer to the free list"]
+            #[doc =
+                  " chain and is only used when the block is on the free list. When the block"]
+            #[doc =
+                  " has been removed from the free list the entire memory block is usable by the"]
+            #[doc = " caller."]
             #[repr(C)]
             pub struct os_memblock {
                 pub mb_next: os_memblock__bindgen_ty_1,
@@ -8107,16 +8813,24 @@ mod mynewt {
             impl Default for os_memblock {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
+            #[doc = " Memory pool"]
             #[repr(C)]
             pub struct os_mempool {
+                #[doc = " Size of the memory blocks, in bytes."]
                 pub mp_block_size: u32,
+                #[doc = " The number of memory blocks."]
                 pub mp_num_blocks: u16,
+                #[doc = " The number of free blocks left"]
                 pub mp_num_free: u16,
+                #[doc = " The lowest number of free blocks seen"]
                 pub mp_min_free: u16,
+                #[doc = " Bitmap of OS_MEMPOOL_F_[...] values."]
                 pub mp_flags: u8,
+                #[doc = " Address of memory buffer used by pool"]
                 pub mp_membuf_addr: u32,
                 pub mp_list: os_mempool__bindgen_ty_1,
                 pub __bindgen_anon_1: os_mempool__bindgen_ty_2,
+                #[doc = " Name for memory block"]
                 pub name: *mut ::cty::c_char,
             }
             #[repr(C)]
@@ -8259,6 +8973,8 @@ mod mynewt {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
             extern "C" {
+                #[doc =
+                      "  Init the Sensor CoAP module. Called by sysinit() during startup, defined in pkg.yml."]
                 pub fn init_sensor_coap();
             }
             extern "C" {
@@ -8272,13 +8988,6 @@ mod mynewt {
             }
             extern "C" {
                 pub fn do_sensor_post() -> bool;
-            }
-            #[repr(C)]
-            pub struct json_value {
-                pub jv_pad1: u8,
-                pub jv_type: u8,
-                pub jv_len: u16,
-                pub jv_val: json_value__bindgen_ty_1,
             }
             #[repr(C)]
             pub struct json_value__bindgen_ty_1 {
@@ -8299,9 +9008,6 @@ mod mynewt {
             impl Default for json_value__bindgen_ty_1 {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
-            impl Default for json_value {
-                fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-            }
             pub type json_write_func_t
                 =
                 ::core::option::Option<unsafe extern "C" fn(buf:
@@ -8310,49 +9016,6 @@ mod mynewt {
                                                                 *mut ::cty::c_char,
                                                             len: ::cty::c_int)
                                            -> ::cty::c_int>;
-            #[repr(C)]
-            pub struct json_encoder {
-                pub je_write: json_write_func_t,
-                pub je_arg: *mut ::cty::c_void,
-                pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize], u8>,
-                pub je_encode_buf: [::cty::c_char; 64usize],
-            }
-            impl Default for json_encoder {
-                fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-            }
-            impl json_encoder {
-                #[inline]
-                pub fn je_wr_commas(&self) -> ::cty::c_int {
-                    unsafe {
-                        ::core::mem::transmute(self._bitfield_1.get(0usize,
-                                                                    1u8) as
-                                                   u32)
-                    }
-                }
-                #[inline]
-                pub fn set_je_wr_commas(&mut self, val: ::cty::c_int) {
-                    unsafe {
-                        let val: u32 = ::core::mem::transmute(val);
-                        self._bitfield_1.set(0usize, 1u8, val as u64)
-                    }
-                }
-                #[inline]
-                pub fn new_bitfield_1(je_wr_commas: ::cty::c_int)
-                 -> __BindgenBitfieldUnit<[u8; 1usize], u8> {
-                    let mut __bindgen_bitfield_unit:
-                            __BindgenBitfieldUnit<[u8; 1usize], u8> =
-                        Default::default();
-                    __bindgen_bitfield_unit.set(0usize, 1u8,
-                                                {
-                                                    let je_wr_commas: u32 =
-                                                        unsafe {
-                                                            ::core::mem::transmute(je_wr_commas)
-                                                        };
-                                                    je_wr_commas as u64
-                                                });
-                    __bindgen_bitfield_unit
-                }
-            }
             extern "C" {
                 pub static mut coap_json_encoder: json_encoder;
             }
@@ -8360,10 +9023,40 @@ mod mynewt {
                 pub static mut coap_json_value: json_value;
             }
             extern "C" {
+                #[doc =
+                      "  Prepare to write a new JSON CoAP payload into the mbuf."]
+                pub fn json_rep_new(m: *mut os_mbuf);
+            }
+            extern "C" {
+                #[doc =
+                      "  Close the current JSON CoAP payload.  Erase the JSON encoder."]
+                pub fn json_rep_reset();
+            }
+            extern "C" {
+                #[doc = "  Finalise the payload and return the payload size."]
+                pub fn json_rep_finalize() -> ::cty::c_int;
+            }
+            extern "C" {
+                #[doc =
+                      " Start the JSON representation.  Assume top level is object."]
+                #[doc = " ```"]
+                #[doc = " --> {"]
+                #[doc = " ```"]
+                pub fn json_rep_start_root_object();
+            }
+            extern "C" {
+                #[doc =
+                      "  End the JSON representation.  Assume top level is object."]
+                #[doc = "  ```"]
+                #[doc = "  {... --> {...}"]
+                #[doc = "  ```"]
+                pub fn json_rep_end_root_object();
+            }
+            extern "C" {
                 pub static mut coap_json_mbuf: *mut os_mbuf;
             }
         }
-        /// Export `sensor_network.rs` as Rust module `mynewt::libs::sensor_network`.  Contains Rust bindings for Mynewt Custom API `libs/sensor_network`.
+        /// Contains Rust bindings for Mynewt Custom API `libs/sensor_network`
         pub mod sensor_network {
             pub const SENSOR_NETWORK_SIZE: u32 = 5;
             pub type __uint8_t = ::cty::c_uchar;
@@ -8414,6 +9107,7 @@ mod mynewt {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
             extern "C" {
+                #[doc = ""]
                 pub fn register_server_transport() -> ::cty::c_int;
             }
             extern "C" {
@@ -8462,6 +9156,7 @@ mod mynewt {
                 pub fn get_device_id() -> *const ::cty::c_char;
             }
             extern "C" {
+                #[doc = ""]
                 pub fn sensor_network_init();
             }
             extern "C" {
@@ -8469,6 +9164,7 @@ mod mynewt {
                                                              *const sensor_network_interface)
                  -> ::cty::c_int;
             }
+            #[doc = ""]
             #[repr(C)]
             pub struct sensor_network_endpoint {
                 pub endpoint: [u8; 16usize],
@@ -8503,7 +9199,9 @@ mod mynewt {
     /// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
     #[link(name = "net_oic")]
     extern "C" {
+        /// Global CBOR encoder
         pub static mut g_encoder: encoding::tinycbor::CborEncoder;
+        /// Global CBOR root map
         pub static mut root_map: encoding::tinycbor::CborEncoder;
     }
     /// Return type and error codes for Mynewt API
@@ -8651,10 +9349,12 @@ mod mynewt {
         }
         /// Cast `MynewtError` to `i32`
         impl From<MynewtError> for i32 {
+            /// Cast `MynewtError` to `i32`
             fn from(err: MynewtError) -> Self { err as i32 }
         }
         /// Cast `i32` to `MynewtError`
         impl From<i32> for MynewtError {
+            /// Cast `i32` to `MynewtError`
             fn from(num: i32) -> Self {
                 unsafe { ::core::mem::transmute::<i32, MynewtError>(num) }
             }
@@ -8787,13 +9487,13 @@ mod listen_sensor {
     //!  If this is the Collector Node, send the sensor data to the CoAP Server after polling.
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
     use cstr_core::CStr;
-    use cty::{c_void, c_char};
-    use crate::mynewt::{kernel::os, result::*,
+    use cty::c_char;
+    use crate::base::*;
+    use crate::send_coap::send_sensor_data;
+    use crate::mynewt::{result::*,
                         hw::sensor::{self, sensor_ptr, sensor_arg,
                                      sensor_data_ptr, sensor_listener,
                                      sensor_temp_data, sensor_type_t}};
-    use crate::base::*;
-    use crate::send_coap::send_sensor_data;
     ///  Poll every 10,000 milliseconds (10 seconds)  
     const SENSOR_POLL_TIME: u32 = (10 * 1000);
     ///  Indicate that this is a listener callback
@@ -8804,7 +9504,7 @@ mod listen_sensor {
     ///  or CoAP Server (is this is a Standalone Node).
     ///  For Collector Node: Start the Listeners for Remote Sensor 
     ///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
-    ///  Return 0 if successful.
+    ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_sensor_listener() -> MynewtResult<()> {
         console_print(b"TMP poll \n");
         let rc =
@@ -8832,7 +9532,7 @@ mod listen_sensor {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/listen_sensor.rs",
-                                                           47u32, 5u32))
+                                                           46u32, 5u32))
                         }
                     }
                 }
@@ -8846,7 +9546,7 @@ mod listen_sensor {
         if !unsafe { !is_null_sensor(sensor) } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !is_null_sensor(sensor) }",
-                                           "src/listen_sensor.rs", 51u32,
+                                           "src/listen_sensor.rs", 50u32,
                                            5u32))
             }
         };
@@ -8879,7 +9579,7 @@ mod listen_sensor {
         if !unsafe { !is_null_sensor(sensor) } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !is_null_sensor(sensor) }",
-                                           "src/listen_sensor.rs", 87u32,
+                                           "src/listen_sensor.rs", 86u32,
                                            5u32))
             }
         };
@@ -8930,7 +9630,7 @@ mod listen_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
                                                    "src/listen_sensor.rs",
-                                                   131u32, 13u32))
+                                                   130u32, 13u32))
                     }
                 };
                 if rawtempdata.strd_temp_raw_is_valid == 0 {
@@ -8952,7 +9652,7 @@ mod listen_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
                                                    "src/listen_sensor.rs",
-                                                   144u32, 13u32))
+                                                   143u32, 13u32))
                     }
                 };
                 if tempdata.std_temp_is_valid() == 0 { return return_value; }
@@ -8963,7 +9663,7 @@ mod listen_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: false",
                                                    "src/listen_sensor.rs",
-                                                   158u32, 13u32))
+                                                   157u32, 13u32))
                     }
                 };
                 return return_value;
@@ -9251,11 +9951,255 @@ mod send_coap {
                                            "src/send_coap.rs", 158u32, 80u32))
             }
         };
+        let _payload =
+            {
+                "begin json root";
+                let mut values_map: CborEncoder =
+                    unsafe {
+                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                                 CborEncoder>([0;
+                                                                  ::core::mem::size_of::<CborEncoder>()])
+                    };
+                let mut values_array: CborEncoder =
+                    unsafe {
+                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                                 CborEncoder>([0;
+                                                                  ::core::mem::size_of::<CborEncoder>()])
+                    };
+                {
+                    "begin json coap_root";
+                    unsafe { sensor_coap::json_rep_start_root_object() }
+                    {
+                        {
+                            "begin json coap_array , object : root , key : values";
+                            {
+                                "begin json_rep_set_array , object: root, key: values, child: root_map";
+                                unsafe {
+                                    json::json_encode_array_name(&mut sensor_coap::coap_json_encoder,
+                                                                 values);
+                                    json::json_encode_array_start(&mut sensor_coap::coap_json_encoder);
+                                }
+                                "end json_rep_set_array";
+                            };
+                            {
+                                " >>  >> \"device\" >> : device_id , \"node\" : node_id , sensor_val ,";
+                                "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
+                                {
+                                    "begin json coap_item_str , parent : values , key : \"device\" , val :\nparse!(@ json device_id)";
+                                    {
+                                        "begin json coap_item , array : values";
+                                        {
+                                            "begin json_rep_object_array_start_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            "begin json_rep_object_array_end_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_end_item";
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> \"node\" >> : node_id , sensor_val ,";
+                                "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
+                                {
+                                    "begin json coap_item_str , parent : values , key : \"node\" , val :\nparse!(@ json node_id)";
+                                    {
+                                        "begin json coap_item , array : values";
+                                        {
+                                            "begin json_rep_object_array_start_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            "begin json_rep_object_array_end_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_end_item";
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> sensor_val >> ,";
+                                "TODO : extract key , value from _sensor_value : sensor_val and add to _object\n: values";
+                                "--------------------";
+                                {
+                                    "begin json coap_item_int_val , parent : values , val : sensor_val";
+                                    "> TODO : assert ( sensor_val . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                    "> TODO : coap_item_int (\n@ json values , sensor_val . key , sensor_val . int_val )";
+                                    {
+                                        "begin json coap_item_int , key : sensor_val.key , value : 1234";
+                                        {
+                                            "begin json coap_item , array : values";
+                                            {
+                                                "begin json_rep_object_array_start_item , key: values, child: values_array";
+                                                unsafe {
+                                                    json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
+                                                }
+                                                "end json_rep_object_array_start_item";
+                                            };
+                                            {
+                                                {
+                                                    "begin json_rep_set_text_string , object: values, key: \"key\", value: sensor_val.key, child: values_map";
+                                                    {
+                                                        "begin json_value_string , json_value: coap_json_value, value: value";
+                                                        unsafe {
+                                                            coap_json_value.jv_type
+                                                                =
+                                                                json::JSON_VALUE_TYPE_STRING;
+                                                            coap_json_value.jv_len
+                                                                = value.len();
+                                                            coap_json_value.jv_val.str
+                                                                = value;
+                                                        }
+                                                        "end json_value_string";
+                                                    };
+                                                    unsafe { (/*ERROR*/) }
+                                                    "end json_rep_set_text_string";
+                                                };
+                                                {
+                                                    "begin json_rep_set_int , object: values, key: \"value\", value: 1234, child: values_map";
+                                                    {
+                                                        "begin json_value_int , json_value: coap_json_value, value: value";
+                                                        unsafe {
+                                                            coap_json_value.jv_type
+                                                                =
+                                                                json::JSON_VALUE_TYPE_INT64;
+                                                            coap_json_value.jv_val.u
+                                                                =
+                                                                value as u64;
+                                                        }
+                                                        "end json_value_int";
+                                                    };
+                                                    unsafe { (/*ERROR*/) }
+                                                    "end json_rep_set_int";
+                                                };
+                                            };
+                                            {
+                                                "begin json_rep_object_array_end_item , key: values, child: values_array";
+                                                unsafe {
+                                                    json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
+                                                }
+                                                "end json_rep_object_array_end_item";
+                                            };
+                                            "end json coap_item";
+                                        };
+                                        "end json coap_item_int";
+                                    };
+                                    "end json coap_item_int_val";
+                                };
+                                "--------------------";
+                            };
+                            {
+                                "begin json_rep_close_array , object: root, key: values, child: root_map";
+                                unsafe {
+                                    json::json_encode_array_finish(&mut sensor_coap::coap_json_encoder)
+                                }
+                                "end json_rep_close_array";
+                            };
+                            "end json coap_array";
+                        };
+                    };
+                    unsafe { sensor_coap::json_rep_end_root_object() }
+                    "end json coap_root";
+                };
+                "end json root";
+                "return json root to caller";
+                ()
+            };
         let rc = unsafe { sensor_network::do_server_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 178u32, 60u32))
+                                           "src/send_coap.rs", 177u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -9279,14 +10223,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 207u32, 65u32))
+                                           "src/send_coap.rs", 206u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 220u32, 63u32))
+                                           "src/send_coap.rs", 219u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

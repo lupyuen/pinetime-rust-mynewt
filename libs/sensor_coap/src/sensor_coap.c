@@ -27,44 +27,50 @@
 #include "sensor_coap/sensor_coap.h"
 #if MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)  //  For coexistence of CBOR and JSON encoding...
 #include "tinycbor/cbor_cnt_writer.h"
-static struct CborCntWriter cnt_writer;  //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected
+///  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected
+static struct CborCntWriter cnt_writer;  
 #endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
 
-static struct os_mbuf *oc_c_message;  //  Contains the CoAP headers.
-static struct os_mbuf *oc_c_rsp;      //  Contains the CoAP payload body.
-static coap_packet_t oc_c_request[1]; //  CoAP request.
-static struct os_sem oc_sem;          //  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
-static bool oc_sensor_coap_ready = false;  //  True if the Sensor CoAP is ready for sending sensor data.
-int oc_content_format = 0;            //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
-
+///  Contains the CoAP headers.
+static struct os_mbuf *oc_c_message;  
+///  Contains the CoAP payload body.
+static struct os_mbuf *oc_c_rsp;      
+///  CoAP request
+static coap_packet_t oc_c_request[1]; 
+///  Because the CoAP JSON / CBOR buffers are shared, use this semaphore to prevent two CoAP requests from being composed at the same time.
+static struct os_sem oc_sem;          
+///  True if the Sensor CoAP is ready for sending sensor data.
+static bool oc_sensor_coap_ready = false;  
+///  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR. If 0, let Sensor Network decide.
+int oc_content_format = 0;            
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CoAP Functions
 
+///  Init the Sensor CoAP module. Called by sysinit() during startup, defined in pkg.yml.
 void init_sensor_coap(void) {
-    //  Init the Sensor CoAP module. Called by sysinit() during startup, defined in pkg.yml.
     os_error_t rc = os_sem_init(&oc_sem, 1);  //  Init to 1 token, so only 1 caller will be allowed.
     assert(rc == OS_OK);
     oc_sensor_coap_ready = true;
 }
-
+   
+///  Return true if the Sensor CoAP is ready for sending sensor data.
 bool sensor_coap_ready(void) {
-    //  Return true if the Sensor CoAP is ready for sending sensor data.
     return oc_sensor_coap_ready;
 }
 
+///  Handle CoAP response.
 static void handle_coap_response(oc_client_response_t *data) {
-    //  Handle CoAP response.
     console_printf("handle_coap\n");
 }
 
+//  Serialise the CoAP request and payload into the final mbuf format for transmitting.
+//  Forward the serialised mbuf to the background transmit task for transmitting.
 static bool
 dispatch_coap_request(void)
 {
-    //  Serialise the CoAP request and payload into the final mbuf format for transmitting.
-    //  Forward the serialised mbuf to the background transmit task for transmitting.
     bool ret = false;
     assert(oc_content_format);
     int response_length = 
@@ -104,10 +110,10 @@ dispatch_coap_request(void)
     return ret;
 }
 
+///  Prepare a new CoAP request for transmitting sensor data.
 static bool
 prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
 {
-    //  Prepare a new CoAP request for transmitting sensor data.
     coap_message_type_t type = COAP_TYPE_NON;
 
     oc_c_rsp = os_msys_get_pkthdr(0, 0);
@@ -153,10 +159,10 @@ free_rsp:
     return false;
 }
 
+///  Create a new sensor post request to send to CoAP server.
 bool
 init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
 {
-    //  Create a new sensor post request to send to CoAP server.
     assert(oc_sensor_coap_ready);  assert(server);  assert(uri);
 #ifdef COAP_CONTENT_FORMAT
     //  If content format is not specified, select the default.
@@ -184,10 +190,10 @@ init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_cont
     return status;
 }
 
+///  Send the sensor post request to CoAP server.
 bool
 do_sensor_post(void)
 {
-    //  Send the sensor post request to CoAP server.
     return dispatch_coap_request();
 }
 
@@ -196,12 +202,15 @@ do_sensor_post(void)
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON Encoding Functions
 
-struct json_encoder coap_json_encoder;  //  Note: We don't support concurrent encoding of JSON messages.
+///  Global JSON encoder. Note: We don't support concurrent encoding of JSON messages.
+struct json_encoder coap_json_encoder;  
+///  JSON value currently being encoded.
 struct json_value coap_json_value;
-static struct os_mbuf *coap_json_mbuf;  //  The mbuf that contains the outgoing CoAP payload.
+///  The mbuf that contains the outgoing CoAP payload.
+static struct os_mbuf *coap_json_mbuf;  
 
+///  Write the JSON to the mbuf for the outgoing CoAP message.
 int json_write_mbuf(void *buf, char *data, int len) {
-    //  Write the JSON to the mbuf for the outgoing CoAP message.
     if (oc_content_format != APPLICATION_JSON) { return 0; }  //  Exit if we are encoding CBOR, not JSON.
     assert(coap_json_mbuf);
     assert(data);
@@ -211,8 +220,8 @@ int json_write_mbuf(void *buf, char *data, int len) {
     return 0;
 }
 
+///  Prepare to write a new JSON CoAP payload into the mbuf.
 void json_rep_new(struct os_mbuf *m) {
-    //  Prepare to write a new JSON CoAP payload into the mbuf.
     assert(m);
     json_rep_reset();  //  Erase the JSON encoder.
     coap_json_mbuf = m;
@@ -224,15 +233,15 @@ void json_rep_new(struct os_mbuf *m) {
 #endif  //  MYNEWT_VAL(COAP_CBOR_ENCODING) && MYNEWT_VAL(COAP_JSON_ENCODING)
 }
 
+///  Close the current JSON CoAP payload.  Erase the JSON encoder.
 void json_rep_reset(void) {
-    //  Close the current JSON CoAP payload.  Erase the JSON encoder.
     coap_json_mbuf = NULL;
     memset(&coap_json_encoder, 0, sizeof(coap_json_encoder));  //  Erase the encoder.
     coap_json_encoder.je_write = json_write_mbuf;
 }
 
+///  Finalise the payload and return the payload size.
 int json_rep_finalize(void) {
-    //  Finalise the payload and return the payload size.
     assert(coap_json_mbuf);
     int size = OS_MBUF_PKTLEN(coap_json_mbuf);
 #define DUMP_COAP
@@ -248,26 +257,30 @@ int json_rep_finalize(void) {
     return size;
 }
 
+/// Start the JSON representation.  Assume top level is object.
+/// ```
+/// --> {
+/// ```
 void json_rep_start_root_object(void) {
-    //  Start the JSON representation.  Assume top level is object.
-    //  --> {
     int rc = json_encode_object_start(&coap_json_encoder);  assert(rc == 0);
 }
 
+///  End the JSON representation.  Assume top level is object.
+///  ```
+///  {... --> {...}
+///  ```
 void json_rep_end_root_object(void) {
-    //  End the JSON representation.  Assume top level is object.
-    //  {... --> {...}
     int rc = json_encode_object_finish(&coap_json_encoder);  assert(rc == 0);
 }
 
 static int json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv);
 static void split_float(float f, bool *neg, int *i, int *d);
 
+///  Extended version of json_encode_object_entry that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
 int
 json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
         struct json_value *val)
 {
-    //  Extended version of json_encode_object_entry that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
     assert(encoder); assert(key); assert(val);
     int rc;
 
@@ -291,10 +304,10 @@ err:
     return (rc);
 }
 
+///  Extended version of json_encode_value_ext that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
 static int
 json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
 {
-    //  Extended version of json_encode_value_ext that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
     assert(encoder);  assert(jv);
     int rc;
     int len;
@@ -326,8 +339,8 @@ err:
     return (rc);
 }
 
+///  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
 static void split_float(float f, bool *neg, int *i, int *d) {
-    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
     *neg = (f < 0.0f);                    //  True if f is negative
     float f_abs = *neg ? -f : f;          //  Absolute value of f
     *i = (int) f_abs;                     //  Integer part

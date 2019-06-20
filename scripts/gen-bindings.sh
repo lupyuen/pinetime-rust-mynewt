@@ -196,8 +196,12 @@ function generate_bindings_libs() {
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$srcname.o.cmd
     if [ "$libname" == 'sensor_network' ]; then
-        #  Add sensor network + whitelist.
+        #  Add sensor network + whitelist + blacklist.  
+        #  sensor_value is defined in libs/sensor_coap.
         local whitelist=`cat << EOF
+            --raw-line use \
+            --raw-line super::sensor_coap::*; \
+            --blacklist-item     sensor_value \
             --whitelist-function (?i)init_.*_post \
             --whitelist-function (?i)do_.*_post \
             --whitelist-function (?i)is_.*_node \
@@ -210,7 +214,8 @@ function generate_bindings_libs() {
 EOF
 `
     elif [ "$libname" == 'sensor_coap' ]; then
-        #  Add sensor coap + whitelist + blacklist.  json_encoder and json_value are defined in encoding/json.
+        #  Add sensor coap + whitelist + blacklist.  
+        #  json_encoder and json_value are defined in encoding/json.
         local whitelist=`cat << EOF
             --raw-line use \
             --raw-line super::super::encoding::json::*; \

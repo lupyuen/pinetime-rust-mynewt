@@ -275,11 +275,255 @@
                                            "src/send_coap.rs", 158u32, 80u32))
             }
         };
+        let _payload =
+            {
+                "begin json root";
+                let mut values_map: CborEncoder =
+                    unsafe {
+                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                                 CborEncoder>([0;
+                                                                  ::core::mem::size_of::<CborEncoder>()])
+                    };
+                let mut values_array: CborEncoder =
+                    unsafe {
+                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                                 CborEncoder>([0;
+                                                                  ::core::mem::size_of::<CborEncoder>()])
+                    };
+                {
+                    "begin json coap_root";
+                    unsafe { sensor_coap::json_rep_start_root_object() }
+                    {
+                        {
+                            "begin json coap_array , object : root , key : values";
+                            {
+                                "begin json_rep_set_array , object: root, key: values, child: root_map";
+                                unsafe {
+                                    json::json_encode_array_name(&mut sensor_coap::coap_json_encoder,
+                                                                 values);
+                                    json::json_encode_array_start(&mut sensor_coap::coap_json_encoder);
+                                }
+                                "end json_rep_set_array";
+                            };
+                            {
+                                " >>  >> \"device\" >> : device_id , \"node\" : node_id , sensor_val ,";
+                                "add1 key : \"device\" value : parse!(@ json device_id) to object : values";
+                                {
+                                    "begin json coap_item_str , parent : values , key : \"device\" , val :\nparse!(@ json device_id)";
+                                    {
+                                        "begin json coap_item , array : values";
+                                        {
+                                            "begin json_rep_object_array_start_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"device\", child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json device_id), child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            "begin json_rep_object_array_end_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_end_item";
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> \"node\" >> : node_id , sensor_val ,";
+                                "add1 key : \"node\" value : parse!(@ json node_id) to object : values";
+                                {
+                                    "begin json coap_item_str , parent : values , key : \"node\" , val :\nparse!(@ json node_id)";
+                                    {
+                                        "begin json coap_item , array : values";
+                                        {
+                                            "begin json_rep_object_array_start_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_start_item";
+                                        };
+                                        {
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"key\", value: \"node\", child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                            {
+                                                "begin json_rep_set_text_string , object: values, key: \"value\", value: parse!(@ json node_id), child: values_map";
+                                                {
+                                                    "begin json_value_string , json_value: coap_json_value, value: value";
+                                                    unsafe {
+                                                        coap_json_value.jv_type
+                                                            =
+                                                            json::JSON_VALUE_TYPE_STRING;
+                                                        coap_json_value.jv_len
+                                                            = value.len();
+                                                        coap_json_value.jv_val.str
+                                                            = value;
+                                                    }
+                                                    "end json_value_string";
+                                                };
+                                                unsafe { (/*ERROR*/) }
+                                                "end json_rep_set_text_string";
+                                            };
+                                        };
+                                        {
+                                            "begin json_rep_object_array_end_item , key: values, child: values_array";
+                                            unsafe {
+                                                json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
+                                            }
+                                            "end json_rep_object_array_end_item";
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> sensor_val >> ,";
+                                "TODO : extract key , value from _sensor_value : sensor_val and add to _object\n: values";
+                                "--------------------";
+                                {
+                                    "begin json coap_item_int_val , parent : values , val : sensor_val";
+                                    "> TODO : assert ( sensor_val . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                    "> TODO : coap_item_int (\n@ json values , sensor_val . key , sensor_val . int_val )";
+                                    {
+                                        "begin json coap_item_int , key : sensor_val.key , value : 1234";
+                                        {
+                                            "begin json coap_item , array : values";
+                                            {
+                                                "begin json_rep_object_array_start_item , key: values, child: values_array";
+                                                unsafe {
+                                                    json::json_encode_object_start(&mut sensor_coap::coap_json_encoder)
+                                                }
+                                                "end json_rep_object_array_start_item";
+                                            };
+                                            {
+                                                {
+                                                    "begin json_rep_set_text_string , object: values, key: \"key\", value: sensor_val.key, child: values_map";
+                                                    {
+                                                        "begin json_value_string , json_value: coap_json_value, value: value";
+                                                        unsafe {
+                                                            coap_json_value.jv_type
+                                                                =
+                                                                json::JSON_VALUE_TYPE_STRING;
+                                                            coap_json_value.jv_len
+                                                                = value.len();
+                                                            coap_json_value.jv_val.str
+                                                                = value;
+                                                        }
+                                                        "end json_value_string";
+                                                    };
+                                                    unsafe { (/*ERROR*/) }
+                                                    "end json_rep_set_text_string";
+                                                };
+                                                {
+                                                    "begin json_rep_set_int , object: values, key: \"value\", value: 1234, child: values_map";
+                                                    {
+                                                        "begin json_value_int , json_value: coap_json_value, value: value";
+                                                        unsafe {
+                                                            coap_json_value.jv_type
+                                                                =
+                                                                json::JSON_VALUE_TYPE_INT64;
+                                                            coap_json_value.jv_val.u
+                                                                =
+                                                                value as u64;
+                                                        }
+                                                        "end json_value_int";
+                                                    };
+                                                    unsafe { (/*ERROR*/) }
+                                                    "end json_rep_set_int";
+                                                };
+                                            };
+                                            {
+                                                "begin json_rep_object_array_end_item , key: values, child: values_array";
+                                                unsafe {
+                                                    json::json_encode_object_finish(&mut sensor_coap::coap_json_encoder)
+                                                }
+                                                "end json_rep_object_array_end_item";
+                                            };
+                                            "end json coap_item";
+                                        };
+                                        "end json coap_item_int";
+                                    };
+                                    "end json coap_item_int_val";
+                                };
+                                "--------------------";
+                            };
+                            {
+                                "begin json_rep_close_array , object: root, key: values, child: root_map";
+                                unsafe {
+                                    json::json_encode_array_finish(&mut sensor_coap::coap_json_encoder)
+                                }
+                                "end json_rep_close_array";
+                            };
+                            "end json coap_array";
+                        };
+                    };
+                    unsafe { sensor_coap::json_rep_end_root_object() }
+                    "end json coap_root";
+                };
+                "end json root";
+                "return json root to caller";
+                ()
+            };
         let rc = unsafe { sensor_network::do_server_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 178u32, 60u32))
+                                           "src/send_coap.rs", 177u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -303,14 +547,14 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 207u32, 65u32))
+                                           "src/send_coap.rs", 206u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 220u32, 63u32))
+                                           "src/send_coap.rs", 219u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
