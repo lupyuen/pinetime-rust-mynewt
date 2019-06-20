@@ -121,12 +121,12 @@ extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg,
 ///  the raw or computed temperature, as well as the key and value type.
 #[allow(unreachable_patterns)]
 #[allow(unused_variables)]
-fn get_temperature(sensor_data: *const c_void, sensor_type: sensor_type_t) -> SensorValue {
+fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
     let mut return_value = SensorValue::default();
     match sensor_type {                                //  Is this raw or computed temperature?
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
             //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
-            let mut rawtempdata = fill_zero!(SensorTempRawData);
+            let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
             let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
             assert!(rc == 0);
 

@@ -1,9 +1,14 @@
 //!  Common declarations for the application.  Includes custom sensor declarations.
 
-use cty::c_char;            //  Import C types from `cty` library: https://crates.io/crates/cty
-use crate::mynewt::hw::sensor::{  //  Import Mynewt Sensor API
-   sensor_ptr,
-};  
+use cty::c_char;                        //  Import C types from `cty` library: https://crates.io/crates/cty
+use crate::mynewt::kernel::os::os_dev;  //  Import Mynewt Device type
+use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API
+    self,
+    sensor_ptr,
+    sensor_data_ptr,
+    sensor_temp_data,
+    sensor_type_t,
+};
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
 pub fn console_print(msg: &[u8]) {
@@ -25,20 +30,20 @@ extern {
     ///  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp.
     ///  Copy the sensor data into `dest`.  Return 0 if successful.
     ///  C API: `int get_temp_raw_data(void *sensor_data, struct sensor_temp_raw_data *dest)`
-    pub fn get_temp_raw_data(sensor_data: SensorDataPtr, dest: *mut SensorTempRawData) -> i32;
+    pub fn get_temp_raw_data(sensor_data: sensor_data_ptr, dest: *mut sensor_temp_raw_data) -> i32;
 
     ///  Interpret `sensor_data` as a `sensor_temp_data` struct that contains computed temp.
     ///  Copy the sensor data into `dest`.  Return 0 if successful.
     ///  C API: `int get_temp_data(void *sensor_data, struct sensor_temp_data *dest)`
-    pub fn get_temp_data(sensor_data: SensorDataPtr, dest: *mut SensorTempData) -> i32;
+    pub fn get_temp_data(sensor_data: sensor_data_ptr, dest: *mut sensor_temp_data) -> i32;
 
     ///  Return the Mynewt device for the Mynewt sensor.
     ///  C API: `struct os_dev *sensor_get_device(struct sensor *s)`
-    pub fn sensor_get_device(sensor: sensor_ptr) -> DevicePtr;
+    pub fn sensor_get_device(sensor: sensor_ptr) -> *mut os_dev;
 
     ///  Return the name for the Mynewt device.  Assumes name is non-null.
     ///  C API: `const char *device_get_name(struct os_dev *device)`
-    pub fn device_get_name(device: DevicePtr) -> *const c_char;
+    pub fn device_get_name(device: *mut os_dev) -> *const c_char;
 
     ///  Return the NULL sensor.
     ///  C API: `struct sensor *null_sensor(void)`
@@ -50,7 +55,7 @@ extern {
 
     ///  Return non-zero if sensor data is NULL.
     ///  C API: `int is_null_sensor_data(void *p)`
-    pub fn is_null_sensor_data(sensor_data: SensorDataPtr) -> bool;
+    pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
 }
 
 ///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD).
@@ -78,20 +83,6 @@ extern {
     pub fn console_flush();  //  Flush the output buffer to the console.
 }
 
-///  Import the Mynewt Kernel API.  TODO: Move to `kernel.rs`.
-///  Must sync with repos/apache-mynewt-core/kernel/os/include/os/os_eventq.h
-#[link(name = "kernel_os")]  //  Functions below are located in the Mynewt build output `kernel_os.a`
-extern {
-    ///  Pull a single item off the event queue and call it's event
-    ///  callback.
-    ///  `evq`: The event queue to pull the item off.
-    pub fn os_eventq_run(evq: *const CVoid);
-
-    ///  Retrieves the default event queue processed by OS main task.
-    ///  Return the default event queue.
-    pub fn os_eventq_dflt_get() -> *const CVoid;
-}
-
 ///  We will open internal temperature sensor `temp_stm32_0`.
 ///  Must sync with apps/my_sensor_app/src/listen_sensor.h
 pub const SENSOR_DEVICE: *const u8 = TEMP_STM32_DEVICE;
@@ -100,9 +91,9 @@ pub const TEMP_STM32_DEVICE: *const u8 = b"temp_stm32_0\0".as_ptr();  //  TODO
 //  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
 //  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...
 ///  Set to raw sensor type
-pub const TEMP_SENSOR_TYPE: SensorType = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;  
+pub const TEMP_SENSOR_TYPE: sensor_type_t = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;  
 ///  Return integer sensor values
-pub const TEMP_SENSOR_VALUE_TYPE: i32 = SENSOR_VALUE_TYPE_INT32;         
+pub const TEMP_SENSOR_VALUE_TYPE: i32 = sensor::SENSOR_VALUE_TYPE_INT32 as i32;         
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server or Collector Node
 pub const TEMP_SENSOR_KEY: &'static str = "t";
 
@@ -114,23 +105,7 @@ pub const TEMP_SENSOR_KEY: &'static str = "t";
 
 ///  Sensor type for raw temperature sensor.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
-pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: SensorType = SENSOR_TYPE_USER_DEFINED_1;
-
-///  `sensor_value` represents a decoded sensor data value. Since temperature may be integer (raw)
-///  or float (computed), we use the struct to return both integer and float values.
-///  `val_type` indicates whether it's an integer or float.
-///  Must sync with libs/sensor_coap/include/sensor_coap/sensor_coap.h
-#[repr(C)]  //  This struct is common to C and Rust, tell Rust not to reorder the fields.
-pub struct SensorValueOld {
-    ///  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-    pub key: *const u8,  
-    ///  The type of the sensor value. `SENSOR_VALUE_TYPE_INT32` for int, `SENSOR_VALUE_TYPE_FLOAT` for float.
-    pub val_type: i32,   
-    ///  For raw temp, contains the raw temp integer value
-    pub int_val: u16,    
-    ///  For computed temp, contains the computed temp float value
-    pub float_val: f32,  
-}
+pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t = sensor::sensor_type_t_SENSOR_TYPE_USER_DEFINED_1;
 
 ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
 ///  or float (computed), we use the struct to return both integer and float values.
@@ -165,11 +140,9 @@ pub enum SensorValueType {
 ///  Represents a single temperature sensor raw value.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 #[repr(C, packed)]  //  Common to C and Rust. Declare as packed because the C struct is packed.
-pub struct SensorTempRawData {   
+pub struct sensor_temp_raw_data {   
     ///  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     pub strd_temp_raw: u32,          
     ///  1 if data is valid
     pub strd_temp_raw_is_valid: u8,  
 }
-
-//  Sensor definitions are in sensor.rs

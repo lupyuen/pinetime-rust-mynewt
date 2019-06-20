@@ -21,9 +21,10 @@ mod base;           //  Declare `base.rs` as Rust module `base`
 mod listen_sensor;  //  Declare `listen_sensor.rs` as Rust module `listen_sensor`
 mod send_coap;      //  Declare `send_coap.rs` as Rust module `send_coap`
 
-use core::panic::PanicInfo;     //  Import the PanicInfo type which is used by panic() below
-use cortex_m::asm::bkpt;        //  Import the cortex_m assembly function to inject breakpoint
-use crate::base::*;             //  Import base.rs for common declarations
+use core::panic::PanicInfo;     //  Import `PanicInfo` type which is used by `panic()` below
+use cortex_m::asm::bkpt;        //  Import cortex_m assembly function to inject breakpoint
+use mynewt::kernel::os;         //  Import Mynewt OS API
+use crate::base::*;             //  Import `base.rs` for common declarations
 
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                     //  Don't mangle the name "main"
@@ -47,8 +48,8 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  Main event loop
     loop {                            //  Loop forever...
         unsafe {
-            os_eventq_run(            //  Process events...
-                os_eventq_dflt_get()  //  From default event queue.
+            os::os_eventq_run(            //  Process events...
+                os::os_eventq_dflt_get()  //  From default event queue.
             )
         }
     }
