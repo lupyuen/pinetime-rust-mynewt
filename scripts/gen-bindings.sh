@@ -140,8 +140,9 @@ function generate_bindings_hw() {
     local srcname=$2
     #  prefixname: sensor
     local prefixname=$3
+    #  modname looks like hw/sensor/bindings.rs
+    local modname=hw/$libname/bindings
     #  libdir looks like hw/sensor
-    local modname=hw/$libname
     local libdir=hw/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
