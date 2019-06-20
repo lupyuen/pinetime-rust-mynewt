@@ -1,4 +1,3 @@
-//! Mynewt Hardware API
+//! Mynewt Hardware API for Rust
 
-/// Export `sensor.rs` as Rust module `mynewt::hw::sensor`.  Contains Rust bindings for Mynewt Sensor API `hw/sensor`.
-pub mod sensor;
+pub mod sensor;  // Export `sensor.rs` as Rust module `mynewt::hw::sensor`

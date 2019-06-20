@@ -1,4 +1,4 @@
-//!  Macros for hosting embedded Rust applications on Mynewt
+//!  Mynewt Macros for Rust
 
 ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
 ///  `fill_zero!(os_task)` expands to
