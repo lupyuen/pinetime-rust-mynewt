@@ -6,10 +6,11 @@
 //!  If this is the Collector Node, send the sensor data to the CoAP Server after polling.
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
 
-use cstr_core::CStr;                    //  Import string utilities from cstr_core library: https://crates.io/crates/cstr_core
-use cty::{ c_void, c_char };            //  Import C types from cty library: https://crates.io/crates/cty
+use cstr_core::CStr;                    //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
+use cty::c_char;                        //  Import C types from `cty` library: https://crates.io/crates/cty
+use crate::base::*;                     //  Import `base.rs` for common declarations
+use crate::send_coap::send_sensor_data; //  Import `send_coap.rs` for sending sensor data
 use crate::mynewt::{
-    kernel::os,                         //  Import Mynewt OS API functions
     result::*,                          //  Import Mynewt API Result and Error types
     hw::sensor::{        
         self,                           //  Import Mynewt Sensor API functions
@@ -21,8 +22,6 @@ use crate::mynewt::{
         sensor_type_t,
     }
 };
-use crate::base::*;                     //  Import base.rs for common declarations
-use crate::send_coap::send_sensor_data; //  Import send_coap.rs for sending sensor data
 
 ///  Poll every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  
