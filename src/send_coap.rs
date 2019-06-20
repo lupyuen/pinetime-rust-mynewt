@@ -196,8 +196,8 @@ struct Context {
 }
 
 fn test_json() {
-  let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0");
-  let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0");
+  let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0").unwrap();
+  let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0").unwrap();
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {
     key: "t",
