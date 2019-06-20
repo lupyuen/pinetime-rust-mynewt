@@ -8,12 +8,30 @@
 //!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
-use cstr_core::CStr;             //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
-use crate::base;              //  Import `base.rs` for common declarations
-use crate::mynewt::encoding::tinycbor;  //  Import `mynewt/tinycbor.rs` for TinyCBOR C API
-use crate::mynewt::kernel::os::{ self, os_task, os_stack_t };        //  Import `mynewt/os.rs` for Mynewt `kernel/os` API
-use crate::mynewt::libs::sensor_network;      //  Import `mynewt/sensor_network.rs` for Mynewt `sensor_network` library
-use crate::mynewt::{ MynewtResult, g_encoder, root_map };  //  Import Mynewt TinyCBOR encoder and root map
+use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
+use cty::{ c_void, c_char };  //  Import C types from cty library: https://crates.io/crates/cty
+use crate::mynewt::{
+    result::*,            //  Import Mynewt result and error types
+    kernel::os::{  
+        self,             //  Import Mynewt OS functiond
+        os_task,          //  Import Mynewt OS types
+        os_stack_t
+    },
+    encoding::{
+        json,             //  Import Mynewt JSON API
+        tinycbor,         //  Import Mynewt TinyCBOR API
+    },
+    libs::{
+        sensor_coap,      //  Import Mynewt Sensor CoAP API
+        sensor_network::{ //  Import Mynewt Sensor Network API
+            self,
+            sensor_value,
+        },   
+    },
+    g_encoder,            //  Import Mynewt TinyCBOR encoder and root map
+    root_map,  
+};
+use crate::base::*;       //  Import `base.rs` for common declarations
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Network Task
@@ -182,7 +200,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    let rc = unsafe { init_collector_post() };  assert!(rc);
+    let rc = unsafe { sensor_network::init_collector_post() };  assert!(rc);
 
     //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
     let _payload = coap!(@cbor {
@@ -193,7 +211,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    let rc = unsafe { do_collector_post() };  assert!(rc);
+    let rc = unsafe { sensor_network::do_collector_post() };  assert!(rc);
 
     console_print(b"NRF send to collector: rawtmp %d\n");  //  , val->int_val);  ////
 
