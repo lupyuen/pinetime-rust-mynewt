@@ -217,6 +217,7 @@ EOF
             --whitelist-function (?i)sensor_coap_.* \
             --whitelist-function (?i)do_sensor_.* \
             --whitelist-var      (?i)coap_.* \
+            --whitelist-function (?i)json_rep_.* \
             --whitelist-function (?i)${prefixname}.*
 EOF
 `

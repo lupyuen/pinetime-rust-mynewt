@@ -489,5 +489,20 @@ extern "C" {
     pub static mut coap_json_value: json_value;
 }
 extern "C" {
+    pub fn json_rep_new(m: *mut os_mbuf);
+}
+extern "C" {
+    pub fn json_rep_reset();
+}
+extern "C" {
+    pub fn json_rep_finalize() -> ::cty::c_int;
+}
+extern "C" {
+    pub fn json_rep_start_root_object();
+}
+extern "C" {
+    pub fn json_rep_end_root_object();
+}
+extern "C" {
     pub static mut coap_json_mbuf: *mut os_mbuf;
 }
