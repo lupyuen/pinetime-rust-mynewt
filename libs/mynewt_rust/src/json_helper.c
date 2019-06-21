@@ -2,6 +2,7 @@
 #include <os/os.h>
 #include <console/console.h>
 #include <sensor_coap/sensor_coap.h>
+#include <mynewt_rust/json_helper.h>
 
 //  Assume we are writing an object now.  Write the key name and start a child array.
 //  {a:b --> {a:b, key:[

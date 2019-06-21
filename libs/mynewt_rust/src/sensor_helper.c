@@ -3,6 +3,7 @@
 #include <sensor/sensor.h>
 #include <sensor/temperature.h>
 #include <custom_sensor/custom_sensor.h>
+#include <mynewt_rust/sensor_helper.h>
 
 ///  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp.
 ///  Copy the sensor data into `dest`.  Return 0 if successful.

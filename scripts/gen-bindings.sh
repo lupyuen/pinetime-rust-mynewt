@@ -182,18 +182,19 @@ EOF
 
 function generate_bindings_libs() {
     #  Generate bindings for libs/*
-    #  libname: sensor_network, sensor_coap
+    #  libname: sensor_network, sensor_coap, mynewt_rust
     local libname=$1
-    #  srcname: sensor_network, sensor_coap
+    #  srcname: sensor_network, sensor_coap, mynewt_rust
     local srcname=$2
-    #  prefixname: sensor_network, sensor_coap
+    #  prefixname: sensor_network, sensor_coap, mynewt_rust
     local prefixname=$3    
-    #  libdir looks like libs/sensor_network, libs/sensor_coap
+    #  libdir looks like libs/sensor_network, libs/sensor_coap, libs/mynewt_rust
     local modname=libs/$libname
     local libdir=libs/$libname
     #  libcmd looks like 
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
+    #  bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/json_helper.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$srcname.o.cmd
     if [ "$libname" == 'sensor_network' ]; then
         #  Add sensor network + whitelist + blacklist.  
@@ -247,6 +248,7 @@ generate_bindings_encoding json           json_encode    json  #  Generate bindi
 generate_bindings_encoding tinycbor       cborencoder    cbor  #  Generate bindings for encoding/tinycbor
 generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
 generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
+generate_bindings_libs     mynewt_rust    mynewt_rust    mynewt_rust    #  Generate bindings for libs/mynewt_rust
 generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
 generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap
 
