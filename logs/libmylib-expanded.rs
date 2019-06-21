@@ -493,8 +493,9 @@ mod mynewt {
                                       else {
                                       unsafe {
                                       $ context . fail (
-                                      JsonError :: VALUE_NOT_UINT ) } ; } d !
-                                      ( end cbor coap_set_int_val ) ; } } ; (
+                                      json_context :: JsonError ::
+                                      VALUE_NOT_UINT ) } ; } d ! (
+                                      end cbor coap_set_int_val ) ; } } ; (
                                       @ json $ context : ident , $ val0 : expr
                                       ) => {
                                       {
@@ -508,8 +509,9 @@ mod mynewt {
                                       else {
                                       unsafe {
                                       $ context . fail (
-                                      JsonError :: VALUE_NOT_UINT ) } ; } d !
-                                      ( end json coap_set_int_val ) ; } } ;);
+                                      json_context :: JsonError ::
+                                      VALUE_NOT_UINT ) } ; } d ! (
+                                      end json coap_set_int_val ) ; } } ;);
         ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
         #[macro_export(local_inner_macros)]
         macro_rules! coap_item_int_val((
@@ -526,9 +528,9 @@ mod mynewt {
                                        ; } else {
                                        unsafe {
                                        $ context . fail (
-                                       JsonError :: VALUE_NOT_UINT ) } ; } d !
-                                       ( end cbor coap_item_int_val ) ; } } ;
-                                       (
+                                       json_context :: JsonError ::
+                                       VALUE_NOT_UINT ) } ; } d ! (
+                                       end cbor coap_item_int_val ) ; } } ; (
                                        @ json $ context : ident , $ val0 :
                                        expr ) => {
                                        {
@@ -548,9 +550,9 @@ mod mynewt {
                                        ; } else {
                                        unsafe {
                                        $ context . fail (
-                                       JsonError :: VALUE_NOT_UINT ) } ; } d !
-                                       ( end json coap_item_int_val ) ; } }
-                                       ;);
+                                       json_context :: JsonError ::
+                                       VALUE_NOT_UINT ) } ; } d ! (
+                                       end json coap_item_int_val ) ; } } ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
         ///  ```
         ///  {a:b --> {a:b, key:[
@@ -2353,6 +2355,184 @@ mod mynewt {
                 27;
             pub const CborSimpleTypes_Break: CborSimpleTypes = 31;
             pub type CborSimpleTypes = u32;
+        }
+        pub mod json_context {
+            //! JSON encoder state used by CoAP JSON encoding macros
+            use cstr_core::CStr;
+            use cty::*;
+            /// Global instance that contains the current state of the JSON encoder. Only 1 encoding task is supported at a time.
+            pub static mut JSON_CONTEXT: JsonContext =
+                unsafe {
+                    ::core::mem::transmute::<[u8; ::core::mem::size_of::<JsonContext>()],
+                                             JsonContext>([0;
+                                                              ::core::mem::size_of::<JsonContext>()])
+                };
+            /// JSON encoder state. Buffers the next key and value to be encoded.
+            pub struct JsonContext {
+                /// Static buffer for the key to be encoded. Will be passed to Mynewt JSON encoder API.  Always null-terminated.
+                key_buffer: [u8; JSON_KEY_SIZE],
+                /// Static buffer for the string value to be encoded. Will be passed to Mynewt JSON encoder API.  Always null-terminated.
+                value_buffer: [u8; JSON_VALUE_SIZE],
+            }
+            #[automatically_derived]
+            #[allow(unused_qualifications)]
+            impl ::core::default::Default for JsonContext {
+                #[inline]
+                fn default() -> JsonContext {
+                    JsonContext{key_buffer:
+                                    ::core::default::Default::default(),
+                                value_buffer:
+                                    ::core::default::Default::default(),}
+                }
+            }
+            /// Size of the static key buffer
+            const JSON_KEY_SIZE: usize = 32;
+            /// Size of the static value buffer
+            const JSON_VALUE_SIZE: usize = 32;
+            impl JsonContext {
+                /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
+                /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+                /// append null and return the buffer as a pointer.
+                pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+                    if s.last() == Some(&0) { return s.as_ptr(); }
+                    if !(s.len() < JSON_KEY_SIZE) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
+                                                       "src/mynewt/encoding/json_context.rs",
+                                                       31u32, 9u32))
+                        }
+                    };
+                    self.key_buffer[..s.len()].copy_from_slice(s);
+                    self.key_buffer[s.len()] = 0;
+                    self.key_buffer.as_ptr()
+                }
+                /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
+                /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+                /// append null and return the buffer as a pointer.
+                pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+                    if s.last() == Some(&0) { return s.as_ptr(); }
+                    if !(s.len() < JSON_VALUE_SIZE) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
+                                                       "src/mynewt/encoding/json_context.rs",
+                                                       44u32, 9u32))
+                        }
+                    };
+                    self.value_buffer[..s.len()].copy_from_slice(s);
+                    self.value_buffer[s.len()] = 0;
+                    self.value_buffer.as_ptr()
+                }
+                /// Fail the encoding with an error
+                pub fn fail(&mut self, err: JsonError) {
+                    {
+                        match (&err, &JsonError::OK) {
+                            (left_val, right_val) => {
+                                if !(*left_val == *right_val) {
+                                    {
+                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                      "`,\n right: `",
+                                                                                                      "`"],
+                                                                                                    &match (&&*left_val,
+                                                                                                            &&*right_val)
+                                                                                                         {
+                                                                                                         (arg0,
+                                                                                                          arg1)
+                                                                                                         =>
+                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                       ::core::fmt::Debug::fmt)],
+                                                                                                     }),
+                                                                     &("src/mynewt/encoding/json_context.rs",
+                                                                       52u32,
+                                                                       9u32))
+                                    }
+                                }
+                            }
+                        }
+                    };
+                }
+                /// Cast itself as a `*mut c_void`
+                pub fn to_void_ptr(&mut self) -> *mut c_void {
+                    let ptr: *mut JsonContext = self;
+                    ptr as *mut c_void
+                }
+            }
+            /// Error codes for JSON encoding failure
+            pub enum JsonError {
+
+                /// No error
+                OK = 0,
+
+                /// Encoded value is not unsigned integer
+                VALUE_NOT_UINT = 1,
+            }
+            #[automatically_derived]
+            #[allow(unused_qualifications)]
+            impl ::core::fmt::Debug for JsonError {
+                fn fmt(&self, f: &mut ::core::fmt::Formatter)
+                 -> ::core::fmt::Result {
+                    match (&*self,) {
+                        (&JsonError::OK,) => {
+                            let mut debug_trait_builder = f.debug_tuple("OK");
+                            debug_trait_builder.finish()
+                        }
+                        (&JsonError::VALUE_NOT_UINT,) => {
+                            let mut debug_trait_builder =
+                                f.debug_tuple("VALUE_NOT_UINT");
+                            debug_trait_builder.finish()
+                        }
+                    }
+                }
+            }
+            #[automatically_derived]
+            #[allow(unused_qualifications)]
+            impl ::core::cmp::PartialEq for JsonError {
+                #[inline]
+                fn eq(&self, other: &JsonError) -> bool {
+                    {
+                        let __self_vi =
+                            unsafe {
+                                ::core::intrinsics::discriminant_value(&*self)
+                            } as isize;
+                        let __arg_1_vi =
+                            unsafe {
+                                ::core::intrinsics::discriminant_value(&*other)
+                            } as isize;
+                        if true && __self_vi == __arg_1_vi {
+                            match (&*self, &*other) { _ => true, }
+                        } else { false }
+                    }
+                }
+            }
+            /// Convert the type to array of bytes that may or may not end with null
+            pub trait ToBytesOptionalNull {
+                /// Convert the type to array of bytes that may or may not end with null
+                fn to_bytes_optional_nul(&self)
+                -> &[u8];
+            }
+            /// Convert the type to array of bytes that may or may not end with null
+            impl ToBytesOptionalNull for [u8] {
+                /// Convert the type to array of bytes that may or may not end with null
+                fn to_bytes_optional_nul(&self) -> &[u8] { self }
+            }
+            /// Convert the type to array of bytes that may or may not end with null
+            impl ToBytesOptionalNull for str {
+                /// Convert the type to array of bytes that may or may not end with null
+                fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+            }
+            /// Convert the type to array of bytes that may or may not end with null
+            impl ToBytesOptionalNull for &str {
+                /// Convert the type to array of bytes that may or may not end with null
+                fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+            }
+            /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
+            impl ToBytesOptionalNull for CStr {
+                /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
+                fn to_bytes_optional_nul(&self) -> &[u8] {
+                    self.to_bytes_with_nul()
+                }
+            }
         }
     }
     pub mod kernel {
@@ -10538,7 +10718,10 @@ mod send_coap {
     use cty::*;
     use crate::base::*;
     use crate::mynewt::{result::*, kernel::os::{self, os_task, os_stack_t},
-                        encoding::{json, tinycbor::{self, CborEncoder}},
+                        encoding::{json,
+                                   json_context::{self, JSON_CONTEXT,
+                                                  ToBytesOptionalNull},
+                                   tinycbor::{self, CborEncoder}},
                         libs::{mynewt_rust,
                                sensor_coap::{self, coap_json_encoder,
                                              coap_json_value, sensor_value},
@@ -10593,7 +10776,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           72u32, 5u32))
+                                                           77u32, 5u32))
                         }
                     }
                 }
@@ -10613,7 +10796,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 84u32, 37u32))
+                                           "src/send_coap.rs", 89u32, 37u32))
             }
         };
         if unsafe {
@@ -10641,7 +10824,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               92u32, 75u32))
+                                                               97u32, 75u32))
                             }
                         }
                     }
@@ -10674,7 +10857,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               100u32, 78u32))
+                                                               105u32, 78u32))
                             }
                         }
                     }
@@ -10734,7 +10917,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 154u32,
+                                               "src/send_coap.rs", 159u32,
                                                53u32))
                 }
             };
@@ -10759,7 +10942,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           156u32, 5u32))
+                                                           161u32, 5u32))
                         }
                     }
                 }
@@ -10775,7 +10958,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 164u32, 80u32))
+                                           "src/send_coap.rs", 169u32, 80u32))
             }
         };
         let _payload =
@@ -10970,7 +11153,7 @@ mod send_coap {
                                         };
                                     } else {
                                         unsafe {
-                                            JSON_CONTEXT.fail(JsonError::VALUE_NOT_UINT)
+                                            JSON_CONTEXT.fail(json_context::JsonError::VALUE_NOT_UINT)
                                         };
                                     }
                                     "end json coap_item_int_val";
@@ -10999,160 +11182,11 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 183u32, 60u32))
+                                           "src/send_coap.rs", 188u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
         Ok(())
-    }
-    static mut JSON_CONTEXT: JsonContext =
-        unsafe {
-            ::core::mem::transmute::<[u8; ::core::mem::size_of::<JsonContext>()],
-                                     JsonContext>([0;
-                                                      ::core::mem::size_of::<JsonContext>()])
-        };
-    pub struct JsonContext {
-        key_buffer: [u8; JSON_KEY_SIZE],
-        value_buffer: [u8; JSON_VALUE_SIZE],
-    }
-    #[automatically_derived]
-    #[allow(unused_qualifications)]
-    impl ::core::default::Default for JsonContext {
-        #[inline]
-        fn default() -> JsonContext {
-            JsonContext{key_buffer: ::core::default::Default::default(),
-                        value_buffer: ::core::default::Default::default(),}
-        }
-    }
-    const JSON_KEY_SIZE: usize = 32;
-    const JSON_VALUE_SIZE: usize = 32;
-    trait ToBytesOptionalNull {
-        fn to_bytes_optional_nul(&self)
-        -> &[u8];
-    }
-    impl ToBytesOptionalNull for [u8] {
-        fn to_bytes_optional_nul(&self) -> &[u8] { self }
-    }
-    impl ToBytesOptionalNull for str {
-        fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
-    }
-    impl ToBytesOptionalNull for &str {
-        fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
-    }
-    impl ToBytesOptionalNull for CStr {
-        fn to_bytes_optional_nul(&self) -> &[u8] { self.to_bytes_with_nul() }
-    }
-    impl JsonContext {
-        /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
-        /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-        /// append null and return the buffer as a pointer.
-        pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-            if s.last() == Some(&0) { return s.as_ptr(); }
-            if !(s.len() < JSON_KEY_SIZE) {
-                {
-                    ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
-                                               "src/send_coap.rs", 240u32,
-                                               9u32))
-                }
-            };
-            self.key_buffer[..s.len()].copy_from_slice(s);
-            self.key_buffer[s.len()] = 0;
-            self.key_buffer.as_ptr()
-        }
-        /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
-        /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-        /// append null and return the buffer as a pointer.
-        pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-            if s.last() == Some(&0) { return s.as_ptr(); }
-            if !(s.len() < JSON_VALUE_SIZE) {
-                {
-                    ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
-                                               "src/send_coap.rs", 253u32,
-                                               9u32))
-                }
-            };
-            self.value_buffer[..s.len()].copy_from_slice(s);
-            self.value_buffer[s.len()] = 0;
-            self.value_buffer.as_ptr()
-        }
-        /// Fail the encoding with an error
-        pub fn fail(&mut self, err: JsonError) {
-            {
-                match (&err, &JsonError::OK) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`"],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val)
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt)],
-                                                                                             }),
-                                                             &("src/send_coap.rs",
-                                                               261u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
-        }
-        /// Cast itself as a `*mut c_void`
-        pub fn to_void_ptr(&mut self) -> *mut c_void {
-            let ptr: *mut JsonContext = self;
-            ptr as *mut c_void
-        }
-    }
-    /// Error codes for JSON encoding failure
-    pub enum JsonError {
-
-        /// No error
-        OK = 0,
-
-        /// Encoded value is not unsigned integer
-        VALUE_NOT_UINT = 1,
-    }
-    #[automatically_derived]
-    #[allow(unused_qualifications)]
-    impl ::core::fmt::Debug for JsonError {
-        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-            match (&*self,) {
-                (&JsonError::OK,) => {
-                    let mut debug_trait_builder = f.debug_tuple("OK");
-                    debug_trait_builder.finish()
-                }
-                (&JsonError::VALUE_NOT_UINT,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("VALUE_NOT_UINT");
-                    debug_trait_builder.finish()
-                }
-            }
-        }
-    }
-    #[automatically_derived]
-    #[allow(unused_qualifications)]
-    impl ::core::cmp::PartialEq for JsonError {
-        #[inline]
-        fn eq(&self, other: &JsonError) -> bool {
-            {
-                let __self_vi =
-                    unsafe { ::core::intrinsics::discriminant_value(&*self) }
-                        as isize;
-                let __arg_1_vi =
-                    unsafe { ::core::intrinsics::discriminant_value(&*other) }
-                        as isize;
-                if true && __self_vi == __arg_1_vi {
-                    match (&*self, &*other) { _ => true, }
-                } else { false }
-            }
-        }
     }
     ///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
     ///  transmit to the Collector Node.  The Sensor Value should be integer not float since
@@ -11172,14 +11206,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 299u32, 65u32))
+                                           "src/send_coap.rs", 217u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 312u32, 63u32))
+                                           "src/send_coap.rs", 230u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

@@ -20,6 +20,11 @@ use crate::mynewt::{
     },
     encoding::{
         json,             //  Import Mynewt JSON API
+        json_context::{   //  Import Mynewt JSON Encoder Context
+            self,
+            JSON_CONTEXT,
+            ToBytesOptionalNull,
+        },
         tinycbor::{       //  Import Mynewt TinyCBOR API
             self,
             CborEncoder,
@@ -188,93 +193,6 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     //  The CoAP Background Task will call oc_tx_ucast() in the ESP8266 driver to 
     //  transmit the message: libs/esp8266/src/transport.cpp
     Ok(())
-}
-
-static mut JSON_CONTEXT: JsonContext = fill_zero!(JsonContext);
-
-#[derive(Default)]
-pub struct JsonContext {
-    key_buffer: [u8; JSON_KEY_SIZE],
-    value_buffer: [u8; JSON_VALUE_SIZE],
-}
-
-const JSON_KEY_SIZE: usize = 32;
-const JSON_VALUE_SIZE: usize = 32;
-
-trait ToBytesOptionalNull {
-    fn to_bytes_optional_nul(&self) -> &[u8];
-}
-
-impl ToBytesOptionalNull for [u8] {
-    fn to_bytes_optional_nul(&self) -> &[u8] {
-        self
-    }
-}
-
-impl ToBytesOptionalNull for str {
-    fn to_bytes_optional_nul(&self) -> &[u8] {
-        self.as_bytes()
-    }
-}
-
-impl ToBytesOptionalNull for &str {
-    fn to_bytes_optional_nul(&self) -> &[u8] {
-        self.as_bytes()
-    }
-}
-
-impl ToBytesOptionalNull for CStr {
-    fn to_bytes_optional_nul(&self) -> &[u8] {
-        self.to_bytes_with_nul()
-    }
-}
-
-impl JsonContext {
-    /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
-    pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-        //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr(); }
-        //  Else copy into static key buffer and return pointer to buffer.
-        assert!(s.len() < JSON_KEY_SIZE);  //  Key too long
-        self.key_buffer[..s.len()].copy_from_slice(s);
-        self.key_buffer[s.len()] = 0;
-        self.key_buffer.as_ptr()
-    }
-
-    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
-    pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-        //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr(); }
-        //  Else copy into static value buffer and return pointer to buffer.
-        assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
-        self.value_buffer[..s.len()].copy_from_slice(s);
-        self.value_buffer[s.len()] = 0;
-        self.value_buffer.as_ptr()        
-    }
-
-    /// Fail the encoding with an error
-    pub fn fail(&mut self, err: JsonError) {
-        assert_eq!(err, JsonError::OK);
-    }
-
-    /// Cast itself as a `*mut c_void`
-    pub fn to_void_ptr(&mut self) -> *mut c_void {
-        let ptr: *mut JsonContext = self;
-        ptr as *mut c_void
-    }
-}
-
-/// Error codes for JSON encoding failure
-#[derive(Debug, PartialEq)]
-pub enum JsonError {
-    /// No error
-    OK = 0,
-    /// Encoded value is not unsigned integer
-    VALUE_NOT_UINT = 1,
 }
 
 ///////////////////////////////////////////////////////////////////////////////

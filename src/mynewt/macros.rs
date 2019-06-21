@@ -545,7 +545,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       oc_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_set_int_val);
   }};
@@ -555,7 +555,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       json_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_set_int_val);
   }};
@@ -569,7 +569,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       coap_item_int!(@cbor $context, $val0.key, val);
     } else {
-      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_item_int_val);
   }};
@@ -581,7 +581,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       coap_item_int!(@json $context, $val0.key, val);
     } else {
-      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_item_int_val);
   }};
