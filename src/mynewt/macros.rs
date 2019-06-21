@@ -468,6 +468,29 @@ macro_rules! coap_array {
   }};
 }
 
+///  Append a (key + int value) item to the array named `array`:
+///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
+#[macro_export(local_inner_macros)]
+macro_rules! coap_item_int {
+  (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
+    d!(begin cbor coap_item_int, key: $key0, value: $value0);
+    coap_item!(@$enc $array0, {
+      oc_rep_set_text_string!($array0, "key",   $key0);
+      oc_rep_set_int!(        $array0, "value", $value0);
+    });
+    d!(end cbor coap_item_int);
+  }};
+
+  (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
+    d!(begin json coap_item_int, key: $key0, value: $value0);
+    coap_item!(@json $array0, {
+      json_rep_set_text_string!($array0, "key",   $key0.to_str());
+      json_rep_set_int!(        $array0, "value", $value0);
+    });
+    d!(end json coap_item_int);
+  }};
+}
+
 ///  Append a (`key` + `val` string value) item to the array named `parent`:
 ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
 #[macro_export(local_inner_macros)]
@@ -503,41 +526,18 @@ macro_rules! coap_item_str {
 macro_rules! coap_item {
   (@cbor $array0:ident, $children0:block) => {{  //  CBOR
     d!(begin cbor coap_item, array: $array0);
-    oc_rep_object_array_start_item!($array0);
+    oc_rep_object_array_start_item!($array0, $array0);  //  TODO
     $children0;
-    oc_rep_object_array_end_item!($array0);
+    oc_rep_object_array_end_item!($array0, $array0);  //  TODO
     d!(end cbor coap_item);
   }};
 
   (@json $array0:ident, $children0:block) => {{  //  JSON
     d!(begin json coap_item, array: $array0);
-    json_rep_object_array_start_item!($array0);
+    json_rep_object_array_start_item!($array0, $array0);
     $children0;
-    json_rep_object_array_end_item!($array0);
+    json_rep_object_array_end_item!($array0, $array0);
     d!(end json coap_item);
-  }};
-}
-
-///  Append a (key + int value) item to the array named `array`:
-///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
-#[macro_export(local_inner_macros)]
-macro_rules! coap_item_int {
-  (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
-    d!(begin cbor coap_item_int, key: $key0, value: $value0);
-    coap_item!(@$enc $array0, {
-      oc_rep_set_text_string!($array0, "key",   $key0);
-      oc_rep_set_int!(        $array0, "value", $value0);
-    });
-    d!(end cbor coap_item_int);
-  }};
-
-  (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
-    d!(begin json coap_item_int, key: $key0, value: $value0);
-    coap_item!(@json $array0, {
-      json_rep_set_text_string!($array0, "key",   $key0.to_str());
-      json_rep_set_int!(        $array0, "value", $value0);
-    });
-    d!(end json coap_item_int);
   }};
 }
 
@@ -546,17 +546,21 @@ macro_rules! coap_item_int {
 macro_rules! coap_set_int_val {
   (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_set_int_val, parent: $parent0, val: $val0);
-    d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    //  d!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
-    oc_rep_set_int!($parent0, $val0.key, 1234);  //  TODO
+    if let SensorValueType::Uint(val) = $val0.val {
+      oc_rep_set_int!($parent0, $val0.key, val);
+    } else {
+      assert!(false);  //  Value not uint
+    }
     d!(end cbor coap_set_int_val);
   }};
 
   (@json $parent0:ident, $val0:expr) => {{  //  JSON
     d!(begin json coap_set_int_val, parent: $parent0, val: $val0);
-    d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    //  d!(> TODO: oc_rep_set_int_k($parent0, $val0.key, $val0.int_val));
-    json_rep_set_int!($parent0, $val0.key, 1234);  //  TODO
+    if let SensorValueType::Uint(val) = $val0.val {
+      json_rep_set_int!($parent0, $val0.key, val);
+    } else {
+      assert!(false);  //  Value not uint
+    }
     d!(end json coap_set_int_val);
   }};
 }
@@ -566,9 +570,11 @@ macro_rules! coap_set_int_val {
 macro_rules! coap_item_int_val {
   (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int_val, parent: $parent0, val: $val0);
-    d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    d!(> TODO: coap_item_int(@cbor $parent0, $val0.key, $val0.int_val));
-    coap_item_int!(@cbor $parent0, $val0.key, 1234);  //  TODO
+    if let SensorValueType::Uint(val) = $val0.val {
+      coap_item_int!(@cbor $parent0, $val0.key, val);
+    } else {
+      assert!(false);  //  Value not uint
+    }
     d!(end cbor coap_item_int_val);
   }};
 
@@ -576,7 +582,11 @@ macro_rules! coap_item_int_val {
     d!(begin json coap_item_int_val, parent: $parent0, val: $val0);
     d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
     d!(> TODO: coap_item_int(@json $parent0, $val0.key, $val0.int_val));
-    coap_item_int!(@json $parent0, $val0.key, 1234);  //  TODO
+    if let SensorValueType::Uint(val) = $val0.val {
+      coap_item_int!(@json $parent0, $val0.key, val);
+    } else {
+      assert!(false);  //  Value not uint
+    }
     d!(end json coap_item_int_val);
   }};
 }
@@ -600,7 +610,7 @@ macro_rules! json_rep_set_array {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = stringify_null!($key);
     unsafe {
-      json::json_helper_set_array(
+      mynewt_rust::json_helper_set_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_null.as_bytes())
       ); 
@@ -616,7 +626,7 @@ macro_rules! json_rep_set_array {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe {
-      json::json_helper_set_array(
+      mynewt_rust::json_helper_set_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_opt_null)
       ); 
@@ -637,7 +647,7 @@ macro_rules! json_rep_close_array {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = stringify_null!($key);
     unsafe { 
-      json::json_helper_close_array(
+      mynewt_rust::json_helper_close_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_null.as_bytes())
       ) 
@@ -651,7 +661,7 @@ macro_rules! json_rep_close_array {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
-      json::json_helper_close_array(
+      mynewt_rust::json_helper_close_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_opt_null)
       ) 
@@ -673,7 +683,7 @@ macro_rules! json_rep_object_array_start_item {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = stringify_null!($key);    
     unsafe { 
-      json::json_helper_object_array_start_item(
+      mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
@@ -687,7 +697,7 @@ macro_rules! json_rep_object_array_start_item {
     //  Convert key char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
-      json::json_helper_object_array_start_item(
+      mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_opt_null)
       ) 
     };
@@ -707,7 +717,7 @@ macro_rules! json_rep_object_array_end_item {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = stringify_null!($key);
     unsafe { 
-      json::json_helper_object_array_end_item(
+      mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
@@ -720,7 +730,7 @@ macro_rules! json_rep_object_array_end_item {
     //  Convert key char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
-      json::json_helper_object_array_end_item(
+      mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_opt_null)
       ) 
     };
