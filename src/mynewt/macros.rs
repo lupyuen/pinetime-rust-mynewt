@@ -361,14 +361,10 @@ macro_rules! parse {
   (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin json root);
-    //  let root = "root";  //  Top level object is named "root".
-    //  let values = "values";  //  "values" will be an array of items under the root
-    //  let mut local_json_encoder = &mut sensor_coap::coap_json_encoder;
-    //  let mut local_json_value   = &mut sensor_coap::coap_json_value;
     coap_root!(@json {  //  Create the payload root
-        coap_array!(@json root, values, {  //  Create "values" as an array of items under the root
+        coap_array!(@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
-          parse!(@json @object values () ($($tt)+) ($($tt)+));
+          parse!(@json @object JSON_CONTEXT () ($($tt)+) ($($tt)+));
         });  //  Close the "values" array
     });  //  Close the payload root
     d!(end json root);
@@ -474,7 +470,7 @@ macro_rules! coap_array {
 macro_rules! coap_item_int {
   (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int, key: $key0, value: $value0);
-    coap_item!(@$enc $array0, {
+    coap_item!(@cbor $array0, {
       oc_rep_set_text_string!($array0, "key",   $key0);
       oc_rep_set_int!(        $array0, "value", $value0);
     });
@@ -484,7 +480,7 @@ macro_rules! coap_item_int {
   (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
     d!(begin json coap_item_int, key: $key0, value: $value0);
     coap_item!(@json $array0, {
-      json_rep_set_text_string!($array0, "key",   $key0.to_str());
+      json_rep_set_text_string!($array0, "key",   $key0);
       json_rep_set_int!(        $array0, "value", $value0);
     });
     d!(end json coap_item_int);
@@ -544,22 +540,22 @@ macro_rules! coap_item {
 ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
-  (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
-    d!(begin cbor coap_set_int_val, parent: $parent0, val: $val0);
+  (@cbor $context:ident, $val0:expr) => {{  //  CBOR
+    d!(begin cbor coap_set_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      oc_rep_set_int!($parent0, $val0.key, val);
+      oc_rep_set_int!($context, $val0.key, val);
     } else {
-      assert!(false);  //  Value not uint
+      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_set_int_val);
   }};
 
-  (@json $parent0:ident, $val0:expr) => {{  //  JSON
-    d!(begin json coap_set_int_val, parent: $parent0, val: $val0);
+  (@json $context:ident, $val0:expr) => {{  //  JSON
+    d!(begin json coap_set_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      json_rep_set_int!($parent0, $val0.key, val);
+      json_rep_set_int!($context, $val0.key, val);
     } else {
-      assert!(false);  //  Value not uint
+      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_set_int_val);
   }};
@@ -568,24 +564,24 @@ macro_rules! coap_set_int_val {
 ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int_val {
-  (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
-    d!(begin cbor coap_item_int_val, parent: $parent0, val: $val0);
+  (@cbor $context:ident, $val0:expr) => {{  //  CBOR
+    d!(begin cbor coap_item_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      coap_item_int!(@cbor $parent0, $val0.key, val);
+      coap_item_int!(@cbor $context, $val0.key, val);
     } else {
-      assert!(false);  //  Value not uint
+      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_item_int_val);
   }};
 
-  (@json $parent0:ident, $val0:expr) => {{  //  JSON
-    d!(begin json coap_item_int_val, parent: $parent0, val: $val0);
+  (@json $context:ident, $val0:expr) => {{  //  JSON
+    d!(begin json coap_item_int_val, c: $context, val: $val0);
     d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    d!(> TODO: coap_item_int(@json $parent0, $val0.key, $val0.int_val));
+    d!(> TODO: coap_item_int(@json $context, $val0.key, $val0.int_val));
     if let SensorValueType::Uint(val) = $val0.val {
-      coap_item_int!(@json $parent0, $val0.key, val);
+      coap_item_int!(@json $context, $val0.key, val);
     } else {
-      assert!(false);  //  Value not uint
+      unsafe { $context.fail(JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_item_int_val);
   }};

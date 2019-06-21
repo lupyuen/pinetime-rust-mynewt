@@ -163,7 +163,6 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
 
-    /*
     //  Compose the CoAP Payload in JSON using the coap!() macro.
     let _payload = coap!(@json {
         //  Create "values" as an array of items under the root.
@@ -177,7 +176,6 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
         //    {"key":"tmp", "value":28.7} for computed temperature (float)
         sensor_val,
     });
-    */
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
@@ -232,29 +230,6 @@ impl ToBytesOptionalNull for CStr {
 }
 
 impl JsonContext {
-    /*
-    /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
-    pub fn key_to_cstr(&mut self, s: &str) -> *const c_char {
-        self.key_to_cstr_internal(s.as_bytes())
-    }
-
-    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
-    pub fn value_to_cstr(&mut self, s: &str) -> *const c_char {
-        self.value_to_cstr_internal(s.as_bytes())
-    }
-
-    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
-    pub fn value_to_cstr(&mut self, s: &CStr) -> *const c_char {
-        self.value_to_cstr_internal(s.to_bytes_with_nul())
-    }
-    */
-
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
@@ -281,6 +256,11 @@ impl JsonContext {
         self.value_buffer.as_ptr()        
     }
 
+    /// Fail the encoding with an error
+    pub fn fail(&mut self, err: JsonError) {
+        assert_eq!(err, JsonError::OK);
+    }
+
     /// Cast itself as a `*mut c_void`
     pub fn to_void_ptr(&mut self) -> *mut c_void {
         let ptr: *mut JsonContext = self;
@@ -288,76 +268,13 @@ impl JsonContext {
     }
 }
 
-/*
-/// Cast `JsonContext` to `*mut ::core::ffi::c_void`
-impl From<&mut JsonContext> for *mut ::core::ffi::c_void {
-    /// Cast `JsonContext` to `*mut ::core::ffi::c_void`
-    fn from(obj: &mut JsonContext) -> Self {
-        let ptr: *mut JsonContext = obj;
-        ptr as *mut ::core::ffi::c_void
-    }
-}
-
-/// Cast `JsonContext` to `*mut ::core::ffi::c_void`
-impl From<JsonContext> for *mut ::core::ffi::c_void {
-    /// Cast `JsonContext` to `*mut ::core::ffi::c_void`
-    fn from(obj: JsonContext) -> Self {
-        let ptr: *mut JsonContext = &mut obj;
-        ptr as *mut ::core::ffi::c_void
-    }
-}
-*/
-
-fn test_json() {
-  let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0").unwrap();
-  let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0").unwrap();
-  //  Sensor `t` has int value 2870.
-  let int_sensor_value = SensorValue {
-    key: "t",
-    val: SensorValueType::Uint(2870)
-  };
-  //let mut ptr: *mut ::core::ffi::c_void = &mut context as *mut ::core::ffi::c_void;
-  //let ptr: *mut c_void = context.to_void_ptr();
-  //trace_macros!(true);
-  //let a = stringify_null!(device);
-
-  //json_rep_set_text_string!(JSON_CONTEXT, device1, device_id);
-
-  //json_rep_set_text_string!(JSON_CONTEXT, "device2", device_id);
-
-  //coap_item_str! (@json JSON_CONTEXT, "device", device_id);
-
-  //coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
-
-  coap_array! (@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
-    coap_item_str! (@json JSON_CONTEXT, "device", device_id);
-    //  coap_item_str! (@json JSON_CONTEXT, "node", node_id);
-    //  coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
-  });
-
-  /*
-  let payload = coap_root!(@json {  //  Create the payload root
-    coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-      //  Append to the "values" array:
-      //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-      //  coap_item_str! (@json values, "device", device_id);
-
-      //    {"key":"node", "value":"b3b4b5b6f1"},
-      //  coap_item_str! (@json values, "node", node_id);
-
-      //  For Sensor Node: Set the Sensor Key and integer Sensor Value, e.g. { t: 2870 }
-      //  coap_set_int_val! (@json root, int_sensor_value);
-      
-      //  If we are using raw temperature (integer) instead of computed temperature (float)...
-      //  Append to the "values" array the Sensor Key and Sensor Value, depending on the value type:
-      //    {"key":"t",   "value":2870} for raw temperature (integer)
-      ////TODO: coap_item_int_val! (values, val);
-      //    {"key":"tmp", "value":28.7} for computed temperature (float)
-      //  coap_item_float_val! (values, val);
-    }) //  Close the "values" array
-  }); //  Close the payload root
-  */
-  trace_macros!(false);
+/// Error codes for JSON encoding failure
+#[derive(Debug, PartialEq)]
+pub enum JsonError {
+    /// No error
+    OK = 0,
+    /// Encoded value is not unsigned integer
+    VALUE_NOT_UINT = 1,
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -402,6 +319,38 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
 }
 
 /*
+fn test_json() {
+  let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0").unwrap();
+  let node_id   = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0").unwrap();
+  //  Sensor `t` has int value 2870.
+  let int_sensor_value = SensorValue {
+    key: "t",
+    val: SensorValueType::Uint(2870)
+  };
+  //let mut ptr: *mut ::core::ffi::c_void = &mut context as *mut ::core::ffi::c_void;
+  //let ptr: *mut c_void = context.to_void_ptr();
+  //trace_macros!(true);
+  //let a = stringify_null!(device);
+
+  //json_rep_set_text_string!(JSON_CONTEXT, device1, device_id);
+
+  //json_rep_set_text_string!(JSON_CONTEXT, "device2", device_id);
+
+  //coap_item_str! (@json JSON_CONTEXT, "device", device_id);
+
+  //coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
+
+  /*
+  coap_array! (@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
+    coap_item_str! (@json JSON_CONTEXT, "device", device_id);
+    coap_item_str! (@json JSON_CONTEXT, "node", node_id);
+    coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
+  });
+  */
+
+  trace_macros!(false);
+}
+
 fn send_sensor_data_cbor() {
   //  Sensor `t` has int value 2870.
   let int_sensor_value = SensorValue {

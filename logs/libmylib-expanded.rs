@@ -339,12 +339,13 @@ mod mynewt {
                            d ! ( begin json root ) ; coap_root ! (
                            @ json {
                            coap_array ! (
-                           @ json root , values , {
+                           @ json JSON_CONTEXT , values , {
                            parse ! (
-                           @ json @ object values (  ) ( $ ( $ tt ) + ) (
-                           $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! ( end json root
-                           ) ; d ! ( return json root to caller ) ; (  ) } } ;
-                           ( @ cbor { $ ( $ tt : tt ) + } ) => {
+                           @ json @ object JSON_CONTEXT (  ) ( $ ( $ tt ) + )
+                           ( $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! (
+                           end json root ) ; d ! ( return json root to caller
+                           ) ; (  ) } } ; ( @ cbor { $ ( $ tt : tt ) + } ) =>
+                           {
                            {
                            d ! ( begin cbor root ) ; coap_root ! (
                            @ cbor {
@@ -377,7 +378,7 @@ mod mynewt {
                                } $ children0 ; unsafe {
                                sensor_coap :: json_rep_end_root_object (  ) }
                                d ! ( end json coap_root ) ; } } ;);
-        ///  Compose an array under `object`, named as `key`.  Add `children` as array elements.
+        ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
         #[macro_export(local_inner_macros)]
         macro_rules! coap_array((
                                 @ cbor $ object0 : ident , $ key0 : ident , $
@@ -408,7 +409,7 @@ mod mynewt {
                                    d ! (
                                    begin cbor coap_item_int , key : $ key0 ,
                                    value : $ value0 ) ; coap_item ! (
-                                   @ $ enc $ array0 , {
+                                   @ cbor $ array0 , {
                                    oc_rep_set_text_string ! (
                                    $ array0 , "key" , $ key0 ) ;
                                    oc_rep_set_int ! (
@@ -422,7 +423,7 @@ mod mynewt {
                                    value : $ value0 ) ; coap_item ! (
                                    @ json $ array0 , {
                                    json_rep_set_text_string ! (
-                                   $ array0 , "key" , $ key0 . to_str (  ) ) ;
+                                   $ array0 , "key" , $ key0 ) ;
                                    json_rep_set_int ! (
                                    $ array0 , "value" , $ value0 ) ; } ) ; d !
                                    ( end json coap_item_int ) ; } } ;);
@@ -456,87 +457,100 @@ mod mynewt {
                                    json_rep_set_text_string ! (
                                    $ parent , value , $ val ) ; } ) ; d ! (
                                    end json coap_item_str ) ; } } ;);
-        ///  Append an array item under the array named `array0`.  Add `children0` as the items (key and value).
+        ///  Append an array item under the current object item.  Add `children0` as the array items.
         ///    `{ <array0>: [ ..., { <children0> } ] }`
         #[macro_export(local_inner_macros)]
-        macro_rules! coap_item(( @ cbor $ array0 : ident , $ children0 : block
+        macro_rules! coap_item((
+                               @ cbor $ context : ident , $ children0 : block
                                ) => {
                                {
-                               d ! ( begin cbor coap_item , array : $ array0 )
-                               ; oc_rep_object_array_start_item ! (
-                               $ array0 , $ array0 ) ; $ children0 ;
-                               oc_rep_object_array_end_item ! (
-                               $ array0 , $ array0 ) ; d ! (
-                               end cbor coap_item ) ; } } ; (
-                               @ json $ array0 : ident , $ children0 : block )
-                               => {
+                               d ! ( begin cbor coap_item , array : $ context
+                               ) ; oc_rep_object_array_start_item ! (
+                               $ context ) ; $ children0 ;
+                               oc_rep_object_array_end_item ! ( $ context ) ;
+                               d ! ( end cbor coap_item ) ; } } ; (
+                               @ json $ context : ident , $ children0 : block
+                               ) => {
                                {
-                               d ! ( begin json coap_item , array : $ array0 )
-                               ; json_rep_object_array_start_item ! (
-                               $ array0 , $ array0 ) ; $ children0 ;
-                               json_rep_object_array_end_item ! (
-                               $ array0 , $ array0 ) ; d ! (
-                               end json coap_item ) ; } } ;);
+                               d ! ( begin json coap_item , array : $ context
+                               ) ; json_rep_object_array_start_item ! (
+                               $ context ) ; $ children0 ;
+                               json_rep_object_array_end_item ! ( $ context )
+                               ; d ! ( end json coap_item ) ; } } ;);
         ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
         #[macro_export(local_inner_macros)]
         macro_rules! coap_set_int_val((
-                                      @ cbor $ parent0 : ident , $ val0 : expr
+                                      @ cbor $ context : ident , $ val0 : expr
                                       ) => {
                                       {
                                       d ! (
-                                      begin cbor coap_set_int_val , parent : $
-                                      parent0 , val : $ val0 ) ; if let
+                                      begin cbor coap_set_int_val , c : $
+                                      context , val : $ val0 ) ; if let
                                       SensorValueType :: Uint ( val ) = $ val0
                                       . val {
                                       oc_rep_set_int ! (
-                                      $ parent0 , $ val0 . key , val ) ; }
-                                      else { assert ! ( false ) ; } d ! (
-                                      end cbor coap_set_int_val ) ; } } ; (
-                                      @ json $ parent0 : ident , $ val0 : expr
+                                      $ context , $ val0 . key , val ) ; }
+                                      else {
+                                      unsafe {
+                                      $ context . fail (
+                                      JsonError :: VALUE_NOT_UINT ) } ; } d !
+                                      ( end cbor coap_set_int_val ) ; } } ; (
+                                      @ json $ context : ident , $ val0 : expr
                                       ) => {
                                       {
                                       d ! (
-                                      begin json coap_set_int_val , parent : $
-                                      parent0 , val : $ val0 ) ; if let
+                                      begin json coap_set_int_val , c : $
+                                      context , val : $ val0 ) ; if let
                                       SensorValueType :: Uint ( val ) = $ val0
                                       . val {
                                       json_rep_set_int ! (
-                                      $ parent0 , $ val0 . key , val ) ; }
-                                      else { assert ! ( false ) ; } d ! (
-                                      end json coap_set_int_val ) ; } } ;);
+                                      $ context , $ val0 . key , val ) ; }
+                                      else {
+                                      unsafe {
+                                      $ context . fail (
+                                      JsonError :: VALUE_NOT_UINT ) } ; } d !
+                                      ( end json coap_set_int_val ) ; } } ;);
         ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
         #[macro_export(local_inner_macros)]
         macro_rules! coap_item_int_val((
-                                       @ cbor $ parent0 : ident , $ val0 :
+                                       @ cbor $ context : ident , $ val0 :
                                        expr ) => {
                                        {
                                        d ! (
-                                       begin cbor coap_item_int_val , parent :
-                                       $ parent0 , val : $ val0 ) ; if let
+                                       begin cbor coap_item_int_val , c : $
+                                       context , val : $ val0 ) ; if let
                                        SensorValueType :: Uint ( val ) = $
                                        val0 . val {
                                        coap_item_int ! (
-                                       @ cbor $ parent0 , $ val0 . key , val )
-                                       ; } else { assert ! ( false ) ; } d ! (
-                                       end cbor coap_item_int_val ) ; } } ; (
-                                       @ json $ parent0 : ident , $ val0 :
+                                       @ cbor $ context , $ val0 . key , val )
+                                       ; } else {
+                                       unsafe {
+                                       $ context . fail (
+                                       JsonError :: VALUE_NOT_UINT ) } ; } d !
+                                       ( end cbor coap_item_int_val ) ; } } ;
+                                       (
+                                       @ json $ context : ident , $ val0 :
                                        expr ) => {
                                        {
                                        d ! (
-                                       begin json coap_item_int_val , parent :
-                                       $ parent0 , val : $ val0 ) ; d ! (
+                                       begin json coap_item_int_val , c : $
+                                       context , val : $ val0 ) ; d ! (
                                        > TODO : assert (
                                        $ val0 . val_type ==
                                        SENSOR_VALUE_TYPE_INT32 ) ) ; d ! (
                                        > TODO : coap_item_int (
-                                       @ json $ parent0 , $ val0 . key , $
+                                       @ json $ context , $ val0 . key , $
                                        val0 . int_val ) ) ; if let
                                        SensorValueType :: Uint ( val ) = $
                                        val0 . val {
                                        coap_item_int ! (
-                                       @ json $ parent0 , $ val0 . key , val )
-                                       ; } else { assert ! ( false ) ; } d ! (
-                                       end json coap_item_int_val ) ; } } ;);
+                                       @ json $ context , $ val0 . key , val )
+                                       ; } else {
+                                       unsafe {
+                                       $ context . fail (
+                                       JsonError :: VALUE_NOT_UINT ) } ; } d !
+                                       ( end json coap_item_int_val ) ; } }
+                                       ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
         ///  ```
         ///  {a:b --> {a:b, key:[
@@ -604,16 +618,16 @@ mod mynewt {
         ///  [... --> [...,
         ///  ```
         #[macro_export]
-        macro_rules! json_rep_object_array_start_item((
-                                                      $ context : ident , $
-                                                      key : ident ) => {
+        macro_rules! json_rep_object_array_start_item(( $ context : ident ) =>
+                                                      {
                                                       {
                                                       concat ! (
-                                                      "<< jitmi" , " k: " ,
-                                                      stringify ! ( $ key ) )
-                                                      ; let key_with_null : &
-                                                      str = stringify_null ! (
-                                                      $ key ) ; unsafe {
+                                                      "<< jitmi" , " c: " ,
+                                                      stringify ! ( $ context
+                                                      ) ) ; let key_with_null
+                                                      : & str = stringify_null
+                                                      ! ( $ context ) ; unsafe
+                                                      {
                                                       mynewt_rust ::
                                                       json_helper_object_array_start_item
                                                       (
@@ -621,14 +635,14 @@ mod mynewt {
                                                       (
                                                       key_with_null . as_bytes
                                                       (  ) ) ) } ; } } ; (
-                                                      $ context : ident , $
-                                                      key : expr ) => {
+                                                      $ context : ident ) => {
                                                       {
                                                       concat ! (
-                                                      "<< jitme" , " k: " ,
-                                                      stringify ! ( $ key ) )
-                                                      ; let key_with_opt_null
-                                                      : & [ u8 ] = $ key .
+                                                      "<< jitme" , " c: " ,
+                                                      stringify ! ( $ context
+                                                      ) ) ; let
+                                                      key_with_opt_null : & [
+                                                      u8 ] = $ context .
                                                       to_bytes_optional_nul (
                                                       ) ; unsafe {
                                                       mynewt_rust ::
@@ -642,26 +656,23 @@ mod mynewt {
         ///  [... --> [...,
         ///  ```
         #[macro_export]
-        macro_rules! json_rep_object_array_end_item((
-                                                    $ context : ident , $ key
-                                                    : ident ) => {
+        macro_rules! json_rep_object_array_end_item(( $ context : ident ) => {
                                                     {
                                                     concat ! ( ">>" ) ; let
                                                     key_with_null : & str =
-                                                    stringify_null ! ( $ key )
-                                                    ; unsafe {
+                                                    stringify_null ! (
+                                                    $ context ) ; unsafe {
                                                     mynewt_rust ::
                                                     json_helper_object_array_end_item
                                                     (
                                                     $ context . key_to_cstr (
                                                     key_with_null . as_bytes (
                                                      ) ) ) } ; } } ; (
-                                                    $ context : ident , $ key
-                                                    : expr ) => {
+                                                    $ context : ident ) => {
                                                     {
                                                     concat ! ( ">>" ) ; let
                                                     key_with_opt_null : & [ u8
-                                                    ] = $ key .
+                                                    ] = $ context .
                                                     to_bytes_optional_nul (  )
                                                     ; unsafe {
                                                     mynewt_rust ::
@@ -10767,11 +10778,228 @@ mod send_coap {
                                            "src/send_coap.rs", 164u32, 80u32))
             }
         };
+        let _payload =
+            {
+                "begin json root";
+                {
+                    "begin json coap_root";
+                    unsafe { sensor_coap::json_rep_start_root_object() }
+                    {
+                        {
+                            "begin json coap_array , object : JSON_CONTEXT , key : values";
+                            {
+                                "<< jarri , o: JSON_CONTEXT, k: values";
+                                let key_with_null: &str = "values\u{0}";
+                                unsafe {
+                                    mynewt_rust::json_helper_set_array(JSON_CONTEXT.to_void_ptr(),
+                                                                       JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
+                                };
+                            };
+                            {
+                                " >>  >> \"device\" >> : device_id , \"node\" : node_id , sensor_val ,";
+                                "add1 key : \"device\" value : parse!(@ json device_id) to object : JSON_CONTEXT";
+                                {
+                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\nparse!(@ json device_id)";
+                                    {
+                                        "begin json coap_item , array : JSON_CONTEXT";
+                                        {
+                                            "<< jitmi c: JSON_CONTEXT";
+                                            let key_with_null: &str =
+                                                "JSON_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt_rust::json_helper_object_array_start_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        {
+                                            {
+                                                "-- jtxti o: JSON_CONTEXT, k: key, v: \"device\"";
+                                                let key_with_null: &str =
+                                                    "key\u{0}";
+                                                let value_with_opt_null:
+                                                        &[u8] =
+                                                    "device".to_bytes_optional_nul();
+                                                unsafe {
+                                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                                };
+                                            };
+                                            {
+                                                "-- jtxti o: JSON_CONTEXT, k: value, v: parse!(@ json device_id)";
+                                                let key_with_null: &str =
+                                                    "value\u{0}";
+                                                let value_with_opt_null:
+                                                        &[u8] =
+                                                    device_id.to_bytes_optional_nul();
+                                                unsafe {
+                                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                                };
+                                            };
+                                        };
+                                        {
+                                            ">>";
+                                            let key_with_null: &str =
+                                                "JSON_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt_rust::json_helper_object_array_end_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> \"node\" >> : node_id , sensor_val ,";
+                                "add1 key : \"node\" value : parse!(@ json node_id) to object : JSON_CONTEXT";
+                                {
+                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"node\" , val :\nparse!(@ json node_id)";
+                                    {
+                                        "begin json coap_item , array : JSON_CONTEXT";
+                                        {
+                                            "<< jitmi c: JSON_CONTEXT";
+                                            let key_with_null: &str =
+                                                "JSON_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt_rust::json_helper_object_array_start_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        {
+                                            {
+                                                "-- jtxti o: JSON_CONTEXT, k: key, v: \"node\"";
+                                                let key_with_null: &str =
+                                                    "key\u{0}";
+                                                let value_with_opt_null:
+                                                        &[u8] =
+                                                    "node".to_bytes_optional_nul();
+                                                unsafe {
+                                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                                };
+                                            };
+                                            {
+                                                "-- jtxti o: JSON_CONTEXT, k: value, v: parse!(@ json node_id)";
+                                                let key_with_null: &str =
+                                                    "value\u{0}";
+                                                let value_with_opt_null:
+                                                        &[u8] =
+                                                    node_id.to_bytes_optional_nul();
+                                                unsafe {
+                                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                                };
+                                            };
+                                        };
+                                        {
+                                            ">>";
+                                            let key_with_null: &str =
+                                                "JSON_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt_rust::json_helper_object_array_end_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> sensor_val >> ,";
+                                "TODO : extract key , value from _sensor_value : sensor_val and add to _object\n: JSON_CONTEXT";
+                                "--------------------";
+                                {
+                                    "begin json coap_item_int_val , c : JSON_CONTEXT , val : sensor_val";
+                                    "> TODO : assert ( sensor_val . val_type == SENSOR_VALUE_TYPE_INT32 )";
+                                    "> TODO : coap_item_int (\n@ json JSON_CONTEXT , sensor_val . key , sensor_val . int_val )";
+                                    if let SensorValueType::Uint(val) =
+                                           sensor_val.val {
+                                        {
+                                            "begin json coap_item_int , key : sensor_val.key , value : val";
+                                            {
+                                                "begin json coap_item , array : JSON_CONTEXT";
+                                                {
+                                                    "<< jitmi c: JSON_CONTEXT";
+                                                    let key_with_null: &str =
+                                                        "JSON_CONTEXT\u{0}";
+                                                    unsafe {
+                                                        mynewt_rust::json_helper_object_array_start_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                                    };
+                                                };
+                                                {
+                                                    {
+                                                        "-- jtxte o: JSON_CONTEXT, k: \"key\", v: sensor_val.key";
+                                                        let key_with_opt_null:
+                                                                &[u8] =
+                                                            "key".to_bytes_optional_nul();
+                                                        let value_with_opt_null:
+                                                                &[u8] =
+                                                            sensor_val.key.to_bytes_optional_nul();
+                                                        unsafe {
+                                                            mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                                                     JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                                     JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                                        };
+                                                    };
+                                                    {
+                                                        "-- jinte o: JSON_CONTEXT, k: \"value\", v: val";
+                                                        let key_with_opt_null:
+                                                                &[u8] =
+                                                            "value".to_bytes_optional_nul();
+                                                        let value =
+                                                            val as u64;
+                                                        unsafe {
+                                                            mynewt_rust::json_helper_set_int(JSON_CONTEXT.to_void_ptr(),
+                                                                                             JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                             value)
+                                                        };
+                                                    };
+                                                };
+                                                {
+                                                    ">>";
+                                                    let key_with_null: &str =
+                                                        "JSON_CONTEXT\u{0}";
+                                                    unsafe {
+                                                        mynewt_rust::json_helper_object_array_end_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                                    };
+                                                };
+                                                "end json coap_item";
+                                            };
+                                            "end json coap_item_int";
+                                        };
+                                    } else {
+                                        unsafe {
+                                            JSON_CONTEXT.fail(JsonError::VALUE_NOT_UINT)
+                                        };
+                                    }
+                                    "end json coap_item_int_val";
+                                };
+                                "--------------------";
+                            };
+                            {
+                                ">>";
+                                let key_with_null: &str = "values\u{0}";
+                                unsafe {
+                                    mynewt_rust::json_helper_close_array(JSON_CONTEXT.to_void_ptr(),
+                                                                         JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                };
+                            };
+                            "end json coap_array";
+                        };
+                    };
+                    unsafe { sensor_coap::json_rep_end_root_object() }
+                    "end json coap_root";
+                };
+                "end json root";
+                "return json root to caller";
+                ()
+            };
         let rc = unsafe { sensor_network::do_server_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 185u32, 60u32))
+                                           "src/send_coap.rs", 183u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -10823,7 +11051,7 @@ mod send_coap {
             if !(s.len() < JSON_KEY_SIZE) {
                 {
                     ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
-                                               "src/send_coap.rs", 265u32,
+                                               "src/send_coap.rs", 240u32,
                                                9u32))
                 }
             };
@@ -10839,7 +11067,7 @@ mod send_coap {
             if !(s.len() < JSON_VALUE_SIZE) {
                 {
                     ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
-                                               "src/send_coap.rs", 278u32,
+                                               "src/send_coap.rs", 253u32,
                                                9u32))
                 }
             };
@@ -10847,87 +11075,84 @@ mod send_coap {
             self.value_buffer[s.len()] = 0;
             self.value_buffer.as_ptr()
         }
+        /// Fail the encoding with an error
+        pub fn fail(&mut self, err: JsonError) {
+            {
+                match (&err, &JsonError::OK) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`"],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val)
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt)],
+                                                                                             }),
+                                                             &("src/send_coap.rs",
+                                                               261u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+        }
         /// Cast itself as a `*mut c_void`
         pub fn to_void_ptr(&mut self) -> *mut c_void {
             let ptr: *mut JsonContext = self;
             ptr as *mut c_void
         }
     }
-    fn test_json() {
-        let device_id =
-            CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0").unwrap();
-        let node_id = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0").unwrap();
-        let int_sensor_value =
-            SensorValue{key: "t", val: SensorValueType::Uint(2870),};
-        {
-            "begin json coap_array , object : JSON_CONTEXT , key : values";
+    /// Error codes for JSON encoding failure
+    pub enum JsonError {
+
+        /// No error
+        OK = 0,
+
+        /// Encoded value is not unsigned integer
+        VALUE_NOT_UINT = 1,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::fmt::Debug for JsonError {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match (&*self,) {
+                (&JsonError::OK,) => {
+                    let mut debug_trait_builder = f.debug_tuple("OK");
+                    debug_trait_builder.finish()
+                }
+                (&JsonError::VALUE_NOT_UINT,) => {
+                    let mut debug_trait_builder =
+                        f.debug_tuple("VALUE_NOT_UINT");
+                    debug_trait_builder.finish()
+                }
+            }
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::cmp::PartialEq for JsonError {
+        #[inline]
+        fn eq(&self, other: &JsonError) -> bool {
             {
-                "<< jarri , o: JSON_CONTEXT, k: values";
-                let key_with_null: &str = "values\u{0}";
-                unsafe {
-                    mynewt_rust::json_helper_set_array(JSON_CONTEXT.to_void_ptr(),
-                                                       JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
-                };
-            };
-            {
-                {
-                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\ndevice_id";
-                    {
-                        "begin json coap_item , array : JSON_CONTEXT";
-                        {
-                            "<< jitmi k: JSON_CONTEXT";
-                            let key_with_null: &str = "JSON_CONTEXT\u{0}";
-                            unsafe {
-                                mynewt_rust::json_helper_object_array_start_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                            };
-                        };
-                        {
-                            {
-                                "-- jtxti o: JSON_CONTEXT, k: key, v: \"device\"";
-                                let key_with_null: &str = "key\u{0}";
-                                let value_with_opt_null: &[u8] =
-                                    "device".to_bytes_optional_nul();
-                                unsafe {
-                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
-                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
-                                };
-                            };
-                            {
-                                "-- jtxti o: JSON_CONTEXT, k: value, v: device_id";
-                                let key_with_null: &str = "value\u{0}";
-                                let value_with_opt_null: &[u8] =
-                                    device_id.to_bytes_optional_nul();
-                                unsafe {
-                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
-                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
-                                };
-                            };
-                        };
-                        {
-                            ">>";
-                            let key_with_null: &str = "JSON_CONTEXT\u{0}";
-                            unsafe {
-                                mynewt_rust::json_helper_object_array_end_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                            };
-                        };
-                        "end json coap_item";
-                    };
-                    "end json coap_item_str";
-                };
-            };
-            {
-                ">>";
-                let key_with_null: &str = "values\u{0}";
-                unsafe {
-                    mynewt_rust::json_helper_close_array(JSON_CONTEXT.to_void_ptr(),
-                                                         JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                };
-            };
-            "end json coap_array";
-        };
-        ();
+                let __self_vi =
+                    unsafe { ::core::intrinsics::discriminant_value(&*self) }
+                        as isize;
+                let __arg_1_vi =
+                    unsafe { ::core::intrinsics::discriminant_value(&*other) }
+                        as isize;
+                if true && __self_vi == __arg_1_vi {
+                    match (&*self, &*other) { _ => true, }
+                } else { false }
+            }
+        }
     }
     ///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
     ///  transmit to the Collector Node.  The Sensor Value should be integer not float since
@@ -10947,14 +11172,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 382u32, 65u32))
+                                           "src/send_coap.rs", 299u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 395u32, 63u32))
+                                           "src/send_coap.rs", 312u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
