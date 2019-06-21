@@ -133,7 +133,7 @@
 -Itargets/bluepill_my_sensor/src/arch/cortex_m3
 -c
         -CC
-        -E 
+        -E
         -dD
         -o
 logs/libs/sensor_coap-expanded.h

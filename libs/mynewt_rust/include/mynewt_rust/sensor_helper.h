@@ -20,6 +20,7 @@
 
 #ifndef __SENSOR_HELPER_H__
 #define __SENSOR_HELPER_H__
+#include <custom_sensor/custom_sensor.h>  //  For sensor_temp_raw_data
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,7 +31,6 @@ extern "C" {
 struct os_dev;
 struct sensor;
 struct sensor_temp_data;
-struct sensor_temp_raw_data;
 
 ///  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp.
 ///  Copy the sensor data into `dest`.  Return 0 if successful.

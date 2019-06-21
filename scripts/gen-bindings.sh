@@ -35,7 +35,7 @@ function generate_bindings() {
         >> $expandcmd \
         << "EOF"
         -CC
-        -E 
+        -E
         -dD
         -o
 EOF
@@ -92,14 +92,14 @@ function generate_bindings_kernel() {
     #  libdir looks like kernel/os
     local modname=kernel/$libname
     local libdir=kernel/$libname
-    #  libcmd looks like 
+    #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     local whitelist=`cat << EOF
         --whitelist-var      (?i)SYS_E.* \
         --whitelist-function (?i)${prefixname}_.* \
         --whitelist-type     (?i)${prefixname}_.* \
-        --whitelist-var      (?i)${prefixname}_.* 
+        --whitelist-var      (?i)${prefixname}_.*
 EOF
 `
     generate_bindings $libname $modname $libdir $libcmd $whitelist
@@ -126,7 +126,7 @@ function generate_bindings_encoding() {
     #  libdir looks like encoding/tinycbor, encoding/json_encode
     local modname=encoding/$libname
     local libdir=encoding/$libname
-    #  libcmd looks like 
+    #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
     #  bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
@@ -140,7 +140,7 @@ function generate_bindings_encoding() {
             --blacklist-item     CborIndefiniteLength \
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
-            --whitelist-var      (?i)${prefixname}.* 
+            --whitelist-var      (?i)${prefixname}.*
 EOF
 `
     else
@@ -148,7 +148,7 @@ EOF
         local whitelist=`cat << EOF
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
-            --whitelist-var      (?i)${prefixname}.* 
+            --whitelist-var      (?i)${prefixname}.*
 EOF
 `
     fi
@@ -167,14 +167,28 @@ function generate_bindings_hw() {
     local modname=hw/$libname/bindings
     #  libdir looks like hw/sensor
     local libdir=hw/$libname
-    #  libcmd looks like 
+    #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
-    #  Add whitelist only.
+    #  Add whitelist and blacklist.
     local whitelist=`cat << EOF
+        --raw-line use \
+        --raw-line super::super::super::kernel::os::*; \
+        --blacklist-item     os_callout \
+        --blacklist-item     os_dev	\
+        --blacklist-item     os_dev_handlers \
+        --blacklist-item     os_event \
+        --blacklist-item     os_eventq \
+        --blacklist-item     os_memblock \
+        --blacklist-item     os_mempool \
+        --blacklist-item     os_mutex \
+        --blacklist-item     os_sanity_check \
+        --blacklist-item     os_task \
+        --blacklist-item     os_timeval \
+        --blacklist-item     os_timezone \
         --whitelist-function (?i)${prefixname}.* \
         --whitelist-type     (?i)${prefixname}.* \
-        --whitelist-var      (?i)${prefixname}.* 
+        --whitelist-var      (?i)${prefixname}.*
 EOF
 `
     generate_bindings $libname $modname $libdir $libcmd $whitelist
@@ -187,17 +201,17 @@ function generate_bindings_libs() {
     #  srcname: sensor_network, sensor_coap, mynewt_rust
     local srcname=$2
     #  prefixname: sensor_network, sensor_coap, mynewt_rust
-    local prefixname=$3    
+    local prefixname=$3
     #  libdir looks like libs/sensor_network, libs/sensor_coap, libs/mynewt_rust
     local modname=libs/$libname
     local libdir=libs/$libname
-    #  libcmd looks like 
+    #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
     #  bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/json_helper.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$srcname.o.cmd
     if [ "$libname" == 'sensor_network' ]; then
-        #  Add sensor network + whitelist + blacklist.  
+        #  Add sensor network + whitelist + blacklist.
         #  sensor_value is defined in libs/sensor_coap.
         local whitelist=`cat << EOF
             --raw-line use \
@@ -211,11 +225,11 @@ function generate_bindings_libs() {
             --whitelist-function (?i)get_device_id \
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
-            --whitelist-var      (?i)${prefixname}.* 
+            --whitelist-var      (?i)${prefixname}.*
 EOF
 `
     elif [ "$libname" == 'sensor_coap' ]; then
-        #  Add sensor coap + whitelist + blacklist.  
+        #  Add sensor coap + whitelist + blacklist.
         #  json_encoder and json_value are defined in encoding/json.
         local whitelist=`cat << EOF
             --raw-line use \
@@ -231,12 +245,61 @@ EOF
             --whitelist-function (?i)${prefixname}.*
 EOF
 `
+    elif [ "$libname" == 'mynewt_rust' ]; then
+        #  Add mynewt_rust + whitelist + blacklist.
+        local whitelist=`cat << EOF
+            --raw-line use \
+            --raw-line super::super::kernel::os::*; \
+            --raw-line use \
+            --raw-line super::super::hw::sensor::*; \
+            --blacklist-item     os_callout \
+            --blacklist-item     os_dev	\
+            --blacklist-item     os_dev_handlers \
+            --blacklist-item     os_event \
+            --blacklist-item     os_eventq \
+            --blacklist-item     os_memblock \
+            --blacklist-item     os_mempool \
+            --blacklist-item     os_mutex \
+            --blacklist-item     os_sanity_check \
+            --blacklist-item     os_task \
+            --blacklist-item     os_timeval \
+            --blacklist-item     os_timezone \
+            --blacklist-item     sensor \
+            --blacklist-item     sensor_accel_data \
+            --blacklist-item     sensor_cfg \
+            --blacklist-item     sensor_color_data \
+            --blacklist-item     sensor_data_t \
+            --blacklist-item     sensor_driver \
+            --blacklist-item     sensor_euler_data \
+            --blacklist-item     sensor_gyro_data \
+            --blacklist-item     sensor_humid_data \
+            --blacklist-item     sensor_int	\
+            --blacklist-item     sensor_itf	\
+            --blacklist-item     sensor_light_data \
+            --blacklist-item     sensor_listener \
+            --blacklist-item     sensor_mag_data \
+            --blacklist-item     sensor_notifier \
+            --blacklist-item     sensor_press_data \
+            --blacklist-item     sensor_quat_data \
+            --blacklist-item     sensor_timestamp \
+            --blacklist-item     sensor_temp_data \
+            --blacklist-item     sensor_type_traits \
+            --whitelist-function (?i)rust_sysinit \
+            --whitelist-type     (?i)sensor_temp_raw_data \
+            --whitelist-function (?i)device_get_name \
+            --whitelist-function (?i)get_temp_.* \
+            --whitelist-function (?i)is_null_sensor.* \
+            --whitelist-function (?i)null_sensor \
+            --whitelist-function (?i)sensor_get_device \
+            --whitelist-function (?i)json_helper_.*
+EOF
+`
     else
         #  Add whitelist only.
         local whitelist=`cat << EOF
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
-            --whitelist-var      (?i)${prefixname}.* 
+            --whitelist-var      (?i)${prefixname}.*
 EOF
 `
     fi

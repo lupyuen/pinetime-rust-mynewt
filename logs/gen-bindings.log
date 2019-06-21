@@ -1,0 +1,1107 @@
+> Executing task in folder stm32bluepill-mynewt-sensor: bash -c -l ' set -e -x ; ./scripts/gen-bindings.sh ; echo ✅ ◾ ️Done! ' <
+
++ ./scripts/gen-bindings.sh
++ generate_bindings_encoding json json_encode json
++ local libname=json
++ local srcname=json_encode
++ local prefixname=json
++ local modname=encoding/json
++ local libdir=encoding/json
++ local libcmd=bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
++ '[' json == tinycbor ']'
+++ cat
++ local 'whitelist=            --whitelist-function (?i)json.*             --whitelist-type     (?i)json.*             --whitelist-var      (?i)json.* '
++ generate_bindings json encoding/json encoding/json bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd --whitelist-function '(?i)json.*' --whitelist-type '(?i)json.*' --whitelist-var '(?i)json.*'
++ local libname=json
++ local modname=encoding/json
++ local libdir=encoding/json
++ local libcmd=bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
++ shift 4
++ local 'whitelist=--whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*'
++ echo 'whitelist=--whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*'
+whitelist=--whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/encoding/json-expanded.h
++ local expandpath=src/mynewt/encoding/json.rs
++ local tmpexpandpath=src/mynewt/encoding/json.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/encoding/json-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --whitelist-function '(?i)json.*' --whitelist-type '(?i)json.*' --whitelist-var '(?i)json.*' -o src/mynewt/encoding/json.tmp logs/encoding/json-expanded.h
+logs/encoding/json-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/encoding/json-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/encoding/json-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/json-expanded.h:913:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:915:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:916:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:917:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:918:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:921:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:923:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:931:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:933:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:934:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:936:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:937:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:938:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:939:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:940:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:943:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:1063:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/json-expanded.h:1064:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat src/mynewt/encoding/json.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/encoding/json.tmp
++ generate_bindings_encoding tinycbor cborencoder cbor
++ local libname=tinycbor
++ local srcname=cborencoder
++ local prefixname=cbor
++ local modname=encoding/tinycbor
++ local libdir=encoding/tinycbor
++ local libcmd=bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
++ '[' tinycbor == tinycbor ']'
+++ cat
++ local 'whitelist=            --raw-line pub             --raw-line const             --raw-line CborIndefiniteLength:usize=0xffffffffusize;             --blacklist-item     CborIndefiniteLength             --whitelist-function (?i)cbor.*             --whitelist-type     (?i)cbor.*             --whitelist-var      (?i)cbor.* '
++ generate_bindings tinycbor encoding/tinycbor encoding/tinycbor bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd --raw-line pub --raw-line const --raw-line 'CborIndefiniteLength:usize=0xffffffffusize;' --blacklist-item CborIndefiniteLength --whitelist-function '(?i)cbor.*' --whitelist-type '(?i)cbor.*' --whitelist-var '(?i)cbor.*'
++ local libname=tinycbor
++ local modname=encoding/tinycbor
++ local libdir=encoding/tinycbor
++ local libcmd=bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
++ shift 4
++ local 'whitelist=--raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*'
++ echo 'whitelist=--raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*'
+whitelist=--raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/encoding/tinycbor-expanded.h
++ local expandpath=src/mynewt/encoding/tinycbor.rs
++ local tmpexpandpath=src/mynewt/encoding/tinycbor.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/encoding/tinycbor-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line pub --raw-line const --raw-line 'CborIndefiniteLength:usize=0xffffffffusize;' --blacklist-item CborIndefiniteLength --whitelist-function '(?i)cbor.*' --whitelist-type '(?i)cbor.*' --whitelist-var '(?i)cbor.*' -o src/mynewt/encoding/tinycbor.tmp logs/encoding/tinycbor-expanded.h
+logs/encoding/tinycbor-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
+logs/encoding/tinycbor-expanded.h:3931:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3933:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3934:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3935:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3936:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3939:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3941:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3949:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3951:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3952:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3954:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3955:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3956:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3957:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3958:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3961:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:4242:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:4243:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:5713:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:5714:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:5715:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
++ cat src/mynewt/encoding/tinycbor.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/encoding/tinycbor.tmp
++ generate_bindings_kernel os os os
++ local libname=os
++ local srcname=os
++ local prefixname=os
++ local modname=kernel/os
++ local libdir=kernel/os
++ local libcmd=bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
+++ cat
++ local 'whitelist=        --whitelist-var      (?i)SYS_E.*         --whitelist-function (?i)os_.*         --whitelist-type     (?i)os_.*         --whitelist-var      (?i)os_.* '
++ generate_bindings os kernel/os kernel/os bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd --whitelist-var '(?i)SYS_E.*' --whitelist-function '(?i)os_.*' --whitelist-type '(?i)os_.*' --whitelist-var '(?i)os_.*'
++ local libname=os
++ local modname=kernel/os
++ local libdir=kernel/os
++ local libcmd=bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
++ shift 4
++ local 'whitelist=--whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*'
++ echo 'whitelist=--whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*'
+whitelist=--whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/kernel/os-expanded.h
++ local expandpath=src/mynewt/kernel/os.rs
++ local tmpexpandpath=src/mynewt/kernel/os.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/kernel/os-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --whitelist-var '(?i)SYS_E.*' --whitelist-function '(?i)os_.*' --whitelist-type '(?i)os_.*' --whitelist-var '(?i)os_.*' -o src/mynewt/kernel/os.tmp logs/kernel/os-expanded.h
+logs/kernel/os-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/kernel/os-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/kernel/os-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
+logs/kernel/os-expanded.h:3638:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:3639:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:3640:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:4722:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/kernel/os-expanded.h:22551:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22553:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22554:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22555:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22556:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22559:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22561:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22569:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22571:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22572:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22574:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22575:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22576:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22577:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22578:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22581:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22701:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22702:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat src/mynewt/kernel/os.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/kernel/os.tmp
++ generate_bindings_hw sensor sensor sensor
++ local libname=sensor
++ local srcname=sensor
++ local prefixname=sensor
++ local modname=hw/sensor/bindings
++ local libdir=hw/sensor
++ local libcmd=bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
+++ cat
++ local 'whitelist=        --whitelist-function (?i)sensor.*         --whitelist-type     (?i)sensor.*         --whitelist-var      (?i)sensor.* '
++ generate_bindings sensor hw/sensor/bindings hw/sensor bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd --whitelist-function '(?i)sensor.*' --whitelist-type '(?i)sensor.*' --whitelist-var '(?i)sensor.*'
++ local libname=sensor
++ local modname=hw/sensor/bindings
++ local libdir=hw/sensor
++ local libcmd=bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
++ shift 4
++ local 'whitelist=--whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*'
++ echo 'whitelist=--whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*'
+whitelist=--whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/hw/sensor/bindings-expanded.h
++ local expandpath=src/mynewt/hw/sensor/bindings.rs
++ local tmpexpandpath=src/mynewt/hw/sensor/bindings.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/hw/sensor/bindings-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --whitelist-function '(?i)sensor.*' --whitelist-type '(?i)sensor.*' --whitelist-var '(?i)sensor.*' -o src/mynewt/hw/sensor/bindings.tmp logs/hw/sensor/bindings-expanded.h
+logs/hw/sensor/bindings-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:757:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:759:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:760:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:761:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:762:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:765:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:767:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:775:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:777:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:778:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:780:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:781:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:782:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:783:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:784:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:787:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:5178:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:5179:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:5180:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:6262:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:24151:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:24152:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat src/mynewt/hw/sensor/bindings.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/hw/sensor/bindings.tmp
++ generate_bindings_libs mynewt_rust mynewt_rust mynewt_rust
++ local libname=mynewt_rust
++ local srcname=mynewt_rust
++ local prefixname=mynewt_rust
++ local modname=libs/mynewt_rust
++ local libdir=libs/mynewt_rust
++ local libcmd=bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
++ '[' mynewt_rust == sensor_network ']'
++ '[' mynewt_rust == sensor_coap ']'
++ '[' mynewt_rust == mynewt_rust ']'
+++ cat
++ local 'whitelist=            --raw-line use             --raw-line super::super::encoding::json::*;             --blacklist-item     json_encoder             --blacklist-item     json_value             --whitelist-function (?i)rust_sysinit             --whitelist-function (?i)device_get_name             --whitelist-function (?i)get_temp_.*             --whitelist-function (?i)is_null_sensor.*             --whitelist-function (?i)null_sensor             --whitelist-function (?i)sensor_get_device             --whitelist-function (?i)json_helper_.*'
++ generate_bindings mynewt_rust libs/mynewt_rust libs/mynewt_rust bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-function '(?i)rust_sysinit' --whitelist-function '(?i)device_get_name' --whitelist-function '(?i)get_temp_.*' --whitelist-function '(?i)is_null_sensor.*' --whitelist-function '(?i)null_sensor' --whitelist-function '(?i)sensor_get_device' --whitelist-function '(?i)json_helper_.*'
++ local libname=mynewt_rust
++ local modname=libs/mynewt_rust
++ local libdir=libs/mynewt_rust
++ local libcmd=bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
++ shift 4
++ local 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-function (?i)rust_sysinit --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*'
++ echo 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-function (?i)rust_sysinit --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*'
+whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-function (?i)rust_sysinit --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/libs/mynewt_rust-expanded.h
++ local expandpath=src/mynewt/libs/mynewt_rust.rs
++ local tmpexpandpath=src/mynewt/libs/mynewt_rust.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/libs/mynewt_rust-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-function '(?i)rust_sysinit' --whitelist-function '(?i)device_get_name' --whitelist-function '(?i)get_temp_.*' --whitelist-function '(?i)is_null_sensor.*' --whitelist-function '(?i)null_sensor' --whitelist-function '(?i)sensor_get_device' --whitelist-function '(?i)json_helper_.*' -o src/mynewt/libs/mynewt_rust.tmp logs/libs/mynewt_rust-expanded.h
+logs/libs/mynewt_rust-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
++ cat src/mynewt/libs/mynewt_rust.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/libs/mynewt_rust.tmp
++ generate_bindings_libs sensor_network sensor_network sensor_network
++ local libname=sensor_network
++ local srcname=sensor_network
++ local prefixname=sensor_network
++ local modname=libs/sensor_network
++ local libdir=libs/sensor_network
++ local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
++ '[' sensor_network == sensor_network ']'
+++ cat
++ local 'whitelist=            --raw-line use             --raw-line super::sensor_coap::*;             --blacklist-item     sensor_value             --whitelist-function (?i)init_.*_post             --whitelist-function (?i)do_.*_post             --whitelist-function (?i)is_.*_node             --whitelist-function (?i)register_.*_transport             --whitelist-function (?i)should_send_to_.*             --whitelist-function (?i)get_device_id             --whitelist-function (?i)sensor_network.*             --whitelist-type     (?i)sensor_network.*             --whitelist-var      (?i)sensor_network.* '
++ generate_bindings sensor_network libs/sensor_network libs/sensor_network bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd --raw-line use --raw-line 'super::sensor_coap::*;' --blacklist-item sensor_value --whitelist-function '(?i)init_.*_post' --whitelist-function '(?i)do_.*_post' --whitelist-function '(?i)is_.*_node' --whitelist-function '(?i)register_.*_transport' --whitelist-function '(?i)should_send_to_.*' --whitelist-function '(?i)get_device_id' --whitelist-function '(?i)sensor_network.*' --whitelist-type '(?i)sensor_network.*' --whitelist-var '(?i)sensor_network.*'
++ local libname=sensor_network
++ local modname=libs/sensor_network
++ local libdir=libs/sensor_network
++ local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
++ shift 4
++ local 'whitelist=--raw-line use --raw-line super::sensor_coap::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*'
++ echo 'whitelist=--raw-line use --raw-line super::sensor_coap::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*'
+whitelist=--raw-line use --raw-line super::sensor_coap::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/libs/sensor_network-expanded.h
++ local expandpath=src/mynewt/libs/sensor_network.rs
++ local tmpexpandpath=src/mynewt/libs/sensor_network.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/libs/sensor_network-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::sensor_coap::*;' --blacklist-item sensor_value --whitelist-function '(?i)init_.*_post' --whitelist-function '(?i)do_.*_post' --whitelist-function '(?i)is_.*_node' --whitelist-function '(?i)register_.*_transport' --whitelist-function '(?i)should_send_to_.*' --whitelist-function '(?i)get_device_id' --whitelist-function '(?i)sensor_network.*' --whitelist-type '(?i)sensor_network.*' --whitelist-var '(?i)sensor_network.*' -o src/mynewt/libs/sensor_network.tmp logs/libs/sensor_network-expanded.h
+logs/libs/sensor_network-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_network-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_network-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_network-expanded.h:3509:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3511:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3512:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3513:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3514:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3517:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3519:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3527:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3529:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3530:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3532:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3533:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3534:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3535:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3536:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3539:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:4100:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:4101:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:4102:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:5184:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_network-expanded.h:23069:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:23070:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat src/mynewt/libs/sensor_network.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/libs/sensor_network.tmp
++ generate_bindings_libs sensor_coap sensor_coap sensor_coap
++ local libname=sensor_coap
++ local srcname=sensor_coap
++ local prefixname=sensor_coap
++ local modname=libs/sensor_coap
++ local libdir=libs/sensor_coap
++ local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
++ '[' sensor_coap == sensor_network ']'
++ '[' sensor_coap == sensor_coap ']'
+++ cat
++ local 'whitelist=            --raw-line use             --raw-line super::super::encoding::json::*;             --blacklist-item     json_encoder             --blacklist-item     json_value             --whitelist-type     (?i)sensor_value             --whitelist-function (?i)init_sensor_.*             --whitelist-function (?i)sensor_coap_.*             --whitelist-function (?i)do_sensor_.*             --whitelist-var      (?i)coap_.*             --whitelist-function (?i)json_rep_.*             --whitelist-function (?i)sensor_coap.*'
++ generate_bindings sensor_coap libs/sensor_coap libs/sensor_coap bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-type '(?i)sensor_value' --whitelist-function '(?i)init_sensor_.*' --whitelist-function '(?i)sensor_coap_.*' --whitelist-function '(?i)do_sensor_.*' --whitelist-var '(?i)coap_.*' --whitelist-function '(?i)json_rep_.*' --whitelist-function '(?i)sensor_coap.*'
++ local libname=sensor_coap
++ local modname=libs/sensor_coap
++ local libdir=libs/sensor_coap
++ local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
++ shift 4
++ local 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*'
++ echo 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*'
+whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*
++ local expandcmd=logs/gen-bindings.txt
++ local expandfile=logs/libs/sensor_coap-expanded.h
++ local expandpath=src/mynewt/libs/sensor_coap.rs
++ local tmpexpandpath=src/mynewt/libs/sensor_coap.tmp
++ tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
++ sed '/^-o/,$ d'
++ cat
++ echo logs/libs/sensor_coap-expanded.h
++ tail -1 bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
++ arm-none-eabi-gcc @logs/gen-bindings.txt
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-type '(?i)sensor_value' --whitelist-function '(?i)init_sensor_.*' --whitelist-function '(?i)sensor_coap_.*' --whitelist-function '(?i)do_sensor_.*' --whitelist-var '(?i)coap_.*' --whitelist-function '(?i)json_rep_.*' --whitelist-function '(?i)sensor_coap.*' -o src/mynewt/libs/sensor_coap.tmp logs/libs/sensor_coap-expanded.h
+logs/libs/sensor_coap-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:23:9: warning: '__SIZEOF_LONG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:28:9: warning: '__SIZEOF_LONG_DOUBLE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:29:9: warning: '__SIZEOF_SIZE_T__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:31:9: warning: '__BIGGEST_ALIGNMENT__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:37:9: warning: '__SIZEOF_POINTER__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:38:9: warning: '__SIZE_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:39:9: warning: '__PTRDIFF_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:40:9: warning: '__WCHAR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:41:9: warning: '__WINT_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:42:9: warning: '__INTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:43:9: warning: '__UINTMAX_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:44:9: warning: '__CHAR16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:45:9: warning: '__CHAR32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:48:9: warning: '__INT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:49:9: warning: '__INT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:52:9: warning: '__UINT16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:53:9: warning: '__UINT32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:56:9: warning: '__INT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:57:9: warning: '__INT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:58:9: warning: '__INT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:60:9: warning: '__UINT_LEAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:61:9: warning: '__UINT_LEAST32_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:62:9: warning: '__UINT_LEAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:63:9: warning: '__INT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:64:9: warning: '__INT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:66:9: warning: '__INT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:67:9: warning: '__UINT_FAST8_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:68:9: warning: '__UINT_FAST16_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:70:9: warning: '__UINT_FAST64_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:71:9: warning: '__INTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:72:9: warning: '__UINTPTR_TYPE__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:73:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:74:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:75:9: warning: '__GXX_ABI_VERSION' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:76:9: warning: '__SCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:77:9: warning: '__SHRT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:78:9: warning: '__INT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:79:9: warning: '__LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:80:9: warning: '__LONG_LONG_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:81:9: warning: '__WCHAR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:83:9: warning: '__WINT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:85:9: warning: '__PTRDIFF_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:86:9: warning: '__SIZE_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:94:9: warning: '__PTRDIFF_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:95:9: warning: '__SIZE_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:96:9: warning: '__INTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:98:9: warning: '__UINTMAX_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:101:9: warning: '__SIG_ATOMIC_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:104:9: warning: '__INT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:105:9: warning: '__INT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:106:9: warning: '__INT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:107:9: warning: '__INT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:108:9: warning: '__UINT8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:109:9: warning: '__UINT16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:110:9: warning: '__UINT32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:111:9: warning: '__UINT64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:112:9: warning: '__INT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:115:9: warning: '__INT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:118:9: warning: '__INT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:121:9: warning: '__INT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:124:9: warning: '__UINT_LEAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:126:9: warning: '__UINT_LEAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:128:9: warning: '__UINT_LEAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:130:9: warning: '__UINT_LEAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:132:9: warning: '__INT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:134:9: warning: '__INT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:136:9: warning: '__INT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:138:9: warning: '__INT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:140:9: warning: '__UINT_FAST8_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:141:9: warning: '__UINT_FAST16_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:142:9: warning: '__UINT_FAST32_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:143:9: warning: '__UINT_FAST64_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:144:9: warning: '__INTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:145:9: warning: '__INTPTR_WIDTH__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:146:9: warning: '__UINTPTR_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:160:9: warning: '__FLT_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:161:9: warning: '__FLT_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:162:9: warning: '__FLT_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:163:9: warning: '__FLT_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:174:9: warning: '__DBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:175:9: warning: '__DBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:176:9: warning: '__DBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:177:9: warning: '__DBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:181:9: warning: '__LDBL_MANT_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:182:9: warning: '__LDBL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:183:9: warning: '__LDBL_MIN_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:184:9: warning: '__LDBL_MIN_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:185:9: warning: '__LDBL_MAX_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:186:9: warning: '__LDBL_MAX_10_EXP__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:187:9: warning: '__DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:188:9: warning: '__LDBL_DECIMAL_DIG__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:189:9: warning: '__LDBL_MAX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:190:9: warning: '__LDBL_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:191:9: warning: '__LDBL_EPSILON__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:3633:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:3634:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:3635:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:4717:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:22546:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22548:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22549:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22550:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22551:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22554:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22556:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22564:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22566:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22567:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22569:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22570:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22571:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22572:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22573:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22576:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22696:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22697:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat src/mynewt/libs/sensor_coap.tmp
++ sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
++ sed 's/@return /Return: /'
++ sed 's/@code{.c}/```c/'
++ sed 's/@code/```/'
++ sed 's/@endcode/```/'
++ sed s/@note/__Note:__/
++ rm src/mynewt/libs/sensor_coap.tmp
++ exit
++ echo $'�\234\205' $'�\227�' '️Done!'
+✅ ◾ ️Done!
