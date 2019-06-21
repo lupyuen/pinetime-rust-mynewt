@@ -520,23 +520,23 @@ macro_rules! coap_item_str {
   }};
 }
 
-///  Append an array item under the array named `array0`.  Add `children0` as the items (key and value).
+///  Append an array item under the current object item.  Add `children0` as the array items.
 ///    `{ <array0>: [ ..., { <children0> } ] }`
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item {
-  (@cbor $array0:ident, $children0:block) => {{  //  CBOR
-    d!(begin cbor coap_item, array: $array0);
-    oc_rep_object_array_start_item!($array0, $array0);  //  TODO
+  (@cbor $context:ident, $children0:block) => {{  //  CBOR
+    d!(begin cbor coap_item, array: $context);
+    oc_rep_object_array_start_item!($context);
     $children0;
-    oc_rep_object_array_end_item!($array0, $array0);  //  TODO
+    oc_rep_object_array_end_item!($context);
     d!(end cbor coap_item);
   }};
 
-  (@json $array0:ident, $children0:block) => {{  //  JSON
-    d!(begin json coap_item, array: $array0);
-    json_rep_object_array_start_item!($array0, $array0);
+  (@json $context:ident, $children0:block) => {{  //  JSON
+    d!(begin json coap_item, array: $context);
+    json_rep_object_array_start_item!($context);
     $children0;
-    json_rep_object_array_end_item!($array0, $array0);
+    json_rep_object_array_end_item!($context);
     d!(end json coap_item);
   }};
 }
@@ -675,13 +675,13 @@ macro_rules! json_rep_close_array {
 ///  ```
 #[macro_export]
 macro_rules! json_rep_object_array_start_item {
-  ($context:ident, $key:ident) => {{  //  If $key is identifier...
+  ($context:ident) => {{  //  If $key is identifier...
     concat!(
       "<< jitmi",
-      " k: ", stringify!($key)
+      " c: ", stringify!($context)
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($key);    
+    let key_with_null: &str = stringify_null!($context);    //  TODO
     unsafe { 
       mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_null.as_bytes())
@@ -689,13 +689,13 @@ macro_rules! json_rep_object_array_start_item {
     };
   }};
 
-  ($context:ident, $key:expr) => {{  //  If $key is expression...
+  ($context:ident) => {{  //  If $key is expression...
     concat!(
       "<< jitme",
-      " k: ", stringify!($key)
+      " c: ", stringify!($context)
     );
     //  Convert key char array, which may or may not be null-terminated.
-    let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
+    let key_with_opt_null: &[u8] = $context.to_bytes_optional_nul();  //  TODO
     unsafe { 
       mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_opt_null)
@@ -710,12 +710,12 @@ macro_rules! json_rep_object_array_start_item {
 ///  ```
 #[macro_export]
 macro_rules! json_rep_object_array_end_item {
-  ($context:ident, $key:ident) => {{  //  If $key is identifier...
+  ($context:ident) => {{  //  If $key is identifier...
     concat!(
       ">>"
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($key);
+    let key_with_null: &str = stringify_null!($context);  //  TODO
     unsafe { 
       mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_null.as_bytes())
@@ -723,12 +723,12 @@ macro_rules! json_rep_object_array_end_item {
     };
   }};
 
-  ($context:ident, $key:expr) => {{  //  If $key is expression...
+  ($context:ident) => {{  //  If $key is expression...
     concat!(
       ">>"
     );
     //  Convert key char array, which may or may not be null-terminated.
-    let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
+    let key_with_opt_null: &[u8] = $context.to_bytes_optional_nul();  //  TODO
     unsafe { 
       mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_opt_null)
