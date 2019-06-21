@@ -321,13 +321,13 @@ fn test_json() {
   //trace_macros!(true);
   //let a = stringify_null!(device);
 
-  json_rep_set_text_string!(JSON_CONTEXT, device1, device_id);
+  //json_rep_set_text_string!(JSON_CONTEXT, device1, device_id);
 
-  json_rep_set_text_string!(JSON_CONTEXT, "device2", device_id);
+  //json_rep_set_text_string!(JSON_CONTEXT, "device2", device_id);
 
-  // coap_item_str! (@json context, "device", device_id);
+  //coap_item_str! (@json JSON_CONTEXT, "device", device_id);
 
-  //  coap_set_int_val! (@json root, int_sensor_value);
+  coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
 
   /*
   coap_array! (@json root, values, {  //  Create "values" as an array of items under the root

@@ -609,7 +609,7 @@ mod mynewt {
                                               $ object ) , ", k: " , stringify
                                               ! ( $ key ) , ", v: " ,
                                               stringify ! ( $ value ) ) ; let
-                                              key_with_null : & [ u8 ] =
+                                              key_with_null : & str =
                                               stringify_null ! ( $ key ) ; let
                                               value_with_opt_null : & [ u8 ] =
                                               $ value . to_bytes_optional_nul
@@ -618,8 +618,8 @@ mod mynewt {
                                               json_helper_set_text_string (
                                               $ object . to_void_ptr (  ) , $
                                               object . key_to_cstr (
-                                              key_with_null ) , $ object .
-                                              value_to_cstr (
+                                              key_with_null . as_bytes (  ) )
+                                              , $ object . value_to_cstr (
                                               value_with_opt_null ) ) } ; } }
                                               ; (
                                               $ object : ident , $ key : expr
@@ -10751,6 +10751,9 @@ mod send_coap {
     impl ToBytesOptionalNull for str {
         fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
     }
+    impl ToBytesOptionalNull for &str {
+        fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+    }
     impl ToBytesOptionalNull for CStr {
         fn to_bytes_optional_nul(&self) -> &[u8] { self.to_bytes_with_nul() }
     }
@@ -10763,7 +10766,7 @@ mod send_coap {
             if !(s.len() < JSON_KEY_SIZE) {
                 {
                     ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
-                                               "src/send_coap.rs", 259u32,
+                                               "src/send_coap.rs", 265u32,
                                                9u32))
                 }
             };
@@ -10779,7 +10782,7 @@ mod send_coap {
             if !(s.len() < JSON_VALUE_SIZE) {
                 {
                     ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
-                                               "src/send_coap.rs", 272u32,
+                                               "src/send_coap.rs", 278u32,
                                                9u32))
                 }
             };
@@ -10801,12 +10804,12 @@ mod send_coap {
             SensorValue{key: "t", val: SensorValueType::Uint(2870),};
         {
             "jtxti o: JSON_CONTEXT, k: device1, v: device_id";
-            let key_with_null: &[u8] = "device1\u{0}";
+            let key_with_null: &str = "device1\u{0}";
             let value_with_opt_null: &[u8] =
                 device_id.to_bytes_optional_nul();
             unsafe {
                 mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                         JSON_CONTEXT.key_to_cstr(key_with_null),
+                                                         JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
                                                          JSON_CONTEXT.value_to_cstr(value_with_opt_null))
             };
         };
@@ -10820,6 +10823,52 @@ mod send_coap {
                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
                                                          JSON_CONTEXT.value_to_cstr(value_with_opt_null))
             };
+        };
+        {
+            "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\ndevice_id";
+            {
+                "begin json coap_item , array : JSON_CONTEXT";
+                {
+                    "begin json_rep_object_array_start_item , key: JSON_CONTEXT, child: JSON_CONTEXT_array";
+                    unsafe {
+                        json::json_encode_object_start(&mut coap_json_encoder)
+                    };
+                    "end json_rep_object_array_start_item";
+                };
+                {
+                    {
+                        "jtxti o: JSON_CONTEXT, k: key, v: \"device\"";
+                        let key_with_null: &str = "key\u{0}";
+                        let value_with_opt_null: &[u8] =
+                            "device".to_bytes_optional_nul();
+                        unsafe {
+                            mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                     JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                     JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                        };
+                    };
+                    {
+                        "jtxti o: JSON_CONTEXT, k: value, v: device_id";
+                        let key_with_null: &str = "value\u{0}";
+                        let value_with_opt_null: &[u8] =
+                            device_id.to_bytes_optional_nul();
+                        unsafe {
+                            mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                     JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                     JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                        };
+                    };
+                };
+                {
+                    "begin json_rep_object_array_end_item , key: JSON_CONTEXT, child: JSON_CONTEXT_array";
+                    unsafe {
+                        json::json_encode_object_finish(&mut coap_json_encoder)
+                    };
+                    "end json_rep_object_array_end_item";
+                };
+                "end json coap_item";
+            };
+            "end json coap_item_str";
         };
         ();
     }
@@ -10841,14 +10890,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 378u32, 65u32))
+                                           "src/send_coap.rs", 384u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 391u32, 63u32))
+                                           "src/send_coap.rs", 397u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
