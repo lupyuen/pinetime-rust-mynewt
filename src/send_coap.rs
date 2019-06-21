@@ -26,6 +26,7 @@ use crate::mynewt::{
         },         
     },
     libs::{
+        mynewt_rust,      //  Import Mynewt Rust Helper API
         sensor_coap::{    //  Import Mynewt Sensor CoAP API
             self,
             coap_json_encoder,  //  Global JSON encoder
@@ -191,8 +192,9 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     Ok(())
 }
 
-struct Context {
-  val: i32,
+pub struct JsonContext {
+  pub val: i32,
+  pub ptr: &'static mut JsonContext,
 }
 
 fn test_json() {
@@ -203,13 +205,14 @@ fn test_json() {
     key: "t",
     val: SensorValueType::Uint(2870)
   };
-  let mut context = Context{ val: 0 };
+  let mut context = JsonContext{ val: 0 };
+  context.ptr.as_ptr();
 
   //trace_macros!(true);
 
-  let a = stringify_null!(device);
+  //let a = stringify_null!(device);
 
-  // json_rep_set_text_string!(context, device1, device_id);
+  json_rep_set_text_string!(context, device1, device_id);
 
   // json_rep_set_text_string!(context, "device2", device_id);
 

@@ -683,28 +683,28 @@ macro_rules! json_rep_set_int {
 macro_rules! json_rep_set_text_string {
   ($object:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
-      "begin json_rep_set_text_string ident",
+      "json_rep_set_text_string ident",
       ", object: ", stringify!($object),
       ", key: ",    stringify!($key),
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    json_value_string!(coap_json_value, $value); 
-    unsafe { json::json_encode_object_entry(&mut coap_json_encoder, stringify_null!($key), &mut coap_json_value) };
-    d!(end json_rep_set_text_string);
+    mynewt_rust::json_helper_set_text_string($object.ptr, stringify_null!($key).as_ptr(), $value.as_ptr());
+    //  json_value_string!(coap_json_value, $value); 
+    //  unsafe { json::json_encode_object_entry(&mut coap_json_encoder, stringify_null!($key), &mut coap_json_value) };
   }};
 
   ($object:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
     concat!(
-      "begin json_rep_set_text_string expr",
+      "json_rep_set_text_string expr",
       ", object: ", stringify!($object),
       ", key: ",    stringify!($key),
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    json_value_string!(coap_json_value, $value); 
-    ////TODO unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
-    d!(end json_rep_set_text_string);
+    mynewt_rust::json_helper_set_text_string($object.as_mut_ptr(), $key.as_ptr(), $value.as_ptr());
+    //  json_value_string!(coap_json_value, $value); 
+    //  unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
   }};
 }
 
