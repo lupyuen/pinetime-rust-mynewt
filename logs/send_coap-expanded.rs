@@ -383,12 +383,9 @@
                                 };
                                 "--------------------";
                                 " >>  >> sensor_val >> ,";
-                                "TODO : extract key , value from _sensor_value : sensor_val and add to _object\n: JSON_CONTEXT";
                                 "--------------------";
                                 {
                                     "begin json coap_item_int_val , c : JSON_CONTEXT , val : sensor_val";
-                                    "> TODO : assert ( sensor_val . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                    "> TODO : coap_item_int (\n@ json JSON_CONTEXT , sensor_val . key , sensor_val . int_val )";
                                     if let SensorValueType::Uint(val) =
                                            sensor_val.val {
                                         {
@@ -468,7 +465,6 @@
                     "end json coap_root";
                 };
                 "end json root";
-                "return json root to caller";
                 ()
             };
         let rc = unsafe { sensor_network::do_server_post() };
@@ -502,11 +498,70 @@
                                            "src/send_coap.rs", 217u32, 65u32))
             }
         };
+        let _payload =
+            {
+                "begin cbor root";
+                {
+                    "begin cbor coap_root";
+                    {
+                        "begin oc_rep_start_root_object";
+                        unsafe {
+                            tinycbor::cbor_encoder_create_map(&mut g_encoder,
+                                                              &mut root_map,
+                                                              tinycbor::CborIndefiniteLength)
+                        };
+                        "end oc_rep_start_root_object";
+                    };
+                    {
+                        " >>  >> sensor_val >> ,";
+                        "--------------------";
+                        {
+                            "begin cbor coap_set_int_val , c : JSON_CONTEXT , val : sensor_val";
+                            if let SensorValueType::Uint(val) = sensor_val.val
+                                   {
+                                {
+                                    "-- cinte c: JSON_CONTEXT, k: sensor_val.key, v: val";
+                                    let key_with_opt_null: &[u8] =
+                                        sensor_val.key.to_bytes_optional_nul();
+                                    let value = val as i64;
+                                    unsafe {
+                                        let encoder =
+                                            JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                 "_map");
+                                        tinycbor::cbor_encode_text_string(encoder,
+                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                        tinycbor::cbor_encode_int(encoder,
+                                                                  value);
+                                    }
+                                };
+                            } else {
+                                unsafe {
+                                    JSON_CONTEXT.fail(json_context::JsonError::VALUE_NOT_UINT)
+                                };
+                            }
+                            "end cbor coap_set_int_val";
+                        };
+                        "--------------------";
+                    };
+                    {
+                        "begin oc_rep_end_root_object";
+                        unsafe {
+                            tinycbor::cbor_encoder_close_container(&mut g_encoder,
+                                                                   &mut root_map);
+                        }
+                        "end oc_rep_end_root_object";
+                    };
+                    "end cbor coap_root";
+                };
+                "end cbor root";
+                ()
+            };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 230u32, 63u32))
+                                           "src/send_coap.rs", 228u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

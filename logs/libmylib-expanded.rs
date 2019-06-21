@@ -222,9 +222,6 @@ mod mynewt {
                            @ json @ object $ object : ident (
                            $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
                            $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                           d ! (
-                           TODO : extract key , value from _sensor_value : $ (
-                           $ key ) * and add to _object : $ object ) ;
                            "--------------------" ; coap_item_int_val ! (
                            @ json $ object , $ ( $ key ) * ) ;
                            "--------------------" ; parse ! (
@@ -233,9 +230,6 @@ mod mynewt {
                            @ cbor @ object $ object : ident (
                            $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
                            $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                           d ! (
-                           TODO : extract key , value from _sensor_value : $ (
-                           $ key ) * and add to _object : $ object ) ;
                            "--------------------" ; coap_set_int_val ! (
                            @ cbor $ object , $ ( $ key ) * ) ;
                            "--------------------" ; parse ! (
@@ -343,17 +337,16 @@ mod mynewt {
                            parse ! (
                            @ json @ object JSON_CONTEXT (  ) ( $ ( $ tt ) + )
                            ( $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! (
-                           end json root ) ; d ! ( return json root to caller
-                           ) ; (  ) } } ; ( @ cbor { $ ( $ tt : tt ) + } ) =>
-                           {
+                           end json root ) ; (  ) } } ; (
+                           @ cbor { $ ( $ tt : tt ) + } ) => {
                            {
                            d ! ( begin cbor root ) ; coap_root ! (
                            @ cbor {
                            parse ! (
-                           @ cbor @ object root (  ) ( $ ( $ tt ) + ) (
-                           $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ; d
-                           ! ( return cbor root to caller ) ; root } } ; (
-                           @ $ enc : ident $ other : expr ) => { $ other } ;);
+                           @ cbor @ object JSON_CONTEXT (  ) ( $ ( $ tt ) + )
+                           ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ;
+                           (  ) } } ; ( @ $ enc : ident $ other : expr ) => {
+                           $ other } ;);
         ///  TODO: Parse the vector e.g. array items
         #[macro_export]
         #[doc(hidden)]
@@ -536,13 +529,7 @@ mod mynewt {
                                        {
                                        d ! (
                                        begin json coap_item_int_val , c : $
-                                       context , val : $ val0 ) ; d ! (
-                                       > TODO : assert (
-                                       $ val0 . val_type ==
-                                       SENSOR_VALUE_TYPE_INT32 ) ) ; d ! (
-                                       > TODO : coap_item_int (
-                                       @ json $ context , $ val0 . key , $
-                                       val0 . int_val ) ) ; if let
+                                       context , val : $ val0 ) ; if let
                                        SensorValueType :: Uint ( val ) = $
                                        val0 . val {
                                        coap_item_int ! (
@@ -768,16 +755,19 @@ mod mynewt {
                                               d ! (
                                               begin oc_rep_start_root_object )
                                               ; unsafe {
+                                              tinycbor ::
                                               cbor_encoder_create_map (
                                               & mut g_encoder , & mut root_map
-                                              , CborIndefiniteLength ) } ; d !
-                                              ( end oc_rep_start_root_object )
-                                              ; } } ;);
+                                              , tinycbor ::
+                                              CborIndefiniteLength ) } ; d ! (
+                                              end oc_rep_start_root_object ) ;
+                                              } } ;);
         #[macro_export(local_inner_macros)]
         macro_rules! oc_rep_end_root_object((  ) => {
                                             {
                                             d ! ( begin oc_rep_end_root_object
                                             ) ; unsafe {
+                                            tinycbor ::
                                             cbor_encoder_close_container (
                                             & mut g_encoder , & mut root_map )
                                             ; } d ! (
@@ -795,7 +785,7 @@ mod mynewt {
                                          ", key: " , stringify ! ( $ key ) ,
                                          ", child: " , stringify ! ( $ key ) ,
                                          "_map" ) ; unsafe {
-                                         cbor_encoder_create_map (
+                                         tinycbor :: cbor_encoder_create_map (
                                          & mut $ parent , & mut concat_idents
                                          ! ( $ key , _map ) ,
                                          CborIndefiniteLength ) } ; d ! (
@@ -812,6 +802,7 @@ mod mynewt {
                                        ", key: " , stringify ! ( $ key ) ,
                                        ", child: " , stringify ! ( $ key ) ,
                                        "_map" ) ; unsafe {
+                                       tinycbor ::
                                        cbor_encoder_close_container (
                                        & mut concat_idents ! (
                                        $ parent , $ parent_suffix ) , & mut
@@ -829,7 +820,8 @@ mod mynewt {
                                         ", key: " , stringify ! ( $ key ) ,
                                         ", child: " , stringify ! ( $ key ) ,
                                         "_array" ) ; unsafe {
-                                        cbor_encoder_create_array (
+                                        tinycbor :: cbor_encoder_create_array
+                                        (
                                         & mut concat_idents ! (
                                         $ parent , $ parent_suffix ) , & mut
                                         concat_idents ! ( $ key , _array ) ,
@@ -847,7 +839,8 @@ mod mynewt {
                                       stringify ! ( $ key ) , ", child: " ,
                                       stringify ! ( $ key ) , "_array" ) ;
                                       unsafe {
-                                      cbor_encoder_close_container (
+                                      tinycbor :: cbor_encoder_close_container
+                                      (
                                       & mut $ parent , & mut concat_idents ! (
                                       $ parent , $ parent_suffix ) ) } ; d ! (
                                       end oc_rep_end_array ) ; } } ;);
@@ -928,23 +921,43 @@ mod mynewt {
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
-                                    $ object : ident , $ key : expr , $ value
+                                    $ context : ident , $ key : ident , $
+                                    value : expr ) => {
+                                    {
+                                    concat ! (
+                                    "-- cinti" , " c: " , stringify ! (
+                                    $ context ) , ", k: " , stringify ! (
+                                    $ key ) , ", v: " , stringify ! ( $ value
+                                    ) ) ; let key_with_null : & str =
+                                    stringify_null ! ( $ key ) ; let value = $
+                                    value as i64 ; unsafe {
+                                    let encoder = $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) ;
+                                    tinycbor :: cbor_encode_text_string (
+                                    encoder , $ context . key_to_cstr (
+                                    key_with_null . as_bytes (  ) ) , $
+                                    context . cstr_len (
+                                    key_with_null . as_bytes (  ) ) ) ;
+                                    tinycbor :: cbor_encode_int (
+                                    encoder , value ) ; } } } ; (
+                                    $ context : ident , $ key : expr , $ value
                                     : expr ) => {
                                     {
                                     concat ! (
-                                    "begin oc_rep_set_int " , ", object: " ,
-                                    stringify ! ( $ object ) , ", key: " ,
-                                    stringify ! ( $ key ) , ", value: " ,
-                                    stringify ! ( $ value ) , ", child: " ,
-                                    stringify ! ( $ object ) , "_map" ) ;
-                                    unsafe {
-                                    cbor_encode_text_string (
-                                    & mut concat_idents ! ( $ object , _map )
-                                    , $ key . as_ptr (  ) , $ key . len (  ) )
-                                    ; cbor_encode_int (
-                                    & mut concat_idents ! ( $ object , _map )
-                                    , $ value ) ; } d ! ( end oc_rep_set_int )
-                                    ; } } ;);
+                                    "-- cinte" , " c: " , stringify ! (
+                                    $ context ) , ", k: " , stringify ! (
+                                    $ key ) , ", v: " , stringify ! ( $ value
+                                    ) ) ; let key_with_opt_null : & [ u8 ] = $
+                                    key . to_bytes_optional_nul (  ) ; let
+                                    value = $ value as i64 ; unsafe {
+                                    let encoder = $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) ;
+                                    tinycbor :: cbor_encode_text_string (
+                                    encoder , $ context . key_to_cstr (
+                                    key_with_opt_null ) , $ context . cstr_len
+                                    ( key_with_opt_null ) ) ; tinycbor ::
+                                    cbor_encode_int ( encoder , value ) ; } }
+                                    } ;);
         ///  Encode a text value 
         #[macro_export]
         macro_rules! oc_rep_set_text_string((
@@ -2422,6 +2435,22 @@ mod mynewt {
                     self.value_buffer[s.len()] = 0;
                     self.value_buffer.as_ptr()
                 }
+                /// Compute the byte length of the string in `s`.
+                /// If `s` is null-terminated, return length of `s` - 1. Else return length of `s`.
+                pub fn cstr_len(&self, s: &[u8]) -> usize {
+                    if s.last() == Some(&0) { return s.len() - 1; }
+                    s.len()
+                }
+                /// Return the global CBOR encoder
+                pub fn global_encoder(&self)
+                 -> *mut super::tinycbor::CborEncoder {
+                    unsafe { &mut super::super::g_encoder }
+                }
+                /// TODO: Return the CBOR encoder for the current map or array
+                pub fn encoder(&self, _parent: &str, _child: &str)
+                 -> *mut super::tinycbor::CborEncoder {
+                    unsafe { &mut super::super::root_map }
+                }
                 /// Fail the encoding with an error
                 pub fn fail(&mut self, err: JsonError) {
                     {
@@ -2444,7 +2473,7 @@ mod mynewt {
                                                                                                                                        ::core::fmt::Debug::fmt)],
                                                                                                      }),
                                                                      &("src/mynewt/encoding/json_context.rs",
-                                                                       52u32,
+                                                                       71u32,
                                                                        9u32))
                                     }
                                 }
@@ -11090,12 +11119,9 @@ mod send_coap {
                                 };
                                 "--------------------";
                                 " >>  >> sensor_val >> ,";
-                                "TODO : extract key , value from _sensor_value : sensor_val and add to _object\n: JSON_CONTEXT";
                                 "--------------------";
                                 {
                                     "begin json coap_item_int_val , c : JSON_CONTEXT , val : sensor_val";
-                                    "> TODO : assert ( sensor_val . val_type == SENSOR_VALUE_TYPE_INT32 )";
-                                    "> TODO : coap_item_int (\n@ json JSON_CONTEXT , sensor_val . key , sensor_val . int_val )";
                                     if let SensorValueType::Uint(val) =
                                            sensor_val.val {
                                         {
@@ -11175,7 +11201,6 @@ mod send_coap {
                     "end json coap_root";
                 };
                 "end json root";
-                "return json root to caller";
                 ()
             };
         let rc = unsafe { sensor_network::do_server_post() };
@@ -11209,11 +11234,70 @@ mod send_coap {
                                            "src/send_coap.rs", 217u32, 65u32))
             }
         };
+        let _payload =
+            {
+                "begin cbor root";
+                {
+                    "begin cbor coap_root";
+                    {
+                        "begin oc_rep_start_root_object";
+                        unsafe {
+                            tinycbor::cbor_encoder_create_map(&mut g_encoder,
+                                                              &mut root_map,
+                                                              tinycbor::CborIndefiniteLength)
+                        };
+                        "end oc_rep_start_root_object";
+                    };
+                    {
+                        " >>  >> sensor_val >> ,";
+                        "--------------------";
+                        {
+                            "begin cbor coap_set_int_val , c : JSON_CONTEXT , val : sensor_val";
+                            if let SensorValueType::Uint(val) = sensor_val.val
+                                   {
+                                {
+                                    "-- cinte c: JSON_CONTEXT, k: sensor_val.key, v: val";
+                                    let key_with_opt_null: &[u8] =
+                                        sensor_val.key.to_bytes_optional_nul();
+                                    let value = val as i64;
+                                    unsafe {
+                                        let encoder =
+                                            JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                 "_map");
+                                        tinycbor::cbor_encode_text_string(encoder,
+                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                        tinycbor::cbor_encode_int(encoder,
+                                                                  value);
+                                    }
+                                };
+                            } else {
+                                unsafe {
+                                    JSON_CONTEXT.fail(json_context::JsonError::VALUE_NOT_UINT)
+                                };
+                            }
+                            "end cbor coap_set_int_val";
+                        };
+                        "--------------------";
+                    };
+                    {
+                        "begin oc_rep_end_root_object";
+                        unsafe {
+                            tinycbor::cbor_encoder_close_container(&mut g_encoder,
+                                                                   &mut root_map);
+                        }
+                        "end oc_rep_end_root_object";
+                    };
+                    "end cbor coap_root";
+                };
+                "end cbor root";
+                ()
+            };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 230u32, 63u32))
+                                           "src/send_coap.rs", 228u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

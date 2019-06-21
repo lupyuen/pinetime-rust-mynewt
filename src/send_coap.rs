@@ -19,31 +19,21 @@ use crate::mynewt::{
         os_stack_t
     },
     encoding::{
-        json,             //  Import Mynewt JSON API
         json_context::{   //  Import Mynewt JSON Encoder Context
             self,
             JSON_CONTEXT,
             ToBytesOptionalNull,
         },
-        tinycbor::{       //  Import Mynewt TinyCBOR API
-            self,
-            CborEncoder,
-        },         
+        tinycbor,         //  Import Mynewt TinyCBOR API
     },
     libs::{
         mynewt_rust,      //  Import Mynewt Rust Helper API
+        sensor_network,   //  Import Mynewt Sensor Network API
         sensor_coap::{    //  Import Mynewt Sensor CoAP API
             self,
-            coap_json_encoder,  //  Global JSON encoder
-            coap_json_value,    //  Global JSON value being encoded
             sensor_value,
         },
-        sensor_network::{ //  Import Mynewt Sensor Network API
-            self,
-        },   
     },
-    g_encoder,            //  Import Global TinyCBOR encoder and root map
-    root_map,  
 };
 
 ///////////////////////////////////////////////////////////////////////////////

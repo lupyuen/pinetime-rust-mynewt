@@ -359,7 +359,7 @@ macro_rules! parse {
   (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin json root);
-    coap_root!(@json {  //  Create the payload root
+    coap_root!(@json JSON_CONTEXT {  //  Create the payload root
         coap_array!(@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
           parse!(@json @object JSON_CONTEXT () ($($tt)+) ($($tt)+));
@@ -373,7 +373,7 @@ macro_rules! parse {
   (@cbor { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin cbor root);
-    coap_root!(@cbor {  //  Create the payload root
+    coap_root!(@cbor JSON_CONTEXT {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
         parse!(@cbor @object JSON_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change JSON_CONTEXT to CBOR
     });  //  Close the payload root
@@ -420,15 +420,15 @@ macro_rules! unexpected_token {
 ///  Compose the payload root.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_root {  
-  (@cbor $children0:block) => {{  //  CBOR
+  (@cbor $context:ident $children0:block) => {{  //  CBOR
     d!(begin cbor coap_root);
-    oc_rep_start_root_object!();
+    oc_rep_start_root_object!($context);
     $children0;
-    oc_rep_end_root_object!();
+    oc_rep_end_root_object!($context);
     d!(end cbor coap_root);
   }};
 
-  (@json $children0:block) => {{  //  JSON
+  (@json $context:ident $children0:block) => {{  //  JSON
     d!(begin json coap_root);
     unsafe { sensor_coap::json_rep_start_root_object() }
     $children0;
@@ -823,21 +823,33 @@ macro_rules! json_rep_set_text_string {
 
 #[macro_export(local_inner_macros)]
 macro_rules! oc_rep_start_root_object {
-  () => {{
+  ($context:ident) => {{
     d!(begin oc_rep_start_root_object);
-    //  TODO
     //  d!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
-    unsafe { tinycbor::cbor_encoder_create_map(&mut g_encoder, &mut root_map, tinycbor::CborIndefiniteLength) };
+    unsafe { 
+      let encoder = $context.encoder("root", "_map");
+      tinycbor::cbor_encoder_create_map(
+        $context.global_encoder(),
+        encoder,
+        tinycbor::CborIndefiniteLength
+      ) 
+    };
     d!(end oc_rep_start_root_object);
   }};
 }
 
 #[macro_export(local_inner_macros)]
 macro_rules! oc_rep_end_root_object {
-  () => {{
+  ($context:ident) => {{
     d!(begin oc_rep_end_root_object);
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
-    unsafe { tinycbor::cbor_encoder_close_container(&mut g_encoder, &mut root_map); }
+    unsafe { 
+      let encoder = $context.encoder("root", "_map");
+      tinycbor::cbor_encoder_close_container(
+        $context.global_encoder(),
+        encoder
+      ) 
+    };
     d!(end oc_rep_end_root_object);
   }};
 }
@@ -854,10 +866,14 @@ macro_rules! oc_rep_start_object {
     //  d!(> TODO: CborEncoder key##_map);
     //  concat_idents!($key, _map) = CborEncoder{};
     //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    unsafe { tinycbor::cbor_encoder_create_map(
-      &mut $parent, 
-      &mut concat_idents!($key, _map), 
-      CborIndefiniteLength) 
+    unsafe { 
+      //  TODO: ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+      let encoder = $context.encoder(stringify!($key), "_map");
+      tinycbor::cbor_encoder_create_map(
+        encoder,
+        &mut concat_idents!($key, _map), 
+        tinycbor::CborIndefiniteLength
+      );
     };
     d!(end oc_rep_start_object);
   }};
@@ -873,9 +889,13 @@ macro_rules! oc_rep_end_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    unsafe { tinycbor::cbor_encoder_close_container(
-      &mut concat_idents!($parent, $parent_suffix), 
-      &mut concat_idents!($key, _map)) 
+    unsafe { 
+      //  TODO: ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+      let encoder = $context.encoder(stringify!($key), "_map");
+      tinycbor::cbor_encoder_close_container(
+        encoder,
+        &mut concat_idents!($key, _map)
+      );
     };
     d!(end oc_rep_end_object);
   }};
