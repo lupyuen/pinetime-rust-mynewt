@@ -684,7 +684,7 @@ macro_rules! json_rep_set_text_string {
   ($object:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
       "jtxti",
-      ", obj: ", stringify!($object),
+      " obj: ", stringify!($object),
       ", key: ", stringify!($key),
       ", val: ", stringify!($value)
       //  ", child: ",  stringify!($object), "_map"  //  object##_map
@@ -703,7 +703,7 @@ macro_rules! json_rep_set_text_string {
   ($object:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
     concat!(
       "jtxte",
-      ", obj: ", stringify!($object),
+      " obj: ", stringify!($object),
       ", key: ", stringify!($key),
       ", val: ", stringify!($value)
       //  ", child: ",  stringify!($object), "_map"  //  object##_map

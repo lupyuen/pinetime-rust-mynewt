@@ -192,7 +192,7 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     Ok(())
 }
 
-static mut JSON_CONTEXT: JsonContext = JsonContext::default();
+static mut JSON_CONTEXT: JsonContext = fill_zero!(JsonContext);
 
 #[derive(Default)]
 pub struct JsonContext {
@@ -234,17 +234,14 @@ fn test_json() {
     key: "t",
     val: SensorValueType::Uint(2870)
   };
-  let mut context = JsonContext{ val: 0 };
   //let mut ptr: *mut ::core::ffi::c_void = &mut context as *mut ::core::ffi::c_void;
-  let ptr: *mut c_void = context.to_void_ptr();
-
+  //let ptr: *mut c_void = context.to_void_ptr();
   //trace_macros!(true);
-
   //let a = stringify_null!(device);
 
-  json_rep_set_text_string!(context, device1, device_id);
+  json_rep_set_text_string!(JSON_CONTEXT, device1, device_id);
 
-  json_rep_set_text_string!(context, "device2", device_id);
+  json_rep_set_text_string!(JSON_CONTEXT, "device2", device_id);
 
   // coap_item_str! (@json context, "device", device_id);
 
