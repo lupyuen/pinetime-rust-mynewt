@@ -203,7 +203,36 @@ pub struct JsonContext {
 const JSON_KEY_SIZE: usize = 32;
 const JSON_VALUE_SIZE: usize = 32;
 
+trait ToBytesOptionalNull {
+    fn to_bytes_optional_nul(&self) -> &[u8];
+}
+
+impl ToBytesOptionalNull for [u8] {
+    fn to_bytes_optional_nul(&self) -> &[u8] {
+        self
+    }
+}
+
+impl ToBytesOptionalNull for str {
+    fn to_bytes_optional_nul(&self) -> &[u8] {
+        self.as_bytes()
+    }
+}
+
+impl ToBytesOptionalNull for &str {
+    fn to_bytes_optional_nul(&self) -> &[u8] {
+        self.as_bytes()
+    }
+}
+
+impl ToBytesOptionalNull for CStr {
+    fn to_bytes_optional_nul(&self) -> &[u8] {
+        self.to_bytes_with_nul()
+    }
+}
+
 impl JsonContext {
+    /*
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
@@ -224,11 +253,12 @@ impl JsonContext {
     pub fn value_to_cstr(&mut self, s: &CStr) -> *const c_char {
         self.value_to_cstr_internal(s.to_bytes_with_nul())
     }
+    */
 
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
-    fn key_to_cstr_internal(&mut self, s: &[u8]) -> *const c_char {
+    pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr(); }
         //  Else copy into static key buffer and return pointer to buffer.
@@ -241,7 +271,7 @@ impl JsonContext {
     /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
-    pub fn value_to_cstr_internal(&mut self, s: &[u8]) -> *const c_char {
+    pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr(); }
         //  Else copy into static value buffer and return pointer to buffer.

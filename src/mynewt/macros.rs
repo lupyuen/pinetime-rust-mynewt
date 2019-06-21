@@ -689,13 +689,15 @@ macro_rules! json_rep_set_text_string {
       ", v: ", stringify!($value)
       //  ", child: ",  stringify!($object), "_map"  //  object##_map
     );
+    //  Convert to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
+    let key_with_null: &str = stringify_null!($key);
+    //  Convert to char array, which may or may not be null-terminated.
+    let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
       mynewt_rust::json_helper_set_text_string(
         $object.to_void_ptr(),
-        $object.key_to_cstr(stringify_null!($key)),
-        // stringify_null!($key).as_ptr(),
-        $object.value_to_cstr($value)
-        // $value.as_ptr()
+        $object.key_to_cstr(key_with_null.as_bytes()),
+        $object.value_to_cstr(value_with_opt_null)
       )
     };
     //  json_value_string!(coap_json_value, $value); 
@@ -710,13 +712,14 @@ macro_rules! json_rep_set_text_string {
       ", v: ", stringify!($value)
       //  ", child: ",  stringify!($object), "_map"  //  object##_map
     );
+    //  Convert to char array, which may or may not be null-terminated.
+    let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
+    let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
       mynewt_rust::json_helper_set_text_string(
         $object.to_void_ptr(), 
-        $object.key_to_cstr($key),
-        // $key.as_ptr(), 
-        $object.value_to_cstr($value)
-        // $value.as_ptr()
+        $object.key_to_cstr(key_with_opt_null),
+        $object.value_to_cstr(value_with_opt_null)
       )
     };
     //  json_value_string!(coap_json_value, $value); 

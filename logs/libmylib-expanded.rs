@@ -605,31 +605,45 @@ mod mynewt {
                                               , $ value : expr ) => {
                                               {
                                               concat ! (
-                                              "jtxti" , " obj: " , stringify !
-                                              ( $ object ) , ", key: " ,
-                                              stringify ! ( $ key ) ,
-                                              ", val: " , stringify ! (
-                                              $ value ) ) ; unsafe {
+                                              "jtxti" , " o: " , stringify ! (
+                                              $ object ) , ", k: " , stringify
+                                              ! ( $ key ) , ", v: " ,
+                                              stringify ! ( $ value ) ) ; let
+                                              key_with_null : & [ u8 ] =
+                                              stringify_null ! ( $ key ) ; let
+                                              value_with_opt_null : & [ u8 ] =
+                                              $ value . to_bytes_optional_nul
+                                              (  ) ; unsafe {
                                               mynewt_rust ::
                                               json_helper_set_text_string (
-                                              $ object . to_void_ptr (  ) ,
-                                              stringify_null ! ( $ key ) .
-                                              as_ptr (  ) , $ value . as_ptr (
-                                               ) ) } ; } } ; (
+                                              $ object . to_void_ptr (  ) , $
+                                              object . key_to_cstr (
+                                              key_with_null ) , $ object .
+                                              value_to_cstr (
+                                              value_with_opt_null ) ) } ; } }
+                                              ; (
                                               $ object : ident , $ key : expr
                                               , $ value : expr ) => {
                                               {
                                               concat ! (
-                                              "jtxte" , " obj: " , stringify !
-                                              ( $ object ) , ", key: " ,
-                                              stringify ! ( $ key ) ,
-                                              ", val: " , stringify ! (
-                                              $ value ) ) ; unsafe {
+                                              "jtxte" , " o: " , stringify ! (
+                                              $ object ) , ", k: " , stringify
+                                              ! ( $ key ) , ", v: " ,
+                                              stringify ! ( $ value ) ) ; let
+                                              key_with_opt_null : & [ u8 ] = $
+                                              key . to_bytes_optional_nul (  )
+                                              ; let value_with_opt_null : & [
+                                              u8 ] = $ value .
+                                              to_bytes_optional_nul (  ) ;
+                                              unsafe {
                                               mynewt_rust ::
                                               json_helper_set_text_string (
                                               $ object . to_void_ptr (  ) , $
-                                              key . as_ptr (  ) , $ value .
-                                              as_ptr (  ) ) } ; } } ;);
+                                              object . key_to_cstr (
+                                              key_with_opt_null ) , $ object .
+                                              value_to_cstr (
+                                              value_with_opt_null ) ) } ; } }
+                                              ;);
         #[macro_export]
         macro_rules! json_value_int(( $ json_value : ident , $ value : expr )
                                     => {
@@ -10713,17 +10727,67 @@ mod send_coap {
                                                       ::core::mem::size_of::<JsonContext>()])
         };
     pub struct JsonContext {
-        pub val: i32,
+        key_buffer: [u8; JSON_KEY_SIZE],
+        value_buffer: [u8; JSON_VALUE_SIZE],
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]
     impl ::core::default::Default for JsonContext {
         #[inline]
         fn default() -> JsonContext {
-            JsonContext{val: ::core::default::Default::default(),}
+            JsonContext{key_buffer: ::core::default::Default::default(),
+                        value_buffer: ::core::default::Default::default(),}
         }
     }
+    const JSON_KEY_SIZE: usize = 32;
+    const JSON_VALUE_SIZE: usize = 32;
+    trait ToBytesOptionalNull {
+        fn to_bytes_optional_nul(&self)
+        -> &[u8];
+    }
+    impl ToBytesOptionalNull for [u8] {
+        fn to_bytes_optional_nul(&self) -> &[u8] { self }
+    }
+    impl ToBytesOptionalNull for str {
+        fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+    }
+    impl ToBytesOptionalNull for CStr {
+        fn to_bytes_optional_nul(&self) -> &[u8] { self.to_bytes_with_nul() }
+    }
     impl JsonContext {
+        /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
+        /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+        /// append null and return the buffer as a pointer.
+        pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+            if s.last() == Some(&0) { return s.as_ptr(); }
+            if !(s.len() < JSON_KEY_SIZE) {
+                {
+                    ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
+                                               "src/send_coap.rs", 259u32,
+                                               9u32))
+                }
+            };
+            self.key_buffer[..s.len()].copy_from_slice(s);
+            self.key_buffer[s.len()] = 0;
+            self.key_buffer.as_ptr()
+        }
+        /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
+        /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+        /// append null and return the buffer as a pointer.
+        pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+            if s.last() == Some(&0) { return s.as_ptr(); }
+            if !(s.len() < JSON_VALUE_SIZE) {
+                {
+                    ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
+                                               "src/send_coap.rs", 272u32,
+                                               9u32))
+                }
+            };
+            self.value_buffer[..s.len()].copy_from_slice(s);
+            self.value_buffer[s.len()] = 0;
+            self.value_buffer.as_ptr()
+        }
+        /// Cast itself as a `*mut c_void`
         pub fn to_void_ptr(&mut self) -> *mut c_void {
             let ptr: *mut JsonContext = self;
             ptr as *mut c_void
@@ -10736,19 +10800,25 @@ mod send_coap {
         let int_sensor_value =
             SensorValue{key: "t", val: SensorValueType::Uint(2870),};
         {
-            "jtxti obj: JSON_CONTEXT, key: device1, val: device_id";
+            "jtxti o: JSON_CONTEXT, k: device1, v: device_id";
+            let key_with_null: &[u8] = "device1\u{0}";
+            let value_with_opt_null: &[u8] =
+                device_id.to_bytes_optional_nul();
             unsafe {
                 mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                         "device1\u{0}".as_ptr(),
-                                                         device_id.as_ptr())
+                                                         JSON_CONTEXT.key_to_cstr(key_with_null),
+                                                         JSON_CONTEXT.value_to_cstr(value_with_opt_null))
             };
         };
         {
-            "jtxte obj: JSON_CONTEXT, key: \"device2\", val: device_id";
+            "jtxte o: JSON_CONTEXT, k: \"device2\", v: device_id";
+            let key_with_opt_null: &[u8] = "device2".to_bytes_optional_nul();
+            let value_with_opt_null: &[u8] =
+                device_id.to_bytes_optional_nul();
             unsafe {
                 mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                         "device2".as_ptr(),
-                                                         device_id.as_ptr())
+                                                         JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                         JSON_CONTEXT.value_to_cstr(value_with_opt_null))
             };
         };
         ();
@@ -10771,14 +10841,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 302u32, 65u32))
+                                           "src/send_coap.rs", 378u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 315u32, 63u32))
+                                           "src/send_coap.rs", 391u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
