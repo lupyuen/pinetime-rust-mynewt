@@ -4,192 +4,192 @@ mylib-0948c04052cf796a.mylib.6fgjgbzt-cgu.0.rcgu.o:     file format elf32-little
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 mylib.6fgjgbzt-cgu.0
-00004228 l       .debug_str	00000000 
-000049d1 l       .debug_str	00000000 
-000049ef l       .debug_str	00000000 
-000049f8 l       .debug_str	00000000 
-00004a28 l       .debug_str	00000000 
-00004a31 l       .debug_str	00000000 
-00004a37 l       .debug_str	00000000 
-00004a7b l       .debug_str	00000000 
-00004a96 l       .debug_str	00000000 
-00004a9e l       .debug_str	00000000 
-00004aa7 l       .debug_str	00000000 
-00004ab1 l       .debug_str	00000000 
-00004ab6 l       .debug_str	00000000 
-00004abb l       .debug_str	00000000 
-00004ac0 l       .debug_str	00000000 
-00004ace l       .debug_str	00000000 
-00004ad8 l       .debug_str	00000000 
-00004ae6 l       .debug_str	00000000 
-00004afa l       .debug_str	00000000 
-00004b0c l       .debug_str	00000000 
-00004b15 l       .debug_str	00000000 
-00004b98 l       .debug_str	00000000 
-00004ba2 l       .debug_str	00000000 
-00004ba8 l       .debug_str	00000000 
-00004bae l       .debug_str	00000000 
-00004bb2 l       .debug_str	00000000 
-00004bbf l       .debug_str	00000000 
-00004c45 l       .debug_str	00000000 
-00004c54 l       .debug_str	00000000 
-00004c56 l       .debug_str	00000000 
-00004ccb l       .debug_str	00000000 
-00004cf6 l       .debug_str	00000000 
-00004cfc l       .debug_str	00000000 
-00004d07 l       .debug_str	00000000 
-00004d45 l       .debug_str	00000000 
-00004d5d l       .debug_str	00000000 
-00004d61 l       .debug_str	00000000 
-00004d65 l       .debug_str	00000000 
-00004db8 l       .debug_str	00000000 
-00004dcc l       .debug_str	00000000 
-00004dd6 l       .debug_str	00000000 
-00004ddd l       .debug_str	00000000 
-00004de5 l       .debug_str	00000000 
-00004dea l       .debug_str	00000000 
-00004df1 l       .debug_str	00000000 
-00004dfd l       .debug_str	00000000 
-00004e05 l       .debug_str	00000000 
-00004e0e l       .debug_str	00000000 
-00004e13 l       .debug_str	00000000 
-00004e16 l       .debug_str	00000000 
-00004e1f l       .debug_str	00000000 
-00004e26 l       .debug_str	00000000 
-00004e29 l       .debug_str	00000000 
-00004e2f l       .debug_str	00000000 
-00004e39 l       .debug_str	00000000 
-00004e41 l       .debug_str	00000000 
-00004e47 l       .debug_str	00000000 
-00004e52 l       .debug_str	00000000 
+000042cf l       .debug_str	00000000 
+00004b24 l       .debug_str	00000000 
+00004b60 l       .debug_str	00000000 
+00004b6b l       .debug_str	00000000 
+00004b71 l       .debug_str	00000000 
+00004b7d l       .debug_str	00000000 
+00004bb1 l       .debug_str	00000000 
+00004bba l       .debug_str	00000000 
+00004bc5 l       .debug_str	00000000 
+00004c03 l       .debug_str	00000000 
+00004c1b l       .debug_str	00000000 
+00004c1f l       .debug_str	00000000 
+00004c23 l       .debug_str	00000000 
+00004c76 l       .debug_str	00000000 
+00004c8a l       .debug_str	00000000 
+00004c94 l       .debug_str	00000000 
+00004c9d l       .debug_str	00000000 
+00004ca4 l       .debug_str	00000000 
+00004cae l       .debug_str	00000000 
+00004cb3 l       .debug_str	00000000 
+00004cbb l       .debug_str	00000000 
+00004cc0 l       .debug_str	00000000 
+00004cc5 l       .debug_str	00000000 
+00004ccc l       .debug_str	00000000 
+00004cd8 l       .debug_str	00000000 
+00004ce0 l       .debug_str	00000000 
+00004ce9 l       .debug_str	00000000 
+00004cee l       .debug_str	00000000 
+00004cf1 l       .debug_str	00000000 
+00004cfa l       .debug_str	00000000 
+00004d01 l       .debug_str	00000000 
+00004d04 l       .debug_str	00000000 
+00004d0a l       .debug_str	00000000 
+00004d14 l       .debug_str	00000000 
+00004d1c l       .debug_str	00000000 
+00004d22 l       .debug_str	00000000 
+00004d2d l       .debug_str	00000000 
+00004d36 l       .debug_str	00000000 
+00004d59 l       .debug_str	00000000 
+00004d78 l       .debug_str	00000000 
+00004d9f l       .debug_str	00000000 
+00004da9 l       .debug_str	00000000 
+00004dbf l       .debug_str	00000000 
+00004e15 l       .debug_str	00000000 
+00004e21 l       .debug_str	00000000 
+00004e59 l       .debug_str	00000000 
 00004e5b l       .debug_str	00000000 
-00004e7e l       .debug_str	00000000 
-00004e9d l       .debug_str	00000000 
-00004ec4 l       .debug_str	00000000 
-00004ece l       .debug_str	00000000 
-00004ee4 l       .debug_str	00000000 
-00004f3c l       .debug_str	00000000 
-00004f4a l       .debug_str	00000000 
-00004f82 l       .debug_str	00000000 
-00004f84 l       .debug_str	00000000 
-00004fcf l       .debug_str	00000000 
-00004fdf l       .debug_str	00000000 
-00004fed l       .debug_str	00000000 
-00004ff1 l       .debug_str	00000000 
-00004ff3 l       .debug_str	00000000 
-00004ff5 l       .debug_str	00000000 
-0000503c l       .debug_str	00000000 
-00005048 l       .debug_str	00000000 
-0000508f l       .debug_str	00000000 
-00005098 l       .debug_str	00000000 
-000050a4 l       .debug_str	00000000 
-000050ad l       .debug_str	00000000 
-000050b1 l       .debug_str	00000000 
-000050bb l       .debug_str	00000000 
-0000511e l       .debug_str	00000000 
-00005126 l       .debug_str	00000000 
-00005141 l       .debug_str	00000000 
-00005147 l       .debug_str	00000000 
-00005151 l       .debug_str	00000000 
-00005157 l       .debug_str	00000000 
-00005162 l       .debug_str	00000000 
-0000516b l       .debug_str	00000000 
-00005175 l       .debug_str	00000000 
-000051cb l       .debug_str	00000000 
-000051d7 l       .debug_str	00000000 
-00005209 l       .debug_str	00000000 
-00005210 l       .debug_str	00000000 
-0000525e l       .debug_str	00000000 
-00005263 l       .debug_str	00000000 
-00005296 l       .debug_str	00000000 
-000052d2 l       .debug_str	00000000 
-000052e5 l       .debug_str	00000000 
-000052eb l       .debug_str	00000000 
+00004e8b l       .debug_str	00000000 
+00004e94 l       .debug_str	00000000 
+00004e9a l       .debug_str	00000000 
+00004ede l       .debug_str	00000000 
+00004ef9 l       .debug_str	00000000 
+00004f01 l       .debug_str	00000000 
+00004f06 l       .debug_str	00000000 
+00004f14 l       .debug_str	00000000 
+00004f1e l       .debug_str	00000000 
+00004f2c l       .debug_str	00000000 
+00004f40 l       .debug_str	00000000 
+00004fc3 l       .debug_str	00000000 
+00004fcd l       .debug_str	00000000 
+00004fd3 l       .debug_str	00000000 
+00004fd9 l       .debug_str	00000000 
+00004fdd l       .debug_str	00000000 
+00004fea l       .debug_str	00000000 
+00005070 l       .debug_str	00000000 
+0000507f l       .debug_str	00000000 
+00005081 l       .debug_str	00000000 
+000050f6 l       .debug_str	00000000 
+00005121 l       .debug_str	00000000 
+00005127 l       .debug_str	00000000 
+0000517f l       .debug_str	00000000 
+0000518d l       .debug_str	00000000 
+000051d8 l       .debug_str	00000000 
+000051e8 l       .debug_str	00000000 
+000051f6 l       .debug_str	00000000 
+000051fa l       .debug_str	00000000 
+000051fc l       .debug_str	00000000 
+000051fe l       .debug_str	00000000 
+00005245 l       .debug_str	00000000 
+00005251 l       .debug_str	00000000 
+00005298 l       .debug_str	00000000 
+000052a1 l       .debug_str	00000000 
+000052ad l       .debug_str	00000000 
+000052b6 l       .debug_str	00000000 
+000052ba l       .debug_str	00000000 
+000052c4 l       .debug_str	00000000 
+00005327 l       .debug_str	00000000 
 0000532f l       .debug_str	00000000 
-00005345 l       .debug_str	00000000 
-0000534e l       .debug_str	00000000 
-00005390 l       .debug_str	00000000 
-000053a2 l       .debug_str	00000000 
-000053ab l       .debug_str	00000000 
-000053af l       .debug_str	00000000 
-000053d9 l       .debug_str	00000000 
-000053de l       .debug_str	00000000 
-00005426 l       .debug_str	00000000 
-0000545c l       .debug_str	00000000 
-000054a4 l       .debug_str	00000000 
-000054ad l       .debug_str	00000000 
-000054f5 l       .debug_str	00000000 
-000054fd l       .debug_str	00000000 
-00005575 l       .debug_str	00000000 
+0000534a l       .debug_str	00000000 
+00005350 l       .debug_str	00000000 
+0000535a l       .debug_str	00000000 
+00005360 l       .debug_str	00000000 
+0000536b l       .debug_str	00000000 
+00005374 l       .debug_str	00000000 
+0000537e l       .debug_str	00000000 
+000053b0 l       .debug_str	00000000 
+000053b7 l       .debug_str	00000000 
+000053f3 l       .debug_str	00000000 
+00005406 l       .debug_str	00000000 
+0000540c l       .debug_str	00000000 
+00005450 l       .debug_str	00000000 
+00005466 l       .debug_str	00000000 
+0000546f l       .debug_str	00000000 
+000054b1 l       .debug_str	00000000 
+000054c3 l       .debug_str	00000000 
+000054cc l       .debug_str	00000000 
+000054d0 l       .debug_str	00000000 
+000054fa l       .debug_str	00000000 
+000054ff l       .debug_str	00000000 
+00005547 l       .debug_str	00000000 
 0000557d l       .debug_str	00000000 
-000055f4 l       .debug_str	00000000 
-00005689 l       .debug_str	00000000 
-00005710 l       .debug_str	00000000 
-00005788 l       .debug_str	00000000 
-0000580d l       .debug_str	00000000 
-00005884 l       .debug_str	00000000 
-00005910 l       .debug_str	00000000 
-00005926 l       .debug_str	00000000 
-000059a9 l       .debug_str	00000000 
-00005a30 l       .debug_str	00000000 
-00005abf l       .debug_str	00000000 
-00005b2f l       .debug_str	00000000 
-00005ba1 l       .debug_str	00000000 
-00005c12 l       .debug_str	00000000 
-00005c80 l       .debug_str	00000000 
-00005cef l       .debug_str	00000000 
-00005d61 l       .debug_str	00000000 
-00005dd8 l       .debug_str	00000000 
-00005e47 l       .debug_str	00000000 
-00005eb5 l       .debug_str	00000000 
-00005f3c l       .debug_str	00000000 
-00005fbb l       .debug_str	00000000 
-0000603c l       .debug_str	00000000 
-000060c0 l       .debug_str	00000000 
-00006147 l       .debug_str	00000000 
-00006153 l       .debug_str	00000000 
-0000615f l       .debug_str	00000000 
-00006174 l       .debug_str	00000000 
-000061ec l       .debug_str	00000000 
-0000626b l       .debug_str	00000000 
-000062b1 l       .debug_str	00000000 
-000062c7 l       .debug_str	00000000 
-0000634f l       .debug_str	00000000 
-000063da l       .debug_str	00000000 
-0000646c l       .debug_str	00000000 
-00006471 l       .debug_str	00000000 
-000064b0 l       .debug_str	00000000 
-000064c1 l       .debug_str	00000000 
-000064fc l       .debug_str	00000000 
-0000650e l       .debug_str	00000000 
-00006513 l       .debug_str	00000000 
-00006515 l       .debug_str	00000000 
-00006527 l       .debug_str	00000000 
-0000652d l       .debug_str	00000000 
+000055c5 l       .debug_str	00000000 
+000055ce l       .debug_str	00000000 
+00005616 l       .debug_str	00000000 
+0000561e l       .debug_str	00000000 
+00005696 l       .debug_str	00000000 
+0000569e l       .debug_str	00000000 
+00005715 l       .debug_str	00000000 
+000057aa l       .debug_str	00000000 
+00005831 l       .debug_str	00000000 
+000058a9 l       .debug_str	00000000 
+0000592e l       .debug_str	00000000 
+000059a5 l       .debug_str	00000000 
+00005a31 l       .debug_str	00000000 
+00005a47 l       .debug_str	00000000 
+00005aca l       .debug_str	00000000 
+00005b51 l       .debug_str	00000000 
+00005be0 l       .debug_str	00000000 
+00005c50 l       .debug_str	00000000 
+00005cc2 l       .debug_str	00000000 
+00005d33 l       .debug_str	00000000 
+00005da1 l       .debug_str	00000000 
+00005e10 l       .debug_str	00000000 
+00005e82 l       .debug_str	00000000 
+00005ef9 l       .debug_str	00000000 
+00005f68 l       .debug_str	00000000 
+00005fd6 l       .debug_str	00000000 
+0000605d l       .debug_str	00000000 
+000060dc l       .debug_str	00000000 
+0000615d l       .debug_str	00000000 
+000061e1 l       .debug_str	00000000 
+00006268 l       .debug_str	00000000 
+00006274 l       .debug_str	00000000 
+00006280 l       .debug_str	00000000 
+00006295 l       .debug_str	00000000 
+0000630d l       .debug_str	00000000 
+0000638c l       .debug_str	00000000 
+000063d2 l       .debug_str	00000000 
+000063e8 l       .debug_str	00000000 
+00006470 l       .debug_str	00000000 
+000064fb l       .debug_str	00000000 
+0000658d l       .debug_str	00000000 
 00006592 l       .debug_str	00000000 
-00006598 l       .debug_str	00000000 
-000065a0 l       .debug_str	00000000 
-000065a5 l       .debug_str	00000000 
-000065b2 l       .debug_str	00000000 
-000065bf l       .debug_str	00000000 
-000065c6 l       .debug_str	00000000 
-000065d6 l       .debug_str	00000000 
-000065e8 l       .debug_str	00000000 
-000065f4 l       .debug_str	00000000 
-000065f9 l       .debug_str	00000000 
-00006601 l       .debug_str	00000000 
-00006605 l       .debug_str	00000000 
-0000660a l       .debug_str	00000000 
-00006612 l       .debug_str	00000000 
-00006630 l       .debug_str	00000000 
-00006639 l       .debug_str	00000000 
-0000663e l       .debug_str	00000000 
-00006643 l       .debug_str	00000000 
-00006647 l       .debug_str	00000000 
-00006650 l       .debug_str	00000000 
-0000665a l       .debug_str	00000000 
-00006672 l       .debug_str	00000000 
-00006689 l       .debug_str	00000000 
+000065d1 l       .debug_str	00000000 
+000065e2 l       .debug_str	00000000 
+0000661d l       .debug_str	00000000 
+0000662f l       .debug_str	00000000 
+00006634 l       .debug_str	00000000 
+00006636 l       .debug_str	00000000 
+00006648 l       .debug_str	00000000 
+0000664e l       .debug_str	00000000 
+000066b3 l       .debug_str	00000000 
+000066e6 l       .debug_str	00000000 
+000066ec l       .debug_str	00000000 
+000066f4 l       .debug_str	00000000 
+000066f9 l       .debug_str	00000000 
+00006706 l       .debug_str	00000000 
+00006713 l       .debug_str	00000000 
+0000671a l       .debug_str	00000000 
+0000672a l       .debug_str	00000000 
+0000673c l       .debug_str	00000000 
+00006748 l       .debug_str	00000000 
+0000674d l       .debug_str	00000000 
+00006755 l       .debug_str	00000000 
+00006759 l       .debug_str	00000000 
+0000675e l       .debug_str	00000000 
+00006766 l       .debug_str	00000000 
+00006784 l       .debug_str	00000000 
+0000678d l       .debug_str	00000000 
+00006792 l       .debug_str	00000000 
+00006797 l       .debug_str	00000000 
+0000679b l       .debug_str	00000000 
+000067a4 l       .debug_str	00000000 
+000067ae l       .debug_str	00000000 
+000067c6 l       .debug_str	00000000 
+000067dd l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 0000004c l       .debug_str	00000000 
@@ -825,6 +825,7 @@ SYMBOL TABLE:
 000041ee l       .debug_str	00000000 
 000041fe l       .debug_str	00000000 
 0000421a l       .debug_str	00000000 
+00004228 l       .debug_str	00000000 
 00004250 l       .debug_str	00000000 
 0000428b l       .debug_str	00000000 
 00004290 l       .debug_str	00000000 
@@ -833,7 +834,6 @@ SYMBOL TABLE:
 000042a1 l       .debug_str	00000000 
 000042b2 l       .debug_str	00000000 
 000042cb l       .debug_str	00000000 
-000042cf l       .debug_str	00000000 
 000042d9 l       .debug_str	00000000 
 000042de l       .debug_str	00000000 
 000042e5 l       .debug_str	00000000 
@@ -902,6 +902,17 @@ SYMBOL TABLE:
 00004973 l       .debug_str	00000000 
 0000497d l       .debug_str	00000000 
 0000498a l       .debug_str	00000000 
+000049d1 l       .debug_str	00000000 
+000049ef l       .debug_str	00000000 
+000049f8 l       .debug_str	00000000 
+00004a0a l       .debug_str	00000000 
+00004a12 l       .debug_str	00000000 
+00004a1b l       .debug_str	00000000 
+00004a22 l       .debug_str	00000000 
+00004a28 l       .debug_str	00000000 
+00004a91 l       .debug_str	00000000 
+00004b02 l       .debug_str	00000000 
+00004b10 l       .debug_str	00000000 
 00000000 l     O .bss..L_MergedGlobals	00000041 .L_MergedGlobals
 00000000 l     O .rodata..Lanon.53b668c878f98fb7695895a932063c27.11	00000018 .Lanon.53b668c878f98fb7695895a932063c27.11
 00000000 l     O .rodata..Lanon.53b668c878f98fb7695895a932063c27.12	0000000a .Lanon.53b668c878f98fb7695895a932063c27.12
@@ -971,7 +982,7 @@ SYMBOL TABLE:
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1aa1671bae8238b8E	00000036 <&T as core::fmt::Debug>::fmt
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3cd16d96a1ab09b9E	0000003a <&T as core::fmt::Debug>::fmt
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc9a0951cf9a1a237E	0000003a <&T as core::fmt::Debug>::fmt
-00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17hf92a13341077b6f1E	00000442 mylib::listen_sensor::read_temperature
+00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17hf92a13341077b6f1E	00000494 mylib::listen_sensor::read_temperature
 00000000 l     O .data._ZN5mylib6mynewt2hw6sensor17LISTENER_INTERNAL17h6989d730901761b2E	00000018 mylib::mynewt::hw::sensor::LISTENER_INTERNAL
 00000000 l     F .text._ZN5mylib6mynewt2hw6sensor21null_sensor_data_func17hcc148dc38d5a5bd5E	00000004 mylib::mynewt::hw::sensor::null_sensor_data_func
 00000001 l     O .bss..L_MergedGlobals	00000040 mylib::mynewt::encoding::json_context::JSON_CONTEXT
@@ -1197,12 +1208,17 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 __aeabi_memclr8
 00000000         *UND*	00000000 __aeabi_memcpy
 00000000         *UND*	00000000 __bkpt
+00000000         *UND*	00000000 cbor_encode_int
+00000000         *UND*	00000000 cbor_encode_text_string
+00000000         *UND*	00000000 cbor_encoder_close_container
+00000000         *UND*	00000000 cbor_encoder_create_map
 00000000         *UND*	00000000 console_buffer
 00000000         *UND*	00000000 console_flush
 00000000         *UND*	00000000 console_printhex
 00000000         *UND*	00000000 device_get_name
 00000000         *UND*	00000000 do_collector_post
 00000000         *UND*	00000000 do_server_post
+00000000         *UND*	00000000 g_encoder
 00000000         *UND*	00000000 get_device_id
 00000000         *UND*	00000000 get_temp_data
 00000000         *UND*	00000000 get_temp_raw_data
@@ -1229,6 +1245,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 os_time_delay
 00000000         *UND*	00000000 register_collector_transport
 00000000         *UND*	00000000 register_server_transport
+00000000         *UND*	00000000 root_map
 00000000 g     F .text.rust_begin_unwind	00000072 rust_begin_unwind
 00000000         *UND*	00000000 rust_sysinit
 00000000         *UND*	00000000 sensor_get_device
@@ -1249,7 +1266,7 @@ _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1aa1671bae8238b8E():
    4:	6800      	ldr	r0, [r0, #0]
    6:	ac01      	add	r4, sp, #4
 _ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17hd1c964405252df40E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:82
         ptr as *mut c_void
     }
 }
@@ -1492,7 +1509,7 @@ Disassembly of section .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..en
 
 00000000 <<[u8] as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
 _ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17he6141e1f273a092dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:82
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:101
 /// Convert the type to array of bytes that may or may not end with null
 impl ToBytesOptionalNull for [u8] {
     /// Convert the type to array of bytes that may or may not end with null
@@ -1505,7 +1522,7 @@ Disassembly of section .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..j
 
 00000000 <<str as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
 _ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h6070c637b4f967a8E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:90
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:109
 /// Convert the type to array of bytes that may or may not end with null
 impl ToBytesOptionalNull for str {
     /// Convert the type to array of bytes that may or may not end with null
@@ -1518,7 +1535,7 @@ Disassembly of section .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encodin
 
 00000000 <<&str as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
 _ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h6391b8effc93e584E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:97
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:116
 
 /// Convert the type to array of bytes that may or may not end with null
 impl ToBytesOptionalNull for &str {
@@ -1526,7 +1543,7 @@ impl ToBytesOptionalNull for &str {
     fn to_bytes_optional_nul(&self) -> &[u8] {
         self.as_bytes()
    0:	e9d0 2100 	ldrd	r2, r1, [r0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:98
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:117
     }
    4:	4610      	mov	r0, r2
    6:	4770      	bx	lr
@@ -1535,7 +1552,7 @@ Disassembly of section .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt.
 
 00000000 <<cstr_core::CStr as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
 _ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h55ace8c943acb4a3E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:125
 /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
 impl ToBytesOptionalNull for CStr {
     /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
@@ -2013,7 +2030,7 @@ _ZN5mylib13listen_sensor16read_temperature17hf92a13341077b6f1E():
   2e:	4628      	mov	r0, r5
   30:	f7ff fffe 	bl	0 <is_null_sensor>
   34:	2800      	cmp	r0, #0
-  36:	f040 8167 	bne.w	308 <mylib::listen_sensor::read_temperature+0x308>
+  36:	f040 8190 	bne.w	35a <mylib::listen_sensor::read_temperature+0x35a>
   3a:	e9dd 101e 	ldrd	r1, r0, [sp, #120]	; 0x78
 _ZN5mylib13listen_sensor15get_temperature17hdd7e4ace82cfbeeaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:126
@@ -2042,13 +2059,13 @@ _ZN5mylib13listen_sensor16read_temperature17hf92a13341077b6f1E():
 _ZN5mylib13listen_sensor15get_temperature17hdd7e4ace82cfbeeaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:126
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
-  5a:	b9d7      	cbnz	r7, 92 <mylib::listen_sensor::read_temperature+0x92>
-  5c:	a909      	add	r1, sp, #36	; 0x24
+  5a:	b9df      	cbnz	r7, 94 <mylib::listen_sensor::read_temperature+0x94>
+  5c:	a90d      	add	r1, sp, #52	; 0x34
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:128
             //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
             let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
-  5e:	f88d 0028 	strb.w	r0, [sp, #40]	; 0x28
-  62:	9009      	str	r0, [sp, #36]	; 0x24
+  5e:	f88d 0038 	strb.w	r0, [sp, #56]	; 0x38
+  62:	900d      	str	r0, [sp, #52]	; 0x34
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:129
             let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
   64:	4620      	mov	r0, r4
@@ -2056,14 +2073,14 @@ _ZN5mylib13listen_sensor15get_temperature17hdd7e4ace82cfbeeaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:130
             assert!(rc == 0);
   6a:	2800      	cmp	r0, #0
-  6c:	f040 815a 	bne.w	324 <mylib::listen_sensor::read_temperature+0x324>
+  6c:	f040 8183 	bne.w	376 <mylib::listen_sensor::read_temperature+0x376>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:133
 
             //  Check that the raw temperature data is valid.
             if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
-  70:	f89d 0028 	ldrb.w	r0, [sp, #40]	; 0x28
+  70:	f89d 0038 	ldrb.w	r0, [sp, #56]	; 0x38
   74:	2800      	cmp	r0, #0
-  76:	f000 814e 	beq.w	316 <mylib::listen_sensor::read_temperature+0x316>
+  76:	f000 8177 	beq.w	368 <mylib::listen_sensor::read_temperature+0x368>
 _ZN5mylib4base13console_print17hee1ead095790f478E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
         console_buffer(msg.as_ptr(), len as u32);
@@ -2075,57 +2092,57 @@ _ZN5mylib13listen_sensor15get_temperature17hdd7e4ace82cfbeeaE():
 
             //  Raw temperature data is valid.  Copy and display it.
             return_value.val = SensorValueType::Uint(rawtempdata.strd_temp_raw);  //  Raw Temperature in integer (0 to 4095)
-  84:	9c09      	ldr	r4, [sp, #36]	; 0x24
+  84:	f8dd 8034 	ldr.w	r8, [sp, #52]	; 0x34
 _ZN5mylib4base13console_print17hee1ead095790f478E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
-  86:	f7ff fffe 	bl	0 <console_buffer>
+  88:	f7ff fffe 	bl	0 <console_buffer>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:19
         console_flush();  //  TODO: Remove this.
-  8a:	f7ff fffe 	bl	0 <console_flush>
-  8e:	2501      	movs	r5, #1
-  90:	e010      	b.n	b4 <mylib::listen_sensor::read_temperature+0xb4>
+  8c:	f7ff fffe 	bl	0 <console_flush>
+  90:	2501      	movs	r5, #1
+  92:	e011      	b.n	b8 <mylib::listen_sensor::read_temperature+0xb8>
 _ZN5mylib13listen_sensor15get_temperature17hdd7e4ace82cfbeeaE():
-  92:	a909      	add	r1, sp, #36	; 0x24
+  94:	a90d      	add	r1, sp, #52	; 0x34
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:141
             console_print(b"TMP listener got rawtmp \n");  // return_value->int_val);
         },
         SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
             //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
             let mut tempdata = fill_zero!(sensor_temp_data);
-  94:	f88d 0028 	strb.w	r0, [sp, #40]	; 0x28
-  98:	9009      	str	r0, [sp, #36]	; 0x24
+  96:	f88d 0038 	strb.w	r0, [sp, #56]	; 0x38
+  9a:	900d      	str	r0, [sp, #52]	; 0x34
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:142
             let rc = unsafe { get_temp_data(sensor_data, &mut tempdata) };
-  9a:	4620      	mov	r0, r4
-  9c:	f7ff fffe 	bl	0 <get_temp_data>
+  9c:	4620      	mov	r0, r4
+  9e:	f7ff fffe 	bl	0 <get_temp_data>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:143
             assert!(rc == 0);
-  a0:	2800      	cmp	r0, #0
-  a2:	f040 8146 	bne.w	332 <mylib::listen_sensor::read_temperature+0x332>
-  a6:	f89d 0028 	ldrb.w	r0, [sp, #40]	; 0x28
+  a2:	2800      	cmp	r0, #0
+  a4:	f040 816e 	bne.w	384 <mylib::listen_sensor::read_temperature+0x384>
+  a8:	f89d 0038 	ldrb.w	r0, [sp, #56]	; 0x38
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:146
 
             //  Check that the computed temperature data is valid.
             if tempdata.std_temp_is_valid() == 0 { return return_value; }  //  Exit if data is not valid
-  aa:	07c0      	lsls	r0, r0, #31
-  ac:	f000 8133 	beq.w	316 <mylib::listen_sensor::read_temperature+0x316>
+  ac:	07c0      	lsls	r0, r0, #31
+  ae:	f000 815b 	beq.w	368 <mylib::listen_sensor::read_temperature+0x368>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:149
 
             //  Computed temperature data is valid.  Copy and display it.
             return_value.val = SensorValueType::Float(tempdata.std_temp);  //  Temperature in floating point.
-  b0:	9c09      	ldr	r4, [sp, #36]	; 0x24
-  b2:	2502      	movs	r5, #2
+  b2:	f8dd 8034 	ldr.w	r8, [sp, #52]	; 0x34
+  b6:	2502      	movs	r5, #2
 _ZN5mylib4base13console_print17hee1ead095790f478E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
         console_buffer(msg.as_ptr(), len as u32);
-  b4:	f240 0000 	movw	r0, #0
-  b8:	2111      	movs	r1, #17
-  ba:	f2c0 0000 	movt	r0, #0
-  be:	f7ff fffe 	bl	0 <console_buffer>
+  b8:	f240 0000 	movw	r0, #0
+  bc:	2111      	movs	r1, #17
+  be:	f2c0 0000 	movt	r0, #0
+  c2:	f7ff fffe 	bl	0 <console_buffer>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:19
         console_flush();  //  TODO: Remove this.
-  c2:	f7ff fffe 	bl	0 <console_flush>
-  c6:	2000      	movs	r0, #0
+  c6:	f7ff fffe 	bl	0 <console_flush>
+  ca:	2000      	movs	r0, #0
 _ZN5mylib9send_coap16send_sensor_data17hbbfb0a90effc0e1eE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:133
 pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
@@ -2134,16 +2151,16 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> MynewtR
     let mut val = fill_zero!(sensor_value);
     //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
     if unsafe { sensor_network::should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
-  c8:	4631      	mov	r1, r6
+  cc:	4631      	mov	r1, r6
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:131
     let mut val = fill_zero!(sensor_value);
-  ca:	e9cd 0006 	strd	r0, r0, [sp, #24]
-  ce:	e9cd 0004 	strd	r0, r0, [sp, #16]
-  d2:	a804      	add	r0, sp, #16
+  ce:	e9cd 0006 	strd	r0, r0, [sp, #24]
+  d2:	e9cd 0004 	strd	r0, r0, [sp, #16]
+  d6:	a804      	add	r0, sp, #16
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:133
     if unsafe { sensor_network::should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
-  d4:	f7ff fffe 	bl	0 <should_send_to_collector>
-  d8:	b1b8      	cbz	r0, 32 <mylib::listen_sensor::read_temperature+0x32>
+  d8:	f7ff fffe 	bl	0 <should_send_to_collector>
+  dc:	b3f0      	cbz	r0, 80 <mylib::listen_sensor::read_temperature+0x80>
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h1bb0ce20c529569eE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:212
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
@@ -2152,37 +2169,69 @@ _ZN5mylib9send_coap29send_sensor_data_to_collector17h1bb0ce20c529569eE():
 fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
     ////  TODO: if let SensorValueType::None = sensor_val.val { assert!(false); }
     if unsafe { !NETWORK_IS_READY } { return Err(MynewtError::SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
-  da:	f240 0000 	movw	r0, #0
-  de:	f2c0 0000 	movt	r0, #0
-  e2:	7800      	ldrb	r0, [r0, #0]
-  e4:	2801      	cmp	r0, #1
-  e6:	f040 80fe 	bne.w	2e6 <mylib::listen_sensor::read_temperature+0x2e6>
+  de:	f240 0400 	movw	r4, #0
+  e2:	f2c0 0400 	movt	r4, #0
+  e6:	7820      	ldrb	r0, [r4, #0]
+  e8:	2801      	cmp	r0, #1
+  ea:	f040 8125 	bne.w	338 <mylib::listen_sensor::read_temperature+0x338>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:217
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = unsafe { sensor_network::init_collector_post() };  assert!(rc);
-  ea:	f7ff fffe 	bl	0 <init_collector_post>
-  ee:	2800      	cmp	r0, #0
-  f0:	f000 8160 	beq.w	3b4 <mylib::listen_sensor::read_temperature+0x3b4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:230
-    */
+  ee:	f7ff fffe 	bl	0 <init_collector_post>
+  f2:	2800      	cmp	r0, #0
+  f4:	f000 81b2 	beq.w	45c <mylib::listen_sensor::read_temperature+0x45c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:220
+
+    //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
+    let _payload = coap!(@cbor {
+  f8:	f240 0000 	movw	r0, #0
+  fc:	f240 0100 	movw	r1, #0
+ 100:	f2c0 0000 	movt	r0, #0
+ 104:	f2c0 0100 	movt	r1, #0
+ 108:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
+ 10c:	f7ff fffe 	bl	0 <cbor_encoder_create_map>
+ 110:	2d01      	cmp	r5, #1
+ 112:	f040 8171 	bne.w	3f8 <mylib::listen_sensor::read_temperature+0x3f8>
+ 116:	2074      	movs	r0, #116	; 0x74
+ 118:	f240 0500 	movw	r5, #0
+_ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
+ 11c:	f824 0f01 	strh.w	r0, [r4, #1]!
+_ZN5mylib9send_coap29send_sensor_data_to_collector17h1bb0ce20c529569eE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:220
+ 120:	f2c0 0500 	movt	r5, #0
+ 124:	4628      	mov	r0, r5
+ 126:	2201      	movs	r2, #1
+ 128:	4621      	mov	r1, r4
+ 12a:	f7ff fffe 	bl	0 <cbor_encode_text_string>
+ 12e:	4628      	mov	r0, r5
+ 130:	4642      	mov	r2, r8
+ 132:	2300      	movs	r3, #0
+ 134:	f7ff fffe 	bl	0 <cbor_encode_int>
+ 138:	f240 0000 	movw	r0, #0
+ 13c:	4629      	mov	r1, r5
+ 13e:	f2c0 0000 	movt	r0, #0
+ 142:	f7ff fffe 	bl	0 <cbor_encoder_close_container>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:228
+    });
 
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     let rc = unsafe { sensor_network::do_collector_post() };  assert!(rc);
-  f4:	f7ff fffe 	bl	0 <do_collector_post>
-  f8:	2800      	cmp	r0, #0
-  fa:	f000 8162 	beq.w	3c2 <mylib::listen_sensor::read_temperature+0x3c2>
+ 146:	f7ff fffe 	bl	0 <do_collector_post>
+ 14a:	2800      	cmp	r0, #0
+ 14c:	f000 818d 	beq.w	46a <mylib::listen_sensor::read_temperature+0x46a>
 _ZN5mylib4base13console_print17hee1ead095790f478E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
         console_buffer(msg.as_ptr(), len as u32);
-  fe:	f240 0000 	movw	r0, #0
- 102:	2121      	movs	r1, #33	; 0x21
- 104:	f2c0 0000 	movt	r0, #0
- 108:	e0e5      	b.n	2d6 <mylib::listen_sensor::read_temperature+0x2d6>
+ 150:	f240 0000 	movw	r0, #0
+ 154:	2121      	movs	r1, #33	; 0x21
+ 156:	f2c0 0000 	movt	r0, #0
+ 15a:	e0e5      	b.n	328 <mylib::listen_sensor::read_temperature+0x328>
 _ZN9cstr_core4CStr8to_bytes17h01698a6d2c5e5247E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:1033
     /// assert_eq!(c_str.to_bytes(), b"foo");
@@ -2191,445 +2240,437 @@ _ZN9cstr_core4CStr8to_bytes17h01698a6d2c5e5247E():
     pub fn to_bytes(&self) -> &[u8] {
         let bytes = self.to_bytes_with_nul();
         &bytes[..bytes.len() - 1]
- 10a:	f1aa 0001 	sub.w	r0, sl, #1
+ 15c:	f1aa 0001 	sub.w	r0, sl, #1
 _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h3271bd4ab5986fe2E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2745
- 10e:	f1ba 0f00 	cmp.w	sl, #0
- 112:	f000 8115 	beq.w	340 <mylib::listen_sensor::read_temperature+0x340>
+ 160:	f1ba 0f00 	cmp.w	sl, #0
+ 164:	f000 8115 	beq.w	392 <mylib::listen_sensor::read_temperature+0x392>
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
     assert_ne!(node_id.to_bytes()[0], 0);
- 116:	2800      	cmp	r0, #0
- 118:	f000 8116 	beq.w	348 <mylib::listen_sensor::read_temperature+0x348>
- 11c:	7831      	ldrb	r1, [r6, #0]
- 11e:	2900      	cmp	r1, #0
- 120:	f000 811b 	beq.w	35a <mylib::listen_sensor::read_temperature+0x35a>
+ 168:	2800      	cmp	r0, #0
+ 16a:	f000 8116 	beq.w	39a <mylib::listen_sensor::read_temperature+0x39a>
+ 16e:	7831      	ldrb	r1, [r6, #0]
+ 170:	2900      	cmp	r1, #0
+ 172:	f000 811b 	beq.w	3ac <mylib::listen_sensor::read_temperature+0x3ac>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:162
     if unsafe { !NETWORK_IS_READY } { return Err(MynewtError::SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
- 124:	f240 0700 	movw	r7, #0
- 128:	f2c0 0700 	movt	r7, #0
- 12c:	7839      	ldrb	r1, [r7, #0]
- 12e:	2901      	cmp	r1, #1
- 130:	f040 80d9 	bne.w	2e6 <mylib::listen_sensor::read_temperature+0x2e6>
- 134:	e9cd 0501 	strd	r0, r5, [sp, #4]
- 138:	9403      	str	r4, [sp, #12]
+ 176:	f240 0700 	movw	r7, #0
+ 17a:	f2c0 0700 	movt	r7, #0
+ 17e:	7839      	ldrb	r1, [r7, #0]
+ 180:	2901      	cmp	r1, #1
+ 182:	f040 80d9 	bne.w	338 <mylib::listen_sensor::read_temperature+0x338>
+ 186:	a901      	add	r1, sp, #4
+ 188:	e881 0121 	stmia.w	r1, {r0, r5, r8}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:163
     let device_id_ptr = unsafe { sensor_network::get_device_id() };
- 13a:	f7ff fffe 	bl	0 <get_device_id>
+ 18c:	f7ff fffe 	bl	0 <get_device_id>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:164
     let device_id: &CStr = unsafe { CStr::from_ptr(device_id_ptr) };
- 13e:	f7ff fffe 	bl	0 <cstr_core::CStr::from_ptr>
- 142:	4683      	mov	fp, r0
+ 190:	f7ff fffe 	bl	0 <cstr_core::CStr::from_ptr>
+ 194:	4683      	mov	fp, r0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:169
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
- 144:	2000      	movs	r0, #0
+ 196:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:164
     let device_id: &CStr = unsafe { CStr::from_ptr(device_id_ptr) };
- 146:	4688      	mov	r8, r1
- 148:	2400      	movs	r4, #0
+ 198:	4688      	mov	r8, r1
+ 19a:	2400      	movs	r4, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:169
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
- 14a:	f7ff fffe 	bl	0 <init_server_post>
- 14e:	2800      	cmp	r0, #0
- 150:	f000 813e 	beq.w	3d0 <mylib::listen_sensor::read_temperature+0x3d0>
+ 19c:	f7ff fffe 	bl	0 <init_server_post>
+ 1a0:	2800      	cmp	r0, #0
+ 1a2:	f000 8169 	beq.w	478 <mylib::listen_sensor::read_temperature+0x478>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
     let _payload = coap!(@json {
- 154:	f7ff fffe 	bl	0 <json_rep_start_root_object>
- 158:	f107 0901 	add.w	r9, r7, #1
- 15c:	f240 0100 	movw	r1, #0
- 160:	f2c0 0100 	movt	r1, #0
- 164:	4648      	mov	r0, r9
- 166:	f7ff fffe 	bl	0 <json_helper_set_array>
- 16a:	f240 0000 	movw	r0, #0
- 16e:	f2c0 0000 	movt	r0, #0
- 172:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
+ 1a6:	f7ff fffe 	bl	0 <json_rep_start_root_object>
+ 1aa:	f107 0901 	add.w	r9, r7, #1
+ 1ae:	f240 0100 	movw	r1, #0
+ 1b2:	f2c0 0100 	movt	r1, #0
+ 1b6:	4648      	mov	r0, r9
+ 1b8:	f7ff fffe 	bl	0 <json_helper_set_array>
+ 1bc:	f240 0000 	movw	r0, #0
+ 1c0:	f2c0 0000 	movt	r0, #0
+ 1c4:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 176:	f240 0000 	movw	r0, #0
- 17a:	f107 0521 	add.w	r5, r7, #33	; 0x21
- 17e:	f2c0 0000 	movt	r0, #0
+ 1c8:	f240 0000 	movw	r0, #0
+ 1cc:	f107 0521 	add.w	r5, r7, #33	; 0x21
+ 1d0:	f2c0 0000 	movt	r0, #0
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:46
         self.value_buffer[s.len()] = 0;
- 182:	f887 4027 	strb.w	r4, [r7, #39]	; 0x27
+ 1d4:	f887 4027 	strb.w	r4, [r7, #39]	; 0x27
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 186:	8881      	ldrh	r1, [r0, #4]
+ 1d8:	8881      	ldrh	r1, [r0, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 188:	462a      	mov	r2, r5
+ 1da:	462a      	mov	r2, r5
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 18a:	f8a7 1025 	strh.w	r1, [r7, #37]	; 0x25
+ 1dc:	f8a7 1025 	strh.w	r1, [r7, #37]	; 0x25
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 18e:	f240 0100 	movw	r1, #0
+ 1e0:	f240 0100 	movw	r1, #0
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 192:	6800      	ldr	r0, [r0, #0]
+ 1e4:	6800      	ldr	r0, [r0, #0]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 194:	f2c0 0100 	movt	r1, #0
+ 1e6:	f2c0 0100 	movt	r1, #0
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 198:	f8c7 0021 	str.w	r0, [r7, #33]	; 0x21
+ 1ea:	f8c7 0021 	str.w	r0, [r7, #33]	; 0x21
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 19c:	4648      	mov	r0, r9
- 19e:	f7ff fffe 	bl	0 <json_helper_set_text_string>
+ 1ee:	4648      	mov	r0, r9
+ 1f0:	f7ff fffe 	bl	0 <json_helper_set_text_string>
 _ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3377
- 1a2:	f1b8 0f01 	cmp.w	r8, #1
+ 1f4:	f1b8 0f01 	cmp.w	r8, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17h05b85e44e703fdaeE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
- 1a6:	d306      	bcc.n	1b6 <mylib::listen_sensor::read_temperature+0x1b6>
+ 1f8:	d306      	bcc.n	208 <mylib::listen_sensor::read_temperature+0x208>
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
- 1a8:	f1a8 0001 	sub.w	r0, r8, #1
+ 1fa:	f1a8 0001 	sub.w	r0, r8, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17h05b85e44e703fdaeE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
- 1ac:	4540      	cmp	r0, r8
- 1ae:	d202      	bcs.n	1b6 <mylib::listen_sensor::read_temperature+0x1b6>
+ 1fe:	4540      	cmp	r0, r8
+ 200:	d202      	bcs.n	208 <mylib::listen_sensor::read_temperature+0x208>
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
- 1b0:	f81b 0000 	ldrb.w	r0, [fp, r0]
+ 202:	f81b 0000 	ldrb.w	r0, [fp, r0]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:42
         if s.last() == Some(&0) { return s.as_ptr(); }
- 1b4:	b160      	cbz	r0, 1d0 <mylib::listen_sensor::read_temperature+0x1d0>
+ 206:	b160      	cbz	r0, 222 <mylib::listen_sensor::read_temperature+0x222>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:44
         assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
- 1b6:	f1b8 0f20 	cmp.w	r8, #32
- 1ba:	f080 80f4 	bcs.w	3a6 <mylib::listen_sensor::read_temperature+0x3a6>
+ 208:	f1b8 0f20 	cmp.w	r8, #32
+ 20c:	f080 811f 	bcs.w	44e <mylib::listen_sensor::read_temperature+0x44e>
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 1be:	4628      	mov	r0, r5
- 1c0:	4659      	mov	r1, fp
- 1c2:	4642      	mov	r2, r8
- 1c4:	f7ff fffe 	bl	0 <__aeabi_memcpy>
- 1c8:	2000      	movs	r0, #0
+ 210:	4628      	mov	r0, r5
+ 212:	4659      	mov	r1, fp
+ 214:	4642      	mov	r2, r8
+ 216:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+ 21a:	2000      	movs	r0, #0
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
- 1ca:	46ab      	mov	fp, r5
+ 21c:	46ab      	mov	fp, r5
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:46
         self.value_buffer[s.len()] = 0;
- 1cc:	f805 0008 	strb.w	r0, [r5, r8]
+ 21e:	f805 0008 	strb.w	r0, [r5, r8]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 1d0:	f240 0100 	movw	r1, #0
- 1d4:	4648      	mov	r0, r9
- 1d6:	f2c0 0100 	movt	r1, #0
- 1da:	465a      	mov	r2, fp
- 1dc:	f7ff fffe 	bl	0 <json_helper_set_text_string>
- 1e0:	f240 0400 	movw	r4, #0
- 1e4:	f2c0 0400 	movt	r4, #0
- 1e8:	4620      	mov	r0, r4
- 1ea:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
- 1ee:	4620      	mov	r0, r4
- 1f0:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
- 1f4:	f646 706e 	movw	r0, #28526	; 0x6f6e
+ 222:	f240 0100 	movw	r1, #0
+ 226:	4648      	mov	r0, r9
+ 228:	f2c0 0100 	movt	r1, #0
+ 22c:	465a      	mov	r2, fp
+ 22e:	f7ff fffe 	bl	0 <json_helper_set_text_string>
+ 232:	f240 0400 	movw	r4, #0
+ 236:	f2c0 0400 	movt	r4, #0
+ 23a:	4620      	mov	r0, r4
+ 23c:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
+ 240:	4620      	mov	r0, r4
+ 242:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
+ 246:	f646 706e 	movw	r0, #28526	; 0x6f6e
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 1f8:	463a      	mov	r2, r7
- 1fa:	f2c6 5064 	movt	r0, #25956	; 0x6564
+ 24a:	463a      	mov	r2, r7
+ 24c:	f2c6 5064 	movt	r0, #25956	; 0x6564
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 1fe:	f240 0100 	movw	r1, #0
+ 250:	f240 0100 	movw	r1, #0
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 202:	f842 0f21 	str.w	r0, [r2, #33]!
- 206:	2000      	movs	r0, #0
+ 254:	f842 0f21 	str.w	r0, [r2, #33]!
+ 258:	2000      	movs	r0, #0
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 208:	f2c0 0100 	movt	r1, #0
+ 25a:	f2c0 0100 	movt	r1, #0
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:46
- 20c:	7110      	strb	r0, [r2, #4]
+ 25e:	7110      	strb	r0, [r2, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 20e:	4648      	mov	r0, r9
- 210:	f7ff fffe 	bl	0 <json_helper_set_text_string>
- 214:	9801      	ldr	r0, [sp, #4]
- 216:	5c30      	ldrb	r0, [r6, r0]
+ 260:	4648      	mov	r0, r9
+ 262:	f7ff fffe 	bl	0 <json_helper_set_text_string>
+ 266:	9801      	ldr	r0, [sp, #4]
+ 268:	5c30      	ldrb	r0, [r6, r0]
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:42
         if s.last() == Some(&0) { return s.as_ptr(); }
- 218:	b160      	cbz	r0, 234 <mylib::listen_sensor::read_temperature+0x234>
+ 26a:	b160      	cbz	r0, 286 <mylib::listen_sensor::read_temperature+0x286>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:44
         assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
- 21a:	f1ba 0f20 	cmp.w	sl, #32
- 21e:	f080 80c2 	bcs.w	3a6 <mylib::listen_sensor::read_temperature+0x3a6>
+ 26c:	f1ba 0f20 	cmp.w	sl, #32
+ 270:	f080 80ed 	bcs.w	44e <mylib::listen_sensor::read_temperature+0x44e>
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 222:	4628      	mov	r0, r5
- 224:	4631      	mov	r1, r6
- 226:	4652      	mov	r2, sl
- 228:	f7ff fffe 	bl	0 <__aeabi_memcpy>
- 22c:	2000      	movs	r0, #0
+ 274:	4628      	mov	r0, r5
+ 276:	4631      	mov	r1, r6
+ 278:	4652      	mov	r2, sl
+ 27a:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+ 27e:	2000      	movs	r0, #0
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17ha3c231bc5e7dbafeE():
- 22e:	462e      	mov	r6, r5
+ 280:	462e      	mov	r6, r5
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:46
         self.value_buffer[s.len()] = 0;
- 230:	f805 000a 	strb.w	r0, [r5, sl]
+ 282:	f805 000a 	strb.w	r0, [r5, sl]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 234:	f240 0100 	movw	r1, #0
- 238:	4648      	mov	r0, r9
- 23a:	f2c0 0100 	movt	r1, #0
- 23e:	4632      	mov	r2, r6
- 240:	f7ff fffe 	bl	0 <json_helper_set_text_string>
- 244:	f240 0000 	movw	r0, #0
- 248:	f2c0 0000 	movt	r0, #0
- 24c:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
- 250:	9802      	ldr	r0, [sp, #8]
- 252:	2801      	cmp	r0, #1
- 254:	f040 80c3 	bne.w	3de <mylib::listen_sensor::read_temperature+0x3de>
- 258:	f240 0400 	movw	r4, #0
- 25c:	f2c0 0400 	movt	r4, #0
- 260:	4620      	mov	r0, r4
- 262:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
+ 286:	f240 0100 	movw	r1, #0
+ 28a:	4648      	mov	r0, r9
+ 28c:	f2c0 0100 	movt	r1, #0
+ 290:	4632      	mov	r2, r6
+ 292:	f7ff fffe 	bl	0 <json_helper_set_text_string>
+ 296:	f240 0000 	movw	r0, #0
+ 29a:	f2c0 0000 	movt	r0, #0
+ 29e:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
+ 2a2:	9802      	ldr	r0, [sp, #8]
+ 2a4:	2801      	cmp	r0, #1
+ 2a6:	f040 80a7 	bne.w	3f8 <mylib::listen_sensor::read_temperature+0x3f8>
+ 2aa:	f240 0400 	movw	r4, #0
+ 2ae:	f2c0 0400 	movt	r4, #0
+ 2b2:	4620      	mov	r0, r4
+ 2b4:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 266:	f240 0000 	movw	r0, #0
- 26a:	2500      	movs	r5, #0
- 26c:	f2c0 0000 	movt	r0, #0
- 270:	8801      	ldrh	r1, [r0, #0]
- 272:	f827 1f01 	strh.w	r1, [r7, #1]!
- 276:	7880      	ldrb	r0, [r0, #2]
- 278:	70b8      	strb	r0, [r7, #2]
- 27a:	2074      	movs	r0, #116	; 0x74
- 27c:	463a      	mov	r2, r7
+ 2b8:	f240 0000 	movw	r0, #0
+ 2bc:	2500      	movs	r5, #0
+ 2be:	f2c0 0000 	movt	r0, #0
+ 2c2:	8801      	ldrh	r1, [r0, #0]
+ 2c4:	f827 1f01 	strh.w	r1, [r7, #1]!
+ 2c8:	7880      	ldrb	r0, [r0, #2]
+ 2ca:	70b8      	strb	r0, [r7, #2]
+ 2cc:	2074      	movs	r0, #116	; 0x74
+ 2ce:	463a      	mov	r2, r7
 _ZN5mylib6mynewt8encoding12json_context11JsonContext11key_to_cstr17h80a38c8879a9efaaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:33
         self.key_buffer[s.len()] = 0;
- 27e:	70fd      	strb	r5, [r7, #3]
+ 2d0:	70fd      	strb	r5, [r7, #3]
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 280:	f822 0f20 	strh.w	r0, [r2, #32]!
+ 2d2:	f822 0f20 	strh.w	r0, [r2, #32]!
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 284:	4638      	mov	r0, r7
- 286:	4639      	mov	r1, r7
- 288:	f7ff fffe 	bl	0 <json_helper_set_text_string>
+ 2d6:	4638      	mov	r0, r7
+ 2d8:	4639      	mov	r1, r7
+ 2da:	f7ff fffe 	bl	0 <json_helper_set_text_string>
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 28c:	f240 0000 	movw	r0, #0
+ 2de:	f240 0000 	movw	r0, #0
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 290:	9a03      	ldr	r2, [sp, #12]
+ 2e2:	9a03      	ldr	r2, [sp, #12]
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 292:	f2c0 0000 	movt	r0, #0
+ 2e4:	f2c0 0000 	movt	r0, #0
 _ZN5mylib6mynewt8encoding12json_context11JsonContext11key_to_cstr17h80a38c8879a9efaaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:33
- 296:	717d      	strb	r5, [r7, #5]
+ 2e8:	717d      	strb	r5, [r7, #5]
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 298:	7901      	ldrb	r1, [r0, #4]
+ 2ea:	7901      	ldrb	r1, [r0, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 29a:	2300      	movs	r3, #0
+ 2ec:	2300      	movs	r3, #0
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 29c:	6800      	ldr	r0, [r0, #0]
- 29e:	7139      	strb	r1, [r7, #4]
+ 2ee:	6800      	ldr	r0, [r0, #0]
+ 2f0:	7139      	strb	r1, [r7, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 2a0:	4639      	mov	r1, r7
+ 2f2:	4639      	mov	r1, r7
 _ZN4core10intrinsics19copy_nonoverlapping17he423a6d16c58cf9cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
- 2a2:	6038      	str	r0, [r7, #0]
+ 2f4:	6038      	str	r0, [r7, #0]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:172
- 2a4:	4638      	mov	r0, r7
- 2a6:	f7ff fffe 	bl	0 <json_helper_set_int>
- 2aa:	4620      	mov	r0, r4
- 2ac:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
- 2b0:	f240 0100 	movw	r1, #0
- 2b4:	4638      	mov	r0, r7
- 2b6:	f2c0 0100 	movt	r1, #0
- 2ba:	f7ff fffe 	bl	0 <json_helper_close_array>
- 2be:	f7ff fffe 	bl	0 <json_rep_end_root_object>
+ 2f6:	4638      	mov	r0, r7
+ 2f8:	f7ff fffe 	bl	0 <json_helper_set_int>
+ 2fc:	4620      	mov	r0, r4
+ 2fe:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
+ 302:	f240 0100 	movw	r1, #0
+ 306:	4638      	mov	r0, r7
+ 308:	f2c0 0100 	movt	r1, #0
+ 30c:	f7ff fffe 	bl	0 <json_helper_close_array>
+ 310:	f7ff fffe 	bl	0 <json_rep_end_root_object>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:188
     let rc = unsafe { sensor_network::do_server_post() };  assert!(rc);
- 2c2:	f7ff fffe 	bl	0 <do_server_post>
- 2c6:	2800      	cmp	r0, #0
- 2c8:	f000 80b4 	beq.w	434 <mylib::listen_sensor::read_temperature+0x434>
+ 314:	f7ff fffe 	bl	0 <do_server_post>
+ 318:	2800      	cmp	r0, #0
+ 31a:	f000 80b4 	beq.w	486 <mylib::listen_sensor::read_temperature+0x486>
 _ZN5mylib4base13console_print17hee1ead095790f478E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
- 2cc:	f240 0000 	movw	r0, #0
- 2d0:	214b      	movs	r1, #75	; 0x4b
- 2d2:	f2c0 0000 	movt	r0, #0
+ 31e:	f240 0000 	movw	r0, #0
+ 322:	214b      	movs	r1, #75	; 0x4b
+ 324:	f2c0 0000 	movt	r0, #0
 _ZN5mylib9send_coap16send_sensor_data17hbbfb0a90effc0e1eE():
- 2d6:	f7ff fffe 	bl	0 <console_buffer>
- 2da:	f7ff fffe 	bl	0 <console_flush>
- 2de:	2001      	movs	r0, #1
+ 328:	f7ff fffe 	bl	0 <console_buffer>
+ 32c:	f7ff fffe 	bl	0 <console_flush>
+ 330:	2001      	movs	r0, #1
 _ZN5mylib13listen_sensor16read_temperature17hf92a13341077b6f1E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:108
     if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
- 2e0:	3006      	adds	r0, #6
- 2e2:	d10d      	bne.n	300 <mylib::listen_sensor::read_temperature+0x300>
- 2e4:	e003      	b.n	2ee <mylib::listen_sensor::read_temperature+0x2ee>
- 2e6:	f06f 0005 	mvn.w	r0, #5
- 2ea:	3006      	adds	r0, #6
- 2ec:	d108      	bne.n	300 <mylib::listen_sensor::read_temperature+0x300>
+ 332:	3006      	adds	r0, #6
+ 334:	d10d      	bne.n	352 <mylib::listen_sensor::read_temperature+0x352>
+ 336:	e003      	b.n	340 <mylib::listen_sensor::read_temperature+0x340>
+ 338:	f06f 0005 	mvn.w	r0, #5
+ 33c:	3006      	adds	r0, #6
+ 33e:	d108      	bne.n	352 <mylib::listen_sensor::read_temperature+0x352>
 _ZN5mylib4base13console_print17hee1ead095790f478E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
- 2ee:	f240 0000 	movw	r0, #0
- 2f2:	2116      	movs	r1, #22
- 2f4:	f2c0 0000 	movt	r0, #0
- 2f8:	f7ff fffe 	bl	0 <console_buffer>
+ 340:	f240 0000 	movw	r0, #0
+ 344:	2116      	movs	r1, #22
+ 346:	f2c0 0000 	movt	r0, #0
+ 34a:	f7ff fffe 	bl	0 <console_buffer>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:19
         console_flush();  //  TODO: Remove this.
- 2fc:	f7ff fffe 	bl	0 <console_flush>
+ 34e:	f7ff fffe 	bl	0 <console_flush>
 _ZN5mylib13listen_sensor16read_temperature17hf92a13341077b6f1E():
- 300:	2000      	movs	r0, #0
+ 352:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:116
 }
- 302:	b015      	add	sp, #84	; 0x54
- 304:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 354:	b015      	add	sp, #84	; 0x54
+ 356:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:86
     assert!(unsafe { !is_null_sensor(sensor) });
- 308:	f240 0000 	movw	r0, #0
- 30c:	f2c0 0000 	movt	r0, #0
- 310:	f7ff fffe 	bl	0 <core::panicking::panic>
- 314:	defe      	udf	#254	; 0xfe
+ 35a:	f240 0000 	movw	r0, #0
+ 35e:	f2c0 0000 	movt	r0, #0
+ 362:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 366:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:98
     if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
- 316:	f240 0000 	movw	r0, #0
- 31a:	f2c0 0000 	movt	r0, #0
- 31e:	f7ff fffe 	bl	0 <core::panicking::panic>
- 322:	defe      	udf	#254	; 0xfe
+ 368:	f240 0000 	movw	r0, #0
+ 36c:	f2c0 0000 	movt	r0, #0
+ 370:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 374:	defe      	udf	#254	; 0xfe
 _ZN5mylib13listen_sensor15get_temperature17hdd7e4ace82cfbeeaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:130
             assert!(rc == 0);
- 324:	f240 0000 	movw	r0, #0
- 328:	f2c0 0000 	movt	r0, #0
- 32c:	f7ff fffe 	bl	0 <core::panicking::panic>
- 330:	defe      	udf	#254	; 0xfe
+ 376:	f240 0000 	movw	r0, #0
+ 37a:	f2c0 0000 	movt	r0, #0
+ 37e:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 382:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:143
             assert!(rc == 0);
- 332:	f240 0000 	movw	r0, #0
- 336:	f2c0 0000 	movt	r0, #0
- 33a:	f7ff fffe 	bl	0 <core::panicking::panic>
- 33e:	defe      	udf	#254	; 0xfe
+ 384:	f240 0000 	movw	r0, #0
+ 388:	f2c0 0000 	movt	r0, #0
+ 38c:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 390:	defe      	udf	#254	; 0xfe
 _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h3271bd4ab5986fe2E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2746
- 340:	2100      	movs	r1, #0
- 342:	f7ff fffe 	bl	0 <core::slice::slice_index_len_fail>
- 346:	defe      	udf	#254	; 0xfe
+ 392:	2100      	movs	r1, #0
+ 394:	f7ff fffe 	bl	0 <core::slice::slice_index_len_fail>
+ 398:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
     assert_ne!(node_id.to_bytes()[0], 0);
- 348:	f240 0000 	movw	r0, #0
- 34c:	2100      	movs	r1, #0
- 34e:	f2c0 0000 	movt	r0, #0
- 352:	2200      	movs	r2, #0
- 354:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
- 358:	defe      	udf	#254	; 0xfe
- 35a:	f240 0000 	movw	r0, #0
- 35e:	a914      	add	r1, sp, #80	; 0x50
- 360:	f2c0 0000 	movt	r0, #0
- 364:	9613      	str	r6, [sp, #76]	; 0x4c
- 366:	9012      	str	r0, [sp, #72]	; 0x48
- 368:	e9cd 0110 	strd	r0, r1, [sp, #64]	; 0x40
- 36c:	a813      	add	r0, sp, #76	; 0x4c
- 36e:	900f      	str	r0, [sp, #60]	; 0x3c
- 370:	f240 0000 	movw	r0, #0
- 374:	f2c0 0000 	movt	r0, #0
- 378:	f240 0100 	movw	r1, #0
- 37c:	9014      	str	r0, [sp, #80]	; 0x50
- 37e:	2002      	movs	r0, #2
+ 39a:	f240 0000 	movw	r0, #0
+ 39e:	2100      	movs	r1, #0
+ 3a0:	f2c0 0000 	movt	r0, #0
+ 3a4:	2200      	movs	r2, #0
+ 3a6:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
+ 3aa:	defe      	udf	#254	; 0xfe
+ 3ac:	f240 0000 	movw	r0, #0
+ 3b0:	a914      	add	r1, sp, #80	; 0x50
+ 3b2:	f2c0 0000 	movt	r0, #0
+ 3b6:	9613      	str	r6, [sp, #76]	; 0x4c
+ 3b8:	900b      	str	r0, [sp, #44]	; 0x2c
+ 3ba:	e9cd 0109 	strd	r0, r1, [sp, #36]	; 0x24
+ 3be:	a813      	add	r0, sp, #76	; 0x4c
+ 3c0:	9008      	str	r0, [sp, #32]
+ 3c2:	f240 0000 	movw	r0, #0
+ 3c6:	f2c0 0000 	movt	r0, #0
+ 3ca:	f240 0100 	movw	r1, #0
+ 3ce:	9014      	str	r0, [sp, #80]	; 0x50
+ 3d0:	2002      	movs	r0, #2
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
- 380:	900e      	str	r0, [sp, #56]	; 0x38
- 382:	a80f      	add	r0, sp, #60	; 0x3c
- 384:	900d      	str	r0, [sp, #52]	; 0x34
- 386:	2000      	movs	r0, #0
- 388:	e9cd 000b 	strd	r0, r0, [sp, #44]	; 0x2c
- 38c:	2003      	movs	r0, #3
- 38e:	900a      	str	r0, [sp, #40]	; 0x28
- 390:	f240 0000 	movw	r0, #0
- 394:	f2c0 0000 	movt	r0, #0
+ 3d2:	9012      	str	r0, [sp, #72]	; 0x48
+ 3d4:	a808      	add	r0, sp, #32
+ 3d6:	9011      	str	r0, [sp, #68]	; 0x44
+ 3d8:	2000      	movs	r0, #0
+ 3da:	e9cd 000f 	strd	r0, r0, [sp, #60]	; 0x3c
+ 3de:	2003      	movs	r0, #3
+ 3e0:	900e      	str	r0, [sp, #56]	; 0x38
+ 3e2:	f240 0000 	movw	r0, #0
+ 3e6:	f2c0 0000 	movt	r0, #0
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
- 398:	f2c0 0100 	movt	r1, #0
+ 3ea:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
- 39c:	9009      	str	r0, [sp, #36]	; 0x24
- 39e:	a809      	add	r0, sp, #36	; 0x24
+ 3ee:	900d      	str	r0, [sp, #52]	; 0x34
+ 3f0:	a80d      	add	r0, sp, #52	; 0x34
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:161
- 3a0:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
- 3a4:	defe      	udf	#254	; 0xfe
- 3a6:	f240 0000 	movw	r0, #0
- 3aa:	f2c0 0000 	movt	r0, #0
- 3ae:	f7ff fffe 	bl	0 <core::panicking::panic>
- 3b2:	defe      	udf	#254	; 0xfe
+ 3f2:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
+ 3f6:	defe      	udf	#254	; 0xfe
+_ZN5mylib9send_coap16send_sensor_data17hbbfb0a90effc0e1eE():
+ 3f8:	2001      	movs	r0, #1
+ 3fa:	a914      	add	r1, sp, #80	; 0x50
+ 3fc:	f88d 0033 	strb.w	r0, [sp, #51]	; 0x33
+ 400:	f10d 0033 	add.w	r0, sp, #51	; 0x33
+ 404:	9013      	str	r0, [sp, #76]	; 0x4c
+ 406:	f240 0000 	movw	r0, #0
+ 40a:	f2c0 0000 	movt	r0, #0
+ 40e:	900b      	str	r0, [sp, #44]	; 0x2c
+ 410:	910a      	str	r1, [sp, #40]	; 0x28
+ 412:	f240 0100 	movw	r1, #0
+ 416:	9009      	str	r0, [sp, #36]	; 0x24
+ 418:	a813      	add	r0, sp, #76	; 0x4c
+ 41a:	9008      	str	r0, [sp, #32]
+ 41c:	f240 0000 	movw	r0, #0
+ 420:	f2c0 0000 	movt	r0, #0
+ 424:	f2c0 0100 	movt	r1, #0
+ 428:	9014      	str	r0, [sp, #80]	; 0x50
+ 42a:	2002      	movs	r0, #2
+ 42c:	9012      	str	r0, [sp, #72]	; 0x48
+ 42e:	a808      	add	r0, sp, #32
+ 430:	9011      	str	r0, [sp, #68]	; 0x44
+ 432:	2000      	movs	r0, #0
+ 434:	9010      	str	r0, [sp, #64]	; 0x40
+ 436:	900f      	str	r0, [sp, #60]	; 0x3c
+ 438:	2003      	movs	r0, #3
+ 43a:	900e      	str	r0, [sp, #56]	; 0x38
+ 43c:	f240 0000 	movw	r0, #0
+ 440:	f2c0 0000 	movt	r0, #0
+ 444:	900d      	str	r0, [sp, #52]	; 0x34
+ 446:	a80d      	add	r0, sp, #52	; 0x34
+ 448:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
+ 44c:	defe      	udf	#254	; 0xfe
+_ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
+ 44e:	f240 0000 	movw	r0, #0
+ 452:	f2c0 0000 	movt	r0, #0
+ 456:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 45a:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h1bb0ce20c529569eE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:217
     let rc = unsafe { sensor_network::init_collector_post() };  assert!(rc);
- 3b4:	f240 0000 	movw	r0, #0
- 3b8:	f2c0 0000 	movt	r0, #0
- 3bc:	f7ff fffe 	bl	0 <core::panicking::panic>
- 3c0:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:230
+ 45c:	f240 0000 	movw	r0, #0
+ 460:	f2c0 0000 	movt	r0, #0
+ 464:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 468:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:228
     let rc = unsafe { sensor_network::do_collector_post() };  assert!(rc);
- 3c2:	f240 0000 	movw	r0, #0
- 3c6:	f2c0 0000 	movt	r0, #0
- 3ca:	f7ff fffe 	bl	0 <core::panicking::panic>
- 3ce:	defe      	udf	#254	; 0xfe
+ 46a:	f240 0000 	movw	r0, #0
+ 46e:	f2c0 0000 	movt	r0, #0
+ 472:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 476:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:169
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
- 3d0:	f240 0000 	movw	r0, #0
- 3d4:	f2c0 0000 	movt	r0, #0
- 3d8:	f7ff fffe 	bl	0 <core::panicking::panic>
- 3dc:	defe      	udf	#254	; 0xfe
- 3de:	2001      	movs	r0, #1
- 3e0:	a914      	add	r1, sp, #80	; 0x50
- 3e2:	f88d 0023 	strb.w	r0, [sp, #35]	; 0x23
- 3e6:	f10d 0023 	add.w	r0, sp, #35	; 0x23
-_ZN5mylib6mynewt8encoding12json_context11JsonContext4fail17h1070ee05ada20f1fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:52
-        assert_eq!(err, JsonError::OK);
- 3ea:	9013      	str	r0, [sp, #76]	; 0x4c
- 3ec:	f240 0000 	movw	r0, #0
- 3f0:	f2c0 0000 	movt	r0, #0
- 3f4:	9012      	str	r0, [sp, #72]	; 0x48
- 3f6:	e9cd 0110 	strd	r0, r1, [sp, #64]	; 0x40
- 3fa:	a813      	add	r0, sp, #76	; 0x4c
- 3fc:	900f      	str	r0, [sp, #60]	; 0x3c
- 3fe:	f240 0000 	movw	r0, #0
- 402:	f2c0 0000 	movt	r0, #0
- 406:	f240 0100 	movw	r1, #0
- 40a:	9014      	str	r0, [sp, #80]	; 0x50
- 40c:	2002      	movs	r0, #2
-_ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
- 40e:	900e      	str	r0, [sp, #56]	; 0x38
- 410:	a80f      	add	r0, sp, #60	; 0x3c
- 412:	900d      	str	r0, [sp, #52]	; 0x34
- 414:	2000      	movs	r0, #0
- 416:	e9cd 000b 	strd	r0, r0, [sp, #44]	; 0x2c
- 41a:	2003      	movs	r0, #3
- 41c:	900a      	str	r0, [sp, #40]	; 0x28
- 41e:	f240 0000 	movw	r0, #0
- 422:	f2c0 0000 	movt	r0, #0
-_ZN5mylib6mynewt8encoding12json_context11JsonContext4fail17h1070ee05ada20f1fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:52
- 426:	f2c0 0100 	movt	r1, #0
-_ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
- 42a:	9009      	str	r0, [sp, #36]	; 0x24
- 42c:	a809      	add	r0, sp, #36	; 0x24
-_ZN5mylib6mynewt8encoding12json_context11JsonContext4fail17h1070ee05ada20f1fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:52
- 42e:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
- 432:	defe      	udf	#254	; 0xfe
-_ZN5mylib9send_coap26send_sensor_data_to_server17h4c266d999e3bab5dE():
+ 478:	f240 0000 	movw	r0, #0
+ 47c:	f2c0 0000 	movt	r0, #0
+ 480:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 484:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:188
     let rc = unsafe { sensor_network::do_server_post() };  assert!(rc);
- 434:	f240 0000 	movw	r0, #0
- 438:	f2c0 0000 	movt	r0, #0
- 43c:	f7ff fffe 	bl	0 <core::panicking::panic>
- 440:	defe      	udf	#254	; 0xfe
+ 486:	f240 0000 	movw	r0, #0
+ 48a:	f2c0 0000 	movt	r0, #0
+ 48e:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 492:	defe      	udf	#254	; 0xfe
 
 Disassembly of section .text._ZN5mylib9send_coap17network_task_func17h4cb9c6d5020b51c1E:
 
@@ -3116,7 +3157,7 @@ Disassembly of section .text._ZN85_$LT$mylib..mynewt..encoding..json_context..Js
 
 00000000 <<mylib::mynewt::encoding::json_context::JsonError as core::fmt::Debug>::fmt>:
 _ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17hd1c964405252df40E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:82
 #[derive(Debug, PartialEq)]
    0:	b510      	push	{r4, lr}
    2:	b084      	sub	sp, #16

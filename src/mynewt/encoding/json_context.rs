@@ -47,6 +47,25 @@ impl JsonContext {
         self.value_buffer.as_ptr()        
     }
 
+    /// Compute the byte length of the string in `s`.
+    /// If `s` is null-terminated, return length of `s` - 1. Else return length of `s`.
+    pub fn cstr_len(&self, s: &[u8]) -> usize {
+        //  If null-terminated, return length - 1.
+        if s.last() == Some(&0) { return s.len() - 1; }
+        s.len()
+    }
+
+    /// Return the global CBOR encoder
+    pub fn global_encoder(&self) -> *mut super::tinycbor::CborEncoder {
+        unsafe { &mut super::super::g_encoder }
+    }
+
+    /// TODO: Return the CBOR encoder for the current map or array
+    pub fn encoder(&self, _parent: &str, _child: &str) -> *mut super::tinycbor::CborEncoder {
+        //  TODO: Allow different map encoder by level
+        unsafe { &mut super::super::root_map }
+    }
+
     /// Fail the encoding with an error
     pub fn fail(&mut self, err: JsonError) {
         assert_eq!(err, JsonError::OK);

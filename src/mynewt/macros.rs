@@ -373,9 +373,6 @@ macro_rules! parse {
   (@cbor { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin cbor root);
-    //  let root = "root";  //  Top level object is named "root".
-    //  let mut values_map: CborEncoder = fill_zero!(CborEncoder);
-    //  let mut values_array: CborEncoder = fill_zero!(CborEncoder);
     coap_root!(@cbor {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
         parse!(@cbor @object JSON_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change JSON_CONTEXT to CBOR
@@ -1002,21 +999,58 @@ macro_rules! oc_rep_object_array_end_item {
 ///  Encode an int value 
 #[macro_export]
 macro_rules! oc_rep_set_int {
-  ($object:ident, $key:expr, $value:expr) => {{
+  ($context:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
-      "begin oc_rep_set_int ",
-      ", object: ", stringify!($object),
-      ", key: ",    stringify!($key),
-      ", value: ",  stringify!($value),
-      ", child: ",  stringify!($object), "_map"  //  object##_map
+      "-- cinti",
+      " c: ",  stringify!($context),
+      ", k: ", stringify!($key),
+      ", v: ", stringify!($value)
     );
+    //  Convert key to null-terminated char array. If key is `t`, convert to `"t\u{0}"`
+    let key_with_null: &str = stringify_null!($key);
+    let value = $value as i64;
     unsafe {
+      //  TODO: First para should be name of current map or array
+      let encoder = $context.encoder(stringify!($context), "_map");
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      cbor_encode_text_string(&mut concat_idents!($object,_map), $key.as_ptr(), $key.len());
+      tinycbor::cbor_encode_text_string(
+        encoder,
+        $context.key_to_cstr(key_with_null.as_bytes()),
+        $context.cstr_len(key_with_null.as_bytes())
+      );
       //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-      cbor_encode_int(&mut concat_idents!($object,_map), $value);
+      tinycbor::cbor_encode_int(
+        encoder,
+        value
+      );
     }
-    d!(end oc_rep_set_int);
+  }};
+
+  ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
+    concat!(
+      "-- cinte",
+      " c: ",  stringify!($context),
+      ", k: ", stringify!($key),
+      ", v: ", stringify!($value)
+    );
+    //  Convert key to char array, which may or may not be null-terminated.
+    let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
+    let value = $value as i64;
+    unsafe {
+      //  TODO: First para should be name of current map or array
+      let encoder = $context.encoder(stringify!($context), "_map");
+      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      tinycbor::cbor_encode_text_string(
+        encoder,
+        $context.key_to_cstr(key_with_opt_null),
+        $context.cstr_len(key_with_opt_null)
+      );
+      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+      tinycbor::cbor_encode_int(
+        encoder,
+        value
+      );
+    }
   }};
 }
 
