@@ -591,34 +591,34 @@ macro_rules! coap_item_int_val {
 ///  ```
 #[macro_export]
 macro_rules! json_rep_set_array {
-  ($object:ident, $key:ident) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident) => {{  //  If $key is identifier...
     concat!(
       "<< jarri ",
-      ", o: ", stringify!($object),
+      ", o: ", stringify!($context),
       ", k: ", stringify!($key)
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = stringify_null!($key);
     unsafe {
       json::json_helper_set_array(
-        $object.to_void_ptr(),
-        $object.key_to_cstr(key_with_null.as_bytes())
+        $context.to_void_ptr(),
+        $context.key_to_cstr(key_with_null.as_bytes())
       ); 
     };
   }};
 
-  ($object:ident, $key:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr) => {{  //  If $key is expression...
     concat!(
-      "<< jarri ",
-      ", o: ", stringify!($object),
+      "<< jarre ",
+      ", o: ", stringify!($context),
       ", k: ", stringify!($key)
     );
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe {
       json::json_helper_set_array(
-        $object.to_void_ptr(),
-        $object.key_to_cstr(key_with_opt_null)
+        $context.to_void_ptr(),
+        $context.key_to_cstr(key_with_opt_null)
       ); 
     };
   }};
@@ -630,7 +630,7 @@ macro_rules! json_rep_set_array {
 ///  ```
 #[macro_export]
 macro_rules! json_rep_close_array {
-  ($object:ident, $key:ident) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident) => {{  //  If $key is identifier...
     concat!(
       ">>"
     );
@@ -638,13 +638,13 @@ macro_rules! json_rep_close_array {
     let key_with_null: &str = stringify_null!($key);
     unsafe { 
       json::json_helper_close_array(
-        $object.to_void_ptr(),
-        $object.key_to_cstr(key_with_null.as_bytes())
+        $context.to_void_ptr(),
+        $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
   }};
 
-  ($object:ident, $key:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr) => {{  //  If $key is expression...
     concat!(
       ">>"
     );
@@ -652,8 +652,8 @@ macro_rules! json_rep_close_array {
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
       json::json_helper_close_array(
-        $object.to_void_ptr(),
-        $object.key_to_cstr(key_with_opt_null)
+        $context.to_void_ptr(),
+        $context.key_to_cstr(key_with_opt_null)
       ) 
     };
   }};
@@ -665,7 +665,7 @@ macro_rules! json_rep_close_array {
 ///  ```
 #[macro_export]
 macro_rules! json_rep_object_array_start_item {
-  ($key:ident) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident) => {{  //  If $key is identifier...
     concat!(
       "<< jitmi",
       " k: ", stringify!($key)
@@ -674,12 +674,12 @@ macro_rules! json_rep_object_array_start_item {
     let key_with_null: &str = stringify_null!($key);    
     unsafe { 
       json::json_helper_object_array_start_item(
-        key_with_null
+        $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
   }};
 
-  ($key:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr) => {{  //  If $key is expression...
     concat!(
       "<< jitme",
       " k: ", stringify!($key)
@@ -688,7 +688,7 @@ macro_rules! json_rep_object_array_start_item {
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
       json::json_helper_object_array_start_item(
-        key_with_opt_null
+        $context.key_to_cstr(key_with_opt_null)
       ) 
     };
   }};
@@ -700,7 +700,7 @@ macro_rules! json_rep_object_array_start_item {
 ///  ```
 #[macro_export]
 macro_rules! json_rep_object_array_end_item {
-  ($key:ident) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident) => {{  //  If $key is identifier...
     concat!(
       ">>"
     );
@@ -708,12 +708,12 @@ macro_rules! json_rep_object_array_end_item {
     let key_with_null: &str = stringify_null!($key);
     unsafe { 
       json::json_helper_object_array_end_item(
-        key_with_null
+        $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
   }};
 
-  ($key:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr) => {{  //  If $key is expression...
     concat!(
       ">>"
     );
@@ -721,7 +721,7 @@ macro_rules! json_rep_object_array_end_item {
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
       json::json_helper_object_array_end_item(
-        key_with_opt_null
+        $context.key_to_cstr(key_with_opt_null)
       ) 
     };
   }};
@@ -730,10 +730,10 @@ macro_rules! json_rep_object_array_end_item {
 ///  Encode an int value into the current JSON encoding value `coap_json_value`
 #[macro_export]
 macro_rules! json_rep_set_int {
-  ($object:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
       "-- jinti",
-      " o: ", stringify!($object),
+      " o: ", stringify!($context),
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
@@ -742,17 +742,17 @@ macro_rules! json_rep_set_int {
     let value = $value as u64;
     unsafe {
       mynewt_rust::json_helper_set_int(
-        $object.to_void_ptr(),
-        $object.key_to_cstr(key_with_null.as_bytes()),
+        $context.to_void_ptr(),
+        $context.key_to_cstr(key_with_null.as_bytes()),
         value
       )
     };
   }};
 
-  ($object:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
     concat!(
       "-- jinte",
-      " o: ", stringify!($object),
+      " o: ", stringify!($context),
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
@@ -761,43 +761,21 @@ macro_rules! json_rep_set_int {
     let value = $value as u64;
     unsafe {
       mynewt_rust::json_helper_set_int(
-        $object.to_void_ptr(), 
-        $object.key_to_cstr(key_with_opt_null),
+        $context.to_void_ptr(), 
+        $context.key_to_cstr(key_with_opt_null),
         value
       )
     };
   }};
 }
 
-///  Encode an int value into the current JSON encoding value `coap_json_value`
-#[macro_export]
-macro_rules! OLDjson_rep_set_int {
-  ($object:ident, $key:expr, $value:expr) => {{
-    concat!(
-      "begin json_rep_set_int ",
-      ", object: ", stringify!($object),
-      ", key: ",    stringify!($key),
-      ", value: ",  stringify!($value),
-      ", child: ",  stringify!($object), "_map"  //  object##_map
-    );
-    json_value_int!(coap_json_value, $value);          
-    unsafe { json::json_encode_object_entry(&mut coap_json_encoder, $key, &mut coap_json_value) };
-
-    //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-    //  cbor_encode_text_string(&mut concat_idents!($object,_map), $key.as_ptr(), $key.len());
-    //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-    //  cbor_encode_int(&mut concat_idents!($object,_map), $value);
-    d!(end json_rep_set_int);
-  }};
-}
-
 ///  Encode a text value into the current JSON encoding value `coap_json_value`
 #[macro_export]
 macro_rules! json_rep_set_text_string {
-  ($object:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
       "-- jtxti",
-      " o: ", stringify!($object),
+      " o: ", stringify!($context),
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
@@ -807,17 +785,17 @@ macro_rules! json_rep_set_text_string {
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
       mynewt_rust::json_helper_set_text_string(
-        $object.to_void_ptr(),
-        $object.key_to_cstr(key_with_null.as_bytes()),
-        $object.value_to_cstr(value_with_opt_null)
+        $context.to_void_ptr(),
+        $context.key_to_cstr(key_with_null.as_bytes()),
+        $context.value_to_cstr(value_with_opt_null)
       )
     };
   }};
 
-  ($object:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
     concat!(
       "-- jtxte",
-      " o: ", stringify!($object),
+      " o: ", stringify!($context),
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
@@ -826,9 +804,9 @@ macro_rules! json_rep_set_text_string {
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
       mynewt_rust::json_helper_set_text_string(
-        $object.to_void_ptr(), 
-        $object.key_to_cstr(key_with_opt_null),
-        $object.value_to_cstr(value_with_opt_null)
+        $context.to_void_ptr(), 
+        $context.key_to_cstr(key_with_opt_null),
+        $context.value_to_cstr(value_with_opt_null)
       )
     };
   }};
