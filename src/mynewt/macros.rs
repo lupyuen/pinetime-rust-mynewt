@@ -42,12 +42,9 @@ macro_rules! fill_zero {
   };
 }
 
-///  Macro to compose a CoAP payload with JSON or CBOR encoding.
-///  First parameter is `@none`, `@json` or `@cbor`, to indicate
-///  no encoding (testing), JSON encoding or CBOR encoding.
-///  Second parameter is the JSON message to be transmitted.
+///  Macro to compose a CoAP payloads with JSON or CBOR encoding.
 ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
-#[macro_export]
+#[macro_export(local_inner_macros)]
 macro_rules! coap {
   //  No encoding
   (@none $($tokens:tt)+) => {
@@ -63,14 +60,7 @@ macro_rules! coap {
   };
 }
 
-///  Parse the JSON code in the parameter and compose the CoAP payload.
-///  This macro takes these parameters:
-///  - __Encoding__: `@json`, `@cbor` or `@none`
-///  - __State__: Current parsing state (`@object`, `@array` or omitted)
-///  - __Context__: JSON or CBOR parsing context (`JsonContext` or `CborContext`)
-///  - __Remaining tokens__ to be parsed
-///  - __Remaining tokens__ again, for error display
-#[macro_export]
+#[macro_export(local_inner_macros)]
 macro_rules! parse {
 
   //////////////////////////////////////////////////////////////////////////
@@ -228,6 +218,12 @@ macro_rules! parse {
   (@$enc:ident @object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {    
     nx!( ($($key)*), ($tt), ($($rest)*) );
     //  Parse the next token while we are in the @object state.
+    //  coap_internal takes these parameters:
+    //  encoding: @json, @cbor or @none
+    //  current state: @object ???
+    //  current token: ???
+    //  remaining tokens
+    //  remaining tokens again, for error display
     parse!(@$enc @object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
   };
 
@@ -408,7 +404,6 @@ macro_rules! parse {
   };  //  Previously: $crate::to_value(&$other).unwrap()
 }
 
-///  TODO: Parse the vector e.g. array items
 #[macro_export]
 #[doc(hidden)]
 macro_rules! parse_vector {
@@ -417,7 +412,6 @@ macro_rules! parse_vector {
   };
 }
 
-///  Show an unexpected token error
 #[macro_export]
 #[doc(hidden)]
 macro_rules! unexpected_token {
@@ -448,7 +442,7 @@ macro_rules! coap_root {
   }};
 }
 
-///  Compose an array under `object`, named as `key`.  Add `children` as array elements.
+///  Compose an array under "object", named as "key".  Add "children" as array elements.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
   (@cbor $object0:ident, $key0:ident, $children0:block) => {{  //  CBOR
@@ -518,8 +512,8 @@ macro_rules! coap_item {
   }};
 }
 
-///  Append a (key + int value) item to the array named `array`:
-///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
+//  Append a (key + int value) item to the array named "array":
+//    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #[macro_export(local_inner_macros)]
 macro_rules! coap_item_int {
   (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
@@ -541,7 +535,7 @@ macro_rules! coap_item_int {
   }};
 }
 
-///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
+///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
   (@cbor $parent0:ident, $val0:expr) => {{  //  CBOR
@@ -585,10 +579,8 @@ macro_rules! coap_item_int_val {
 //  JSON Sensor CoAP macros ported from C to Rust:
 //  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
 
-///  Assume we are writing an object now.  Write the key name and start a child array.
-///  ```
-///  {a:b --> {a:b, key:[
-///  ```
+//  Assume we are writing an object now.  Write the key name and start a child array.
+//  {a:b --> {a:b, key:[
 #[macro_export]
 macro_rules! json_rep_set_array {
   ($object:ident, $key:ident) => {{
@@ -613,10 +605,8 @@ macro_rules! json_rep_set_array {
   }};
 }
 
-///  End the child array and resume writing the parent object.
-///  ```
-///  {a:b, key:[... --> {a:b, key:[...]
-///  ```
+//  End the child array and resume writing the parent object.
+//  {a:b, key:[... --> {a:b, key:[...]
 #[macro_export]
 macro_rules! json_rep_close_array {
   ($object:ident, $key:ident) => {{
@@ -634,10 +624,6 @@ macro_rules! json_rep_close_array {
   }};
 }
 
-///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
-///  ```
-///  [... --> [...,
-///  ```
 #[macro_export]
 macro_rules! json_rep_object_array_start_item {
   ($key:ident) => {{
@@ -655,10 +641,6 @@ macro_rules! json_rep_object_array_start_item {
   }};
 }
 
-///  End an array item, assumed to be an object.
-///  ```
-///  [... --> [...,
-///  ```
 #[macro_export]
 macro_rules! json_rep_object_array_end_item {
   ($key:ident) => {{
@@ -676,7 +658,6 @@ macro_rules! json_rep_object_array_end_item {
   }};
 }
 
-///  Encode an int value into the current JSON encoding value `coap_json_value`
 #[macro_export]
 macro_rules! json_rep_set_int {
   ($object:ident, $key:expr, $value:expr) => {{
@@ -698,7 +679,6 @@ macro_rules! json_rep_set_int {
   }};
 }
 
-///  Encode a text value into the current JSON encoding value `coap_json_value`
 #[macro_export]
 macro_rules! json_rep_set_text_string {
   ($object:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
@@ -747,13 +727,43 @@ macro_rules! json_rep_set_text_string {
   }};
 }
 
-//  TODO
-//  Encode an unsigned int value into the current JSON encoding value `coap_json_value`
-//  void json_helper_set_uint(void *object, const char *key, uint64_t value);
+///////////////////////////////////////////////////////////////////////////////
+//  JSON Encoding macros ported from C to Rust:
+//  https://github.com/apache/mynewt-core/blob/master/encoding/json/include/json/json.h
 
-//  Encode a float value into the current JSON encoding value `coap_json_value`
-//  void json_helper_set_float(void *object, const char *key, float value);
+#[macro_export]
+macro_rules! json_value_int {
+  ($json_value:ident, $value:expr) => {{
+    concat!(
+      "begin json_value_int ",
+      ", json_value: ", stringify!($json_value),
+      ", value: ",  stringify!($value)
+    );
+    unsafe {
+      $json_value.jv_type = json::JSON_VALUE_TYPE_INT64 as u8;
+      $json_value.jv_val.u = 1234 as u64; //// $value as u64;
+    }
+    d!(end json_value_int);
+  }};
+}
 
+/// `$value` must be an `str`
+#[macro_export]
+macro_rules! json_value_string {
+  ($json_value:ident, $value:expr) => {{
+    concat!(
+      "begin json_value_string ",
+      ", json_value: ", stringify!($json_value),
+      ", value: ",  stringify!($value)
+    );
+    unsafe {
+      $json_value.jv_type = json::JSON_VALUE_TYPE_STRING as u8;
+      $json_value.jv_len = $value.len() as u16;
+      $json_value.jv_val.str = $value;
+    }
+    d!(end json_value_string);
+  }};
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR macros ported from C to Rust:
@@ -858,10 +868,6 @@ macro_rules! oc_rep_end_array {
   }};
 }
 
-///  Assume we are writing an object now.  Write the key name and start a child array.
-///  ```
-///  {a:b --> {a:b, key:[
-///  ```
 #[macro_export]
 macro_rules! oc_rep_set_array {
   ($object:ident, $key:ident) => {{
@@ -879,10 +885,6 @@ macro_rules! oc_rep_set_array {
   }};
 }
 
-///  End the child array and resume writing the parent object.
-///  ```
-///  {a:b, key:[... --> {a:b, key:[...]
-///  ```
 #[macro_export]
 macro_rules! oc_rep_close_array {
   ($object:ident, $key:ident) => {{
@@ -898,10 +900,6 @@ macro_rules! oc_rep_close_array {
   }};
 }
 
-///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
-///  ```
-///  [... --> [...,
-///  ```
 #[macro_export]
 macro_rules! oc_rep_object_array_start_item {
   ($key:ident) => {{
@@ -916,10 +914,6 @@ macro_rules! oc_rep_object_array_start_item {
   }};
 }
 
-///  End an array item, assumed to be an object.
-///  ```
-///  [... --> [...,
-///  ```
 #[macro_export]
 macro_rules! oc_rep_object_array_end_item {
   ($key:ident) => {{
@@ -934,7 +928,6 @@ macro_rules! oc_rep_object_array_end_item {
   }};
 }
 
-///  Encode an int value 
 #[macro_export]
 macro_rules! oc_rep_set_int {
   ($object:ident, $key:expr, $value:expr) => {{
@@ -955,7 +948,42 @@ macro_rules! oc_rep_set_int {
   }};
 }
 
-///  Encode a text value 
+/*
+///  Same as oc_rep_set_int but changed "#key" to "key" so that the key won't be stringified.
+#[macro_export]
+macro_rules! oc_rep_set_int_k {
+  ($object:ident, $key:expr, $value:expr) => {{
+    concat!(
+      "begin oc_rep_set_int_k ",
+      ", object: ", stringify!($object),
+      ", key: ",    stringify!($key),
+      ", value: ",  stringify!($value),
+      ", child: ",  stringify!($object), "_map"  //  object##_map
+    );
+    //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, key, strlen(key)));
+    concat!(
+      "> TODO: g_err |= cbor_encode_text_string(&",
+      stringify!($object), "_map",  //  object##_map
+      ", ",
+      stringify!($key),  //  key
+      ", strlen(",
+      stringify!($key),  //  key
+      "));"
+    );
+
+    //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+    concat!(
+      "> TODO: g_err |= cbor_encode_int(&",
+      stringify!($object), "_map",  //  object##_map
+      ", ",
+      stringify!($value),  //  value
+      ");"
+    );
+    d!(end oc_rep_set_int_k);
+  }};
+}
+*/
+
 #[macro_export]
 macro_rules! oc_rep_set_text_string {
   ($object:ident, $key:expr, $value:expr) => {{
@@ -976,13 +1004,52 @@ macro_rules! oc_rep_set_text_string {
   }};
 }
 
-//  TODO
-//  Encode an unsigned int value 
-//  void oc_rep_set_uint(void *object, const char *key, uint64_t value);
+///////////////////////////////////////////////////////////////////////////////
+//  Test Macros
 
-//  Encode a float value 
-//  void oc_rep_set_float(void *object, const char *key, float value);
+#[macro_export]
+macro_rules! test_literal {
+  ($key:literal) => {{
+    concat!($key, "_zzz");
+  }};
+}
 
+#[macro_export]
+macro_rules! test_ident {
+  ($key:ident) => {{
+    let $key = stringify!($key);
+    //  concat_idents!($key, _map);
+  }};
+}
+
+#[macro_export]
+macro_rules! test_internal_rules2 {
+  (@json $key:ident) => {
+    let _ = concat!("json2: ", stringify!($key));
+  };
+  (@cbor $key:ident) => {
+    let _ = concat!("cbor2: ", stringify!($key));
+  };
+  (@$encoding:ident $key:ident) => {
+    let _ = concat!("other2: ", stringify!($encoding), " / ", stringify!($key));
+  };
+}
+
+#[macro_export]
+macro_rules! test_internal_rules {
+  (@json $key:ident) => {
+    let _ = concat!("json: ", stringify!($key));
+    test_internal_rules2!(@json $key);
+  };
+  (@cbor $key:ident) => {
+    let _ = concat!("cbor: ", stringify!($key));
+    test_internal_rules2!(@cbor $key);
+  };
+  (@$encoding:ident $key:ident) => {
+    let _ = concat!("other: ", stringify!($encoding), " / ", stringify!($key));
+    test_internal_rules2!(@$encoding $key);
+  };
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Utility Macros
