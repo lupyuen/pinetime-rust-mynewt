@@ -40,7 +40,7 @@ void json_helper_set_array(void *object, const char *key);
 ///  ```
 void json_helper_close_array(void *object, const char *key);
 
-///  Assume we have called set_array.  Start an array item, assumed to be an object.
+///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
 ///  ```
 ///  [... --> [...,
 ///  ```
