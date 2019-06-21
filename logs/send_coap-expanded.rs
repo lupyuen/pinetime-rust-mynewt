@@ -8,11 +8,12 @@
     //!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
-    use cty::c_char;
+    use cty::*;
     use crate::base::*;
     use crate::mynewt::{result::*, kernel::os::{self, os_task, os_stack_t},
                         encoding::{json, tinycbor::{self, CborEncoder}},
-                        libs::{sensor_coap::{self, coap_json_encoder,
+                        libs::{mynewt_rust,
+                               sensor_coap::{self, coap_json_encoder,
                                              coap_json_value, sensor_value},
                                sensor_network::{self}}, g_encoder, root_map};
     ///  Storage for Network Task: Mynewt task object will be saved here.
@@ -65,7 +66,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           71u32, 5u32))
+                                                           72u32, 5u32))
                         }
                     }
                 }
@@ -85,7 +86,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 83u32, 37u32))
+                                           "src/send_coap.rs", 84u32, 37u32))
             }
         };
         if unsafe {
@@ -113,7 +114,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               91u32, 75u32))
+                                                               92u32, 75u32))
                             }
                         }
                     }
@@ -146,7 +147,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               99u32, 78u32))
+                                                               100u32, 78u32))
                             }
                         }
                     }
@@ -206,7 +207,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 153u32,
+                                               "src/send_coap.rs", 154u32,
                                                53u32))
                 }
             };
@@ -231,7 +232,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           155u32, 5u32))
+                                                           156u32, 5u32))
                         }
                     }
                 }
@@ -247,35 +248,64 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 163u32, 80u32))
+                                           "src/send_coap.rs", 164u32, 80u32))
             }
         };
         let rc = unsafe { sensor_network::do_server_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 184u32, 60u32))
+                                           "src/send_coap.rs", 185u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
         Ok(())
     }
-    struct Context {
-        val: i32,
+    static mut JSON_CONTEXT: JsonContext =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<JsonContext>()],
+                                     JsonContext>([0;
+                                                      ::core::mem::size_of::<JsonContext>()])
+        };
+    pub struct JsonContext {
+        pub val: i32,
     }
-    #[macro_export]
-    macro_rules! stringify_null(( $ key : ident ) => {
-                                concat ! ( stringify ! ( $ key ) , "\0" ) }
-                                ;);
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::default::Default for JsonContext {
+        #[inline]
+        fn default() -> JsonContext {
+            JsonContext{val: ::core::default::Default::default(),}
+        }
+    }
+    impl JsonContext {
+        pub fn to_void_ptr(&mut self) -> *mut c_void {
+            let ptr: *mut JsonContext = self;
+            ptr as *mut c_void
+        }
+    }
     fn test_json() {
         let device_id =
-            CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0");
-        let node_id = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0");
+            CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0").unwrap();
+        let node_id = CStr::from_bytes_with_nul(b"b3b4b5b6f1\0").unwrap();
         let int_sensor_value =
             SensorValue{key: "t", val: SensorValueType::Uint(2870),};
-        let mut context = Context{val: 0,};
-        ();
-        let a = "device\u{0}";
+        {
+            "jtxti obj: JSON_CONTEXT, key: device1, val: device_id";
+            unsafe {
+                mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                         "device1\u{0}".as_ptr(),
+                                                         device_id.as_ptr())
+            };
+        };
+        {
+            "jtxte obj: JSON_CONTEXT, key: \"device2\", val: device_id";
+            unsafe {
+                mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                         "device2".as_ptr(),
+                                                         device_id.as_ptr())
+            };
+        };
         ();
     }
     ///  Compose a CoAP CBOR message with the Sensor Key (field name) and Value in val and 
@@ -296,14 +326,14 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 280u32, 65u32))
+                                           "src/send_coap.rs", 302u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 293u32, 63u32))
+                                           "src/send_coap.rs", 315u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

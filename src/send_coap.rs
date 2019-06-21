@@ -196,10 +196,62 @@ static mut JSON_CONTEXT: JsonContext = fill_zero!(JsonContext);
 
 #[derive(Default)]
 pub struct JsonContext {
-    pub val: i32,
+    key_buffer: [u8; JSON_KEY_SIZE],
+    value_buffer: [u8; JSON_VALUE_SIZE],
 }
 
+const JSON_KEY_SIZE: usize = 32;
+const JSON_VALUE_SIZE: usize = 32;
+
 impl JsonContext {
+    /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+    /// append null and return the buffer as a pointer.
+    pub fn key_to_cstr(&mut self, s: &str) -> *const c_char {
+        self.key_to_cstr_internal(s.as_bytes())
+    }
+
+    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+    /// append null and return the buffer as a pointer.
+    pub fn value_to_cstr(&mut self, s: &str) -> *const c_char {
+        self.value_to_cstr_internal(s.as_bytes())
+    }
+
+    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+    /// append null and return the buffer as a pointer.
+    pub fn value_to_cstr(&mut self, s: &CStr) -> *const c_char {
+        self.value_to_cstr_internal(s.to_bytes_with_nul())
+    }
+
+    /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+    /// append null and return the buffer as a pointer.
+    fn key_to_cstr_internal(&mut self, s: &[u8]) -> *const c_char {
+        //  If null-terminated, return as pointer.
+        if s.last() == Some(&0) { return s.as_ptr(); }
+        //  Else copy into static key buffer and return pointer to buffer.
+        assert!(s.len() < JSON_KEY_SIZE);  //  Key too long
+        self.key_buffer[..s.len()].copy_from_slice(s);
+        self.key_buffer[s.len()] = 0;
+        self.key_buffer.as_ptr()
+    }
+
+    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+    /// append null and return the buffer as a pointer.
+    pub fn value_to_cstr_internal(&mut self, s: &[u8]) -> *const c_char {
+        //  If null-terminated, return as pointer.
+        if s.last() == Some(&0) { return s.as_ptr(); }
+        //  Else copy into static value buffer and return pointer to buffer.
+        assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
+        self.value_buffer[..s.len()].copy_from_slice(s);
+        self.value_buffer[s.len()] = 0;
+        self.value_buffer.as_ptr()        
+    }
+
+    /// Cast itself as a `*mut c_void`
     pub fn to_void_ptr(&mut self) -> *mut c_void {
         let ptr: *mut JsonContext = self;
         ptr as *mut c_void
