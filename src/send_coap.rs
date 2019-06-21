@@ -9,7 +9,7 @@
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
-use cty::c_char;          //  Import C types from cty library: https://crates.io/crates/cty
+use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
 use crate::base::*;       //  Import `base.rs` for common declarations
 use crate::mynewt::{
     result::*,            //  Import Mynewt result and error types
@@ -192,10 +192,39 @@ fn send_sensor_data_to_server(sensor_val: &SensorValue, node_id: &CStr) -> Mynew
     Ok(())
 }
 
+static mut JSON_CONTEXT: JsonContext = JsonContext::default();
+
+#[derive(Default)]
 pub struct JsonContext {
-  pub val: i32,
-  pub ptr: &'static mut JsonContext,
+    pub val: i32,
 }
+
+impl JsonContext {
+    pub fn to_void_ptr(&mut self) -> *mut c_void {
+        let ptr: *mut JsonContext = self;
+        ptr as *mut c_void
+    }
+}
+
+/*
+/// Cast `JsonContext` to `*mut ::core::ffi::c_void`
+impl From<&mut JsonContext> for *mut ::core::ffi::c_void {
+    /// Cast `JsonContext` to `*mut ::core::ffi::c_void`
+    fn from(obj: &mut JsonContext) -> Self {
+        let ptr: *mut JsonContext = obj;
+        ptr as *mut ::core::ffi::c_void
+    }
+}
+
+/// Cast `JsonContext` to `*mut ::core::ffi::c_void`
+impl From<JsonContext> for *mut ::core::ffi::c_void {
+    /// Cast `JsonContext` to `*mut ::core::ffi::c_void`
+    fn from(obj: JsonContext) -> Self {
+        let ptr: *mut JsonContext = &mut obj;
+        ptr as *mut ::core::ffi::c_void
+    }
+}
+*/
 
 fn test_json() {
   let device_id = CStr::from_bytes_with_nul(b"0102030405060708090a0b0c0d0e0f10\0").unwrap();
@@ -206,7 +235,8 @@ fn test_json() {
     val: SensorValueType::Uint(2870)
   };
   let mut context = JsonContext{ val: 0 };
-  context.ptr.as_ptr();
+  //let mut ptr: *mut ::core::ffi::c_void = &mut context as *mut ::core::ffi::c_void;
+  let ptr: *mut c_void = context.to_void_ptr();
 
   //trace_macros!(true);
 
@@ -214,7 +244,7 @@ fn test_json() {
 
   json_rep_set_text_string!(context, device1, device_id);
 
-  // json_rep_set_text_string!(context, "device2", device_id);
+  json_rep_set_text_string!(context, "device2", device_id);
 
   // coap_item_str! (@json context, "device", device_id);
 
