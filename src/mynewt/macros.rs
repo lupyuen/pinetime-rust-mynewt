@@ -189,7 +189,6 @@ macro_rules! parse {
 
   // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
     coap_item_int_val!(@json
       $object,  //  _object, 
@@ -202,7 +201,6 @@ macro_rules! parse {
 
   // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@cbor @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
-    d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
     coap_set_int_val!(@cbor
       $object,  //  _object, 
@@ -368,7 +366,6 @@ macro_rules! parse {
         });  //  Close the "values" array
     });  //  Close the payload root
     d!(end json root);
-    d!(return json root to caller);
     ()
   }};
 
@@ -381,11 +378,10 @@ macro_rules! parse {
     //  let mut values_array: CborEncoder = fill_zero!(CborEncoder);
     coap_root!(@cbor {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
-        parse!(@cbor @object root () ($($tt)+) ($($tt)+));
+        parse!(@cbor @object JSON_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change JSON_CONTEXT to CBOR
     });  //  Close the payload root
     d!(end cbor root);
-    d!(return cbor root to caller);
-    root
+    ()
   }};
 
   /* Previously substitute with:
@@ -576,8 +572,6 @@ macro_rules! coap_item_int_val {
 
   (@json $context:ident, $val0:expr) => {{  //  JSON
     d!(begin json coap_item_int_val, c: $context, val: $val0);
-    d!(> TODO: assert($val0.val_type == SENSOR_VALUE_TYPE_INT32));
-    d!(> TODO: coap_item_int(@json $context, $val0.key, $val0.int_val));
     if let SensorValueType::Uint(val) = $val0.val {
       coap_item_int!(@json $context, $val0.key, val);
     } else {
@@ -836,7 +830,7 @@ macro_rules! oc_rep_start_root_object {
     d!(begin oc_rep_start_root_object);
     //  TODO
     //  d!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_map(&mut g_encoder, &mut root_map, CborIndefiniteLength) };
+    unsafe { tinycbor::cbor_encoder_create_map(&mut g_encoder, &mut root_map, tinycbor::CborIndefiniteLength) };
     d!(end oc_rep_start_root_object);
   }};
 }
@@ -846,7 +840,7 @@ macro_rules! oc_rep_end_root_object {
   () => {{
     d!(begin oc_rep_end_root_object);
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
-    unsafe { cbor_encoder_close_container(&mut g_encoder, &mut root_map); }
+    unsafe { tinycbor::cbor_encoder_close_container(&mut g_encoder, &mut root_map); }
     d!(end oc_rep_end_root_object);
   }};
 }
@@ -863,7 +857,7 @@ macro_rules! oc_rep_start_object {
     //  d!(> TODO: CborEncoder key##_map);
     //  concat_idents!($key, _map) = CborEncoder{};
     //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_map(
+    unsafe { tinycbor::cbor_encoder_create_map(
       &mut $parent, 
       &mut concat_idents!($key, _map), 
       CborIndefiniteLength) 
@@ -882,7 +876,7 @@ macro_rules! oc_rep_end_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    unsafe { cbor_encoder_close_container(
+    unsafe { tinycbor::cbor_encoder_close_container(
       &mut concat_idents!($parent, $parent_suffix), 
       &mut concat_idents!($key, _map)) 
     };
@@ -902,7 +896,7 @@ macro_rules! oc_rep_start_array {
     //  d!(> TODO: CborEncoder key##_array);
     //  concat_idents!($key, _array) = CborEncoder{};
     //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-    unsafe { cbor_encoder_create_array(
+    unsafe { tinycbor::cbor_encoder_create_array(
       &mut concat_idents!($parent, $parent_suffix), 
       &mut concat_idents!($key, _array), 
       CborIndefiniteLength) 
@@ -921,7 +915,7 @@ macro_rules! oc_rep_end_array {
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
-    unsafe { cbor_encoder_close_container(
+    unsafe { tinycbor::cbor_encoder_close_container(
       &mut $parent, 
       &mut concat_idents!($parent, $parent_suffix)) 
     };
