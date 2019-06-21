@@ -448,7 +448,7 @@ macro_rules! coap_root {
   }};
 }
 
-///  Compose an array under `object`, named as `key`.  Add `children` as array elements.
+///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
 #[macro_export(local_inner_macros)]
 macro_rules! coap_array {
   (@cbor $object0:ident, $key0:ident, $children0:block) => {{  //  CBOR

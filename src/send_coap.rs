@@ -325,17 +325,15 @@ fn test_json() {
 
   //json_rep_set_text_string!(JSON_CONTEXT, "device2", device_id);
 
-  coap_item_str! (@json JSON_CONTEXT, "device", device_id);
+  //coap_item_str! (@json JSON_CONTEXT, "device", device_id);
 
-  //  coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
+  //coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
 
-  /*
-  coap_array! (@json root, values, {  //  Create "values" as an array of items under the root
-    //  coap_item_str! (@json values, "device", device_id);
-    //  coap_item_str! (@json values, "node", node_id);
-    //  coap_set_int_val! (root, int_sensor_value);
+  coap_array! (@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
+    coap_item_str! (@json JSON_CONTEXT, "device", device_id);
+    //  coap_item_str! (@json JSON_CONTEXT, "node", node_id);
+    //  coap_set_int_val! (@json JSON_CONTEXT, int_sensor_value);
   });
-  */
 
   /*
   let payload = coap_root!(@json {  //  Create the payload root

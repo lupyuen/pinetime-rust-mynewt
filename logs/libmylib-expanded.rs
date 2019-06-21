@@ -101,16 +101,26 @@ mod mynewt {
                                [
                                0 ; :: core :: mem :: size_of :: < $ type > (
                                ) ] ) } } ;);
-        ///  Macro to compose a CoAP payloads with JSON or CBOR encoding.
+        ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
+        ///  First parameter is `@none`, `@json` or `@cbor`, to indicate
+        ///  no encoding (testing), JSON encoding or CBOR encoding.
+        ///  Second parameter is the JSON message to be transmitted.
         ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap(( @ none $ ( $ tokens : tt ) + ) => {
                           parse ! ( @ none $ ( $ tokens ) + ) } ; (
                           @ json $ ( $ tokens : tt ) + ) => {
                           parse ! ( @ json $ ( $ tokens ) + ) } ; (
                           @ cbor $ ( $ tokens : tt ) + ) => {
                           parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
-        #[macro_export(local_inner_macros)]
+        ///  Parse the JSON code in the parameter and compose the CoAP payload.
+        ///  This macro takes these parameters:
+        ///  - __Encoding__: `@json`, `@cbor` or `@none`
+        ///  - __State__: Current parsing state (`@object`, `@array` or omitted)
+        ///  - __Context__: JSON or CBOR parsing context (`JsonContext` or `CborContext`)
+        ///  - __Remaining tokens__ to be parsed
+        ///  - __Remaining tokens__ again, for error display
+        #[macro_export]
         macro_rules! parse((
                            @ $ enc : ident @ object $ object : ident (  ) (  )
                            (  ) ) => {  } ; (
@@ -343,10 +353,12 @@ mod mynewt {
                            $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ; d
                            ! ( return cbor root to caller ) ; root } } ; (
                            @ $ enc : ident $ other : expr ) => { $ other } ;);
+        ///  TODO: Parse the vector e.g. array items
         #[macro_export]
         #[doc(hidden)]
         macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
                                   vec ! [ $ ( $ content ) * ] } ;);
+        ///  Show an unexpected token error
         #[macro_export]
         #[doc(hidden)]
         macro_rules! unexpected_token((  ) => {  } ;);
@@ -365,7 +377,7 @@ mod mynewt {
                                } $ children0 ; unsafe {
                                sensor_coap :: json_rep_end_root_object (  ) }
                                d ! ( end json coap_root ) ; } } ;);
-        ///  Compose an array under "object", named as "key".  Add "children" as array elements.
+        ///  Compose an array under `object`, named as `key`.  Add `children` as array elements.
         #[macro_export(local_inner_macros)]
         macro_rules! coap_array((
                                 @ cbor $ object0 : ident , $ key0 : ident , $
@@ -386,6 +398,34 @@ mod mynewt {
                                 $ object0 , $ key0 ) ; $ children0 ;
                                 json_rep_close_array ! ( $ object0 , $ key0 )
                                 ; d ! ( end json coap_array ) ; } } ;);
+        ///  Append a (key + int value) item to the array named `array`:
+        ///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
+        #[macro_export(local_inner_macros)]
+        macro_rules! coap_item_int((
+                                   @ cbor $ array0 : ident , $ key0 : expr , $
+                                   value0 : expr ) => {
+                                   {
+                                   d ! (
+                                   begin cbor coap_item_int , key : $ key0 ,
+                                   value : $ value0 ) ; coap_item ! (
+                                   @ $ enc $ array0 , {
+                                   oc_rep_set_text_string ! (
+                                   $ array0 , "key" , $ key0 ) ;
+                                   oc_rep_set_int ! (
+                                   $ array0 , "value" , $ value0 ) ; } ) ; d !
+                                   ( end cbor coap_item_int ) ; } } ; (
+                                   @ json $ array0 : ident , $ key0 : expr , $
+                                   value0 : expr ) => {
+                                   {
+                                   d ! (
+                                   begin json coap_item_int , key : $ key0 ,
+                                   value : $ value0 ) ; coap_item ! (
+                                   @ json $ array0 , {
+                                   json_rep_set_text_string ! (
+                                   $ array0 , "key" , $ key0 . to_str (  ) ) ;
+                                   json_rep_set_int ! (
+                                   $ array0 , "value" , $ value0 ) ; } ) ; d !
+                                   ( end json coap_item_int ) ; } } ;);
         ///  Append a (`key` + `val` string value) item to the array named `parent`:
         ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
         #[macro_export(local_inner_macros)]
@@ -423,45 +463,21 @@ mod mynewt {
                                ) => {
                                {
                                d ! ( begin cbor coap_item , array : $ array0 )
-                               ; oc_rep_object_array_start_item ! ( $ array0 )
-                               ; $ children0 ; oc_rep_object_array_end_item !
-                               ( $ array0 ) ; d ! ( end cbor coap_item ) ; } }
-                               ; (
+                               ; oc_rep_object_array_start_item ! (
+                               $ array0 , $ array0 ) ; $ children0 ;
+                               oc_rep_object_array_end_item ! (
+                               $ array0 , $ array0 ) ; d ! (
+                               end cbor coap_item ) ; } } ; (
                                @ json $ array0 : ident , $ children0 : block )
                                => {
                                {
                                d ! ( begin json coap_item , array : $ array0 )
-                               ; json_rep_object_array_start_item ! ( $ array0
-                               ) ; $ children0 ;
-                               json_rep_object_array_end_item ! ( $ array0 ) ;
-                               d ! ( end json coap_item ) ; } } ;);
-        #[macro_export(local_inner_macros)]
-        macro_rules! coap_item_int((
-                                   @ cbor $ array0 : ident , $ key0 : expr , $
-                                   value0 : expr ) => {
-                                   {
-                                   d ! (
-                                   begin cbor coap_item_int , key : $ key0 ,
-                                   value : $ value0 ) ; coap_item ! (
-                                   @ $ enc $ array0 , {
-                                   oc_rep_set_text_string ! (
-                                   $ array0 , "key" , $ key0 ) ;
-                                   oc_rep_set_int ! (
-                                   $ array0 , "value" , $ value0 ) ; } ) ; d !
-                                   ( end cbor coap_item_int ) ; } } ; (
-                                   @ json $ array0 : ident , $ key0 : expr , $
-                                   value0 : expr ) => {
-                                   {
-                                   d ! (
-                                   begin json coap_item_int , key : $ key0 ,
-                                   value : $ value0 ) ; coap_item ! (
-                                   @ json $ array0 , {
-                                   json_rep_set_text_string ! (
-                                   $ array0 , "key" , $ key0 . to_str (  ) ) ;
-                                   json_rep_set_int ! (
-                                   $ array0 , "value" , $ value0 ) ; } ) ; d !
-                                   ( end json coap_item_int ) ; } } ;);
-        ///  Given an object parent and an integer Sensor Value val, set the val's key/value in the object.
+                               ; json_rep_object_array_start_item ! (
+                               $ array0 , $ array0 ) ; $ children0 ;
+                               json_rep_object_array_end_item ! (
+                               $ array0 , $ array0 ) ; d ! (
+                               end json coap_item ) ; } } ;);
+        ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
         #[macro_export(local_inner_macros)]
         macro_rules! coap_set_int_val((
                                       @ cbor $ parent0 : ident , $ val0 : expr
@@ -469,25 +485,25 @@ mod mynewt {
                                       {
                                       d ! (
                                       begin cbor coap_set_int_val , parent : $
-                                      parent0 , val : $ val0 ) ; d ! (
-                                      > TODO : assert (
-                                      $ val0 . val_type ==
-                                      SENSOR_VALUE_TYPE_INT32 ) ) ;
+                                      parent0 , val : $ val0 ) ; if let
+                                      SensorValueType :: Uint ( val ) = $ val0
+                                      . val {
                                       oc_rep_set_int ! (
-                                      $ parent0 , $ val0 . key , 1234 ) ; d !
-                                      ( end cbor coap_set_int_val ) ; } } ; (
+                                      $ parent0 , $ val0 . key , val ) ; }
+                                      else { assert ! ( false ) ; } d ! (
+                                      end cbor coap_set_int_val ) ; } } ; (
                                       @ json $ parent0 : ident , $ val0 : expr
                                       ) => {
                                       {
                                       d ! (
                                       begin json coap_set_int_val , parent : $
-                                      parent0 , val : $ val0 ) ; d ! (
-                                      > TODO : assert (
-                                      $ val0 . val_type ==
-                                      SENSOR_VALUE_TYPE_INT32 ) ) ;
+                                      parent0 , val : $ val0 ) ; if let
+                                      SensorValueType :: Uint ( val ) = $ val0
+                                      . val {
                                       json_rep_set_int ! (
-                                      $ parent0 , $ val0 . key , 1234 ) ; d !
-                                      ( end json coap_set_int_val ) ; } } ;);
+                                      $ parent0 , $ val0 . key , val ) ; }
+                                      else { assert ! ( false ) ; } d ! (
+                                      end json coap_set_int_val ) ; } } ;);
         ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
         #[macro_export(local_inner_macros)]
         macro_rules! coap_item_int_val((
@@ -496,16 +512,13 @@ mod mynewt {
                                        {
                                        d ! (
                                        begin cbor coap_item_int_val , parent :
-                                       $ parent0 , val : $ val0 ) ; d ! (
-                                       > TODO : assert (
-                                       $ val0 . val_type ==
-                                       SENSOR_VALUE_TYPE_INT32 ) ) ; d ! (
-                                       > TODO : coap_item_int (
-                                       @ cbor $ parent0 , $ val0 . key , $
-                                       val0 . int_val ) ) ; coap_item_int ! (
-                                       @ cbor $ parent0 , $ val0 . key , 1234
-                                       ) ; d ! ( end cbor coap_item_int_val )
-                                       ; } } ; (
+                                       $ parent0 , val : $ val0 ) ; if let
+                                       SensorValueType :: Uint ( val ) = $
+                                       val0 . val {
+                                       coap_item_int ! (
+                                       @ cbor $ parent0 , $ val0 . key , val )
+                                       ; } else { assert ! ( false ) ; } d ! (
+                                       end cbor coap_item_int_val ) ; } } ; (
                                        @ json $ parent0 : ident , $ val0 :
                                        expr ) => {
                                        {
@@ -517,162 +530,225 @@ mod mynewt {
                                        SENSOR_VALUE_TYPE_INT32 ) ) ; d ! (
                                        > TODO : coap_item_int (
                                        @ json $ parent0 , $ val0 . key , $
-                                       val0 . int_val ) ) ; coap_item_int ! (
-                                       @ json $ parent0 , $ val0 . key , 1234
-                                       ) ; d ! ( end json coap_item_int_val )
-                                       ; } } ;);
+                                       val0 . int_val ) ) ; if let
+                                       SensorValueType :: Uint ( val ) = $
+                                       val0 . val {
+                                       coap_item_int ! (
+                                       @ json $ parent0 , $ val0 . key , val )
+                                       ; } else { assert ! ( false ) ; } d ! (
+                                       end json coap_item_int_val ) ; } } ;);
+        ///  Assume we are writing an object now.  Write the key name and start a child array.
+        ///  ```
+        ///  {a:b --> {a:b, key:[
+        ///  ```
         #[macro_export]
-        macro_rules! json_rep_set_array(( $ object : ident , $ key : ident )
+        macro_rules! json_rep_set_array(( $ context : ident , $ key : ident )
                                         => {
                                         {
                                         concat ! (
-                                        "begin json_rep_set_array " ,
-                                        ", object: " , stringify ! ( $ object
-                                        ) , ", key: " , stringify ! ( $ key )
-                                        ) ; unsafe {
-                                        json :: json_encode_array_name (
-                                        & mut coap_json_encoder , b"values\0"
-                                        . as_mut_ptr (  ) ) ; json ::
-                                        json_encode_array_start (
-                                        & mut coap_json_encoder ) ; } ; d ! (
-                                        end json_rep_set_array ) ; } } ;);
+                                        "<< jarri " , ", o: " , stringify ! (
+                                        $ context ) , ", k: " , stringify ! (
+                                        $ key ) ) ; let key_with_null : & str
+                                        = stringify_null ! ( $ key ) ; unsafe
+                                        {
+                                        mynewt_rust :: json_helper_set_array (
+                                        $ context . to_void_ptr (  ) , $
+                                        context . key_to_cstr (
+                                        key_with_null . as_bytes (  ) ) ) ; }
+                                        ; } } ; (
+                                        $ context : ident , $ key : expr ) =>
+                                        {
+                                        {
+                                        concat ! (
+                                        "<< jarre " , ", o: " , stringify ! (
+                                        $ context ) , ", k: " , stringify ! (
+                                        $ key ) ) ; let key_with_opt_null : &
+                                        [ u8 ] = $ key . to_bytes_optional_nul
+                                        (  ) ; unsafe {
+                                        mynewt_rust :: json_helper_set_array (
+                                        $ context . to_void_ptr (  ) , $
+                                        context . key_to_cstr (
+                                        key_with_opt_null ) ) ; } ; } } ;);
+        ///  End the child array and resume writing the parent object.
+        ///  ```
+        ///  {a:b, key:[... --> {a:b, key:[...]
+        ///  ```
         #[macro_export]
-        macro_rules! json_rep_close_array(( $ object : ident , $ key : ident )
+        macro_rules! json_rep_close_array(( $ context : ident , $ key : ident
+                                          ) => {
+                                          {
+                                          concat ! ( ">>" ) ; let
+                                          key_with_null : & str =
+                                          stringify_null ! ( $ key ) ; unsafe
+                                          {
+                                          mynewt_rust ::
+                                          json_helper_close_array (
+                                          $ context . to_void_ptr (  ) , $
+                                          context . key_to_cstr (
+                                          key_with_null . as_bytes (  ) ) ) }
+                                          ; } } ; (
+                                          $ context : ident , $ key : expr )
                                           => {
                                           {
-                                          concat ! (
-                                          "begin json_rep_close_array " ,
-                                          ", object: " , stringify ! (
-                                          $ object ) , ", key: " , stringify !
-                                          ( $ key ) ) ; unsafe {
-                                          json :: json_encode_array_finish (
-                                          & mut coap_json_encoder ) } ; d ! (
-                                          end json_rep_close_array ) ; } } ;);
+                                          concat ! ( ">>" ) ; let
+                                          key_with_opt_null : & [ u8 ] = $ key
+                                          . to_bytes_optional_nul (  ) ;
+                                          unsafe {
+                                          mynewt_rust ::
+                                          json_helper_close_array (
+                                          $ context . to_void_ptr (  ) , $
+                                          context . key_to_cstr (
+                                          key_with_opt_null ) ) } ; } } ;);
+        ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
         #[macro_export]
-        macro_rules! json_rep_object_array_start_item(( $ key : ident ) => {
+        macro_rules! json_rep_object_array_start_item((
+                                                      $ context : ident , $
+                                                      key : ident ) => {
                                                       {
                                                       concat ! (
-                                                      "begin json_rep_object_array_start_item "
-                                                      , ", key: " , stringify
-                                                      ! ( $ key ) ,
-                                                      ", child: " , stringify
-                                                      ! ( $ key ) , "_array" ,
-                                                      ) ; unsafe {
-                                                      json ::
-                                                      json_encode_object_start
+                                                      "<< jitmi" , " k: " ,
+                                                      stringify ! ( $ key ) )
+                                                      ; let key_with_null : &
+                                                      str = stringify_null ! (
+                                                      $ key ) ; unsafe {
+                                                      mynewt_rust ::
+                                                      json_helper_object_array_start_item
                                                       (
-                                                      & mut coap_json_encoder
-                                                      ) } ; d ! (
-                                                      end
-                                                      json_rep_object_array_start_item
-                                                      ) ; } } ;);
+                                                      $ context . key_to_cstr
+                                                      (
+                                                      key_with_null . as_bytes
+                                                      (  ) ) ) } ; } } ; (
+                                                      $ context : ident , $
+                                                      key : expr ) => {
+                                                      {
+                                                      concat ! (
+                                                      "<< jitme" , " k: " ,
+                                                      stringify ! ( $ key ) )
+                                                      ; let key_with_opt_null
+                                                      : & [ u8 ] = $ key .
+                                                      to_bytes_optional_nul (
+                                                      ) ; unsafe {
+                                                      mynewt_rust ::
+                                                      json_helper_object_array_start_item
+                                                      (
+                                                      $ context . key_to_cstr
+                                                      ( key_with_opt_null ) )
+                                                      } ; } } ;);
+        ///  End an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
         #[macro_export]
-        macro_rules! json_rep_object_array_end_item(( $ key : ident ) => {
+        macro_rules! json_rep_object_array_end_item((
+                                                    $ context : ident , $ key
+                                                    : ident ) => {
                                                     {
-                                                    concat ! (
-                                                    "begin json_rep_object_array_end_item "
-                                                    , ", key: " , stringify !
-                                                    ( $ key ) , ", child: " ,
-                                                    stringify ! ( $ key ) ,
-                                                    "_array" , ) ; unsafe {
-                                                    json ::
-                                                    json_encode_object_finish
-                                                    ( & mut coap_json_encoder
-                                                    ) } ; d ! (
-                                                    end
-                                                    json_rep_object_array_end_item
-                                                    ) ; } } ;);
+                                                    concat ! ( ">>" ) ; let
+                                                    key_with_null : & str =
+                                                    stringify_null ! ( $ key )
+                                                    ; unsafe {
+                                                    mynewt_rust ::
+                                                    json_helper_object_array_end_item
+                                                    (
+                                                    $ context . key_to_cstr (
+                                                    key_with_null . as_bytes (
+                                                     ) ) ) } ; } } ; (
+                                                    $ context : ident , $ key
+                                                    : expr ) => {
+                                                    {
+                                                    concat ! ( ">>" ) ; let
+                                                    key_with_opt_null : & [ u8
+                                                    ] = $ key .
+                                                    to_bytes_optional_nul (  )
+                                                    ; unsafe {
+                                                    mynewt_rust ::
+                                                    json_helper_object_array_end_item
+                                                    (
+                                                    $ context . key_to_cstr (
+                                                    key_with_opt_null ) ) } ;
+                                                    } } ;);
+        ///  Encode an int value into the current JSON encoding value `coap_json_value`
         #[macro_export]
         macro_rules! json_rep_set_int((
-                                      $ object : ident , $ key : expr , $
+                                      $ context : ident , $ key : ident , $
                                       value : expr ) => {
                                       {
                                       concat ! (
-                                      "begin json_rep_set_int " , ", object: "
-                                      , stringify ! ( $ object ) , ", key: " ,
-                                      stringify ! ( $ key ) , ", value: " ,
-                                      stringify ! ( $ value ) , ", child: " ,
-                                      stringify ! ( $ object ) , "_map" ) ;
-                                      json_value_int ! (
-                                      coap_json_value , $ value ) ; unsafe {
-                                      json :: json_encode_object_entry (
-                                      & mut coap_json_encoder , $ key , & mut
-                                      coap_json_value ) } ; d ! (
-                                      end json_rep_set_int ) ; } } ;);
+                                      "-- jinti" , " o: " , stringify ! (
+                                      $ context ) , ", k: " , stringify ! (
+                                      $ key ) , ", v: " , stringify ! (
+                                      $ value ) ) ; let key_with_null : & str
+                                      = stringify_null ! ( $ key ) ; let value
+                                      = $ value as u64 ; unsafe {
+                                      mynewt_rust :: json_helper_set_int (
+                                      $ context . to_void_ptr (  ) , $ context
+                                      . key_to_cstr (
+                                      key_with_null . as_bytes (  ) ) , value
+                                      ) } ; } } ; (
+                                      $ context : ident , $ key : expr , $
+                                      value : expr ) => {
+                                      {
+                                      concat ! (
+                                      "-- jinte" , " o: " , stringify ! (
+                                      $ context ) , ", k: " , stringify ! (
+                                      $ key ) , ", v: " , stringify ! (
+                                      $ value ) ) ; let key_with_opt_null : &
+                                      [ u8 ] = $ key . to_bytes_optional_nul (
+                                       ) ; let value = $ value as u64 ; unsafe
+                                      {
+                                      mynewt_rust :: json_helper_set_int (
+                                      $ context . to_void_ptr (  ) , $ context
+                                      . key_to_cstr ( key_with_opt_null ) ,
+                                      value ) } ; } } ;);
+        ///  Encode a text value into the current JSON encoding value `coap_json_value`
         #[macro_export]
         macro_rules! json_rep_set_text_string((
-                                              $ object : ident , $ key : ident
-                                              , $ value : expr ) => {
+                                              $ context : ident , $ key :
+                                              ident , $ value : expr ) => {
                                               {
                                               concat ! (
-                                              "jtxti" , " o: " , stringify ! (
-                                              $ object ) , ", k: " , stringify
-                                              ! ( $ key ) , ", v: " ,
-                                              stringify ! ( $ value ) ) ; let
-                                              key_with_null : & [ u8 ] =
+                                              "-- jtxti" , " o: " , stringify
+                                              ! ( $ context ) , ", k: " ,
+                                              stringify ! ( $ key ) , ", v: "
+                                              , stringify ! ( $ value ) ) ;
+                                              let key_with_null : & str =
                                               stringify_null ! ( $ key ) ; let
                                               value_with_opt_null : & [ u8 ] =
                                               $ value . to_bytes_optional_nul
                                               (  ) ; unsafe {
                                               mynewt_rust ::
                                               json_helper_set_text_string (
-                                              $ object . to_void_ptr (  ) , $
-                                              object . key_to_cstr (
-                                              key_with_null ) , $ object .
-                                              value_to_cstr (
+                                              $ context . to_void_ptr (  ) , $
+                                              context . key_to_cstr (
+                                              key_with_null . as_bytes (  ) )
+                                              , $ context . value_to_cstr (
                                               value_with_opt_null ) ) } ; } }
                                               ; (
-                                              $ object : ident , $ key : expr
+                                              $ context : ident , $ key : expr
                                               , $ value : expr ) => {
                                               {
                                               concat ! (
-                                              "jtxte" , " o: " , stringify ! (
-                                              $ object ) , ", k: " , stringify
-                                              ! ( $ key ) , ", v: " ,
-                                              stringify ! ( $ value ) ) ; let
-                                              key_with_opt_null : & [ u8 ] = $
-                                              key . to_bytes_optional_nul (  )
-                                              ; let value_with_opt_null : & [
-                                              u8 ] = $ value .
+                                              "-- jtxte" , " o: " , stringify
+                                              ! ( $ context ) , ", k: " ,
+                                              stringify ! ( $ key ) , ", v: "
+                                              , stringify ! ( $ value ) ) ;
+                                              let key_with_opt_null : & [ u8 ]
+                                              = $ key . to_bytes_optional_nul
+                                              (  ) ; let value_with_opt_null :
+                                              & [ u8 ] = $ value .
                                               to_bytes_optional_nul (  ) ;
                                               unsafe {
                                               mynewt_rust ::
                                               json_helper_set_text_string (
-                                              $ object . to_void_ptr (  ) , $
-                                              object . key_to_cstr (
-                                              key_with_opt_null ) , $ object .
-                                              value_to_cstr (
+                                              $ context . to_void_ptr (  ) , $
+                                              context . key_to_cstr (
+                                              key_with_opt_null ) , $ context
+                                              . value_to_cstr (
                                               value_with_opt_null ) ) } ; } }
                                               ;);
-        #[macro_export]
-        macro_rules! json_value_int(( $ json_value : ident , $ value : expr )
-                                    => {
-                                    {
-                                    concat ! (
-                                    "begin json_value_int " , ", json_value: "
-                                    , stringify ! ( $ json_value ) ,
-                                    ", value: " , stringify ! ( $ value ) ) ;
-                                    unsafe {
-                                    $ json_value . jv_type = json ::
-                                    JSON_VALUE_TYPE_INT64 as u8 ; $ json_value
-                                    . jv_val . u = 1234 as u64 ; } d ! (
-                                    end json_value_int ) ; } } ;);
-        /// `$value` must be an `str`
-        #[macro_export]
-        macro_rules! json_value_string(( $ json_value : ident , $ value : expr
-                                       ) => {
-                                       {
-                                       concat ! (
-                                       "begin json_value_string " ,
-                                       ", json_value: " , stringify ! (
-                                       $ json_value ) , ", value: " ,
-                                       stringify ! ( $ value ) ) ; unsafe {
-                                       $ json_value . jv_type = json ::
-                                       JSON_VALUE_TYPE_STRING as u8 ; $
-                                       json_value . jv_len = $ value . len (
-                                       ) as u16 ; $ json_value . jv_val . str
-                                       = $ value ; } d ! (
-                                       end json_value_string ) ; } } ;);
         #[macro_export(local_inner_macros)]
         macro_rules! oc_rep_start_root_object((  ) => {
                                               {
@@ -762,6 +838,10 @@ mod mynewt {
                                       & mut $ parent , & mut concat_idents ! (
                                       $ parent , $ parent_suffix ) ) } ; d ! (
                                       end oc_rep_end_array ) ; } } ;);
+        ///  Assume we are writing an object now.  Write the key name and start a child array.
+        ///  ```
+        ///  {a:b --> {a:b, key:[
+        ///  ```
         #[macro_export]
         macro_rules! oc_rep_set_array(( $ object : ident , $ key : ident ) =>
                                       {
@@ -778,6 +858,10 @@ mod mynewt {
                                       ) ) } ; oc_rep_start_array ! (
                                       $ object , $ key , _map ) ; d ! (
                                       end oc_rep_set_array ) ; } } ;);
+        ///  End the child array and resume writing the parent object.
+        ///  ```
+        ///  {a:b, key:[... --> {a:b, key:[...]
+        ///  ```
         #[macro_export]
         macro_rules! oc_rep_close_array(( $ object : ident , $ key : ident )
                                         => {
@@ -790,6 +874,10 @@ mod mynewt {
                                         ) , "_map" ) ; oc_rep_end_array ! (
                                         $ object , $ key , _map ) ; d ! (
                                         end oc_rep_close_array ) ; } } ;);
+        ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
         #[macro_export]
         macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
                                                     {
@@ -805,6 +893,10 @@ mod mynewt {
                                                     end
                                                     oc_rep_object_array_start_item
                                                     ) ; } } ;);
+        ///  End an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
         #[macro_export]
         macro_rules! oc_rep_object_array_end_item(( $ key : ident ) => {
                                                   {
@@ -820,6 +912,7 @@ mod mynewt {
                                                   end
                                                   oc_rep_object_array_end_item
                                                   ) ; } } ;);
+        ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
                                     $ object : ident , $ key : expr , $ value
@@ -839,6 +932,7 @@ mod mynewt {
                                     & mut concat_idents ! ( $ object , _map )
                                     , $ value ) ; } d ! ( end oc_rep_set_int )
                                     ; } } ;);
+        ///  Encode a text value 
         #[macro_export]
         macro_rules! oc_rep_set_text_string((
                                             $ object : ident , $ key : expr ,
@@ -863,43 +957,6 @@ mod mynewt {
                                             ; } d ! (
                                             end oc_rep_set_text_string ) ; } }
                                             ;);
-        #[macro_export]
-        macro_rules! test_literal(( $ key : literal ) => {
-                                  { concat ! ( $ key , "_zzz" ) ; } } ;);
-        #[macro_export]
-        macro_rules! test_ident(( $ key : ident ) => {
-                                { let $ key = stringify ! ( $ key ) ; } } ;);
-        #[macro_export]
-        macro_rules! test_internal_rules2(( @ json $ key : ident ) => {
-                                          let _ = concat ! (
-                                          "json2: " , stringify ! ( $ key ) )
-                                          ; } ; ( @ cbor $ key : ident ) => {
-                                          let _ = concat ! (
-                                          "cbor2: " , stringify ! ( $ key ) )
-                                          ; } ; (
-                                          @ $ encoding : ident $ key : ident )
-                                          => {
-                                          let _ = concat ! (
-                                          "other2: " , stringify ! (
-                                          $ encoding ) , " / " , stringify ! (
-                                          $ key ) ) ; } ;);
-        #[macro_export]
-        macro_rules! test_internal_rules(( @ json $ key : ident ) => {
-                                         let _ = concat ! (
-                                         "json: " , stringify ! ( $ key ) ) ;
-                                         test_internal_rules2 ! ( @ json $ key
-                                         ) ; } ; ( @ cbor $ key : ident ) => {
-                                         let _ = concat ! (
-                                         "cbor: " , stringify ! ( $ key ) ) ;
-                                         test_internal_rules2 ! ( @ cbor $ key
-                                         ) ; } ; (
-                                         @ $ encoding : ident $ key : ident )
-                                         => {
-                                         let _ = concat ! (
-                                         "other: " , stringify ! ( $ encoding
-                                         ) , " / " , stringify ! ( $ key ) ) ;
-                                         test_internal_rules2 ! (
-                                         @ $ encoding $ key ) ; } ;);
         ///  Macro that takes an identifier and returns a `[u8]` containing the identifier, terminated by 0.
         ///  Used to convert an identifier to a C null-terminated string.
         #[macro_export]
@@ -10751,6 +10808,9 @@ mod send_coap {
     impl ToBytesOptionalNull for str {
         fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
     }
+    impl ToBytesOptionalNull for &str {
+        fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+    }
     impl ToBytesOptionalNull for CStr {
         fn to_bytes_optional_nul(&self) -> &[u8] { self.to_bytes_with_nul() }
     }
@@ -10763,7 +10823,7 @@ mod send_coap {
             if !(s.len() < JSON_KEY_SIZE) {
                 {
                     ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
-                                               "src/send_coap.rs", 259u32,
+                                               "src/send_coap.rs", 265u32,
                                                9u32))
                 }
             };
@@ -10779,7 +10839,7 @@ mod send_coap {
             if !(s.len() < JSON_VALUE_SIZE) {
                 {
                     ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
-                                               "src/send_coap.rs", 272u32,
+                                               "src/send_coap.rs", 278u32,
                                                9u32))
                 }
             };
@@ -10800,26 +10860,72 @@ mod send_coap {
         let int_sensor_value =
             SensorValue{key: "t", val: SensorValueType::Uint(2870),};
         {
-            "jtxti o: JSON_CONTEXT, k: device1, v: device_id";
-            let key_with_null: &[u8] = "device1\u{0}";
-            let value_with_opt_null: &[u8] =
-                device_id.to_bytes_optional_nul();
-            unsafe {
-                mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                         JSON_CONTEXT.key_to_cstr(key_with_null),
-                                                         JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+            "begin json coap_array , object : JSON_CONTEXT , key : values";
+            {
+                "<< jarri , o: JSON_CONTEXT, k: values";
+                let key_with_null: &str = "values\u{0}";
+                unsafe {
+                    mynewt_rust::json_helper_set_array(JSON_CONTEXT.to_void_ptr(),
+                                                       JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
+                };
             };
-        };
-        {
-            "jtxte o: JSON_CONTEXT, k: \"device2\", v: device_id";
-            let key_with_opt_null: &[u8] = "device2".to_bytes_optional_nul();
-            let value_with_opt_null: &[u8] =
-                device_id.to_bytes_optional_nul();
-            unsafe {
-                mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
-                                                         JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                         JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+            {
+                {
+                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\ndevice_id";
+                    {
+                        "begin json coap_item , array : JSON_CONTEXT";
+                        {
+                            "<< jitmi k: JSON_CONTEXT";
+                            let key_with_null: &str = "JSON_CONTEXT\u{0}";
+                            unsafe {
+                                mynewt_rust::json_helper_object_array_start_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                            };
+                        };
+                        {
+                            {
+                                "-- jtxti o: JSON_CONTEXT, k: key, v: \"device\"";
+                                let key_with_null: &str = "key\u{0}";
+                                let value_with_opt_null: &[u8] =
+                                    "device".to_bytes_optional_nul();
+                                unsafe {
+                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                };
+                            };
+                            {
+                                "-- jtxti o: JSON_CONTEXT, k: value, v: device_id";
+                                let key_with_null: &str = "value\u{0}";
+                                let value_with_opt_null: &[u8] =
+                                    device_id.to_bytes_optional_nul();
+                                unsafe {
+                                    mynewt_rust::json_helper_set_text_string(JSON_CONTEXT.to_void_ptr(),
+                                                                             JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+                                                                             JSON_CONTEXT.value_to_cstr(value_with_opt_null))
+                                };
+                            };
+                        };
+                        {
+                            ">>";
+                            let key_with_null: &str = "JSON_CONTEXT\u{0}";
+                            unsafe {
+                                mynewt_rust::json_helper_object_array_end_item(JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                            };
+                        };
+                        "end json coap_item";
+                    };
+                    "end json coap_item_str";
+                };
             };
+            {
+                ">>";
+                let key_with_null: &str = "values\u{0}";
+                unsafe {
+                    mynewt_rust::json_helper_close_array(JSON_CONTEXT.to_void_ptr(),
+                                                         JSON_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                };
+            };
+            "end json coap_array";
         };
         ();
     }
@@ -10841,14 +10947,14 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 378u32, 65u32))
+                                           "src/send_coap.rs", 382u32, 65u32))
             }
         };
         let rc = unsafe { sensor_network::do_collector_post() };
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 391u32, 63u32))
+                                           "src/send_coap.rs", 395u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

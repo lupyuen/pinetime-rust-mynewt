@@ -1951,7 +1951,7 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> MynewtR
   c4:	f7ff fffe 	bl	0 <should_send_to_collector>
   c8:	b1b0      	cbz	r0, 30 <_ZN5mylib13listen_sensor16read_temperature17h283273ee5533fd04E+0x30>
 _ZN5mylib9send_coap29send_sensor_data_to_collector17hee27b36eedd1b0b3E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:379
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:377
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
@@ -1963,7 +1963,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
   d2:	7800      	ldrb	r0, [r0, #0]
   d4:	2801      	cmp	r0, #1
   d6:	d139      	bne.n	14c <_ZN5mylib13listen_sensor16read_temperature17h283273ee5533fd04E+0x14c>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:384
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:382
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -1972,7 +1972,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
   d8:	f7ff fffe 	bl	0 <init_collector_post>
   dc:	2800      	cmp	r0, #0
   de:	f000 8094 	beq.w	20a <_ZN5mylib13listen_sensor16read_temperature17h283273ee5533fd04E+0x20a>
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:397
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:395
     */
 
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
@@ -2142,13 +2142,13 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h9e7f4cfab2b86312E():
  204:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  208:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap29send_sensor_data_to_collector17hee27b36eedd1b0b3E():
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:384
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:382
     let rc = unsafe { sensor_network::init_collector_post() };  assert!(rc);
  20a:	f240 0000 	movw	r0, #0
  20e:	f2c0 0000 	movt	r0, #0
  212:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  216:	defe      	udf	#254	; 0xfe
-/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:397
+/mnt/c/stm32bluepill-mynewt-sensor/src/send_coap.rs:395
     let rc = unsafe { sensor_network::do_collector_post() };  assert!(rc);
  218:	f240 0000 	movw	r0, #0
  21c:	f2c0 0000 	movt	r0, #0
