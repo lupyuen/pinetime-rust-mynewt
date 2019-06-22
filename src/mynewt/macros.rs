@@ -1044,16 +1044,21 @@ generates:
     }
 */
 macro_rules! run {
-  (($($current:tt)*), ($($next:tt)*), ($($rest:tt)*)) => {
+  ($context:ident, $parent:expr, $suffix:expr, {
+    $( $stmt:stmt ; )*
+  }) => {{
     concat!(
       " >> ",
-      stringify!($($current)*), 
+      stringify!($context), 
       " >> ",
-      stringify!($($next)*), 
+      stringify!($parent), 
       " >> ",
-      stringify!($($rest)*)
+      stringify!($suffix)
     );
-  };
+    unsafe {
+      $( let res = $stmt ; )*
+    };
+  }};
 }
 
 ///  Encode an int value 
@@ -1069,6 +1074,7 @@ macro_rules! oc_rep_set_int {
     //  Convert key to null-terminated char array. If key is `t`, convert to `"t\u{0}"`
     let key_with_null: &str = stringify_null!($key);
     let value = $value as i64;
+
     unsafe {
       //  TODO: First para should be name of current map or array
       let encoder = $context.encoder(stringify!($context), "_map");
@@ -1096,6 +1102,21 @@ macro_rules! oc_rep_set_int {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value = $value as i64;
+
+    "-------------------------------------------------------------";
+    run!($context, stringify!($context), "_map", {
+      tinycbor::cbor_encode_text_string(
+        $context.encoder(stringify!($context), "_map"),
+        $context.key_to_cstr(key_with_opt_null),
+        $context.cstr_len(key_with_opt_null)
+      );
+      tinycbor::cbor_encode_int(
+        $context.encoder(stringify!($context), "_map"),
+        value
+      );
+    });
+    "-------------------------------------------------------------";
+
     unsafe {
       //  TODO: First para should be name of current map or array
       let encoder = $context.encoder(stringify!($context), "_map");
@@ -1110,7 +1131,8 @@ macro_rules! oc_rep_set_int {
         encoder,
         value
       );
-    }
+    };
+
   }};
 }
 

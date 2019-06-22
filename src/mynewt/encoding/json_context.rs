@@ -22,30 +22,31 @@ const JSON_VALUE_SIZE: usize = 32;
 
 //  From https://camjackson.net/post/rust-lang-how-to-pass-a-closure-into-a-trait-object
 pub trait FunctionCaller {
-    fn call_function(&self, function: &Fn() -> u32) -> u32;
+    fn call_function(&self, function: &dyn Fn() -> u32) -> u32;
 }
 
 pub struct Step {
 }
 
 impl FunctionCaller for Step {
-    fn call_function(&self, function: &Fn() -> u32) -> u32 {
+    fn call_function(&self, function: &dyn Fn() -> u32) -> u32 {
         function()
     }
 }
 
 impl Step {
-    pub fn invoke(closure: &Fn() -> u32) -> u32 {
+    pub fn invoke(closure: &dyn Fn() -> u32) -> u32 {
         Step{}.call_function(closure)
     }
 }
 
 impl JsonContext {
 
-    pub fn check(res: u32) {
+    pub fn check_result(res: u32) {
         assert_eq!(res, 0);
     }
 
+    /*
     /// Given an array of closures (each returning `u32`), execute
     /// each closure until a closure returns non-zero result and
     /// stops.
@@ -54,7 +55,6 @@ impl JsonContext {
             assert_eq!(step, &0);
         }
     }
-    /*
     pub fn run_steps<F>(&mut self, steps: &[F])
         where F: Fn() -> u32 {
         for step in steps {

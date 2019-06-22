@@ -523,6 +523,12 @@
                                     let key_with_opt_null: &[u8] =
                                         sensor_val.key.to_bytes_optional_nul();
                                     let value = val as i64;
+                                    "-------------------------------------------------------------";
+                                    {
+                                        " >> JSON_CONTEXT >> stringify!(JSON_CONTEXT) >> \"_map\"";
+                                        unsafe { (/*ERROR*/) };
+                                    };
+                                    "-------------------------------------------------------------";
                                     unsafe {
                                         let encoder =
                                             JSON_CONTEXT.encoder("JSON_CONTEXT",
@@ -532,7 +538,7 @@
                                                                           JSON_CONTEXT.cstr_len(key_with_opt_null));
                                         tinycbor::cbor_encode_int(encoder,
                                                                   value);
-                                    }
+                                    };
                                 };
                             } else {
                                 unsafe {

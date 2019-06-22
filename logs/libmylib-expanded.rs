@@ -927,6 +927,15 @@ mod mynewt {
                                                   end
                                                   oc_rep_object_array_end_item
                                                   ) ; } } ;);
+        macro_rules! run((
+                         $ context : ident , $ parent : expr , $ suffix : expr
+                         , { $ ( $ stmt : stmt ; ) * } ) => {
+                         {
+                         concat ! (
+                         " >> " , stringify ! ( $ context ) , " >> " ,
+                         stringify ! ( $ parent ) , " >> " , stringify ! (
+                         $ suffix ) ) ; unsafe { $ ( let res = $ stmt ; ) * }
+                         ; } } ;);
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
@@ -958,15 +967,31 @@ mod mynewt {
                                     $ key ) , ", v: " , stringify ! ( $ value
                                     ) ) ; let key_with_opt_null : & [ u8 ] = $
                                     key . to_bytes_optional_nul (  ) ; let
-                                    value = $ value as i64 ; unsafe {
+                                    value = $ value as i64 ;
+                                    "-------------------------------------------------------------"
+                                    ; run ! (
+                                    $ context , stringify ! ( $ context ) ,
+                                    "_map" , {
+                                    tinycbor :: cbor_encode_text_string (
+                                    $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) , $
+                                    context . key_to_cstr ( key_with_opt_null
+                                    ) , $ context . cstr_len (
+                                    key_with_opt_null ) ) ; tinycbor ::
+                                    cbor_encode_int (
+                                    $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) ,
+                                    value ) ; } ) ;
+                                    "-------------------------------------------------------------"
+                                    ; unsafe {
                                     let encoder = $ context . encoder (
                                     stringify ! ( $ context ) , "_map" ) ;
                                     tinycbor :: cbor_encode_text_string (
                                     encoder , $ context . key_to_cstr (
                                     key_with_opt_null ) , $ context . cstr_len
                                     ( key_with_opt_null ) ) ; tinycbor ::
-                                    cbor_encode_int ( encoder , value ) ; } }
-                                    } ;);
+                                    cbor_encode_int ( encoder , value ) ; } ;
+                                    } } ;);
         ///  Encode a text value 
         #[macro_export]
         macro_rules! oc_rep_set_text_string((
@@ -2411,41 +2436,51 @@ mod mynewt {
             const JSON_KEY_SIZE: usize = 32;
             /// Size of the static value buffer
             const JSON_VALUE_SIZE: usize = 32;
+            pub trait FunctionCaller {
+                fn call_function(&self, function: &dyn Fn() -> u32)
+                -> u32;
+            }
+            pub struct Step {
+            }
+            impl FunctionCaller for Step {
+                fn call_function(&self, function: &dyn Fn() -> u32) -> u32 {
+                    function()
+                }
+            }
+            impl Step {
+                pub fn invoke(closure: &dyn Fn() -> u32) -> u32 {
+                    Step{}.call_function(closure)
+                }
+            }
             impl JsonContext {
-                /// Given an array of closures (each returning `u32`), execute
-                /// each closure until a closure returns non-zero result and
-                /// stops.
-                pub fn run_steps<F>(steps: &[F]) where F: Fn() -> u32 {
-                    for step in steps {
-                        let res = step();
-                        {
-                            match (&res, &0) {
-                                (left_val, right_val) => {
-                                    if !(*left_val == *right_val) {
-                                        {
-                                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                          "`,\n right: `",
-                                                                                                          "`"],
-                                                                                                        &match (&&*left_val,
-                                                                                                                &&*right_val)
-                                                                                                             {
-                                                                                                             (arg0,
-                                                                                                              arg1)
-                                                                                                             =>
-                                                                                                             [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                                              ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                           ::core::fmt::Debug::fmt)],
-                                                                                                         }),
-                                                                         &("src/mynewt/encoding/json_context.rs",
-                                                                           32u32,
-                                                                           13u32))
-                                        }
+                pub fn check_result(res: u32) {
+                    {
+                        match (&res, &0) {
+                            (left_val, right_val) => {
+                                if !(*left_val == *right_val) {
+                                    {
+                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                      "`,\n right: `",
+                                                                                                      "`"],
+                                                                                                    &match (&&*left_val,
+                                                                                                            &&*right_val)
+                                                                                                         {
+                                                                                                         (arg0,
+                                                                                                          arg1)
+                                                                                                         =>
+                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                       ::core::fmt::Debug::fmt)],
+                                                                                                     }),
+                                                                     &("src/mynewt/encoding/json_context.rs",
+                                                                       46u32,
+                                                                       9u32))
                                     }
                                 }
                             }
-                        };
-                    }
+                        }
+                    };
                 }
                 /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
                 /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
@@ -2456,7 +2491,7 @@ mod mynewt {
                         {
                             ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
                                                        "src/mynewt/encoding/json_context.rs",
-                                                       43u32, 9u32))
+                                                       74u32, 9u32))
                         }
                     };
                     self.key_buffer[..s.len()].copy_from_slice(s);
@@ -2472,7 +2507,7 @@ mod mynewt {
                         {
                             ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
                                                        "src/mynewt/encoding/json_context.rs",
-                                                       56u32, 9u32))
+                                                       87u32, 9u32))
                         }
                     };
                     self.value_buffer[..s.len()].copy_from_slice(s);
@@ -2517,7 +2552,7 @@ mod mynewt {
                                                                                                                                        ::core::fmt::Debug::fmt)],
                                                                                                      }),
                                                                      &("src/mynewt/encoding/json_context.rs",
-                                                                       83u32,
+                                                                       114u32,
                                                                        9u32))
                                     }
                                 }
@@ -11303,6 +11338,12 @@ mod send_coap {
                                     let key_with_opt_null: &[u8] =
                                         sensor_val.key.to_bytes_optional_nul();
                                     let value = val as i64;
+                                    "-------------------------------------------------------------";
+                                    {
+                                        " >> JSON_CONTEXT >> stringify!(JSON_CONTEXT) >> \"_map\"";
+                                        unsafe { (/*ERROR*/) };
+                                    };
+                                    "-------------------------------------------------------------";
                                     unsafe {
                                         let encoder =
                                             JSON_CONTEXT.encoder("JSON_CONTEXT",
@@ -11312,7 +11353,7 @@ mod send_coap {
                                                                           JSON_CONTEXT.cstr_len(key_with_opt_null));
                                         tinycbor::cbor_encode_int(encoder,
                                                                   value);
-                                    }
+                                    };
                                 };
                             } else {
                                 unsafe {
