@@ -1059,17 +1059,21 @@ macro_rules! oc_rep_set_int {
     unsafe {
       //  TODO: First para should be name of current map or array
       let encoder = $context.encoder(stringify!($context), "_map");
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      tinycbor::cbor_encode_text_string(
-        encoder,
-        $context.key_to_cstr(key_with_opt_null),
-        $context.cstr_len(key_with_opt_null)
-      );
-      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-      tinycbor::cbor_encode_int(
-        encoder,
-        value
-      );
+      $context.check();
+      
+      $context.run_steps([
+        //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+        || tinycbor::cbor_encode_text_string(
+          encoder,
+          $context.key_to_cstr(key_with_opt_null),
+          $context.cstr_len(key_with_opt_null)
+        ),
+        //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+        || tinycbor::cbor_encode_int(
+          encoder,
+          value
+        ),
+      ]);
     }
   }};
 }
