@@ -1029,8 +1029,10 @@ macro_rules! run_stmts {
     }     
   ) => {
     $stmt ;
+    /*
     run_stmts!($context, $encoder,
       { $( $tail ; )* } );
+    */
   };
 }
 
@@ -1074,7 +1076,7 @@ macro_rules! run {
       stringify!($suffix)
     );
     unsafe {
-      let encoder = $context.encoder(stringify!($parent), $suffix);
+      //  let encoder = $context.encoder(stringify!($parent), $suffix);
       run_stmts!($context, encoder, { $( $stmt ; )* });
     };
   }};
@@ -1125,12 +1127,12 @@ macro_rules! oc_rep_set_int {
     "-------------------------------------------------------------";
     run!($context, $context, "_map", {
       tinycbor::cbor_encode_text_string(
-        encoder,
+        $context.encoder("", ""),  //  TODO
         $context.key_to_cstr(key_with_opt_null),
         $context.cstr_len(key_with_opt_null)
       );
       tinycbor::cbor_encode_int(
-        encoder,
+        $context.encoder("", ""),  //  TODO
         value
       );
     });
