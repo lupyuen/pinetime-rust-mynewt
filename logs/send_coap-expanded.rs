@@ -527,14 +527,10 @@
                                     {
                                         " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
                                         unsafe {
-                                            let encoder =
-                                                JSON_CONTEXT.encoder("JSON_CONTEXT",
-                                                                     "_map");
-                                            tinycbor::cbor_encode_text_string(encoder,
+                                            tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("",
+                                                                                                   ""),
                                                                               JSON_CONTEXT.key_to_cstr(key_with_opt_null),
                                                                               JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                            tinycbor::cbor_encode_int(encoder,
-                                                                      value);
                                         };
                                     };
                                     "-------------------------------------------------------------";
