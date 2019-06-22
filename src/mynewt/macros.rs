@@ -1030,10 +1030,10 @@ macro_rules! run_stmts {
     }     
   ) => {
     $stmt ;
-    /*
-    run_stmts!($context, $encoder,
-      { $( $tail ; )* } );
-    */
+    run_stmts!(
+      $context, $encoder,
+      { $( $tail ; )* } 
+    )
   };
 }
 
@@ -1067,7 +1067,7 @@ generates:
 macro_rules! run {
   ($context:ident, $parent:ident, $suffix:expr, {
     $( $stmt:stmt ; )*
-  }) => {{
+  }) => {
     concat!(
       " >> ",
       stringify!($context), 
@@ -1080,13 +1080,13 @@ macro_rules! run {
       //  let encoder = $context.encoder(stringify!($parent), $suffix);
       run_stmts!($context, encoder, { $( $stmt ; )* });
     };
-  }};
+  };
 }
 
 ///  Encode an int value 
 #[macro_export]
 macro_rules! oc_rep_set_int {
-  ($context:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
+  ($context:ident, $key:ident, $value:expr) => {  //  If $key is identifier...
     concat!(
       "-- cinti",
       " c: ",  stringify!($context),
@@ -1112,9 +1112,9 @@ macro_rules! oc_rep_set_int {
         value
       );
     }
-  }};
+  };
 
-  ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
+  ($context:ident, $key:expr, $value:expr) => {  //  If $key is expression...
     concat!(
       "-- cinte",
       " c: ",  stringify!($context),
@@ -1155,7 +1155,7 @@ macro_rules! oc_rep_set_int {
       );
     };
 
-  }};
+  };
 }
 
 ///  Encode a text value 

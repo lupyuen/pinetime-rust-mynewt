@@ -3754,7 +3754,7 @@ _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get
     pub fn get_current() -> u32 {
    0:	f24e 0018 	movw	r0, #57368	; 0xe018
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN17volatile_register11RW$LT$T$GT$4read17h46ed21d178e93e18E():
+_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    8:	6800      	ldr	r0, [r0, #0]
 _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hb54b375ce80e811fE():

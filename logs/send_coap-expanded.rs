@@ -524,14 +524,16 @@
                                         sensor_val.key.to_bytes_optional_nul();
                                     let value = val as i64;
                                     "-------------------------------------------------------------";
-                                    {
-                                        " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
-                                        unsafe {
-                                            tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("",
-                                                                                                   ""),
-                                                                              JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                              JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                        };
+                                    " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
+                                    unsafe {
+                                        tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                                               "_map"),
+                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                        tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                                       "_map"),
+                                                                  value);
+                                        "aaa";
                                     };
                                     "-------------------------------------------------------------";
                                     unsafe {

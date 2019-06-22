@@ -931,18 +931,19 @@ mod mynewt {
                                ) => { "aaa" } ; (
                                $ context : ident , $ encoder : ident , {
                                $ stmt : tt ; $ ( $ tail : tt ; ) * } ) => {
-                               $ stmt ; } ;);
+                               $ stmt ; run_stmts ! (
+                               $ context , $ encoder , { $ ( $ tail ; ) * } )
+                               } ;);
         macro_rules! run((
                          $ context : ident , $ parent : ident , $ suffix :
                          expr , { $ ( $ stmt : stmt ; ) * } ) => {
-                         {
                          concat ! (
                          " >> " , stringify ! ( $ context ) , " >> " ,
                          stringify ! ( $ parent ) , " >> " , stringify ! (
                          $ suffix ) ) ; unsafe {
                          run_stmts ! (
                          $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ; }
-                         } ;);
+                         ;);
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
@@ -979,13 +980,15 @@ mod mynewt {
                                     ; run ! (
                                     $ context , $ context , "_map" , {
                                     tinycbor :: cbor_encode_text_string (
-                                    $ context . encoder ( "" , "" ) , $
+                                    $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) , $
                                     context . key_to_cstr ( key_with_opt_null
                                     ) , $ context . cstr_len (
                                     key_with_opt_null ) ) ; tinycbor ::
                                     cbor_encode_int (
-                                    $ context . encoder ( "" , "" ) , value )
-                                    ; } ) ;
+                                    $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) ,
+                                    value ) ; } ) ;
                                     "-------------------------------------------------------------"
                                     ; unsafe {
                                     let encoder = $ context . encoder (
@@ -11343,14 +11346,16 @@ mod send_coap {
                                         sensor_val.key.to_bytes_optional_nul();
                                     let value = val as i64;
                                     "-------------------------------------------------------------";
-                                    {
-                                        " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
-                                        unsafe {
-                                            tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("",
-                                                                                                   ""),
-                                                                              JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                              JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                        };
+                                    " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
+                                    unsafe {
+                                        tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                                               "_map"),
+                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                        tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                                       "_map"),
+                                                                  value);
+                                        "aaa";
                                     };
                                     "-------------------------------------------------------------";
                                     unsafe {
