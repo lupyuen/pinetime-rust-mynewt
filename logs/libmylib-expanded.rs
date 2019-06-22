@@ -927,15 +927,27 @@ mod mynewt {
                                                   end
                                                   oc_rep_object_array_end_item
                                                   ) ; } } ;);
+        macro_rules! run_stmts((
+                               $ context : ident , $ parent : ident , $ suffix
+                               : expr , {  } ) => {  } ; (
+                               $ context : ident , $ parent : ident , $ suffix
+                               : expr , { $ stmt : tt ; $ ( $ tail : tt ; ) *
+                               } ) => {
+                               $ stmt ; run_stmts ! (
+                               $ context , $ parent , $ suffix , {
+                               $ ( $ tail ; ) * } ) ; } ;);
         macro_rules! run((
-                         $ context : ident , $ parent : expr , $ suffix : expr
-                         , { $ ( $ stmt : stmt ; ) * } ) => {
+                         $ context : ident , $ parent : ident , $ suffix :
+                         expr , { $ ( $ stmt : stmt ; ) * } ) => {
                          {
                          concat ! (
                          " >> " , stringify ! ( $ context ) , " >> " ,
                          stringify ! ( $ parent ) , " >> " , stringify ! (
-                         $ suffix ) ) ; unsafe { $ ( let res = $ stmt ; ) * }
-                         ; } } ;);
+                         $ suffix ) ) ; unsafe {
+                         let encoder = $ context . encoder (
+                         stringify ! ( $ parent ) , $ suffix ) ; run_stmts ! (
+                         $ context , $ parent , $ suffix , { $ ( $ stmt ; ) *
+                         } ) ; } ; } } ;);
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
@@ -970,18 +982,13 @@ mod mynewt {
                                     value = $ value as i64 ;
                                     "-------------------------------------------------------------"
                                     ; run ! (
-                                    $ context , stringify ! ( $ context ) ,
-                                    "_map" , {
+                                    $ context , $ context , "_map" , {
                                     tinycbor :: cbor_encode_text_string (
-                                    $ context . encoder (
-                                    stringify ! ( $ context ) , "_map" ) , $
-                                    context . key_to_cstr ( key_with_opt_null
-                                    ) , $ context . cstr_len (
-                                    key_with_opt_null ) ) ; tinycbor ::
-                                    cbor_encode_int (
-                                    $ context . encoder (
-                                    stringify ! ( $ context ) , "_map" ) ,
-                                    value ) ; } ) ;
+                                    encoder , $ context . key_to_cstr (
+                                    key_with_opt_null ) , $ context . cstr_len
+                                    ( key_with_opt_null ) ) ; tinycbor ::
+                                    cbor_encode_int ( encoder , value ) ; } )
+                                    ;
                                     "-------------------------------------------------------------"
                                     ; unsafe {
                                     let encoder = $ context . encoder (
@@ -11340,8 +11347,17 @@ mod send_coap {
                                     let value = val as i64;
                                     "-------------------------------------------------------------";
                                     {
-                                        " >> JSON_CONTEXT >> stringify!(JSON_CONTEXT) >> \"_map\"";
-                                        unsafe { (/*ERROR*/) };
+                                        " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
+                                        unsafe {
+                                            let encoder =
+                                                JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                                     "_map");
+                                            tinycbor::cbor_encode_text_string(encoder,
+                                                                              JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                              JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                            tinycbor::cbor_encode_int(encoder,
+                                                                      value);
+                                        };
                                     };
                                     "-------------------------------------------------------------";
                                     unsafe {

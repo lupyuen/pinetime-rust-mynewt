@@ -1016,6 +1016,24 @@ macro_rules! oc_rep_object_array_end_item {
   }};
 }
 
+macro_rules! run_stmts {
+  ($context:ident, $encoder:ident,
+    { }
+  ) => {
+  };
+
+  ($context:ident, $encoder:ident,
+    { 
+      $stmt:tt ;
+      $( $tail:tt ; )* 
+    }     
+  ) => {
+    $stmt ;
+    run_stmts!($context, $encoder,
+      { $( $tail ; )* } );
+  };
+}
+
 /* run!($context, stringify!($context), "_map", {
     tinycbor::cbor_encode_text_string(
       encoder,
@@ -1044,7 +1062,7 @@ generates:
     }
 */
 macro_rules! run {
-  ($context:ident, $parent:expr, $suffix:expr, {
+  ($context:ident, $parent:ident, $suffix:expr, {
     $( $stmt:stmt ; )*
   }) => {{
     concat!(
@@ -1056,7 +1074,8 @@ macro_rules! run {
       stringify!($suffix)
     );
     unsafe {
-      $( let res = $stmt ; )*
+      let encoder = $context.encoder(stringify!($parent), $suffix);
+      run_stmts!($context, encoder, { $( $stmt ; )* });
     };
   }};
 }
@@ -1104,14 +1123,14 @@ macro_rules! oc_rep_set_int {
     let value = $value as i64;
 
     "-------------------------------------------------------------";
-    run!($context, stringify!($context), "_map", {
+    run!($context, $context, "_map", {
       tinycbor::cbor_encode_text_string(
-        $context.encoder(stringify!($context), "_map"),
+        encoder,
         $context.key_to_cstr(key_with_opt_null),
         $context.cstr_len(key_with_opt_null)
       );
       tinycbor::cbor_encode_int(
-        $context.encoder(stringify!($context), "_map"),
+        encoder,
         value
       );
     });
