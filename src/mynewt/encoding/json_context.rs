@@ -69,12 +69,12 @@ impl JsonContext {
     /// append null and return the buffer as a pointer.
     pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
         //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr(); }
+        if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
         //  Else copy into static key buffer and return pointer to buffer.
         assert!(s.len() < JSON_KEY_SIZE);  //  Key too long
         self.key_buffer[..s.len()].copy_from_slice(s);
         self.key_buffer[s.len()] = 0;
-        self.key_buffer.as_ptr()
+        self.key_buffer.as_ptr() as *const c_char
     }
 
     /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
@@ -82,12 +82,12 @@ impl JsonContext {
     /// append null and return the buffer as a pointer.
     pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
         //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr(); }
+        if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
         //  Else copy into static value buffer and return pointer to buffer.
         assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
         self.value_buffer[..s.len()].copy_from_slice(s);
         self.value_buffer[s.len()] = 0;
-        self.value_buffer.as_ptr()        
+        self.value_buffer.as_ptr() as *const c_char
     }
 
     /// Compute the byte length of the string in `s`.

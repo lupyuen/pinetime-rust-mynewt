@@ -20,7 +20,7 @@
 ///	) 
 /// }
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! fill_zero {
   ($type:ident) => {
     unsafe { 
@@ -47,7 +47,7 @@ macro_rules! fill_zero {
 ///  no encoding (testing), JSON encoding or CBOR encoding.
 ///  Second parameter is the JSON message to be transmitted.
 ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
-#[macro_export]
+//#[macro_export]
 macro_rules! coap {
   //  No encoding
   (@none $($tokens:tt)+) => {
@@ -70,7 +70,7 @@ macro_rules! coap {
 ///  - __Context__: JSON or CBOR parsing context (`JsonContext` or `CborContext`)
 ///  - __Remaining tokens__ to be parsed
 ///  - __Remaining tokens__ again, for error display
-#[macro_export]
+//#[macro_export]
 macro_rules! parse {
 
   //////////////////////////////////////////////////////////////////////////
@@ -398,8 +398,7 @@ macro_rules! parse {
 }
 
 ///  TODO: Parse the vector e.g. array items
-#[macro_export]
-#[doc(hidden)]
+//#[macro_export]
 macro_rules! parse_vector {
   ($($content:tt)*) => {
     vec![$($content)*]
@@ -407,8 +406,7 @@ macro_rules! parse_vector {
 }
 
 ///  Show an unexpected token error
-#[macro_export]
-#[doc(hidden)]
+//#[macro_export]
 macro_rules! unexpected_token {
   () => {};
 }
@@ -418,7 +416,7 @@ macro_rules! unexpected_token {
 //  https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-coap/libs/sensor_coap/include/sensor_coap/sensor_coap.h
 
 ///  Compose the payload root.
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_root {  
   (@cbor $context:ident $children0:block) => {{  //  CBOR
     d!(begin cbor coap_root);
@@ -438,7 +436,7 @@ macro_rules! coap_root {
 }
 
 ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_array {
   (@cbor $object0:ident, $key0:ident, $children0:block) => {{  //  CBOR
     d!(begin cbor coap_array, object: $object0, key: $key0);
@@ -459,7 +457,7 @@ macro_rules! coap_array {
 
 ///  Append a (key + int value) item to the array named `array`:
 ///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_item_int {
   (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int, key: $key0, value: $value0);
@@ -482,7 +480,7 @@ macro_rules! coap_item_int {
 
 ///  Append a (`key` + `val` string value) item to the array named `parent`:
 ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_item_str {
   (@cbor $parent:ident, $key:expr, $val:expr) => {{  //  CBOR
     d!(begin cbor coap_item_str, parent: $parent, key: $key, val: $val);
@@ -511,7 +509,7 @@ macro_rules! coap_item_str {
 
 ///  Append an array item under the current object item.  Add `children0` as the array items.
 ///    `{ <array0>: [ ..., { <children0> } ] }`
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_item {
   (@cbor $context:ident, $children0:block) => {{  //  CBOR
     d!(begin cbor coap_item, array: $context);
@@ -531,7 +529,7 @@ macro_rules! coap_item {
 }
 
 ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_set_int_val {
   (@cbor $context:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_set_int_val, c: $context, val: $val0);
@@ -555,7 +553,7 @@ macro_rules! coap_set_int_val {
 }
 
 ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! coap_item_int_val {
   (@cbor $context:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int_val, c: $context, val: $val0);
@@ -586,7 +584,7 @@ macro_rules! coap_item_int_val {
 ///  ```
 ///  {a:b --> {a:b, key:[
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! json_rep_set_array {
   ($context:ident, $key:ident) => {{  //  If $key is identifier...
     concat!(
@@ -625,7 +623,7 @@ macro_rules! json_rep_set_array {
 ///  ```
 ///  {a:b, key:[... --> {a:b, key:[...]
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! json_rep_close_array {
   ($context:ident, $key:ident) => {{  //  If $key is identifier...
     concat!(
@@ -660,7 +658,7 @@ macro_rules! json_rep_close_array {
 ///  ```
 ///  [... --> [...,
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! json_rep_object_array_start_item {
   ($context:ident) => {{  //  If $key is identifier...
     concat!(
@@ -695,7 +693,7 @@ macro_rules! json_rep_object_array_start_item {
 ///  ```
 ///  [... --> [...,
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! json_rep_object_array_end_item {
   ($context:ident) => {{  //  If $key is identifier...
     concat!(
@@ -725,7 +723,7 @@ macro_rules! json_rep_object_array_end_item {
 }
 
 ///  Encode an int value into the current JSON encoding value `coap_json_value`
-#[macro_export]
+//#[macro_export]
 macro_rules! json_rep_set_int {
   ($context:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
@@ -767,7 +765,7 @@ macro_rules! json_rep_set_int {
 }
 
 ///  Encode a text value into the current JSON encoding value `coap_json_value`
-#[macro_export]
+//#[macro_export]
 macro_rules! json_rep_set_text_string {
   ($context:ident, $key:ident, $value:expr) => {{  //  If $key is identifier...
     concat!(
@@ -821,7 +819,7 @@ macro_rules! json_rep_set_text_string {
 //  CBOR macros ported from C to Rust:
 //  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
 
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! oc_rep_start_root_object {
   ($context:ident) => {{
     d!(begin oc_rep_start_root_object);
@@ -838,7 +836,7 @@ macro_rules! oc_rep_start_root_object {
   }};
 }
 
-#[macro_export(local_inner_macros)]
+//#[macro_export(local_inner_macros)]
 macro_rules! oc_rep_end_root_object {
   ($context:ident) => {{
     d!(begin oc_rep_end_root_object);
@@ -854,7 +852,7 @@ macro_rules! oc_rep_end_root_object {
   }};
 }
 
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_start_object {
   ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
@@ -879,7 +877,7 @@ macro_rules! oc_rep_start_object {
   }};
 }
 
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_end_object {
   ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
@@ -901,7 +899,7 @@ macro_rules! oc_rep_end_object {
   }};
 }
 
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_start_array {
   ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
@@ -922,7 +920,7 @@ macro_rules! oc_rep_start_array {
   }};
 }
 
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_end_array {
   ($parent:ident, $key:ident, $parent_suffix:ident) => {{
     concat!(
@@ -944,7 +942,7 @@ macro_rules! oc_rep_end_array {
 ///  ```
 ///  {a:b --> {a:b, key:[
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_set_array {
   ($object:ident, $key:ident) => {{
     concat!(
@@ -965,7 +963,7 @@ macro_rules! oc_rep_set_array {
 ///  ```
 ///  {a:b, key:[... --> {a:b, key:[...]
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_close_array {
   ($object:ident, $key:ident) => {{
     concat!(
@@ -984,7 +982,7 @@ macro_rules! oc_rep_close_array {
 ///  ```
 ///  [... --> [...,
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_object_array_start_item {
   ($key:ident) => {{
     concat!(
@@ -1002,7 +1000,7 @@ macro_rules! oc_rep_object_array_start_item {
 ///  ```
 ///  [... --> [...,
 ///  ```
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_object_array_end_item {
   ($key:ident) => {{
     concat!(
@@ -1084,7 +1082,7 @@ macro_rules! run {
 }
 
 ///  Encode an int value 
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_set_int {
   ($context:ident, $key:ident, $value:expr) => {  //  If $key is identifier...
     concat!(
@@ -1159,7 +1157,7 @@ macro_rules! oc_rep_set_int {
 }
 
 ///  Encode a text value 
-#[macro_export]
+//#[macro_export]
 macro_rules! oc_rep_set_text_string {
   ($object:ident, $key:expr, $value:expr) => {{
     concat!(
@@ -1192,7 +1190,7 @@ macro_rules! oc_rep_set_text_string {
 
 ///  Macro that takes an identifier and returns a `[u8]` containing the identifier, terminated by 0.
 ///  Used to convert an identifier to a C null-terminated string.
-#[macro_export]
+//#[macro_export]
 macro_rules! stringify_null {
   ($key:ident) => {  //  If $key is identifier...
     concat!(
@@ -1204,7 +1202,7 @@ macro_rules! stringify_null {
 
 ///  Macro to dump all tokens received as a literal string, e.g.
 ///  `d!(a b c)` returns `"a b c"`
-#[macro_export]
+//#[macro_export]
 macro_rules! d {
   //  This rule matches zero or more tokens.
   ($($token:tt)*) => {
@@ -1214,7 +1212,7 @@ macro_rules! d {
 }
 
 ///  Macro to display the token being parsed and the remaining tokens
-#[macro_export]
+//#[macro_export]
 macro_rules! nx {
   (($($current:tt)*), ($($next:tt)*), ($($rest:tt)*)) => {
     concat!(

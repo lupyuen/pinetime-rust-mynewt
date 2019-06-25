@@ -28,7 +28,7 @@ use crate::base::*;             //  Import `base.rs` for common declarations
 
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                     //  Don't mangle the name "main"
-pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
     //  Init Mynewt system.
     unsafe { base::rust_sysinit()  };
     unsafe { console_flush() };
@@ -56,6 +56,7 @@ pub extern "C" fn main() -> ! {  //  Declare extern "C" because it will be calle
     //  Never comes here.
 }
 
+/*
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
@@ -78,3 +79,4 @@ fn panic(info: &PanicInfo) -> ! {
     //  Loop forever so that device won't restart.
     loop {}
 }
+*/

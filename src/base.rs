@@ -85,8 +85,8 @@ extern {
 
 ///  We will open internal temperature sensor `temp_stm32_0`.
 ///  Must sync with apps/my_sensor_app/src/listen_sensor.h
-pub const SENSOR_DEVICE: *const u8 = TEMP_STM32_DEVICE;
-pub const TEMP_STM32_DEVICE: *const u8 = b"temp_stm32_0\0".as_ptr();  //  TODO
+pub const SENSOR_DEVICE: *const c_char = TEMP_STM32_DEVICE;
+pub const TEMP_STM32_DEVICE: *const c_char = b"temp_stm32_0\0".as_ptr() as *const c_char;  //  TODO
 
 //  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
 //  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...

@@ -2,22 +2,25 @@
 [package]
 authors = ["Lee Lup Yuen <luppy@appkaki.com>"]
 edition = "2018"
-readme = "README.md"
-name = "myapp"
+readme  = "README.md"
+name    = "myapp"
 version = "0.1.0"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
-cty = "0.2.0"        # String utilities from cty library: https://crates.io/crates/cty
+cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crates/cty
 cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
-memchr = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
-cortex-m = "0.5.8"   # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
+memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+cortex-m  = "0.6.0"  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
+syn       = "0.15.38"# Rust source code parser: https://crates.io/crates/syn
+quote     = "0.6.12" # Generate Rust source code: https://crates.io/crates/quote
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
-name = "mylib"
-test = false
-bench = false
+name       = "mylib"
+test       = false
+bench      = false
+proc-macro = true  # Prevent `syn` library from linking with `proc-macro2`, which doesn't work with `nostd`
 
 # Options for `cargo build`
 [profile.dev]
@@ -25,7 +28,7 @@ panic = "abort"     # Disable stack unwinding on panic
 
 # Options for `cargo build --release`
 [profile.release]
-panic = "abort"     # Disable stack unwinding on panic
-codegen-units = 1   # Better optimizations
-debug = true        # Symbols are nice and they don't increase the size on Flash
-lto = true          # Better optimizations
+panic         = "abort"     # Disable stack unwinding on panic
+codegen-units = 1           # Better optimizations
+debug         = true        # Symbols are nice and they don't increase the size on Flash
+lto           = true        # Better optimizations

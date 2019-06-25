@@ -57,7 +57,7 @@ pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code up
     console_print(b"NET start\n");
     let rc = unsafe { os::os_task_init( //  Create a new task and start it...
         &mut NETWORK_TASK,            //  Task object will be saved here.
-        b"network\0".as_ptr(),        //  Name of task.
+        b"network\0".as_ptr() as *const c_char, //  Name of task.
         Some(network_task_func),      //  Function to execute when task starts.
         0 as *mut ::cty::c_void,      //  Argument to be passed to above function.
         10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
