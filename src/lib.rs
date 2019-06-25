@@ -12,7 +12,7 @@ extern crate cortex_m;       //  Declare the external library `cortex_m`
 #[allow(dead_code)] //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-#[macro_use]        //  Allow macros from Rust module `mynewt`
+///#[macro_use]        //  Allow macros from Rust module `mynewt`
 mod mynewt;         //  Declare `mynewt/mod.rs` as Rust module `mynewt`
 
 #[allow(dead_code)] //  Suppress warnings of unused constants and vars
@@ -56,7 +56,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  Never comes here.
 }
 
-/*
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
@@ -79,4 +78,3 @@ fn panic(info: &PanicInfo) -> ! {
     //  Loop forever so that device won't restart.
     loop {}
 }
-*/

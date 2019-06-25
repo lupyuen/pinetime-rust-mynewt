@@ -10,6 +10,7 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
+use crate::{coap, fill_zero, parse, d, coap_root};  //  Import `mynewt/macros.rs` for Mynewt macros
 use crate::base::*;       //  Import `base.rs` for common declarations
 use crate::mynewt::{
     result::*,            //  Import Mynewt result and error types

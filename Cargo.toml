@@ -12,15 +12,15 @@ cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crat
 cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
 memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
 cortex-m  = "0.6.0"  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
-syn       = "0.15.38"# Rust source code parser: https://crates.io/crates/syn
-quote     = "0.6.12" # Generate Rust source code: https://crates.io/crates/quote
+##syn       = "0.15.38"# Rust source code parser: https://crates.io/crates/syn
+##quote     = "0.6.12" # Generate Rust source code: https://crates.io/crates/quote
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
 name       = "mylib"
 test       = false
 bench      = false
-proc-macro = true  # Prevent `syn` library from linking with `proc-macro2`, which doesn't work with `nostd`
+##proc-macro = true  # Prevent `syn` library from linking with `proc-macro2`, which doesn't work with `nostd`
 
 # Options for `cargo build`
 [profile.dev]
