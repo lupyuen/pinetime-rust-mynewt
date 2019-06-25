@@ -15,6 +15,14 @@ cty=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcty-*.rlib | head 
 memchr=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libmemchr-*.rlib | head -1`
 
 #  Compile with macros expanded.
+#  -Z                       trace-macros -- for every macro invocation, print its name and arguments
+#     -Z                       debug-macros -- emit line numbers debug info inside macros
+#     -Z                  keep-hygiene-data -- don't clear the hygiene data after analysis
+# -Z                       unpretty=val -- Present the input source, unstable (and less-pretty) variants;
+#     valid types are any of the types for `--pretty`, as well as:
+#     `expanded`, `expanded,identified`,
+#     `expanded,hygiene` (with internal representations),
+
 set +e  #  Ignore errors
 rustc \
 --edition=2018 \
@@ -38,6 +46,13 @@ rustc \
 -C link-arg=-Tlink.x \
 -Z unstable-options --pretty expanded \
 > logs/libmylib-expanded.rs
+
+# -Z unpretty=expanded,identified \
+# `expanded,hygiene` (with internal representations),
+# -Z trace-macros \
+# -Z debug-macros \
+# -Z keep-hygiene-data \
+
 set -e  #  Stop on errors
 
 set +x ; echo ; echo "----- Expanded macros to logs/libmylib-expanded.rs" ; set -x

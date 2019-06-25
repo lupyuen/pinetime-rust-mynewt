@@ -1020,7 +1020,7 @@ macro_rules! run_stmts {
   ($context:ident, $encoder:ident,
     { }
   ) => {
-    "aaa"
+    let zzz = "aaa";
   };
 
   ($context:ident, $encoder:ident,
@@ -1127,12 +1127,12 @@ macro_rules! oc_rep_set_int {
 
     "-------------------------------------------------------------";
     run!($context, $context, "_map", {
-      tinycbor::cbor_encode_text_string(
+      let res = tinycbor::cbor_encode_text_string(
         $context.encoder(stringify!($context), "_map"),  //  TODO
         $context.key_to_cstr(key_with_opt_null),
         $context.cstr_len(key_with_opt_null)
       );
-      tinycbor::cbor_encode_int(
+      let res = tinycbor::cbor_encode_int(
         $context.encoder(stringify!($context), "_map"),  //  TODO
         value
       );

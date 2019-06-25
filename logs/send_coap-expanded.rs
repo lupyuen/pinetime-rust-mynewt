@@ -518,34 +518,33 @@
                             "begin cbor coap_set_int_val , c : JSON_CONTEXT , val : sensor_val";
                             if let SensorValueType::Uint(val) = sensor_val.val
                                    {
-                                {
-                                    "-- cinte c: JSON_CONTEXT, k: sensor_val.key, v: val";
-                                    let key_with_opt_null: &[u8] =
-                                        sensor_val.key.to_bytes_optional_nul();
-                                    let value = val as i64;
-                                    "-------------------------------------------------------------";
-                                    " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
-                                    unsafe {
+                                "-- cinte c: JSON_CONTEXT, k: sensor_val.key, v: val";
+                                let key_with_opt_null: &[u8] =
+                                    sensor_val.key.to_bytes_optional_nul();
+                                let value = val as i64;
+                                "-------------------------------------------------------------";
+                                " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
+                                unsafe {
+                                    let res =
                                         tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
                                                                                                "_map"),
                                                                           JSON_CONTEXT.key_to_cstr(key_with_opt_null),
                                                                           JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                    let res =
                                         tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
                                                                                        "_map"),
                                                                   value);
-                                        "aaa";
-                                    };
-                                    "-------------------------------------------------------------";
-                                    unsafe {
-                                        let encoder =
-                                            JSON_CONTEXT.encoder("JSON_CONTEXT",
-                                                                 "_map");
-                                        tinycbor::cbor_encode_text_string(encoder,
-                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                        tinycbor::cbor_encode_int(encoder,
-                                                                  value);
-                                    };
+                                    let zzz = "aaa";
+                                };
+                                "-------------------------------------------------------------";
+                                unsafe {
+                                    let encoder =
+                                        JSON_CONTEXT.encoder("JSON_CONTEXT",
+                                                             "_map");
+                                    tinycbor::cbor_encode_text_string(encoder,
+                                                                      JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                      JSON_CONTEXT.cstr_len(key_with_opt_null));
+                                    tinycbor::cbor_encode_int(encoder, value);
                                 };
                             } else {
                                 unsafe {
