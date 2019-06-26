@@ -1,5 +1,6 @@
-//!  Mynewt Macros for Rust
-
+//!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
+//!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
+ 
 ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
 ///  `fill_zero!(os_task)` expands to
 ///  ```
@@ -54,15 +55,15 @@ macro_rules! fill_zero {
 macro_rules! coap {
   //  No encoding
   (@none $($tokens:tt)+) => {
-    parse!(@none $($tokens)+)
+    $crate::parse!(@none $($tokens)+)
   };
   //  JSON encoding
   (@json $($tokens:tt)+) => {
-    parse!(@json $($tokens)+)
+    $crate::parse!(@json $($tokens)+)
   };
   //  CBOR encoding
   (@cbor $($tokens:tt)+) => {
-    parse!(@cbor $($tokens)+)
+    $crate::parse!(@cbor $($tokens)+)
   };
 }
 
@@ -80,7 +81,7 @@ macro_rules! parse {
   // TT muncher for parsing the inside of an object {...}. Each entry is
   // inserted into the given map variable.
   //
-  // Must be invoked as: parse!(@$enc @object $map () ($($tt)*) ($($tt)*))
+  // Must be invoked as: $crate::parse!(@$enc @object $map () ($($tt)*) ($($tt)*))
   //
   // We require two copies of the input tokens so that we can match on one
   // copy and trigger errors on the other copy.
@@ -97,7 +98,7 @@ macro_rules! parse {
     //  let _ = $object.insert(($($key)+).into(), $value);
 
     //  Continue expanding the rest of the JSON.
-    parse!(@none @object $object () ($($rest)*) ($($rest)*));
+    $crate::parse!(@none @object $object () ($($rest)*) ($($rest)*));
   };
 
   // JSON and CBOR Encoding: Insert the current entry followed by trailing comma.
@@ -106,14 +107,14 @@ macro_rules! parse {
 
     //  Append to the "values" array e.g.
     //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-    coap_item_str!(@$enc $object, $($key)+, $value);
+    $crate::coap_item_str!(@$enc $object, $($key)+, $value);
     "--------------------";
 
     //  Previously:
     //  let _ = $object.insert(($($key)+).into(), $value);
 
     //  Continue expanding the rest of the JSON.
-    parse!(@$enc @object $object () ($($rest)*) ($($rest)*));
+    $crate::parse!(@$enc @object $object () ($($rest)*) ($($rest)*));
   };
 
   // Current entry followed by unexpected token.
@@ -130,56 +131,56 @@ macro_rules! parse {
 
   // Next value is `null`.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: null $($rest:tt)*) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc null)) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc null)) $($rest)*);
   };
 
   // Next value is `true`.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: true $($rest:tt)*) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc true)) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc true)) $($rest)*);
   };
 
   // Next value is `false`.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: false $($rest:tt)*) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc false)) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc false)) $($rest)*);
   };
 
   // Next value is an array.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: [$($array:tt)*] $($rest:tt)*) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc [$($array)*])) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc [$($array)*])) $($rest)*);
   };
 
   // Next value is a map.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: {$($map:tt)*} $($rest:tt)*) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc {$($map)*})) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc {$($map)*})) $($rest)*);
   };
 
   // Next value is an expression followed by comma.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: $value:expr , $($rest:tt)*) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc $value)) , $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc $value)) , $($rest)*);
   };
 
   // Last value is an expression with no trailing comma.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: $value:expr) $copy:tt) => {
-    parse!(@$enc @object $object [$($key)+] (parse!(@$enc $value)));
+    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc $value)));
   };
 
   // Missing value for last entry. Trigger a reasonable error message.
   (@$enc:ident @object $object:ident ($($key:tt)+) (:) $copy:tt) => {
     // "unexpected end of macro invocation"
-    parse!();
+    $crate::parse!();
   };
 
   // Missing colon and value for last entry. Trigger a reasonable error
   // message.
   (@$enc:ident @object $object:ident ($($key:tt)+) () $copy:tt) => {
     // "unexpected end of macro invocation"
-    parse!();
+    $crate::parse!();
   };
 
   // Misplaced colon. Trigger a reasonable error message.
   (@$enc:ident @object $object:ident () (: $($rest:tt)*) ($colon:tt $($copy:tt)*)) => {
     // Takes no arguments so "no rules expected the token `:`".
-    unexpected_token!($colon);
+    $crate::unexpected_token!($colon);
   };
 
   // No Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
@@ -187,31 +188,31 @@ macro_rules! parse {
     d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
     //  Continue expanding the rest of the JSON.
-    parse!(@none @object $object () ($($rest)*) ($($rest)*));
+    $crate::parse!(@none @object $object () ($($rest)*) ($($rest)*));
   };
 
   // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
-    coap_item_int_val!(@json
+    $crate::coap_item_int_val!(@json
       $object,  //  _object, 
       $($key)*  //  _sensor_value
     );
     "--------------------";
     //  Continue expanding the rest of the JSON.
-    parse!(@json @object $object () ($($rest)*) ($($rest)*));
+    $crate::parse!(@json @object $object () ($($rest)*) ($($rest)*));
   };
 
   // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
   (@cbor @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
-    coap_set_int_val!(@cbor
+    $crate::coap_set_int_val!(@cbor
       $object,  //  _object, 
       $($key)*  //  _sensor_value
     );
     "--------------------";
     //  Continue expanding the rest of the JSON.
-    parse!(@cbor @object $object () ($($rest)*) ($($rest)*));
+    $crate::parse!(@cbor @object $object () ($($rest)*) ($($rest)*));
   };
 
   // Previously: Found a comma inside a key. Trigger a reasonable error message.
@@ -222,14 +223,14 @@ macro_rules! parse {
   // positives because the parenthesization may be necessary here.
   (@$enc:ident @object $object:ident () (($key:expr) : $($rest:tt)*) $copy:tt) => {
     d!( got () );
-    parse!(@$enc @object $object ($key) (: $($rest)*) (: $($rest)*));
+    $crate::parse!(@$enc @object $object ($key) (: $($rest)*) (: $($rest)*));
   };
 
   // Munch a token into the current key.
   (@$enc:ident @object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {    
-    nx!( ($($key)*), ($tt), ($($rest)*) );
+    $crate::nx!( ($($key)*), ($tt), ($($rest)*) );
     //  Parse the next token while we are in the @object state.
-    parse!(@$enc @object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
+    $crate::parse!(@$enc @object $object ($($key)* $tt) ($($rest)*) ($($rest)*));
   };
 
 
@@ -237,7 +238,7 @@ macro_rules! parse {
   // TT muncher for parsing the inside of an array [...]. Produces a vec![...]
   // of the elements.
   //
-  // Must be invoked as: parse!(@$enc @array [] $($tt)*)
+  // Must be invoked as: $crate::parse!(@$enc @array [] $($tt)*)
   //////////////////////////////////////////////////////////////////////////
 
   // Done with trailing comma.
@@ -252,42 +253,42 @@ macro_rules! parse {
 
   // Next element is `null`.
   (@$enc:ident @array [$($elems:expr,)*] null $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc null)] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc null)] $($rest)*)
   };
 
   // Next element is `true`.
   (@$enc:ident @array [$($elems:expr,)*] true $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc true)] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc true)] $($rest)*)
   };
 
   // Next element is `false`.
   (@$enc:ident @array [$($elems:expr,)*] false $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc false)] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc false)] $($rest)*)
   };
 
   // Next element is an array.
   (@$enc:ident @array [$($elems:expr,)*] [$($array:tt)*] $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc [$($array)*])] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc [$($array)*])] $($rest)*)
   };
 
   // Next element is a map.
   (@$enc:ident @array [$($elems:expr,)*] {$($map:tt)*} $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc {$($map)*})] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc {$($map)*})] $($rest)*)
   };
 
   // Next element is an expression followed by comma.
   (@$enc:ident @array [$($elems:expr,)*] $next:expr, $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc $next),] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc $next),] $($rest)*)
   };
 
   // Last element is an expression with no trailing comma.
   (@$enc:ident @array [$($elems:expr,)*] $last:expr) => {
-    parse!(@$enc @array [$($elems,)* parse!(@$enc $last)])
+    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc $last)])
   };
 
   // Comma after the most recent element.
   (@$enc:ident @array [$($elems:expr),*] , $($rest:tt)*) => {
-    parse!(@$enc @array [$($elems,)*] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)*] $($rest)*)
   };
 
   // Unexpected token after most recent element.
@@ -299,7 +300,7 @@ macro_rules! parse {
   //////////////////////////////////////////////////////////////////////////
   // The main implementation.
   //
-  // Must be invoked as: parse!(@$enc $($tokens)+) where $enc is json, cbor or none
+  // Must be invoked as: $crate::parse!(@$enc $($tokens)+) where $enc is json, cbor or none
   //////////////////////////////////////////////////////////////////////////
 
   (@$enc:ident null) => {{ 
@@ -331,12 +332,12 @@ macro_rules! parse {
     //  TODO
     {
       d!(begin array);
-      _array = parse!(@$enc @array [] $($tt)+);
+      _array = $crate::parse!(@$enc @array [] $($tt)+);
       d!(end array);
       "[ TODO ]"
     }
     //  Previously:
-    //  $crate::Value::Array(parse!(@array [] $($tt)+))
+    //  $crate::Value::Array($crate::parse!(@array [] $($tt)+))
   };
 
   (@$enc:ident {}) => {
@@ -352,7 +353,7 @@ macro_rules! parse {
     d!(begin none root);
     let root = "root";  //  Top level object is named "root".
     //  Expand the items inside { ... } and add them to root.
-    parse!(@none @object root () ($($tt)+) ($($tt)+));
+    $crate::parse!(@none @object root () ($($tt)+) ($($tt)+));
     d!(end none root);
     d!(return none root to caller);
     root
@@ -362,10 +363,10 @@ macro_rules! parse {
   (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin json root);
-    coap_root!(@json JSON_CONTEXT {  //  Create the payload root
-        coap_array!(@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
+    $crate::coap_root!(@json JSON_CONTEXT {  //  Create the payload root
+        $crate::coap_array!(@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
-          parse!(@json @object JSON_CONTEXT () ($($tt)+) ($($tt)+));
+          $crate::parse!(@json @object JSON_CONTEXT () ($($tt)+) ($($tt)+));
         });  //  Close the "values" array
     });  //  Close the payload root
     d!(end json root);
@@ -376,9 +377,9 @@ macro_rules! parse {
   (@cbor { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin cbor root);
-    coap_root!(@cbor JSON_CONTEXT {  //  Create the payload root
+    $crate::coap_root!(@cbor JSON_CONTEXT {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
-        parse!(@cbor @object JSON_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change JSON_CONTEXT to CBOR
+        $crate::parse!(@cbor @object JSON_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change JSON_CONTEXT to CBOR
     });  //  Close the payload root
     d!(end cbor root);
     ()
@@ -387,7 +388,7 @@ macro_rules! parse {
   /* Previously substitute with:
   $crate::Value::Object({
     let mut object = $crate::Map::new();
-    parse!(@object object () ($($tt)+) ($($tt)+));
+    $crate::parse!(@object object () ($($tt)+) ($($tt)+));
     object
   })
   */
@@ -423,9 +424,9 @@ macro_rules! unexpected_token {
 macro_rules! coap_root {  
   (@cbor $context:ident $children0:block) => {{  //  CBOR
     d!(begin cbor coap_root);
-    oc_rep_start_root_object!($context);
+    $crate::oc_rep_start_root_object!($context);
     $children0;
-    oc_rep_end_root_object!($context);
+    $crate::oc_rep_end_root_object!($context);
     d!(end cbor coap_root);
   }};
 
@@ -443,17 +444,17 @@ macro_rules! coap_root {
 macro_rules! coap_array {
   (@cbor $object0:ident, $key0:ident, $children0:block) => {{  //  CBOR
     d!(begin cbor coap_array, object: $object0, key: $key0);
-    oc_rep_set_array!($object0, $key0);
+    $crate::oc_rep_set_array!($object0, $key0);
     $children0;
-    oc_rep_close_array!($object0, $key0);
+    $crate::oc_rep_close_array!($object0, $key0);
     d!(end cbor coap_array);
   }};
 
   (@json $object0:ident, $key0:ident, $children0:block) => {{  //  JSON
     d!(begin json coap_array, object: $object0, key: $key0);
-    json_rep_set_array!($object0, $key0);
+    $crate::json_rep_set_array!($object0, $key0);
     $children0;
-    json_rep_close_array!($object0, $key0);
+    $crate::json_rep_close_array!($object0, $key0);
     d!(end json coap_array);
   }};
 }
@@ -464,18 +465,18 @@ macro_rules! coap_array {
 macro_rules! coap_item_int {
   (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int, key: $key0, value: $value0);
-    coap_item!(@cbor $array0, {
-      oc_rep_set_text_string!($array0, "key",   $key0);
-      oc_rep_set_int!(        $array0, "value", $value0);
+    $crate::coap_item!(@cbor $array0, {
+      $crate::oc_rep_set_text_string!($array0, "key",   $key0);
+      $crate::oc_rep_set_int!(        $array0, "value", $value0);
     });
     d!(end cbor coap_item_int);
   }};
 
   (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
     d!(begin json coap_item_int, key: $key0, value: $value0);
-    coap_item!(@json $array0, {
-      json_rep_set_text_string!($array0, "key",   $key0);
-      json_rep_set_int!(        $array0, "value", $value0);
+    $crate::coap_item!(@json $array0, {
+      $crate::json_rep_set_text_string!($array0, "key",   $key0);
+      $crate::json_rep_set_int!(        $array0, "value", $value0);
     });
     d!(end json coap_item_int);
   }};
@@ -487,11 +488,11 @@ macro_rules! coap_item_int {
 macro_rules! coap_item_str {
   (@cbor $parent:ident, $key:expr, $val:expr) => {{  //  CBOR
     d!(begin cbor coap_item_str, parent: $parent, key: $key, val: $val);
-    coap_item!(@cbor
+    $crate::coap_item!(@cbor
       $parent,
       {
-        oc_rep_set_text_string!($parent, "key", $key);
-        oc_rep_set_text_string!($parent, "value", $val);
+        $crate::oc_rep_set_text_string!($parent, "key", $key);
+        $crate::oc_rep_set_text_string!($parent, "value", $val);
       }
     );
     d!(end cbor coap_item_str);
@@ -499,11 +500,11 @@ macro_rules! coap_item_str {
 
   (@json $parent:ident, $key:expr, $val:expr) => {{  //  JSON
     d!(begin json coap_item_str, parent: $parent, key: $key, val: $val);
-    coap_item!(@json
+    $crate::coap_item!(@json
       $parent,
       {
-        json_rep_set_text_string!($parent, key, $key);
-        json_rep_set_text_string!($parent, value, $val);
+        $crate::json_rep_set_text_string!($parent, key, $key);
+        $crate::json_rep_set_text_string!($parent, value, $val);
       }
     );
     d!(end json coap_item_str);
@@ -516,17 +517,17 @@ macro_rules! coap_item_str {
 macro_rules! coap_item {
   (@cbor $context:ident, $children0:block) => {{  //  CBOR
     d!(begin cbor coap_item, array: $context);
-    oc_rep_object_array_start_item!($context);
+    $crate::oc_rep_object_array_start_item!($context);
     $children0;
-    oc_rep_object_array_end_item!($context);
+    $crate::oc_rep_object_array_end_item!($context);
     d!(end cbor coap_item);
   }};
 
   (@json $context:ident, $children0:block) => {{  //  JSON
     d!(begin json coap_item, array: $context);
-    json_rep_object_array_start_item!($context);
+    $crate::json_rep_object_array_start_item!($context);
     $children0;
-    json_rep_object_array_end_item!($context);
+    $crate::json_rep_object_array_end_item!($context);
     d!(end json coap_item);
   }};
 }
@@ -537,7 +538,7 @@ macro_rules! coap_set_int_val {
   (@cbor $context:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_set_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      oc_rep_set_int!($context, $val0.key, val);
+      $crate::oc_rep_set_int!($context, $val0.key, val);
     } else {
       unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
@@ -547,7 +548,7 @@ macro_rules! coap_set_int_val {
   (@json $context:ident, $val0:expr) => {{  //  JSON
     d!(begin json coap_set_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      json_rep_set_int!($context, $val0.key, val);
+      $crate::json_rep_set_int!($context, $val0.key, val);
     } else {
       unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
@@ -561,7 +562,7 @@ macro_rules! coap_item_int_val {
   (@cbor $context:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      coap_item_int!(@cbor $context, $val0.key, val);
+      $crate::coap_item_int!(@cbor $context, $val0.key, val);
     } else {
       unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
@@ -571,7 +572,7 @@ macro_rules! coap_item_int_val {
   (@json $context:ident, $val0:expr) => {{  //  JSON
     d!(begin json coap_item_int_val, c: $context, val: $val0);
     if let SensorValueType::Uint(val) = $val0.val {
-      coap_item_int!(@json $context, $val0.key, val);
+      $crate::coap_item_int!(@json $context, $val0.key, val);
     } else {
       unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
     }
@@ -596,7 +597,7 @@ macro_rules! json_rep_set_array {
       ", k: ", stringify!($key)
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($key);
+    let key_with_null: &str = $crate::stringify_null!($key);
     unsafe {
       mynewt_rust::json_helper_set_array(
         $context.to_void_ptr(),
@@ -633,7 +634,7 @@ macro_rules! json_rep_close_array {
       ">>"
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($key);
+    let key_with_null: &str = $crate::stringify_null!($key);
     unsafe { 
       mynewt_rust::json_helper_close_array(
         $context.to_void_ptr(),
@@ -669,7 +670,7 @@ macro_rules! json_rep_object_array_start_item {
       " c: ", stringify!($context)
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($context);    //  TODO
+    let key_with_null: &str = $crate::stringify_null!($context);    //  TODO
     unsafe { 
       mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_null.as_bytes())
@@ -703,7 +704,7 @@ macro_rules! json_rep_object_array_end_item {
       ">>"
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($context);  //  TODO
+    let key_with_null: &str = $crate::stringify_null!($context);  //  TODO
     unsafe { 
       mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_null.as_bytes())
@@ -736,7 +737,7 @@ macro_rules! json_rep_set_int {
       ", v: ", stringify!($value)
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($key);
+    let key_with_null: &str = $crate::stringify_null!($key);
     let value = $value as u64;
     unsafe {
       mynewt_rust::json_helper_set_int(
@@ -778,7 +779,7 @@ macro_rules! json_rep_set_text_string {
       ", v: ", stringify!($value)
     );
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = stringify_null!($key);
+    let key_with_null: &str = $crate::stringify_null!($key);
     //  Convert value to char array, which may or may not be null-terminated.
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
@@ -1017,11 +1018,12 @@ macro_rules! oc_rep_object_array_end_item {
   }};
 }
 
+#[macro_export]
 macro_rules! run_stmts {
   ($context:ident, $encoder:ident,
     { }
   ) => {
-    let zzz = "aaa";
+    let _zzz = "aaa";
   };
 
   ($context:ident, $encoder:ident,
@@ -1031,7 +1033,7 @@ macro_rules! run_stmts {
     }     
   ) => {
     $stmt ;
-    run_stmts!(
+    $crate::run_stmts!(
       $context, $encoder,
       { $( $tail ; )* } 
     )
@@ -1065,6 +1067,7 @@ generates:
       $context.check_result(res);
     }
 */
+#[macro_export]
 macro_rules! run {
   ($context:ident, $parent:ident, $suffix:expr, {
     $( $stmt:stmt ; )*
@@ -1079,7 +1082,7 @@ macro_rules! run {
     );
     unsafe {
       //  let encoder = $context.encoder(stringify!($parent), $suffix);
-      run_stmts!($context, encoder, { $( $stmt ; )* });
+      $crate::run_stmts!($context, encoder, { $( $stmt ; )* });
     };
   };
 }
@@ -1095,7 +1098,7 @@ macro_rules! oc_rep_set_int {
       ", v: ", stringify!($value)
     );
     //  Convert key to null-terminated char array. If key is `t`, convert to `"t\u{0}"`
-    let key_with_null: &str = stringify_null!($key);
+    let key_with_null: &str = $crate::stringify_null!($key);
     let value = $value as i64;
 
     unsafe {
@@ -1127,13 +1130,13 @@ macro_rules! oc_rep_set_int {
     let value = $value as i64;
 
     "-------------------------------------------------------------";
-    run!($context, $context, "_map", {
-      let res = tinycbor::cbor_encode_text_string(
+    $crate::run!($context, $context, "_map", {
+      let _res = tinycbor::cbor_encode_text_string(
         $context.encoder(stringify!($context), "_map"),  //  TODO
         $context.key_to_cstr(key_with_opt_null),
         $context.cstr_len(key_with_opt_null)
       );
-      let res = tinycbor::cbor_encode_int(
+      let _res = tinycbor::cbor_encode_int(
         $context.encoder(stringify!($context), "_map"),  //  TODO
         value
       );
