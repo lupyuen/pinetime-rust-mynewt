@@ -21,6 +21,7 @@ pub fn run(item: TokenStream) -> TokenStream {
                 match expr {
                     syn::Expr::Call(expr2) => {
                         println!("expr2: {:#?}", quote! { #expr2 });
+                        //&expr2.func?.ident;
                     }
                     _ => {
                         assert!(false);
