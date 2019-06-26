@@ -25,11 +25,10 @@ extern crate cortex_m;
 //  Suppress warnings of unused constants and vars
 //  Allow type names to have non-camel case
 //  Allow globals to have lowercase letters
-//  Allow macros from Rust module `mynewt`
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 #[allow(non_upper_case_globals)]
-#[macro_use]
+///#[macro_use]        //  Allow macros from Rust module `mynewt`
 mod mynewt {
     //  Declare `mynewt/mod.rs` as Rust module `mynewt`
 
@@ -71,7 +70,8 @@ mod mynewt {
     //! Also includes safe versions of Mynewt APIs created specially for Rust.
     #[macro_use]
     pub mod macros {
-        //!  Mynewt Macros for Rust
+        //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
+        //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
         ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
         ///  `fill_zero!(os_task)` expands to
         ///  ```
@@ -108,11 +108,11 @@ mod mynewt {
         ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
         #[macro_export]
         macro_rules! coap(( @ none $ ( $ tokens : tt ) + ) => {
-                          parse ! ( @ none $ ( $ tokens ) + ) } ; (
+                          $ crate :: parse ! ( @ none $ ( $ tokens ) + ) } ; (
                           @ json $ ( $ tokens : tt ) + ) => {
-                          parse ! ( @ json $ ( $ tokens ) + ) } ; (
+                          $ crate :: parse ! ( @ json $ ( $ tokens ) + ) } ; (
                           @ cbor $ ( $ tokens : tt ) + ) => {
-                          parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
+                          $ crate :: parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
         ///  Parse the JSON code in the parameter and compose the CoAP payload.
         ///  This macro takes these parameters:
         ///  - __Encoding__: `@json`, `@cbor` or `@none`
@@ -129,7 +129,7 @@ mod mynewt {
                            $ rest : tt ) * ) => {
                            d ! (
                            TODO : add key : $ ( $ key ) + , value : $ value ,
-                           to object : $ object ) ; parse ! (
+                           to object : $ object ) ; $ crate :: parse ! (
                            @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
                            $ ( $ rest ) * ) ) ; } ; (
                            @ $ enc : ident @ object $ object : ident [
@@ -137,9 +137,9 @@ mod mynewt {
                            $ rest : tt ) * ) => {
                            d ! (
                            add1 key : $ ( $ key ) + value : $ value to object
-                           : $ object ) ; coap_item_str ! (
+                           : $ object ) ; $ crate :: coap_item_str ! (
                            @ $ enc $ object , $ ( $ key ) + , $ value ) ;
-                           "--------------------" ; parse ! (
+                           "--------------------" ; $ crate :: parse ! (
                            @ $ enc @ object $ object (  ) ( $ ( $ rest ) * ) (
                            $ ( $ rest ) * ) ) ; } ; (
                            @ $ enc : ident @ object $ object : ident [
@@ -154,99 +154,103 @@ mod mynewt {
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) ( : null $ ( $ rest : tt ) * )
                            $ copy : tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc null ) ) $ ( $ rest ) * ) ; } ; (
+                           $ crate :: parse ! ( @ $ enc null ) ) $ ( $ rest )
+                           * ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) ( : true $ ( $ rest : tt ) * )
                            $ copy : tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc true ) ) $ ( $ rest ) * ) ; } ; (
+                           $ crate :: parse ! ( @ $ enc true ) ) $ ( $ rest )
+                           * ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) ( : false $ ( $ rest : tt ) *
                            ) $ copy : tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc false ) ) $ ( $ rest ) * ) ; } ;
-                           (
+                           $ crate :: parse ! ( @ $ enc false ) ) $ ( $ rest )
+                           * ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) (
                            : [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) $
                            copy : tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc [ $ ( $ array ) * ] ) ) $ (
-                           $ rest ) * ) ; } ; (
+                           $ crate :: parse ! ( @ $ enc [ $ ( $ array ) * ] )
+                           ) $ ( $ rest ) * ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) (
                            : { $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) $
                            copy : tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc { $ ( $ map ) * } ) ) $ ( $ rest
-                           ) * ) ; } ; (
+                           $ crate :: parse ! ( @ $ enc { $ ( $ map ) * } ) )
+                           $ ( $ rest ) * ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) (
                            : $ value : expr , $ ( $ rest : tt ) * ) $ copy :
                            tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc $ value ) ) , $ ( $ rest ) * ) ;
-                           } ; (
+                           $ crate :: parse ! ( @ $ enc $ value ) ) , $ (
+                           $ rest ) * ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) ( : $ value : expr ) $ copy :
                            tt ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                           parse ! ( @ $ enc $ value ) ) ) ; } ; (
+                           $ crate :: parse ! ( @ $ enc $ value ) ) ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) ( : ) $ copy : tt ) => {
-                           parse ! (  ) ; } ; (
+                           $ crate :: parse ! (  ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) + ) (  ) $ copy : tt ) => {
-                           parse ! (  ) ; } ; (
+                           $ crate :: parse ! (  ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (  ) (
                            : $ ( $ rest : tt ) * ) (
                            $ colon : tt $ ( $ copy : tt ) * ) ) => {
-                           unexpected_token ! ( $ colon ) ; } ; (
+                           $ crate :: unexpected_token ! ( $ colon ) ; } ; (
                            @ none @ object $ object : ident (
                            $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
                            $ comma : tt $ ( $ copy : tt ) * ) ) => {
                            d ! (
                            TODO : extract key , value from _sensor_value : $ (
                            $ key ) * and add to _object : $ object ) ;
-                           "--------------------" ; parse ! (
+                           "--------------------" ; $ crate :: parse ! (
                            @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
                            $ ( $ rest ) * ) ) ; } ; (
                            @ json @ object $ object : ident (
                            $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
                            $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                           "--------------------" ; coap_item_int_val ! (
+                           "--------------------" ; $ crate ::
+                           coap_item_int_val ! (
                            @ json $ object , $ ( $ key ) * ) ;
-                           "--------------------" ; parse ! (
+                           "--------------------" ; $ crate :: parse ! (
                            @ json @ object $ object (  ) ( $ ( $ rest ) * ) (
                            $ ( $ rest ) * ) ) ; } ; (
                            @ cbor @ object $ object : ident (
                            $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
                            $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                           "--------------------" ; coap_set_int_val ! (
+                           "--------------------" ; $ crate ::
+                           coap_set_int_val ! (
                            @ cbor $ object , $ ( $ key ) * ) ;
-                           "--------------------" ; parse ! (
+                           "--------------------" ; $ crate :: parse ! (
                            @ cbor @ object $ object (  ) ( $ ( $ rest ) * ) (
                            $ ( $ rest ) * ) ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (  ) (
                            ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy :
                            tt ) => {
-                           d ! ( got (  ) ) ; parse ! (
+                           d ! ( got (  ) ) ; $ crate :: parse ! (
                            @ $ enc @ object $ object ( $ key ) (
                            : $ ( $ rest ) * ) ( : $ ( $ rest ) * ) ) ; } ; (
                            @ $ enc : ident @ object $ object : ident (
                            $ ( $ key : tt ) * ) (
                            $ tt : tt $ ( $ rest : tt ) * ) $ copy : tt ) => {
-                           nx ! (
+                           $ crate :: nx ! (
                            ( $ ( $ key ) * ) , ( $ tt ) , ( $ ( $ rest ) * ) )
-                           ; parse ! (
+                           ; $ crate :: parse ! (
                            @ $ enc @ object $ object ( $ ( $ key ) * $ tt ) (
                            $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
@@ -255,58 +259,58 @@ mod mynewt {
                            ] ) => { parse_vector ! [ $ ( $ elems ) , * ] } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] null $ ( $ rest : tt ) * ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! ( @ $ enc null ) ] $ (
-                           $ rest ) * ) } ; (
+                           $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc null
+                           ) ] $ ( $ rest ) * ) } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] true $ ( $ rest : tt ) * ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! ( @ $ enc true ) ] $ (
-                           $ rest ) * ) } ; (
+                           $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc true
+                           ) ] $ ( $ rest ) * ) } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] false $ ( $ rest : tt ) * ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! ( @ $ enc false ) ] $ (
-                           $ rest ) * ) } ; (
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc false ) ] $ ( $ rest ) * ) } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) =>
                            {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! (
+                           $ ( $ elems , ) * $ crate :: parse ! (
                            @ $ enc [ $ ( $ array ) * ] ) ] $ ( $ rest ) * ) }
                            ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] { $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! (
+                           $ ( $ elems , ) * $ crate :: parse ! (
                            @ $ enc { $ ( $ map ) * } ) ] $ ( $ rest ) * ) } ;
                            (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] $ next : expr , $ ( $ rest : tt ) * ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! ( @ $ enc $ next ) , ] $
-                           ( $ rest ) * ) } ; (
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc $ next ) , ] $ ( $ rest ) * ) } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
                            ] $ last : expr ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [
-                           $ ( $ elems , ) * parse ! ( @ $ enc $ last ) ] ) }
-                           ; (
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc $ last ) ] ) } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr ) , *
                            ] , $ ( $ rest : tt ) * ) => {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ $ enc @ array [ $ ( $ elems , ) * ] $ ( $ rest )
                            * ) } ; (
                            @ $ enc : ident @ array [ $ ( $ elems : expr ) , *
                            ] $ unexpected : tt $ ( $ rest : tt ) * ) => {
-                           unexpected_token ! ( $ unexpected ) } ; (
-                           @ $ enc : ident null ) => {
+                           $ crate :: unexpected_token ! ( $ unexpected ) } ;
+                           ( @ $ enc : ident null ) => {
                            { d ! ( TODO : null ) ; "null" } } ; (
                            @ $ enc : ident true ) => {
                            { d ! ( true ) ; "true" } } ; (
@@ -316,56 +320,54 @@ mod mynewt {
                            { d ! ( [ TODO ] ) ; "[ TODO ]" } } ; (
                            @ $ enc : ident [ $ ( $ tt : tt ) + ] ) => {
                            {
-                           d ! ( begin array ) ; _array = parse ! (
+                           d ! ( begin array ) ; _array = $ crate :: parse ! (
                            @ $ enc @ array [  ] $ ( $ tt ) + ) ; d ! (
                            end array ) ; "[ TODO ]" } } ; (
                            @ $ enc : ident {  } ) => {
                            { d ! ( { TODO } ) ; "{ TODO }" } } ; (
                            @ none { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin none root ) ; let root = "root" ; parse
-                           ! (
+                           d ! ( begin none root ) ; let root = "root" ; $
+                           crate :: parse ! (
                            @ none @ object root (  ) ( $ ( $ tt ) + ) (
                            $ ( $ tt ) + ) ) ; d ! ( end none root ) ; d ! (
                            return none root to caller ) ; root } } ; (
                            @ json { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin json root ) ; coap_root ! (
+                           d ! ( begin json root ) ; $ crate :: coap_root ! (
                            @ json JSON_CONTEXT {
-                           coap_array ! (
+                           $ crate :: coap_array ! (
                            @ json JSON_CONTEXT , values , {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ json @ object JSON_CONTEXT (  ) ( $ ( $ tt ) + )
                            ( $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! (
                            end json root ) ; (  ) } } ; (
                            @ cbor { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin cbor root ) ; coap_root ! (
+                           d ! ( begin cbor root ) ; $ crate :: coap_root ! (
                            @ cbor JSON_CONTEXT {
-                           parse ! (
+                           $ crate :: parse ! (
                            @ cbor @ object JSON_CONTEXT (  ) ( $ ( $ tt ) + )
                            ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ;
                            (  ) } } ; ( @ $ enc : ident $ other : expr ) => {
                            $ other } ;);
         ///  TODO: Parse the vector e.g. array items
         #[macro_export]
-        #[doc(hidden)]
         macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
-                                  vec ! [ $ ( $ content ) * ] } ;);
+                                  $ crate :: vec ! [ $ ( $ content ) * ] } ;);
         ///  Show an unexpected token error
         #[macro_export]
-        #[doc(hidden)]
         macro_rules! unexpected_token((  ) => {  } ;);
         ///  Compose the payload root.
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_root(( @ cbor $ context : ident $ children0 : block
                                ) => {
                                {
-                               d ! ( begin cbor coap_root ) ;
+                               d ! ( begin cbor coap_root ) ; $ crate ::
                                oc_rep_start_root_object ! ( $ context ) ; $
-                               children0 ; oc_rep_end_root_object ! (
-                               $ context ) ; d ! ( end cbor coap_root ) ; } }
-                               ; (
+                               children0 ; $ crate :: oc_rep_end_root_object !
+                               ( $ context ) ; d ! ( end cbor coap_root ) ; }
+                               } ; (
                                @ json $ context : ident $ children0 : block )
                                => {
                                {
@@ -375,39 +377,41 @@ mod mynewt {
                                sensor_coap :: json_rep_end_root_object (  ) }
                                d ! ( end json coap_root ) ; } } ;);
         ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_array((
                                 @ cbor $ object0 : ident , $ key0 : ident , $
                                 children0 : block ) => {
                                 {
                                 d ! (
                                 begin cbor coap_array , object : $ object0 ,
-                                key : $ key0 ) ; oc_rep_set_array ! (
-                                $ object0 , $ key0 ) ; $ children0 ;
-                                oc_rep_close_array ! ( $ object0 , $ key0 ) ;
-                                d ! ( end cbor coap_array ) ; } } ; (
+                                key : $ key0 ) ; $ crate :: oc_rep_set_array !
+                                ( $ object0 , $ key0 ) ; $ children0 ; $ crate
+                                :: oc_rep_close_array ! ( $ object0 , $ key0 )
+                                ; d ! ( end cbor coap_array ) ; } } ; (
                                 @ json $ object0 : ident , $ key0 : ident , $
                                 children0 : block ) => {
                                 {
                                 d ! (
                                 begin json coap_array , object : $ object0 ,
-                                key : $ key0 ) ; json_rep_set_array ! (
-                                $ object0 , $ key0 ) ; $ children0 ;
-                                json_rep_close_array ! ( $ object0 , $ key0 )
-                                ; d ! ( end json coap_array ) ; } } ;);
+                                key : $ key0 ) ; $ crate :: json_rep_set_array
+                                ! ( $ object0 , $ key0 ) ; $ children0 ; $
+                                crate :: json_rep_close_array ! (
+                                $ object0 , $ key0 ) ; d ! (
+                                end json coap_array ) ; } } ;);
         ///  Append a (key + int value) item to the array named `array`:
         ///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_item_int((
                                    @ cbor $ array0 : ident , $ key0 : expr , $
                                    value0 : expr ) => {
                                    {
                                    d ! (
                                    begin cbor coap_item_int , key : $ key0 ,
-                                   value : $ value0 ) ; coap_item ! (
+                                   value : $ value0 ) ; $ crate :: coap_item !
+                                   (
                                    @ cbor $ array0 , {
-                                   oc_rep_set_text_string ! (
-                                   $ array0 , "key" , $ key0 ) ;
+                                   $ crate :: oc_rep_set_text_string ! (
+                                   $ array0 , "key" , $ key0 ) ; $ crate ::
                                    oc_rep_set_int ! (
                                    $ array0 , "value" , $ value0 ) ; } ) ; d !
                                    ( end cbor coap_item_int ) ; } } ; (
@@ -416,27 +420,28 @@ mod mynewt {
                                    {
                                    d ! (
                                    begin json coap_item_int , key : $ key0 ,
-                                   value : $ value0 ) ; coap_item ! (
+                                   value : $ value0 ) ; $ crate :: coap_item !
+                                   (
                                    @ json $ array0 , {
-                                   json_rep_set_text_string ! (
-                                   $ array0 , "key" , $ key0 ) ;
+                                   $ crate :: json_rep_set_text_string ! (
+                                   $ array0 , "key" , $ key0 ) ; $ crate ::
                                    json_rep_set_int ! (
                                    $ array0 , "value" , $ value0 ) ; } ) ; d !
                                    ( end json coap_item_int ) ; } } ;);
         ///  Append a (`key` + `val` string value) item to the array named `parent`:
         ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_item_str((
                                    @ cbor $ parent : ident , $ key : expr , $
                                    val : expr ) => {
                                    {
                                    d ! (
                                    begin cbor coap_item_str , parent : $
-                                   parent , key : $ key , val : $ val ) ;
-                                   coap_item ! (
+                                   parent , key : $ key , val : $ val ) ; $
+                                   crate :: coap_item ! (
                                    @ cbor $ parent , {
-                                   oc_rep_set_text_string ! (
-                                   $ parent , "key" , $ key ) ;
+                                   $ crate :: oc_rep_set_text_string ! (
+                                   $ parent , "key" , $ key ) ; $ crate ::
                                    oc_rep_set_text_string ! (
                                    $ parent , "value" , $ val ) ; } ) ; d ! (
                                    end cbor coap_item_str ) ; } } ; (
@@ -445,36 +450,36 @@ mod mynewt {
                                    {
                                    d ! (
                                    begin json coap_item_str , parent : $
-                                   parent , key : $ key , val : $ val ) ;
-                                   coap_item ! (
+                                   parent , key : $ key , val : $ val ) ; $
+                                   crate :: coap_item ! (
                                    @ json $ parent , {
-                                   json_rep_set_text_string ! (
-                                   $ parent , key , $ key ) ;
+                                   $ crate :: json_rep_set_text_string ! (
+                                   $ parent , key , $ key ) ; $ crate ::
                                    json_rep_set_text_string ! (
                                    $ parent , value , $ val ) ; } ) ; d ! (
                                    end json coap_item_str ) ; } } ;);
         ///  Append an array item under the current object item.  Add `children0` as the array items.
         ///    `{ <array0>: [ ..., { <children0> } ] }`
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_item((
                                @ cbor $ context : ident , $ children0 : block
                                ) => {
                                {
                                d ! ( begin cbor coap_item , array : $ context
-                               ) ; oc_rep_object_array_start_item ! (
-                               $ context ) ; $ children0 ;
+                               ) ; $ crate :: oc_rep_object_array_start_item !
+                               ( $ context ) ; $ children0 ; $ crate ::
                                oc_rep_object_array_end_item ! ( $ context ) ;
                                d ! ( end cbor coap_item ) ; } } ; (
                                @ json $ context : ident , $ children0 : block
                                ) => {
                                {
                                d ! ( begin json coap_item , array : $ context
-                               ) ; json_rep_object_array_start_item ! (
-                               $ context ) ; $ children0 ;
+                               ) ; $ crate :: json_rep_object_array_start_item
+                               ! ( $ context ) ; $ children0 ; $ crate ::
                                json_rep_object_array_end_item ! ( $ context )
                                ; d ! ( end json coap_item ) ; } } ;);
         ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_set_int_val((
                                       @ cbor $ context : ident , $ val0 : expr
                                       ) => {
@@ -484,7 +489,7 @@ mod mynewt {
                                       context , val : $ val0 ) ; if let
                                       SensorValueType :: Uint ( val ) = $ val0
                                       . val {
-                                      oc_rep_set_int ! (
+                                      $ crate :: oc_rep_set_int ! (
                                       $ context , $ val0 . key , val ) ; }
                                       else {
                                       unsafe {
@@ -500,7 +505,7 @@ mod mynewt {
                                       context , val : $ val0 ) ; if let
                                       SensorValueType :: Uint ( val ) = $ val0
                                       . val {
-                                      json_rep_set_int ! (
+                                      $ crate :: json_rep_set_int ! (
                                       $ context , $ val0 . key , val ) ; }
                                       else {
                                       unsafe {
@@ -509,7 +514,7 @@ mod mynewt {
                                       VALUE_NOT_UINT ) } ; } d ! (
                                       end json coap_set_int_val ) ; } } ;);
         ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! coap_item_int_val((
                                        @ cbor $ context : ident , $ val0 :
                                        expr ) => {
@@ -519,7 +524,7 @@ mod mynewt {
                                        context , val : $ val0 ) ; if let
                                        SensorValueType :: Uint ( val ) = $
                                        val0 . val {
-                                       coap_item_int ! (
+                                       $ crate :: coap_item_int ! (
                                        @ cbor $ context , $ val0 . key , val )
                                        ; } else {
                                        unsafe {
@@ -535,7 +540,7 @@ mod mynewt {
                                        context , val : $ val0 ) ; if let
                                        SensorValueType :: Uint ( val ) = $
                                        val0 . val {
-                                       coap_item_int ! (
+                                       $ crate :: coap_item_int ! (
                                        @ json $ context , $ val0 . key , val )
                                        ; } else {
                                        unsafe {
@@ -555,8 +560,8 @@ mod mynewt {
                                         "<< jarri " , ", o: " , stringify ! (
                                         $ context ) , ", k: " , stringify ! (
                                         $ key ) ) ; let key_with_null : & str
-                                        = stringify_null ! ( $ key ) ; unsafe
-                                        {
+                                        = $ crate :: stringify_null ! ( $ key
+                                        ) ; unsafe {
                                         mynewt_rust :: json_helper_set_array (
                                         $ context . to_void_ptr (  ) , $
                                         context . key_to_cstr (
@@ -584,7 +589,7 @@ mod mynewt {
                                           ) => {
                                           {
                                           concat ! ( ">>" ) ; let
-                                          key_with_null : & str =
+                                          key_with_null : & str = $ crate ::
                                           stringify_null ! ( $ key ) ; unsafe
                                           {
                                           mynewt_rust ::
@@ -617,9 +622,9 @@ mod mynewt {
                                                       "<< jitmi" , " c: " ,
                                                       stringify ! ( $ context
                                                       ) ) ; let key_with_null
-                                                      : & str = stringify_null
-                                                      ! ( $ context ) ; unsafe
-                                                      {
+                                                      : & str = $ crate ::
+                                                      stringify_null ! (
+                                                      $ context ) ; unsafe {
                                                       mynewt_rust ::
                                                       json_helper_object_array_start_item
                                                       (
@@ -651,9 +656,9 @@ mod mynewt {
         macro_rules! json_rep_object_array_end_item(( $ context : ident ) => {
                                                     {
                                                     concat ! ( ">>" ) ; let
-                                                    key_with_null : & str =
-                                                    stringify_null ! (
-                                                    $ context ) ; unsafe {
+                                                    key_with_null : & str = $
+                                                    crate :: stringify_null !
+                                                    ( $ context ) ; unsafe {
                                                     mynewt_rust ::
                                                     json_helper_object_array_end_item
                                                     (
@@ -684,8 +689,8 @@ mod mynewt {
                                       $ context ) , ", k: " , stringify ! (
                                       $ key ) , ", v: " , stringify ! (
                                       $ value ) ) ; let key_with_null : & str
-                                      = stringify_null ! ( $ key ) ; let value
-                                      = $ value as u64 ; unsafe {
+                                      = $ crate :: stringify_null ! ( $ key )
+                                      ; let value = $ value as u64 ; unsafe {
                                       mynewt_rust :: json_helper_set_int (
                                       $ context . to_void_ptr (  ) , $ context
                                       . key_to_cstr (
@@ -717,8 +722,9 @@ mod mynewt {
                                               ! ( $ context ) , ", k: " ,
                                               stringify ! ( $ key ) , ", v: "
                                               , stringify ! ( $ value ) ) ;
-                                              let key_with_null : & str =
-                                              stringify_null ! ( $ key ) ; let
+                                              let key_with_null : & str = $
+                                              crate :: stringify_null ! (
+                                              $ key ) ; let
                                               value_with_opt_null : & [ u8 ] =
                                               $ value . to_bytes_optional_nul
                                               (  ) ; unsafe {
@@ -752,7 +758,7 @@ mod mynewt {
                                               . value_to_cstr (
                                               value_with_opt_null ) ) } ; } }
                                               ;);
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! oc_rep_start_root_object(( $ context : ident ) => {
                                               {
                                               d ! (
@@ -767,7 +773,7 @@ mod mynewt {
                                               CborIndefiniteLength ) } ; d ! (
                                               end oc_rep_start_root_object ) ;
                                               } } ;);
-        #[macro_export(local_inner_macros)]
+        #[macro_export]
         macro_rules! oc_rep_end_root_object(( $ context : ident ) => {
                                             {
                                             d ! ( begin oc_rep_end_root_object
@@ -927,13 +933,15 @@ mod mynewt {
                                                   end
                                                   oc_rep_object_array_end_item
                                                   ) ; } } ;);
+        #[macro_export]
         macro_rules! run_stmts(( $ context : ident , $ encoder : ident , {  }
-                               ) => { let zzz = "aaa" ; } ; (
+                               ) => { let _zzz = "aaa" ; } ; (
                                $ context : ident , $ encoder : ident , {
                                $ stmt : tt ; $ ( $ tail : tt ; ) * } ) => {
-                               $ stmt ; run_stmts ! (
+                               $ stmt ; $ crate :: run_stmts ! (
                                $ context , $ encoder , { $ ( $ tail ; ) * } )
                                } ;);
+        #[macro_export]
         macro_rules! run((
                          $ context : ident , $ parent : ident , $ suffix :
                          expr , { $ ( $ stmt : stmt ; ) * } ) => {
@@ -941,7 +949,7 @@ mod mynewt {
                          " >> " , stringify ! ( $ context ) , " >> " ,
                          stringify ! ( $ parent ) , " >> " , stringify ! (
                          $ suffix ) ) ; unsafe {
-                         run_stmts ! (
+                         $ crate :: run_stmts ! (
                          $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ; }
                          ;);
         ///  Encode an int value 
@@ -953,9 +961,9 @@ mod mynewt {
                                     "-- cinti" , " c: " , stringify ! (
                                     $ context ) , ", k: " , stringify ! (
                                     $ key ) , ", v: " , stringify ! ( $ value
-                                    ) ) ; let key_with_null : & str =
-                                    stringify_null ! ( $ key ) ; let value = $
-                                    value as i64 ; unsafe {
+                                    ) ) ; let key_with_null : & str = $ crate
+                                    :: stringify_null ! ( $ key ) ; let value
+                                    = $ value as i64 ; unsafe {
                                     let encoder = $ context . encoder (
                                     stringify ! ( $ context ) , "_map" ) ;
                                     tinycbor :: cbor_encode_text_string (
@@ -975,16 +983,16 @@ mod mynewt {
                                     key . to_bytes_optional_nul (  ) ; let
                                     value = $ value as i64 ;
                                     "-------------------------------------------------------------"
-                                    ; run ! (
+                                    ; $ crate :: run ! (
                                     $ context , $ context , "_map" , {
-                                    let res = tinycbor ::
+                                    let _res = tinycbor ::
                                     cbor_encode_text_string (
                                     $ context . encoder (
                                     stringify ! ( $ context ) , "_map" ) , $
                                     context . key_to_cstr ( key_with_opt_null
                                     ) , $ context . cstr_len (
-                                    key_with_opt_null ) ) ; let res = tinycbor
-                                    :: cbor_encode_int (
+                                    key_with_opt_null ) ) ; let _res =
+                                    tinycbor :: cbor_encode_int (
                                     $ context . encoder (
                                     stringify ! ( $ context ) , "_map" ) ,
                                     value ) ; } ) ;
@@ -2492,7 +2500,9 @@ mod mynewt {
                 /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
                 /// append null and return the buffer as a pointer.
                 pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-                    if s.last() == Some(&0) { return s.as_ptr(); }
+                    if s.last() == Some(&0) {
+                        return s.as_ptr() as *const c_char;
+                    }
                     if !(s.len() < JSON_KEY_SIZE) {
                         {
                             ::core::panicking::panic(&("assertion failed: s.len() < JSON_KEY_SIZE",
@@ -2502,13 +2512,15 @@ mod mynewt {
                     };
                     self.key_buffer[..s.len()].copy_from_slice(s);
                     self.key_buffer[s.len()] = 0;
-                    self.key_buffer.as_ptr()
+                    self.key_buffer.as_ptr() as *const c_char
                 }
                 /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
                 /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
                 /// append null and return the buffer as a pointer.
                 pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-                    if s.last() == Some(&0) { return s.as_ptr(); }
+                    if s.last() == Some(&0) {
+                        return s.as_ptr() as *const c_char;
+                    }
                     if !(s.len() < JSON_VALUE_SIZE) {
                         {
                             ::core::panicking::panic(&("assertion failed: s.len() < JSON_VALUE_SIZE",
@@ -2518,7 +2530,7 @@ mod mynewt {
                     };
                     self.value_buffer[..s.len()].copy_from_slice(s);
                     self.value_buffer[s.len()] = 0;
-                    self.value_buffer.as_ptr()
+                    self.value_buffer.as_ptr() as *const c_char
                 }
                 /// Compute the byte length of the string in `s`.
                 /// If `s` is null-terminated, return length of `s` - 1. Else return length of `s`.
@@ -10572,8 +10584,9 @@ mod base {
     }
     ///  We will open internal temperature sensor `temp_stm32_0`.
     ///  Must sync with apps/my_sensor_app/src/listen_sensor.h
-    pub const SENSOR_DEVICE: *const u8 = TEMP_STM32_DEVICE;
-    pub const TEMP_STM32_DEVICE: *const u8 = b"temp_stm32_0\0".as_ptr();
+    pub const SENSOR_DEVICE: *const c_char = TEMP_STM32_DEVICE;
+    pub const TEMP_STM32_DEVICE: *const c_char =
+        b"temp_stm32_0\0".as_ptr() as *const c_char;
     ///  Set to raw sensor type
     pub const TEMP_SENSOR_TYPE: sensor_type_t =
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
@@ -10581,7 +10594,7 @@ mod base {
     pub const TEMP_SENSOR_VALUE_TYPE: i32 =
         sensor::SENSOR_VALUE_TYPE_INT32 as i32;
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server or Collector Node
-    pub const TEMP_SENSOR_KEY: &'static str = "t";
+    pub const TEMP_SENSOR_KEY: &str = "t";
     ///  Sensor type for raw temperature sensor.
     ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
     pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t =
@@ -10633,6 +10646,7 @@ mod listen_sensor {
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
     use cstr_core::CStr;
     use cty::c_char;
+    use crate::fill_zero;
     use crate::base::*;
     use crate::send_coap::send_sensor_data;
     use crate::mynewt::{result::*,
@@ -10677,7 +10691,7 @@ mod listen_sensor {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/listen_sensor.rs",
-                                                           46u32, 5u32))
+                                                           47u32, 5u32))
                         }
                     }
                 }
@@ -10691,7 +10705,7 @@ mod listen_sensor {
         if !unsafe { !is_null_sensor(sensor) } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !is_null_sensor(sensor) }",
-                                           "src/listen_sensor.rs", 50u32,
+                                           "src/listen_sensor.rs", 51u32,
                                            5u32))
             }
         };
@@ -10724,7 +10738,7 @@ mod listen_sensor {
         if !unsafe { !is_null_sensor(sensor) } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !is_null_sensor(sensor) }",
-                                           "src/listen_sensor.rs", 86u32,
+                                           "src/listen_sensor.rs", 87u32,
                                            5u32))
             }
         };
@@ -10737,7 +10751,7 @@ mod listen_sensor {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/listen_sensor.rs", 98u32,
+                                               "src/listen_sensor.rs", 99u32,
                                                60u32))
                 }
             };
@@ -10775,7 +10789,7 @@ mod listen_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
                                                    "src/listen_sensor.rs",
-                                                   130u32, 13u32))
+                                                   131u32, 13u32))
                     }
                 };
                 if rawtempdata.strd_temp_raw_is_valid == 0 {
@@ -10797,7 +10811,7 @@ mod listen_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
                                                    "src/listen_sensor.rs",
-                                                   143u32, 13u32))
+                                                   144u32, 13u32))
                     }
                 };
                 if tempdata.std_temp_is_valid() == 0 { return return_value; }
@@ -10808,7 +10822,7 @@ mod listen_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: false",
                                                    "src/listen_sensor.rs",
-                                                   157u32, 13u32))
+                                                   158u32, 13u32))
                     }
                 };
                 return return_value;
@@ -10830,6 +10844,7 @@ mod send_coap {
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
     use cty::*;
+    use crate::{coap, d, fill_zero};
     use crate::base::*;
     use crate::mynewt::{result::*, kernel::os::{self, os_task, os_stack_t},
                         encoding::{json_context::{self, JSON_CONTEXT,
@@ -10859,7 +10874,8 @@ mod send_coap {
         console_print(b"NET start\n");
         let rc =
             unsafe {
-                os::os_task_init(&mut NETWORK_TASK, b"network\0".as_ptr(),
+                os::os_task_init(&mut NETWORK_TASK,
+                                 b"network\0".as_ptr() as *const c_char,
                                  Some(network_task_func),
                                  0 as *mut ::cty::c_void, 10,
                                  os::OS_WAIT_FOREVER as u32,
@@ -10887,7 +10903,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           67u32, 5u32))
+                                                           68u32, 5u32))
                         }
                     }
                 }
@@ -10907,7 +10923,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 79u32, 37u32))
+                                           "src/send_coap.rs", 80u32, 37u32))
             }
         };
         if unsafe {
@@ -10935,7 +10951,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               87u32, 75u32))
+                                                               88u32, 75u32))
                             }
                         }
                     }
@@ -10968,7 +10984,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               95u32, 78u32))
+                                                               96u32, 78u32))
                             }
                         }
                     }
@@ -11028,7 +11044,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 149u32,
+                                               "src/send_coap.rs", 150u32,
                                                53u32))
                 }
             };
@@ -11053,7 +11069,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           151u32, 5u32))
+                                                           152u32, 5u32))
                         }
                     }
                 }
@@ -11069,7 +11085,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 159u32, 80u32))
+                                           "src/send_coap.rs", 160u32, 80u32))
             }
         };
         let _payload =
@@ -11091,9 +11107,9 @@ mod send_coap {
                             };
                             {
                                 " >>  >> \"device\" >> : device_id , \"node\" : node_id , sensor_val ,";
-                                "add1 key : \"device\" value : parse!(@ json device_id) to object : JSON_CONTEXT";
+                                "add1 key : \"device\" value : $crate::parse!(@ json device_id) to object :\nJSON_CONTEXT";
                                 {
-                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\nparse!(@ json device_id)";
+                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json device_id)";
                                     {
                                         "begin json coap_item , array : JSON_CONTEXT";
                                         {
@@ -11119,7 +11135,7 @@ mod send_coap {
                                                 };
                                             };
                                             {
-                                                "-- jtxti o: JSON_CONTEXT, k: value, v: parse!(@ json device_id)";
+                                                "-- jtxti o: JSON_CONTEXT, k: value, v: $crate::parse!(@ json device_id)";
                                                 let key_with_null: &str =
                                                     "value\u{0}";
                                                 let value_with_opt_null:
@@ -11146,9 +11162,9 @@ mod send_coap {
                                 };
                                 "--------------------";
                                 " >>  >> \"node\" >> : node_id , sensor_val ,";
-                                "add1 key : \"node\" value : parse!(@ json node_id) to object : JSON_CONTEXT";
+                                "add1 key : \"node\" value : $crate::parse!(@ json node_id) to object :\nJSON_CONTEXT";
                                 {
-                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"node\" , val :\nparse!(@ json node_id)";
+                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"node\" , val :\n$crate::parse!(@ json node_id)";
                                     {
                                         "begin json coap_item , array : JSON_CONTEXT";
                                         {
@@ -11174,7 +11190,7 @@ mod send_coap {
                                                 };
                                             };
                                             {
-                                                "-- jtxti o: JSON_CONTEXT, k: value, v: parse!(@ json node_id)";
+                                                "-- jtxti o: JSON_CONTEXT, k: value, v: $crate::parse!(@ json node_id)";
                                                 let key_with_null: &str =
                                                     "value\u{0}";
                                                 let value_with_opt_null:
@@ -11289,7 +11305,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 178u32, 60u32))
+                                           "src/send_coap.rs", 179u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -11313,7 +11329,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 207u32, 65u32))
+                                           "src/send_coap.rs", 208u32, 65u32))
             }
         };
         let _payload =
@@ -11346,16 +11362,16 @@ mod send_coap {
                                 "-------------------------------------------------------------";
                                 " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
                                 unsafe {
-                                    let res =
+                                    let _res =
                                         tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
                                                                                                "_map"),
                                                                           JSON_CONTEXT.key_to_cstr(key_with_opt_null),
                                                                           JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                    let res =
+                                    let _res =
                                         tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
                                                                                        "_map"),
                                                                   value);
-                                    let zzz = "aaa";
+                                    let _zzz = "aaa";
                                 };
                                 "-------------------------------------------------------------";
                                 unsafe {
@@ -11395,7 +11411,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 218u32, 63u32))
+                                           "src/send_coap.rs", 219u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
@@ -11408,7 +11424,7 @@ use mynewt::kernel::os;
 use crate::base::*;
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]
-pub extern "C" fn main() -> ! {
+extern "C" fn main() -> ! {
     unsafe { base::rust_sysinit() };
     unsafe { console_flush() };
     send_coap::start_network_task().expect("NET fail");

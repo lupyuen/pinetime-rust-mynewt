@@ -9,6 +9,7 @@
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
     use cty::*;
+    use crate::{coap, d, fill_zero};
     use crate::base::*;
     use crate::mynewt::{result::*, kernel::os::{self, os_task, os_stack_t},
                         encoding::{json_context::{self, JSON_CONTEXT,
@@ -38,7 +39,8 @@
         console_print(b"NET start\n");
         let rc =
             unsafe {
-                os::os_task_init(&mut NETWORK_TASK, b"network\0".as_ptr(),
+                os::os_task_init(&mut NETWORK_TASK,
+                                 b"network\0".as_ptr() as *const c_char,
                                  Some(network_task_func),
                                  0 as *mut ::cty::c_void, 10,
                                  os::OS_WAIT_FOREVER as u32,
@@ -66,7 +68,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           67u32, 5u32))
+                                                           68u32, 5u32))
                         }
                     }
                 }
@@ -86,7 +88,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 79u32, 37u32))
+                                           "src/send_coap.rs", 80u32, 37u32))
             }
         };
         if unsafe {
@@ -114,7 +116,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               87u32, 75u32))
+                                                               88u32, 75u32))
                             }
                         }
                     }
@@ -147,7 +149,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               95u32, 78u32))
+                                                               96u32, 78u32))
                             }
                         }
                     }
@@ -207,7 +209,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 149u32,
+                                               "src/send_coap.rs", 150u32,
                                                53u32))
                 }
             };
@@ -232,7 +234,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           151u32, 5u32))
+                                                           152u32, 5u32))
                         }
                     }
                 }
@@ -248,7 +250,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 159u32, 80u32))
+                                           "src/send_coap.rs", 160u32, 80u32))
             }
         };
         let _payload =
@@ -270,9 +272,9 @@
                             };
                             {
                                 " >>  >> \"device\" >> : device_id , \"node\" : node_id , sensor_val ,";
-                                "add1 key : \"device\" value : parse!(@ json device_id) to object : JSON_CONTEXT";
+                                "add1 key : \"device\" value : $crate::parse!(@ json device_id) to object :\nJSON_CONTEXT";
                                 {
-                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\nparse!(@ json device_id)";
+                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json device_id)";
                                     {
                                         "begin json coap_item , array : JSON_CONTEXT";
                                         {
@@ -298,7 +300,7 @@
                                                 };
                                             };
                                             {
-                                                "-- jtxti o: JSON_CONTEXT, k: value, v: parse!(@ json device_id)";
+                                                "-- jtxti o: JSON_CONTEXT, k: value, v: $crate::parse!(@ json device_id)";
                                                 let key_with_null: &str =
                                                     "value\u{0}";
                                                 let value_with_opt_null:
@@ -325,9 +327,9 @@
                                 };
                                 "--------------------";
                                 " >>  >> \"node\" >> : node_id , sensor_val ,";
-                                "add1 key : \"node\" value : parse!(@ json node_id) to object : JSON_CONTEXT";
+                                "add1 key : \"node\" value : $crate::parse!(@ json node_id) to object :\nJSON_CONTEXT";
                                 {
-                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"node\" , val :\nparse!(@ json node_id)";
+                                    "begin json coap_item_str , parent : JSON_CONTEXT , key : \"node\" , val :\n$crate::parse!(@ json node_id)";
                                     {
                                         "begin json coap_item , array : JSON_CONTEXT";
                                         {
@@ -353,7 +355,7 @@
                                                 };
                                             };
                                             {
-                                                "-- jtxti o: JSON_CONTEXT, k: value, v: parse!(@ json node_id)";
+                                                "-- jtxti o: JSON_CONTEXT, k: value, v: $crate::parse!(@ json node_id)";
                                                 let key_with_null: &str =
                                                     "value\u{0}";
                                                 let value_with_opt_null:
@@ -468,7 +470,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 178u32, 60u32))
+                                           "src/send_coap.rs", 179u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -492,7 +494,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 207u32, 65u32))
+                                           "src/send_coap.rs", 208u32, 65u32))
             }
         };
         let _payload =
@@ -525,16 +527,16 @@
                                 "-------------------------------------------------------------";
                                 " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
                                 unsafe {
-                                    let res =
+                                    let _res =
                                         tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
                                                                                                "_map"),
                                                                           JSON_CONTEXT.key_to_cstr(key_with_opt_null),
                                                                           JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                    let res =
+                                    let _res =
                                         tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
                                                                                        "_map"),
                                                                   value);
-                                    let zzz = "aaa";
+                                    let _zzz = "aaa";
                                 };
                                 "-------------------------------------------------------------";
                                 unsafe {
@@ -574,7 +576,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 218u32, 63u32))
+                                           "src/send_coap.rs", 219u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
@@ -587,7 +589,7 @@ use mynewt::kernel::os;
 use crate::base::*;
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]
-pub extern "C" fn main() -> ! {
+extern "C" fn main() -> ! {
     unsafe { base::rust_sysinit() };
     unsafe { console_flush() };
     send_coap::start_network_task().expect("NET fail");
