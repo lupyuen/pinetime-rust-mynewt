@@ -1,5 +1,6 @@
 //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
 //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
+//!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
  
 ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
 ///  `fill_zero!(os_task)` expands to
