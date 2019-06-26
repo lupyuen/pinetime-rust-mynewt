@@ -131,37 +131,44 @@ macro_rules! parse {
 
   // Next value is `null`.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: null $($rest:tt)*) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc null)) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc null)) $($rest)*);
   };
 
   // Next value is `true`.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: true $($rest:tt)*) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc true)) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc true)) $($rest)*);
   };
 
   // Next value is `false`.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: false $($rest:tt)*) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc false)) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc false)) $($rest)*);
   };
 
   // Next value is an array.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: [$($array:tt)*] $($rest:tt)*) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc [$($array)*])) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc [$($array)*])) $($rest)*);
   };
 
   // Next value is a map.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: {$($map:tt)*} $($rest:tt)*) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc {$($map)*})) $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc {$($map)*})) $($rest)*);
   };
 
   // Next value is an expression followed by comma.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: $value:expr , $($rest:tt)*) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc $value)) , $($rest)*);
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc $value)) , $($rest)*);
   };
 
   // Last value is an expression with no trailing comma.
   (@$enc:ident @object $object:ident ($($key:tt)+) (: $value:expr) $copy:tt) => {
-    $crate::parse!(@$enc @object $object [$($key)+] ($crate::parse!(@$enc $value)));
+    $crate::parse!(@$enc @object $object [$($key)+] 
+      ($crate::parse!(@$enc $value)));
   };
 
   // Missing value for last entry. Trigger a reasonable error message.
@@ -253,37 +260,44 @@ macro_rules! parse {
 
   // Next element is `null`.
   (@$enc:ident @array [$($elems:expr,)*] null $($rest:tt)*) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc null)] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc null)] $($rest)*)
   };
 
   // Next element is `true`.
   (@$enc:ident @array [$($elems:expr,)*] true $($rest:tt)*) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc true)] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc true)] $($rest)*)
   };
 
   // Next element is `false`.
   (@$enc:ident @array [$($elems:expr,)*] false $($rest:tt)*) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc false)] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc false)] $($rest)*)
   };
 
   // Next element is an array.
   (@$enc:ident @array [$($elems:expr,)*] [$($array:tt)*] $($rest:tt)*) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc [$($array)*])] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc [$($array)*])] $($rest)*)
   };
 
   // Next element is a map.
   (@$enc:ident @array [$($elems:expr,)*] {$($map:tt)*} $($rest:tt)*) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc {$($map)*})] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc {$($map)*})] $($rest)*)
   };
 
   // Next element is an expression followed by comma.
   (@$enc:ident @array [$($elems:expr,)*] $next:expr, $($rest:tt)*) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc $next),] $($rest)*)
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc $next),] $($rest)*)
   };
 
   // Last element is an expression with no trailing comma.
   (@$enc:ident @array [$($elems:expr,)*] $last:expr) => {
-    $crate::parse!(@$enc @array [$($elems,)* $crate::parse!(@$enc $last)])
+    $crate::parse!(@$enc @array [$($elems,)* 
+      $crate::parse!(@$enc $last)])
   };
 
   // Comma after the most recent element.
@@ -293,7 +307,7 @@ macro_rules! parse {
 
   // Unexpected token after most recent element.
   (@$enc:ident @array [$($elems:expr),*] $unexpected:tt $($rest:tt)*) => {
-    unexpected_token!($unexpected)
+    $crate::unexpected_token!($unexpected)
   };
 
 
@@ -405,7 +419,7 @@ macro_rules! parse {
 #[macro_export]
 macro_rules! parse_vector {
   ($($content:tt)*) => {
-    vec![$($content)*]
+    $crate::vec![$($content)*]
   };
 }
 

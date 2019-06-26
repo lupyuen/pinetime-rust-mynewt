@@ -95,7 +95,7 @@ pub const TEMP_SENSOR_TYPE: sensor_type_t = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 ///  Return integer sensor values
 pub const TEMP_SENSOR_VALUE_TYPE: i32 = sensor::SENSOR_VALUE_TYPE_INT32 as i32;         
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server or Collector Node
-pub const TEMP_SENSOR_KEY: &'static str = "t";
+pub const TEMP_SENSOR_KEY: &str = "t";
 
 //  #else                                                          //  If we are returning computed temperature (floating-point)...
 //  pub const TEMP_SENSOR_TYPE       SENSOR_TYPE_AMBIENT_TEMPERATURE //  Set to floating-point sensor type
@@ -105,7 +105,8 @@ pub const TEMP_SENSOR_KEY: &'static str = "t";
 
 ///  Sensor type for raw temperature sensor.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
-pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t = sensor::sensor_type_t_SENSOR_TYPE_USER_DEFINED_1;
+pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t = 
+  sensor::sensor_type_t_SENSOR_TYPE_USER_DEFINED_1;
 
 ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
 ///  or float (computed), we use the struct to return both integer and float values.
