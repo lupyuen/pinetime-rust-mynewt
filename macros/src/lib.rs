@@ -9,8 +9,10 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
     //println!("item: {:#?}", item);
     //  Parse the macro input as an extern "C" function declaration.
     let input = parse_macro_input!(item as syn::ItemForeignMod);
-    println!("input: {:#?}", &input);
+    println!("input: {:#?}", input);
+    for item in input.items {
 
+    }
     "// Hello world".parse().unwrap()
 }
 

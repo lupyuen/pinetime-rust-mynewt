@@ -56,6 +56,44 @@ fn test_safe_wrap() {
         ) -> ::cty::c_int;
     }
     "-------------------------------------------------------------";
+    type os_task_func_t = i8;
+    type os_time_t = i8;
+    pub fn task_init(
+        arg1: *mut os_task,
+        arg2: *const ::cty::c_char,
+        arg3: os_task_func_t,
+        arg4: *mut ::cty::c_void,  //  TODO
+        arg5: u8,
+        arg6: os_time_t,
+        arg7: *mut os_stack_t,
+        arg8: u16,
+    ) -> MynewtResult<()> {
+        extern "C" fn os_task_init(
+            arg1: *mut os_task,
+            arg2: *const ::cty::c_char,
+            arg3: os_task_func_t,
+            arg4: *mut ::cty::c_void,
+            arg5: u8,
+            arg6: os_time_t,
+            arg7: *mut os_stack_t,
+            arg8: u16,
+        ) -> ::cty::c_int;
+        unsafe {
+            let res = os_task_init(
+                arg1,
+                arg2,
+                arg3,
+                arg4,
+                arg5,
+                arg6,
+                arg7,
+                arg8
+            );
+            if res == 0 { OK(()) }
+            else { Err(res) }
+        }
+    }
+
         #[doc = " Initialize a task."]
         #[doc = ""]
         #[doc = " This function initializes the task structure pointed to by t,"]
