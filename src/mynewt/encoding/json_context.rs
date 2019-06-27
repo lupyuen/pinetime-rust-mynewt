@@ -20,49 +20,7 @@ const JSON_KEY_SIZE: usize = 32;
 /// Size of the static value buffer
 const JSON_VALUE_SIZE: usize = 32;
 
-//  From https://camjackson.net/post/rust-lang-how-to-pass-a-closure-into-a-trait-object
-pub trait FunctionCaller {
-    fn call_function(&self, function: &dyn Fn() -> u32) -> u32;
-}
-
-pub struct Step {
-}
-
-impl FunctionCaller for Step {
-    fn call_function(&self, function: &dyn Fn() -> u32) -> u32 {
-        function()
-    }
-}
-
-impl Step {
-    pub fn invoke(closure: &dyn Fn() -> u32) -> u32 {
-        Step{}.call_function(closure)
-    }
-}
-
 impl JsonContext {
-
-    pub fn check_result(res: u32) {
-        assert_eq!(res, 0);
-    }
-
-    /*
-    /// Given an array of closures (each returning `u32`), execute
-    /// each closure until a closure returns non-zero result and
-    /// stops.
-    pub fn run_steps(&mut self, steps: &[u32]) {
-        for step in steps {
-            assert_eq!(step, &0);
-        }
-    }
-    pub fn run_steps<F>(&mut self, steps: &[F])
-        where F: Fn() -> u32 {
-        for step in steps {
-            let res = step();
-            assert_eq!(res, 0);
-        }
-    }
-    */
 
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
@@ -107,6 +65,11 @@ impl JsonContext {
     pub fn encoder(&self, _parent: &str, _child: &str) -> *mut super::tinycbor::CborEncoder {
         //  TODO: Allow different map encoder by level
         unsafe { &mut super::super::root_map }
+    }
+
+    /// Fail the encoding with an error if `res` is non-zero.
+    pub fn check_result(&self, res: u32) {
+        assert_eq!(res, 0);
     }
 
     /// Fail the encoding with an error

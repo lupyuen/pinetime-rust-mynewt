@@ -78,7 +78,10 @@ fn test_safe_wrap() {
 }
 
 /// Run a block of CBOR encoding calls with error checking.
+#[cfg(NOTUSED)]
 fn test_run() {
+    let key_with_opt_null = "";
+    let value = 1;
     "-------------------------------------------------------------";
     mynewt_macros::run!({
         //  TODO: First para should be name of current map or array

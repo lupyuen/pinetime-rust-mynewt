@@ -1147,12 +1147,12 @@ macro_rules! oc_rep_set_int {
     "-------------------------------------------------------------";
     mynewt_macros::run!({
       //  TODO: First para should be name of current map or array
-      let encoder = $context.encoder(stringify!($context), "_map");
+      let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
       cbor_encode_text_string(
         encoder,
-        $context.key_to_cstr(key_with_opt_null),
-        $context.cstr_len(key_with_opt_null)
+        JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+        JSON_CONTEXT.cstr_len(key_with_opt_null)
       );
       //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
       cbor_encode_int(
@@ -1162,6 +1162,7 @@ macro_rules! oc_rep_set_int {
     });
     "-------------------------------------------------------------";
 
+    /* Previously:
     unsafe {
       //  TODO: First para should be name of current map or array
       let encoder = $context.encoder(stringify!($context), "_map");
@@ -1177,6 +1178,7 @@ macro_rules! oc_rep_set_int {
         value
       );
     };
+    */
 
   };
 }
