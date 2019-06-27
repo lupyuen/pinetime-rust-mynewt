@@ -1,591 +1,453 @@
 attr: TokenStream [
     Ident {
         ident: "attr",
-        span: #0 bytes(300251..300255),
+        span: #0 bytes(300385..300389),
     },
 ]
 item: TokenStream [
     Ident {
         ident: "extern",
-        span: #0 bytes(300262..300268),
+        span: #0 bytes(300396..300402),
     },
-    Literal { lit: Str_(C), suffix: None, span: Span { lo: BytePos(300269), hi: BytePos(300272), ctxt: #0 } },
+    Literal { lit: Str_(C), suffix: None, span: Span { lo: BytePos(300403), hi: BytePos(300406), ctxt: #0 } },
     Group {
         delimiter: Brace,
         stream: TokenStream [
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300283..300284),
+                span: #0 bytes(300417..300418),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300285..300288),
+                        span: #0 bytes(300419..300422),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300289..300290),
+                        span: #0 bytes(300423..300424),
                     },
-                    Literal { lit: Str_( Initialize a task.), suffix: None, span: Span { lo: BytePos(300291), hi: BytePos(300312), ctxt: #0 } },
+                    Literal { lit: Str_( Initialize a task.), suffix: None, span: Span { lo: BytePos(300425), hi: BytePos(300446), ctxt: #0 } },
                 ],
-                span: #0 bytes(300284..300313),
+                span: #0 bytes(300418..300447),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300322..300323),
+                span: #0 bytes(300456..300457),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300324..300327),
+                        span: #0 bytes(300458..300461),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300328..300329),
+                        span: #0 bytes(300462..300463),
                     },
-                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(300330), hi: BytePos(300332), ctxt: #0 } },
+                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(300464), hi: BytePos(300466), ctxt: #0 } },
                 ],
-                span: #0 bytes(300323..300333),
+                span: #0 bytes(300457..300467),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300342..300343),
+                span: #0 bytes(300476..300477),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300344..300347),
+                        span: #0 bytes(300478..300481),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300348..300349),
+                        span: #0 bytes(300482..300483),
                     },
-                    Literal { lit: Str_( This function initializes the task structure pointed to by t,), suffix: None, span: Span { lo: BytePos(300350), hi: BytePos(300414), ctxt: #0 } },
+                    Literal { lit: Str_( This function initializes the task structure pointed to by t,), suffix: None, span: Span { lo: BytePos(300484), hi: BytePos(300548), ctxt: #0 } },
                 ],
-                span: #0 bytes(300343..300415),
+                span: #0 bytes(300477..300549),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300424..300425),
+                span: #0 bytes(300558..300559),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300426..300429),
+                        span: #0 bytes(300560..300563),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300430..300431),
+                        span: #0 bytes(300564..300565),
                     },
-                    Literal { lit: Str_( clearing and setting it's stack pointer, provides sane defaults), suffix: None, span: Span { lo: BytePos(300432), hi: BytePos(300498), ctxt: #0 } },
+                    Literal { lit: Str_( clearing and setting it's stack pointer, provides sane defaults), suffix: None, span: Span { lo: BytePos(300566), hi: BytePos(300632), ctxt: #0 } },
                 ],
-                span: #0 bytes(300425..300499),
+                span: #0 bytes(300559..300633),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300508..300509),
+                span: #0 bytes(300642..300643),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300510..300513),
+                        span: #0 bytes(300644..300647),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300514..300515),
+                        span: #0 bytes(300648..300649),
                     },
-                    Literal { lit: Str_( and sets the task as ready to run, and inserts it into the operating), suffix: None, span: Span { lo: BytePos(300516), hi: BytePos(300587), ctxt: #0 } },
+                    Literal { lit: Str_( and sets the task as ready to run, and inserts it into the operating), suffix: None, span: Span { lo: BytePos(300650), hi: BytePos(300721), ctxt: #0 } },
                 ],
-                span: #0 bytes(300509..300588),
+                span: #0 bytes(300643..300722),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300597..300598),
+                span: #0 bytes(300731..300732),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300599..300602),
+                        span: #0 bytes(300733..300736),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300603..300604),
+                        span: #0 bytes(300737..300738),
                     },
-                    Literal { lit: Str_( system scheduler.), suffix: None, span: Span { lo: BytePos(300605), hi: BytePos(300625), ctxt: #0 } },
+                    Literal { lit: Str_( system scheduler.), suffix: None, span: Span { lo: BytePos(300739), hi: BytePos(300759), ctxt: #0 } },
                 ],
-                span: #0 bytes(300598..300626),
+                span: #0 bytes(300732..300760),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300635..300636),
+                span: #0 bytes(300769..300770),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300637..300640),
+                        span: #0 bytes(300771..300774),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300641..300642),
+                        span: #0 bytes(300775..300776),
                     },
-                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(300643), hi: BytePos(300645), ctxt: #0 } },
+                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(300777), hi: BytePos(300779), ctxt: #0 } },
                 ],
-                span: #0 bytes(300636..300646),
+                span: #0 bytes(300770..300780),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300655..300656),
+                span: #0 bytes(300789..300790),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300657..300660),
+                        span: #0 bytes(300791..300794),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300661..300662),
+                        span: #0 bytes(300795..300796),
                     },
-                    Literal { lit: Str_( - __`t`__: The task to initialize), suffix: None, span: Span { lo: BytePos(300663), hi: BytePos(300699), ctxt: #0 } },
+                    Literal { lit: Str_( - __`t`__: The task to initialize), suffix: None, span: Span { lo: BytePos(300797), hi: BytePos(300833), ctxt: #0 } },
                 ],
-                span: #0 bytes(300656..300700),
+                span: #0 bytes(300790..300834),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300709..300710),
+                span: #0 bytes(300843..300844),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300711..300714),
+                        span: #0 bytes(300845..300848),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300715..300716),
+                        span: #0 bytes(300849..300850),
                     },
-                    Literal { lit: Str_( - __`name`__: The name of the task to initialize), suffix: None, span: Span { lo: BytePos(300717), hi: BytePos(300768), ctxt: #0 } },
+                    Literal { lit: Str_( - __`name`__: The name of the task to initialize), suffix: None, span: Span { lo: BytePos(300851), hi: BytePos(300902), ctxt: #0 } },
                 ],
-                span: #0 bytes(300710..300769),
+                span: #0 bytes(300844..300903),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300778..300779),
+                span: #0 bytes(300912..300913),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300780..300783),
+                        span: #0 bytes(300914..300917),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300784..300785),
+                        span: #0 bytes(300918..300919),
                     },
-                    Literal { lit: Str_( - __`func`__: The task function to call), suffix: None, span: Span { lo: BytePos(300786), hi: BytePos(300828), ctxt: #0 } },
+                    Literal { lit: Str_( - __`func`__: The task function to call), suffix: None, span: Span { lo: BytePos(300920), hi: BytePos(300962), ctxt: #0 } },
                 ],
-                span: #0 bytes(300779..300829),
+                span: #0 bytes(300913..300963),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300838..300839),
+                span: #0 bytes(300972..300973),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300840..300843),
+                        span: #0 bytes(300974..300977),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300844..300845),
+                        span: #0 bytes(300978..300979),
                     },
-                    Literal { lit: Str_( - __`arg`__: The argument to pass to this task function), suffix: None, span: Span { lo: BytePos(300846), hi: BytePos(300904), ctxt: #0 } },
+                    Literal { lit: Str_( - __`arg`__: The argument to pass to this task function), suffix: None, span: Span { lo: BytePos(300980), hi: BytePos(301038), ctxt: #0 } },
                 ],
-                span: #0 bytes(300839..300905),
+                span: #0 bytes(300973..301039),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300914..300915),
+                span: #0 bytes(301048..301049),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300916..300919),
+                        span: #0 bytes(301050..301053),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300920..300921),
+                        span: #0 bytes(301054..301055),
                     },
-                    Literal { lit: Str_( - __`prio`__: The priority at which to run this task), suffix: None, span: Span { lo: BytePos(300922), hi: BytePos(300977), ctxt: #0 } },
+                    Literal { lit: Str_( - __`prio`__: The priority at which to run this task), suffix: None, span: Span { lo: BytePos(301056), hi: BytePos(301111), ctxt: #0 } },
                 ],
-                span: #0 bytes(300915..300978),
+                span: #0 bytes(301049..301112),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(300987..300988),
+                span: #0 bytes(301121..301122),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(300989..300992),
+                        span: #0 bytes(301123..301126),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(300993..300994),
+                        span: #0 bytes(301127..301128),
                     },
-                    Literal { lit: Str_( - __`sanity_itvl`__: The time at which this task should check in with the), suffix: None, span: Span { lo: BytePos(300995), hi: BytePos(301071), ctxt: #0 } },
+                    Literal { lit: Str_( - __`sanity_itvl`__: The time at which this task should check in with the), suffix: None, span: Span { lo: BytePos(301129), hi: BytePos(301205), ctxt: #0 } },
                 ],
-                span: #0 bytes(300988..301072),
+                span: #0 bytes(301122..301206),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(301081..301082),
+                span: #0 bytes(301215..301216),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(301083..301086),
+                        span: #0 bytes(301217..301220),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(301087..301088),
+                        span: #0 bytes(301221..301222),
                     },
-                    Literal { lit: Str_(                    sanity task.  OS_WAIT_FOREVER means never check in), suffix: None, span: Span { lo: BytePos(301089), hi: BytePos(301161), ctxt: #0 } },
+                    Literal { lit: Str_(                    sanity task.  OS_WAIT_FOREVER means never check in), suffix: None, span: Span { lo: BytePos(301223), hi: BytePos(301295), ctxt: #0 } },
                 ],
-                span: #0 bytes(301082..301162),
+                span: #0 bytes(301216..301296),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(301171..301172),
+                span: #0 bytes(301305..301306),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(301173..301176),
+                        span: #0 bytes(301307..301310),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(301177..301178),
+                        span: #0 bytes(301311..301312),
                     },
-                    Literal { lit: Str_(                    here.), suffix: None, span: Span { lo: BytePos(301179), hi: BytePos(301206), ctxt: #0 } },
+                    Literal { lit: Str_(                    here.), suffix: None, span: Span { lo: BytePos(301313), hi: BytePos(301340), ctxt: #0 } },
                 ],
-                span: #0 bytes(301172..301207),
+                span: #0 bytes(301306..301341),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(301216..301217),
+                span: #0 bytes(301350..301351),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(301218..301221),
+                        span: #0 bytes(301352..301355),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(301222..301223),
+                        span: #0 bytes(301356..301357),
                     },
-                    Literal { lit: Str_( - __`stack_bottom`__: A pointer to the bottom of a task's stack), suffix: None, span: Span { lo: BytePos(301224), hi: BytePos(301290), ctxt: #0 } },
+                    Literal { lit: Str_( - __`stack_bottom`__: A pointer to the bottom of a task's stack), suffix: None, span: Span { lo: BytePos(301358), hi: BytePos(301424), ctxt: #0 } },
                 ],
-                span: #0 bytes(301217..301291),
+                span: #0 bytes(301351..301425),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(301300..301301),
+                span: #0 bytes(301434..301435),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(301302..301305),
+                        span: #0 bytes(301436..301439),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(301306..301307),
+                        span: #0 bytes(301440..301441),
                     },
-                    Literal { lit: Str_( - __`stack_size`__: The overall size of the task's stack.), suffix: None, span: Span { lo: BytePos(301308), hi: BytePos(301368), ctxt: #0 } },
+                    Literal { lit: Str_( - __`stack_size`__: The overall size of the task's stack.), suffix: None, span: Span { lo: BytePos(301442), hi: BytePos(301502), ctxt: #0 } },
                 ],
-                span: #0 bytes(301301..301369),
+                span: #0 bytes(301435..301503),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(301378..301379),
+                span: #0 bytes(301512..301513),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(301380..301383),
+                        span: #0 bytes(301514..301517),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(301384..301385),
+                        span: #0 bytes(301518..301519),
                     },
-                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(301386), hi: BytePos(301388), ctxt: #0 } },
+                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(301520), hi: BytePos(301522), ctxt: #0 } },
                 ],
-                span: #0 bytes(301379..301389),
+                span: #0 bytes(301513..301523),
             },
             Punct {
                 ch: '#',
                 spacing: Alone,
-                span: #0 bytes(301398..301399),
+                span: #0 bytes(301532..301533),
             },
             Group {
                 delimiter: Bracket,
                 stream: TokenStream [
                     Ident {
                         ident: "doc",
-                        span: #0 bytes(301400..301403),
+                        span: #0 bytes(301534..301537),
                     },
                     Punct {
                         ch: '=',
                         spacing: Alone,
-                        span: #0 bytes(301404..301405),
+                        span: #0 bytes(301538..301539),
                     },
-                    Literal { lit: Str_( Return: 0 on success, non-zero on failure.), suffix: None, span: Span { lo: BytePos(301406), hi: BytePos(301451), ctxt: #0 } },
+                    Literal { lit: Str_( Return: 0 on success, non-zero on failure.), suffix: None, span: Span { lo: BytePos(301540), hi: BytePos(301585), ctxt: #0 } },
                 ],
-                span: #0 bytes(301399..301452),
+                span: #0 bytes(301533..301586),
             },
             Ident {
                 ident: "pub",
-                span: #0 bytes(301461..301464),
+                span: #0 bytes(301595..301598),
             },
             Ident {
                 ident: "fn",
-                span: #0 bytes(301465..301467),
+                span: #0 bytes(301599..301601),
             },
             Ident {
                 ident: "os_task_init",
-                span: #0 bytes(301468..301480),
+                span: #0 bytes(301602..301614),
             },
             Group {
                 delimiter: Parenthesis,
                 stream: TokenStream [
                     Ident {
                         ident: "arg1",
-                        span: #0 bytes(301494..301498),
+                        span: #0 bytes(301628..301632),
                     },
                     Punct {
                         ch: ':',
                         spacing: Alone,
-                        span: #0 bytes(301498..301499),
+                        span: #0 bytes(301632..301633),
                     },
                     Punct {
                         ch: '*',
                         spacing: Alone,
-                        span: #0 bytes(301500..301501),
+                        span: #0 bytes(301634..301635),
                     },
                     Ident {
                         ident: "mut",
-                        span: #0 bytes(301501..301504),
+                        span: #0 bytes(301635..301638),
                     },
                     Ident {
                         ident: "os_task",
-                        span: #0 bytes(301505..301512),
-                    },
-                    Punct {
-                        ch: ',',
-                        spacing: Alone,
-                        span: #0 bytes(301512..301513),
-                    },
-                    Ident {
-                        ident: "arg2",
-                        span: #0 bytes(301526..301530),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301530..301531),
-                    },
-                    Punct {
-                        ch: '*',
-                        spacing: Alone,
-                        span: #0 bytes(301532..301533),
-                    },
-                    Ident {
-                        ident: "const",
-                        span: #0 bytes(301533..301538),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Joint,
-                        span: #0 bytes(301539..301541),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301539..301541),
-                    },
-                    Ident {
-                        ident: "cty",
-                        span: #0 bytes(301541..301544),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Joint,
-                        span: #0 bytes(301544..301546),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301544..301546),
-                    },
-                    Ident {
-                        ident: "c_char",
-                        span: #0 bytes(301546..301552),
-                    },
-                    Punct {
-                        ch: ',',
-                        spacing: Alone,
-                        span: #0 bytes(301552..301553),
-                    },
-                    Ident {
-                        ident: "arg3",
-                        span: #0 bytes(301566..301570),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301570..301571),
-                    },
-                    Ident {
-                        ident: "os_task_func_t",
-                        span: #0 bytes(301572..301586),
-                    },
-                    Punct {
-                        ch: ',',
-                        spacing: Alone,
-                        span: #0 bytes(301586..301587),
-                    },
-                    Ident {
-                        ident: "arg4",
-                        span: #0 bytes(301600..301604),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301604..301605),
-                    },
-                    Punct {
-                        ch: '*',
-                        spacing: Alone,
-                        span: #0 bytes(301606..301607),
-                    },
-                    Ident {
-                        ident: "mut",
-                        span: #0 bytes(301607..301610),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Joint,
-                        span: #0 bytes(301611..301613),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301611..301613),
-                    },
-                    Ident {
-                        ident: "cty",
-                        span: #0 bytes(301613..301616),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Joint,
-                        span: #0 bytes(301616..301618),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301616..301618),
-                    },
-                    Ident {
-                        ident: "c_void",
-                        span: #0 bytes(301618..301624),
-                    },
-                    Punct {
-                        ch: ',',
-                        spacing: Alone,
-                        span: #0 bytes(301624..301625),
-                    },
-                    Ident {
-                        ident: "arg5",
-                        span: #0 bytes(301638..301642),
-                    },
-                    Punct {
-                        ch: ':',
-                        spacing: Alone,
-                        span: #0 bytes(301642..301643),
-                    },
-                    Ident {
-                        ident: "u8",
-                        span: #0 bytes(301644..301646),
+                        span: #0 bytes(301639..301646),
                     },
                     Punct {
                         ch: ',',
@@ -593,7 +455,7 @@ item: TokenStream [
                         span: #0 bytes(301646..301647),
                     },
                     Ident {
-                        ident: "arg6",
+                        ident: "arg2",
                         span: #0 bytes(301660..301664),
                     },
                     Punct {
@@ -601,110 +463,249 @@ item: TokenStream [
                         spacing: Alone,
                         span: #0 bytes(301664..301665),
                     },
+                    Punct {
+                        ch: '*',
+                        spacing: Alone,
+                        span: #0 bytes(301666..301667),
+                    },
                     Ident {
-                        ident: "os_time_t",
-                        span: #0 bytes(301666..301675),
+                        ident: "const",
+                        span: #0 bytes(301667..301672),
                     },
                     Punct {
-                        ch: ',',
-                        spacing: Alone,
-                        span: #0 bytes(301675..301676),
-                    },
-                    Ident {
-                        ident: "arg7",
-                        span: #0 bytes(301689..301693),
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301673..301675),
                     },
                     Punct {
                         ch: ':',
                         spacing: Alone,
-                        span: #0 bytes(301693..301694),
+                        span: #0 bytes(301673..301675),
+                    },
+                    Ident {
+                        ident: "cty",
+                        span: #0 bytes(301675..301678),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301678..301680),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301678..301680),
+                    },
+                    Ident {
+                        ident: "c_char",
+                        span: #0 bytes(301680..301686),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301686..301687),
+                    },
+                    Ident {
+                        ident: "arg3",
+                        span: #0 bytes(301700..301704),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301704..301705),
+                    },
+                    Ident {
+                        ident: "os_task_func_t",
+                        span: #0 bytes(301706..301720),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301720..301721),
+                    },
+                    Ident {
+                        ident: "arg4",
+                        span: #0 bytes(301734..301738),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301738..301739),
                     },
                     Punct {
                         ch: '*',
                         spacing: Alone,
-                        span: #0 bytes(301695..301696),
+                        span: #0 bytes(301740..301741),
                     },
                     Ident {
                         ident: "mut",
-                        span: #0 bytes(301696..301699),
-                    },
-                    Ident {
-                        ident: "os_stack_t",
-                        span: #0 bytes(301700..301710),
+                        span: #0 bytes(301741..301744),
                     },
                     Punct {
-                        ch: ',',
-                        spacing: Alone,
-                        span: #0 bytes(301710..301711),
-                    },
-                    Ident {
-                        ident: "arg8",
-                        span: #0 bytes(301724..301728),
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301745..301747),
                     },
                     Punct {
                         ch: ':',
                         spacing: Alone,
-                        span: #0 bytes(301728..301729),
+                        span: #0 bytes(301745..301747),
                     },
                     Ident {
-                        ident: "u16",
-                        span: #0 bytes(301730..301733),
+                        ident: "cty",
+                        span: #0 bytes(301747..301750),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301750..301752),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301750..301752),
+                    },
+                    Ident {
+                        ident: "c_void",
+                        span: #0 bytes(301752..301758),
                     },
                     Punct {
                         ch: ',',
                         spacing: Alone,
-                        span: #0 bytes(301733..301734),
+                        span: #0 bytes(301758..301759),
+                    },
+                    Ident {
+                        ident: "arg5",
+                        span: #0 bytes(301772..301776),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301776..301777),
+                    },
+                    Ident {
+                        ident: "u8",
+                        span: #0 bytes(301778..301780),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301780..301781),
+                    },
+                    Ident {
+                        ident: "arg6",
+                        span: #0 bytes(301794..301798),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301798..301799),
+                    },
+                    Ident {
+                        ident: "os_time_t",
+                        span: #0 bytes(301800..301809),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301809..301810),
+                    },
+                    Ident {
+                        ident: "arg7",
+                        span: #0 bytes(301823..301827),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301827..301828),
+                    },
+                    Punct {
+                        ch: '*',
+                        spacing: Alone,
+                        span: #0 bytes(301829..301830),
+                    },
+                    Ident {
+                        ident: "mut",
+                        span: #0 bytes(301830..301833),
+                    },
+                    Ident {
+                        ident: "os_stack_t",
+                        span: #0 bytes(301834..301844),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301844..301845),
+                    },
+                    Ident {
+                        ident: "arg8",
+                        span: #0 bytes(301858..301862),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301862..301863),
+                    },
+                    Ident {
+                        ident: "u16",
+                        span: #0 bytes(301864..301867),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301867..301868),
                     },
                 ],
-                span: #0 bytes(301480..301744),
+                span: #0 bytes(301614..301878),
             },
             Punct {
                 ch: '-',
                 spacing: Joint,
-                span: #0 bytes(301745..301747),
+                span: #0 bytes(301879..301881),
             },
             Punct {
                 ch: '>',
                 spacing: Alone,
-                span: #0 bytes(301745..301747),
+                span: #0 bytes(301879..301881),
             },
             Punct {
                 ch: ':',
                 spacing: Joint,
-                span: #0 bytes(301748..301750),
+                span: #0 bytes(301882..301884),
             },
             Punct {
                 ch: ':',
                 spacing: Alone,
-                span: #0 bytes(301748..301750),
+                span: #0 bytes(301882..301884),
             },
             Ident {
                 ident: "cty",
-                span: #0 bytes(301750..301753),
+                span: #0 bytes(301884..301887),
             },
             Punct {
                 ch: ':',
                 spacing: Joint,
-                span: #0 bytes(301753..301755),
+                span: #0 bytes(301887..301889),
             },
             Punct {
                 ch: ':',
                 spacing: Alone,
-                span: #0 bytes(301753..301755),
+                span: #0 bytes(301887..301889),
             },
             Ident {
                 ident: "c_int",
-                span: #0 bytes(301755..301760),
+                span: #0 bytes(301889..301894),
             },
             Punct {
                 ch: ';',
                 spacing: Alone,
-                span: #0 bytes(301760..301761),
+                span: #0 bytes(301894..301895),
             },
         ],
-        span: #0 bytes(300273..301767),
+        span: #0 bytes(300407..301901),
     },
 ]
+res2: let encoder = JSON_CONTEXT . encoder ( "JSON_CONTEXT" , "_map" ) ; "\n"
 #![feature(prelude_import)]
 #![no_std]
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
@@ -1697,19 +1698,15 @@ mod mynewt {
                                     key . to_bytes_optional_nul (  ) ; let
                                     value = $ value as i64 ;
                                     "-------------------------------------------------------------"
-                                    ; $ crate :: run ! (
-                                    $ context , $ context , "_map" , {
-                                    let _res = tinycbor ::
+                                    ; mynewt_macros :: run ! (
+                                    {
+                                    let encoder = $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) ;
                                     cbor_encode_text_string (
-                                    $ context . encoder (
-                                    stringify ! ( $ context ) , "_map" ) , $
-                                    context . key_to_cstr ( key_with_opt_null
-                                    ) , $ context . cstr_len (
-                                    key_with_opt_null ) ) ; let _res =
-                                    tinycbor :: cbor_encode_int (
-                                    $ context . encoder (
-                                    stringify ! ( $ context ) , "_map" ) ,
-                                    value ) ; } ) ;
+                                    encoder , $ context . key_to_cstr (
+                                    key_with_opt_null ) , $ context . cstr_len
+                                    ( key_with_opt_null ) ) ; cbor_encode_int
+                                    ( encoder , value ) ; } ) ;
                                     "-------------------------------------------------------------"
                                     ; unsafe {
                                     let encoder = $ context . encoder (
@@ -11573,13 +11570,14 @@ mod send_coap {
     /// Run a block of CBOR encoding calls with error checking.
     fn test_run() {
         "-------------------------------------------------------------";
+        let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
         let res =
-            cbor_encode_text_string(encoder("Will be transformed", ""),
-                                    key_to_cstr(""), cstr_len(""));
-        context.check_error(res);
-        encoder("Will NOT be transformed", "");
-        let res = cbor_encode_int(encoder("Will be transformed", ""), 0);
-        context.check_error(res);
+            tinycbor::cbor_encode_text_string(encoder,
+                                              JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                              JSON_CONTEXT.cstr_len(key_with_opt_null));
+        JSON_CONTEXT.check_error(res);
+        let res = tinycbor::cbor_encode_int(encoder, value);
+        JSON_CONTEXT.check_error(res);
         "-------------------------------------------------------------";
     }
     ///  Storage for Network Task: Mynewt task object will be saved here.
@@ -11633,7 +11631,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           126u32, 5u32))
+                                                           129u32, 5u32))
                         }
                     }
                 }
@@ -11653,7 +11651,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 138u32, 37u32))
+                                           "src/send_coap.rs", 141u32, 37u32))
             }
         };
         if unsafe {
@@ -11681,7 +11679,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               146u32, 75u32))
+                                                               149u32, 75u32))
                             }
                         }
                     }
@@ -11714,7 +11712,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               154u32, 78u32))
+                                                               157u32, 78u32))
                             }
                         }
                     }
@@ -11774,7 +11772,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 208u32,
+                                               "src/send_coap.rs", 211u32,
                                                53u32))
                 }
             };
@@ -11799,7 +11797,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           210u32, 5u32))
+                                                           213u32, 5u32))
                         }
                     }
                 }
@@ -11815,7 +11813,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 218u32, 80u32))
+                                           "src/send_coap.rs", 221u32, 80u32))
             }
         };
         let _payload =
@@ -12035,7 +12033,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 237u32, 60u32))
+                                           "src/send_coap.rs", 240u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -12059,7 +12057,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 266u32, 65u32))
+                                           "src/send_coap.rs", 269u32, 65u32))
             }
         };
         let _payload =
@@ -12129,7 +12127,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 277u32, 63u32))
+                                           "src/send_coap.rs", 280u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

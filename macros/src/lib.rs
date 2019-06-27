@@ -16,9 +16,15 @@ pub fn run(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a block of statements.
     let input = parse_macro_input!(item as syn::Block);
     let mut res = String::new();
+    //  Construct a new `TokenStream` to accumulate the transformed code.
+    //  We use `TokenStream` instead of string because `TokenStream` remembers the source location (span) in case of errors.
+    //  `quote!` returns `proc_macro2::TokenStream` instead of `proc_macro::TokenStream`, so we use `proc_macro2::TokenStream`.
+    let mut expanded = proc_macro2::TokenStream::new();
     for stmt in input.stmts {  //  For every statement in the block...
         //  Copy the statement into a string to prevent borrowing problems later.
         let stmt_str = (quote! { #stmt }).to_string();
+        //  Copy the statement into tokens to prevent borrowing problems later.
+        let stmt_tokens = quote! { #stmt };
         match stmt {
             //  If this is a statement followed by a semicolon...
             syn::Stmt::Semi(expr, _semi) => {
@@ -30,9 +36,9 @@ pub fn run(item: TokenStream) -> TokenStream {
                         //  If this is a CBOR encoding call..
                         if func.to_string().starts_with("cbor_encode_") {
                             //  Add error checking.
-                            res.push_str("let res = ");
+                            res.push_str("let res = tinycbor::");
                             res.push_str(&stmt_str);
-                            res.push_str("\ncontext.check_error(res);\n");
+                            res.push_str("\nJSON_CONTEXT.check_error(res);\n");
                             continue;  //  Skip to next statement.
                         }
                     }
@@ -47,12 +53,13 @@ pub fn run(item: TokenStream) -> TokenStream {
             //  If this is an item definition like `const a = ...`
             syn::Stmt::Item(_item) => {}  //  TODO
         }
-        //  If we reach here, this statement is not a CBOR encoding call.  
-        //  Return verbatim.
+        //  If we reach here, this statement is not a CBOR encoding call.  Return verbatim.
         res.push_str(&stmt_str);
         res.push_str("\n");
+        expanded = quote! { #expanded #stmt_tokens "\n" };  //  Append statement tokens to result.
     }
     //  Parse the transformed code and return the result.
+    println!("expanded: {}", TokenStream::from(expanded));
     res.parse().unwrap()    
 }
 

@@ -24,13 +24,14 @@
     /// Run a block of CBOR encoding calls with error checking.
     fn test_run() {
         "-------------------------------------------------------------";
+        let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
         let res =
-            cbor_encode_text_string(encoder("Will be transformed", ""),
-                                    key_to_cstr(""), cstr_len(""));
-        context.check_error(res);
-        encoder("Will NOT be transformed", "");
-        let res = cbor_encode_int(encoder("Will be transformed", ""), 0);
-        context.check_error(res);
+            tinycbor::cbor_encode_text_string(encoder,
+                                              JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+                                              JSON_CONTEXT.cstr_len(key_with_opt_null));
+        JSON_CONTEXT.check_error(res);
+        let res = tinycbor::cbor_encode_int(encoder, value);
+        JSON_CONTEXT.check_error(res);
         "-------------------------------------------------------------";
     }
     ///  Storage for Network Task: Mynewt task object will be saved here.
@@ -84,7 +85,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           126u32, 5u32))
+                                                           129u32, 5u32))
                         }
                     }
                 }
@@ -104,7 +105,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 138u32, 37u32))
+                                           "src/send_coap.rs", 141u32, 37u32))
             }
         };
         if unsafe {
@@ -132,7 +133,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               146u32, 75u32))
+                                                               149u32, 75u32))
                             }
                         }
                     }
@@ -165,7 +166,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               154u32, 78u32))
+                                                               157u32, 78u32))
                             }
                         }
                     }
@@ -225,7 +226,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 208u32,
+                                               "src/send_coap.rs", 211u32,
                                                53u32))
                 }
             };
@@ -250,7 +251,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           210u32, 5u32))
+                                                           213u32, 5u32))
                         }
                     }
                 }
@@ -266,7 +267,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 218u32, 80u32))
+                                           "src/send_coap.rs", 221u32, 80u32))
             }
         };
         let _payload =
@@ -486,7 +487,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 237u32, 60u32))
+                                           "src/send_coap.rs", 240u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -510,7 +511,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 266u32, 65u32))
+                                           "src/send_coap.rs", 269u32, 65u32))
             }
         };
         let _payload =
@@ -580,7 +581,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 277u32, 63u32))
+                                           "src/send_coap.rs", 280u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

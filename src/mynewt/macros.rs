@@ -1145,14 +1145,18 @@ macro_rules! oc_rep_set_int {
     let value = $value as i64;
 
     "-------------------------------------------------------------";
-    $crate::run!($context, $context, "_map", {
-      let _res = tinycbor::cbor_encode_text_string(
-        $context.encoder(stringify!($context), "_map"),  //  TODO
+    mynewt_macros::run!({
+      //  TODO: First para should be name of current map or array
+      let encoder = $context.encoder(stringify!($context), "_map");
+      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      cbor_encode_text_string(
+        encoder,
         $context.key_to_cstr(key_with_opt_null),
         $context.cstr_len(key_with_opt_null)
       );
-      let _res = tinycbor::cbor_encode_int(
-        $context.encoder(stringify!($context), "_map"),  //  TODO
+      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+      cbor_encode_int(
+        encoder,
         value
       );
     });

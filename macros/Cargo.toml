@@ -1,17 +1,20 @@
+# Info about this package.
 [package]
-name = "mynewt_macros"
+name    = "mynewt_macros"
 version = "0.1.0"
 authors = ["lupyuen <luppy@appkaki.com>"]
 edition = "2018"
 
+# External Rust libraries used by this module.  See crates.io.
 [dependencies]
-cty = "0.2.0"        # String utilities from cty library: https://crates.io/crates/cty
-cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
-memchr = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
-syn       = { version = "0.15.38", features = [ "full" ] } # Rust source code parser: https://crates.io/crates/syn
-quote     = "0.6.12" # Generate Rust source code: https://crates.io/crates/quote
+cty         = "0.2.0"  # C types library: https://crates.io/crates/cty
+cstr_core   = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+memchr      = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+syn         = { version = "0.15.38", features = [ "full" ] } # Rust source code parser: https://crates.io/crates/syn
+quote       = "0.6.12" # Generate Rust source code: https://crates.io/crates/quote
+proc-macro2 = "0.4.30" # Rust procedural macro library: https://crates.io/crates/proc-macro2
 
-# Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
+# Build this module as a Rust library, which will be called by the compiler to expand Rust Procedural Macros. Not used in runtime.
 [lib]
 name       = "mynewt_macros"
 test       = true
