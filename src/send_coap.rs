@@ -40,6 +40,26 @@ use crate::mynewt::{
 ///////////////////////////////////////////////////////////////////////////////
 //  Testing
 
+/// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
+pub struct StrN {
+    /// Byte string terminated with null
+    bytestr: &'static [u8]
+}
+
+impl StrN {
+    /// Create a new byte string:
+    /// ```
+    /// StrN::new(b"network\0")
+    /// strn!("network")
+    /// ```
+    pub fn new(bs: &'static [u8]) -> StrN {
+        //  Last byte must be 0.
+        assert_eq!(bs.last(), Some(0));
+        let res = StrN { bytestr: bs };
+        res
+    }
+}
+
 fn test_safe_wrap() {
     "-------------------------------------------------------------";
     #[mynewt_macros::safe_wrap(attr)]
@@ -56,13 +76,22 @@ fn test_safe_wrap() {
         ) -> ::cty::c_int;
     }
     "-------------------------------------------------------------";
-    //task_init();
+    task_init( //  Create a new task and start it...
+        &mut NETWORK_TASK,  //  Task object will be saved here.
+        strn!("network"),   //  Name of task.
+        Some(network_task_func),  //  Function to execute when task starts.
+        NULL,      //  Argument to be passed to above function.
+        10,        //  Task priority: highest is 0, lowest is 255.  Main task is 127.
+        os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking.
+        NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
+        NETWORK_TASK_STACK_SIZE as u16
+    );
 
     pub fn task_init(
         arg1: *mut os_task,
-        arg2: *const ::cty::c_char,
+        arg2: *const ::cty::c_char,  //  TODO: strn!("network") -> b"network\0".as_ptr() as *const c_char
         arg3: os_task_func_t,
-        arg4: *mut ::cty::c_void,  //  TODO
+        arg4: *mut ::cty::c_void,    //  TODO: NULL -> to_ptr!(0) -> 0 as *mut ::cty::c_void
         arg5: u8,
         arg6: os_time_t,
         arg7: *mut os_stack_t,
