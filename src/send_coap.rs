@@ -17,7 +17,9 @@ use crate::mynewt::{
     kernel::os::{  
         self,             //  Import Mynewt OS functions
         os_task,          //  Import Mynewt OS types
-        os_stack_t
+        os_stack_t,
+        os_task_func_t,
+        os_time_t,
     },
     encoding::{
         json_context::{   //  Import Mynewt JSON Encoder Context
@@ -76,7 +78,11 @@ fn test_safe_wrap() {
         ) -> ::cty::c_int;
     }
     "-------------------------------------------------------------";
-    task_init( //  Create a new task and start it...
+
+    type Ptr = *mut ::cty::c_void;
+    const NULL: Ptr = 0 as Ptr;
+
+    task_init(              //  Create a new task and start it...
         &mut NETWORK_TASK,  //  Task object will be saved here.
         strn!("network"),   //  Name of task.
         Some(network_task_func),  //  Function to execute when task starts.
@@ -89,9 +95,9 @@ fn test_safe_wrap() {
 
     pub fn task_init(
         arg1: *mut os_task,
-        arg2: *const ::cty::c_char,  //  TODO: strn!("network") -> b"network\0".as_ptr() as *const c_char
+        arg2: &StrN,  //  TODO: strn!("network") -> b"network\0" (s.as_ptr() as *const c_char)
         arg3: os_task_func_t,
-        arg4: *mut ::cty::c_void,    //  TODO: NULL -> to_ptr!(0) -> 0 as *mut ::cty::c_void
+        arg4: Ptr,    //  TODO: NULL -> to_ptr!(0) -> 0 as Ptr (*mut ::cty::c_void)
         arg5: u8,
         arg6: os_time_t,
         arg7: *mut os_stack_t,
@@ -124,8 +130,6 @@ fn test_safe_wrap() {
             else { Err(res) }
         }
     }
-    type os_task_func_t = i8; ////
-    type os_time_t = i8; ////
 
         #[doc = " Initialize a task."]
         #[doc = ""]

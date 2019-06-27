@@ -3,6 +3,12 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input};
 
+#[proc_macro]
+pub fn strn(item: TokenStream) -> TokenStream {
+    //  Parse the macro input as a block of statements.
+    let input = parse_macro_input!(item as syn::???);
+}
+
 #[proc_macro_attribute]
 pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
     //println!("attr: {:#?}", attr);

@@ -11,19 +11,69 @@
     use cty::*;
     use crate::{coap, d, fill_zero};
     use crate::base::*;
-    use crate::mynewt::{result::*, kernel::os::{self, os_task, os_stack_t},
+    use crate::mynewt::{result::*,
+                        kernel::os::{self, os_task, os_stack_t,
+                                     os_task_func_t, os_time_t},
                         encoding::{json_context::{self, JSON_CONTEXT,
                                                   ToBytesOptionalNull},
                                    tinycbor},
                         libs::{mynewt_rust, sensor_network,
                                sensor_coap::{self, sensor_value}}};
+    /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
+    pub struct StrN {
+        /// Byte string terminated with null
+        bytestr: &'static [u8],
+    }
+    impl StrN {
+        /// Create a new byte string:
+        /// ```
+        /// StrN::new(b"network\0")
+        /// strn!("network")
+        /// ```
+        pub fn new(bs: &'static [u8]) -> StrN {
+            {
+                match (&bs.last(), &Some(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`"],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val)
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt)],
+                                                                                             }),
+                                                             &("src/send_coap.rs",
+                                                               59u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            let res = StrN{bytestr: bs,};
+            res
+        }
+    }
     fn test_safe_wrap() {
         "-------------------------------------------------------------";
         "-------------------------------------------------------------";
-        pub fn task_init(arg1: *mut os_task, arg2: *const ::cty::c_char,
-                         arg3: os_task_func_t, arg4: *mut ::cty::c_void,
-                         arg5: u8, arg6: os_time_t, arg7: *mut os_stack_t,
-                         arg8: u16) -> MynewtResult<()> {
+        type Ptr = *mut ::cty::c_void;
+        const NULL: Ptr = 0 as Ptr;
+        task_init(&mut NETWORK_TASK, (/*ERROR*/), Some(network_task_func),
+                  NULL, 10, os::OS_WAIT_FOREVER as u32,
+                  NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,
+                  NETWORK_TASK_STACK_SIZE as u16);
+        pub fn task_init(arg1: *mut os_task, arg2: &StrN,
+                         arg3: os_task_func_t, arg4: Ptr, arg5: u8,
+                         arg6: os_time_t, arg7: *mut os_stack_t, arg8: u16)
+         -> MynewtResult<()> {
             extern "C" {
                 pub fn os_task_init(arg1: *mut os_task,
                                     arg2: *const ::cty::c_char,
@@ -39,8 +89,6 @@
                 if res == 0 { Ok(()) } else { Err(res) }
             }
         }
-        type os_task_func_t = i8;
-        type os_time_t = i8;
         #[doc = " Initialize a task."]
         #[doc = ""]
         #[doc =
@@ -119,7 +167,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           175u32, 5u32))
+                                                           208u32, 5u32))
                         }
                     }
                 }
@@ -139,7 +187,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 187u32, 37u32))
+                                           "src/send_coap.rs", 220u32, 37u32))
             }
         };
         if unsafe {
@@ -167,7 +215,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               195u32, 75u32))
+                                                               228u32, 75u32))
                             }
                         }
                     }
@@ -200,7 +248,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               203u32, 78u32))
+                                                               236u32, 78u32))
                             }
                         }
                     }
@@ -260,7 +308,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 257u32,
+                                               "src/send_coap.rs", 290u32,
                                                53u32))
                 }
             };
@@ -285,7 +333,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           259u32, 5u32))
+                                                           292u32, 5u32))
                         }
                     }
                 }
@@ -301,7 +349,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 267u32, 80u32))
+                                           "src/send_coap.rs", 300u32, 80u32))
             }
         };
         let _payload =
@@ -521,7 +569,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 286u32, 60u32))
+                                           "src/send_coap.rs", 319u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -545,7 +593,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 315u32, 65u32))
+                                           "src/send_coap.rs", 348u32, 65u32))
             }
         };
         let _payload =
@@ -619,7 +667,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 326u32, 63u32))
+                                           "src/send_coap.rs", 359u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
