@@ -44,6 +44,18 @@ fn test_safe_wrap() {
     "-------------------------------------------------------------";
     #[mynewt_macros::safe_wrap(attr)]
     extern "C" {
+        pub fn os_task_init(
+            arg1: *mut os_task,
+            arg2: *const ::cty::c_char,
+            arg3: os_task_func_t,
+            arg4: *mut ::cty::c_void,
+            arg5: u8,
+            arg6: os_time_t,
+            arg7: *mut os_stack_t,
+            arg8: u16,
+        ) -> ::cty::c_int;
+    }
+    "-------------------------------------------------------------";
         #[doc = " Initialize a task."]
         #[doc = ""]
         #[doc = " This function initializes the task structure pointed to by t,"]
@@ -63,18 +75,7 @@ fn test_safe_wrap() {
         #[doc = " - __`stack_size`__: The overall size of the task's stack."]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero on failure."]
-        pub fn os_task_init(
-            arg1: *mut os_task,
-            arg2: *const ::cty::c_char,
-            arg3: os_task_func_t,
-            arg4: *mut ::cty::c_void,
-            arg5: u8,
-            arg6: os_time_t,
-            arg7: *mut os_stack_t,
-            arg8: u16,
-        ) -> ::cty::c_int;
-    }
-    "-------------------------------------------------------------";
+        fn dummy() {}
 }
 
 /// Run a block of CBOR encoding calls with error checking.

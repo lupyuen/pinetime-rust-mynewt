@@ -5,8 +5,12 @@ use syn::{parse_macro_input};
 
 #[proc_macro_attribute]
 pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
-    // println!("attr: {:#?}", attr);
-    // println!("item: {:#?}", item);
+    //println!("attr: {:#?}", attr);
+    //println!("item: {:#?}", item);
+    //  Parse the macro input as an extern "C" function declaration.
+    let input = parse_macro_input!(item as syn::ItemForeignMod);
+    println!("input: {:#?}", &input);
+
     "// Hello world".parse().unwrap()
 }
 
