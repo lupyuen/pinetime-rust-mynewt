@@ -38,6 +38,64 @@ use crate::mynewt::{
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+//  Testing
+
+fn test_safe_wrap() {
+    "-------------------------------------------------------------";
+    #[mynewt_macros::safe_wrap(attr)]
+    extern "C" {
+        #[doc = " Initialize a task."]
+        #[doc = ""]
+        #[doc = " This function initializes the task structure pointed to by t,"]
+        #[doc = " clearing and setting it's stack pointer, provides sane defaults"]
+        #[doc = " and sets the task as ready to run, and inserts it into the operating"]
+        #[doc = " system scheduler."]
+        #[doc = ""]
+        #[doc = " - __`t`__: The task to initialize"]
+        #[doc = " - __`name`__: The name of the task to initialize"]
+        #[doc = " - __`func`__: The task function to call"]
+        #[doc = " - __`arg`__: The argument to pass to this task function"]
+        #[doc = " - __`prio`__: The priority at which to run this task"]
+        #[doc = " - __`sanity_itvl`__: The time at which this task should check in with the"]
+        #[doc = "                    sanity task.  OS_WAIT_FOREVER means never check in"]
+        #[doc = "                    here."]
+        #[doc = " - __`stack_bottom`__: A pointer to the bottom of a task's stack"]
+        #[doc = " - __`stack_size`__: The overall size of the task's stack."]
+        #[doc = ""]
+        #[doc = " Return: 0 on success, non-zero on failure."]
+        pub fn os_task_init(
+            arg1: *mut os_task,
+            arg2: *const ::cty::c_char,
+            arg3: os_task_func_t,
+            arg4: *mut ::cty::c_void,
+            arg5: u8,
+            arg6: os_time_t,
+            arg7: *mut os_stack_t,
+            arg8: u16,
+        ) -> ::cty::c_int;
+    }
+    "-------------------------------------------------------------";
+}
+
+/// Run a block of CBOR encoding calls with error checking.
+fn test_run() {
+    "-------------------------------------------------------------";
+    mynewt_macros::run!({
+        cbor_encode_text_string(
+            encoder("Will be transformed", ""),
+            key_to_cstr(""),
+            cstr_len("")
+        );
+        encoder("Will NOT be transformed", "");
+        cbor_encode_int(
+            encoder("Will be transformed", ""),
+            0
+        );
+    });
+    "-------------------------------------------------------------";
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //  Network Task
 
 ///  Storage for Network Task: Mynewt task object will be saved here.

@@ -1,3 +1,710 @@
+attr: TokenStream [
+    Ident {
+        ident: "attr",
+        span: #0 bytes(300251..300255),
+    },
+]
+item: TokenStream [
+    Ident {
+        ident: "extern",
+        span: #0 bytes(300262..300268),
+    },
+    Literal { lit: Str_(C), suffix: None, span: Span { lo: BytePos(300269), hi: BytePos(300272), ctxt: #0 } },
+    Group {
+        delimiter: Brace,
+        stream: TokenStream [
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300283..300284),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300285..300288),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300289..300290),
+                    },
+                    Literal { lit: Str_( Initialize a task.), suffix: None, span: Span { lo: BytePos(300291), hi: BytePos(300312), ctxt: #0 } },
+                ],
+                span: #0 bytes(300284..300313),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300322..300323),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300324..300327),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300328..300329),
+                    },
+                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(300330), hi: BytePos(300332), ctxt: #0 } },
+                ],
+                span: #0 bytes(300323..300333),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300342..300343),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300344..300347),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300348..300349),
+                    },
+                    Literal { lit: Str_( This function initializes the task structure pointed to by t,), suffix: None, span: Span { lo: BytePos(300350), hi: BytePos(300414), ctxt: #0 } },
+                ],
+                span: #0 bytes(300343..300415),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300424..300425),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300426..300429),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300430..300431),
+                    },
+                    Literal { lit: Str_( clearing and setting it's stack pointer, provides sane defaults), suffix: None, span: Span { lo: BytePos(300432), hi: BytePos(300498), ctxt: #0 } },
+                ],
+                span: #0 bytes(300425..300499),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300508..300509),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300510..300513),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300514..300515),
+                    },
+                    Literal { lit: Str_( and sets the task as ready to run, and inserts it into the operating), suffix: None, span: Span { lo: BytePos(300516), hi: BytePos(300587), ctxt: #0 } },
+                ],
+                span: #0 bytes(300509..300588),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300597..300598),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300599..300602),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300603..300604),
+                    },
+                    Literal { lit: Str_( system scheduler.), suffix: None, span: Span { lo: BytePos(300605), hi: BytePos(300625), ctxt: #0 } },
+                ],
+                span: #0 bytes(300598..300626),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300635..300636),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300637..300640),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300641..300642),
+                    },
+                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(300643), hi: BytePos(300645), ctxt: #0 } },
+                ],
+                span: #0 bytes(300636..300646),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300655..300656),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300657..300660),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300661..300662),
+                    },
+                    Literal { lit: Str_( - __`t`__: The task to initialize), suffix: None, span: Span { lo: BytePos(300663), hi: BytePos(300699), ctxt: #0 } },
+                ],
+                span: #0 bytes(300656..300700),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300709..300710),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300711..300714),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300715..300716),
+                    },
+                    Literal { lit: Str_( - __`name`__: The name of the task to initialize), suffix: None, span: Span { lo: BytePos(300717), hi: BytePos(300768), ctxt: #0 } },
+                ],
+                span: #0 bytes(300710..300769),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300778..300779),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300780..300783),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300784..300785),
+                    },
+                    Literal { lit: Str_( - __`func`__: The task function to call), suffix: None, span: Span { lo: BytePos(300786), hi: BytePos(300828), ctxt: #0 } },
+                ],
+                span: #0 bytes(300779..300829),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300838..300839),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300840..300843),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300844..300845),
+                    },
+                    Literal { lit: Str_( - __`arg`__: The argument to pass to this task function), suffix: None, span: Span { lo: BytePos(300846), hi: BytePos(300904), ctxt: #0 } },
+                ],
+                span: #0 bytes(300839..300905),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300914..300915),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300916..300919),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300920..300921),
+                    },
+                    Literal { lit: Str_( - __`prio`__: The priority at which to run this task), suffix: None, span: Span { lo: BytePos(300922), hi: BytePos(300977), ctxt: #0 } },
+                ],
+                span: #0 bytes(300915..300978),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(300987..300988),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(300989..300992),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(300993..300994),
+                    },
+                    Literal { lit: Str_( - __`sanity_itvl`__: The time at which this task should check in with the), suffix: None, span: Span { lo: BytePos(300995), hi: BytePos(301071), ctxt: #0 } },
+                ],
+                span: #0 bytes(300988..301072),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(301081..301082),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(301083..301086),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(301087..301088),
+                    },
+                    Literal { lit: Str_(                    sanity task.  OS_WAIT_FOREVER means never check in), suffix: None, span: Span { lo: BytePos(301089), hi: BytePos(301161), ctxt: #0 } },
+                ],
+                span: #0 bytes(301082..301162),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(301171..301172),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(301173..301176),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(301177..301178),
+                    },
+                    Literal { lit: Str_(                    here.), suffix: None, span: Span { lo: BytePos(301179), hi: BytePos(301206), ctxt: #0 } },
+                ],
+                span: #0 bytes(301172..301207),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(301216..301217),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(301218..301221),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(301222..301223),
+                    },
+                    Literal { lit: Str_( - __`stack_bottom`__: A pointer to the bottom of a task's stack), suffix: None, span: Span { lo: BytePos(301224), hi: BytePos(301290), ctxt: #0 } },
+                ],
+                span: #0 bytes(301217..301291),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(301300..301301),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(301302..301305),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(301306..301307),
+                    },
+                    Literal { lit: Str_( - __`stack_size`__: The overall size of the task's stack.), suffix: None, span: Span { lo: BytePos(301308), hi: BytePos(301368), ctxt: #0 } },
+                ],
+                span: #0 bytes(301301..301369),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(301378..301379),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(301380..301383),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(301384..301385),
+                    },
+                    Literal { lit: Str_(), suffix: None, span: Span { lo: BytePos(301386), hi: BytePos(301388), ctxt: #0 } },
+                ],
+                span: #0 bytes(301379..301389),
+            },
+            Punct {
+                ch: '#',
+                spacing: Alone,
+                span: #0 bytes(301398..301399),
+            },
+            Group {
+                delimiter: Bracket,
+                stream: TokenStream [
+                    Ident {
+                        ident: "doc",
+                        span: #0 bytes(301400..301403),
+                    },
+                    Punct {
+                        ch: '=',
+                        spacing: Alone,
+                        span: #0 bytes(301404..301405),
+                    },
+                    Literal { lit: Str_( Return: 0 on success, non-zero on failure.), suffix: None, span: Span { lo: BytePos(301406), hi: BytePos(301451), ctxt: #0 } },
+                ],
+                span: #0 bytes(301399..301452),
+            },
+            Ident {
+                ident: "pub",
+                span: #0 bytes(301461..301464),
+            },
+            Ident {
+                ident: "fn",
+                span: #0 bytes(301465..301467),
+            },
+            Ident {
+                ident: "os_task_init",
+                span: #0 bytes(301468..301480),
+            },
+            Group {
+                delimiter: Parenthesis,
+                stream: TokenStream [
+                    Ident {
+                        ident: "arg1",
+                        span: #0 bytes(301494..301498),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301498..301499),
+                    },
+                    Punct {
+                        ch: '*',
+                        spacing: Alone,
+                        span: #0 bytes(301500..301501),
+                    },
+                    Ident {
+                        ident: "mut",
+                        span: #0 bytes(301501..301504),
+                    },
+                    Ident {
+                        ident: "os_task",
+                        span: #0 bytes(301505..301512),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301512..301513),
+                    },
+                    Ident {
+                        ident: "arg2",
+                        span: #0 bytes(301526..301530),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301530..301531),
+                    },
+                    Punct {
+                        ch: '*',
+                        spacing: Alone,
+                        span: #0 bytes(301532..301533),
+                    },
+                    Ident {
+                        ident: "const",
+                        span: #0 bytes(301533..301538),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301539..301541),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301539..301541),
+                    },
+                    Ident {
+                        ident: "cty",
+                        span: #0 bytes(301541..301544),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301544..301546),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301544..301546),
+                    },
+                    Ident {
+                        ident: "c_char",
+                        span: #0 bytes(301546..301552),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301552..301553),
+                    },
+                    Ident {
+                        ident: "arg3",
+                        span: #0 bytes(301566..301570),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301570..301571),
+                    },
+                    Ident {
+                        ident: "os_task_func_t",
+                        span: #0 bytes(301572..301586),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301586..301587),
+                    },
+                    Ident {
+                        ident: "arg4",
+                        span: #0 bytes(301600..301604),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301604..301605),
+                    },
+                    Punct {
+                        ch: '*',
+                        spacing: Alone,
+                        span: #0 bytes(301606..301607),
+                    },
+                    Ident {
+                        ident: "mut",
+                        span: #0 bytes(301607..301610),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301611..301613),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301611..301613),
+                    },
+                    Ident {
+                        ident: "cty",
+                        span: #0 bytes(301613..301616),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Joint,
+                        span: #0 bytes(301616..301618),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301616..301618),
+                    },
+                    Ident {
+                        ident: "c_void",
+                        span: #0 bytes(301618..301624),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301624..301625),
+                    },
+                    Ident {
+                        ident: "arg5",
+                        span: #0 bytes(301638..301642),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301642..301643),
+                    },
+                    Ident {
+                        ident: "u8",
+                        span: #0 bytes(301644..301646),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301646..301647),
+                    },
+                    Ident {
+                        ident: "arg6",
+                        span: #0 bytes(301660..301664),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301664..301665),
+                    },
+                    Ident {
+                        ident: "os_time_t",
+                        span: #0 bytes(301666..301675),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301675..301676),
+                    },
+                    Ident {
+                        ident: "arg7",
+                        span: #0 bytes(301689..301693),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301693..301694),
+                    },
+                    Punct {
+                        ch: '*',
+                        spacing: Alone,
+                        span: #0 bytes(301695..301696),
+                    },
+                    Ident {
+                        ident: "mut",
+                        span: #0 bytes(301696..301699),
+                    },
+                    Ident {
+                        ident: "os_stack_t",
+                        span: #0 bytes(301700..301710),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301710..301711),
+                    },
+                    Ident {
+                        ident: "arg8",
+                        span: #0 bytes(301724..301728),
+                    },
+                    Punct {
+                        ch: ':',
+                        spacing: Alone,
+                        span: #0 bytes(301728..301729),
+                    },
+                    Ident {
+                        ident: "u16",
+                        span: #0 bytes(301730..301733),
+                    },
+                    Punct {
+                        ch: ',',
+                        spacing: Alone,
+                        span: #0 bytes(301733..301734),
+                    },
+                ],
+                span: #0 bytes(301480..301744),
+            },
+            Punct {
+                ch: '-',
+                spacing: Joint,
+                span: #0 bytes(301745..301747),
+            },
+            Punct {
+                ch: '>',
+                spacing: Alone,
+                span: #0 bytes(301745..301747),
+            },
+            Punct {
+                ch: ':',
+                spacing: Joint,
+                span: #0 bytes(301748..301750),
+            },
+            Punct {
+                ch: ':',
+                spacing: Alone,
+                span: #0 bytes(301748..301750),
+            },
+            Ident {
+                ident: "cty",
+                span: #0 bytes(301750..301753),
+            },
+            Punct {
+                ch: ':',
+                spacing: Joint,
+                span: #0 bytes(301753..301755),
+            },
+            Punct {
+                ch: ':',
+                spacing: Alone,
+                span: #0 bytes(301753..301755),
+            },
+            Ident {
+                ident: "c_int",
+                span: #0 bytes(301755..301760),
+            },
+            Punct {
+                ch: ';',
+                spacing: Alone,
+                span: #0 bytes(301760..301761),
+            },
+        ],
+        span: #0 bytes(300273..301767),
+    },
+]
 #![feature(prelude_import)]
 #![no_std]
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
@@ -12,15 +719,22 @@
 #![feature(concat_idents)]
 //  Allow `concat_idents!()` macro used in `coap!()` macro
 #![feature(const_transmute)]
+//  Allow `transmute` for initialising Mynewt structs
+#![feature(proc_macro_hygiene)]
+//  Allow Procedural Macros like `run!()`
+#![feature(custom_attribute)]
 #[prelude_import]
 use ::core::prelude::v1::*;
 #[macro_use]
 extern crate core as core;
 #[macro_use]
 extern crate compiler_builtins as compiler_builtins;
-//  Allow `transmute` for initialising Mynewt structs
+//  Allow Custom Attributes like `#[safe_wrap]`
+
 extern crate cortex_m;
 //  Declare the external library `cortex_m`
+extern crate mynewt_macros;
+//  Declare the Mynewt Macros library, because it exports Procedural Macros
 
 //  Suppress warnings of unused constants and vars
 //  Allow type names to have non-camel case
@@ -28,7 +742,6 @@ extern crate cortex_m;
 #[allow(dead_code)]
 #[allow(non_camel_case_types)]
 #[allow(non_upper_case_globals)]
-///#[macro_use]        //  Allow macros from Rust module `mynewt`
 mod mynewt {
     //  Declare `mynewt/mod.rs` as Rust module `mynewt`
 
@@ -72,6 +785,7 @@ mod mynewt {
     pub mod macros {
         //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
         //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
+        //!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
         ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
         ///  `fill_zero!(os_task)` expands to
         ///  ```
@@ -942,16 +1656,16 @@ mod mynewt {
                                $ context , $ encoder , { $ ( $ tail ; ) * } )
                                } ;);
         #[macro_export]
-        macro_rules! run((
-                         $ context : ident , $ parent : ident , $ suffix :
-                         expr , { $ ( $ stmt : stmt ; ) * } ) => {
-                         concat ! (
-                         " >> " , stringify ! ( $ context ) , " >> " ,
-                         stringify ! ( $ parent ) , " >> " , stringify ! (
-                         $ suffix ) ) ; unsafe {
-                         $ crate :: run_stmts ! (
-                         $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ; }
-                         ;);
+        macro_rules! OLDrun((
+                            $ context : ident , $ parent : ident , $ suffix :
+                            expr , { $ ( $ stmt : stmt ; ) * } ) => {
+                            concat ! (
+                            " >> " , stringify ! ( $ context ) , " >> " ,
+                            stringify ! ( $ parent ) , " >> " , stringify ! (
+                            $ suffix ) ) ; unsafe {
+                            $ crate :: run_stmts ! (
+                            $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ;
+                            } ;);
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
@@ -1351,7 +2065,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn get_bit(&self, index: usize) -> bool {
-                    if true {
+                    if false {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -1369,7 +2083,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn set_bit(&mut self, index: usize, val: bool) {
-                    if true {
+                    if false {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -1387,7 +2101,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                    if true {
+                    if false {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -1396,7 +2110,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -1405,7 +2119,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -1430,7 +2144,7 @@ mod mynewt {
                 #[inline]
                 pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                            val: u64) {
-                    if true {
+                    if false {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -1439,7 +2153,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -1448,7 +2162,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -5627,7 +6341,7 @@ mod mynewt {
                     }
                     #[inline]
                     pub fn get_bit(&self, index: usize) -> bool {
-                        if true {
+                        if false {
                             if !(index / 8 < self.storage.as_ref().len()) {
                                 {
                                     ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -5645,7 +6359,7 @@ mod mynewt {
                     }
                     #[inline]
                     pub fn set_bit(&mut self, index: usize, val: bool) {
-                        if true {
+                        if false {
                             if !(index / 8 < self.storage.as_ref().len()) {
                                 {
                                     ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -5664,7 +6378,7 @@ mod mynewt {
                     #[inline]
                     pub fn get(&self, bit_offset: usize, bit_width: u8)
                      -> u64 {
-                        if true {
+                        if false {
                             if !(bit_width <= 64) {
                                 {
                                     ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -5673,7 +6387,7 @@ mod mynewt {
                                 }
                             };
                         };
-                        if true {
+                        if false {
                             if !(bit_offset / 8 < self.storage.as_ref().len())
                                {
                                 {
@@ -5683,7 +6397,7 @@ mod mynewt {
                                 }
                             };
                         };
-                        if true {
+                        if false {
                             if !((bit_offset + (bit_width as usize)) / 8 <=
                                      self.storage.as_ref().len()) {
                                 {
@@ -5708,7 +6422,7 @@ mod mynewt {
                     #[inline]
                     pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                                val: u64) {
-                        if true {
+                        if false {
                             if !(bit_width <= 64) {
                                 {
                                     ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -5717,7 +6431,7 @@ mod mynewt {
                                 }
                             };
                         };
-                        if true {
+                        if false {
                             if !(bit_offset / 8 < self.storage.as_ref().len())
                                {
                                 {
@@ -5727,7 +6441,7 @@ mod mynewt {
                                 }
                             };
                         };
-                        if true {
+                        if false {
                             if !((bit_offset + (bit_width as usize)) / 8 <=
                                      self.storage.as_ref().len()) {
                                 {
@@ -8617,7 +9331,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn get_bit(&self, index: usize) -> bool {
-                    if true {
+                    if false {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -8635,7 +9349,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn set_bit(&mut self, index: usize, val: bool) {
-                    if true {
+                    if false {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -8653,7 +9367,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                    if true {
+                    if false {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -8662,7 +9376,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -8671,7 +9385,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -8696,7 +9410,7 @@ mod mynewt {
                 #[inline]
                 pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                            val: u64) {
-                    if true {
+                    if false {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -8705,7 +9419,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -8714,7 +9428,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -9597,7 +10311,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn get_bit(&self, index: usize) -> bool {
-                    if true {
+                    if false {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -9615,7 +10329,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn set_bit(&mut self, index: usize, val: bool) {
-                    if true {
+                    if false {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -9633,7 +10347,7 @@ mod mynewt {
                 }
                 #[inline]
                 pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                    if true {
+                    if false {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -9642,7 +10356,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -9651,7 +10365,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -9676,7 +10390,7 @@ mod mynewt {
                 #[inline]
                 pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                            val: u64) {
-                    if true {
+                    if false {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -9685,7 +10399,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -9694,7 +10408,7 @@ mod mynewt {
                             }
                         };
                     };
-                    if true {
+                    if false {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -10852,6 +11566,22 @@ mod send_coap {
                                    tinycbor},
                         libs::{mynewt_rust, sensor_network,
                                sensor_coap::{self, sensor_value}}};
+    fn test_safe_wrap() {
+        "-------------------------------------------------------------";
+        "-------------------------------------------------------------";
+    }
+    /// Run a block of CBOR encoding calls with error checking.
+    fn test_run() {
+        "-------------------------------------------------------------";
+        let res =
+            cbor_encode_text_string(encoder("Will be transformed", ""),
+                                    key_to_cstr(""), cstr_len(""));
+        context.check_error(res);
+        encoder("Will NOT be transformed", "");
+        let res = cbor_encode_int(encoder("Will be transformed", ""), 0);
+        context.check_error(res);
+        "-------------------------------------------------------------";
+    }
     ///  Storage for Network Task: Mynewt task object will be saved here.
     static mut NETWORK_TASK: os_task =
         unsafe {
@@ -10903,7 +11633,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           68u32, 5u32))
+                                                           126u32, 5u32))
                         }
                     }
                 }
@@ -10923,7 +11653,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 80u32, 37u32))
+                                           "src/send_coap.rs", 138u32, 37u32))
             }
         };
         if unsafe {
@@ -10951,7 +11681,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               88u32, 75u32))
+                                                               146u32, 75u32))
                             }
                         }
                     }
@@ -10984,7 +11714,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               96u32, 78u32))
+                                                               154u32, 78u32))
                             }
                         }
                     }
@@ -11044,7 +11774,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 150u32,
+                                               "src/send_coap.rs", 208u32,
                                                53u32))
                 }
             };
@@ -11069,7 +11799,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           152u32, 5u32))
+                                                           210u32, 5u32))
                         }
                     }
                 }
@@ -11085,7 +11815,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 160u32, 80u32))
+                                           "src/send_coap.rs", 218u32, 80u32))
             }
         };
         let _payload =
@@ -11305,7 +12035,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 179u32, 60u32))
+                                           "src/send_coap.rs", 237u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -11329,7 +12059,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 208u32, 65u32))
+                                           "src/send_coap.rs", 266u32, 65u32))
             }
         };
         let _payload =
@@ -11360,19 +12090,7 @@ mod send_coap {
                                     sensor_val.key.to_bytes_optional_nul();
                                 let value = val as i64;
                                 "-------------------------------------------------------------";
-                                " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
-                                unsafe {
-                                    let _res =
-                                        tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
-                                                                                               "_map"),
-                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                    let _res =
-                                        tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
-                                                                                       "_map"),
-                                                                  value);
-                                    let _zzz = "aaa";
-                                };
+                                (/*ERROR*/);
                                 "-------------------------------------------------------------";
                                 unsafe {
                                     let encoder =
@@ -11411,7 +12129,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 219u32, 63u32))
+                                           "src/send_coap.rs", 277u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

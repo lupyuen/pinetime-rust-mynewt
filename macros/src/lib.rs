@@ -3,11 +3,18 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input};
 
+#[proc_macro_attribute]
+pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
+    println!("attr: {:#?}", attr);
+    println!("item: {:#?}", item);
+    "// Hello world".parse().unwrap()
+}
+
 /// Run a block of CBOR encoding calls with error checking.
 #[proc_macro]
 pub fn run(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a block of statements.
-    let input = syn::parse_macro_input!(item as syn::Block);
+    let input = parse_macro_input!(item as syn::Block);
     let mut res = String::new();
     for stmt in input.stmts {  //  For every statement in the block...
         //  Copy the statement into a string to prevent borrowing problems later.
@@ -60,14 +67,3 @@ pub fn run(item: TokenStream) -> TokenStream {
 //  println!("expr2: {:#?}", quote! { #expr2 });
 //  println!("ident: {:#?}", quote! { #expr2.func });       
 //  if f.ident == "aaa" { println!("f: {:#?}", quote! { #f }); } 
-
-#[cfg(test)]
-mod tests {
-    // Note this useful idiom: importing names from outer (for mod tests) scope.
-    use super::*;
-
-    #[test]
-    fn test1() {
-        assert_eq!(1, 1);
-    }
-}

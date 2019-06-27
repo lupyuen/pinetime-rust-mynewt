@@ -17,6 +17,22 @@
                                    tinycbor},
                         libs::{mynewt_rust, sensor_network,
                                sensor_coap::{self, sensor_value}}};
+    fn test_safe_wrap() {
+        "-------------------------------------------------------------";
+        "-------------------------------------------------------------";
+    }
+    /// Run a block of CBOR encoding calls with error checking.
+    fn test_run() {
+        "-------------------------------------------------------------";
+        let res =
+            cbor_encode_text_string(encoder("Will be transformed", ""),
+                                    key_to_cstr(""), cstr_len(""));
+        context.check_error(res);
+        encoder("Will NOT be transformed", "");
+        let res = cbor_encode_int(encoder("Will be transformed", ""), 0);
+        context.check_error(res);
+        "-------------------------------------------------------------";
+    }
     ///  Storage for Network Task: Mynewt task object will be saved here.
     static mut NETWORK_TASK: os_task =
         unsafe {
@@ -68,7 +84,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           68u32, 5u32))
+                                                           126u32, 5u32))
                         }
                     }
                 }
@@ -88,7 +104,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 80u32, 37u32))
+                                           "src/send_coap.rs", 138u32, 37u32))
             }
         };
         if unsafe {
@@ -116,7 +132,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               88u32, 75u32))
+                                                               146u32, 75u32))
                             }
                         }
                     }
@@ -149,7 +165,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               96u32, 78u32))
+                                                               154u32, 78u32))
                             }
                         }
                     }
@@ -209,7 +225,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 150u32,
+                                               "src/send_coap.rs", 208u32,
                                                53u32))
                 }
             };
@@ -234,7 +250,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           152u32, 5u32))
+                                                           210u32, 5u32))
                         }
                     }
                 }
@@ -250,7 +266,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 160u32, 80u32))
+                                           "src/send_coap.rs", 218u32, 80u32))
             }
         };
         let _payload =
@@ -470,7 +486,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 179u32, 60u32))
+                                           "src/send_coap.rs", 237u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -494,7 +510,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 208u32, 65u32))
+                                           "src/send_coap.rs", 266u32, 65u32))
             }
         };
         let _payload =
@@ -525,19 +541,7 @@
                                     sensor_val.key.to_bytes_optional_nul();
                                 let value = val as i64;
                                 "-------------------------------------------------------------";
-                                " >> JSON_CONTEXT >> JSON_CONTEXT >> \"_map\"";
-                                unsafe {
-                                    let _res =
-                                        tinycbor::cbor_encode_text_string(JSON_CONTEXT.encoder("JSON_CONTEXT",
-                                                                                               "_map"),
-                                                                          JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                          JSON_CONTEXT.cstr_len(key_with_opt_null));
-                                    let _res =
-                                        tinycbor::cbor_encode_int(JSON_CONTEXT.encoder("JSON_CONTEXT",
-                                                                                       "_map"),
-                                                                  value);
-                                    let _zzz = "aaa";
-                                };
+                                (/*ERROR*/);
                                 "-------------------------------------------------------------";
                                 unsafe {
                                     let encoder =
@@ -576,7 +580,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 219u32, 63u32))
+                                           "src/send_coap.rs", 277u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

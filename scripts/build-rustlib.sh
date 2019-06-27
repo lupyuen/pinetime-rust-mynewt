@@ -9,49 +9,21 @@ extract_module=send_coap
 #  rust_build_profile=debug
 rust_build_profile=release
 
-cortex_m=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcortex_m-*.rlib | head -1`
-cstr_core=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcstr_core-*.rlib | head -1`
-cty=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libcty-*.rlib | head -1`
-memchr=`ls target/thumbv7m-none-eabi/$rust_build_profile/deps/libmemchr-*.rlib | head -1`
-
-#  Compile with macros expanded.
-#  -Z                       trace-macros -- for every macro invocation, print its name and arguments
-#     -Z                       debug-macros -- emit line numbers debug info inside macros
-#     -Z                  keep-hygiene-data -- don't clear the hygiene data after analysis
-# -Z                       unpretty=val -- Present the input source, unstable (and less-pretty) variants;
-#     valid types are any of the types for `--pretty`, as well as:
-#     `expanded`, `expanded,identified`,
-#     `expanded,hygiene` (with internal representations),
+#  Rust build options
+if [ "$rust_build_profile" == 'release' ]; then
+    # Build for release
+    rust_build_options=--release 
+else
+    # Build for debug
+    rust_build_options= 
+fi
 
 set +e  #  Ignore errors
-rustc \
---edition=2018 \
---crate-name mylib src/lib.rs \
---color always \
---crate-type lib \
---emit=dep-info,metadata,link \
--C panic=abort \
--C debuginfo=2 \
--C metadata=ac95891f38e7979c \
--C extra-filename=-ac95891f38e7979c \
---out-dir target/thumbv7m-none-eabi/$rust_build_profile/deps \
---target thumbv7m-none-eabi \
--C incremental=target/thumbv7m-none-eabi/$rust_build_profile/incremental \
--L dependency=target/thumbv7m-none-eabi/$rust_build_profile/deps \
--L dependency=target/$rust_build_profile/deps \
---extern cortex_m=$cortex_m \
---extern cstr_core=$cstr_core \
---extern cty=$cty \
---extern memchr=$memchr \
--C link-arg=-Tlink.x \
--Z unstable-options --pretty expanded \
-> logs/libmylib-expanded.rs
 
-# -Z unpretty=expanded,identified \
-# `expanded,hygiene` (with internal representations),
-# -Z trace-macros \
-# -Z debug-macros \
-# -Z keep-hygiene-data \
+#  Compile the Rust code with expanded macros.
+cargo rustc -v $rust_build_options \
+    -- -Z unstable-options --pretty expanded \
+    > logs/libmylib-expanded.rs
 
 set -e  #  Stop on errors
 
