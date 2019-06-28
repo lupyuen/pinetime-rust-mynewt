@@ -50,26 +50,37 @@ struct TransformedArg<'a> {
 }
 
 /// Transform the extern arg for: Wrap declaration, Validation statement and Call expression.
-fn transform_arg(arg: ArgCaptured) -> TransformedArg {
+fn transform_arg<'a>(arg: ArgCaptured) -> TransformedArg<'a> {
     //  `arg` contains `pat : ty`
     //println!("arg: {:#?}", arg);
     let ArgCaptured{ pat, ty, .. } = arg;
-    println!("pat: {}", quote! { #pat });
-    println!("ty: {}", quote! { #ty });
+    println!("pat: {}", quote!{ #pat });
+    println!("ty: {}",  quote!{ #ty });
+    let pat_str = Box::new(quote!{ #pat }.to_string());
+    let ty_str  = Box::new(quote!{ #ty  }.to_string());
+    TransformedArg {
+        ident:           pat_str,
+        extern_type:     ty_str,
+        wrap_type:       ty_str,
+        validation_stmt: "Strn::validate_bytestr(name.bytestr)",
+        call_expr:       pat_str,
+    }
 }
 
 /// Given a list of extern function arg declarations, return the transformed args.
-fn transform_arg_list(args: Punctuated<FnArg, Comma>) {
+fn transform_arg_list<'a>(args: Punctuated<FnArg, Comma>) -> Vec<TransformedArg<'a>>{
     //println!("args: {:#?}", args);
+    let mut res = Vec::new();
     for cap in args {
         //println!("cap: {:#?}", cap);
         if let Captured(arg) = cap {
             //  `arg` contains `pat : ty`
             //println!("arg: {:#?}", arg);
             let arg_transformed = transform_arg(arg);
+            res.push(arg_transformed);
         } else { assert!(false); }
-        assert!(false);////
     }
+    res
 }
 
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
@@ -99,7 +110,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
             //  Get the function args.
             let args = foreign_fn.decl.inputs;
-            transform_arg_list(args);
+            let transformed_args = transform_arg_list(args);
 
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
