@@ -1,6 +1,6 @@
 //! Mynewt Macros
 //! ```
-//! cargo rustc -- -Z unstable-options --pretty expanded
+//! clear ; cargo rustc -- -Z unstable-options --pretty expanded | head -20
 //! ```
 
 //  Increase recursion limit to prevent quote!{} errors
@@ -20,17 +20,53 @@ use syn::{
     token::Comma,
 };
 
-/// Given a list of extern function arg definitions, return the parsed args.
-fn parse_args(args: Punctuated<FnArg, Comma>) {
+/*
+t: Out<os_task>,  //  TODO: *mut os_task
+name: &Strn,      //  TODO: *const ::cty::c_char
+arg: Ptr,         //  TODO: *mut ::cty::c_void
+stack_bottom: Out<[os_stack_t]>,  //  TODO: *mut os_stack_t
+stack_size: usize,                //  TODO: u16
+) -> MynewtResult<()> { //  TODO: ::cty::c_int;
+
+Strn::validate_bytestr(name.bytestr);  //  TODO
+
+name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO
+stack_bottom.as_ptr() as *mut os_stack_t,  //  TODO
+stack_size as u16       //  TODO
+*/
+
+/// Transformed arg
+struct TransformedArg<'a> {
+    /// Identifier e.g. `name`
+    ident: &'a str,
+    /// Original extern type e.g. `*const ::cty::c_char`
+    extern_type: &'a str,
+    /// Wrapped type to be exposed e.g. `&Strn`
+    wrap_type: &'a str,
+    /// Validation statement e.g. `Strn::validate_bytestr(name.bytestr)`
+    validation_stmt: &'a str,
+    /// Call expression e.g. `name.bytestr.as_ptr() as *const ::cty::c_char`
+    call_expr: &'a str,
+}
+
+/// Transform the extern arg for: Wrap declaration, Validation statement and Call expression.
+fn transform_arg(arg: ArgCaptured) -> TransformedArg {
+    //  `arg` contains `pat : ty`
+    //println!("arg: {:#?}", arg);
+    let ArgCaptured{ pat, ty, .. } = arg;
+    println!("pat: {}", quote! { #pat });
+    println!("ty: {}", quote! { #ty });
+}
+
+/// Given a list of extern function arg declarations, return the transformed args.
+fn transform_arg_list(args: Punctuated<FnArg, Comma>) {
     //println!("args: {:#?}", args);
     for cap in args {
         //println!("cap: {:#?}", cap);
         if let Captured(arg) = cap {
             //  `arg` contains `pat : ty`
             //println!("arg: {:#?}", arg);
-            let ArgCaptured{ pat, ty, .. } = arg;
-            println!("pat: {}", quote! { #pat });
-            println!("ty: {}", quote! { #ty });
+            let arg_transformed = transform_arg(arg);
         } else { assert!(false); }
         assert!(false);////
     }
@@ -63,7 +99,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
             //  Get the function args.
             let args = foreign_fn.decl.inputs;
-            parse_args(args);
+            transform_arg_list(args);
 
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
