@@ -24,6 +24,7 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
         if let syn::ForeignItem::Fn(foreign_fn) = foreign_item {
             //  println!("foreign_fn: {:#?}", foreign_fn);
             let expanded = quote! {
+                //  "----------Insert: `pub fn task_init() -> {`----------";
                 pub fn zzztask_init(
                     t: &mut os_task,  //  TODO: *mut os_task
                     name: &Strn,      //  TODO: *const ::cty::c_char
@@ -34,13 +35,13 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
                     stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
                     stack_size: usize,                //  TODO: u16
                 ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
-                    "-----Insert: `extern C { pub fn ... }`";
+                    "----------Insert: `extern C { pub fn ... }`----------";
                     extern "C" {
                         #foreign_item_tokens
                     }
                     Strn::vallidate_bytestr(name.bytestr);  //  TODO
                     unsafe {
-                        let res = zzzos_task_init(
+                        let res = os_task_init(
                             t,
                             name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO
                             func,
@@ -61,7 +62,7 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
         } else { assert!(false) }
         break;
     }
-    "// Hello world".parse().unwrap()
+    "fn zzz() {}".parse().unwrap()
 }
 
 /// Given a static mutable variable, return an unsafe mutable pointer that's suitable for passing to Mynewt APIs for writing output.

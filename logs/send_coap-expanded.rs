@@ -189,6 +189,32 @@
     fn test_safe_wrap() -> MynewtResult<()> {
         let _test_local = Strn{bytestr: b"hello\0",};
         "-------------------------------------------------------------";
+        pub fn zzztask_init(t: &mut os_task, name: &Strn,
+                            func: os_task_func_t, arg: Ptr, prio: u8,
+                            sanity_itvl: os_time_t,
+                            stack_bottom: &mut [os_stack_t],
+                            stack_size: usize) -> MynewtResult<()> {
+            "----------Insert: `extern C { pub fn ... }`----------";
+            extern "C" {
+                pub fn os_task_init(arg1: *mut os_task,
+                                    arg2: *const ::cty::c_char,
+                                    arg3: os_task_func_t,
+                                    arg4: *mut ::cty::c_void, arg5: u8,
+                                    arg6: os_time_t, arg7: *mut os_stack_t,
+                                    arg8: u16) -> ::cty::c_int;
+            }
+            Strn::vallidate_bytestr(name.bytestr);
+            unsafe {
+                let res =
+                    os_task_init(t,
+                                 name.bytestr.as_ptr() as
+                                     *const ::cty::c_char, func, arg, prio,
+                                 sanity_itvl,
+                                 stack_bottom.as_ptr() as *mut os_stack_t,
+                                 stack_size as u16);
+                if res == 0 { Ok(()) } else { Err(MynewtError::from(res)) }
+            }
+        }
         "-------------------------------------------------------------";
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;

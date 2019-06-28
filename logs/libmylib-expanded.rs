@@ -1,389 +1,18 @@
-item: Fn(
-    ForeignItemFn {
-        attrs: [],
-        vis: Public(
-            VisPublic {
-                pub_token: Pub,
-            },
-        ),
-        ident: Ident {
-            ident: "os_task_init",
-            span: #0 bytes(301369..301381),
-        },
-        decl: FnDecl {
-            fn_token: Fn,
-            generics: Generics {
-                lt_token: None,
-                params: [],
-                gt_token: None,
-                where_clause: None,
-            },
-            paren_token: Paren,
-            inputs: [
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg1",
-                                    span: #0 bytes(301395..301399),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Ptr(
-                            TypePtr {
-                                star_token: Star,
-                                const_token: None,
-                                mutability: Some(
-                                    Mut,
-                                ),
-                                elem: Path(
-                                    TypePath {
-                                        qself: None,
-                                        path: Path {
-                                            leading_colon: None,
-                                            segments: [
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "os_task",
-                                                        span: #0 bytes(301406..301413),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                ),
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg2",
-                                    span: #0 bytes(301427..301431),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Ptr(
-                            TypePtr {
-                                star_token: Star,
-                                const_token: Some(
-                                    Const,
-                                ),
-                                mutability: None,
-                                elem: Path(
-                                    TypePath {
-                                        qself: None,
-                                        path: Path {
-                                            leading_colon: Some(
-                                                Colon2,
-                                            ),
-                                            segments: [
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "cty",
-                                                        span: #0 bytes(301442..301445),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                                Colon2,
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "c_char",
-                                                        span: #0 bytes(301447..301453),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                ),
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg3",
-                                    span: #0 bytes(301467..301471),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Path(
-                            TypePath {
-                                qself: None,
-                                path: Path {
-                                    leading_colon: None,
-                                    segments: [
-                                        PathSegment {
-                                            ident: Ident {
-                                                ident: "os_task_func_t",
-                                                span: #0 bytes(301473..301487),
-                                            },
-                                            arguments: None,
-                                        },
-                                    ],
-                                },
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg4",
-                                    span: #0 bytes(301501..301505),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Ptr(
-                            TypePtr {
-                                star_token: Star,
-                                const_token: None,
-                                mutability: Some(
-                                    Mut,
-                                ),
-                                elem: Path(
-                                    TypePath {
-                                        qself: None,
-                                        path: Path {
-                                            leading_colon: Some(
-                                                Colon2,
-                                            ),
-                                            segments: [
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "cty",
-                                                        span: #0 bytes(301514..301517),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                                Colon2,
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "c_void",
-                                                        span: #0 bytes(301519..301525),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                ),
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg5",
-                                    span: #0 bytes(301539..301543),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Path(
-                            TypePath {
-                                qself: None,
-                                path: Path {
-                                    leading_colon: None,
-                                    segments: [
-                                        PathSegment {
-                                            ident: Ident {
-                                                ident: "u8",
-                                                span: #0 bytes(301545..301547),
-                                            },
-                                            arguments: None,
-                                        },
-                                    ],
-                                },
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg6",
-                                    span: #0 bytes(301561..301565),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Path(
-                            TypePath {
-                                qself: None,
-                                path: Path {
-                                    leading_colon: None,
-                                    segments: [
-                                        PathSegment {
-                                            ident: Ident {
-                                                ident: "os_time_t",
-                                                span: #0 bytes(301567..301576),
-                                            },
-                                            arguments: None,
-                                        },
-                                    ],
-                                },
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg7",
-                                    span: #0 bytes(301590..301594),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Ptr(
-                            TypePtr {
-                                star_token: Star,
-                                const_token: None,
-                                mutability: Some(
-                                    Mut,
-                                ),
-                                elem: Path(
-                                    TypePath {
-                                        qself: None,
-                                        path: Path {
-                                            leading_colon: None,
-                                            segments: [
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "os_stack_t",
-                                                        span: #0 bytes(301601..301611),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                ),
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-                Captured(
-                    ArgCaptured {
-                        pat: Ident(
-                            PatIdent {
-                                by_ref: None,
-                                mutability: None,
-                                ident: Ident {
-                                    ident: "arg8",
-                                    span: #0 bytes(301625..301629),
-                                },
-                                subpat: None,
-                            },
-                        ),
-                        colon_token: Colon,
-                        ty: Path(
-                            TypePath {
-                                qself: None,
-                                path: Path {
-                                    leading_colon: None,
-                                    segments: [
-                                        PathSegment {
-                                            ident: Ident {
-                                                ident: "u16",
-                                                span: #0 bytes(301631..301634),
-                                            },
-                                            arguments: None,
-                                        },
-                                    ],
-                                },
-                            },
-                        ),
-                    },
-                ),
-                Comma,
-            ],
-            variadic: None,
-            output: Type(
-                RArrow,
-                Path(
-                    TypePath {
-                        qself: None,
-                        path: Path {
-                            leading_colon: Some(
-                                Colon2,
-                            ),
-                            segments: [
-                                PathSegment {
-                                    ident: Ident {
-                                        ident: "cty",
-                                        span: #0 bytes(301651..301654),
-                                    },
-                                    arguments: None,
-                                },
-                                Colon2,
-                                PathSegment {
-                                    ident: Ident {
-                                        ident: "c_int",
-                                        span: #0 bytes(301656..301661),
-                                    },
-                                    arguments: None,
-                                },
-                            ],
-                        },
-                    },
-                ),
-            ),
-        },
-        semi_token: Semi,
-    },
-)
+expanded: pub fn zzztask_init (
+t : & mut os_task , name : & Strn , func : os_task_func_t , arg : Ptr , prio :
+u8 , sanity_itvl : os_time_t , stack_bottom : & mut [ os_stack_t ] ,
+stack_size : usize , ) -> MynewtResult < (  ) > {
+"----------Insert: `extern C { pub fn ... }`----------" ; extern "C" {
+pub fn os_task_init (
+arg1 : * mut os_task , arg2 : * const :: cty :: c_char , arg3 : os_task_func_t
+, arg4 : * mut :: cty :: c_void , arg5 : u8 , arg6 : os_time_t , arg7 : * mut
+os_stack_t , arg8 : u16 , ) -> :: cty :: c_int ; } Strn :: vallidate_bytestr (
+name . bytestr ) ; unsafe {
+let res = os_task_init (
+t , name . bytestr . as_ptr (  ) as * const :: cty :: c_char , func , arg ,
+prio , sanity_itvl , stack_bottom . as_ptr (  ) as * mut os_stack_t ,
+stack_size as u16 ) ; if res == 0 { Ok ( (  ) ) } else {
+Err ( MynewtError :: from ( res ) ) } } }
 #![feature(prelude_import)]
 #![no_std]
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
@@ -11391,6 +11020,32 @@ mod send_coap {
     fn test_safe_wrap() -> MynewtResult<()> {
         let _test_local = Strn{bytestr: b"hello\0",};
         "-------------------------------------------------------------";
+        pub fn zzztask_init(t: &mut os_task, name: &Strn,
+                            func: os_task_func_t, arg: Ptr, prio: u8,
+                            sanity_itvl: os_time_t,
+                            stack_bottom: &mut [os_stack_t],
+                            stack_size: usize) -> MynewtResult<()> {
+            "----------Insert: `extern C { pub fn ... }`----------";
+            extern "C" {
+                pub fn os_task_init(arg1: *mut os_task,
+                                    arg2: *const ::cty::c_char,
+                                    arg3: os_task_func_t,
+                                    arg4: *mut ::cty::c_void, arg5: u8,
+                                    arg6: os_time_t, arg7: *mut os_stack_t,
+                                    arg8: u16) -> ::cty::c_int;
+            }
+            Strn::vallidate_bytestr(name.bytestr);
+            unsafe {
+                let res =
+                    os_task_init(t,
+                                 name.bytestr.as_ptr() as
+                                     *const ::cty::c_char, func, arg, prio,
+                                 sanity_itvl,
+                                 stack_bottom.as_ptr() as *mut os_stack_t,
+                                 stack_size as u16);
+                if res == 0 { Ok(()) } else { Err(MynewtError::from(res)) }
+            }
+        }
         "-------------------------------------------------------------";
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;
