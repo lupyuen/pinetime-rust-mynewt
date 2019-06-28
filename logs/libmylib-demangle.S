@@ -2196,7 +2196,7 @@ _ZN5mylib4base13console_print17h86a834b313ce42ceE():
   c6:	f7ff fffe 	bl	0 <console_flush>
   ca:	2000      	movs	r0, #0
 _ZN5mylib9send_coap16send_sensor_data17hf7fec4a83b716792E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:311
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:312
 pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"send_sensor_data\n");
     //  TODO: Remove val
@@ -2204,18 +2204,18 @@ pub fn send_sensor_data(sensor_val: &SensorValue, sensor_node: &CStr) -> MynewtR
     //  For Sensor Node: Transmit the sensor data to the Collector Node as CBOR.
     if unsafe { sensor_network::should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
   cc:	4631      	mov	r1, r6
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:309
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:310
     let mut val = fill_zero!(sensor_value);
   ce:	e9cd 0006 	strd	r0, r0, [sp, #24]
   d2:	e9cd 0004 	strd	r0, r0, [sp, #16]
   d6:	a804      	add	r0, sp, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:311
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:312
     if unsafe { sensor_network::should_send_to_collector(&mut val, sensor_node.as_ptr()) } { 
   d8:	f7ff fffe 	bl	0 <should_send_to_collector>
   dc:	2800      	cmp	r0, #0
   de:	d04c      	beq.n	17a <mylib::listen_sensor::read_temperature+0x17a>
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:390
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:391
 ///  to be transmitted.  Return 0 if successful, `SYS_EAGAIN` if network is not ready yet.
 ///  The CoAP payload needs to be very compact (under 32 bytes) so it will be encoded in CBOR like this:
 ///  `{ t: 2870 }`
@@ -2227,7 +2227,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
   e8:	7820      	ldrb	r0, [r4, #0]
   ea:	2801      	cmp	r0, #1
   ec:	f040 8133 	bne.w	356 <mylib::listen_sensor::read_temperature+0x356>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:395
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:396
 
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -2236,7 +2236,7 @@ fn send_sensor_data_to_collector(sensor_val: &SensorValue, _node_id: &CStr) -> M
   f0:	f7ff fffe 	bl	0 <init_collector_post>
   f4:	2800      	cmp	r0, #0
   f6:	f000 81bf 	beq.w	478 <mylib::listen_sensor::read_temperature+0x478>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:398
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:399
 
     //  Compose the CoAP Payload in CBOR using the `coap!()` macro.
     let _payload = coap!(@cbor {
@@ -2254,7 +2254,7 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  11c:	f824 0f01 	strh.w	r0, [r4, #1]!
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:398
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:399
  120:	f240 0000 	movw	r0, #0
  124:	f2c0 0000 	movt	r0, #0
  128:	4621      	mov	r1, r4
@@ -2266,7 +2266,7 @@ _ZN5mylib6mynewt8encoding12json_context11JsonContext12check_result17hd052d2fa06a
  130:	9008      	str	r0, [sp, #32]
  132:	f040 81a8 	bne.w	486 <mylib::listen_sensor::read_temperature+0x486>
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:398
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:399
  136:	f240 0000 	movw	r0, #0
  13a:	4642      	mov	r2, r8
  13c:	f2c0 0000 	movt	r0, #0
@@ -2279,13 +2279,13 @@ _ZN5mylib6mynewt8encoding12json_context11JsonContext12check_result17hd052d2fa06a
  14a:	9008      	str	r0, [sp, #32]
  14c:	f040 81b4 	bne.w	4b8 <mylib::listen_sensor::read_temperature+0x4b8>
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:398
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:399
  150:	f240 0000 	movw	r0, #0
  154:	f240 0100 	movw	r1, #0
  158:	f2c0 0000 	movt	r0, #0
  15c:	f2c0 0100 	movt	r1, #0
  160:	f7ff fffe 	bl	0 <cbor_encoder_close_container>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:406
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:407
     });
 
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
@@ -2316,14 +2316,14 @@ _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceInde
  17e:	f1ba 0f00 	cmp.w	sl, #0
  182:	f000 8115 	beq.w	3b0 <mylib::listen_sensor::read_temperature+0x3b0>
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:339
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:340
     assert_ne!(node_id.to_bytes()[0], 0);
  186:	2800      	cmp	r0, #0
  188:	f000 8116 	beq.w	3b8 <mylib::listen_sensor::read_temperature+0x3b8>
  18c:	7831      	ldrb	r1, [r6, #0]
  18e:	2900      	cmp	r1, #0
  190:	f000 811b 	beq.w	3ca <mylib::listen_sensor::read_temperature+0x3ca>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:340
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:341
     if unsafe { !NETWORK_IS_READY } { return Err(MynewtError::SYS_EAGAIN); }  //  If network is not ready, tell caller (Sensor Listener) to try later.
  194:	f240 0700 	movw	r7, #0
  198:	f2c0 0700 	movt	r7, #0
@@ -2332,26 +2332,26 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
  1a0:	f040 80d9 	bne.w	356 <mylib::listen_sensor::read_temperature+0x356>
  1a4:	a901      	add	r1, sp, #4
  1a6:	e881 0121 	stmia.w	r1, {r0, r5, r8}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:341
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:342
     let device_id_ptr = unsafe { sensor_network::get_device_id() };
  1aa:	f7ff fffe 	bl	0 <get_device_id>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:342
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:343
     let device_id: &CStr = unsafe { CStr::from_ptr(device_id_ptr) };
  1ae:	f7ff fffe 	bl	0 <cstr_core::CStr::from_ptr>
  1b2:	4683      	mov	fp, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:347
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:348
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
  1b4:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:342
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:343
     let device_id: &CStr = unsafe { CStr::from_ptr(device_id_ptr) };
  1b6:	4688      	mov	r8, r1
  1b8:	2400      	movs	r4, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:347
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:348
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
  1ba:	f7ff fffe 	bl	0 <init_server_post>
  1be:	2800      	cmp	r0, #0
  1c0:	f000 81a7 	beq.w	512 <mylib::listen_sensor::read_temperature+0x512>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
     let _payload = coap!(@json {
  1c4:	f7ff fffe 	bl	0 <json_rep_start_root_object>
  1c8:	f107 0901 	add.w	r9, r7, #1
@@ -2375,25 +2375,25 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  1f6:	8881      	ldrh	r1, [r0, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  1f8:	462a      	mov	r2, r5
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  1fa:	f8a7 1025 	strh.w	r1, [r7, #37]	; 0x25
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  1fe:	f240 0100 	movw	r1, #0
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  202:	6800      	ldr	r0, [r0, #0]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  204:	f2c0 0100 	movt	r1, #0
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  208:	f8c7 0021 	str.w	r0, [r7, #33]	; 0x21
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  20c:	4648      	mov	r0, r9
  20e:	f7ff fffe 	bl	0 <json_helper_set_text_string>
 _ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
@@ -2430,7 +2430,7 @@ _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7
         self.value_buffer[s.len()] = 0;
  23c:	f805 0008 	strb.w	r0, [r5, r8]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  240:	f240 0100 	movw	r1, #0
  244:	4648      	mov	r0, r9
  246:	f2c0 0100 	movt	r1, #0
@@ -2448,20 +2448,20 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
  268:	463a      	mov	r2, r7
  26a:	f2c6 5064 	movt	r0, #25956	; 0x6564
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  26e:	f240 0100 	movw	r1, #0
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  272:	f842 0f21 	str.w	r0, [r2, #33]!
  276:	2000      	movs	r0, #0
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  278:	f2c0 0100 	movt	r1, #0
 _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:47
  27c:	7110      	strb	r0, [r2, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  27e:	4648      	mov	r0, r9
  280:	f7ff fffe 	bl	0 <json_helper_set_text_string>
  284:	9801      	ldr	r0, [sp, #4]
@@ -2487,7 +2487,7 @@ _ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7
         self.value_buffer[s.len()] = 0;
  2a0:	f805 000a 	strb.w	r0, [r5, sl]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  2a4:	f240 0100 	movw	r1, #0
  2a8:	4648      	mov	r0, r9
  2aa:	f2c0 0100 	movt	r1, #0
@@ -2522,7 +2522,7 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  2f0:	f822 0f20 	strh.w	r0, [r2, #32]!
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  2f4:	4638      	mov	r0, r7
  2f6:	4639      	mov	r1, r7
  2f8:	f7ff fffe 	bl	0 <json_helper_set_text_string>
@@ -2530,7 +2530,7 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  2fc:	f240 0000 	movw	r0, #0
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  300:	9a03      	ldr	r2, [sp, #12]
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
@@ -2542,20 +2542,20 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  308:	7901      	ldrb	r1, [r0, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  30a:	2300      	movs	r3, #0
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  30c:	6800      	ldr	r0, [r0, #0]
  30e:	7139      	strb	r1, [r7, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  310:	4639      	mov	r1, r7
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  312:	6038      	str	r0, [r7, #0]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:350
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  314:	4638      	mov	r0, r7
  316:	f7ff fffe 	bl	0 <json_helper_set_int>
  31a:	4620      	mov	r0, r4
@@ -2565,7 +2565,7 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
  326:	f2c0 0100 	movt	r1, #0
  32a:	f7ff fffe 	bl	0 <json_helper_close_array>
  32e:	f7ff fffe 	bl	0 <json_rep_end_root_object>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:366
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:367
     let rc = unsafe { sensor_network::do_server_post() };  assert!(rc);
  332:	f7ff fffe 	bl	0 <do_server_post>
  336:	2800      	cmp	r0, #0
@@ -2634,7 +2634,7 @@ _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceInde
  3b2:	f7ff fffe 	bl	0 <core::slice::slice_index_len_fail>
  3b6:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:339
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:340
     assert_ne!(node_id.to_bytes()[0], 0);
  3b8:	f240 0000 	movw	r0, #0
  3bc:	2100      	movs	r1, #0
@@ -2667,14 +2667,14 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  400:	f240 0000 	movw	r0, #0
  404:	f2c0 0000 	movt	r0, #0
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:339
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:340
  408:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  40c:	900d      	str	r0, [sp, #52]	; 0x34
  40e:	a80d      	add	r0, sp, #52	; 0x34
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:339
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:340
  410:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
  414:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap16send_sensor_data17hf7fec4a83b716792E():
@@ -2716,7 +2716,7 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
  472:	f7ff fffe 	bl	0 <core::panicking::panic>
  476:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:395
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:396
     let rc = unsafe { sensor_network::init_collector_post() };  assert!(rc);
  478:	f240 0000 	movw	r0, #0
  47c:	f2c0 0000 	movt	r0, #0
@@ -2779,20 +2779,20 @@ _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
  4fc:	a80d      	add	r0, sp, #52	; 0x34
  4fe:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
  502:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:406
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:407
     let rc = unsafe { sensor_network::do_collector_post() };  assert!(rc);
  504:	f240 0000 	movw	r0, #0
  508:	f2c0 0000 	movt	r0, #0
  50c:	f7ff fffe 	bl	0 <core::panicking::panic>
  510:	defe      	udf	#254	; 0xfe
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:347
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:348
     let rc = unsafe { sensor_network::init_server_post(0 as *const c_char) };  assert!(rc);
  512:	f240 0000 	movw	r0, #0
  516:	f2c0 0000 	movt	r0, #0
  51a:	f7ff fffe 	bl	0 <core::panicking::panic>
  51e:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:366
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:367
     let rc = unsafe { sensor_network::do_server_post() };  assert!(rc);
  520:	f240 0000 	movw	r0, #0
  524:	f2c0 0000 	movt	r0, #0
@@ -2803,7 +2803,7 @@ Disassembly of section .text._ZN5mylib9send_coap17network_task_func17h80783602ac
 
 00000000 <mylib::send_coap::network_task_func>:
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:266
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:267
 extern "C" fn network_task_func(_arg: *mut ::cty::c_void) {
    0:	b08e      	sub	sp, #56	; 0x38
 _ZN5mylib4base13console_print17h86a834b313ce42ceE():
@@ -2817,47 +2817,47 @@ _ZN5mylib4base13console_print17h86a834b313ce42ceE():
         console_flush();  //  TODO: Remove this.
   10:	f7ff fffe 	bl	0 <console_flush>
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:267
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:268
     console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
   14:	f240 0400 	movw	r4, #0
   18:	f2c0 0400 	movt	r4, #0
   1c:	7820      	ldrb	r0, [r4, #0]
   1e:	2801      	cmp	r0, #1
   20:	d026      	beq.n	70 <mylib::send_coap::network_task_func+0x70>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:272
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:273
         sensor_network::is_standalone_node() || 
   22:	f7ff fffe 	bl	0 <is_standalone_node>
   26:	b910      	cbnz	r0, 8 <is_collector_node+0x8>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:273
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:274
         sensor_network::is_collector_node() 
   28:	f7ff fffe 	bl	0 <is_collector_node>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:271
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:272
     if unsafe { 
   2c:	b120      	cbz	r0, c <register_server_transport+0xc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:275
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:276
         let rc = unsafe { sensor_network::register_server_transport() };  assert_eq!(rc, 0);
   2e:	f7ff fffe 	bl	0 <register_server_transport>
   32:	2800      	cmp	r0, #0
   34:	9001      	str	r0, [sp, #4]
   36:	d122      	bne.n	7e <mylib::send_coap::network_task_func+0x7e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:280
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:281
         sensor_network::is_collector_node() || 
   38:	f7ff fffe 	bl	0 <is_collector_node>
   3c:	b910      	cbnz	r0, 8 <is_sensor_node+0x8>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:281
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:282
         sensor_network::is_sensor_node() 
   3e:	f7ff fffe 	bl	0 <is_sensor_node>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:279
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:280
     if unsafe { 
   42:	b120      	cbz	r0, c <register_collector_transport+0xc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:283
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:284
         let rc = unsafe { sensor_network::register_collector_transport() };  assert_eq!(rc, 0);
   44:	f7ff fffe 	bl	0 <register_collector_transport>
   48:	2800      	cmp	r0, #0
   4a:	9001      	str	r0, [sp, #4]
   4c:	d13e      	bne.n	cc <mylib::send_coap::network_task_func+0xcc>
   4e:	2001      	movs	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:288
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:289
     unsafe { NETWORK_IS_READY = true; }  //  Indicate that network is ready.
   50:	7020      	strb	r0, [r4, #0]
   52:	f240 0400 	movw	r4, #0
@@ -2872,21 +2872,21 @@ _ZN5mylib4base13console_print17h86a834b313ce42ceE():
         console_flush();  //  TODO: Remove this.
   62:	f7ff fffe 	bl	0 <console_flush>
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:292
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:293
         unsafe { os::os_time_delay(10 * os::OS_TICKS_PER_SEC); }                   //  Wait 10 seconds before repeating.
   66:	f242 7010 	movw	r0, #10000	; 0x2710
   6a:	f7ff fffe 	bl	0 <os_time_delay>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:290
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:291
     loop {  //  Loop forever...        
   6e:	e7f4      	b.n	ffffffec <.Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.59+0xffffffe4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:267
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:268
     console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
   70:	f240 0000 	movw	r0, #0
   74:	f2c0 0000 	movt	r0, #0
   78:	f7ff fffe 	bl	0 <core::panicking::panic>
   7c:	defe      	udf	#254	; 0xfe
   7e:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:275
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:276
         let rc = unsafe { sensor_network::register_server_transport() };  assert_eq!(rc, 0);
   80:	900c      	str	r0, [sp, #48]	; 0x30
   82:	f240 0000 	movw	r0, #0
@@ -2913,18 +2913,18 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   b6:	f240 0000 	movw	r0, #0
   ba:	f2c0 0000 	movt	r0, #0
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:275
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:276
   be:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
   c2:	9002      	str	r0, [sp, #8]
   c4:	a802      	add	r0, sp, #8
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:275
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:276
   c6:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
   ca:	defe      	udf	#254	; 0xfe
   cc:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:283
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:284
         let rc = unsafe { sensor_network::register_collector_transport() };  assert_eq!(rc, 0);
   ce:	900c      	str	r0, [sp, #48]	; 0x30
   d0:	f240 0000 	movw	r0, #0
@@ -2951,14 +2951,14 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  104:	f240 0000 	movw	r0, #0
  108:	f2c0 0000 	movt	r0, #0
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:283
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:284
  10c:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  110:	9002      	str	r0, [sp, #8]
  112:	a802      	add	r0, sp, #8
 _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:283
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:284
  114:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
  118:	defe      	udf	#254	; 0xfe
 
@@ -2993,7 +2993,7 @@ _ZN5mylib4base13console_print17h86a834b313ce42ceE():
         console_flush();  //  TODO: Remove this.
   1a:	f7ff fffe 	bl	0 <console_flush>
 _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:238
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:239
         os::os_task_init(                    //  Create a new task and start it...
   1e:	f240 0100 	movw	r1, #0
   22:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
@@ -3010,13 +3010,13 @@ _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
   4e:	2300      	movs	r3, #0
   50:	2400      	movs	r4, #0
   52:	f7ff fffe 	bl	0 <os_task_init>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:255
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
     assert_eq!(rc, 0);  //  Check for error
   56:	2800      	cmp	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:238
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:239
         os::os_task_init(                    //  Create a new task and start it...
   58:	9009      	str	r0, [sp, #36]	; 0x24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:255
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
     assert_eq!(rc, 0);  //  Check for error
   5a:	d13f      	bne.n	dc <main+0xdc>
 _ZN5mylib4base13console_print17h86a834b313ce42ceE():
@@ -3097,7 +3097,7 @@ main():
   da:	e7fa      	b.n	d2 <main+0xd2>
   dc:	a809      	add	r0, sp, #36	; 0x24
 _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:255
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
   de:	9010      	str	r0, [sp, #64]	; 0x40
   e0:	f240 0000 	movw	r0, #0
   e4:	a911      	add	r1, sp, #68	; 0x44
@@ -3119,7 +3119,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  10a:	2003      	movs	r0, #3
  10c:	e9cd 440c 	strd	r4, r4, [sp, #48]	; 0x30
 _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:255
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
  110:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -3129,7 +3129,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  11e:	900a      	str	r0, [sp, #40]	; 0x28
  120:	a80a      	add	r0, sp, #40	; 0x28
 _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:255
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
  122:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
  126:	defe      	udf	#254	; 0xfe
 main():

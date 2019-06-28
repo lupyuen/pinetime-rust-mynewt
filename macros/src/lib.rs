@@ -34,13 +34,13 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
                 pub fn #fn_name_without_namespace_token(
-                    t: &mut os_task,  //  TODO: *mut os_task
+                    t: Out<os_task>,  //  TODO: *mut os_task
                     name: &Strn,      //  TODO: *const ::cty::c_char
                     func: os_task_func_t,
                     arg: Ptr,         //  TODO: *mut ::cty::c_void
                     prio: u8,
                     sanity_itvl: os_time_t,
-                    stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
+                    stack_bottom: Out<[os_stack_t]>,  //  TODO: *mut os_stack_t
                     stack_size: usize,                //  TODO: u16
                 ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
                     "----------Insert Extern: `extern C { pub fn ... }`----------";
@@ -50,7 +50,7 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
                     "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
                     Strn::validate_bytestr(name.bytestr);  //  TODO
                     unsafe {
-                    "----------Insert Call: `let res = os_task_init(`----------";
+                    "----------Insert Call: `let result_code = os_task_init(`----------";
                         let result_code = #fn_name_token(
                             t,
                             name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO

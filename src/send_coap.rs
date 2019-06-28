@@ -115,6 +115,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
     }
     "-------------------------------------------------------------";
 
+    type Out<T> = &'static mut T;
     type Ptr = *mut ::cty::c_void;
     const NULL: Ptr = 0 as Ptr;
 
@@ -130,13 +131,13 @@ fn test_safe_wrap() -> MynewtResult<()> {
     )?;                               //  `?` means check for error
 
     pub fn OLDtask_init(
-        t: &mut os_task,  //  TODO: *mut os_task
+        t: Out<os_task>,  //  TODO: *mut os_task
         name: &Strn,      //  TODO: *const ::cty::c_char
         func: os_task_func_t,
         arg: Ptr,         //  TODO: *mut ::cty::c_void
         prio: u8,
         sanity_itvl: os_time_t,
-        stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
+        stack_bottom: Out<[os_stack_t]>,  //  TODO: *mut os_stack_t
         stack_size: usize,                //  TODO: u16
     ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
         extern "C" {
