@@ -1,18 +1,20 @@
-expanded: pub fn zzztask_init (
+expanded: pub fn task_init (
 t : & mut os_task , name : & Strn , func : os_task_func_t , arg : Ptr , prio :
 u8 , sanity_itvl : os_time_t , stack_bottom : & mut [ os_stack_t ] ,
 stack_size : usize , ) -> MynewtResult < (  ) > {
-"----------Insert: `extern C { pub fn ... }`----------" ; extern "C" {
+"----------Insert Extern: `extern C { pub fn ... }`----------" ; extern "C" {
 pub fn os_task_init (
 arg1 : * mut os_task , arg2 : * const :: cty :: c_char , arg3 : os_task_func_t
 , arg4 : * mut :: cty :: c_void , arg5 : u8 , arg6 : os_time_t , arg7 : * mut
-os_stack_t , arg8 : u16 , ) -> :: cty :: c_int ; } Strn :: vallidate_bytestr (
-name . bytestr ) ; unsafe {
-let res = os_task_init (
+os_stack_t , arg8 : u16 , ) -> :: cty :: c_int ; }
+"----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------"
+; Strn :: validate_bytestr ( name . bytestr ) ; unsafe {
+"----------Insert Call: `let res = os_task_init(`----------" ; let result_code
+= os_task_init (
 t , name . bytestr . as_ptr (  ) as * const :: cty :: c_char , func , arg ,
 prio , sanity_itvl , stack_bottom . as_ptr (  ) as * mut os_stack_t ,
-stack_size as u16 ) ; if res == 0 { Ok ( (  ) ) } else {
-Err ( MynewtError :: from ( res ) ) } } }
+stack_size as u16 ) ; if result_code == 0 { Ok ( (  ) ) } else {
+Err ( MynewtError :: from ( result_code ) ) } } }
 #![feature(prelude_import)]
 #![no_std]
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
@@ -10987,7 +10989,7 @@ mod send_coap {
             };
         }
         /// Fail if the last byte is not zero.
-        pub fn vallidate_bytestr(bs: &'static [u8]) {
+        pub fn validate_bytestr(bs: &'static [u8]) {
             {
                 match (&bs.last(), &Some(&0u8)) {
                     (left_val, right_val) => {
@@ -11020,12 +11022,11 @@ mod send_coap {
     fn test_safe_wrap() -> MynewtResult<()> {
         let _test_local = Strn{bytestr: b"hello\0",};
         "-------------------------------------------------------------";
-        pub fn zzztask_init(t: &mut os_task, name: &Strn,
-                            func: os_task_func_t, arg: Ptr, prio: u8,
-                            sanity_itvl: os_time_t,
-                            stack_bottom: &mut [os_stack_t],
-                            stack_size: usize) -> MynewtResult<()> {
-            "----------Insert: `extern C { pub fn ... }`----------";
+        pub fn task_init(t: &mut os_task, name: &Strn, func: os_task_func_t,
+                         arg: Ptr, prio: u8, sanity_itvl: os_time_t,
+                         stack_bottom: &mut [os_stack_t], stack_size: usize)
+         -> MynewtResult<()> {
+            "----------Insert Extern: `extern C { pub fn ... }`----------";
             extern "C" {
                 pub fn os_task_init(arg1: *mut os_task,
                                     arg2: *const ::cty::c_char,
@@ -11034,16 +11035,20 @@ mod send_coap {
                                     arg6: os_time_t, arg7: *mut os_stack_t,
                                     arg8: u16) -> ::cty::c_int;
             }
-            Strn::vallidate_bytestr(name.bytestr);
+            "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+            Strn::validate_bytestr(name.bytestr);
             unsafe {
-                let res =
+                "----------Insert Call: `let res = os_task_init(`----------";
+                let result_code =
                     os_task_init(t,
                                  name.bytestr.as_ptr() as
                                      *const ::cty::c_char, func, arg, prio,
                                  sanity_itvl,
                                  stack_bottom.as_ptr() as *mut os_stack_t,
                                  stack_size as u16);
-                if res == 0 { Ok(()) } else { Err(MynewtError::from(res)) }
+                if result_code == 0 {
+                    Ok(())
+                } else { Err(MynewtError::from(result_code)) }
             }
         }
         "-------------------------------------------------------------";
@@ -11054,10 +11059,11 @@ mod send_coap {
                   os::OS_WAIT_FOREVER as u32,
                   unsafe { &mut NETWORK_TASK_STACK },
                   NETWORK_TASK_STACK_SIZE)?;
-        pub fn task_init(t: &mut os_task, name: &Strn, func: os_task_func_t,
-                         arg: Ptr, prio: u8, sanity_itvl: os_time_t,
-                         stack_bottom: &mut [os_stack_t], stack_size: usize)
-         -> MynewtResult<()> {
+        pub fn OLDtask_init(t: &mut os_task, name: &Strn,
+                            func: os_task_func_t, arg: Ptr, prio: u8,
+                            sanity_itvl: os_time_t,
+                            stack_bottom: &mut [os_stack_t],
+                            stack_size: usize) -> MynewtResult<()> {
             extern "C" {
                 pub fn os_task_init(t: *mut os_task,
                                     name: *const ::cty::c_char,
@@ -11067,7 +11073,7 @@ mod send_coap {
                                     stack_bottom: *mut os_stack_t,
                                     stack_size: u16) -> ::cty::c_int;
             }
-            Strn::vallidate_bytestr(name.bytestr);
+            Strn::validate_bytestr(name.bytestr);
             unsafe {
                 let res =
                     os_task_init(t,

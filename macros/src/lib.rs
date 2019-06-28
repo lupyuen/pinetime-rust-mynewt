@@ -11,6 +11,8 @@ use syn::{parse_macro_input};
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
 #[proc_macro_attribute]
 pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
+    let namespace = "os";  //  TODO
+    let namespace_prefix = format!("{}_", namespace).to_string();  //  e.g. `os_`
     //println!("attr: {:#?}", attr);
     //println!("item: {:#?}", item);
     //  Parse the macro input as an extern "C" function declaration.
@@ -23,9 +25,15 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
         let foreign_item_tokens = quote! { #foreign_item };
         if let syn::ForeignItem::Fn(foreign_fn) = foreign_item {
             //  println!("foreign_fn: {:#?}", foreign_fn);
+            let fn_name = foreign_fn.ident.to_string();
+            assert!(fn_name.starts_with(&namespace_prefix));
+
+            let fn_name_without_namespace = &fn_name[namespace_prefix.len()..];
+            let fn_name_token = syn::Ident::new(&fn_name, foreign_fn.ident.span());
+            let fn_name_without_namespace_token = syn::Ident::new(&fn_name_without_namespace, foreign_fn.ident.span());
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
-                pub fn zzztask_init(
+                pub fn #fn_name_without_namespace_token(
                     t: &mut os_task,  //  TODO: *mut os_task
                     name: &Strn,      //  TODO: *const ::cty::c_char
                     func: os_task_func_t,
@@ -35,13 +43,15 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
                     stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
                     stack_size: usize,                //  TODO: u16
                 ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
-                    "----------Insert: `extern C { pub fn ... }`----------";
+                    "----------Insert Extern: `extern C { pub fn ... }`----------";
                     extern "C" {
                         #foreign_item_tokens
                     }
-                    Strn::vallidate_bytestr(name.bytestr);  //  TODO
+                    "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+                    Strn::validate_bytestr(name.bytestr);  //  TODO
                     unsafe {
-                        let res = os_task_init(
+                    "----------Insert Call: `let res = os_task_init(`----------";
+                        let result_code = #fn_name_token(
                             t,
                             name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO
                             func,
@@ -51,8 +61,8 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
                             stack_bottom.as_ptr() as *mut os_stack_t,  //  TODO
                             stack_size as u16       //  TODO
                         );
-                        if res == 0 { Ok(()) }
-                        else { Err(MynewtError::from(res)) }
+                        if result_code == 0 { Ok(()) }
+                        else { Err(MynewtError::from(result_code)) }
                     }
                 }
             };

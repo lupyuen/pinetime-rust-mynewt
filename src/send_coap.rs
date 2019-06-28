@@ -88,7 +88,7 @@ impl Strn {
     }
 
     /// Fail if the last byte is not zero.
-    pub fn vallidate_bytestr(bs: &'static [u8]) {
+    pub fn validate_bytestr(bs: &'static [u8]) {
         //  Last byte must be 0.
         assert_eq!(bs.last(), Some(&0u8));
     }
@@ -129,7 +129,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
         NETWORK_TASK_STACK_SIZE       //  Size of the stack (in 4-byte units)
     )?;                               //  `?` means check for error
 
-    pub fn task_init(
+    pub fn OLDtask_init(
         t: &mut os_task,  //  TODO: *mut os_task
         name: &Strn,      //  TODO: *const ::cty::c_char
         func: os_task_func_t,
@@ -151,7 +151,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
                 stack_size: u16,
             ) -> ::cty::c_int;
         }
-        Strn::vallidate_bytestr(name.bytestr);  //  TODO
+        Strn::validate_bytestr(name.bytestr);  //  TODO
         unsafe {
             let res = os_task_init(
                 t,
