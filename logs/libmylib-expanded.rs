@@ -1,3 +1,389 @@
+item: Fn(
+    ForeignItemFn {
+        attrs: [],
+        vis: Public(
+            VisPublic {
+                pub_token: Pub,
+            },
+        ),
+        ident: Ident {
+            ident: "os_task_init",
+            span: #0 bytes(301369..301381),
+        },
+        decl: FnDecl {
+            fn_token: Fn,
+            generics: Generics {
+                lt_token: None,
+                params: [],
+                gt_token: None,
+                where_clause: None,
+            },
+            paren_token: Paren,
+            inputs: [
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg1",
+                                    span: #0 bytes(301395..301399),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Ptr(
+                            TypePtr {
+                                star_token: Star,
+                                const_token: None,
+                                mutability: Some(
+                                    Mut,
+                                ),
+                                elem: Path(
+                                    TypePath {
+                                        qself: None,
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident {
+                                                        ident: "os_task",
+                                                        span: #0 bytes(301406..301413),
+                                                    },
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg2",
+                                    span: #0 bytes(301427..301431),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Ptr(
+                            TypePtr {
+                                star_token: Star,
+                                const_token: Some(
+                                    Const,
+                                ),
+                                mutability: None,
+                                elem: Path(
+                                    TypePath {
+                                        qself: None,
+                                        path: Path {
+                                            leading_colon: Some(
+                                                Colon2,
+                                            ),
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident {
+                                                        ident: "cty",
+                                                        span: #0 bytes(301442..301445),
+                                                    },
+                                                    arguments: None,
+                                                },
+                                                Colon2,
+                                                PathSegment {
+                                                    ident: Ident {
+                                                        ident: "c_char",
+                                                        span: #0 bytes(301447..301453),
+                                                    },
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg3",
+                                    span: #0 bytes(301467..301471),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Path(
+                            TypePath {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident {
+                                                ident: "os_task_func_t",
+                                                span: #0 bytes(301473..301487),
+                                            },
+                                            arguments: None,
+                                        },
+                                    ],
+                                },
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg4",
+                                    span: #0 bytes(301501..301505),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Ptr(
+                            TypePtr {
+                                star_token: Star,
+                                const_token: None,
+                                mutability: Some(
+                                    Mut,
+                                ),
+                                elem: Path(
+                                    TypePath {
+                                        qself: None,
+                                        path: Path {
+                                            leading_colon: Some(
+                                                Colon2,
+                                            ),
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident {
+                                                        ident: "cty",
+                                                        span: #0 bytes(301514..301517),
+                                                    },
+                                                    arguments: None,
+                                                },
+                                                Colon2,
+                                                PathSegment {
+                                                    ident: Ident {
+                                                        ident: "c_void",
+                                                        span: #0 bytes(301519..301525),
+                                                    },
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg5",
+                                    span: #0 bytes(301539..301543),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Path(
+                            TypePath {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident {
+                                                ident: "u8",
+                                                span: #0 bytes(301545..301547),
+                                            },
+                                            arguments: None,
+                                        },
+                                    ],
+                                },
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg6",
+                                    span: #0 bytes(301561..301565),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Path(
+                            TypePath {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident {
+                                                ident: "os_time_t",
+                                                span: #0 bytes(301567..301576),
+                                            },
+                                            arguments: None,
+                                        },
+                                    ],
+                                },
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg7",
+                                    span: #0 bytes(301590..301594),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Ptr(
+                            TypePtr {
+                                star_token: Star,
+                                const_token: None,
+                                mutability: Some(
+                                    Mut,
+                                ),
+                                elem: Path(
+                                    TypePath {
+                                        qself: None,
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident {
+                                                        ident: "os_stack_t",
+                                                        span: #0 bytes(301601..301611),
+                                                    },
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+                Captured(
+                    ArgCaptured {
+                        pat: Ident(
+                            PatIdent {
+                                by_ref: None,
+                                mutability: None,
+                                ident: Ident {
+                                    ident: "arg8",
+                                    span: #0 bytes(301625..301629),
+                                },
+                                subpat: None,
+                            },
+                        ),
+                        colon_token: Colon,
+                        ty: Path(
+                            TypePath {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident {
+                                                ident: "u16",
+                                                span: #0 bytes(301631..301634),
+                                            },
+                                            arguments: None,
+                                        },
+                                    ],
+                                },
+                            },
+                        ),
+                    },
+                ),
+                Comma,
+            ],
+            variadic: None,
+            output: Type(
+                RArrow,
+                Path(
+                    TypePath {
+                        qself: None,
+                        path: Path {
+                            leading_colon: Some(
+                                Colon2,
+                            ),
+                            segments: [
+                                PathSegment {
+                                    ident: Ident {
+                                        ident: "cty",
+                                        span: #0 bytes(301651..301654),
+                                    },
+                                    arguments: None,
+                                },
+                                Colon2,
+                                PathSegment {
+                                    ident: Ident {
+                                        ident: "c_int",
+                                        span: #0 bytes(301656..301661),
+                                    },
+                                    arguments: None,
+                                },
+                            ],
+                        },
+                    },
+                ),
+            ),
+        },
+        semi_token: Semi,
+    },
+)
 #![feature(prelude_import)]
 #![no_std]
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
@@ -11088,14 +11474,14 @@ mod send_coap {
         console_print(b"NET start\n");
         let rc =
             unsafe {
-                os::os_task_init(&mut NETWORK_TASK,
+                os::os_task_init(unsafe { &mut NETWORK_TASK },
                                  b"network\0".as_ptr() as *const c_char,
-                                 Some(network_task_func),
-                                 0 as *mut ::cty::c_void, 10,
-                                 os::OS_WAIT_FOREVER as u32,
-                                 NETWORK_TASK_STACK.as_ptr() as
-                                     *mut os_stack_t,
-                                 NETWORK_TASK_STACK_SIZE as u16)
+                                 Some(network_task_func), 0 as *mut c_void,
+                                 10, os::OS_WAIT_FOREVER as u32,
+                                 unsafe {
+                                     NETWORK_TASK_STACK.as_ptr() as
+                                         *mut os_stack_t
+                                 }, NETWORK_TASK_STACK_SIZE as u16)
             };
         {
             match (&rc, &0) {
@@ -11117,7 +11503,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           249u32, 5u32))
+                                                           255u32, 5u32))
                         }
                     }
                 }
@@ -11137,7 +11523,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 261u32, 37u32))
+                                           "src/send_coap.rs", 267u32, 37u32))
             }
         };
         if unsafe {
@@ -11165,7 +11551,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               269u32, 75u32))
+                                                               275u32, 75u32))
                             }
                         }
                     }
@@ -11198,7 +11584,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               277u32, 78u32))
+                                                               283u32, 78u32))
                             }
                         }
                     }
@@ -11258,7 +11644,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 331u32,
+                                               "src/send_coap.rs", 337u32,
                                                53u32))
                 }
             };
@@ -11283,7 +11669,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           333u32, 5u32))
+                                                           339u32, 5u32))
                         }
                     }
                 }
@@ -11299,7 +11685,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 341u32, 80u32))
+                                           "src/send_coap.rs", 347u32, 80u32))
             }
         };
         let _payload =
@@ -11519,7 +11905,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 360u32, 60u32))
+                                           "src/send_coap.rs", 366u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -11543,7 +11929,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 389u32, 65u32))
+                                           "src/send_coap.rs", 395u32, 65u32))
             }
         };
         let _payload =
@@ -11617,7 +12003,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 400u32, 63u32))
+                                           "src/send_coap.rs", 406u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

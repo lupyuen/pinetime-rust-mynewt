@@ -1,7 +1,68 @@
+//! Mynewt Macros
+
+//  Increase recursion limit to prevent quote!{} errors
+#![recursion_limit="128"]
+
 extern crate proc_macro;
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input};
+
+/// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
+#[proc_macro_attribute]
+pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
+    //println!("attr: {:#?}", attr);
+    //println!("item: {:#?}", item);
+    //  Parse the macro input as an extern "C" function declaration.
+    let input = parse_macro_input!(item as syn::ItemForeignMod);
+    //println!("input: {:#?}", input);
+    //  For each function...
+    for foreign_item in input.items {
+        //  TODO: Accumulate doc in attrs and rename args.
+        //  println!("foreign_item: {:#?}", foreign_item);
+        let foreign_item_tokens = quote! { #foreign_item };
+        if let syn::ForeignItem::Fn(foreign_fn) = foreign_item {
+            //  println!("foreign_fn: {:#?}", foreign_fn);
+            let expanded = quote! {
+                pub fn zzztask_init(
+                    t: &mut os_task,  //  TODO: *mut os_task
+                    name: &Strn,      //  TODO: *const ::cty::c_char
+                    func: os_task_func_t,
+                    arg: Ptr,         //  TODO: *mut ::cty::c_void
+                    prio: u8,
+                    sanity_itvl: os_time_t,
+                    stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
+                    stack_size: usize,                //  TODO: u16
+                ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
+                    "-----Insert: `extern C { pub fn ... }`";
+                    extern "C" {
+                        #foreign_item_tokens
+                    }
+                    Strn::vallidate_bytestr(name.bytestr);  //  TODO
+                    unsafe {
+                        let res = zzzos_task_init(
+                            t,
+                            name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO
+                            func,
+                            arg,
+                            prio,
+                            sanity_itvl,
+                            stack_bottom.as_ptr() as *mut os_stack_t,  //  TODO
+                            stack_size as u16       //  TODO
+                        );
+                        if res == 0 { Ok(()) }
+                        else { Err(MynewtError::from(res)) }
+                    }
+                }
+            };
+            println!("expanded: {}", expanded);
+            //  Return the expanded tokens back to the compiler.
+            return TokenStream::from(expanded)
+        } else { assert!(false) }
+        break;
+    }
+    "// Hello world".parse().unwrap()
+}
 
 /// Given a static mutable variable, return an unsafe mutable pointer that's suitable for passing to Mynewt APIs for writing output.
 /// ```
@@ -48,19 +109,6 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
     let expanded = format!(r#"Strn{{ bytestr: b"{}\0" }}"#, val);
     //  Return the expanded tokens back to the compiler.
     expanded.parse().unwrap()
-}
-
-#[proc_macro_attribute]
-pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
-    //println!("attr: {:#?}", attr);
-    //println!("item: {:#?}", item);
-    //  Parse the macro input as an extern "C" function declaration.
-    let input = parse_macro_input!(item as syn::ItemForeignMod);
-    //println!("input: {:#?}", input);
-    for item in input.items {
-
-    }
-    "// Hello world".parse().unwrap()
 }
 
 /// Transform a block of CBOR encoding calls by adding error checking. Given input:

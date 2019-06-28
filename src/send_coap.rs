@@ -138,7 +138,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
         sanity_itvl: os_time_t,
         stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
         stack_size: usize,                //  TODO: u16
-    ) -> MynewtResult<()> {
+    ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
         extern "C" {
             pub fn os_task_init(
                 t: *mut os_task,
@@ -247,8 +247,8 @@ pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code up
             os::OS_WAIT_FOREVER as u32,      //  Don't do sanity / watchdog checking
             unsafe {                         //  Passing a mutable static to C is unsafe
                 NETWORK_TASK_STACK.as_ptr()  //  Stack space for the task
-                    as *mut os_stack_t,
-            }
+                    as *mut os_stack_t
+            },
             NETWORK_TASK_STACK_SIZE as u16   //  Size of the stack (in 4-byte units)
         )
     };
