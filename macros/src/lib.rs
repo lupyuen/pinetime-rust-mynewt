@@ -1,4 +1,7 @@
 //! Mynewt Macros
+//! ```
+//! cargo rustc -- -Z unstable-options --pretty expanded
+//! ```
 
 //  Increase recursion limit to prevent quote!{} errors
 #![recursion_limit="128"]
@@ -6,11 +9,36 @@
 extern crate proc_macro;
 use proc_macro::TokenStream;
 use quote::quote;
-use syn::{parse_macro_input};
+use syn::{
+    parse_macro_input,
+    ArgCaptured,
+    FnArg::{
+        self,
+        Captured,
+    },
+    punctuated::Punctuated,
+    token::Comma,
+};
+
+/// Given a list of extern function arg definitions, return the parsed args.
+fn parse_args(args: Punctuated<FnArg, Comma>) {
+    //println!("args: {:#?}", args);
+    for cap in args {
+        //println!("cap: {:#?}", cap);
+        if let Captured(arg) = cap {
+            //  `arg` contains `pat : ty`
+            //println!("arg: {:#?}", arg);
+            let ArgCaptured{ pat, ty, .. } = arg;
+            println!("pat: {}", quote! { #pat });
+            println!("ty: {}", quote! { #ty });
+        } else { assert!(false); }
+        assert!(false);////
+    }
+}
 
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
 #[proc_macro_attribute]
-pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
+pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let namespace = "os";  //  TODO
     let namespace_prefix = format!("{}_", namespace).to_string();  //  e.g. `os_`
     //println!("attr: {:#?}", attr);
@@ -25,12 +53,18 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
         let foreign_item_tokens = quote! { #foreign_item };
         if let syn::ForeignItem::Fn(foreign_fn) = foreign_item {
             //  println!("foreign_fn: {:#?}", foreign_fn);
+
+            //  Get the function name.
             let fn_name = foreign_fn.ident.to_string();
             assert!(fn_name.starts_with(&namespace_prefix));
-
             let fn_name_without_namespace = &fn_name[namespace_prefix.len()..];
             let fn_name_token = syn::Ident::new(&fn_name, foreign_fn.ident.span());
             let fn_name_without_namespace_token = syn::Ident::new(&fn_name_without_namespace, foreign_fn.ident.span());
+
+            //  Get the function args.
+            let args = foreign_fn.decl.inputs;
+            parse_args(args);
+
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
                 pub fn #fn_name_without_namespace_token(
@@ -66,7 +100,7 @@ pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
                     }
                 }
             };
-            println!("expanded: {}", expanded);
+            //println!("expanded: {}", expanded);
             //  Return the expanded tokens back to the compiler.
             return TokenStream::from(expanded)
         } else { assert!(false) }
