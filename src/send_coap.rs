@@ -10,7 +10,7 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
-use mynewt_macros::{strn, init_strn}; //  Import Mynewt macros from `macros` library
+use mynewt_macros::{out, strn, init_strn}; //  Import Mynewt macros from `macros` library
 use crate::{coap, d, fill_zero};  //  Import Mynewt macros from `mynewt/macros.rs`
 use crate::base::*;       //  Import `base.rs` for common declarations
 use crate::mynewt::{
@@ -118,14 +118,14 @@ fn test_safe_wrap() -> MynewtResult<()> {
     type Ptr = *mut ::cty::c_void;
     const NULL: Ptr = 0 as Ptr;
 
-    task_init(              //  Create a new task and start it...
-        unsafe { &mut NETWORK_TASK },  //  Task object will be saved here
-        strn!("network"),   //  Name of task
+    task_init(               //  Create a new task and start it...
+        out!(NETWORK_TASK),  //  Task object will be saved here
+        strn!("network"),    //  Name of task
         Some(network_task_func),  //  Function to execute when task starts
-        NULL, //  Argument to be passed to above function
-        10,   //  Task priority: highest is 0, lowest is 255 (main task is 127)
+        NULL,  //  Argument to be passed to above function
+        10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
         os::OS_WAIT_FOREVER as u32, //  Don't do sanity / watchdog checking
-        unsafe { &mut NETWORK_TASK_STACK },    //  Stack space for the task
+        out!(NETWORK_TASK_STACK),   //  Stack space for the task
         NETWORK_TASK_STACK_SIZE     //  Size of the stack (in 4-byte units)
     )?;
 

@@ -9,7 +9,7 @@
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
     use cty::*;
-    use mynewt_macros::{strn};
+    use mynewt_macros::{out, strn, init_strn};
     use crate::{coap, d, fill_zero};
     use crate::base::*;
     use crate::mynewt::{result::*,
@@ -21,17 +21,17 @@
                         libs::{mynewt_rust, sensor_network,
                                sensor_coap::{self, sensor_value}}};
     /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
-    pub struct StrN {
+    pub struct Strn {
         /// Byte string terminated with null
         pub bytestr: &'static [u8],
     }
-    impl StrN {
-        /// Create a new byte string:
+    impl Strn {
+        /// Create a new byte string. Fail if the last byte is not zero.
         /// ```
-        /// StrN::new(b"network\0")
+        /// Strn::new(b"network\0")
         /// strn!("network")
         /// ```
-        pub fn new(bs: &'static [u8]) -> StrN {
+        pub fn new(bs: &'static [u8]) -> Strn {
             {
                 match (&bs.last(), &Some(&0u8)) {
                     (left_val, right_val) => {
@@ -58,37 +58,168 @@
                     }
                 }
             };
-            let res = StrN{bytestr: bs,};
+            let res = Strn{bytestr: bs,};
             res
         }
+        /// Return the byte string as a null-terminated `* const char` C-style string.
+        /// Fail if the last byte is not zero.
+        pub fn as_cstr(self) -> *const ::cty::c_char {
+            let bs: &'static [u8] = self.bytestr;
+            {
+                match (&bs.last(), &Some(&0u8)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`"],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val)
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt)],
+                                                                                             }),
+                                                             &("src/send_coap.rs",
+                                                               70u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            bs.as_ptr() as *const ::cty::c_char
+        }
+        /// Return the byte string.
+        /// Fail if the last byte is not zero.
+        pub fn as_bytestr(self) -> &'static [u8] {
+            let bs: &'static [u8] = self.bytestr;
+            {
+                match (&bs.last(), &Some(&0u8)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`"],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val)
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt)],
+                                                                                             }),
+                                                             &("src/send_coap.rs",
+                                                               79u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            &bs
+        }
+        /// Fail if the last byte is not zero.
+        pub fn validate(self) {
+            let bs = &self.bytestr;
+            {
+                match (&bs.last(), &Some(&0u8)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`"],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val)
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt)],
+                                                                                             }),
+                                                             &("src/send_coap.rs",
+                                                               87u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+        }
+        /// Fail if the last byte is not zero.
+        pub fn vallidate_bytestr(bs: &'static [u8]) {
+            {
+                match (&bs.last(), &Some(&0u8)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`"],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val)
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt)],
+                                                                                             }),
+                                                             &("src/send_coap.rs",
+                                                               93u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+        }
     }
-    static test_static: StrN = StrN{bytestr: b"hello\0",};
-    fn test_safe_wrap() {
+    static _test_static: Strn = Strn{bytestr: b"hello\0",};
+    fn test_safe_wrap() -> MynewtResult<()> {
+        let _test_local = Strn{bytestr: b"hello\0",};
         "-------------------------------------------------------------";
         "-------------------------------------------------------------";
-        let test_local = StrN{bytestr: b"hello\0",};
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;
-        task_init(&mut NETWORK_TASK, b"network\0", Some(network_task_func),
-                  NULL, 10, os::OS_WAIT_FOREVER, NETWORK_TASK_STACK,
-                  NETWORK_TASK_STACK_SIZE);
-        pub fn task_init(arg1: *mut os_task, arg2: &StrN,
-                         arg3: os_task_func_t, arg4: Ptr, arg5: u8,
-                         arg6: os_time_t, arg7: *mut os_stack_t, arg8: u16)
+        task_init(unsafe { &mut NETWORK_TASK }, &Strn::new(b"network\0"),
+                  Some(network_task_func), NULL, 10,
+                  os::OS_WAIT_FOREVER as u32,
+                  unsafe { &mut NETWORK_TASK_STACK },
+                  NETWORK_TASK_STACK_SIZE)?;
+        pub fn task_init(t: &mut os_task, name: &Strn, func: os_task_func_t,
+                         arg: Ptr, prio: u8, sanity_itvl: os_time_t,
+                         stack_bottom: &mut [os_stack_t], stack_size: usize)
          -> MynewtResult<()> {
             extern "C" {
-                pub fn os_task_init(arg1: *mut os_task,
-                                    arg2: *const ::cty::c_char,
-                                    arg3: os_task_func_t,
-                                    arg4: *mut ::cty::c_void, arg5: u8,
-                                    arg6: os_time_t, arg7: *mut os_stack_t,
-                                    arg8: u16) -> ::cty::c_int;
+                pub fn os_task_init(t: *mut os_task,
+                                    name: *const ::cty::c_char,
+                                    func: os_task_func_t,
+                                    arg: *mut ::cty::c_void, prio: u8,
+                                    sanity_itvl: os_time_t,
+                                    stack_bottom: *mut os_stack_t,
+                                    stack_size: u16) -> ::cty::c_int;
             }
+            Strn::vallidate_bytestr(name.bytestr);
             unsafe {
                 let res =
-                    os_task_init(arg1, arg2, arg3, arg4, arg5, arg6, arg7,
-                                 arg8);
-                if res == 0 { Ok(()) } else { Err(res) }
+                    os_task_init(t,
+                                 name.bytestr.as_ptr() as
+                                     *const ::cty::c_char, func, arg, prio,
+                                 sanity_itvl,
+                                 stack_bottom.as_ptr() as *mut os_stack_t,
+                                 stack_size as u16);
+                if res == 0 { Ok(()) } else { Err(MynewtError::from(res)) }
             }
         }
         #[doc = " Initialize a task."]
@@ -117,6 +248,7 @@
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero on failure."]
         fn dummy() { }
+        Ok(())
     }
     ///  Storage for Network Task: Mynewt task object will be saved here.
     static mut NETWORK_TASK: os_task =
@@ -169,7 +301,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           213u32, 5u32))
+                                                           249u32, 5u32))
                         }
                     }
                 }
@@ -189,7 +321,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 225u32, 37u32))
+                                           "src/send_coap.rs", 261u32, 37u32))
             }
         };
         if unsafe {
@@ -217,7 +349,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               233u32, 75u32))
+                                                               269u32, 75u32))
                             }
                         }
                     }
@@ -250,7 +382,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               241u32, 78u32))
+                                                               277u32, 78u32))
                             }
                         }
                     }
@@ -310,7 +442,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 295u32,
+                                               "src/send_coap.rs", 331u32,
                                                53u32))
                 }
             };
@@ -335,7 +467,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           297u32, 5u32))
+                                                           333u32, 5u32))
                         }
                     }
                 }
@@ -351,7 +483,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 305u32, 80u32))
+                                           "src/send_coap.rs", 341u32, 80u32))
             }
         };
         let _payload =
@@ -571,7 +703,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 324u32, 60u32))
+                                           "src/send_coap.rs", 360u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -595,7 +727,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 353u32, 65u32))
+                                           "src/send_coap.rs", 389u32, 65u32))
             }
         };
         let _payload =
@@ -669,7 +801,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 364u32, 63u32))
+                                           "src/send_coap.rs", 400u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

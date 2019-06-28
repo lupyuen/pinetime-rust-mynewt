@@ -3,13 +3,27 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input};
 
+/// Given a static mutable variable, return an unsafe mutable pointer that's suitable for passing to Mynewt APIs for writing output.
+/// ```
+/// out!(NETWORK_TASK) = unsafe { &mut NETWORK_TASK }
+/// ```
+#[proc_macro]
+pub fn out(item: TokenStream) -> TokenStream {
+    //  Parse the macro input as an identifier e.g. `NETWORK_TASK`.
+    let input = parse_macro_input!(item as syn::Ident);
+    let ident = input.to_string();
+    let expanded = format!(r#"unsafe {{ &mut {} }}"#, ident);
+    //  Return the expanded tokens back to the compiler.
+    expanded.parse().unwrap()
+}
+
 /// Transform input string into a null-terminated bytestring that's suitable for passing to Mynewt APIs
 /// ```
 /// strn!("network") = &Strn::new( b"network\0" )
 /// ```
 #[proc_macro]
 pub fn strn(item: TokenStream) -> TokenStream {
-    //  Parse the macro input as a literal string e.g. "network".
+    //  Parse the macro input as a literal string e.g. `"network"`.
     let input = parse_macro_input!(item as syn::LitStr);
     let val = input.value();
     let expanded = format!(r#"&Strn::new( b"{}\0" )"#, val);
@@ -28,7 +42,7 @@ pub fn strn(item: TokenStream) -> TokenStream {
 /// ```
 #[proc_macro]
 pub fn init_strn(item: TokenStream) -> TokenStream {
-    //  Parse the macro input as a literal string e.g. "network".
+    //  Parse the macro input as a literal string e.g. `"network"`.
     let input = parse_macro_input!(item as syn::LitStr);
     let val = input.value();
     let expanded = format!(r#"Strn{{ bytestr: b"{}\0" }}"#, val);
