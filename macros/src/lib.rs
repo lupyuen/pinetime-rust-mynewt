@@ -122,6 +122,18 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
             let args = foreign_fn.decl.inputs;
             let transformed_args = transform_arg_list(args);
 
+            //  TODO: Collect the Wrapped Declarations for all args.
+            for arg in transformed_args {
+            }
+
+            //  TODO: Collect the Validation Statements for all args.
+            for arg in transformed_args {
+            }
+
+            //  TODO: Collect the Call Expressions for all args.
+            for arg in transformed_args {
+            }
+
             // On one line, use parentheses.
             //let tokens = quote_spanned!(span=> Box::into_raw(Box::new(#init)));
 
