@@ -10,7 +10,7 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
-use mynewt_macros::{strn}; //  Import Mynewt macros from `macros` library
+use mynewt_macros::{strn, init_strn}; //  Import Mynewt macros from `macros` library
 use crate::{coap, d, fill_zero};  //  Import Mynewt macros from `mynewt/macros.rs`
 use crate::base::*;       //  Import `base.rs` for common declarations
 use crate::mynewt::{
@@ -44,26 +44,46 @@ use crate::mynewt::{
 //  Testing
 
 /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
-pub struct StrN {
+pub struct Strn {
     /// Byte string terminated with null
-    bytestr: &'static [u8]
+    pub bytestr: &'static [u8]
 }
 
-impl StrN {
+impl Strn {
     /// Create a new byte string:
     /// ```
-    /// StrN::new(b"network\0")
+    /// Strn::new(b"network\0")
     /// strn!("network")
     /// ```
-    pub fn new(bs: &'static [u8]) -> StrN {
+    pub fn new(bs: &'static [u8]) -> Strn {
         //  Last byte must be 0.
-        assert_eq!(bs.last(), Some(0));
-        let res = StrN { bytestr: bs };
+        assert_eq!(bs.last(), Some(&0u8));
+        let res = Strn { bytestr: bs };
         res
     }
 }
 
+/// Cast `&'static [u8]` to `Strn`
+impl From<&'static [u8]> for Strn {
+    /// Cast `&'static [u8]` to `Strn` by setting the bytestring reference
+    fn from(bs: &'static [u8]) -> Self {
+        Strn::new(bs)
+    }
+}
+
+/// Cast `&'static [u8]` to `&Strn`
+impl From<&'static [u8]> for &Strn {
+    /// Cast `&'static [u8]` to `&Strn` by setting the bytestring reference
+    fn from(bs: &'static [u8]) -> Self {
+        &Strn::new(bs)
+    }
+}
+
+static test_static: Strn = init_strn!("hello");
+
 fn test_safe_wrap() {
+    let test_local = init_strn!("hello");
+
     "-------------------------------------------------------------";
     #[mynewt_macros::safe_wrap(attr)]
     extern "C" {
@@ -85,18 +105,18 @@ fn test_safe_wrap() {
 
     task_init(              //  Create a new task and start it...
         &mut NETWORK_TASK,  //  Task object will be saved here.
-        strn!("network"),   //  Name of task.
+        strn!("network") as &Strn,   //  Name of task.
         Some(network_task_func),  //  Function to execute when task starts.
         NULL,      //  Argument to be passed to above function.
         10,        //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        os::OS_WAIT_FOREVER,   //  Don't do sanity / watchdog checking.
-        NETWORK_TASK_STACK,    //  Stack space for the task.
-        NETWORK_TASK_STACK_SIZE
+        os::OS_WAIT_FOREVER,     //  Don't do sanity / watchdog checking.
+        NETWORK_TASK_STACK,      //  Stack space for the task.
+        NETWORK_TASK_STACK_SIZE  //  Size of the stack (in 4-byte units).
     );
 
     pub fn task_init(
         arg1: *mut os_task,
-        arg2: &StrN,  //  TODO: strn!("network") -> b"network\0" (s.as_ptr() as *const c_char)
+        arg2: &Strn,  //  TODO: strn!("network") -> b"network\0" (s.as_ptr() as *const c_char)
         arg3: os_task_func_t,
         arg4: Ptr,    //  TODO: NULL -> to_ptr!(0) -> 0 as Ptr (*mut ::cty::c_void)
         arg5: u8,

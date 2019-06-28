@@ -17,13 +17,32 @@ pub fn strn(item: TokenStream) -> TokenStream {
     expanded.parse().unwrap()
 }
 
+/// Create a null-terminated bytestring `Strn` that's suitable for passing to Mynewt APIs
+/// ```
+/// init_strn!("network") = Strn{ bytestr: b"network\0" }
+/// ```
+/// Used like this:
+/// ```
+/// static STATIC_STRN: Strn = init_strn!("network");
+/// let local_strn = init_strn!("network");
+/// ```
+#[proc_macro]
+pub fn init_strn(item: TokenStream) -> TokenStream {
+    //  Parse the macro input as a literal string e.g. "network".
+    let input = parse_macro_input!(item as syn::LitStr);
+    let val = input.value();
+    let expanded = format!(r#"Strn{{ bytestr: b"{}\0" }}"#, val);
+    //  Return the expanded tokens back to the compiler.
+    expanded.parse().unwrap()
+}
+
 #[proc_macro_attribute]
 pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
     //println!("attr: {:#?}", attr);
     //println!("item: {:#?}", item);
     //  Parse the macro input as an extern "C" function declaration.
     let input = parse_macro_input!(item as syn::ItemForeignMod);
-    println!("input: {:#?}", input);
+    //println!("input: {:#?}", input);
     for item in input.items {
 
     }

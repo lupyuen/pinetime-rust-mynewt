@@ -23,7 +23,7 @@
     /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
     pub struct StrN {
         /// Byte string terminated with null
-        bytestr: &'static [u8],
+        pub bytestr: &'static [u8],
     }
     impl StrN {
         /// Create a new byte string:
@@ -33,7 +33,7 @@
         /// ```
         pub fn new(bs: &'static [u8]) -> StrN {
             {
-                match (&bs.last(), &Some(0)) {
+                match (&bs.last(), &Some(&0u8)) {
                     (left_val, right_val) => {
                         if !(*left_val == *right_val) {
                             {
@@ -62,15 +62,16 @@
             res
         }
     }
+    static test_static: StrN = StrN{bytestr: b"hello\0",};
     fn test_safe_wrap() {
         "-------------------------------------------------------------";
         "-------------------------------------------------------------";
+        let test_local = StrN{bytestr: b"hello\0",};
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;
         task_init(&mut NETWORK_TASK, b"network\0", Some(network_task_func),
-                  NULL, 10, os::OS_WAIT_FOREVER as u32,
-                  NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,
-                  NETWORK_TASK_STACK_SIZE as u16);
+                  NULL, 10, os::OS_WAIT_FOREVER, NETWORK_TASK_STACK,
+                  NETWORK_TASK_STACK_SIZE);
         pub fn task_init(arg1: *mut os_task, arg2: &StrN,
                          arg3: os_task_func_t, arg4: Ptr, arg5: u8,
                          arg6: os_time_t, arg7: *mut os_stack_t, arg8: u16)
@@ -168,7 +169,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           209u32, 5u32))
+                                                           213u32, 5u32))
                         }
                     }
                 }
@@ -188,7 +189,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 221u32, 37u32))
+                                           "src/send_coap.rs", 225u32, 37u32))
             }
         };
         if unsafe {
@@ -216,7 +217,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               229u32, 75u32))
+                                                               233u32, 75u32))
                             }
                         }
                     }
@@ -249,7 +250,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               237u32, 78u32))
+                                                               241u32, 78u32))
                             }
                         }
                     }
@@ -309,7 +310,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 291u32,
+                                               "src/send_coap.rs", 295u32,
                                                53u32))
                 }
             };
@@ -334,7 +335,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           293u32, 5u32))
+                                                           297u32, 5u32))
                         }
                     }
                 }
@@ -350,7 +351,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 301u32, 80u32))
+                                           "src/send_coap.rs", 305u32, 80u32))
             }
         };
         let _payload =
@@ -570,7 +571,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 320u32, 60u32))
+                                           "src/send_coap.rs", 324u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -594,7 +595,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 349u32, 65u32))
+                                           "src/send_coap.rs", 353u32, 65u32))
             }
         };
         let _payload =
@@ -668,7 +669,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 360u32, 63u32))
+                                           "src/send_coap.rs", 364u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
