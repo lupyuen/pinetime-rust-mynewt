@@ -127,7 +127,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
         os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking
         out!( NETWORK_TASK_STACK ),   //  Stack space for the task
         NETWORK_TASK_STACK_SIZE       //  Size of the stack (in 4-byte units)
-    )?;
+    )?;                               //  `?` means check for error
 
     pub fn task_init(
         t: &mut os_task,  //  TODO: *mut os_task
@@ -234,18 +234,22 @@ static mut NETWORK_IS_READY: bool = false;
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"NET start\n");
-    let rc = unsafe { 
-        os::os_task_init(                   //  Create a new task and start it...
-            &mut NETWORK_TASK,              //  Task object will be saved here
-            b"network\0".as_ptr()           //  Name of task
+    let rc = unsafe {                        //  Calling C is unsafe
+        os::os_task_init(                    //  Create a new task and start it...
+            unsafe {                         //  Passing a mutable static to C is unsafe
+                &mut NETWORK_TASK            //  Task object will be saved here
+            },
+            b"network\0".as_ptr()            //  Name of task
                 as *const c_char,
-            Some( network_task_func ),      //  Function to execute when task starts
-            0 as *mut c_void,               //  Argument to be passed to above function
+            Some( network_task_func ),       //  Function to execute when task starts
+            0 as *mut c_void,                //  Argument to be passed to above function
             10,        //  Task priority: highest is 0, lowest is 255 (main task is 127)
-            os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
-            NETWORK_TASK_STACK.as_ptr()     //  Stack space for the task
-                as *mut os_stack_t,  
-            NETWORK_TASK_STACK_SIZE as u16  //  Size of the stack (in 4-byte units)
+            os::OS_WAIT_FOREVER as u32,      //  Don't do sanity / watchdog checking
+            unsafe {                         //  Passing a mutable static to C is unsafe
+                NETWORK_TASK_STACK.as_ptr()  //  Stack space for the task
+                    as *mut os_stack_t,
+            }
+            NETWORK_TASK_STACK_SIZE as u16   //  Size of the stack (in 4-byte units)
         )
     };
     assert_eq!(rc, 0);  //  Check for error
