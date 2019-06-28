@@ -8,6 +8,7 @@
 
 extern crate proc_macro;
 use proc_macro::TokenStream;
+use proc_macro2::Span;
 use quote::quote;
 use syn::{
     parse_macro_input,
@@ -17,6 +18,7 @@ use syn::{
         Captured,
     },
     punctuated::Punctuated,
+    spanned::Spanned,
     token::Comma,
 };
 
@@ -36,39 +38,47 @@ stack_size as u16       //  TODO
 */
 
 /// Transformed arg
-struct TransformedArg<'a> {
+struct TransformedArg {
     /// Identifier e.g. `name`
-    ident: &'a str,
+    ident: Box<String>,
     /// Original extern type e.g. `*const ::cty::c_char`
-    extern_type: &'a str,
+    extern_type: Box<String>,
     /// Wrapped type to be exposed e.g. `&Strn`
-    wrap_type: &'a str,
+    wrap_type: Box<String>,
     /// Validation statement e.g. `Strn::validate_bytestr(name.bytestr)`
-    validation_stmt: &'a str,
+    validation_stmt: Box<String>,
     /// Call expression e.g. `name.bytestr.as_ptr() as *const ::cty::c_char`
-    call_expr: &'a str,
+    call_expr: Box<String>,
+    /// Span of the identifier (file location)
+    ident_span: Box<Span>,
+    /// Span of the type (file location)
+    type_span: Box<Span>,
 }
 
 /// Transform the extern arg for: Wrap declaration, Validation statement and Call expression.
-fn transform_arg<'a>(arg: ArgCaptured) -> TransformedArg<'a> {
+fn transform_arg(arg: ArgCaptured) -> TransformedArg {
     //  `arg` contains `pat : ty`
     //println!("arg: {:#?}", arg);
     let ArgCaptured{ pat, ty, .. } = arg;
+    let pat_span = pat.span();
+    let ty_span = ty.span();
     println!("pat: {}", quote!{ #pat });
     println!("ty: {}",  quote!{ #ty });
-    let pat_str = Box::new(quote!{ #pat }.to_string());
-    let ty_str  = Box::new(quote!{ #ty  }.to_string());
+    let pat_str = quote!{ #pat }.to_string();
+    let ty_str  = quote!{ #ty  }.to_string();
     TransformedArg {
-        ident:           pat_str,
-        extern_type:     ty_str,
-        wrap_type:       ty_str,
-        validation_stmt: "Strn::validate_bytestr(name.bytestr)",
-        call_expr:       pat_str,
+        ident:           Box::new(pat_str.clone()),
+        extern_type:     Box::new(ty_str.clone()),
+        wrap_type:       Box::new(ty_str.clone()),
+        validation_stmt: Box::new("Strn::validate_bytestr(name.bytestr)".to_string()),
+        call_expr:       Box::new(pat_str.clone()),
+        ident_span:      Box::new(pat_span),
+        type_span:       Box::new(ty_span),
     }
 }
 
 /// Given a list of extern function arg declarations, return the transformed args.
-fn transform_arg_list<'a>(args: Punctuated<FnArg, Comma>) -> Vec<TransformedArg<'a>>{
+fn transform_arg_list(args: Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
     //println!("args: {:#?}", args);
     let mut res = Vec::new();
     for cap in args {
@@ -108,9 +118,17 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
             let fn_name_token = syn::Ident::new(&fn_name, foreign_fn.ident.span());
             let fn_name_without_namespace_token = syn::Ident::new(&fn_name_without_namespace, foreign_fn.ident.span());
 
-            //  Get the function args.
+            //  Get the function args and transform them.
             let args = foreign_fn.decl.inputs;
             let transformed_args = transform_arg_list(args);
+
+            // On one line, use parentheses.
+            //let tokens = quote_spanned!(span=> Box::into_raw(Box::new(#init)));
+
+            // On multiple lines, place the span at the top and use braces.
+            /*let tokens = quote_spanned! {span=>
+                Box::into_raw(Box::new(#init))
+            };*/
 
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
@@ -147,7 +165,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
                     }
                 }
             };
-            //println!("expanded: {}", expanded);
+            println!("expanded: {:#?}", expanded);
             //  Return the expanded tokens back to the compiler.
             return TokenStream::from(expanded)
         } else { assert!(false) }
