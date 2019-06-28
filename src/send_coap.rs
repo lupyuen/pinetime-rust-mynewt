@@ -50,7 +50,7 @@ pub struct Strn {
 }
 
 impl Strn {
-    /// Create a new byte string:
+    /// Create a new byte string. Fail if the last byte is not zero.
     /// ```
     /// Strn::new(b"network\0")
     /// strn!("network")
@@ -61,28 +61,43 @@ impl Strn {
         let res = Strn { bytestr: bs };
         res
     }
-}
 
-/// Cast `&'static [u8]` to `Strn`
-impl From<&'static [u8]> for Strn {
-    /// Cast `&'static [u8]` to `Strn` by setting the bytestring reference
-    fn from(bs: &'static [u8]) -> Self {
-        Strn::new(bs)
+    /// Return the byte string as a null-terminated `* const char` C-style string.
+    /// Fail if the last byte is not zero.
+    pub fn as_cstr(self) -> *const ::cty::c_char {
+        //  Last byte must be 0.
+        let bs: &'static [u8] = self.bytestr;
+        assert_eq!(bs.last(), Some(&0u8));
+        bs.as_ptr() as *const ::cty::c_char
+    }
+
+    /// Return the byte string.
+    /// Fail if the last byte is not zero.
+    pub fn as_bytestr(self) -> &'static [u8] {
+        //  Last byte must be 0.
+        let bs: &'static [u8] = self.bytestr;
+        assert_eq!(bs.last(), Some(&0u8));
+        &bs
+    }
+
+    /// Fail if the last byte is not zero.
+    pub fn validate(self) {
+        //  Last byte must be 0.
+        let bs = &self.bytestr;
+        assert_eq!(bs.last(), Some(&0u8));
+    }
+
+    /// Fail if the last byte is not zero.
+    pub fn vallidate_bytestr(bs: &'static [u8]) {
+        //  Last byte must be 0.
+        assert_eq!(bs.last(), Some(&0u8));
     }
 }
 
-/// Cast `&'static [u8]` to `&Strn`
-impl From<&'static [u8]> for &Strn {
-    /// Cast `&'static [u8]` to `&Strn` by setting the bytestring reference
-    fn from(bs: &'static [u8]) -> Self {
-        &Strn::new(bs)
-    }
-}
+static _test_static: Strn = init_strn!("hello");
 
-static test_static: Strn = init_strn!("hello");
-
-fn test_safe_wrap() {
-    let test_local = init_strn!("hello");
+fn test_safe_wrap() -> MynewtResult<()> {
+    let _test_local = init_strn!("hello");
 
     "-------------------------------------------------------------";
     #[mynewt_macros::safe_wrap(attr)]
@@ -104,51 +119,52 @@ fn test_safe_wrap() {
     const NULL: Ptr = 0 as Ptr;
 
     task_init(              //  Create a new task and start it...
-        &mut NETWORK_TASK,  //  Task object will be saved here.
-        strn!("network") as &Strn,   //  Name of task.
-        Some(network_task_func),  //  Function to execute when task starts.
-        NULL,      //  Argument to be passed to above function.
-        10,        //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        os::OS_WAIT_FOREVER,     //  Don't do sanity / watchdog checking.
-        NETWORK_TASK_STACK,      //  Stack space for the task.
-        NETWORK_TASK_STACK_SIZE  //  Size of the stack (in 4-byte units).
-    );
+        unsafe { &mut NETWORK_TASK },  //  Task object will be saved here
+        strn!("network"),   //  Name of task
+        Some(network_task_func),  //  Function to execute when task starts
+        NULL, //  Argument to be passed to above function
+        10,   //  Task priority: highest is 0, lowest is 255 (main task is 127)
+        os::OS_WAIT_FOREVER as u32, //  Don't do sanity / watchdog checking
+        unsafe { &mut NETWORK_TASK_STACK },    //  Stack space for the task
+        NETWORK_TASK_STACK_SIZE     //  Size of the stack (in 4-byte units)
+    )?;
 
     pub fn task_init(
-        arg1: *mut os_task,
-        arg2: &Strn,  //  TODO: strn!("network") -> b"network\0" (s.as_ptr() as *const c_char)
-        arg3: os_task_func_t,
-        arg4: Ptr,    //  TODO: NULL -> to_ptr!(0) -> 0 as Ptr (*mut ::cty::c_void)
-        arg5: u8,
-        arg6: os_time_t,
-        arg7: *mut os_stack_t,
-        arg8: u16,
+        t: &mut os_task,  //  TODO: *mut os_task
+        name: &Strn,      //  TODO: *const ::cty::c_char
+        func: os_task_func_t,
+        arg: Ptr,         //  TODO: *mut ::cty::c_void
+        prio: u8,
+        sanity_itvl: os_time_t,
+        stack_bottom: &mut [os_stack_t],  //  TODO: *mut os_stack_t
+        stack_size: usize,                //  TODO: u16
     ) -> MynewtResult<()> {
         extern "C" {
             pub fn os_task_init(
-                arg1: *mut os_task,
-                arg2: *const ::cty::c_char,
-                arg3: os_task_func_t,
-                arg4: *mut ::cty::c_void,
-                arg5: u8,
-                arg6: os_time_t,
-                arg7: *mut os_stack_t,
-                arg8: u16,
+                t: *mut os_task,
+                name: *const ::cty::c_char,
+                func: os_task_func_t,
+                arg: *mut ::cty::c_void,
+                prio: u8,
+                sanity_itvl: os_time_t,
+                stack_bottom: *mut os_stack_t,
+                stack_size: u16,
             ) -> ::cty::c_int;
         }
+        Strn::vallidate_bytestr(name.bytestr);
         unsafe {
             let res = os_task_init(
-                arg1,
-                arg2,
-                arg3,
-                arg4,
-                arg5,
-                arg6,
-                arg7,
-                arg8
+                t,
+                name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO
+                func,
+                arg,
+                prio,
+                sanity_itvl,
+                stack_bottom.as_ptr() as *mut os_stack_t,  //  TODO
+                stack_size as u16       //  TODO
             );
             if res == 0 { Ok(()) }
-            else { Err(res) }
+            else { Err(MynewtError::from(res)) }
         }
     }
 
@@ -172,6 +188,7 @@ fn test_safe_wrap() {
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero on failure."]
         fn dummy() {}
+    Ok(())
 }
 
 /// Run a block of CBOR encoding calls with error checking.
@@ -217,16 +234,19 @@ static mut NETWORK_IS_READY: bool = false;
 ///  Also perform WiFi Geolocation if it is enabled.  Return 0 if successful.
 pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"NET start\n");
-    let rc = unsafe { os::os_task_init( //  Create a new task and start it...
-        &mut NETWORK_TASK,            //  Task object will be saved here.
-        b"network\0".as_ptr() as *const c_char, //  Name of task.
-        Some(network_task_func),      //  Function to execute when task starts.
-        0 as *mut ::cty::c_void,      //  Argument to be passed to above function.
-        10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking.
-        NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
-        NETWORK_TASK_STACK_SIZE as u16) };  //  Size of the stack (in 4-byte units).
-    assert_eq!(rc, 0);
+    let rc = unsafe { 
+        os::os_task_init(        //  Create a new task and start it...
+            &mut NETWORK_TASK,   //  Task object will be saved here
+            b"network\0".as_ptr() as *const c_char, //  Name of task
+            Some(network_task_func),    //  Function to execute when task starts
+            0 as *mut ::cty::c_void,    //  Argument to be passed to above function
+            10,  //  Task priority: highest is 0, lowest is 255 (main task is 127)
+            os::OS_WAIT_FOREVER as u32, //  Don't do sanity / watchdog checking
+            NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task
+            NETWORK_TASK_STACK_SIZE as u16  //  Size of the stack (in 4-byte units)
+        )
+    };
+    assert_eq!(rc, 0);  //  Check for error
     Ok(())
 }
 

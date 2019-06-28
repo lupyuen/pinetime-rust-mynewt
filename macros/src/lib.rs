@@ -5,14 +5,14 @@ use syn::{parse_macro_input};
 
 /// Transform input string into a null-terminated bytestring that's suitable for passing to Mynewt APIs
 /// ```
-/// strn!("network") = b"network\0"
+/// strn!("network") = &Strn::new( b"network\0" )
 /// ```
 #[proc_macro]
 pub fn strn(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a literal string e.g. "network".
     let input = parse_macro_input!(item as syn::LitStr);
     let val = input.value();
-    let expanded = format!(r#"b"{}\0""#, val);
+    let expanded = format!(r#"&Strn::new( b"{}\0" )"#, val);
     //  Return the expanded tokens back to the compiler.
     expanded.parse().unwrap()
 }
