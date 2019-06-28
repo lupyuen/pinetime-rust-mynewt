@@ -118,15 +118,15 @@ fn test_safe_wrap() -> MynewtResult<()> {
     type Ptr = *mut ::cty::c_void;
     const NULL: Ptr = 0 as Ptr;
 
-    task_init(               //  Create a new task and start it...
-        out!(NETWORK_TASK),  //  Task object will be saved here
-        strn!("network"),    //  Name of task
-        Some(network_task_func),  //  Function to execute when task starts
+    task_init(                      //  Create a new task and start it...
+        out!( NETWORK_TASK ),       //  Task object will be saved here
+        strn!( "network" ),         //  Name of task
+        Some( network_task_func ),  //  Function to execute when task starts
         NULL,  //  Argument to be passed to above function
         10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
-        os::OS_WAIT_FOREVER as u32, //  Don't do sanity / watchdog checking
-        out!(NETWORK_TASK_STACK),   //  Stack space for the task
-        NETWORK_TASK_STACK_SIZE     //  Size of the stack (in 4-byte units)
+        os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking
+        out!( NETWORK_TASK_STACK ),   //  Stack space for the task
+        NETWORK_TASK_STACK_SIZE       //  Size of the stack (in 4-byte units)
     )?;
 
     pub fn task_init(
@@ -151,7 +151,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
                 stack_size: u16,
             ) -> ::cty::c_int;
         }
-        Strn::vallidate_bytestr(name.bytestr);
+        Strn::vallidate_bytestr(name.bytestr);  //  TODO
         unsafe {
             let res = os_task_init(
                 t,
@@ -235,14 +235,16 @@ static mut NETWORK_IS_READY: bool = false;
 pub fn start_network_task() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"NET start\n");
     let rc = unsafe { 
-        os::os_task_init(        //  Create a new task and start it...
-            &mut NETWORK_TASK,   //  Task object will be saved here
-            b"network\0".as_ptr() as *const c_char, //  Name of task
-            Some(network_task_func),    //  Function to execute when task starts
-            0 as *mut ::cty::c_void,    //  Argument to be passed to above function
-            10,  //  Task priority: highest is 0, lowest is 255 (main task is 127)
-            os::OS_WAIT_FOREVER as u32, //  Don't do sanity / watchdog checking
-            NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task
+        os::os_task_init(                   //  Create a new task and start it...
+            &mut NETWORK_TASK,              //  Task object will be saved here
+            b"network\0".as_ptr()           //  Name of task
+                as *const c_char,
+            Some( network_task_func ),      //  Function to execute when task starts
+            0 as *mut c_void,               //  Argument to be passed to above function
+            10,        //  Task priority: highest is 0, lowest is 255 (main task is 127)
+            os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
+            NETWORK_TASK_STACK.as_ptr()     //  Stack space for the task
+                as *mut os_stack_t,  
             NETWORK_TASK_STACK_SIZE as u16  //  Size of the stack (in 4-byte units)
         )
     };
