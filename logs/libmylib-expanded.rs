@@ -4,7 +4,7 @@ input: ItemForeignMod {
         extern_token: Extern,
         name: Some(
             LitStr {
-                token: Literal { lit: Str_(C), suffix: None, span: Span { lo: BytePos(300127), hi: BytePos(300130), ctxt: #0 } },
+                token: Literal { lit: Str_(C), suffix: None, span: Span { lo: BytePos(300201), hi: BytePos(300204), ctxt: #0 } },
             },
         ),
     },
@@ -20,7 +20,7 @@ input: ItemForeignMod {
                 ),
                 ident: Ident {
                     ident: "os_task_init",
-                    span: #0 bytes(300148..300160),
+                    span: #0 bytes(300222..300234),
                 },
                 decl: FnDecl {
                     fn_token: Fn,
@@ -40,7 +40,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg1",
-                                            span: #0 bytes(300174..300178),
+                                            span: #0 bytes(300248..300252),
                                         },
                                         subpat: None,
                                     },
@@ -62,7 +62,7 @@ input: ItemForeignMod {
                                                         PathSegment {
                                                             ident: Ident {
                                                                 ident: "os_task",
-                                                                span: #0 bytes(300185..300192),
+                                                                span: #0 bytes(300259..300266),
                                                             },
                                                             arguments: None,
                                                         },
@@ -83,7 +83,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg2",
-                                            span: #0 bytes(300206..300210),
+                                            span: #0 bytes(300280..300284),
                                         },
                                         subpat: None,
                                     },
@@ -107,7 +107,7 @@ input: ItemForeignMod {
                                                         PathSegment {
                                                             ident: Ident {
                                                                 ident: "cty",
-                                                                span: #0 bytes(300221..300224),
+                                                                span: #0 bytes(300295..300298),
                                                             },
                                                             arguments: None,
                                                         },
@@ -115,7 +115,7 @@ input: ItemForeignMod {
                                                         PathSegment {
                                                             ident: Ident {
                                                                 ident: "c_char",
-                                                                span: #0 bytes(300226..300232),
+                                                                span: #0 bytes(300300..300306),
                                                             },
                                                             arguments: None,
                                                         },
@@ -136,7 +136,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg3",
-                                            span: #0 bytes(300246..300250),
+                                            span: #0 bytes(300320..300324),
                                         },
                                         subpat: None,
                                     },
@@ -151,7 +151,7 @@ input: ItemForeignMod {
                                                 PathSegment {
                                                     ident: Ident {
                                                         ident: "os_task_func_t",
-                                                        span: #0 bytes(300252..300266),
+                                                        span: #0 bytes(300326..300340),
                                                     },
                                                     arguments: None,
                                                 },
@@ -170,7 +170,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg4",
-                                            span: #0 bytes(300280..300284),
+                                            span: #0 bytes(300354..300358),
                                         },
                                         subpat: None,
                                     },
@@ -194,7 +194,7 @@ input: ItemForeignMod {
                                                         PathSegment {
                                                             ident: Ident {
                                                                 ident: "cty",
-                                                                span: #0 bytes(300293..300296),
+                                                                span: #0 bytes(300367..300370),
                                                             },
                                                             arguments: None,
                                                         },
@@ -202,7 +202,7 @@ input: ItemForeignMod {
                                                         PathSegment {
                                                             ident: Ident {
                                                                 ident: "c_void",
-                                                                span: #0 bytes(300298..300304),
+                                                                span: #0 bytes(300372..300378),
                                                             },
                                                             arguments: None,
                                                         },
@@ -223,7 +223,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg5",
-                                            span: #0 bytes(300318..300322),
+                                            span: #0 bytes(300392..300396),
                                         },
                                         subpat: None,
                                     },
@@ -238,7 +238,7 @@ input: ItemForeignMod {
                                                 PathSegment {
                                                     ident: Ident {
                                                         ident: "u8",
-                                                        span: #0 bytes(300324..300326),
+                                                        span: #0 bytes(300398..300400),
                                                     },
                                                     arguments: None,
                                                 },
@@ -257,7 +257,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg6",
-                                            span: #0 bytes(300340..300344),
+                                            span: #0 bytes(300414..300418),
                                         },
                                         subpat: None,
                                     },
@@ -272,7 +272,7 @@ input: ItemForeignMod {
                                                 PathSegment {
                                                     ident: Ident {
                                                         ident: "os_time_t",
-                                                        span: #0 bytes(300346..300355),
+                                                        span: #0 bytes(300420..300429),
                                                     },
                                                     arguments: None,
                                                 },
@@ -291,7 +291,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg7",
-                                            span: #0 bytes(300369..300373),
+                                            span: #0 bytes(300443..300447),
                                         },
                                         subpat: None,
                                     },
@@ -313,7 +313,7 @@ input: ItemForeignMod {
                                                         PathSegment {
                                                             ident: Ident {
                                                                 ident: "os_stack_t",
-                                                                span: #0 bytes(300380..300390),
+                                                                span: #0 bytes(300454..300464),
                                                             },
                                                             arguments: None,
                                                         },
@@ -334,7 +334,7 @@ input: ItemForeignMod {
                                         mutability: None,
                                         ident: Ident {
                                             ident: "arg8",
-                                            span: #0 bytes(300404..300408),
+                                            span: #0 bytes(300478..300482),
                                         },
                                         subpat: None,
                                     },
@@ -349,7 +349,7 @@ input: ItemForeignMod {
                                                 PathSegment {
                                                     ident: Ident {
                                                         ident: "u16",
-                                                        span: #0 bytes(300410..300413),
+                                                        span: #0 bytes(300484..300487),
                                                     },
                                                     arguments: None,
                                                 },
@@ -375,7 +375,7 @@ input: ItemForeignMod {
                                         PathSegment {
                                             ident: Ident {
                                                 ident: "cty",
-                                                span: #0 bytes(300430..300433),
+                                                span: #0 bytes(300504..300507),
                                             },
                                             arguments: None,
                                         },
@@ -383,7 +383,7 @@ input: ItemForeignMod {
                                         PathSegment {
                                             ident: Ident {
                                                 ident: "c_int",
-                                                span: #0 bytes(300435..300440),
+                                                span: #0 bytes(300509..300514),
                                             },
                                             arguments: None,
                                         },
@@ -11225,6 +11225,7 @@ mod send_coap {
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
     use cty::*;
+    use mynewt_macros::{strn};
     use crate::{coap, d, fill_zero};
     use crate::base::*;
     use crate::mynewt::{result::*,
@@ -11267,7 +11268,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               59u32, 9u32))
+                                                               60u32, 9u32))
                             }
                         }
                     }
@@ -11282,7 +11283,7 @@ mod send_coap {
         "-------------------------------------------------------------";
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;
-        task_init(&mut NETWORK_TASK, (/*ERROR*/), Some(network_task_func),
+        task_init(&mut NETWORK_TASK, b"network\0", Some(network_task_func),
                   NULL, 10, os::OS_WAIT_FOREVER as u32,
                   NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,
                   NETWORK_TASK_STACK_SIZE as u16);
@@ -11383,7 +11384,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           208u32, 5u32))
+                                                           209u32, 5u32))
                         }
                     }
                 }
@@ -11403,7 +11404,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 220u32, 37u32))
+                                           "src/send_coap.rs", 221u32, 37u32))
             }
         };
         if unsafe {
@@ -11431,7 +11432,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               228u32, 75u32))
+                                                               229u32, 75u32))
                             }
                         }
                     }
@@ -11464,7 +11465,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               236u32, 78u32))
+                                                               237u32, 78u32))
                             }
                         }
                     }
@@ -11524,7 +11525,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 290u32,
+                                               "src/send_coap.rs", 291u32,
                                                53u32))
                 }
             };
@@ -11549,7 +11550,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           292u32, 5u32))
+                                                           293u32, 5u32))
                         }
                     }
                 }
@@ -11565,7 +11566,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 300u32, 80u32))
+                                           "src/send_coap.rs", 301u32, 80u32))
             }
         };
         let _payload =
@@ -11785,7 +11786,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 319u32, 60u32))
+                                           "src/send_coap.rs", 320u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -11809,7 +11810,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 348u32, 65u32))
+                                           "src/send_coap.rs", 349u32, 65u32))
             }
         };
         let _payload =
@@ -11883,7 +11884,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 359u32, 63u32))
+                                           "src/send_coap.rs", 360u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

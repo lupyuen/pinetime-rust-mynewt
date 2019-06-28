@@ -10,6 +10,7 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
+use mynewt_macros::{strn}; //  Import Mynewt macros from `macros` library
 use crate::{coap, d, fill_zero};  //  Import Mynewt macros from `mynewt/macros.rs`
 use crate::base::*;       //  Import `base.rs` for common declarations
 use crate::mynewt::{
@@ -88,9 +89,9 @@ fn test_safe_wrap() {
         Some(network_task_func),  //  Function to execute when task starts.
         NULL,      //  Argument to be passed to above function.
         10,        //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking.
-        NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,  //  Stack space for the task.
-        NETWORK_TASK_STACK_SIZE as u16
+        os::OS_WAIT_FOREVER,   //  Don't do sanity / watchdog checking.
+        NETWORK_TASK_STACK,    //  Stack space for the task.
+        NETWORK_TASK_STACK_SIZE
     );
 
     pub fn task_init(

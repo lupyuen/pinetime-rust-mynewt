@@ -9,6 +9,7 @@
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use cstr_core::CStr;
     use cty::*;
+    use mynewt_macros::{strn};
     use crate::{coap, d, fill_zero};
     use crate::base::*;
     use crate::mynewt::{result::*,
@@ -51,7 +52,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               59u32, 9u32))
+                                                               60u32, 9u32))
                             }
                         }
                     }
@@ -66,7 +67,7 @@
         "-------------------------------------------------------------";
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;
-        task_init(&mut NETWORK_TASK, (/*ERROR*/), Some(network_task_func),
+        task_init(&mut NETWORK_TASK, b"network\0", Some(network_task_func),
                   NULL, 10, os::OS_WAIT_FOREVER as u32,
                   NETWORK_TASK_STACK.as_ptr() as *mut os_stack_t,
                   NETWORK_TASK_STACK_SIZE as u16);
@@ -167,7 +168,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           208u32, 5u32))
+                                                           209u32, 5u32))
                         }
                     }
                 }
@@ -187,7 +188,7 @@
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 220u32, 37u32))
+                                           "src/send_coap.rs", 221u32, 37u32))
             }
         };
         if unsafe {
@@ -215,7 +216,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               228u32, 75u32))
+                                                               229u32, 75u32))
                             }
                         }
                     }
@@ -248,7 +249,7 @@
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               236u32, 78u32))
+                                                               237u32, 78u32))
                             }
                         }
                     }
@@ -308,7 +309,7 @@
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 290u32,
+                                               "src/send_coap.rs", 291u32,
                                                53u32))
                 }
             };
@@ -333,7 +334,7 @@
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           292u32, 5u32))
+                                                           293u32, 5u32))
                         }
                     }
                 }
@@ -349,7 +350,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 300u32, 80u32))
+                                           "src/send_coap.rs", 301u32, 80u32))
             }
         };
         let _payload =
@@ -569,7 +570,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 319u32, 60u32))
+                                           "src/send_coap.rs", 320u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -593,7 +594,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 348u32, 65u32))
+                                           "src/send_coap.rs", 349u32, 65u32))
             }
         };
         let _payload =
@@ -667,7 +668,7 @@
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 359u32, 63u32))
+                                           "src/send_coap.rs", 360u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");
