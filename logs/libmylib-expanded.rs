@@ -1,20 +1,3 @@
-expanded: pub fn task_init (
-t : & mut os_task , name : & Strn , func : os_task_func_t , arg : Ptr , prio :
-u8 , sanity_itvl : os_time_t , stack_bottom : & mut [ os_stack_t ] ,
-stack_size : usize , ) -> MynewtResult < (  ) > {
-"----------Insert Extern: `extern C { pub fn ... }`----------" ; extern "C" {
-pub fn os_task_init (
-arg1 : * mut os_task , arg2 : * const :: cty :: c_char , arg3 : os_task_func_t
-, arg4 : * mut :: cty :: c_void , arg5 : u8 , arg6 : os_time_t , arg7 : * mut
-os_stack_t , arg8 : u16 , ) -> :: cty :: c_int ; }
-"----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------"
-; Strn :: validate_bytestr ( name . bytestr ) ; unsafe {
-"----------Insert Call: `let res = os_task_init(`----------" ; let result_code
-= os_task_init (
-t , name . bytestr . as_ptr (  ) as * const :: cty :: c_char , func , arg ,
-prio , sanity_itvl , stack_bottom . as_ptr (  ) as * mut os_stack_t ,
-stack_size as u16 ) ; if result_code == 0 { Ok ( (  ) ) } else {
-Err ( MynewtError :: from ( result_code ) ) } } }
 #![feature(prelude_import)]
 #![no_std]
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server or Collector Node.
@@ -11022,11 +11005,11 @@ mod send_coap {
     fn test_safe_wrap() -> MynewtResult<()> {
         let _test_local = Strn{bytestr: b"hello\0",};
         "-------------------------------------------------------------";
-        pub fn task_init(t: &mut os_task, name: &Strn, func: os_task_func_t,
-                         arg: Ptr, prio: u8, sanity_itvl: os_time_t,
-                         stack_bottom: &mut [os_stack_t], stack_size: usize)
+        pub fn task_init(arg1: Out<os_task>, arg2: &Strn,
+                         arg3: os_task_func_t, arg4: Ptr, arg5: u8,
+                         arg6: os_time_t, arg7: Out<[os_stack_t]>, arg8: u16)
          -> MynewtResult<()> {
-            "----------Insert Extern: `extern C { pub fn ... }`----------";
+            "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
                 pub fn os_task_init(arg1: *mut os_task,
                                     arg2: *const ::cty::c_char,
@@ -11036,33 +11019,36 @@ mod send_coap {
                                     arg8: u16) -> ::cty::c_int;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-            Strn::validate_bytestr(name.bytestr);
+            Strn::validate_bytestr(arg2.bytestr);
             unsafe {
-                "----------Insert Call: `let res = os_task_init(`----------";
+                "----------Insert Call: `let result_code = os_task_init(`----------";
                 let result_code =
-                    os_task_init(t,
-                                 name.bytestr.as_ptr() as
-                                     *const ::cty::c_char, func, arg, prio,
-                                 sanity_itvl,
-                                 stack_bottom.as_ptr() as *mut os_stack_t,
-                                 stack_size as u16);
+                    os_task_init(arg1 as *mut os_task,
+                                 arg2.bytestr.as_ptr() as
+                                     *const ::cty::c_char,
+                                 arg3 as os_task_func_t,
+                                 arg4 as *mut ::cty::c_void, arg5 as u8,
+                                 arg6 as os_time_t,
+                                 arg7.as_ptr() as *mut os_stack_t,
+                                 arg8 as u16);
                 if result_code == 0 {
                     Ok(())
                 } else { Err(MynewtError::from(result_code)) }
             }
         }
         "-------------------------------------------------------------";
+        type Out<T> = &'static mut T;
         type Ptr = *mut ::cty::c_void;
         const NULL: Ptr = 0 as Ptr;
         task_init(unsafe { &mut NETWORK_TASK }, &Strn::new(b"network\0"),
                   Some(network_task_func), NULL, 10,
                   os::OS_WAIT_FOREVER as u32,
                   unsafe { &mut NETWORK_TASK_STACK },
-                  NETWORK_TASK_STACK_SIZE)?;
-        pub fn OLDtask_init(t: &mut os_task, name: &Strn,
+                  NETWORK_TASK_STACK_SIZE as u16)?;
+        pub fn OLDtask_init(t: Out<os_task>, name: &Strn,
                             func: os_task_func_t, arg: Ptr, prio: u8,
                             sanity_itvl: os_time_t,
-                            stack_bottom: &mut [os_stack_t],
+                            stack_bottom: Out<[os_stack_t]>,
                             stack_size: usize) -> MynewtResult<()> {
             extern "C" {
                 pub fn os_task_init(t: *mut os_task,
@@ -11164,7 +11150,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           255u32, 5u32))
+                                                           256u32, 5u32))
                         }
                     }
                 }
@@ -11184,7 +11170,7 @@ mod send_coap {
         if !unsafe { !NETWORK_IS_READY } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !NETWORK_IS_READY }",
-                                           "src/send_coap.rs", 267u32, 37u32))
+                                           "src/send_coap.rs", 268u32, 37u32))
             }
         };
         if unsafe {
@@ -11212,7 +11198,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               275u32, 75u32))
+                                                               276u32, 75u32))
                             }
                         }
                     }
@@ -11245,7 +11231,7 @@ mod send_coap {
                                                                                                                                ::core::fmt::Debug::fmt)],
                                                                                              }),
                                                              &("src/send_coap.rs",
-                                                               283u32, 78u32))
+                                                               284u32, 78u32))
                             }
                         }
                     }
@@ -11305,7 +11291,7 @@ mod send_coap {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "src/send_coap.rs", 337u32,
+                                               "src/send_coap.rs", 338u32,
                                                53u32))
                 }
             };
@@ -11330,7 +11316,7 @@ mod send_coap {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("src/send_coap.rs",
-                                                           339u32, 5u32))
+                                                           340u32, 5u32))
                         }
                     }
                 }
@@ -11346,7 +11332,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 347u32, 80u32))
+                                           "src/send_coap.rs", 348u32, 80u32))
             }
         };
         let _payload =
@@ -11566,7 +11552,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 366u32, 60u32))
+                                           "src/send_coap.rs", 367u32, 60u32))
             }
         };
         console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
@@ -11590,7 +11576,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 395u32, 65u32))
+                                           "src/send_coap.rs", 396u32, 65u32))
             }
         };
         let _payload =
@@ -11664,7 +11650,7 @@ mod send_coap {
         if !rc {
             {
                 ::core::panicking::panic(&("assertion failed: rc",
-                                           "src/send_coap.rs", 406u32, 63u32))
+                                           "src/send_coap.rs", 407u32, 63u32))
             }
         };
         console_print(b"NRF send to collector: rawtmp %d\n");

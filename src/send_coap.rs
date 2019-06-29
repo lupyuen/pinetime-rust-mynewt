@@ -127,8 +127,8 @@ fn test_safe_wrap() -> MynewtResult<()> {
         10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
         os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking
         out!( NETWORK_TASK_STACK ),   //  Stack space for the task
-        NETWORK_TASK_STACK_SIZE       //  Size of the stack (in 4-byte units)
-    )?;                               //  `?` means check for error
+        NETWORK_TASK_STACK_SIZE as u16 //  Size of the stack (in 4-byte units)
+    )?;                                //  `?` means check for error
 
     pub fn OLDtask_init(
         t: Out<os_task>,  //  TODO: *mut os_task
