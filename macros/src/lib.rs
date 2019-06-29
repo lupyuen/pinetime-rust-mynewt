@@ -9,7 +9,7 @@
 extern crate proc_macro;
 use proc_macro::TokenStream;
 use proc_macro2::Span;
-use quote::quote;
+use quote::{quote, quote_spanned};
 use syn::{
     parse_macro_input,
     ArgCaptured,
@@ -21,6 +21,29 @@ use syn::{
     spanned::Spanned,
     token::Comma,
 };
+
+/// Collect the Wrapped Declarations for all args. Return a TokenStream of the declarations for the wrapper function:
+/// `t: Out<os_task>, name: &Strn, func: os_task_func_t, ...`
+/// Preserve the span info for error display.
+fn collect_wrapped(args: &Vec<TransformedArg>) -> proc_macro2::TokenStream {
+    //  Construct a new `TokenStream` to accumulate the expanded code.
+    //  We use `TokenStream` instead of string because `TokenStream` remembers the source location (span) in case of errors.
+    //  `quote!` returns `proc_macro2::TokenStream` instead of `proc_macro::TokenStream`, so we use `proc_macro2::TokenStream`.
+    let mut expanded = proc_macro2::TokenStream::new();
+    for arg in args {
+        //  Construct the identifier and type tokens, preserving the span: `t: Out<os_task>`
+        let TransformedArg{ ident, wrap_type, ident_span, type_span, .. } = arg;
+        let ident_token = quote_spanned!(ident_span=> #ident);
+        let type_token  = quote_spanned!(type_span => #wrap_type);
+        let tokens = quote!{ #ident_token : #type_token };
+        //  Append the tokens to the result.
+        if !expanded.is_empty() { expanded.extend(quote!{ , }) }
+        expanded.extend(tokens);
+    }
+    //  Return the expanded tokens.
+    println!("expanded: {}", expanded);
+    expanded
+}
 
 /*
 t: Out<os_task>,  //  TODO: *mut os_task
@@ -62,8 +85,8 @@ fn transform_arg(arg: ArgCaptured) -> TransformedArg {
     let ArgCaptured{ pat, ty, .. } = arg;
     let pat_span = pat.span();
     let ty_span = ty.span();
-    println!("pat: {}", quote!{ #pat });
-    println!("ty: {}",  quote!{ #ty });
+    //println!("pat: {}", quote!{ #pat });
+    //println!("ty: {}",  quote!{ #ty });
     let pat_str = quote!{ #pat }.to_string();
     let ty_str  = quote!{ #ty  }.to_string();
     TransformedArg {
@@ -122,29 +145,18 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
             let args = foreign_fn.decl.inputs;
             let transformed_args = transform_arg_list(args);
 
-            //  TODO: Collect the Wrapped Declarations for all args.
-            for arg in transformed_args {
-            }
+            //  Collect the Wrapped Declarations for all args.
+            let wrap_tokens = collect_wrapped(&transformed_args);
 
             //  TODO: Collect the Validation Statements for all args.
-            for arg in transformed_args {
-            }
 
             //  TODO: Collect the Call Expressions for all args.
-            for arg in transformed_args {
-            }
-
-            // On one line, use parentheses.
-            //let tokens = quote_spanned!(span=> Box::into_raw(Box::new(#init)));
-
-            // On multiple lines, place the span at the top and use braces.
-            /*let tokens = quote_spanned! {span=>
-                Box::into_raw(Box::new(#init))
-            };*/
 
             let expanded = quote! {
                 //  "----------Insert: `pub fn task_init() -> {`----------";
                 pub fn #fn_name_without_namespace_token(
+                    #wrap_tokens
+                    /*
                     t: Out<os_task>,  //  TODO: *mut os_task
                     name: &Strn,      //  TODO: *const ::cty::c_char
                     func: os_task_func_t,
@@ -153,6 +165,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
                     sanity_itvl: os_time_t,
                     stack_bottom: Out<[os_stack_t]>,  //  TODO: *mut os_stack_t
                     stack_size: usize,                //  TODO: u16
+                    */
                 ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
                     "----------Insert Extern: `extern C { pub fn ... }`----------";
                     extern "C" {
@@ -177,7 +190,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
                     }
                 }
             };
-            println!("expanded: {:#?}", expanded);
+            //println!("expanded: {:#?}", expanded);
             //  Return the expanded tokens back to the compiler.
             return TokenStream::from(expanded)
         } else { assert!(false) }
