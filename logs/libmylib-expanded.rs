@@ -11005,32 +11005,33 @@ mod send_coap {
     fn test_safe_wrap() -> MynewtResult<()> {
         let _test_local = Strn{bytestr: b"hello\0",};
         "-------------------------------------------------------------";
-        pub fn task_init(arg1: Out<os_task>, arg2: &Strn,
-                         arg3: os_task_func_t, arg4: Ptr, arg5: u8,
-                         arg6: os_time_t, arg7: Out<[os_stack_t]>, arg8: u16)
+        pub fn task_init(t: Out<os_task>, name: &Strn, func: os_task_func_t,
+                         arg: Ptr, prio: u8, sanity_itvl: os_time_t,
+                         stack_bottom: Out<[os_stack_t]>, stack_size: u16)
          -> MynewtResult<()> {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
-                pub fn os_task_init(arg1: *mut os_task,
-                                    arg2: *const ::cty::c_char,
-                                    arg3: os_task_func_t,
-                                    arg4: *mut ::cty::c_void, arg5: u8,
-                                    arg6: os_time_t, arg7: *mut os_stack_t,
-                                    arg8: u16) -> ::cty::c_int;
+                pub fn os_task_init(t: *mut os_task,
+                                    name: *const ::cty::c_char,
+                                    func: os_task_func_t,
+                                    arg: *mut ::cty::c_void, prio: u8,
+                                    sanity_itvl: os_time_t,
+                                    stack_bottom: *mut os_stack_t,
+                                    stack_size: u16) -> ::cty::c_int;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-            Strn::validate_bytestr(arg2.bytestr);
+            Strn::validate_bytestr(name.bytestr);
             unsafe {
                 "----------Insert Call: `let result_code = os_task_init(`----------";
                 let result_code =
-                    os_task_init(arg1 as *mut os_task,
-                                 arg2.bytestr.as_ptr() as
+                    os_task_init(t as *mut os_task,
+                                 name.bytestr.as_ptr() as
                                      *const ::cty::c_char,
-                                 arg3 as os_task_func_t,
-                                 arg4 as *mut ::cty::c_void, arg5 as u8,
-                                 arg6 as os_time_t,
-                                 arg7.as_ptr() as *mut os_stack_t,
-                                 arg8 as u16);
+                                 func as os_task_func_t,
+                                 arg as *mut ::cty::c_void, prio as u8,
+                                 sanity_itvl as os_time_t,
+                                 stack_bottom.as_ptr() as *mut os_stack_t,
+                                 stack_size as u16);
                 if result_code == 0 {
                     Ok(())
                 } else { Err(MynewtError::from(result_code)) }
