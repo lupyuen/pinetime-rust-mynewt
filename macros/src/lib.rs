@@ -13,10 +13,13 @@ use quote::{quote, quote_spanned};
 use syn::{
     parse_macro_input,
     ArgCaptured,
+    Expr,
     FnArg::{
         self,
         Captured,
     },
+    Pat,
+    Type,
     punctuated::Punctuated,
     spanned::Spanned,
     token::Comma,
@@ -25,24 +28,65 @@ use syn::{
 /// Collect the Wrapped Declarations for all args. Return a TokenStream of the declarations for the wrapper function:
 /// `t: Out<os_task>, name: &Strn, func: os_task_func_t, ...`
 /// Preserve the span info for error display.
-fn collect_wrapped(args: &Vec<TransformedArg>) -> proc_macro2::TokenStream {
+fn collect_wrap(args: &Vec<TransformedArg>) -> proc_macro2::TokenStream {
     //  Construct a new `TokenStream` to accumulate the expanded code.
     //  We use `TokenStream` instead of string because `TokenStream` remembers the source location (span) in case of errors.
     //  `quote!` returns `proc_macro2::TokenStream` instead of `proc_macro::TokenStream`, so we use `proc_macro2::TokenStream`.
     let mut expanded = proc_macro2::TokenStream::new();
     for arg in args {
-        //  Construct the identifier and type tokens, preserving the span: `t: Out<os_task>`
+        //  Construct the wrap identifier and type tokens, preserving the span: `t: Out<os_task>`
         let TransformedArg{ ident, wrap_type, ident_span, type_span, .. } = arg;
-        let ident_token = quote_spanned!(ident_span=> #ident);
-        let type_token  = quote_spanned!(type_span => #wrap_type);
-        let tokens = quote!{ #ident_token : #type_token };
-        //  Append the tokens to the result.
-        if !expanded.is_empty() { expanded.extend(quote!{ , }) }
+        let tokens = expand_decl(ident, wrap_type, ident_span, type_span, Separator::Colon);
+        if !expanded.is_empty() { expanded.extend(quote!{ , }) }  //  Add a comma if not first arg.
         expanded.extend(tokens);
     }
     //  Return the expanded tokens.
-    println!("expanded: {}", expanded);
+    //  println!("expanded: {:#?}", expanded);
     expanded
+}
+
+/// Collect the Call Expressions for all args. Return a TokenStream of the declarations for the wrapper function:
+/// `t, name.bytestr.as_ptr() as *const ::cty::c_char, ...`
+/// Preserve the span info for error display.
+fn collect_call(args: &Vec<TransformedArg>) -> proc_macro2::TokenStream {
+    //  Construct a new `TokenStream` to accumulate the expanded code.
+    //  We use `TokenStream` instead of string because `TokenStream` remembers the source location (span) in case of errors.
+    //  `quote!` returns `proc_macro2::TokenStream` instead of `proc_macro::TokenStream`, so we use `proc_macro2::TokenStream`.
+    let mut expanded = proc_macro2::TokenStream::new();
+    for arg in args {
+        //  Construct the call expr and type tokens, preserving the span: `t as *mut os_task`
+        let TransformedArg{ call_expr, extern_type, ident_span, type_span, .. } = arg;
+        let tokens = expand_decl(call_expr, extern_type, ident_span, type_span, Separator::As);
+        if !expanded.is_empty() { expanded.extend(quote!{ , }) }  //  Add a comma if not first arg.
+        expanded.extend(tokens);
+    }
+    //  Return the expanded tokens.
+    //  println!("expanded: {:#?}", expanded);
+    expanded
+}
+
+/// Given identifier `ident` and type `ty`, return the tokens for the declaration `ident: ty`.
+/// Preserve the identifier and type spans specified in `ident_span` and `type_span`.
+fn expand_decl(ident: &str, ty: &str, ident_span: &Span, type_span: &Span, separator: Separator) -> proc_macro2::TokenStream {
+    //  Parse the ident and type strings as syn::Pat and syn::Type.
+    let ident_token = syn::parse_str::<Expr>(ident).unwrap();
+    let type_token = syn::parse_str::<Type>(ty).unwrap();
+    //  Wrap the parsed tokens with the spans (locations) of the ident and type.
+    let ident_token_spanned = quote_spanned!(ident_span=> #ident_token);
+    let type_token_spanned  = quote_spanned!(type_span => #type_token);
+    //  Return the tokens.
+    match separator {
+        Separator::Colon => { quote!{ #ident_token_spanned : #type_token_spanned } }
+        Separator::As    => { quote!{ #ident_token_spanned as #type_token_spanned } }
+    }
+}
+
+/// Separator for composing declarations
+enum Separator {
+    /// `ident: ty`
+    Colon,
+    /// `ident as ty`
+    As,
 }
 
 /*
@@ -83,8 +127,8 @@ fn transform_arg(arg: ArgCaptured) -> TransformedArg {
     //  `arg` contains `pat : ty`
     //println!("arg: {:#?}", arg);
     let ArgCaptured{ pat, ty, .. } = arg;
-    let pat_span = pat.span();
-    let ty_span = ty.span();
+    let pat_span = pat.span();  //  syn::Pat
+    let ty_span = ty.span();    //  syn::Type
     //println!("pat: {}", quote!{ #pat });
     //println!("ty: {}",  quote!{ #ty });
     let pat_str = quote!{ #pat }.to_string();
@@ -146,15 +190,17 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
             let transformed_args = transform_arg_list(args);
 
             //  Collect the Wrapped Declarations for all args.
-            let wrap_tokens = collect_wrapped(&transformed_args);
+            let wrap_tokens = collect_wrap(&transformed_args);
 
             //  TODO: Collect the Validation Statements for all args.
 
-            //  TODO: Collect the Call Expressions for all args.
+            //  Collect the Call Expressions for all args.
+            let call_tokens = collect_call(&transformed_args);
 
             let expanded = quote! {
-                //  "----------Insert: `pub fn task_init() -> {`----------";
+                //  "----------Insert Func Name: `pub fn task_init() -> {`----------";
                 pub fn #fn_name_without_namespace_token(
+                    //  "----------Insert Wrapped Decl----------";
                     #wrap_tokens
                     /*
                     t: Out<os_task>,  //  TODO: *mut os_task
@@ -167,7 +213,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
                     stack_size: usize,                //  TODO: u16
                     */
                 ) -> MynewtResult<()> {               //  TODO: ::cty::c_int;
-                    "----------Insert Extern: `extern C { pub fn ... }`----------";
+                    "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
                     extern "C" {
                         #foreign_item_tokens
                     }
@@ -176,6 +222,9 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
                     unsafe {
                     "----------Insert Call: `let result_code = os_task_init(`----------";
                         let result_code = #fn_name_token(
+                            //  "----------Insert Call Expr----------";
+                            #call_tokens
+                            /*
                             t,
                             name.bytestr.as_ptr() as *const ::cty::c_char,  //  TODO
                             func,
@@ -184,6 +233,7 @@ pub fn safe_wrap(_attr: TokenStream, item: TokenStream) -> TokenStream {
                             sanity_itvl,
                             stack_bottom.as_ptr() as *mut os_stack_t,  //  TODO
                             stack_size as u16       //  TODO
+                            */
                         );
                         if result_code == 0 { Ok(()) }
                         else { Err(MynewtError::from(result_code)) }
