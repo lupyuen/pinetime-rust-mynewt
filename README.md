@@ -21,7 +21,7 @@
 
 # Embedded Rust Application hosted on Apache Mynewt for STM32 Blue Pill
 
-_Note: This is the `rust` branch that contains a Rust application hosted on Mynewt_
+_Note: This is the `rust-safe` branch that contains a Rust application hosted on Mynewt, with safe wrappers created thru Procedural Macros_
 
 Check the article...
 
