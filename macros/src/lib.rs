@@ -284,9 +284,11 @@ enum Separator {
 pub fn out(item: TokenStream) -> TokenStream {
     //  Parse the macro input as an identifier e.g. `NETWORK_TASK`.
     let input = parse_macro_input!(item as syn::Ident);
+    //  Convert the identifier to string.
     let ident = input.to_string();
-    let expanded = format!(r#"unsafe {{ &mut {} }}"#, ident);
-    //  Return the expanded tokens back to the compiler.
+    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
+    let expanded = format!(r#"unsafe {{ &mut {} }}"#, ident);  //  `{{` and `}}` will be rendered as `{` and `}`
+    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
     expanded.parse().unwrap()
 }
 
@@ -298,9 +300,11 @@ pub fn out(item: TokenStream) -> TokenStream {
 pub fn strn(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a literal string e.g. `"network"`.
     let input = parse_macro_input!(item as syn::LitStr);
+    //  Get the literal string value.
     let val = input.value();
+    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
     let expanded = format!(r#"&Strn::new( b"{}\0" )"#, val);
-    //  Return the expanded tokens back to the compiler.
+    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
     expanded.parse().unwrap()
 }
 
@@ -317,9 +321,11 @@ pub fn strn(item: TokenStream) -> TokenStream {
 pub fn init_strn(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a literal string e.g. `"network"`.
     let input = parse_macro_input!(item as syn::LitStr);
+    //  Get the literal string value.
     let val = input.value();
+    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
     let expanded = format!(r#"Strn{{ bytestr: b"{}\0" }}"#, val);
-    //  Return the expanded tokens back to the compiler.
+    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
     expanded.parse().unwrap()
 }
 
