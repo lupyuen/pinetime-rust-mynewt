@@ -277,9 +277,7 @@ enum Separator {
 }
 
 /// Given a static mutable variable, return an unsafe mutable pointer that's suitable for passing to Mynewt APIs for writing output.
-/// ```
-/// out!(NETWORK_TASK) = unsafe { &mut NETWORK_TASK }
-/// ```
+/// `out!(NETWORK_TASK)` expands to `unsafe { &mut NETWORK_TASK }`
 #[proc_macro]
 pub fn out(item: TokenStream) -> TokenStream {
     //  Parse the macro input as an identifier e.g. `NETWORK_TASK`.
@@ -293,9 +291,7 @@ pub fn out(item: TokenStream) -> TokenStream {
 }
 
 /// Transform input string into a null-terminated bytestring that's suitable for passing to Mynewt APIs
-/// ```
-/// strn!("network") = &Strn::new( b"network\0" )
-/// ```
+/// `strn!("network")` expands to `&Strn::new( b"network\0" )`
 #[proc_macro]
 pub fn strn(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a literal string e.g. `"network"`.
@@ -308,10 +304,8 @@ pub fn strn(item: TokenStream) -> TokenStream {
     expanded.parse().unwrap()
 }
 
-/// Create a null-terminated bytestring `Strn` that's suitable for passing to Mynewt APIs
-/// ```
-/// init_strn!("network") = Strn{ bytestr: b"network\0" }
-/// ```
+/// Initialise a null-terminated bytestring `Strn` that's suitable for passing to Mynewt APIs
+/// `init_strn!("network")` expands to `Strn{ bytestr: b"network\0" }`
 /// Used like this:
 /// ```
 /// static STATIC_STRN: Strn = init_strn!("network");
@@ -329,16 +323,18 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
     expanded.parse().unwrap()
 }
 
-/// Transform a block of CBOR encoding calls by adding error checking. Given input:
+/// Transform a block of CBOR encoding calls by adding error checking.
 /// ```
-/// let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
-/// cbor_encode_text_string(
-///     encoder,
-///     JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-///     JSON_CONTEXT.cstr_len(key_with_opt_null));
-/// cbor_encode_int(encoder, value);
+/// run({
+///     let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
+///     cbor_encode_text_string(
+///         encoder,
+///         JSON_CONTEXT.key_to_cstr(key_with_opt_null),
+///         JSON_CONTEXT.cstr_len(key_with_opt_null));
+///     cbor_encode_int(encoder, value);
+/// })
 /// ```
-/// Return:
+/// expands to:
 /// ```
 /// unsafe {
 ///     let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
@@ -349,7 +345,7 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
 ///     JSON_CONTEXT.check_result(res);
 ///     let res = tinycbor::cbor_encode_int(encoder, value);
 ///     JSON_CONTEXT.check_result(res);
-/// };
+/// }
 /// ```
 #[proc_macro]
 pub fn run(item: TokenStream) -> TokenStream {
@@ -375,7 +371,7 @@ pub fn run(item: TokenStream) -> TokenStream {
                             //  Add error checking to the CBOR statement.
                             let updated_stmt = quote! { 
                                 let res = tinycbor::#stmt_tokens;
-                                JSON_CONTEXT.check_result(res);
+                                COAP_CONTEXT.check_result(res);
                             };
                             //  Append updated statement tokens to result.
                             expanded.extend(updated_stmt);  

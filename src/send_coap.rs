@@ -23,9 +23,9 @@ use crate::mynewt::{
         os_time_t,
     },
     encoding::{
-        json_context::{   //  Import Mynewt JSON Encoder Context
+        coap_context::{   //  Import Mynewt JSON Encoder Context
             self,
-            JSON_CONTEXT,
+            COAP_CONTEXT,
             ToBytesOptionalNull,
         },
         tinycbor,         //  Import Mynewt TinyCBOR API

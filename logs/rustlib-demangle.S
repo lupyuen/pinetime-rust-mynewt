@@ -2611,14 +2611,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
             if len > 1 {
   30:	2a02      	cmp	r2, #2
   32:	d355      	bcc.n	e0 <cortex_m::itm::write_str+0xe0>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   34:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
                 while !port.is_fifo_ready() {}
   36:	2b01      	cmp	r3, #1
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   38:	bf1c      	itt	ne
   3a:	6803      	ldrne	r3, [r0, #0]
@@ -2626,14 +2626,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
   3c:	2b01      	cmpne	r3, #1
   3e:	d005      	beq.n	4c <cortex_m::itm::write_str+0x4c>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   40:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
   42:	2b01      	cmp	r3, #1
   44:	d002      	beq.n	4c <cortex_m::itm::write_str+0x4c>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   46:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
@@ -10676,80 +10676,80 @@ SYMBOL TABLE:
 00004c0b l       .debug_str	00000000 
 00004c11 l       .debug_str	00000000 
 00000000 l     O .bss..L_MergedGlobals	00000041 .L_MergedGlobals
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.10	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.10
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.13	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.13
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.14	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.14
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.15	0000000d .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.15
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.17	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.17
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.19	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.19
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.2	00000001 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.2
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.20	00000011 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.20
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.21	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.21
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.23	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.23
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.24	00000016 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.24
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.26	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.26
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.27	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.27
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.28	00000019 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.28
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.29	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.29
-00000000 l     O .rodata.cst8	00000008 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.30
-00000000 l     O .rodata.cst16	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.31
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.32	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.32
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.34	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.34
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.35	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.35
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.36	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.36
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.37	00000011 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.37
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.38	00000011 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.38
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.39	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.39
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.41	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.41
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.42	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.42
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.44	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.44
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.45	00000007 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.45
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.46	0000000d .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.46
-00000004 l     O .rodata.cst4	00000004 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.47
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.48	00000006 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.48
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.49	00000006 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.49
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.5	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.5
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.50	00000003 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.50
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.51	00000005 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.51
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.52	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.52
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.53	0000004b .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.53
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.54	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.54
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.55	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.55
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.56	00000021 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.56
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.57	00000012 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.57
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.58	00000009 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.58
-00000008 l     O .rodata.cst8	00000008 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.59
-00000000 l     O .rodata.cst4	00000004 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.6
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.60	00000001 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.60
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.61	0000000e .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.61
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.62	00000002 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.62
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.63	0000000c .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.63
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.64	00000009 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.64
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.65	0000000d .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.65
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.66	0000000c .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.66
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.67	0000000b .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.67
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.68	0000000c .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.68
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.69	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.69
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.70	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.70
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.71	00000009 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.71
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.72	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.72
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.73	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.73
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.74	00000007 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.74
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.75	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.75
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.76	0000000c .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.76
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.77	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.77
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.78	0000000a .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.78
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.79	00000007 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.79
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.8	00000018 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.8
-00000000 l     O .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.9	00000010 .Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.9
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.10	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.10
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.13	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.13
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.14	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.14
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.15	0000000d .Lanon.ad8cb0886bb189ed01fc7842181f0890.15
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.17	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.17
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.19	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.19
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.2	00000001 .Lanon.ad8cb0886bb189ed01fc7842181f0890.2
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.20	00000011 .Lanon.ad8cb0886bb189ed01fc7842181f0890.20
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.21	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.21
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.23	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.23
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.24	00000016 .Lanon.ad8cb0886bb189ed01fc7842181f0890.24
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.26	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.26
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.27	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.27
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.28	00000019 .Lanon.ad8cb0886bb189ed01fc7842181f0890.28
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.29	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.29
+00000000 l     O .rodata.cst8	00000008 .Lanon.ad8cb0886bb189ed01fc7842181f0890.30
+00000000 l     O .rodata.cst16	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.31
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.32	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.32
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.34	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.34
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.35	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.35
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.36	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.36
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.37	00000011 .Lanon.ad8cb0886bb189ed01fc7842181f0890.37
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.38	00000011 .Lanon.ad8cb0886bb189ed01fc7842181f0890.38
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.39	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.39
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.41	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.41
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.42	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.42
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.44	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.44
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.45	00000007 .Lanon.ad8cb0886bb189ed01fc7842181f0890.45
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.46	0000000d .Lanon.ad8cb0886bb189ed01fc7842181f0890.46
+00000004 l     O .rodata.cst4	00000004 .Lanon.ad8cb0886bb189ed01fc7842181f0890.47
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.48	00000006 .Lanon.ad8cb0886bb189ed01fc7842181f0890.48
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.49	00000006 .Lanon.ad8cb0886bb189ed01fc7842181f0890.49
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.5	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.5
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.50	00000003 .Lanon.ad8cb0886bb189ed01fc7842181f0890.50
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.51	00000005 .Lanon.ad8cb0886bb189ed01fc7842181f0890.51
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.52	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.52
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.53	0000004b .Lanon.ad8cb0886bb189ed01fc7842181f0890.53
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.54	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.54
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.55	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.55
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.56	00000021 .Lanon.ad8cb0886bb189ed01fc7842181f0890.56
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.57	00000012 .Lanon.ad8cb0886bb189ed01fc7842181f0890.57
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.58	00000009 .Lanon.ad8cb0886bb189ed01fc7842181f0890.58
+00000008 l     O .rodata.cst8	00000008 .Lanon.ad8cb0886bb189ed01fc7842181f0890.59
+00000000 l     O .rodata.cst4	00000004 .Lanon.ad8cb0886bb189ed01fc7842181f0890.6
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.60	00000001 .Lanon.ad8cb0886bb189ed01fc7842181f0890.60
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.61	0000000e .Lanon.ad8cb0886bb189ed01fc7842181f0890.61
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.62	00000002 .Lanon.ad8cb0886bb189ed01fc7842181f0890.62
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.63	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.63
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.64	00000009 .Lanon.ad8cb0886bb189ed01fc7842181f0890.64
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.65	0000000d .Lanon.ad8cb0886bb189ed01fc7842181f0890.65
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.66	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.66
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.67	0000000b .Lanon.ad8cb0886bb189ed01fc7842181f0890.67
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.68	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.68
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.69	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.69
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.70	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.70
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.71	00000009 .Lanon.ad8cb0886bb189ed01fc7842181f0890.71
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.72	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.72
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.73	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.73
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.74	00000007 .Lanon.ad8cb0886bb189ed01fc7842181f0890.74
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.75	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.75
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.76	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.76
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.77	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.77
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.78	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.78
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.79	00000007 .Lanon.ad8cb0886bb189ed01fc7842181f0890.79
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.8	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.8
+00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.9	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.9
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1f0136c3ba751a36E	0000003a <&T as core::fmt::Debug>::fmt
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3fa8abbf6979cbeeE	0000003a <&T as core::fmt::Debug>::fmt
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h530cfbedaa48e1ffE	0000003a <&T as core::fmt::Debug>::fmt
-00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h62e4b28e7b44a166E	00000036 <&T as core::fmt::Debug>::fmt
+00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h93f11165336b68beE	00000036 <&T as core::fmt::Debug>::fmt
 00000000 l     F .text._ZN5mylib13listen_sensor16read_temperature17he2b173009b04e774E	0000052e mylib::listen_sensor::read_temperature
 00000000 l     O .data._ZN5mylib6mynewt2hw6sensor17LISTENER_INTERNAL17h5b34e5ea47eba469E	00000018 mylib::mynewt::hw::sensor::LISTENER_INTERNAL
 00000000 l     F .text._ZN5mylib6mynewt2hw6sensor21null_sensor_data_func17h8c8fbcbcaa41b7f7E	00000004 mylib::mynewt::hw::sensor::null_sensor_data_func
-00000001 l     O .bss..L_MergedGlobals	00000040 mylib::mynewt::encoding::json_context::JSON_CONTEXT
+00000001 l     O .bss..L_MergedGlobals	00000040 mylib::mynewt::encoding::coap_context::COAP_CONTEXT
 00000000 l     O .bss._ZN5mylib9send_coap12NETWORK_TASK17hfcc51f12750b4bbfE	00000050 mylib::send_coap::NETWORK_TASK
 00000000 l     O .bss..L_MergedGlobals	00000001 _ZN5mylib9send_coap16NETWORK_IS_READY17h550bda5aa6c72cc8E.0.0
 00000000 l     F .text._ZN5mylib9send_coap17network_task_func17h80783602aca0275eE	0000011a mylib::send_coap::network_task_func
@@ -10758,7 +10758,7 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1f0136c3ba751a36E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1f0136c3ba751a36E
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3fa8abbf6979cbeeE	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3fa8abbf6979cbeeE
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h530cfbedaa48e1ffE	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h530cfbedaa48e1ffE
-00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h62e4b28e7b44a166E	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h62e4b28e7b44a166E
+00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h93f11165336b68beE	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h93f11165336b68beE
 00000000 l    d  .text._ZN86_$LT$mylib..mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h74ef3e3f8bfcfad5E	00000000 .text._ZN86_$LT$mylib..mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h74ef3e3f8bfcfad5E
 00000000 l    d  .text._ZN85_$LT$mylib..mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb8fb7ff50ec756e0E	00000000 .text._ZN85_$LT$mylib..mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb8fb7ff50ec756e0E
 00000000 l    d  .text._ZN114_$LT$mylib..mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h1112828cb5da557fE	00000000 .text._ZN114_$LT$mylib..mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h1112828cb5da557fE
@@ -10766,10 +10766,10 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN86_$LT$mylib..mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h4491f17a40de2dd3E	00000000 .text._ZN86_$LT$mylib..mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h4491f17a40de2dd3E
 00000000 l    d  .text._ZN99_$LT$mylib..mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17heb68683c39c1f293E	00000000 .text._ZN99_$LT$mylib..mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17heb68683c39c1f293E
 00000000 l    d  .text._ZN85_$LT$mylib..mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17he79dad0131e0fe00E	00000000 .text._ZN85_$LT$mylib..mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17he79dad0131e0fe00E
-00000000 l    d  .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17he5c365489b21c4e8E	00000000 .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17he5c365489b21c4e8E
-00000000 l    d  .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3de49f39e358682cE	00000000 .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3de49f39e358682cE
-00000000 l    d  .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3f37abd775ab63b7E	00000000 .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3f37abd775ab63b7E
-00000000 l    d  .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc03786ccf50dfcd9E	00000000 .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc03786ccf50dfcd9E
+00000000 l    d  .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h016b1183235b457cE	00000000 .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h016b1183235b457cE
+00000000 l    d  .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h59191ee09656c618E	00000000 .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h59191ee09656c618E
+00000000 l    d  .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hbabc904a5981ee5eE	00000000 .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hbabc904a5981ee5eE
+00000000 l    d  .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h5f6d5b2ceb57b497E	00000000 .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h5f6d5b2ceb57b497E
 00000000 l    d  .text._ZN78_$LT$mylib..mynewt..kernel..os..os_event$u20$as$u20$core..default..Default$GT$7default17h60329e49f6af5542E	00000000 .text._ZN78_$LT$mylib..mynewt..kernel..os..os_event$u20$as$u20$core..default..Default$GT$7default17h60329e49f6af5542E
 00000000 l    d  .text._ZN80_$LT$mylib..mynewt..kernel..os..os_callout$u20$as$u20$core..default..Default$GT$7default17h59e16564df463ab2E	00000000 .text._ZN80_$LT$mylib..mynewt..kernel..os..os_callout$u20$as$u20$core..default..Default$GT$7default17h59e16564df463ab2E
 00000000 l    d  .text._ZN79_$LT$mylib..mynewt..kernel..os..hal_timer$u20$as$u20$core..default..Default$GT$7default17h95eb8861ccb6e581E	00000000 .text._ZN79_$LT$mylib..mynewt..kernel..os..hal_timer$u20$as$u20$core..default..Default$GT$7default17h95eb8861ccb6e581E
@@ -10794,26 +10794,26 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN5mylib9send_coap17network_task_func17h80783602aca0275eE	00000000 .text._ZN5mylib9send_coap17network_task_func17h80783602aca0275eE
 00000000 l    d  .text.main	00000000 .text.main
 00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
-00000000 l    d  .text._ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17h791993af2606cd45E	00000000 .text._ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17h791993af2606cd45E
+00000000 l    d  .text._ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E	00000000 .text._ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E
 00000000 l    d  .text._ZN71_$LT$mylib..mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4da449ccb002d0a5E	00000000 .text._ZN71_$LT$mylib..mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4da449ccb002d0a5E
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.0	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.0
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.1	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.1
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.3	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.3
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.4	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.4
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.7	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.7
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.11	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.11
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.12	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.12
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.0	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.0
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.1	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.1
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.3	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.3
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.4	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.4
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.7	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.7
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.11	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.11
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.12	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.12
 00000000 l    d  .data._ZN5mylib6mynewt2hw6sensor17LISTENER_INTERNAL17h5b34e5ea47eba469E	00000000 .data._ZN5mylib6mynewt2hw6sensor17LISTENER_INTERNAL17h5b34e5ea47eba469E
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.16	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.16
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.18	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.18
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.22	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.22
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.25	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.25
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.16	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.16
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.18	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.18
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.22	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.22
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.25	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.25
 00000000 l    d  .bss._ZN5mylib9send_coap12NETWORK_TASK17hfcc51f12750b4bbfE	00000000 .bss._ZN5mylib9send_coap12NETWORK_TASK17hfcc51f12750b4bbfE
 00000000 l    d  .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17hb88b519d3760d3edE	00000000 .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17hb88b519d3760d3edE
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.33	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.33
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.33	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.33
 00000000 l    d  .rodata.str.4	00000000 .rodata.str.4
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.40	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.40
-00000000 l    d  .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.43	00000000 .rodata..Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.43
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.40	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.40
+00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.43	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.43
 00000000 l    d  .bss..L_MergedGlobals	00000000 .bss..L_MergedGlobals
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -10900,19 +10900,19 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::encoding::tinycbor::File as core::default::Default>::default
 00000000 g     F .text._ZN114_$LT$mylib..mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h1112828cb5da557fE	0000000a <mylib::mynewt::kernel::os::os_mbuf_pool as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_task_list as core::default::Default>::default
-00000000 g     F .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3de49f39e358682cE	00000002 <str as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h59191ee09656c618E	00000002 <str as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h16593dc2438f23f8E	00000010 <mylib::mynewt::encoding::json::json_value as core::default::Default>::default
 00000000 g     F .text._ZN76_$LT$mylib..mynewt..kernel..os..os_sem$u20$as$u20$core..default..Default$GT$7default17h6997ebc1361d13c1E	00000008 <mylib::mynewt::kernel::os::os_mbuf_pkthdr as core::default::Default>::default
 00000000 g     F .text._ZN76_$LT$mylib..mynewt..kernel..os..os_dev$u20$as$u20$core..default..Default$GT$7default17heee54d14943ae30bE	0000000a <mylib::mynewt::kernel::os::os_mempool_ext as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_task_stailq as core::default::Default>::default
 00000000 g     F .text._ZN77_$LT$mylib..mynewt..kernel..os..os_mbuf$u20$as$u20$core..default..Default$GT$7default17h805a30a4174fc3feE	0000000c <mylib::mynewt::libs::sensor_coap::os_mbuf as core::default::Default>::default
+00000000 g     F .text._ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E	00000034 <mylib::mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN85_$LT$mylib..mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17he79dad0131e0fe00E	0000000a <mylib::mynewt::encoding::json::json_attr_t as core::default::Default>::default
 00000000 g     F .text._ZN85_$LT$mylib..mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb8fb7ff50ec756e0E	00000008 <mylib::mynewt::encoding::json::json_enum_t as core::default::Default>::default
-00000000 g     F .text._ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17h791993af2606cd45E	00000034 <mylib::mynewt::encoding::json_context::JsonError as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_callout_list as core::default::Default>::default
 00000000 g     F .text._ZN85_$LT$mylib..mynewt..kernel..os..os_sanity_check$u20$as$u20$core..default..Default$GT$7default17h0580a8ef43068b5cE	0000000e <mylib::mynewt::kernel::os::os_sanity_check as core::default::Default>::default
 00000000 g     F .text._ZN5mylib6mynewt6result95_$LT$impl$u20$core..convert..From$LT$mylib..mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17h1c388bf109d56bacE	00000002 <mylib::mynewt::result::MynewtError as core::convert::From<i32>>::from
-00000000 g     F .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3f37abd775ab63b7E	00000008 <&str as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hbabc904a5981ee5eE	00000008 <&str as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000 g     F .text._ZN86_$LT$mylib..mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h4491f17a40de2dd3E	0000000a <mylib::mynewt::encoding::json::json_array_t as core::default::Default>::default
 00000000 g     F .text._ZN86_$LT$mylib..mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h74ef3e3f8bfcfad5E	0000000a <mylib::mynewt::encoding::json::json_encoder as core::default::Default>::default
 00000000 g     F .text._ZN86_$LT$mylib..mynewt..hw..sensor..bindings..sensor$u20$as$u20$core..default..Default$GT$7default17hc1b68b390ba8111bE	0000000a <mylib::mynewt::hw::sensor::bindings::sensor as core::default::Default>::default
@@ -10928,7 +10928,7 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN104_$LT$mylib..mynewt..libs..sensor_network..sensor_network_interface$u20$as$u20$core..default..Default$GT$7default17h84e5157db1edf8f7E	0000000e <mylib::mynewt::hw::sensor::bindings::sensor_itf as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::kernel::os::os_dev__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::kernel::os::os_sem__bindgen_ty_1 as core::default::Default>::default
-00000000 g     F .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17he5c365489b21c4e8E	00000002 <[u8] as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h016b1183235b457cE	00000002 <[u8] as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::kernel::os::os_mbuf__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::kernel::os::os_task__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_task__bindgen_ty_2 as core::default::Default>::default
@@ -10941,7 +10941,7 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_eventq__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_mqueue__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN114_$LT$mylib..mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h1112828cb5da557fE	0000000a <mylib::mynewt::kernel::os::os_time_change_listener as core::default::Default>::default
-00000000 g     F .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc03786ccf50dfcd9E	00000002 <cstr_core::CStr as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h5f6d5b2ceb57b497E	00000002 <cstr_core::CStr as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..sensor_notify_ev_ctx$u20$as$u20$core..default..Default$GT$7default17h9f43ca6dd3c1b8f4E	00000006 <mylib::mynewt::kernel::os::os_callout__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::kernel::os::os_mempool__bindgen_ty_1 as core::default::Default>::default
 00000000 g     F .text._ZN100_$LT$mylib..mynewt..hw..sensor..bindings..os_dev__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hcd4a18262380ebb6E	00000004 <mylib::mynewt::kernel::os::os_mempool__bindgen_ty_2 as core::default::Default>::default
@@ -11123,22 +11123,22 @@ _ZN4core3fmt3num49_$LT$impl$u20$core..fmt..Debug$u20$for$u20$u8$GT$3fmt17h271d1c
   32:	e8bd 40b0 	ldmia.w	sp!, {r4, r5, r7, lr}
   36:	f7ff bffe 	b.w	0 <core::fmt::num::imp::<impl core::fmt::Display for u8>::fmt>
 
-Disassembly of section .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h62e4b28e7b44a166E:
+Disassembly of section .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h93f11165336b68beE:
 
 00000000 <<&T as core::fmt::Debug>::fmt>:
-_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h62e4b28e7b44a166E():
+_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h93f11165336b68beE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:1914
    0:	b510      	push	{r4, lr}
    2:	b084      	sub	sp, #16
    4:	6800      	ldr	r0, [r0, #0]
    6:	ac01      	add	r4, sp, #4
-_ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17h791993af2606cd45E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:88
+_ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:88
         ptr as *mut c_void
     }
 }
 
-/// Error codes for JSON encoding failure
+/// Error codes for COAP encoding failure
 #[derive(Debug, PartialEq)]
    8:	7800      	ldrb	r0, [r0, #0]
    a:	2801      	cmp	r0, #1
@@ -11155,7 +11155,7 @@ _ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt.
   28:	f7ff fffe 	bl	0 <core::fmt::Formatter::debug_tuple>
   2c:	4620      	mov	r0, r4
   2e:	f7ff fffe 	bl	0 <core::fmt::builders::DebugTuple::finish>
-_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h62e4b28e7b44a166E():
+_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h93f11165336b68beE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:1914
   32:	b004      	add	sp, #16
   34:	bd10      	pop	{r4, pc}
@@ -11306,11 +11306,11 @@ _ZN85_$LT$mylib..mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..D
     }
    8:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17he5c365489b21c4e8E:
+Disassembly of section .text._ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h016b1183235b457cE:
 
-00000000 <<[u8] as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17he5c365489b21c4e8E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:107
+00000000 <<[u8] as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
+_ZN91_$LT$$u5b$u8$u5d$$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h016b1183235b457cE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:107
 /// Convert the type to array of bytes that may or may not end with null
 impl ToBytesOptionalNull for [u8] {
     /// Convert the type to array of bytes that may or may not end with null
@@ -11319,11 +11319,11 @@ impl ToBytesOptionalNull for [u8] {
     }
    0:	4770      	bx	lr
 
-Disassembly of section .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3de49f39e358682cE:
+Disassembly of section .text._ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h59191ee09656c618E:
 
-00000000 <<str as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3de49f39e358682cE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:115
+00000000 <<str as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
+_ZN82_$LT$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h59191ee09656c618E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:115
 /// Convert the type to array of bytes that may or may not end with null
 impl ToBytesOptionalNull for str {
     /// Convert the type to array of bytes that may or may not end with null
@@ -11332,11 +11332,11 @@ impl ToBytesOptionalNull for str {
     }
    0:	4770      	bx	lr
 
-Disassembly of section .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3f37abd775ab63b7E:
+Disassembly of section .text._ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hbabc904a5981ee5eE:
 
-00000000 <<&str as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h3f37abd775ab63b7E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:122
+00000000 <<&str as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
+_ZN86_$LT$$RF$str$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hbabc904a5981ee5eE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:122
 
 /// Convert the type to array of bytes that may or may not end with null
 impl ToBytesOptionalNull for &str {
@@ -11344,16 +11344,16 @@ impl ToBytesOptionalNull for &str {
     fn to_bytes_optional_nul(&self) -> &[u8] {
         self.as_bytes()
    0:	e9d0 2100 	ldrd	r2, r1, [r0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:123
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:123
     }
    4:	4610      	mov	r0, r2
    6:	4770      	bx	lr
 
-Disassembly of section .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc03786ccf50dfcd9E:
+Disassembly of section .text._ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h5f6d5b2ceb57b497E:
 
-00000000 <<cstr_core::CStr as mylib::mynewt::encoding::json_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..json_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc03786ccf50dfcd9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:131
+00000000 <<cstr_core::CStr as mylib::mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
+_ZN94_$LT$cstr_core..CStr$u20$as$u20$mylib..mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h5f6d5b2ceb57b497E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:131
 /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
 impl ToBytesOptionalNull for CStr {
     /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
@@ -12008,8 +12008,8 @@ _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
  124:	f2c0 0000 	movt	r0, #0
  128:	4621      	mov	r1, r4
  12a:	f7ff fffe 	bl	0 <cbor_encode_text_string>
-_ZN5mylib6mynewt8encoding12json_context11JsonContext12check_result17hd052d2fa06a87de6E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:72
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext12check_result17h4c44def0ed7bb57dE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:72
         assert_eq!(res, 0);
  12e:	2800      	cmp	r0, #0
  130:	9008      	str	r0, [sp, #32]
@@ -12022,8 +12022,8 @@ _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
  140:	2300      	movs	r3, #0
  142:	2400      	movs	r4, #0
  144:	f7ff fffe 	bl	0 <cbor_encode_int>
-_ZN5mylib6mynewt8encoding12json_context11JsonContext12check_result17hd052d2fa06a87de6E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:72
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext12check_result17h4c44def0ed7bb57dE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:72
  148:	2800      	cmp	r0, #0
  14a:	9008      	str	r0, [sp, #32]
  14c:	f040 81b4 	bne.w	4b8 <mylib::listen_sensor::read_temperature+0x4b8>
@@ -12116,8 +12116,8 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
  1e6:	f240 0000 	movw	r0, #0
  1ea:	f107 0521 	add.w	r5, r7, #33	; 0x21
  1ee:	f2c0 0000 	movt	r0, #0
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:47
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:47
         self.value_buffer[s.len()] = 0;
  1f2:	f887 4027 	strb.w	r4, [r7, #39]	; 0x27
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
@@ -12151,19 +12151,19 @@ _ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17h7a81ebdc5e84687cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
  216:	d306      	bcc.n	226 <mylib::listen_sensor::read_temperature+0x226>
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
  218:	f1a8 0001 	sub.w	r0, r8, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17h7a81ebdc5e84687cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
  21c:	4540      	cmp	r0, r8
  21e:	d202      	bcs.n	226 <mylib::listen_sensor::read_temperature+0x226>
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
  220:	f81b 0000 	ldrb.w	r0, [fp, r0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:43
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:43
         if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
  224:	b160      	cbz	r0, 240 <mylib::listen_sensor::read_temperature+0x240>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:45
-        assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:45
+        assert!(s.len() < COAP_VALUE_SIZE);  //  Value too long
  226:	f1b8 0f20 	cmp.w	r8, #32
  22a:	f080 811e 	bcs.w	46a <mylib::listen_sensor::read_temperature+0x46a>
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
@@ -12173,9 +12173,9 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
  232:	4642      	mov	r2, r8
  234:	f7ff fffe 	bl	0 <__aeabi_memcpy>
  238:	2000      	movs	r0, #0
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
  23a:	46ab      	mov	fp, r5
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:47
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:47
         self.value_buffer[s.len()] = 0;
  23c:	f805 0008 	strb.w	r0, [r5, r8]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
@@ -12206,8 +12206,8 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
  278:	f2c0 0100 	movt	r1, #0
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:47
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:47
  27c:	7110      	strb	r0, [r2, #4]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:351
@@ -12215,12 +12215,12 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
  280:	f7ff fffe 	bl	0 <json_helper_set_text_string>
  284:	9801      	ldr	r0, [sp, #4]
  286:	5c30      	ldrb	r0, [r6, r0]
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:43
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:43
         if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
  288:	b160      	cbz	r0, 2a4 <mylib::listen_sensor::read_temperature+0x2a4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:45
-        assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:45
+        assert!(s.len() < COAP_VALUE_SIZE);  //  Value too long
  28a:	f1ba 0f20 	cmp.w	sl, #32
  28e:	f080 80ec 	bcs.w	46a <mylib::listen_sensor::read_temperature+0x46a>
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
@@ -12230,9 +12230,9 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
  296:	4652      	mov	r2, sl
  298:	f7ff fffe 	bl	0 <__aeabi_memcpy>
  29c:	2000      	movs	r0, #0
-_ZN5mylib6mynewt8encoding12json_context11JsonContext13value_to_cstr17h38930413c7280351E():
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h9c1aee9009b9b3daE():
  29e:	462e      	mov	r6, r5
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:47
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:47
         self.value_buffer[s.len()] = 0;
  2a0:	f805 000a 	strb.w	r0, [r5, sl]
 _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
@@ -12263,8 +12263,8 @@ _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
  2e8:	70b8      	strb	r0, [r7, #2]
  2ea:	2074      	movs	r0, #116	; 0x74
  2ec:	463a      	mov	r2, r7
-_ZN5mylib6mynewt8encoding12json_context11JsonContext11key_to_cstr17h9ac7180d5f364c91E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:34
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha033349f7b2632a8E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:34
         self.key_buffer[s.len()] = 0;
  2ee:	70fd      	strb	r5, [r7, #3]
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
@@ -12284,8 +12284,8 @@ _ZN5mylib9send_coap26send_sensor_data_to_server17h6c31d1914e279457E():
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
  302:	f2c0 0000 	movt	r0, #0
-_ZN5mylib6mynewt8encoding12json_context11JsonContext11key_to_cstr17h9ac7180d5f364c91E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:34
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha033349f7b2632a8E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:34
  306:	717d      	strb	r5, [r7, #5]
 _ZN4core10intrinsics19copy_nonoverlapping17hd71b315a656b9b4cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
@@ -12472,8 +12472,8 @@ _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
  480:	f7ff fffe 	bl	0 <core::panicking::panic>
  484:	defe      	udf	#254	; 0xfe
  486:	a808      	add	r0, sp, #32
-_ZN5mylib6mynewt8encoding12json_context11JsonContext12check_result17hd052d2fa06a87de6E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:72
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext12check_result17h4c44def0ed7bb57dE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:72
         assert_eq!(res, 0);
  488:	9013      	str	r0, [sp, #76]	; 0x4c
  48a:	f240 0000 	movw	r0, #0
@@ -12497,8 +12497,8 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  4b6:	e016      	b.n	4e6 <mylib::listen_sensor::read_temperature+0x4e6>
 _ZN5mylib9send_coap29send_sensor_data_to_collector17h7e2f5f6f4413977fE():
  4b8:	a808      	add	r0, sp, #32
-_ZN5mylib6mynewt8encoding12json_context11JsonContext12check_result17hd052d2fa06a87de6E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:72
+_ZN5mylib6mynewt8encoding12coap_context11CoapContext12check_result17h4c44def0ed7bb57dE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:72
  4ba:	9013      	str	r0, [sp, #76]	; 0x4c
  4bc:	f240 0000 	movw	r0, #0
  4c0:	a914      	add	r1, sp, #80	; 0x50
@@ -12627,7 +12627,7 @@ _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
   6a:	f7ff fffe 	bl	0 <os_time_delay>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:291
     loop {  //  Loop forever...        
-  6e:	e7f4      	b.n	ffffffec <.Lanon.b8b19a1dfda4939b48ac32d4017c0cc3.59+0xffffffe4>
+  6e:	e7f4      	b.n	ffffffec <.Lanon.ad8cb0886bb189ed01fc7842181f0890.59+0xffffffe4>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:268
     console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
   70:	f240 0000 	movw	r0, #0
@@ -13029,23 +13029,23 @@ rust_begin_unwind():
     loop {}
   70:	e7fe      	b.n	70 <rust_begin_unwind+0x70>
 
-Disassembly of section .text._ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17h791993af2606cd45E:
+Disassembly of section .text._ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E:
 
-00000000 <<mylib::mynewt::encoding::json_context::JsonError as core::fmt::Debug>::fmt>:
-_ZN85_$LT$mylib..mynewt..encoding..json_context..JsonError$u20$as$u20$core..fmt..Debug$GT$3fmt17h791993af2606cd45E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/json_context.rs:88
+00000000 <<mylib::mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt>:
+_ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/encoding/coap_context.rs:88
 #[derive(Debug, PartialEq)]
    0:	b510      	push	{r4, lr}
    2:	b084      	sub	sp, #16
    4:	7800      	ldrb	r0, [r0, #0]
    6:	ac01      	add	r4, sp, #4
    8:	2801      	cmp	r0, #1
-   a:	d106      	bne.n	1a <<mylib::mynewt::encoding::json_context::JsonError as core::fmt::Debug>::fmt+0x1a>
+   a:	d106      	bne.n	1a <<mylib::mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x1a>
    c:	f240 0200 	movw	r2, #0
   10:	4620      	mov	r0, r4
   12:	f2c0 0200 	movt	r2, #0
   16:	230e      	movs	r3, #14
-  18:	e005      	b.n	26 <<mylib::mynewt::encoding::json_context::JsonError as core::fmt::Debug>::fmt+0x26>
+  18:	e005      	b.n	26 <<mylib::mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x26>
   1a:	f240 0200 	movw	r2, #0
   1e:	4620      	mov	r0, r4
   20:	f2c0 0200 	movt	r2, #0

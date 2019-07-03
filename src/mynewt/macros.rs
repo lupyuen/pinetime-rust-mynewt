@@ -378,10 +378,10 @@ macro_rules! parse {
   (@json { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin json root);
-    $crate::coap_root!(@json JSON_CONTEXT {  //  Create the payload root
-        $crate::coap_array!(@json JSON_CONTEXT, values, {  //  Create "values" as an array of items under the root
+    $crate::coap_root!(@json COAP_CONTEXT {  //  Create the payload root
+        $crate::coap_array!(@json COAP_CONTEXT, values, {  //  Create "values" as an array of items under the root
           //  Expand the items inside { ... } and add them to values.
-          $crate::parse!(@json @object JSON_CONTEXT () ($($tt)+) ($($tt)+));
+          $crate::parse!(@json @object COAP_CONTEXT () ($($tt)+) ($($tt)+));
         });  //  Close the "values" array
     });  //  Close the payload root
     d!(end json root);
@@ -392,9 +392,9 @@ macro_rules! parse {
   (@cbor { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin cbor root);
-    $crate::coap_root!(@cbor JSON_CONTEXT {  //  Create the payload root
+    $crate::coap_root!(@cbor COAP_CONTEXT {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
-        $crate::parse!(@cbor @object JSON_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change JSON_CONTEXT to CBOR
+        $crate::parse!(@cbor @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
     });  //  Close the payload root
     d!(end cbor root);
     ()
@@ -555,7 +555,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::oc_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_set_int_val);
   }};
@@ -565,7 +565,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::json_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_set_int_val);
   }};
@@ -579,7 +579,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::coap_item_int!(@cbor $context, $val0.key, val);
     } else {
-      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_item_int_val);
   }};
@@ -589,7 +589,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::coap_item_int!(@json $context, $val0.key, val);
     } else {
-      unsafe { $context.fail(json_context::JsonError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_item_int_val);
   }};
@@ -1147,12 +1147,12 @@ macro_rules! oc_rep_set_int {
     "-------------------------------------------------------------";
     mynewt_macros::run!({
       //  TODO: First para should be name of current map or array
-      let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
+      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
       cbor_encode_text_string(
         encoder,
-        JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-        JSON_CONTEXT.cstr_len(key_with_opt_null)
+        COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+        COAP_CONTEXT.cstr_len(key_with_opt_null)
       );
       //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
       cbor_encode_int(

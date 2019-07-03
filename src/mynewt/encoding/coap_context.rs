@@ -1,48 +1,48 @@
-//! JSON encoder state used by CoAP JSON encoding macros
+//! COAP encoder state used by CoAP encoding macros
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
 
-/// Global instance that contains the current state of the JSON encoder. Only 1 encoding task is supported at a time.
-pub static mut JSON_CONTEXT: JsonContext = fill_zero!(JsonContext);
+/// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
+pub static mut COAP_CONTEXT: CoapContext = fill_zero!(CoapContext);
 
-/// JSON encoder state. Buffers the next key and value to be encoded.
+/// CoAP encoder state. Buffers the next key and value to be encoded.
 #[derive(Default)]
-pub struct JsonContext {
-    /// Static buffer for the key to be encoded. Will be passed to Mynewt JSON encoder API.  Always null-terminated.
-    key_buffer: [u8; JSON_KEY_SIZE],
-    /// Static buffer for the string value to be encoded. Will be passed to Mynewt JSON encoder API.  Always null-terminated.
-    value_buffer: [u8; JSON_VALUE_SIZE],
+pub struct CoapContext {
+    /// Static buffer for the key to be encoded. Will be passed to Mynewt COAP encoder API.  Always null-terminated.
+    key_buffer: [u8; COAP_KEY_SIZE],
+    /// Static buffer for the string value to be encoded. Will be passed to Mynewt COAP encoder API.  Always null-terminated.
+    value_buffer: [u8; COAP_VALUE_SIZE],
 }
 
 /// Size of the static key buffer
-const JSON_KEY_SIZE: usize = 32;
+const COAP_KEY_SIZE: usize = 32;
 /// Size of the static value buffer
-const JSON_VALUE_SIZE: usize = 32;
+const COAP_VALUE_SIZE: usize = 32;
 
-impl JsonContext {
+impl CoapContext {
 
-    /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON keys.
+    /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
     pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
         //  Else copy into static key buffer and return pointer to buffer.
-        assert!(s.len() < JSON_KEY_SIZE);  //  Key too long
+        assert!(s.len() < COAP_KEY_SIZE);  //  Key too long
         self.key_buffer[..s.len()].copy_from_slice(s);
         self.key_buffer[s.len()] = 0;
         self.key_buffer.as_ptr() as *const c_char
     }
 
-    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding JSON values.
+    /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP values.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
     pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
         //  Else copy into static value buffer and return pointer to buffer.
-        assert!(s.len() < JSON_VALUE_SIZE);  //  Value too long
+        assert!(s.len() < COAP_VALUE_SIZE);  //  Value too long
         self.value_buffer[..s.len()].copy_from_slice(s);
         self.value_buffer[s.len()] = 0;
         self.value_buffer.as_ptr() as *const c_char
@@ -73,20 +73,20 @@ impl JsonContext {
     }
 
     /// Fail the encoding with an error
-    pub fn fail(&mut self, err: JsonError) {
-        assert_eq!(err, JsonError::OK);
+    pub fn fail(&mut self, err: CoapError) {
+        assert_eq!(err, CoapError::OK);
     }
 
     /// Cast itself as a `*mut c_void`
     pub fn to_void_ptr(&mut self) -> *mut c_void {
-        let ptr: *mut JsonContext = self;
+        let ptr: *mut CoapContext = self;
         ptr as *mut c_void
     }
 }
 
-/// Error codes for JSON encoding failure
+/// Error codes for COAP encoding failure
 #[derive(Debug, PartialEq)]
-pub enum JsonError {
+pub enum CoapError {
     /// No error
     OK = 0,
     /// Encoded value is not unsigned integer
