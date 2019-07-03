@@ -326,25 +326,25 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
 /// Transform a block of CBOR encoding calls by adding error checking.
 /// ```
 /// run({
-///     let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
+///     let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
 ///     cbor_encode_text_string(
 ///         encoder,
-///         JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-///         JSON_CONTEXT.cstr_len(key_with_opt_null));
+///         COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+///         COAP_CONTEXT.cstr_len(key_with_opt_null));
 ///     cbor_encode_int(encoder, value);
 /// })
 /// ```
 /// expands to:
 /// ```
 /// unsafe {
-///     let encoder = JSON_CONTEXT.encoder("JSON_CONTEXT", "_map");
+///     let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
 ///     let res =
 ///         tinycbor::cbor_encode_text_string(encoder,
-///           JSON_CONTEXT.key_to_cstr(key_with_opt_null),
-///           JSON_CONTEXT.cstr_len(key_with_opt_null));
-///     JSON_CONTEXT.check_result(res);
+///           COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+///           COAP_CONTEXT.cstr_len(key_with_opt_null));
+///     COAP_CONTEXT.check_result(res);
 ///     let res = tinycbor::cbor_encode_int(encoder, value);
-///     JSON_CONTEXT.check_result(res);
+///     COAP_CONTEXT.check_result(res);
 /// }
 /// ```
 #[proc_macro]
@@ -401,15 +401,3 @@ pub fn run(item: TokenStream) -> TokenStream {
     //  Return the expanded tokens back to the compiler.
     TokenStream::from(expanded)
 }
-
-// Build the output, possibly using quasi-quotation
-// let expanded = quote! {
-// ...
-// };
-// Hand the output tokens back to the compiler
-//  TokenStream::from(expanded)
-
-//syn::Expr::Call(syn::ExprCall { func: f, attrs: _, paren_token: _, args: _ }) => {
-//  println!("expr2: {:#?}", quote! { #expr2 });
-//  println!("ident: {:#?}", quote! { #expr2.func });       
-//  if f.ident == "aaa" { println!("f: {:#?}", quote! { #f }); } 
