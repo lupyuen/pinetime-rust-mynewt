@@ -25,7 +25,7 @@ _Note: This is the `rust-safe` branch that contains a Rust application hosted on
 
 Check the article...
 
-[_Hosting Embedded Rust apps on Apache Mynewt with STM32 Blue Pill_](https://medium.com/@ly.lee/hosting-embedded-rust-apps-on-apache-mynewt-with-stm32-blue-pill-c86b119fe5f?source=friends_link&sk=f58f4cf6c608fded4b354063e474a93b)
+[_Safer, Simpler Embedded Rust with Apache Mynewt on STM32 Blue Pill_](https://medium.com/@ly.lee/safer-simpler-embedded-rust-with-apache-mynewt-on-stm32-blue-pill-d8fcb41969ac?source=friends_link&sk=16a27a4b9910aadcfcb9881c02d84adc)
 
 # Requirements
 
