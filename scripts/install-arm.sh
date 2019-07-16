@@ -45,8 +45,8 @@ fi
 
 echo "***** Installing Arm Toolchain..."
 
-sudo apt install gcc-arm-none-eabi
-arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
+sudo apt install gcc-arm-none-eabi -y
+arm-none-eabi-gcc --version  #  Should show "7.3.1 20180622" or later
 
 echo "***** Installing go..."
 
