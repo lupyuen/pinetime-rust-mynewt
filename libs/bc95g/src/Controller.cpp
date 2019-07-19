@@ -61,7 +61,6 @@ const char *Controller::getCommand(enum CommandID cmdID) {
 bool Controller::sendCommandInternal(const char *cmd) {
     //  Send the AT command.
     assert(strlen(cmd) + 4 <= sizeof(buf));  //  Sufficient space for "AT+"
-    return _parser.send(buf) && _parser.recv("OK");
     strcpy(buf, "AT+");
     strncat(buf, sizeof(buf) - 4, cmd);
     return _parser.send(buf) && _parser.recv("OK");
@@ -96,13 +95,16 @@ bool Controller::sendCommand(enum CommandID cmdID) {
     return _parser.send(buf) && _parser.recv("OK");
 }
 
-bool Controller::transmit(int id, const void *data, uint32_t amount) {
-    //  "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
-    //  May take a second try if device is busy
-    const char *cmd = getCommand(cmdID);
+bool Controller::transmit(uint16_t port, uint16_t seq, const char *data, uint16_t size) {
+    //  AT+NSOST=1,104.199.85.211,5683,147,(data),100
+    assert(strlen(data) + 50 < sizeof(buf));
+    sprintf(buf, "AT+NSOST=%d,104.199.85.211,5683,%d,%s,%d", port, size, data, seq);
+    return _parser.send(buf) && _parser.recv("OK");
 
-    const char *_f = "send";
+    ////  TODO
+    const char *_f = "tx";
     console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
+    //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
             && _parser.recv(">")
@@ -117,12 +119,12 @@ bool Controller::transmit(int id, const void *data, uint32_t amount) {
 }
 
 bool Controller::transmitMbuf(int id,  struct os_mbuf *m0) {
-    //  "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
     //  Send the chain of mbufs.
+    //  AT+NSOST=1,104.199.85.211,5683,147,(data),100
     const char *cmd = getCommand(cmdID);
 
     uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
-    const char *_f = "send mbuf";
+    const char *_f = "tx mbuf";
     console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
     //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
