@@ -24,28 +24,25 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 //  BC95G Socket: Represents an BC95G socket that has been allocated.
 struct bc95g_socket {
-    int id;
+    uint16_t local_port;  //  Local UDP port number, or 0 if not allocated.
+    struct {
+        void (*callback)(void *);
+        void *data;
+    } callback;  //  Callback for the socket, when data is received.
 };
 
 //  BC95G Configuration: UART and Socket Configuration
 struct bc95g_cfg {
     //  UART Configuration
-    int uart;
-    
+    int uart;    
     //  Socket Configuration
-    uint8_t _ids[BC95G_SOCKET_COUNT];  //  Set to true if the socket is in use.
-    struct bc95g_socket _sockets[BC95G_SOCKET_COUNT];
-    struct {
-        void (*callback)(void *);
-        void *data;
-    } _cbs[BC95G_SOCKET_COUNT];
+    struct bc95g_socket sockets[BC95G_SOCKET_COUNT];
 };
 
 //  BC95G Device Instance for Mynewt
 struct bc95g {
     struct os_dev dev;
     struct bc95g_cfg cfg;
-    void *controller;  //  Pointer to controller instance (BC95G *)
 };
 
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.

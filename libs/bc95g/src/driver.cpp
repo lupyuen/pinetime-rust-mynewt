@@ -27,7 +27,7 @@ static const struct sensor_network_interface network_iface = {
 /////////////////////////////////////////////////////////
 //  AT Functions. Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
-enum CommandID {
+enum CommandId {
     //  Sequence MUST match commands[] below.
     //  [0] Prepare to transmit
     NCONFIG,    //  configure
@@ -54,8 +54,8 @@ enum CommandID {
     NUESTATS,  //  network stats
 };
 
-static const char *commands[] = {
-    //  Sequence MUST match CommandID.
+static const char *COMMANDS[] = {
+    //  Sequence MUST match CommandId.
     //  [0] Prepare to transmit
     "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
     "QREGSWT=2",    //  QREGSWT: huawei
@@ -80,6 +80,8 @@ static const char *commands[] = {
     "CGPADDR",   //  CGPADDR: IP address
     "NUESTATS",  //  NUESTATS: network stats
 };
+
+static const char ATP[] = "AT+";
 
 /////////////////////////////////////////////////////////
 //  Internal Functions
@@ -112,40 +114,41 @@ static void internal_timeout(uint32_t timeout_ms) {
 /////////////////////////////////////////////////////////
 //  Send AT Commands
 
-static bool internal_send_command(const char *cmd) {
-    //  Send the AT command.
-    assert(strlen(cmd) + 4 <= sizeof(buf));  //  Sufficient space for "AT+"
-    strcpy(buf, "AT+");
-    strncat(buf, sizeof(buf) - 4, cmd);
-    return _parser.send(buf) && _parser.recv("OK");
-}
-
-static const char *get_command(enum CommandID cmdID) {
-    assert(cmdID >= 0);
-    assert(cmdID < (sizeof(commands) / sizeof(commands[0]));
-    const char *cmd = commands[cmdID];
+static const char *get_command(enum CommandId id) {
+    //  Return the command for the command ID.  Excludes the `AT+`.
+    assert(id >= 0);
+    assert(id < (sizeof(COMMANDS) / sizeof(COMMANDS[0]));  //  Invalid id
+    const char *cmd = COMMANDS[id];
     return cmd;
 }
 
-static bool send_command(enum CommandID cmdID) {
+static bool send_command(enum CommandId id) {
     //  Send an AT command with no parameters.
-    const char *cmd = get_command(cmdID);
-    return internal_send_command(cmd);
+    const char *cmd = get_command(id);
+    return 
+        _parser.write(ATP, sizeof(ATP) - 1) &&
+        _parser.send(cmd) &&
+        _parser.recv("OK");
 }
 
-static bool send_command_int(enum CommandID cmdID, int arg) {
+static bool send_command_int(enum CommandId id, int arg) {
     //  Send an AT command with 1 int parameter.
-    const char *cmd = get_command(cmdID);
-    //  Assume cmd contains "...%d..."
-    assert(strlen(cmd) + 5 <= sizeof(buf2));  //  Sufficient space for "%d"
-    sprintf(buf2, cmd, arg);
-    return internal_send_command(buf2);
+    const char *cmd = get_command(id);
+    return 
+        _parser.write(ATP, sizeof(ATP) - 1) &&
+        _parser.send(cmd, arg) &&
+        _parser.recv("OK");
 }
 
-static bool send_query(enum CommandID cmdID, char *result, uint8_t size) {
-    //  Send an AT query like "AT+CGATT?". Return the result.
-    const char *cmd = get_command(cmdID);
-    return internal_send_command(cmd);
+static bool send_query(enum CommandId id, char *result, uint8_t size) {
+    //  Send an AT query like `AT+CEREG?`. Return the parsed result.
+    //  If the response is `=+CEREG:0,1` then result is `0,1`.
+    const char *cmd = get_command(id);
+    return 
+        _parser.write(ATP, sizeof(ATP) - 1) &&
+        _parser.send(cmd) &&
+        _parser.recv("%s", result) &&
+        _parser.recv("OK");
 }
 
 /////////////////////////////////////////////////////////
@@ -165,8 +168,7 @@ static int bc95g_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     struct bc95g_cfg *cfg = &dev->cfg;
 
     //  Erase the socket info.
-    memset(cfg->_ids, 0, sizeof(cfg->_ids));
-    memset(cfg->_cbs, 0, sizeof(cfg->_cbs));
+    memset(cfg->sockets, 0, sizeof(cfg->sockets));
 
     //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
     internal_init(
@@ -233,6 +235,7 @@ int bc95g_connect(struct bc95g *dev) {
     //  CGATT: attach network
     //  CGATT_QUERY: query attach
     //  CEREG_QUERY: query registration
+    //  NSOCR: allocate port
 
     if (!drv(dev)->startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }
     if (!drv(dev)->dhcp(true, 1)) { return NSAPI_ERROR_DHCP_FAILURE; }
@@ -260,15 +263,6 @@ static void bc95g_event(void *drv) {
         }
     }
 #endif  //  TODO
-}
-
-int bc95g_disconnect(struct bc95g *dev) {
-    //  Disconnect from the WiFi access point.  Return 0 if successful.
-    internal_timeout(BC95G_MISC_TIMEOUT);
-    if (!internal_disconnect()) {
-        return NSAPI_ERROR_DEVICE_ERROR;
-    }
-    return NSAPI_ERROR_OK;
 }
 
 int bc95g_socket_open(struct bc95g *dev, void **handle, nsapi_protocol_t proto) {
@@ -342,8 +336,8 @@ int bc95g_socket_sendto(struct bc95g *dev, void *handle, const char *host, uint1
     //  Note: Host must point to a static string that will never change.
 
     //  [2] Transmit message
-    //  NSOCR,  //  allocate port
-    //  NSOST,  //  transmit
+    //  NSOST: transmit
+    //  Wait for =+NSOSTR:1,100,1	
 
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
     if (socket->connected && (socket->host != host || socket->port != port)) {  //  If connected but sending to a different destination...
