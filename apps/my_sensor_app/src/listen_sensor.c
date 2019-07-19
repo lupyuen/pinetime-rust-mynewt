@@ -103,7 +103,7 @@ static int start_remote_sensor_listeners(void) {
 }
 
 #else   //  If nRF24L01 Wireless Network is disabled (Standalone Node)...
-static int start_remote_sensor_listeners(void) {}  //  Don't start Remote Sensor for Standalone Node
+static int start_remote_sensor_listeners(void) { return 0; }  //  Don't start Remote Sensor for Standalone Node
 #endif  //  MYNEWT_VAL(NRF24L01)
 
 /////////////////////////////////////////////////////////

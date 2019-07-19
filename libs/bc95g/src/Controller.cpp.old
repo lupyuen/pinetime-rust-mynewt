@@ -71,7 +71,7 @@ bool Controller::sendCommand(enum CommandID cmdID) {
 bool Controller::transmit(uint16_t port, uint16_t seq, const char *data, uint16_t size) {
     //  AT+NSOST=1,104.199.85.211,5683,147,(data),100
     assert(strlen(data) + 50 < sizeof(buf));
-    sprintf(buf, "AT+NSOST=%d,104.199.85.211,5683,%d,%s,%d", port, size, data, seq);
+    sprintf(buf, "AT+NSOST=%d,%s,%d,%d,%s,%d", port, server_addr, server_port, size, data, seq);
     return _parser.send(buf) && _parser.recv("OK");
 
     ////  TODO
@@ -123,23 +123,6 @@ bool Controller::transmitMbuf(int id,  struct os_mbuf *m0) {
     }
     _log(_f, false);
     return false;
-}
-
-void Controller::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
-    char *parserbuf, uint32_t parserbuf_size, bool debug)
-{
-    _uart = 0;
-    _serial.init(txbuf, txbuf_size, rxbuf, rxbuf_size);
-    _parser.init(_serial, parserbuf, parserbuf_size);
-    _packets = 0;
-    _packets_end = &_packets;
-    _serial.baud(115200);
-    _parser.debugOn(debug);
-}
-
-void Controller::configure(int uart) {
-    _uart = uart;
-    _serial.configure(uart);
 }
 
 void packet_handler(void *arg) {

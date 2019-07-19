@@ -3,9 +3,6 @@
 #ifndef __BC95G_DRIVER_H__
 #define __BC95G_DRIVER_H__
 
-#include <bc95g/network.h>
-#include <bc95g/wifi.h>
-
 #ifdef __cplusplus
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
@@ -25,28 +22,16 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #define BC95G_SCAN_TIMEOUT        30000  //  30  seconds: Timeout for scanning WiFi access points
 #define BC95G_MISC_TIMEOUT         2000  //   2  seconds: Timeout for opening a socket
 
-typedef bool filter_func_t0(nsapi_wifi_ap_t *, unsigned);
-
 //  BC95G Socket: Represents an BC95G socket that has been allocated.
 struct bc95g_socket {
     int id;
-    nsapi_protocol_t proto;
-    bool connected;
-    const char *host;  //  Must point to static string that will not change.
-    uint16_t port;
 };
 
-//  BC95G Configuration: SSID and socket configuration
+//  BC95G Configuration: UART and Socket Configuration
 struct bc95g_cfg {
     //  UART Configuration
     int uart;
     
-    //  SSID Configuration
-    char ap_ssid[33]; /* 32 is what 802.11 defines as longest possible name; +1 for the \0 */
-    nsapi_security_t ap_sec;
-    uint8_t ap_ch;
-    char ap_pass[64]; /* The longest allowed passphrase */
-
     //  Socket Configuration
     uint8_t _ids[BC95G_SOCKET_COUNT];  //  Set to true if the socket is in use.
     struct bc95g_socket _sockets[BC95G_SOCKET_COUNT];
@@ -76,24 +61,8 @@ int bc95g_init(struct os_dev *dev0, void *arg);
 //  Apply the BC95G driver configuration.  Return 0 if successful.
 int bc95g_config(struct bc95g *dev, struct bc95g_cfg *cfg);  
 
-//  Scan for WiFi access points and save into "res". Save up to "limit" number of access points.
-//  "filter_func" (if not null) will be called with the current access point, and the number of access points
-//  saved into "res".  If "filer_func" returns true, then the access point is saved into "res".
-//  Return the number of access points actually saved into "res".
-//  Assume that BC95G::startup() has already been called.
-int bc95g_scan(struct bc95g *dev, nsapi_wifi_ap_t *res, unsigned limit, filter_func_t0 *filter_func);  
-
-//  Connect to the WiFi access point with the SSID and password.  Return 0 if successful.
-int bc95g_connect(struct bc95g *dev, const char *ssid, const char *pass);  
-
-//  Save the credentials for the WiFi access point.  Return 0 if successful.
-int bc95g_set_credentials(struct bc95g *dev, const char *ssid, const char *pass, nsapi_security_t security);      
-
-//  Disconnect from the WiFi access point.  Return 0 if successful.
-int bc95g_disconnect(struct bc95g *dev);  
-
 //  Allocate a socket.  Return 0 if successful.
-int bc95g_socket_open(struct bc95g *dev, void **handle, nsapi_protocol_t proto);  
+int bc95g_socket_open(struct bc95g *dev, void **handle);  
 
 //  Close the socket.  Return 0 if successful.
 int bc95g_socket_close(struct bc95g *dev, void *handle);  
@@ -116,10 +85,6 @@ int bc95g_socket_sendto(struct bc95g *dev, void *handle, const char *host, uint1
 void bc95g_socket_attach(struct bc95g *dev, void *handle, void (*callback)(void *), void *data);
 
 const char *bc95g_get_ip_address(struct bc95g *dev);   //  Get the client IP address.
-const char *bc95g_get_mac_address(struct bc95g *dev);  //  Get the client MAC address.
-const char *bc95g_get_gateway(struct bc95g *dev);  //  Get the gateway address.
-const char *bc95g_get_netmask(struct bc95g *dev);  //  Get the netmask.
-int8_t bc95g_get_rssi(struct bc95g *dev);          //  Get the WiFi signal strength.
 
 #ifdef __cplusplus
 }

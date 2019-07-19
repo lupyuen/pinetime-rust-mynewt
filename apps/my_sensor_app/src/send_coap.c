@@ -113,7 +113,7 @@ int send_sensor_data(struct sensor_value *val, const char *sensor_node) {
 ///////////////////////////////////////////////////////////////////////////////
 //  For Collector Node or Standalone Node: Send Sensor Data to CoAP Server (ESP8266)
 
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
+#if MYNEWT_VAL(BC95G) || MYNEWT_VAL(ESP8266)  //  If BC95G NB-IoT or ESP8266 WiFi is enabled...
 
 static int send_sensor_data_to_server(struct sensor_value *val, const char *node_id) {
     //  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 
@@ -176,8 +176,7 @@ static int send_sensor_data_to_server(struct sensor_value *val, const char *node
     //  transmit the message: libs/esp8266/src/transport.cpp
     return 0;
 }
-
-#endif  //  MYNEWT_VAL(ESP8266)
+#endif  //  MYNEWT_VAL(BC95G) || MYNEWT_VAL(ESP8266)
 
 ///////////////////////////////////////////////////////////////////////////////
 //  For Sensor Node: Send Sensor Data to Collector Node (nRF24L01)
@@ -219,19 +218,8 @@ static int send_sensor_data_to_collector(struct sensor_value *val, const char *n
     //  transmit the message: libs/nrf24l01/src/transport.cpp
     return 0;
 }
-
+#else   //  Define a dummy send function for NB-IoT and WiFi
+static int send_sensor_data_to_collector(struct sensor_value *val, const char *node_id) { return 0; }
 #endif  //  MYNEWT_VAL(NRF24L01)
-
-///////////////////////////////////////////////////////////////////////////////
-//  Other Functions
-
-int __wrap_coap_receive(/* struct os_mbuf **mp */) {
-    //  We override the default coap_receive() with an empty function so that we will 
-    //  NOT link in any modules for receiving and parsing CoAP requests, to save ROM space.
-    //  We only need to transmit CoAP requests.  The overriding is done via the Linker Flag
-    //  "-Wl,-wrap,coap_receive" in apps/my_sensor_app/pkg.yml
-    console_printf("coap_receive NOT IMPLEMENTED\n");
-    return -1;
-}
 
 #endif  //  MYNEWT_VAL(SENSOR_COAP)

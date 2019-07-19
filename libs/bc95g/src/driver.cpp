@@ -12,7 +12,6 @@
 
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
-static BC95G controller;  //  The single BC95G controller instance.  TODO: Support multiple BC95G instances.
 static char bc95g_tx_buffer[BC95G_TX_BUFFER_SIZE];  //  TX Buffer
 static char bc95g_rx_buffer[BC95G_RX_BUFFER_SIZE];  //  RX Buffer
 static char bc95g_parser_buffer[BC95G_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
@@ -20,16 +19,17 @@ static bool first_open = true;  //  True if this is the first time opening the d
 
 //  Definition of BC95G Sensor Network Interface
 static const struct sensor_network_interface network_iface = {
-    SERVER_INTERFACE_TYPE,           //  uint8_t iface_type; Interface Type: Server or Collector
+    SERVER_INTERFACE_TYPE,         //  uint8_t iface_type; Interface Type: Server or Collector
     BC95G_DEVICE,                  //  const char *network_device; Network device name.  Must be a static string.
     sizeof(struct bc95g_server),   //  uint8_t server_endpoint_size; Server Endpoint size
-    register_transport,              //  int (*register_transport_func)(const char *network_device0, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);  //  Register transport function
+    register_transport,            //  int (*register_transport_func)(const char *network_device0, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);  //  Register transport function
 };
 
-//  Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
+/////////////////////////////////////////////////////////
+//  AT Functions. Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
 enum CommandID {
-    //  Sequence MUST match commands in Controller.cpp.
+    //  Sequence MUST match commands[] below.
     //  [0] Prepare to transmit
     NCONFIG,    //  configure
     QREGSWT,    //  huawei
@@ -71,7 +71,7 @@ static const char *commands[] = {
 
     //  [2] Transmit message
     "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
-    "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
+    "NSOST=%d,%s,%d,%d,%s,%d",  //  NSOST: transmit
 
     //  [3] Receive response
     "NSORF=1,%d",  //  NSORF: receive msg
@@ -83,11 +83,37 @@ static const char *commands[] = {
 };
 
 /////////////////////////////////////////////////////////
+//  Internal Functions
+
+static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
+    char *parserbuf, uint32_t parserbuf_size, bool debug)
+{
+    _uart = 0;
+    _serial.init(txbuf, txbuf_size, rxbuf, rxbuf_size);
+    _parser.init(_serial, parserbuf, parserbuf_size);
+    _packets = 0;
+    _packets_end = &_packets;
+    _serial.baud(115200);
+    _parser.debugOn(debug);
+}
+
+static void internal_configure(int uart) {
+    _uart = uart;
+    _serial.configure(uart);
+}
+
+static void internal_attach(void (*func)(void *), void *arg) {
+    _serial.attach(func, arg);
+}
+
+static void internal_timeout(uint32_t timeout_ms) {
+    _parser.setTimeout(timeout_ms);
+}
+
+/////////////////////////////////////////////////////////
 //  Device Creation Functions
 
 static void bc95g_event(void *drv);
-static int internal_connect(struct bc95g *dev);
-
 static BC95G *drv(struct bc95g *dev) { return (BC95G *)(dev->controller); }  //  Return the BC95G Controller
 static bc95g_cfg *cfg(struct bc95g *dev) { return &dev->cfg; }                 //  Return the BC95G Config
 
@@ -100,21 +126,18 @@ static int bc95g_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     struct bc95g *dev = (struct bc95g *) dev0;
     struct bc95g_cfg *cfg = &dev->cfg;
 
-    //  Assign the controller.
-    dev->controller = &controller;
-
     //  Erase the socket info.
     memset(cfg->_ids, 0, sizeof(cfg->_ids));
     memset(cfg->_cbs, 0, sizeof(cfg->_cbs));
 
     //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
-    drv(dev)->init(
+    internal_init(
         bc95g_tx_buffer, BC95G_TX_BUFFER_SIZE,
         bc95g_rx_buffer, BC95G_RX_BUFFER_SIZE,
         bc95g_parser_buffer, BC95G_PARSER_BUFFER_SIZE
     );
-    drv(dev)->configure(cfg->uart);         //  Configure the UART port.  0 means UART2.
-    drv(dev)->attach(&bc95g_event, dev);  //  Set the callback for BC95G events.
+    internal_configure(cfg->uart);         //  Configure the UART port.  0 means UART2.
+    internal_attach(&bc95g_event, dev);    //  Set the callback for BC95G events.
     return 0;
 }
 
@@ -180,8 +203,8 @@ static void bc95g_event(void *drv) {
 
 int bc95g_disconnect(struct bc95g *dev) {
     //  Disconnect from the WiFi access point.  Return 0 if successful.
-    drv(dev)->setTimeout(BC95G_MISC_TIMEOUT);
-    if (!drv(dev)->disconnect()) {
+    internal_timeout(BC95G_MISC_TIMEOUT);
+    if (!internal_disconnect()) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
     return NSAPI_ERROR_OK;
@@ -213,8 +236,8 @@ int bc95g_socket_close(struct bc95g *dev, void *handle) {
     //  Close the socket.  Return 0 if successful.
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
     int err = 0;
-    drv(dev)->setTimeout(BC95G_MISC_TIMEOUT);
-    if (!drv(dev)->close(socket->id)) { err = NSAPI_ERROR_DEVICE_ERROR; }
+    internal_timeout(BC95G_MISC_TIMEOUT);
+    if (!internal_close(socket->id)) { err = NSAPI_ERROR_DEVICE_ERROR; }
     cfg(dev)->_ids[socket->id] = false;
     return err;
 }
@@ -223,9 +246,9 @@ int bc95g_socket_connect(struct bc95g *dev, void *handle, const char *host, uint
     //  Connect the socket to the host and port via UDP or TCP.  Return 0 if successful.
     //  Note: Host must point to a static string that will never change.
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
-    drv(dev)->setTimeout(BC95G_MISC_TIMEOUT);
+    internal_timeout(BC95G_MISC_TIMEOUT);
     const char *proto = (socket->proto == NSAPI_UDP) ? "UDP" : "TCP";
-    if (!drv(dev)->open(proto, socket->id, host, port)) {
+    if (!internal_open(proto, socket->id, host, port)) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
     socket->connected = true;
@@ -235,8 +258,8 @@ int bc95g_socket_connect(struct bc95g *dev, void *handle, const char *host, uint
 int bc95g_socket_send(struct bc95g *dev, void *handle, const void *data, unsigned size) {
     //  Send the byte buffer to the socket.  Return number of bytes sent.
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
-    drv(dev)->setTimeout(BC95G_SEND_TIMEOUT);
-    if (!drv(dev)->send(socket->id, data, size)) {
+    internal_timeout(BC95G_SEND_TIMEOUT);
+    if (!internal_send(socket->id, data, size)) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
     return size;
@@ -245,8 +268,8 @@ int bc95g_socket_send(struct bc95g *dev, void *handle, const void *data, unsigne
 int bc95g_socket_send_mbuf(struct bc95g *dev, void *handle, struct os_mbuf *m) {
     //  Send the chain of mbufs to the socket.  Return number of bytes sent.
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
-    drv(dev)->setTimeout(BC95G_SEND_TIMEOUT);
-    if (!drv(dev)->sendMBuf(socket->id, m)) {
+    internal_timeout(BC95G_SEND_TIMEOUT);
+    if (!internal_sendMBuf(socket->id, m)) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
     int size = OS_MBUF_PKTLEN(m);  //  Length of the mbuf chain.
@@ -258,8 +281,8 @@ int bc95g_socket_sendto(struct bc95g *dev, void *handle, const char *host, uint1
     //  Note: Host must point to a static string that will never change.
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
     if (socket->connected && (socket->host != host || socket->port != port)) {  //  If connected but sending to a different destination...
-        drv(dev)->setTimeout(BC95G_MISC_TIMEOUT);
-        if (!drv(dev)->close(socket->id)) { return NSAPI_ERROR_DEVICE_ERROR; }
+        internal_timeout(BC95G_MISC_TIMEOUT);
+        if (!internal_close(socket->id)) { return NSAPI_ERROR_DEVICE_ERROR; }
         socket->connected = false;
     }
     if (!socket->connected) {
@@ -280,5 +303,5 @@ void bc95g_socket_attach(struct bc95g *dev, void *handle, void (*callback)(void 
 
 const char *bc95g_get_ip_address(struct bc95g *dev) {
     //  Get the client IP address.
-    return drv(dev)->getIPAddress();
+    return internal_getIPAddress();
 }

@@ -24,7 +24,7 @@ pkg.deps:
 #   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
 
 # Quectel BC95-G NB-IoT driver
-pkg.deps.ESP8266:
+pkg.deps.BC95G:
     - "libs/bc95g"                         #  Quectel BC95-G NB-IoT driver
 
 # nRF24L01 Wireless Transceiver Driver
