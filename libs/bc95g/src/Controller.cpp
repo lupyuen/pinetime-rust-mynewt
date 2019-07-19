@@ -21,33 +21,6 @@ extern "C" int debug_bc95g;
 
 //  Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
-static const char *commands[] = {
-    //  Sequence MUST match CommandID.
-    //  [0] Prepare to transmit
-    "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
-    "QREGSWT=2",    //  QREGSWT: huawei
-    "NRB",          //  NRB: reboot
-
-    //  [1] Attach to network
-    "NBAND=8",  //  NBAND: select band
-    "CFUN=1",   //  CFUN: enable functions
-    "CGATT=1",  //  CGATT: attach network
-    "CGATT?",   //  CGATT_QUERY: query attach
-    "CEREG?",   //  CEREG_QUERY: query registration
-
-    //  [2] Transmit message
-    "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
-    "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
-
-    //  [3] Receive response
-    "NSORF=1,%d",  //  NSORF: receive msg
-    "NSOCL=1,%d",  //  NSOCL: close port
-
-    //  [4] Diagnostics
-    "CGPADDR",   //  CGPADDR: IP address
-    "NUESTATS",  //  NUESTATS: network stats
-};
-
 static char buf[1024];  //  TODO: Check size.
 static char buf2[64];   //  TODO: Check size.
 
@@ -76,7 +49,7 @@ bool Controller::sendCommandInt(enum CommandID cmdID, int arg) {
     //  Send an AT command with 1 int parameter.
     const char *cmd = getCommand(cmdID);
     //  Assume cmd contains "...%d..."
-    assert(strlen(cmd) + 5 <= sizeof(buf2));  //  Sufficient space for "&d"
+    assert(strlen(cmd) + 5 <= sizeof(buf2));  //  Sufficient space for "%d"
     sprintf(buf2, cmd, arg);
     return sendCommandInternal(buf2);
 }
@@ -103,7 +76,7 @@ bool Controller::transmit(uint16_t port, uint16_t seq, const char *data, uint16_
 
     ////  TODO
     const char *_f = "tx";
-    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
+    console_printf("%s%s %u...\n", _nbt, _f, (unsigned) amount);  console_flush();
     //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
@@ -125,7 +98,7 @@ bool Controller::transmitMbuf(int id,  struct os_mbuf *m0) {
 
     uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
     const char *_f = "tx mbuf";
-    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
+    console_printf("%s%s %u...\n", _nbt, _f, (unsigned) amount);  console_flush();
     //  May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
         if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
@@ -196,7 +169,7 @@ bool Controller::reset(void)
     //  debug_bc95g = 1;  ////
     const char *_f = "reset";    
     bool ret = false;
-    console_printf("%s%s...\n", _esp, _f); console_flush(); 
+    console_printf("%s%s...\n", _nbt, _f); console_flush(); 
     for (int i = 0; i < 2; i++) {
         if (
             _parser.send("\r\nAT+RST")
@@ -242,7 +215,7 @@ bool Controller::open(const char *type, int id, const char* addr, int port)
     if(id > 4) {
         return false;
     }
-    console_printf("%s%s...\n", _esp, _f);  console_flush();
+    console_printf("%s%s...\n", _nbt, _f);  console_flush();
     bool ret = _parser.send("AT+CIPSTART=%d,\"%s\",\"%s\",%d", id, type, addr, port)
         && _parser.recv("OK");
     _log(_f, ret);

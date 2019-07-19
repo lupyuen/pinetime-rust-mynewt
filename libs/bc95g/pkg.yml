@@ -18,12 +18,12 @@
 
 # Dependencies for this package
 
-pkg.name:        libs/esp8266
-pkg.description: Driver for ESP8266 WiFi transceiver, ported from mbed
+pkg.name:        libs/bc95g
+pkg.description: Driver for BC95G WiFi transceiver, ported from mbed
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - esp8266
+    - bc95g
     - wifi
 
 pkg.deps:
@@ -41,5 +41,5 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # esp8266 should be initialised after rf24l01 (Stage 640)
-    esp8266_create: 650  # Call esp8266_create() to initialise the ESP8266 driver during startup
+    # bc95g should be initialised after rf24l01 (Stage 640)
+    bc95g_create: 650  # Call bc95g_create() to initialise the BC95G driver during startup

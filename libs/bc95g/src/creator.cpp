@@ -17,23 +17,23 @@
  * under the License.
  */
 
-//  Create ESP8266 device
+//  Create BC95G device
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
 #include "util.h"
-#include "esp8266/esp8266.h"  //  Specific to device
+#include "bc95g/bc95g.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
-#define DEVICE_NAME        ESP8266_DEVICE  //  Name of device
-#define DEVICE_DEV         esp8266         //  Device type
-#define DEVICE_INSTANCE    esp8266         //  Device instance
-#define DEVICE_CFG         esp8266_cfg     //  Device config
-#define DEVICE_CFG_DEFAULT esp8266_default_cfg  //  Device default config
-#define DEVICE_CFG_FUNC    esp8266_config  //  Device config function
-#define DEVICE_INIT        esp8266_init    //  Device init function
-#define DEVICE_CREATE      esp8266_create  //  Device create function
-#define DEVICE_ITF         uart_0_itf_esp8266   //  Device interface
+#define DEVICE_NAME        BC95G_DEVICE  //  Name of device
+#define DEVICE_DEV         bc95g         //  Device type
+#define DEVICE_INSTANCE    bc95g         //  Device instance
+#define DEVICE_CFG         bc95g_cfg     //  Device config
+#define DEVICE_CFG_DEFAULT bc95g_default_cfg  //  Device default config
+#define DEVICE_CFG_FUNC    bc95g_config  //  Device config function
+#define DEVICE_INIT        bc95g_init    //  Device init function
+#define DEVICE_CREATE      bc95g_create  //  Device create function
+#define DEVICE_ITF         uart_0_itf_bc95g   //  Device interface
 
 static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
 
@@ -49,7 +49,7 @@ static int config_device(void);
 
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf("%screate " DEVICE_NAME "\n", _esp);
+    console_printf("%screate " DEVICE_NAME "\n", _nbt);
 
     //  Create the device.
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,

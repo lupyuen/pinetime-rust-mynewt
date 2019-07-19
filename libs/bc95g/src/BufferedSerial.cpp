@@ -36,19 +36,19 @@ extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_li
     #define MY_UART 0  //  Select UART port: 0 means UART2.
 #endif  //  TEST_UART
 
-char rx_buf[256];        //  ESP8266 receive buffer.  TODO: Support multiple instances.
-char *rx_ptr = NULL;     //  Pointer to next ESP8266 receive buffer byte to be received.  TODO: Support multiple instances.
+char rx_buf[256];        //  Receive buffer.  TODO: Support multiple instances.
+char *rx_ptr = NULL;     //  Pointer to next receive buffer byte to be received.  TODO: Support multiple instances.
 
 #ifdef TEST_UART
-    static const char *cmds[] = {     //  List of ESP8266 commands to be sent.
+    static const char *cmds[] = {     //  List of commands to be sent.
         "AT+CWMODE_CUR=3\r\n",  //  Set to WiFi Client mode (not WiFi Access Point mode).
         "AT+CWLAP\r\n",         //  List all WiFi access points.
         NULL                    //  No more commands.
     };
-    static const char **cmd_ptr = NULL;   //  Pointer to ESP8266 command being sent.
-    static const char *tx_buf = NULL;     //  ESP8266 command buffer being sent.
-    static const char *tx_ptr = NULL;     //  Pointer to next ESP8266 command buffer byte to be sent.
-    static struct os_callout next_cmd_callout;  //  Callout to switch to next ESP8266 command after a delay.
+    static const char **cmd_ptr = NULL;   //  Pointer to command being sent.
+    static const char *tx_buf = NULL;     //  Command buffer being sent.
+    static const char *tx_ptr = NULL;     //  Pointer to next command buffer byte to be sent.
+    static struct os_callout next_cmd_callout;  //  Callout to switch to next command after a delay.
 #endif  //  TEST_UART
 
 static int uart_tx_char(void *arg) {    
@@ -82,7 +82,7 @@ static void uart_tx_done(void *arg) {
     //  UART driver reports that transmission is complete.
 #ifdef TEST_UART
     //  We wait 5 seconds for the current command to complete, 
-    //  then trigger the next_cmd callout to switch to next ESP8266 command.
+    //  then trigger the next_cmd callout to switch to next command.
     int rc = os_callout_reset(&next_cmd_callout, OS_TICKS_PER_SEC * 5);
     assert(rc == 0);
 #endif  //  TEST_UART
@@ -90,7 +90,7 @@ static void uart_tx_done(void *arg) {
 
 #ifdef TEST_UART
     static void next_cmd(struct os_event *ev) {
-        //  Switch to next ESP8266 command.
+        //  Switch to next command.
         assert(ev);
         if (rx_buf[0]) {  //  If UART data has been received...
             console_printf("< %s\n", rx_buf);   //  Show the UART data.
@@ -131,7 +131,7 @@ static int setup_uart(BufferedSerial *serial) {
         }
         tx_buf = *cmd_ptr++;  //  Fetch first command.
         tx_ptr = tx_buf;
-        //  Define the next_cmd callout to switch to next ESP8266 command.
+        //  Define the next_cmd callout to switch to next command.
         os_callout_init(&next_cmd_callout, os_eventq_dflt_get(), next_cmd, NULL);
     #endif  //  TEST_UART
     //  Define the UART callbacks.
