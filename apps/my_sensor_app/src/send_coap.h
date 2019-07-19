@@ -7,6 +7,11 @@
 //  Define SERVER_NETWORK_INTERFACE, the network interface for transmitting to CoAP Server (via ESP8266)
 //  and SENSOR_NETWORK_INTERFACE, the network interface for transmitting to Collector Node (via nRF24L01)
 
+#if MYNEWT_VAL(BC95G)     //  If BC95G is enabled...
+#include <bc95g/bc95g.h>  //  For BC95G_DEVICE
+#define SERVER_NETWORK_INTERFACE BC95G_DEVICE  //  Will be set to "bc95g_0"
+#endif  //  MYNEWT_VAL(BC95G)
+
 #if MYNEWT_VAL(ESP8266)       //  If ESP8266 WiFi is enabled...
 #include <esp8266/esp8266.h>  //  For ESP8266_DEVICE
 #define SERVER_NETWORK_INTERFACE ESP8266_DEVICE  //  Will be set to "esp8266_0"

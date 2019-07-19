@@ -5,6 +5,9 @@
 
 syscfg.defs:
     # List of Features. Will be selected automatically based on the tutorial setting.    
+    BC95G:
+        description: 'Enable NB-IoT access with Quectel BC95-G'
+        value:        0        
     NRF24L01:
         description: 'Enable wireless Collector and Sensor Nodes with nRF24L01 transceiver'
         value:        0        
@@ -49,6 +52,9 @@ syscfg.defs:
     TUTORIAL3:
         description: 'Settings for Tutorial 3'
         value:        0
+    TUTORIAL4:
+        description: 'Settings for Tutorial 3'
+        value:        0
 
 # System Configuration Setting Values:
 #   Below we override the driver and library settings. Settings defined in
@@ -70,6 +76,32 @@ syscfg.vals:
     OS_SYSVIEW_TRACE_EVENTQ:  0  # Disable trace of event queues
     OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
     OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores
+
+# Settings for Tutorial 4
+syscfg.vals.TUTORIAL4:
+    BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+
+    # Previous Settings
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
+    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
+    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+
+    # OIC Settings
+    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_SERVER:              0  # Disable the OIC (CoAP) server library
+    OC_TRANS_SECURITY:      0  # Disable TLS security
+    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
+    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
+    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
+    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
+    OC_APP_RESOURCES:       2  # Max number of server resources
+    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
+    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
+    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
 
 # Settings for Tutorial 3
 syscfg.vals.TUTORIAL3:

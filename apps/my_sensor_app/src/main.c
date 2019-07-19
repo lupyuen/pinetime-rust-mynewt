@@ -13,7 +13,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //  Read Sensor Data from Temperature Sensor and Send to CoAP Server or Collector Node
 
-int main2(int argc, char **argv) {
+int main(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 
     //  and sending sensor data in the background.
 
@@ -46,15 +46,6 @@ int main2(int argc, char **argv) {
     }
     return 0;  //  Never comes here.
 }
-
-///////////////////////////////////////////////////////////////////////////////
-//  Other Functions
-
-//  Dummy destructor for global C++ objects, since our program never terminates.  
-//  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
-void* __dso_handle = NULL;
-void _fini(void) { }
-int __aeabi_atexit(void *object, void (*destructor)(void *), void *dso_handle) { return 0; }
 
 /** About directory "my_sensor_app" for BSP "bluepill" and MCU "stm32f1xx"...
  * Depending on the type of package, there are different
