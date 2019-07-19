@@ -2313,14 +2313,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
                 if len == 1 {
   e0:	2a01      	cmp	r2, #1
   e2:	d10d      	bne.n	100 <_ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E+0x100>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   e4:	6802      	ldr	r2, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:63
                     while !port.is_fifo_ready() {}
   e6:	2a01      	cmp	r2, #1
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   e8:	bf1c      	itt	ne
   ea:	6802      	ldrne	r2, [r0, #0]
@@ -2328,14 +2328,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:63
   ec:	2a01      	cmpne	r2, #1
   ee:	d005      	beq.n	fc <_ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E+0xfc>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   f0:	6802      	ldr	r2, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:63
   f2:	2a01      	cmp	r2, #1
   f4:	d002      	beq.n	fc <_ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E+0xfc>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   f6:	6802      	ldr	r2, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
@@ -3754,7 +3754,7 @@ _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get
     pub fn get_current() -> u32 {
    0:	f24e 0018 	movw	r0, #57368	; 0xe018
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN17volatile_register11RW$LT$T$GT$4read17h46ed21d178e93e18E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    8:	6800      	ldr	r0, [r0, #0]
 _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11get_current17hb54b375ce80e811fE():

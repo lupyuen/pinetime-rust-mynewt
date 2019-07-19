@@ -61,6 +61,9 @@ int bc95g_init(struct os_dev *dev0, void *arg);
 //  Apply the BC95G driver configuration.  Return 0 if successful.
 int bc95g_config(struct bc95g *dev, struct bc95g_cfg *cfg);  
 
+//  Connect to the NB-IoT network.  Return 0 if successful.
+int bc95g_connect(struct bc95g *dev);  
+
 //  Allocate a socket.  Return 0 if successful.
 int bc95g_socket_open(struct bc95g *dev, void **handle);  
 

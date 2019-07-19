@@ -51,19 +51,14 @@ int bc95g_register_transport(const char *network_device0, struct bc95g_server *s
         int rc = init_bc95g_server(server0, host, port);
         assert(rc == 0);
 
-        //  Connect to WiFi access point.  This may take a while to complete (or fail), thus we
+        //  Connect to NB-IoT network.  This may take a while to complete (or fail), thus we
         //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
         //  to pass BC95G events to this function.
         rc = bc95g_connect(dev, NULL, NULL);  
         assert(rc == 0);
 
-        //  Allocate a new UDP socket for the CoAP server.  The socket will be always connected to the server and cannot be changed or closed.
-        rc = bc95g_socket_open(dev, &socket, NSAPI_UDP);
-        assert(rc == 0);
-
-        //  Connect the socket to the UDP address and port.  Command looks like: AT+CIPSTART=0,"UDP","coap.thethings.io",5683
-        //  The CoAP UDP message will be transmitted at the next call to oc_tx_ucast().
-        rc = bc95g_socket_connect(dev, socket, server0->endpoint.host, server0->endpoint.port);
+        //  Allocate a new UDP socket.
+        rc = bc95g_socket_open(dev, &socket);
         assert(rc == 0);
 
         //  BC95G registered.  Remember the details.

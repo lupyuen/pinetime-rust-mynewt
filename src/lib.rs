@@ -31,7 +31,7 @@ use crate::base::*;             //  Import `base.rs` for common declarations
 
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                     //  Don't mangle the name "main"
-extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+extern "C" fn rust_main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
     //  Init Mynewt system.
     unsafe { base::rust_sysinit()  };
     unsafe { console_flush() };

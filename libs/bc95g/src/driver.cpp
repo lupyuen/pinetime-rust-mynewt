@@ -6,7 +6,6 @@
 #include <sensor/sensor.h>
 #include <console/console.h>
 #include <sensor_network/sensor_network.h>
-#include "Controller.h"
 #include "bc95g/bc95g.h"
 #include "bc95g/transport.h"
 
@@ -111,6 +110,45 @@ static void internal_timeout(uint32_t timeout_ms) {
 }
 
 /////////////////////////////////////////////////////////
+//  Send AT Commands
+
+static bool internal_send_command(const char *cmd) {
+    //  Send the AT command.
+    assert(strlen(cmd) + 4 <= sizeof(buf));  //  Sufficient space for "AT+"
+    strcpy(buf, "AT+");
+    strncat(buf, sizeof(buf) - 4, cmd);
+    return _parser.send(buf) && _parser.recv("OK");
+}
+
+static const char *get_command(enum CommandID cmdID) {
+    assert(cmdID >= 0);
+    assert(cmdID < (sizeof(commands) / sizeof(commands[0]));
+    const char *cmd = commands[cmdID];
+    return cmd;
+}
+
+static bool send_command(enum CommandID cmdID) {
+    //  Send an AT command with no parameters.
+    const char *cmd = get_command(cmdID);
+    return internal_send_command(cmd);
+}
+
+static bool send_command_int(enum CommandID cmdID, int arg) {
+    //  Send an AT command with 1 int parameter.
+    const char *cmd = get_command(cmdID);
+    //  Assume cmd contains "...%d..."
+    assert(strlen(cmd) + 5 <= sizeof(buf2));  //  Sufficient space for "%d"
+    sprintf(buf2, cmd, arg);
+    return internal_send_command(buf2);
+}
+
+static bool send_query(enum CommandID cmdID, char *result, uint8_t size) {
+    //  Send an AT query like "AT+CGATT?". Return the result.
+    const char *cmd = get_command(cmdID);
+    return internal_send_command(cmd);
+}
+
+/////////////////////////////////////////////////////////
 //  Device Creation Functions
 
 static void bc95g_event(void *drv);
@@ -178,6 +216,29 @@ int bc95g_default_cfg(struct bc95g_cfg *cfg) {
 int bc95g_config(struct bc95g *drv, struct bc95g_cfg *cfg) {
     //  Apply the BC95G driver configuration.  Return 0 if successful.
     return 0;  //  Nothing to do.  We will apply the config in bc95g_open().
+}
+
+int bc95g_connect(struct bc95g *dev) {
+    //  Connect to the NB-IoT network.  Return 0 if successful.
+    internal_timeout(BC95G_CONNECT_TIMEOUT);
+
+    //  [0] Prepare to transmit
+    //  NCONFIG: configure
+    //  QREGSWT: huawei
+    //  NRB: reboot
+
+    //  [1] Attach to network
+    //  NBAND: select band
+    //  CFUN: enable functions
+    //  CGATT: attach network
+    //  CGATT_QUERY: query attach
+    //  CEREG_QUERY: query registration
+
+    if (!drv(dev)->startup(3)) { return NSAPI_ERROR_DEVICE_ERROR; }
+    if (!drv(dev)->dhcp(true, 1)) { return NSAPI_ERROR_DHCP_FAILURE; }
+    if (!drv(dev)->connect(cfg(dev)->ap_ssid, cfg(dev)->ap_pass)) { return NSAPI_ERROR_NO_CONNECTION; }
+    if (!drv(dev)->getIPAddress()) { return NSAPI_ERROR_DHCP_FAILURE; }
+    return 0;
 }
 
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {
@@ -279,6 +340,11 @@ int bc95g_socket_send_mbuf(struct bc95g *dev, void *handle, struct os_mbuf *m) {
 int bc95g_socket_sendto(struct bc95g *dev, void *handle, const char *host, uint16_t port, const void *data, unsigned size) {
     //  Send the byte buffer to the host and port.  Return number of bytes sent.
     //  Note: Host must point to a static string that will never change.
+
+    //  [2] Transmit message
+    //  NSOCR,  //  allocate port
+    //  NSOST,  //  transmit
+
     struct bc95g_socket *socket = (struct bc95g_socket *)handle;
     if (socket->connected && (socket->host != host || socket->port != port)) {  //  If connected but sending to a different destination...
         internal_timeout(BC95G_MISC_TIMEOUT);

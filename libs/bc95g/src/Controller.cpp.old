@@ -24,42 +24,6 @@ extern "C" int debug_bc95g;
 static char buf[1024];  //  TODO: Check size.
 static char buf2[64];   //  TODO: Check size.
 
-const char *Controller::getCommand(enum CommandID cmdID) {
-    assert(cmdID >= 0);
-    assert(cmdID < (sizeof(commands) / sizeof(commands[0]));
-    const char *cmd = commands[cmdID];
-    return cmd;
-}
-
-bool Controller::sendCommandInternal(const char *cmd) {
-    //  Send the AT command.
-    assert(strlen(cmd) + 4 <= sizeof(buf));  //  Sufficient space for "AT+"
-    strcpy(buf, "AT+");
-    strncat(buf, sizeof(buf) - 4, cmd);
-    return _parser.send(buf) && _parser.recv("OK");
-}
-
-bool Controller::sendCommand(enum CommandID cmdID) {
-    //  Send an AT command with no parameters.
-    const char *cmd = getCommand(cmdID);
-    return sendCommandInternal(cmd);
-}
-
-bool Controller::sendCommandInt(enum CommandID cmdID, int arg) {
-    //  Send an AT command with 1 int parameter.
-    const char *cmd = getCommand(cmdID);
-    //  Assume cmd contains "...%d..."
-    assert(strlen(cmd) + 5 <= sizeof(buf2));  //  Sufficient space for "%d"
-    sprintf(buf2, cmd, arg);
-    return sendCommandInternal(buf2);
-}
-
-bool Controller::sendQuery(enum CommandID cmdID, char *result, uint8_t size) {
-    //  Send an AT query like "AT+CGATT?". Return the result.
-    const char *cmd = getCommand(cmdID);
-    return sendCommandInternal(cmd);
-}
-
 bool Controller::sendCommand(enum CommandID cmdID) {
     assert(cmdID >= 0);
     assert(cmdID < (sizeof(commands) / sizeof(commands[0]));
