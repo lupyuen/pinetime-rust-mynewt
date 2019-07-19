@@ -19,45 +19,61 @@
 
 extern "C" int debug_bc95g;
 
-/*
-[0] Prepare to transmit
-NCONFIG
-configure
-QREGSWT
-huawei
-NRB
-reboot
+//  Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
-[1] Attach to network
-NBAND
-selectBand
-CFUN
-enableFunctions
-CGATT
-attachNetwork
-CEREG
-registration
+enum ATCommandID {
+    //  Sequence MUST match at_commands.
+    //  [0] Prepare to transmit
+    NCONFIG,    //  configure
+    QREGSWT,    //  huawei
+    NRB,        //  reboot
 
-[2] Transmit message
-NOSCR
-allocatePort
-NSOST
-transmit
+    //  [1] Attach to network
+    NBAND,          //  select band
+    CFUN,           //  enable functions
+    CGATT,          //  attach network
+    CGATT_QUERY,    //  query attach
+    CEREG_QUERY,    //  query registration
 
-[3] Receive Response
-NSONMI
-receiveNotify
-NSORF
-receiveMsg
-NSOCL
-closePort
+    //  [2] Transmit message
+    NSOCR,  //  allocate port
+    NSOST,  //  transmit
 
-[4] Diagnostics
-CGPADDR
-ipAddress
-NETSTATS
-networkStats
-*/
+    //  [3] Receive response
+    NSORF,  //  receive msg
+    NSOCL,  //  close port
+
+    //  [4] Diagnostics
+    CGPADDR,   //  IP address
+    NUESTATS,  //  network stats
+};
+
+static const char *at_commands[] = {
+    //  Sequence MUST match ATCommandID.
+    //  [0] Prepare to transmit
+    "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
+    "QREGSWT=2",    //  QREGSWT: huawei
+    "NRB",          //  NRB: reboot
+
+    //  [1] Attach to network
+    "NBAND=8",  //  NBAND: select band
+    "CFUN=1",   //  CFUN: enable functions
+    "CGATT=1",  //  CGATT: attach network
+    "CGATT?",   //  CGATT_QUERY: query attach
+    "CEREG?",   //  CEREG_QUERY: query registration
+
+    //  [2] Transmit message
+    "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
+    "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
+
+    //  [3] Receive response
+    "NSORF=1,%d",  //  NSORF: receive msg
+    "NSOCL=1,%d",  //  NSOCL: close port
+
+    //  [4] Diagnostics
+    "CGPADDR",   //  CGPADDR: IP address
+    "NUESTATS",  //  NUESTATS: network stats
+};
 
 void Controller::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug)
