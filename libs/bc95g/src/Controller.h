@@ -1,7 +1,4 @@
-//  Ported from https://os.mbed.com/teams/ESP8266/code/esp8266-driver/file/6946b0b9e323/ESP8266/ESP8266.h/
-/* ESP8266Interface Example
- * Copyright (c) 2015 ARM Limited
- *
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,23 +12,22 @@
  * limitations under the License.
  */
 
-#ifndef ESP8266_H
-#define ESP8266_H
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
-#include "esp8266/wifi.h"
 #include "ATParser.h"
 
 extern "C" {
     typedef bool filter_func_t(nsapi_wifi_ap_t *, unsigned);
 }
 
-/** ESP8266Interface class.
-    This is an interface to a ESP8266 radio.
+/** ControllerInterface class.
+    This is an interface to a Controller radio.
  */
-class ESP8266
+class Controller
 {
 public:
-    /** Create an ESP8266 interface
+    /** Create an Controller interface
      *  @param txbuf TX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
      *  @param txbuf_size TX buffer size
      *  @param rxbuf RX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
@@ -42,28 +38,28 @@ public:
      */
     void init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, char *parserbuf, uint32_t parserbuf_size, bool debug = false);
 
-    /** Configure the ESP8266 interface
+    /** Configure the Controller interface
      *  @param uart UART port number. For STM32 Blue Pill, 0 means UART2
      */
     void configure(int uart);
 
-    /** Enable or disable ESP8266 command echo
+    /** Enable or disable Controller command echo
      *  @param echoEnabled true if echo should be enabled
      */
     bool setEcho(bool echoEnabled);
 
     /**
-    * Startup the ESP8266
+    * Startup the Controller
     *
     * @param mode mode of WIFI 1-client, 2-host, 3-both
-    * @return true only if ESP8266 was setup correctly
+    * @return true only if Controller was setup correctly
     */
     bool startup(int mode);
 
     /**
-    * Reset ESP8266
+    * Reset Controller
     *
-    * @return true only if ESP8266 resets successfully
+    * @return true only if Controller resets successfully
     */
     bool reset(void);
 
@@ -72,35 +68,35 @@ public:
     *
     * @param enabled DHCP enabled when true
     * @param mode mode of DHCP 0-softAP, 1-station, 2-both
-    * @return true only if ESP8266 enables/disables DHCP successfully
+    * @return true only if Controller enables/disables DHCP successfully
     */
     bool dhcp(bool enabled, int mode);
 
     /**
-    * Connect ESP8266 to AP
+    * Connect Controller to AP
     *
     * @param ap the name of the AP
     * @param passPhrase the password of AP
-    * @return true only if ESP8266 is connected successfully
+    * @return true only if Controller is connected successfully
     */
     bool connect(const char *ap, const char *passPhrase);
 
     /**
-    * Disconnect ESP8266 from AP
+    * Disconnect Controller from AP
     *
-    * @return true only if ESP8266 is disconnected successfully
+    * @return true only if Controller is disconnected successfully
     */
     bool disconnect(void);
 
     /**
-    * Get the IP address of ESP8266
+    * Get the IP address of Controller
     *
     * @return null-teriminated IP address or null if no IP address is assigned
     */
     const char *getIPAddress(void);
 
     /**
-    * Get the MAC address of ESP8266
+    * Get the MAC address of Controller
     *
     * @return null-terminated MAC address or null if no MAC address is assigned
     */
@@ -127,7 +123,7 @@ public:
     int8_t getRSSI();
 
     /**
-    * Check if ESP8266 is conenected
+    * Check if Controller is conenected
     *
     * @return true only if the chip has an IP address
     */

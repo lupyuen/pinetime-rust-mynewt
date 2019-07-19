@@ -1,7 +1,4 @@
-//  Ported from https://os.mbed.com/teams/ESP8266/code/esp8266-driver/file/6946b0b9e323/ESP8266/ESP8266.cpp/
-/* ESP8266 Example
- * Copyright (c) 2015 ARM Limited
- *
+/* 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,13 +14,52 @@
 
 #include <assert.h>
 #include <console/console.h>
-#include "esp8266/network.h"
 #include "util.h"
 #include "Controller.h"
 
-extern "C" int debug_vrecv;
+extern "C" int debug_bc95g;
 
-void ESP8266::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
+/*
+[0] Prepare to transmit
+NCONFIG
+configure
+QREGSWT
+huawei
+NRB
+reboot
+
+[1] Attach to network
+NBAND
+selectBand
+CFUN
+enableFunctions
+CGATT
+attachNetwork
+CEREG
+registration
+
+[2] Transmit message
+NOSCR
+allocatePort
+NSOST
+transmit
+
+[3] Receive Response
+NSONMI
+receiveNotify
+NSORF
+receiveMsg
+NSOCL
+closePort
+
+[4] Diagnostics
+CGPADDR
+ipAddress
+NETSTATS
+networkStats
+*/
+
+void Controller::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug)
 {
     _uart = 0;
@@ -35,7 +71,7 @@ void ESP8266::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf
     _parser.debugOn(debug);
 }
 
-void ESP8266::configure(int uart) {
+void Controller::configure(int uart) {
     _uart = uart;
     _serial.configure(uart);
 }
@@ -45,7 +81,7 @@ void packet_handler(void *arg) {
     ((ESP8266 *)arg)->_packet_handler();
 }
 
-bool ESP8266::setEcho(bool echoEnabled) {
+bool Controller::setEcho(bool echoEnabled) {
     //  Turn command echoing on or off.
     const char *_f = "setEcho";
     console_printf("%s%s %s...\n", _esp, _f, echoEnabled ? "on" : "off"); console_flush(); 
@@ -66,7 +102,7 @@ bool ESP8266::setEcho(bool echoEnabled) {
     return false;
 }
 
-bool ESP8266::startup(int mode)
+bool Controller::startup(int mode)
 {
     //  only 3 valid modes
     if(mode < 1 || mode > 3) {
@@ -83,9 +119,9 @@ bool ESP8266::startup(int mode)
     return success;
 }
 
-bool ESP8266::reset(void)
+bool Controller::reset(void)
 {
-    //  debug_vrecv = 1;  ////
+    //  debug_bc95g = 1;  ////
     const char *_f = "reset";    
     bool ret = false;
     console_printf("%s%s...\n", _esp, _f); console_flush(); 
@@ -107,11 +143,11 @@ bool ESP8266::reset(void)
         }
     }
     _log(_f, ret);
-    //  debug_vrecv = 0;  ////    
+    //  debug_bc95g = 0;  ////    
     return true;
 }
 
-bool ESP8266::dhcp(bool enabled, int mode)
+bool Controller::dhcp(bool enabled, int mode)
 {
     //only 3 valid modes
     if(mode < 0 || mode > 2) {
@@ -122,7 +158,7 @@ bool ESP8266::dhcp(bool enabled, int mode)
         && _parser.recv("OK");
 }
 
-bool ESP8266::connect(const char *ap, const char *passPhrase)
+bool Controller::connect(const char *ap, const char *passPhrase)
 {
     const char *_f = "connect";
     console_printf("%s%s...\n", _esp, _f);  console_flush();
@@ -134,12 +170,12 @@ bool ESP8266::connect(const char *ap, const char *passPhrase)
     return ret;
 }
 
-bool ESP8266::disconnect(void)
+bool Controller::disconnect(void)
 {
     return _parser.send("AT+CWQAP") && _parser.recv("OK");
 }
 
-const char *ESP8266::getIPAddress(void)
+const char *Controller::getIPAddress(void)
 {
     if (!(_parser.send("AT+CIFSR")
         && _parser.recv("+CIFSR:STAIP,\"%15[^\"]\"", _ip_buffer)
@@ -150,7 +186,7 @@ const char *ESP8266::getIPAddress(void)
     return _ip_buffer;
 }
 
-const char *ESP8266::getMACAddress(void)
+const char *Controller::getMACAddress(void)
 {
     if (!(_parser.send("AT+CIFSR")
         && _parser.recv("+CIFSR:STAMAC,\"%17[^\"]\"", _mac_buffer)
@@ -161,7 +197,7 @@ const char *ESP8266::getMACAddress(void)
     return _mac_buffer;
 }
 
-const char *ESP8266::getGateway()
+const char *Controller::getGateway()
 {
     if (!(_parser.send("AT+CIPSTA?")
         && _parser.recv("+CIPSTA:gateway:\"%15[^\"]\"", _gateway_buffer)
@@ -172,7 +208,7 @@ const char *ESP8266::getGateway()
     return _gateway_buffer;
 }
 
-const char *ESP8266::getNetmask()
+const char *Controller::getNetmask()
 {
     if (!(_parser.send("AT+CIPSTA?")
         && _parser.recv("+CIPSTA:netmask:\"%15[^\"]\"", _netmask_buffer)
@@ -183,7 +219,7 @@ const char *ESP8266::getNetmask()
     return _netmask_buffer;
 }
 
-int8_t ESP8266::getRSSI()
+int8_t Controller::getRSSI()
 {
     int8_t rssi;
     char bssid[18];
@@ -203,12 +239,12 @@ int8_t ESP8266::getRSSI()
     return rssi;
 }
 
-bool ESP8266::isConnected(void)
+bool Controller::isConnected(void)
 {
     return getIPAddress() != 0;
 }
 
-int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_func)
+int Controller::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_func)
 {
     unsigned cnt = 0;
     nsapi_wifi_ap_t ap;
@@ -217,7 +253,7 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_fu
     if (!_parser.send("AT+CWLAP")) {
         return NSAPI_ERROR_DEVICE_ERROR;
     }
-    //  debug_vrecv = 1;  ////
+    //  debug_bc95g = 1;  ////
     while (recv_ap(&ap)) {
         //  Call the filter function to determine if we should record this access point.
         const bool filter = filter_func ? filter_func(&ap, cnt) : true;
@@ -233,12 +269,12 @@ int ESP8266::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_fu
     }
     //  Wait for the end of the response.
     if (!_parser.recv("OK\r\n")) { cnt = 0; }
-    //  debug_vrecv = 0;  ////
+    //  debug_bc95g = 0;  ////
     _log(_f, cnt > 0);
     return cnt;
 }
 
-bool ESP8266::open(const char *type, int id, const char* addr, int port)
+bool Controller::open(const char *type, int id, const char* addr, int port)
 {
     const char *_f = "open";
     //IDs only 0-4
@@ -252,7 +288,7 @@ bool ESP8266::open(const char *type, int id, const char* addr, int port)
     return ret;
 }
 
-bool ESP8266::send(int id, const void *data, uint32_t amount)
+bool Controller::send(int id, const void *data, uint32_t amount)
 {
     //  May take a second try if device is busy
     const char *_f = "send";
@@ -270,7 +306,7 @@ bool ESP8266::send(int id, const void *data, uint32_t amount)
     return false;
 }
 
-bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
+bool Controller::sendMBuf(int id,  struct os_mbuf *m0)
 {
     //  Send the chain of mbufs.
     uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
@@ -302,7 +338,7 @@ bool ESP8266::sendMBuf(int id,  struct os_mbuf *m0)
     return false;
 }
 
-void ESP8266::_packet_handler()
+void Controller::_packet_handler()
 {
     int id;
     uint32_t amount;
@@ -332,7 +368,7 @@ void ESP8266::_packet_handler()
     _packets_end = &packet->next;
 }
 
-int32_t ESP8266::recv(int id, void *data, uint32_t amount)
+int32_t Controller::recv(int id, void *data, uint32_t amount)
 {
     while (true) {
         // check if any packets are ready for us
@@ -369,7 +405,7 @@ int32_t ESP8266::recv(int id, void *data, uint32_t amount)
     }
 }
 
-bool ESP8266::close(int id)
+bool Controller::close(int id)
 {
     //May take a second try if device is busy
     for (unsigned i = 0; i < 2; i++) {
@@ -382,27 +418,27 @@ bool ESP8266::close(int id)
     return false;
 }
 
-void ESP8266::setTimeout(uint32_t timeout_ms)
+void Controller::setTimeout(uint32_t timeout_ms)
 {
     _parser.setTimeout(timeout_ms);
 }
 
-bool ESP8266::readable()
+bool Controller::readable()
 {
     return _serial.readable();
 }
 
-bool ESP8266::writeable()
+bool Controller::writeable()
 {
     return _serial.writeable();
 }
 
-void ESP8266::attach(void (*func)(void *), void *arg)
+void Controller::attach(void (*func)(void *), void *arg)
 {
     _serial.attach(func, arg);
 }
 
-bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
+bool Controller::recv_ap(nsapi_wifi_ap_t *ap)
 {
     //  Parse the next line of WiFi AP info received, which looks like:
     //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
@@ -418,32 +454,3 @@ bool ESP8266::recv_ap(nsapi_wifi_ap_t *ap)
     console_printf(ret ? "" /* "ESP ap OK\n" */ : "%sap%s", _esp, _okfailed(false));  //  Don't flush here, we are still receiving data.
     return ret;
 }
-
-#ifdef NOTUSED  
-    //  Test for vsscanf() end-of-match bug in Baselibc...
-    int sec, rssi;
-    int rc = sscanf(
-        "+CWLAP:(3,\"HP-Print-54-Officejet 0000\",-74,"
-        //  "\"8c:dc:d4:00:00:00\",1,-34,0)"
-        ,
-        "+CWLAP:(%d,\"%32[^\"]\",%d,"
-        //  "\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d,"
-        , 
-        &sec, ap->ssid, &rssi 
-        //  ,&ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4], &ap->bssid[5], &channel
-    );
-    //  Should return rc=3, rssi=-74.  Buggy version of vsscanf() returns rc=2, rssi=some other value.
-    console_printf("sscanf %d\n", rc);
-
-    //  Test for vsscanf() ignore-match bug in Baselibc...
-    int count = -1;
-    int rc = sscanf(
-        "+CWLAP:(3,\"HP\",-74,\"8c:dc:d4:00:00:00\",1,-34,0)"
-        ,
-        "+CWLAP:(%*d,\"%*32[^\"]\",%n"
-        ,
-        &count
-    );
-    //  Shoud return rc=0, count=15.  Buggy version of vsscanf() returns count<15
-    console_printf("sscanf %d / %d\n", rc, count); console_flush();        
-#endif  //  NOTUSED
