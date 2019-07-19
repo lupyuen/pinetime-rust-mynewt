@@ -21,35 +21,8 @@ extern "C" int debug_bc95g;
 
 //  Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
-enum ATCommandID {
-    //  Sequence MUST match at_commands.
-    //  [0] Prepare to transmit
-    NCONFIG,    //  configure
-    QREGSWT,    //  huawei
-    NRB,        //  reboot
-
-    //  [1] Attach to network
-    NBAND,          //  select band
-    CFUN,           //  enable functions
-    CGATT,          //  attach network
-    CGATT_QUERY,    //  query attach
-    CEREG_QUERY,    //  query registration
-
-    //  [2] Transmit message
-    NSOCR,  //  allocate port
-    NSOST,  //  transmit
-
-    //  [3] Receive response
-    NSORF,  //  receive msg
-    NSOCL,  //  close port
-
-    //  [4] Diagnostics
-    CGPADDR,   //  IP address
-    NUESTATS,  //  network stats
-};
-
-static const char *at_commands[] = {
-    //  Sequence MUST match ATCommandID.
+static const char *commands[] = {
+    //  Sequence MUST match CommandID.
     //  [0] Prepare to transmit
     "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
     "QREGSWT=2",    //  QREGSWT: huawei
@@ -75,6 +48,108 @@ static const char *at_commands[] = {
     "NUESTATS",  //  NUESTATS: network stats
 };
 
+static char buf[1024];  //  TODO: Check size.
+static char buf2[64];   //  TODO: Check size.
+
+const char *Controller::getCommand(enum CommandID cmdID) {
+    assert(cmdID >= 0);
+    assert(cmdID < (sizeof(commands) / sizeof(commands[0]));
+    const char *cmd = commands[cmdID];
+    return cmd;
+}
+
+bool Controller::sendCommandInternal(const char *cmd) {
+    //  Send the AT command.
+    assert(strlen(cmd) + 4 <= sizeof(buf));  //  Sufficient space for "AT+"
+    return _parser.send(buf) && _parser.recv("OK");
+    strcpy(buf, "AT+");
+    strncat(buf, sizeof(buf) - 4, cmd);
+    return _parser.send(buf) && _parser.recv("OK");
+}
+
+bool Controller::sendCommand(enum CommandID cmdID) {
+    //  Send an AT command with no parameters.
+    const char *cmd = getCommand(cmdID);
+    return sendCommandInternal(cmd);
+}
+
+bool Controller::sendCommandInt(enum CommandID cmdID, int arg) {
+    //  Send an AT command with 1 int parameter.
+    const char *cmd = getCommand(cmdID);
+    //  Assume cmd contains "...%d..."
+    assert(strlen(cmd) + 5 <= sizeof(buf2));  //  Sufficient space for "&d"
+    sprintf(buf2, cmd, arg);
+    return sendCommandInternal(buf2);
+}
+
+bool Controller::sendQuery(enum CommandID cmdID, char *result, uint8_t size) {
+    //  Send an AT query like "AT+CGATT?". Return the result.
+    const char *cmd = getCommand(cmdID);
+    return sendCommandInternal(cmd);
+}
+
+bool Controller::sendCommand(enum CommandID cmdID) {
+    assert(cmdID >= 0);
+    assert(cmdID < (sizeof(commands) / sizeof(commands[0]));
+    const char *cmd = commands[cmdID];
+    sprintf(buf, "AT+%s", cmd);
+    return _parser.send(buf) && _parser.recv("OK");
+}
+
+bool Controller::transmit(int id, const void *data, uint32_t amount) {
+    //  "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
+    //  May take a second try if device is busy
+    const char *cmd = getCommand(cmdID);
+
+    const char *_f = "send";
+    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
+    for (unsigned i = 0; i < 2; i++) {
+        if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
+            && _parser.recv(">")
+            && _parser.write((char*)data, (int)amount) >= 0 
+            && _parser.recv("SEND OK")) {
+            _log(_f, true);
+            return true;
+        }
+    }
+    _log(_f, false);
+    return false;
+}
+
+bool Controller::transmitMbuf(int id,  struct os_mbuf *m0) {
+    //  "NSOST=%d,104.199.85.211,5683,%d,%s,%d",  //  NSOST: transmit
+    //  Send the chain of mbufs.
+    const char *cmd = getCommand(cmdID);
+
+    uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
+    const char *_f = "send mbuf";
+    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
+    //  May take a second try if device is busy
+    for (unsigned i = 0; i < 2; i++) {
+        if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
+            && _parser.recv(">")) {
+            struct os_mbuf *m = m0;
+            bool failed = false;
+            while (m) {  //  For each mbuf in the list...
+                const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
+                int size = m->om_len;  //  Fetch the size.
+                console_dump((const uint8_t *) data, size); console_printf("\n");
+                if (_parser.write(data, size) < 0) {   //  If the writing failed, retry.
+                    failed = true;
+                    break;
+                }
+                m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
+            }
+            if (failed) { break; }
+            if (!_parser.recv("SEND OK")) { break; }
+            _log(_f, true);  console_flush();
+            return true;
+        }
+    }
+    _log(_f, false);
+    return false;
+}
+
 void Controller::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug)
 {
@@ -95,27 +170,6 @@ void Controller::configure(int uart) {
 void packet_handler(void *arg) {
     assert(arg != NULL);
     ((ESP8266 *)arg)->_packet_handler();
-}
-
-bool Controller::setEcho(bool echoEnabled) {
-    //  Turn command echoing on or off.
-    const char *_f = "setEcho";
-    console_printf("%s%s %s...\n", _esp, _f, echoEnabled ? "on" : "off"); console_flush(); 
-    for (int i = 0; i < 2; i++) {  //  Try twice in case of error...
-        if (
-            _parser.send(       //  Send echo on or off command.
-                echoEnabled 
-                ? "\r\nATE1"
-                : "\r\nATE0"
-            ) &&
-            _parser.recv("OK")  //  Wait for OK response.
-        ) {
-            _log(_f, true);
-            return true; 
-        }
-    }
-    _log(_f, false);
-    return false;
 }
 
 bool Controller::startup(int mode)
@@ -163,34 +217,6 @@ bool Controller::reset(void)
     return true;
 }
 
-bool Controller::dhcp(bool enabled, int mode)
-{
-    //only 3 valid modes
-    if(mode < 0 || mode > 2) {
-        return false;
-    }
-
-    return _parser.send("AT+CWDHCP=%d,%d", enabled?1:0, mode)
-        && _parser.recv("OK");
-}
-
-bool Controller::connect(const char *ap, const char *passPhrase)
-{
-    const char *_f = "connect";
-    console_printf("%s%s...\n", _esp, _f);  console_flush();
-    bool ret = _parser.send("AT+CWJAP=\"%s\",\"%s\"", ap, passPhrase)
-        && _parser.recv("OK");
-    _log(_f, ret);  
-    if (!ret) { console_printf("*** Check WIFI_SSID and WIFI_PASSWORD in targets/bluepill_my_sensor/syscfg.yml\n"); }
-    console_flush();
-    return ret;
-}
-
-bool Controller::disconnect(void)
-{
-    return _parser.send("AT+CWQAP") && _parser.recv("OK");
-}
-
 const char *Controller::getIPAddress(void)
 {
     if (!(_parser.send("AT+CIFSR")
@@ -202,92 +228,9 @@ const char *Controller::getIPAddress(void)
     return _ip_buffer;
 }
 
-const char *Controller::getMACAddress(void)
-{
-    if (!(_parser.send("AT+CIFSR")
-        && _parser.recv("+CIFSR:STAMAC,\"%17[^\"]\"", _mac_buffer)
-        && _parser.recv("OK"))) {
-        return 0;
-    }
-
-    return _mac_buffer;
-}
-
-const char *Controller::getGateway()
-{
-    if (!(_parser.send("AT+CIPSTA?")
-        && _parser.recv("+CIPSTA:gateway:\"%15[^\"]\"", _gateway_buffer)
-        && _parser.recv("OK"))) {
-        return 0;
-    }
-
-    return _gateway_buffer;
-}
-
-const char *Controller::getNetmask()
-{
-    if (!(_parser.send("AT+CIPSTA?")
-        && _parser.recv("+CIPSTA:netmask:\"%15[^\"]\"", _netmask_buffer)
-        && _parser.recv("OK"))) {
-        return 0;
-    }
-
-    return _netmask_buffer;
-}
-
-int8_t Controller::getRSSI()
-{
-    int8_t rssi;
-    char bssid[18];
-
-   if (!(_parser.send("AT+CWJAP?")
-        && _parser.recv("+CWJAP:\"%*[^\"]\",\"%17[^\"]\"", bssid)
-        && _parser.recv("OK"))) {
-        return 0;
-    }
-
-    if (!(_parser.send("AT+CWLAP=\"\",\"%s\",", bssid)
-        && _parser.recv("+CWLAP:(%*d,\"%*[^\"]\",%hhd,", &rssi)
-        && _parser.recv("OK"))) {
-        return 0;
-    }
-
-    return rssi;
-}
-
 bool Controller::isConnected(void)
 {
     return getIPAddress() != 0;
-}
-
-int Controller::scan(nsapi_wifi_ap_t *res, unsigned limit, filter_func_t *filter_func)
-{
-    unsigned cnt = 0;
-    nsapi_wifi_ap_t ap;
-    const char *_f = "scan";
-    console_printf("%s%s...\n", _esp, _f); console_flush();  ////
-    if (!_parser.send("AT+CWLAP")) {
-        return NSAPI_ERROR_DEVICE_ERROR;
-    }
-    //  debug_bc95g = 1;  ////
-    while (recv_ap(&ap)) {
-        //  Call the filter function to determine if we should record this access point.
-        const bool filter = filter_func ? filter_func(&ap, cnt) : true;
-        if (!filter) { continue; }  //  Caller says skip this access point.
-
-        if (cnt < limit) {
-            memcpy(&res[cnt], &ap, sizeof(ap));  //  Copy the access point.
-        }
-        cnt++;
-        if (limit != 0 && cnt >= limit) {
-            break;
-        }
-    }
-    //  Wait for the end of the response.
-    if (!_parser.recv("OK\r\n")) { cnt = 0; }
-    //  debug_bc95g = 0;  ////
-    _log(_f, cnt > 0);
-    return cnt;
 }
 
 bool Controller::open(const char *type, int id, const char* addr, int port)
@@ -302,56 +245,6 @@ bool Controller::open(const char *type, int id, const char* addr, int port)
         && _parser.recv("OK");
     _log(_f, ret);
     return ret;
-}
-
-bool Controller::send(int id, const void *data, uint32_t amount)
-{
-    //  May take a second try if device is busy
-    const char *_f = "send";
-    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
-    for (unsigned i = 0; i < 2; i++) {
-        if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
-            && _parser.recv(">")
-            && _parser.write((char*)data, (int)amount) >= 0 
-            && _parser.recv("SEND OK")) {
-            _log(_f, true);
-            return true;
-        }
-    }
-    _log(_f, false);
-    return false;
-}
-
-bool Controller::sendMBuf(int id,  struct os_mbuf *m0)
-{
-    //  Send the chain of mbufs.
-    uint32_t amount = OS_MBUF_PKTLEN(m0);  //  Length of the mbuf chain.
-    const char *_f = "send mbuf";
-    console_printf("%s%s %u...\n", _esp, _f, (unsigned) amount);  console_flush();
-    //  May take a second try if device is busy
-    for (unsigned i = 0; i < 2; i++) {
-        if (_parser.send("AT+CIPSEND=%d,%d", id, amount)
-            && _parser.recv(">")) {
-            struct os_mbuf *m = m0;
-            bool failed = false;
-            while (m) {  //  For each mbuf in the list...
-                const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
-                int size = m->om_len;  //  Fetch the size.
-                console_dump((const uint8_t *) data, size); console_printf("\n");
-                if (_parser.write(data, size) < 0) {   //  If the writing failed, retry.
-                    failed = true;
-                    break;
-                }
-                m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
-            }
-            if (failed) { break; }
-            if (!_parser.recv("SEND OK")) { break; }
-            _log(_f, true);  console_flush();
-            return true;
-        }
-    }
-    _log(_f, false);
-    return false;
 }
 
 void Controller::_packet_handler()
@@ -452,21 +345,4 @@ bool Controller::writeable()
 void Controller::attach(void (*func)(void *), void *arg)
 {
     _serial.attach(func, arg);
-}
-
-bool Controller::recv_ap(nsapi_wifi_ap_t *ap)
-{
-    //  Parse the next line of WiFi AP info received, which looks like:
-    //  +CWLAP:(3,"HP-Print-54-Officejet 0000",-74,"8c:dc:d4:00:00:00",1,-34,0)
-    int sec = -1, channel = -1;
-    memset(ap, 0, sizeof(nsapi_wifi_ap_t));
-
-    //  Note: This parsing fails with the implementation of vsscanf() in Baselibc.  See vsscanf.c in this directory for the fixed implementation.
-    bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
-                            &ap->rssi, &ap->bssid[0], &ap->bssid[1], &ap->bssid[2], &ap->bssid[3], &ap->bssid[4],
-                            &ap->bssid[5], &channel);  //  "&channel" was previously "&ap->channel", which is incorrect because "%d" assigns an int not uint8_t.
-    ap->channel = (uint8_t) channel;
-    ap->security = sec < 5 ? (nsapi_security_t)sec : NSAPI_SECURITY_UNKNOWN;
-    console_printf(ret ? "" /* "ESP ap OK\n" */ : "%sap%s", _esp, _okfailed(false));  //  Don't flush here, we are still receiving data.
-    return ret;
 }

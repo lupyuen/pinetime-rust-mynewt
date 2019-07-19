@@ -17,9 +17,34 @@
 
 #include "ATParser.h"
 
-extern "C" {
-    typedef bool filter_func_t(nsapi_wifi_ap_t *, unsigned);
-}
+//  Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
+
+enum CommandID {
+    //  Sequence MUST match commands in Controller.cpp.
+    //  [0] Prepare to transmit
+    NCONFIG,    //  configure
+    QREGSWT,    //  huawei
+    NRB,        //  reboot
+
+    //  [1] Attach to network
+    NBAND,          //  select band
+    CFUN,           //  enable functions
+    CGATT,          //  attach network
+    CGATT_QUERY,    //  query attach
+    CEREG_QUERY,    //  query registration
+
+    //  [2] Transmit message
+    NSOCR,  //  allocate port
+    NSOST,  //  transmit
+
+    //  [3] Receive response
+    NSORF,  //  receive msg
+    NSOCL,  //  close port
+
+    //  [4] Diagnostics
+    CGPADDR,   //  IP address
+    NUESTATS,  //  network stats
+};
 
 /** ControllerInterface class.
     This is an interface to a Controller radio.
@@ -42,6 +67,8 @@ public:
      *  @param uart UART port number. For STM32 Blue Pill, 0 means UART2
      */
     void configure(int uart);
+
+    bool sendCommand(enum CommandID cmdID);
 
     /** Enable or disable Controller command echo
      *  @param echoEnabled true if echo should be enabled
