@@ -1,0 +1,13 @@
+# System Configuration Setting Definitions:
+#   Below are the settings defined by this app and their default values. To change the settings, 
+#   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
+#   Strings must be enclosed by '"..."'
+
+syscfg.defs:
+    # ESP8266 WiFi Settings
+    WIFI_SSID:
+        description: 'Connect to the WiFi access point with this SSID'
+        value:       '"my_ssid"'
+    WIFI_PASSWORD:
+        description: 'Password for WiFi access point'
+        value:       '"my_password_is_secret"'
