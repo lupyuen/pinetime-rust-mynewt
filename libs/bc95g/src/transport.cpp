@@ -54,7 +54,7 @@ int bc95g_register_transport(const char *network_device0, struct bc95g_server *s
         //  Connect to NB-IoT network.  This may take a while to complete (or fail), thus we
         //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
         //  to pass BC95G events to this function.
-        rc = bc95g_connect(dev, NULL, NULL);  
+        rc = bc95g_connect(dev);
         assert(rc == 0);
 
         //  Allocate a new UDP socket.

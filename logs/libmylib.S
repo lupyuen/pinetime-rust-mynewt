@@ -165,35 +165,35 @@ SYMBOL TABLE:
 00006787 l       .debug_str	00000000 
 000067c2 l       .debug_str	00000000 
 000067d4 l       .debug_str	00000000 
-000067d9 l       .debug_str	00000000 
-000067db l       .debug_str	00000000 
-000067ed l       .debug_str	00000000 
-000067f3 l       .debug_str	00000000 
-00006858 l       .debug_str	00000000 
-0000688b l       .debug_str	00000000 
-00006891 l       .debug_str	00000000 
-00006899 l       .debug_str	00000000 
+000067de l       .debug_str	00000000 
+000067e0 l       .debug_str	00000000 
+000067f2 l       .debug_str	00000000 
+000067f8 l       .debug_str	00000000 
+0000685d l       .debug_str	00000000 
+00006890 l       .debug_str	00000000 
+00006896 l       .debug_str	00000000 
 0000689e l       .debug_str	00000000 
-000068ab l       .debug_str	00000000 
-000068b8 l       .debug_str	00000000 
-000068bf l       .debug_str	00000000 
-000068cf l       .debug_str	00000000 
-000068e1 l       .debug_str	00000000 
-000068ed l       .debug_str	00000000 
+000068a3 l       .debug_str	00000000 
+000068b0 l       .debug_str	00000000 
+000068bd l       .debug_str	00000000 
+000068c4 l       .debug_str	00000000 
+000068d4 l       .debug_str	00000000 
+000068e6 l       .debug_str	00000000 
 000068f2 l       .debug_str	00000000 
-000068fa l       .debug_str	00000000 
-000068fe l       .debug_str	00000000 
+000068f7 l       .debug_str	00000000 
+000068ff l       .debug_str	00000000 
 00006903 l       .debug_str	00000000 
-0000690b l       .debug_str	00000000 
-00006929 l       .debug_str	00000000 
-00006932 l       .debug_str	00000000 
+00006908 l       .debug_str	00000000 
+00006910 l       .debug_str	00000000 
+0000692e l       .debug_str	00000000 
 00006937 l       .debug_str	00000000 
 0000693c l       .debug_str	00000000 
-00006940 l       .debug_str	00000000 
-00006949 l       .debug_str	00000000 
-00006953 l       .debug_str	00000000 
-0000696b l       .debug_str	00000000 
-00006982 l       .debug_str	00000000 
+00006941 l       .debug_str	00000000 
+00006945 l       .debug_str	00000000 
+0000694e l       .debug_str	00000000 
+00006958 l       .debug_str	00000000 
+00006970 l       .debug_str	00000000 
+00006987 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 0000004c l       .debug_str	00000000 
@@ -927,72 +927,72 @@ SYMBOL TABLE:
 00004c0b l       .debug_str	00000000 
 00004c11 l       .debug_str	00000000 
 00000000 l     O .bss..L_MergedGlobals	00000041 .L_MergedGlobals
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.10	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.10
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.13	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.13
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.14	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.14
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.15	0000000d .Lanon.ad8cb0886bb189ed01fc7842181f0890.15
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.17	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.17
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.19	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.19
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.2	00000001 .Lanon.ad8cb0886bb189ed01fc7842181f0890.2
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.20	00000011 .Lanon.ad8cb0886bb189ed01fc7842181f0890.20
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.21	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.21
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.23	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.23
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.24	00000016 .Lanon.ad8cb0886bb189ed01fc7842181f0890.24
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.26	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.26
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.27	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.27
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.28	00000019 .Lanon.ad8cb0886bb189ed01fc7842181f0890.28
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.29	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.29
-00000000 l     O .rodata.cst8	00000008 .Lanon.ad8cb0886bb189ed01fc7842181f0890.30
-00000000 l     O .rodata.cst16	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.31
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.32	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.32
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.34	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.34
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.35	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.35
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.36	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.36
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.37	00000011 .Lanon.ad8cb0886bb189ed01fc7842181f0890.37
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.38	00000011 .Lanon.ad8cb0886bb189ed01fc7842181f0890.38
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.39	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.39
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.41	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.41
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.42	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.42
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.44	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.44
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.45	00000007 .Lanon.ad8cb0886bb189ed01fc7842181f0890.45
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.46	0000000d .Lanon.ad8cb0886bb189ed01fc7842181f0890.46
-00000004 l     O .rodata.cst4	00000004 .Lanon.ad8cb0886bb189ed01fc7842181f0890.47
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.48	00000006 .Lanon.ad8cb0886bb189ed01fc7842181f0890.48
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.49	00000006 .Lanon.ad8cb0886bb189ed01fc7842181f0890.49
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.5	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.5
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.50	00000003 .Lanon.ad8cb0886bb189ed01fc7842181f0890.50
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.51	00000005 .Lanon.ad8cb0886bb189ed01fc7842181f0890.51
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.52	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.52
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.53	0000004b .Lanon.ad8cb0886bb189ed01fc7842181f0890.53
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.54	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.54
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.55	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.55
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.56	00000021 .Lanon.ad8cb0886bb189ed01fc7842181f0890.56
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.57	00000012 .Lanon.ad8cb0886bb189ed01fc7842181f0890.57
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.58	00000009 .Lanon.ad8cb0886bb189ed01fc7842181f0890.58
-00000008 l     O .rodata.cst8	00000008 .Lanon.ad8cb0886bb189ed01fc7842181f0890.59
-00000000 l     O .rodata.cst4	00000004 .Lanon.ad8cb0886bb189ed01fc7842181f0890.6
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.60	00000001 .Lanon.ad8cb0886bb189ed01fc7842181f0890.60
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.61	0000000e .Lanon.ad8cb0886bb189ed01fc7842181f0890.61
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.62	00000002 .Lanon.ad8cb0886bb189ed01fc7842181f0890.62
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.63	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.63
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.64	00000009 .Lanon.ad8cb0886bb189ed01fc7842181f0890.64
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.65	0000000d .Lanon.ad8cb0886bb189ed01fc7842181f0890.65
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.66	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.66
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.67	0000000b .Lanon.ad8cb0886bb189ed01fc7842181f0890.67
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.68	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.68
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.69	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.69
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.70	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.70
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.71	00000009 .Lanon.ad8cb0886bb189ed01fc7842181f0890.71
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.72	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.72
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.73	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.73
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.74	00000007 .Lanon.ad8cb0886bb189ed01fc7842181f0890.74
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.75	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.75
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.76	0000000c .Lanon.ad8cb0886bb189ed01fc7842181f0890.76
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.77	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.77
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.78	0000000a .Lanon.ad8cb0886bb189ed01fc7842181f0890.78
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.79	00000007 .Lanon.ad8cb0886bb189ed01fc7842181f0890.79
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.8	00000018 .Lanon.ad8cb0886bb189ed01fc7842181f0890.8
-00000000 l     O .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.9	00000010 .Lanon.ad8cb0886bb189ed01fc7842181f0890.9
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.10	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.10
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.13	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.13
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.14	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.14
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.15	0000000d .Lanon.2a93030cb8897f8dccdff616e412b96b.15
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.17	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.17
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.19	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.19
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.2	00000001 .Lanon.2a93030cb8897f8dccdff616e412b96b.2
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.20	00000011 .Lanon.2a93030cb8897f8dccdff616e412b96b.20
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.21	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.21
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.23	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.23
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.24	00000016 .Lanon.2a93030cb8897f8dccdff616e412b96b.24
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.26	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.26
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.27	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.27
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.28	00000019 .Lanon.2a93030cb8897f8dccdff616e412b96b.28
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.29	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.29
+00000000 l     O .rodata.cst8	00000008 .Lanon.2a93030cb8897f8dccdff616e412b96b.30
+00000000 l     O .rodata.cst16	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.31
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.32	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.32
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.34	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.34
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.35	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.35
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.36	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.36
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.37	00000011 .Lanon.2a93030cb8897f8dccdff616e412b96b.37
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.38	00000011 .Lanon.2a93030cb8897f8dccdff616e412b96b.38
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.39	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.39
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.41	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.41
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.42	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.42
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.44	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.44
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.45	00000007 .Lanon.2a93030cb8897f8dccdff616e412b96b.45
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.46	0000000d .Lanon.2a93030cb8897f8dccdff616e412b96b.46
+00000004 l     O .rodata.cst4	00000004 .Lanon.2a93030cb8897f8dccdff616e412b96b.47
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.48	00000006 .Lanon.2a93030cb8897f8dccdff616e412b96b.48
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.49	00000006 .Lanon.2a93030cb8897f8dccdff616e412b96b.49
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.5	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.5
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.50	00000003 .Lanon.2a93030cb8897f8dccdff616e412b96b.50
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.51	00000005 .Lanon.2a93030cb8897f8dccdff616e412b96b.51
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.52	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.52
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.53	0000004b .Lanon.2a93030cb8897f8dccdff616e412b96b.53
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.54	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.54
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.55	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.55
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.56	00000021 .Lanon.2a93030cb8897f8dccdff616e412b96b.56
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.57	00000012 .Lanon.2a93030cb8897f8dccdff616e412b96b.57
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.58	00000009 .Lanon.2a93030cb8897f8dccdff616e412b96b.58
+00000008 l     O .rodata.cst8	00000008 .Lanon.2a93030cb8897f8dccdff616e412b96b.59
+00000000 l     O .rodata.cst4	00000004 .Lanon.2a93030cb8897f8dccdff616e412b96b.6
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.60	00000001 .Lanon.2a93030cb8897f8dccdff616e412b96b.60
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.61	0000000e .Lanon.2a93030cb8897f8dccdff616e412b96b.61
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.62	00000002 .Lanon.2a93030cb8897f8dccdff616e412b96b.62
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.63	0000000c .Lanon.2a93030cb8897f8dccdff616e412b96b.63
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.64	00000009 .Lanon.2a93030cb8897f8dccdff616e412b96b.64
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.65	0000000d .Lanon.2a93030cb8897f8dccdff616e412b96b.65
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.66	0000000c .Lanon.2a93030cb8897f8dccdff616e412b96b.66
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.67	0000000b .Lanon.2a93030cb8897f8dccdff616e412b96b.67
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.68	0000000c .Lanon.2a93030cb8897f8dccdff616e412b96b.68
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.69	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.69
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.70	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.70
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.71	00000009 .Lanon.2a93030cb8897f8dccdff616e412b96b.71
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.72	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.72
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.73	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.73
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.74	00000007 .Lanon.2a93030cb8897f8dccdff616e412b96b.74
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.75	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.75
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.76	0000000c .Lanon.2a93030cb8897f8dccdff616e412b96b.76
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.77	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.77
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.78	0000000a .Lanon.2a93030cb8897f8dccdff616e412b96b.78
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.79	00000007 .Lanon.2a93030cb8897f8dccdff616e412b96b.79
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.8	00000018 .Lanon.2a93030cb8897f8dccdff616e412b96b.8
+00000000 l     O .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.9	00000010 .Lanon.2a93030cb8897f8dccdff616e412b96b.9
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1f0136c3ba751a36E	0000003a _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h1f0136c3ba751a36E
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3fa8abbf6979cbeeE	0000003a _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3fa8abbf6979cbeeE
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h530cfbedaa48e1ffE	0000003a _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h530cfbedaa48e1ffE
@@ -1043,28 +1043,28 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN5mylib6mynewt6result95_$LT$impl$u20$core..convert..From$LT$mylib..mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17h1c388bf109d56bacE	00000000 .text._ZN5mylib6mynewt6result95_$LT$impl$u20$core..convert..From$LT$mylib..mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17h1c388bf109d56bacE
 00000000 l    d  .text._ZN5mylib13listen_sensor16read_temperature17he2b173009b04e774E	00000000 .text._ZN5mylib13listen_sensor16read_temperature17he2b173009b04e774E
 00000000 l    d  .text._ZN5mylib9send_coap17network_task_func17h80783602aca0275eE	00000000 .text._ZN5mylib9send_coap17network_task_func17h80783602aca0275eE
-00000000 l    d  .text.main	00000000 .text.main
+00000000 l    d  .text.rust_main	00000000 .text.rust_main
 00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
 00000000 l    d  .text._ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E	00000000 .text._ZN85_$LT$mylib..mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h3899803474e7ec93E
 00000000 l    d  .text._ZN71_$LT$mylib..mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4da449ccb002d0a5E	00000000 .text._ZN71_$LT$mylib..mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4da449ccb002d0a5E
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.0	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.0
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.1	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.1
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.3	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.3
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.4	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.4
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.7	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.7
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.11	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.11
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.12	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.12
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.0	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.0
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.1	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.1
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.3	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.3
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.4	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.4
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.7	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.7
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.11	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.11
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.12	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.12
 00000000 l    d  .data._ZN5mylib6mynewt2hw6sensor17LISTENER_INTERNAL17h5b34e5ea47eba469E	00000000 .data._ZN5mylib6mynewt2hw6sensor17LISTENER_INTERNAL17h5b34e5ea47eba469E
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.16	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.16
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.18	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.18
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.22	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.22
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.25	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.25
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.16	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.16
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.18	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.18
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.22	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.22
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.25	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.25
 00000000 l    d  .bss._ZN5mylib9send_coap12NETWORK_TASK17hfcc51f12750b4bbfE	00000000 .bss._ZN5mylib9send_coap12NETWORK_TASK17hfcc51f12750b4bbfE
 00000000 l    d  .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17hb88b519d3760d3edE	00000000 .bss._ZN5mylib9send_coap18NETWORK_TASK_STACK17hb88b519d3760d3edE
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.33	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.33
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.33	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.33
 00000000 l    d  .rodata.str.4	00000000 .rodata.str.4
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.40	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.40
-00000000 l    d  .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.43	00000000 .rodata..Lanon.ad8cb0886bb189ed01fc7842181f0890.43
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.40	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.40
+00000000 l    d  .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.43	00000000 .rodata..Lanon.2a93030cb8897f8dccdff616e412b96b.43
 00000000 l    d  .bss..L_MergedGlobals	00000000 .bss..L_MergedGlobals
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -1256,7 +1256,6 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 json_helper_set_text_string
 00000000         *UND*	00000000 json_rep_end_root_object
 00000000         *UND*	00000000 json_rep_start_root_object
-00000000 g     F .text.main	00000192 main
 00000000         *UND*	00000000 null_sensor
 00000000         *UND*	00000000 os_eventq_dflt_get
 00000000         *UND*	00000000 os_eventq_run
@@ -1266,6 +1265,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 register_server_transport
 00000000         *UND*	00000000 root_map
 00000000 g     F .text.rust_begin_unwind	00000072 rust_begin_unwind
+00000000 g     F .text.rust_main	00000192 rust_main
 00000000         *UND*	00000000 rust_sysinit
 00000000         *UND*	00000000 sensor_get_device
 00000000         *UND*	00000000 sensor_mgr_find_next_bydevname
@@ -2878,7 +2878,7 @@ _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
   6a:	f7ff fffe 	bl	0 <os_time_delay>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:291
     loop {  //  Loop forever...        
-  6e:	e7f4      	b.n	ffffffec <.Lanon.ad8cb0886bb189ed01fc7842181f0890.59+0xffffffe4>
+  6e:	e7f4      	b.n	ffffffec <.Lanon.2a93030cb8897f8dccdff616e412b96b.59+0xffffffe4>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:268
     console_print(b"NET start\n");  assert!(unsafe { !NETWORK_IS_READY });
   70:	f240 0000 	movw	r0, #0
@@ -2962,17 +2962,17 @@ _ZN5mylib9send_coap17network_task_func17h80783602aca0275eE():
  114:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  118:	defe      	udf	#254	; 0xfe
 
-Disassembly of section .text.main:
+Disassembly of section .text.rust_main:
 
-00000000 <main>:
-main():
+00000000 <rust_main>:
+rust_main():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:34
 use mynewt::kernel::os;         //  Import Mynewt OS API
 use crate::base::*;             //  Import `base.rs` for common declarations
 
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                     //  Don't mangle the name "main"
-extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+extern "C" fn rust_main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
    0:	b092      	sub	sp, #72	; 0x48
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:36
     //  Init Mynewt system.
@@ -3018,7 +3018,7 @@ _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
   58:	9009      	str	r0, [sp, #36]	; 0x24
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
     assert_eq!(rc, 0);  //  Check for error
-  5a:	d13f      	bne.n	dc <main+0xdc>
+  5a:	d13f      	bne.n	dc <rust_main+0xdc>
 _ZN5mylib4base13console_print17h86a834b313ce42ceE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/base.rs:18
         console_buffer(msg.as_ptr(), len as u32);
@@ -3044,7 +3044,7 @@ _ZN5mylib13listen_sensor21start_sensor_listener17h27bd96e29e98a75aE():
   80:	9009      	str	r0, [sp, #36]	; 0x24
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:47
     assert_eq!(rc, 0);
-  82:	d151      	bne.n	128 <main+0x128>
+  82:	d151      	bne.n	128 <rust_main+0x128>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:50
     let sensor = unsafe { sensor::sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
   84:	f7ff fffe 	bl	0 <null_sensor>
@@ -3057,7 +3057,7 @@ _ZN5mylib13listen_sensor21start_sensor_listener17h27bd96e29e98a75aE():
     assert!(unsafe{ !is_null_sensor(sensor) });
   98:	f7ff fffe 	bl	0 <is_null_sensor>
   9c:	2800      	cmp	r0, #0
-  9e:	d16a      	bne.n	176 <main+0x176>
+  9e:	d16a      	bne.n	176 <rust_main+0x176>
 _ZN5mylib6mynewt2hw6sensor17register_listener17h88b59641f80aea7dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/hw/sensor.rs:66
     unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
@@ -3065,7 +3065,7 @@ _ZN5mylib6mynewt2hw6sensor17register_listener17h88b59641f80aea7dE():
   a4:	f2c0 0100 	movt	r1, #0
   a8:	e9d1 0200 	ldrd	r0, r2, [r1]
   ac:	4310      	orrs	r0, r2
-  ae:	d169      	bne.n	184 <main+0x184>
+  ae:	d169      	bne.n	184 <rust_main+0x184>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/mynewt/hw/sensor.rs:68
     unsafe { LISTENER_INTERNAL = listener };
   b0:	f240 0300 	movw	r3, #0
@@ -3080,7 +3080,7 @@ _ZN5mylib6mynewt2hw6sensor17register_listener17h88b59641f80aea7dE():
     unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) };
   cc:	4620      	mov	r0, r4
   ce:	f7ff fffe 	bl	0 <sensor_register_listener>
-main():
+rust_main():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:55
 
     //  Main event loop
@@ -3094,7 +3094,7 @@ main():
   d6:	f7ff fffe 	bl	0 <os_eventq_run>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/lib.rs:52
     loop {                            //  Loop forever...
-  da:	e7fa      	b.n	d2 <main+0xd2>
+  da:	e7fa      	b.n	d2 <rust_main+0xd2>
   dc:	a809      	add	r0, sp, #36	; 0x24
 _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
@@ -3132,7 +3132,7 @@ _ZN5mylib9send_coap18start_network_task17h0698249e570ee6b9E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/send_coap.rs:256
  122:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  126:	defe      	udf	#254	; 0xfe
-main():
+rust_main():
  128:	a809      	add	r0, sp, #36	; 0x24
 _ZN5mylib13listen_sensor21start_sensor_listener17h27bd96e29e98a75aE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/src/listen_sensor.rs:47
