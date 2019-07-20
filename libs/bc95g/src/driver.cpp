@@ -83,7 +83,7 @@ static const char *COMMANDS[] = {
     //  [1] Attach to network
     "NBAND=8",  //  NBAND: select band
     "CFUN=1",   //  CFUN: enable functions
-    "CEREG=0",  //  CEREG: network registration
+    "CEREG=1",  //  CEREG: network registration
     "CEREG?",   //  CEREG_QUERY: query registration
     "CGATT=1",  //  CGATT: attach network
     "CGATT?",   //  CGATT_QUERY: query attach
@@ -402,13 +402,14 @@ static bool attach_to_network(struct bc95g *dev) {
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
 
-        //  CEREG: network registration
-        send_command(dev, CEREG) &&  //  This step is needed or `CEREG?` will cause the module to reboot.
         //  CGATT: attach network
         send_command(dev, CGATT) &&
 
+        //  CEREG: network registration
+        send_command(dev, CEREG) &&  //  This step is needed or `CEREG?` will cause the module to reboot.
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
+
         //  CGATT_QUERY: query attach
         wait_for_attach(dev) &&
 
