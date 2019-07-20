@@ -8,7 +8,7 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
 #define BC95G_DEVICE "bc95g_0"  //  Name of the BC95G device
-#define BC95G_SOCKET_COUNT 2      //  Max number of concurrent TCP+UDP connections allowed.  Should be 5 or fewer, since BC95G supports up to 5 sockets.
+#define BC95G_SOCKET_COUNT 1    //  Max number of concurrent UDP operations allowed
 
 //  Use static buffers to avoid dynamic memory allocation (new, delete)
 #define BC95G_TX_BUFFER_SIZE      400  //  Must be large enough to hold sensor and geolocation CoAP UDP messages.
@@ -43,6 +43,7 @@ struct bc95g_cfg {
 struct bc95g {
     struct os_dev dev;
     struct bc95g_cfg cfg;
+    //  Last error encountered
     int last_error;
 };
 
@@ -62,28 +63,24 @@ int bc95g_config(struct bc95g *dev, struct bc95g_cfg *cfg);
 //  Connect to the NB-IoT network.  Return 0 if successful.
 int bc95g_connect(struct bc95g *dev);  
 
-//  Allocate a socket.  Return 0 if successful.
-int bc95g_socket_open(struct bc95g *dev, void **handle);  
+//  Allocate a socket and save to `socket_ptr`.  Return 0 if successful.
+int bc95g_socket_open(struct bc95g *dev, struct bc95g_socket **socket_ptr);
 
 //  Close the socket.  Return 0 if successful.
-int bc95g_socket_close(struct bc95g *dev, void *handle);  
+int bc95g_socket_close(struct bc95g *dev, struct bc95g_socket *socket);  
 
 //  Connect the socket to the host and port via UDP or TCP.  Return 0 if successful.
 //  Note: Host must point to a static string that will never change.
-int bc95g_socket_connect(struct bc95g *dev, void *handle, const char *host, uint16_t port);
+int bc95g_socket_connect(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port);
 
-//  Send the byte buffer to the socket.  Return number of bytes sent.
-int bc95g_socket_send(struct bc95g *dev, void *handle, const void *data, unsigned size);
+//  Transmit the buffer through the socket.  `size` is the number of bytes.  Return number of bytes transmitted.
+int bc95g_socket_tx(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t size);
 
-//  Send the chain of mbufs to the socket.  Return number of bytes sent.
-int bc95g_socket_send_mbuf(struct bc95g *dev, void *handle, struct os_mbuf *m);
-
-//  Send the byte buffer to the host and port.  Return number of bytes sent.
-//  Note: Host must point to a static string that will never change.
-int bc95g_socket_sendto(struct bc95g *dev, void *handle, const char *host, uint16_t port, const void *data, unsigned size);
+//  Transmit the chain of mbufs through the socket.  Return number of bytes transmitted.
+int bc95g_socket_tx_mbuf(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, struct os_mbuf *mbuf);
 
 //  Attach a callback to a socket.
-void bc95g_socket_attach(struct bc95g *dev, void *handle, void (*callback)(void *), void *data);
+void bc95g_socket_attach(struct bc95g *dev, struct bc95g_socket *socket, void (*callback)(void *), void *data);
 
 const char *bc95g_get_ip_address(struct bc95g *dev);   //  Get the client IP address.
 

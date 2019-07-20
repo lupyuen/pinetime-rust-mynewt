@@ -17,8 +17,8 @@ static void oc_shutdown(void);
 //  static void oc_event(struct os_event *ev);
 
 static const char *network_device;     //  Name of the BC95G device that will be used for transmitting CoAP messages e.g. "bc95g_0" 
-static struct bc95g_server *server;  //  CoAP Server host and port.  We only support 1 server.
-static void *socket;                   //  Reusable UDP socket connection to the CoAP server.  Never closed.
+static struct bc95g_server *server;    //  CoAP Server host and port.  We only support 1 server.
+static bc95g_socket *socket;           //  Reusable UDP socket connection.
 static uint8_t transport_id = -1;      //  Will contain the Transport ID allocated by Mynewt OIC.
 
 //  Definition of BC95G driver as a transport for CoAP.  Only 1 BC95G driver instance supported.
@@ -112,7 +112,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
         console_printf("NBT send udp\n");
 
         //  Send the consolidated buffer via UDP.
-        rc = bc95g_socket_send_mbuf(dev, socket, m);  
+        rc = bc95g_socket_tx_mbuf(dev, socket, endpoint->host, endpoint->port, m);
         assert(rc > 0);
 
         //  Close the BC95G device when we are done.

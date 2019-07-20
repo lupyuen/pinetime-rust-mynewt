@@ -6,8 +6,8 @@
 syscfg.defs:
     # CoAP Server Connection Settings: Collector Node and Standalone Node will send sensor data to this server
     COAP_HOST:
-        description: 'CoAP hostname e.g. coap.thethings.io'
-        value:       '"coap.thethings.io"'
+        description: 'CoAP host e.g. 104.199.85.211 (for coap.thethings.io)'
+        value:       '"104.199.85.211"'
     COAP_PORT:
         description: 'CoAP UDP port, usually port 5683'
         value:       5683

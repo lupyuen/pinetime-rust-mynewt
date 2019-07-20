@@ -28,7 +28,7 @@ static struct packet {
     uint32_t len;
     // data follows
 } *packets, **packets_end;
-static char ip_buffer[16];
+//  static char ip_buffer[16];
 
 //  Definition of BC95G Sensor Network Interface
 static const struct sensor_network_interface network_iface = {
@@ -166,6 +166,7 @@ static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
         expect_ok(dev);
 }
 
+#ifdef NOTUSED
 static bool send_command_int_int(struct bc95g *dev, enum CommandId id, int arg1, int arg2) {
     //  Send an AT command with 2 int parameters e.g. `AT+NSORF=1,35`
     const char *cmd = get_command(dev, id);
@@ -174,11 +175,12 @@ static bool send_command_int_int(struct bc95g *dev, enum CommandId id, int arg1,
         parser.send(cmd, arg1, arg2) &&
         expect_ok(dev);
 }
+#endif  //  NOTUSED
 
 static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8_t size) {
     //  Send an AT query like `AT+CEREG?`. Return the parsed string result.
     //  If the response is `=+CEREG:0,1` then result is `0,1`.
-    const char *cmd = get_command(id);
+    const char *cmd = get_command(dev, id);
     return 
         send_atp(dev) &&
         parser.send(cmd) &&
@@ -188,7 +190,7 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
 
 static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
     //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
-    const char *cmd = get_command(id);
+    const char *cmd = get_command(dev, id);
     return 
         send_atp(dev) &&
         parser.send(cmd) &&
@@ -343,19 +345,6 @@ static bool attach_to_network(struct bc95g *dev) {
     );
 }
 
-static bool allocate_port(struct bc95g *dev) {
-    //  [Phase 2A] Allocate port
-    int local_port = 0;
-    //  NSOCR: allocate port
-    bool res = send_query_int(dev, NSOCR, &local_port);
-    if (!res) { return false; }
-    assert(local_port > 0);
-    
-    //  Store into first socket.
-    cfg(dev)->sockets[0].local_port = (uint16_t) local_port;
-    return true;
-}
-
 int bc95g_connect(struct bc95g *dev) {
     //  Connect to the NB-IoT network.  Return 0 if successful.
     internal_timeout(BC95G_CONNECT_TIMEOUT);
@@ -364,78 +353,89 @@ int bc95g_connect(struct bc95g *dev) {
         prepare_to_transmit(dev) &&
 
         //  [Phase 1] Attach to network
-        attach_to_network(dev) &&
-
-        //  [Phase 2A] Allocate port
-        allocate_port(dev)
+        attach_to_network(dev)
     ) ? 0 : dev->last_error;
 }
 
-/* 
-int bc95g_socket_open(struct bc95g *dev, void **handle, nsapi_protocol_t proto) {
-    //  Allocate a socket.  Return 0 if successful.
-    int id = -1;
-    for (int i = 0; i < BC95G_SOCKET_COUNT; i++) {
-        if (!cfg(dev)->_ids[i]) {
-            id = i;
-            cfg(dev)->_ids[i] = true;
-            break;
-        }
-    }
-    if (id == -1) { return NSAPI_ERROR_NO_SOCKET; }  //  No more sockets available.
+int bc95g_socket_open(struct bc95g *dev, struct bc95g_socket **socket_ptr) {
+    //  Allocate a socket and save to `socket_ptr`.  Return 0 if successful.
+    //  [Phase 2A] Allocate port
+    int local_port = 0;
+    //  NSOCR: allocate port
+    internal_timeout(BC95G_MISC_TIMEOUT);
+    bool res = send_query_int(dev, NSOCR, &local_port);
+    if (!res) { return dev->last_error; }
+    assert(local_port > 0);
 
-    //  Init the socket.
-    struct bc95g_socket *socket = &cfg(dev)->_sockets[id];
-    if (!socket) { return NSAPI_ERROR_NO_SOCKET; }
-    socket->id = id;
-    socket->proto = proto;
-    socket->connected = false;
-    *handle = socket;
+    //  Store into first socket.
+    bc95g_socket *socket = &cfg(dev)->sockets[0];
+    socket->local_port = (uint16_t) local_port;
+    *socket_ptr = socket;
     return 0;
 }
 
-int bc95g_socket_close(struct bc95g *dev, void *handle) {
+int bc95g_socket_close(struct bc95g *dev, struct bc95g_socket *socket) {
     //  Close the socket.  Return 0 if successful.
-    struct bc95g_socket *socket = (struct bc95g_socket *)handle;
-    int err = 0;
+    assert(socket && socket == &cfg(dev)->sockets[0]);
     internal_timeout(BC95G_MISC_TIMEOUT);
-    if (!internal_close(socket->id)) { err = NSAPI_ERROR_DEVICE_ERROR; }
-    cfg(dev)->_ids[socket->id] = false;
-    return err;
+    int local_port = socket->local_port;
+    assert(local_port > 0);
+    //  NSOCL: close port
+    bool res = send_command_int(dev, NSOCL, local_port);
+    if (!res) { return dev->last_error; }
+    //  Erase the socket.
+    memset(socket, 0, sizeof(bc95g_socket));
+    return 0;
 }
-*/
 
-static bool send_data(struct bc95g *dev, const char *data, uint16_t size, struct os_mbuf *mbuf) {
+static char nibble_to_hex(uint8_t n) {
+    //  Given n=0..15, return '0'..'f'.
+    return (n < 10)
+        ? '0' + n
+        : 'a' + n - 10;
+}
+
+static bool send_hex(struct bc95g *dev, const uint8_t *data, uint16_t size) {
+    //  Send the data as hex digits.
+    console_dump(data, size); console_printf("\n");
+    char hex[2];
+    for (uint16_t i = 0; i < size; i++) {
+        uint8_t b = data[i];
+        hex[0] = nibble_to_hex(b >> 4);
+        hex[1] = nibble_to_hex(b & 0xf);
+        int res = parser.write(hex, 2);
+        if (res <= 0) { return false; }
+    }
+    return true;
+}
+
+static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t size, struct os_mbuf *mbuf) {
     //  Send the data buffer if non-null, or the chain of mbufs.
     if (data && size > 0) {
-        //  Send the data buffer.
-        return parser.write(data, size) > 0;
+        //  Send the data buffer as hex digits.
+        return send_hex(dev, data, size);
     }
-    //  Send the mbuf.
+    //  Send the mbuf chain.
     assert(mbuf);
     uint32_t chain_size = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
     const char *_f = "send mbuf";
     console_printf("%s%s %u...\n", _nbt, _f, (unsigned) chain_size);  console_flush();
     struct os_mbuf *m = mbuf;
     bool result = true;
-    while (m) {  //  For each mbuf in the list...
-        const char *data = OS_MBUF_DATA(m, const char *);  //  Fetch the data.
+    while (m) {  //  Send each mbuf in the chain.
+        const uint8_t *data = OS_MBUF_DATA(m, const uint8_t *);  //  Fetch the mbuf data.
         uint16_t size = m->om_len;  //  Fetch the size for the single mbuf.
-        console_dump((const uint8_t *) data, size); console_printf("\n");
-        if (parser.write(data, size) < 0) {   //  TODO: If the writing failed, retry.
-            result = false;
-            break;
-        }
+        bool res = send_hex(dev, data, size);
+        if (!res) { result = false; break; }
         m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
     }
     _log(_f, result);
     return result;
 }
 
-static int send_tx_command(struct bc95g *dev, void *handle, const char *host, uint16_t port, 
-    const char *data, uint16_t size, struct os_mbuf *mbuf) {
+static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, 
+    const uint8_t *data, uint16_t size, struct os_mbuf *mbuf) {
     //  Transmit the data buffer if non-null, or the chain of mbufs.  Return number of bytes sent.
-    struct bc95g_socket *socket = (struct bc95g_socket *)handle;
     uint16_t local_port = socket->local_port;
     internal_timeout(BC95G_SEND_TIMEOUT);
     return (
@@ -448,13 +448,13 @@ static int send_tx_command(struct bc95g *dev, void *handle, const char *host, ui
     ) ? size : 0;
 }
 
-int bc95g_socket_tx(struct bc95g *dev, void *handle, const char *host, uint16_t port, const char *data, uint16_t size) {
-    //  Transmit the string buffer through the socket.  Return number of bytes sent.
-    return send_tx_command(dev, handle, host, port, data, size, NULL);
+int bc95g_socket_tx(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t size) {
+    //  Transmit the buffer through the socket.  `size` is the number of bytes.  Return number of bytes transmitted.
+    return send_tx_command(dev, socket, host, port, data, size, NULL);
 }
 
-int bc95g_socket_tx_mbuf(struct bc95g *dev, void *handle, const char *host, uint16_t port, struct os_mbuf *mbuf) {
-    //  Transmit the chain of mbufs through the socket.  Return number of bytes sent.
+int bc95g_socket_tx_mbuf(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, struct os_mbuf *mbuf) {
+    //  Transmit the chain of mbufs through the socket.  Return number of bytes transmitted.
     uint16_t size = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
-    return send_tx_command(dev, handle, host, port, NULL, size, mbuf);
+    return send_tx_command(dev, socket, host, port, NULL, size, mbuf);
 }
