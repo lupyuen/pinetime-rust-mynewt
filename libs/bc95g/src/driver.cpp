@@ -199,9 +199,9 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
         parser.send(cmd) &&
 
         //  Match a response like `=+CEREG:0,1`.
-        // parser.recv("+CEREG:%d,%d", &arg1, &arg2) &&
+        parser.recv("+CEREG:%d,%d", &arg1, &arg2) &&
         // parser.recv("+%5[^:]:%d,%d", cmd_copy, &arg1, &arg2) &&
-        parser.recv("+%5[CEREG]:%d,%d", cmd_copy, &arg1, &arg2) &&
+        // parser.recv("+%5[CEREG]:%d,%d", cmd_copy, &arg1, &arg2) &&
 
         // bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
         expect_ok(dev)

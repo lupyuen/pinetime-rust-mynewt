@@ -5422,7 +5422,7 @@ impl SCB {
    0:	f64e 5004 	movw	r0, #60676	; 0xed04
    4:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
    8:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN4core3ptr14write_volatile17hb6503266826ca93aE():
+_ZN5vcell21VolatileCell$LT$T$GT$3set17h728db129f4954f17E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:939
    c:	6001      	str	r1, [r0, #0]
 _ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$10set_pendsv17he0576b6b9826a818E():

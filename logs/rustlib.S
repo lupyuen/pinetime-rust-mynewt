@@ -7439,7 +7439,7 @@ fn repeat_byte(b: u8) -> usize {
 
 pub fn memchr(n1: u8, haystack: &[u8]) -> Option<usize> {
    0:	b570      	push	{r4, r5, r6, lr}
-_ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h4e4d34e4f8a70e93E():
+_ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$13get_unchecked17h38c836297d671cc7E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1077
    2:	eb01 0c02 	add.w	ip, r1, r2
 _ZN6memchr8fallback11repeat_byte17hc0f3dab16c60b503E():
