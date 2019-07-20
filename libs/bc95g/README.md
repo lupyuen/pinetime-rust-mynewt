@@ -1,6 +1,6 @@
 # `bc95g`
 
-Mynewt Driver for Quectel BC95-G that implements the following functions described in https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
+Mynewt Driver for Quectel BC95-G NB-IoT transceiver module that implements the AT commands below as described in https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
 **[0] Prepare to transmit**
 - `NCONFIG`: configure <br>
