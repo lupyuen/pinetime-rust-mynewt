@@ -235,7 +235,7 @@ static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
     };
     //debug_bc95g = 0;  ////
     console_flush();
-    asm("bkpt"); ////
+    //asm("bkpt"); ////
     return res;
 }
 
@@ -422,12 +422,13 @@ static bool attach_to_network(struct bc95g *dev) {
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG: network registration
-        send_command(dev, CEREG) &&  //  This step is needed or `CEREG?` will cause the module to reboot.
+        send_command(dev, CEREG) &&
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         send_command(dev, CEREG_QUERY) &&
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
+#ifdef NOTUSED
         /////////////////////////////////////////////////////////
 
         send_command(dev, CFUN_QUERY) &&
@@ -451,6 +452,7 @@ static bool attach_to_network(struct bc95g *dev) {
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         /////////////////////////////////////////////////////////
+#endif  //  NOTUSED
 
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
