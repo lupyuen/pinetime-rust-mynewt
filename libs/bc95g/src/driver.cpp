@@ -205,6 +205,7 @@ static bool send_query(struct bc95g *dev, enum CommandId id, int *res1, int *res
     //debug_bc95g = 1;  ////
     bool res = (
         send_atp(dev) &&
+        //  For `recv()` format string, see http://www.cplusplus.com/reference/cstdio/scanf/
         parser.send(cmd) && (
             (res2 == NULL)  //  Expecting 1 or 2 results?
             //  If 1 result: Match a response like `=+CGATT:1`. `cmd_response` will be set to `CGATT` after matching `%16[^:]`
