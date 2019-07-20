@@ -193,6 +193,7 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
         parser.recv("%s", result) &&
         expect_ok(dev)
     );
+    asm("bkpt"); ////
     return res;
 }
 
@@ -205,6 +206,7 @@ static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
         parser.recv("%d", result) &&
         expect_ok(dev)
     };
+    asm("bkpt"); ////
     return res;
 }
 
