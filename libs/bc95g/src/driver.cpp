@@ -158,6 +158,7 @@ static bool send_command(struct bc95g *dev, enum CommandId id) {
         expect_ok(dev)
     );
     debug_bc95g = 0;  ////
+    console_flush();
     return res;
 }
 
@@ -169,6 +170,7 @@ static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
         parser.send(cmd, arg) &&
         expect_ok(dev)
     );
+    console_flush();
     return res;
 }
 
@@ -189,12 +191,22 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
     //  Send an AT query like `AT+CEREG?`. Return the parsed string result.
     //  If the response is `=+CEREG:0,1` then result is `0,1`.
     const char *cmd = get_command(dev, id);
+    debug_bc95g = 1;  ////
+    char cmd_copy[17];  memset(cmd_copy, 0, sizeof(cmd_copy));
+    int arg1 = -1, arg2 = -1;
     bool res = (
         send_atp(dev) &&
         parser.send(cmd) &&
-        parser.recv("%s", result) &&
+        //  Match a response like `=+CEREG:0,1`.
+        //  parser.recv("+%5[^:]:%d,%d", cmd_copy, &arg1, &arg2) &&
+
+        // bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
+
+        parser.recv("+CEREG:%d,%d", &arg1, &arg2) &&
         expect_ok(dev)
     );
+    debug_bc95g = 0;  ////
+    console_flush();
     asm("bkpt"); ////
     return res;
 }
@@ -202,12 +214,15 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
 static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
     //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
     const char *cmd = get_command(dev, id);
+    debug_bc95g = 1;  ////
     bool res = {
         send_atp(dev) &&
         parser.send(cmd) &&
         parser.recv("%d", result) &&
         expect_ok(dev)
     };
+    debug_bc95g = 0;  ////
+    console_flush();
     asm("bkpt"); ////
     return res;
 }
@@ -339,7 +354,7 @@ static bool prepare_to_transmit(struct bc95g *dev) {
         expect_ok(dev) &&
         parser.send("AT") &&
         expect_ok(dev) &&
-        
+
         //  NCONFIG: configure
         send_command(dev, NCONFIG) &&
         //  QREGSWT: huawei
