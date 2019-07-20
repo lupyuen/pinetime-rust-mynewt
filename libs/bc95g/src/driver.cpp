@@ -53,9 +53,10 @@ enum CommandId {
     //  [1] Attach to network
     NBAND,          //  select band
     CFUN,           //  enable functions
+    CEREG,          //  network registration
+    CEREG_QUERY,    //  query registration
     CGATT,          //  attach network
     CGATT_QUERY,    //  query attach
-    CEREG_QUERY,    //  query registration
 
     //  [2] Transmit message
     NSOCR,  //  allocate port
@@ -82,9 +83,10 @@ static const char *COMMANDS[] = {
     //  [1] Attach to network
     "NBAND=8",  //  NBAND: select band
     "CFUN=1",   //  CFUN: enable functions
+    "CEREG=1",  //  CEREG: network registration
+    "CEREG?",   //  CEREG_QUERY: query registration
     "CGATT=1",  //  CGATT: attach network
     "CGATT?",   //  CGATT_QUERY: query attach
-    "CEREG?",   //  CEREG_QUERY: query registration
 
     //  [2] Transmit message
     "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
@@ -150,6 +152,8 @@ static bool expect_ok(struct bc95g *dev) {
 
 static bool send_command(struct bc95g *dev, enum CommandId id) {
     //  Send an AT command with no parameters.
+    //  Wait a while.
+    os_time_delay(1 * OS_TICKS_PER_SEC); ////
     const char *cmd = get_command(dev, id);
     //debug_bc95g = 1;  ////
     bool res = (
@@ -170,7 +174,7 @@ static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
         parser.send(cmd, arg) &&
         expect_ok(dev)
     );
-    console_flush();
+    //console_flush();
     return res;
 }
 
@@ -191,7 +195,7 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
     //  Send an AT query like `AT+CEREG?`. Return the parsed string result.
     //  If the response is `=+CEREG:0,1` then result is `0,1`.
     const char *cmd = get_command(dev, id);
-    debug_bc95g = 1;  ////
+    //debug_bc95g = 1;  ////
     char cmd_copy[17];  memset(cmd_copy, 0, sizeof(cmd_copy));
     int arg1 = -1, arg2 = -1;
     bool res = (
@@ -206,8 +210,8 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
         // bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
         expect_ok(dev)
     );
-    debug_bc95g = 0;  ////
-    console_flush();
+    //debug_bc95g = 0;  ////
+    //console_flush();
     asm("bkpt"); ////
     return res;
 }
@@ -223,7 +227,7 @@ static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
         expect_ok(dev)
     };
     //debug_bc95g = 0;  ////
-    console_flush();
+    //console_flush();
     asm("bkpt"); ////
     return res;
 }
@@ -353,6 +357,14 @@ static bool prepare_to_transmit(struct bc95g *dev) {
         parser.send("AT") &&
         expect_ok(dev) &&
 
+        //  Ignore the intial message.
+        parser.send("AT") &&
+        expect_ok(dev) &&
+
+        //  Ignore the intial message.
+        parser.send("AT") &&
+        expect_ok(dev) &&
+
         //  NCONFIG: configure
         send_command(dev, NCONFIG) &&
         //  QREGSWT: huawei
@@ -374,10 +386,14 @@ static bool attach_to_network(struct bc95g *dev) {
         send_command(dev, NBAND) &&
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
-        //  CGATT: attach network
-        send_command(dev, CGATT) &&
+
+        //  CEREG: network registration
+        send_command(dev, CEREG) &&
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
+
+        //  CGATT: attach network
+        send_command(dev, CGATT) &&
         //  CGATT_QUERY: query attach
         wait_for_attach(dev)
     );

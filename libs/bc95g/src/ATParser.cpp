@@ -146,7 +146,7 @@ int ATParser::vscanf(const char *format, va_list args)
         int c = getc();
         if (c < 0) {
             console_printf("AT response mismatch: found \"%s\"\n", _buffer);  console_flush();
-            if (debug_bc95g) { asm("bkpt"); }
+            asm("bkpt");
             return -1;
         }
         _buffer[offset + j++] = c;
@@ -235,7 +235,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             int c = getc();
             if (c < 0) {
                 console_printf("AT response mismatch: found \"%s\"\n   expected \"%s\"\n", last_scan, _buffer);  console_flush();
-                if (debug_bc95g) { asm("bkpt"); }
+                asm("bkpt");
                 return false;
             }
             _buffer[offset + j++] = c;

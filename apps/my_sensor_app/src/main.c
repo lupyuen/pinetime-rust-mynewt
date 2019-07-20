@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     //  Starting polling the temperature sensor every 10 seconds in the background.  
     //  After polling the sensor, call the listener function to send the sensor data to the CoAP server or Collector Node.
     //  If this is the Collector Node, we shall wait for sensor data from the Sensor Nodes and transmit to the CoAP server.
-    int rc2 = start_sensor_listener();  assert(rc2 == 0);
+    ////int rc2 = start_sensor_listener();  assert(rc2 == 0);
 #endif  //  SENSOR_DEVICE
 
     //  Main event loop
