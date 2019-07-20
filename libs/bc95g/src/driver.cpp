@@ -410,50 +410,24 @@ static bool attach_to_network(struct bc95g *dev) {
 
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         send_command(dev, CFUN_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CGATT: attach network
         send_command(dev, CGATT) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         send_command(dev, CGATT_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG: network registration
         send_command(dev, CEREG) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         send_command(dev, CEREG_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-#ifdef NOTUSED
-        /////////////////////////////////////////////////////////
-
-        send_command(dev, CFUN_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-        send_command(dev, CEREG_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-        send_command(dev, CGATT_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-        /////////////////////////////////////////////////////////
-
-        send_command(dev, CFUN_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-        send_command(dev, CEREG_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-        send_command(dev, CGATT_QUERY) &&
-        parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
-        /////////////////////////////////////////////////////////
-#endif  //  NOTUSED
+        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
