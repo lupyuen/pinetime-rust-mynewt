@@ -53,6 +53,7 @@ enum CommandId {
     //  [1] Attach to network
     NBAND,          //  select band
     CFUN,           //  enable functions
+    CFUN_QUERY,     //  query functions
     CEREG,          //  network registration
     CEREG_QUERY,    //  query registration
     CGATT,          //  attach network
@@ -83,7 +84,8 @@ static const char *COMMANDS[] = {
     //  [1] Attach to network
     "NBAND=8",  //  NBAND: select band
     "CFUN=1",   //  CFUN: enable functions
-    "CEREG=1",  //  CEREG: network registration
+    "CFUN?",    //  CFUN_QUERY: query functions
+    "CEREG=0",  //  CEREG: network registration
     "CEREG?",   //  CEREG_QUERY: query registration
     "CGATT=1",  //  CGATT: attach network
     "CGATT?",   //  CGATT_QUERY: query attach
@@ -404,14 +406,19 @@ static bool attach_to_network(struct bc95g *dev) {
     return (        
         //  NBAND: select band
         send_command(dev, NBAND) &&
+
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
-        sleep(5) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
-        parser.send("AT") && expect_ok(dev) &&
+        send_command(dev, CFUN_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CGATT: attach network
         send_command(dev, CGATT) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CGATT_QUERY) &&
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG: network registration
@@ -421,7 +428,9 @@ static bool attach_to_network(struct bc95g *dev) {
         send_command(dev, CEREG_QUERY) &&
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
-        send_command(dev, CGATT_QUERY) &&
+        /////////////////////////////////////////////////////////
+
+        send_command(dev, CFUN_QUERY) &&
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         send_command(dev, CEREG_QUERY) &&
@@ -429,6 +438,19 @@ static bool attach_to_network(struct bc95g *dev) {
 
         send_command(dev, CGATT_QUERY) &&
         parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        /////////////////////////////////////////////////////////
+
+        send_command(dev, CFUN_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CEREG_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CGATT_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        /////////////////////////////////////////////////////////
 
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
