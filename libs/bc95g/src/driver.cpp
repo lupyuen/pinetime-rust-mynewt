@@ -151,29 +151,35 @@ static bool expect_ok(struct bc95g *dev) {
 static bool send_command(struct bc95g *dev, enum CommandId id) {
     //  Send an AT command with no parameters.
     const char *cmd = get_command(dev, id);
-    return 
+    bool res = (
         send_atp(dev) &&
         parser.send(cmd) &&
-        expect_ok(dev);
+        expect_ok(dev)
+    );
+    return res;
 }
 
 static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
     //  Send an AT command with 1 int parameter e.g. `AT+NSOCL=1`
     const char *cmd = get_command(dev, id);
-    return 
+    bool res = (
         send_atp(dev) &&
         parser.send(cmd, arg) &&
-        expect_ok(dev);
+        expect_ok(dev)
+    );
+    return res;
 }
 
 #ifdef NOTUSED
 static bool send_command_int_int(struct bc95g *dev, enum CommandId id, int arg1, int arg2) {
     //  Send an AT command with 2 int parameters e.g. `AT+NSORF=1,35`
     const char *cmd = get_command(dev, id);
-    return 
+    bool res = (
         send_atp(dev) &&
         parser.send(cmd, arg1, arg2) &&
-        expect_ok(dev);
+        expect_ok(dev)
+    );
+    return res;
 }
 #endif  //  NOTUSED
 
@@ -181,21 +187,25 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
     //  Send an AT query like `AT+CEREG?`. Return the parsed string result.
     //  If the response is `=+CEREG:0,1` then result is `0,1`.
     const char *cmd = get_command(dev, id);
-    return 
+    bool res = (
         send_atp(dev) &&
         parser.send(cmd) &&
         parser.recv("%s", result) &&
-        expect_ok(dev);
+        expect_ok(dev)
+    );
+    return res;
 }
 
 static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
     //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
     const char *cmd = get_command(dev, id);
-    return 
+    bool res = {
         send_atp(dev) &&
         parser.send(cmd) &&
         parser.recv("%d", result) &&
-        expect_ok(dev);
+        expect_ok(dev)
+    };
+    return res;
 }
 
 /////////////////////////////////////////////////////////
@@ -288,8 +298,7 @@ static void bc95g_event(void *drv) {
 #endif  //  TODO
 }
 
-
-static char buf[10];
+static char buf[10];  //  TODO
 
 static bool wait_for_registration(struct bc95g *dev) {
     //  CEREG_QUERY: query registration
