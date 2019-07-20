@@ -145,7 +145,7 @@ static const char *get_command(struct bc95g *dev, enum CommandId id) {
 static bool send_atp(struct bc95g *dev) {
     //  Send `AT+`.
     //  Wait a while between commands.
-    os_time_delay(1 * OS_TICKS_PER_SEC); ////
+    //  os_time_delay(1 * OS_TICKS_PER_SEC); ////
     return parser.write(ATP, sizeof(ATP) - 1) > 0;
 }
 
@@ -410,24 +410,15 @@ static bool attach_to_network(struct bc95g *dev) {
 
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
-        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
         send_command(dev, CFUN_QUERY) &&
-        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CGATT: attach network
         send_command(dev, CGATT) &&
-        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
         send_command(dev, CGATT_QUERY) &&
-        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG: network registration
         send_command(dev, CEREG) &&
-        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
-
         send_command(dev, CEREG_QUERY) &&
-        //parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
@@ -542,6 +533,7 @@ static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const
         parser.recv("%d,%d", &local_port_response, &length_response) &&
         parser.recv("OK")
     );
+    //asm("bkpt"); ////
     return res ? length : 0;
 }
 
