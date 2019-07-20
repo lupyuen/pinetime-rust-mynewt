@@ -410,15 +410,15 @@ static bool attach_to_network(struct bc95g *dev) {
 
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
-        send_command(dev, CFUN_QUERY) &&
+        //send_command(dev, CFUN_QUERY) &&
 
         //  CGATT: attach network
         send_command(dev, CGATT) &&
-        send_command(dev, CGATT_QUERY) &&
+        //send_command(dev, CGATT_QUERY) &&
 
         //  CEREG: network registration
         send_command(dev, CEREG) &&
-        send_command(dev, CEREG_QUERY) &&
+        //send_command(dev, CEREG_QUERY) &&
 
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
