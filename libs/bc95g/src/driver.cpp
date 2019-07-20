@@ -337,7 +337,7 @@ static bool sleep(uint16_t seconds) {
 
 static bool wait_for_registration(struct bc95g *dev) {
     //  CEREG_QUERY: query registration
-    for (uint8_t i = 0; i < 5; i++) {
+    for (uint8_t i = 0; i < 10; i++) {
         //  Response contains 2 integers: `code` and `status` e.g. `=+CEREG:0,1`
         int code = -1, status = -1;
         bool res = send_query(dev, CEREG_QUERY, &code, &status);
@@ -348,15 +348,15 @@ static bool wait_for_registration(struct bc95g *dev) {
         if (status == 1) { return true; }  //  If registered, exit.
 
         //  If not yet registered to network, `status` will be 2 and we should recheck in a while.
-        //  Wait 1 second.
-        sleep(1);
+        //  Wait 2 seconds.
+        sleep(2);
     }
     return false;  //  Not registered after 5 retries, quit.
 }
 
 static bool wait_for_attach(struct bc95g *dev) {
     //  CGATT_QUERY: query attach
-    for (uint8_t i = 0; i < 5; i++) {
+    for (uint8_t i = 0; i < 10; i++) {
         //  Response contains 1 integer: `state` e.g. `=+CGATT:1`
         int state = -1;
         bool res = send_query(dev, CGATT_QUERY, &state, NULL);
@@ -367,10 +367,10 @@ static bool wait_for_attach(struct bc95g *dev) {
         if (state == 1) { return true; }  //  If attached, exit.
 
         //  If not yet attached to network, `state` will be 0 and we should recheck in a while.
-        //  Wait 1 second.
-        sleep(1);
+        //  Wait 2 seconds.
+        sleep(2);
     }
-    return false;  //  Not attached after 5 retries, quit.
+    return false;  //  Not attached after 10 retries, quit.
 }
 
 static bool prepare_to_transmit(struct bc95g *dev) {
