@@ -83,7 +83,7 @@ static const char *COMMANDS[] = {
     //  [1] Attach to network
     "NBAND=8",  //  NBAND: select band
     "CFUN=1",   //  CFUN: enable functions
-    "CEREG=1",  //  CEREG: network registration
+    "CEREG=0",  //  CEREG: network registration
     "CEREG?",   //  CEREG_QUERY: query registration
     "CGATT=1",  //  CGATT: attach network
     "CGATT?",   //  CGATT_QUERY: query attach
@@ -142,6 +142,8 @@ static const char *get_command(struct bc95g *dev, enum CommandId id) {
 
 static bool send_atp(struct bc95g *dev) {
     //  Send `AT+`.
+    //  Wait a while between commands.
+    os_time_delay(1 * OS_TICKS_PER_SEC); ////
     return parser.write(ATP, sizeof(ATP) - 1) > 0;
 }
 
@@ -152,8 +154,6 @@ static bool expect_ok(struct bc95g *dev) {
 
 static bool send_command(struct bc95g *dev, enum CommandId id) {
     //  Send an AT command with no parameters.
-    //  Wait a while.
-    os_time_delay(1 * OS_TICKS_PER_SEC); ////
     const char *cmd = get_command(dev, id);
     //debug_bc95g = 1;  ////
     bool res = (
@@ -191,34 +191,39 @@ static bool send_command_int_int(struct bc95g *dev, enum CommandId id, int arg1,
 }
 #endif  //  NOTUSED
 
-static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8_t size) {
-    //  Send an AT query like `AT+CEREG?`. Return the parsed string result.
-    //  If the response is `=+CEREG:0,1` then result is `0,1`.
+static bool send_query(struct bc95g *dev, enum CommandId id, int *res1, int *res2) {
+    //  Send an AT query like `AT+CGATT?` or `AT+CEREG?`. Parse the comma-delimited result and return the parsed result.
+    //  If `res1` is non-null and `res2` is null and the response is `=+CGATT:1` then `res1` is set to 1.
+    //  If `res1` and `res2` are both non-null and the response is `=+CEREG:0,1` then `res1` is set to 0 and `res2` is set to 1.
+    assert(res1);
     const char *cmd = get_command(dev, id);
+    char cmd_response[17];  memset(cmd_response, 0, sizeof(cmd_response));
+    *res1 = -1; 
+    if (res2) { *res2 = -1; }
     //debug_bc95g = 1;  ////
-    char cmd_copy[17];  memset(cmd_copy, 0, sizeof(cmd_copy));
-    int arg1 = -1, arg2 = -1;
     bool res = (
         send_atp(dev) &&
-        parser.send(cmd) &&
-
-        //  Match a response like `=+CEREG:0,1`.
-        parser.recv("+CEREG:%d,%d", &arg1, &arg2) &&
-        // parser.recv("+%5[^:]:%d,%d", cmd_copy, &arg1, &arg2) &&
-        // parser.recv("+%5[CEREG]:%d,%d", cmd_copy, &arg1, &arg2) &&
-
-        // bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
+        parser.send(cmd) && (
+            (res2 == NULL)  //  Expecting 1 or 2 results?
+            //  If 1 result: Match a response like `=+CGATT:1`. `cmd_response` will be set to `CGATT` after matching `%16[^:]`
+            ? parser.recv("+%16[^:]:%d", cmd_response, res1)  //  Note: cmd is max 16 chars
+            //  If 2 results: Match a response like `=+CEREG:0,1`. `cmd_response` will be set to `CEREG` after matching `%16[^:]`
+            : parser.recv("+%16[^:]:%d,%d", cmd_response, res1, res2)  //  Note: cmd is max 16 chars
+            // : parser.recv("+CEREG:%d,%d", &arg1, &arg2)
+        ) &&
         expect_ok(dev)
     );
     //debug_bc95g = 0;  ////
-    //console_flush();
+    console_flush();
     asm("bkpt"); ////
     return res;
 }
 
 static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
     //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
+    assert(result);
     const char *cmd = get_command(dev, id);
+    *result = -1;
     //debug_bc95g = 1;  ////
     bool res = {
         send_atp(dev) &&
@@ -227,7 +232,7 @@ static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
         expect_ok(dev)
     };
     //debug_bc95g = 0;  ////
-    //console_flush();
+    console_flush();
     asm("bkpt"); ////
     return res;
 }
@@ -322,32 +327,42 @@ static void bc95g_event(void *drv) {
 #endif  //  TODO
 }
 
-static char buf[10];  //  TODO
-
 static bool wait_for_registration(struct bc95g *dev) {
     //  CEREG_QUERY: query registration
     for (uint8_t i = 0; i < 5; i++) {
-        bool res = send_query(dev, CEREG_QUERY, buf, sizeof(buf));
-        if (!res) { return false; }
-        //  Should return `=+CEREG:0,1`
-        if (strcmp(buf, "0,1") == 0) { return true; }
-        //  Wait a while.
+        //  Response contains 2 integers: `code` and `status` e.g. `=+CEREG:0,1`
+        int code = -1, status = -1;
+        bool res = send_query(dev, CEREG_QUERY, &code, &status);
+        if (!res) { return false; }  //  If send failed, quit.
+        assert(status >= 0);
+
+        //  If registered to network, response should be `=+CEREG:0,1` i.e. `status` should be 1
+        if (status == 1) { return true; }  //  If registered, exit.
+
+        //  If not yet registered to network, `status` will be 2 and we should recheck in a while.
+        //  Wait 1 second.
         os_time_delay(1 * OS_TICKS_PER_SEC);
     }
-    return false;
+    return false;  //  Not registered after 5 retries, quit.
 }
 
 static bool wait_for_attach(struct bc95g *dev) {
     //  CGATT_QUERY: query attach
     for (uint8_t i = 0; i < 5; i++) {
-        bool res = send_query(dev, CGATT_QUERY, buf, sizeof(buf));
-        if (!res) { return false; }
-        //  Should return `=+CGATT:1`
-        if (strcmp(buf, "1") == 0) { return true; }
-        //  Wait a while.
+        //  Response contains 1 integer: `state` e.g. `=+CGATT:1`
+        int state = -1;
+        bool res = send_query(dev, CGATT_QUERY, &state, NULL);
+        if (!res) { return false; }  //  If send failed, quit.
+        assert(state >= 0);
+
+        //  If attached to network, response should be `=+CGATT:1` i.e. `state` should be 1
+        if (state == 1) { return true; }  //  If attached, exit.
+
+        //  If not yet attached to network, `state` will be 0 and we should recheck in a while.
+        //  Wait 1 second.
         os_time_delay(1 * OS_TICKS_PER_SEC);
     }
-    return false;
+    return false;  //  Not attached after 5 retries, quit.
 }
 
 static bool prepare_to_transmit(struct bc95g *dev) {
@@ -388,14 +403,16 @@ static bool attach_to_network(struct bc95g *dev) {
         send_command(dev, CFUN) &&
 
         //  CEREG: network registration
-        send_command(dev, CEREG) &&
-        //  CEREG_QUERY: query registration
-        wait_for_registration(dev) &&
-
+        send_command(dev, CEREG) &&  //  This step is needed or `CEREG?` will cause the module to reboot.
         //  CGATT: attach network
         send_command(dev, CGATT) &&
+
+        //  CEREG_QUERY: query registration
+        wait_for_registration(dev) &&
         //  CGATT_QUERY: query attach
-        wait_for_attach(dev)
+        wait_for_attach(dev) &&
+
+        true
     );
 }
 
@@ -463,11 +480,11 @@ static bool send_hex(struct bc95g *dev, const uint8_t *data, uint16_t size) {
     return true;
 }
 
-static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t size, struct os_mbuf *mbuf) {
+static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t length, struct os_mbuf *mbuf) {
     //  Send the data buffer if non-null, or the chain of mbufs.
-    if (data && size > 0) {
+    if (data && length > 0) {
         //  Send the data buffer as hex digits.
-        return send_hex(dev, data, size);
+        return send_hex(dev, data, length);
     }
     //  Send the mbuf chain.
     assert(mbuf);
@@ -488,27 +505,30 @@ static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t size, str
 }
 
 static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, 
-    const uint8_t *data, uint16_t size, struct os_mbuf *mbuf) {
+    const uint8_t *data, uint16_t length, uint8_t sequence, struct os_mbuf *mbuf) {
     //  Transmit the data buffer if non-null, or the chain of mbufs.  Return number of bytes sent.
     uint16_t local_port = socket->local_port;
+    int local_port_response = -1, length_response = -1;
     internal_timeout(BC95G_SEND_TIMEOUT);
-    return (
-        parser.printf("AT+NSOST=%d,%s,%d,%d,",
-            local_port, host, port, size) &&
-        send_data(dev, data, size, mbuf) &&
-        parser.send(",100") &&
-        parser.recv("%s", buf) &&
+    bool res = (
+        send_atp(dev) &&  //  Will pause between commands.
+        parser.printf("NSOST=%d,%s,%d,%d,",
+            local_port, host, port, length) &&
+        send_data(dev, data, length, mbuf) &&
+        parser.send(",%d", sequence) &&
+        parser.recv("%d,%d", &local_port_response, &length_response) &&
         parser.recv("OK")
-    ) ? size : 0;
+    );
+    return res ? length : 0;
 }
 
-int bc95g_socket_tx(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t size) {
-    //  Transmit the buffer through the socket.  `size` is the number of bytes.  Return number of bytes transmitted.
-    return send_tx_command(dev, socket, host, port, data, size, NULL);
+int bc95g_socket_tx(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t length, uint8_t sequence) {
+    //  Transmit the buffer through the socket.  `length` is the number of bytes in `data`.  `sequence` is a running message sequence number 1 to 255.  Return number of bytes transmitted.
+    return send_tx_command(dev, socket, host, port, data, length, sequence, NULL);
 }
 
-int bc95g_socket_tx_mbuf(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, struct os_mbuf *mbuf) {
-    //  Transmit the chain of mbufs through the socket.  Return number of bytes transmitted.
-    uint16_t size = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
-    return send_tx_command(dev, socket, host, port, NULL, size, mbuf);
+int bc95g_socket_tx_mbuf(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, uint8_t sequence, struct os_mbuf *mbuf) {
+    //  Transmit the chain of mbufs through the socket.  `sequence` is a running message sequence number 1 to 255.  Return number of bytes transmitted.
+    uint16_t length = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
+    return send_tx_command(dev, socket, host, port, NULL, length, sequence, mbuf);
 }

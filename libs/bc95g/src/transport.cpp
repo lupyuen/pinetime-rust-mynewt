@@ -104,15 +104,20 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
     assert(network_device);  assert(socket);
+
+    //  Running sequence number for the message: 1 to 255.
+    static uint8_t sequence = 0;
+    sequence++;
+    if (sequence == 0) { sequence = 1; }
     int rc;
 
     {   //  Lock the BC95G driver for exclusive use.  Find the BC95G device by name.
-        struct bc95g *dev = (struct bc95g *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  BC95G_DEVICE is "bc95g_0"
+        struct bc95g *dev = (struct bc95g *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  network_device is `bc95g_0`
         assert(dev != NULL);
         console_printf("NBT send udp\n");
 
         //  Send the consolidated buffer via UDP.
-        rc = bc95g_socket_tx_mbuf(dev, socket, endpoint->host, endpoint->port, m);
+        rc = bc95g_socket_tx_mbuf(dev, socket, endpoint->host, endpoint->port, sequence, m);
         assert(rc > 0);
 
         //  Close the BC95G device when we are done.

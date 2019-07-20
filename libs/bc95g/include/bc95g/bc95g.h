@@ -69,15 +69,11 @@ int bc95g_socket_open(struct bc95g *dev, struct bc95g_socket **socket_ptr);
 //  Close the socket.  Return 0 if successful.
 int bc95g_socket_close(struct bc95g *dev, struct bc95g_socket *socket);  
 
-//  Connect the socket to the host and port via UDP or TCP.  Return 0 if successful.
-//  Note: Host must point to a static string that will never change.
-int bc95g_socket_connect(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port);
+//  Transmit the buffer through the socket.  `length` is the number of bytes in `data`.  `sequence` is a running message sequence number 1 to 255.  Return number of bytes transmitted.
+int bc95g_socket_tx(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t length, uint8_t sequence);
 
-//  Transmit the buffer through the socket.  `size` is the number of bytes.  Return number of bytes transmitted.
-int bc95g_socket_tx(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t size);
-
-//  Transmit the chain of mbufs through the socket.  Return number of bytes transmitted.
-int bc95g_socket_tx_mbuf(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, struct os_mbuf *mbuf);
+//  Transmit the chain of mbufs through the socket.  `sequence` is a running message sequence number 1 to 255.  Return number of bytes transmitted.
+int bc95g_socket_tx_mbuf(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, uint8_t sequence, struct os_mbuf *mbuf);
 
 //  Attach a callback to a socket.
 void bc95g_socket_attach(struct bc95g *dev, struct bc95g_socket *socket, void (*callback)(void *), void *data);
