@@ -43,6 +43,7 @@ struct bc95g_cfg {
 struct bc95g {
     struct os_dev dev;
     struct bc95g_cfg cfg;
+    int last_error;
 };
 
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.

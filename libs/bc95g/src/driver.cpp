@@ -43,6 +43,8 @@ static const struct sensor_network_interface network_iface = {
 
 enum CommandId {
     //  Sequence MUST match commands[] below.
+    FIRST_COMMAND = 0,
+
     //  [0] Prepare to transmit
     NCONFIG,    //  configure
     QREGSWT,    //  huawei
@@ -70,6 +72,8 @@ enum CommandId {
 
 static const char *COMMANDS[] = {
     //  Sequence MUST match CommandId.
+    "",  //  FIRST_COMMAND
+
     //  [0] Prepare to transmit
     "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
     "QREGSWT=2",    //  QREGSWT: huawei
@@ -125,11 +129,12 @@ static void internal_timeout(uint32_t timeout_ms) {
 /////////////////////////////////////////////////////////
 //  Send AT Commands
 
-static const char *get_command(enum CommandId id) {
+static const char *get_command(struct bc95g *dev, enum CommandId id) {
     //  Return the command for the command ID.  Excludes the `AT+`.
     assert(id >= 0);
     assert(id < (sizeof(COMMANDS) / sizeof(COMMANDS[0])));  //  Invalid id
     const char *cmd = COMMANDS[id];
+    dev->last_error = id;  //  Set command ID as the last error.
     return cmd;
 }
 
@@ -137,42 +142,58 @@ static bool send_atp(struct bc95g *dev) {
     //  Send `AT+`.
     return parser.write(ATP, sizeof(ATP) - 1) > 0;
 }
+
+static bool expect_ok(struct bc95g *dev) {
+    //  Expect `OK` as the response for each command and query.
+    return parser.recv("OK");
+}
+
 static bool send_command(struct bc95g *dev, enum CommandId id) {
     //  Send an AT command with no parameters.
-    const char *cmd = get_command(id);
+    const char *cmd = get_command(dev, id);
     return 
         send_atp(dev) &&
         parser.send(cmd) &&
-        parser.recv("OK");
+        expect_ok(dev);
 }
 
 static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
     //  Send an AT command with 1 int parameter e.g. `AT+NSOCL=1`
-    const char *cmd = get_command(id);
+    const char *cmd = get_command(dev, id);
     return 
         send_atp(dev) &&
         parser.send(cmd, arg) &&
-        parser.recv("OK");
+        expect_ok(dev);
 }
 
 static bool send_command_int_int(struct bc95g *dev, enum CommandId id, int arg1, int arg2) {
     //  Send an AT command with 2 int parameters e.g. `AT+NSORF=1,35`
-    const char *cmd = get_command(id);
+    const char *cmd = get_command(dev, id);
     return 
         send_atp(dev) &&
         parser.send(cmd, arg1, arg2) &&
-        parser.recv("OK");
+        expect_ok(dev);
 }
 
 static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8_t size) {
-    //  Send an AT query like `AT+CEREG?`. Return the parsed result.
+    //  Send an AT query like `AT+CEREG?`. Return the parsed string result.
     //  If the response is `=+CEREG:0,1` then result is `0,1`.
     const char *cmd = get_command(id);
     return 
         send_atp(dev) &&
         parser.send(cmd) &&
         parser.recv("%s", result) &&
-        parser.recv("OK");
+        expect_ok(dev);
+}
+
+static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
+    //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
+    const char *cmd = get_command(id);
+    return 
+        send_atp(dev) &&
+        parser.send(cmd) &&
+        parser.recv("%d", result) &&
+        expect_ok(dev);
 }
 
 /////////////////////////////////////////////////////////
@@ -244,6 +265,28 @@ int bc95g_config(struct bc95g *drv, struct bc95g_cfg *cfg) {
     return 0;  //  Nothing to do.  We will apply the config in bc95g_open().
 }
 
+static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {
+    //  Called by Sensor Network Interface to register the transport.
+    assert(server_endpoint_size >= sizeof(struct bc95g_server));  //  Server Endpoint too small
+    int rc = bc95g_register_transport(network_device, (struct bc95g_server *) server_endpoint, host, port);
+    return rc;
+}
+
+/////////////////////////////////////////////////////////
+//  BC95G Driver Interface
+
+static void bc95g_event(void *drv) {
+    //  Callback for BC95G events.
+#ifdef TODO
+    for (int i = 0; i < BC95G_SOCKET_COUNT; i++) {
+        if (_cbs[i].callback) {
+            _cbs[i].callback(_cbs[i].data);
+        }
+    }
+#endif  //  TODO
+}
+
+
 static char buf[10];
 
 static bool wait_for_registration(struct bc95g *dev) {
@@ -272,19 +315,21 @@ static bool wait_for_attach(struct bc95g *dev) {
     return false;
 }
 
-int bc95g_connect(struct bc95g *dev) {
-    //  Connect to the NB-IoT network.  Return 0 if successful.
-    internal_timeout(BC95G_CONNECT_TIMEOUT);
+static bool prepare_to_transmit(struct bc95g *dev) {
+    //  [Phase 0] Prepare to transmit
     return (
-        //  [0] Prepare to transmit
         //  NCONFIG: configure
         send_command(dev, NCONFIG) &&
         //  QREGSWT: huawei
         send_command(dev, QREGSWT) &&
         //  NRB: reboot
-        send_command(dev, NRB) &&
+        send_command(dev, NRB)
+    );
+}
 
-        //  [1] Attach to network
+static bool attach_to_network(struct bc95g *dev) {
+    //  [Phase 1] Attach to network
+    return (
         //  NBAND: select band
         send_command(dev, NBAND) &&
         //  CFUN: enable functions
@@ -294,31 +339,36 @@ int bc95g_connect(struct bc95g *dev) {
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
         //  CGATT_QUERY: query attach
-        wait_for_attach(dev) &&
-        //  NSOCR: allocate port
+        wait_for_attach(dev)
+    );
+}
+
+static bool allocate_port(struct bc95g *dev) {
+    //  [Phase 2A] Allocate port
+    int local_port = 0;
+    //  NSOCR: allocate port
+    bool res = send_query_int(dev, NSOCR, &local_port);
+    if (!res) { return false; }
+    assert(local_port > 0);
+    
+    //  Store into first socket.
+    cfg(dev)->sockets[0].local_port = (uint16_t) local_port;
+    return true;
+}
+
+int bc95g_connect(struct bc95g *dev) {
+    //  Connect to the NB-IoT network.  Return 0 if successful.
+    internal_timeout(BC95G_CONNECT_TIMEOUT);
+    return (
+        //  [Phase 0] Prepare to transmit
+        prepare_to_transmit(dev) &&
+
+        //  [Phase 1] Attach to network
+        attach_to_network(dev) &&
+
+        //  [Phase 2A] Allocate port
         allocate_port(dev)
-    ) ? 0 : 1;
-}
-
-static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {
-    //  Called by Sensor Network Interface to register the transport.
-    assert(server_endpoint_size >= sizeof(struct bc95g_server));  //  Server Endpoint too small
-    int rc = bc95g_register_transport(network_device, (struct bc95g_server *) server_endpoint, host, port);
-    return rc;
-}
-
-/////////////////////////////////////////////////////////
-//  BC95G Driver Interface
-
-static void bc95g_event(void *drv) {
-    //  Callback for BC95G events.
-#ifdef TODO
-    for (int i = 0; i < BC95G_SOCKET_COUNT; i++) {
-        if (_cbs[i].callback) {
-            _cbs[i].callback(_cbs[i].data);
-        }
-    }
-#endif  //  TODO
+    ) ? 0 : dev->last_error;
 }
 
 /* 
