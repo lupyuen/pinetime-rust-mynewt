@@ -151,13 +151,13 @@ static bool expect_ok(struct bc95g *dev) {
 static bool send_command(struct bc95g *dev, enum CommandId id) {
     //  Send an AT command with no parameters.
     const char *cmd = get_command(dev, id);
-    debug_bc95g = 1;  ////
+    //debug_bc95g = 1;  ////
     bool res = (
         send_atp(dev) &&
         parser.send(cmd) &&
         expect_ok(dev)
     );
-    debug_bc95g = 0;  ////
+    //debug_bc95g = 0;  ////
     console_flush();
     return res;
 }
@@ -197,12 +197,13 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
     bool res = (
         send_atp(dev) &&
         parser.send(cmd) &&
+
         //  Match a response like `=+CEREG:0,1`.
-        //  parser.recv("+%5[^:]:%d,%d", cmd_copy, &arg1, &arg2) &&
+        // parser.recv("+CEREG:%d,%d", &arg1, &arg2) &&
+        // parser.recv("+%5[^:]:%d,%d", cmd_copy, &arg1, &arg2) &&
+        parser.recv("+%5[CEREG]:%d,%d", cmd_copy, &arg1, &arg2) &&
 
         // bool ret = _parser.recv("+CWLAP:(%d,\"%32[^\"]\",%hhd,\"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx\",%d", &sec, ap->ssid,
-
-        parser.recv("+CEREG:%d,%d", &arg1, &arg2) &&
         expect_ok(dev)
     );
     debug_bc95g = 0;  ////
@@ -214,14 +215,14 @@ static bool send_query(struct bc95g *dev, enum CommandId id, char *result, uint8
 static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
     //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
     const char *cmd = get_command(dev, id);
-    debug_bc95g = 1;  ////
+    //debug_bc95g = 1;  ////
     bool res = {
         send_atp(dev) &&
         parser.send(cmd) &&
         parser.recv("%d", result) &&
         expect_ok(dev)
     };
-    debug_bc95g = 0;  ////
+    //debug_bc95g = 0;  ////
     console_flush();
     asm("bkpt"); ////
     return res;
@@ -348,10 +349,7 @@ static bool wait_for_attach(struct bc95g *dev) {
 static bool prepare_to_transmit(struct bc95g *dev) {
     //  [Phase 0] Prepare to transmit
     return (
-        parser.send("AT") &&
-        expect_ok(dev) &&
-        parser.send("AT") &&
-        expect_ok(dev) &&
+        //  Ignore the intial message.
         parser.send("AT") &&
         expect_ok(dev) &&
 
@@ -360,7 +358,12 @@ static bool prepare_to_transmit(struct bc95g *dev) {
         //  QREGSWT: huawei
         send_command(dev, QREGSWT) &&
         //  NRB: reboot
-        send_command(dev, NRB)
+        send_command(dev, NRB) &&
+
+        //  Reboot will take longer than other commands. We wait then flush.
+        parser.send("AT") &&
+        expect_ok(dev) &&
+        (parser.flush() == 0)
     );
 }
 

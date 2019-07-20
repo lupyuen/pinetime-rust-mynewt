@@ -52,11 +52,12 @@ int ATParser::getc()
     return _serial->getc(_timeout);
 }
 
-void ATParser::flush()
+int ATParser::flush()
 {
     while (_serial->readable()) {
         _serial->getc(0);  //  Do not wait for data to be available.
     }
+    return 0;
 }
 
 
@@ -239,7 +240,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             }
             _buffer[offset + j++] = c;
             _buffer[offset + j] = 0;
-            if (debug_bc95g) { char ch = c; if (ch != '\r') { console_buffer(&ch, 1); } }  //  TODO: Only for Semihosting Console.
+            // if (debug_bc95g) { char ch = c; if (ch != '\r') { console_buffer(&ch, 1); } }  //  TODO: Only for Semihosting Console.
 
             // Check for oob data
             for (int k = 0; k < MAX_OOBS; k++) {

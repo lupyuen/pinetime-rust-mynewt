@@ -200,8 +200,9 @@ public:
     void oob(const char *prefix, void (*func)(void *), void *arg);
 
     /**
-    * Flushes the underlying stream
+    * Flushes the underlying stream.
+    * @return 0
     */
-    void flush();
+    int flush();
 };
 #endif
