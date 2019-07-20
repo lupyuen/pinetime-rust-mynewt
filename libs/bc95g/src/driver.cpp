@@ -110,7 +110,7 @@ static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_
     parser.init(serial, parserbuf, parserbuf_size);
     packets = 0;
     packets_end = &packets;
-    serial.baud(115200);
+    serial.baud(9600);  //  TODO: Increase the bitrate
     parser.debugOn(debug);
 }
 
@@ -151,11 +151,13 @@ static bool expect_ok(struct bc95g *dev) {
 static bool send_command(struct bc95g *dev, enum CommandId id) {
     //  Send an AT command with no parameters.
     const char *cmd = get_command(dev, id);
+    debug_bc95g = 1;  ////
     bool res = (
         send_atp(dev) &&
         parser.send(cmd) &&
         expect_ok(dev)
     );
+    debug_bc95g = 0;  ////
     return res;
 }
 

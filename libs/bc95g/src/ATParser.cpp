@@ -22,12 +22,11 @@
 #include <assert.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
 #include "ATParser.h"
+#include "util.h"
 
 //  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
 #define debug_if(dbg_on, format, arg) console_printf(format, arg)
 //  #define debug_if(dbg_on, format, arg) {}
-
-extern "C" int debug_vrecv; int debug_vrecv = 0;  ////
 
 void ATParser::init(BufferedSerial &serial, char *buffer, int buffer_size, const char *delimiter, int timeout, bool debug)
 {
@@ -230,15 +229,16 @@ bool ATParser::vrecv(const char *response, va_list args)
         int j = 0, last_count = -1; char *last_scan = _buffer;
 
         while (true) {
-            // Recieve next character
+            // Receive next character
             int c = getc();
             if (c < 0) {
                 console_printf("AT response mismatch: found \"%s\"\n   expected \"%s\"\n", last_scan, _buffer);  console_flush();
+                if (debug_bc95g) { asm("bkpt"); }
                 return false;
             }
             _buffer[offset + j++] = c;
             _buffer[offset + j] = 0;
-            ////  char ch = c; if (ch != '\r') { console_buffer(&ch, 1); }  //  TODO: Only for Semihosting Console.
+            if (debug_bc95g) { char ch = c; if (ch != '\r') { console_buffer(&ch, 1); } }  //  TODO: Only for Semihosting Console.
 
             // Check for oob data
             for (int k = 0; k < MAX_OOBS; k++) {
@@ -260,7 +260,7 @@ bool ATParser::vrecv(const char *response, va_list args)
             int count = -1;
             sscanf(_buffer+offset, _buffer, &count);
             last_count = count; last_scan = _buffer + offset;
-            if (debug_vrecv && c == '\n' && last_scan[0] != '\n' && last_scan[0] != '\r') {
+            if (debug_bc95g && c == '\n' && last_scan[0] != '\n' && last_scan[0] != '\r') {
                 if (last_count > 0) { console_printf("  < %d / %s", last_count, last_scan); }
                 else { console_printf("  < %s", last_scan); }
             } ////

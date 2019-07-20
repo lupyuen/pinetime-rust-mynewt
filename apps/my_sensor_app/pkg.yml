@@ -67,7 +67,7 @@ pkg.deps.SEMIHOSTING_CONSOLE:
 #  C compiler flags
 pkg.cflags:
     - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
-    - -Os                     #  Optimise for smallest size
+#   - -Os                     #  Optimise for smallest size
 
 #  To test expansion of macros, enable both options below.  Expanded source code will appear at "bin" folder,
 #  like bin\targets\bluepill_my_sensor\app\libs\remote_sensor\libs\remote_sensor\src\remote_sensor.o

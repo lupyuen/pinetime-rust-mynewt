@@ -16,6 +16,7 @@ const char *_okfailed(int ok);
 void _log(const char *func, int ok);
 
 extern const char *_nbt;  //  Trailer for console output: "NBT "
+extern int debug_bc95g;   //  Set to non-zero for debug mode
 
 #ifdef __cplusplus
 }
