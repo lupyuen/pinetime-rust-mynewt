@@ -215,7 +215,7 @@ static bool send_query(struct bc95g *dev, enum CommandId id, int *res1, int *res
     );
     //debug_bc95g = 0;  ////
     console_flush();
-    asm("bkpt"); ////
+    //asm("bkpt"); ////
     return res;
 }
 
@@ -327,6 +327,11 @@ static void bc95g_event(void *drv) {
 #endif  //  TODO
 }
 
+static bool sleep(uint16_t seconds) {
+    os_time_delay(seconds * OS_TICKS_PER_SEC);
+    return true;
+}
+
 static bool wait_for_registration(struct bc95g *dev) {
     //  CEREG_QUERY: query registration
     for (uint8_t i = 0; i < 5; i++) {
@@ -341,7 +346,7 @@ static bool wait_for_registration(struct bc95g *dev) {
 
         //  If not yet registered to network, `status` will be 2 and we should recheck in a while.
         //  Wait 1 second.
-        os_time_delay(1 * OS_TICKS_PER_SEC);
+        sleep(1);
     }
     return false;  //  Not registered after 5 retries, quit.
 }
@@ -360,7 +365,7 @@ static bool wait_for_attach(struct bc95g *dev) {
 
         //  If not yet attached to network, `state` will be 0 and we should recheck in a while.
         //  Wait 1 second.
-        os_time_delay(1 * OS_TICKS_PER_SEC);
+        sleep(1);
     }
     return false;  //  Not attached after 5 retries, quit.
 }
@@ -401,12 +406,30 @@ static bool attach_to_network(struct bc95g *dev) {
         send_command(dev, NBAND) &&
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
+        sleep(5) &&
+
+        parser.send("AT") && expect_ok(dev) &&
 
         //  CGATT: attach network
         send_command(dev, CGATT) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
 
         //  CEREG: network registration
         send_command(dev, CEREG) &&  //  This step is needed or `CEREG?` will cause the module to reboot.
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CEREG_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CGATT_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CEREG_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
+        send_command(dev, CGATT_QUERY) &&
+        parser.send("AT") && expect_ok(dev) && sleep(5) &&
+
         //  CEREG_QUERY: query registration
         wait_for_registration(dev) &&
 
