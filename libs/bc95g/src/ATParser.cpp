@@ -145,6 +145,7 @@ int ATParser::vscanf(const char *format, va_list args)
         int c = getc();
         if (c < 0) {
             console_printf("AT response mismatch: found \"%s\"\n", _buffer);  console_flush();
+            if (debug_bc95g) { asm("bkpt"); }
             return -1;
         }
         _buffer[offset + j++] = c;

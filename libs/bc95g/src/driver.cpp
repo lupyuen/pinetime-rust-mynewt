@@ -333,6 +333,13 @@ static bool wait_for_attach(struct bc95g *dev) {
 static bool prepare_to_transmit(struct bc95g *dev) {
     //  [Phase 0] Prepare to transmit
     return (
+        parser.send("AT") &&
+        expect_ok(dev) &&
+        parser.send("AT") &&
+        expect_ok(dev) &&
+        parser.send("AT") &&
+        expect_ok(dev) &&
+        
         //  NCONFIG: configure
         send_command(dev, NCONFIG) &&
         //  QREGSWT: huawei
@@ -344,7 +351,7 @@ static bool prepare_to_transmit(struct bc95g *dev) {
 
 static bool attach_to_network(struct bc95g *dev) {
     //  [Phase 1] Attach to network
-    return (
+    return (        
         //  NBAND: select band
         send_command(dev, NBAND) &&
         //  CFUN: enable functions
