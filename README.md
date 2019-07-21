@@ -19,15 +19,11 @@
 #
 -->
 
-# Embedded Rust Application hosted on Apache Mynewt for STM32 Blue Pill
-
-_Note: This is the `rust-safe` branch that contains a Rust application hosted on Mynewt, with safe wrappers created thru Procedural Macros_
-
-Check the article...
-
-[_Safer, Simpler Embedded Rust with Apache Mynewt on STM32 Blue Pill_](https://medium.com/@ly.lee/safer-simpler-embedded-rust-with-apache-mynewt-on-stm32-blue-pill-d8fcb41969ac?source=friends_link&sk=16a27a4b9910aadcfcb9881c02d84adc)
+# NB-IoT Sensor Application based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill and Apache Mynewt
 
 # Requirements
+
+1. Quectel GC85-G NB-IoT Module with NB-IoT SIM
 
 1. [STM32 Blue Pill](http://wiki.stm32duino.com/index.php?title=Blue_Pill) or [Super Blue Pill](https://medium.com/swlh/super-blue-pill-like-stm32-blue-pill-but-better-6d341d9347da)
 
