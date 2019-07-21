@@ -9,6 +9,7 @@
     <variable type="" id="NF^UZN;DB?_$s$sOX,z|">port</variable>
     <variable type="" id="}BJ%MDhN{/((:45os0[w">payload</variable>
     <variable type="" id=",2Y@MNx0?i|V5kdPi{7e">SENSOR_DEVICE</variable>
+    <variable type="" id="[x7;!Z38oG?*yUxfdyCs">NETWORK_DEVICE</variable>
     <variable type="" id="RO2d0yDF8:oHMw[-Uj3t">device_id</variable>
     <variable type="" id="Beqf=80@HjZRXbM-DQ~T">node_id</variable>
   </variables>
@@ -62,7 +63,7 @@
       </block>
     </statement>
   </block>
-  <block type="procedures_defnoreturn" id="fl`yW^^_4l+SknDsFvl4" x="263" y="-187">
+  <block type="procedures_defnoreturn" id="fl`yW^^_4l+SknDsFvl4" x="287" y="-188">
     <field name="NAME">read_temperature</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
     <statement name="STACK">
@@ -92,19 +93,29 @@
     <field name="NAME">start_network_task</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
     <statement name="STACK">
-      <block type="procedures_callnoreturn" id="=L}9h{.d]#2`Ik^C)y(E">
-        <mutation name="register_server_transport">
-          <arg name="network"></arg>
-        </mutation>
-        <value name="ARG0">
+      <block type="variables_set" id="[1rCPWPI#eusp-6$d357">
+        <field name="VAR" id="[x7;!Z38oG?*yUxfdyCs" variabletype="">NETWORK_DEVICE</field>
+        <value name="VALUE">
           <block type="text" id="MyfH7$!p7x9g(hD#^y;}">
             <field name="TEXT">bc95g_0</field>
           </block>
         </value>
+        <next>
+          <block type="procedures_callnoreturn" id="=L}9h{.d]#2`Ik^C)y(E">
+            <mutation name="register_server_transport">
+              <arg name="network"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="variables_get" id="~g@^9.ux#-@#;dV_$:Vg">
+                <field name="VAR" id="[x7;!Z38oG?*yUxfdyCs" variabletype="">NETWORK_DEVICE</field>
+              </block>
+            </value>
+          </block>
+        </next>
       </block>
     </statement>
   </block>
-  <block type="procedures_defnoreturn" id="t9O!Y}._PlhTjJHyAvwn" x="262" y="87">
+  <block type="procedures_defnoreturn" id="t9O!Y}._PlhTjJHyAvwn" x="288" y="87">
     <mutation>
       <arg name="sensor_data" varid="JrEYqy*^|anEi:~R^~.I"></arg>
     </mutation>
