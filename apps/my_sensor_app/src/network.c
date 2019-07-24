@@ -27,7 +27,7 @@
 #include <sensor_network/sensor_network.h>  //  For Sensor Network library
 #include <sensor_coap/sensor_coap.h>        //  For Sensor CoAP library
 #include "geolocate.h"                      //  For geolocate()
-#include "send_coap.h"
+#include "network.h"
 
 int send_sensor_data(struct sensor_value *val) {
     //  Compose a CoAP JSON message with the Sensor Key (field name) and Value in val 

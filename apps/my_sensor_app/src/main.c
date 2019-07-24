@@ -27,7 +27,7 @@
 #include <defs/error.h>       //  For Mynewt errors
 #include <console/console.h>  //  For Mynewt console output. Actually points to libs/semihosting_console
 #include <sensor_network/sensor_network.h>   //  For start_server_transport()
-#include "listen_sensor.h"                   //  For start_sensor_listener()
+#include "sensor.h"                          //  For start_sensor_listener()
 
 int main(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 

@@ -28,8 +28,8 @@
 #include <sensor_network/sensor_network.h>  //  For Sensor Network Library
 #include <sensor_coap/sensor_coap.h>        //  For sensor_value
 #include <custom_sensor/custom_sensor.h>    //  For sensor_temp_raw_data
-#include "send_coap.h"                        //  For send_sensor_data()
-#include "listen_sensor.h"
+#include "network.h"                        //  For send_sensor_data()
+#include "sensor.h"
 
 //  Defined later below
 static int handle_sensor_data(struct sensor* sensor, void *arg, void *sensor_data, sensor_type_t type);
@@ -46,7 +46,7 @@ int start_sensor_listener(void) {
     //  Return 0 if successful.
     console_printf("TMP poll %s\n", MYNEWT_VAL(SENSOR_DEVICE));
 
-    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0"
+    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
     int rc = sensor_set_poll_rate_ms(MYNEWT_VAL(SENSOR_DEVICE), MYNEWT_VAL(SENSOR_POLL_TIME));
     assert(rc == 0);
 
