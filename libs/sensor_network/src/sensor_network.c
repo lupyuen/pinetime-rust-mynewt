@@ -243,7 +243,6 @@ bool init_server_post(const char *uri) {
     //  Return true if successful, false if network has not been registered.
     uint8_t i = SERVER_INTERFACE_TYPE;
     bool status = sensor_network_init_post(i, uri);
-    assert(status);
     return status;
 }
 
@@ -255,7 +254,6 @@ bool init_collector_post(void) {
     uint8_t i = COLLECTOR_INTERFACE_TYPE;
     const char *uri = NULL;
     bool status = sensor_network_init_post(i, uri);
-    assert(status);
     return status;
 }
 
