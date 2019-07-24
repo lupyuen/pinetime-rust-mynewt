@@ -22,7 +22,7 @@ void hmac_prng_init(void) {
     //  Use the internal temperature sensor as a source of entropy (noise) for the generator.
     int rawtemp;
     //  Open the temp_stm32 internal temperature sensor driver.  Assumes already started with "stm32f1_adc_create();  temp_stm32_create();""
-    struct temp_stm32 *dev = (struct temp_stm32 *) os_dev_open(TEMP_STM32_DEVICE, OS_TIMEOUT_NEVER, NULL);  assert(dev);
+    struct temp_stm32 *dev = (struct temp_stm32 *) os_dev_open(MYNEWT_VAL(TEMP_STM32_DEVICE), OS_TIMEOUT_NEVER, NULL);  assert(dev);
 
     //  Fetch 32 bytes of temperature noise into the seed array.
     rc = temp_stm32_get_raw_temperature(dev, sizeof(seed) * 2, &rawtemp, seed); assert(rc == 0);

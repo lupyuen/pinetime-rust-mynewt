@@ -24,15 +24,15 @@
 #include "temp_stm32/temp_stm32.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
-#define DEVICE_NAME        TEMP_STM32_DEVICE  //  Name of device
-#define DEVICE_DEV         temp_stm32         //  Device type
-#define DEVICE_INSTANCE    temp_stm32_dev     //  Device instance
-#define DEVICE_CFG         temp_stm32_cfg     //  Device config
+#define DEVICE_NAME        MYNEWT_VAL(TEMP_STM32_DEVICE)  //  Name of device
+#define DEVICE_DEV         temp_stm32              //  Device type
+#define DEVICE_INSTANCE    temp_stm32_dev          //  Device instance
+#define DEVICE_CFG         temp_stm32_cfg          //  Device config
 #define DEVICE_CFG_DEFAULT temp_stm32_default_cfg  //  Device default config
-#define DEVICE_CFG_FUNC    temp_stm32_config  //  Device config function
-#define DEVICE_INIT        temp_stm32_init    //  Device init function
-#define DEVICE_CREATE      temp_stm32_create  //  Device create function
-#define DEVICE_ITF         adc_1_itf_temp_stm32   //  Device interface
+#define DEVICE_CFG_FUNC    temp_stm32_config       //  Device config function
+#define DEVICE_INIT        temp_stm32_init         //  Device init function
+#define DEVICE_CREATE      temp_stm32_create       //  Device create function
+#define DEVICE_ITF         adc_1_itf_temp_stm32    //  Device interface
 
 static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
 
@@ -66,7 +66,7 @@ static int config_device(void) {
 
 //  Create the device instance and configure it. Called by sysinit() during startup, defined in pkg.yml.
 void DEVICE_CREATE(void) {
-    console_printf("TMP create " DEVICE_NAME "\n");
+    console_printf("TMP create %s\n", DEVICE_NAME);
 
     //  Create the device.
     int rc = os_dev_create((struct os_dev *) &DEVICE_INSTANCE, DEVICE_NAME,

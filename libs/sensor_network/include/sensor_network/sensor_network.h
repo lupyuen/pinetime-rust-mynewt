@@ -24,8 +24,8 @@
 //  This also prevents complicated macros like
 //  #if MYNEWT_VAL(ESP8266) && !MYNEWT_VAL(NRF24L01) ...
 
-//  Network Drivers: The Sensor Network Library does not depend on ESP8266 and nRF24L01 drivers.
-//  Instead, the ESP8266 and nRF24L01 drivers register themselves as Network Interfaces
+//  Network Drivers: The Sensor Network Library does not depend on BC95-G, ESP8266 and nRF24L01 drivers.
+//  Instead, the drivers register themselves as Network Interfaces
 //  to the Sensor Network Library.  So the drivers may be easily replaced.
 
 //  Address Allocation: The Sensor Network Library also allocates Collector Node Address and Sensor Node Address
@@ -50,30 +50,48 @@ extern "C" {  //  Expose the types and functions below to C functions.
 
 //  Network Interface Types: Server Interface (ESP8266 + CoAP) and Collector Interface (nRF24L01 + CBOR)
 
-#define SERVER_INTERFACE_TYPE       0   //  Server Network Interface (ESP8266)
+#define SERVER_INTERFACE_TYPE       0   //  Server Network Interface (BC95-G or ESP8266)
 #define COLLECTOR_INTERFACE_TYPE    1   //  Collector Network Interface (nRF24L01)
 #define MAX_INTERFACE_TYPES         2   //  Max network interfaces supported
 #define MAX_ENDPOINT_SIZE           16  //  Max byte size of Server or Collector endpoint
 #define SENSOR_NETWORK_SIZE         5   //  5 Sensor Nodes in the Sensor Network (Pipes 1 to 5 for nRF24L01)
 
-//  Represents a Network Interface: ESP8266 or nRF24L01
+//  Represents a Network Interface: BC95-G, ESP8266 or nRF24L01
 struct sensor_network_interface {
     uint8_t iface_type;          //  Interface Type: Server or Collector
     const char *network_device;  //  Network device name.  Must be a static string.
-    uint8_t server_endpoint_size;       //  Endpoint size
+    uint8_t server_endpoint_size;  //  Endpoint size
     int (*register_transport_func)(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);  //  Register transport function
-    uint8_t transport_registered;    //  For internal use: Set to non-zero if transport has been registered.
+    uint8_t transport_registered;  //  For internal use: Set to non-zero if transport has been registered.
 };
 
 struct sensor_value;
 
 /////////////////////////////////////////////////////////
+//  Start Network Interface for CoAP Transport as Background Task (Server and Collector)
+
+//  For Standalone Node and Collector Node: In a background task, connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+//  Return 0 if successful.
+int start_server_transport(void);
+
+//  For Collector Node and Sensor Nodes: In a background task, register the nRF24L01 driver as the network transport for CoAP Collector.
+//  Return 0 if successful.
+int start_collector_transport(void);
+
+//  Start a background task to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+//  We use a background task because connecting to NB-IoT or WiFi Access Point may be slow.
+//  Return 0 if successful.
+int sensor_network_start_transport(uint8_t iface_type);
+
+/////////////////////////////////////////////////////////
 //  Register Network Interface for CoAP Transport (Server and Collector)
 
-//  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+//  For Standalone Node and Collector Node: Connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+//  Return 0 if successful.
 int register_server_transport(void);
 
 //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+//  Return 0 if successful.
 int register_collector_transport(void);
 
 //  Register the Network Interface as the network transport for CoAP Server or CoAP Collector.
@@ -85,16 +103,19 @@ int sensor_network_register_transport(uint8_t iface_type);
 //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
 //  block other tasks from composing and posting CoAP messages (through a semaphore).
 //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+//  Return true if successful, false if network has not been registered.
 bool init_server_post(const char *uri);
 
 //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
 //  block other tasks from composing and posting CoAP messages (through a semaphore).
 //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+//  Return true if successful, false if network has not been registered.
 bool init_collector_post(void);
 
 //  Start composing the CoAP Server or Collector message with the sensor data in the payload.  This will 
 //  block other tasks from composing and posting CoAP messages (through a semaphore).
 //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+//  Return true if successful, false if network has not been registered.
 bool sensor_network_init_post(uint8_t iface_type, const char *uri);
 
 /////////////////////////////////////////////////////////
@@ -159,7 +180,7 @@ const char **get_sensor_node_names(void);
 //  Allocate Sensor Node address for this node.
 void sensor_network_init(void);
 
-//  Register the Network Interface (e.g. ESP8266, nRF24L01) for the Sensor Network.
+//  Register the Network Interface (e.g. BC95-G, ESP8266, nRF24L01) for the Sensor Network.
 int sensor_network_register_interface(const struct sensor_network_interface *iface);
 
 #ifdef __cplusplus

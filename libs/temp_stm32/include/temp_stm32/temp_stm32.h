@@ -50,8 +50,6 @@
 extern "C" {
 #endif
 
-#define TEMP_STM32_DEVICE "temp_stm32_0"
-
 struct adc_dev;  //  ADC device
 
 //  Configuration for the STM32 internal temperature sensor

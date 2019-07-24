@@ -1,15 +1,5 @@
 [
 	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/src/main.c",
-		"bookmarks": [
-			{
-				"line": 59,
-				"column": 3,
-				"label": "main"
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
@@ -23,7 +13,7 @@
 		"path": "$ROOTPATH$/targets/bluepill_my_sensor/syscfg.yml",
 		"bookmarks": [
 			{
-				"line": 0,
+				"line": 18,
 				"column": 3,
 				"label": "syscfg bluepill"
 			}
@@ -33,7 +23,7 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
 		"bookmarks": [
 			{
-				"line": 41,
+				"line": 59,
 				"column": 5,
 				"label": "pkg"
 			}

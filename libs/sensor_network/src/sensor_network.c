@@ -121,11 +121,83 @@ static const char *sensor_network_shortname[MAX_INTERFACE_TYPES] = {  //  Short 
     "col",  //  Send to Collector
 };
 
+//  Storage for Network Task
+#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
+static uint8_t network_task_stack[sizeof(os_stack_t) * NETWORK_TASK_STACK_SIZE];  //  Stack space
+static struct os_task network_task;    //  Mynewt task object will be saved here
+
+/////////////////////////////////////////////////////////
+//  Start Network Interface for CoAP Transport as Background Task (Server and Collector)
+
+static void network_task_func(void *arg);  //  Defined below
+
+int start_server_transport(void) {
+    //  For Standalone Node and Collector Node: In a background task, connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+    //  Return 0 if successful.
+    uint8_t i = SERVER_INTERFACE_TYPE;
+    int rc = sensor_network_start_transport(i);
+    assert(rc == 0);
+    return rc;
+}
+
+int start_collector_transport(void) {
+    //  For Collector Node and Sensor Nodes: In a background task, register the nRF24L01 driver as the network transport for CoAP Collector.
+    //  Return 0 if successful.
+    uint8_t i = COLLECTOR_INTERFACE_TYPE;
+    int rc = sensor_network_start_transport(i);
+    assert(rc == 0);
+    return rc;
+}
+
+int sensor_network_start_transport(uint8_t iface_type) {
+    //  Start a background task to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+    //  We use a background task because connecting to NB-IoT or WiFi Access Point may be slow.
+    //  Return 0 if successful.
+    assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
+    struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
+    if (iface->transport_registered) { return 0; }  //  Quit if transport already registered and endpoint has been created.
+
+    int rc = os_task_init(  //  Create a new task and start it...
+        &network_task,      //  Task object will be saved here.
+        "network",          //  Name of task.
+        network_task_func,  //  Function to execute when task starts.
+        (void *)(uint32_t)iface_type, //  Pass network interface type to above function.
+        10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
+        OS_WAIT_FOREVER,    //  Don't do sanity / watchdog checking.
+        (os_stack_t *) network_task_stack,  //  Stack space for the task.
+        NETWORK_TASK_STACK_SIZE);           //  Size of the stack (in 4-byte units).
+    assert(rc == 0);
+    return rc;
+}
+
+static void network_task_func(void *arg) {
+    //  Network Task runs this function in the background to prepare the network drivers
+    //  for transmitting sensor data messages.
+    //  For Collector Node and Standalone Node: We connect to NB-IoT network or WiFi access point. 
+    //  Connecting to the NB-IoT network or WiFi access point may be slow so we do this in the background.
+    //  Register the driver as the network transport for CoAP Server.  
+    //  For Collector Node and Sensor Nodes: We register the nRF24L01 driver as the network transport for 
+    //  CoAP Collector.
+    uint8_t iface_type = (uint8_t)(uint32_t)arg;
+    console_printf("NET start\n");
+    int rc = 0;
+
+    //  Register the network transport.
+    rc = sensor_network_register_transport(iface_type);  assert(rc == 0);
+
+    while (true) {  //  Loop forever...        
+        console_printf("NET free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
+        os_time_delay(10 * OS_TICKS_PER_SEC);                      //  Wait 10 seconds before repeating.
+    }
+    assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
+}
+
 /////////////////////////////////////////////////////////
 //  Register Network Interface for CoAP Transport (Server and Collector)
 
 int register_server_transport(void) {
-    //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+    //  For Standalone Node and Collector Node: Connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+    //  Return 0 if successful.
     uint8_t i = SERVER_INTERFACE_TYPE;
     int rc = sensor_network_register_transport(i);
     assert(rc == 0);
@@ -134,6 +206,7 @@ int register_server_transport(void) {
 
 int register_collector_transport(void) {
     //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+    //  Return 0 if successful.
     uint8_t i = COLLECTOR_INTERFACE_TYPE;
     int rc = sensor_network_register_transport(i);
     assert(rc == 0);
@@ -142,6 +215,7 @@ int register_collector_transport(void) {
 
 int sensor_network_register_transport(uint8_t iface_type) {
     //  Register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+    //  Return 0 if successful.
     assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     if (iface->transport_registered) { return 0; }  //  Quit if transport already registered and endpoint has been created.
@@ -166,6 +240,7 @@ bool init_server_post(const char *uri) {
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    //  Return true if successful, false if network has not been registered.
     uint8_t i = SERVER_INTERFACE_TYPE;
     bool status = sensor_network_init_post(i, uri);
     assert(status);
@@ -176,6 +251,7 @@ bool init_collector_post(void) {
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    //  Return true if successful, false if network has not been registered.
     uint8_t i = COLLECTOR_INTERFACE_TYPE;
     const char *uri = NULL;
     bool status = sensor_network_init_post(i, uri);
@@ -187,6 +263,7 @@ bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     //  Start composing the CoAP Server or Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    //  Return true if successful, false if network has not been registered.
     if (uri == NULL) { uri = COAP_URI; }
     assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
@@ -194,17 +271,14 @@ bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     void *endpoint = &sensor_network_endpoints[iface_type];
     int encoding = sensor_network_encoding[iface_type];
     if (!iface->transport_registered) {
-        //  If transport has not been registered, register the transport for the interface and create the endpoint.
-        int rc = sensor_network_register_transport(iface_type);
-        assert(rc == 0);
+        //  If transport has not been registered, wait for the transport to be registered.
+        console_printf("NET network not ready\n");
+        return false;
     }
     bool status = init_sensor_post(endpoint, uri, encoding);
     assert(status);
     return status;
 }
-
-
-
 
 /////////////////////////////////////////////////////////
 //  Post CoAP Messages
@@ -290,7 +364,6 @@ const uint8_t *get_hardware_id(void) {
 const char *get_device_id(void) {
     //  Get the randomly-generated Device ID that will be sent in every CoAP Server message.  Changes upon restart.
     if (device_id_text[0]) { return device_id_text; }
-#if MYNEWT_VAL(ESP8266)  //  If ESP8266 WiFi is enabled...
     //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
     int rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
     char *s = device_id_text; int i;
@@ -301,10 +374,6 @@ const char *get_device_id(void) {
     }
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
     console_printf("%srandom device id %s\n", _net, device_id_text);
-#else  //  If ESP8266 WiFi is NOT enabled...
-    device_id_text[0] = 0;  //  Don't need device ID since we are transmitting locally.
-    device_id[0] = 0;
-#endif  //  MYNEWT_VAL(ESP8266)
     return device_id_text;
 }
 
@@ -347,7 +416,7 @@ void sensor_network_init(void) {
 }
 
 int sensor_network_register_interface(const struct sensor_network_interface *iface) {
-    //  Register the Network Interface (e.g. ESP8266, nRF24L01) for the Sensor Network.
+    //  Register the Network Interface (e.g. BC95-G, ESP8266, nRF24L01) for the Sensor Network.
     assert(iface);
     uint8_t i = iface->iface_type;  assert(i >= 0 && i < MAX_INTERFACE_TYPES);
     assert(iface->network_device);  assert(iface->server_endpoint_size);  assert(iface->register_transport_func);

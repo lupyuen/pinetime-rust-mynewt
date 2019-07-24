@@ -1,10 +1,43 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 # System Configuration Setting Definitions:
 #   Below are the settings defined by this app and their default values. To change the settings, 
 #   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
 #   Strings must be enclosed by '"..."'
 
 syscfg.defs:
-    # List of Features. Will be selected automatically based on the tutorial setting.    
+    # List of Settings
+    SENSOR_DEVICE:     
+        description: 'Sensor device to be polled e.g. MYNEWT_VAL(TEMP_STM32_DEVICE)'
+        value:       UNDEFINED_SENSOR_DEVICE
+    SENSOR_KEY:
+        description: 'Sensor value to be sent with this field name e.g. "t"'
+        value:       UNDEFINED_SENSOR_KEY
+    SENSOR_TYPE:
+        description: 'Type of sensor e.g. SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW'
+        value:       UNDEFINED_SENSOR_TYPE
+    SENSOR_VALUE_TYPE:
+        description: 'Type of sensor value e.g. SENSOR_VALUE_TYPE_INT32'
+        value:       UNDEFINED_SENSOR_VALUE_TYPE
+    SENSOR_POLL_TIME:
+        description: 'Poll the sensor every N milliseconds e.g. 10 * 1000'
+        value:       UNDEFINED_SENSOR_POLL_TIME
     BC95G:
         description: 'Enable NB-IoT access with Quectel BC95-G'
         value:        0        
@@ -42,26 +75,73 @@ syscfg.defs:
         description: 'Use Arm Semihosting to display console messages. Works with STLink V2 and OpenOCD'
         value:        1  # Default console is Arm Semihosting        
     
-    # Overall Tutorial Settings. Edit targets/bluepill_my_sensor/syscfg.yml to set the tutorial settings.
-    TUTORIAL1:
-        description: 'Settings for Tutorial 1'
-        value:        0
-    TUTORIAL2:
-        description: 'Settings for Tutorial 2'
-        value:        0
-    TUTORIAL3:
-        description: 'Settings for Tutorial 3'
-        value:        0
-    TUTORIAL4:
-        description: 'Settings for Tutorial 3'
-        value:        0
-
 # System Configuration Setting Values:
 #   Below we override the driver and library settings. Settings defined in
 #   targets/bluepill_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
-    # Common Settings: These settings were chosen to minimise ROM size
+    ###########################################################################
+    # CoAP Server Settings
+
+    # CoAP host e.g. 104.199.85.211 (for coap.thethings.io)
+    COAP_HOST:      '"104.199.85.211"'
+
+    # CoAP UDP port, usually port 5683
+    COAP_PORT:      5683
+
+    # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
+    COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
+    ###########################################################################
+    # Sensor Settings
+
+    # Sensor device is the STM32 Internal Temperature Sensor
+    SENSOR_DEVICE:     MYNEWT_VAL(TEMP_STM32_DEVICE)
+
+    # Sensor value will be sent as field name `t`
+    SENSOR_KEY:        '"t"'
+
+    # Type of sensor is raw ambient temperature
+    SENSOR_TYPE:       SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
+
+    # Raw temperature sensor value is an integer (0 to 4095)
+    SENSOR_VALUE_TYPE: SENSOR_VALUE_TYPE_INT32
+
+    # Poll the sensor every 10,000 milliseconds (10 seconds)
+    SENSOR_POLL_TIME:  10 * 1000
+
+    ###########################################################################
+    # Network Settings
+
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
+
+    ###########################################################################
+    # Hardware Settings
+     
+    BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
+    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
+    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
+    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+
+    ###########################################################################
+    # OIC Settings for CoAP Transmission
+    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_SERVER:              0  # Disable the OIC (CoAP) server library
+    OC_TRANS_SECURITY:      0  # Disable TLS security
+    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
+    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
+    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
+    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
+    OC_APP_RESOURCES:       2  # Max number of server resources
+    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
+    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
+    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
+
+    ###########################################################################
+    # Common Settings for minimal ROM size
     CONSOLE_RTT:              0  # Disable RTT Console
     CONSOLE_UART:             0  # Disable UART Console
     LOG_CLI:                  0  # Disable logging command-line interface
@@ -76,86 +156,3 @@ syscfg.vals:
     OS_SYSVIEW_TRACE_EVENTQ:  0  # Disable trace of event queues
     OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
     OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores
-
-# Settings for Tutorial 4
-syscfg.vals.TUTORIAL4:
-    BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
-    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
-    SENSOR_NETWORK:         1  # Enable Sensor Network library
-    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
-
-    # Previous Settings
-    SENSOR_COAP:            1  # Send sensor data to CoAP server
-    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
-    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
-
-    # OIC Settings
-    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
-    OC_SERVER:              0  # Disable the OIC (CoAP) server library
-    OC_TRANS_SECURITY:      0  # Disable TLS security
-    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
-    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
-    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
-    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
-    OC_APP_RESOURCES:       2  # Max number of server resources
-    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
-    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
-    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
-
-# Settings for Tutorial 3
-syscfg.vals.TUTORIAL3:
-    NRF24L01:               1  # Enable nRF24L01 driver    
-    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
-    REMOTE_SENSOR:          1  # Enable driver for Remote Sensor that receives sensor data via nRF24L01 and CoAP
-    SENSOR_NETWORK:         1  # Enable Sensor Network library
-    SPI_0_MASTER:           1  # Enable port SPI1 for nRF24L01
-    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
-    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for forwarding to Collector Node
-
-    # Previous Settings
-    SENSOR_COAP:            1  # Send sensor data to CoAP server
-    ESP8266:                1  # Enable WiFi access with ESP8266
-    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
-    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
-
-    # OIC Settings
-    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
-    OC_SERVER:              0  # Disable the OIC (CoAP) server library
-    OC_TRANS_SECURITY:      0  # Disable TLS security
-    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
-    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
-    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
-    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
-    OC_APP_RESOURCES:       2  # Max number of server resources
-    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
-    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
-    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
-
-# Settings for Tutorial 2
-syscfg.vals.TUTORIAL2:
-    SENSOR_NETWORK:         1  # Enable Sensor Network library
-    SENSOR_COAP:            1  # Send sensor data to CoAP server
-    ESP8266:                1  # Enable WiFi access with ESP8266
-    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
-    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
-
-    # OIC Settings
-    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
-    OC_SERVER:              0  # Disable the OIC (CoAP) server library
-    OC_TRANS_SECURITY:      0  # Disable TLS security
-    OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
-    OC_CLIENT_DISCOVERY_ENABLE: 0  # Disable client discovery
-    OC_NUM_REP_OBJECTS:     2  # Estimated number of nodes in payload tree structure
-    OC_CONCURRENT_REQUESTS: 2  # Max number of concurrent requests
-    OC_APP_RESOURCES:       2  # Max number of server resources
-    OC_CONN_EV_CB_CNT:      2  # How many callback events may be queued
-    OC_MAX_PAYLOAD:       400  # Maximum size of request/response PDUs
-    OC_MAX_PAYLOAD_SIZE:  400  # Platform payload size
-
-# Settings for Tutorial 1
-syscfg.vals.TUTORIAL1:
-    BME280_OFB:             1  # Enable BME280 offboard sensor
-    SPI_0_MASTER:           1  # Enable port SPI1 for BME280

@@ -1,7 +1,7 @@
 //  Compute geolocation by sending your WiFi access point info to Google Geolocation API.
 //  Note: Don't enable this unless you understand the privacy implications. Your location may be accessible by others.
-#ifndef __GEOLOCATE_H__
-#define __GEOLOCATE_H__
+#ifndef __APP_GEOLOCATE_H__
+#define __APP_GEOLOCATE_H__
 #if MYNEWT_VAL(WIFI_GEOLOCATION)  //  If WiFi Geolocation is enabled...
 
 #ifdef __cplusplus
@@ -23,4 +23,4 @@ int geolocate(const char *network_device, struct oc_server_handle *server, const
 #endif
 
 #endif  //  MYNEWT_VAL(WIFI_GEOLOCATION)
-#endif  //  __GEOLOCATE_H__
+#endif  //  __APP_GEOLOCATE_H__
