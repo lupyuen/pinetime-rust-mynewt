@@ -24,7 +24,6 @@
 //  Mynewt consolidates all app settings into `bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h`
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #include <os/os.h>            //  For Mynewt OS functions
-#include <defs/error.h>       //  For Mynewt errors
 #include <console/console.h>  //  For Mynewt console output. Actually points to libs/semihosting_console
 #include <sensor_network/sensor_network.h>   //  For start_server_transport()
 #include "sensor.h"                          //  For start_sensor_listener()
