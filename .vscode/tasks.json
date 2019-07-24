@@ -16,22 +16,48 @@
             //  Build the Bootloader.
             "label": "1️⃣ Build bluepill_boot",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅ ◾ ️Done! "
-            ],
+            "windows": {
+                "command": 
+                " newt\\newt.exe build -v bluepill_boot && newt\\newt.exe size -v bluepill_boot && echo ✅ ◾ ️Done! "
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                ],
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                ],
+            },
             "problemMatcher": [ "$gcc" ]
         },
         {
             //  Build the Application.
             "label": "2️⃣ Build bluepill_my_sensor",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " scripts/build-app.sh && echo ✅ ◾ ️Done! "
-            ],
+            "windows": {
+                "command": 
+                " scripts\\build-app.cmd && echo ✅ ◾ ️Done! "
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/build-app.sh && echo ✅ ◾ ️Done! "
+                ],
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/build-app.sh && echo ✅ ◾ ️Done! "
+                ],
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -56,11 +82,24 @@
             //  Create the Application ROM Image.
             "label": "3️⃣ Image bluepill_my_sensor",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
-            ],
+            "windows": {
+                "command": 
+                " newt\\newt.exe create-image -v bluepill_my_sensor 1.0.0 && newt\\newt.exe size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                ],
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                ],
+            },
             "problemMatcher": []
         },
         {
@@ -141,22 +180,50 @@
             //  Generate documentation.
             "label": "📖 Generate Doc",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
-            ],
+            "windows": {
+                "command": 
+                " cargo doc --document-private-items && echo ✅ ◾ ️Done! "
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
+                ]
+            },
             "problemMatcher": []
         },
         {
             //  Remove all compiled files.
             "label": "🗑 Clean",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c", "-l",
-                " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
-            ],
+            "windows": {
+                "command": 
+                " newt\\newt.exe clean -v all && rd /s target"
+            },
+            "osx": {
+                // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
+                ],
+            },
+            "linux": {
+                // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " newt clean -v all && rm -r target ; echo ✅ ◾ ️Done! "
+                ],
+            },
             "problemMatcher": []
         },
         {
@@ -165,20 +232,20 @@
             "type": "shell",
             "windows": {
                 "command": 
-                " scripts\\install-ext-windows.cmd "
+                " scripts\\install-ext-windows.cmd \"${execPath}\" "
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/install-ext-mac.sh "
+                    " scripts/install-ext-mac.sh ${execPath} "
                 ]
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/install-ext-linux.sh "
+                    " scripts/install-ext-linux.sh ${execPath} "
                 ]
             },
             "problemMatcher": []
@@ -188,11 +255,8 @@
             "label": "Install Mynewt",
             "type": "shell",
             "windows": {
-                "command": "bash",
-                "args": [
-                    "-c", "-l",
-                    " scripts/install-windows.sh "
-                ]
+                "command": 
+                " echo Check README.md for instructions "
             },
             "osx": {
                 "command": "bash",
