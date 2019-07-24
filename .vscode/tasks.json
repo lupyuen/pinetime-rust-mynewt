@@ -232,7 +232,7 @@
             "type": "shell",
             "windows": {
                 "command": 
-                " scripts\\install-ext-windows.cmd \"${execPath}\" "
+                " code --install-extension sanaajani.taskrunnercode --force && code --install-extension marus25.cortex-debug --force && code --reuse-window --install-extension ms-vscode.cpptools --force && code --reuse-window --install-extension rust-lang.rust --force && code --reuse-window --install-extension bungcip.better-toml --force "
             },
             "osx": {
                 "command": "bash",
