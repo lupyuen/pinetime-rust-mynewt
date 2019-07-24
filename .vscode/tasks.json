@@ -227,7 +227,7 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " newt\\newt.exe clean -v all && rd /s target && echo ✅ ◾ ️Done!"
+                    " newt\\newt.exe clean -v all && rd /q /s target && echo ✅ ◾ ️Done!"
                 ]
             },
             "osx": {
