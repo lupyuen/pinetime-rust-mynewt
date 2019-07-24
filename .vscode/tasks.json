@@ -8,8 +8,7 @@
             "label": "0️⃣ Install Apache Mynewt",
             "dependsOn": [
                 "Install Extensions", 
-                "Install Mynewt",
-                "Prompt Restart"
+                "Install Mynewt"
             ],
             "problemMatcher": []
         },
@@ -256,7 +255,7 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
+                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml && echo Done! Please restart Visual Studio Code to activate the extensions"
                 ]
             },
             "osx": {
@@ -273,7 +272,15 @@
                     " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
                 ]
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
         },
         {
             //  Install Mynewt source, build tools, sample.
@@ -283,7 +290,7 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " echo Check README.md for instructions "
+                    " echo Done! Please restart Visual Studio Code to activate the extensions"
                 ]
             },
             "osx": {
@@ -300,7 +307,15 @@
                     " scripts/install-linux.sh "
                 ]
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            }
         },
         {
             //  Prompt the user to restart.
@@ -327,7 +342,15 @@
                     " echo Done! Please restart Visual Studio Code to activate the extensions "
                 ]
             },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            }
         },
         /*  For debug we now use the Cortex Debug Extension.
         {
