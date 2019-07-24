@@ -415,6 +415,8 @@ This repository contains...
 
 # How This Application Was Created
 
+`newt\newt.exe` based on `https://github.com/lupyuen/mynewt-newt`
+
 Based on 
 
 https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html
