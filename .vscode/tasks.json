@@ -18,8 +18,11 @@
             "label": "1️⃣ Build bluepill_boot",
             "type": "shell",
             "windows": {
-                "command": 
-                " newt\\newt.exe build -v bluepill_boot && newt\\newt.exe size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " newt\\newt.exe build -v bluepill_boot && newt\\newt.exe size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                ]
             },
             "osx": {
                 "command": "bash",
@@ -42,8 +45,11 @@
             "label": "2️⃣ Build bluepill_my_sensor",
             "type": "shell",
             "windows": {
-                "command": 
-                " scripts\\build-app.cmd && echo ✅ ◾ ️Done! "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " scripts\\build-app.cmd && echo ✅ ◾ ️Done! "
+                ]
             },
             "osx": {
                 "command": "bash",
@@ -84,8 +90,11 @@
             "label": "3️⃣ Image bluepill_my_sensor",
             "type": "shell",
             "windows": {
-                "command": 
-                " newt\\newt.exe create-image -v bluepill_my_sensor 1.0.0 && newt\\newt.exe size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " newt\\newt.exe create-image -v bluepill_my_sensor 1.0.0 && newt\\newt.exe size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                ]
             },
             "osx": {
                 "command": "bash",
@@ -108,8 +117,11 @@
             "label": "4️⃣ Load bluepill_boot",
             "type": "shell",
             "windows": {
-                "command": 
-                " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
+                ]
             },
             "osx": {
                 // Previously: " newt load -v bluepill_boot && echo '**** Done!' "
@@ -134,8 +146,11 @@
             "label": "5️⃣ Load bluepill_my_sensor",
             "type": "shell",
             "windows": {
-                "command": 
-                " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                ]
             },
             "osx": {
                 // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
@@ -182,8 +197,11 @@
             "label": "📖 Generate Doc",
             "type": "shell",
             "windows": {
-                "command": 
-                " cargo doc --document-private-items && echo ✅ ◾ ️Done! "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " cargo doc --document-private-items && echo ✅ ◾ ️Done! "
+                ]
             },
             "osx": {
                 "command": "bash",
@@ -206,8 +224,11 @@
             "label": "🗑 Clean",
             "type": "shell",
             "windows": {
-                "command": 
-                " newt\\newt.exe clean -v all && rd /s target"
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " newt\\newt.exe clean -v all && rd /s target && echo ✅ ◾ ️Done!"
+                ]
             },
             "osx": {
                 // Previously: " newt load -v bluepill_my_sensor && echo '**** Done!' "
@@ -232,21 +253,24 @@
             "label": "Install Extensions",
             "type": "shell",
             "windows": {
-                "command": 
-                " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
+                ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/install-ext-mac.sh ${execPath} "
+                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
                 ]
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/install-ext-linux.sh ${execPath} "
+                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
                 ]
             },
             "problemMatcher": []
@@ -256,8 +280,11 @@
             "label": "Install Mynewt",
             "type": "shell",
             "windows": {
-                "command": 
-                " echo Check README.md for instructions "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " echo Check README.md for instructions "
+                ]
             },
             "osx": {
                 "command": "bash",
@@ -280,8 +307,11 @@
             "label": "Prompt Restart",
             "type": "shell",
             "windows": {
-                "command": 
-                " echo Done! Please restart Visual Studio Code to activate the extensions "
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " echo Done! Please restart Visual Studio Code to activate the extensions "
+                ]
             },
             "osx": {
                 "command": "bash",
