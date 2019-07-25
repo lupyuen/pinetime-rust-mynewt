@@ -1,0 +1,10 @@
+# Target Settings
+
+# Application that will be targeted
+target.app:           apps/my_sensor_app
+
+# Board Support Package (BSP) for the target
+target.bsp:           "@apache-mynewt-core/hw/bsp/nucleo-l476rg"
+
+# Build with debug info
+target.build_profile: debug

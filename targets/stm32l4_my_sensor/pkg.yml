@@ -1,0 +1,6 @@
+# Package Settings.  Overrides apps/my_sensor_app/pkg.yml
+pkg.name:       targets/stm32l4_my_sensor
+pkg.type:       target
+pkg.description: 
+pkg.author: 
+pkg.homepage: 

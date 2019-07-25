@@ -1,0 +1,70 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# System Configuration Setting Values:
+# Below are the values of the app settings. Values set here will override the defaults at
+# apps/my_sensor_app/syscfg.yml. Refer to that file for the descriptions of the settings.
+# Strings must be enclosed by '"..."'
+
+syscfg.vals:
+    ###########################################################################
+    # CoAP Server Settings
+
+    # CoAP host e.g. 104.199.85.211 (for coap.thethings.io)
+    COAP_HOST:      '"104.199.85.211"'
+
+    # CoAP UDP port, usually port 5683
+    COAP_PORT:      5683
+
+    # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
+    COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
+    ###########################################################################
+    # Sensor Settings
+
+    # Sensor device is the STM32 Internal Temperature Sensor
+    SENSOR_DEVICE:     MYNEWT_VAL(TEMP_STM32_DEVICE)
+
+    # Sensor value will be sent as field name `t`
+    SENSOR_KEY:        '"t"'
+
+    # Type of sensor is raw ambient temperature
+    SENSOR_TYPE:       SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
+
+    # Raw temperature sensor value is an integer (0 to 4095)
+    SENSOR_VALUE_TYPE: SENSOR_VALUE_TYPE_INT32
+
+    # Poll the sensor every 10,000 milliseconds (10 seconds)
+    SENSOR_POLL_TIME:  10 * 1000
+
+    ###########################################################################
+    # Network Settings
+
+    NBIOT_BAND:             8  # Connect to this NB-IoT band
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
+
+    ###########################################################################
+    # Hardware Settings
+     
+    BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
+    TEMP_STM32:             0  # Enable Blue Pill internal temperature sensor
+    ADC_1:                  0  # Enable port ADC1 for internal temperature sensor
+    HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
