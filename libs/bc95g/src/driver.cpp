@@ -41,6 +41,7 @@ static const struct sensor_network_interface network_iface = {
 /////////////////////////////////////////////////////////
 //  AT Functions. Refer to https://medium.com/@ly.lee/get-started-with-nb-iot-and-quectel-modules-6e7c581e0d61
 
+/// IDs of the AT commands
 enum CommandId {
     //  Sequence MUST match commands[] below.
     FIRST_COMMAND = 0,
@@ -72,6 +73,7 @@ enum CommandId {
     NUESTATS,  //  network stats
 };
 
+/// List of AT commands
 static const char *COMMANDS[] = {
     //  Sequence MUST match CommandId.
     "",  //  FIRST_COMMAND
@@ -82,7 +84,7 @@ static const char *COMMANDS[] = {
     "NRB",          //  NRB: reboot
 
     //  [1] Attach to network
-    "NBAND=8",  //  NBAND: select band
+    "NBAND=%d", //  NBAND: select band
     "CFUN=1",   //  CFUN: enable functions
     "CFUN?",    //  CFUN_QUERY: query functions
     "CEREG=0",  //  CEREG: network registration
@@ -103,11 +105,13 @@ static const char *COMMANDS[] = {
     "NUESTATS",  //  NUESTATS: network stats
 };
 
+/// Prefix for all commands: `AT+`
 static const char ATP[] = "AT+";
 
 /////////////////////////////////////////////////////////
 //  Internal Functions
 
+/// Initialise the buffers for the driver
 static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug) {
     serial.init(txbuf, txbuf_size, rxbuf, rxbuf_size);
@@ -118,14 +122,17 @@ static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_
     parser.debugOn(debug);
 }
 
+/// Configure the UART port
 static void internal_configure(int uart) {
     serial.configure(uart);
 }
 
+/// Attach to the UART port
 static void internal_attach(void (*func)(void *), void *arg) {
     serial.attach(func, arg);
 }
 
+/// Set the response timeout
 static void internal_timeout(uint32_t timeout_ms) {
     parser.setTimeout(timeout_ms);
 }
@@ -133,8 +140,8 @@ static void internal_timeout(uint32_t timeout_ms) {
 /////////////////////////////////////////////////////////
 //  Send AT Commands
 
+/// Return the command for the command ID.  Excludes the `AT+`.
 static const char *get_command(struct bc95g *dev, enum CommandId id) {
-    //  Return the command for the command ID.  Excludes the `AT+`.
     assert(id >= 0);
     assert(id < (sizeof(COMMANDS) / sizeof(COMMANDS[0])));  //  Invalid id
     const char *cmd = COMMANDS[id];
@@ -142,20 +149,18 @@ static const char *get_command(struct bc95g *dev, enum CommandId id) {
     return cmd;
 }
 
+/// Send `AT+`.
 static bool send_atp(struct bc95g *dev) {
-    //  Send `AT+`.
-    //  Wait a while between commands.
-    //  os_time_delay(1 * OS_TICKS_PER_SEC); ////
     return parser.write(ATP, sizeof(ATP) - 1) > 0;
 }
 
+/// Expect `OK` as the response for each command and query.
 static bool expect_ok(struct bc95g *dev) {
-    //  Expect `OK` as the response for each command and query.
     return parser.recv("OK");
 }
 
+/// Send an AT command with no parameters.
 static bool send_command(struct bc95g *dev, enum CommandId id) {
-    //  Send an AT command with no parameters.
     const char *cmd = get_command(dev, id);
     //debug_bc95g = 1;  ////
     bool res = (
@@ -168,8 +173,8 @@ static bool send_command(struct bc95g *dev, enum CommandId id) {
     return res;
 }
 
+///  Send an AT command with 1 int parameter e.g. `AT+NSOCL=1`
 static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
-    //  Send an AT command with 1 int parameter e.g. `AT+NSOCL=1`
     const char *cmd = get_command(dev, id);
     bool res = (
         send_atp(dev) &&
@@ -180,23 +185,10 @@ static bool send_command_int(struct bc95g *dev, enum CommandId id, int arg) {
     return res;
 }
 
-#ifdef NOTUSED
-static bool send_command_int_int(struct bc95g *dev, enum CommandId id, int arg1, int arg2) {
-    //  Send an AT command with 2 int parameters e.g. `AT+NSORF=1,35`
-    const char *cmd = get_command(dev, id);
-    bool res = (
-        send_atp(dev) &&
-        parser.send(cmd, arg1, arg2) &&
-        expect_ok(dev)
-    );
-    return res;
-}
-#endif  //  NOTUSED
-
+/// Send an AT query like `AT+CGATT?` or `AT+CEREG?`. Parse the comma-delimited result and return the parsed result.
+/// If `res1` is non-null and `res2` is null and the response is `=+CGATT:1` then `res1` is set to 1.
+/// If `res1` and `res2` are both non-null and the response is `=+CEREG:0,1` then `res1` is set to 0 and `res2` is set to 1.
 static bool send_query(struct bc95g *dev, enum CommandId id, int *res1, int *res2) {
-    //  Send an AT query like `AT+CGATT?` or `AT+CEREG?`. Parse the comma-delimited result and return the parsed result.
-    //  If `res1` is non-null and `res2` is null and the response is `=+CGATT:1` then `res1` is set to 1.
-    //  If `res1` and `res2` are both non-null and the response is `=+CEREG:0,1` then `res1` is set to 0 and `res2` is set to 1.
     assert(res1);
     const char *cmd = get_command(dev, id);
     char cmd_response[17];  memset(cmd_response, 0, sizeof(cmd_response));
@@ -222,8 +214,8 @@ static bool send_query(struct bc95g *dev, enum CommandId id, int *res1, int *res
     return res;
 }
 
+/// Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
 static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
-    //  Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
     assert(result);
     const char *cmd = get_command(dev, id);
     *result = -1;
@@ -243,11 +235,12 @@ static bool send_query_int(struct bc95g *dev, enum CommandId id, int *result) {
 /////////////////////////////////////////////////////////
 //  Device Creation Functions
 
+/// Return the BC95G Config
+static bc95g_cfg *cfg(struct bc95g *dev) { return &dev->cfg; }
 static void bc95g_event(void *drv);
-static bc95g_cfg *cfg(struct bc95g *dev) { return &dev->cfg; }                 //  Return the BC95G Config
 
+/// If first time we are opening the driver: Prepare the BC95G transceiver for use.  Lock the UART port.
 static int bc95g_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
-    //  If first time we are opening the driver: Prepare the BC95G transceiver for use.  Lock the UART port.
     if (!first_open) { console_printf("[\n"); return 0; }  ////
     first_open = false;
     console_printf("[\n");  ////
@@ -270,8 +263,8 @@ static int bc95g_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     return 0;
 }
 
+/// Shutdown the BC95G transceiver.  Unlock the UART port.
 static int bc95g_close(struct os_dev *dev0) {
-    //  Shutdown the BC95G transceiver.  Unlock the UART port.
     //  TODO: Undo driver.init(), driver.configure() and driver.attach()
     console_printf("]\n");  console_flush();  ////
     assert(dev0);
@@ -319,8 +312,8 @@ static int register_transport(const char *network_device, void *server_endpoint,
 /////////////////////////////////////////////////////////
 //  BC95G Driver Interface
 
+/// Callback for BC95G events
 static void bc95g_event(void *drv) {
-    //  Callback for BC95G events.
 #ifdef TODO
     for (int i = 0; i < BC95G_SOCKET_COUNT; i++) {
         if (_cbs[i].callback) {
@@ -330,11 +323,13 @@ static void bc95g_event(void *drv) {
 #endif  //  TODO
 }
 
+/// Sleep for the specified number of seconds
 static bool sleep(uint16_t seconds) {
     os_time_delay(seconds * OS_TICKS_PER_SEC);
     return true;
 }
 
+/// Wait for NB-IoT network registration
 static bool wait_for_registration(struct bc95g *dev) {
     //  CEREG_QUERY: query registration
     for (uint8_t i = 0; i < 10; i++) {
@@ -354,6 +349,7 @@ static bool wait_for_registration(struct bc95g *dev) {
     return false;  //  Not registered after 5 retries, quit.
 }
 
+/// Wait for NB-IoT network to be attached
 static bool wait_for_attach(struct bc95g *dev) {
     //  CGATT_QUERY: query attach
     for (uint8_t i = 0; i < 10; i++) {
@@ -373,8 +369,8 @@ static bool wait_for_attach(struct bc95g *dev) {
     return false;  //  Not attached after 10 retries, quit.
 }
 
+/// [Phase 0] Prepare to transmit
 static bool prepare_to_transmit(struct bc95g *dev) {
-    //  [Phase 0] Prepare to transmit
     return (
         //  Ignore the intial message.
         parser.send("AT") &&
@@ -402,11 +398,11 @@ static bool prepare_to_transmit(struct bc95g *dev) {
     );
 }
 
+/// [Phase 1] Attach to network
 static bool attach_to_network(struct bc95g *dev) {
-    //  [Phase 1] Attach to network
     return (        
-        //  NBAND: select band
-        send_command(dev, NBAND) &&
+        //  NBAND: select band. Configure `NBIOT_BAND` in `targets/bluepill_my_sensor/syscfg.yml`
+        send_command_int(dev, NBAND, MYNEWT_VAL(NBIOT_BAND)) &&
 
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
@@ -473,15 +469,15 @@ int bc95g_socket_close(struct bc95g *dev, struct bc95g_socket *socket) {
     return 0;
 }
 
+/// Given n=0..15, return '0'..'f'.
 static char nibble_to_hex(uint8_t n) {
-    //  Given n=0..15, return '0'..'f'.
     return (n < 10)
         ? '0' + n
         : 'a' + n - 10;
 }
 
+/// Send the data as hex digits.
 static bool send_hex(struct bc95g *dev, const uint8_t *data, uint16_t size) {
-    //  Send the data as hex digits.
     console_dump(data, size); console_printf("\n");
     char hex[2];
     for (uint16_t i = 0; i < size; i++) {
@@ -494,8 +490,8 @@ static bool send_hex(struct bc95g *dev, const uint8_t *data, uint16_t size) {
     return true;
 }
 
+/// Send the `data` buffer if `data` is non-null, or the chain of mbufs.
 static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t length, struct os_mbuf *mbuf) {
-    //  Send the data buffer if non-null, or the chain of mbufs.
     if (data && length > 0) {
         //  Send the data buffer as hex digits.
         return send_hex(dev, data, length);
@@ -518,9 +514,9 @@ static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t length, s
     return result;
 }
 
+/// Transmit the `data` buffer if `data` is non-null, or the chain of mbufs.  Return number of bytes sent.
 static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, 
     const uint8_t *data, uint16_t length, uint8_t sequence, struct os_mbuf *mbuf) {
-    //  Transmit the data buffer if non-null, or the chain of mbufs.  Return number of bytes sent.
     uint16_t local_port = socket->local_port;
     int local_port_response = -1, length_response = -1;
     internal_timeout(BC95G_SEND_TIMEOUT);
@@ -533,7 +529,6 @@ static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const
         parser.recv("%d,%d", &local_port_response, &length_response) &&
         parser.recv("OK")
     );
-    //asm("bkpt"); ////
     return res ? length : 0;
 }
 

@@ -5,3 +5,6 @@
 
 syscfg.defs:
     # BC95G Settings
+    NBIOT_BAND:
+        description: 'Connect to this NB-IoT band e.g. 8'
+        value:       8
