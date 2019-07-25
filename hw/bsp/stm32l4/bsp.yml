@@ -18,7 +18,7 @@
 #
 
 bsp.arch: cortex_m4
-bsp.compiler: compiler/arm-none-eabi-m4
+bsp.compiler: "@apache-mynewt-core/compiler/arm-none-eabi-m4"
 bsp.linkerscript:
     - "hw/bsp/stm32l4/stm32l4.ld"
     - "@apache-mynewt-core/hw/mcu/stm/stm32l4xx/stm32l476.ld"
