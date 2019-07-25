@@ -44,6 +44,7 @@ static struct sensor_listener listener = {
 int start_sensor_listener(void) {
     //  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
     //  Return 0 if successful.
+    if (strlen(MYNEWT_VAL(SENSOR_DEVICE)) == 0) { return 0; }  //  Sensor device not defined.
     console_printf("TMP poll %s\n", MYNEWT_VAL(SENSOR_DEVICE));
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.

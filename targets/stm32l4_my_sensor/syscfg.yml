@@ -37,7 +37,7 @@ syscfg.vals:
     ###########################################################################
     # Sensor Settings
 
-    # Sensor device is the STM32 Internal Temperature Sensor
+    # TODO: Sensor device is unspecified
     SENSOR_DEVICE:     '""'
 
     # Sensor value will be sent as field name `t`
