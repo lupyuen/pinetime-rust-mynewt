@@ -25,8 +25,8 @@ echo ""
 
 # Application address must sync with hw/bsp/stm32l4/bsp.yml
 echo "Flashing Application to Blue Pill..."
-flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08004000
-flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x00004000
+flash write_image erase unlock bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08004000
+flash verify_bank 0            bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x00004000
 echo ""
 
 # Restart the device.
