@@ -28,9 +28,10 @@ echo "Unlocking Blue Pill..."
 stm32f1x unlock 0  # Unlock will allow flash to be read after flashing.
 echo ""
 
+# Bootloader address must sync with hw/bsp/bluepill-64kb/bsp.yml
 echo "Flashing Bootloader to Blue Pill..."
 flash write_image erase unlock bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000
-flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf.bin 0
+flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
 echo ""
 
 # Restart the device.

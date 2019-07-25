@@ -1,7 +1,7 @@
 # This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Application ROM.
 # Used by tasks.json for "Load bluepill_my_sensor" command.
 # Equivalent to "newt load -v bluepill_my_sensor".
-# openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd
+# openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32l4x.cfg -f scripts/flash-app.ocd
 
 # Connect to the device.
 init
@@ -23,10 +23,10 @@ echo "Unlocking Blue Pill..."
 stm32l4x unlock 0  # Unlock will allow flash to be read after flashing.
 echo ""
 
-# Application address must sync with repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
+# Application address must sync with hw/bsp/stm32l4/bsp.yml
 echo "Flashing Application to Blue Pill..."
-flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08001000
-flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x1000
+flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08004000
+flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x00004000
 echo ""
 
 # Restart the device.

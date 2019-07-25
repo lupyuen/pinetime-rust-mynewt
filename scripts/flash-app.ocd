@@ -23,10 +23,10 @@ echo "Unlocking Blue Pill..."
 stm32f1x unlock 0  # Unlock will allow flash to be read after flashing.
 echo ""
 
-# Application address must sync with repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
+# Application address must sync with hw/bsp/bluepill-64kb/bsp.yml
 echo "Flashing Application to Blue Pill..."
 flash write_image erase unlock bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08001000
-flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x1000
+flash verify_bank 0            bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x00001000
 echo ""
 
 # Restart the device.

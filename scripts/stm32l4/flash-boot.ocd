@@ -1,7 +1,7 @@
 # This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Bootloader ROM.
 # Used by tasks.json for "Load bluepill_boot" command.
 # Equivalent to "newt load -v bluepill_boot".
-# openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd
+# openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32l4x.cfg -f scripts/flash-boot.ocd
 
 # Connect to the device.
 init
@@ -28,9 +28,10 @@ echo "Unlocking Blue Pill..."
 stm32l4x unlock 0  # Unlock will allow flash to be read after flashing.
 echo ""
 
+# Bootloader address must sync with hw/bsp/stm32l4/bsp.yml
 echo "Flashing Bootloader to Blue Pill..."
 flash write_image erase unlock bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000
-flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf.bin 0
+flash verify_bank 0            bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
 echo ""
 
 # Restart the device.
