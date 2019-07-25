@@ -38,9 +38,8 @@ int send_sensor_data(struct sensor_value *val) {
     //  For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
     //  {"values":[
     //    {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-    //    {"key":"tmp",    "value":28.7},
-    //    {"key":"...",    "value":... },
-    //    ... ]}
+    //    {"key":"t",      "value":1715}
+    //  ]}
     assert(val);
     const char *device_id = get_device_id();  assert(device_id);
 
