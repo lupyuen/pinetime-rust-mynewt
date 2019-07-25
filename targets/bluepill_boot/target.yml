@@ -1,4 +1,4 @@
 target.app: "apps/boot_stub"
-target.bsp: "@apache-mynewt-core/hw/bsp/bluepill"
-#target.build_profile: optimized
+# Target for 64 KB ROM instead of the usual 128 KB ROM
+target.bsp: "hw/bsp/bluepill-64kb"
 target.build_profile: debug

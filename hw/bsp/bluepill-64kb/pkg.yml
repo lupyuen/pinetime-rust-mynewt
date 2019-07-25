@@ -19,9 +19,9 @@
 
 ### Entries containing `***` need to be replaced with actual values.
 
-pkg.name: "hw/bsp/bluepill-new"
+pkg.name: "hw/bsp/bluepill-64kb"
 pkg.type: bsp
-pkg.description: "BSP Definition for Bluepill stm32f103c8 board"
+pkg.description: "BSP Definition for Bluepill stm32f103c8 board (64KB ROM)"
 pkg.author: "Apache Mynewt <dev@mynewt.apache.org>"
 pkg.homepage: "http://mynewt.apache.org/"
 pkg.keywords:

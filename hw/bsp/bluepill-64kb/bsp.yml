@@ -1,6 +1,6 @@
 # Patched for stm32bluepill-mynewt-sensor to reduce bootloader size
 # https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/master/patch/bluepill.ld
-# repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
+# repos/apache-mynewt-core/hw/bsp/bluepill-64kb/bsp.yml
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -26,26 +26,27 @@ bsp.arch: cortex_m3
 bsp.compiler: '@apache-mynewt-core/compiler/arm-none-eabi-m3'
 
 bsp.linkerscript:
-    - 'hw/bsp/bluepill/bluepill.ld'
+    - 'hw/bsp/bluepill-64kb/bluepill.ld'
     - '@apache-mynewt-core/hw/mcu/stm/stm32f1xx/stm32f103.ld'
 
 bsp.linkerscript.BOOT_LOADER.OVERWRITE:
-    - 'hw/bsp/bluepill/boot-bluepill.ld'
+    - 'hw/bsp/bluepill-64kb/boot-bluepill.ld'
     - '@apache-mynewt-core/hw/mcu/stm/stm32f1xx/stm32f103.ld'
-bsp.downloadscript: "hw/bsp/bluepill/bluepill_download.sh"
-bsp.debugscript: "hw/bsp/bluepill/bluepill_debug.sh"
-bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/bluepill/bluepill_download.cmd"
-bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/bluepill/bluepill_debug.cmd"
+bsp.downloadscript: "hw/bsp/bluepill-64kb/bluepill_download.sh"
+bsp.debugscript: "hw/bsp/bluepill-64kb/bluepill_debug.sh"
+bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/bluepill-64kb/bluepill_download.cmd"
+bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/bluepill-64kb/bluepill_debug.cmd"
 
 bsp.flash_map:
     areas:
         # Bootloader Stub and Application located in lower 64 KB ROM.
         FLASH_AREA_BOOTLOADER:
+            # Must sync with boot-bluepill.ld, scripts/flash-boot.ocd
             device: 0
             offset: 0x08000000
             size: 4kB
         FLASH_AREA_IMAGE_0:
-            # Must sync with scripts/flash-app.ocd, repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
+            # Must sync with bluepill.ld, scripts/flash-app.ocd
             device: 0
             offset: 0x08001000 
             size: 60kB

@@ -4,7 +4,8 @@
 target.app:           apps/my_sensor_app
 
 # Board Support Package (BSP) for the target e.g. Blue Pill
-target.bsp:           "@apache-mynewt-core/hw/bsp/bluepill"
+# Target for 64 KB ROM instead of the usual 128 KB ROM
+target.bsp:           "hw/bsp/bluepill-64kb"
 
 # Build with debug info
 target.build_profile: debug
