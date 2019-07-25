@@ -24,7 +24,9 @@
 #include <sensor/sensor.h>            //  For SENSOR_VALUE_TYPE_INT32
 #include <oic/messaging/coap/coap.h>  //  For APPLICATION_JSON
 #include <console/console.h>
+#if MYNEWT_VAL(HMAC_PRNG)
 #include <hmac_prng/hmac_prng.h>      //  Pseudorandom number generator for device ID
+#endif  //  MYNEWT_VAL(HMAC_PRNG)
 #include <sensor_coap/sensor_coap.h>  //  Sensor CoAP library
 #include "sensor_network/sensor_network.h"
 
@@ -362,8 +364,10 @@ const uint8_t *get_hardware_id(void) {
 const char *get_device_id(void) {
     //  Get the randomly-generated Device ID that will be sent in every CoAP Server message.  Changes upon restart.
     if (device_id_text[0]) { return device_id_text; }
+#if MYNEWT_VAL(HMAC_PRNG)
     //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
     int rc = hmac_prng_generate(device_id, DEVICE_ID_LENGTH);  assert(rc == 0);
+#endif  //  MYNEWT_VAL(HMAC_PRNG)
     char *s = device_id_text; int i;
     //  Convert to text e.g. abcdef...
     for (i = 0; i < DEVICE_ID_LENGTH; i++) {

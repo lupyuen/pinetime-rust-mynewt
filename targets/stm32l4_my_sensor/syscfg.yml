@@ -38,7 +38,7 @@ syscfg.vals:
     # Sensor Settings
 
     # Sensor device is the STM32 Internal Temperature Sensor
-    SENSOR_DEVICE:     MYNEWT_VAL(TEMP_STM32_DEVICE)
+    SENSOR_DEVICE:     '""'
 
     # Sensor value will be sent as field name `t`
     SENSOR_KEY:        '"t"'
