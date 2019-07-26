@@ -65,6 +65,9 @@ syscfg.defs:
     TEMP_STM32:
         description: 'Enable STM32 internal temperature sensor based on ADC'
         value:        0        
+    TEMP_STUB:
+        description: 'Enable stub temperature sensor'
+        value:        0        
     RAW_TEMP:
         description: 'Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size'
         value:        0        

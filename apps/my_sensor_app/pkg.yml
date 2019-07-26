@@ -65,6 +65,10 @@ pkg.deps.SENSOR_COAP:
 pkg.deps.TEMP_STM32:
     - "libs/temp_stm32"                    #  Internal temperature sensor for STM32, based on ADC
 
+# Sensor Driver for stub temperature sensor
+pkg.deps.TEMP_STUB:
+    - "libs/temp_stub"                     #  Stub temperature sensor
+
 # STM32F1 ADC driver (for internal temperature sensor)
 pkg.deps.ADC_1:
     - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
@@ -73,7 +77,7 @@ pkg.deps.ADC_1:
 pkg.deps.ESP8266:
     - "libs/esp8266"                       #  ESP8266 WiFi driver
 
-#  HMAC PRNG pseudorandom number generator library
+# HMAC PRNG pseudorandom number generator library
 pkg.deps.HMAC_PRNG:
     - "libs/hmac_prng"                     #  HMAC PRNG pseudorandom number generator
 
