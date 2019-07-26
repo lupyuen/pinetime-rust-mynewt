@@ -61,7 +61,7 @@
                     </value>
                     <next>
                       <block type="procedures_callnoreturn" id="=L}9h{.d]#2`Ik^C)y(E">
-                        <mutation name="start_server_transport">
+                        <mutation name="network::start_server_transport">
                           <arg name="network"></arg>
                         </mutation>
                         <value name="ARG0">
@@ -89,7 +89,7 @@
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
     <statement name="STACK">
       <block type="procedures_callnoreturn" id="7zl-|;/*+_em`,/$a^|n">
-        <mutation name="set_poll_rate_ms">
+        <mutation name="sensor::set_poll_rate_ms">
           <arg name="sensor"></arg>
           <arg name="millisec"></arg>
         </mutation>
@@ -105,7 +105,7 @@
         </value>
         <next>
           <block type="procedures_callnoreturn" id="jfH_849uIS#u3r0982fN">
-            <mutation name="register_listener">
+            <mutation name="sensor::register_listener">
               <arg name="sensor"></arg>
               <arg name="listener"></arg>
             </mutation>
@@ -156,7 +156,7 @@
                 </value>
                 <next>
                   <block type="procedures_callnoreturn" id="vuZ0E?,5Xzs`hHE|UO_c">
-                    <mutation name="init_server_post">
+                    <mutation name="network::init_server_post">
                       <arg name="host"></arg>
                       <arg name="port"></arg>
                       <arg name="uri"></arg>
@@ -206,7 +206,7 @@
                         </value>
                         <next>
                           <block type="procedures_callnoreturn" id="tc/EWZNB{if?Hk[r(w8A">
-                            <mutation name="do_server_post">
+                            <mutation name="network::do_server_post">
                               <arg name="payload"></arg>
                             </mutation>
                             <value name="ARG0">
@@ -251,14 +251,14 @@
       <arg name="sensor" varid="{0:uoGS8Ut7qbrMxY+DT"></arg>
       <arg name="millisec" varid="@k2]dh4RQ4wcej_BOd0w"></arg>
     </mutation>
-    <field name="NAME">set_poll_rate_ms</field>
+    <field name="NAME">sensor::set_poll_rate_ms</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
   </block>
   <block type="procedures_defnoreturn" id="x8HC)hVxiLkuLgW_uU]i" x="438" y="537">
     <mutation>
       <arg name="network" varid="2j?Wbn0?}roI+y7F?5La"></arg>
     </mutation>
-    <field name="NAME">start_server_transport</field>
+    <field name="NAME">network::start_server_transport</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
   </block>
   <block type="procedures_defnoreturn" id="`{AbNvOKicSC/jqf@x{x" x="37" y="612">
@@ -266,7 +266,7 @@
       <arg name="sensor" varid="{0:uoGS8Ut7qbrMxY+DT"></arg>
       <arg name="listener" varid="pW#H4#F0sFg9vRWVahxG"></arg>
     </mutation>
-    <field name="NAME">register_listener</field>
+    <field name="NAME">sensor::register_listener</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
   </block>
   <block type="procedures_defnoreturn" id="qITn-Ew_Q:4+f^QQU^n," x="437" y="613">
@@ -275,18 +275,14 @@
       <arg name="port" varid="NF^UZN;DB?_$s$sOX,z|"></arg>
       <arg name="uri" varid="rO29tV+a|lgtrwy%}$(R"></arg>
     </mutation>
-    <field name="NAME">init_server_post</field>
-    <comment pinned="false" h="80" w="160">Describe this function...</comment>
-  </block>
-  <block type="procedures_defreturn" id="ir.4PQkx:h/`6y`d[Z0P" x="38" y="688">
-    <field name="NAME">get_temperature</field>
+    <field name="NAME">network::init_server_post</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
   </block>
   <block type="procedures_defnoreturn" id=")Gs9;%U7lg,N1F~dBmh[" x="437" y="687">
     <mutation>
       <arg name="payload" varid="}BJ%MDhN{/((:45os0[w"></arg>
     </mutation>
-    <field name="NAME">do_server_post</field>
+    <field name="NAME">network::do_server_post</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
   </block>
 </xml>
