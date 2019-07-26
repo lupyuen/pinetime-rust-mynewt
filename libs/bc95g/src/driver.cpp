@@ -343,7 +343,8 @@ static bool wait_for_registration(struct bc95g *dev) {
         if (status == 1) { return true; }  //  If registered, exit.
 
         //  If not yet registered to network, `status` will be 2 and we should recheck in a while.
-        //  Wait 2 seconds.
+        //  Wait 2 seconds and retry.
+        console_flush();
         sleep(2);
     }
     return false;  //  Not registered after 5 retries, quit.
@@ -363,26 +364,38 @@ static bool wait_for_attach(struct bc95g *dev) {
         if (state == 1) { return true; }  //  If attached, exit.
 
         //  If not yet attached to network, `state` will be 0 and we should recheck in a while.
-        //  Wait 2 seconds.
+        //  Wait 2 seconds and retry.
+        console_flush();
         sleep(2);
     }
     return false;  //  Not attached after 10 retries, quit.
 }
 
+/// At startup, keep sending AT and wait for module to respond OK. This skips the ERROR response at startup.
+static bool wait_for_ok(struct bc95g *dev) {
+    for (uint8_t i = 0; i < 10; i++) {
+        //  Send AT and check for OK response.  Insert "\r\n" in case there was a previous command.
+        bool res = (
+            parser.send("\r\nAT") &&
+            parser.recv("OK")
+        );
+        if (res) {
+            //  If OK received, flush the response and continue to next command.
+            parser.flush();
+            return true;
+        }
+        //  Wait 2 seconds and retry.
+        console_flush();
+        sleep(2);
+    }
+    return false;  //  Can't get OK 10 retries, quit.
+}
+
 /// [Phase 0] Prepare to transmit
 static bool prepare_to_transmit(struct bc95g *dev) {
     return (
-        //  Ignore the intial message.
-        parser.send("AT") &&
-        expect_ok(dev) &&
-
-        //  Ignore the intial message.
-        parser.send("AT") &&
-        expect_ok(dev) &&
-
-        //  Ignore the intial message.
-        parser.send("AT") &&
-        expect_ok(dev) &&
+        //  At startup, skip the ERROR response and wait for OK.
+        wait_for_ok(dev) &&
 
         //  NCONFIG: configure
         send_command(dev, NCONFIG) &&

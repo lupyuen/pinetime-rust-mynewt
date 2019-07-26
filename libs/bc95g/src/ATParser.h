@@ -119,13 +119,13 @@ public:
     bool vsend(const char *command, va_list args);
 
     /**
-    * Recieve an AT response
+    * Receive an AT response
     *
-    * Recieves a formatted response using scanf style formatting
+    * Receives a formatted response using scanf style formatting
     * @see ::scanf
     *
     * Responses are parsed line at a time using the specified delimiter.
-    * Any recieved data that does not match the response is ignored until
+    * Any received data that does not match the response is ignored until
     * a timeout occurs.
     *
     * @param response scanf-like format string of response to expect
