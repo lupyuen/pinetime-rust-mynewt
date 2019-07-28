@@ -3,10 +3,19 @@
 
 #![no_std]                        //  Don't link with standard Rust library, which is not compatible with embedded systems
 #![feature(const_transmute)]      //  Allow `transmute` for initialising Mynewt structs
+#![feature(trace_macros)]         //  Enable tracing of macros
+#![feature(proc_macro_hygiene)]   //  Allow proc macros to be unhygienic
 #![feature(custom_attribute)]     //  Allow Custom Attributes like `#[safe_wrap]`
 
-#[macro_use]        //  Allow macros from Rust module `macros`
-pub mod macros;     //  Export `macros.rs` as Rust module `macros`. Contains Mynewt macros.
+extern crate macros as proc_macros;
+use proc_macros::safe_wrap;
+
+use crate::{
+    result::*,
+};
+
+#[macro_use]     //  Allow macros from Rust module `macros`
+pub mod macros;  //  Export `macros.rs` as Rust module `macros`. Contains Mynewt macros.
 
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
@@ -39,7 +48,7 @@ extern {
 
 /// Return type and error codes for Mynewt API
 pub mod result {
-    use super::kernel::os;
+    use crate::kernel::os;
 
     /// Common return type for Mynewt API.  If no error, returns `Ok(val)` where val has type T.
     /// Upon error, returns `Err(err)` where err is the MynewtError error code.

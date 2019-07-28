@@ -4,7 +4,7 @@
 //! ```
 #![recursion_limit="128"] //  Increase recursion limit to prevent quote!{} errors
 
-mod safe_wrap;  //  Import safe_wrap.rs
+mod safe_wrap;  //  Include safe_wrap.rs
 
 extern crate proc_macro;
 use proc_macro::TokenStream;

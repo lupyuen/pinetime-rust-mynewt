@@ -471,7 +471,7 @@ extern "C" {
     #[doc = " Return: The event from the queue"]
     pub fn os_eventq_get(arg1: *mut os_eventq) -> *mut os_event;
 }
-#[safe_wrap(attr)] ////
+#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     #[doc = " Pull a single item off the event queue and call it's event"]
     #[doc = " callback."]
@@ -503,7 +503,7 @@ extern "C" {
     #[doc = " - __`ev`__:  The event to remove from the queue"]
     pub fn os_eventq_remove(arg1: *mut os_eventq, arg2: *mut os_event);
 }
-#[safe_wrap(attr)] ////
+#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     #[doc = " Retrieves the default event queue processed by OS main task."]
     #[doc = ""]

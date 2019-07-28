@@ -944,7 +944,7 @@ extern "C" {
     #[doc = "         none found."]
     pub fn sensor_mgr_find_next_bytype(type_: sensor_type_t, sensor: *mut sensor) -> *mut sensor;
 }
-#[safe_wrap(attr)] ////
+#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     #[doc = " Search the sensor list and find the next sensor that corresponds"]
     #[doc = " to a given device name."]
@@ -967,7 +967,7 @@ extern "C" {
     #[doc = " Return: 1 if matches, 0 if it doesn't match."]
     pub fn sensor_mgr_match_bytype(sensor: *mut sensor, arg1: *mut ::cty::c_void) -> ::cty::c_int;
 }
-#[safe_wrap(attr)] ////
+#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     #[doc = " Set the sensor poll rate"]
     #[doc = ""]

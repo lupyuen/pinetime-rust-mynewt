@@ -13252,7 +13252,7 @@ Disassembly of section .text._ZN6mynewt6result88_$LT$impl$u20$core..convert..Fro
 
 00000000 <_ZN6mynewt6result88_$LT$impl$u20$core..convert..From$LT$mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17hc4876d7d07375b70E>:
 _ZN6mynewt6result88_$LT$impl$u20$core..convert..From$LT$mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17hc4876d7d07375b70E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:78
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:87
     /// Cast `MynewtError` to `i32`
     impl From<MynewtError> for i32 {
         /// Cast `MynewtError` to `i32`
@@ -13265,7 +13265,7 @@ Disassembly of section .text._ZN6mynewt4Strn3new17hd3927fe713482c61E:
 
 00000000 <_ZN6mynewt4Strn3new17hd3927fe713482c61E>:
 _ZN6mynewt4Strn3new17hd3927fe713482c61E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:115
     /// Create a new byte string. Fail if the last byte is not zero.
     /// ```
     /// Strn::new(b"network\0")
@@ -13289,7 +13289,7 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   16:	2b00      	cmp	r3, #0
 _ZN6mynewt4Strn3new17hd3927fe713482c61E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:117
         //  Last byte must be 0.
         assert_eq!(bs.last(), Some(&0u8));
   18:	9301      	str	r3, [sp, #4]
@@ -13298,9 +13298,9 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
   1a:	d004      	beq.n	26 <_ZN6mynewt4Strn3new17hd3927fe713482c61E+0x26>
 _ZN6mynewt4Strn3new17hd3927fe713482c61E():
   1c:	781a      	ldrb	r2, [r3, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:117
   1e:	2a00      	cmp	r2, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:111
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:120
         let res = Strn { bytestr: bs };
         res
     }
@@ -13308,7 +13308,7 @@ _ZN6mynewt4Strn3new17hd3927fe713482c61E():
   22:	b00e      	addeq	sp, #56	; 0x38
   24:	4770      	bxeq	lr
   26:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:117
         assert_eq!(bs.last(), Some(&0u8));
   28:	900c      	str	r0, [sp, #48]	; 0x30
   2a:	f240 0000 	movw	r0, #0
@@ -13331,7 +13331,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   54:	2003      	movs	r0, #3
   56:	e9cd cc04 	strd	ip, ip, [sp, #16]
 _ZN6mynewt4Strn3new17hd3927fe713482c61E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:117
   5a:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -13341,7 +13341,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   68:	9002      	str	r0, [sp, #8]
   6a:	a802      	add	r0, sp, #8
 _ZN6mynewt4Strn3new17hd3927fe713482c61E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:117
   6c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
   70:	defe      	udf	#254	; 0xfe
 
@@ -13349,7 +13349,7 @@ Disassembly of section .text._ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E:
 
 00000000 <_ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E>:
 _ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:115
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:124
 
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
@@ -13371,7 +13371,7 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   16:	2b00      	cmp	r3, #0
 _ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
         //  Last byte must be 0.
         let bs: &'static [u8] = self.bytestr;
         assert_eq!(bs.last(), Some(&0u8));
@@ -13381,16 +13381,16 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
   1a:	d004      	beq.n	26 <_ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E+0x26>
 _ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E():
   1c:	7819      	ldrb	r1, [r3, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
   1e:	2900      	cmp	r1, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:120
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:129
         bs.as_ptr() as *const ::cty::c_char
     }
   20:	bf04      	itt	eq
   22:	b00e      	addeq	sp, #56	; 0x38
   24:	4770      	bxeq	lr
   26:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
         assert_eq!(bs.last(), Some(&0u8));
   28:	900c      	str	r0, [sp, #48]	; 0x30
   2a:	f240 0000 	movw	r0, #0
@@ -13413,7 +13413,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   54:	2003      	movs	r0, #3
   56:	e9cd cc04 	strd	ip, ip, [sp, #16]
 _ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
   5a:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -13423,7 +13423,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   68:	9002      	str	r0, [sp, #8]
   6a:	a802      	add	r0, sp, #8
 _ZN6mynewt4Strn7as_cstr17h38c35fa374388ff3E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
   6c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
   70:	defe      	udf	#254	; 0xfe
 
@@ -13431,7 +13431,7 @@ Disassembly of section .text._ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E:
 
 00000000 <_ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E>:
 _ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:124
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:133
 
     /// Return the byte string.
     /// Fail if the last byte is not zero.
@@ -13453,7 +13453,7 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   16:	2b00      	cmp	r3, #0
 _ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
         //  Last byte must be 0.
         let bs: &'static [u8] = self.bytestr;
         assert_eq!(bs.last(), Some(&0u8));
@@ -13463,16 +13463,16 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
   1a:	d004      	beq.n	26 <_ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E+0x26>
 _ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E():
   1c:	781a      	ldrb	r2, [r3, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
   1e:	2a00      	cmp	r2, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:129
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:138
         &bs
     }
   20:	bf04      	itt	eq
   22:	b00e      	addeq	sp, #56	; 0x38
   24:	4770      	bxeq	lr
   26:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
         assert_eq!(bs.last(), Some(&0u8));
   28:	900c      	str	r0, [sp, #48]	; 0x30
   2a:	f240 0000 	movw	r0, #0
@@ -13495,7 +13495,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   54:	2003      	movs	r0, #3
   56:	e9cd cc04 	strd	ip, ip, [sp, #16]
 _ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
   5a:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -13505,7 +13505,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   68:	9002      	str	r0, [sp, #8]
   6a:	a802      	add	r0, sp, #8
 _ZN6mynewt4Strn10as_bytestr17h7b17c81bb3c73e77E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
   6c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
   70:	defe      	udf	#254	; 0xfe
 
@@ -13513,7 +13513,7 @@ Disassembly of section .text._ZN6mynewt4Strn8validate17hfa21ec07aad46624E:
 
 00000000 <_ZN6mynewt4Strn8validate17hfa21ec07aad46624E>:
 _ZN6mynewt4Strn8validate17hfa21ec07aad46624E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:132
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
 
     /// Fail if the last byte is not zero.
     pub fn validate(self) {
@@ -13534,7 +13534,7 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   16:	2b00      	cmp	r3, #0
 _ZN6mynewt4Strn8validate17hfa21ec07aad46624E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
         //  Last byte must be 0.
         let bs = &self.bytestr;
         assert_eq!(bs.last(), Some(&0u8));
@@ -13544,15 +13544,15 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
   1a:	d004      	beq.n	26 <_ZN6mynewt4Strn8validate17hfa21ec07aad46624E+0x26>
 _ZN6mynewt4Strn8validate17hfa21ec07aad46624E():
   1c:	7818      	ldrb	r0, [r3, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
   1e:	2800      	cmp	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:145
     }
   20:	bf04      	itt	eq
   22:	b00e      	addeq	sp, #56	; 0x38
   24:	4770      	bxeq	lr
   26:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
         assert_eq!(bs.last(), Some(&0u8));
   28:	900c      	str	r0, [sp, #48]	; 0x30
   2a:	f240 0000 	movw	r0, #0
@@ -13575,7 +13575,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   54:	2003      	movs	r0, #3
   56:	e9cd cc04 	strd	ip, ip, [sp, #16]
 _ZN6mynewt4Strn8validate17hfa21ec07aad46624E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
   5a:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -13585,7 +13585,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   68:	9002      	str	r0, [sp, #8]
   6a:	a802      	add	r0, sp, #8
 _ZN6mynewt4Strn8validate17hfa21ec07aad46624E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
   6c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
   70:	defe      	udf	#254	; 0xfe
 
@@ -13593,7 +13593,7 @@ Disassembly of section .text._ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdc
 
 00000000 <_ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE>:
 _ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:139
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:148
 
     /// Fail if the last byte is not zero.
     pub fn validate_bytestr(bs: &'static [u8]) {
@@ -13614,7 +13614,7 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   16:	2b00      	cmp	r3, #0
 _ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:150
         //  Last byte must be 0.
         assert_eq!(bs.last(), Some(&0u8));
   18:	9301      	str	r3, [sp, #4]
@@ -13623,15 +13623,15 @@ _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17
   1a:	d004      	beq.n	26 <_ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE+0x26>
 _ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE():
   1c:	7818      	ldrb	r0, [r3, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:150
   1e:	2800      	cmp	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:142
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:151
     }
   20:	bf04      	itt	eq
   22:	b00e      	addeq	sp, #56	; 0x38
   24:	4770      	bxeq	lr
   26:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:150
         assert_eq!(bs.last(), Some(&0u8));
   28:	900c      	str	r0, [sp, #48]	; 0x30
   2a:	f240 0000 	movw	r0, #0
@@ -13654,7 +13654,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   54:	2003      	movs	r0, #3
   56:	e9cd cc04 	strd	ip, ip, [sp, #16]
 _ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:150
   5a:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -13664,7 +13664,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
   68:	9002      	str	r0, [sp, #8]
   6a:	a802      	add	r0, sp, #8
 _ZN6mynewt4Strn16validate_bytestr17h48f3417aad3cbdceE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:150
   6c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
   70:	defe      	udf	#254	; 0xfe
 
@@ -13699,7 +13699,7 @@ Disassembly of section .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$co
 
 00000000 <_ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hffcd2d6e43a98b23E>:
 _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hffcd2d6e43a98b23E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:50
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:59
     #[derive(Debug, PartialEq)]
    0:	b510      	push	{r4, lr}
    2:	b084      	sub	sp, #16
