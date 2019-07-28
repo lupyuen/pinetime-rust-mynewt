@@ -8,11 +8,9 @@
 
 use cstr_core::CStr;                    //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::c_char;                        //  Import C types from `cty` library: https://crates.io/crates/cty
-use crate::fill_zero;                   //  Import `mynewt/macros.rs` for Mynewt macros
-use crate::base::*;                     //  Import `base.rs` for common declarations
-use crate::send_coap::send_sensor_data; //  Import `send_coap.rs` for sending sensor data
-use crate::mynewt::{
+use mynewt::{
     result::*,                          //  Import Mynewt API Result and Error types
+    fill_zero,                          //  Import Mynewt macros
     hw::sensor::{        
         self,                           //  Import Mynewt Sensor API functions
         sensor_ptr,                     //  Import Mynewt Sensor API types
@@ -23,6 +21,8 @@ use crate::mynewt::{
         sensor_type_t,
     }
 };
+use crate::base::*;                     //  Import `base.rs` for common declarations
+use crate::send_coap::send_sensor_data; //  Import `send_coap.rs` for sending sensor data
 
 ///  Poll every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  

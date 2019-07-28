@@ -1145,7 +1145,7 @@ macro_rules! oc_rep_set_int {
     let value = $value as i64;
 
     "-------------------------------------------------------------";
-    mynewt_macros::run!({
+    macros::run!({
       //  TODO: First para should be name of current map or array
       let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));

@@ -11,12 +11,8 @@
 #![feature(custom_attribute)]    //  Allow Custom Attributes like `#[safe_wrap]`
 
 extern crate cortex_m;       //  Declare the external library `cortex_m`
-extern crate mynewt_macros;  //  Declare the Mynewt Macros library, because it exports Procedural Macros
-
-#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
-#[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
-#[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-mod mynewt;                       //  Declare `mynewt/mod.rs` as Rust module `mynewt`
+extern crate macros;         //  Declare the Mynewt Macros library
+extern crate mynewt;         //  Declare the Mynewt library
 
 #[allow(dead_code)] //  Suppress warnings of unused constants and vars
 mod base;           //  Declare `base.rs` as Rust module `base`

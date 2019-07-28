@@ -10,11 +10,10 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
-use mynewt_macros::{out, strn, init_strn}; //  Import Mynewt macros from `macros` library
-use crate::{coap, d, fill_zero};  //  Import Mynewt macros from `mynewt/macros.rs`
-use crate::base::*;       //  Import `base.rs` for common declarations
-use crate::mynewt::{
+use macros::{out, strn, init_strn} ; //  Import procedural macros
+use mynewt::{
     result::*,            //  Import Mynewt result and error types
+    coap, d, fill_zero,   //  Import Mynewt macros
     kernel::os::{  
         self,             //  Import Mynewt OS functions
         os_task,          //  Import Mynewt OS types
@@ -39,6 +38,7 @@ use crate::mynewt::{
         },
     },
 };
+use crate::base::*;       //  Import `base.rs` for common declarations
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Testing
@@ -100,7 +100,7 @@ fn test_safe_wrap() -> MynewtResult<()> {
     let _test_local = init_strn!("hello");
 
     "-------------------------------------------------------------";
-    #[mynewt_macros::safe_wrap(attr)]
+    #[macros::safe_wrap(attr)]
     extern "C" {
         pub fn os_task_init(
             t: *mut os_task,

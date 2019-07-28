@@ -1,8 +1,8 @@
 //!  Common declarations for the application.  Includes custom sensor declarations.
 
 use cty::c_char;                        //  Import C types from `cty` library: https://crates.io/crates/cty
-use crate::mynewt::kernel::os::os_dev;  //  Import Mynewt Device type
-use crate::mynewt::hw::sensor::{        //  Import Mynewt Sensor API
+use mynewt::kernel::os::os_dev;  //  Import Mynewt Device type
+use mynewt::hw::sensor::{        //  Import Mynewt Sensor API
     self,
     sensor_ptr,
     sensor_data_ptr,
