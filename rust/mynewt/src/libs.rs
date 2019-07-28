@@ -1,5 +1,15 @@
 //! Mynewt Custom API for Rust
 
+extern crate macros;
+use macros::{safe_wrap}; //  Import Mynewt macros from `macros` library
+
+use crate::{
+    kernel::os::*,
+    hw::sensor::*,
+    encoding::json::*,
+    libs::sensor_coap::*,
+};
+
 /// Contains Rust bindings for Mynewt Custom API `libs/sensor_coap`
 pub mod sensor_coap; // Export `sensor_coap.rs` as Rust module `mynewt::libs::sensor_coap`
 

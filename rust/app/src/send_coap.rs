@@ -13,7 +13,6 @@ use cty::*;               //  Import C types from cty library: https://crates.io
 use macros::{out, strn, init_strn} ; //  Import procedural macros
 use mynewt::{
     result::*,            //  Import Mynewt result and error types
-    coap, d, fill_zero,   //  Import Mynewt macros
     kernel::os::{  
         self,             //  Import Mynewt OS functions
         os_task,          //  Import Mynewt OS types
@@ -37,6 +36,8 @@ use mynewt::{
             sensor_value,
         },
     },
+    coap, d, fill_zero,   //  Import Mynewt macros
+    NULL, Out, Ptr, Strn,
 };
 use crate::base::*;       //  Import `base.rs` for common declarations
 

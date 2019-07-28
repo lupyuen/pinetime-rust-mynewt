@@ -96,6 +96,8 @@ function generate_bindings_kernel() {
     #  bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
     local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     local whitelist=`cat << EOF
+        --raw-line use \
+        --raw-line super::*; \
         --whitelist-var      (?i)SYS_E.* \
         --whitelist-function (?i)${prefixname}_.* \
         --whitelist-type     (?i)${prefixname}_.* \
@@ -134,6 +136,8 @@ function generate_bindings_encoding() {
         #  Skip incorrect binding "pub static CborIndefiniteLength: usize", replace by const:
         #  static const size_t CborIndefiniteLength = (0xffffffffU)
         local whitelist=`cat << EOF
+            --raw-line use \
+            --raw-line super::*; \
             --raw-line pub \
             --raw-line const \
             --raw-line CborIndefiniteLength:usize=0xffffffffusize; \
@@ -146,6 +150,8 @@ EOF
     else
         #  Add whitelist only.
         local whitelist=`cat << EOF
+            --raw-line use \
+            --raw-line super::*; \
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
             --whitelist-var      (?i)${prefixname}.*
@@ -295,6 +301,8 @@ EOF
     else
         #  Add whitelist only.
         local whitelist=`cat << EOF
+            --raw-line use \
+            --raw-line super::*; \
             --whitelist-function (?i)${prefixname}.* \
             --whitelist-type     (?i)${prefixname}.* \
             --whitelist-var      (?i)${prefixname}.*
