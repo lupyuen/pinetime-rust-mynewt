@@ -173,7 +173,7 @@ function generate_bindings_hw() {
     #  Add whitelist and blacklist.
     local whitelist=`cat << EOF
         --raw-line use \
-        --raw-line super::super::super::kernel::os::*; \
+        --raw-line super::*; \
         --blacklist-item     os_callout \
         --blacklist-item     os_dev	\
         --blacklist-item     os_dev_handlers \
@@ -215,7 +215,7 @@ function generate_bindings_libs() {
         #  sensor_value is defined in libs/sensor_coap.
         local whitelist=`cat << EOF
             --raw-line use \
-            --raw-line super::sensor_coap::*; \
+            --raw-line super::*; \
             --blacklist-item     sensor_value \
             --whitelist-function (?i)init_.*_post \
             --whitelist-function (?i)do_.*_post \
@@ -233,7 +233,7 @@ EOF
         #  json_encoder and json_value are defined in encoding/json.
         local whitelist=`cat << EOF
             --raw-line use \
-            --raw-line super::super::encoding::json::*; \
+            --raw-line super::*; \
             --blacklist-item     json_encoder \
             --blacklist-item     json_value \
             --whitelist-type     (?i)sensor_value \
@@ -249,9 +249,7 @@ EOF
         #  Add mynewt_rust + whitelist + blacklist.
         local whitelist=`cat << EOF
             --raw-line use \
-            --raw-line super::super::kernel::os::*; \
-            --raw-line use \
-            --raw-line super::super::hw::sensor::*; \
+            --raw-line super::*; \
             --blacklist-item     os_callout \
             --blacklist-item     os_dev	\
             --blacklist-item     os_dev_handlers \

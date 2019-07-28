@@ -2,7 +2,8 @@
 //! Auto-generated Rust bindings are in the `bindings` module.
 
 use ::cty::c_void;
-use super::super::result::*;
+use crate::result::*;
+use crate::Strn;
 
 /// Contains the auto-generated Rust bindings for the Mynewt Sensor API
 mod bindings;  //  Import `bindings.rs` containing the bindings
