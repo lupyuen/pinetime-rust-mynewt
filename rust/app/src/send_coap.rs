@@ -43,57 +43,6 @@ use crate::base::*;       //  Import `base.rs` for common declarations
 ///////////////////////////////////////////////////////////////////////////////
 //  Testing
 
-/// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
-pub struct Strn {
-    /// Byte string terminated with null
-    pub bytestr: &'static [u8]
-}
-
-impl Strn {
-    /// Create a new byte string. Fail if the last byte is not zero.
-    /// ```
-    /// Strn::new(b"network\0")
-    /// strn!("network")
-    /// ```
-    pub fn new(bs: &'static [u8]) -> Strn {
-        //  Last byte must be 0.
-        assert_eq!(bs.last(), Some(&0u8));
-        let res = Strn { bytestr: bs };
-        res
-    }
-
-    /// Return the byte string as a null-terminated `* const char` C-style string.
-    /// Fail if the last byte is not zero.
-    pub fn as_cstr(self) -> *const ::cty::c_char {
-        //  Last byte must be 0.
-        let bs: &'static [u8] = self.bytestr;
-        assert_eq!(bs.last(), Some(&0u8));
-        bs.as_ptr() as *const ::cty::c_char
-    }
-
-    /// Return the byte string.
-    /// Fail if the last byte is not zero.
-    pub fn as_bytestr(self) -> &'static [u8] {
-        //  Last byte must be 0.
-        let bs: &'static [u8] = self.bytestr;
-        assert_eq!(bs.last(), Some(&0u8));
-        &bs
-    }
-
-    /// Fail if the last byte is not zero.
-    pub fn validate(self) {
-        //  Last byte must be 0.
-        let bs = &self.bytestr;
-        assert_eq!(bs.last(), Some(&0u8));
-    }
-
-    /// Fail if the last byte is not zero.
-    pub fn validate_bytestr(bs: &'static [u8]) {
-        //  Last byte must be 0.
-        assert_eq!(bs.last(), Some(&0u8));
-    }
-}
-
 static _test_static: Strn = init_strn!("hello");
 
 fn test_safe_wrap() -> MynewtResult<()> {
@@ -114,10 +63,6 @@ fn test_safe_wrap() -> MynewtResult<()> {
         ) -> ::cty::c_int;
     }
     "-------------------------------------------------------------";
-
-    type Out<T> = &'static mut T;
-    type Ptr = *mut ::cty::c_void;
-    const NULL: Ptr = 0 as Ptr;
 
     task_init(                      //  Create a new task and start it...
         out!( NETWORK_TASK ),       //  Task object will be saved here

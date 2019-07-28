@@ -2,7 +2,11 @@
 
 # All projects in the `rust` folder belong to this workspace
 [workspace]
-members = ["rust/*"]
+members = [
+    "rust/app",
+    "rust/macros",
+    "rust/mynewt"
+]
 
 # Options for `cargo build`
 [profile.dev]
