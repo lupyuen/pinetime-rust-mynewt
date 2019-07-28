@@ -20,8 +20,6 @@ use syn::{
 
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
 pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    let namespace = "os";  //  TODO
-    let namespace_prefix = format!("{}_", namespace).to_string();  //  e.g. `os_`
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as an extern "C" function declaration.
     let input = parse_macro_input!(item as syn::ItemForeignMod);
@@ -35,6 +33,10 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
             //  println!("foreign_fn: {:#?}", foreign_fn);
             //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
             let fn_name = foreign_fn.ident.to_string();
+            let namespace = get_namespace(&fn_name);
+            //let namespace = "os";  //  TODO
+            let namespace_prefix = format!("{}_", namespace).to_string();  //  e.g. `os_`
+
             assert!(fn_name.starts_with(&namespace_prefix));
             let fn_name_without_namespace = &fn_name[namespace_prefix.len()..];
             let fn_name_token = syn::Ident::new(&fn_name, foreign_fn.ident.span());
@@ -137,6 +139,12 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
         break;
     }
     "// Should not come here".parse().unwrap()
+}
+
+/// Given a function name like `os_task_init`, return the namespace (`os`)
+fn get_namespace(fname: &str) -> &str {
+    let fname_split: Vec<&str> = fname.splitn(2, "_").collect();
+    fname_split[0]
 }
 
 /// Collect the Wrapped Declarations for all args. Return a TokenStream of the declarations for the wrapper function:
