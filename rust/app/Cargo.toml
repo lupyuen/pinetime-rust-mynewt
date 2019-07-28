@@ -17,7 +17,7 @@ mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
-name       = "app"
+name       = "app"  # Output will be named `libapp.rlib`
 test       = false
 bench      = false
 

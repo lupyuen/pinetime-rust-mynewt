@@ -16,7 +16,7 @@ macros = { path = "../macros" } # Import path `../macros` as macros library
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
-name       = "mynewt"
+name       = "mynewt"  # Output will be named `libmynewt.rlib`
 test       = false
 bench      = false
 

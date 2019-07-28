@@ -4,13 +4,10 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-#  Build the application.
-newt build bluepill_my_sensor
-
-#  Show the size.
-newt size -v bluepill_my_sensor
-
-exit
+#  Build the application and show the size.
+# newt build bluepill_my_sensor
+# newt size -v bluepill_my_sensor
+# exit
 
 #####################################################################
 #  TODO: Build Rust application hosted on Mynewt OS
@@ -58,7 +55,7 @@ if [ -e $app_build ]; then
 fi
 
 #  Delete the compiled Rust app to force the Rust build to relink the Rust app.  Sometimes there are multiple copies of the compiled app, this deletes all copies.
-rust_app_build=$rust_build_dir/libmylib*.rlib
+rust_app_build=$rust_build_dir/libapp*.rlib
 for f in $rust_app_build
 do
     if [ -e $f ]; then
@@ -71,7 +68,7 @@ set +x ; echo ; echo "----- Build Rust app" ; set -x
 cargo build -v $rust_build_options
 
 #  Export the metadata for the Rust build.
-cargo metadata --format-version 1 >logs/libmylib.json
+cargo metadata --format-version 1 >logs/libapp.json
 
 #  Create rustlib, the library that contains the compiled Rust app and its dependencies (except libcore).  Create in temp folder named "tmprustlib"
 set +x ; echo ; echo "----- Consolidate Rust app and external libraries" ; set -x
@@ -134,9 +131,9 @@ done
 
 #  Dump the ELF and disassembly for the compiled Rust application.
 set +e
-arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/$rust_build_profile/libmylib.rlib >logs/libmylib.elf 2>&1
-arm-none-eabi-objdump -t -S            --line-numbers --wide target/thumbv7m-none-eabi/$rust_build_profile/libmylib.rlib >logs/libmylib.S 2>&1
-arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/thumbv7m-none-eabi/$rust_build_profile/libmylib.rlib >logs/libmylib-demangle.S 2>&1
+arm-none-eabi-readelf -a --wide target/thumbv7m-none-eabi/$rust_build_profile/libapp.rlib >logs/libapp.elf 2>&1
+arm-none-eabi-objdump -t -S            --line-numbers --wide target/thumbv7m-none-eabi/$rust_build_profile/libapp.rlib >logs/libapp.S 2>&1
+arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/thumbv7m-none-eabi/$rust_build_profile/libapp.rlib >logs/libapp-demangle.S 2>&1
 set -e
 
 #  Run the Mynewt build, which will link with the Rust app, Rust libraries and libcore.

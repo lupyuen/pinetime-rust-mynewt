@@ -16,7 +16,7 @@ proc-macro2 = "0.4.30" # Rust procedural macro library: https://crates.io/crates
 
 # Build this module as a Rust library, which will be called by the compiler to expand Rust Procedural Macros. Not used in runtime.
 [lib]
-name       = "macros"
+name       = "macros"  # Output will be named `libmacros.rlib`
 test       = true
 bench      = false
 proc-macro = true  # Allow building of Procedural Macros: https://blog.rust-lang.org/2018/12/21/Procedural-Macros-in-Rust-2018.html

@@ -23,13 +23,13 @@ set +e  #  Ignore errors
 #  Compile the Rust code with expanded macros.
 cargo rustc -v $rust_build_options \
     -- -Z unstable-options --pretty expanded \
-    > logs/libmylib-expanded.rs
+    > logs/libapp-expanded.rs
 
 set -e  #  Stop on errors
 
-set +x ; echo ; echo "----- Expanded macros to logs/libmylib-expanded.rs" ; set -x
+set +x ; echo ; echo "----- Expanded macros to logs/libapp-expanded.rs" ; set -x
 
 #  Extract the module into its own file.
-sed "1,/^mod $extract_module/ d" <logs/libmylib-expanded.rs >logs/$extract_module-expanded.rs
+sed "1,/^mod $extract_module/ d" <logs/libapp-expanded.rs >logs/$extract_module-expanded.rs
 
 set +x ; echo ; echo "----- Extracted module $extract_module to logs/$extract_module-expanded.rs" ; set -x
