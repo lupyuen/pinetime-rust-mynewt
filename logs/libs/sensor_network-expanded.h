@@ -16,7 +16,6 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4
@@ -460,8 +459,8 @@
 #define APP_my_sensor_app 1
 #define ARCH_NAME cortex_m3
 #define ARCH_cortex_m3 1
-#define BSP_NAME bluepill
-#define BSP_bluepill 1
+#define BSP_NAME bluepill-64kb
+#define BSP_bluepill_64kb 1
 #define FLOAT_SUPPORT 1
 #define MYNEWT 1
 #define STM32F103xB 1
@@ -1979,27 +1978,6 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MYNEWT_VAL_CBORATTR_MAX_SIZE (512)
 
 
-/*** @apache-mynewt-core/hw/bsp/bluepill */
-
-#define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
-
-
-
-#define MYNEWT_VAL_TIMER_0 (1)
-
-
-
-#define MYNEWT_VAL_TIMER_1 (0)
-
-
-
-#define MYNEWT_VAL_TIMER_2 (0)
-
-
-
-#define MYNEWT_VAL_UART_0 (1)
-
-
 /*** @apache-mynewt-core/hw/hal */
 
 #define MYNEWT_VAL_HAL_FLASH_VERIFY_BUF_SZ (16)
@@ -2034,9 +2012,8 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MYNEWT_VAL_SPI_0 (MYNEWT_VAL_SPI_0_MASTER || MYNEWT_VAL_SPI_0_SLAVE)
 
 
-/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/stm/stm32f1xx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER (1)
+#define MYNEWT_VAL_SPI_0_MASTER (0)
 
 
 
@@ -2601,263 +2578,116 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 
 /*** apps/my_sensor_app */
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_ADC_1 (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_ESP8266 (1)
+#define MYNEWT_VAL_BC95G (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_ESP8266 (0)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_HMAC_PRNG (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_NRF24L01 (1)
+#define MYNEWT_VAL_NRF24L01 (0)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_RAW_TEMP (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_REMOTE_SENSOR (1)
+#define MYNEWT_VAL_REMOTE_SENSOR (0)
 
 
 
 #define MYNEWT_VAL_SEMIHOSTING_CONSOLE (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_COAP (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+/* Value copied from TEMP_STM32_DEVICE */
+
+#define MYNEWT_VAL_SENSOR_DEVICE ("temp_stm32_0")
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_KEY ("t")
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_POLL_TIME (10 * 1000)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_TYPE (SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_VALUE_TYPE (SENSOR_VALUE_TYPE_INT32)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_TEMP_STM32 (1)
 
 
 
-#define MYNEWT_VAL_TUTORIAL1 (0)
-
-
-
-#define MYNEWT_VAL_TUTORIAL2 (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
-
-#define MYNEWT_VAL_TUTORIAL3 (1)
+#define MYNEWT_VAL_TEMP_STUB (0)
 
 
 
 #define MYNEWT_VAL_WIFI_GEOLOCATION (0)
 
 
-/*** libs/esp8266 */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
+/*** hw/bsp/bluepill-64kb */
 
-#define MYNEWT_VAL_WIFI_PASSWORD ("my_password_is_secret")
+#define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
 
-#define MYNEWT_VAL_WIFI_SSID ("my_ssid")
+#define MYNEWT_VAL_TIMER_0 (1)
 
 
-/*** libs/nrf24l01 */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_AUTO_ACK (0)
+#define MYNEWT_VAL_TIMER_1 (0)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_AUTO_RETRANSMIT (0)
+#define MYNEWT_VAL_TIMER_2 (0)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_CE_PIN (MCU_GPIO_PORTB(0))
+#define MYNEWT_VAL_UART_0 (1)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
+/*** libs/bc95g */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/bc95g) */
 
-#define MYNEWT_VAL_NRF24L01_CRC_WIDTH (8)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_CS_PIN (MCU_GPIO_PORTB(2))
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_DATA_RATE (250)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_FREQ (2476)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_IRQ_PIN (MCU_GPIO_PORTA(15))
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_POWER (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_SPI_BAUDRATE (200)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_SPI_NUM (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_TX_SIZE (12)
-
-
-/*** libs/remote_sensor */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__DOUBLE (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD ("t")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__INT (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__NAME (temp_raw)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__UNION (strd)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD ("tf")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__NAME (temp)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__SENSOR_TYPE (AMBIENT_TEMPERATURE)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__UNION (std)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD ("p")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__NAME (press)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__SENSOR_TYPE (PRESSURE)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__UNION (spd)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD ("h")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__NAME (humid)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__SENSOR_TYPE (RELATIVE_HUMIDITY)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__UNION (shd)
+#define MYNEWT_VAL_NBIOT_BAND (8)
 
 
 /*** libs/semihosting_console */
@@ -2914,12 +2744,11 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 
 /*** libs/sensor_coap */
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
-#define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
+#define MYNEWT_VAL_COAP_CBOR_ENCODING (0)
 
 
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -2927,7 +2756,7 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 /*** libs/sensor_network */
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_HOST ("coap.thethings.io")
+#define MYNEWT_VAL_COAP_HOST ("104.199.85.211")
 
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
@@ -2940,69 +2769,61 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_ADDRESS (0x7878787878ull)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_HW_ID (0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK_ADDRESS (0xb3b4b5b6ull)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_1 (0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_2 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x02)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_3 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x03)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_4 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x04)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_5 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x05)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_1 (0xf1)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_2 (0xcd)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_3 (0xa3)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_4 (0x0f)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_5 (0x05)
+
+
+/*** libs/temp_stm32 */
+
+#define MYNEWT_VAL_TEMP_STM32_DEVICE ("temp_stm32_0")
 
 
 /*** newt */
@@ -3023,11 +2844,11 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 
 
-#define MYNEWT_VAL_BSP_NAME ("bluepill")
+#define MYNEWT_VAL_BSP_NAME ("bluepill-64kb")
 
 
 
-#define MYNEWT_VAL_BSP_bluepill (1)
+#define MYNEWT_VAL_BSP_bluepill_64kb (1)
 
 
 
@@ -3107,7 +2928,7 @@ void sysinit_panic_set(sysinit_panic_fn *panic_fn);
 void sysinit_app(void);
 #define sysinit() do { sysinit_start(); sysinit_app(); sysinit_end(); } while (0)
 # 22 "libs/sensor_network/src/sensor_network.c" 2
-# 1 "repos/apache-mynewt-core/hw/bsp/bluepill/include/bsp/bsp.h" 1
+# 1 "hw/bsp/bluepill-64kb/include/bsp/bsp.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -3133,7 +2954,7 @@ void sysinit_app(void);
 /*
  * inttypes.h
  */
-# 23 "repos/apache-mynewt-core/hw/bsp/bluepill/include/bsp/bsp.h" 2
+# 23 "hw/bsp/bluepill-64kb/include/bsp/bsp.h" 2
 # 1 "repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/include/mcu/mcu.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -3272,7 +3093,7 @@ void sysinit_app(void);
 
 
 #define SVC_IRQ_NUMBER SVCall_IRQn
-# 24 "repos/apache-mynewt-core/hw/bsp/bluepill/include/bsp/bsp.h" 2
+# 24 "hw/bsp/bluepill-64kb/include/bsp/bsp.h" 2
 
 
 
@@ -28990,6 +28811,7 @@ extern void console_rx_restart(void);
 int console_lock(int timeout);
 int console_unlock(void);
 # 27 "libs/sensor_network/src/sensor_network.c" 2
+
 # 1 "libs/hmac_prng/include/hmac_prng/hmac_prng.h" 1
 //  Generate pseuorandom numbers with HMAC.  Based on TinyCrypt HMAC PRNG.  Uses temp_stm32 internal temperature sensor as source of entropy.
 
@@ -29006,7 +28828,8 @@ void hmac_prng_init(void);
 
 //  Generate a random number of length rndlen bytes and save to rnd.  Return 0 if successful.
 int hmac_prng_generate(uint8_t *rnd, unsigned int rndlen);
-# 28 "libs/sensor_network/src/sensor_network.c" 2
+# 29 "libs/sensor_network/src/sensor_network.c" 2
+
 # 1 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 1
 //  Post sensor data to CoAP server with JSON or CBOR encoding.  We call the Mynewt OIC
 //  interface to encode and transmit CoAP messages.  For ESP8266, the OIC interface
@@ -31194,138 +31017,32 @@ void json_rep_end_root_object(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON-Only Encoding Macros
-# 116 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+
+
+
+//  Alias the generic rep* macros as json_rep*
+#define rep_start_root_object() json_rep_start_root_object()
+#define rep_end_root_object() json_rep_end_root_object()
+
+#define rep_set_array(object,key) json_rep_set_array( object, key)
+#define rep_close_array(object,key) json_rep_close_array(object, key)
+
+#define rep_object_array_start_item(key) json_rep_object_array_start_item(key)
+#define rep_object_array_end_item(key) json_rep_object_array_end_item(key)
+
+#define rep_set_int(object,key,value) json_rep_set_int( object, key, value)
+#define rep_set_uint(object,key,value) json_rep_set_uint( object, key, value)
+#define rep_set_float(object,key,value) json_rep_set_float( object, key, value)
+#define rep_set_text_string(object,key,value) json_rep_set_text_string(object, key, value)
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR-Only Encoding Macros
 # 140 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON and CBOR Coexistence Encoding Macros
-
-
-
-//  JSON or CBOR encoding will be selected by the Sensor Network, which depends on whether we're sending
-//  to CoAP Server (JSON) or Collector Node (CBOR)
-
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 1
-/*
-// Copyright (c) 2016 Intel Corporation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-*/
-# 149 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
-/*
- * Copyright (c) 2016 Intel Corporation
- *
- * Copyright (c) 2013, Institute for Pervasive Computing, ETH Zurich
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the Institute nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- *
- * This file is part of the Contiki operating system.
- */
-# 150 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
-
-#undef COAP_CONTENT_FORMAT
-extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
-#define JSON_ENC (oc_content_format == APPLICATION_JSON) /*  True if encoding format is JSON*/
-
-//  From repos\apache-mynewt-core\net\oic\include\oic\oc_rep.h
-//  Changed "#key" to "key" so that the key won't be stringified.
-
-#define oc_rep_set_int_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_int(&object ##_map, value); } while (0)
-
-
-
-
-
-#define oc_rep_set_uint_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_uint(&object ##_map, value); } while (0)
-
-
-
-
-
-#define oc_rep_set_float_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_float(&object ##_map, value); } while (0)
-
-
-
-
-
-#define oc_rep_set_text_string_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_text_string(&object ##_map, value, strlen(value)); } while (0)
-
-
-
-
-
-#define rep_start_root_object() oc_rep_start_root_object(); if (JSON_ENC) { json_rep_start_root_object(); }
-
-
-#define rep_end_root_object() if (JSON_ENC) { json_rep_end_root_object(); } oc_rep_end_root_object();
-
-
-#define rep_set_array(object,key) oc_rep_set_array(object, key); if (JSON_ENC) { json_rep_set_array(object, key); }
-
-
-#define rep_close_array(object,key) if (JSON_ENC) { json_rep_close_array(object, key); } oc_rep_close_array(object, key);
-
-
-#define rep_object_array_start_item(key) oc_rep_object_array_start_item(key); if (JSON_ENC) { json_rep_object_array_start_item(key); }
-
-
-#define rep_object_array_end_item(key) if (JSON_ENC) { json_rep_object_array_end_item(key); } oc_rep_object_array_end_item(key);
-
-
-//  oc_rep_set_int(object, key, value)
-//  -> cbor_encode_text_string(&object##_map, #key, strlen(#key));
-//     cbor_encode_int(&object##_map, value);      
-//  oc_rep_set_key(parent, key)
-//  -> cbor_encode_text_string(&parent, key, strlen(key))
-
-#define rep_set_int(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int(object, key, value); } }
-#define rep_set_uint(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint(object, key, value); } }
-#define rep_set_float(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double(object, key, value); } }
-#define rep_set_text_string(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string(object, key, value); } }
-
-//  Same as above, except that the key is not stringified.
-#define rep_set_int_k(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int_k(object, key, value); } }
-#define rep_set_uint_k(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint_k(object, key, value); } }
-#define rep_set_float_k(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double_k(object, key, value); } }
-#define rep_set_text_string_k(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string_k(object, key, value); } }
-
-
-
+# 219 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  CP Macros for composing CoAP Payloads in JSON and CBOR
 //  The format defined here is used by thethings.io for receiving sensor data
@@ -31426,7 +31143,7 @@ extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON
 //  Append a (key + string value) item to the array named "array":
 //    { <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }
 #define CP_ITEM_STR(array0,key0,value0) { CP_ITEM(array0, { rep_set_text_string(array0, key, key0); rep_set_text_string(array0, value, value0); }) }
-# 29 "libs/sensor_network/src/sensor_network.c" 2
+# 31 "libs/sensor_network/src/sensor_network.c" 2
 # 1 "libs/sensor_network/include/sensor_network/sensor_network.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31454,8 +31171,8 @@ extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON
 //  This also prevents complicated macros like
 //  #if MYNEWT_VAL(ESP8266) && !MYNEWT_VAL(NRF24L01) ...
 
-//  Network Drivers: The Sensor Network Library does not depend on ESP8266 and nRF24L01 drivers.
-//  Instead, the ESP8266 and nRF24L01 drivers register themselves as Network Interfaces
+//  Network Drivers: The Sensor Network Library does not depend on BC95-G, ESP8266 and nRF24L01 drivers.
+//  Instead, the drivers register themselves as Network Interfaces
 //  to the Sensor Network Library.  So the drivers may be easily replaced.
 
 //  Address Allocation: The Sensor Network Library also allocates Collector Node Address and Sensor Node Address
@@ -31518,13 +31235,13 @@ extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON
 
 //  Network Interface Types: Server Interface (ESP8266 + CoAP) and Collector Interface (nRF24L01 + CBOR)
 
-#define SERVER_INTERFACE_TYPE 0 /*  Server Network Interface (ESP8266)*/
+#define SERVER_INTERFACE_TYPE 0 /*  Server Network Interface (BC95-G or ESP8266)*/
 #define COLLECTOR_INTERFACE_TYPE 1 /*  Collector Network Interface (nRF24L01)*/
 #define MAX_INTERFACE_TYPES 2 /*  Max network interfaces supported*/
 #define MAX_ENDPOINT_SIZE 16 /*  Max byte size of Server or Collector endpoint*/
 #define SENSOR_NETWORK_SIZE 5 /*  5 Sensor Nodes in the Sensor Network (Pipes 1 to 5 for nRF24L01)*/
 
-//  Represents a Network Interface: ESP8266 or nRF24L01
+//  Represents a Network Interface: BC95-G, ESP8266 or nRF24L01
 struct sensor_network_interface {
     uint8_t iface_type; //  Interface Type: Server or Collector
     const char *network_device; //  Network device name.  Must be a static string.
@@ -31536,12 +31253,30 @@ struct sensor_network_interface {
 struct sensor_value;
 
 /////////////////////////////////////////////////////////
+//  Start Network Interface for CoAP Transport as Background Task (Server and Collector)
+
+//  For Standalone Node and Collector Node: In a background task, connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+//  Return 0 if successful.
+int start_server_transport(void);
+
+//  For Collector Node and Sensor Nodes: In a background task, register the nRF24L01 driver as the network transport for CoAP Collector.
+//  Return 0 if successful.
+int start_collector_transport(void);
+
+//  Start a background task to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+//  We use a background task because connecting to NB-IoT or WiFi Access Point may be slow.
+//  Return 0 if successful.
+int sensor_network_start_transport(uint8_t iface_type);
+
+/////////////////////////////////////////////////////////
 //  Register Network Interface for CoAP Transport (Server and Collector)
 
-//  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
+//  For Standalone Node and Collector Node: Connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+//  Return 0 if successful.
 int register_server_transport(void);
 
 //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+//  Return 0 if successful.
 int register_collector_transport(void);
 
 //  Register the Network Interface as the network transport for CoAP Server or CoAP Collector.
@@ -31553,28 +31288,31 @@ int sensor_network_register_transport(uint8_t iface_type);
 //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
 //  block other tasks from composing and posting CoAP messages (through a semaphore).
 //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+//  Return true if successful, false if network has not been registered.
 
-# 88 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 107 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 88 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 107 "libs/sensor_network/include/sensor_network/sensor_network.h"
     init_server_post(const char *uri);
 
 //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
 //  block other tasks from composing and posting CoAP messages (through a semaphore).
 //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+//  Return true if successful, false if network has not been registered.
 
-# 93 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 113 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 93 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 113 "libs/sensor_network/include/sensor_network/sensor_network.h"
     init_collector_post(void);
 
 //  Start composing the CoAP Server or Collector message with the sensor data in the payload.  This will 
 //  block other tasks from composing and posting CoAP messages (through a semaphore).
 //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+//  Return true if successful, false if network has not been registered.
 
-# 98 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 119 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 98 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 119 "libs/sensor_network/include/sensor_network/sensor_network.h"
     sensor_network_init_post(uint8_t iface_type, const char *uri);
 
 /////////////////////////////////////////////////////////
@@ -31584,27 +31322,27 @@ _Bool
 //  message to the background task, we release a semaphore that unblocks other requests
 //  to compose and post CoAP messages.
 
-# 106 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 127 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 106 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 127 "libs/sensor_network/include/sensor_network/sensor_network.h"
     do_server_post(void);
 
 //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
 //  message to the background task, we release a semaphore that unblocks other requests
 //  to compose and post CoAP messages.
 
-# 111 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 132 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 111 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 132 "libs/sensor_network/include/sensor_network/sensor_network.h"
     do_collector_post(void);
 
 //  Post the CoAP Server or Collector message to the CoAP Background Task for transmission.  After posting the
 //  message to the background task, we release a semaphore that unblocks other requests
 //  to compose and post CoAP messages.
 
-# 116 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 137 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 116 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 137 "libs/sensor_network/include/sensor_network/sensor_network.h"
     sensor_network_do_post(uint8_t iface_type);
 
 /////////////////////////////////////////////////////////
@@ -31613,31 +31351,31 @@ _Bool
 //  Return true if this is the Collector Node.
 //  This is the Collector Node if the Hardware ID matches the Collector Node Hardware ID.
 
-# 123 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 144 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 123 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 144 "libs/sensor_network/include/sensor_network/sensor_network.h"
     is_collector_node(void);
 
 //  Return true if this is a Sensor Node.
 //  This is a Sensor Node if the Hardware ID matches one of the Sensor Node Hardware IDs.
 
-# 127 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 148 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 127 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 148 "libs/sensor_network/include/sensor_network/sensor_network.h"
     is_sensor_node(void);
 
 //  Return true if this is a Standalone Node, i.e. not a Collector or Sensor Node.
 
-# 130 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 151 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 130 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 151 "libs/sensor_network/include/sensor_network/sensor_network.h"
     is_standalone_node(void);
 
 //  Return true if this node should send to a Collector Node instead of CoAP Server.  Which means this must be a Sensor Node.
 
-# 133 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
+# 154 "libs/sensor_network/include/sensor_network/sensor_network.h" 3 4
 _Bool 
-# 133 "libs/sensor_network/include/sensor_network/sensor_network.h"
+# 154 "libs/sensor_network/include/sensor_network/sensor_network.h"
     should_send_to_collector(struct sensor_value *val, const char *device_name);
 
 /////////////////////////////////////////////////////////
@@ -31667,9 +31405,9 @@ const char **get_sensor_node_names(void);
 //  Allocate Sensor Node address for this node.
 void sensor_network_init(void);
 
-//  Register the Network Interface (e.g. ESP8266, nRF24L01) for the Sensor Network.
+//  Register the Network Interface (e.g. BC95-G, ESP8266, nRF24L01) for the Sensor Network.
 int sensor_network_register_interface(const struct sensor_network_interface *iface);
-# 30 "libs/sensor_network/src/sensor_network.c" 2
+# 32 "libs/sensor_network/src/sensor_network.c" 2
 
 static const char *_net = "NET "; //  Prefix for console messages
 static const char *_node = " node "; //  Common string
@@ -31743,7 +31481,7 @@ static char device_id_text[(1 + 16 /*  16 random bytes in binary device ID*/ * 2
 /////////////////////////////////////////////////////////
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
-static const char COAP_HOST[] = ("coap.thethings.io"); //  CoAP hostname e.g. coap.thethings.io
+static const char COAP_HOST[] = ("104.199.85.211"); //  CoAP hostname e.g. coap.thethings.io
 static const char COAP_URI[] = ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"); //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
 /////////////////////////////////////////////////////////
@@ -31764,63 +31502,217 @@ static const char *sensor_network_shortname[2 /*  Max network interfaces support
     "col", //  Send to Collector
 };
 
+//  Storage for Network Task
+#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256) /*  Size of the stack (in 4-byte units)*/
+static uint8_t network_task_stack[sizeof(os_stack_t) * (( ((((256)) & (((8)) - 1)) == 0) ? ((256)) : (((256)) + (((8)) - (((256)) & (((8)) - 1)))) )) /*  Size of the stack (in 4-byte units)*/]; //  Stack space
+static struct os_task network_task; //  Mynewt task object will be saved here
+
+/////////////////////////////////////////////////////////
+//  Start Network Interface for CoAP Transport as Background Task (Server and Collector)
+
+static void network_task_func(void *arg); //  Defined below
+
+int start_server_transport(void) {
+    //  For Standalone Node and Collector Node: In a background task, connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+    //  Return 0 if successful.
+    uint8_t i = 0 /*  Server Network Interface (BC95-G or ESP8266)*/;
+    int rc = sensor_network_start_transport(i);
+    ((rc == 0) ? (void)0 : __assert_func(
+# 141 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 141 "libs/sensor_network/src/sensor_network.c"
+   , 0, 
+# 141 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 141 "libs/sensor_network/src/sensor_network.c"
+   , 
+# 141 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 141 "libs/sensor_network/src/sensor_network.c"
+   ));
+    return rc;
+}
+
+int start_collector_transport(void) {
+    //  For Collector Node and Sensor Nodes: In a background task, register the nRF24L01 driver as the network transport for CoAP Collector.
+    //  Return 0 if successful.
+    uint8_t i = 1 /*  Collector Network Interface (nRF24L01)*/;
+    int rc = sensor_network_start_transport(i);
+    ((rc == 0) ? (void)0 : __assert_func(
+# 150 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 150 "libs/sensor_network/src/sensor_network.c"
+   , 0, 
+# 150 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 150 "libs/sensor_network/src/sensor_network.c"
+   , 
+# 150 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 150 "libs/sensor_network/src/sensor_network.c"
+   ));
+    return rc;
+}
+
+int sensor_network_start_transport(uint8_t iface_type) {
+    //  Start a background task to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+    //  We use a background task because connecting to NB-IoT or WiFi Access Point may be slow.
+    //  Return 0 if successful.
+    ((iface_type >= 0 && iface_type < 2 /*  Max network interfaces supported*/) ? (void)0 : __assert_func(
+# 158 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 158 "libs/sensor_network/src/sensor_network.c"
+   , 0, 
+# 158 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 158 "libs/sensor_network/src/sensor_network.c"
+   , 
+# 158 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 158 "libs/sensor_network/src/sensor_network.c"
+   ));
+    struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
+    if (iface->transport_registered) { return 0; } //  Quit if transport already registered and endpoint has been created.
+
+    int rc = os_task_init( //  Create a new task and start it...
+        &network_task, //  Task object will be saved here.
+        "network", //  Name of task.
+        network_task_func, //  Function to execute when task starts.
+        (void *)(uint32_t)iface_type, //  Pass network interface type to above function.
+        10, //  Task priority: highest is 0, lowest is 255.  Main task is 127.
+        (-1), //  Don't do sanity / watchdog checking.
+        (os_stack_t *) network_task_stack, //  Stack space for the task.
+        (( ((((256)) & (((8)) - 1)) == 0) ? ((256)) : (((256)) + (((8)) - (((256)) & (((8)) - 1)))) )) /*  Size of the stack (in 4-byte units)*/); //  Size of the stack (in 4-byte units).
+    ((rc == 0) ? (void)0 : __assert_func(
+# 171 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 171 "libs/sensor_network/src/sensor_network.c"
+   , 0, 
+# 171 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 171 "libs/sensor_network/src/sensor_network.c"
+   , 
+# 171 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 171 "libs/sensor_network/src/sensor_network.c"
+   ));
+    return rc;
+}
+
+static void network_task_func(void *arg) {
+    //  Network Task runs this function in the background to prepare the network drivers
+    //  for transmitting sensor data messages.
+    //  For Collector Node and Standalone Node: We connect to NB-IoT network or WiFi access point. 
+    //  Connecting to the NB-IoT network or WiFi access point may be slow so we do this in the background.
+    //  Register the driver as the network transport for CoAP Server.  
+    //  For Collector Node and Sensor Nodes: We register the nRF24L01 driver as the network transport for 
+    //  CoAP Collector.
+    uint8_t iface_type = (uint8_t)(uint32_t)arg;
+    console_printf("NET start\n");
+    int rc = 0;
+
+    //  Register the network transport.
+    rc = sensor_network_register_transport(iface_type); ((rc == 0) ? (void)0 : __assert_func(
+# 188 "libs/sensor_network/src/sensor_network.c" 3 4
+                                                        ((void *)0)
+# 188 "libs/sensor_network/src/sensor_network.c"
+                                                        , 0, 
+# 188 "libs/sensor_network/src/sensor_network.c" 3 4
+                                                        ((void *)0)
+# 188 "libs/sensor_network/src/sensor_network.c"
+                                                        , 
+# 188 "libs/sensor_network/src/sensor_network.c" 3 4
+                                                        ((void *)0)
+# 188 "libs/sensor_network/src/sensor_network.c"
+                                                        ));
+
+    while (
+# 190 "libs/sensor_network/src/sensor_network.c" 3 4
+          1
+# 190 "libs/sensor_network/src/sensor_network.c"
+              ) { //  Loop forever...        
+        console_printf("NET free mbuf %d\n", os_msys_num_free()); //  Display number of free mbufs, to catch CoAP memory leaks.
+        os_time_delay(10 * (1000)); //  Wait 10 seconds before repeating.
+    }
+    ((
+# 194 "libs/sensor_network/src/sensor_network.c" 3 4
+   0
+# 194 "libs/sensor_network/src/sensor_network.c"
+   ) ? (void)0 : __assert_func(
+# 194 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 194 "libs/sensor_network/src/sensor_network.c"
+   , 0, 
+# 194 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 194 "libs/sensor_network/src/sensor_network.c"
+   , 
+# 194 "libs/sensor_network/src/sensor_network.c" 3 4
+   ((void *)0)
+# 194 "libs/sensor_network/src/sensor_network.c"
+   )); //  Never comes here.  If this task function terminates, the program will crash.
+}
+
 /////////////////////////////////////////////////////////
 //  Register Network Interface for CoAP Transport (Server and Collector)
 
 int register_server_transport(void) {
-    //  For Standalone Node and Collector Node: Connect ESP8266 to WiFi Access Point and register the ESP8266 driver as the network transport for CoAP Server.
-    uint8_t i = 0 /*  Server Network Interface (ESP8266)*/;
+    //  For Standalone Node and Collector Node: Connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
+    //  Return 0 if successful.
+    uint8_t i = 0 /*  Server Network Interface (BC95-G or ESP8266)*/;
     int rc = sensor_network_register_transport(i);
     ((rc == 0) ? (void)0 : __assert_func(
-# 131 "libs/sensor_network/src/sensor_network.c" 3 4
+# 205 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 131 "libs/sensor_network/src/sensor_network.c"
+# 205 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 131 "libs/sensor_network/src/sensor_network.c" 3 4
+# 205 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 131 "libs/sensor_network/src/sensor_network.c"
+# 205 "libs/sensor_network/src/sensor_network.c"
    , 
-# 131 "libs/sensor_network/src/sensor_network.c" 3 4
+# 205 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 131 "libs/sensor_network/src/sensor_network.c"
+# 205 "libs/sensor_network/src/sensor_network.c"
    ));
     return rc;
 }
 
 int register_collector_transport(void) {
     //  For Collector Node and Sensor Nodes: Register the nRF24L01 driver as the network transport for CoAP Collector.
+    //  Return 0 if successful.
     uint8_t i = 1 /*  Collector Network Interface (nRF24L01)*/;
     int rc = sensor_network_register_transport(i);
     ((rc == 0) ? (void)0 : __assert_func(
-# 139 "libs/sensor_network/src/sensor_network.c" 3 4
+# 214 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 139 "libs/sensor_network/src/sensor_network.c"
+# 214 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 139 "libs/sensor_network/src/sensor_network.c" 3 4
+# 214 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 139 "libs/sensor_network/src/sensor_network.c"
+# 214 "libs/sensor_network/src/sensor_network.c"
    , 
-# 139 "libs/sensor_network/src/sensor_network.c" 3 4
+# 214 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 139 "libs/sensor_network/src/sensor_network.c"
+# 214 "libs/sensor_network/src/sensor_network.c"
    ));
     return rc;
 }
 
 int sensor_network_register_transport(uint8_t iface_type) {
     //  Register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+    //  Return 0 if successful.
     ((iface_type >= 0 && iface_type < 2 /*  Max network interfaces supported*/) ? (void)0 : __assert_func(
-# 145 "libs/sensor_network/src/sensor_network.c" 3 4
+# 221 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 145 "libs/sensor_network/src/sensor_network.c"
+# 221 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 145 "libs/sensor_network/src/sensor_network.c" 3 4
+# 221 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 145 "libs/sensor_network/src/sensor_network.c"
+# 221 "libs/sensor_network/src/sensor_network.c"
    , 
-# 145 "libs/sensor_network/src/sensor_network.c" 3 4
+# 221 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 145 "libs/sensor_network/src/sensor_network.c"
+# 221 "libs/sensor_network/src/sensor_network.c"
    ));
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     if (iface->transport_registered) { return 0; } //  Quit if transport already registered and endpoint has been created.
@@ -31828,29 +31720,29 @@ int sensor_network_register_transport(uint8_t iface_type) {
     void *endpoint = &sensor_network_endpoints[iface_type];
     //  If endpoint has not been created, register the transport for the interface and create the endpoint.
     ((iface->network_device) ? (void)0 : __assert_func(
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 227 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 227 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 227 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 227 "libs/sensor_network/src/sensor_network.c"
    , 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 227 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 227 "libs/sensor_network/src/sensor_network.c"
    )); ((iface->register_transport_func) ? (void)0 : __assert_func(
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 227 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 227 "libs/sensor_network/src/sensor_network.c"
                                    , 0, 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 227 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 227 "libs/sensor_network/src/sensor_network.c"
                                    , 
-# 151 "libs/sensor_network/src/sensor_network.c" 3 4
+# 227 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 151 "libs/sensor_network/src/sensor_network.c"
+# 227 "libs/sensor_network/src/sensor_network.c"
                                    ));
     const char *network_device = iface->network_device;
     console_printf("%s%s %s\n", _net, sensor_network_shortname[iface_type], network_device);
@@ -31858,17 +31750,17 @@ int sensor_network_register_transport(uint8_t iface_type) {
     //  TODO: Host and port are not needed for Collector.
     int rc = iface->register_transport_func(network_device, endpoint, COAP_HOST, (5683), 16 /*  Max byte size of Server or Collector endpoint*/);
     ((rc == 0) ? (void)0 : __assert_func(
-# 157 "libs/sensor_network/src/sensor_network.c" 3 4
+# 233 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 157 "libs/sensor_network/src/sensor_network.c"
+# 233 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 157 "libs/sensor_network/src/sensor_network.c" 3 4
+# 233 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 157 "libs/sensor_network/src/sensor_network.c"
+# 233 "libs/sensor_network/src/sensor_network.c"
    , 
-# 157 "libs/sensor_network/src/sensor_network.c" 3 4
+# 233 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 157 "libs/sensor_network/src/sensor_network.c"
+# 233 "libs/sensor_network/src/sensor_network.c"
    ));
     iface->transport_registered = 1;
     return rc;
@@ -31878,278 +31770,244 @@ int sensor_network_register_transport(uint8_t iface_type) {
 //  Compose CoAP Messages
 
 
-# 165 "libs/sensor_network/src/sensor_network.c" 3 4
+# 241 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 165 "libs/sensor_network/src/sensor_network.c"
+# 241 "libs/sensor_network/src/sensor_network.c"
     init_server_post(const char *uri) {
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    uint8_t i = 0 /*  Server Network Interface (ESP8266)*/;
+    //  Return true if successful, false if network has not been registered.
+    uint8_t i = 0 /*  Server Network Interface (BC95-G or ESP8266)*/;
     
-# 170 "libs/sensor_network/src/sensor_network.c" 3 4
+# 247 "libs/sensor_network/src/sensor_network.c" 3 4
    _Bool 
-# 170 "libs/sensor_network/src/sensor_network.c"
+# 247 "libs/sensor_network/src/sensor_network.c"
         status = sensor_network_init_post(i, uri);
-    ((status) ? (void)0 : __assert_func(
-# 171 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 171 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 171 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 171 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 171 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 171 "libs/sensor_network/src/sensor_network.c"
-   ));
     return status;
 }
 
 
-# 175 "libs/sensor_network/src/sensor_network.c" 3 4
+# 251 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 175 "libs/sensor_network/src/sensor_network.c"
+# 251 "libs/sensor_network/src/sensor_network.c"
     init_collector_post(void) {
     //  Start composing the CoAP Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    //  Return true if successful, false if network has not been registered.
     uint8_t i = 1 /*  Collector Network Interface (nRF24L01)*/;
     const char *uri = 
-# 180 "libs/sensor_network/src/sensor_network.c" 3 4
+# 257 "libs/sensor_network/src/sensor_network.c" 3 4
                      ((void *)0)
-# 180 "libs/sensor_network/src/sensor_network.c"
+# 257 "libs/sensor_network/src/sensor_network.c"
                          ;
     
-# 181 "libs/sensor_network/src/sensor_network.c" 3 4
+# 258 "libs/sensor_network/src/sensor_network.c" 3 4
    _Bool 
-# 181 "libs/sensor_network/src/sensor_network.c"
+# 258 "libs/sensor_network/src/sensor_network.c"
         status = sensor_network_init_post(i, uri);
-    ((status) ? (void)0 : __assert_func(
-# 182 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 182 "libs/sensor_network/src/sensor_network.c"
-   , 0, 
-# 182 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 182 "libs/sensor_network/src/sensor_network.c"
-   , 
-# 182 "libs/sensor_network/src/sensor_network.c" 3 4
-   ((void *)0)
-# 182 "libs/sensor_network/src/sensor_network.c"
-   ));
     return status;
 }
 
 
-# 186 "libs/sensor_network/src/sensor_network.c" 3 4
+# 262 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 186 "libs/sensor_network/src/sensor_network.c"
+# 262 "libs/sensor_network/src/sensor_network.c"
     sensor_network_init_post(uint8_t iface_type, const char *uri) {
     //  Start composing the CoAP Server or Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
+    //  Return true if successful, false if network has not been registered.
     if (uri == 
-# 190 "libs/sensor_network/src/sensor_network.c" 3 4
+# 267 "libs/sensor_network/src/sensor_network.c" 3 4
               ((void *)0)
-# 190 "libs/sensor_network/src/sensor_network.c"
+# 267 "libs/sensor_network/src/sensor_network.c"
                   ) { uri = COAP_URI; }
     ((uri) ? (void)0 : __assert_func(
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
+# 268 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
+# 268 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
+# 268 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
+# 268 "libs/sensor_network/src/sensor_network.c"
    , 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
+# 268 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
+# 268 "libs/sensor_network/src/sensor_network.c"
    )); ((iface_type >= 0 && iface_type < 2 /*  Max network interfaces supported*/) ? (void)0 : __assert_func(
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
+# 268 "libs/sensor_network/src/sensor_network.c" 3 4
                  ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
+# 268 "libs/sensor_network/src/sensor_network.c"
                  , 0, 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
+# 268 "libs/sensor_network/src/sensor_network.c" 3 4
                  ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
+# 268 "libs/sensor_network/src/sensor_network.c"
                  , 
-# 191 "libs/sensor_network/src/sensor_network.c" 3 4
+# 268 "libs/sensor_network/src/sensor_network.c" 3 4
                  ((void *)0)
-# 191 "libs/sensor_network/src/sensor_network.c"
+# 268 "libs/sensor_network/src/sensor_network.c"
                  ));
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     ((iface->network_device) ? (void)0 : __assert_func(
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
+# 270 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
+# 270 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
+# 270 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
+# 270 "libs/sensor_network/src/sensor_network.c"
    , 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
+# 270 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
+# 270 "libs/sensor_network/src/sensor_network.c"
    )); ((iface->register_transport_func) ? (void)0 : __assert_func(
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
+# 270 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
+# 270 "libs/sensor_network/src/sensor_network.c"
                                    , 0, 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
+# 270 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
+# 270 "libs/sensor_network/src/sensor_network.c"
                                    , 
-# 193 "libs/sensor_network/src/sensor_network.c" 3 4
+# 270 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 193 "libs/sensor_network/src/sensor_network.c"
+# 270 "libs/sensor_network/src/sensor_network.c"
                                    ));
     void *endpoint = &sensor_network_endpoints[iface_type];
     int encoding = sensor_network_encoding[iface_type];
     if (!iface->transport_registered) {
-        //  If transport has not been registered, register the transport for the interface and create the endpoint.
-        int rc = sensor_network_register_transport(iface_type);
-        ((rc == 0) ? (void)0 : __assert_func(
-# 199 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 199 "libs/sensor_network/src/sensor_network.c"
-       , 0, 
-# 199 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 199 "libs/sensor_network/src/sensor_network.c"
-       , 
-# 199 "libs/sensor_network/src/sensor_network.c" 3 4
-       ((void *)0)
-# 199 "libs/sensor_network/src/sensor_network.c"
-       ));
+        //  If transport has not been registered, wait for the transport to be registered.
+        console_printf("NET network not ready\n");
+        return 
+# 276 "libs/sensor_network/src/sensor_network.c" 3 4
+              0
+# 276 "libs/sensor_network/src/sensor_network.c"
+                   ;
     }
     
-# 201 "libs/sensor_network/src/sensor_network.c" 3 4
+# 278 "libs/sensor_network/src/sensor_network.c" 3 4
    _Bool 
-# 201 "libs/sensor_network/src/sensor_network.c"
+# 278 "libs/sensor_network/src/sensor_network.c"
         status = init_sensor_post(endpoint, uri, encoding);
     ((status) ? (void)0 : __assert_func(
-# 202 "libs/sensor_network/src/sensor_network.c" 3 4
+# 279 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 202 "libs/sensor_network/src/sensor_network.c"
+# 279 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 202 "libs/sensor_network/src/sensor_network.c" 3 4
+# 279 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 202 "libs/sensor_network/src/sensor_network.c"
+# 279 "libs/sensor_network/src/sensor_network.c"
    , 
-# 202 "libs/sensor_network/src/sensor_network.c" 3 4
+# 279 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 202 "libs/sensor_network/src/sensor_network.c"
+# 279 "libs/sensor_network/src/sensor_network.c"
    ));
     return status;
 }
-
-
-
 
 /////////////////////////////////////////////////////////
 //  Post CoAP Messages
 
 
-# 212 "libs/sensor_network/src/sensor_network.c" 3 4
+# 286 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 212 "libs/sensor_network/src/sensor_network.c"
+# 286 "libs/sensor_network/src/sensor_network.c"
     do_server_post(void) {
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
-    uint8_t i = 0 /*  Server Network Interface (ESP8266)*/;
+    uint8_t i = 0 /*  Server Network Interface (BC95-G or ESP8266)*/;
     
-# 217 "libs/sensor_network/src/sensor_network.c" 3 4
+# 291 "libs/sensor_network/src/sensor_network.c" 3 4
    _Bool 
-# 217 "libs/sensor_network/src/sensor_network.c"
+# 291 "libs/sensor_network/src/sensor_network.c"
         status = sensor_network_do_post(i);
     ((status) ? (void)0 : __assert_func(
-# 218 "libs/sensor_network/src/sensor_network.c" 3 4
+# 292 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 218 "libs/sensor_network/src/sensor_network.c"
+# 292 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 218 "libs/sensor_network/src/sensor_network.c" 3 4
+# 292 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 218 "libs/sensor_network/src/sensor_network.c"
+# 292 "libs/sensor_network/src/sensor_network.c"
    , 
-# 218 "libs/sensor_network/src/sensor_network.c" 3 4
+# 292 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 218 "libs/sensor_network/src/sensor_network.c"
+# 292 "libs/sensor_network/src/sensor_network.c"
    ));
     return status;
 }
 
 
-# 222 "libs/sensor_network/src/sensor_network.c" 3 4
+# 296 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 222 "libs/sensor_network/src/sensor_network.c"
+# 296 "libs/sensor_network/src/sensor_network.c"
     do_collector_post(void) {
     //  Post the CoAP Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     uint8_t i = 1 /*  Collector Network Interface (nRF24L01)*/;
     
-# 227 "libs/sensor_network/src/sensor_network.c" 3 4
+# 301 "libs/sensor_network/src/sensor_network.c" 3 4
    _Bool 
-# 227 "libs/sensor_network/src/sensor_network.c"
+# 301 "libs/sensor_network/src/sensor_network.c"
         status = sensor_network_do_post(i);
     ((status) ? (void)0 : __assert_func(
-# 228 "libs/sensor_network/src/sensor_network.c" 3 4
+# 302 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 228 "libs/sensor_network/src/sensor_network.c"
+# 302 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 228 "libs/sensor_network/src/sensor_network.c" 3 4
+# 302 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 228 "libs/sensor_network/src/sensor_network.c"
+# 302 "libs/sensor_network/src/sensor_network.c"
    , 
-# 228 "libs/sensor_network/src/sensor_network.c" 3 4
+# 302 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 228 "libs/sensor_network/src/sensor_network.c"
+# 302 "libs/sensor_network/src/sensor_network.c"
    ));
     return status;
 }
 
 
-# 232 "libs/sensor_network/src/sensor_network.c" 3 4
+# 306 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 232 "libs/sensor_network/src/sensor_network.c"
+# 306 "libs/sensor_network/src/sensor_network.c"
     sensor_network_do_post(uint8_t iface_type) {
     //  Post the CoAP Server or Collector message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     ((iface_type >= 0 && iface_type < 2 /*  Max network interfaces supported*/) ? (void)0 : __assert_func(
-# 236 "libs/sensor_network/src/sensor_network.c" 3 4
+# 310 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 236 "libs/sensor_network/src/sensor_network.c"
+# 310 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 236 "libs/sensor_network/src/sensor_network.c" 3 4
+# 310 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 236 "libs/sensor_network/src/sensor_network.c"
+# 310 "libs/sensor_network/src/sensor_network.c"
    , 
-# 236 "libs/sensor_network/src/sensor_network.c" 3 4
+# 310 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 236 "libs/sensor_network/src/sensor_network.c"
+# 310 "libs/sensor_network/src/sensor_network.c"
    ));
     
-# 237 "libs/sensor_network/src/sensor_network.c" 3 4
+# 311 "libs/sensor_network/src/sensor_network.c" 3 4
    _Bool 
-# 237 "libs/sensor_network/src/sensor_network.c"
+# 311 "libs/sensor_network/src/sensor_network.c"
         status = do_sensor_post();
     ((status) ? (void)0 : __assert_func(
-# 238 "libs/sensor_network/src/sensor_network.c" 3 4
+# 312 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 238 "libs/sensor_network/src/sensor_network.c"
+# 312 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 238 "libs/sensor_network/src/sensor_network.c" 3 4
+# 312 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 238 "libs/sensor_network/src/sensor_network.c"
+# 312 "libs/sensor_network/src/sensor_network.c"
    , 
-# 238 "libs/sensor_network/src/sensor_network.c" 3 4
+# 312 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 238 "libs/sensor_network/src/sensor_network.c"
+# 312 "libs/sensor_network/src/sensor_network.c"
    ));
     return status;
 }
@@ -32158,9 +32016,9 @@ _Bool
 //  Query Collector and Sensor Nodes
 
 
-# 245 "libs/sensor_network/src/sensor_network.c" 3 4
+# 319 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 245 "libs/sensor_network/src/sensor_network.c"
+# 319 "libs/sensor_network/src/sensor_network.c"
     is_collector_node(void) {
     //  Return true if this is the Collector Node.
     //  This is the Collector Node if the Hardware ID matches the Collector Node Hardware ID.
@@ -32169,82 +32027,82 @@ _Bool
     const uint8_t *hardware_id = get_hardware_id();
     //  if the Hardware ID matches the Collector Node Hardware ID...
     if (memcmp(hardware_id, COLLECTOR_NODE_HW_ID, 12 /*  Hardware ID is 12 bytes for STM32*/) == 0) { return 
-# 252 "libs/sensor_network/src/sensor_network.c" 3 4
+# 326 "libs/sensor_network/src/sensor_network.c" 3 4
                                                                                     1
-# 252 "libs/sensor_network/src/sensor_network.c"
+# 326 "libs/sensor_network/src/sensor_network.c"
                                                                                         ; }
     return 
-# 253 "libs/sensor_network/src/sensor_network.c" 3 4
+# 327 "libs/sensor_network/src/sensor_network.c" 3 4
           0
-# 253 "libs/sensor_network/src/sensor_network.c"
+# 327 "libs/sensor_network/src/sensor_network.c"
                ;
 }
 
 
-# 256 "libs/sensor_network/src/sensor_network.c" 3 4
+# 330 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 256 "libs/sensor_network/src/sensor_network.c"
+# 330 "libs/sensor_network/src/sensor_network.c"
     is_sensor_node(void) {
     //  Return true if this is a Sensor Node.
     //  This is a Sensor Node if the Hardware ID matches one of the Sensor Node Hardware IDs.
     if (sensor_node_address) { return 
-# 259 "libs/sensor_network/src/sensor_network.c" 3 4
+# 333 "libs/sensor_network/src/sensor_network.c" 3 4
                                      1
-# 259 "libs/sensor_network/src/sensor_network.c"
+# 333 "libs/sensor_network/src/sensor_network.c"
                                          ; } //  sensor_node_address is set in sensor_network_init().
     return 
-# 260 "libs/sensor_network/src/sensor_network.c" 3 4
+# 334 "libs/sensor_network/src/sensor_network.c" 3 4
           0
-# 260 "libs/sensor_network/src/sensor_network.c"
+# 334 "libs/sensor_network/src/sensor_network.c"
                ;
 }
 
 
-# 263 "libs/sensor_network/src/sensor_network.c" 3 4
+# 337 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 263 "libs/sensor_network/src/sensor_network.c"
+# 337 "libs/sensor_network/src/sensor_network.c"
     is_standalone_node(void) {
     //  Return true if this is a Standalone Node, i.e. not a Collector or Sensor Node.
     if (!is_collector_node() && !is_sensor_node()) { return 
-# 265 "libs/sensor_network/src/sensor_network.c" 3 4
+# 339 "libs/sensor_network/src/sensor_network.c" 3 4
                                                            1
-# 265 "libs/sensor_network/src/sensor_network.c"
+# 339 "libs/sensor_network/src/sensor_network.c"
                                                                ; }
     return 
-# 266 "libs/sensor_network/src/sensor_network.c" 3 4
+# 340 "libs/sensor_network/src/sensor_network.c" 3 4
           0
-# 266 "libs/sensor_network/src/sensor_network.c"
+# 340 "libs/sensor_network/src/sensor_network.c"
                ;
 }
 
 
-# 269 "libs/sensor_network/src/sensor_network.c" 3 4
+# 343 "libs/sensor_network/src/sensor_network.c" 3 4
 _Bool 
-# 269 "libs/sensor_network/src/sensor_network.c"
+# 343 "libs/sensor_network/src/sensor_network.c"
     should_send_to_collector(struct sensor_value *val, const char *device_name) {
     //  Return true if this node should send to a Collector Node instead of CoAP Server.  Which means this must be a Sensor Node.
     ((val) ? (void)0 : __assert_func(
-# 271 "libs/sensor_network/src/sensor_network.c" 3 4
+# 345 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 271 "libs/sensor_network/src/sensor_network.c"
+# 345 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 271 "libs/sensor_network/src/sensor_network.c" 3 4
+# 345 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 271 "libs/sensor_network/src/sensor_network.c"
+# 345 "libs/sensor_network/src/sensor_network.c"
    , 
-# 271 "libs/sensor_network/src/sensor_network.c" 3 4
+# 345 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 271 "libs/sensor_network/src/sensor_network.c"
+# 345 "libs/sensor_network/src/sensor_network.c"
    ));
     if (is_sensor_node()) { return 
-# 272 "libs/sensor_network/src/sensor_network.c" 3 4
+# 346 "libs/sensor_network/src/sensor_network.c" 3 4
                                   1
-# 272 "libs/sensor_network/src/sensor_network.c"
+# 346 "libs/sensor_network/src/sensor_network.c"
                                       ; }
     return 
-# 273 "libs/sensor_network/src/sensor_network.c" 3 4
+# 347 "libs/sensor_network/src/sensor_network.c" 3 4
           0
-# 273 "libs/sensor_network/src/sensor_network.c"
+# 347 "libs/sensor_network/src/sensor_network.c"
                ;
 }
 
@@ -32256,30 +32114,30 @@ const uint8_t *get_hardware_id(void) {
     if (hw_id_len == 0) {
         hw_id_len = hal_bsp_hw_id_len(); //  Fetch the length, i.e. 12
         (((unsigned) hw_id_len >= sizeof(hw_id)) ? (void)0 : __assert_func(
-# 283 "libs/sensor_network/src/sensor_network.c" 3 4
+# 357 "libs/sensor_network/src/sensor_network.c" 3 4
        ((void *)0)
-# 283 "libs/sensor_network/src/sensor_network.c"
+# 357 "libs/sensor_network/src/sensor_network.c"
        , 0, 
-# 283 "libs/sensor_network/src/sensor_network.c" 3 4
+# 357 "libs/sensor_network/src/sensor_network.c" 3 4
        ((void *)0)
-# 283 "libs/sensor_network/src/sensor_network.c"
+# 357 "libs/sensor_network/src/sensor_network.c"
        , 
-# 283 "libs/sensor_network/src/sensor_network.c" 3 4
+# 357 "libs/sensor_network/src/sensor_network.c" 3 4
        ((void *)0)
-# 283 "libs/sensor_network/src/sensor_network.c"
+# 357 "libs/sensor_network/src/sensor_network.c"
        )); //  Hardware ID too short.
         hw_id_len = hal_bsp_hw_id(hw_id, sizeof(hw_id)); ((hw_id_len > 0) ? (void)0 : __assert_func(
-# 284 "libs/sensor_network/src/sensor_network.c" 3 4
+# 358 "libs/sensor_network/src/sensor_network.c" 3 4
                                                          ((void *)0)
-# 284 "libs/sensor_network/src/sensor_network.c"
+# 358 "libs/sensor_network/src/sensor_network.c"
                                                          , 0, 
-# 284 "libs/sensor_network/src/sensor_network.c" 3 4
+# 358 "libs/sensor_network/src/sensor_network.c" 3 4
                                                          ((void *)0)
-# 284 "libs/sensor_network/src/sensor_network.c"
+# 358 "libs/sensor_network/src/sensor_network.c"
                                                          , 
-# 284 "libs/sensor_network/src/sensor_network.c" 3 4
+# 358 "libs/sensor_network/src/sensor_network.c" 3 4
                                                          ((void *)0)
-# 284 "libs/sensor_network/src/sensor_network.c"
+# 358 "libs/sensor_network/src/sensor_network.c"
                                                          )); //  Get the hardware ID.
         console_printf("%shwid ", _net); console_dump(hw_id, hw_id_len); console_printf("\n");
     }
@@ -32292,18 +32150,19 @@ const char *get_device_id(void) {
 
     //  Create a random device ID based on HMAC pseudorandom number generator e.g. 0xab 0xcd 0xef ...
     int rc = hmac_prng_generate(device_id, 16 /*  16 random bytes in binary device ID*/); ((rc == 0) ? (void)0 : __assert_func(
-# 295 "libs/sensor_network/src/sensor_network.c" 3 4
+# 369 "libs/sensor_network/src/sensor_network.c" 3 4
                                                               ((void *)0)
-# 295 "libs/sensor_network/src/sensor_network.c"
+# 369 "libs/sensor_network/src/sensor_network.c"
                                                               , 0, 
-# 295 "libs/sensor_network/src/sensor_network.c" 3 4
+# 369 "libs/sensor_network/src/sensor_network.c" 3 4
                                                               ((void *)0)
-# 295 "libs/sensor_network/src/sensor_network.c"
+# 369 "libs/sensor_network/src/sensor_network.c"
                                                               , 
-# 295 "libs/sensor_network/src/sensor_network.c" 3 4
+# 369 "libs/sensor_network/src/sensor_network.c" 3 4
                                                               ((void *)0)
-# 295 "libs/sensor_network/src/sensor_network.c"
+# 369 "libs/sensor_network/src/sensor_network.c"
                                                               ));
+
     char *s = device_id_text; int i;
     //  Convert to text e.g. abcdef...
     for (i = 0; i < 16 /*  16 random bytes in binary device ID*/; i++) {
@@ -32312,10 +32171,6 @@ const char *get_device_id(void) {
     }
     device_id_text[(1 + 16 /*  16 random bytes in binary device ID*/ * 2) /*  33 bytes in the text device ID (including terminating null)*/ - 1] = 0;
     console_printf("%srandom device id %s\n", _net, device_id_text);
-
-
-
-
     return device_id_text;
 }
 
@@ -32341,17 +32196,17 @@ void sensor_network_init(void) {
     for (int i = 0; i < 5 /*  5 Sensor Nodes in the Sensor Network (Pipes 1 to 5 for nRF24L01)*/; i++) {
         int len = sprintf((char *) sensor_node_names[i], "%010llx", sensor_node_addresses[i]);
         ((len + 1 <= 11 /*  Enough for "B3B4B5B6f1" and terminating null.*/) ? (void)0 : __assert_func(
-# 332 "libs/sensor_network/src/sensor_network.c" 3 4
+# 403 "libs/sensor_network/src/sensor_network.c" 3 4
        ((void *)0)
-# 332 "libs/sensor_network/src/sensor_network.c"
+# 403 "libs/sensor_network/src/sensor_network.c"
        , 0, 
-# 332 "libs/sensor_network/src/sensor_network.c" 3 4
+# 403 "libs/sensor_network/src/sensor_network.c" 3 4
        ((void *)0)
-# 332 "libs/sensor_network/src/sensor_network.c"
+# 403 "libs/sensor_network/src/sensor_network.c"
        , 
-# 332 "libs/sensor_network/src/sensor_network.c" 3 4
+# 403 "libs/sensor_network/src/sensor_network.c" 3 4
        ((void *)0)
-# 332 "libs/sensor_network/src/sensor_network.c"
+# 403 "libs/sensor_network/src/sensor_network.c"
        ));
     }
     //  Get Sensor Node address if applicable.
@@ -32370,99 +32225,99 @@ void sensor_network_init(void) {
 }
 
 int sensor_network_register_interface(const struct sensor_network_interface *iface) {
-    //  Register the Network Interface (e.g. ESP8266, nRF24L01) for the Sensor Network.
+    //  Register the Network Interface (e.g. BC95-G, ESP8266, nRF24L01) for the Sensor Network.
     ((iface) ? (void)0 : __assert_func(
-# 351 "libs/sensor_network/src/sensor_network.c" 3 4
+# 422 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 351 "libs/sensor_network/src/sensor_network.c"
+# 422 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 351 "libs/sensor_network/src/sensor_network.c" 3 4
+# 422 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 351 "libs/sensor_network/src/sensor_network.c"
+# 422 "libs/sensor_network/src/sensor_network.c"
    , 
-# 351 "libs/sensor_network/src/sensor_network.c" 3 4
+# 422 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 351 "libs/sensor_network/src/sensor_network.c"
+# 422 "libs/sensor_network/src/sensor_network.c"
    ));
     uint8_t i = iface->iface_type; ((i >= 0 && i < 2 /*  Max network interfaces supported*/) ? (void)0 : __assert_func(
-# 352 "libs/sensor_network/src/sensor_network.c" 3 4
+# 423 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 352 "libs/sensor_network/src/sensor_network.c"
+# 423 "libs/sensor_network/src/sensor_network.c"
                                    , 0, 
-# 352 "libs/sensor_network/src/sensor_network.c" 3 4
+# 423 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 352 "libs/sensor_network/src/sensor_network.c"
+# 423 "libs/sensor_network/src/sensor_network.c"
                                    , 
-# 352 "libs/sensor_network/src/sensor_network.c" 3 4
+# 423 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 352 "libs/sensor_network/src/sensor_network.c"
+# 423 "libs/sensor_network/src/sensor_network.c"
                                    ));
     ((iface->network_device) ? (void)0 : __assert_func(
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
    , 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
    )); ((iface->server_endpoint_size) ? (void)0 : __assert_func(
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
                                    , 0, 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
                                    , 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
                                    ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
                                    )); ((iface->register_transport_func) ? (void)0 : __assert_func(
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
                                                                          ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
                                                                          , 0, 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
                                                                          ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
                                                                          , 
-# 353 "libs/sensor_network/src/sensor_network.c" 3 4
+# 424 "libs/sensor_network/src/sensor_network.c" 3 4
                                                                          ((void *)0)
-# 353 "libs/sensor_network/src/sensor_network.c"
+# 424 "libs/sensor_network/src/sensor_network.c"
                                                                          ));
     ((iface->server_endpoint_size <= 16 /*  Max byte size of Server or Collector endpoint*/) ? (void)0 : __assert_func(
-# 354 "libs/sensor_network/src/sensor_network.c" 3 4
+# 425 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 354 "libs/sensor_network/src/sensor_network.c"
+# 425 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 354 "libs/sensor_network/src/sensor_network.c" 3 4
+# 425 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 354 "libs/sensor_network/src/sensor_network.c"
+# 425 "libs/sensor_network/src/sensor_network.c"
    , 
-# 354 "libs/sensor_network/src/sensor_network.c" 3 4
+# 425 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 354 "libs/sensor_network/src/sensor_network.c"
+# 425 "libs/sensor_network/src/sensor_network.c"
    )); //  Need to increase MAX_ENDPOINT_SIZE.
     ((sensor_network_interfaces[i].network_device == 
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 426 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 426 "libs/sensor_network/src/sensor_network.c"
    ) ? (void)0 : __assert_func(
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 426 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 426 "libs/sensor_network/src/sensor_network.c"
    , 0, 
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 426 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 426 "libs/sensor_network/src/sensor_network.c"
    , 
-# 355 "libs/sensor_network/src/sensor_network.c" 3 4
+# 426 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)
-# 355 "libs/sensor_network/src/sensor_network.c"
+# 426 "libs/sensor_network/src/sensor_network.c"
    )); //  Interface already registered.
     memcpy(&sensor_network_interfaces[i], iface, sizeof(struct sensor_network_interface)); //  Copy the interface.
     sensor_network_interfaces[i].transport_registered = 0; //  We defer the registration of the transport till first use.

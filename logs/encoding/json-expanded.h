@@ -16,7 +16,6 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4
@@ -460,8 +459,8 @@
 #define APP_my_sensor_app 1
 #define ARCH_NAME cortex_m3
 #define ARCH_cortex_m3 1
-#define BSP_NAME bluepill
-#define BSP_bluepill 1
+#define BSP_NAME bluepill-64kb
+#define BSP_bluepill_64kb 1
 #define FLOAT_SUPPORT 1
 #define MYNEWT 1
 #define STM32F103xB 1

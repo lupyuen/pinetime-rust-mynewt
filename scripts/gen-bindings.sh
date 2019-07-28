@@ -19,8 +19,8 @@ function generate_bindings() {
 
     local expandcmd=logs/gen-bindings.txt
     local expandfile=logs/$modname-expanded.h
-    local expandpath=src/mynewt/$modname.rs
-    local tmpexpandpath=src/mynewt/$modname.tmp
+    local expandpath=rust/mynewt/src/$modname.rs
+    local tmpexpandpath=rust/mynewt/src/$modname.tmp
 
     #  Remove first line: arm-none-eabi-gcc
     tail +2 $libcmd \
@@ -226,6 +226,7 @@ function generate_bindings_libs() {
             --whitelist-function (?i)init_.*_post \
             --whitelist-function (?i)do_.*_post \
             --whitelist-function (?i)is_.*_node \
+            --whitelist-function (?i)start_.*_transport \
             --whitelist-function (?i)register_.*_transport \
             --whitelist-function (?i)should_send_to_.* \
             --whitelist-function (?i)get_device_id \

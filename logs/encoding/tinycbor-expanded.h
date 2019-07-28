@@ -16,7 +16,6 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4
@@ -460,8 +459,8 @@
 #define APP_my_sensor_app 1
 #define ARCH_NAME cortex_m3
 #define ARCH_cortex_m3 1
-#define BSP_NAME bluepill
-#define BSP_bluepill 1
+#define BSP_NAME bluepill-64kb
+#define BSP_bluepill_64kb 1
 #define FLOAT_SUPPORT 1
 #define MYNEWT 1
 #define STM32F103xB 1
@@ -836,27 +835,6 @@ typedef struct {
 #define MYNEWT_VAL_CBORATTR_MAX_SIZE (512)
 
 
-/*** @apache-mynewt-core/hw/bsp/bluepill */
-
-#define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
-
-
-
-#define MYNEWT_VAL_TIMER_0 (1)
-
-
-
-#define MYNEWT_VAL_TIMER_1 (0)
-
-
-
-#define MYNEWT_VAL_TIMER_2 (0)
-
-
-
-#define MYNEWT_VAL_UART_0 (1)
-
-
 /*** @apache-mynewt-core/hw/hal */
 
 #define MYNEWT_VAL_HAL_FLASH_VERIFY_BUF_SZ (16)
@@ -891,9 +869,8 @@ typedef struct {
 #define MYNEWT_VAL_SPI_0 (MYNEWT_VAL_SPI_0_MASTER || MYNEWT_VAL_SPI_0_SLAVE)
 
 
-/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/stm/stm32f1xx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER (1)
+#define MYNEWT_VAL_SPI_0_MASTER (0)
 
 
 
@@ -1458,263 +1435,116 @@ typedef struct {
 
 
 /*** apps/my_sensor_app */
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_ADC_1 (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_ESP8266 (1)
+#define MYNEWT_VAL_BC95G (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_ESP8266 (0)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_HMAC_PRNG (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_NRF24L01 (1)
+#define MYNEWT_VAL_NRF24L01 (0)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_RAW_TEMP (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_REMOTE_SENSOR (1)
+#define MYNEWT_VAL_REMOTE_SENSOR (0)
 
 
 
 #define MYNEWT_VAL_SEMIHOSTING_CONSOLE (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_COAP (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+/* Value copied from TEMP_STM32_DEVICE */
+
+#define MYNEWT_VAL_SENSOR_DEVICE ("temp_stm32_0")
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_KEY ("t")
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_POLL_TIME (10 * 1000)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_TYPE (SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_VALUE_TYPE (SENSOR_VALUE_TYPE_INT32)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_TEMP_STM32 (1)
 
 
 
-#define MYNEWT_VAL_TUTORIAL1 (0)
-
-
-
-#define MYNEWT_VAL_TUTORIAL2 (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
-
-#define MYNEWT_VAL_TUTORIAL3 (1)
+#define MYNEWT_VAL_TEMP_STUB (0)
 
 
 
 #define MYNEWT_VAL_WIFI_GEOLOCATION (0)
 
 
-/*** libs/esp8266 */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
+/*** hw/bsp/bluepill-64kb */
 
-#define MYNEWT_VAL_WIFI_PASSWORD ("my_password_is_secret")
+#define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
 
-#define MYNEWT_VAL_WIFI_SSID ("my_ssid")
+#define MYNEWT_VAL_TIMER_0 (1)
 
 
-/*** libs/nrf24l01 */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_AUTO_ACK (0)
+#define MYNEWT_VAL_TIMER_1 (0)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_AUTO_RETRANSMIT (0)
+#define MYNEWT_VAL_TIMER_2 (0)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_CE_PIN (MCU_GPIO_PORTB(0))
+#define MYNEWT_VAL_UART_0 (1)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
+/*** libs/bc95g */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/bc95g) */
 
-#define MYNEWT_VAL_NRF24L01_CRC_WIDTH (8)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_CS_PIN (MCU_GPIO_PORTB(2))
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_DATA_RATE (250)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_FREQ (2476)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_IRQ_PIN (MCU_GPIO_PORTA(15))
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_POWER (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_SPI_BAUDRATE (200)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_SPI_NUM (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_TX_SIZE (12)
-
-
-/*** libs/remote_sensor */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__DOUBLE (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD ("t")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__INT (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__NAME (temp_raw)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__UNION (strd)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD ("tf")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__NAME (temp)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__SENSOR_TYPE (AMBIENT_TEMPERATURE)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__UNION (std)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD ("p")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__NAME (press)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__SENSOR_TYPE (PRESSURE)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__UNION (spd)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD ("h")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__NAME (humid)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__SENSOR_TYPE (RELATIVE_HUMIDITY)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__UNION (shd)
+#define MYNEWT_VAL_NBIOT_BAND (8)
 
 
 /*** libs/semihosting_console */
@@ -1771,12 +1601,11 @@ typedef struct {
 
 
 /*** libs/sensor_coap */
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
-#define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
+#define MYNEWT_VAL_COAP_CBOR_ENCODING (0)
 
 
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -1784,7 +1613,7 @@ typedef struct {
 /*** libs/sensor_network */
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_HOST ("coap.thethings.io")
+#define MYNEWT_VAL_COAP_HOST ("104.199.85.211")
 
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
@@ -1797,69 +1626,61 @@ typedef struct {
 #define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_ADDRESS (0x7878787878ull)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_HW_ID (0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK_ADDRESS (0xb3b4b5b6ull)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_1 (0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_2 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x02)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_3 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x03)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_4 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x04)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_5 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x05)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_1 (0xf1)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_2 (0xcd)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_3 (0xa3)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_4 (0x0f)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_5 (0x05)
+
+
+/*** libs/temp_stm32 */
+
+#define MYNEWT_VAL_TEMP_STM32_DEVICE ("temp_stm32_0")
 
 
 /*** newt */
@@ -1880,11 +1701,11 @@ typedef struct {
 
 
 
-#define MYNEWT_VAL_BSP_NAME ("bluepill")
+#define MYNEWT_VAL_BSP_NAME ("bluepill-64kb")
 
 
 
-#define MYNEWT_VAL_BSP_bluepill (1)
+#define MYNEWT_VAL_BSP_bluepill_64kb (1)
 
 
 

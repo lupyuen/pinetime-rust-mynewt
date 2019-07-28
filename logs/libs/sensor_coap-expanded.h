@@ -16,7 +16,6 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4
@@ -460,8 +459,8 @@
 #define APP_my_sensor_app 1
 #define ARCH_NAME cortex_m3
 #define ARCH_cortex_m3 1
-#define BSP_NAME bluepill
-#define BSP_bluepill 1
+#define BSP_NAME bluepill-64kb
+#define BSP_bluepill_64kb 1
 #define FLOAT_SUPPORT 1
 #define MYNEWT 1
 #define STM32F103xB 1
@@ -547,27 +546,6 @@
 #define MYNEWT_VAL_CBORATTR_MAX_SIZE (512)
 
 
-/*** @apache-mynewt-core/hw/bsp/bluepill */
-
-#define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
-
-
-
-#define MYNEWT_VAL_TIMER_0 (1)
-
-
-
-#define MYNEWT_VAL_TIMER_1 (0)
-
-
-
-#define MYNEWT_VAL_TIMER_2 (0)
-
-
-
-#define MYNEWT_VAL_UART_0 (1)
-
-
 /*** @apache-mynewt-core/hw/hal */
 
 #define MYNEWT_VAL_HAL_FLASH_VERIFY_BUF_SZ (16)
@@ -602,9 +580,8 @@
 #define MYNEWT_VAL_SPI_0 (MYNEWT_VAL_SPI_0_MASTER || MYNEWT_VAL_SPI_0_SLAVE)
 
 
-/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/stm/stm32f1xx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER (1)
+#define MYNEWT_VAL_SPI_0_MASTER (0)
 
 
 
@@ -1169,263 +1146,116 @@
 
 
 /*** apps/my_sensor_app */
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_ADC_1 (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_ESP8266 (1)
+#define MYNEWT_VAL_BC95G (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_ESP8266 (0)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_HMAC_PRNG (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_NRF24L01 (1)
+#define MYNEWT_VAL_NRF24L01 (0)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_RAW_TEMP (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
 
-#define MYNEWT_VAL_REMOTE_SENSOR (1)
+#define MYNEWT_VAL_REMOTE_SENSOR (0)
 
 
 
 #define MYNEWT_VAL_SEMIHOSTING_CONSOLE (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_COAP (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+/* Value copied from TEMP_STM32_DEVICE */
+
+#define MYNEWT_VAL_SENSOR_DEVICE ("temp_stm32_0")
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_KEY ("t")
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by apps/my_sensor_app) */
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_POLL_TIME (10 * 1000)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_TYPE (SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
+
+#define MYNEWT_VAL_SENSOR_VALUE_TYPE (SENSOR_VALUE_TYPE_INT32)
+
+
+/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
 
 #define MYNEWT_VAL_TEMP_STM32 (1)
 
 
 
-#define MYNEWT_VAL_TUTORIAL1 (0)
-
-
-
-#define MYNEWT_VAL_TUTORIAL2 (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by apps/my_sensor_app) */
-
-#define MYNEWT_VAL_TUTORIAL3 (1)
+#define MYNEWT_VAL_TEMP_STUB (0)
 
 
 
 #define MYNEWT_VAL_WIFI_GEOLOCATION (0)
 
 
-/*** libs/esp8266 */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
+/*** hw/bsp/bluepill-64kb */
 
-#define MYNEWT_VAL_WIFI_PASSWORD ("my_password_is_secret")
+#define MYNEWT_VAL_STM32_FLASH_SIZE_KB (128)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/esp8266) */
 
-#define MYNEWT_VAL_WIFI_SSID ("my_ssid")
+#define MYNEWT_VAL_TIMER_0 (1)
 
 
-/*** libs/nrf24l01 */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_AUTO_ACK (0)
+#define MYNEWT_VAL_TIMER_1 (0)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_AUTO_RETRANSMIT (0)
+#define MYNEWT_VAL_TIMER_2 (0)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
 
-#define MYNEWT_VAL_NRF24L01_CE_PIN (MCU_GPIO_PORTB(0))
+#define MYNEWT_VAL_UART_0 (1)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
+/*** libs/bc95g */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/bc95g) */
 
-#define MYNEWT_VAL_NRF24L01_CRC_WIDTH (8)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_CS_PIN (MCU_GPIO_PORTB(2))
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_DATA_RATE (250)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_FREQ (2476)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_IRQ_PIN (MCU_GPIO_PORTA(15))
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_POWER (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_SPI_BAUDRATE (200)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_SPI_NUM (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/nrf24l01) */
-
-#define MYNEWT_VAL_NRF24L01_TX_SIZE (12)
-
-
-/*** libs/remote_sensor */
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__DOUBLE (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__FIELD ("t")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__INT (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__NAME (temp_raw)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__SENSOR_TYPE (AMBIENT_TEMPERATURE_RAW)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_1__UNION (strd)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__FIELD ("tf")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__NAME (temp)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__SENSOR_TYPE (AMBIENT_TEMPERATURE)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_2__UNION (std)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__FIELD ("p")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__NAME (press)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__SENSOR_TYPE (PRESSURE)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_3__UNION (spd)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__DOUBLE (1)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__FIELD ("h")
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__INT (0)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__NAME (humid)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__SENSOR_TYPE (RELATIVE_HUMIDITY)
-
-
-/* Overridden by targets/bluepill_my_sensor (defined by libs/remote_sensor) */
-
-#define MYNEWT_VAL_REMOTE_SENSOR_TYPE_4__UNION (shd)
+#define MYNEWT_VAL_NBIOT_BAND (8)
 
 
 /*** libs/semihosting_console */
@@ -1482,12 +1312,11 @@
 
 
 /*** libs/sensor_coap */
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
-#define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
+#define MYNEWT_VAL_COAP_CBOR_ENCODING (0)
 
 
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -1495,7 +1324,7 @@
 /*** libs/sensor_network */
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_HOST ("coap.thethings.io")
+#define MYNEWT_VAL_COAP_HOST ("104.199.85.211")
 
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
@@ -1508,69 +1337,61 @@
 #define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_ADDRESS (0x7878787878ull)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_COLLECTOR_NODE_HW_ID (0x57, 0xff, 0x6a, 0x06, 0x78, 0x78, 0x54, 0x50, 0x49, 0x29, 0x24, 0x67)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NETWORK_ADDRESS (0xb3b4b5b6ull)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_1 (0x38, 0xff, 0x6d, 0x06, 0x4e, 0x57, 0x34, 0x36, 0x25, 0x58, 0x08, 0x43)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_2 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x02)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_3 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x03)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_4 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x04)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_HW_ID_5 (0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x05)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_1 (0xf1)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_2 (0xcd)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_3 (0xa3)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_4 (0x0f)
 
 
-/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
 #define MYNEWT_VAL_SENSOR_NODE_OFFSET_5 (0x05)
+
+
+/*** libs/temp_stm32 */
+
+#define MYNEWT_VAL_TEMP_STM32_DEVICE ("temp_stm32_0")
 
 
 /*** newt */
@@ -1591,11 +1412,11 @@
 
 
 
-#define MYNEWT_VAL_BSP_NAME ("bluepill")
+#define MYNEWT_VAL_BSP_NAME ("bluepill-64kb")
 
 
 
-#define MYNEWT_VAL_BSP_bluepill (1)
+#define MYNEWT_VAL_BSP_bluepill_64kb (1)
 
 
 
@@ -29952,138 +29773,32 @@ void json_rep_end_root_object(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON-Only Encoding Macros
-# 116 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+
+
+
+//  Alias the generic rep* macros as json_rep*
+#define rep_start_root_object() json_rep_start_root_object()
+#define rep_end_root_object() json_rep_end_root_object()
+
+#define rep_set_array(object,key) json_rep_set_array( object, key)
+#define rep_close_array(object,key) json_rep_close_array(object, key)
+
+#define rep_object_array_start_item(key) json_rep_object_array_start_item(key)
+#define rep_object_array_end_item(key) json_rep_object_array_end_item(key)
+
+#define rep_set_int(object,key,value) json_rep_set_int( object, key, value)
+#define rep_set_uint(object,key,value) json_rep_set_uint( object, key, value)
+#define rep_set_float(object,key,value) json_rep_set_float( object, key, value)
+#define rep_set_text_string(object,key,value) json_rep_set_text_string(object, key, value)
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR-Only Encoding Macros
 # 140 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON and CBOR Coexistence Encoding Macros
-
-
-
-//  JSON or CBOR encoding will be selected by the Sensor Network, which depends on whether we're sending
-//  to CoAP Server (JSON) or Collector Node (CBOR)
-
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 1
-/*
-// Copyright (c) 2016 Intel Corporation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-*/
-# 149 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
-# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
-/*
- * Copyright (c) 2016 Intel Corporation
- *
- * Copyright (c) 2013, Institute for Pervasive Computing, ETH Zurich
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the Institute nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- *
- * This file is part of the Contiki operating system.
- */
-# 150 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
-
-#undef COAP_CONTENT_FORMAT
-extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
-#define JSON_ENC (oc_content_format == APPLICATION_JSON) /*  True if encoding format is JSON*/
-
-//  From repos\apache-mynewt-core\net\oic\include\oic\oc_rep.h
-//  Changed "#key" to "key" so that the key won't be stringified.
-
-#define oc_rep_set_int_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_int(&object ##_map, value); } while (0)
-
-
-
-
-
-#define oc_rep_set_uint_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_uint(&object ##_map, value); } while (0)
-
-
-
-
-
-#define oc_rep_set_float_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_float(&object ##_map, value); } while (0)
-
-
-
-
-
-#define oc_rep_set_text_string_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_text_string(&object ##_map, value, strlen(value)); } while (0)
-
-
-
-
-
-#define rep_start_root_object() oc_rep_start_root_object(); if (JSON_ENC) { json_rep_start_root_object(); }
-
-
-#define rep_end_root_object() if (JSON_ENC) { json_rep_end_root_object(); } oc_rep_end_root_object();
-
-
-#define rep_set_array(object,key) oc_rep_set_array(object, key); if (JSON_ENC) { json_rep_set_array(object, key); }
-
-
-#define rep_close_array(object,key) if (JSON_ENC) { json_rep_close_array(object, key); } oc_rep_close_array(object, key);
-
-
-#define rep_object_array_start_item(key) oc_rep_object_array_start_item(key); if (JSON_ENC) { json_rep_object_array_start_item(key); }
-
-
-#define rep_object_array_end_item(key) if (JSON_ENC) { json_rep_object_array_end_item(key); } oc_rep_object_array_end_item(key);
-
-
-//  oc_rep_set_int(object, key, value)
-//  -> cbor_encode_text_string(&object##_map, #key, strlen(#key));
-//     cbor_encode_int(&object##_map, value);      
-//  oc_rep_set_key(parent, key)
-//  -> cbor_encode_text_string(&parent, key, strlen(key))
-
-#define rep_set_int(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int(object, key, value); } }
-#define rep_set_uint(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint(object, key, value); } }
-#define rep_set_float(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double(object, key, value); } }
-#define rep_set_text_string(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string(object, key, value); } }
-
-//  Same as above, except that the key is not stringified.
-#define rep_set_int_k(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int_k(object, key, value); } }
-#define rep_set_uint_k(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint_k(object, key, value); } }
-#define rep_set_float_k(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double_k(object, key, value); } }
-#define rep_set_text_string_k(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string_k(object, key, value); } }
-
-
-
+# 219 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  CP Macros for composing CoAP Payloads in JSON and CBOR
 //  The format defined here is used by thethings.io for receiving sensor data
@@ -30186,85 +29901,9 @@ extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON
 #define CP_ITEM_STR(array0,key0,value0) { CP_ITEM(array0, { rep_set_text_string(array0, key, key0); rep_set_text_string(array0, value, value0); }) }
 # 28 "libs/sensor_coap/src/sensor_coap.c" 2
 
-# 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor_cnt_writer.h" 1
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-
-#define CBOR_CNT_WRITER_H 
-
-# 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
-/****************************************************************************
-**
-** Copyright (C) 2015 Intel Corporation
-**
-** Permission is hereby granted, free of charge, to any person obtaining a copy
-** of this software and associated documentation files (the "Software"), to deal
-** in the Software without restriction, including without limitation the rights
-** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-** copies of the Software, and to permit persons to whom the Software is
-** furnished to do so, subject to the following conditions:
-**
-** The above copyright notice and this permission notice shall be included in
-** all copies or substantial portions of the Software.
-**
-** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-** THE SOFTWARE.
-**
-****************************************************************************/
-# 24 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor_cnt_writer.h" 2
 
 
 
-
-
-
-    /* use this count writer if you want to try out a cbor encoding to see
-     * how long it would be (before allocating memory). This replaced the
-     * code in tinycbor.h that would try to do this once the encoding failed
-     * in a buffer.  Its much easier to understand this way (for me)
-     */
-
-struct CborCntWriter {
-    struct cbor_encoder_writer enc;
-};
-
-static inline int
-cbor_cnt_writer(struct cbor_encoder_writer *arg, const char *data, int len) {
-    struct CborCntWriter *cb = (struct CborCntWriter *) arg;
-    cb->enc.bytes_written += len;
-    return CborNoError;
-}
-
-static inline void
-cbor_cnt_writer_init(struct CborCntWriter *cb) {
-    cb->enc.bytes_written = 0;
-    cb->enc.write = &cbor_cnt_writer;
-}
-# 30 "libs/sensor_coap/src/sensor_coap.c" 2
-///  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected
-static struct CborCntWriter cnt_writer;
 
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
@@ -30366,7 +30005,7 @@ dispatch_coap_request(void)
         (oc_content_format == APPLICATION_JSON) ? json_rep_finalize() :
 
 
-        (oc_content_format == APPLICATION_CBOR) ? oc_rep_finalize() :
+
 
         0; //  Unknown CoAP content format.
 
@@ -30452,7 +30091,7 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
     }
     else if (oc_content_format == APPLICATION_CBOR) {
 
-        oc_rep_new(oc_c_rsp);
+
 
     }
     else { ((0) ? (void)0 : __assert_func(
@@ -30549,8 +30188,8 @@ init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_cont
 # 166 "libs/sensor_coap/src/sensor_coap.c"
                                                    ));
 
-
-
+    //  If content format is not specified, select the default.
+    if (coap_content_format == 0) { coap_content_format = APPLICATION_JSON /*  Specify JSON content type and accept type in the CoAP header.*/; }
 
     ((coap_content_format != 0) ? (void)0 : __assert_func(
 # 171 "libs/sensor_coap/src/sensor_coap.c" 3 4
@@ -30719,9 +30358,9 @@ void json_rep_new(struct os_mbuf *m) {
     coap_json_mbuf = m;
 
 
-    //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected.
-    cbor_cnt_writer_init(&cnt_writer);
-    cbor_encoder_init(&g_encoder, &cnt_writer.enc, 0);
+
+
+
 
 }
 
