@@ -11,6 +11,9 @@ use syn::{
         self,
         Captured,
     },
+    ForeignItem,
+    Ident,
+    ItemForeignMod,
     ReturnType,
     Type,
     punctuated::Punctuated,
@@ -18,22 +21,34 @@ use syn::{
     token::Comma,
 };
 
+/// Given a function name like `os_task_init`, return true if we should create the wrapper
+fn function_is_whitelisted(fname: &str) -> bool {
+    match fname {  //  If match found, then it's whitelisted.
+        //  libs/sensor_network
+        "start_server_transport" => { true }
+        "init_server_post"  => { true }
+        "do_server_post"    => { true }
+        _ => { false }  //  Else not whitelisted.
+    }
+}
+
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
 pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as an extern "C" function declaration.
-    let input = parse_macro_input!(item as syn::ItemForeignMod);
-    //println!("input: {:#?}", input);
+    let input = parse_macro_input!(item as ItemForeignMod);
+    //  println!("input: {:#?}", input);
     //  For each function...
     for foreign_item in input.items {
         //  TODO: Accumulate doc in attrs and rename args.
         //  println!("foreign_item: {:#?}", foreign_item);
         let foreign_item_tokens = quote! { #foreign_item };
-        if let syn::ForeignItem::Fn(foreign_fn) = foreign_item {
+        if let ForeignItem::Fn(foreign_fn) = foreign_item {
             //  println!("foreign_fn: {:#?}", foreign_fn);
             //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
             let transformed_fname = transform_function_name(&foreign_fn.ident);
             let TransformedFunctionName{ 
+                ident: fname,
                 token: fname_token, 
                 without_namespace_token: fname_without_namespace_token, .. 
             } = transformed_fname;
@@ -250,7 +265,7 @@ fn transform_arg(arg: ArgCaptured) -> TransformedArg {
 }
 
 /// Transform the extern return type e.g. `:: cty :: c_int`
-fn transform_return_type(output: &syn::ReturnType) -> TransformedReturnType {
+fn transform_return_type(output: &ReturnType) -> TransformedReturnType {
     let extern_type = quote! { output }.to_string();
     let wrap_type =
         if let ReturnType::Type (_, return_type) = output {
@@ -303,7 +318,7 @@ fn transform_return_type(output: &syn::ReturnType) -> TransformedReturnType {
 }
 
 /// Transform the extern function name e.g. `os_task_init`
-fn transform_function_name(ident: &syn::Ident) -> TransformedFunctionName {
+fn transform_function_name(ident: &Ident) -> TransformedFunctionName {
     // Get namespace e.g. `os`
     let fname = ident.to_string();
     let namespace = get_namespace(&fname);
@@ -318,8 +333,8 @@ fn transform_function_name(ident: &syn::Ident) -> TransformedFunctionName {
     // Transform the function name based on namespace.
     assert!(fname.starts_with(&namespace_prefix));
     let fname_without_namespace = &fname[namespace_prefix.len()..];
-    let fname_token = syn::Ident::new(&fname, ident.span());
-    let fname_without_namespace_token = syn::Ident::new(&fname_without_namespace, ident.span());
+    let fname_token = Ident::new(&fname, ident.span());
+    let fname_without_namespace_token = Ident::new(&fname_without_namespace, ident.span());
     //  Return the transformed function name.
     TransformedFunctionName {
         ident:                      Box::new(fname.clone()),
@@ -388,9 +403,9 @@ struct TransformedFunctionName {
     /// Function name without namespace e.g. `task_init`
     without_namespace: Box<String>,
     /// Token of function name e.g. `os_task_init`
-    token: Box<syn::Ident>,
+    token: Box<Ident>,
     /// Token of function name without namespace e.g. `task_init`
-    without_namespace_token: Box<syn::Ident>,
+    without_namespace_token: Box<Ident>,
     /// Span of the identifier (file location)
     ident_span: Box<Span>,
 }
