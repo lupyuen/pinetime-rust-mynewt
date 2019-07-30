@@ -2,6 +2,7 @@
 
 use crate::{
     result::*,
+    Out, Ptr, Strn,
 };
 
 /// Contains Rust bindings for Mynewt OS API `kernel/os`

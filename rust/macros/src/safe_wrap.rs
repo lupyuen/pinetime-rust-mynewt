@@ -49,17 +49,27 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
     //  Parse the macro input as an extern "C" function declaration.
     let input = parse_macro_input!(item as ItemForeignMod);
     //  println!("input: {:#?}", input);
-    //  For each function...
-    for foreign_item in input.items {
-        if let ForeignItem::Fn(foreign_fn) = foreign_item {
-            //  Generate the safe wrapper tokens for the extern function.
-            let expanded = wrap_function(&foreign_fn);
-            //  Return the expanded tokens back to the compiler.
-            //  println!("expanded: {:#?}", expanded);
-            return TokenStream::from(expanded)  //  TODO: Handle multiple functions.
-        } else { assert!(false) }  //  TODO: Handle non-function externs.
+    //  For each `ForeignItem` function or variable declaration...
+    for foreign_item in input.items {  //  `foreign_item` has type `ForeignItem`
+        match foreign_item {
+            ForeignItem::Fn(foreign_fn) => {
+                //  Generate the safe wrapper tokens for the extern function.
+                let expanded = wrap_function(&foreign_fn);
+                //  Return the expanded tokens back to the compiler.
+                //  println!("expanded: {:#?}", expanded);
+                return TokenStream::from(expanded)  //  TODO: Handle multiple functions.
+            }
+            ForeignItem::Static(foreign_static) => {
+                return quote! { extern "C" { #foreign_static } }.into()
+            }
+            _ => {
+                println!("safe_wrap_internal: Unknown extern {:#?}", quote! { #foreign_item }.to_string());
+                assert!(false); //  TODO: Handle unknown extern.
+            }
+        }        
         break;
     }
+    println!("safe_wrap_internal: Loop should not terminate");
     assert!(false);  //  TODO: Handle non-function externs.
     "// Should not come here".parse().unwrap()
 }
@@ -89,7 +99,7 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
     let attrs = &foreign_fn.attrs;
     let mut doc_tokens = proc_macro2::TokenStream::new();
     for attr in attrs {
-        println!("attr: {:#?}", quote! { #attr }.to_string());
+        // println!("attr: {:#?}", quote! { #attr }.to_string());
         let attr_span = attr.span();
         let tokens = quote_spanned!(attr_span => #attr);
         doc_tokens.extend(tokens);
