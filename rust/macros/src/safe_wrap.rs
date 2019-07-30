@@ -12,6 +12,7 @@ use syn::{
         Captured,
     },
     ForeignItem,
+    ForeignItemFn,
     Ident,
     ItemForeignMod,
     ReturnType,
@@ -40,83 +41,92 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
     //  println!("input: {:#?}", input);
     //  For each function...
     for foreign_item in input.items {
-        //  TODO: Accumulate doc in attrs and rename args.
-        //  println!("foreign_item: {:#?}", foreign_item);
-        let foreign_item_tokens = quote! { #foreign_item };
         if let ForeignItem::Fn(foreign_fn) = foreign_item {
-            //  println!("foreign_fn: {:#?}", foreign_fn);
-            //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
-            let transformed_fname = transform_function_name(&foreign_fn.ident);
-            let TransformedFunctionName{ 
-                ident: fname,
-                token: fname_token, 
-                without_namespace_token: fname_without_namespace_token, .. 
-            } = transformed_fname;
-
-            // Transform the return type.
-            let transformed_ret = transform_return_type(&foreign_fn.decl.output);
-            let TransformedReturnType{ 
-                declare_result_tokens, get_result_tokens, return_result_tokens, .. 
-            } = transformed_ret;
-
-            //  Get the function args and transform each arg into 3 forms:
-            //  (1) Wrap Declaration: How the arg type is exposed via the wrapper
-            //  (2) Validation Stmt: To validate each arg if needed, e.g. check strings are null-terminated
-            //  (3) Call Expr: Inside the wrapper, call the Mynewt API with type casting
-            let args = foreign_fn.decl.inputs;
-            let transformed_args = transform_arg_list(args);
-
-            //  For all args, collect the tokens for the Wrap, Validation and Call forms.
-            let wrap_tokens = collect_wrap(&transformed_args);
-            let validation_tokens = collect_validation(&transformed_args);
-            let call_tokens = collect_call(&transformed_args);
-
-            //  Compose the wrapper code as tokens.
-            let expanded = quote! {
-                //  "----------Insert Func Name: `pub fn task_init() -> {`----------";
-                pub fn #fname_without_namespace_token(
-                    //  "----------Insert Wrapped Decl----------";
-                    #wrap_tokens
-                    /* Like this:
-                        t: Out<os_task>,  //  Previously: *mut os_task
-                        name: &Strn,      //  Previously: *const ::cty::c_char
-                        func: os_task_func_t,
-                        arg: Ptr,         //  Previously: *mut ::cty::c_void
-                        prio: u8,
-                        sanity_itvl: os_time_t,
-                        stack_bottom: Out<[os_stack_t]>,  //  Previously: *mut os_stack_t
-                        stack_size: usize,                //  Previously: u16 */
-                ) -> #declare_result_tokens {             //  e.g. MynewtResult<()> or MynewtResult<* mut os_eventq>
-                    "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
-                    extern "C" { #foreign_item_tokens }
-                    "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-                    #validation_tokens
-                    unsafe {
-                    "----------Insert Call: `let result_code = os_task_init(`----------";
-                        #get_result_tokens #fname_token(
-                            //  "----------Insert Call Expr----------";
-                            #call_tokens
-                            /* Like this:
-                                t,
-                                name.bytestr.as_ptr() as *const ::cty::c_char,  //  Converted to pointer
-                                func,
-                                arg,
-                                prio,
-                                sanity_itvl,
-                                stack_bottom.as_ptr() as *mut os_stack_t,  //  Converted to pointer
-                                stack_size as u16  */
-                        );
-                        #return_result_tokens
-                    }
-                }
-            };
+            //  Generate the safe wrapper tokens for the extern function.
+            let expanded = wrap_function(&foreign_fn);
             //  Return the expanded tokens back to the compiler.
             //  println!("expanded: {:#?}", expanded);
-            return TokenStream::from(expanded)
-        } else { assert!(false) }
+            return TokenStream::from(expanded)  //  TODO: Handle multiple functions.
+        } else { assert!(false) }  //  TODO: Handle non-function externs.
         break;
     }
+    assert!(false);  //  TODO: Handle non-function externs.
     "// Should not come here".parse().unwrap()
+}
+
+/// Return the safe wrapper tokens for the extern function
+pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
+    //  TODO: Accumulate doc in attrs and rename args.
+    //  println!("foreign_item: {:#?}", foreign_item);
+    //  let foreign_item_tokens = quote! { #foreign_item };
+    let foreign_item_tokens = quote! { #foreign_fn };
+    //  println!("foreign_fn: {:#?}", foreign_fn);
+    //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
+    let transformed_fname = transform_function_name(&foreign_fn.ident);
+    let TransformedFunctionName{ 
+        ident: fname,
+        token: fname_token, 
+        without_namespace_token: fname_without_namespace_token, .. 
+    } = transformed_fname;
+
+    // Transform the return type.
+    let transformed_ret = transform_return_type(&foreign_fn.decl.output);
+    let TransformedReturnType{ 
+        declare_result_tokens, get_result_tokens, return_result_tokens, .. 
+    } = transformed_ret;
+
+    //  Get the function args and transform each arg into 3 forms:
+    //  (1) Wrap Declaration: How the arg type is exposed via the wrapper
+    //  (2) Validation Stmt: To validate each arg if needed, e.g. check strings are null-terminated
+    //  (3) Call Expr: Inside the wrapper, call the Mynewt API with type casting
+    let args = &foreign_fn.decl.inputs;
+    let transformed_args = transform_arg_list(args);
+
+    //  For all args, collect the tokens for the Wrap, Validation and Call forms.
+    let wrap_tokens = collect_wrap(&transformed_args);
+    let validation_tokens = collect_validation(&transformed_args);
+    let call_tokens = collect_call(&transformed_args);
+
+    //  Compose the wrapper code as tokens.
+    let expanded = quote! {
+        //  "----------Insert Func Name: `pub fn task_init() -> {`----------";
+        pub fn #fname_without_namespace_token(
+            //  "----------Insert Wrapped Decl----------";
+            #wrap_tokens
+            /* Like this:
+                t: Out<os_task>,  //  Previously: *mut os_task
+                name: &Strn,      //  Previously: *const ::cty::c_char
+                func: os_task_func_t,
+                arg: Ptr,         //  Previously: *mut ::cty::c_void
+                prio: u8,
+                sanity_itvl: os_time_t,
+                stack_bottom: Out<[os_stack_t]>,  //  Previously: *mut os_stack_t
+                stack_size: usize,                //  Previously: u16 */
+        ) -> #declare_result_tokens {             //  e.g. MynewtResult<()> or MynewtResult<* mut os_eventq>
+            "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
+            extern "C" { #foreign_item_tokens }
+            "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+            #validation_tokens
+            unsafe {
+            "----------Insert Call: `let result_code = os_task_init(`----------";
+                #get_result_tokens #fname_token(
+                    //  "----------Insert Call Expr----------";
+                    #call_tokens
+                    /* Like this:
+                        t,
+                        name.bytestr.as_ptr() as *const ::cty::c_char,  //  Converted to pointer
+                        func,
+                        arg,
+                        prio,
+                        sanity_itvl,
+                        stack_bottom.as_ptr() as *mut os_stack_t,  //  Converted to pointer
+                        stack_size as u16  */
+                );
+                #return_result_tokens
+            }
+        }
+    };
+    expanded
 }
 
 /// Collect the Wrapped Declarations for all args. Return a TokenStream of the declarations for the wrapper function:
@@ -197,7 +207,7 @@ fn expand_decl(ident: &str, ty: &str, ident_span: &Span, type_span: &Span, separ
 }
 
 /// Given a list of extern function arg declarations, return the transformed args.
-fn transform_arg_list(args: Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
+fn transform_arg_list(args: &Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
     //println!("args: {:#?}", args);
     let mut res = Vec::new();
     for cap in args {
@@ -205,7 +215,7 @@ fn transform_arg_list(args: Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
         if let Captured(arg) = cap {
             //  `arg` contains `pat : ty`
             //println!("arg: {:#?}", arg);
-            let arg_transformed = transform_arg(arg);
+            let arg_transformed = transform_arg(&arg);
             res.push(arg_transformed);
         } else { assert!(false); }
     }
@@ -213,7 +223,7 @@ fn transform_arg_list(args: Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
 }
 
 /// Transform the extern arg for Wrap declaration, Validation statement and Call expression.
-fn transform_arg(arg: ArgCaptured) -> TransformedArg {
+fn transform_arg(arg: &ArgCaptured) -> TransformedArg {
     //  `arg` contains `pat : ty` e.g. `t : * mut os_task`
     //  println!("arg: {:#?}", arg);
     let ArgCaptured{ pat, ty, .. } = arg;
