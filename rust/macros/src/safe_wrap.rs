@@ -26,9 +26,11 @@ use syn::{
 fn function_is_whitelisted(fname: &str) -> bool {
     match fname {  //  If match found, then it's whitelisted.
         //  libs/sensor_network
-        "start_server_transport" => { true }
-        "init_server_post"  => { true }
-        "do_server_post"    => { true }
+        "start_server_transport"    => { true }
+        "init_server_post"          => { true }
+        "do_server_post"            => { true }
+        //  hw/sensor
+        "sensor_set_poll_rate_ms"   => { true }
         _ => { false }  //  Else not whitelisted.
     }
 }
@@ -57,10 +59,11 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
 /// Return the safe wrapper tokens for the extern function
 pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
     //  TODO: Accumulate doc in attrs and rename args.
-    //  println!("foreign_item: {:#?}", foreign_item);
+    //  println!("foreign_fn: {:#?}", foreign_fn);
     //  let foreign_item_tokens = quote! { #foreign_item };
     let foreign_item_tokens = quote! { #foreign_fn };
-    //  println!("foreign_fn: {:#?}", foreign_fn);
+    println!("foreign_item_tokens: {:#?}", foreign_item_tokens.to_string());
+
     //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
     let transformed_fname = transform_function_name(&foreign_fn.ident);
     let TransformedFunctionName{ 
@@ -69,7 +72,16 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
         without_namespace_token: fname_without_namespace_token, .. 
     } = transformed_fname;
 
-    // Transform the return type.
+    //  If function name is not whitelisted, return the extern tokens without wrapping.
+    if !function_is_whitelisted(&fname) { 
+        return quote! {
+            extern "C" {
+                #foreign_item_tokens
+            }
+        }
+    }
+
+    //  Transform the return type.
     let transformed_ret = transform_return_type(&foreign_fn.decl.output);
     let TransformedReturnType{ 
         declare_result_tokens, get_result_tokens, return_result_tokens, .. 
