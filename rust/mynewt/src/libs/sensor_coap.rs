@@ -368,10 +368,10 @@ pub type oc_endpoint_t = oc_endpoint;
 #[repr(C)]
 #[derive(Default)]
 pub struct stats_coap_stats {}
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub static mut coap_stats: stats_coap_stats;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub static mut coap_error_message: *mut ::cty::c_char;
 }
 #[repr(C)]
@@ -391,21 +391,21 @@ impl Default for sensor_value {
         unsafe { ::core::mem::zeroed() }
     }
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Init the Sensor CoAP module. Called by sysinit() during startup, defined in pkg.yml."]
     pub fn init_sensor_coap();
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn sensor_coap_ready() -> bool;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn init_sensor_post(
         server: *mut oc_server_handle,
         uri: *const ::cty::c_char,
         coap_content_format: ::cty::c_int,
     ) -> bool;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn do_sensor_post() -> bool;
 }
 #[repr(C)]
@@ -438,38 +438,38 @@ pub type json_write_func_t = ::core::option::Option<
         len: ::cty::c_int,
     ) -> ::cty::c_int,
 >;
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub static mut coap_json_encoder: json_encoder;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub static mut coap_json_value: json_value;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Prepare to write a new JSON CoAP payload into the mbuf."]
     pub fn json_rep_new(m: *mut os_mbuf);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Close the current JSON CoAP payload.  Erase the JSON encoder."]
     pub fn json_rep_reset();
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Finalise the payload and return the payload size."]
     pub fn json_rep_finalize() -> ::cty::c_int;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Start the JSON representation.  Assume top level is object."]
     #[doc = " ```"]
     #[doc = " --> {"]
     #[doc = " ```"]
     pub fn json_rep_start_root_object();
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  End the JSON representation.  Assume top level is object."]
     #[doc = "  ```"]
     #[doc = "  {... --> {...}"]
     #[doc = "  ```"]
     pub fn json_rep_end_root_object();
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub static mut coap_json_mbuf: *mut os_mbuf;
 }

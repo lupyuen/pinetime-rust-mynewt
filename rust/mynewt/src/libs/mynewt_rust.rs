@@ -92,7 +92,7 @@ pub type __int32_t = ::cty::c_long;
 pub type __uint32_t = ::cty::c_ulong;
 pub type __int64_t = ::cty::c_longlong;
 pub type __uint64_t = ::cty::c_ulonglong;
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C."]
     pub fn rust_sysinit();
 }
@@ -480,7 +480,7 @@ impl sensor_temp_raw_data {
         __bindgen_bitfield_unit
     }
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp."]
     #[doc = "  Copy the sensor data into `dest`.  Return 0 if successful."]
     pub fn get_temp_raw_data(
@@ -488,7 +488,7 @@ extern "C" {
         dest: *mut sensor_temp_raw_data,
     ) -> ::cty::c_int;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Interpret `sensor_data` as a `sensor_temp_data` struct that contains computed temp."]
     #[doc = "  Copy the sensor data into `dest`.  Return 0 if successful."]
     pub fn get_temp_data(
@@ -496,67 +496,67 @@ extern "C" {
         dest: *mut sensor_temp_data,
     ) -> ::cty::c_int;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return the Mynewt device for the Mynewt sensor."]
     pub fn sensor_get_device(s: *mut sensor) -> *mut os_dev;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return the name for the Mynewt device.  Assumes name is non-null."]
     pub fn device_get_name(device: *mut os_dev) -> *const ::cty::c_char;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return the NULL sensor."]
     pub fn null_sensor() -> *mut sensor;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return non-zero if sensor is NULL."]
     pub fn is_null_sensor(p: *mut sensor) -> ::cty::c_int;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return non-zero if sensor data is NULL."]
     pub fn is_null_sensor_data(p: *mut ::cty::c_void) -> ::cty::c_int;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Assume we are writing an object now.  Write the key name and start a child array."]
     #[doc = "  ```"]
     #[doc = "  {a:b --> {a:b, key:["]
     #[doc = "  ```"]
     pub fn json_helper_set_array(object: *mut ::cty::c_void, key: *const ::cty::c_char);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  End the child array and resume writing the parent object."]
     #[doc = "  ```"]
     #[doc = "  {a:b, key:[... --> {a:b, key:[...]"]
     #[doc = "  ```"]
     pub fn json_helper_close_array(object: *mut ::cty::c_void, key: *const ::cty::c_char);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Assume we have called `set_array`.  Start an array item, assumed to be an object."]
     #[doc = "  ```"]
     #[doc = "  [... --> [...,"]
     #[doc = "  ```"]
     pub fn json_helper_object_array_start_item(key: *const ::cty::c_char);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  End an array item, assumed to be an object."]
     #[doc = "  ```"]
     #[doc = "  [... --> [...,"]
     #[doc = "  ```"]
     pub fn json_helper_object_array_end_item(key: *const ::cty::c_char);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Encode an int value into the current JSON encoding value `coap_json_value`"]
     pub fn json_helper_set_int(object: *mut ::cty::c_void, key: *const ::cty::c_char, value: u64);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Encode an unsigned int value into the current JSON encoding value `coap_json_value`"]
     pub fn json_helper_set_uint(object: *mut ::cty::c_void, key: *const ::cty::c_char, value: u64);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Encode a float value into the current JSON encoding value `coap_json_value`"]
     pub fn json_helper_set_float(object: *mut ::cty::c_void, key: *const ::cty::c_char, value: f32);
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Encode a text value into the current JSON encoding value `coap_json_value`"]
     pub fn json_helper_set_text_string(
         object: *mut ::cty::c_void,

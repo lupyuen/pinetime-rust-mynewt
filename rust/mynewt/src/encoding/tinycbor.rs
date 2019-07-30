@@ -92,7 +92,7 @@ pub const CborError_CborErrorJsonNotImplemented: CborError = 1029;
 pub const CborError_CborErrorOutOfMemory: CborError = 2147483648;
 pub const CborError_CborErrorInternalError: CborError = 4294967295;
 pub type CborError = u32;
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_error_string(error: CborError) -> *const ::cty::c_char;
 }
 pub type cbor_encoder_write = ::core::option::Option<
@@ -130,7 +130,7 @@ impl Default for CborEncoder {
         unsafe { ::core::mem::zeroed() }
     }
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initializes a CborEncoder structure \\a encoder by pointing it to buffer \\a"]
     #[doc = " buffer of size \\a size. The \\a flags field is currently unused and must be"]
     #[doc = " zero."]
@@ -140,28 +140,28 @@ extern "C" {
         flags: ::cty::c_int,
     );
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the unsigned 64-bit integer \\a value to the CBOR stream provided by"]
     #[doc = " \\a encoder."]
     #[doc = ""]
     #[doc = " \\sa cbor_encode_negative_int, cbor_encode_int"]
     pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the signed 64-bit integer \\a value to the CBOR stream provided by"]
     #[doc = " \\a encoder."]
     #[doc = ""]
     #[doc = " \\sa cbor_encode_negative_int, cbor_encode_uint"]
     pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the negative 64-bit integer whose absolute value is \\a"]
     #[doc = " absolute_value to the CBOR stream provided by \\a encoder."]
     #[doc = ""]
     #[doc = " \\sa cbor_encode_uint, cbor_encode_int"]
     pub fn cbor_encode_negative_int(encoder: *mut CborEncoder, absolute_value: u64) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the CBOR Simple Type of value \\a value to the CBOR stream provided by"]
     #[doc = " \\a encoder."]
     #[doc = ""]
@@ -169,13 +169,13 @@ extern "C" {
     #[doc = " variable contains a number that is not a valid simple type."]
     pub fn cbor_encode_simple_value(encoder: *mut CborEncoder, value: u8) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the CBOR tag \\a tag to the CBOR stream provided by \\a encoder."]
     #[doc = ""]
     #[doc = " \\sa CborTag"]
     pub fn cbor_encode_tag(encoder: *mut CborEncoder, tag: CborTag) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the byte string \\a string of length \\a length to the CBOR stream"]
     #[doc = " provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
     #[doc = ""]
@@ -186,7 +186,7 @@ extern "C" {
         length: usize,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the text string \\a string of length \\a length to the CBOR stream"]
     #[doc = " provided by \\a encoder. CBOR requires that \\a string be valid UTF-8, but"]
     #[doc = " TinyCBOR makes no verification of correctness."]
@@ -198,7 +198,7 @@ extern "C" {
         length: usize,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the byte string passed as \\a iov and \\a iov_len to the CBOR"]
     #[doc = " stream provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
     #[doc = ""]
@@ -209,7 +209,7 @@ extern "C" {
         iov_len: ::cty::c_int,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Appends the floating-point value of type \\a fpType and pointed to by \\a"]
     #[doc = " value to the CBOR stream provided by \\a encoder. The value of \\a fpType must"]
     #[doc = " be one of CborHalfFloatType, CborFloatType or CborDoubleType, otherwise the"]
@@ -225,7 +225,7 @@ extern "C" {
         value: *const ::cty::c_void,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Creates a CBOR array in the CBOR stream provided by \\a encoder and"]
     #[doc = " initializes \\a arrayEncoder so that items can be added to the array using"]
     #[doc = " the CborEncoder functions. The array must be terminated by calling either"]
@@ -244,7 +244,7 @@ extern "C" {
         length: usize,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Creates a CBOR map in the CBOR stream provided by \\a encoder and"]
     #[doc = " initializes \\a mapEncoder so that items can be added to the map using"]
     #[doc = " the CborEncoder functions. The map must be terminated by calling either"]
@@ -267,7 +267,7 @@ extern "C" {
         length: usize,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Creates a indefinite-length byte string in the CBOR stream provided by"]
     #[doc = " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
     #[doc = " can be added using the CborEncoder functions. The string must be terminated by"]
@@ -280,7 +280,7 @@ extern "C" {
         stringEncoder: *mut CborEncoder,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Closes the CBOR container (array, map or indefinite-length string) provided"]
     #[doc = " by \\a containerEncoder and updates the CBOR stream provided by \\a encoder."]
     #[doc = " Both parameters must be the same as were passed to cbor_encoder_create_array() or"]
@@ -296,7 +296,7 @@ extern "C" {
         containerEncoder: *const CborEncoder,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_encoder_close_container_checked(
         encoder: *mut CborEncoder,
         containerEncoder: *const CborEncoder,
@@ -372,7 +372,7 @@ impl Default for CborValue {
         unsafe { ::core::mem::zeroed() }
     }
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_parser_init(
         d: *mut cbor_decoder_reader,
         flags: ::cty::c_int,
@@ -380,57 +380,57 @@ extern "C" {
         it: *mut CborValue,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_advance_fixed(it: *mut CborValue) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_advance(it: *mut CborValue) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_enter_container(it: *const CborValue, recursed: *mut CborValue) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_leave_container(it: *mut CborValue, recursed: *const CborValue) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_get_int64_checked(value: *const CborValue, result: *mut i64) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_get_int_checked(
         value: *const CborValue,
         result: *mut ::cty::c_int,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_skip_tag(it: *mut CborValue) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_calculate_string_length(
         value: *const CborValue,
         length: *mut usize,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_text_string_equals(
         value: *const CborValue,
         string: *const ::cty::c_char,
         result: *mut bool,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_map_find_value(
         map: *const CborValue,
         string: *const ::cty::c_char,
         element: *mut CborValue,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_get_half_float(
         value: *const CborValue,
         result: *mut ::cty::c_void,
     ) -> CborError;
 }
-extern "C" {
+#[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn cbor_value_to_pretty_advance(out: *mut FILE, value: *mut CborValue) -> CborError;
 }
 pub const CborMajorTypes_UnsignedIntegerType: CborMajorTypes = 0;
