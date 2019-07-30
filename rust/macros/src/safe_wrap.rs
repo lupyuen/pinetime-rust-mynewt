@@ -25,12 +25,20 @@ use syn::{
 /// Given a function name like `os_task_init`, return true if we should create the wrapper
 fn function_is_whitelisted(fname: &str) -> bool {
     match fname {  //  If match found, then it's whitelisted.
-        //  libs/sensor_network
-        "start_server_transport"    => { true }
-        "init_server_post"          => { true }
-        "do_server_post"            => { true }
+        //  kernel/os
+        "os_eventq_dflt_get"        => { true }
+        "os_eventq_run"             => { true }
+        "os_task_init"              => { true }
+
         //  hw/sensor
-        "sensor_set_poll_rate_ms"   => { true }
+        "sensor_mgr_find_next_bydevname"    => { true }
+        "sensor_set_poll_rate_ms"           => { true }
+
+        //  libs/sensor_network
+        "do_server_post"            => { true }
+        "init_server_post"          => { true }
+        "start_server_transport"    => { true }
+
         _ => { false }  //  Else not whitelisted.
     }
 }
@@ -58,11 +66,10 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
 
 /// Return the safe wrapper tokens for the extern function
 pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
-    //  TODO: Accumulate doc in attrs and rename args.
     //  println!("foreign_fn: {:#?}", foreign_fn);
-    //  let foreign_item_tokens = quote! { #foreign_item };
+    //  Contains `#[doc] ... pub fn ...`
     let foreign_item_tokens = quote! { #foreign_fn };
-    println!("foreign_item_tokens: {:#?}", foreign_item_tokens.to_string());
+    //  println!("foreign_item_tokens: {:#?}", foreign_item_tokens.to_string());
 
     //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
     let transformed_fname = transform_function_name(&foreign_fn.ident);
@@ -74,12 +81,24 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
 
     //  If function name is not whitelisted, return the extern tokens without wrapping.
     if !function_is_whitelisted(&fname) { 
-        return quote! {
-            extern "C" {
-                #foreign_item_tokens
-            }
-        }
+        return quote! { extern "C" { #foreign_item_tokens } }
     }
+
+    //  Move the `#[doc]` attributes out from the extern and into the top level.
+    //  TODO: Accumulate doc in attrs and rename args.
+    let attrs = &foreign_fn.attrs;
+    let mut doc_tokens = proc_macro2::TokenStream::new();
+    for attr in attrs {
+        println!("attr: {:#?}", quote! { #attr }.to_string());
+        let attr_span = attr.span();
+        let tokens = quote_spanned!(attr_span => #attr);
+        doc_tokens.extend(tokens);
+    }
+
+    //  Get the extern declaration without the doc attributes.
+    //  let extern_decl = foreign_fn.decl;
+    //  let extern_decl_span = &foreign_fn.span();
+    //  let extern_decl_tokens = quote_spanned!(extern_decl_span => #extern_decl);
 
     //  Transform the return type.
     let transformed_ret = transform_return_type(&foreign_fn.decl.output);
@@ -101,7 +120,9 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
 
     //  Compose the wrapper code as tokens.
     let expanded = quote! {
-        //  "----------Insert Func Name: `pub fn task_init() -> {`----------";
+        //  "----------Insert Doc: `#[doc]`----------";
+        #doc_tokens
+        //  "----------Insert Func Name: `pub fn task_init() -> ... {`----------";
         pub fn #fname_without_namespace_token(
             //  "----------Insert Wrapped Decl----------";
             #wrap_tokens
@@ -344,7 +365,7 @@ fn transform_function_name(ident: &Ident) -> TransformedFunctionName {
     // Get namespace e.g. `os`
     let fname = ident.to_string();
     let namespace = get_namespace(&fname);
-    println!("namespace: {:#?}", namespace);
+    // println!("namespace: {:#?}", namespace);
     // Get namespace prefix e.g. `os_`
     let namespace_prefix = 
         if namespace.len() > 0 { 
