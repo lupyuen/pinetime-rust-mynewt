@@ -41,7 +41,7 @@ impl Default for sensor_network_interface {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] ////
+//#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     #[doc = ""]
     pub fn start_server_transport() -> ::cty::c_int;
@@ -62,7 +62,7 @@ extern "C" {
 extern "C" {
     pub fn sensor_network_register_transport(iface_type: u8) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] ////
+//#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     pub fn init_server_post(uri: *const ::cty::c_char) -> bool;
 }
@@ -72,7 +72,7 @@ extern "C" {
 extern "C" {
     pub fn sensor_network_init_post(iface_type: u8, uri: *const ::cty::c_char) -> bool;
 }
-#[proc_macros::safe_wrap(attr)] ////
+//#[proc_macros::safe_wrap(attr)] ////
 extern "C" {
     pub fn do_server_post() -> bool;
 }

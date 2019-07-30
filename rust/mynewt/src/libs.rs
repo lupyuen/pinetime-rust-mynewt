@@ -9,6 +9,7 @@ use crate::{
     hw::sensor::*,
     encoding::json::*,
     libs::sensor_coap::*,
+    Strn,
 };
 
 /// Contains Rust bindings for Mynewt Custom API `libs/sensor_coap`
