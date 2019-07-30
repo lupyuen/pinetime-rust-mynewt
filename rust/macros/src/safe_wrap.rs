@@ -33,16 +33,16 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
             //  println!("foreign_fn: {:#?}", foreign_fn);
             //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
             let transformed_fname = transform_function_name(&foreign_fn.ident);
-            let fname_token = transformed_fname.token;
-            let fname_without_namespace_token = transformed_fname.without_namespace_token;
+            let TransformedFunctionName{ 
+                token: fname_token, 
+                without_namespace_token: fname_without_namespace_token, .. 
+            } = transformed_fname;
 
-            let return_type_str =
-                if let ReturnType::Type (_, return_type) = foreign_fn.decl.output {
-                    //  e.g. `:: cty :: c_int` for Mynewt error code, or `* mut os_eventq`
-                    (quote! { #return_type }).to_string()
-                }
-                else { "".to_string() };  //  No return type
-            //  println!("return_type_str: {:#?}", return_type_str);
+            // Transform the return type.
+            let transformed_ret = transform_return_type(&foreign_fn.decl.output);
+            let TransformedReturnType{ 
+                declare_result_tokens, get_result_tokens, return_result_tokens, .. 
+            } = transformed_ret;
 
             //  Get the function args and transform each arg into 3 forms:
             //  (1) Wrap Declaration: How the arg type is exposed via the wrapper
@@ -55,37 +55,6 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
             let wrap_tokens = collect_wrap(&transformed_args);
             let validation_tokens = collect_validation(&transformed_args);
             let call_tokens = collect_call(&transformed_args);
-
-            //  Declare the result type.
-            let declare_result_tokens =
-                if return_type_str == ":: cty :: c_int" {  //  Mynewt error code
-                    quote! { MynewtResult<()> }                        
-                }
-                else if return_type_str != "" {
-                    let return_type_tokens = syn::parse_str::<Type>(&return_type_str).unwrap();
-                    quote! { MynewtResult< #return_type_tokens > }  //  Specified return type e.g. `* mut os_eventq`
-                }
-                else { 
-                    quote! { MynewtResult<()> }  //  No return type
-                };
-            //  Assign the result.
-            let get_result_tokens =
-                if return_type_str != "" { quote! { let result_value = } }
-                else { quote! {} };  //  No return type, so no result.
-            //  Return the result or error.
-            let return_result_tokens = 
-                if return_type_str == ":: cty :: c_int" {  //  Mynewt error code
-                    quote! {                         
-                        if result_value == 0 { Ok(()) }
-                        else { Err(MynewtError::from(result_value)) }
-                    }
-                }
-                else if return_type_str != "" {
-                    quote! { Ok( result_value ) }  //  Return Ok with return value.
-                }
-                else { 
-                    quote! { Ok(()) }  //  If no return type, return nothing.
-                };
 
             //  Compose the wrapper code as tokens.
             let expanded = quote! {
@@ -280,6 +249,59 @@ fn transform_arg(arg: ArgCaptured) -> TransformedArg {
     }
 }
 
+/// Transform the extern return type e.g. `:: cty :: c_int`
+fn transform_return_type(output: &syn::ReturnType) -> TransformedReturnType {
+    let extern_type = quote! { output }.to_string();
+    let wrap_type =
+        if let ReturnType::Type (_, return_type) = output {
+            //  e.g. `:: cty :: c_int` for Mynewt error code, or `* mut os_eventq`
+            (quote! { #return_type }).to_string()
+        }
+        else { "".to_string() };  //  No return type
+    //  println!("wrap_type: {:#?}", wrap_type);
+
+    //  Declare the result type.
+    let declare_result_tokens =
+        if wrap_type == ":: cty :: c_int" {  //  Mynewt error code
+            quote! { MynewtResult<()> }                        
+        }
+        else if wrap_type != "" {
+            let return_type_tokens = syn::parse_str::<Type>(&wrap_type).unwrap();
+            quote! { MynewtResult< #return_type_tokens > }  //  Specified return type e.g. `* mut os_eventq`
+        }
+        else { 
+            quote! { MynewtResult<()> }  //  No return type
+        };
+    //  Assign the result.
+    let get_result_tokens =
+        if wrap_type != "" { quote! { let result_value = } }
+        else { quote! {} };  //  No return type, so no result.
+    //  Return the result or error.
+    let return_result_tokens = 
+    if wrap_type == ":: cty :: c_int" {  //  Mynewt error code
+        quote! {                         
+            if result_value == 0 { Ok(()) }
+            else { Err(MynewtError::from(result_value)) }
+        }
+    }
+    else if wrap_type != "" {
+        quote! { Ok( result_value ) }  //  Return Ok with return value.
+    }
+    else { 
+        quote! { Ok(()) }  //  If no return type, return nothing.
+    };
+    let type_span = output.span();
+    //  Return the transformed return type.
+    TransformedReturnType {
+        extern_type:                Box::new(extern_type),
+        wrap_type:                  Box::new(wrap_type),
+        declare_result_tokens:      Box::new(quote_spanned!(type_span=> #declare_result_tokens)),
+        get_result_tokens:          Box::new(quote_spanned!(type_span=> #get_result_tokens)),
+        return_result_tokens:       Box::new(quote_spanned!(type_span=> #return_result_tokens)),
+        type_span:                  Box::new(type_span),
+    }
+}
+
 /// Transform the extern function name e.g. `os_task_init`
 fn transform_function_name(ident: &syn::Ident) -> TransformedFunctionName {
     // Get namespace e.g. `os`
@@ -323,60 +345,6 @@ fn get_namespace(fname: &str) -> &str {
     }
 }
 
-/*
-/// Transform the extern return type for Wrap declaration, Validation statement and Call expression.
-fn transform_arg(arg: ArgCaptured) -> TransformedArg {
-    //  `arg` contains `pat : ty` e.g. `t : * mut os_task`
-    //  println!("arg: {:#?}", arg);
-    let ArgCaptured{ pat, ty, .. } = arg;
-    //  println!("pat: {}, ty: {}", quote!{ #pat }, quote!{ #ty });
-    let pat_span = pat.span();  //  syn::Pat
-    let ty_span = ty.span();    //  syn::Type
-    let ident = quote!{ #pat }.to_string();
-    let extern_type = quote!{ #ty }.to_string();
-    let mut wrap_type = quote!{ #ty }.to_string();
-    let mut validation_stmt = "".to_string();
-    let mut call_expr = quote!{ #pat }.to_string();
-    //  Match the type and transform accordingly.
-    match extern_type.as_str() {
-        //  * const :: cty :: c_char => &Strn
-        "* const :: cty :: c_char" => {
-            wrap_type = "&Strn".to_string();
-            //  e.g. Strn::validate_bytestr(name.bytestr)
-            validation_stmt = format!("Strn::validate_bytestr({}.bytestr)", ident);
-            //  e.g. name.bytestr.as_ptr()
-            call_expr = format!("{}.bytestr.as_ptr()", ident);
-        }
-        //  * mut :: cty :: c_void => Ptr
-        "* mut :: cty :: c_void" => {
-            wrap_type = "Ptr".to_string();
-        }
-        //  * mut os_task => Out<os_task>
-        "* mut os_task" => {
-            //  TODO: Use regex to match any `os_*`: https://rust-lang-nursery.github.io/rust-cookbook/text/regex.html
-            wrap_type = "Out<os_task>".to_string();
-        }
-        //  * mut os_stack_t => Out<[os_stack_t]>
-        "* mut os_stack_t" => {
-            wrap_type = "Out<[os_stack_t]>".to_string();
-            //  e.g. stack_bottom.as_ptr()
-            call_expr = format!("{}.as_ptr()", ident);
-        }
-        _ => {}
-    }
-    //  Return the transformed arg.
-    TransformedArg {
-        ident:           Box::new(ident),
-        extern_type:     Box::new(extern_type),
-        wrap_type:       Box::new(wrap_type),
-        validation_stmt: Box::new(validation_stmt),
-        call_expr:       Box::new(call_expr),
-        ident_span:      Box::new(pat_span),
-        type_span:       Box::new(ty_span),
-    }
-}
-*/
-
 /// Extern arg declaration transformed into the Wrap, Validation and Call forms 
 struct TransformedArg {
     /// Identifier e.g. `name`
@@ -391,6 +359,22 @@ struct TransformedArg {
     call_expr: Box<String>,
     /// Span of the identifier (file location)
     ident_span: Box<Span>,
+    /// Span of the type (file location)
+    type_span: Box<Span>,
+}
+
+/// Extern return type declaration transformed
+struct TransformedReturnType {
+    /// Original extern type e.g. `:: cty :: c_int` or `* mut os_eventq`
+    extern_type: Box<String>,
+    /// Wrapped type to be exposed e.g. `:: cty :: c_int` or `* mut os_eventq`
+    wrap_type: Box<String>,
+    /// Declare the result type e.g. `MynewtResult< * mut os_eventq >`
+    declare_result_tokens: Box<proc_macro2::TokenStream>,
+    /// Assign the result e.g. `let result_value = `
+    get_result_tokens: Box<proc_macro2::TokenStream>,
+    /// Return the result or error e.g. `Ok( result_value )`
+    return_result_tokens: Box<proc_macro2::TokenStream>,
     /// Span of the type (file location)
     type_span: Box<Span>,
 }
