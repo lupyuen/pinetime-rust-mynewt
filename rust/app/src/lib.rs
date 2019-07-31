@@ -33,10 +33,10 @@ extern crate mynewt;                    //  Declare the Mynewt library
 extern crate macros as proc_macros;     //  Declare the Mynewt Procedural Macros library
 
 #[allow(dead_code)] //  Suppress warnings of unused constants and vars
-mod app_base;           //  Declare `app_base.rs` as Rust module `app_base`
+mod app_base;       //  Declare `app_base.rs` as Rust module `app_base`
 
-mod app_sensor;   //  Declare `app_sensor.rs` as Rust module `app_sensor`
-mod app_network;  //  Declare `app_network.rs` as Rust module `app_network`
+mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor`
+mod app_network;    //  Declare `app_network.rs` as Rust module `app_network`
 
 use core::panic::PanicInfo;         //  Import `PanicInfo` type which is used by `panic()` below
 use cortex_m::asm::bkpt;            //  Import cortex_m assembly function to inject breakpoint

@@ -1,59 +1,64 @@
-//!  Poll the temperature sensor every 10 seconds.  We support 2 types of temperature sensors:
-//!  (1)  BME280 Temperature Sensor, connected to Blue Pill on port SPI1.
-//!       This sensor is selected if BME280_OFB is defined in syscfg.yml.
-//!  (2)  Blue Pill internal temperature sensor, connected to port ADC1 on channel 16
-//!       This sensor is selected if TEMP_STM32 is defined in syscfg.yml.
-//!  If this is the Collector Node, send the sensor data to the CoAP Server after polling.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/listen_sensor.c`
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+//!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
 
-use cstr_core::CStr;                    //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
-use cty::c_char;                        //  Import C types from `cty` library: https://crates.io/crates/cty
+use cstr_core::CStr;                        //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
+use cty::c_char;                            //  Import C types from `cty` library: https://crates.io/crates/cty
+use proc_macros::{ out, strn, init_strn };  //  Import procedural macros
 use mynewt::{
-    result::*,                          //  Import Mynewt API Result and Error types
-    fill_zero,                          //  Import Mynewt macros
+    result::*,                              //  Import Mynewt API Result and Error types
     hw::sensor::{        
-        self,                           //  Import Mynewt Sensor API functions
-        sensor_ptr,                     //  Import Mynewt Sensor API types
+        self,                               //  Import Mynewt Sensor API functions
+        sensor_ptr,                         //  Import Mynewt Sensor API types
         sensor_arg,
         sensor_data_ptr,
         sensor_listener,
         sensor_temp_data,
         sensor_type_t,
-    }
+    },
+    fill_zero,                              //  Import Mynewt macros
+    Strn,
 };
-use crate::base::*;                     //  Import `base.rs` for common declarations
-use crate::send_coap::send_sensor_data; //  Import `send_coap.rs` for sending sensor data
+use crate::app_base::*;                     //  Import `app_base.rs` for common declarations
+use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
 
-///  Poll every 10,000 milliseconds (10 seconds)  
+///  Sensor to be polled
+static SENSOR_DEVICE: Strn = init_strn!("temp_stm32_0");
+///  Poll sensor every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32  = (10 * 1000);  
-///  Indicate that this is a listener callback
-const LISTENER_CB: sensor_arg = 1 as sensor_arg;
 
-/////////////////////////////////////////////////////////
-//  Listen To Local Sensor
-
-///  For Sensor Node and Standalone Node: Start polling the temperature sensor 
-///  every 10 seconds in the background.  After polling the sensor, call the 
-///  Listener Function to send the sensor data to the Collector Node (if this is a Sensor Node)
-///  or CoAP Server (is this is a Standalone Node).
-///  For Collector Node: Start the Listeners for Remote Sensor 
-///  Otherwise this is a Standalone Node with ESP8266, or a Sensor Node with nRF24L01.
+///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
-    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-    sensor::set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
+    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
+    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let sensor = sensor::mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) ? ;
+    let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, null_sensor()) ? ;
     assert!(unsafe{ !is_null_sensor(sensor) });
 
     //  Define the listener function to be called after polling the temperature sensor.
     let listener = sensor_listener {
         sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature
-        sl_func       : sensor::as_untyped(read_temperature),  //  Listener function
-        sl_arg        : LISTENER_CB,            //  Indicate that this is a listener callback
+        sl_func       : sensor::as_untyped(handle_sensor_data),  //  Listener function
         ..fill_zero!(sensor_listener)           //  Set other fields to 0
     };
 
@@ -64,44 +69,25 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     Ok(())
 }
 
-/////////////////////////////////////////////////////////
-//  Listen To Remote Sensors Connected Via nRF24L01
-
-//  TODO
-
-/////////////////////////////////////////////////////////
-//  Process Temperature Sensor Value (Raw and Computed)
-
-///  This listener function is called by Mynewt every 10 seconds (for local sensors) or when sensor data is received
-///  (for Remote Sensors).  Mynewt has fetched the raw or computed temperature value, passed through `sensor_data`.
-///  If this is a Sensor Node, we send the sensor data to the Collector Node.
-///  If this is a Collector Node or Standalone Node, we send the sensor data to the CoAP server.  
-///  Return 0 if we have processed the sensor data successfully.
-extern fn read_temperature(sensor: sensor_ptr, _arg: sensor_arg, 
+///  This listener function is called every 10 seconds by Mynewt to handle the polled sensor data.
+///  Return 0 if we have handled the sensor data successfully.
+extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg, 
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console_print(b"read_temperature\n");
+    console_print(b"handle_sensor_data\n");
     //  Check that the temperature data is valid.
     //  TODO
     if unsafe { is_null_sensor_data(sensor_data) } { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
     assert!(unsafe { !is_null_sensor(sensor) });
 
-    //  For Sensor Node or Standalone Node: Device name is "bme280_0" or "temp_stm32_0"
-    //  For Collector Node: Device name is the Sensor Node Address of the Sensor Node 
-    //  that transmitted the sensor data, like "b3b4b5b6f1"
-    let device = unsafe { sensor_get_device(sensor) };
-    let device_name_ptr: *const c_char = unsafe { device_get_name(device) };
-    let device_name: &CStr = unsafe { CStr::from_ptr(device_name_ptr) };
-    //assert!(device_name.len() > 0);  //  console_printf("device_name %s\n", device_name);
-    
     //  Get the temperature sensor value. It could be raw or computed.
-    let temp_sensor_value = get_temperature(sensor_data, sensor_type);
-    if let SensorValueType::None = temp_sensor_value.val { assert!(false); }  //  Invalid type
+    let sensor_value = get_temperature(sensor_data, sensor_type);
+    if let SensorValueType::None = sensor_value.val { assert!(false); }  //  Invalid type
 
     //  Compose a CoAP message with the temperature sensor data and send to the 
-    //  CoAP server or Collector Node.  The message will be enqueued for transmission by the OIC 
+    //  CoAP server.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    let rc = send_sensor_data(&temp_sensor_value, device_name);
+    let rc = send_sensor_data(&sensor_value);
 
     //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
     //  We drop the sensor data and send at the next poll.
