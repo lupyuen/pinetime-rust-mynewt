@@ -43,11 +43,10 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is either "bme280_0" or "temp_stm32_0"
-    let rc = unsafe { sensor::sensor_set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) };
-    assert_eq!(rc, 0);
+    sensor::set_poll_rate_ms(SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let sensor = unsafe { sensor::sensor_mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) };
+    let sensor = sensor::mgr_find_next_bydevname(SENSOR_DEVICE, null_sensor()) ? ;
     assert!(unsafe{ !is_null_sensor(sensor) });
 
     //  Define the listener function to be called after polling the temperature sensor.
