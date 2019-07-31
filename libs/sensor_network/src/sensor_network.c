@@ -264,7 +264,7 @@ bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     //  Return true if successful, false if network has not been registered.
-    if (uri == NULL) { uri = COAP_URI; }
+    if (uri == NULL || uri[0] == 0) { uri = COAP_URI; }
     assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     assert(iface->network_device);  assert(iface->register_transport_func);
