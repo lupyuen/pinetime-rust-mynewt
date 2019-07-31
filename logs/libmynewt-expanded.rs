@@ -9086,8 +9086,17 @@ pub mod libs {
                                             device_name: *const ::cty::c_char)
              -> bool;
         }
-        extern "C" {
-            pub fn get_device_id() -> *const ::cty::c_char;
+        pub fn device_id() -> MynewtResult<*const ::cty::c_char> {
+            "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
+            extern "C" {
+                pub fn get_device_id() -> *const ::cty::c_char;
+            }
+            "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+            unsafe {
+                "----------Insert Call: `let result_code = os_task_init(`----------";
+                let result_value = get_device_id();
+                Ok(result_value)
+            }
         }
         extern "C" {
             #[doc = ""]

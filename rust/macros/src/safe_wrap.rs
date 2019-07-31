@@ -36,6 +36,7 @@ fn function_is_whitelisted(fname: &str) -> bool {
 
         //  libs/sensor_network
         "do_server_post"            => { true }
+        "get_device_id"             => { true }
         "init_server_post"          => { true }
         "start_server_transport"    => { true }
 

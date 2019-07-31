@@ -46,13 +46,13 @@ const SENSOR_POLL_TIME: u32  = (10 * 1000);
 ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
-    console_print(b"TMP poll \n");  //  SENSOR_DEVICE "\n";
+    console_print(b"Rust TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, null_sensor()) ? ;
+    let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, unsafe { null_sensor() }) ? ;
     assert!(unsafe{ !is_null_sensor(sensor) });
 
     //  Define the listener function to be called after polling the temperature sensor.
@@ -73,7 +73,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 ///  Return 0 if we have handled the sensor data successfully.
 extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg, 
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console_print(b"handle_sensor_data\n");
+    console_print(b"Rust handle_sensor_data\n");
     //  Check that the temperature data is valid.
     //  TODO
     if unsafe { is_null_sensor_data(sensor_data) } { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing

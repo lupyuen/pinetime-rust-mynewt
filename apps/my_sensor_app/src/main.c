@@ -28,7 +28,7 @@
 #include <sensor_network/sensor_network.h>   //  For start_server_transport()
 #include "sensor.h"                          //  For start_sensor_listener()
 
-int main(int argc, char **argv) {
+int OLDmain(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 
     //  and sending sensor data in the background.
 
