@@ -392,105 +392,68 @@ mod app_network {
         if !rc { return Err(MynewtError::SYS_EAGAIN); }
         let _payload =
             {
-                "begin json root";
+                "begin cbor root";
                 {
-                    "begin json coap_root";
-                    unsafe { sensor_coap::json_rep_start_root_object() }
+                    "begin cbor coap_root";
                     {
-                        {
-                            "begin json coap_array , object : COAP_CONTEXT , key : values";
-                            {
-                                "<< jarri , o: COAP_CONTEXT, k: values";
-                                let key_with_null: &str = "values\u{0}";
-                                unsafe {
-                                    mynewt_rust::json_helper_set_array(COAP_CONTEXT.to_void_ptr(),
-                                                                       COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
-                                };
-                            };
-                            {
-                                " >>  >> val >> ,";
-                                "--------------------";
-                                {
-                                    "begin json coap_item_int_val , c : COAP_CONTEXT , val : val";
-                                    if let SensorValueType::Uint(val) =
-                                           val.val {
-                                        {
-                                            "begin json coap_item_int , key : val.key , value : val";
-                                            {
-                                                "begin json coap_item , array : COAP_CONTEXT";
-                                                {
-                                                    "<< jitmi c: COAP_CONTEXT";
-                                                    let key_with_null: &str =
-                                                        "COAP_CONTEXT\u{0}";
-                                                    unsafe {
-                                                        mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                                    };
-                                                };
-                                                {
-                                                    {
-                                                        "-- jtxte o: COAP_CONTEXT, k: \"key\", v: val.key";
-                                                        let key_with_opt_null:
-                                                                &[u8] =
-                                                            "key".to_bytes_optional_nul();
-                                                        let value_with_opt_null:
-                                                                &[u8] =
-                                                            val.key.to_bytes_optional_nul();
-                                                        unsafe {
-                                                            mynewt_rust::json_helper_set_text_string(COAP_CONTEXT.to_void_ptr(),
-                                                                                                     COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                                     COAP_CONTEXT.value_to_cstr(value_with_opt_null))
-                                                        };
-                                                    };
-                                                    {
-                                                        "-- jinte o: COAP_CONTEXT, k: \"value\", v: val";
-                                                        let key_with_opt_null:
-                                                                &[u8] =
-                                                            "value".to_bytes_optional_nul();
-                                                        let value =
-                                                            val as u64;
-                                                        unsafe {
-                                                            mynewt_rust::json_helper_set_int(COAP_CONTEXT.to_void_ptr(),
-                                                                                             COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                             value)
-                                                        };
-                                                    };
-                                                };
-                                                {
-                                                    ">>";
-                                                    let key_with_null: &str =
-                                                        "COAP_CONTEXT\u{0}";
-                                                    unsafe {
-                                                        mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                                    };
-                                                };
-                                                "end json coap_item";
-                                            };
-                                            "end json coap_item_int";
-                                        };
-                                    } else {
-                                        unsafe {
-                                            COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT)
-                                        };
-                                    }
-                                    "end json coap_item_int_val";
-                                };
-                                "--------------------";
-                            };
-                            {
-                                ">>";
-                                let key_with_null: &str = "values\u{0}";
-                                unsafe {
-                                    mynewt_rust::json_helper_close_array(COAP_CONTEXT.to_void_ptr(),
-                                                                         COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                };
-                            };
-                            "end json coap_array";
+                        "begin oc_rep_start_root_object";
+                        unsafe {
+                            let encoder =
+                                COAP_CONTEXT.encoder("root", "_map");
+                            tinycbor::cbor_encoder_create_map(COAP_CONTEXT.global_encoder(),
+                                                              encoder,
+                                                              tinycbor::CborIndefiniteLength)
                         };
+                        "end oc_rep_start_root_object";
                     };
-                    unsafe { sensor_coap::json_rep_end_root_object() }
-                    "end json coap_root";
+                    {
+                        " >>  >> val >> ,";
+                        "--------------------";
+                        {
+                            "begin cbor coap_set_int_val , c : COAP_CONTEXT , val : val";
+                            if let SensorValueType::Uint(val) = val.val {
+                                "-- cinte c: COAP_CONTEXT, k: val.key, v: val";
+                                let key_with_opt_null: &[u8] =
+                                    val.key.to_bytes_optional_nul();
+                                let value = val as i64;
+                                "-------------------------------------------------------------";
+                                unsafe {
+                                    let encoder =
+                                        COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                                             "_map");
+                                    let res =
+                                        tinycbor::cbor_encode_text_string(encoder,
+                                                                          COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                          COAP_CONTEXT.cstr_len(key_with_opt_null));
+                                    COAP_CONTEXT.check_result(res);
+                                    let res =
+                                        tinycbor::cbor_encode_int(encoder,
+                                                                  value);
+                                    COAP_CONTEXT.check_result(res);
+                                };
+                                "-------------------------------------------------------------";
+                            } else {
+                                unsafe {
+                                    COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT)
+                                };
+                            }
+                            "end cbor coap_set_int_val";
+                        };
+                        "--------------------";
+                    };
+                    {
+                        "begin oc_rep_end_root_object";
+                        unsafe {
+                            let encoder =
+                                COAP_CONTEXT.encoder("root", "_map");
+                            tinycbor::cbor_encoder_close_container(COAP_CONTEXT.global_encoder(),
+                                                                   encoder)
+                        };
+                        "end oc_rep_end_root_object";
+                    };
+                    "end cbor coap_root";
                 };
-                "end json root";
+                "end cbor root";
                 ()
             };
         sensor_network::do_server_post()?;

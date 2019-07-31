@@ -26,13 +26,18 @@ syscfg.vals:
     # CoAP Server Settings
 
     # CoAP host e.g. 104.199.85.211 (for coap.thethings.io)
-    COAP_HOST:      '"104.199.85.211"'
+    COAP_HOST:              '"104.199.85.211"'
 
     # CoAP UDP port, usually port 5683
-    COAP_PORT:      5683
+    COAP_PORT:              5683
+
+    # CoAP URI for CBOR at thethings.io
+    COAP_URI:               '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true"'
+    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for thethings.io
 
     # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
-    COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+    # COAP_URI:             '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+    # COAP_JSON_ENCODING:   1  # Use JSON to encode CoAP payload for thethings.io
 
     ###########################################################################
     # Sensor Settings
@@ -58,7 +63,6 @@ syscfg.vals:
     NBIOT_BAND:             8  # Connect to this NB-IoT band
     SENSOR_NETWORK:         1  # Enable Sensor Network library
     SENSOR_COAP:            1  # Send sensor data to CoAP server
-    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
 
     ###########################################################################
