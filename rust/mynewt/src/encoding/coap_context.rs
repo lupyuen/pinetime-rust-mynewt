@@ -25,9 +25,9 @@ impl CoapContext {
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
-    pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+    pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {                
         //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
+        ////if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
         //  Else copy into static key buffer and return pointer to buffer.
         assert!(s.len() < COAP_KEY_SIZE);  //  Key too long
         self.key_buffer[..s.len()].copy_from_slice(s);

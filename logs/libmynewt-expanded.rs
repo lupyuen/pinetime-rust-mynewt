@@ -2339,9 +2339,6 @@ pub mod encoding {
             /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
             /// append null and return the buffer as a pointer.
             pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-                if s.last() == Some(&0) {
-                    return s.as_ptr() as *const c_char;
-                }
                 if !(s.len() < COAP_KEY_SIZE) {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",

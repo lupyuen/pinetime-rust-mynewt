@@ -62,9 +62,10 @@ void json_rep_start_root_object(void);
 //  {... --> {...}
 void json_rep_end_root_object(void);
 
-//  Assume we are writing an object now.  Write the key name and start a child array.
+//  Assume we are writing an object now.  Write the key name and start a child array.  `_k` version does not stringify the key.
 //  {a:b --> {a:b, key:[
-#define json_rep_set_array(object, key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
+#define json_rep_set_array(object, key)   { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
+#define json_rep_set_array_k(object, key) { json_encode_array_name(&coap_json_encoder, key);  json_encode_array_start(&coap_json_encoder); }
 
 //  End the child array and resume writing the parent object.
 //  {a:b, key:[... --> {a:b, key:[...]
@@ -83,11 +84,15 @@ void json_rep_end_root_object(void);
 (__jv)->jv_type = JSON_VALUE_TYPE_EXT_FLOAT;  \
 (__jv)->jv_val.fl = (float) __v;
 
-//  Encode a value into JSON: int, unsigned int, float, text, ...
-#define json_rep_set_int(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#define json_rep_set_uint(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
-#define json_rep_set_float(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
-#define json_rep_set_text_string(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+//  Encode a value into JSON: int, unsigned int, float, text, ... `_k` version does not stringify the key.
+#define json_rep_set_int(          object, key, value) { JSON_VALUE_INT      (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_int_k(        object, key, value) { JSON_VALUE_INT      (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, key,  &coap_json_value); }
+#define json_rep_set_uint(         object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_uint_k(       object, key, value) { JSON_VALUE_UINT     (&coap_json_value, value);          json_encode_object_entry    (&coap_json_encoder, key,  &coap_json_value); }
+#define json_rep_set_float(        object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_float_k(      object, key, value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value);          json_encode_object_entry_ext(&coap_json_encoder, key,  &coap_json_value); }
+#define json_rep_set_text_string(  object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_text_string_k(object, key, value) { JSON_VALUE_STRING   (&coap_json_value, (char *) value); json_encode_object_entry    (&coap_json_encoder, key,  &coap_json_value); }
 
 #endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)
 
