@@ -318,8 +318,8 @@ mod app_network {
                                                                  "_array");
                                         let res =
                                             tinycbor::cbor_encoder_create_array(parent_encoder,
-                                                                                &mut values_array,
-                                                                                CborIndefiniteLength);
+                                                                                encoder,
+                                                                                tinycbor::CborIndefiniteLength);
                                         COAP_CONTEXT.check_result(res);
                                     };
                                     "end oc_rep_start_array";
@@ -371,8 +371,10 @@ mod app_network {
                                         let encoder =
                                             COAP_CONTEXT.encoder("values",
                                                                  "_array");
-                                        cbor_encoder_close_container(parent_encoder,
-                                                                     encoder)
+                                        let res =
+                                            tinycbor::cbor_encoder_close_container(parent_encoder,
+                                                                                   encoder);
+                                        COAP_CONTEXT.check_result(res);
                                     };
                                     "end oc_rep_end_array";
                                 };

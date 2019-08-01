@@ -925,8 +925,8 @@ macro_rules! oc_rep_start_array {
       //  Previously: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
       cbor_encoder_create_array(
         parent_encoder, 
-        &mut concat_idents!($key, _array), 
-        CborIndefiniteLength
+        encoder,
+        tinycbor::CborIndefiniteLength
       );
     });
     d!(end oc_rep_start_array);
@@ -955,7 +955,7 @@ macro_rules! oc_rep_end_array {
       cbor_encoder_close_container(
         parent_encoder, 
         encoder
-      ) 
+      );
     });
     d!(end oc_rep_end_array);
   }};

@@ -6555,8 +6555,7 @@ pub mod encoding {
                                         COAP_CONTEXT . encoder (
                                         stringify ! ( $ key ) , "_array" ) ;
                                         cbor_encoder_create_array (
-                                        parent_encoder , & mut concat_idents !
-                                        ( $ key , _array ) ,
+                                        parent_encoder , encoder , tinycbor ::
                                         CborIndefiniteLength ) ; } ) ; d ! (
                                         end oc_rep_start_array ) ; } } ;);
         #[macro_export]
@@ -6579,7 +6578,7 @@ pub mod encoding {
                                       COAP_CONTEXT . encoder (
                                       stringify ! ( $ key ) , "_array" ) ;
                                       cbor_encoder_close_container (
-                                      parent_encoder , encoder ) } ) ; d ! (
+                                      parent_encoder , encoder ) ; } ) ; d ! (
                                       end oc_rep_end_array ) ; } } ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
         ///  ```

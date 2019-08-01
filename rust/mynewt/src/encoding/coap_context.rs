@@ -71,6 +71,7 @@ impl CoapContext {
         console::print(key);
         console::print(suffix);
         console::print("\n");
+        //  TODO
         unsafe { &mut super::root_map }
     }
 
@@ -82,7 +83,8 @@ impl CoapContext {
         console::print("\n");
         if (key, suffix) == ("root", "_map") { unsafe { &mut super::root_map } }
         else {
-            assert!(false);  //  No such encoder.
+            //  TODO
+            //  assert!(false);  //  No such encoder.
             unsafe { &mut super::root_map }
         }        
     }

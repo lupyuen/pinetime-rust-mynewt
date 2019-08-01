@@ -66,7 +66,7 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
     expanded.parse().unwrap()
 }
 
-/// Transform a block of CBOR encoding calls by adding error checking.
+/// Transform a block of CBOR encoding calls by adding error checking. All lines must terminate with `;`
 /// ```
 /// try_cbor!({
 ///     let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
