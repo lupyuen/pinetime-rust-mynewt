@@ -809,7 +809,6 @@ macro_rules! json_rep_set_text_string {
 //  Encode a float value into the current JSON encoding value `coap_json_value`
 //  void json_helper_set_float(void *object, const char *key, float value);
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR macros ported from C to Rust:
 //  https://github.com/apache/mynewt-core/blob/master/net/oic/include/oic/oc_rep.h
@@ -818,15 +817,15 @@ macro_rules! json_rep_set_text_string {
 macro_rules! oc_rep_start_root_object {
   ($context:ident) => {{
     d!(begin oc_rep_start_root_object);
-    //  d!(> TODO: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength));
-    unsafe { 
+    proc_macros::try_cbor!({
       let encoder = $context.encoder("root", "_map");
-      tinycbor::cbor_encoder_create_map(
+      //  Previously: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength)
+      cbor_encoder_create_map(
         $context.global_encoder(),
         encoder,
         tinycbor::CborIndefiniteLength
-      ) 
-    };
+      ); 
+    });
     d!(end oc_rep_start_root_object);
   }};
 }
@@ -835,14 +834,14 @@ macro_rules! oc_rep_start_root_object {
 macro_rules! oc_rep_end_root_object {
   ($context:ident) => {{
     d!(begin oc_rep_end_root_object);
-    //  d!(> TODO: g_err |= cbor_encoder_close_container(&g_encoder, &root_map));
-    unsafe { 
+    proc_macros::try_cbor!({
       let encoder = $context.encoder("root", "_map");
-      tinycbor::cbor_encoder_close_container(
+      //  Previously: g_err |= cbor_encoder_close_container(&g_encoder, &root_map)
+      cbor_encoder_close_container(
         $context.global_encoder(),
         encoder
-      ) 
-    };
+      ); 
+    });
     d!(end oc_rep_end_root_object);
   }};
 }
@@ -856,18 +855,16 @@ macro_rules! oc_rep_start_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    //  d!(> TODO: CborEncoder key##_map);
-    //  concat_idents!($key, _map) = CborEncoder{};
-    //  d!(> TODO: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength));
-    unsafe { 
-      //  TODO: ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+    proc_macros::try_cbor!({
+      //  TODO: CborEncoder key##_map
       let encoder = $context.encoder(stringify!($key), "_map");
-      tinycbor::cbor_encoder_create_map(
+      //  Previously: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength)
+      cbor_encoder_create_map(
         encoder,
         &mut concat_idents!($key, _map), 
         tinycbor::CborIndefiniteLength
       );
-    };
+    });
     d!(end oc_rep_start_object);
   }};
 }
@@ -881,15 +878,14 @@ macro_rules! oc_rep_end_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_map));
-    unsafe { 
-      //  TODO: ", parent: ", stringify!($parent), stringify!($parent_suffix),  //  parent##parent_suffix
+    proc_macros::try_cbor!({
       let encoder = $context.encoder(stringify!($key), "_map");
-      tinycbor::cbor_encoder_close_container(
+      //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_map)
+      cbor_encoder_close_container(
         encoder,
         &mut concat_idents!($key, _map)
       );
-    };
+    });
     d!(end oc_rep_end_object);
   }};
 }
@@ -903,14 +899,16 @@ macro_rules! oc_rep_start_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    //  d!(> TODO: CborEncoder key##_array);
-    //  concat_idents!($key, _array) = CborEncoder{};
-    //  d!(> TODO: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
-    unsafe { tinycbor::cbor_encoder_create_array(
-      &mut concat_idents!($parent, $parent_suffix), 
-      &mut concat_idents!($key, _array), 
-      CborIndefiniteLength) 
-    };
+    proc_macros::try_cbor!({
+      //  TODO: First para should be key
+      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_array");
+      //  Previously: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
+      cbor_encoder_create_array(
+        &mut concat_idents!($parent, $parent_suffix), 
+        &mut concat_idents!($key, _array), 
+        CborIndefiniteLength
+      );
+    });
     d!(end oc_rep_start_array);
   }};
 }
@@ -924,11 +922,15 @@ macro_rules! oc_rep_end_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    //  d!(> TODO: g_err |= cbor_encoder_close_container(&parent, &key##_array));
-    unsafe { tinycbor::cbor_encoder_close_container(
-      &mut $parent, 
-      &mut concat_idents!($parent, $parent_suffix)) 
-    };
+    proc_macros::try_cbor!({
+      //  TODO: First para should be key
+      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_array");
+      //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_array)
+      cbor_encoder_close_container(
+        &mut $parent, 
+        &mut concat_idents!($parent, $parent_suffix)
+      ) 
+    });
     d!(end oc_rep_end_array);
   }};
 }
@@ -957,7 +959,7 @@ macro_rules! oc_rep_set_array {
         encoder, 
         COAP_CONTEXT.key_to_cstr(key_with_opt_null), 
         COAP_CONTEXT.cstr_len(key_with_opt_null)
-      ) 
+      );
     });
     //  Previously: oc_rep_start_array!(object##_map, key)
     $crate::oc_rep_start_array!($object, $key, _map);

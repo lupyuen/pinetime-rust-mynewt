@@ -6348,26 +6348,27 @@ pub mod encoding {
                                               {
                                               d ! (
                                               begin oc_rep_start_root_object )
-                                              ; unsafe {
+                                              ; proc_macros :: try_cbor ! (
+                                              {
                                               let encoder = $ context .
                                               encoder ( "root" , "_map" ) ;
-                                              tinycbor ::
                                               cbor_encoder_create_map (
                                               $ context . global_encoder (  )
                                               , encoder , tinycbor ::
-                                              CborIndefiniteLength ) } ; d ! (
-                                              end oc_rep_start_root_object ) ;
-                                              } } ;);
+                                              CborIndefiniteLength ) ; } ) ; d
+                                              ! ( end oc_rep_start_root_object
+                                              ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_root_object(( $ context : ident ) => {
                                             {
                                             d ! ( begin oc_rep_end_root_object
-                                            ) ; unsafe {
+                                            ) ; proc_macros :: try_cbor ! (
+                                            {
                                             let encoder = $ context . encoder
-                                            ( "root" , "_map" ) ; tinycbor ::
+                                            ( "root" , "_map" ) ;
                                             cbor_encoder_close_container (
                                             $ context . global_encoder (  ) ,
-                                            encoder ) } ; d ! (
+                                            encoder ) ; } ) ; d ! (
                                             end oc_rep_end_root_object ) ; } }
                                             ;);
         #[macro_export]
@@ -6381,13 +6382,15 @@ pub mod encoding {
                                          ) , stringify ! ( $ parent_suffix ) ,
                                          ", key: " , stringify ! ( $ key ) ,
                                          ", child: " , stringify ! ( $ key ) ,
-                                         "_map" ) ; unsafe {
+                                         "_map" ) ; proc_macros :: try_cbor !
+                                         (
+                                         {
                                          let encoder = $ context . encoder (
                                          stringify ! ( $ key ) , "_map" ) ;
-                                         tinycbor :: cbor_encoder_create_map (
+                                         cbor_encoder_create_map (
                                          encoder , & mut concat_idents ! (
                                          $ key , _map ) , tinycbor ::
-                                         CborIndefiniteLength ) ; } ; d ! (
+                                         CborIndefiniteLength ) ; } ) ; d ! (
                                          end oc_rep_start_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_object((
@@ -6400,13 +6403,13 @@ pub mod encoding {
                                        , stringify ! ( $ parent_suffix ) ,
                                        ", key: " , stringify ! ( $ key ) ,
                                        ", child: " , stringify ! ( $ key ) ,
-                                       "_map" ) ; unsafe {
+                                       "_map" ) ; proc_macros :: try_cbor ! (
+                                       {
                                        let encoder = $ context . encoder (
                                        stringify ! ( $ key ) , "_map" ) ;
-                                       tinycbor ::
                                        cbor_encoder_close_container (
                                        encoder , & mut concat_idents ! (
-                                       $ key , _map ) ) ; } ; d ! (
+                                       $ key , _map ) ) ; } ) ; d ! (
                                        end oc_rep_end_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_start_array((
@@ -6419,13 +6422,16 @@ pub mod encoding {
                                         ) , stringify ! ( $ parent_suffix ) ,
                                         ", key: " , stringify ! ( $ key ) ,
                                         ", child: " , stringify ! ( $ key ) ,
-                                        "_array" ) ; unsafe {
-                                        tinycbor :: cbor_encoder_create_array
+                                        "_array" ) ; proc_macros :: try_cbor !
                                         (
+                                        {
+                                        let encoder = COAP_CONTEXT . encoder (
+                                        "COAP_CONTEXT" , "_array" ) ;
+                                        cbor_encoder_create_array (
                                         & mut concat_idents ! (
                                         $ parent , $ parent_suffix ) , & mut
                                         concat_idents ! ( $ key , _array ) ,
-                                        CborIndefiniteLength ) } ; d ! (
+                                        CborIndefiniteLength ) ; } ) ; d ! (
                                         end oc_rep_start_array ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_array((
@@ -6438,12 +6444,14 @@ pub mod encoding {
                                       ( $ parent_suffix ) , ", key: " ,
                                       stringify ! ( $ key ) , ", child: " ,
                                       stringify ! ( $ key ) , "_array" ) ;
-                                      unsafe {
-                                      tinycbor :: cbor_encoder_close_container
-                                      (
+                                      proc_macros :: try_cbor ! (
+                                      {
+                                      let encoder = COAP_CONTEXT . encoder (
+                                      "COAP_CONTEXT" , "_array" ) ;
+                                      cbor_encoder_close_container (
                                       & mut $ parent , & mut concat_idents ! (
-                                      $ parent , $ parent_suffix ) ) } ; d ! (
-                                      end oc_rep_end_array ) ; } } ;);
+                                      $ parent , $ parent_suffix ) ) } ) ; d !
+                                      ( end oc_rep_end_array ) ; } } ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
         ///  ```
         ///  {a:b --> {a:b, key:[
@@ -6468,8 +6476,8 @@ pub mod encoding {
                                       cbor_encode_text_string (
                                       encoder , COAP_CONTEXT . key_to_cstr (
                                       key_with_opt_null ) , COAP_CONTEXT .
-                                      cstr_len ( key_with_opt_null ) ) } ) ; $
-                                      crate :: oc_rep_start_array ! (
+                                      cstr_len ( key_with_opt_null ) ) ; } ) ;
+                                      $ crate :: oc_rep_start_array ! (
                                       $ object , $ key , _map ) ; d ! (
                                       end oc_rep_set_array ) ; } } ;);
         ///  End the child array and resume writing the parent object.

@@ -397,13 +397,7 @@ mod app_network {
                     "begin cbor coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        unsafe {
-                            let encoder =
-                                COAP_CONTEXT.encoder("root", "_map");
-                            tinycbor::cbor_encoder_create_map(COAP_CONTEXT.global_encoder(),
-                                                              encoder,
-                                                              tinycbor::CborIndefiniteLength)
-                        };
+                        (/*ERROR*/);
                         "end oc_rep_start_root_object";
                     };
                     {
@@ -454,8 +448,11 @@ mod app_network {
                                 {
                                     "begin oc_rep_end_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
                                     unsafe {
-                                        tinycbor::cbor_encoder_close_container(&mut COAP_CONTEXT,
-                                                                               &mut COAP_CONTEXT_map)
+                                        let encoder =
+                                            COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                                                 "_array");
+                                        cbor_encoder_close_container(&mut COAP_CONTEXT,
+                                                                     &mut COAP_CONTEXT_map)
                                     };
                                     "end oc_rep_end_array";
                                 };
@@ -466,12 +463,7 @@ mod app_network {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        unsafe {
-                            let encoder =
-                                COAP_CONTEXT.encoder("root", "_map");
-                            tinycbor::cbor_encoder_close_container(COAP_CONTEXT.global_encoder(),
-                                                                   encoder)
-                        };
+                        (/*ERROR*/);
                         "end oc_rep_end_root_object";
                     };
                     "end cbor coap_root";
