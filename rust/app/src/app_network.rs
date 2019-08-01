@@ -22,18 +22,13 @@
 //!  fixes response parsing bugs.  The patched file must be present in that location.
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
-use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
-use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
-use proc_macros::{ out, strn, init_strn }; //  Import procedural macros
 use mynewt::{
     result::*,            //  Import Mynewt result and error types
-    kernel::os::{  
-        self,             //  Import Mynewt OS functions
-        os_task,          //  Import Mynewt OS types
-        os_stack_t,
-        os_task_func_t,
-        os_time_t,
+    hw::sensor::{        
+        SensorValue,
+        SensorValueType,
     },
+    sys::console,         //  Import Mynewt Console API
     encoding::{
         coap_context::{   //  Import Mynewt JSON Encoder Context
             self,
@@ -43,17 +38,12 @@ use mynewt::{
         tinycbor,         //  Import Mynewt TinyCBOR API
     },
     libs::{
-        mynewt_rust,      //  Import Mynewt Rust Helper API
         sensor_network,   //  Import Mynewt Sensor Network API
-        sensor_coap::{    //  Import Mynewt Sensor CoAP API
-            self,
-            sensor_value,
-        },
     },
-    coap, d, fill_zero,   //  Import Mynewt macros
-    NULL, Out, Ptr, Strn,
+    coap, d,              //  Import Mynewt macros
+    Strn,
 };
-use crate::app_base::*;       //  Import `base.rs` for common declarations
+use proc_macros::{ strn }; //  Import procedural macros
  
 /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
@@ -67,7 +57,7 @@ use crate::app_base::*;       //  Import `base.rs` for common declarations
 /// ]}
 /// ```
 pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
-    console_print(b"Rust send_sensor_data\n");
+    console::print(b"Rust send_sensor_data\n");
     if let SensorValueType::None = val.val { assert!(false); }
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
@@ -99,7 +89,7 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
     //  to compose and post CoAP messages.
     sensor_network::do_server_post() ? ;
 
-    console_print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
+    console::print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
 
     //  The CoAP Background Task will call oc_tx_ucast() in the network driver to transmit the message.
     Ok(())

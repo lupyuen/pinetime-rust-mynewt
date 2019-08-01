@@ -32,17 +32,16 @@ extern crate cortex_m;                  //  Declare the external library `cortex
 extern crate mynewt;                    //  Declare the Mynewt library
 extern crate macros as proc_macros;     //  Declare the Mynewt Procedural Macros library
 
-#[allow(dead_code)] //  Suppress warnings of unused constants and vars
-mod app_base;       //  Declare `app_base.rs` as Rust module `app_base`
+mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 
-mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor`
-mod app_network;    //  Declare `app_network.rs` as Rust module `app_network`
-
-use core::panic::PanicInfo;         //  Import `PanicInfo` type which is used by `panic()` below
-use cortex_m::asm::bkpt;            //  Import cortex_m assembly function to inject breakpoint
-use mynewt::kernel::os;             //  Import Mynewt OS API
-use mynewt::libs::sensor_network;   //  Import Mynewt Sensor Network Library
-use crate::app_base::*;             //  Import `app_base.rs` for common declarations
+use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
+use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
+use mynewt::{
+    kernel::os,             //  Import Mynewt OS API
+    sys::console,           //  Import Mynewt Console API
+    libs::sensor_network,   //  Import Mynewt Sensor Network Library
+};
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
@@ -53,7 +52,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
-    unsafe { app_base::rust_sysinit(); console_flush() };
+    mynewt::sysinit();
 
     //  Starting polling the temperature sensor every 10 seconds in the background.
     app_sensor::start_sensor_listener()
@@ -80,15 +79,11 @@ fn panic(info: &PanicInfo) -> ! {
     if let Some(location) = info.location() {
         let file = location.file();
         let line = location.line();
-        console_print(b"panic at ");
-        unsafe { console_buffer(file.as_ptr(), file.len() as u32) }
-        console_print(b" line 0x");
-        unsafe { console_printhex(line as u8) }  //  TODO: Print in decimal not hex. Allow more than 255 lines.
-        console_print(b"\n");
-        unsafe { console_flush() }
+        console::print(b"panic at ");  console::buffer(file.as_bytes());
+        console::print(b" line 0x");   console::printhex(line as u8);  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+        console::print(b"\n");         console::flush();
     } else {
-        console_print(b"panic unknown loc\n");
-        unsafe { console_flush() }
+        console::print(b"panic unknown loc\n");  console::flush();
     }
     //  Pause in the debugger.
     bkpt();

@@ -39,6 +39,8 @@ pub mod kernel {
     //  Allow globals to have lowercase letters
     //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
 
+    //  Mynewt System API. Export folder `sys` as Rust module `mynewt::sys`
+
     //  Allow macros from Rust module `encoding`
     //  Suppress warnings of unused constants and vars
     //  Allow type names to have non-camel case
@@ -55,6 +57,7 @@ pub mod kernel {
 
 
 
+
     //  Allow type names to have non-camel case
 
 
@@ -70,6 +73,10 @@ pub mod kernel {
 
     //  Last byte must be 0.
 
+
+
+
+    //  Functions below are located in the Mynewt build output `libs_mynewt_rust.a`
     //! Mynewt Kernel API for Rust
     use crate::{result::*, Out, Ptr, Strn};
     /// Contains Rust bindings for Mynewt OS API `kernel/os`
@@ -5651,6 +5658,119 @@ pub mod hw {
          -> i32 {
             0
         }
+        ///  Import the custom interop helper library at `libs/mynewt_rust`
+        #[link(name = "libs_mynewt_rust")]
+        extern "C" {
+            ///  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp.
+            ///  Copy the sensor data into `dest`.  Return 0 if successful.
+            ///  C API: `int get_temp_raw_data(void *sensor_data, struct sensor_temp_raw_data *dest)`
+            pub fn get_temp_raw_data(sensor_data: sensor_data_ptr,
+                                     dest: *mut sensor_temp_raw_data) -> i32;
+            ///  Interpret `sensor_data` as a `sensor_temp_data` struct that contains computed temp.
+            ///  Copy the sensor data into `dest`.  Return 0 if successful.
+            ///  C API: `int get_temp_data(void *sensor_data, struct sensor_temp_data *dest)`
+            pub fn get_temp_data(sensor_data: sensor_data_ptr,
+                                 dest: *mut sensor_temp_data) -> i32;
+            ///  Return the Mynewt device for the Mynewt sensor.
+            ///  C API: `struct os_dev *sensor_get_device(struct sensor *s)`
+            pub fn sensor_get_device(sensor: sensor_ptr) -> *mut os_dev;
+            ///  Return the NULL sensor.
+            ///  C API: `struct sensor *null_sensor(void)`
+            pub fn null_sensor() -> sensor_ptr;
+            ///  Return non-zero if sensor is NULL.
+            ///  C API: `int is_null_sensor(struct sensor *p)`
+            pub fn is_null_sensor(sensor: sensor_ptr) -> bool;
+            ///  Return non-zero if sensor data is NULL.
+            ///  C API: `int is_null_sensor_data(void *p)`
+            pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
+        }
+        ///  We will open internal temperature sensor `temp_stm32_0`.
+        ///  Must sync with apps/my_sensor_app/src/listen_sensor.h
+        ///  Return integer sensor values
+        ///  Sensor type for raw temperature sensor.
+        ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
+        pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t =
+            crate::libs::mynewt_rust::sensor_type_t_SENSOR_TYPE_USER_DEFINED_1;
+        ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
+        ///  or float (computed), we use the struct to return both integer and float values.
+        pub struct SensorValue {
+            ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
+            pub key: &'static str,
+            ///  The type of the sensor value and the value.
+            pub val: SensorValueType,
+        }
+        ///  Default sensor value is `None`
+        impl Default for SensorValue {
+            #[inline]
+            fn default() -> SensorValue {
+                SensorValue{key: "", val: SensorValueType::None,}
+            }
+        }
+        ///  Represents the type and value of a sensor data value.
+        pub enum SensorValueType {
+
+            ///  No value.
+            None,
+
+            ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
+            Uint(u32),
+
+            ///  32-bit float. For computed temp, contains the computed temp float value
+            Float(f32),
+        }
+        ///  Represents a single temperature sensor raw value.
+        ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
+        #[repr(C, packed)]
+        pub struct sensor_temp_raw_data {
+            ///  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
+            pub strd_temp_raw: u32,
+            ///  1 if data is valid
+            pub strd_temp_raw_is_valid: u8,
+        }
+    }
+}
+pub mod sys {
+    //! Mynewt System API for Rust
+    pub mod console {
+        //! Display messages on Arm Semihosting Console (via OpenOCD)
+        ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+        pub fn print(msg: &[u8]) {
+            let len = msg.len();
+            unsafe {
+                console_buffer(msg.as_ptr(), len as u32);
+                console_flush();
+            }
+        }
+        ///  Flush the output buffer to the console.
+        pub fn flush() { unsafe { console_flush(); } }
+        ///  Add the string to the output buffer.
+        pub fn buffer(msg: &[u8]) {
+            let len = msg.len();
+            unsafe { console_buffer(msg.as_ptr(), len as u32); }
+        }
+        ///  Write a byte in hexadecimal to the output buffer.
+        ///  C API: `void console_printhex(uint8_t v)`
+        pub fn printhex(v: u8) { unsafe { console_printhex(v); } }
+        ///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD).
+        ///  The library is located at `libs/semihosting_console`
+        #[link(name = "libs_semihosting_console")]
+        extern "C" {
+            ///  Add the string to the output buffer.
+            ///  C API: `void console_buffer(const char *buffer, unsigned int length)`
+            fn console_buffer(buffer: *const u8, length: u32);
+            ///  Write a byte in hexadecimal to the output buffer.
+            ///  C API: `void console_printhex(uint8_t v)`
+            fn console_printhex(v: u8);
+            ///  Write a float to the output buffer, with 1 decimal place.
+            ///  C API: `void console_printfloat(float f)`
+            fn console_printfloat(f: f32);
+            ///  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+            ///  C API: `void console_dump(const uint8_t *buffer, unsigned int len)`
+            fn console_dump(buffer: *const u8, len: u32);
+            ///  Flush the output buffer to the console.
+            ///  C API: `void console_flush(void)`
+            fn console_flush();
+        }
     }
 }
 #[macro_use]
@@ -5928,14 +6048,13 @@ pub mod encoding {
                            end cbor root ) ; (  ) } } ; (
                            @ cbormin { $ ( $ tt : tt ) + } ) => {
                            {
-                           d ! ( begin cbormin root ) ; $ crate :: coap_root !
-                           (
-                           @ cbormin COAP_CONTEXT {
+                           d ! ( begin cbor root ) ; $ crate :: coap_root ! (
+                           @ cbor COAP_CONTEXT {
                            $ crate :: parse ! (
-                           @ cbormin @ object COAP_CONTEXT (  ) ( $ ( $ tt ) +
-                           ) ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbormin root
-                           ) ; (  ) } } ; ( @ $ enc : ident $ other : expr )
-                           => { $ other } ;);
+                           @ cbor @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + )
+                           ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ;
+                           (  ) } } ; ( @ $ enc : ident $ other : expr ) => {
+                           $ other } ;);
         ///  TODO: Parse the vector e.g. array items
         #[macro_export]
         macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
@@ -6385,13 +6504,16 @@ pub mod encoding {
                                          "_map" ) ; proc_macros :: try_cbor !
                                          (
                                          {
-                                         let encoder = COAP_CONTEXT . encoder
-                                         ( stringify ! ( $ key ) , "_map" ) ;
+                                         let parent_encoder = COAP_CONTEXT .
+                                         encoder (
+                                         stringify ! ( $ parent ) , stringify
+                                         ! ( $ parent_suffix ) ) ; let encoder
+                                         = COAP_CONTEXT . encoder (
+                                         stringify ! ( $ key ) , "_map" ) ;
                                          cbor_encoder_create_map (
-                                         encoder , & mut concat_idents ! (
-                                         $ key , _map ) , tinycbor ::
-                                         CborIndefiniteLength ) ; } ) ; d ! (
-                                         end oc_rep_start_object ) ; } } ;);
+                                         parent_encoder , encoder , tinycbor
+                                         :: CborIndefiniteLength ) ; } ) ; d !
+                                         ( end oc_rep_start_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_object((
                                        $ parent : ident , $ key : ident , $
@@ -6405,12 +6527,15 @@ pub mod encoding {
                                        ", child: " , stringify ! ( $ key ) ,
                                        "_map" ) ; proc_macros :: try_cbor ! (
                                        {
-                                       let encoder = COAP_CONTEXT . encoder (
+                                       let parent_encoder = COAP_CONTEXT .
+                                       encoder (
+                                       stringify ! ( $ parent ) , stringify !
+                                       ( $ parent_suffix ) ) ; let encoder =
+                                       COAP_CONTEXT . encoder (
                                        stringify ! ( $ key ) , "_map" ) ;
                                        cbor_encoder_close_container (
-                                       encoder , & mut concat_idents ! (
-                                       $ key , _map ) ) ; } ) ; d ! (
-                                       end oc_rep_end_object ) ; } } ;);
+                                       parent_encoder , encoder ) ; } ) ; d !
+                                       ( end oc_rep_end_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_start_array((
                                         $ parent : ident , $ key : ident , $
@@ -6425,12 +6550,15 @@ pub mod encoding {
                                         "_array" ) ; proc_macros :: try_cbor !
                                         (
                                         {
-                                        let encoder = COAP_CONTEXT . encoder (
-                                        "COAP_CONTEXT" , "_array" ) ;
+                                        let parent_encoder = COAP_CONTEXT .
+                                        encoder (
+                                        stringify ! ( $ parent ) , stringify !
+                                        ( $ parent_suffix ) ) ; let encoder =
+                                        COAP_CONTEXT . encoder (
+                                        stringify ! ( $ key ) , "_array" ) ;
                                         cbor_encoder_create_array (
-                                        & mut concat_idents ! (
-                                        $ parent , $ parent_suffix ) , & mut
-                                        concat_idents ! ( $ key , _array ) ,
+                                        parent_encoder , & mut concat_idents !
+                                        ( $ key , _array ) ,
                                         CborIndefiniteLength ) ; } ) ; d ! (
                                         end oc_rep_start_array ) ; } } ;);
         #[macro_export]
@@ -6446,10 +6574,14 @@ pub mod encoding {
                                       stringify ! ( $ key ) , "_array" ) ;
                                       proc_macros :: try_cbor ! (
                                       {
-                                      let encoder = COAP_CONTEXT . encoder (
-                                      "COAP_CONTEXT" , "_array" ) ;
+                                      let parent_encoder = COAP_CONTEXT .
+                                      encoder (
+                                      stringify ! ( $ parent ) , stringify ! (
+                                      $ parent_suffix ) ) ; let encoder =
+                                      COAP_CONTEXT . encoder (
+                                      stringify ! ( $ key ) , "_array" ) ;
                                       cbor_encoder_close_container (
-                                      & mut $ parent , & mut concat_idents ! (
+                                      parent_encoder , & mut concat_idents ! (
                                       $ parent , $ parent_suffix ) ) } ) ; d !
                                       ( end oc_rep_end_array ) ; } } ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
@@ -6465,12 +6597,13 @@ pub mod encoding {
                                       , stringify ! ( $ object ) , ", key: " ,
                                       stringify ! ( $ key ) , ", child: " ,
                                       stringify ! ( $ object ) , "_map" ) ;
-                                      let key_with_opt_null : & [ u8 ] = $ key
-                                      . to_bytes_optional_nul (  ) ;
-                                      proc_macros :: try_cbor ! (
+                                      let key_with_opt_null : & [ u8 ] =
+                                      stringify ! ( $ key ) .
+                                      to_bytes_optional_nul (  ) ; proc_macros
+                                      :: try_cbor ! (
                                       {
                                       let encoder = COAP_CONTEXT . encoder (
-                                      "COAP_CONTEXT" , "_map" ) ;
+                                      stringify ! ( $ object ) , "_map" ) ;
                                       cbor_encode_text_string (
                                       encoder , COAP_CONTEXT . key_to_cstr (
                                       key_with_opt_null ) , COAP_CONTEXT .
@@ -8006,9 +8139,20 @@ pub mod encoding {
                 unsafe { &mut super::g_encoder }
             }
             /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
-            pub fn encoder(&self, _parent: &str, _child: &str)
+            pub fn encoder(&self, parent: &str, child: &str)
              -> *mut super::tinycbor::CborEncoder {
-                unsafe { &mut super::root_map }
+                if (parent, child) == ("root", "_map") {
+                    unsafe { &mut super::root_map }
+                } else {
+                    if !false {
+                        {
+                            ::core::panicking::panic(&("assertion failed: false",
+                                                       "rust/mynewt/src/encoding/coap_context.rs",
+                                                       69u32, 13u32))
+                        }
+                    };
+                    unsafe { &mut super::root_map }
+                }
             }
             /// Fail the encoding with an error if `res` is non-zero.
             pub fn check_result(&self, res: u32) {
@@ -8032,7 +8176,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   73u32,
+                                                                   76u32,
                                                                    9u32))
                                 }
                             }
@@ -8062,7 +8206,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   78u32,
+                                                                   81u32,
                                                                    9u32))
                                 }
                             }
@@ -10235,6 +10379,8 @@ pub mod libs {
         }
     }
 }
+///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
+pub fn sysinit() { unsafe { rust_sysinit(); } sys::console::flush(); }
 /// Return type and error codes for Mynewt API
 pub mod result {
     use crate::kernel::os;
@@ -10412,7 +10558,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           108u32, 9u32))
+                                                           116u32, 9u32))
                         }
                     }
                 }
@@ -10445,7 +10591,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           118u32, 9u32))
+                                                           126u32, 9u32))
                         }
                     }
                 }
@@ -10477,7 +10623,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           127u32, 9u32))
+                                                           135u32, 9u32))
                         }
                     }
                 }
@@ -10508,7 +10654,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           135u32, 9u32))
+                                                           143u32, 9u32))
                         }
                     }
                 }
@@ -10537,7 +10683,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           141u32, 9u32))
+                                                           149u32, 9u32))
                         }
                     }
                 }
@@ -10545,6 +10691,16 @@ impl Strn {
         };
     }
 }
+///  Declare a pointer that will be used by C functions to return a value
 pub type Out<T> = &'static mut T;
+///  Declare a `void *` pointer that will be passed to C functions
 pub type Ptr = *mut ::cty::c_void;
+///  Declare a `NULL` pointer that will be passed to C functions
 pub const NULL: Ptr = 0 as Ptr;
+///  Import the custom interop helper library at `libs/mynewt_rust`
+#[link(name = "libs_mynewt_rust")]
+extern "C" {
+    ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
+    ///  C API: `void rust_sysinit()`
+    fn rust_sysinit();
+}

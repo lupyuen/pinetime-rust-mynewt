@@ -110,7 +110,8 @@ pub fn try_cbor(item: TokenStream) -> TokenStream {
                         let func = *expr.func;        //  Get the function called.
                         let func = quote! { #func };  //  Summarise as token form.
                         //  If this is a CBOR encoding call..
-                        if func.to_string().starts_with("cbor_encode_") {
+                        if func.to_string().starts_with("cbor_encode_") ||
+                            func.to_string().starts_with("cbor_encoder_") {
                             //  Add error checking to the CBOR statement.
                             let updated_stmt = quote! { 
                                 let res = tinycbor::#stmt_tokens;

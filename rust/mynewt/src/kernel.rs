@@ -6,4 +6,4 @@ use crate::{
 };
 
 /// Contains Rust bindings for Mynewt OS API `kernel/os`
-pub mod os;  // Export `os.rs` as Rust module `mynewt::kernel::os`
+pub mod os;  // Export `kernel/os.rs` as Rust module `mynewt::kernel::os`

@@ -367,12 +367,12 @@ macro_rules! parse {
   //  CBOR minimal encoding: If we match the top level of the JSON: { ... }
   (@cbormin { $($tt:tt)+ }) => {{
     //  Substitute with this code...
-    d!(begin cbormin root);
-    $crate::coap_root!(@cbormin COAP_CONTEXT {  //  Create the payload root
+    d!(begin cbor root);
+    $crate::coap_root!(@cbor COAP_CONTEXT {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
-        $crate::parse!(@cbormin @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
+        $crate::parse!(@cbor @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
     });  //  Close the payload root
-    d!(end cbormin root);
+    d!(end cbor root);
     ()
   }};
 
@@ -856,12 +856,13 @@ macro_rules! oc_rep_start_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     proc_macros::try_cbor!({
-      //  TODO: CborEncoder key##_map
+      let parent_encoder = COAP_CONTEXT.encoder(stringify!($parent), stringify!($parent_suffix));
+      //  Previously: CborEncoder key##_map
       let encoder = COAP_CONTEXT.encoder(stringify!($key), "_map");
       //  Previously: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength)
       cbor_encoder_create_map(
+        parent_encoder,
         encoder,
-        &mut concat_idents!($key, _map), 
         tinycbor::CborIndefiniteLength
       );
     });
@@ -879,11 +880,12 @@ macro_rules! oc_rep_end_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     proc_macros::try_cbor!({
+      let parent_encoder = COAP_CONTEXT.encoder(stringify!($parent), stringify!($parent_suffix));
       let encoder = COAP_CONTEXT.encoder(stringify!($key), "_map");
       //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_map)
       cbor_encoder_close_container(
-        encoder,
-        &mut concat_idents!($key, _map)
+        parent_encoder,
+        encoder
       );
     });
     d!(end oc_rep_end_object);
@@ -900,11 +902,11 @@ macro_rules! oc_rep_start_array {
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     proc_macros::try_cbor!({
-      //  TODO: First para should be key
-      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_array");
+      let parent_encoder = COAP_CONTEXT.encoder(stringify!($parent), stringify!($parent_suffix));
+      let encoder = COAP_CONTEXT.encoder(stringify!($key), "_array");
       //  Previously: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
       cbor_encoder_create_array(
-        &mut concat_idents!($parent, $parent_suffix), 
+        parent_encoder, 
         &mut concat_idents!($key, _array), 
         CborIndefiniteLength
       );
@@ -923,11 +925,11 @@ macro_rules! oc_rep_end_array {
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
     proc_macros::try_cbor!({
-      //  TODO: First para should be key
-      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_array");
+      let parent_encoder = COAP_CONTEXT.encoder(stringify!($parent), stringify!($parent_suffix));
+      let encoder = COAP_CONTEXT.encoder(stringify!($key), "_array");
       //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_array)
       cbor_encoder_close_container(
-        &mut $parent, 
+        parent_encoder, 
         &mut concat_idents!($parent, $parent_suffix)
       ) 
     });
@@ -949,10 +951,9 @@ macro_rules! oc_rep_set_array {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  Convert key to char array, which may or may not be null-terminated.
-    let key_with_opt_null:   &[u8] = $key.to_bytes_optional_nul();
+    let key_with_opt_null:   &[u8] = stringify!($key).to_bytes_optional_nul();
     proc_macros::try_cbor!({
-      //  TODO: First para should be name of current map or array
-      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
+      let encoder = COAP_CONTEXT.encoder(stringify!($object), "_map");
       //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
         encoder, 
@@ -979,7 +980,7 @@ macro_rules! oc_rep_close_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  d!(> TODO: oc_rep_end_array(object##_map, key));
+    //  Previously: oc_rep_end_array(object##_map, key));
     $crate::oc_rep_end_array!($object, $key, _map);
     d!(end oc_rep_close_array);
   }};
@@ -997,7 +998,7 @@ macro_rules! oc_rep_object_array_start_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
-    //  d!(> TODO: oc_rep_start_object(key##_array, key));        
+    //  Previously: oc_rep_start_object(key##_array, key));        
     $crate::oc_rep_start_object!($key, $key, _array);
     d!(end oc_rep_object_array_start_item);
   }};
@@ -1015,7 +1016,7 @@ macro_rules! oc_rep_object_array_end_item {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
-    //  d!(> TODO: oc_rep_end_object(key##_array, key));
+    //  Previously: oc_rep_end_object(key##_array, key));
     $crate::oc_rep_end_object!($key, $key, _array);
     d!(end oc_rep_object_array_end_item);
   }};

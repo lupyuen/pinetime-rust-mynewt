@@ -63,9 +63,12 @@ impl CoapContext {
     }
 
     /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
-    pub fn encoder(&self, _parent: &str, _child: &str) -> *mut super::tinycbor::CborEncoder {
-        //  TODO: Allow different map encoder by level
-        unsafe { &mut super::root_map }
+    pub fn encoder(&self, parent: &str, child: &str) -> *mut super::tinycbor::CborEncoder {
+        if (parent, child) == ("root", "_map") { unsafe { &mut super::root_map } }
+        else {
+            assert!(false);  //  No such encoder.
+            unsafe { &mut super::root_map }
+        }        
     }
 
     /// Fail the encoding with an error if `res` is non-zero.

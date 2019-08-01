@@ -23,6 +23,8 @@ pub mod kernel;     //  Mynewt Kernel API. Export folder `kernel` as Rust module
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod hw;         //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
 
+pub mod sys;        //  Mynewt System API. Export folder `sys` as Rust module `mynewt::sys`
+
 #[macro_use]                      //  Allow macros from Rust module `encoding`
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
@@ -36,6 +38,12 @@ pub mod util;       //  Mynewt Utility API. Export folder `encoding` as Rust mod
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod libs;       //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
+
+///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
+pub fn sysinit() {
+    unsafe { rust_sysinit(); }
+    sys::console::flush();
+}
 
 /// Return type and error codes for Mynewt API
 pub mod result {
@@ -142,6 +150,19 @@ impl Strn {
     }
 }
 
+///  Declare a pointer that will be used by C functions to return a value
 pub type Out<T> = &'static mut T;
+
+///  Declare a `void *` pointer that will be passed to C functions
 pub type Ptr = *mut ::cty::c_void;
+
+///  Declare a `NULL` pointer that will be passed to C functions
 pub const NULL: Ptr = 0 as Ptr;
+
+///  Import the custom interop helper library at `libs/mynewt_rust`
+#[link(name = "libs_mynewt_rust")]  //  Functions below are located in the Mynewt build output `libs_mynewt_rust.a`
+extern {
+    ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
+    ///  C API: `void rust_sysinit()`
+    fn rust_sysinit();  
+}
