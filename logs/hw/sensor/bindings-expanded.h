@@ -3504,11 +3504,12 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 
 /*** libs/sensor_coap */
-
-#define MYNEWT_VAL_COAP_CBOR_ENCODING (0)
-
-
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
+
+#define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
+
+
+/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -3526,7 +3527,7 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
+#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true")
 
 
 

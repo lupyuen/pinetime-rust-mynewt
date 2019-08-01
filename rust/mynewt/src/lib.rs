@@ -7,20 +7,11 @@
 #![feature(proc_macro_hygiene)]   //  Allow proc macros to be unhygienic
 #![feature(custom_attribute)]     //  Allow Custom Attributes like `#[safe_wrap]`
 
-extern crate macros as proc_macros;
-use proc_macros::safe_wrap;
+extern crate macros as proc_macros;  //  Import Procedural Macros from `macros` library
 
 use crate::{
     result::*,
 };
-
-#[macro_use]     //  Allow macros from Rust module `macros`
-pub mod macros;  //  Export `macros.rs` as Rust module `macros`. Contains Mynewt macros.
-
-#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
-#[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
-#[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-pub mod encoding;   //  Mynewt Encoding API. Export folder `encoding` as Rust module `mynewt::encoding`
 
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
@@ -31,6 +22,15 @@ pub mod kernel;     //  Mynewt Kernel API. Export folder `kernel` as Rust module
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod hw;         //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
+
+#[macro_use]                      //  Allow macros from Rust module `encoding`
+#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
+#[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
+#[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
+pub mod encoding;   //  Mynewt Encoding API. Export folder `encoding` as Rust module `mynewt::encoding`
+
+#[macro_use]                      //  Allow macros from Rust module `util`
+pub mod util;       //  Mynewt Utility API. Export folder `encoding` as Rust module `mynewt::util`
 
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case

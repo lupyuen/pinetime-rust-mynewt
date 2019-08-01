@@ -9,8 +9,11 @@ extern {
     pub static mut root_map:  tinycbor::CborEncoder;
 }
 
+#[macro_use]     // Allow macros from Rust module `encoding/macros.rs`
+pub mod macros;  // Export macros from `encoding/macros.rs`
+
 /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
-pub mod json;  // Export `json.rs` as Rust module `mynewt::encoding::json`
+pub mod json;    // Export `json.rs` as Rust module `mynewt::encoding::json`
 
 /// Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`
 pub mod tinycbor;  // Export `tinycbor.rs` as Rust module `mynewt::encoding::tinycbor`

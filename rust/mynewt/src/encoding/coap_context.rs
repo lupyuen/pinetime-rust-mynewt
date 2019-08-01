@@ -2,6 +2,7 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
+use crate::fill_zero;
 
 /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
 pub static mut COAP_CONTEXT: CoapContext = fill_zero!(CoapContext);

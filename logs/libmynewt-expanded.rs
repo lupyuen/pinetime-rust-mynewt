@@ -21,29 +21,32 @@ extern crate compiler_builtins as compiler_builtins;
 //  Allow Custom Attributes like `#[safe_wrap]`
 
 extern crate macros as proc_macros;
-use proc_macros::safe_wrap;
+//  Import Procedural Macros from `macros` library
 
 use crate::{result::*};
 
-//  Allow macros from Rust module `macros`
-#[macro_use]
-pub mod macros {
-    //  Export `macros.rs` as Rust module `macros`. Contains Mynewt macros.
-
-    //  Suppress warnings of unused constants and vars
-    //  Allow type names to have non-camel case
-    //  Allow globals to have lowercase letters
-    //  Mynewt Encoding API. Export folder `encoding` as Rust module `mynewt::encoding`
-
-    //  Suppress warnings of unused constants and vars
-    //  Allow type names to have non-camel case
-    //  Allow globals to have lowercase letters
+//  Suppress warnings of unused constants and vars
+//  Allow type names to have non-camel case
+//  Allow globals to have lowercase letters
+#[allow(dead_code)]
+#[allow(non_camel_case_types)]
+#[allow(non_upper_case_globals)]
+pub mod kernel {
     //  Mynewt Kernel API. Export folder `kernel` as Rust module `mynewt::kernel`
 
     //  Suppress warnings of unused constants and vars
     //  Allow type names to have non-camel case
     //  Allow globals to have lowercase letters
     //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
+
+    //  Allow macros from Rust module `encoding`
+    //  Suppress warnings of unused constants and vars
+    //  Allow type names to have non-camel case
+    //  Allow globals to have lowercase letters
+    //  Mynewt Encoding API. Export folder `encoding` as Rust module `mynewt::encoding`
+
+    //  Allow macros from Rust module `util`
+    //  Mynewt Utility API. Export folder `encoding` as Rust module `mynewt::util`
 
     //  Suppress warnings of unused constants and vars
     //  Allow type names to have non-camel case
@@ -67,2477 +70,6 @@ pub mod macros {
 
     //  Last byte must be 0.
 
-    //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
-    //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
-    //!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
-    ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
-    ///  `fill_zero!(os_task)` expands to
-    ///  ```
-    /// unsafe { 
-    ///	::core::mem::transmute::
-    ///	<
-    ///	  [
-    ///		u8; 
-    ///		::core::mem::size_of::<os_task>()
-    ///	  ], 
-    ///	  os_task
-    ///	>
-    ///	(
-    ///	  [
-    ///		0; 
-    ///		::core::mem::size_of::<os_task>()
-    ///	  ]
-    ///	) 
-    /// }
-    ///  ```
-    #[macro_export]
-    macro_rules! fill_zero(( $ type : ident ) => {
-                           unsafe {
-                           :: core :: mem :: transmute :: < [
-                           u8 ; :: core :: mem :: size_of :: < $ type > (  ) ]
-                           , $ type > (
-                           [ 0 ; :: core :: mem :: size_of :: < $ type > (  )
-                           ] ) } } ;);
-    ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
-    ///  First parameter is `@none`, `@json` or `@cbor`, to indicate
-    ///  no encoding (testing), JSON encoding or CBOR encoding.
-    ///  Second parameter is the JSON message to be transmitted.
-    ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
-    #[macro_export]
-    macro_rules! coap(( @ none $ ( $ tokens : tt ) + ) => {
-                      $ crate :: parse ! ( @ none $ ( $ tokens ) + ) } ; (
-                      @ json $ ( $ tokens : tt ) + ) => {
-                      $ crate :: parse ! ( @ json $ ( $ tokens ) + ) } ; (
-                      @ cbor $ ( $ tokens : tt ) + ) => {
-                      $ crate :: parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
-    ///  Parse the JSON code in the parameter and compose the CoAP payload.
-    ///  This macro takes these parameters:
-    ///  - __Encoding__: `@json`, `@cbor` or `@none`
-    ///  - __State__: Current parsing state (`@object`, `@array` or omitted)
-    ///  - __Context__: JSON or CBOR parsing context (`JsonContext` or `CborContext`)
-    ///  - __Remaining tokens__ to be parsed
-    ///  - __Remaining tokens__ again, for error display
-    #[macro_export]
-    macro_rules! parse((
-                       @ $ enc : ident @ object $ object : ident (  ) (  ) (
-                       ) ) => {  } ; (
-                       @ none @ object $ object : ident [ $ ( $ key : tt ) + ]
-                       ( $ value : expr ) , $ ( $ rest : tt ) * ) => {
-                       d ! (
-                       TODO : add key : $ ( $ key ) + , value : $ value , to
-                       object : $ object ) ; $ crate :: parse ! (
-                       @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
-                       $ ( $ rest ) * ) ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident [
-                       $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
-                       $ rest : tt ) * ) => {
-                       d ! (
-                       add1 key : $ ( $ key ) + value : $ value to object : $
-                       object ) ; $ crate :: coap_item_str ! (
-                       @ $ enc $ object , $ ( $ key ) + , $ value ) ;
-                       "--------------------" ; $ crate :: parse ! (
-                       @ $ enc @ object $ object (  ) ( $ ( $ rest ) * ) (
-                       $ ( $ rest ) * ) ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident [
-                       $ ( $ key : tt ) + ] ( $ value : expr ) $ unexpected :
-                       tt $ ( $ rest : tt ) * ) => {
-                       unexpected_token ! ( $ unexpected ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident [
-                       $ ( $ key : tt ) + ] ( $ value : expr ) ) => {
-                       d ! (
-                       TODO : add2 key : $ ( $ key ) + value : $ value to
-                       object : $ object ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) ( : null $ ( $ rest : tt ) * ) $
-                       copy : tt ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc null ) ) $ ( $ rest ) * )
-                       ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) ( : true $ ( $ rest : tt ) * ) $
-                       copy : tt ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc true ) ) $ ( $ rest ) * )
-                       ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) ( : false $ ( $ rest : tt ) * ) $
-                       copy : tt ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc false ) ) $ ( $ rest ) * )
-                       ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) (
-                       : [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) $ copy
-                       : tt ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc [ $ ( $ array ) * ] ) ) $
-                       ( $ rest ) * ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) (
-                       : { $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) $ copy :
-                       tt ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc { $ ( $ map ) * } ) ) $ (
-                       $ rest ) * ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) (
-                       : $ value : expr , $ ( $ rest : tt ) * ) $ copy : tt )
-                       => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc $ value ) ) , $ ( $ rest )
-                       * ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) ( : $ value : expr ) $ copy : tt )
-                       => {
-                       $ crate :: parse ! (
-                       @ $ enc @ object $ object [ $ ( $ key ) + ] (
-                       $ crate :: parse ! ( @ $ enc $ value ) ) ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) ( : ) $ copy : tt ) => {
-                       $ crate :: parse ! (  ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) + ) (  ) $ copy : tt ) => {
-                       $ crate :: parse ! (  ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (  ) (
-                       : $ ( $ rest : tt ) * ) (
-                       $ colon : tt $ ( $ copy : tt ) * ) ) => {
-                       $ crate :: unexpected_token ! ( $ colon ) ; } ; (
-                       @ none @ object $ object : ident ( $ ( $ key : tt ) * )
-                       ( , $ ( $ rest : tt ) * ) (
-                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                       d ! (
-                       TODO : extract key , value from _sensor_value : $ (
-                       $ key ) * and add to _object : $ object ) ;
-                       "--------------------" ; $ crate :: parse ! (
-                       @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
-                       $ ( $ rest ) * ) ) ; } ; (
-                       @ json @ object $ object : ident ( $ ( $ key : tt ) * )
-                       ( , $ ( $ rest : tt ) * ) (
-                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                       "--------------------" ; $ crate :: coap_item_int_val !
-                       ( @ json $ object , $ ( $ key ) * ) ;
-                       "--------------------" ; $ crate :: parse ! (
-                       @ json @ object $ object (  ) ( $ ( $ rest ) * ) (
-                       $ ( $ rest ) * ) ) ; } ; (
-                       @ cbor @ object $ object : ident ( $ ( $ key : tt ) * )
-                       ( , $ ( $ rest : tt ) * ) (
-                       $ comma : tt $ ( $ copy : tt ) * ) ) => {
-                       "--------------------" ; $ crate :: coap_set_int_val !
-                       ( @ cbor $ object , $ ( $ key ) * ) ;
-                       "--------------------" ; $ crate :: parse ! (
-                       @ cbor @ object $ object (  ) ( $ ( $ rest ) * ) (
-                       $ ( $ rest ) * ) ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (  ) (
-                       ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy : tt )
-                       => {
-                       d ! ( got (  ) ) ; $ crate :: parse ! (
-                       @ $ enc @ object $ object ( $ key ) ( : $ ( $ rest ) *
-                       ) ( : $ ( $ rest ) * ) ) ; } ; (
-                       @ $ enc : ident @ object $ object : ident (
-                       $ ( $ key : tt ) * ) ( $ tt : tt $ ( $ rest : tt ) * )
-                       $ copy : tt ) => {
-                       $ crate :: nx ! (
-                       ( $ ( $ key ) * ) , ( $ tt ) , ( $ ( $ rest ) * ) ) ; $
-                       crate :: parse ! (
-                       @ $ enc @ object $ object ( $ ( $ key ) * $ tt ) (
-                       $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] )
-                       => { parse_vector ! [ $ ( $ elems , ) * ] } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr ) , * ] )
-                       => { parse_vector ! [ $ ( $ elems ) , * ] } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ]
-                       null $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc null ) ]
-                       $ ( $ rest ) * ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ]
-                       true $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc true ) ]
-                       $ ( $ rest ) * ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ]
-                       false $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc false )
-                       ] $ ( $ rest ) * ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] [
-                       $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! (
-                       @ $ enc [ $ ( $ array ) * ] ) ] $ ( $ rest ) * ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] {
-                       $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! (
-                       @ $ enc { $ ( $ map ) * } ) ] $ ( $ rest ) * ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] $
-                       next : expr , $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc $ next )
-                       , ] $ ( $ rest ) * ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr , ) * ] $
-                       last : expr ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [
-                       $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc $ last )
-                       ] ) } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr ) , * ] ,
-                       $ ( $ rest : tt ) * ) => {
-                       $ crate :: parse ! (
-                       @ $ enc @ array [ $ ( $ elems , ) * ] $ ( $ rest ) * )
-                       } ; (
-                       @ $ enc : ident @ array [ $ ( $ elems : expr ) , * ] $
-                       unexpected : tt $ ( $ rest : tt ) * ) => {
-                       $ crate :: unexpected_token ! ( $ unexpected ) } ; (
-                       @ $ enc : ident null ) => {
-                       { d ! ( TODO : null ) ; "null" } } ; (
-                       @ $ enc : ident true ) => { { d ! ( true ) ; "true" } }
-                       ; ( @ $ enc : ident false ) => {
-                       { d ! ( false ) ; "false" } } ; ( @ $ enc : ident [  ]
-                       ) => { { d ! ( [ TODO ] ) ; "[ TODO ]" } } ; (
-                       @ $ enc : ident [ $ ( $ tt : tt ) + ] ) => {
-                       {
-                       d ! ( begin array ) ; _array = $ crate :: parse ! (
-                       @ $ enc @ array [  ] $ ( $ tt ) + ) ; d ! ( end array )
-                       ; "[ TODO ]" } } ; ( @ $ enc : ident {  } ) => {
-                       { d ! ( { TODO } ) ; "{ TODO }" } } ; (
-                       @ none { $ ( $ tt : tt ) + } ) => {
-                       {
-                       d ! ( begin none root ) ; let root = "root" ; $ crate
-                       :: parse ! (
-                       @ none @ object root (  ) ( $ ( $ tt ) + ) (
-                       $ ( $ tt ) + ) ) ; d ! ( end none root ) ; d ! (
-                       return none root to caller ) ; root } } ; (
-                       @ json { $ ( $ tt : tt ) + } ) => {
-                       {
-                       d ! ( begin json root ) ; $ crate :: coap_root ! (
-                       @ json COAP_CONTEXT {
-                       $ crate :: coap_array ! (
-                       @ json COAP_CONTEXT , values , {
-                       $ crate :: parse ! (
-                       @ json @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + ) (
-                       $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! ( end json root ) ;
-                       (  ) } } ; ( @ cbor { $ ( $ tt : tt ) + } ) => {
-                       {
-                       d ! ( begin cbor root ) ; $ crate :: coap_root ! (
-                       @ cbor COAP_CONTEXT {
-                       $ crate :: parse ! (
-                       @ cbor @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + ) (
-                       $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ; (  ) }
-                       } ; ( @ $ enc : ident $ other : expr ) => { $ other }
-                       ;);
-    ///  TODO: Parse the vector e.g. array items
-    #[macro_export]
-    macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
-                              $ crate :: vec ! [ $ ( $ content ) * ] } ;);
-    ///  Show an unexpected token error
-    #[macro_export]
-    macro_rules! unexpected_token((  ) => {  } ;);
-    ///  Compose the payload root.
-    #[macro_export]
-    macro_rules! coap_root(( @ cbor $ context : ident $ children0 : block ) =>
-                           {
-                           {
-                           d ! ( begin cbor coap_root ) ; $ crate ::
-                           oc_rep_start_root_object ! ( $ context ) ; $
-                           children0 ; $ crate :: oc_rep_end_root_object ! (
-                           $ context ) ; d ! ( end cbor coap_root ) ; } } ; (
-                           @ json $ context : ident $ children0 : block ) => {
-                           {
-                           d ! ( begin json coap_root ) ; unsafe {
-                           sensor_coap :: json_rep_start_root_object (  ) } $
-                           children0 ; unsafe {
-                           sensor_coap :: json_rep_end_root_object (  ) } d !
-                           ( end json coap_root ) ; } } ;);
-    ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
-    #[macro_export]
-    macro_rules! coap_array((
-                            @ cbor $ object0 : ident , $ key0 : ident , $
-                            children0 : block ) => {
-                            {
-                            d ! (
-                            begin cbor coap_array , object : $ object0 , key :
-                            $ key0 ) ; $ crate :: oc_rep_set_array ! (
-                            $ object0 , $ key0 ) ; $ children0 ; $ crate ::
-                            oc_rep_close_array ! ( $ object0 , $ key0 ) ; d !
-                            ( end cbor coap_array ) ; } } ; (
-                            @ json $ object0 : ident , $ key0 : ident , $
-                            children0 : block ) => {
-                            {
-                            d ! (
-                            begin json coap_array , object : $ object0 , key :
-                            $ key0 ) ; $ crate :: json_rep_set_array ! (
-                            $ object0 , $ key0 ) ; $ children0 ; $ crate ::
-                            json_rep_close_array ! ( $ object0 , $ key0 ) ; d
-                            ! ( end json coap_array ) ; } } ;);
-    ///  Append a (key + int value) item to the array named `array`:
-    ///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
-    #[macro_export]
-    macro_rules! coap_item_int((
-                               @ cbor $ array0 : ident , $ key0 : expr , $
-                               value0 : expr ) => {
-                               {
-                               d ! (
-                               begin cbor coap_item_int , key : $ key0 , value
-                               : $ value0 ) ; $ crate :: coap_item ! (
-                               @ cbor $ array0 , {
-                               $ crate :: oc_rep_set_text_string ! (
-                               $ array0 , "key" , $ key0 ) ; $ crate ::
-                               oc_rep_set_int ! (
-                               $ array0 , "value" , $ value0 ) ; } ) ; d ! (
-                               end cbor coap_item_int ) ; } } ; (
-                               @ json $ array0 : ident , $ key0 : expr , $
-                               value0 : expr ) => {
-                               {
-                               d ! (
-                               begin json coap_item_int , key : $ key0 , value
-                               : $ value0 ) ; $ crate :: coap_item ! (
-                               @ json $ array0 , {
-                               $ crate :: json_rep_set_text_string ! (
-                               $ array0 , "key" , $ key0 ) ; $ crate ::
-                               json_rep_set_int ! (
-                               $ array0 , "value" , $ value0 ) ; } ) ; d ! (
-                               end json coap_item_int ) ; } } ;);
-    ///  Append a (`key` + `val` string value) item to the array named `parent`:
-    ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
-    #[macro_export]
-    macro_rules! coap_item_str((
-                               @ cbor $ parent : ident , $ key : expr , $ val
-                               : expr ) => {
-                               {
-                               d ! (
-                               begin cbor coap_item_str , parent : $ parent ,
-                               key : $ key , val : $ val ) ; $ crate ::
-                               coap_item ! (
-                               @ cbor $ parent , {
-                               $ crate :: oc_rep_set_text_string ! (
-                               $ parent , "key" , $ key ) ; $ crate ::
-                               oc_rep_set_text_string ! (
-                               $ parent , "value" , $ val ) ; } ) ; d ! (
-                               end cbor coap_item_str ) ; } } ; (
-                               @ json $ parent : ident , $ key : expr , $ val
-                               : expr ) => {
-                               {
-                               d ! (
-                               begin json coap_item_str , parent : $ parent ,
-                               key : $ key , val : $ val ) ; $ crate ::
-                               coap_item ! (
-                               @ json $ parent , {
-                               $ crate :: json_rep_set_text_string ! (
-                               $ parent , key , $ key ) ; $ crate ::
-                               json_rep_set_text_string ! (
-                               $ parent , value , $ val ) ; } ) ; d ! (
-                               end json coap_item_str ) ; } } ;);
-    ///  Append an array item under the current object item.  Add `children0` as the array items.
-    ///    `{ <array0>: [ ..., { <children0> } ] }`
-    #[macro_export]
-    macro_rules! coap_item(( @ cbor $ context : ident , $ children0 : block )
-                           => {
-                           {
-                           d ! ( begin cbor coap_item , array : $ context ) ;
-                           $ crate :: oc_rep_object_array_start_item ! (
-                           $ context ) ; $ children0 ; $ crate ::
-                           oc_rep_object_array_end_item ! ( $ context ) ; d !
-                           ( end cbor coap_item ) ; } } ; (
-                           @ json $ context : ident , $ children0 : block ) =>
-                           {
-                           {
-                           d ! ( begin json coap_item , array : $ context ) ;
-                           $ crate :: json_rep_object_array_start_item ! (
-                           $ context ) ; $ children0 ; $ crate ::
-                           json_rep_object_array_end_item ! ( $ context ) ; d
-                           ! ( end json coap_item ) ; } } ;);
-    ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
-    #[macro_export]
-    macro_rules! coap_set_int_val(( @ cbor $ context : ident , $ val0 : expr )
-                                  => {
-                                  {
-                                  d ! (
-                                  begin cbor coap_set_int_val , c : $ context
-                                  , val : $ val0 ) ; if let SensorValueType ::
-                                  Uint ( val ) = $ val0 . val {
-                                  $ crate :: oc_rep_set_int ! (
-                                  $ context , $ val0 . key , val ) ; } else {
-                                  unsafe {
-                                  $ context . fail (
-                                  coap_context :: CoapError :: VALUE_NOT_UINT
-                                  ) } ; } d ! ( end cbor coap_set_int_val ) ;
-                                  } } ; (
-                                  @ json $ context : ident , $ val0 : expr )
-                                  => {
-                                  {
-                                  d ! (
-                                  begin json coap_set_int_val , c : $ context
-                                  , val : $ val0 ) ; if let SensorValueType ::
-                                  Uint ( val ) = $ val0 . val {
-                                  $ crate :: json_rep_set_int ! (
-                                  $ context , $ val0 . key , val ) ; } else {
-                                  unsafe {
-                                  $ context . fail (
-                                  coap_context :: CoapError :: VALUE_NOT_UINT
-                                  ) } ; } d ! ( end json coap_set_int_val ) ;
-                                  } } ;);
-    ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
-    #[macro_export]
-    macro_rules! coap_item_int_val(( @ cbor $ context : ident , $ val0 : expr
-                                   ) => {
-                                   {
-                                   d ! (
-                                   begin cbor coap_item_int_val , c : $
-                                   context , val : $ val0 ) ; if let
-                                   SensorValueType :: Uint ( val ) = $ val0 .
-                                   val {
-                                   $ crate :: coap_item_int ! (
-                                   @ cbor $ context , $ val0 . key , val ) ; }
-                                   else {
-                                   unsafe {
-                                   $ context . fail (
-                                   coap_context :: CoapError :: VALUE_NOT_UINT
-                                   ) } ; } d ! ( end cbor coap_item_int_val )
-                                   ; } } ; (
-                                   @ json $ context : ident , $ val0 : expr )
-                                   => {
-                                   {
-                                   d ! (
-                                   begin json coap_item_int_val , c : $
-                                   context , val : $ val0 ) ; if let
-                                   SensorValueType :: Uint ( val ) = $ val0 .
-                                   val {
-                                   $ crate :: coap_item_int ! (
-                                   @ json $ context , $ val0 . key , val ) ; }
-                                   else {
-                                   unsafe {
-                                   $ context . fail (
-                                   coap_context :: CoapError :: VALUE_NOT_UINT
-                                   ) } ; } d ! ( end json coap_item_int_val )
-                                   ; } } ;);
-    ///  Assume we are writing an object now.  Write the key name and start a child array.
-    ///  ```
-    ///  {a:b --> {a:b, key:[
-    ///  ```
-    #[macro_export]
-    macro_rules! json_rep_set_array(( $ context : ident , $ key : ident ) => {
-                                    {
-                                    concat ! (
-                                    "<< jarri " , ", o: " , stringify ! (
-                                    $ context ) , ", k: " , stringify ! (
-                                    $ key ) ) ; let key_with_null : & str = $
-                                    crate :: stringify_null ! ( $ key ) ;
-                                    unsafe {
-                                    mynewt_rust :: json_helper_set_array (
-                                    $ context . to_void_ptr (  ) , $ context .
-                                    key_to_cstr (
-                                    key_with_null . as_bytes (  ) ) ) ; } ; }
-                                    } ; ( $ context : ident , $ key : expr )
-                                    => {
-                                    {
-                                    concat ! (
-                                    "<< jarre " , ", o: " , stringify ! (
-                                    $ context ) , ", k: " , stringify ! (
-                                    $ key ) ) ; let key_with_opt_null : & [ u8
-                                    ] = $ key . to_bytes_optional_nul (  ) ;
-                                    unsafe {
-                                    mynewt_rust :: json_helper_set_array (
-                                    $ context . to_void_ptr (  ) , $ context .
-                                    key_to_cstr ( key_with_opt_null ) ) ; } ;
-                                    } } ;);
-    ///  End the child array and resume writing the parent object.
-    ///  ```
-    ///  {a:b, key:[... --> {a:b, key:[...]
-    ///  ```
-    #[macro_export]
-    macro_rules! json_rep_close_array(( $ context : ident , $ key : ident ) =>
-                                      {
-                                      {
-                                      concat ! ( ">>" ) ; let key_with_null :
-                                      & str = $ crate :: stringify_null ! (
-                                      $ key ) ; unsafe {
-                                      mynewt_rust :: json_helper_close_array (
-                                      $ context . to_void_ptr (  ) , $ context
-                                      . key_to_cstr (
-                                      key_with_null . as_bytes (  ) ) ) } ; }
-                                      } ; ( $ context : ident , $ key : expr )
-                                      => {
-                                      {
-                                      concat ! ( ">>" ) ; let
-                                      key_with_opt_null : & [ u8 ] = $ key .
-                                      to_bytes_optional_nul (  ) ; unsafe {
-                                      mynewt_rust :: json_helper_close_array (
-                                      $ context . to_void_ptr (  ) , $ context
-                                      . key_to_cstr ( key_with_opt_null ) ) }
-                                      ; } } ;);
-    ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
-    ///  ```
-    ///  [... --> [...,
-    ///  ```
-    #[macro_export]
-    macro_rules! json_rep_object_array_start_item(( $ context : ident ) => {
-                                                  {
-                                                  concat ! (
-                                                  "<< jitmi" , " c: " ,
-                                                  stringify ! ( $ context ) )
-                                                  ; let key_with_null : & str
-                                                  = $ crate :: stringify_null
-                                                  ! ( $ context ) ; unsafe {
-                                                  mynewt_rust ::
-                                                  json_helper_object_array_start_item
-                                                  (
-                                                  $ context . key_to_cstr (
-                                                  key_with_null . as_bytes (
-                                                  ) ) ) } ; } } ; (
-                                                  $ context : ident ) => {
-                                                  {
-                                                  concat ! (
-                                                  "<< jitme" , " c: " ,
-                                                  stringify ! ( $ context ) )
-                                                  ; let key_with_opt_null : &
-                                                  [ u8 ] = $ context .
-                                                  to_bytes_optional_nul (  ) ;
-                                                  unsafe {
-                                                  mynewt_rust ::
-                                                  json_helper_object_array_start_item
-                                                  (
-                                                  $ context . key_to_cstr (
-                                                  key_with_opt_null ) ) } ; }
-                                                  } ;);
-    ///  End an array item, assumed to be an object.
-    ///  ```
-    ///  [... --> [...,
-    ///  ```
-    #[macro_export]
-    macro_rules! json_rep_object_array_end_item(( $ context : ident ) => {
-                                                {
-                                                concat ! ( ">>" ) ; let
-                                                key_with_null : & str = $
-                                                crate :: stringify_null ! (
-                                                $ context ) ; unsafe {
-                                                mynewt_rust ::
-                                                json_helper_object_array_end_item
-                                                (
-                                                $ context . key_to_cstr (
-                                                key_with_null . as_bytes (  )
-                                                ) ) } ; } } ; (
-                                                $ context : ident ) => {
-                                                {
-                                                concat ! ( ">>" ) ; let
-                                                key_with_opt_null : & [ u8 ] =
-                                                $ context .
-                                                to_bytes_optional_nul (  ) ;
-                                                unsafe {
-                                                mynewt_rust ::
-                                                json_helper_object_array_end_item
-                                                (
-                                                $ context . key_to_cstr (
-                                                key_with_opt_null ) ) } ; } }
-                                                ;);
-    ///  Encode an int value into the current JSON encoding value `coap_json_value`
-    #[macro_export]
-    macro_rules! json_rep_set_int((
-                                  $ context : ident , $ key : ident , $ value
-                                  : expr ) => {
-                                  {
-                                  concat ! (
-                                  "-- jinti" , " o: " , stringify ! (
-                                  $ context ) , ", k: " , stringify ! ( $ key
-                                  ) , ", v: " , stringify ! ( $ value ) ) ;
-                                  let key_with_null : & str = $ crate ::
-                                  stringify_null ! ( $ key ) ; let value = $
-                                  value as u64 ; unsafe {
-                                  mynewt_rust :: json_helper_set_int (
-                                  $ context . to_void_ptr (  ) , $ context .
-                                  key_to_cstr ( key_with_null . as_bytes (  )
-                                  ) , value ) } ; } } ; (
-                                  $ context : ident , $ key : expr , $ value :
-                                  expr ) => {
-                                  {
-                                  concat ! (
-                                  "-- jinte" , " o: " , stringify ! (
-                                  $ context ) , ", k: " , stringify ! ( $ key
-                                  ) , ", v: " , stringify ! ( $ value ) ) ;
-                                  let key_with_opt_null : & [ u8 ] = $ key .
-                                  to_bytes_optional_nul (  ) ; let value = $
-                                  value as u64 ; unsafe {
-                                  mynewt_rust :: json_helper_set_int (
-                                  $ context . to_void_ptr (  ) , $ context .
-                                  key_to_cstr ( key_with_opt_null ) , value )
-                                  } ; } } ;);
-    ///  Encode a text value into the current JSON encoding value `coap_json_value`
-    #[macro_export]
-    macro_rules! json_rep_set_text_string((
-                                          $ context : ident , $ key : ident ,
-                                          $ value : expr ) => {
-                                          {
-                                          concat ! (
-                                          "-- jtxti" , " o: " , stringify ! (
-                                          $ context ) , ", k: " , stringify !
-                                          ( $ key ) , ", v: " , stringify ! (
-                                          $ value ) ) ; let key_with_null : &
-                                          str = $ crate :: stringify_null ! (
-                                          $ key ) ; let value_with_opt_null :
-                                          & [ u8 ] = $ value .
-                                          to_bytes_optional_nul (  ) ; unsafe
-                                          {
-                                          mynewt_rust ::
-                                          json_helper_set_text_string (
-                                          $ context . to_void_ptr (  ) , $
-                                          context . key_to_cstr (
-                                          key_with_null . as_bytes (  ) ) , $
-                                          context . value_to_cstr (
-                                          value_with_opt_null ) ) } ; } } ; (
-                                          $ context : ident , $ key : expr , $
-                                          value : expr ) => {
-                                          {
-                                          concat ! (
-                                          "-- jtxte" , " o: " , stringify ! (
-                                          $ context ) , ", k: " , stringify !
-                                          ( $ key ) , ", v: " , stringify ! (
-                                          $ value ) ) ; let key_with_opt_null
-                                          : & [ u8 ] = $ key .
-                                          to_bytes_optional_nul (  ) ; let
-                                          value_with_opt_null : & [ u8 ] = $
-                                          value . to_bytes_optional_nul (  ) ;
-                                          unsafe {
-                                          mynewt_rust ::
-                                          json_helper_set_text_string (
-                                          $ context . to_void_ptr (  ) , $
-                                          context . key_to_cstr (
-                                          key_with_opt_null ) , $ context .
-                                          value_to_cstr ( value_with_opt_null
-                                          ) ) } ; } } ;);
-    #[macro_export]
-    macro_rules! oc_rep_start_root_object(( $ context : ident ) => {
-                                          {
-                                          d ! ( begin oc_rep_start_root_object
-                                          ) ; unsafe {
-                                          let encoder = $ context . encoder (
-                                          "root" , "_map" ) ; tinycbor ::
-                                          cbor_encoder_create_map (
-                                          $ context . global_encoder (  ) ,
-                                          encoder , tinycbor ::
-                                          CborIndefiniteLength ) } ; d ! (
-                                          end oc_rep_start_root_object ) ; } }
-                                          ;);
-    #[macro_export]
-    macro_rules! oc_rep_end_root_object(( $ context : ident ) => {
-                                        {
-                                        d ! ( begin oc_rep_end_root_object ) ;
-                                        unsafe {
-                                        let encoder = $ context . encoder (
-                                        "root" , "_map" ) ; tinycbor ::
-                                        cbor_encoder_close_container (
-                                        $ context . global_encoder (  ) ,
-                                        encoder ) } ; d ! (
-                                        end oc_rep_end_root_object ) ; } } ;);
-    #[macro_export]
-    macro_rules! oc_rep_start_object((
-                                     $ parent : ident , $ key : ident , $
-                                     parent_suffix : ident ) => {
-                                     {
-                                     concat ! (
-                                     "begin oc_rep_start_object " ,
-                                     ", parent: " , stringify ! ( $ parent ) ,
-                                     stringify ! ( $ parent_suffix ) ,
-                                     ", key: " , stringify ! ( $ key ) ,
-                                     ", child: " , stringify ! ( $ key ) ,
-                                     "_map" ) ; unsafe {
-                                     let encoder = $ context . encoder (
-                                     stringify ! ( $ key ) , "_map" ) ;
-                                     tinycbor :: cbor_encoder_create_map (
-                                     encoder , & mut concat_idents ! (
-                                     $ key , _map ) , tinycbor ::
-                                     CborIndefiniteLength ) ; } ; d ! (
-                                     end oc_rep_start_object ) ; } } ;);
-    #[macro_export]
-    macro_rules! oc_rep_end_object((
-                                   $ parent : ident , $ key : ident , $
-                                   parent_suffix : ident ) => {
-                                   {
-                                   concat ! (
-                                   "begin oc_rep_end_object " , ", parent: " ,
-                                   stringify ! ( $ parent ) , stringify ! (
-                                   $ parent_suffix ) , ", key: " , stringify !
-                                   ( $ key ) , ", child: " , stringify ! (
-                                   $ key ) , "_map" ) ; unsafe {
-                                   let encoder = $ context . encoder (
-                                   stringify ! ( $ key ) , "_map" ) ; tinycbor
-                                   :: cbor_encoder_close_container (
-                                   encoder , & mut concat_idents ! (
-                                   $ key , _map ) ) ; } ; d ! (
-                                   end oc_rep_end_object ) ; } } ;);
-    #[macro_export]
-    macro_rules! oc_rep_start_array((
-                                    $ parent : ident , $ key : ident , $
-                                    parent_suffix : ident ) => {
-                                    {
-                                    concat ! (
-                                    "begin oc_rep_start_array " , ", parent: "
-                                    , stringify ! ( $ parent ) , stringify ! (
-                                    $ parent_suffix ) , ", key: " , stringify
-                                    ! ( $ key ) , ", child: " , stringify ! (
-                                    $ key ) , "_array" ) ; unsafe {
-                                    tinycbor :: cbor_encoder_create_array (
-                                    & mut concat_idents ! (
-                                    $ parent , $ parent_suffix ) , & mut
-                                    concat_idents ! ( $ key , _array ) ,
-                                    CborIndefiniteLength ) } ; d ! (
-                                    end oc_rep_start_array ) ; } } ;);
-    #[macro_export]
-    macro_rules! oc_rep_end_array((
-                                  $ parent : ident , $ key : ident , $
-                                  parent_suffix : ident ) => {
-                                  {
-                                  concat ! (
-                                  "begin oc_rep_end_array " , ", parent: " ,
-                                  stringify ! ( $ parent ) , stringify ! (
-                                  $ parent_suffix ) , ", key: " , stringify !
-                                  ( $ key ) , ", child: " , stringify ! (
-                                  $ key ) , "_array" ) ; unsafe {
-                                  tinycbor :: cbor_encoder_close_container (
-                                  & mut $ parent , & mut concat_idents ! (
-                                  $ parent , $ parent_suffix ) ) } ; d ! (
-                                  end oc_rep_end_array ) ; } } ;);
-    ///  Assume we are writing an object now.  Write the key name and start a child array.
-    ///  ```
-    ///  {a:b --> {a:b, key:[
-    ///  ```
-    #[macro_export]
-    macro_rules! oc_rep_set_array(( $ object : ident , $ key : ident ) => {
-                                  {
-                                  concat ! (
-                                  "begin oc_rep_set_array " , ", object: " ,
-                                  stringify ! ( $ object ) , ", key: " ,
-                                  stringify ! ( $ key ) , ", child: " ,
-                                  stringify ! ( $ object ) , "_map" ) ; unsafe
-                                  {
-                                  cbor_encode_text_string (
-                                  & mut concat_idents ! ( $ object , _map ) ,
-                                  $ key . as_ptr (  ) , $ key . len (  ) ) } ;
-                                  oc_rep_start_array ! (
-                                  $ object , $ key , _map ) ; d ! (
-                                  end oc_rep_set_array ) ; } } ;);
-    ///  End the child array and resume writing the parent object.
-    ///  ```
-    ///  {a:b, key:[... --> {a:b, key:[...]
-    ///  ```
-    #[macro_export]
-    macro_rules! oc_rep_close_array(( $ object : ident , $ key : ident ) => {
-                                    {
-                                    concat ! (
-                                    "begin oc_rep_close_array " , ", object: "
-                                    , stringify ! ( $ object ) , ", key: " ,
-                                    stringify ! ( $ key ) , ", child: " ,
-                                    stringify ! ( $ object ) , "_map" ) ;
-                                    oc_rep_end_array ! (
-                                    $ object , $ key , _map ) ; d ! (
-                                    end oc_rep_close_array ) ; } } ;);
-    ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
-    ///  ```
-    ///  [... --> [...,
-    ///  ```
-    #[macro_export]
-    macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
-                                                {
-                                                concat ! (
-                                                "begin oc_rep_object_array_start_item "
-                                                , ", key: " , stringify ! (
-                                                $ key ) , ", child: " ,
-                                                stringify ! ( $ key ) ,
-                                                "_array" , ) ;
-                                                oc_rep_start_object ! (
-                                                $ key , $ key , _array ) ; d !
-                                                (
-                                                end
-                                                oc_rep_object_array_start_item
-                                                ) ; } } ;);
-    ///  End an array item, assumed to be an object.
-    ///  ```
-    ///  [... --> [...,
-    ///  ```
-    #[macro_export]
-    macro_rules! oc_rep_object_array_end_item(( $ key : ident ) => {
-                                              {
-                                              concat ! (
-                                              "begin oc_rep_object_array_end_item "
-                                              , ", key: " , stringify ! (
-                                              $ key ) , ", child: " ,
-                                              stringify ! ( $ key ) , "_array"
-                                              , ) ; oc_rep_end_object ! (
-                                              $ key , $ key , _array ) ; d ! (
-                                              end oc_rep_object_array_end_item
-                                              ) ; } } ;);
-    #[macro_export]
-    macro_rules! run_stmts(( $ context : ident , $ encoder : ident , {  } ) =>
-                           { let _zzz = "aaa" ; } ; (
-                           $ context : ident , $ encoder : ident , {
-                           $ stmt : tt ; $ ( $ tail : tt ; ) * } ) => {
-                           $ stmt ; $ crate :: run_stmts ! (
-                           $ context , $ encoder , { $ ( $ tail ; ) * } ) }
-                           ;);
-    #[macro_export]
-    macro_rules! OLDrun((
-                        $ context : ident , $ parent : ident , $ suffix : expr
-                        , { $ ( $ stmt : stmt ; ) * } ) => {
-                        concat ! (
-                        " >> " , stringify ! ( $ context ) , " >> " ,
-                        stringify ! ( $ parent ) , " >> " , stringify ! (
-                        $ suffix ) ) ; unsafe {
-                        $ crate :: run_stmts ! (
-                        $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ; }
-                        ;);
-    ///  Encode an int value 
-    #[macro_export]
-    macro_rules! oc_rep_set_int((
-                                $ context : ident , $ key : ident , $ value :
-                                expr ) => {
-                                concat ! (
-                                "-- cinti" , " c: " , stringify ! ( $ context
-                                ) , ", k: " , stringify ! ( $ key ) , ", v: "
-                                , stringify ! ( $ value ) ) ; let
-                                key_with_null : & str = $ crate ::
-                                stringify_null ! ( $ key ) ; let value = $
-                                value as i64 ; unsafe {
-                                let encoder = $ context . encoder (
-                                stringify ! ( $ context ) , "_map" ) ;
-                                tinycbor :: cbor_encode_text_string (
-                                encoder , $ context . key_to_cstr (
-                                key_with_null . as_bytes (  ) ) , $ context .
-                                cstr_len ( key_with_null . as_bytes (  ) ) ) ;
-                                tinycbor :: cbor_encode_int ( encoder , value
-                                ) ; } } ; (
-                                $ context : ident , $ key : expr , $ value :
-                                expr ) => {
-                                concat ! (
-                                "-- cinte" , " c: " , stringify ! ( $ context
-                                ) , ", k: " , stringify ! ( $ key ) , ", v: "
-                                , stringify ! ( $ value ) ) ; let
-                                key_with_opt_null : & [ u8 ] = $ key .
-                                to_bytes_optional_nul (  ) ; let value = $
-                                value as i64 ;
-                                "-------------------------------------------------------------"
-                                ; macros :: run ! (
-                                {
-                                let encoder = COAP_CONTEXT . encoder (
-                                "COAP_CONTEXT" , "_map" ) ;
-                                cbor_encode_text_string (
-                                encoder , COAP_CONTEXT . key_to_cstr (
-                                key_with_opt_null ) , COAP_CONTEXT . cstr_len
-                                ( key_with_opt_null ) ) ; cbor_encode_int (
-                                encoder , value ) ; } ) ;
-                                "-------------------------------------------------------------"
-                                ; } ;);
-    ///  Encode a text value 
-    #[macro_export]
-    macro_rules! oc_rep_set_text_string((
-                                        $ object : ident , $ key : expr , $
-                                        value : expr ) => {
-                                        {
-                                        concat ! (
-                                        "begin oc_rep_set_text_string " ,
-                                        ", object: " , stringify ! ( $ object
-                                        ) , ", key: " , stringify ! ( $ key )
-                                        , ", value: " , stringify ! ( $ value
-                                        ) , ", child: " , stringify ! (
-                                        $ object ) , "_map" ) ; unsafe {
-                                        cbor_encode_text_string (
-                                        & mut concat_idents ! (
-                                        $ object , _map ) , $ key . as_ptr (
-                                        ) , $ key . len (  ) ) ;
-                                        cbor_encode_text_string (
-                                        & mut concat_idents ! (
-                                        $ object , _map ) , $ value . as_ptr (
-                                         ) , $ value . len (  ) ) ; } d ! (
-                                        end oc_rep_set_text_string ) ; } } ;);
-    ///  Macro that takes an identifier and returns a `[u8]` containing the identifier, terminated by 0.
-    ///  Used to convert an identifier to a C null-terminated string.
-    #[macro_export]
-    macro_rules! stringify_null(( $ key : ident ) => {
-                                concat ! ( stringify ! ( $ key ) , "\0" ) }
-                                ;);
-    ///  Macro to dump all tokens received as a literal string, e.g.
-    ///  `d!(a b c)` returns `"a b c"`
-    #[macro_export]
-    macro_rules! d(( $ ( $ token : tt ) * ) => {
-                   stringify ! ( $ ( $ token ) * ) } ;);
-    ///  Macro to display the token being parsed and the remaining tokens
-    #[macro_export]
-    macro_rules! nx((
-                    ( $ ( $ current : tt ) * ) , ( $ ( $ next : tt ) * ) , (
-                    $ ( $ rest : tt ) * ) ) => {
-                    concat ! (
-                    " >> " , stringify ! ( $ ( $ current ) * ) , " >> " ,
-                    stringify ! ( $ ( $ next ) * ) , " >> " , stringify ! (
-                    $ ( $ rest ) * ) ) ; } ;);
-}
-#[allow(dead_code)]
-#[allow(non_camel_case_types)]
-#[allow(non_upper_case_globals)]
-pub mod encoding {
-    //! Mynewt Encoding API for Rust
-    /// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
-    #[link(name = "net_oic")]
-    extern "C" {
-        /// Global CBOR encoder
-        pub static mut g_encoder: tinycbor::CborEncoder;
-        /// Global CBOR root map
-        pub static mut root_map: tinycbor::CborEncoder;
-    }
-    /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
-    pub mod json {
-        use super::*;
-        #[repr(C)]
-        #[structural_match]
-        #[rustc_copy_clone_marker]
-        pub struct __BindgenBitfieldUnit<Storage, Align> where
-                   Storage: AsRef<[u8]> + AsMut<[u8]> {
-            storage: Storage,
-            align: [Align; 0],
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::marker::Copy, Align: ::core::marker::Copy>
-         ::core::marker::Copy for __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::clone::Clone, Align: ::core::clone::Clone>
-         ::core::clone::Clone for __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-            #[inline]
-            fn clone(&self) -> __BindgenBitfieldUnit<Storage, Align> {
-                match *self {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_0_0, align: ref __self_0_1 } =>
-                    __BindgenBitfieldUnit{storage:
-                                              ::core::clone::Clone::clone(&(*__self_0_0)),
-                                          align:
-                                              ::core::clone::Clone::clone(&(*__self_0_1)),},
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::fmt::Debug, Align: ::core::fmt::Debug>
-         ::core::fmt::Debug for __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-            fn fmt(&self, f: &mut ::core::fmt::Formatter)
-             -> ::core::fmt::Result {
-                match *self {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_0_0, align: ref __self_0_1 } => {
-                        let mut debug_trait_builder =
-                            f.debug_struct("__BindgenBitfieldUnit");
-                        let _ =
-                            debug_trait_builder.field("storage",
-                                                      &&(*__self_0_0));
-                        let _ =
-                            debug_trait_builder.field("align",
-                                                      &&(*__self_0_1));
-                        debug_trait_builder.finish()
-                    }
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::default::Default,
-              Align: ::core::default::Default> ::core::default::Default for
-         __BindgenBitfieldUnit<Storage, Align> where Storage: AsRef<[u8]> +
-         AsMut<[u8]> {
-            #[inline]
-            fn default() -> __BindgenBitfieldUnit<Storage, Align> {
-                __BindgenBitfieldUnit{storage:
-                                          ::core::default::Default::default(),
-                                      align:
-                                          ::core::default::Default::default(),}
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::cmp::Eq, Align: ::core::cmp::Eq>
-         ::core::cmp::Eq for __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-            #[inline]
-            #[doc(hidden)]
-            fn assert_receiver_is_total_eq(&self) -> () {
-                {
-                    let _: ::core::cmp::AssertParamIsEq<Storage>;
-                    let _: ::core::cmp::AssertParamIsEq<[Align; 0]>;
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::hash::Hash, Align: ::core::hash::Hash>
-         ::core::hash::Hash for __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-            fn hash<__HStorageAlign: ::core::hash::Hasher>(&self,
-                                                           state:
-                                                               &mut __HStorageAlign)
-             -> () {
-                match *self {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_0_0, align: ref __self_0_1 } => {
-                        ::core::hash::Hash::hash(&(*__self_0_0), state);
-                        ::core::hash::Hash::hash(&(*__self_0_1), state)
-                    }
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::cmp::Ord, Align: ::core::cmp::Ord>
-         ::core::cmp::Ord for __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-            #[inline]
-            fn cmp(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> ::core::cmp::Ordering {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        match ::core::cmp::Ord::cmp(&(*__self_0_0),
-                                                    &(*__self_1_0)) {
-                            ::core::cmp::Ordering::Equal =>
-                            match ::core::cmp::Ord::cmp(&(*__self_0_1),
-                                                        &(*__self_1_1)) {
-                                ::core::cmp::Ordering::Equal =>
-                                ::core::cmp::Ordering::Equal,
-                                cmp => cmp,
-                            },
-                            cmp => cmp,
-                        },
-                    },
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::cmp::PartialEq, Align: ::core::cmp::PartialEq>
-         ::core::cmp::PartialEq for __BindgenBitfieldUnit<Storage, Align>
-         where Storage: AsRef<[u8]> + AsMut<[u8]> {
-            #[inline]
-            fn eq(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> bool {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        (*__self_0_0) == (*__self_1_0) &&
-                            (*__self_0_1) == (*__self_1_1),
-                    },
-                }
-            }
-            #[inline]
-            fn ne(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> bool {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        (*__self_0_0) != (*__self_1_0) ||
-                            (*__self_0_1) != (*__self_1_1),
-                    },
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl <Storage: ::core::cmp::PartialOrd,
-              Align: ::core::cmp::PartialOrd> ::core::cmp::PartialOrd for
-         __BindgenBitfieldUnit<Storage, Align> where Storage: AsRef<[u8]> +
-         AsMut<[u8]> {
-            #[inline]
-            fn partial_cmp(&self,
-                           other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> ::core::option::Option<::core::cmp::Ordering> {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        match ::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
-                                                                   &(*__self_1_0))
-                            {
-                            ::core::option::Option::Some(::core::cmp::Ordering::Equal)
-                            =>
-                            match ::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
-                                                                       &(*__self_1_1))
-                                {
-                                ::core::option::Option::Some(::core::cmp::Ordering::Equal)
-                                =>
-                                ::core::option::Option::Some(::core::cmp::Ordering::Equal),
-                                cmp => cmp,
-                            },
-                            cmp => cmp,
-                        },
-                    },
-                }
-            }
-            #[inline]
-            fn lt(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> bool {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
-                                                                                                                                &(*__self_1_0)),
-                                                                                           ::core::cmp::Ordering::Equal),
-                                                         ||
-                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
-                                                                                                                                    &(*__self_1_1)),
-                                                                                               ::core::cmp::Ordering::Greater))
-                            == ::core::cmp::Ordering::Less,
-                    },
-                }
-            }
-            #[inline]
-            fn le(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> bool {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
-                                                                                                                                &(*__self_1_0)),
-                                                                                           ::core::cmp::Ordering::Equal),
-                                                         ||
-                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
-                                                                                                                                    &(*__self_1_1)),
-                                                                                               ::core::cmp::Ordering::Greater))
-                            != ::core::cmp::Ordering::Greater,
-                    },
-                }
-            }
-            #[inline]
-            fn gt(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> bool {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
-                                                                                                                                &(*__self_1_0)),
-                                                                                           ::core::cmp::Ordering::Equal),
-                                                         ||
-                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
-                                                                                                                                    &(*__self_1_1)),
-                                                                                               ::core::cmp::Ordering::Less))
-                            == ::core::cmp::Ordering::Greater,
-                    },
-                }
-            }
-            #[inline]
-            fn ge(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
-             -> bool {
-                match *other {
-                    __BindgenBitfieldUnit {
-                    storage: ref __self_1_0, align: ref __self_1_1 } =>
-                    match *self {
-                        __BindgenBitfieldUnit {
-                        storage: ref __self_0_0, align: ref __self_0_1 } =>
-                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
-                                                                                                                                &(*__self_1_0)),
-                                                                                           ::core::cmp::Ordering::Equal),
-                                                         ||
-                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
-                                                                                                                                    &(*__self_1_1)),
-                                                                                               ::core::cmp::Ordering::Less))
-                            != ::core::cmp::Ordering::Less,
-                    },
-                }
-            }
-        }
-        impl <Storage, Align> __BindgenBitfieldUnit<Storage, Align> where
-         Storage: AsRef<[u8]> + AsMut<[u8]> {
-            #[inline]
-            pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
-            #[inline]
-            pub fn get_bit(&self, index: usize) -> bool {
-                if false {
-                    if !(index / 8 < self.storage.as_ref().len()) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       25u32, 9u32))
-                        }
-                    };
-                };
-                let byte_index = index / 8;
-                let byte = self.storage.as_ref()[byte_index];
-                let bit_index =
-                    if false { 7 - (index % 8) } else { index % 8 };
-                let mask = 1 << bit_index;
-                byte & mask == mask
-            }
-            #[inline]
-            pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
-                    if !(index / 8 < self.storage.as_ref().len()) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       38u32, 9u32))
-                        }
-                    };
-                };
-                let byte_index = index / 8;
-                let byte = &mut self.storage.as_mut()[byte_index];
-                let bit_index =
-                    if false { 7 - (index % 8) } else { index % 8 };
-                let mask = 1 << bit_index;
-                if val { *byte |= mask; } else { *byte &= !mask; }
-            }
-            #[inline]
-            pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
-                    if !(bit_width <= 64) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       55u32, 9u32))
-                        }
-                    };
-                };
-                if false {
-                    if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       56u32, 9u32))
-                        }
-                    };
-                };
-                if false {
-                    if !((bit_offset + (bit_width as usize)) / 8 <=
-                             self.storage.as_ref().len()) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       57u32, 9u32))
-                        }
-                    };
-                };
-                let mut val = 0;
-                for i in 0..(bit_width as usize) {
-                    if self.get_bit(i + bit_offset) {
-                        let index =
-                            if false {
-                                bit_width as usize - 1 - i
-                            } else { i };
-                        val |= 1 << index;
-                    }
-                }
-                val
-            }
-            #[inline]
-            pub fn set(&mut self, bit_offset: usize, bit_width: u8,
-                       val: u64) {
-                if false {
-                    if !(bit_width <= 64) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       73u32, 9u32))
-                        }
-                    };
-                };
-                if false {
-                    if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       74u32, 9u32))
-                        }
-                    };
-                };
-                if false {
-                    if !((bit_offset + (bit_width as usize)) / 8 <=
-                             self.storage.as_ref().len()) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
-                                                       75u32, 9u32))
-                        }
-                    };
-                };
-                for i in 0..(bit_width as usize) {
-                    let mask = 1 << i;
-                    let val_bit_is_set = val & mask == mask;
-                    let index =
-                        if false { bit_width as usize - 1 - i } else { i };
-                    self.set_bit(index + bit_offset, val_bit_is_set);
-                }
-            }
-        }
-        #[repr(C)]
-        pub struct __BindgenUnionField<T>(::core::marker::PhantomData<T>);
-        impl <T> __BindgenUnionField<T> {
-            #[inline]
-            pub fn new() -> Self {
-                __BindgenUnionField(::core::marker::PhantomData)
-            }
-            #[inline]
-            pub unsafe fn as_ref(&self) -> &T { ::core::mem::transmute(self) }
-            #[inline]
-            pub unsafe fn as_mut(&mut self) -> &mut T {
-                ::core::mem::transmute(self)
-            }
-        }
-        impl <T> ::core::default::Default for __BindgenUnionField<T> {
-            #[inline]
-            fn default() -> Self { Self::new() }
-        }
-        impl <T> ::core::clone::Clone for __BindgenUnionField<T> {
-            #[inline]
-            fn clone(&self) -> Self { Self::new() }
-        }
-        impl <T> ::core::marker::Copy for __BindgenUnionField<T> { }
-        impl <T> ::core::fmt::Debug for __BindgenUnionField<T> {
-            fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>)
-             -> ::core::fmt::Result {
-                fmt.write_str("__BindgenUnionField")
-            }
-        }
-        impl <T> ::core::hash::Hash for __BindgenUnionField<T> {
-            fn hash<H: ::core::hash::Hasher>(&self, _state: &mut H) { }
-        }
-        impl <T> ::core::cmp::PartialEq for __BindgenUnionField<T> {
-            fn eq(&self, _other: &__BindgenUnionField<T>) -> bool { true }
-        }
-        impl <T> ::core::cmp::Eq for __BindgenUnionField<T> { }
-        pub const JSON_VALUE_TYPE_BOOL: u32 = 0;
-        pub const JSON_VALUE_TYPE_UINT64: u32 = 1;
-        pub const JSON_VALUE_TYPE_INT64: u32 = 2;
-        pub const JSON_VALUE_TYPE_STRING: u32 = 3;
-        pub const JSON_VALUE_TYPE_ARRAY: u32 = 4;
-        pub const JSON_VALUE_TYPE_OBJECT: u32 = 5;
-        pub const JSON_ATTR_MAX: u32 = 31;
-        pub const JSON_VAL_MAX: u32 = 512;
-        pub const JSON_ERR_OBSTART: u32 = 1;
-        pub const JSON_ERR_ATTRSTART: u32 = 2;
-        pub const JSON_ERR_BADATTR: u32 = 3;
-        pub const JSON_ERR_ATTRLEN: u32 = 4;
-        pub const JSON_ERR_NOARRAY: u32 = 5;
-        pub const JSON_ERR_NOBRAK: u32 = 6;
-        pub const JSON_ERR_STRLONG: u32 = 7;
-        pub const JSON_ERR_TOKLONG: u32 = 8;
-        pub const JSON_ERR_BADTRAIL: u32 = 9;
-        pub const JSON_ERR_ARRAYSTART: u32 = 10;
-        pub const JSON_ERR_OBJARR: u32 = 11;
-        pub const JSON_ERR_SUBTOOLONG: u32 = 12;
-        pub const JSON_ERR_BADSUBTRAIL: u32 = 13;
-        pub const JSON_ERR_SUBTYPE: u32 = 14;
-        pub const JSON_ERR_BADSTRING: u32 = 15;
-        pub const JSON_ERR_CHECKFAIL: u32 = 16;
-        pub const JSON_ERR_NOPARSTR: u32 = 17;
-        pub const JSON_ERR_BADENUM: u32 = 18;
-        pub const JSON_ERR_QNONSTRING: u32 = 19;
-        pub const JSON_ERR_NONQSTRING: u32 = 19;
-        pub const JSON_ERR_MISC: u32 = 20;
-        pub const JSON_ERR_BADNUM: u32 = 21;
-        pub const JSON_ERR_NULLPTR: u32 = 22;
-        pub type __uint8_t = ::cty::c_uchar;
-        pub type __uint16_t = ::cty::c_ushort;
-        pub type __uint64_t = ::cty::c_ulonglong;
-        #[repr(C)]
-        pub struct json_value {
-            pub jv_pad1: u8,
-            pub jv_type: u8,
-            pub jv_len: u16,
-            pub jv_val: json_value__bindgen_ty_1,
-        }
-        #[repr(C)]
-        pub struct json_value__bindgen_ty_1 {
-            pub u: __BindgenUnionField<u64>,
-            pub fl: __BindgenUnionField<f32>,
-            pub str: __BindgenUnionField<*mut ::cty::c_char>,
-            pub composite: __BindgenUnionField<json_value__bindgen_ty_1__bindgen_ty_1>,
-            pub bindgen_union_field: [u64; 2usize],
-        }
-        #[repr(C)]
-        pub struct json_value__bindgen_ty_1__bindgen_ty_1 {
-            pub keys: *mut *mut ::cty::c_char,
-            pub values: *mut *mut json_value,
-        }
-        impl Default for json_value__bindgen_ty_1__bindgen_ty_1 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        impl Default for json_value__bindgen_ty_1 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        impl Default for json_value {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        pub type json_write_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(buf:
-                                                            *mut ::cty::c_void,
-                                                        data:
-                                                            *mut ::cty::c_char,
-                                                        len: ::cty::c_int)
-                                       -> ::cty::c_int>;
-        #[repr(C)]
-        pub struct json_encoder {
-            pub je_write: json_write_func_t,
-            pub je_arg: *mut ::cty::c_void,
-            pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize], u8>,
-            pub je_encode_buf: [::cty::c_char; 64usize],
-        }
-        impl Default for json_encoder {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        impl json_encoder {
-            #[inline]
-            pub fn je_wr_commas(&self) -> ::cty::c_int {
-                unsafe {
-                    ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8)
-                                               as u32)
-                }
-            }
-            #[inline]
-            pub fn set_je_wr_commas(&mut self, val: ::cty::c_int) {
-                unsafe {
-                    let val: u32 = ::core::mem::transmute(val);
-                    self._bitfield_1.set(0usize, 1u8, val as u64)
-                }
-            }
-            #[inline]
-            pub fn new_bitfield_1(je_wr_commas: ::cty::c_int)
-             -> __BindgenBitfieldUnit<[u8; 1usize], u8> {
-                let mut __bindgen_bitfield_unit:
-                        __BindgenBitfieldUnit<[u8; 1usize], u8> =
-                    Default::default();
-                __bindgen_bitfield_unit.set(0usize, 1u8,
-                                            {
-                                                let je_wr_commas: u32 =
-                                                    unsafe {
-                                                        ::core::mem::transmute(je_wr_commas)
-                                                    };
-                                                je_wr_commas as u64
-                                            });
-                __bindgen_bitfield_unit
-            }
-        }
-        extern "C" {
-            pub fn json_encode_object_start(arg1: *mut json_encoder)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_object_key(encoder: *mut json_encoder,
-                                          key: *mut ::cty::c_char)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_object_entry(arg1: *mut json_encoder,
-                                            arg2: *mut ::cty::c_char,
-                                            arg3: *mut json_value)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_object_finish(arg1: *mut json_encoder)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_array_name(encoder: *mut json_encoder,
-                                          name: *mut ::cty::c_char)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_array_start(encoder: *mut json_encoder)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_array_value(encoder: *mut json_encoder,
-                                           val: *mut json_value)
-             -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_encode_array_finish(encoder: *mut json_encoder)
-             -> ::cty::c_int;
-        }
-        pub const json_type_t_integer: json_type = 0;
-        pub const json_type_t_uinteger: json_type = 1;
-        pub const json_type_t_real: json_type = 2;
-        pub const json_type_t_string: json_type = 3;
-        pub const json_type_t_boolean: json_type = 4;
-        pub const json_type_t_character: json_type = 5;
-        pub const json_type_t_object: json_type = 6;
-        pub const json_type_t_structobject: json_type = 7;
-        pub const json_type_t_array: json_type = 8;
-        pub const json_type_t_check: json_type = 9;
-        pub const json_type_t_ignore: json_type = 10;
-        pub type json_type = u32;
-        #[repr(C)]
-        pub struct json_enum_t {
-            pub name: *mut ::cty::c_char,
-            pub value: ::cty::c_longlong,
-        }
-        impl Default for json_enum_t {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_array_t {
-            pub element_type: json_type,
-            pub arr: json_array_t__bindgen_ty_1,
-            pub count: *mut ::cty::c_int,
-            pub maxlen: ::cty::c_int,
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1 {
-            pub objects: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_1>,
-            pub strings: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_2>,
-            pub integers: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_3>,
-            pub uintegers: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_4>,
-            pub reals: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_5>,
-            pub booleans: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_6>,
-            pub bindgen_union_field: [u64; 3usize],
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1__bindgen_ty_1 {
-            pub subtype: *const json_attr_t,
-            pub base: *mut ::cty::c_char,
-            pub stride: usize,
-        }
-        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_1 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1__bindgen_ty_2 {
-            pub ptrs: *mut *mut ::cty::c_char,
-            pub store: *mut ::cty::c_char,
-            pub storelen: ::cty::c_int,
-        }
-        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_2 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1__bindgen_ty_3 {
-            pub store: *mut ::cty::c_longlong,
-        }
-        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_3 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1__bindgen_ty_4 {
-            pub store: *mut ::cty::c_ulonglong,
-        }
-        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_4 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1__bindgen_ty_5 {
-            pub store: *mut f64,
-        }
-        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_5 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_array_t__bindgen_ty_1__bindgen_ty_6 {
-            pub store: *mut bool,
-        }
-        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_6 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        impl Default for json_array_t__bindgen_ty_1 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        impl Default for json_array_t {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_attr_t {
-            pub attribute: *mut ::cty::c_char,
-            pub type_: json_type,
-            pub addr: json_attr_t__bindgen_ty_1,
-            pub dflt: json_attr_t__bindgen_ty_2,
-            pub len: usize,
-            pub map: *const json_enum_t,
-            pub nodefault: bool,
-        }
-        #[repr(C)]
-        pub struct json_attr_t__bindgen_ty_1 {
-            pub integer: __BindgenUnionField<*mut ::cty::c_longlong>,
-            pub uinteger: __BindgenUnionField<*mut ::cty::c_ulonglong>,
-            pub real: __BindgenUnionField<*mut f64>,
-            pub string: __BindgenUnionField<*mut ::cty::c_char>,
-            pub boolean: __BindgenUnionField<*mut bool>,
-            pub character: __BindgenUnionField<*mut ::cty::c_char>,
-            pub array: __BindgenUnionField<json_array_t>,
-            pub offset: __BindgenUnionField<usize>,
-            pub bindgen_union_field: [u64; 6usize],
-        }
-        impl Default for json_attr_t__bindgen_ty_1 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct json_attr_t__bindgen_ty_2 {
-            pub integer: __BindgenUnionField<::cty::c_longlong>,
-            pub uinteger: __BindgenUnionField<::cty::c_ulonglong>,
-            pub real: __BindgenUnionField<f64>,
-            pub boolean: __BindgenUnionField<bool>,
-            pub character: __BindgenUnionField<::cty::c_char>,
-            pub check: __BindgenUnionField<*mut ::cty::c_char>,
-            pub bindgen_union_field: u64,
-        }
-        impl Default for json_attr_t__bindgen_ty_2 {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        impl Default for json_attr_t {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        pub type json_buffer_read_next_byte_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut json_buffer)
-                                       -> ::cty::c_char>;
-        pub type json_buffer_read_prev_byte_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut json_buffer)
-                                       -> ::cty::c_char>;
-        pub type json_buffer_readn_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut json_buffer,
-                                                        buf:
-                                                            *mut ::cty::c_char,
-                                                        n: ::cty::c_int)
-                                       -> ::cty::c_int>;
-        #[repr(C)]
-        pub struct json_buffer {
-            pub jb_readn: json_buffer_readn_t,
-            pub jb_read_next: json_buffer_read_next_byte_t,
-            pub jb_read_prev: json_buffer_read_prev_byte_t,
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::default::Default for json_buffer {
-            #[inline]
-            fn default() -> json_buffer {
-                json_buffer{jb_readn: ::core::default::Default::default(),
-                            jb_read_next: ::core::default::Default::default(),
-                            jb_read_prev:
-                                ::core::default::Default::default(),}
-            }
-        }
-        extern "C" {
-            pub fn json_read_object(arg1: *mut json_buffer,
-                                    arg2: *const json_attr_t) -> ::cty::c_int;
-        }
-        extern "C" {
-            pub fn json_read_array(arg1: *mut json_buffer,
-                                   arg2: *const json_array_t) -> ::cty::c_int;
-        }
-    }
-    /// Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`
-    pub mod tinycbor {
-        use super::*;
-        pub const CborIndefiniteLength: usize = 0xffffffffusize;
-        pub type __uint8_t = ::cty::c_uchar;
-        pub type __uint16_t = ::cty::c_ushort;
-        pub type __uint32_t = ::cty::c_ulong;
-        pub type __int64_t = ::cty::c_longlong;
-        pub type __uint64_t = ::cty::c_ulonglong;
-        pub type __uintptr_t = ::cty::c_uint;
-        pub type FILE = File;
-        #[repr(C)]
-        pub struct File_methods {
-            pub write: ::core::option::Option<unsafe extern "C" fn(instance:
-                                                                       *mut FILE,
-                                                                   bp:
-                                                                       *const ::cty::c_char,
-                                                                   n: usize)
-                                                  -> usize>,
-            pub read: ::core::option::Option<unsafe extern "C" fn(instance:
-                                                                      *mut FILE,
-                                                                  bp:
-                                                                      *mut ::cty::c_char,
-                                                                  n: usize)
-                                                 -> usize>,
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::default::Default for File_methods {
-            #[inline]
-            fn default() -> File_methods {
-                File_methods{write: ::core::default::Default::default(),
-                             read: ::core::default::Default::default(),}
-            }
-        }
-        #[repr(C)]
-        pub struct File {
-            pub vmt: *const File_methods,
-        }
-        impl Default for File {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        pub const CborType_CborIntegerType: CborType = 0;
-        pub const CborType_CborByteStringType: CborType = 64;
-        pub const CborType_CborTextStringType: CborType = 96;
-        pub const CborType_CborArrayType: CborType = 128;
-        pub const CborType_CborMapType: CborType = 160;
-        pub const CborType_CborTagType: CborType = 192;
-        pub const CborType_CborSimpleType: CborType = 224;
-        pub const CborType_CborBooleanType: CborType = 245;
-        pub const CborType_CborNullType: CborType = 246;
-        pub const CborType_CborUndefinedType: CborType = 247;
-        pub const CborType_CborHalfFloatType: CborType = 249;
-        pub const CborType_CborFloatType: CborType = 250;
-        pub const CborType_CborDoubleType: CborType = 251;
-        pub const CborType_CborInvalidType: CborType = 255;
-        pub type CborType = u32;
-        pub type CborTag = u64;
-        pub const CborKnownTags_CborDateTimeStringTag: CborKnownTags = 0;
-        pub const CborKnownTags_CborUnixTime_tTag: CborKnownTags = 1;
-        pub const CborKnownTags_CborPositiveBignumTag: CborKnownTags = 2;
-        pub const CborKnownTags_CborNegativeBignumTag: CborKnownTags = 3;
-        pub const CborKnownTags_CborDecimalTag: CborKnownTags = 4;
-        pub const CborKnownTags_CborBigfloatTag: CborKnownTags = 5;
-        pub const CborKnownTags_CborExpectedBase64urlTag: CborKnownTags = 21;
-        pub const CborKnownTags_CborExpectedBase64Tag: CborKnownTags = 22;
-        pub const CborKnownTags_CborExpectedBase16Tag: CborKnownTags = 23;
-        pub const CborKnownTags_CborUriTag: CborKnownTags = 32;
-        pub const CborKnownTags_CborBase64urlTag: CborKnownTags = 33;
-        pub const CborKnownTags_CborBase64Tag: CborKnownTags = 34;
-        pub const CborKnownTags_CborRegularExpressionTag: CborKnownTags = 35;
-        pub const CborKnownTags_CborMimeMessageTag: CborKnownTags = 36;
-        pub const CborKnownTags_CborSignatureTag: CborKnownTags = 55799;
-        pub type CborKnownTags = u32;
-        pub const CborError_CborNoError: CborError = 0;
-        pub const CborError_CborUnknownError: CborError = 1;
-        pub const CborError_CborErrorUnknownLength: CborError = 2;
-        pub const CborError_CborErrorAdvancePastEOF: CborError = 3;
-        pub const CborError_CborErrorIO: CborError = 4;
-        pub const CborError_CborErrorGarbageAtEnd: CborError = 256;
-        pub const CborError_CborErrorUnexpectedEOF: CborError = 257;
-        pub const CborError_CborErrorUnexpectedBreak: CborError = 258;
-        pub const CborError_CborErrorUnknownType: CborError = 259;
-        pub const CborError_CborErrorIllegalType: CborError = 260;
-        pub const CborError_CborErrorIllegalNumber: CborError = 261;
-        pub const CborError_CborErrorIllegalSimpleType: CborError = 262;
-        pub const CborError_CborErrorUnknownSimpleType: CborError = 512;
-        pub const CborError_CborErrorUnknownTag: CborError = 513;
-        pub const CborError_CborErrorInappropriateTagForType: CborError = 514;
-        pub const CborError_CborErrorDuplicateObjectKeys: CborError = 515;
-        pub const CborError_CborErrorInvalidUtf8TextString: CborError = 516;
-        pub const CborError_CborErrorTooManyItems: CborError = 768;
-        pub const CborError_CborErrorTooFewItems: CborError = 769;
-        pub const CborError_CborErrorDataTooLarge: CborError = 1024;
-        pub const CborError_CborErrorNestingTooDeep: CborError = 1025;
-        pub const CborError_CborErrorUnsupportedType: CborError = 1026;
-        pub const CborError_CborErrorJsonObjectKeyIsAggregate: CborError =
-            1027;
-        pub const CborError_CborErrorJsonObjectKeyNotString: CborError = 1028;
-        pub const CborError_CborErrorJsonNotImplemented: CborError = 1029;
-        pub const CborError_CborErrorOutOfMemory: CborError = 2147483648;
-        pub const CborError_CborErrorInternalError: CborError = 4294967295;
-        pub type CborError = u32;
-        extern "C" {
-            pub fn cbor_error_string(error: CborError)
-             -> *const ::cty::c_char;
-        }
-        pub type cbor_encoder_write
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut cbor_encoder_writer,
-                                                        data:
-                                                            *const ::cty::c_char,
-                                                        len: ::cty::c_int)
-                                       -> ::cty::c_int>;
-        #[repr(C)]
-        pub struct cbor_encoder_writer {
-            pub write: cbor_encoder_write,
-            pub bytes_written: ::cty::c_int,
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::default::Default for cbor_encoder_writer {
-            #[inline]
-            fn default() -> cbor_encoder_writer {
-                cbor_encoder_writer{write:
-                                        ::core::default::Default::default(),
-                                    bytes_written:
-                                        ::core::default::Default::default(),}
-            }
-        }
-        #[repr(C)]
-        pub struct cbor_iovec {
-            pub iov_base: *mut ::cty::c_void,
-            pub iov_len: usize,
-        }
-        impl Default for cbor_iovec {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct CborEncoder {
-            pub writer: *mut cbor_encoder_writer,
-            pub writer_arg: *mut ::cty::c_void,
-            pub added: usize,
-            pub flags: ::cty::c_int,
-        }
-        impl Default for CborEncoder {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        extern "C" {
-            #[doc =
-                  " Initializes a CborEncoder structure \\a encoder by pointing it to buffer \\a"]
-            #[doc =
-                  " buffer of size \\a size. The \\a flags field is currently unused and must be"]
-            #[doc = " zero."]
-            pub fn cbor_encoder_init(encoder: *mut CborEncoder,
-                                     pwriter: *mut cbor_encoder_writer,
-                                     flags: ::cty::c_int);
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the unsigned 64-bit integer \\a value to the CBOR stream provided by"]
-            #[doc = " \\a encoder."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encode_negative_int, cbor_encode_int"]
-            pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64)
-             -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the signed 64-bit integer \\a value to the CBOR stream provided by"]
-            #[doc = " \\a encoder."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encode_negative_int, cbor_encode_uint"]
-            pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64)
-             -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the negative 64-bit integer whose absolute value is \\a"]
-            #[doc =
-                  " absolute_value to the CBOR stream provided by \\a encoder."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encode_uint, cbor_encode_int"]
-            pub fn cbor_encode_negative_int(encoder: *mut CborEncoder,
-                                            absolute_value: u64) -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the CBOR Simple Type of value \\a value to the CBOR stream provided by"]
-            #[doc = " \\a encoder."]
-            #[doc = ""]
-            #[doc =
-                  " This function may return error CborErrorIllegalSimpleType if the \\a value"]
-            #[doc =
-                  " variable contains a number that is not a valid simple type."]
-            pub fn cbor_encode_simple_value(encoder: *mut CborEncoder,
-                                            value: u8) -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the CBOR tag \\a tag to the CBOR stream provided by \\a encoder."]
-            #[doc = ""]
-            #[doc = " \\sa CborTag"]
-            pub fn cbor_encode_tag(encoder: *mut CborEncoder, tag: CborTag)
-             -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the byte string \\a string of length \\a length to the CBOR stream"]
-            #[doc =
-                  " provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encode_text_stringz, cbor_encode_text_string"]
-            pub fn cbor_encode_text_string(encoder: *mut CborEncoder,
-                                           string: *const ::cty::c_char,
-                                           length: usize) -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the text string \\a string of length \\a length to the CBOR stream"]
-            #[doc =
-                  " provided by \\a encoder. CBOR requires that \\a string be valid UTF-8, but"]
-            #[doc = " TinyCBOR makes no verification of correctness."]
-            #[doc = ""]
-            #[doc =
-                  " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
-            pub fn cbor_encode_byte_string(encoder: *mut CborEncoder,
-                                           string: *const u8, length: usize)
-             -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the byte string passed as \\a iov and \\a iov_len to the CBOR"]
-            #[doc =
-                  " stream provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
-            #[doc = ""]
-            #[doc =
-                  " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
-            pub fn cbor_encode_byte_iovec(encoder: *mut CborEncoder,
-                                          iov: *const cbor_iovec,
-                                          iov_len: ::cty::c_int) -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Appends the floating-point value of type \\a fpType and pointed to by \\a"]
-            #[doc =
-                  " value to the CBOR stream provided by \\a encoder. The value of \\a fpType must"]
-            #[doc =
-                  " be one of CborHalfFloatType, CborFloatType or CborDoubleType, otherwise the"]
-            #[doc = " behavior of this function is undefined."]
-            #[doc = ""]
-            #[doc =
-                  " This function is useful for code that needs to pass through floating point"]
-            #[doc =
-                  " values but does not wish to have the actual floating-point code."]
-            #[doc = ""]
-            #[doc =
-                  " \\sa cbor_encode_half_float, cbor_encode_float, cbor_encode_double"]
-            pub fn cbor_encode_floating_point(encoder: *mut CborEncoder,
-                                              fpType: CborType,
-                                              value: *const ::cty::c_void)
-             -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Creates a CBOR array in the CBOR stream provided by \\a encoder and"]
-            #[doc =
-                  " initializes \\a arrayEncoder so that items can be added to the array using"]
-            #[doc =
-                  " the CborEncoder functions. The array must be terminated by calling either"]
-            #[doc =
-                  " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
-            #[doc =
-                  " with the same \\a encoder and \\a arrayEncoder parameters."]
-            #[doc = ""]
-            #[doc =
-                  " The number of items inserted into the array must be exactly \\a length items,"]
-            #[doc =
-                  " otherwise the stream is invalid. If the number of items is not known when"]
-            #[doc =
-                  " creating the array, the constant \\ref CborIndefiniteLength may be passed as"]
-            #[doc = " length instead."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encoder_create_map"]
-            pub fn cbor_encoder_create_array(encoder: *mut CborEncoder,
-                                             arrayEncoder: *mut CborEncoder,
-                                             length: usize) -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Creates a CBOR map in the CBOR stream provided by \\a encoder and"]
-            #[doc =
-                  " initializes \\a mapEncoder so that items can be added to the map using"]
-            #[doc =
-                  " the CborEncoder functions. The map must be terminated by calling either"]
-            #[doc =
-                  " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
-            #[doc =
-                  " with the same \\a encoder and \\a mapEncoder parameters."]
-            #[doc = ""]
-            #[doc =
-                  " The number of pair of items inserted into the map must be exactly \\a length"]
-            #[doc =
-                  " items, otherwise the stream is invalid. If the number of items is not known"]
-            #[doc =
-                  " when creating the map, the constant \\ref CborIndefiniteLength may be passed as"]
-            #[doc = " length instead."]
-            #[doc = ""]
-            #[doc =
-                  " \\b{Implementation limitation:} TinyCBOR cannot encode more than SIZE_MAX/2"]
-            #[doc =
-                  " key-value pairs in the stream. If the length \\a length is larger than this"]
-            #[doc =
-                  " value, this function returns error CborErrorDataTooLarge."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encoder_create_array"]
-            pub fn cbor_encoder_create_map(encoder: *mut CborEncoder,
-                                           mapEncoder: *mut CborEncoder,
-                                           length: usize) -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Creates a indefinite-length byte string in the CBOR stream provided by"]
-            #[doc =
-                  " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
-            #[doc =
-                  " can be added using the CborEncoder functions. The string must be terminated by"]
-            #[doc =
-                  " calling cbor_encoder_close_container() with the same \\a encoder and"]
-            #[doc = " \\a stringEncoder parameters."]
-            #[doc = ""]
-            #[doc = " \\sa cbor_encoder_create_array"]
-            pub fn cbor_encoder_create_indef_byte_string(encoder:
-                                                             *mut CborEncoder,
-                                                         stringEncoder:
-                                                             *mut CborEncoder)
-             -> CborError;
-        }
-        extern "C" {
-            #[doc =
-                  " Closes the CBOR container (array, map or indefinite-length string) provided"]
-            #[doc =
-                  " by \\a containerEncoder and updates the CBOR stream provided by \\a encoder."]
-            #[doc =
-                  " Both parameters must be the same as were passed to cbor_encoder_create_array() or"]
-            #[doc =
-                  " cbor_encoder_create_map() or cbor_encoder_create_indef_byte_string()."]
-            #[doc = ""]
-            #[doc =
-                  " This function does not verify that the number of items (or pair of items, in"]
-            #[doc =
-                  " the case of a map) was correct. To execute that verification, call"]
-            #[doc = " cbor_encoder_close_container_checked() instead."]
-            #[doc = ""]
-            #[doc =
-                  " \\sa cbor_encoder_create_array(), cbor_encoder_create_map()"]
-            pub fn cbor_encoder_close_container(encoder: *mut CborEncoder,
-                                                containerEncoder:
-                                                    *const CborEncoder)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_encoder_close_container_checked(encoder:
-                                                            *mut CborEncoder,
-                                                        containerEncoder:
-                                                            *const CborEncoder)
-             -> CborError;
-        }
-        pub const CborParserIteratorFlags_CborIteratorFlag_IntegerValueTooLarge:
-                  CborParserIteratorFlags =
-            1;
-        pub const CborParserIteratorFlags_CborIteratorFlag_NegativeInteger:
-                  CborParserIteratorFlags =
-            2;
-        pub const CborParserIteratorFlags_CborIteratorFlag_UnknownLength:
-                  CborParserIteratorFlags =
-            4;
-        pub const CborParserIteratorFlags_CborIteratorFlag_ContainerIsMap:
-                  CborParserIteratorFlags =
-            32;
-        pub type CborParserIteratorFlags = u32;
-        pub type cbor_reader_get8
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u8>;
-        pub type cbor_reader_get16
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u16>;
-        pub type cbor_reader_get32
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u32>;
-        pub type cbor_reader_get64
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u64>;
-        pub type cbor_memcmp
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        buf:
-                                                            *mut ::cty::c_char,
-                                                        offset: ::cty::c_int,
-                                                        len: usize) -> usize>;
-        pub type cbor_memcpy
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        buf:
-                                                            *mut ::cty::c_char,
-                                                        offset: ::cty::c_int,
-                                                        len: usize) -> usize>;
-        #[repr(C)]
-        pub struct cbor_decoder_reader {
-            pub get8: cbor_reader_get8,
-            pub get16: cbor_reader_get16,
-            pub get32: cbor_reader_get32,
-            pub get64: cbor_reader_get64,
-            pub cmp: cbor_memcmp,
-            pub cpy: cbor_memcpy,
-            pub message_size: usize,
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::default::Default for cbor_decoder_reader {
-            #[inline]
-            fn default() -> cbor_decoder_reader {
-                cbor_decoder_reader{get8: ::core::default::Default::default(),
-                                    get16:
-                                        ::core::default::Default::default(),
-                                    get32:
-                                        ::core::default::Default::default(),
-                                    get64:
-                                        ::core::default::Default::default(),
-                                    cmp: ::core::default::Default::default(),
-                                    cpy: ::core::default::Default::default(),
-                                    message_size:
-                                        ::core::default::Default::default(),}
-            }
-        }
-        #[repr(C)]
-        pub struct CborParser {
-            pub d: *mut cbor_decoder_reader,
-            pub end: ::cty::c_int,
-            pub flags: ::cty::c_int,
-        }
-        impl Default for CborParser {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        #[repr(C)]
-        pub struct CborValue {
-            pub parser: *const CborParser,
-            pub offset: ::cty::c_int,
-            pub remaining: u32,
-            pub extra: u16,
-            pub type_: u8,
-            pub flags: u8,
-        }
-        impl Default for CborValue {
-            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
-        }
-        extern "C" {
-            pub fn cbor_parser_init(d: *mut cbor_decoder_reader,
-                                    flags: ::cty::c_int,
-                                    parser: *mut CborParser,
-                                    it: *mut CborValue) -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_advance_fixed(it: *mut CborValue) -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_advance(it: *mut CborValue) -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_enter_container(it: *const CborValue,
-                                              recursed: *mut CborValue)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_leave_container(it: *mut CborValue,
-                                              recursed: *const CborValue)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_get_int64_checked(value: *const CborValue,
-                                                result: *mut i64)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_get_int_checked(value: *const CborValue,
-                                              result: *mut ::cty::c_int)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_skip_tag(it: *mut CborValue) -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_calculate_string_length(value: *const CborValue,
-                                                      length: *mut usize)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_text_string_equals(value: *const CborValue,
-                                                 string: *const ::cty::c_char,
-                                                 result: *mut bool)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_map_find_value(map: *const CborValue,
-                                             string: *const ::cty::c_char,
-                                             element: *mut CborValue)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_get_half_float(value: *const CborValue,
-                                             result: *mut ::cty::c_void)
-             -> CborError;
-        }
-        extern "C" {
-            pub fn cbor_value_to_pretty_advance(out: *mut FILE,
-                                                value: *mut CborValue)
-             -> CborError;
-        }
-        pub const CborMajorTypes_UnsignedIntegerType: CborMajorTypes = 0;
-        pub const CborMajorTypes_NegativeIntegerType: CborMajorTypes = 1;
-        pub const CborMajorTypes_ByteStringType: CborMajorTypes = 2;
-        pub const CborMajorTypes_TextStringType: CborMajorTypes = 3;
-        pub const CborMajorTypes_ArrayType: CborMajorTypes = 4;
-        pub const CborMajorTypes_MapType: CborMajorTypes = 5;
-        pub const CborMajorTypes_TagType: CborMajorTypes = 6;
-        pub const CborMajorTypes_SimpleTypesType: CborMajorTypes = 7;
-        pub type CborMajorTypes = u32;
-        pub const CborSimpleTypes_FalseValue: CborSimpleTypes = 20;
-        pub const CborSimpleTypes_TrueValue: CborSimpleTypes = 21;
-        pub const CborSimpleTypes_NullValue: CborSimpleTypes = 22;
-        pub const CborSimpleTypes_UndefinedValue: CborSimpleTypes = 23;
-        pub const CborSimpleTypes_SimpleTypeInNextByte: CborSimpleTypes = 24;
-        pub const CborSimpleTypes_HalfPrecisionFloat: CborSimpleTypes = 25;
-        pub const CborSimpleTypes_SinglePrecisionFloat: CborSimpleTypes = 26;
-        pub const CborSimpleTypes_DoublePrecisionFloat: CborSimpleTypes = 27;
-        pub const CborSimpleTypes_Break: CborSimpleTypes = 31;
-        pub type CborSimpleTypes = u32;
-    }
-    pub mod coap_context {
-        //! COAP encoder state used by CoAP encoding macros
-        use cstr_core::CStr;
-        use cty::*;
-        /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
-        pub static mut COAP_CONTEXT: CoapContext =
-            unsafe {
-                ::core::mem::transmute::<[u8; ::core::mem::size_of::<CoapContext>()],
-                                         CoapContext>([0;
-                                                          ::core::mem::size_of::<CoapContext>()])
-            };
-        /// CoAP encoder state. Buffers the next key and value to be encoded.
-        pub struct CoapContext {
-            /// Static buffer for the key to be encoded. Will be passed to Mynewt COAP encoder API.  Always null-terminated.
-            key_buffer: [u8; COAP_KEY_SIZE],
-            /// Static buffer for the string value to be encoded. Will be passed to Mynewt COAP encoder API.  Always null-terminated.
-            value_buffer: [u8; COAP_VALUE_SIZE],
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::default::Default for CoapContext {
-            #[inline]
-            fn default() -> CoapContext {
-                CoapContext{key_buffer: ::core::default::Default::default(),
-                            value_buffer:
-                                ::core::default::Default::default(),}
-            }
-        }
-        /// Size of the static key buffer
-        const COAP_KEY_SIZE: usize = 32;
-        /// Size of the static value buffer
-        const COAP_VALUE_SIZE: usize = 32;
-        impl CoapContext {
-            /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
-            /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-            /// append null and return the buffer as a pointer.
-            pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-                if !(s.len() < COAP_KEY_SIZE) {
-                    {
-                        ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
-                                                   "rust/mynewt/src/encoding/coap_context.rs",
-                                                   32u32, 9u32))
-                    }
-                };
-                self.key_buffer[..s.len()].copy_from_slice(s);
-                self.key_buffer[s.len()] = 0;
-                self.key_buffer.as_ptr() as *const c_char
-            }
-            /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP values.
-            /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-            /// append null and return the buffer as a pointer.
-            pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
-                if s.last() == Some(&0) {
-                    return s.as_ptr() as *const c_char;
-                }
-                if !(s.len() < COAP_VALUE_SIZE) {
-                    {
-                        ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
-                                                   "rust/mynewt/src/encoding/coap_context.rs",
-                                                   45u32, 9u32))
-                    }
-                };
-                self.value_buffer[..s.len()].copy_from_slice(s);
-                self.value_buffer[s.len()] = 0;
-                self.value_buffer.as_ptr() as *const c_char
-            }
-            /// Compute the byte length of the string in `s`.
-            /// If `s` is null-terminated, return length of `s` - 1. Else return length of `s`.
-            pub fn cstr_len(&self, s: &[u8]) -> usize {
-                if s.last() == Some(&0) { return s.len() - 1; }
-                s.len()
-            }
-            /// Return the global CBOR encoder
-            pub fn global_encoder(&self)
-             -> *mut super::tinycbor::CborEncoder {
-                unsafe { &mut super::g_encoder }
-            }
-            /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
-            pub fn encoder(&self, _parent: &str, _child: &str)
-             -> *mut super::tinycbor::CborEncoder {
-                unsafe { &mut super::root_map }
-            }
-            /// Fail the encoding with an error if `res` is non-zero.
-            pub fn check_result(&self, res: u32) {
-                {
-                    match (&res, &0) {
-                        (left_val, right_val) => {
-                            if !(*left_val == *right_val) {
-                                {
-                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                  "`,\n right: `",
-                                                                                                  "`"],
-                                                                                                &match (&&*left_val,
-                                                                                                        &&*right_val)
-                                                                                                     {
-                                                                                                     (arg0,
-                                                                                                      arg1)
-                                                                                                     =>
-                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
-                                                                                                 }),
-                                                                 &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   72u32,
-                                                                   9u32))
-                                }
-                            }
-                        }
-                    }
-                };
-            }
-            /// Fail the encoding with an error
-            pub fn fail(&mut self, err: CoapError) {
-                {
-                    match (&err, &CoapError::OK) {
-                        (left_val, right_val) => {
-                            if !(*left_val == *right_val) {
-                                {
-                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                  "`,\n right: `",
-                                                                                                  "`"],
-                                                                                                &match (&&*left_val,
-                                                                                                        &&*right_val)
-                                                                                                     {
-                                                                                                     (arg0,
-                                                                                                      arg1)
-                                                                                                     =>
-                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
-                                                                                                 }),
-                                                                 &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   77u32,
-                                                                   9u32))
-                                }
-                            }
-                        }
-                    }
-                };
-            }
-            /// Cast itself as a `*mut c_void`
-            pub fn to_void_ptr(&mut self) -> *mut c_void {
-                let ptr: *mut CoapContext = self;
-                ptr as *mut c_void
-            }
-        }
-        /// Error codes for COAP encoding failure
-        pub enum CoapError {
-
-            /// No error
-            OK = 0,
-
-            /// Encoded value is not unsigned integer
-            VALUE_NOT_UINT = 1,
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::fmt::Debug for CoapError {
-            fn fmt(&self, f: &mut ::core::fmt::Formatter)
-             -> ::core::fmt::Result {
-                match (&*self,) {
-                    (&CoapError::OK,) => {
-                        let mut debug_trait_builder = f.debug_tuple("OK");
-                        debug_trait_builder.finish()
-                    }
-                    (&CoapError::VALUE_NOT_UINT,) => {
-                        let mut debug_trait_builder =
-                            f.debug_tuple("VALUE_NOT_UINT");
-                        debug_trait_builder.finish()
-                    }
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::cmp::PartialEq for CoapError {
-            #[inline]
-            fn eq(&self, other: &CoapError) -> bool {
-                {
-                    let __self_vi =
-                        unsafe {
-                            ::core::intrinsics::discriminant_value(&*self)
-                        } as isize;
-                    let __arg_1_vi =
-                        unsafe {
-                            ::core::intrinsics::discriminant_value(&*other)
-                        } as isize;
-                    if true && __self_vi == __arg_1_vi {
-                        match (&*self, &*other) { _ => true, }
-                    } else { false }
-                }
-            }
-        }
-        /// Convert the type to array of bytes that may or may not end with null
-        pub trait ToBytesOptionalNull {
-            /// Convert the type to array of bytes that may or may not end with null
-            fn to_bytes_optional_nul(&self)
-            -> &[u8];
-        }
-        /// Convert the type to array of bytes that may or may not end with null
-        impl ToBytesOptionalNull for [u8] {
-            /// Convert the type to array of bytes that may or may not end with null
-            fn to_bytes_optional_nul(&self) -> &[u8] { self }
-        }
-        /// Convert the type to array of bytes that may or may not end with null
-        impl ToBytesOptionalNull for str {
-            /// Convert the type to array of bytes that may or may not end with null
-            fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
-        }
-        /// Convert the type to array of bytes that may or may not end with null
-        impl ToBytesOptionalNull for &str {
-            /// Convert the type to array of bytes that may or may not end with null
-            fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
-        }
-        /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
-        impl ToBytesOptionalNull for CStr {
-            /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
-            fn to_bytes_optional_nul(&self) -> &[u8] {
-                self.to_bytes_with_nul()
-            }
-        }
-    }
-}
-#[allow(dead_code)]
-#[allow(non_camel_case_types)]
-#[allow(non_upper_case_globals)]
-pub mod kernel {
     //! Mynewt Kernel API for Rust
     use crate::{result::*, Out, Ptr, Strn};
     /// Contains Rust bindings for Mynewt OS API `kernel/os`
@@ -5196,7 +2728,7 @@ pub mod hw {
         //! Contains the Mynewt Sensor API for Rust, including the safe version of the API.
         //! Auto-generated Rust bindings are in the `bindings` module.
         use ::cty::c_void;
-        use crate::{result::*, kernel::os::*, Strn};
+        use crate::{result::*, kernel::os::*, Strn, fill_zero};
         /// Contains the auto-generated Rust bindings for the Mynewt Sensor API
         mod bindings {
             use super::*;
@@ -8090,7 +5622,7 @@ pub mod hw {
                     {
                         ::core::panicking::panic(&("assertion failed: LISTENER_INTERNAL.sl_sensor_type == 0",
                                                    "rust/mynewt/src/hw/sensor.rs",
-                                                   70u32, 14u32))
+                                                   71u32, 14u32))
                     }
                 }
             };
@@ -8119,6 +5651,2546 @@ pub mod hw {
          -> i32 {
             0
         }
+    }
+}
+#[macro_use]
+#[allow(dead_code)]
+#[allow(non_camel_case_types)]
+#[allow(non_upper_case_globals)]
+pub mod encoding {
+    //! Mynewt Encoding API for Rust
+    /// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+    #[link(name = "net_oic")]
+    extern "C" {
+        /// Global CBOR encoder
+        pub static mut g_encoder: tinycbor::CborEncoder;
+        /// Global CBOR root map
+        pub static mut root_map: tinycbor::CborEncoder;
+    }
+    #[macro_use]
+    pub mod macros {
+        //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
+        //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
+        //!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
+        ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
+        ///  First parameter is `@none`, `@json` or `@cbor`, to indicate
+        ///  no encoding (testing), JSON encoding or CBOR encoding.
+        ///  Second parameter is the JSON message to be transmitted.
+        ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
+        #[macro_export]
+        macro_rules! coap(( @ none $ ( $ tokens : tt ) + ) => {
+                          $ crate :: parse ! ( @ none $ ( $ tokens ) + ) } ; (
+                          @ json $ ( $ tokens : tt ) + ) => {
+                          $ crate :: parse ! ( @ json $ ( $ tokens ) + ) } ; (
+                          @ cbor $ ( $ tokens : tt ) + ) => {
+                          $ crate :: parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
+        ///  Parse the JSON code in the parameter and compose the CoAP payload.
+        ///  This macro takes these parameters:
+        ///  - __Encoding__: `@json`, `@cbor` or `@none`
+        ///  - __State__: Current parsing state (`@object`, `@array` or omitted)
+        ///  - __Context__: JSON or CBOR parsing context (`JsonContext` or `CborContext`)
+        ///  - __Remaining tokens__ to be parsed
+        ///  - __Remaining tokens__ again, for error display
+        #[macro_export]
+        macro_rules! parse((
+                           @ $ enc : ident @ object $ object : ident (  ) (  )
+                           (  ) ) => {  } ; (
+                           @ none @ object $ object : ident [
+                           $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
+                           $ rest : tt ) * ) => {
+                           d ! (
+                           TODO : add key : $ ( $ key ) + , value : $ value ,
+                           to object : $ object ) ; $ crate :: parse ! (
+                           @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
+                           $ ( $ rest ) * ) ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident [
+                           $ ( $ key : tt ) + ] ( $ value : expr ) , $ (
+                           $ rest : tt ) * ) => {
+                           d ! (
+                           add1 key : $ ( $ key ) + value : $ value to object
+                           : $ object ) ; $ crate :: coap_item_str ! (
+                           @ $ enc $ object , $ ( $ key ) + , $ value ) ;
+                           "--------------------" ; $ crate :: parse ! (
+                           @ $ enc @ object $ object (  ) ( $ ( $ rest ) * ) (
+                           $ ( $ rest ) * ) ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident [
+                           $ ( $ key : tt ) + ] ( $ value : expr ) $
+                           unexpected : tt $ ( $ rest : tt ) * ) => {
+                           unexpected_token ! ( $ unexpected ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident [
+                           $ ( $ key : tt ) + ] ( $ value : expr ) ) => {
+                           d ! (
+                           TODO : add2 key : $ ( $ key ) + value : $ value to
+                           object : $ object ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) ( : null $ ( $ rest : tt ) * )
+                           $ copy : tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc null ) ) $ ( $ rest )
+                           * ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) ( : true $ ( $ rest : tt ) * )
+                           $ copy : tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc true ) ) $ ( $ rest )
+                           * ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) ( : false $ ( $ rest : tt ) *
+                           ) $ copy : tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc false ) ) $ ( $ rest )
+                           * ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) (
+                           : [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) $
+                           copy : tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc [ $ ( $ array ) * ] )
+                           ) $ ( $ rest ) * ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) (
+                           : { $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) $
+                           copy : tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc { $ ( $ map ) * } ) )
+                           $ ( $ rest ) * ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) (
+                           : $ value : expr , $ ( $ rest : tt ) * ) $ copy :
+                           tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc $ value ) ) , $ (
+                           $ rest ) * ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) ( : $ value : expr ) $ copy :
+                           tt ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ object $ object [ $ ( $ key ) + ] (
+                           $ crate :: parse ! ( @ $ enc $ value ) ) ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) ( : ) $ copy : tt ) => {
+                           $ crate :: parse ! (  ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) + ) (  ) $ copy : tt ) => {
+                           $ crate :: parse ! (  ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (  ) (
+                           : $ ( $ rest : tt ) * ) (
+                           $ colon : tt $ ( $ copy : tt ) * ) ) => {
+                           $ crate :: unexpected_token ! ( $ colon ) ; } ; (
+                           @ none @ object $ object : ident (
+                           $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
+                           $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                           d ! (
+                           TODO : extract key , value from _sensor_value : $ (
+                           $ key ) * and add to _object : $ object ) ;
+                           "--------------------" ; $ crate :: parse ! (
+                           @ none @ object $ object (  ) ( $ ( $ rest ) * ) (
+                           $ ( $ rest ) * ) ) ; } ; (
+                           @ json @ object $ object : ident (
+                           $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
+                           $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                           "--------------------" ; $ crate ::
+                           coap_item_int_val ! (
+                           @ json $ object , $ ( $ key ) * ) ;
+                           "--------------------" ; $ crate :: parse ! (
+                           @ json @ object $ object (  ) ( $ ( $ rest ) * ) (
+                           $ ( $ rest ) * ) ) ; } ; (
+                           @ cbor @ object $ object : ident (
+                           $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
+                           $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                           "--------------------" ; $ crate ::
+                           coap_set_int_val ! (
+                           @ cbor $ object , $ ( $ key ) * ) ;
+                           "--------------------" ; $ crate :: parse ! (
+                           @ cbor @ object $ object (  ) ( $ ( $ rest ) * ) (
+                           $ ( $ rest ) * ) ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (  ) (
+                           ( $ key : expr ) : $ ( $ rest : tt ) * ) $ copy :
+                           tt ) => {
+                           d ! ( got (  ) ) ; $ crate :: parse ! (
+                           @ $ enc @ object $ object ( $ key ) (
+                           : $ ( $ rest ) * ) ( : $ ( $ rest ) * ) ) ; } ; (
+                           @ $ enc : ident @ object $ object : ident (
+                           $ ( $ key : tt ) * ) (
+                           $ tt : tt $ ( $ rest : tt ) * ) $ copy : tt ) => {
+                           $ crate :: nx ! (
+                           ( $ ( $ key ) * ) , ( $ tt ) , ( $ ( $ rest ) * ) )
+                           ; $ crate :: parse ! (
+                           @ $ enc @ object $ object ( $ ( $ key ) * $ tt ) (
+                           $ ( $ rest ) * ) ( $ ( $ rest ) * ) ) ; } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] ) => { parse_vector ! [ $ ( $ elems , ) * ] } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr ) , *
+                           ] ) => { parse_vector ! [ $ ( $ elems ) , * ] } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] null $ ( $ rest : tt ) * ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc null
+                           ) ] $ ( $ rest ) * ) } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] true $ ( $ rest : tt ) * ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! ( @ $ enc true
+                           ) ] $ ( $ rest ) * ) } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] false $ ( $ rest : tt ) * ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc false ) ] $ ( $ rest ) * ) } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] [ $ ( $ array : tt ) * ] $ ( $ rest : tt ) * ) =>
+                           {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc [ $ ( $ array ) * ] ) ] $ ( $ rest ) * ) }
+                           ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] { $ ( $ map : tt ) * } $ ( $ rest : tt ) * ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc { $ ( $ map ) * } ) ] $ ( $ rest ) * ) } ;
+                           (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] $ next : expr , $ ( $ rest : tt ) * ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc $ next ) , ] $ ( $ rest ) * ) } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr , ) *
+                           ] $ last : expr ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [
+                           $ ( $ elems , ) * $ crate :: parse ! (
+                           @ $ enc $ last ) ] ) } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr ) , *
+                           ] , $ ( $ rest : tt ) * ) => {
+                           $ crate :: parse ! (
+                           @ $ enc @ array [ $ ( $ elems , ) * ] $ ( $ rest )
+                           * ) } ; (
+                           @ $ enc : ident @ array [ $ ( $ elems : expr ) , *
+                           ] $ unexpected : tt $ ( $ rest : tt ) * ) => {
+                           $ crate :: unexpected_token ! ( $ unexpected ) } ;
+                           ( @ $ enc : ident null ) => {
+                           { d ! ( TODO : null ) ; "null" } } ; (
+                           @ $ enc : ident true ) => {
+                           { d ! ( true ) ; "true" } } ; (
+                           @ $ enc : ident false ) => {
+                           { d ! ( false ) ; "false" } } ; (
+                           @ $ enc : ident [  ] ) => {
+                           { d ! ( [ TODO ] ) ; "[ TODO ]" } } ; (
+                           @ $ enc : ident [ $ ( $ tt : tt ) + ] ) => {
+                           {
+                           d ! ( begin array ) ; _array = $ crate :: parse ! (
+                           @ $ enc @ array [  ] $ ( $ tt ) + ) ; d ! (
+                           end array ) ; "[ TODO ]" } } ; (
+                           @ $ enc : ident {  } ) => {
+                           { d ! ( { TODO } ) ; "{ TODO }" } } ; (
+                           @ none { $ ( $ tt : tt ) + } ) => {
+                           {
+                           d ! ( begin none root ) ; let root = "root" ; $
+                           crate :: parse ! (
+                           @ none @ object root (  ) ( $ ( $ tt ) + ) (
+                           $ ( $ tt ) + ) ) ; d ! ( end none root ) ; d ! (
+                           return none root to caller ) ; root } } ; (
+                           @ json { $ ( $ tt : tt ) + } ) => {
+                           {
+                           d ! ( begin json root ) ; $ crate :: coap_root ! (
+                           @ json COAP_CONTEXT {
+                           $ crate :: coap_array ! (
+                           @ json COAP_CONTEXT , values , {
+                           $ crate :: parse ! (
+                           @ json @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + )
+                           ( $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! (
+                           end json root ) ; (  ) } } ; (
+                           @ cbor { $ ( $ tt : tt ) + } ) => {
+                           {
+                           d ! ( begin cbor root ) ; $ crate :: coap_root ! (
+                           @ cbor COAP_CONTEXT {
+                           $ crate :: parse ! (
+                           @ cbor @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + )
+                           ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ;
+                           (  ) } } ; ( @ $ enc : ident $ other : expr ) => {
+                           $ other } ;);
+        ///  TODO: Parse the vector e.g. array items
+        #[macro_export]
+        macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
+                                  $ crate :: vec ! [ $ ( $ content ) * ] } ;);
+        ///  Show an unexpected token error
+        #[macro_export]
+        macro_rules! unexpected_token((  ) => {  } ;);
+        ///  Compose the payload root.
+        #[macro_export]
+        macro_rules! coap_root(( @ cbor $ context : ident $ children0 : block
+                               ) => {
+                               {
+                               d ! ( begin cbor coap_root ) ; $ crate ::
+                               oc_rep_start_root_object ! ( $ context ) ; $
+                               children0 ; $ crate :: oc_rep_end_root_object !
+                               ( $ context ) ; d ! ( end cbor coap_root ) ; }
+                               } ; (
+                               @ json $ context : ident $ children0 : block )
+                               => {
+                               {
+                               d ! ( begin json coap_root ) ; unsafe {
+                               sensor_coap :: json_rep_start_root_object (  )
+                               } $ children0 ; unsafe {
+                               sensor_coap :: json_rep_end_root_object (  ) }
+                               d ! ( end json coap_root ) ; } } ;);
+        ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
+        #[macro_export]
+        macro_rules! coap_array((
+                                @ cbor $ object0 : ident , $ key0 : ident , $
+                                children0 : block ) => {
+                                {
+                                d ! (
+                                begin cbor coap_array , object : $ object0 ,
+                                key : $ key0 ) ; $ crate :: oc_rep_set_array !
+                                ( $ object0 , $ key0 ) ; $ children0 ; $ crate
+                                :: oc_rep_close_array ! ( $ object0 , $ key0 )
+                                ; d ! ( end cbor coap_array ) ; } } ; (
+                                @ json $ object0 : ident , $ key0 : ident , $
+                                children0 : block ) => {
+                                {
+                                d ! (
+                                begin json coap_array , object : $ object0 ,
+                                key : $ key0 ) ; $ crate :: json_rep_set_array
+                                ! ( $ object0 , $ key0 ) ; $ children0 ; $
+                                crate :: json_rep_close_array ! (
+                                $ object0 , $ key0 ) ; d ! (
+                                end json coap_array ) ; } } ;);
+        ///  Append a (key + int value) item to the array named `array`:
+        ///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
+        #[macro_export]
+        macro_rules! coap_item_int((
+                                   @ cbor $ array0 : ident , $ key0 : expr , $
+                                   value0 : expr ) => {
+                                   {
+                                   d ! (
+                                   begin cbor coap_item_int , key : $ key0 ,
+                                   value : $ value0 ) ; $ crate :: coap_item !
+                                   (
+                                   @ cbor $ array0 , {
+                                   $ crate :: oc_rep_set_text_string ! (
+                                   $ array0 , "key" , $ key0 ) ; $ crate ::
+                                   oc_rep_set_int ! (
+                                   $ array0 , "value" , $ value0 ) ; } ) ; d !
+                                   ( end cbor coap_item_int ) ; } } ; (
+                                   @ json $ array0 : ident , $ key0 : expr , $
+                                   value0 : expr ) => {
+                                   {
+                                   d ! (
+                                   begin json coap_item_int , key : $ key0 ,
+                                   value : $ value0 ) ; $ crate :: coap_item !
+                                   (
+                                   @ json $ array0 , {
+                                   $ crate :: json_rep_set_text_string ! (
+                                   $ array0 , "key" , $ key0 ) ; $ crate ::
+                                   json_rep_set_int ! (
+                                   $ array0 , "value" , $ value0 ) ; } ) ; d !
+                                   ( end json coap_item_int ) ; } } ;);
+        ///  Append a (`key` + `val` string value) item to the array named `parent`:
+        ///    `{ <parent>: [ ..., {"key": <key>, "value": <val>} ] }`
+        #[macro_export]
+        macro_rules! coap_item_str((
+                                   @ cbor $ parent : ident , $ key : expr , $
+                                   val : expr ) => {
+                                   {
+                                   d ! (
+                                   begin cbor coap_item_str , parent : $
+                                   parent , key : $ key , val : $ val ) ; $
+                                   crate :: coap_item ! (
+                                   @ cbor $ parent , {
+                                   $ crate :: oc_rep_set_text_string ! (
+                                   $ parent , "key" , $ key ) ; $ crate ::
+                                   oc_rep_set_text_string ! (
+                                   $ parent , "value" , $ val ) ; } ) ; d ! (
+                                   end cbor coap_item_str ) ; } } ; (
+                                   @ json $ parent : ident , $ key : expr , $
+                                   val : expr ) => {
+                                   {
+                                   d ! (
+                                   begin json coap_item_str , parent : $
+                                   parent , key : $ key , val : $ val ) ; $
+                                   crate :: coap_item ! (
+                                   @ json $ parent , {
+                                   $ crate :: json_rep_set_text_string ! (
+                                   $ parent , key , $ key ) ; $ crate ::
+                                   json_rep_set_text_string ! (
+                                   $ parent , value , $ val ) ; } ) ; d ! (
+                                   end json coap_item_str ) ; } } ;);
+        ///  Append an array item under the current object item.  Add `children0` as the array items.
+        ///    `{ <array0>: [ ..., { <children0> } ] }`
+        #[macro_export]
+        macro_rules! coap_item((
+                               @ cbor $ context : ident , $ children0 : block
+                               ) => {
+                               {
+                               d ! ( begin cbor coap_item , array : $ context
+                               ) ; $ crate :: oc_rep_object_array_start_item !
+                               ( $ context ) ; $ children0 ; $ crate ::
+                               oc_rep_object_array_end_item ! ( $ context ) ;
+                               d ! ( end cbor coap_item ) ; } } ; (
+                               @ json $ context : ident , $ children0 : block
+                               ) => {
+                               {
+                               d ! ( begin json coap_item , array : $ context
+                               ) ; $ crate :: json_rep_object_array_start_item
+                               ! ( $ context ) ; $ children0 ; $ crate ::
+                               json_rep_object_array_end_item ! ( $ context )
+                               ; d ! ( end json coap_item ) ; } } ;);
+        ///  Given an object parent and an integer Sensor Value `val`, set the `val`'s key/value in the object.
+        #[macro_export]
+        macro_rules! coap_set_int_val((
+                                      @ cbor $ context : ident , $ val0 : expr
+                                      ) => {
+                                      {
+                                      d ! (
+                                      begin cbor coap_set_int_val , c : $
+                                      context , val : $ val0 ) ; if let
+                                      SensorValueType :: Uint ( val ) = $ val0
+                                      . val {
+                                      $ crate :: oc_rep_set_int ! (
+                                      $ context , $ val0 . key , val ) ; }
+                                      else {
+                                      unsafe {
+                                      $ context . fail (
+                                      coap_context :: CoapError ::
+                                      VALUE_NOT_UINT ) } ; } d ! (
+                                      end cbor coap_set_int_val ) ; } } ; (
+                                      @ json $ context : ident , $ val0 : expr
+                                      ) => {
+                                      {
+                                      d ! (
+                                      begin json coap_set_int_val , c : $
+                                      context , val : $ val0 ) ; if let
+                                      SensorValueType :: Uint ( val ) = $ val0
+                                      . val {
+                                      $ crate :: json_rep_set_int ! (
+                                      $ context , $ val0 . key , val ) ; }
+                                      else {
+                                      unsafe {
+                                      $ context . fail (
+                                      coap_context :: CoapError ::
+                                      VALUE_NOT_UINT ) } ; } d ! (
+                                      end json coap_set_int_val ) ; } } ;);
+        ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
+        #[macro_export]
+        macro_rules! coap_item_int_val((
+                                       @ cbor $ context : ident , $ val0 :
+                                       expr ) => {
+                                       {
+                                       d ! (
+                                       begin cbor coap_item_int_val , c : $
+                                       context , val : $ val0 ) ; if let
+                                       SensorValueType :: Uint ( val ) = $
+                                       val0 . val {
+                                       $ crate :: coap_item_int ! (
+                                       @ cbor $ context , $ val0 . key , val )
+                                       ; } else {
+                                       unsafe {
+                                       $ context . fail (
+                                       coap_context :: CoapError ::
+                                       VALUE_NOT_UINT ) } ; } d ! (
+                                       end cbor coap_item_int_val ) ; } } ; (
+                                       @ json $ context : ident , $ val0 :
+                                       expr ) => {
+                                       {
+                                       d ! (
+                                       begin json coap_item_int_val , c : $
+                                       context , val : $ val0 ) ; if let
+                                       SensorValueType :: Uint ( val ) = $
+                                       val0 . val {
+                                       $ crate :: coap_item_int ! (
+                                       @ json $ context , $ val0 . key , val )
+                                       ; } else {
+                                       unsafe {
+                                       $ context . fail (
+                                       coap_context :: CoapError ::
+                                       VALUE_NOT_UINT ) } ; } d ! (
+                                       end json coap_item_int_val ) ; } } ;);
+        ///  Assume we are writing an object now.  Write the key name and start a child array.
+        ///  ```
+        ///  {a:b --> {a:b, key:[
+        ///  ```
+        #[macro_export]
+        macro_rules! json_rep_set_array(( $ context : ident , $ key : ident )
+                                        => {
+                                        {
+                                        concat ! (
+                                        "<< jarri " , ", o: " , stringify ! (
+                                        $ context ) , ", k: " , stringify ! (
+                                        $ key ) ) ; let key_with_null : & str
+                                        = $ crate :: stringify_null ! ( $ key
+                                        ) ; unsafe {
+                                        mynewt_rust :: json_helper_set_array (
+                                        $ context . to_void_ptr (  ) , $
+                                        context . key_to_cstr (
+                                        key_with_null . as_bytes (  ) ) ) ; }
+                                        ; } } ; (
+                                        $ context : ident , $ key : expr ) =>
+                                        {
+                                        {
+                                        concat ! (
+                                        "<< jarre " , ", o: " , stringify ! (
+                                        $ context ) , ", k: " , stringify ! (
+                                        $ key ) ) ; let key_with_opt_null : &
+                                        [ u8 ] = $ key . to_bytes_optional_nul
+                                        (  ) ; unsafe {
+                                        mynewt_rust :: json_helper_set_array (
+                                        $ context . to_void_ptr (  ) , $
+                                        context . key_to_cstr (
+                                        key_with_opt_null ) ) ; } ; } } ;);
+        ///  End the child array and resume writing the parent object.
+        ///  ```
+        ///  {a:b, key:[... --> {a:b, key:[...]
+        ///  ```
+        #[macro_export]
+        macro_rules! json_rep_close_array(( $ context : ident , $ key : ident
+                                          ) => {
+                                          {
+                                          concat ! ( ">>" ) ; let
+                                          key_with_null : & str = $ crate ::
+                                          stringify_null ! ( $ key ) ; unsafe
+                                          {
+                                          mynewt_rust ::
+                                          json_helper_close_array (
+                                          $ context . to_void_ptr (  ) , $
+                                          context . key_to_cstr (
+                                          key_with_null . as_bytes (  ) ) ) }
+                                          ; } } ; (
+                                          $ context : ident , $ key : expr )
+                                          => {
+                                          {
+                                          concat ! ( ">>" ) ; let
+                                          key_with_opt_null : & [ u8 ] = $ key
+                                          . to_bytes_optional_nul (  ) ;
+                                          unsafe {
+                                          mynewt_rust ::
+                                          json_helper_close_array (
+                                          $ context . to_void_ptr (  ) , $
+                                          context . key_to_cstr (
+                                          key_with_opt_null ) ) } ; } } ;);
+        ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
+        #[macro_export]
+        macro_rules! json_rep_object_array_start_item(( $ context : ident ) =>
+                                                      {
+                                                      {
+                                                      concat ! (
+                                                      "<< jitmi" , " c: " ,
+                                                      stringify ! ( $ context
+                                                      ) ) ; let key_with_null
+                                                      : & str = $ crate ::
+                                                      stringify_null ! (
+                                                      $ context ) ; unsafe {
+                                                      mynewt_rust ::
+                                                      json_helper_object_array_start_item
+                                                      (
+                                                      $ context . key_to_cstr
+                                                      (
+                                                      key_with_null . as_bytes
+                                                      (  ) ) ) } ; } } ; (
+                                                      $ context : ident ) => {
+                                                      {
+                                                      concat ! (
+                                                      "<< jitme" , " c: " ,
+                                                      stringify ! ( $ context
+                                                      ) ) ; let
+                                                      key_with_opt_null : & [
+                                                      u8 ] = $ context .
+                                                      to_bytes_optional_nul (
+                                                      ) ; unsafe {
+                                                      mynewt_rust ::
+                                                      json_helper_object_array_start_item
+                                                      (
+                                                      $ context . key_to_cstr
+                                                      ( key_with_opt_null ) )
+                                                      } ; } } ;);
+        ///  End an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
+        #[macro_export]
+        macro_rules! json_rep_object_array_end_item(( $ context : ident ) => {
+                                                    {
+                                                    concat ! ( ">>" ) ; let
+                                                    key_with_null : & str = $
+                                                    crate :: stringify_null !
+                                                    ( $ context ) ; unsafe {
+                                                    mynewt_rust ::
+                                                    json_helper_object_array_end_item
+                                                    (
+                                                    $ context . key_to_cstr (
+                                                    key_with_null . as_bytes (
+                                                     ) ) ) } ; } } ; (
+                                                    $ context : ident ) => {
+                                                    {
+                                                    concat ! ( ">>" ) ; let
+                                                    key_with_opt_null : & [ u8
+                                                    ] = $ context .
+                                                    to_bytes_optional_nul (  )
+                                                    ; unsafe {
+                                                    mynewt_rust ::
+                                                    json_helper_object_array_end_item
+                                                    (
+                                                    $ context . key_to_cstr (
+                                                    key_with_opt_null ) ) } ;
+                                                    } } ;);
+        ///  Encode an int value into the current JSON encoding value `coap_json_value`
+        #[macro_export]
+        macro_rules! json_rep_set_int((
+                                      $ context : ident , $ key : ident , $
+                                      value : expr ) => {
+                                      {
+                                      concat ! (
+                                      "-- jinti" , " o: " , stringify ! (
+                                      $ context ) , ", k: " , stringify ! (
+                                      $ key ) , ", v: " , stringify ! (
+                                      $ value ) ) ; let key_with_null : & str
+                                      = $ crate :: stringify_null ! ( $ key )
+                                      ; let value = $ value as u64 ; unsafe {
+                                      mynewt_rust :: json_helper_set_int (
+                                      $ context . to_void_ptr (  ) , $ context
+                                      . key_to_cstr (
+                                      key_with_null . as_bytes (  ) ) , value
+                                      ) } ; } } ; (
+                                      $ context : ident , $ key : expr , $
+                                      value : expr ) => {
+                                      {
+                                      concat ! (
+                                      "-- jinte" , " o: " , stringify ! (
+                                      $ context ) , ", k: " , stringify ! (
+                                      $ key ) , ", v: " , stringify ! (
+                                      $ value ) ) ; let key_with_opt_null : &
+                                      [ u8 ] = $ key . to_bytes_optional_nul (
+                                       ) ; let value = $ value as u64 ; unsafe
+                                      {
+                                      mynewt_rust :: json_helper_set_int (
+                                      $ context . to_void_ptr (  ) , $ context
+                                      . key_to_cstr ( key_with_opt_null ) ,
+                                      value ) } ; } } ;);
+        ///  Encode a text value into the current JSON encoding value `coap_json_value`
+        #[macro_export]
+        macro_rules! json_rep_set_text_string((
+                                              $ context : ident , $ key :
+                                              ident , $ value : expr ) => {
+                                              {
+                                              concat ! (
+                                              "-- jtxti" , " o: " , stringify
+                                              ! ( $ context ) , ", k: " ,
+                                              stringify ! ( $ key ) , ", v: "
+                                              , stringify ! ( $ value ) ) ;
+                                              let key_with_null : & str = $
+                                              crate :: stringify_null ! (
+                                              $ key ) ; let
+                                              value_with_opt_null : & [ u8 ] =
+                                              $ value . to_bytes_optional_nul
+                                              (  ) ; unsafe {
+                                              mynewt_rust ::
+                                              json_helper_set_text_string (
+                                              $ context . to_void_ptr (  ) , $
+                                              context . key_to_cstr (
+                                              key_with_null . as_bytes (  ) )
+                                              , $ context . value_to_cstr (
+                                              value_with_opt_null ) ) } ; } }
+                                              ; (
+                                              $ context : ident , $ key : expr
+                                              , $ value : expr ) => {
+                                              {
+                                              concat ! (
+                                              "-- jtxte" , " o: " , stringify
+                                              ! ( $ context ) , ", k: " ,
+                                              stringify ! ( $ key ) , ", v: "
+                                              , stringify ! ( $ value ) ) ;
+                                              let key_with_opt_null : & [ u8 ]
+                                              = $ key . to_bytes_optional_nul
+                                              (  ) ; let value_with_opt_null :
+                                              & [ u8 ] = $ value .
+                                              to_bytes_optional_nul (  ) ;
+                                              unsafe {
+                                              mynewt_rust ::
+                                              json_helper_set_text_string (
+                                              $ context . to_void_ptr (  ) , $
+                                              context . key_to_cstr (
+                                              key_with_opt_null ) , $ context
+                                              . value_to_cstr (
+                                              value_with_opt_null ) ) } ; } }
+                                              ;);
+        #[macro_export]
+        macro_rules! oc_rep_start_root_object(( $ context : ident ) => {
+                                              {
+                                              d ! (
+                                              begin oc_rep_start_root_object )
+                                              ; unsafe {
+                                              let encoder = $ context .
+                                              encoder ( "root" , "_map" ) ;
+                                              tinycbor ::
+                                              cbor_encoder_create_map (
+                                              $ context . global_encoder (  )
+                                              , encoder , tinycbor ::
+                                              CborIndefiniteLength ) } ; d ! (
+                                              end oc_rep_start_root_object ) ;
+                                              } } ;);
+        #[macro_export]
+        macro_rules! oc_rep_end_root_object(( $ context : ident ) => {
+                                            {
+                                            d ! ( begin oc_rep_end_root_object
+                                            ) ; unsafe {
+                                            let encoder = $ context . encoder
+                                            ( "root" , "_map" ) ; tinycbor ::
+                                            cbor_encoder_close_container (
+                                            $ context . global_encoder (  ) ,
+                                            encoder ) } ; d ! (
+                                            end oc_rep_end_root_object ) ; } }
+                                            ;);
+        #[macro_export]
+        macro_rules! oc_rep_start_object((
+                                         $ parent : ident , $ key : ident , $
+                                         parent_suffix : ident ) => {
+                                         {
+                                         concat ! (
+                                         "begin oc_rep_start_object " ,
+                                         ", parent: " , stringify ! ( $ parent
+                                         ) , stringify ! ( $ parent_suffix ) ,
+                                         ", key: " , stringify ! ( $ key ) ,
+                                         ", child: " , stringify ! ( $ key ) ,
+                                         "_map" ) ; unsafe {
+                                         let encoder = $ context . encoder (
+                                         stringify ! ( $ key ) , "_map" ) ;
+                                         tinycbor :: cbor_encoder_create_map (
+                                         encoder , & mut concat_idents ! (
+                                         $ key , _map ) , tinycbor ::
+                                         CborIndefiniteLength ) ; } ; d ! (
+                                         end oc_rep_start_object ) ; } } ;);
+        #[macro_export]
+        macro_rules! oc_rep_end_object((
+                                       $ parent : ident , $ key : ident , $
+                                       parent_suffix : ident ) => {
+                                       {
+                                       concat ! (
+                                       "begin oc_rep_end_object " ,
+                                       ", parent: " , stringify ! ( $ parent )
+                                       , stringify ! ( $ parent_suffix ) ,
+                                       ", key: " , stringify ! ( $ key ) ,
+                                       ", child: " , stringify ! ( $ key ) ,
+                                       "_map" ) ; unsafe {
+                                       let encoder = $ context . encoder (
+                                       stringify ! ( $ key ) , "_map" ) ;
+                                       tinycbor ::
+                                       cbor_encoder_close_container (
+                                       encoder , & mut concat_idents ! (
+                                       $ key , _map ) ) ; } ; d ! (
+                                       end oc_rep_end_object ) ; } } ;);
+        #[macro_export]
+        macro_rules! oc_rep_start_array((
+                                        $ parent : ident , $ key : ident , $
+                                        parent_suffix : ident ) => {
+                                        {
+                                        concat ! (
+                                        "begin oc_rep_start_array " ,
+                                        ", parent: " , stringify ! ( $ parent
+                                        ) , stringify ! ( $ parent_suffix ) ,
+                                        ", key: " , stringify ! ( $ key ) ,
+                                        ", child: " , stringify ! ( $ key ) ,
+                                        "_array" ) ; unsafe {
+                                        tinycbor :: cbor_encoder_create_array
+                                        (
+                                        & mut concat_idents ! (
+                                        $ parent , $ parent_suffix ) , & mut
+                                        concat_idents ! ( $ key , _array ) ,
+                                        CborIndefiniteLength ) } ; d ! (
+                                        end oc_rep_start_array ) ; } } ;);
+        #[macro_export]
+        macro_rules! oc_rep_end_array((
+                                      $ parent : ident , $ key : ident , $
+                                      parent_suffix : ident ) => {
+                                      {
+                                      concat ! (
+                                      "begin oc_rep_end_array " , ", parent: "
+                                      , stringify ! ( $ parent ) , stringify !
+                                      ( $ parent_suffix ) , ", key: " ,
+                                      stringify ! ( $ key ) , ", child: " ,
+                                      stringify ! ( $ key ) , "_array" ) ;
+                                      unsafe {
+                                      tinycbor :: cbor_encoder_close_container
+                                      (
+                                      & mut $ parent , & mut concat_idents ! (
+                                      $ parent , $ parent_suffix ) ) } ; d ! (
+                                      end oc_rep_end_array ) ; } } ;);
+        ///  Assume we are writing an object now.  Write the key name and start a child array.
+        ///  ```
+        ///  {a:b --> {a:b, key:[
+        ///  ```
+        #[macro_export]
+        macro_rules! oc_rep_set_array(( $ object : ident , $ key : ident ) =>
+                                      {
+                                      {
+                                      concat ! (
+                                      "begin oc_rep_set_array " , ", object: "
+                                      , stringify ! ( $ object ) , ", key: " ,
+                                      stringify ! ( $ key ) , ", child: " ,
+                                      stringify ! ( $ object ) , "_map" ) ;
+                                      unsafe {
+                                      cbor_encode_text_string (
+                                      & mut concat_idents ! ( $ object , _map
+                                      ) , $ key . as_ptr (  ) , $ key . len (
+                                      ) ) } ; oc_rep_start_array ! (
+                                      $ object , $ key , _map ) ; d ! (
+                                      end oc_rep_set_array ) ; } } ;);
+        ///  End the child array and resume writing the parent object.
+        ///  ```
+        ///  {a:b, key:[... --> {a:b, key:[...]
+        ///  ```
+        #[macro_export]
+        macro_rules! oc_rep_close_array(( $ object : ident , $ key : ident )
+                                        => {
+                                        {
+                                        concat ! (
+                                        "begin oc_rep_close_array " ,
+                                        ", object: " , stringify ! ( $ object
+                                        ) , ", key: " , stringify ! ( $ key )
+                                        , ", child: " , stringify ! ( $ object
+                                        ) , "_map" ) ; oc_rep_end_array ! (
+                                        $ object , $ key , _map ) ; d ! (
+                                        end oc_rep_close_array ) ; } } ;);
+        ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
+        #[macro_export]
+        macro_rules! oc_rep_object_array_start_item(( $ key : ident ) => {
+                                                    {
+                                                    concat ! (
+                                                    "begin oc_rep_object_array_start_item "
+                                                    , ", key: " , stringify !
+                                                    ( $ key ) , ", child: " ,
+                                                    stringify ! ( $ key ) ,
+                                                    "_array" , ) ;
+                                                    oc_rep_start_object ! (
+                                                    $ key , $ key , _array ) ;
+                                                    d ! (
+                                                    end
+                                                    oc_rep_object_array_start_item
+                                                    ) ; } } ;);
+        ///  End an array item, assumed to be an object.
+        ///  ```
+        ///  [... --> [...,
+        ///  ```
+        #[macro_export]
+        macro_rules! oc_rep_object_array_end_item(( $ key : ident ) => {
+                                                  {
+                                                  concat ! (
+                                                  "begin oc_rep_object_array_end_item "
+                                                  , ", key: " , stringify ! (
+                                                  $ key ) , ", child: " ,
+                                                  stringify ! ( $ key ) ,
+                                                  "_array" , ) ;
+                                                  oc_rep_end_object ! (
+                                                  $ key , $ key , _array ) ; d
+                                                  ! (
+                                                  end
+                                                  oc_rep_object_array_end_item
+                                                  ) ; } } ;);
+        #[macro_export]
+        macro_rules! run_stmts(( $ context : ident , $ encoder : ident , {  }
+                               ) => { let _zzz = "aaa" ; } ; (
+                               $ context : ident , $ encoder : ident , {
+                               $ stmt : tt ; $ ( $ tail : tt ; ) * } ) => {
+                               $ stmt ; $ crate :: run_stmts ! (
+                               $ context , $ encoder , { $ ( $ tail ; ) * } )
+                               } ;);
+        #[macro_export]
+        macro_rules! OLDrun((
+                            $ context : ident , $ parent : ident , $ suffix :
+                            expr , { $ ( $ stmt : stmt ; ) * } ) => {
+                            concat ! (
+                            " >> " , stringify ! ( $ context ) , " >> " ,
+                            stringify ! ( $ parent ) , " >> " , stringify ! (
+                            $ suffix ) ) ; unsafe {
+                            $ crate :: run_stmts ! (
+                            $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ;
+                            } ;);
+        ///  Encode an int value 
+        #[macro_export]
+        macro_rules! oc_rep_set_int((
+                                    $ context : ident , $ key : ident , $
+                                    value : expr ) => {
+                                    concat ! (
+                                    "-- cinti" , " c: " , stringify ! (
+                                    $ context ) , ", k: " , stringify ! (
+                                    $ key ) , ", v: " , stringify ! ( $ value
+                                    ) ) ; let key_with_null : & str = $ crate
+                                    :: stringify_null ! ( $ key ) ; let value
+                                    = $ value as i64 ; unsafe {
+                                    let encoder = $ context . encoder (
+                                    stringify ! ( $ context ) , "_map" ) ;
+                                    tinycbor :: cbor_encode_text_string (
+                                    encoder , $ context . key_to_cstr (
+                                    key_with_null . as_bytes (  ) ) , $
+                                    context . cstr_len (
+                                    key_with_null . as_bytes (  ) ) ) ;
+                                    tinycbor :: cbor_encode_int (
+                                    encoder , value ) ; } } ; (
+                                    $ context : ident , $ key : expr , $ value
+                                    : expr ) => {
+                                    concat ! (
+                                    "-- cinte" , " c: " , stringify ! (
+                                    $ context ) , ", k: " , stringify ! (
+                                    $ key ) , ", v: " , stringify ! ( $ value
+                                    ) ) ; let key_with_opt_null : & [ u8 ] = $
+                                    key . to_bytes_optional_nul (  ) ; let
+                                    value = $ value as i64 ;
+                                    "-------------------------------------------------------------"
+                                    ; macros :: run ! (
+                                    {
+                                    let encoder = COAP_CONTEXT . encoder (
+                                    "COAP_CONTEXT" , "_map" ) ;
+                                    cbor_encode_text_string (
+                                    encoder , COAP_CONTEXT . key_to_cstr (
+                                    key_with_opt_null ) , COAP_CONTEXT .
+                                    cstr_len ( key_with_opt_null ) ) ;
+                                    cbor_encode_int ( encoder , value ) ; } )
+                                    ;
+                                    "-------------------------------------------------------------"
+                                    ; } ;);
+        ///  Encode a text value 
+        #[macro_export]
+        macro_rules! oc_rep_set_text_string((
+                                            $ object : ident , $ key : expr ,
+                                            $ value : expr ) => {
+                                            {
+                                            concat ! (
+                                            "begin oc_rep_set_text_string " ,
+                                            ", object: " , stringify ! (
+                                            $ object ) , ", key: " , stringify
+                                            ! ( $ key ) , ", value: " ,
+                                            stringify ! ( $ value ) ,
+                                            ", child: " , stringify ! (
+                                            $ object ) , "_map" ) ; unsafe {
+                                            cbor_encode_text_string (
+                                            & mut concat_idents ! (
+                                            $ object , _map ) , $ key . as_ptr
+                                            (  ) , $ key . len (  ) ) ;
+                                            cbor_encode_text_string (
+                                            & mut concat_idents ! (
+                                            $ object , _map ) , $ value .
+                                            as_ptr (  ) , $ value . len (  ) )
+                                            ; } d ! (
+                                            end oc_rep_set_text_string ) ; } }
+                                            ;);
+    }
+    /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
+    pub mod json {
+        use super::*;
+        #[repr(C)]
+        #[structural_match]
+        #[rustc_copy_clone_marker]
+        pub struct __BindgenBitfieldUnit<Storage, Align> where
+                   Storage: AsRef<[u8]> + AsMut<[u8]> {
+            storage: Storage,
+            align: [Align; 0],
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::marker::Copy, Align: ::core::marker::Copy>
+         ::core::marker::Copy for __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::clone::Clone, Align: ::core::clone::Clone>
+         ::core::clone::Clone for __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+            #[inline]
+            fn clone(&self) -> __BindgenBitfieldUnit<Storage, Align> {
+                match *self {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_0_0, align: ref __self_0_1 } =>
+                    __BindgenBitfieldUnit{storage:
+                                              ::core::clone::Clone::clone(&(*__self_0_0)),
+                                          align:
+                                              ::core::clone::Clone::clone(&(*__self_0_1)),},
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::fmt::Debug, Align: ::core::fmt::Debug>
+         ::core::fmt::Debug for __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+            fn fmt(&self, f: &mut ::core::fmt::Formatter)
+             -> ::core::fmt::Result {
+                match *self {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_0_0, align: ref __self_0_1 } => {
+                        let mut debug_trait_builder =
+                            f.debug_struct("__BindgenBitfieldUnit");
+                        let _ =
+                            debug_trait_builder.field("storage",
+                                                      &&(*__self_0_0));
+                        let _ =
+                            debug_trait_builder.field("align",
+                                                      &&(*__self_0_1));
+                        debug_trait_builder.finish()
+                    }
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::default::Default,
+              Align: ::core::default::Default> ::core::default::Default for
+         __BindgenBitfieldUnit<Storage, Align> where Storage: AsRef<[u8]> +
+         AsMut<[u8]> {
+            #[inline]
+            fn default() -> __BindgenBitfieldUnit<Storage, Align> {
+                __BindgenBitfieldUnit{storage:
+                                          ::core::default::Default::default(),
+                                      align:
+                                          ::core::default::Default::default(),}
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::cmp::Eq, Align: ::core::cmp::Eq>
+         ::core::cmp::Eq for __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+            #[inline]
+            #[doc(hidden)]
+            fn assert_receiver_is_total_eq(&self) -> () {
+                {
+                    let _: ::core::cmp::AssertParamIsEq<Storage>;
+                    let _: ::core::cmp::AssertParamIsEq<[Align; 0]>;
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::hash::Hash, Align: ::core::hash::Hash>
+         ::core::hash::Hash for __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+            fn hash<__HStorageAlign: ::core::hash::Hasher>(&self,
+                                                           state:
+                                                               &mut __HStorageAlign)
+             -> () {
+                match *self {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_0_0, align: ref __self_0_1 } => {
+                        ::core::hash::Hash::hash(&(*__self_0_0), state);
+                        ::core::hash::Hash::hash(&(*__self_0_1), state)
+                    }
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::cmp::Ord, Align: ::core::cmp::Ord>
+         ::core::cmp::Ord for __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+            #[inline]
+            fn cmp(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> ::core::cmp::Ordering {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        match ::core::cmp::Ord::cmp(&(*__self_0_0),
+                                                    &(*__self_1_0)) {
+                            ::core::cmp::Ordering::Equal =>
+                            match ::core::cmp::Ord::cmp(&(*__self_0_1),
+                                                        &(*__self_1_1)) {
+                                ::core::cmp::Ordering::Equal =>
+                                ::core::cmp::Ordering::Equal,
+                                cmp => cmp,
+                            },
+                            cmp => cmp,
+                        },
+                    },
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::cmp::PartialEq, Align: ::core::cmp::PartialEq>
+         ::core::cmp::PartialEq for __BindgenBitfieldUnit<Storage, Align>
+         where Storage: AsRef<[u8]> + AsMut<[u8]> {
+            #[inline]
+            fn eq(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> bool {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        (*__self_0_0) == (*__self_1_0) &&
+                            (*__self_0_1) == (*__self_1_1),
+                    },
+                }
+            }
+            #[inline]
+            fn ne(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> bool {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        (*__self_0_0) != (*__self_1_0) ||
+                            (*__self_0_1) != (*__self_1_1),
+                    },
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl <Storage: ::core::cmp::PartialOrd,
+              Align: ::core::cmp::PartialOrd> ::core::cmp::PartialOrd for
+         __BindgenBitfieldUnit<Storage, Align> where Storage: AsRef<[u8]> +
+         AsMut<[u8]> {
+            #[inline]
+            fn partial_cmp(&self,
+                           other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> ::core::option::Option<::core::cmp::Ordering> {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        match ::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
+                                                                   &(*__self_1_0))
+                            {
+                            ::core::option::Option::Some(::core::cmp::Ordering::Equal)
+                            =>
+                            match ::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
+                                                                       &(*__self_1_1))
+                                {
+                                ::core::option::Option::Some(::core::cmp::Ordering::Equal)
+                                =>
+                                ::core::option::Option::Some(::core::cmp::Ordering::Equal),
+                                cmp => cmp,
+                            },
+                            cmp => cmp,
+                        },
+                    },
+                }
+            }
+            #[inline]
+            fn lt(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> bool {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
+                                                                                                                                &(*__self_1_0)),
+                                                                                           ::core::cmp::Ordering::Equal),
+                                                         ||
+                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
+                                                                                                                                    &(*__self_1_1)),
+                                                                                               ::core::cmp::Ordering::Greater))
+                            == ::core::cmp::Ordering::Less,
+                    },
+                }
+            }
+            #[inline]
+            fn le(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> bool {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
+                                                                                                                                &(*__self_1_0)),
+                                                                                           ::core::cmp::Ordering::Equal),
+                                                         ||
+                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
+                                                                                                                                    &(*__self_1_1)),
+                                                                                               ::core::cmp::Ordering::Greater))
+                            != ::core::cmp::Ordering::Greater,
+                    },
+                }
+            }
+            #[inline]
+            fn gt(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> bool {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
+                                                                                                                                &(*__self_1_0)),
+                                                                                           ::core::cmp::Ordering::Equal),
+                                                         ||
+                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
+                                                                                                                                    &(*__self_1_1)),
+                                                                                               ::core::cmp::Ordering::Less))
+                            == ::core::cmp::Ordering::Greater,
+                    },
+                }
+            }
+            #[inline]
+            fn ge(&self, other: &__BindgenBitfieldUnit<Storage, Align>)
+             -> bool {
+                match *other {
+                    __BindgenBitfieldUnit {
+                    storage: ref __self_1_0, align: ref __self_1_1 } =>
+                    match *self {
+                        __BindgenBitfieldUnit {
+                        storage: ref __self_0_0, align: ref __self_0_1 } =>
+                        ::core::cmp::Ordering::then_with(::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_0),
+                                                                                                                                &(*__self_1_0)),
+                                                                                           ::core::cmp::Ordering::Equal),
+                                                         ||
+                                                             ::core::option::Option::unwrap_or(::core::cmp::PartialOrd::partial_cmp(&(*__self_0_1),
+                                                                                                                                    &(*__self_1_1)),
+                                                                                               ::core::cmp::Ordering::Less))
+                            != ::core::cmp::Ordering::Less,
+                    },
+                }
+            }
+        }
+        impl <Storage, Align> __BindgenBitfieldUnit<Storage, Align> where
+         Storage: AsRef<[u8]> + AsMut<[u8]> {
+            #[inline]
+            pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
+            #[inline]
+            pub fn get_bit(&self, index: usize) -> bool {
+                if false {
+                    if !(index / 8 < self.storage.as_ref().len()) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       25u32, 9u32))
+                        }
+                    };
+                };
+                let byte_index = index / 8;
+                let byte = self.storage.as_ref()[byte_index];
+                let bit_index =
+                    if false { 7 - (index % 8) } else { index % 8 };
+                let mask = 1 << bit_index;
+                byte & mask == mask
+            }
+            #[inline]
+            pub fn set_bit(&mut self, index: usize, val: bool) {
+                if false {
+                    if !(index / 8 < self.storage.as_ref().len()) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       38u32, 9u32))
+                        }
+                    };
+                };
+                let byte_index = index / 8;
+                let byte = &mut self.storage.as_mut()[byte_index];
+                let bit_index =
+                    if false { 7 - (index % 8) } else { index % 8 };
+                let mask = 1 << bit_index;
+                if val { *byte |= mask; } else { *byte &= !mask; }
+            }
+            #[inline]
+            pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
+                if false {
+                    if !(bit_width <= 64) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: bit_width <= 64",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       55u32, 9u32))
+                        }
+                    };
+                };
+                if false {
+                    if !(bit_offset / 8 < self.storage.as_ref().len()) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       56u32, 9u32))
+                        }
+                    };
+                };
+                if false {
+                    if !((bit_offset + (bit_width as usize)) / 8 <=
+                             self.storage.as_ref().len()) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       57u32, 9u32))
+                        }
+                    };
+                };
+                let mut val = 0;
+                for i in 0..(bit_width as usize) {
+                    if self.get_bit(i + bit_offset) {
+                        let index =
+                            if false {
+                                bit_width as usize - 1 - i
+                            } else { i };
+                        val |= 1 << index;
+                    }
+                }
+                val
+            }
+            #[inline]
+            pub fn set(&mut self, bit_offset: usize, bit_width: u8,
+                       val: u64) {
+                if false {
+                    if !(bit_width <= 64) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: bit_width <= 64",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       73u32, 9u32))
+                        }
+                    };
+                };
+                if false {
+                    if !(bit_offset / 8 < self.storage.as_ref().len()) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       74u32, 9u32))
+                        }
+                    };
+                };
+                if false {
+                    if !((bit_offset + (bit_width as usize)) / 8 <=
+                             self.storage.as_ref().len()) {
+                        {
+                            ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
+                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       75u32, 9u32))
+                        }
+                    };
+                };
+                for i in 0..(bit_width as usize) {
+                    let mask = 1 << i;
+                    let val_bit_is_set = val & mask == mask;
+                    let index =
+                        if false { bit_width as usize - 1 - i } else { i };
+                    self.set_bit(index + bit_offset, val_bit_is_set);
+                }
+            }
+        }
+        #[repr(C)]
+        pub struct __BindgenUnionField<T>(::core::marker::PhantomData<T>);
+        impl <T> __BindgenUnionField<T> {
+            #[inline]
+            pub fn new() -> Self {
+                __BindgenUnionField(::core::marker::PhantomData)
+            }
+            #[inline]
+            pub unsafe fn as_ref(&self) -> &T { ::core::mem::transmute(self) }
+            #[inline]
+            pub unsafe fn as_mut(&mut self) -> &mut T {
+                ::core::mem::transmute(self)
+            }
+        }
+        impl <T> ::core::default::Default for __BindgenUnionField<T> {
+            #[inline]
+            fn default() -> Self { Self::new() }
+        }
+        impl <T> ::core::clone::Clone for __BindgenUnionField<T> {
+            #[inline]
+            fn clone(&self) -> Self { Self::new() }
+        }
+        impl <T> ::core::marker::Copy for __BindgenUnionField<T> { }
+        impl <T> ::core::fmt::Debug for __BindgenUnionField<T> {
+            fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>)
+             -> ::core::fmt::Result {
+                fmt.write_str("__BindgenUnionField")
+            }
+        }
+        impl <T> ::core::hash::Hash for __BindgenUnionField<T> {
+            fn hash<H: ::core::hash::Hasher>(&self, _state: &mut H) { }
+        }
+        impl <T> ::core::cmp::PartialEq for __BindgenUnionField<T> {
+            fn eq(&self, _other: &__BindgenUnionField<T>) -> bool { true }
+        }
+        impl <T> ::core::cmp::Eq for __BindgenUnionField<T> { }
+        pub const JSON_VALUE_TYPE_BOOL: u32 = 0;
+        pub const JSON_VALUE_TYPE_UINT64: u32 = 1;
+        pub const JSON_VALUE_TYPE_INT64: u32 = 2;
+        pub const JSON_VALUE_TYPE_STRING: u32 = 3;
+        pub const JSON_VALUE_TYPE_ARRAY: u32 = 4;
+        pub const JSON_VALUE_TYPE_OBJECT: u32 = 5;
+        pub const JSON_ATTR_MAX: u32 = 31;
+        pub const JSON_VAL_MAX: u32 = 512;
+        pub const JSON_ERR_OBSTART: u32 = 1;
+        pub const JSON_ERR_ATTRSTART: u32 = 2;
+        pub const JSON_ERR_BADATTR: u32 = 3;
+        pub const JSON_ERR_ATTRLEN: u32 = 4;
+        pub const JSON_ERR_NOARRAY: u32 = 5;
+        pub const JSON_ERR_NOBRAK: u32 = 6;
+        pub const JSON_ERR_STRLONG: u32 = 7;
+        pub const JSON_ERR_TOKLONG: u32 = 8;
+        pub const JSON_ERR_BADTRAIL: u32 = 9;
+        pub const JSON_ERR_ARRAYSTART: u32 = 10;
+        pub const JSON_ERR_OBJARR: u32 = 11;
+        pub const JSON_ERR_SUBTOOLONG: u32 = 12;
+        pub const JSON_ERR_BADSUBTRAIL: u32 = 13;
+        pub const JSON_ERR_SUBTYPE: u32 = 14;
+        pub const JSON_ERR_BADSTRING: u32 = 15;
+        pub const JSON_ERR_CHECKFAIL: u32 = 16;
+        pub const JSON_ERR_NOPARSTR: u32 = 17;
+        pub const JSON_ERR_BADENUM: u32 = 18;
+        pub const JSON_ERR_QNONSTRING: u32 = 19;
+        pub const JSON_ERR_NONQSTRING: u32 = 19;
+        pub const JSON_ERR_MISC: u32 = 20;
+        pub const JSON_ERR_BADNUM: u32 = 21;
+        pub const JSON_ERR_NULLPTR: u32 = 22;
+        pub type __uint8_t = ::cty::c_uchar;
+        pub type __uint16_t = ::cty::c_ushort;
+        pub type __uint64_t = ::cty::c_ulonglong;
+        #[repr(C)]
+        pub struct json_value {
+            pub jv_pad1: u8,
+            pub jv_type: u8,
+            pub jv_len: u16,
+            pub jv_val: json_value__bindgen_ty_1,
+        }
+        #[repr(C)]
+        pub struct json_value__bindgen_ty_1 {
+            pub u: __BindgenUnionField<u64>,
+            pub fl: __BindgenUnionField<f32>,
+            pub str: __BindgenUnionField<*mut ::cty::c_char>,
+            pub composite: __BindgenUnionField<json_value__bindgen_ty_1__bindgen_ty_1>,
+            pub bindgen_union_field: [u64; 2usize],
+        }
+        #[repr(C)]
+        pub struct json_value__bindgen_ty_1__bindgen_ty_1 {
+            pub keys: *mut *mut ::cty::c_char,
+            pub values: *mut *mut json_value,
+        }
+        impl Default for json_value__bindgen_ty_1__bindgen_ty_1 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        impl Default for json_value__bindgen_ty_1 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        impl Default for json_value {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        pub type json_write_func_t
+            =
+            ::core::option::Option<unsafe extern "C" fn(buf:
+                                                            *mut ::cty::c_void,
+                                                        data:
+                                                            *mut ::cty::c_char,
+                                                        len: ::cty::c_int)
+                                       -> ::cty::c_int>;
+        #[repr(C)]
+        pub struct json_encoder {
+            pub je_write: json_write_func_t,
+            pub je_arg: *mut ::cty::c_void,
+            pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize], u8>,
+            pub je_encode_buf: [::cty::c_char; 64usize],
+        }
+        impl Default for json_encoder {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        impl json_encoder {
+            #[inline]
+            pub fn je_wr_commas(&self) -> ::cty::c_int {
+                unsafe {
+                    ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8)
+                                               as u32)
+                }
+            }
+            #[inline]
+            pub fn set_je_wr_commas(&mut self, val: ::cty::c_int) {
+                unsafe {
+                    let val: u32 = ::core::mem::transmute(val);
+                    self._bitfield_1.set(0usize, 1u8, val as u64)
+                }
+            }
+            #[inline]
+            pub fn new_bitfield_1(je_wr_commas: ::cty::c_int)
+             -> __BindgenBitfieldUnit<[u8; 1usize], u8> {
+                let mut __bindgen_bitfield_unit:
+                        __BindgenBitfieldUnit<[u8; 1usize], u8> =
+                    Default::default();
+                __bindgen_bitfield_unit.set(0usize, 1u8,
+                                            {
+                                                let je_wr_commas: u32 =
+                                                    unsafe {
+                                                        ::core::mem::transmute(je_wr_commas)
+                                                    };
+                                                je_wr_commas as u64
+                                            });
+                __bindgen_bitfield_unit
+            }
+        }
+        extern "C" {
+            pub fn json_encode_object_start(arg1: *mut json_encoder)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_object_key(encoder: *mut json_encoder,
+                                          key: *mut ::cty::c_char)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_object_entry(arg1: *mut json_encoder,
+                                            arg2: *mut ::cty::c_char,
+                                            arg3: *mut json_value)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_object_finish(arg1: *mut json_encoder)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_array_name(encoder: *mut json_encoder,
+                                          name: *mut ::cty::c_char)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_array_start(encoder: *mut json_encoder)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_array_value(encoder: *mut json_encoder,
+                                           val: *mut json_value)
+             -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_encode_array_finish(encoder: *mut json_encoder)
+             -> ::cty::c_int;
+        }
+        pub const json_type_t_integer: json_type = 0;
+        pub const json_type_t_uinteger: json_type = 1;
+        pub const json_type_t_real: json_type = 2;
+        pub const json_type_t_string: json_type = 3;
+        pub const json_type_t_boolean: json_type = 4;
+        pub const json_type_t_character: json_type = 5;
+        pub const json_type_t_object: json_type = 6;
+        pub const json_type_t_structobject: json_type = 7;
+        pub const json_type_t_array: json_type = 8;
+        pub const json_type_t_check: json_type = 9;
+        pub const json_type_t_ignore: json_type = 10;
+        pub type json_type = u32;
+        #[repr(C)]
+        pub struct json_enum_t {
+            pub name: *mut ::cty::c_char,
+            pub value: ::cty::c_longlong,
+        }
+        impl Default for json_enum_t {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_array_t {
+            pub element_type: json_type,
+            pub arr: json_array_t__bindgen_ty_1,
+            pub count: *mut ::cty::c_int,
+            pub maxlen: ::cty::c_int,
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1 {
+            pub objects: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_1>,
+            pub strings: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_2>,
+            pub integers: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_3>,
+            pub uintegers: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_4>,
+            pub reals: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_5>,
+            pub booleans: __BindgenUnionField<json_array_t__bindgen_ty_1__bindgen_ty_6>,
+            pub bindgen_union_field: [u64; 3usize],
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1__bindgen_ty_1 {
+            pub subtype: *const json_attr_t,
+            pub base: *mut ::cty::c_char,
+            pub stride: usize,
+        }
+        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_1 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1__bindgen_ty_2 {
+            pub ptrs: *mut *mut ::cty::c_char,
+            pub store: *mut ::cty::c_char,
+            pub storelen: ::cty::c_int,
+        }
+        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_2 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1__bindgen_ty_3 {
+            pub store: *mut ::cty::c_longlong,
+        }
+        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_3 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1__bindgen_ty_4 {
+            pub store: *mut ::cty::c_ulonglong,
+        }
+        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_4 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1__bindgen_ty_5 {
+            pub store: *mut f64,
+        }
+        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_5 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_array_t__bindgen_ty_1__bindgen_ty_6 {
+            pub store: *mut bool,
+        }
+        impl Default for json_array_t__bindgen_ty_1__bindgen_ty_6 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        impl Default for json_array_t__bindgen_ty_1 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        impl Default for json_array_t {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_attr_t {
+            pub attribute: *mut ::cty::c_char,
+            pub type_: json_type,
+            pub addr: json_attr_t__bindgen_ty_1,
+            pub dflt: json_attr_t__bindgen_ty_2,
+            pub len: usize,
+            pub map: *const json_enum_t,
+            pub nodefault: bool,
+        }
+        #[repr(C)]
+        pub struct json_attr_t__bindgen_ty_1 {
+            pub integer: __BindgenUnionField<*mut ::cty::c_longlong>,
+            pub uinteger: __BindgenUnionField<*mut ::cty::c_ulonglong>,
+            pub real: __BindgenUnionField<*mut f64>,
+            pub string: __BindgenUnionField<*mut ::cty::c_char>,
+            pub boolean: __BindgenUnionField<*mut bool>,
+            pub character: __BindgenUnionField<*mut ::cty::c_char>,
+            pub array: __BindgenUnionField<json_array_t>,
+            pub offset: __BindgenUnionField<usize>,
+            pub bindgen_union_field: [u64; 6usize],
+        }
+        impl Default for json_attr_t__bindgen_ty_1 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct json_attr_t__bindgen_ty_2 {
+            pub integer: __BindgenUnionField<::cty::c_longlong>,
+            pub uinteger: __BindgenUnionField<::cty::c_ulonglong>,
+            pub real: __BindgenUnionField<f64>,
+            pub boolean: __BindgenUnionField<bool>,
+            pub character: __BindgenUnionField<::cty::c_char>,
+            pub check: __BindgenUnionField<*mut ::cty::c_char>,
+            pub bindgen_union_field: u64,
+        }
+        impl Default for json_attr_t__bindgen_ty_2 {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        impl Default for json_attr_t {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        pub type json_buffer_read_next_byte_t
+            =
+            ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                            *mut json_buffer)
+                                       -> ::cty::c_char>;
+        pub type json_buffer_read_prev_byte_t
+            =
+            ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                            *mut json_buffer)
+                                       -> ::cty::c_char>;
+        pub type json_buffer_readn_t
+            =
+            ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                            *mut json_buffer,
+                                                        buf:
+                                                            *mut ::cty::c_char,
+                                                        n: ::cty::c_int)
+                                       -> ::cty::c_int>;
+        #[repr(C)]
+        pub struct json_buffer {
+            pub jb_readn: json_buffer_readn_t,
+            pub jb_read_next: json_buffer_read_next_byte_t,
+            pub jb_read_prev: json_buffer_read_prev_byte_t,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::default::Default for json_buffer {
+            #[inline]
+            fn default() -> json_buffer {
+                json_buffer{jb_readn: ::core::default::Default::default(),
+                            jb_read_next: ::core::default::Default::default(),
+                            jb_read_prev:
+                                ::core::default::Default::default(),}
+            }
+        }
+        extern "C" {
+            pub fn json_read_object(arg1: *mut json_buffer,
+                                    arg2: *const json_attr_t) -> ::cty::c_int;
+        }
+        extern "C" {
+            pub fn json_read_array(arg1: *mut json_buffer,
+                                   arg2: *const json_array_t) -> ::cty::c_int;
+        }
+    }
+    /// Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`
+    pub mod tinycbor {
+        use super::*;
+        pub const CborIndefiniteLength: usize = 0xffffffffusize;
+        pub type __uint8_t = ::cty::c_uchar;
+        pub type __uint16_t = ::cty::c_ushort;
+        pub type __uint32_t = ::cty::c_ulong;
+        pub type __int64_t = ::cty::c_longlong;
+        pub type __uint64_t = ::cty::c_ulonglong;
+        pub type __uintptr_t = ::cty::c_uint;
+        pub type FILE = File;
+        #[repr(C)]
+        pub struct File_methods {
+            pub write: ::core::option::Option<unsafe extern "C" fn(instance:
+                                                                       *mut FILE,
+                                                                   bp:
+                                                                       *const ::cty::c_char,
+                                                                   n: usize)
+                                                  -> usize>,
+            pub read: ::core::option::Option<unsafe extern "C" fn(instance:
+                                                                      *mut FILE,
+                                                                  bp:
+                                                                      *mut ::cty::c_char,
+                                                                  n: usize)
+                                                 -> usize>,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::default::Default for File_methods {
+            #[inline]
+            fn default() -> File_methods {
+                File_methods{write: ::core::default::Default::default(),
+                             read: ::core::default::Default::default(),}
+            }
+        }
+        #[repr(C)]
+        pub struct File {
+            pub vmt: *const File_methods,
+        }
+        impl Default for File {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        pub const CborType_CborIntegerType: CborType = 0;
+        pub const CborType_CborByteStringType: CborType = 64;
+        pub const CborType_CborTextStringType: CborType = 96;
+        pub const CborType_CborArrayType: CborType = 128;
+        pub const CborType_CborMapType: CborType = 160;
+        pub const CborType_CborTagType: CborType = 192;
+        pub const CborType_CborSimpleType: CborType = 224;
+        pub const CborType_CborBooleanType: CborType = 245;
+        pub const CborType_CborNullType: CborType = 246;
+        pub const CborType_CborUndefinedType: CborType = 247;
+        pub const CborType_CborHalfFloatType: CborType = 249;
+        pub const CborType_CborFloatType: CborType = 250;
+        pub const CborType_CborDoubleType: CborType = 251;
+        pub const CborType_CborInvalidType: CborType = 255;
+        pub type CborType = u32;
+        pub type CborTag = u64;
+        pub const CborKnownTags_CborDateTimeStringTag: CborKnownTags = 0;
+        pub const CborKnownTags_CborUnixTime_tTag: CborKnownTags = 1;
+        pub const CborKnownTags_CborPositiveBignumTag: CborKnownTags = 2;
+        pub const CborKnownTags_CborNegativeBignumTag: CborKnownTags = 3;
+        pub const CborKnownTags_CborDecimalTag: CborKnownTags = 4;
+        pub const CborKnownTags_CborBigfloatTag: CborKnownTags = 5;
+        pub const CborKnownTags_CborExpectedBase64urlTag: CborKnownTags = 21;
+        pub const CborKnownTags_CborExpectedBase64Tag: CborKnownTags = 22;
+        pub const CborKnownTags_CborExpectedBase16Tag: CborKnownTags = 23;
+        pub const CborKnownTags_CborUriTag: CborKnownTags = 32;
+        pub const CborKnownTags_CborBase64urlTag: CborKnownTags = 33;
+        pub const CborKnownTags_CborBase64Tag: CborKnownTags = 34;
+        pub const CborKnownTags_CborRegularExpressionTag: CborKnownTags = 35;
+        pub const CborKnownTags_CborMimeMessageTag: CborKnownTags = 36;
+        pub const CborKnownTags_CborSignatureTag: CborKnownTags = 55799;
+        pub type CborKnownTags = u32;
+        pub const CborError_CborNoError: CborError = 0;
+        pub const CborError_CborUnknownError: CborError = 1;
+        pub const CborError_CborErrorUnknownLength: CborError = 2;
+        pub const CborError_CborErrorAdvancePastEOF: CborError = 3;
+        pub const CborError_CborErrorIO: CborError = 4;
+        pub const CborError_CborErrorGarbageAtEnd: CborError = 256;
+        pub const CborError_CborErrorUnexpectedEOF: CborError = 257;
+        pub const CborError_CborErrorUnexpectedBreak: CborError = 258;
+        pub const CborError_CborErrorUnknownType: CborError = 259;
+        pub const CborError_CborErrorIllegalType: CborError = 260;
+        pub const CborError_CborErrorIllegalNumber: CborError = 261;
+        pub const CborError_CborErrorIllegalSimpleType: CborError = 262;
+        pub const CborError_CborErrorUnknownSimpleType: CborError = 512;
+        pub const CborError_CborErrorUnknownTag: CborError = 513;
+        pub const CborError_CborErrorInappropriateTagForType: CborError = 514;
+        pub const CborError_CborErrorDuplicateObjectKeys: CborError = 515;
+        pub const CborError_CborErrorInvalidUtf8TextString: CborError = 516;
+        pub const CborError_CborErrorTooManyItems: CborError = 768;
+        pub const CborError_CborErrorTooFewItems: CborError = 769;
+        pub const CborError_CborErrorDataTooLarge: CborError = 1024;
+        pub const CborError_CborErrorNestingTooDeep: CborError = 1025;
+        pub const CborError_CborErrorUnsupportedType: CborError = 1026;
+        pub const CborError_CborErrorJsonObjectKeyIsAggregate: CborError =
+            1027;
+        pub const CborError_CborErrorJsonObjectKeyNotString: CborError = 1028;
+        pub const CborError_CborErrorJsonNotImplemented: CborError = 1029;
+        pub const CborError_CborErrorOutOfMemory: CborError = 2147483648;
+        pub const CborError_CborErrorInternalError: CborError = 4294967295;
+        pub type CborError = u32;
+        extern "C" {
+            pub fn cbor_error_string(error: CborError)
+             -> *const ::cty::c_char;
+        }
+        pub type cbor_encoder_write
+            =
+            ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                            *mut cbor_encoder_writer,
+                                                        data:
+                                                            *const ::cty::c_char,
+                                                        len: ::cty::c_int)
+                                       -> ::cty::c_int>;
+        #[repr(C)]
+        pub struct cbor_encoder_writer {
+            pub write: cbor_encoder_write,
+            pub bytes_written: ::cty::c_int,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::default::Default for cbor_encoder_writer {
+            #[inline]
+            fn default() -> cbor_encoder_writer {
+                cbor_encoder_writer{write:
+                                        ::core::default::Default::default(),
+                                    bytes_written:
+                                        ::core::default::Default::default(),}
+            }
+        }
+        #[repr(C)]
+        pub struct cbor_iovec {
+            pub iov_base: *mut ::cty::c_void,
+            pub iov_len: usize,
+        }
+        impl Default for cbor_iovec {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct CborEncoder {
+            pub writer: *mut cbor_encoder_writer,
+            pub writer_arg: *mut ::cty::c_void,
+            pub added: usize,
+            pub flags: ::cty::c_int,
+        }
+        impl Default for CborEncoder {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        extern "C" {
+            #[doc =
+                  " Initializes a CborEncoder structure \\a encoder by pointing it to buffer \\a"]
+            #[doc =
+                  " buffer of size \\a size. The \\a flags field is currently unused and must be"]
+            #[doc = " zero."]
+            pub fn cbor_encoder_init(encoder: *mut CborEncoder,
+                                     pwriter: *mut cbor_encoder_writer,
+                                     flags: ::cty::c_int);
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the unsigned 64-bit integer \\a value to the CBOR stream provided by"]
+            #[doc = " \\a encoder."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encode_negative_int, cbor_encode_int"]
+            pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64)
+             -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the signed 64-bit integer \\a value to the CBOR stream provided by"]
+            #[doc = " \\a encoder."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encode_negative_int, cbor_encode_uint"]
+            pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64)
+             -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the negative 64-bit integer whose absolute value is \\a"]
+            #[doc =
+                  " absolute_value to the CBOR stream provided by \\a encoder."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encode_uint, cbor_encode_int"]
+            pub fn cbor_encode_negative_int(encoder: *mut CborEncoder,
+                                            absolute_value: u64) -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the CBOR Simple Type of value \\a value to the CBOR stream provided by"]
+            #[doc = " \\a encoder."]
+            #[doc = ""]
+            #[doc =
+                  " This function may return error CborErrorIllegalSimpleType if the \\a value"]
+            #[doc =
+                  " variable contains a number that is not a valid simple type."]
+            pub fn cbor_encode_simple_value(encoder: *mut CborEncoder,
+                                            value: u8) -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the CBOR tag \\a tag to the CBOR stream provided by \\a encoder."]
+            #[doc = ""]
+            #[doc = " \\sa CborTag"]
+            pub fn cbor_encode_tag(encoder: *mut CborEncoder, tag: CborTag)
+             -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the byte string \\a string of length \\a length to the CBOR stream"]
+            #[doc =
+                  " provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encode_text_stringz, cbor_encode_text_string"]
+            pub fn cbor_encode_text_string(encoder: *mut CborEncoder,
+                                           string: *const ::cty::c_char,
+                                           length: usize) -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the text string \\a string of length \\a length to the CBOR stream"]
+            #[doc =
+                  " provided by \\a encoder. CBOR requires that \\a string be valid UTF-8, but"]
+            #[doc = " TinyCBOR makes no verification of correctness."]
+            #[doc = ""]
+            #[doc =
+                  " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
+            pub fn cbor_encode_byte_string(encoder: *mut CborEncoder,
+                                           string: *const u8, length: usize)
+             -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the byte string passed as \\a iov and \\a iov_len to the CBOR"]
+            #[doc =
+                  " stream provided by \\a encoder. CBOR byte strings are arbitrary raw data."]
+            #[doc = ""]
+            #[doc =
+                  " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
+            pub fn cbor_encode_byte_iovec(encoder: *mut CborEncoder,
+                                          iov: *const cbor_iovec,
+                                          iov_len: ::cty::c_int) -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Appends the floating-point value of type \\a fpType and pointed to by \\a"]
+            #[doc =
+                  " value to the CBOR stream provided by \\a encoder. The value of \\a fpType must"]
+            #[doc =
+                  " be one of CborHalfFloatType, CborFloatType or CborDoubleType, otherwise the"]
+            #[doc = " behavior of this function is undefined."]
+            #[doc = ""]
+            #[doc =
+                  " This function is useful for code that needs to pass through floating point"]
+            #[doc =
+                  " values but does not wish to have the actual floating-point code."]
+            #[doc = ""]
+            #[doc =
+                  " \\sa cbor_encode_half_float, cbor_encode_float, cbor_encode_double"]
+            pub fn cbor_encode_floating_point(encoder: *mut CborEncoder,
+                                              fpType: CborType,
+                                              value: *const ::cty::c_void)
+             -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Creates a CBOR array in the CBOR stream provided by \\a encoder and"]
+            #[doc =
+                  " initializes \\a arrayEncoder so that items can be added to the array using"]
+            #[doc =
+                  " the CborEncoder functions. The array must be terminated by calling either"]
+            #[doc =
+                  " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
+            #[doc =
+                  " with the same \\a encoder and \\a arrayEncoder parameters."]
+            #[doc = ""]
+            #[doc =
+                  " The number of items inserted into the array must be exactly \\a length items,"]
+            #[doc =
+                  " otherwise the stream is invalid. If the number of items is not known when"]
+            #[doc =
+                  " creating the array, the constant \\ref CborIndefiniteLength may be passed as"]
+            #[doc = " length instead."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encoder_create_map"]
+            pub fn cbor_encoder_create_array(encoder: *mut CborEncoder,
+                                             arrayEncoder: *mut CborEncoder,
+                                             length: usize) -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Creates a CBOR map in the CBOR stream provided by \\a encoder and"]
+            #[doc =
+                  " initializes \\a mapEncoder so that items can be added to the map using"]
+            #[doc =
+                  " the CborEncoder functions. The map must be terminated by calling either"]
+            #[doc =
+                  " cbor_encoder_close_container() or cbor_encoder_close_container_checked()"]
+            #[doc =
+                  " with the same \\a encoder and \\a mapEncoder parameters."]
+            #[doc = ""]
+            #[doc =
+                  " The number of pair of items inserted into the map must be exactly \\a length"]
+            #[doc =
+                  " items, otherwise the stream is invalid. If the number of items is not known"]
+            #[doc =
+                  " when creating the map, the constant \\ref CborIndefiniteLength may be passed as"]
+            #[doc = " length instead."]
+            #[doc = ""]
+            #[doc =
+                  " \\b{Implementation limitation:} TinyCBOR cannot encode more than SIZE_MAX/2"]
+            #[doc =
+                  " key-value pairs in the stream. If the length \\a length is larger than this"]
+            #[doc =
+                  " value, this function returns error CborErrorDataTooLarge."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encoder_create_array"]
+            pub fn cbor_encoder_create_map(encoder: *mut CborEncoder,
+                                           mapEncoder: *mut CborEncoder,
+                                           length: usize) -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Creates a indefinite-length byte string in the CBOR stream provided by"]
+            #[doc =
+                  " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
+            #[doc =
+                  " can be added using the CborEncoder functions. The string must be terminated by"]
+            #[doc =
+                  " calling cbor_encoder_close_container() with the same \\a encoder and"]
+            #[doc = " \\a stringEncoder parameters."]
+            #[doc = ""]
+            #[doc = " \\sa cbor_encoder_create_array"]
+            pub fn cbor_encoder_create_indef_byte_string(encoder:
+                                                             *mut CborEncoder,
+                                                         stringEncoder:
+                                                             *mut CborEncoder)
+             -> CborError;
+        }
+        extern "C" {
+            #[doc =
+                  " Closes the CBOR container (array, map or indefinite-length string) provided"]
+            #[doc =
+                  " by \\a containerEncoder and updates the CBOR stream provided by \\a encoder."]
+            #[doc =
+                  " Both parameters must be the same as were passed to cbor_encoder_create_array() or"]
+            #[doc =
+                  " cbor_encoder_create_map() or cbor_encoder_create_indef_byte_string()."]
+            #[doc = ""]
+            #[doc =
+                  " This function does not verify that the number of items (or pair of items, in"]
+            #[doc =
+                  " the case of a map) was correct. To execute that verification, call"]
+            #[doc = " cbor_encoder_close_container_checked() instead."]
+            #[doc = ""]
+            #[doc =
+                  " \\sa cbor_encoder_create_array(), cbor_encoder_create_map()"]
+            pub fn cbor_encoder_close_container(encoder: *mut CborEncoder,
+                                                containerEncoder:
+                                                    *const CborEncoder)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_encoder_close_container_checked(encoder:
+                                                            *mut CborEncoder,
+                                                        containerEncoder:
+                                                            *const CborEncoder)
+             -> CborError;
+        }
+        pub const CborParserIteratorFlags_CborIteratorFlag_IntegerValueTooLarge:
+                  CborParserIteratorFlags =
+            1;
+        pub const CborParserIteratorFlags_CborIteratorFlag_NegativeInteger:
+                  CborParserIteratorFlags =
+            2;
+        pub const CborParserIteratorFlags_CborIteratorFlag_UnknownLength:
+                  CborParserIteratorFlags =
+            4;
+        pub const CborParserIteratorFlags_CborIteratorFlag_ContainerIsMap:
+                  CborParserIteratorFlags =
+            32;
+        pub type CborParserIteratorFlags = u32;
+        pub type cbor_reader_get8
+            =
+            ::core::option::Option<unsafe extern "C" fn(d:
+                                                            *mut cbor_decoder_reader,
+                                                        offset: ::cty::c_int)
+                                       -> u8>;
+        pub type cbor_reader_get16
+            =
+            ::core::option::Option<unsafe extern "C" fn(d:
+                                                            *mut cbor_decoder_reader,
+                                                        offset: ::cty::c_int)
+                                       -> u16>;
+        pub type cbor_reader_get32
+            =
+            ::core::option::Option<unsafe extern "C" fn(d:
+                                                            *mut cbor_decoder_reader,
+                                                        offset: ::cty::c_int)
+                                       -> u32>;
+        pub type cbor_reader_get64
+            =
+            ::core::option::Option<unsafe extern "C" fn(d:
+                                                            *mut cbor_decoder_reader,
+                                                        offset: ::cty::c_int)
+                                       -> u64>;
+        pub type cbor_memcmp
+            =
+            ::core::option::Option<unsafe extern "C" fn(d:
+                                                            *mut cbor_decoder_reader,
+                                                        buf:
+                                                            *mut ::cty::c_char,
+                                                        offset: ::cty::c_int,
+                                                        len: usize) -> usize>;
+        pub type cbor_memcpy
+            =
+            ::core::option::Option<unsafe extern "C" fn(d:
+                                                            *mut cbor_decoder_reader,
+                                                        buf:
+                                                            *mut ::cty::c_char,
+                                                        offset: ::cty::c_int,
+                                                        len: usize) -> usize>;
+        #[repr(C)]
+        pub struct cbor_decoder_reader {
+            pub get8: cbor_reader_get8,
+            pub get16: cbor_reader_get16,
+            pub get32: cbor_reader_get32,
+            pub get64: cbor_reader_get64,
+            pub cmp: cbor_memcmp,
+            pub cpy: cbor_memcpy,
+            pub message_size: usize,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::default::Default for cbor_decoder_reader {
+            #[inline]
+            fn default() -> cbor_decoder_reader {
+                cbor_decoder_reader{get8: ::core::default::Default::default(),
+                                    get16:
+                                        ::core::default::Default::default(),
+                                    get32:
+                                        ::core::default::Default::default(),
+                                    get64:
+                                        ::core::default::Default::default(),
+                                    cmp: ::core::default::Default::default(),
+                                    cpy: ::core::default::Default::default(),
+                                    message_size:
+                                        ::core::default::Default::default(),}
+            }
+        }
+        #[repr(C)]
+        pub struct CborParser {
+            pub d: *mut cbor_decoder_reader,
+            pub end: ::cty::c_int,
+            pub flags: ::cty::c_int,
+        }
+        impl Default for CborParser {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        #[repr(C)]
+        pub struct CborValue {
+            pub parser: *const CborParser,
+            pub offset: ::cty::c_int,
+            pub remaining: u32,
+            pub extra: u16,
+            pub type_: u8,
+            pub flags: u8,
+        }
+        impl Default for CborValue {
+            fn default() -> Self { unsafe { ::core::mem::zeroed() } }
+        }
+        extern "C" {
+            pub fn cbor_parser_init(d: *mut cbor_decoder_reader,
+                                    flags: ::cty::c_int,
+                                    parser: *mut CborParser,
+                                    it: *mut CborValue) -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_advance_fixed(it: *mut CborValue) -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_advance(it: *mut CborValue) -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_enter_container(it: *const CborValue,
+                                              recursed: *mut CborValue)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_leave_container(it: *mut CborValue,
+                                              recursed: *const CborValue)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_get_int64_checked(value: *const CborValue,
+                                                result: *mut i64)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_get_int_checked(value: *const CborValue,
+                                              result: *mut ::cty::c_int)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_skip_tag(it: *mut CborValue) -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_calculate_string_length(value: *const CborValue,
+                                                      length: *mut usize)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_text_string_equals(value: *const CborValue,
+                                                 string: *const ::cty::c_char,
+                                                 result: *mut bool)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_map_find_value(map: *const CborValue,
+                                             string: *const ::cty::c_char,
+                                             element: *mut CborValue)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_get_half_float(value: *const CborValue,
+                                             result: *mut ::cty::c_void)
+             -> CborError;
+        }
+        extern "C" {
+            pub fn cbor_value_to_pretty_advance(out: *mut FILE,
+                                                value: *mut CborValue)
+             -> CborError;
+        }
+        pub const CborMajorTypes_UnsignedIntegerType: CborMajorTypes = 0;
+        pub const CborMajorTypes_NegativeIntegerType: CborMajorTypes = 1;
+        pub const CborMajorTypes_ByteStringType: CborMajorTypes = 2;
+        pub const CborMajorTypes_TextStringType: CborMajorTypes = 3;
+        pub const CborMajorTypes_ArrayType: CborMajorTypes = 4;
+        pub const CborMajorTypes_MapType: CborMajorTypes = 5;
+        pub const CborMajorTypes_TagType: CborMajorTypes = 6;
+        pub const CborMajorTypes_SimpleTypesType: CborMajorTypes = 7;
+        pub type CborMajorTypes = u32;
+        pub const CborSimpleTypes_FalseValue: CborSimpleTypes = 20;
+        pub const CborSimpleTypes_TrueValue: CborSimpleTypes = 21;
+        pub const CborSimpleTypes_NullValue: CborSimpleTypes = 22;
+        pub const CborSimpleTypes_UndefinedValue: CborSimpleTypes = 23;
+        pub const CborSimpleTypes_SimpleTypeInNextByte: CborSimpleTypes = 24;
+        pub const CborSimpleTypes_HalfPrecisionFloat: CborSimpleTypes = 25;
+        pub const CborSimpleTypes_SinglePrecisionFloat: CborSimpleTypes = 26;
+        pub const CborSimpleTypes_DoublePrecisionFloat: CborSimpleTypes = 27;
+        pub const CborSimpleTypes_Break: CborSimpleTypes = 31;
+        pub type CborSimpleTypes = u32;
+    }
+    pub mod coap_context {
+        //! COAP encoder state used by CoAP encoding macros
+        use cstr_core::CStr;
+        use cty::*;
+        use crate::fill_zero;
+        /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
+        pub static mut COAP_CONTEXT: CoapContext =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<CoapContext>()],
+                                         CoapContext>([0;
+                                                          ::core::mem::size_of::<CoapContext>()])
+            };
+        /// CoAP encoder state. Buffers the next key and value to be encoded.
+        pub struct CoapContext {
+            /// Static buffer for the key to be encoded. Will be passed to Mynewt COAP encoder API.  Always null-terminated.
+            key_buffer: [u8; COAP_KEY_SIZE],
+            /// Static buffer for the string value to be encoded. Will be passed to Mynewt COAP encoder API.  Always null-terminated.
+            value_buffer: [u8; COAP_VALUE_SIZE],
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::default::Default for CoapContext {
+            #[inline]
+            fn default() -> CoapContext {
+                CoapContext{key_buffer: ::core::default::Default::default(),
+                            value_buffer:
+                                ::core::default::Default::default(),}
+            }
+        }
+        /// Size of the static key buffer
+        const COAP_KEY_SIZE: usize = 32;
+        /// Size of the static value buffer
+        const COAP_VALUE_SIZE: usize = 32;
+        impl CoapContext {
+            /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
+            /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+            /// append null and return the buffer as a pointer.
+            pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+                if !(s.len() < COAP_KEY_SIZE) {
+                    {
+                        ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
+                                                   "rust/mynewt/src/encoding/coap_context.rs",
+                                                   33u32, 9u32))
+                    }
+                };
+                self.key_buffer[..s.len()].copy_from_slice(s);
+                self.key_buffer[s.len()] = 0;
+                self.key_buffer.as_ptr() as *const c_char
+            }
+            /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP values.
+            /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
+            /// append null and return the buffer as a pointer.
+            pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+                if s.last() == Some(&0) {
+                    return s.as_ptr() as *const c_char;
+                }
+                if !(s.len() < COAP_VALUE_SIZE) {
+                    {
+                        ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
+                                                   "rust/mynewt/src/encoding/coap_context.rs",
+                                                   46u32, 9u32))
+                    }
+                };
+                self.value_buffer[..s.len()].copy_from_slice(s);
+                self.value_buffer[s.len()] = 0;
+                self.value_buffer.as_ptr() as *const c_char
+            }
+            /// Compute the byte length of the string in `s`.
+            /// If `s` is null-terminated, return length of `s` - 1. Else return length of `s`.
+            pub fn cstr_len(&self, s: &[u8]) -> usize {
+                if s.last() == Some(&0) { return s.len() - 1; }
+                s.len()
+            }
+            /// Return the global CBOR encoder
+            pub fn global_encoder(&self)
+             -> *mut super::tinycbor::CborEncoder {
+                unsafe { &mut super::g_encoder }
+            }
+            /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
+            pub fn encoder(&self, _parent: &str, _child: &str)
+             -> *mut super::tinycbor::CborEncoder {
+                unsafe { &mut super::root_map }
+            }
+            /// Fail the encoding with an error if `res` is non-zero.
+            pub fn check_result(&self, res: u32) {
+                {
+                    match (&res, &0) {
+                        (left_val, right_val) => {
+                            if !(*left_val == *right_val) {
+                                {
+                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                  "`,\n right: `",
+                                                                                                  "`"],
+                                                                                                &match (&&*left_val,
+                                                                                                        &&*right_val)
+                                                                                                     {
+                                                                                                     (arg0,
+                                                                                                      arg1)
+                                                                                                     =>
+                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                 }),
+                                                                 &("rust/mynewt/src/encoding/coap_context.rs",
+                                                                   73u32,
+                                                                   9u32))
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+            /// Fail the encoding with an error
+            pub fn fail(&mut self, err: CoapError) {
+                {
+                    match (&err, &CoapError::OK) {
+                        (left_val, right_val) => {
+                            if !(*left_val == *right_val) {
+                                {
+                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                  "`,\n right: `",
+                                                                                                  "`"],
+                                                                                                &match (&&*left_val,
+                                                                                                        &&*right_val)
+                                                                                                     {
+                                                                                                     (arg0,
+                                                                                                      arg1)
+                                                                                                     =>
+                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                 }),
+                                                                 &("rust/mynewt/src/encoding/coap_context.rs",
+                                                                   78u32,
+                                                                   9u32))
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+            /// Cast itself as a `*mut c_void`
+            pub fn to_void_ptr(&mut self) -> *mut c_void {
+                let ptr: *mut CoapContext = self;
+                ptr as *mut c_void
+            }
+        }
+        /// Error codes for COAP encoding failure
+        pub enum CoapError {
+
+            /// No error
+            OK = 0,
+
+            /// Encoded value is not unsigned integer
+            VALUE_NOT_UINT = 1,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::fmt::Debug for CoapError {
+            fn fmt(&self, f: &mut ::core::fmt::Formatter)
+             -> ::core::fmt::Result {
+                match (&*self,) {
+                    (&CoapError::OK,) => {
+                        let mut debug_trait_builder = f.debug_tuple("OK");
+                        debug_trait_builder.finish()
+                    }
+                    (&CoapError::VALUE_NOT_UINT,) => {
+                        let mut debug_trait_builder =
+                            f.debug_tuple("VALUE_NOT_UINT");
+                        debug_trait_builder.finish()
+                    }
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::cmp::PartialEq for CoapError {
+            #[inline]
+            fn eq(&self, other: &CoapError) -> bool {
+                {
+                    let __self_vi =
+                        unsafe {
+                            ::core::intrinsics::discriminant_value(&*self)
+                        } as isize;
+                    let __arg_1_vi =
+                        unsafe {
+                            ::core::intrinsics::discriminant_value(&*other)
+                        } as isize;
+                    if true && __self_vi == __arg_1_vi {
+                        match (&*self, &*other) { _ => true, }
+                    } else { false }
+                }
+            }
+        }
+        /// Convert the type to array of bytes that may or may not end with null
+        pub trait ToBytesOptionalNull {
+            /// Convert the type to array of bytes that may or may not end with null
+            fn to_bytes_optional_nul(&self)
+            -> &[u8];
+        }
+        /// Convert the type to array of bytes that may or may not end with null
+        impl ToBytesOptionalNull for [u8] {
+            /// Convert the type to array of bytes that may or may not end with null
+            fn to_bytes_optional_nul(&self) -> &[u8] { self }
+        }
+        /// Convert the type to array of bytes that may or may not end with null
+        impl ToBytesOptionalNull for str {
+            /// Convert the type to array of bytes that may or may not end with null
+            fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+        }
+        /// Convert the type to array of bytes that may or may not end with null
+        impl ToBytesOptionalNull for &str {
+            /// Convert the type to array of bytes that may or may not end with null
+            fn to_bytes_optional_nul(&self) -> &[u8] { self.as_bytes() }
+        }
+        /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
+        impl ToBytesOptionalNull for CStr {
+            /// Convert the type to array of bytes that may or may not end with null. CStr always includes nulls.
+            fn to_bytes_optional_nul(&self) -> &[u8] {
+                self.to_bytes_with_nul()
+            }
+        }
+    }
+}
+#[macro_use]
+pub mod util {
+    //! Mynewt Utility Macros for Rust
+    #[macro_use]
+    pub mod macros {
+        //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
+        //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
+        //!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
+        ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
+        ///  `fill_zero!(os_task)` expands to
+        ///  ```
+        /// unsafe { 
+        ///	::core::mem::transmute::
+        ///	<
+        ///	  [
+        ///		u8; 
+        ///		::core::mem::size_of::<os_task>()
+        ///	  ], 
+        ///	  os_task
+        ///	>
+        ///	(
+        ///	  [
+        ///		0; 
+        ///		::core::mem::size_of::<os_task>()
+        ///	  ]
+        ///	) 
+        /// }
+        ///  ```
+        #[macro_export]
+        macro_rules! fill_zero(( $ type : ident ) => {
+                               unsafe {
+                               :: core :: mem :: transmute :: < [
+                               u8 ; :: core :: mem :: size_of :: < $ type > (
+                               ) ] , $ type > (
+                               [
+                               0 ; :: core :: mem :: size_of :: < $ type > (
+                               ) ] ) } } ;);
+        ///  Macro that takes an identifier and returns a `[u8]` containing the identifier, terminated by 0.
+        ///  Used to convert an identifier to a C null-terminated string.
+        #[macro_export]
+        macro_rules! stringify_null(( $ key : ident ) => {
+                                    concat ! ( stringify ! ( $ key ) , "\0" )
+                                    } ;);
+        ///  Macro to dump all tokens received as a literal string, e.g.
+        ///  `d!(a b c)` returns `"a b c"`
+        #[macro_export]
+        macro_rules! d(( $ ( $ token : tt ) * ) => {
+                       stringify ! ( $ ( $ token ) * ) } ;);
+        ///  Macro to display the token being parsed and the remaining tokens
+        #[macro_export]
+        macro_rules! nx((
+                        ( $ ( $ current : tt ) * ) , ( $ ( $ next : tt ) * ) ,
+                        ( $ ( $ rest : tt ) * ) ) => {
+                        concat ! (
+                        " >> " , stringify ! ( $ ( $ current ) * ) , " >> " ,
+                        stringify ! ( $ ( $ next ) * ) , " >> " , stringify !
+                        ( $ ( $ rest ) * ) ) ; } ;);
     }
 }
 #[allow(dead_code)]

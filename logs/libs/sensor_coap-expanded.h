@@ -1312,11 +1312,12 @@
 
 
 /*** libs/sensor_coap */
-
-#define MYNEWT_VAL_COAP_CBOR_ENCODING (0)
-
-
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
+
+#define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
+
+
+/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -1334,7 +1335,7 @@
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
+#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true")
 
 
 
@@ -29742,9 +29743,10 @@ void json_rep_start_root_object(void);
 //  {... --> {...}
 void json_rep_end_root_object(void);
 
-//  Assume we are writing an object now.  Write the key name and start a child array.
+//  Assume we are writing an object now.  Write the key name and start a child array.  `_k` version does not stringify the key.
 //  {a:b --> {a:b, key:[
 #define json_rep_set_array(object,key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
+#define json_rep_set_array_k(object,key) { json_encode_array_name(&coap_json_encoder, key); json_encode_array_start(&coap_json_encoder); }
 
 //  End the child array and resume writing the parent object.
 //  {a:b, key:[... --> {a:b, key:[...]
@@ -29763,42 +29765,152 @@ void json_rep_end_root_object(void);
 
 
 
-//  Encode a value into JSON: int, unsigned int, float, text, ...
+//  Encode a value into JSON: int, unsigned int, float, text, ... `_k` version does not stringify the key.
 #define json_rep_set_int(object,key,value) { JSON_VALUE_INT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_int_k(object,key,value) { JSON_VALUE_INT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, key, &coap_json_value); }
 #define json_rep_set_uint(object,key,value) { JSON_VALUE_UINT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_uint_k(object,key,value) { JSON_VALUE_UINT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, key, &coap_json_value); }
 #define json_rep_set_float(object,key,value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_float_k(object,key,value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, key, &coap_json_value); }
 #define json_rep_set_text_string(object,key,value) { JSON_VALUE_STRING (&coap_json_value, (char *) value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_text_string_k(object,key,value) { JSON_VALUE_STRING (&coap_json_value, (char *) value); json_encode_object_entry (&coap_json_encoder, key, &coap_json_value); }
 
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON-Only Encoding Macros
-
-
-
-//  Alias the generic rep* macros as json_rep*
-#define rep_start_root_object() json_rep_start_root_object()
-#define rep_end_root_object() json_rep_end_root_object()
-
-#define rep_set_array(object,key) json_rep_set_array( object, key)
-#define rep_close_array(object,key) json_rep_close_array(object, key)
-
-#define rep_object_array_start_item(key) json_rep_object_array_start_item(key)
-#define rep_object_array_end_item(key) json_rep_object_array_end_item(key)
-
-#define rep_set_int(object,key,value) json_rep_set_int( object, key, value)
-#define rep_set_uint(object,key,value) json_rep_set_uint( object, key, value)
-#define rep_set_float(object,key,value) json_rep_set_float( object, key, value)
-#define rep_set_text_string(object,key,value) json_rep_set_text_string(object, key, value)
-
-
-
+# 121 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR-Only Encoding Macros
-# 140 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+# 145 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON and CBOR Coexistence Encoding Macros
-# 219 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+
+
+
+//  JSON or CBOR encoding will be selected by the Sensor Network, which depends on whether we're sending
+//  to CoAP Server (JSON) or Collector Node (CBOR)
+
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 1
+/*
+// Copyright (c) 2016 Intel Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+*/
+# 154 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
+/*
+ * Copyright (c) 2016 Intel Corporation
+ *
+ * Copyright (c) 2013, Institute for Pervasive Computing, ETH Zurich
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the Institute nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * This file is part of the Contiki operating system.
+ */
+# 155 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+
+#undef COAP_CONTENT_FORMAT
+extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
+#define JSON_ENC (oc_content_format == APPLICATION_JSON) /*  True if encoding format is JSON*/
+
+//  From repos\apache-mynewt-core\net\oic\include\oic\oc_rep.h
+//  Changed "#key" to "key" so that the key won't be stringified.
+
+#define oc_rep_set_int_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_int(&object ##_map, value); } while (0)
+
+
+
+
+
+#define oc_rep_set_uint_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_uint(&object ##_map, value); } while (0)
+
+
+
+
+
+#define oc_rep_set_float_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_float(&object ##_map, value); } while (0)
+
+
+
+
+
+#define oc_rep_set_text_string_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_text_string(&object ##_map, value, strlen(value)); } while (0)
+
+
+
+
+
+#define rep_start_root_object() oc_rep_start_root_object(); if (JSON_ENC) { json_rep_start_root_object(); }
+
+
+#define rep_end_root_object() if (JSON_ENC) { json_rep_end_root_object(); } oc_rep_end_root_object();
+
+
+#define rep_set_array(object,key) oc_rep_set_array(object, key); if (JSON_ENC) { json_rep_set_array(object, key); }
+
+
+#define rep_close_array(object,key) if (JSON_ENC) { json_rep_close_array(object, key); } oc_rep_close_array(object, key);
+
+
+#define rep_object_array_start_item(key) oc_rep_object_array_start_item(key); if (JSON_ENC) { json_rep_object_array_start_item(key); }
+
+
+#define rep_object_array_end_item(key) if (JSON_ENC) { json_rep_object_array_end_item(key); } oc_rep_object_array_end_item(key);
+
+
+//  oc_rep_set_int(object, key, value)
+//  -> cbor_encode_text_string(&object##_map, #key, strlen(#key));
+//     cbor_encode_int(&object##_map, value);      
+//  oc_rep_set_key(parent, key)
+//  -> cbor_encode_text_string(&parent, key, strlen(key))
+
+#define rep_set_int(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int(object, key, value); } }
+#define rep_set_uint(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint(object, key, value); } }
+#define rep_set_float(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double(object, key, value); } }
+#define rep_set_text_string(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string(object, key, value); } }
+
+//  Same as above, except that the key is not stringified.
+#define rep_set_int_k(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int_k(object, key, value); } }
+#define rep_set_uint_k(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint_k(object, key, value); } }
+#define rep_set_float_k(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double_k(object, key, value); } }
+#define rep_set_text_string_k(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string_k(object, key, value); } }
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //  CP Macros for composing CoAP Payloads in JSON and CBOR
 //  The format defined here is used by thethings.io for receiving sensor data
@@ -29901,9 +30013,85 @@ void json_rep_end_root_object(void);
 #define CP_ITEM_STR(array0,key0,value0) { CP_ITEM(array0, { rep_set_text_string(array0, key, key0); rep_set_text_string(array0, value, value0); }) }
 # 28 "libs/sensor_coap/src/sensor_coap.c" 2
 
+# 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor_cnt_writer.h" 1
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
+#define CBOR_CNT_WRITER_H 
+
+# 1 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h" 1
+/****************************************************************************
+**
+** Copyright (C) 2015 Intel Corporation
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+**
+****************************************************************************/
+# 24 "repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor_cnt_writer.h" 2
 
 
 
+
+
+
+    /* use this count writer if you want to try out a cbor encoding to see
+     * how long it would be (before allocating memory). This replaced the
+     * code in tinycbor.h that would try to do this once the encoding failed
+     * in a buffer.  Its much easier to understand this way (for me)
+     */
+
+struct CborCntWriter {
+    struct cbor_encoder_writer enc;
+};
+
+static inline int
+cbor_cnt_writer(struct cbor_encoder_writer *arg, const char *data, int len) {
+    struct CborCntWriter *cb = (struct CborCntWriter *) arg;
+    cb->enc.bytes_written += len;
+    return CborNoError;
+}
+
+static inline void
+cbor_cnt_writer_init(struct CborCntWriter *cb) {
+    cb->enc.bytes_written = 0;
+    cb->enc.write = &cbor_cnt_writer;
+}
+# 30 "libs/sensor_coap/src/sensor_coap.c" 2
+///  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected
+static struct CborCntWriter cnt_writer;
 
 
 #define OC_CLIENT_CB_TIMEOUT_SECS COAP_RESPONSE_TIMEOUT
@@ -30005,7 +30193,7 @@ dispatch_coap_request(void)
         (oc_content_format == APPLICATION_JSON) ? json_rep_finalize() :
 
 
-
+        (oc_content_format == APPLICATION_CBOR) ? oc_rep_finalize() :
 
         0; //  Unknown CoAP content format.
 
@@ -30091,7 +30279,7 @@ prepare_coap_request(oc_client_cb_t *cb, oc_string_t *query)
     }
     else if (oc_content_format == APPLICATION_CBOR) {
 
-
+        oc_rep_new(oc_c_rsp);
 
     }
     else { ((0) ? (void)0 : __assert_func(
@@ -30188,8 +30376,8 @@ init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_cont
 # 166 "libs/sensor_coap/src/sensor_coap.c"
                                                    ));
 
-    //  If content format is not specified, select the default.
-    if (coap_content_format == 0) { coap_content_format = APPLICATION_JSON /*  Specify JSON content type and accept type in the CoAP header.*/; }
+
+
 
     ((coap_content_format != 0) ? (void)0 : __assert_func(
 # 171 "libs/sensor_coap/src/sensor_coap.c" 3 4
@@ -30358,9 +30546,9 @@ void json_rep_new(struct os_mbuf *m) {
     coap_json_mbuf = m;
 
 
-
-
-
+    //  Set a dummy writer so that CBOR encoder will not crash when JSON encoding is selected.
+    cbor_cnt_writer_init(&cnt_writer);
+    cbor_encoder_init(&g_encoder, &cnt_writer.enc, 0);
 
 }
 

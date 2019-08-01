@@ -2744,11 +2744,12 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 
 /*** libs/sensor_coap */
-
-#define MYNEWT_VAL_COAP_CBOR_ENCODING (0)
-
-
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
+
+#define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
+
+
+/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -2766,7 +2767,7 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
+#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true")
 
 
 
@@ -30986,9 +30987,10 @@ void json_rep_start_root_object(void);
 //  {... --> {...}
 void json_rep_end_root_object(void);
 
-//  Assume we are writing an object now.  Write the key name and start a child array.
+//  Assume we are writing an object now.  Write the key name and start a child array.  `_k` version does not stringify the key.
 //  {a:b --> {a:b, key:[
 #define json_rep_set_array(object,key) { json_encode_array_name(&coap_json_encoder, #key); json_encode_array_start(&coap_json_encoder); }
+#define json_rep_set_array_k(object,key) { json_encode_array_name(&coap_json_encoder, key); json_encode_array_start(&coap_json_encoder); }
 
 //  End the child array and resume writing the parent object.
 //  {a:b, key:[... --> {a:b, key:[...]
@@ -31007,42 +31009,152 @@ void json_rep_end_root_object(void);
 
 
 
-//  Encode a value into JSON: int, unsigned int, float, text, ...
+//  Encode a value into JSON: int, unsigned int, float, text, ... `_k` version does not stringify the key.
 #define json_rep_set_int(object,key,value) { JSON_VALUE_INT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_int_k(object,key,value) { JSON_VALUE_INT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, key, &coap_json_value); }
 #define json_rep_set_uint(object,key,value) { JSON_VALUE_UINT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_uint_k(object,key,value) { JSON_VALUE_UINT (&coap_json_value, value); json_encode_object_entry (&coap_json_encoder, key, &coap_json_value); }
 #define json_rep_set_float(object,key,value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_float_k(object,key,value) { JSON_VALUE_EXT_FLOAT(&coap_json_value, value); json_encode_object_entry_ext(&coap_json_encoder, key, &coap_json_value); }
 #define json_rep_set_text_string(object,key,value) { JSON_VALUE_STRING (&coap_json_value, (char *) value); json_encode_object_entry (&coap_json_encoder, #key, &coap_json_value); }
+#define json_rep_set_text_string_k(object,key,value) { JSON_VALUE_STRING (&coap_json_value, (char *) value); json_encode_object_entry (&coap_json_encoder, key, &coap_json_value); }
 
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON-Only Encoding Macros
-
-
-
-//  Alias the generic rep* macros as json_rep*
-#define rep_start_root_object() json_rep_start_root_object()
-#define rep_end_root_object() json_rep_end_root_object()
-
-#define rep_set_array(object,key) json_rep_set_array( object, key)
-#define rep_close_array(object,key) json_rep_close_array(object, key)
-
-#define rep_object_array_start_item(key) json_rep_object_array_start_item(key)
-#define rep_object_array_end_item(key) json_rep_object_array_end_item(key)
-
-#define rep_set_int(object,key,value) json_rep_set_int( object, key, value)
-#define rep_set_uint(object,key,value) json_rep_set_uint( object, key, value)
-#define rep_set_float(object,key,value) json_rep_set_float( object, key, value)
-#define rep_set_text_string(object,key,value) json_rep_set_text_string(object, key, value)
-
-
-
+# 121 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR-Only Encoding Macros
-# 140 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+# 145 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON and CBOR Coexistence Encoding Macros
-# 219 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+
+
+
+//  JSON or CBOR encoding will be selected by the Sensor Network, which depends on whether we're sending
+//  to CoAP Server (JSON) or Collector Node (CBOR)
+
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/oc_rep.h" 1
+/*
+// Copyright (c) 2016 Intel Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+*/
+# 154 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+# 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
+/*
+ * Copyright (c) 2016 Intel Corporation
+ *
+ * Copyright (c) 2013, Institute for Pervasive Computing, ETH Zurich
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the Institute nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * This file is part of the Contiki operating system.
+ */
+# 155 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+
+#undef COAP_CONTENT_FORMAT
+extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
+#define JSON_ENC (oc_content_format == APPLICATION_JSON) /*  True if encoding format is JSON*/
+
+//  From repos\apache-mynewt-core\net\oic\include\oic\oc_rep.h
+//  Changed "#key" to "key" so that the key won't be stringified.
+
+#define oc_rep_set_int_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_int(&object ##_map, value); } while (0)
+
+
+
+
+
+#define oc_rep_set_uint_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_uint(&object ##_map, value); } while (0)
+
+
+
+
+
+#define oc_rep_set_float_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_float(&object ##_map, value); } while (0)
+
+
+
+
+
+#define oc_rep_set_text_string_k(object,key,value) do { g_err |= cbor_encode_text_string(&object ##_map, key, strlen(key)); g_err |= cbor_encode_text_string(&object ##_map, value, strlen(value)); } while (0)
+
+
+
+
+
+#define rep_start_root_object() oc_rep_start_root_object(); if (JSON_ENC) { json_rep_start_root_object(); }
+
+
+#define rep_end_root_object() if (JSON_ENC) { json_rep_end_root_object(); } oc_rep_end_root_object();
+
+
+#define rep_set_array(object,key) oc_rep_set_array(object, key); if (JSON_ENC) { json_rep_set_array(object, key); }
+
+
+#define rep_close_array(object,key) if (JSON_ENC) { json_rep_close_array(object, key); } oc_rep_close_array(object, key);
+
+
+#define rep_object_array_start_item(key) oc_rep_object_array_start_item(key); if (JSON_ENC) { json_rep_object_array_start_item(key); }
+
+
+#define rep_object_array_end_item(key) if (JSON_ENC) { json_rep_object_array_end_item(key); } oc_rep_object_array_end_item(key);
+
+
+//  oc_rep_set_int(object, key, value)
+//  -> cbor_encode_text_string(&object##_map, #key, strlen(#key));
+//     cbor_encode_int(&object##_map, value);      
+//  oc_rep_set_key(parent, key)
+//  -> cbor_encode_text_string(&parent, key, strlen(key))
+
+#define rep_set_int(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int(object, key, value); } }
+#define rep_set_uint(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint(object, key, value); } }
+#define rep_set_float(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double(object, key, value); } }
+#define rep_set_text_string(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string(object, key, value); } }
+
+//  Same as above, except that the key is not stringified.
+#define rep_set_int_k(object,key,value) { if (JSON_ENC) { json_rep_set_int(object, key, value); } else { oc_rep_set_int_k(object, key, value); } }
+#define rep_set_uint_k(object,key,value) { if (JSON_ENC) { json_rep_set_uint(object, key, value); } else { oc_rep_set_uint_k(object, key, value); } }
+#define rep_set_float_k(object,key,value) { if (JSON_ENC) { json_rep_set_float(object, key, value); } else { oc_rep_set_double_k(object, key, value); } }
+#define rep_set_text_string_k(object,key,value) { if (JSON_ENC) { json_rep_set_text_string(object, key, value); } else { oc_rep_set_text_string_k(object, key, value); } }
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //  CP Macros for composing CoAP Payloads in JSON and CBOR
 //  The format defined here is used by thethings.io for receiving sensor data
@@ -31482,7 +31594,7 @@ static char device_id_text[(1 + 16 /*  16 random bytes in binary device ID*/ * 2
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
 static const char COAP_HOST[] = ("104.199.85.211"); //  CoAP hostname e.g. coap.thethings.io
-static const char COAP_URI[] = ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"); //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
+static const char COAP_URI[] = ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true"); //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
 /////////////////////////////////////////////////////////
 //  Sensor Networks: Interfaces, Endpoints and Encoding
@@ -31821,9 +31933,9 @@ _Bool
     //  Return true if successful, false if network has not been registered.
     if (uri == 
 # 267 "libs/sensor_network/src/sensor_network.c" 3 4
-              ((void *)0)
+              ((void *)0) 
 # 267 "libs/sensor_network/src/sensor_network.c"
-                  ) { uri = COAP_URI; }
+                   || uri[0] == 0) { uri = COAP_URI; }
     ((uri) ? (void)0 : __assert_func(
 # 268 "libs/sensor_network/src/sensor_network.c" 3 4
    ((void *)0)

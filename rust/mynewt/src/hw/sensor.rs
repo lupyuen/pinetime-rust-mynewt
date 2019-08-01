@@ -6,6 +6,7 @@ use crate::{
     result::*,
     kernel::os::*,
     Strn,
+    fill_zero,
 };
 
 /// Contains the auto-generated Rust bindings for the Mynewt Sensor API
