@@ -411,21 +411,9 @@ mod app_network {
                             "begin cbor coap_array , object : COAP_CONTEXT , key : values";
                             {
                                 "begin oc_rep_set_array , object: COAP_CONTEXT, key: values, child: COAP_CONTEXT_map";
-                                unsafe {
-                                    cbor_encode_text_string(&mut COAP_CONTEXT_map,
-                                                            values.as_ptr(),
-                                                            values.len())
-                                };
-                                {
-                                    "begin oc_rep_start_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
-                                    unsafe {
-                                        tinycbor::cbor_encoder_create_array(&mut COAP_CONTEXT_map,
-                                                                            &mut values_array,
-                                                                            CborIndefiniteLength)
-                                    };
-                                    "end oc_rep_start_array";
-                                };
-                                "end oc_rep_set_array";
+                                let key_with_opt_null: &[u8] =
+                                    values.to_bytes_optional_nul();
+                                (/*ERROR*/)
                             };
                             {
                                 " >>  >> val >> ,";

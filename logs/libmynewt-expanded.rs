@@ -6457,12 +6457,20 @@ pub mod encoding {
                                       , stringify ! ( $ object ) , ", key: " ,
                                       stringify ! ( $ key ) , ", child: " ,
                                       stringify ! ( $ object ) , "_map" ) ;
-                                      unsafe {
+                                      let key_with_opt_null : & [ u8 ] = $ key
+                                      . to_bytes_optional_nul (  ) ; let
+                                      value_with_opt_null : & [ u8 ] = $ value
+                                      . to_bytes_optional_nul (  ) ;
+                                      proc_macros :: try_cbor ! (
+                                      {
+                                      let encoder = COAP_CONTEXT . encoder (
+                                      "COAP_CONTEXT" , "_map" ) ;
                                       cbor_encode_text_string (
-                                      & mut concat_idents ! ( $ object , _map
-                                      ) , $ key . as_ptr (  ) , $ key . len (
-                                      ) ) } ; $ crate :: oc_rep_start_array !
-                                      ( $ object , $ key , _map ) ; d ! (
+                                      encoder , COAP_CONTEXT . key_to_cstr (
+                                      key_with_opt_null ) , COAP_CONTEXT .
+                                      cstr_len ( key_with_opt_null ) ) } ) ; $
+                                      crate :: oc_rep_start_array ! (
+                                      $ object , $ key , _map ) ; d ! (
                                       end oc_rep_set_array ) ; } } ;);
         ///  End the child array and resume writing the parent object.
         ///  ```
@@ -6530,16 +6538,18 @@ pub mod encoding {
                                     $ key ) , ", v: " , stringify ! ( $ value
                                     ) ) ; let key_with_null : & str = $ crate
                                     :: stringify_null ! ( $ key ) ; let value
-                                    = $ value as i64 ; unsafe {
+                                    = $ value as i64 ; proc_macros :: try_cbor
+                                    ! (
+                                    {
                                     let encoder = $ context . encoder (
                                     stringify ! ( $ context ) , "_map" ) ;
-                                    tinycbor :: cbor_encode_text_string (
+                                    cbor_encode_text_string (
                                     encoder , $ context . key_to_cstr (
                                     key_with_null . as_bytes (  ) ) , $
                                     context . cstr_len (
                                     key_with_null . as_bytes (  ) ) ) ;
-                                    tinycbor :: cbor_encode_int (
-                                    encoder , value ) ; } } ; (
+                                    cbor_encode_int ( encoder , value ) ; } )
+                                    ; } ; (
                                     $ context : ident , $ key : expr , $ value
                                     : expr ) => {
                                     concat ! (
@@ -6572,8 +6582,12 @@ pub mod encoding {
                                             ! ( $ key ) , ", value: " ,
                                             stringify ! ( $ value ) ,
                                             ", child: " , stringify ! (
-                                            $ object ) , "_map" ) ;
-                                            proc_macros :: try_cbor ! (
+                                            $ object ) , "_map" ) ; let
+                                            key_with_opt_null : & [ u8 ] = $
+                                            key . to_bytes_optional_nul (  ) ;
+                                            let value_with_opt_null : & [ u8 ]
+                                            = $ value . to_bytes_optional_nul
+                                            (  ) ; proc_macros :: try_cbor ! (
                                             {
                                             let encoder = COAP_CONTEXT .
                                             encoder ( "COAP_CONTEXT" , "_map"
@@ -6582,19 +6596,14 @@ pub mod encoding {
                                             key_to_cstr ( key_with_opt_null )
                                             , COAP_CONTEXT . cstr_len (
                                             key_with_opt_null ) ) ;
-                                            cbor_encode_int ( encoder , value
-                                            ) ; } ) ; unsafe {
                                             cbor_encode_text_string (
-                                            & mut concat_idents ! (
-                                            $ object , _map ) , $ key . as_ptr
-                                            (  ) , $ key . len (  ) ) ;
-                                            cbor_encode_text_string (
-                                            & mut concat_idents ! (
-                                            $ object , _map ) , $ value .
-                                            as_ptr (  ) , $ value . len (  ) )
-                                            ; } d ! (
-                                            end oc_rep_set_text_string ) ; } }
-                                            ;);
+                                            encoder , COAP_CONTEXT .
+                                            value_to_cstr (
+                                            value_with_opt_null ) ,
+                                            COAP_CONTEXT . cstr_len (
+                                            value_with_opt_null ) ) ; } ) ; d
+                                            ! ( end oc_rep_set_text_string ) ;
+                                            } } ;);
     }
     /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
     pub mod json {

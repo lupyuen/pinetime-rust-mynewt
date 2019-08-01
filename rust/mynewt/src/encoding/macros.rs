@@ -946,9 +946,20 @@ macro_rules! oc_rep_set_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
-    unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
-    //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
+    //  Convert key and value to char array, which may or may not be null-terminated.
+    let key_with_opt_null:   &[u8] = $key.to_bytes_optional_nul();
+    let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
+    proc_macros::try_cbor!({
+      //  TODO: First para should be name of current map or array
+      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
+      //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
+      cbor_encode_text_string(
+        encoder, 
+        COAP_CONTEXT.key_to_cstr(key_with_opt_null), 
+        COAP_CONTEXT.cstr_len(key_with_opt_null)
+      ) 
+    });
+    //  Previously: oc_rep_start_array!(object##_map, key)
     $crate::oc_rep_start_array!($object, $key, _map);
     d!(end oc_rep_set_array);
   }};
@@ -1022,22 +1033,21 @@ macro_rules! oc_rep_set_int {
     //  Convert key to null-terminated char array. If key is `t`, convert to `"t\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     let value = $value as i64;
-
-    unsafe {
+    proc_macros::try_cbor!({
       //  TODO: First para should be name of current map or array
       let encoder = $context.encoder(stringify!($context), "_map");
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      tinycbor::cbor_encode_text_string(
+      //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
+      cbor_encode_text_string(
         encoder,
         $context.key_to_cstr(key_with_null.as_bytes()),
         $context.cstr_len(key_with_null.as_bytes())
       );
-      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-      tinycbor::cbor_encode_int(
+      //  Previously: g_err |= cbor_encode_int(&object##_map, value)
+      cbor_encode_int(
         encoder,
         value
       );
-    }
+    });
   };
 
   ($context:ident, $key:expr, $value:expr) => {  //  If $key is expression...
@@ -1053,13 +1063,13 @@ macro_rules! oc_rep_set_int {
     proc_macros::try_cbor!({
       //  TODO: First para should be name of current map or array
       let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
         encoder,
         COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-        COAP_CONTEXT.cstr_len(key_with_opt_null)
+        COAP_CONTEXT.cstr_len(   key_with_opt_null)
       );
-      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+      //  Previously: g_err |= cbor_encode_int(&object##_map, value)
       cbor_encode_int(
         encoder,
         value
@@ -1079,28 +1089,25 @@ macro_rules! oc_rep_set_text_string {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
+    //  Convert key and value to char array, which may or may not be null-terminated.
+    let key_with_opt_null:   &[u8] = $key.to_bytes_optional_nul();
+    let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     proc_macros::try_cbor!({
       //  TODO: First para should be name of current map or array
       let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
-        encoder,
-        COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-        COAP_CONTEXT.cstr_len(key_with_opt_null)
+        encoder, 
+        COAP_CONTEXT.key_to_cstr(key_with_opt_null), 
+        COAP_CONTEXT.cstr_len(   key_with_opt_null)
       );
-      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-      cbor_encode_int(
-        encoder,
-        value
+      //  Previously: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value))
+      cbor_encode_text_string(
+        encoder, 
+        COAP_CONTEXT.value_to_cstr(value_with_opt_null), 
+        COAP_CONTEXT.cstr_len(     value_with_opt_null)
       );
     });
-
-    unsafe {
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, value, strlen(value)));
-      cbor_encode_text_string(&mut concat_idents!($object, _map), $value.as_ptr(), $value.len());
-    }
     d!(end oc_rep_set_text_string);
   }};
 }
