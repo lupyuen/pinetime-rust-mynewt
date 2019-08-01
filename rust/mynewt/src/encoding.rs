@@ -1,5 +1,14 @@
 //! Mynewt Encoding API for Rust
 
+/// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+#[link(name = "net_oic")]
+extern {
+    /// Global CBOR encoder
+    pub static mut g_encoder: tinycbor::CborEncoder;
+    /// Global CBOR root map
+    pub static mut root_map:  tinycbor::CborEncoder;
+}
+
 /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
 pub mod json;  // Export `json.rs` as Rust module `mynewt::encoding::json`
 

@@ -52,7 +52,6 @@ pub mod macros {
 
 
 
-
     //  Allow type names to have non-camel case
 
 
@@ -986,6 +985,14 @@ pub mod macros {
 #[allow(non_upper_case_globals)]
 pub mod encoding {
     //! Mynewt Encoding API for Rust
+    /// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+    #[link(name = "net_oic")]
+    extern "C" {
+        /// Global CBOR encoder
+        pub static mut g_encoder: tinycbor::CborEncoder;
+        /// Global CBOR root map
+        pub static mut root_map: tinycbor::CborEncoder;
+    }
     /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
     pub mod json {
         use super::*;
@@ -2377,12 +2384,12 @@ pub mod encoding {
             /// Return the global CBOR encoder
             pub fn global_encoder(&self)
              -> *mut super::tinycbor::CborEncoder {
-                unsafe { &mut super::super::g_encoder }
+                unsafe { &mut super::g_encoder }
             }
-            /// TODO: Return the CBOR encoder for the current map or array
+            /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
             pub fn encoder(&self, _parent: &str, _child: &str)
              -> *mut super::tinycbor::CborEncoder {
-                unsafe { &mut super::super::root_map }
+                unsafe { &mut super::root_map }
             }
             /// Fail the encoding with an error if `res` is non-zero.
             pub fn check_result(&self, res: u32) {
@@ -10139,14 +10146,6 @@ pub mod libs {
         }
     }
 }
-/// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
-#[link(name = "net_oic")]
-extern "C" {
-    /// Global CBOR encoder
-    pub static mut g_encoder: encoding::tinycbor::CborEncoder;
-    /// Global CBOR root map
-    pub static mut root_map: encoding::tinycbor::CborEncoder;
-}
 /// Return type and error codes for Mynewt API
 pub mod result {
     use crate::kernel::os;
@@ -10324,7 +10323,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           117u32, 9u32))
+                                                           108u32, 9u32))
                         }
                     }
                 }
@@ -10357,7 +10356,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           127u32, 9u32))
+                                                           118u32, 9u32))
                         }
                     }
                 }
@@ -10389,7 +10388,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           136u32, 9u32))
+                                                           127u32, 9u32))
                         }
                     }
                 }
@@ -10420,7 +10419,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           144u32, 9u32))
+                                                           135u32, 9u32))
                         }
                     }
                 }
@@ -10449,7 +10448,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           150u32, 9u32))
+                                                           141u32, 9u32))
                         }
                     }
                 }

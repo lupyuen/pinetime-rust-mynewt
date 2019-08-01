@@ -58,13 +58,13 @@ impl CoapContext {
 
     /// Return the global CBOR encoder
     pub fn global_encoder(&self) -> *mut super::tinycbor::CborEncoder {
-        unsafe { &mut super::super::g_encoder }
+        unsafe { &mut super::g_encoder }
     }
 
-    /// TODO: Return the CBOR encoder for the current map or array
+    /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
     pub fn encoder(&self, _parent: &str, _child: &str) -> *mut super::tinycbor::CborEncoder {
         //  TODO: Allow different map encoder by level
-        unsafe { &mut super::super::root_map }
+        unsafe { &mut super::root_map }
     }
 
     /// Fail the encoding with an error if `res` is non-zero.

@@ -37,15 +37,6 @@ pub mod hw;         //  Mynewt Hardware API. Export folder `hw` as Rust module `
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod libs;       //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
 
-/// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
-#[link(name = "net_oic")]
-extern {
-    /// Global CBOR encoder
-    pub static mut g_encoder: encoding::tinycbor::CborEncoder;
-    /// Global CBOR root map
-    pub static mut root_map:  encoding::tinycbor::CborEncoder;
-}
-
 /// Return type and error codes for Mynewt API
 pub mod result {
     use crate::kernel::os;
