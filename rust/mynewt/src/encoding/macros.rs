@@ -6,8 +6,8 @@
 //  CoAP Macros
 
 ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
-///  First parameter is `@none`, `@json` or `@cbor`, to indicate
-///  no encoding (testing), JSON encoding or CBOR encoding.
+///  First parameter is `@none`, `@json`, `@cbor` or `@cbormin`, to indicate
+///  no encoding (testing), JSON encoding, CBOR encoding for thethings.io or CBOR minimal key-value encoding.
 ///  Second parameter is the JSON message to be transmitted.
 ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
 #[macro_export]
@@ -23,6 +23,10 @@ macro_rules! coap {
   //  CBOR encoding
   (@cbor $($tokens:tt)+) => {
     $crate::parse!(@cbor $($tokens)+)
+  };
+  //  CBOR Minimal key-value encoding
+  (@cbormin $($tokens:tt)+) => {
+    $crate::parse!(@cbormin $($tokens)+)
   };
 }
 
@@ -351,10 +355,24 @@ macro_rules! parse {
     //  Substitute with this code...
     d!(begin cbor root);
     $crate::coap_root!(@cbor COAP_CONTEXT {  //  Create the payload root
-        //  Expand the items inside { ... } and add them to root.
-        $crate::parse!(@cbor @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
+        $crate::coap_array!(@cbor COAP_CONTEXT, values, {  //  Create "values" as an array of items under the root
+          //  Expand the items inside { ... } and add them to values.
+          $crate::parse!(@cbor @object COAP_CONTEXT () ($($tt)+) ($($tt)+));
+        });  //  Close the "values" array
     });  //  Close the payload root
     d!(end cbor root);
+    ()
+  }};
+
+  //  CBOR minimal encoding: If we match the top level of the JSON: { ... }
+  (@cbormin { $($tt:tt)+ }) => {{
+    //  Substitute with this code...
+    d!(begin cbormin root);
+    $crate::coap_root!(@cbormin COAP_CONTEXT {  //  Create the payload root
+        //  Expand the items inside { ... } and add them to root.
+        $crate::parse!(@cbormin @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
+    });  //  Close the payload root
+    d!(end cbormin root);
     ()
   }};
 
@@ -931,7 +949,7 @@ macro_rules! oc_rep_set_array {
     //  concat!("> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key));");
     unsafe { cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len()) };
     //  concat!("> TODO: oc_rep_start_array!(object##_map, key);");
-    oc_rep_start_array!($object, $key, _map);
+    $crate::oc_rep_start_array!($object, $key, _map);
     d!(end oc_rep_set_array);
   }};
 }
@@ -950,7 +968,7 @@ macro_rules! oc_rep_close_array {
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
     //  d!(> TODO: oc_rep_end_array(object##_map, key));
-    oc_rep_end_array!($object, $key, _map);
+    $crate::oc_rep_end_array!($object, $key, _map);
     d!(end oc_rep_close_array);
   }};
 }
@@ -968,7 +986,7 @@ macro_rules! oc_rep_object_array_start_item {
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
     //  d!(> TODO: oc_rep_start_object(key##_array, key));        
-    oc_rep_start_object!($key, $key, _array);
+    $crate::oc_rep_start_object!($key, $key, _array);
     d!(end oc_rep_object_array_start_item);
   }};
 }
@@ -986,78 +1004,9 @@ macro_rules! oc_rep_object_array_end_item {
       ", child: ",  stringify!($key), "_array",  //  key##_array
     );
     //  d!(> TODO: oc_rep_end_object(key##_array, key));
-    oc_rep_end_object!($key, $key, _array);
+    $crate::oc_rep_end_object!($key, $key, _array);
     d!(end oc_rep_object_array_end_item);
   }};
-}
-
-#[macro_export]
-macro_rules! run_stmts {
-  ($context:ident, $encoder:ident,
-    { }
-  ) => {
-    let _zzz = "aaa";
-  };
-
-  ($context:ident, $encoder:ident,
-    { 
-      $stmt:tt ;
-      $( $tail:tt ; )* 
-    }     
-  ) => {
-    $stmt ;
-    $crate::run_stmts!(
-      $context, $encoder,
-      { $( $tail ; )* } 
-    )
-  };
-}
-
-/* run!($context, stringify!($context), "_map", {
-    tinycbor::cbor_encode_text_string(
-      encoder,
-      $context.key_to_cstr(key_with_opt_null),
-      $context.cstr_len(key_with_opt_null)
-    );
-    tinycbor::cbor_encode_int(
-      encoder,
-      value
-    );
-})
-generates:
-    unsafe {
-      let encoder = $context.encoder(stringify!($context), "_map");
-      let res = tinycbor::cbor_encode_text_string(
-        encoder,
-        $context.key_to_cstr(key_with_opt_null),
-        $context.cstr_len(key_with_opt_null)
-      );
-      $context.check_result(res);
-      let res = tinycbor::cbor_encode_int(
-        encoder,
-        value
-      );
-      $context.check_result(res);
-    }
-*/
-#[macro_export]
-macro_rules! OLDrun {
-  ($context:ident, $parent:ident, $suffix:expr, {
-    $( $stmt:stmt ; )*
-  }) => {
-    concat!(
-      " >> ",
-      stringify!($context), 
-      " >> ",
-      stringify!($parent), 
-      " >> ",
-      stringify!($suffix)
-    );
-    unsafe {
-      //  let encoder = $context.encoder(stringify!($parent), $suffix);
-      $crate::run_stmts!($context, encoder, { $( $stmt ; )* });
-    };
-  };
 }
 
 ///  Encode an int value 
@@ -1101,9 +1050,7 @@ macro_rules! oc_rep_set_int {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value = $value as i64;
-
-    "-------------------------------------------------------------";
-    macros::run!({
+    proc_macros::try_cbor!({
       //  TODO: First para should be name of current map or array
       let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
@@ -1118,26 +1065,6 @@ macro_rules! oc_rep_set_int {
         value
       );
     });
-    "-------------------------------------------------------------";
-
-    /* Previously:
-    unsafe {
-      //  TODO: First para should be name of current map or array
-      let encoder = $context.encoder(stringify!($context), "_map");
-      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
-      tinycbor::cbor_encode_text_string(
-        encoder,
-        $context.key_to_cstr(key_with_opt_null),
-        $context.cstr_len(key_with_opt_null)
-      );
-      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
-      tinycbor::cbor_encode_int(
-        encoder,
-        value
-      );
-    };
-    */
-
   };
 }
 
@@ -1152,6 +1079,22 @@ macro_rules! oc_rep_set_text_string {
       ", value: ",  stringify!($value),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
+    proc_macros::try_cbor!({
+      //  TODO: First para should be name of current map or array
+      let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
+      //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
+      cbor_encode_text_string(
+        encoder,
+        COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+        COAP_CONTEXT.cstr_len(key_with_opt_null)
+      );
+      //  d!(> TODO: g_err |= cbor_encode_int(&object##_map, value));
+      cbor_encode_int(
+        encoder,
+        value
+      );
+    });
+
     unsafe {
       //  d!(> TODO: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key)));
       cbor_encode_text_string(&mut concat_idents!($object, _map), $key.as_ptr(), $key.len());

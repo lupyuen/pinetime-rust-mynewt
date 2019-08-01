@@ -1,8 +1,5 @@
 //! Mynewt Custom API for Rust
 
-extern crate macros;
-use macros::{safe_wrap}; //  Import Mynewt macros from `macros` library
-
 use crate::{
     result::*,
     kernel::os::*,

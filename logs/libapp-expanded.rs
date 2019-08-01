@@ -407,39 +407,74 @@ mod app_network {
                         "end oc_rep_start_root_object";
                     };
                     {
-                        " >>  >> val >> ,";
-                        "--------------------";
                         {
-                            "begin cbor coap_set_int_val , c : COAP_CONTEXT , val : val";
-                            if let SensorValueType::Uint(val) = val.val {
-                                "-- cinte c: COAP_CONTEXT, k: val.key, v: val";
-                                let key_with_opt_null: &[u8] =
-                                    val.key.to_bytes_optional_nul();
-                                let value = val as i64;
-                                "-------------------------------------------------------------";
+                            "begin cbor coap_array , object : COAP_CONTEXT , key : values";
+                            {
+                                "begin oc_rep_set_array , object: COAP_CONTEXT, key: values, child: COAP_CONTEXT_map";
                                 unsafe {
-                                    let encoder =
-                                        COAP_CONTEXT.encoder("COAP_CONTEXT",
-                                                             "_map");
-                                    let res =
-                                        tinycbor::cbor_encode_text_string(encoder,
-                                                                          COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                          COAP_CONTEXT.cstr_len(key_with_opt_null));
-                                    COAP_CONTEXT.check_result(res);
-                                    let res =
-                                        tinycbor::cbor_encode_int(encoder,
-                                                                  value);
-                                    COAP_CONTEXT.check_result(res);
+                                    cbor_encode_text_string(&mut COAP_CONTEXT_map,
+                                                            values.as_ptr(),
+                                                            values.len())
                                 };
-                                "-------------------------------------------------------------";
-                            } else {
-                                unsafe {
-                                    COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT)
+                                {
+                                    "begin oc_rep_start_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
+                                    unsafe {
+                                        tinycbor::cbor_encoder_create_array(&mut COAP_CONTEXT_map,
+                                                                            &mut values_array,
+                                                                            CborIndefiniteLength)
+                                    };
+                                    "end oc_rep_start_array";
                                 };
-                            }
-                            "end cbor coap_set_int_val";
+                                "end oc_rep_set_array";
+                            };
+                            {
+                                " >>  >> val >> ,";
+                                "--------------------";
+                                {
+                                    "begin cbor coap_set_int_val , c : COAP_CONTEXT , val : val";
+                                    if let SensorValueType::Uint(val) =
+                                           val.val {
+                                        "-- cinte c: COAP_CONTEXT, k: val.key, v: val";
+                                        let key_with_opt_null: &[u8] =
+                                            val.key.to_bytes_optional_nul();
+                                        let value = val as i64;
+                                        unsafe {
+                                            let encoder =
+                                                COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                                                     "_map");
+                                            let res =
+                                                tinycbor::cbor_encode_text_string(encoder,
+                                                                                  COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                  COAP_CONTEXT.cstr_len(key_with_opt_null));
+                                            COAP_CONTEXT.check_result(res);
+                                            let res =
+                                                tinycbor::cbor_encode_int(encoder,
+                                                                          value);
+                                            COAP_CONTEXT.check_result(res);
+                                        };
+                                    } else {
+                                        unsafe {
+                                            COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT)
+                                        };
+                                    }
+                                    "end cbor coap_set_int_val";
+                                };
+                                "--------------------";
+                            };
+                            {
+                                "begin oc_rep_close_array , object: COAP_CONTEXT, key: values, child: COAP_CONTEXT_map";
+                                {
+                                    "begin oc_rep_end_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
+                                    unsafe {
+                                        tinycbor::cbor_encoder_close_container(&mut COAP_CONTEXT,
+                                                                               &mut COAP_CONTEXT_map)
+                                    };
+                                    "end oc_rep_end_array";
+                                };
+                                "end oc_rep_close_array";
+                            };
+                            "end cbor coap_array";
                         };
-                        "--------------------";
                     };
                     {
                         "begin oc_rep_end_root_object";

@@ -68,7 +68,7 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
 
 /// Transform a block of CBOR encoding calls by adding error checking.
 /// ```
-/// run({
+/// try_cbor!({
 ///     let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
 ///     cbor_encode_text_string(
 ///         encoder,
@@ -91,7 +91,7 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
 /// }
 /// ```
 #[proc_macro]
-pub fn run(item: TokenStream) -> TokenStream {
+pub fn try_cbor(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a block of statements.
     let input = parse_macro_input!(item as syn::Block);
     //  Construct a new `TokenStream` to accumulate the expanded code.

@@ -5673,8 +5673,8 @@ pub mod encoding {
         //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
         //!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
         ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
-        ///  First parameter is `@none`, `@json` or `@cbor`, to indicate
-        ///  no encoding (testing), JSON encoding or CBOR encoding.
+        ///  First parameter is `@none`, `@json`, `@cbor` or `@cbormin`, to indicate
+        ///  no encoding (testing), JSON encoding, CBOR encoding for thethings.io or CBOR minimal key-value encoding.
         ///  Second parameter is the JSON message to be transmitted.
         ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
         #[macro_export]
@@ -5683,7 +5683,10 @@ pub mod encoding {
                           @ json $ ( $ tokens : tt ) + ) => {
                           $ crate :: parse ! ( @ json $ ( $ tokens ) + ) } ; (
                           @ cbor $ ( $ tokens : tt ) + ) => {
-                          $ crate :: parse ! ( @ cbor $ ( $ tokens ) + ) } ;);
+                          $ crate :: parse ! ( @ cbor $ ( $ tokens ) + ) } ; (
+                          @ cbormin $ ( $ tokens : tt ) + ) => {
+                          $ crate :: parse ! ( @ cbormin $ ( $ tokens ) + ) }
+                          ;);
         ///  Parse the JSON code in the parameter and compose the CoAP payload.
         ///  This macro takes these parameters:
         ///  - __Encoding__: `@json`, `@cbor` or `@none`
@@ -5917,11 +5920,22 @@ pub mod encoding {
                            {
                            d ! ( begin cbor root ) ; $ crate :: coap_root ! (
                            @ cbor COAP_CONTEXT {
+                           $ crate :: coap_array ! (
+                           @ cbor COAP_CONTEXT , values , {
                            $ crate :: parse ! (
                            @ cbor @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + )
-                           ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ;
-                           (  ) } } ; ( @ $ enc : ident $ other : expr ) => {
-                           $ other } ;);
+                           ( $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! (
+                           end cbor root ) ; (  ) } } ; (
+                           @ cbormin { $ ( $ tt : tt ) + } ) => {
+                           {
+                           d ! ( begin cbormin root ) ; $ crate :: coap_root !
+                           (
+                           @ cbormin COAP_CONTEXT {
+                           $ crate :: parse ! (
+                           @ cbormin @ object COAP_CONTEXT (  ) ( $ ( $ tt ) +
+                           ) ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbormin root
+                           ) ; (  ) } } ; ( @ $ enc : ident $ other : expr )
+                           => { $ other } ;);
         ///  TODO: Parse the vector e.g. array items
         #[macro_export]
         macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
@@ -6447,8 +6461,8 @@ pub mod encoding {
                                       cbor_encode_text_string (
                                       & mut concat_idents ! ( $ object , _map
                                       ) , $ key . as_ptr (  ) , $ key . len (
-                                      ) ) } ; oc_rep_start_array ! (
-                                      $ object , $ key , _map ) ; d ! (
+                                      ) ) } ; $ crate :: oc_rep_start_array !
+                                      ( $ object , $ key , _map ) ; d ! (
                                       end oc_rep_set_array ) ; } } ;);
         ///  End the child array and resume writing the parent object.
         ///  ```
@@ -6463,7 +6477,8 @@ pub mod encoding {
                                         ", object: " , stringify ! ( $ object
                                         ) , ", key: " , stringify ! ( $ key )
                                         , ", child: " , stringify ! ( $ object
-                                        ) , "_map" ) ; oc_rep_end_array ! (
+                                        ) , "_map" ) ; $ crate ::
+                                        oc_rep_end_array ! (
                                         $ object , $ key , _map ) ; d ! (
                                         end oc_rep_close_array ) ; } } ;);
         ///  Assume we have called `set_array`.  Start an array item, assumed to be an object.
@@ -6478,7 +6493,7 @@ pub mod encoding {
                                                     , ", key: " , stringify !
                                                     ( $ key ) , ", child: " ,
                                                     stringify ! ( $ key ) ,
-                                                    "_array" , ) ;
+                                                    "_array" , ) ; $ crate ::
                                                     oc_rep_start_object ! (
                                                     $ key , $ key , _array ) ;
                                                     d ! (
@@ -6497,32 +6512,13 @@ pub mod encoding {
                                                   , ", key: " , stringify ! (
                                                   $ key ) , ", child: " ,
                                                   stringify ! ( $ key ) ,
-                                                  "_array" , ) ;
+                                                  "_array" , ) ; $ crate ::
                                                   oc_rep_end_object ! (
                                                   $ key , $ key , _array ) ; d
                                                   ! (
                                                   end
                                                   oc_rep_object_array_end_item
                                                   ) ; } } ;);
-        #[macro_export]
-        macro_rules! run_stmts(( $ context : ident , $ encoder : ident , {  }
-                               ) => { let _zzz = "aaa" ; } ; (
-                               $ context : ident , $ encoder : ident , {
-                               $ stmt : tt ; $ ( $ tail : tt ; ) * } ) => {
-                               $ stmt ; $ crate :: run_stmts ! (
-                               $ context , $ encoder , { $ ( $ tail ; ) * } )
-                               } ;);
-        #[macro_export]
-        macro_rules! OLDrun((
-                            $ context : ident , $ parent : ident , $ suffix :
-                            expr , { $ ( $ stmt : stmt ; ) * } ) => {
-                            concat ! (
-                            " >> " , stringify ! ( $ context ) , " >> " ,
-                            stringify ! ( $ parent ) , " >> " , stringify ! (
-                            $ suffix ) ) ; unsafe {
-                            $ crate :: run_stmts ! (
-                            $ context , encoder , { $ ( $ stmt ; ) * } ) ; } ;
-                            } ;);
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
@@ -6552,9 +6548,8 @@ pub mod encoding {
                                     $ key ) , ", v: " , stringify ! ( $ value
                                     ) ) ; let key_with_opt_null : & [ u8 ] = $
                                     key . to_bytes_optional_nul (  ) ; let
-                                    value = $ value as i64 ;
-                                    "-------------------------------------------------------------"
-                                    ; macros :: run ! (
+                                    value = $ value as i64 ; proc_macros ::
+                                    try_cbor ! (
                                     {
                                     let encoder = COAP_CONTEXT . encoder (
                                     "COAP_CONTEXT" , "_map" ) ;
@@ -6563,8 +6558,6 @@ pub mod encoding {
                                     key_with_opt_null ) , COAP_CONTEXT .
                                     cstr_len ( key_with_opt_null ) ) ;
                                     cbor_encode_int ( encoder , value ) ; } )
-                                    ;
-                                    "-------------------------------------------------------------"
                                     ; } ;);
         ///  Encode a text value 
         #[macro_export]
@@ -6579,7 +6572,18 @@ pub mod encoding {
                                             ! ( $ key ) , ", value: " ,
                                             stringify ! ( $ value ) ,
                                             ", child: " , stringify ! (
-                                            $ object ) , "_map" ) ; unsafe {
+                                            $ object ) , "_map" ) ;
+                                            proc_macros :: try_cbor ! (
+                                            {
+                                            let encoder = COAP_CONTEXT .
+                                            encoder ( "COAP_CONTEXT" , "_map"
+                                            ) ; cbor_encode_text_string (
+                                            encoder , COAP_CONTEXT .
+                                            key_to_cstr ( key_with_opt_null )
+                                            , COAP_CONTEXT . cstr_len (
+                                            key_with_opt_null ) ) ;
+                                            cbor_encode_int ( encoder , value
+                                            ) ; } ) ; unsafe {
                                             cbor_encode_text_string (
                                             & mut concat_idents ! (
                                             $ object , _map ) , $ key . as_ptr
@@ -8198,8 +8202,6 @@ pub mod util {
 #[allow(non_upper_case_globals)]
 pub mod libs {
     //! Mynewt Custom API for Rust
-    extern crate macros;
-    use macros::{safe_wrap};
     use crate::{result::*, kernel::os::*, hw::sensor::*, encoding::json::*,
                 libs::sensor_coap::*, Strn};
     /// Contains Rust bindings for Mynewt Custom API `libs/sensor_coap`
