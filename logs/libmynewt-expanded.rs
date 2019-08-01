@@ -5734,23 +5734,21 @@ pub mod sys {
     pub mod console {
         //! Display messages on Arm Semihosting Console (via OpenOCD)
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
-        pub fn print(msg: &[u8]) {
-            let len = msg.len();
+        pub fn print(msg: &str) {
             unsafe {
-                console_buffer(msg.as_ptr(), len as u32);
+                console_buffer(msg.as_ptr(), msg.len() as u32);
                 console_flush();
             }
         }
-        ///  Flush the output buffer to the console.
-        pub fn flush() { unsafe { console_flush(); } }
         ///  Add the string to the output buffer.
-        pub fn buffer(msg: &[u8]) {
-            let len = msg.len();
-            unsafe { console_buffer(msg.as_ptr(), len as u32); }
+        pub fn buffer(msg: &str) {
+            unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
         }
         ///  Write a byte in hexadecimal to the output buffer.
         ///  C API: `void console_printhex(uint8_t v)`
         pub fn printhex(v: u8) { unsafe { console_printhex(v); } }
+        ///  Flush the output buffer to the console.
+        pub fn flush() { unsafe { console_flush(); } }
         ///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD).
         ///  The library is located at `libs/semihosting_console`
         #[link(name = "libs_semihosting_console")]
@@ -6039,14 +6037,14 @@ pub mod encoding {
                            @ cbor { $ ( $ tt : tt ) + } ) => {
                            {
                            d ! ( begin cbor root ) ; $ crate :: coap_root ! (
-                           @ cbor COAP_CONTEXT {
+                           @ cbor root {
                            $ crate :: coap_array ! (
-                           @ cbor COAP_CONTEXT , values , {
+                           @ cbor root , values , {
                            $ crate :: parse ! (
-                           @ cbor @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + )
-                           ( $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! (
-                           end cbor root ) ; (  ) } } ; (
-                           @ cbormin { $ ( $ tt : tt ) + } ) => {
+                           @ cbor @ object values (  ) ( $ ( $ tt ) + ) (
+                           $ ( $ tt ) + ) ) ; } ) ; } ) ; d ! ( end cbor root
+                           ) ; (  ) } } ; ( @ cbormin { $ ( $ tt : tt ) + } )
+                           => {
                            {
                            d ! ( begin cbor root ) ; $ crate :: coap_root ! (
                            @ cbor COAP_CONTEXT {
@@ -6463,7 +6461,7 @@ pub mod encoding {
                                               value_with_opt_null ) ) } ; } }
                                               ;);
         #[macro_export]
-        macro_rules! oc_rep_start_root_object(( $ context : ident ) => {
+        macro_rules! oc_rep_start_root_object(( $ obj : ident ) => {
                                               {
                                               d ! (
                                               begin oc_rep_start_root_object )
@@ -6478,7 +6476,7 @@ pub mod encoding {
                                               ! ( end oc_rep_start_root_object
                                               ) ; } } ;);
         #[macro_export]
-        macro_rules! oc_rep_end_root_object(( $ context : ident ) => {
+        macro_rules! oc_rep_end_root_object(( $ obj : ident ) => {
                                             {
                                             d ! ( begin oc_rep_end_root_object
                                             ) ; proc_macros :: try_cbor ! (
@@ -6508,7 +6506,7 @@ pub mod encoding {
                                          encoder (
                                          stringify ! ( $ parent ) , stringify
                                          ! ( $ parent_suffix ) ) ; let encoder
-                                         = COAP_CONTEXT . encoder (
+                                         = COAP_CONTEXT . new_encoder (
                                          stringify ! ( $ key ) , "_map" ) ;
                                          cbor_encoder_create_map (
                                          parent_encoder , encoder , tinycbor
@@ -6581,9 +6579,8 @@ pub mod encoding {
                                       COAP_CONTEXT . encoder (
                                       stringify ! ( $ key ) , "_array" ) ;
                                       cbor_encoder_close_container (
-                                      parent_encoder , & mut concat_idents ! (
-                                      $ parent , $ parent_suffix ) ) } ) ; d !
-                                      ( end oc_rep_end_array ) ; } } ;);
+                                      parent_encoder , encoder ) } ) ; d ! (
+                                      end oc_rep_end_array ) ; } } ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
         ///  ```
         ///  {a:b --> {a:b, key:[
@@ -6669,19 +6666,18 @@ pub mod encoding {
         ///  Encode an int value 
         #[macro_export]
         macro_rules! oc_rep_set_int((
-                                    $ context : ident , $ key : ident , $
-                                    value : expr ) => {
+                                    $ obj : ident , $ key : ident , $ value :
+                                    expr ) => {
                                     concat ! (
-                                    "-- cinti" , " c: " , stringify ! (
-                                    $ context ) , ", k: " , stringify ! (
-                                    $ key ) , ", v: " , stringify ! ( $ value
-                                    ) ) ; let key_with_null : & str = $ crate
-                                    :: stringify_null ! ( $ key ) ; let value
-                                    = $ value as i64 ; proc_macros :: try_cbor
-                                    ! (
+                                    "-- cinti" , " c: " , stringify ! ( $ obj
+                                    ) , ", k: " , stringify ! ( $ key ) ,
+                                    ", v: " , stringify ! ( $ value ) ) ; let
+                                    key_with_null : & str = $ crate ::
+                                    stringify_null ! ( $ key ) ; let value = $
+                                    value as i64 ; proc_macros :: try_cbor ! (
                                     {
                                     let encoder = COAP_CONTEXT . encoder (
-                                    stringify ! ( $ context ) , "_map" ) ;
+                                    stringify ! ( $ obj ) , "_map" ) ;
                                     cbor_encode_text_string (
                                     encoder , COAP_CONTEXT . key_to_cstr (
                                     key_with_null . as_bytes (  ) ) ,
@@ -6689,19 +6685,18 @@ pub mod encoding {
                                     key_with_null . as_bytes (  ) ) ) ;
                                     cbor_encode_int ( encoder , value ) ; } )
                                     ; } ; (
-                                    $ context : ident , $ key : expr , $ value
-                                    : expr ) => {
+                                    $ obj : ident , $ key : expr , $ value :
+                                    expr ) => {
                                     concat ! (
-                                    "-- cinte" , " c: " , stringify ! (
-                                    $ context ) , ", k: " , stringify ! (
-                                    $ key ) , ", v: " , stringify ! ( $ value
-                                    ) ) ; let key_with_opt_null : & [ u8 ] = $
-                                    key . to_bytes_optional_nul (  ) ; let
-                                    value = $ value as i64 ; proc_macros ::
-                                    try_cbor ! (
+                                    "-- cinte" , " c: " , stringify ! ( $ obj
+                                    ) , ", k: " , stringify ! ( $ key ) ,
+                                    ", v: " , stringify ! ( $ value ) ) ; let
+                                    key_with_opt_null : & [ u8 ] = $ key .
+                                    to_bytes_optional_nul (  ) ; let value = $
+                                    value as i64 ; proc_macros :: try_cbor ! (
                                     {
                                     let encoder = COAP_CONTEXT . encoder (
-                                    "COAP_CONTEXT" , "_map" ) ;
+                                    stringify ! ( $ obj ) , "_map" ) ;
                                     cbor_encode_text_string (
                                     encoder , COAP_CONTEXT . key_to_cstr (
                                     key_with_opt_null ) , COAP_CONTEXT .
@@ -6729,8 +6724,9 @@ pub mod encoding {
                                             (  ) ; proc_macros :: try_cbor ! (
                                             {
                                             let encoder = COAP_CONTEXT .
-                                            encoder ( "COAP_CONTEXT" , "_map"
-                                            ) ; cbor_encode_text_string (
+                                            encoder (
+                                            stringify ! ( $ obj ) , "_map" ) ;
+                                            cbor_encode_text_string (
                                             encoder , COAP_CONTEXT .
                                             key_to_cstr ( key_with_opt_null )
                                             , COAP_CONTEXT . cstr_len (
@@ -8064,7 +8060,7 @@ pub mod encoding {
         //! COAP encoder state used by CoAP encoding macros
         use cstr_core::CStr;
         use cty::*;
-        use crate::fill_zero;
+        use crate::{sys::console, fill_zero};
         /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
         pub static mut COAP_CONTEXT: CoapContext =
             unsafe {
@@ -8102,7 +8098,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   33u32, 9u32))
+                                                   36u32, 9u32))
                     }
                 };
                 self.key_buffer[..s.len()].copy_from_slice(s);
@@ -8120,7 +8116,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   46u32, 9u32))
+                                                   49u32, 9u32))
                     }
                 };
                 self.value_buffer[..s.len()].copy_from_slice(s);
@@ -8138,17 +8134,30 @@ pub mod encoding {
              -> *mut super::tinycbor::CborEncoder {
                 unsafe { &mut super::g_encoder }
             }
-            /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
-            pub fn encoder(&self, parent: &str, child: &str)
+            /// Create a new CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
+            pub fn new_encoder(&self, key: &str, suffix: &str)
              -> *mut super::tinycbor::CborEncoder {
-                if (parent, child) == ("root", "_map") {
+                console::print("new_encoder: ");
+                console::print(key);
+                console::print(suffix);
+                console::print("\n");
+                unsafe { &mut super::root_map }
+            }
+            /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
+            pub fn encoder(&self, key: &str, suffix: &str)
+             -> *mut super::tinycbor::CborEncoder {
+                console::print("encoder: ");
+                console::print(key);
+                console::print(suffix);
+                console::print("\n");
+                if (key, suffix) == ("root", "_map") {
                     unsafe { &mut super::root_map }
                 } else {
                     if !false {
                         {
                             ::core::panicking::panic(&("assertion failed: false",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       69u32, 13u32))
+                                                       85u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8176,7 +8185,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   76u32,
+                                                                   92u32,
                                                                    9u32))
                                 }
                             }
@@ -8206,7 +8215,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   81u32,
+                                                                   97u32,
                                                                    9u32))
                                 }
                             }

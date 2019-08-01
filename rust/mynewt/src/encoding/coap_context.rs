@@ -2,7 +2,10 @@
 
 use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: https://crates.io/crates/cstr_core
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
-use crate::fill_zero;
+use crate::{
+    sys::console,
+    fill_zero,
+};
 
 /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
 pub static mut COAP_CONTEXT: CoapContext = fill_zero!(CoapContext);
@@ -62,9 +65,22 @@ impl CoapContext {
         unsafe { &mut super::g_encoder }
     }
 
-    /// Return the CBOR encoder for the current map or array, e.g. `parent=root, child=_map` 
-    pub fn encoder(&self, parent: &str, child: &str) -> *mut super::tinycbor::CborEncoder {
-        if (parent, child) == ("root", "_map") { unsafe { &mut super::root_map } }
+    /// Create a new CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
+    pub fn new_encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
+        console::print("new_encoder: ");
+        console::print(key);
+        console::print(suffix);
+        console::print("\n");
+        unsafe { &mut super::root_map }
+    }
+
+    /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
+    pub fn encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
+        console::print("encoder: ");
+        console::print(key);
+        console::print(suffix);
+        console::print("\n");
+        if (key, suffix) == ("root", "_map") { unsafe { &mut super::root_map } }
         else {
             assert!(false);  //  No such encoder.
             unsafe { &mut super::root_map }

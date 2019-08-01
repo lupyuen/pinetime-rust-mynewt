@@ -51,7 +51,7 @@ const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_
 ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
-    console::print(b"Rust TMP poll \n");  //  SENSOR_DEVICE "\n";
+    console::print("Rust TMP poll \n");  //  SENSOR_DEVICE "\n";
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
@@ -78,7 +78,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 ///  Return 0 if we have handled the sensor data successfully.
 extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg, 
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console::print(b"Rust handle_sensor_data\n");
+    console::print("Rust handle_sensor_data\n");
     //  Check that the temperature data is valid.
     //  TODO
     if unsafe { sensor::is_null_sensor_data(sensor_data) } { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
@@ -98,7 +98,7 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  We drop the sensor data and send at the next poll.
     if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
         if err == MynewtError::SYS_EAGAIN {
-            console::print(b"TMP network not ready\n");
+            console::print("TMP network not ready\n");
             return MynewtError::SYS_EOK; 
         }            
     }
@@ -125,7 +125,7 @@ fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> 
 
             //  Raw temperature data is valid.  Copy and display it.
             return_value.val = SensorValueType::Uint(rawtempdata.strd_temp_raw);  //  Raw Temperature in integer (0 to 4095)
-            console::print(b"TMP listener got rawtmp \n");  // return_value->int_val);
+            console::print("TMP listener got rawtmp \n");  // return_value->int_val);
         },
         SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
             //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.

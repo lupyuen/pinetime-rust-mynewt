@@ -103,7 +103,7 @@ mod app_sensor {
     ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_sensor_listener() -> MynewtResult<()> {
-        console::print(b"Rust TMP poll \n");
+        console::print("Rust TMP poll \n");
         sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
         let sensor =
             sensor::mgr_find_next_bydevname(&SENSOR_DEVICE,
@@ -136,7 +136,7 @@ mod app_sensor {
                                      sensor_data: sensor_data_ptr,
                                      sensor_type: sensor_type_t)
      -> MynewtError {
-        console::print(b"Rust handle_sensor_data\n");
+        console::print("Rust handle_sensor_data\n");
         if unsafe { sensor::is_null_sensor_data(sensor_data) } {
             return MynewtError::SYS_EINVAL;
         }
@@ -160,7 +160,7 @@ mod app_sensor {
         let rc = send_sensor_data(&sensor_value);
         if let Err(err) = rc {
             if err == MynewtError::SYS_EAGAIN {
-                console::print(b"TMP network not ready\n");
+                console::print("TMP network not ready\n");
                 return MynewtError::SYS_EOK;
             }
         }
@@ -199,7 +199,7 @@ mod app_sensor {
                 }
                 return_value.val =
                     SensorValueType::Uint(rawtempdata.strd_temp_raw);
-                console::print(b"TMP listener got rawtmp \n");
+                console::print("TMP listener got rawtmp \n");
             }
             SENSOR_TYPE_AMBIENT_TEMPERATURE => {
                 let mut tempdata =
@@ -261,7 +261,7 @@ mod app_network {
     /// ]}
     /// ```
     pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
-        console::print(b"Rust send_sensor_data\n");
+        console::print("Rust send_sensor_data\n");
         if let SensorValueType::None = val.val {
             if !false {
                 {
@@ -293,15 +293,14 @@ mod app_network {
                     };
                     {
                         {
-                            "begin cbor coap_array , object : COAP_CONTEXT , key : values";
+                            "begin cbor coap_array , object : root , key : values";
                             {
-                                "begin oc_rep_set_array , object: COAP_CONTEXT, key: values, child: COAP_CONTEXT_map";
+                                "begin oc_rep_set_array , object: root, key: values, child: root_map";
                                 let key_with_opt_null: &[u8] =
                                     "values".to_bytes_optional_nul();
                                 unsafe {
                                     let encoder =
-                                        COAP_CONTEXT.encoder("COAP_CONTEXT",
-                                                             "_map");
+                                        COAP_CONTEXT.encoder("root", "_map");
                                     let res =
                                         tinycbor::cbor_encode_text_string(encoder,
                                                                           COAP_CONTEXT.key_to_cstr(key_with_opt_null),
@@ -309,10 +308,10 @@ mod app_network {
                                     COAP_CONTEXT.check_result(res);
                                 };
                                 {
-                                    "begin oc_rep_start_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
+                                    "begin oc_rep_start_array , parent: root_map, key: values, child: values_array";
                                     unsafe {
                                         let parent_encoder =
-                                            COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                            COAP_CONTEXT.encoder("root",
                                                                  "_map");
                                         let encoder =
                                             COAP_CONTEXT.encoder("values",
@@ -331,16 +330,16 @@ mod app_network {
                                 " >>  >> val >> ,";
                                 "--------------------";
                                 {
-                                    "begin cbor coap_set_int_val , c : COAP_CONTEXT , val : val";
+                                    "begin cbor coap_set_int_val , c : values , val : val";
                                     if let SensorValueType::Uint(val) =
                                            val.val {
-                                        "-- cinte c: COAP_CONTEXT, k: val.key, v: val";
+                                        "-- cinte c: values, k: val.key, v: val";
                                         let key_with_opt_null: &[u8] =
                                             val.key.to_bytes_optional_nul();
                                         let value = val as i64;
                                         unsafe {
                                             let encoder =
-                                                COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                                COAP_CONTEXT.encoder("values",
                                                                      "_map");
                                             let res =
                                                 tinycbor::cbor_encode_text_string(encoder,
@@ -362,18 +361,18 @@ mod app_network {
                                 "--------------------";
                             };
                             {
-                                "begin oc_rep_close_array , object: COAP_CONTEXT, key: values, child: COAP_CONTEXT_map";
+                                "begin oc_rep_close_array , object: root, key: values, child: root_map";
                                 {
-                                    "begin oc_rep_end_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
+                                    "begin oc_rep_end_array , parent: root_map, key: values, child: values_array";
                                     unsafe {
                                         let parent_encoder =
-                                            COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                            COAP_CONTEXT.encoder("root",
                                                                  "_map");
                                         let encoder =
                                             COAP_CONTEXT.encoder("values",
                                                                  "_array");
                                         cbor_encoder_close_container(parent_encoder,
-                                                                     &mut COAP_CONTEXT_map)
+                                                                     encoder)
                                     };
                                     "end oc_rep_end_array";
                                 };
@@ -400,7 +399,7 @@ mod app_network {
                 ()
             };
         sensor_network::do_server_post()?;
-        console::print(b"NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
+        console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");
         Ok(())
     }
 }
@@ -424,13 +423,13 @@ fn panic(info: &PanicInfo) -> ! {
     if let Some(location) = info.location() {
         let file = location.file();
         let line = location.line();
-        console::print(b"panic at ");
-        console::buffer(file.as_bytes());
-        console::print(b" line 0x");
+        console::print("panic at ");
+        console::buffer(&file);
+        console::print(" line 0x");
         console::printhex(line as u8);
-        console::print(b"\n");
+        console::print("\n");
         console::flush();
-    } else { console::print(b"panic unknown loc\n"); console::flush(); }
+    } else { console::print("panic unknown loc\n"); console::flush(); }
     bkpt();
     loop  { }
 }

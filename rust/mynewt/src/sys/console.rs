@@ -1,25 +1,18 @@
 //! Display messages on Arm Semihosting Console (via OpenOCD)
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
-pub fn print(msg: &[u8]) {
-    let len = msg.len();
+pub fn print(msg: &str) {
     unsafe {
         //  Call the Semihosting Console API, which is unsafe.
-        console_buffer(msg.as_ptr(), len as u32);
+        console_buffer(msg.as_ptr(), msg.len() as u32);
         console_flush();  //  TODO: Remove this.
     }
 }
 
-///  Flush the output buffer to the console.
-pub fn flush() {
-    unsafe { console_flush(); }
-}
-
 ///  Add the string to the output buffer.
-pub fn buffer(msg: &[u8]) {
-    let len = msg.len();
+pub fn buffer(msg: &str) {
     unsafe {
-        console_buffer(msg.as_ptr(), len as u32);
+        console_buffer(msg.as_ptr(), msg.len() as u32);
     }
 }
 
@@ -27,6 +20,11 @@ pub fn buffer(msg: &[u8]) {
 ///  C API: `void console_printhex(uint8_t v)`
 pub fn printhex(v: u8) {
     unsafe { console_printhex(v); }
+}
+
+///  Flush the output buffer to the console.
+pub fn flush() {
+    unsafe { console_flush(); }
 }
 
 ///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD).

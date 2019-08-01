@@ -79,11 +79,11 @@ fn panic(info: &PanicInfo) -> ! {
     if let Some(location) = info.location() {
         let file = location.file();
         let line = location.line();
-        console::print(b"panic at ");  console::buffer(file.as_bytes());
-        console::print(b" line 0x");   console::printhex(line as u8);  //  TODO: Print in decimal not hex. Allow more than 255 lines.
-        console::print(b"\n");         console::flush();
+        console::print("panic at ");  console::buffer(&file);
+        console::print(" line 0x");   console::printhex(line as u8);  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+        console::print("\n");         console::flush();
     } else {
-        console::print(b"panic unknown loc\n");  console::flush();
+        console::print("panic unknown loc\n");  console::flush();
     }
     //  Pause in the debugger.
     bkpt();
