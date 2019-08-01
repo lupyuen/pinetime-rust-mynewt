@@ -397,7 +397,13 @@ mod app_network {
                     "begin cbor coap_root";
                     {
                         "begin oc_rep_start_root_object";
-                        (/*ERROR*/);
+                        unsafe {
+                            let encoder =
+                                COAP_CONTEXT.encoder("root", "_map");
+                            cbor_encoder_create_map(COAP_CONTEXT.global_encoder(),
+                                                    encoder,
+                                                    tinycbor::CborIndefiniteLength);
+                        };
                         "end oc_rep_start_root_object";
                     };
                     {
@@ -407,7 +413,29 @@ mod app_network {
                                 "begin oc_rep_set_array , object: COAP_CONTEXT, key: values, child: COAP_CONTEXT_map";
                                 let key_with_opt_null: &[u8] =
                                     values.to_bytes_optional_nul();
-                                (/*ERROR*/)
+                                unsafe {
+                                    let encoder =
+                                        COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                                             "_map");
+                                    let res =
+                                        tinycbor::cbor_encode_text_string(encoder,
+                                                                          COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                          COAP_CONTEXT.cstr_len(key_with_opt_null));
+                                    COAP_CONTEXT.check_result(res);
+                                };
+                                {
+                                    "begin oc_rep_start_array , parent: COAP_CONTEXT_map, key: values, child: values_array";
+                                    unsafe {
+                                        let encoder =
+                                            COAP_CONTEXT.encoder("COAP_CONTEXT",
+                                                                 "_array");
+                                        cbor_encoder_create_array(&mut COAP_CONTEXT_map,
+                                                                  &mut values_array,
+                                                                  CborIndefiniteLength);
+                                    };
+                                    "end oc_rep_start_array";
+                                };
+                                "end oc_rep_set_array";
                             };
                             {
                                 " >>  >> val >> ,";
@@ -463,7 +491,12 @@ mod app_network {
                     };
                     {
                         "begin oc_rep_end_root_object";
-                        (/*ERROR*/);
+                        unsafe {
+                            let encoder =
+                                COAP_CONTEXT.encoder("root", "_map");
+                            cbor_encoder_close_container(COAP_CONTEXT.global_encoder(),
+                                                         encoder);
+                        };
                         "end oc_rep_end_root_object";
                     };
                     "end cbor coap_root";

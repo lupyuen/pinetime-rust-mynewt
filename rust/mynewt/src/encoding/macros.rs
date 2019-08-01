@@ -531,7 +531,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::oc_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_set_int_val);
   }};
@@ -541,7 +541,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::json_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_set_int_val);
   }};
@@ -555,7 +555,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::coap_item_int!(@cbor $context, $val0.key, val);
     } else {
-      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_item_int_val);
   }};
@@ -565,7 +565,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::coap_item_int!(@json $context, $val0.key, val);
     } else {
-      unsafe { $context.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_item_int_val);
   }};
@@ -818,10 +818,10 @@ macro_rules! oc_rep_start_root_object {
   ($context:ident) => {{
     d!(begin oc_rep_start_root_object);
     proc_macros::try_cbor!({
-      let encoder = $context.encoder("root", "_map");
+      let encoder = COAP_CONTEXT.encoder("root", "_map");
       //  Previously: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength)
       cbor_encoder_create_map(
-        $context.global_encoder(),
+        COAP_CONTEXT.global_encoder(),
         encoder,
         tinycbor::CborIndefiniteLength
       ); 
@@ -835,10 +835,10 @@ macro_rules! oc_rep_end_root_object {
   ($context:ident) => {{
     d!(begin oc_rep_end_root_object);
     proc_macros::try_cbor!({
-      let encoder = $context.encoder("root", "_map");
+      let encoder = COAP_CONTEXT.encoder("root", "_map");
       //  Previously: g_err |= cbor_encoder_close_container(&g_encoder, &root_map)
       cbor_encoder_close_container(
-        $context.global_encoder(),
+        COAP_CONTEXT.global_encoder(),
         encoder
       ); 
     });
@@ -857,7 +857,7 @@ macro_rules! oc_rep_start_object {
     );
     proc_macros::try_cbor!({
       //  TODO: CborEncoder key##_map
-      let encoder = $context.encoder(stringify!($key), "_map");
+      let encoder = COAP_CONTEXT.encoder(stringify!($key), "_map");
       //  Previously: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength)
       cbor_encoder_create_map(
         encoder,
@@ -879,7 +879,7 @@ macro_rules! oc_rep_end_object {
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
     proc_macros::try_cbor!({
-      let encoder = $context.encoder(stringify!($key), "_map");
+      let encoder = COAP_CONTEXT.encoder(stringify!($key), "_map");
       //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_map)
       cbor_encoder_close_container(
         encoder,
@@ -948,9 +948,8 @@ macro_rules! oc_rep_set_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($object), "_map"  //  object##_map
     );
-    //  Convert key and value to char array, which may or may not be null-terminated.
+    //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null:   &[u8] = $key.to_bytes_optional_nul();
-    let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     proc_macros::try_cbor!({
       //  TODO: First para should be name of current map or array
       let encoder = COAP_CONTEXT.encoder("COAP_CONTEXT", "_map");
@@ -1037,12 +1036,12 @@ macro_rules! oc_rep_set_int {
     let value = $value as i64;
     proc_macros::try_cbor!({
       //  TODO: First para should be name of current map or array
-      let encoder = $context.encoder(stringify!($context), "_map");
+      let encoder = COAP_CONTEXT.encoder(stringify!($context), "_map");
       //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
         encoder,
-        $context.key_to_cstr(key_with_null.as_bytes()),
-        $context.cstr_len(key_with_null.as_bytes())
+        COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
+        COAP_CONTEXT.cstr_len(key_with_null.as_bytes())
       );
       //  Previously: g_err |= cbor_encode_int(&object##_map, value)
       cbor_encode_int(

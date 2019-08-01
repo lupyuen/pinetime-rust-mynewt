@@ -6078,7 +6078,7 @@ pub mod encoding {
                                       $ context , $ val0 . key , val ) ; }
                                       else {
                                       unsafe {
-                                      $ context . fail (
+                                      COAP_CONTEXT . fail (
                                       coap_context :: CoapError ::
                                       VALUE_NOT_UINT ) } ; } d ! (
                                       end cbor coap_set_int_val ) ; } } ; (
@@ -6094,7 +6094,7 @@ pub mod encoding {
                                       $ context , $ val0 . key , val ) ; }
                                       else {
                                       unsafe {
-                                      $ context . fail (
+                                      COAP_CONTEXT . fail (
                                       coap_context :: CoapError ::
                                       VALUE_NOT_UINT ) } ; } d ! (
                                       end json coap_set_int_val ) ; } } ;);
@@ -6113,7 +6113,7 @@ pub mod encoding {
                                        @ cbor $ context , $ val0 . key , val )
                                        ; } else {
                                        unsafe {
-                                       $ context . fail (
+                                       COAP_CONTEXT . fail (
                                        coap_context :: CoapError ::
                                        VALUE_NOT_UINT ) } ; } d ! (
                                        end cbor coap_item_int_val ) ; } } ; (
@@ -6129,7 +6129,7 @@ pub mod encoding {
                                        @ json $ context , $ val0 . key , val )
                                        ; } else {
                                        unsafe {
-                                       $ context . fail (
+                                       COAP_CONTEXT . fail (
                                        coap_context :: CoapError ::
                                        VALUE_NOT_UINT ) } ; } d ! (
                                        end json coap_item_int_val ) ; } } ;);
@@ -6350,11 +6350,11 @@ pub mod encoding {
                                               begin oc_rep_start_root_object )
                                               ; proc_macros :: try_cbor ! (
                                               {
-                                              let encoder = $ context .
+                                              let encoder = COAP_CONTEXT .
                                               encoder ( "root" , "_map" ) ;
                                               cbor_encoder_create_map (
-                                              $ context . global_encoder (  )
-                                              , encoder , tinycbor ::
+                                              COAP_CONTEXT . global_encoder (
+                                              ) , encoder , tinycbor ::
                                               CborIndefiniteLength ) ; } ) ; d
                                               ! ( end oc_rep_start_root_object
                                               ) ; } } ;);
@@ -6364,11 +6364,11 @@ pub mod encoding {
                                             d ! ( begin oc_rep_end_root_object
                                             ) ; proc_macros :: try_cbor ! (
                                             {
-                                            let encoder = $ context . encoder
-                                            ( "root" , "_map" ) ;
+                                            let encoder = COAP_CONTEXT .
+                                            encoder ( "root" , "_map" ) ;
                                             cbor_encoder_close_container (
-                                            $ context . global_encoder (  ) ,
-                                            encoder ) ; } ) ; d ! (
+                                            COAP_CONTEXT . global_encoder (  )
+                                            , encoder ) ; } ) ; d ! (
                                             end oc_rep_end_root_object ) ; } }
                                             ;);
         #[macro_export]
@@ -6385,8 +6385,8 @@ pub mod encoding {
                                          "_map" ) ; proc_macros :: try_cbor !
                                          (
                                          {
-                                         let encoder = $ context . encoder (
-                                         stringify ! ( $ key ) , "_map" ) ;
+                                         let encoder = COAP_CONTEXT . encoder
+                                         ( stringify ! ( $ key ) , "_map" ) ;
                                          cbor_encoder_create_map (
                                          encoder , & mut concat_idents ! (
                                          $ key , _map ) , tinycbor ::
@@ -6405,7 +6405,7 @@ pub mod encoding {
                                        ", child: " , stringify ! ( $ key ) ,
                                        "_map" ) ; proc_macros :: try_cbor ! (
                                        {
-                                       let encoder = $ context . encoder (
+                                       let encoder = COAP_CONTEXT . encoder (
                                        stringify ! ( $ key ) , "_map" ) ;
                                        cbor_encoder_close_container (
                                        encoder , & mut concat_idents ! (
@@ -6466,8 +6466,6 @@ pub mod encoding {
                                       stringify ! ( $ key ) , ", child: " ,
                                       stringify ! ( $ object ) , "_map" ) ;
                                       let key_with_opt_null : & [ u8 ] = $ key
-                                      . to_bytes_optional_nul (  ) ; let
-                                      value_with_opt_null : & [ u8 ] = $ value
                                       . to_bytes_optional_nul (  ) ;
                                       proc_macros :: try_cbor ! (
                                       {
@@ -6549,12 +6547,12 @@ pub mod encoding {
                                     = $ value as i64 ; proc_macros :: try_cbor
                                     ! (
                                     {
-                                    let encoder = $ context . encoder (
+                                    let encoder = COAP_CONTEXT . encoder (
                                     stringify ! ( $ context ) , "_map" ) ;
                                     cbor_encode_text_string (
-                                    encoder , $ context . key_to_cstr (
-                                    key_with_null . as_bytes (  ) ) , $
-                                    context . cstr_len (
+                                    encoder , COAP_CONTEXT . key_to_cstr (
+                                    key_with_null . as_bytes (  ) ) ,
+                                    COAP_CONTEXT . cstr_len (
                                     key_with_null . as_bytes (  ) ) ) ;
                                     cbor_encode_int ( encoder , value ) ; } )
                                     ; } ; (

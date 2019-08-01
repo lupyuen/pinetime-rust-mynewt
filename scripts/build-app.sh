@@ -66,8 +66,8 @@ done
 #  TODO: Expand Rust macros
 rustup default nightly
 set +e  # Ignore errors
-pushd rust/mynewt ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded > ../../logs/libmynewt-expanded.rs ; popd
-pushd rust/app    ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded > ../../logs/libapp-expanded.rs    ; popd
+pushd rust/mynewt ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
+pushd rust/app    ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
 set -e  # Stop on errors
 
 #  Build the Rust app in "src" folder.
