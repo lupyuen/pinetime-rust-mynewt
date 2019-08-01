@@ -314,8 +314,8 @@ mod app_network {
                                             COAP_CONTEXT.encoder("root",
                                                                  "_map");
                                         let encoder =
-                                            COAP_CONTEXT.encoder("values",
-                                                                 "_array");
+                                            COAP_CONTEXT.new_encoder("values",
+                                                                     "_array");
                                         let res =
                                             tinycbor::cbor_encoder_create_array(parent_encoder,
                                                                                 encoder,

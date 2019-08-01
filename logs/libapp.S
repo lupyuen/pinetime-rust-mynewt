@@ -607,6 +607,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os15eventq_dflt_get17hb17cddfc29115d4fE
 00000000         *UND*	00000000 _ZN6mynewt7sysinit17hc2bae3266fb1ff2aE
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
+00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext11new_encoder17h654d770da61aedbcE
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
@@ -892,7 +893,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  16c:	4620      	mov	r0, r4
  16e:	4629      	mov	r1, r5
  170:	2206      	movs	r2, #6
- 172:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE>
+ 172:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11new_encoder17h654d770da61aedbcE>
  176:	4601      	mov	r1, r0
  178:	4630      	mov	r0, r6
  17a:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff

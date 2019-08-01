@@ -918,7 +918,8 @@ macro_rules! oc_rep_start_array {
         stringify!($parent), 
         stringify!($parent_suffix)
       );
-      let encoder = COAP_CONTEXT.encoder(
+      //  Previously: CborEncoder key ##_array;
+      let encoder = COAP_CONTEXT.new_encoder(
         stringify!($key), 
         "_array"
       );

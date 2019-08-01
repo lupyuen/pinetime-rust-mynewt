@@ -4,6 +4,7 @@ use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: 
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
 use crate::{
     sys::console,
+    encoding::tinycbor::CborEncoder,
     fill_zero,
 };
 
@@ -23,6 +24,9 @@ pub struct CoapContext {
 const COAP_KEY_SIZE: usize = 32;
 /// Size of the static value buffer
 const COAP_VALUE_SIZE: usize = 32;
+
+/// Global CBOR root map
+static mut cbor_encoder: CborEncoder = fill_zero!(CborEncoder);
 
 impl CoapContext {
 
@@ -67,24 +71,25 @@ impl CoapContext {
 
     /// Create a new CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
     pub fn new_encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
-        console::print("new_encoder: ");
-        console::print(key);
-        console::print(suffix);
-        console::print("\n");
-        //  TODO
-        unsafe { &mut super::root_map }
+        console::print("new_encoder: "); console::print(key); console::print(suffix); console::print("\n");
+        //  TODO: Allow multiple keys
+        if key == "values" { unsafe { &mut cbor_encoder } }
+        else {
+            //  TODO
+            assert!(false);  //  No such encoder.
+            unsafe { &mut super::root_map }
+        }        
     }
 
     /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
     pub fn encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
-        console::print("encoder: ");
-        console::print(key);
-        console::print(suffix);
-        console::print("\n");
+        console::print("encoder: "); console::print(key); console::print(suffix); console::print("\n");
         if (key, suffix) == ("root", "_map") { unsafe { &mut super::root_map } }
+        //  TODO: Allow multiple keys
+        else if key == "values" { unsafe { &mut cbor_encoder } }
         else {
             //  TODO
-            //  assert!(false);  //  No such encoder.
+            assert!(false);  //  No such encoder.
             unsafe { &mut super::root_map }
         }        
     }

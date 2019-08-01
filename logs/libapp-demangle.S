@@ -607,6 +607,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 mynewt::kernel::os::eventq_dflt_get
 00000000         *UND*	00000000 mynewt::sysinit
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::key_to_cstr
+00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::new_encoder
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::check_result
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::global_encoder
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::encoder
@@ -892,7 +893,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  16c:	4620      	mov	r0, r4
  16e:	4629      	mov	r1, r5
  170:	2206      	movs	r2, #6
- 172:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::encoder>
+ 172:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::new_encoder>
  176:	4601      	mov	r1, r0
  178:	4630      	mov	r0, r6
  17a:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff

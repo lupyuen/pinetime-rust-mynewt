@@ -6552,7 +6552,7 @@ pub mod encoding {
                                         encoder (
                                         stringify ! ( $ parent ) , stringify !
                                         ( $ parent_suffix ) ) ; let encoder =
-                                        COAP_CONTEXT . encoder (
+                                        COAP_CONTEXT . new_encoder (
                                         stringify ! ( $ key ) , "_array" ) ;
                                         cbor_encoder_create_array (
                                         parent_encoder , encoder , tinycbor ::
@@ -8059,7 +8059,7 @@ pub mod encoding {
         //! COAP encoder state used by CoAP encoding macros
         use cstr_core::CStr;
         use cty::*;
-        use crate::{sys::console, fill_zero};
+        use crate::{sys::console, encoding::tinycbor::CborEncoder, fill_zero};
         /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
         pub static mut COAP_CONTEXT: CoapContext =
             unsafe {
@@ -8088,6 +8088,13 @@ pub mod encoding {
         const COAP_KEY_SIZE: usize = 32;
         /// Size of the static value buffer
         const COAP_VALUE_SIZE: usize = 32;
+        /// Global CBOR root map
+        static mut cbor_encoder: CborEncoder =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<CborEncoder>()],
+                                         CborEncoder>([0;
+                                                          ::core::mem::size_of::<CborEncoder>()])
+            };
         impl CoapContext {
             /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
             /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
@@ -8097,7 +8104,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   36u32, 9u32))
+                                                   40u32, 9u32))
                     }
                 };
                 self.key_buffer[..s.len()].copy_from_slice(s);
@@ -8115,7 +8122,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   49u32, 9u32))
+                                                   53u32, 9u32))
                     }
                 };
                 self.value_buffer[..s.len()].copy_from_slice(s);
@@ -8140,7 +8147,18 @@ pub mod encoding {
                 console::print(key);
                 console::print(suffix);
                 console::print("\n");
-                unsafe { &mut super::root_map }
+                if key == "values" {
+                    unsafe { &mut cbor_encoder }
+                } else {
+                    if !false {
+                        {
+                            ::core::panicking::panic(&("assertion failed: false",
+                                                       "rust/mynewt/src/encoding/coap_context.rs",
+                                                       79u32, 13u32))
+                        }
+                    };
+                    unsafe { &mut super::root_map }
+                }
             }
             /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
             pub fn encoder(&self, key: &str, suffix: &str)
@@ -8151,12 +8169,14 @@ pub mod encoding {
                 console::print("\n");
                 if (key, suffix) == ("root", "_map") {
                     unsafe { &mut super::root_map }
+                } else if key == "values" {
+                    unsafe { &mut cbor_encoder }
                 } else {
                     if !false {
                         {
                             ::core::panicking::panic(&("assertion failed: false",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       85u32, 13u32))
+                                                       92u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8184,7 +8204,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   92u32,
+                                                                   99u32,
                                                                    9u32))
                                 }
                             }
@@ -8214,7 +8234,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   97u32,
+                                                                   104u32,
                                                                    9u32))
                                 }
                             }
