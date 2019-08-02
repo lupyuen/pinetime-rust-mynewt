@@ -45,6 +45,26 @@ fn function_is_whitelisted(fname: &str) -> bool {
     }
 }
 
+/// Given a function name like `os_task_init`, return the namespace (`os`)
+fn get_namespace(fname: &str) -> &str {
+    //  Get the first part before `_`.
+    let fname_split: Vec<&str> = fname.splitn(2, "_").collect();
+    let namespace = fname_split[0];
+    //  Match the namespace and ignore if it's not a known namespace.
+    match namespace {
+        "do"     => { "" }   //  `do` is not a valid namespace e.g. `do_server_post()`
+        "get"    => { "" }   //  `get` is not a valid namespace e.g. `get_device_id()`
+        "init"   => { "" }   //  `init` is not a valid namespace e.g. `init_server_post()`
+        "start"  => { "" }   //  `start` is not a valid namespace e.g. `start_server_transport()`
+        "sensor" => {
+            //  If it matches `sensor_network`, return `sensor_network`.
+            if fname.starts_with("sensor_network_") { "sensor_network" }
+            else { "sensor" }
+        }
+        _ => { namespace }  //  Else it's a valid namspace
+    }
+}
+
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
 pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
@@ -398,25 +418,6 @@ fn transform_function_name(ident: &Ident) -> TransformedFunctionName {
         token:                      Box::new(fname_token),
         without_namespace_token:    Box::new(fname_without_namespace_token),
         ident_span:                 Box::new(ident.span()),
-    }
-}
-
-/// Given a function name like `os_task_init`, return the namespace (`os`)
-fn get_namespace(fname: &str) -> &str {
-    //  Get the first part before `_`.
-    let fname_split: Vec<&str> = fname.splitn(2, "_").collect();
-    let namespace = fname_split[0];
-    //  Match the namespace and ignore if it's not a known namespace.
-    match namespace {
-        "start"  => { "" }   //  `start` is not a valid namespace e.g. `start_server_transport()
-        "init"   => { "" }   //  `init` is not a valid namespace e.g. `init_server_post()
-        "do"     => { "" }   //  `do` is not a valid namespace e.g. `do_server_post()
-        "sensor" => {
-            //  If it matches `sensor_network`, return `sensor_network`.
-            if fname.starts_with("sensor_network_") { "sensor_network" }
-            else { "sensor" }
-        }
-        _ => { namespace }  //  Else it's a valid namspace
     }
 }
 

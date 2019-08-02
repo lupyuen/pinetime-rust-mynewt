@@ -47,6 +47,42 @@ pub fn strn(item: TokenStream) -> TokenStream {
     expanded.parse().unwrap()
 }
 
+/// ```
+/// strn!( "network" );
+/// strn!( sensor_network::get_device_id() ? );
+/// ```
+#[proc_macro]
+pub fn strn2(item: TokenStream) -> TokenStream {
+    //  Parse the macro input as a literal string e.g. `"network"`.
+    let expr = parse_macro_input!(item as syn::Expr);
+    println!("strn: {:#?}", expr);
+    //  `expr` is either `Lit` or `Try`.  TODO: Allow `&str`
+    match expr {
+        syn::Expr::Lit(expr) => {
+            //  Get the literal string value.
+            let lit = expr.lit;
+            println!("lit: {:#?}", quote! { #lit }.to_string());
+            let expanded = quote! {
+                &Strn::new( b"zzz\0" )
+            };
+            return expanded.into();
+        }
+        syn::Expr::Try(expr) => {
+            let expanded = quote! {
+                &Strn::new(
+                    #expr
+                )
+            };
+            return expanded.into();
+        }
+        _ => {}
+    };
+    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
+    let expanded = format!(r#"&Strn::new( b"{}\0" )"#, "abc");
+    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
+    expanded.parse().unwrap()
+}
+
 /// Initialise a null-terminated bytestring `Strn` that's suitable for passing to Mynewt APIs
 /// `init_strn!("network")` expands to `Strn{ bytestr: b"network\0" }`
 /// Used like this:

@@ -32,10 +32,10 @@ syscfg.vals:
     COAP_PORT:              5683
 
     # CoAP URI for JSON Payload at thethings.io. The last part `IVRi...` is the Thing Token.
-    # COAP_URI:               '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+    COAP_URI:               '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
 
     # CoAP URI for CBOR Payload at thethings.io  The last part `IVRi...` is the Thing Token.
-    COAP_URI:             '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true"'
+    # COAP_URI:             '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true"'
 
     ###########################################################################
     # Sensor Settings

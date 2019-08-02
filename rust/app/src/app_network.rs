@@ -34,8 +34,23 @@ use mynewt::{
     },
     coap, d, Strn,              //  Import Mynewt macros
 };
-use mynewt_macros::{ strn };    //  Import Mynewt procedural macros
- 
+use mynewt_macros::{ strn, strn2 };    //  Import Mynewt procedural macros
+
+// pub fn get_device_id2() -> MynewtResult<*const ::cty::c_char> {
+pub fn get_device_id2() -> MynewtResult<&'static Strn> {
+    "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
+    extern "C" {
+        pub fn get_device_id() -> *const ::cty::c_char;
+    }
+    "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+    unsafe {
+        "----------Insert Call: `let result_code = os_task_init(`----------";
+        let result_value = get_device_id();
+        let wrap_result: &'static Strn = &Strn{ bytestr: b"abcd\0" };
+        Ok(&wrap_result)
+    }
+}
+
 /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
 /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -50,6 +65,9 @@ use mynewt_macros::{ strn };    //  Import Mynewt procedural macros
 pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust send_sensor_data\n");
     if let SensorValueType::None = val.val { assert!(false); }
+    // let device_id = strn2!( sensor_network::get_device_id() ? );
+    // let device_id2 = strn2!( "network" );
+    let device_id = get_device_id2() ?;
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -59,11 +77,11 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
 
     //  Compose the CoAP Payload using the coap!() macro.
     //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.
-    let _payload = coap!( @cbor {        
+    let _payload = coap!( @json {        
         //  Create `values` as an array of items under the root.
         //  Append to the `values` array:
         //  `{"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}`
-        //  TODO: "device": device_id,
+        "device": device_id,
 
         //  Assume `val` contains `key: "t", val: 2870`. 
         //  Append to the `values` array the Sensor Key and Sensor Value:
