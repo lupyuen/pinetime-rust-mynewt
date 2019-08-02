@@ -118,6 +118,9 @@ bool init_collector_post(void);
 //  Return true if successful, false if network has not been registered.
 bool sensor_network_init_post(uint8_t iface_type, const char *uri);
 
+//  Set the encoding format for the CoAP message: APPLICATION_JSON or APPLICATION_CBOR.  If set to 0, use the default encoding format.
+bool sensor_network_prepare_post(int encoding);
+
 /////////////////////////////////////////////////////////
 //  Post CoAP Messages
 

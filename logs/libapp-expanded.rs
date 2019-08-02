@@ -278,6 +278,9 @@ mod app_network {
                 "begin cbor root";
                 {
                     "begin cbor coap_root";
+                    unsafe {
+                        sensor_network::prepare_post(mynewt::encoding::APPLICATION_CBOR);
+                    }
                     {
                         "begin oc_rep_start_root_object";
                         unsafe {

@@ -9,10 +9,6 @@
 
 extern crate macros as proc_macros;  //  Import Procedural Macros from `macros` library
 
-use crate::{
-    result::*,
-};
-
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
@@ -23,6 +19,7 @@ pub mod kernel;     //  Mynewt Kernel API. Export folder `kernel` as Rust module
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod hw;         //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
 
+#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 pub mod sys;        //  Mynewt System API. Export folder `sys` as Rust module `mynewt::sys`
 
 #[macro_use]                      //  Allow macros from Rust module `encoding`

@@ -2729,7 +2729,7 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 

@@ -31,9 +31,13 @@ void init_sensor_coap(void);
 //  Return true if the Sensor CoAP is ready for sending sensor data.
 bool sensor_coap_ready(void);
 
-//  Create a new sensor post request to send to CoAP server.  coap_content_format is 
-//  APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
-bool init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
+//  Create a new sensor post request to send to CoAP server.  
+bool init_sensor_post(struct oc_server_handle *server);
+
+//  Prepare the new sensor post request for writing the payload. 
+//  coap_content_format is APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
+//  Return true if successful.
+bool prepare_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
 
 //  Send the sensor post request to CoAP server.
 bool do_sensor_post(void);

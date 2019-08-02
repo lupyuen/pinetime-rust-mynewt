@@ -23,8 +23,6 @@ extern crate compiler_builtins as compiler_builtins;
 extern crate macros as proc_macros;
 //  Import Procedural Macros from `macros` library
 
-use crate::{result::*};
-
 //  Suppress warnings of unused constants and vars
 //  Allow type names to have non-camel case
 //  Allow globals to have lowercase letters
@@ -39,6 +37,7 @@ pub mod kernel {
     //  Allow globals to have lowercase letters
     //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
 
+    //  Suppress warnings of unused constants and vars
     //  Mynewt System API. Export folder `sys` as Rust module `mynewt::sys`
 
     //  Allow macros from Rust module `encoding`
@@ -5729,6 +5728,7 @@ pub mod hw {
         }
     }
 }
+#[allow(dead_code)]
 pub mod sys {
     //! Mynewt System API for Rust
     pub mod console {
@@ -6065,19 +6065,24 @@ pub mod encoding {
         macro_rules! coap_root(( @ cbor $ context : ident $ children0 : block
                                ) => {
                                {
-                               d ! ( begin cbor coap_root ) ; $ crate ::
-                               oc_rep_start_root_object ! ( $ context ) ; $
-                               children0 ; $ crate :: oc_rep_end_root_object !
-                               ( $ context ) ; d ! ( end cbor coap_root ) ; }
-                               } ; (
+                               d ! ( begin cbor coap_root ) ; unsafe {
+                               sensor_network :: prepare_post (
+                               mynewt :: encoding :: APPLICATION_CBOR ) ; } $
+                               crate :: oc_rep_start_root_object ! ( $ context
+                               ) ; $ children0 ; $ crate ::
+                               oc_rep_end_root_object ! ( $ context ) ; d ! (
+                               end cbor coap_root ) ; } } ; (
                                @ json $ context : ident $ children0 : block )
                                => {
                                {
                                d ! ( begin json coap_root ) ; unsafe {
+                               sensor_network :: prepare_post (
+                               mynewt :: encoding :: APPLICATION_JSON ) ; }
+                               unsafe {
                                sensor_coap :: json_rep_start_root_object (  )
-                               } $ children0 ; unsafe {
-                               sensor_coap :: json_rep_end_root_object (  ) }
-                               d ! ( end json coap_root ) ; } } ;);
+                               ; } $ children0 ; unsafe {
+                               sensor_coap :: json_rep_end_root_object (  ) ;
+                               } d ! ( end json coap_root ) ; } } ;);
         ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
         #[macro_export]
         macro_rules! coap_array((
@@ -8324,6 +8329,10 @@ pub mod encoding {
             }
         }
     }
+    /// CoAP Payload is in JSON format
+    pub const APPLICATION_JSON: i32 = 50;
+    /// CoAP Payload is in CBOR format
+    pub const APPLICATION_CBOR: i32 = 60;
 }
 #[macro_use]
 pub mod util {
@@ -9232,10 +9241,7 @@ pub mod libs {
             _unused: [u8; 0],
         }
         extern "C" {
-            pub fn init_sensor_post(server: *mut oc_server_handle,
-                                    uri: *const ::cty::c_char,
-                                    coap_content_format: ::cty::c_int)
-             -> bool;
+            pub fn init_sensor_post(server: *mut oc_server_handle) -> bool;
         }
         extern "C" {
             pub fn do_sensor_post() -> bool;
@@ -9318,6 +9324,20 @@ pub mod libs {
             pub fn sensor_network_init_post(iface_type: u8,
                                             uri: *const ::cty::c_char)
              -> bool;
+        }
+        pub fn prepare_post(encoding: ::cty::c_int) -> MynewtResult<bool> {
+            "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
+            extern "C" {
+                pub fn sensor_network_prepare_post(encoding: ::cty::c_int)
+                 -> bool;
+            }
+            "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+            unsafe {
+                "----------Insert Call: `let result_code = os_task_init(`----------";
+                let result_value =
+                    sensor_network_prepare_post(encoding as ::cty::c_int);
+                Ok(result_value)
+            }
         }
         pub fn do_server_post() -> MynewtResult<bool> {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
@@ -10586,7 +10606,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           116u32, 9u32))
+                                                           113u32, 9u32))
                         }
                     }
                 }
@@ -10619,7 +10639,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           126u32, 9u32))
+                                                           123u32, 9u32))
                         }
                     }
                 }
@@ -10651,7 +10671,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           135u32, 9u32))
+                                                           132u32, 9u32))
                         }
                     }
                 }
@@ -10682,7 +10702,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           143u32, 9u32))
+                                                           140u32, 9u32))
                         }
                     }
                 }
@@ -10711,7 +10731,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           149u32, 9u32))
+                                                           146u32, 9u32))
                         }
                     }
                 }

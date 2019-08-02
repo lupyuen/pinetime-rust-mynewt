@@ -31,13 +31,11 @@ syscfg.vals:
     # CoAP UDP port, usually port 5683
     COAP_PORT:              5683
 
-    # CoAP URI for CBOR at thethings.io
+    # CoAP URI for CBOR Payload at thethings.io  The last part `IVRi...` is the Thing Token.
     COAP_URI:               '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true"'
-    COAP_CBOR_ENCODING:     1  # Use CBOR to encode CoAP payload for thethings.io
 
-    # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
+    # CoAP URI for JSON Payload at thethings.io. The last part `IVRi...` is the Thing Token.
     # COAP_URI:             '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
-    # COAP_JSON_ENCODING:   1  # Use JSON to encode CoAP payload for thethings.io
 
     ###########################################################################
     # Sensor Settings
@@ -63,6 +61,8 @@ syscfg.vals:
     NBIOT_BAND:             8  # Connect to this NB-IoT band
     SENSOR_NETWORK:         1  # Enable Sensor Network library
     SENSOR_COAP:            1  # Send sensor data to CoAP server
+    COAP_CBOR_ENCODING:     1  # Enable CBOR encoding of CoAP payload
+    COAP_JSON_ENCODING:     1  # Enable JSON encoding of CoAP payload
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
 
     ###########################################################################

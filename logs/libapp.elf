@@ -12,7 +12,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          63472 (bytes into file)
+  Start of section headers:          63652 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -24,85 +24,85 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 00e574 00127a 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 00e5e8 0012bc 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E PROGBITS        00000000 000034 00000c 00  AX  0   0  2
-  [ 4] .rel.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E REL             00000000 00bc34 000008 08     79   3  4
+  [ 4] .rel.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E REL             00000000 00bc78 000008 08     79   3  4
   [ 5] .ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E ARM_EXIDX       00000000 000040 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E REL             00000000 00bc3c 000008 08     79   5  4
+  [ 6] .rel.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E REL             00000000 00bc80 000008 08     79   5  4
   [ 7] .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E PROGBITS        00000000 000048 000050 00  AX  0   0  2
-  [ 8] .rel.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E REL             00000000 00bc44 000048 08     79   7  4
+  [ 8] .rel.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E REL             00000000 00bc88 000048 08     79   7  4
   [ 9] .ARM.exidx.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E ARM_EXIDX       00000000 000098 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E REL             00000000 00bc8c 000008 08     79   9  4
-  [11] .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E PROGBITS        00000000 0000a0 0002c4 00  AX  0   0  2
-  [12] .rel.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E REL             00000000 00bc94 000290 08     79  11  4
-  [13] .ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E ARM_EXIDX       00000000 000364 000008 00  AL 11   0  4
-  [14] .rel.ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E REL             00000000 00bf24 000008 08     79  13  4
-  [15] .text.main        PROGBITS        00000000 00036c 0000e8 00  AX  0   0  2
-  [16] .rel.text.main    REL             00000000 00bf2c 000110 08     79  15  4
-  [17] .ARM.exidx.text.main ARM_EXIDX       00000000 000454 000008 00  AL 15   0  4
-  [18] .rel.ARM.exidx.text.main REL             00000000 00c03c 000008 08     79  17  4
-  [19] .text.rust_begin_unwind PROGBITS        00000000 00045c 000066 00  AX  0   0  2
-  [20] .rel.text.rust_begin_unwind REL             00000000 00c044 000090 08     79  19  4
-  [21] .ARM.exidx.text.rust_begin_unwind ARM_EXIDX       00000000 0004c4 000008 00  AL 19   0  4
-  [22] .rel.ARM.exidx.text.rust_begin_unwind REL             00000000 00c0d4 000008 08     79  21  4
-  [23] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0 PROGBITS        00000000 0004cc 000000 00   A  0   0  1
-  [24] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1 PROGBITS        00000000 0004cc 000002 00   A  0   0  1
-  [25] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2 PROGBITS        00000000 0004d0 000010 00   A  0   0  4
-  [26] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2 REL             00000000 00c0dc 000010 08     79  25  4
-  [27] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3 PROGBITS        00000000 0004e0 000015 00   A  0   0  1
-  [28] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4 PROGBITS        00000000 0004f8 000010 00   A  0   0  4
-  [29] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4 REL             00000000 00c0ec 000008 08     79  28  4
-  [30] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5 PROGBITS        00000000 000508 00000d 00   A  0   0  1
-  [31] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E PROGBITS        00000000 000518 000008 00   A  0   0  4
-  [32] .rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E REL             00000000 00c0f4 000008 08     79  31  4
-  [33] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6 PROGBITS        00000000 000520 00000f 00   A  0   0  1
-  [34] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7 PROGBITS        00000000 00052f 00003c 00   A  0   0  1
-  [35] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8 PROGBITS        00000000 00056b 00001a 00   A  0   0  1
-  [36] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9 PROGBITS        00000000 000588 000018 00   A  0   0  4
-  [37] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9 REL             00000000 00c0fc 000010 08     79  36  4
-  [38] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10 PROGBITS        00000000 0005a0 000018 00   A  0   0  1
-  [39] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11 PROGBITS        00000000 0005b8 000018 00   A  0   0  4
-  [40] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11 REL             00000000 00c10c 000010 08     79  39  4
-  [41] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.12 PROGBITS        00000000 0005d0 000017 00   A  0   0  1
-  [42] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13 PROGBITS        00000000 0005e8 000018 00   A  0   0  4
-  [43] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13 REL             00000000 00c11c 000010 08     79  42  4
-  [44] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.14 PROGBITS        00000000 000600 000016 00   A  0   0  1
-  [45] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.15 PROGBITS        00000000 000616 000019 00   A  0   0  1
-  [46] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16 PROGBITS        00000000 000630 000018 00   A  0   0  4
-  [47] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16 REL             00000000 00c12c 000010 08     79  46  4
-  [48] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.17 PROGBITS        00000000 000648 000019 00   A  0   0  1
-  [49] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.18 PROGBITS        00000000 000661 000001 00   A  0   0  1
-  [50] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.19 PROGBITS        00000000 000662 000016 00   A  0   0  1
-  [51] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.20 PROGBITS        00000000 000678 000001 00   A  0   0  1
-  [52] .rodata.cst4      PROGBITS        00000000 000679 000008 04  AM  0   0  1
-  [53] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.23 PROGBITS        00000000 000681 000006 00   A  0   0  1
-  [54] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.24 PROGBITS        00000000 000687 000006 00   A  0   0  1
-  [55] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.25 PROGBITS        00000000 00068d 00004b 00   A  0   0  1
-  [56] .rodata.cst8      PROGBITS        00000000 0006d8 000028 08  AM  0   0  1
-  [57] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.30 PROGBITS        00000000 000700 000012 00   A  0   0  1
-  [58] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.31 PROGBITS        00000000 000712 000009 00   A  0   0  1
-  [59] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.33 PROGBITS        00000000 00071b 000001 00   A  0   0  1
-  [60] .debug_str        PROGBITS        00000000 00071c 0031ac 01  MS  0   0  1
-  [61] .debug_loc        PROGBITS        00000000 0038c8 000409 00      0   0  1
-  [62] .rel.debug_loc    REL             00000000 00c13c 0003a0 08     79  61  4
-  [63] .debug_abbrev     PROGBITS        00000000 003cd1 00024f 00      0   0  1
-  [64] .debug_info       PROGBITS        00000000 003f20 002776 00      0   0  1
-  [65] .rel.debug_info   REL             00000000 00c4dc 001d90 08     79  64  4
-  [66] .debug_ranges     PROGBITS        00000000 006696 0001c8 00      0   0  1
-  [67] .rel.debug_ranges REL             00000000 00e26c 000280 08     79  66  4
-  [68] .debug_macinfo    PROGBITS        00000000 00685e 000001 00      0   0  1
-  [69] .debug_pubnames   PROGBITS        00000000 00685f 0002ee 00      0   0  1
-  [70] .rel.debug_pubnames REL             00000000 00e4ec 000008 08     79  69  4
-  [71] .debug_pubtypes   PROGBITS        00000000 006b4d 0024d7 00      0   0  1
-  [72] .rel.debug_pubtypes REL             00000000 00e4f4 000008 08     79  71  4
-  [73] .note.GNU-stack   PROGBITS        00000000 009024 000000 00      0   0  1
-  [74] .ARM.attributes   ARM_ATTRIBUTES  00000000 009024 000032 00      0   0  1
-  [75] .debug_frame      PROGBITS        00000000 009058 000084 00      0   0  4
-  [76] .rel.debug_frame  REL             00000000 00e4fc 000050 08     79  75  4
-  [77] .debug_line       PROGBITS        00000000 0090dc 000408 00      0   0  1
-  [78] .rel.debug_line   REL             00000000 00e54c 000028 08     79  77  4
-  [79] .symtab           SYMTAB          00000000 0094e4 002750 10      1 587  4
+  [10] .rel.ARM.exidx.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E REL             00000000 00bcd0 000008 08     79   9  4
+  [11] .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E PROGBITS        00000000 0000a0 0002cc 00  AX  0   0  2
+  [12] .rel.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E REL             00000000 00bcd8 000298 08     79  11  4
+  [13] .ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E ARM_EXIDX       00000000 00036c 000008 00  AL 11   0  4
+  [14] .rel.ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E REL             00000000 00bf70 000008 08     79  13  4
+  [15] .text.main        PROGBITS        00000000 000374 0000e8 00  AX  0   0  2
+  [16] .rel.text.main    REL             00000000 00bf78 000110 08     79  15  4
+  [17] .ARM.exidx.text.main ARM_EXIDX       00000000 00045c 000008 00  AL 15   0  4
+  [18] .rel.ARM.exidx.text.main REL             00000000 00c088 000008 08     79  17  4
+  [19] .text.rust_begin_unwind PROGBITS        00000000 000464 000066 00  AX  0   0  2
+  [20] .rel.text.rust_begin_unwind REL             00000000 00c090 000090 08     79  19  4
+  [21] .ARM.exidx.text.rust_begin_unwind ARM_EXIDX       00000000 0004cc 000008 00  AL 19   0  4
+  [22] .rel.ARM.exidx.text.rust_begin_unwind REL             00000000 00c120 000008 08     79  21  4
+  [23] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0 PROGBITS        00000000 0004d4 000000 00   A  0   0  1
+  [24] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1 PROGBITS        00000000 0004d4 000002 00   A  0   0  1
+  [25] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2 PROGBITS        00000000 0004d8 000010 00   A  0   0  4
+  [26] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2 REL             00000000 00c128 000010 08     79  25  4
+  [27] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3 PROGBITS        00000000 0004e8 000015 00   A  0   0  1
+  [28] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4 PROGBITS        00000000 000500 000010 00   A  0   0  4
+  [29] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4 REL             00000000 00c138 000008 08     79  28  4
+  [30] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5 PROGBITS        00000000 000510 00000d 00   A  0   0  1
+  [31] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E PROGBITS        00000000 000520 000008 00   A  0   0  4
+  [32] .rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E REL             00000000 00c140 000008 08     79  31  4
+  [33] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6 PROGBITS        00000000 000528 00000f 00   A  0   0  1
+  [34] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7 PROGBITS        00000000 000537 00003c 00   A  0   0  1
+  [35] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8 PROGBITS        00000000 000573 00001a 00   A  0   0  1
+  [36] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9 PROGBITS        00000000 000590 000018 00   A  0   0  4
+  [37] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9 REL             00000000 00c148 000010 08     79  36  4
+  [38] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10 PROGBITS        00000000 0005a8 000018 00   A  0   0  1
+  [39] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11 PROGBITS        00000000 0005c0 000018 00   A  0   0  4
+  [40] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11 REL             00000000 00c158 000010 08     79  39  4
+  [41] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.12 PROGBITS        00000000 0005d8 000017 00   A  0   0  1
+  [42] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13 PROGBITS        00000000 0005f0 000018 00   A  0   0  4
+  [43] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13 REL             00000000 00c168 000010 08     79  42  4
+  [44] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.14 PROGBITS        00000000 000608 000016 00   A  0   0  1
+  [45] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.15 PROGBITS        00000000 00061e 000019 00   A  0   0  1
+  [46] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16 PROGBITS        00000000 000638 000018 00   A  0   0  4
+  [47] .rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16 REL             00000000 00c178 000010 08     79  46  4
+  [48] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.17 PROGBITS        00000000 000650 000019 00   A  0   0  1
+  [49] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.18 PROGBITS        00000000 000669 000001 00   A  0   0  1
+  [50] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.19 PROGBITS        00000000 00066a 000016 00   A  0   0  1
+  [51] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.20 PROGBITS        00000000 000680 000001 00   A  0   0  1
+  [52] .rodata.cst4      PROGBITS        00000000 000681 000008 04  AM  0   0  1
+  [53] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.23 PROGBITS        00000000 000689 000006 00   A  0   0  1
+  [54] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.24 PROGBITS        00000000 00068f 000006 00   A  0   0  1
+  [55] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.25 PROGBITS        00000000 000695 00004b 00   A  0   0  1
+  [56] .rodata.cst8      PROGBITS        00000000 0006e0 000028 08  AM  0   0  1
+  [57] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.30 PROGBITS        00000000 000708 000012 00   A  0   0  1
+  [58] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.31 PROGBITS        00000000 00071a 000009 00   A  0   0  1
+  [59] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.33 PROGBITS        00000000 000723 000001 00   A  0   0  1
+  [60] .debug_str        PROGBITS        00000000 000724 0031ac 01  MS  0   0  1
+  [61] .debug_loc        PROGBITS        00000000 0038d0 000427 00      0   0  1
+  [62] .rel.debug_loc    REL             00000000 00c188 0003c0 08     79  61  4
+  [63] .debug_abbrev     PROGBITS        00000000 003cf7 00024f 00      0   0  1
+  [64] .debug_info       PROGBITS        00000000 003f46 00277a 00      0   0  1
+  [65] .rel.debug_info   REL             00000000 00c548 001d98 08     79  64  4
+  [66] .debug_ranges     PROGBITS        00000000 0066c0 0001c8 00      0   0  1
+  [67] .rel.debug_ranges REL             00000000 00e2e0 000280 08     79  66  4
+  [68] .debug_macinfo    PROGBITS        00000000 006888 000001 00      0   0  1
+  [69] .debug_pubnames   PROGBITS        00000000 006889 0002ee 00      0   0  1
+  [70] .rel.debug_pubnames REL             00000000 00e560 000008 08     79  69  4
+  [71] .debug_pubtypes   PROGBITS        00000000 006b77 0024d7 00      0   0  1
+  [72] .rel.debug_pubtypes REL             00000000 00e568 000008 08     79  71  4
+  [73] .note.GNU-stack   PROGBITS        00000000 00904e 000000 00      0   0  1
+  [74] .ARM.attributes   ARM_ATTRIBUTES  00000000 00904e 000032 00      0   0  1
+  [75] .debug_frame      PROGBITS        00000000 009080 000084 00      0   0  4
+  [76] .rel.debug_frame  REL             00000000 00e570 000050 08     79  75  4
+  [77] .debug_line       PROGBITS        00000000 009104 000411 00      0   0  1
+  [78] .rel.debug_line   REL             00000000 00e5c0 000028 08     79  77  4
+  [79] .symtab           SYMTAB          00000000 009518 002760 10      1 587  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -115,15 +115,15 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E' at offset 0xbc34 contains 1 entry:
+Relocation section '.rel.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E' at offset 0xbc78 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000008  00024b1e R_ARM_THM_JUMP24       00000000   _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE
 
-Relocation section '.rel.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E' at offset 0xbc3c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E' at offset 0xbc80 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0002372a R_ARM_PREL31           00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
 
-Relocation section '.rel.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E' at offset 0xbc44 contains 9 entries:
+Relocation section '.rel.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E' at offset 0xbc88 contains 9 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000008  0002512f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hffcd2d6e43a98b23E
 0000000c  00025130 R_ARM_THM_MOVT_ABS     00000000   _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hffcd2d6e43a98b23E
@@ -135,18 +135,18 @@ Relocation section '.rel.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
 00000046  00023030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.4
 0000004a  0002500a R_ARM_THM_CALL         00000000   _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
 
-Relocation section '.rel.ARM.exidx.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E' at offset 0xbc8c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E' at offset 0xbcd0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0002382a R_ARM_PREL31           00000000   .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
 
-Relocation section '.rel.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E' at offset 0xbc94 contains 82 entries:
+Relocation section '.rel.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E' at offset 0xbcd8 contains 83 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000008  0002192f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.10
 0000000c  00021930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.10
 00000014  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
-0000001a  0002710a R_ARM_THM_CALL         00000000   is_null_sensor_data
-0000002c  0002700a R_ARM_THM_CALL         00000000   is_null_sensor
-00000042  00026f0a R_ARM_THM_CALL         00000000   get_temp_raw_data
+0000001a  0002720a R_ARM_THM_CALL         00000000   is_null_sensor_data
+0000002c  0002710a R_ARM_THM_CALL         00000000   is_null_sensor
+00000042  0002700a R_ARM_THM_CALL         00000000   get_temp_raw_data
 00000056  00021e2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.17
 0000005c  00021e30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.17
 00000064  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
@@ -156,99 +156,100 @@ Relocation section '.rel.text._ZN3app10app_sensor18handle_sensor_data17hce4161cc
 00000076  0002222f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.20
 0000007c  00022230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.20
 00000080  00025a0a R_ARM_THM_CALL         00000000   _ZN6mynewt4Strn3new17hd3927fe713482c61E
-0000008c  00025c0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network16init_server_post17h27f63ed9509825d3E
-000000b0  0002672f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
-000000b4  0002232f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
-000000b8  0002242f R_ARM_THM_MOVW_ABS_NC  00000004   .Lanon.3ed011473997af99b525cde47c9eaaac.22
-000000be  00022330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
-000000c2  00022430 R_ARM_THM_MOVT_ABS     00000004   .Lanon.3ed011473997af99b525cde47c9eaaac.22
-000000c6  00026730 R_ARM_THM_MOVT_ABS     00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
-000000d8  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-000000e0  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
-000000ea  00026e0a R_ARM_THM_CALL         00000000   cbor_encoder_create_map
-000000f2  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-000000f6  0002252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
-000000fc  00022530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
-00000100  0002680a R_ARM_THM_CALL         00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
-00000114  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-00000120  0002610a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
-0000012c  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
-00000136  00026b0a R_ARM_THM_CALL         00000000   cbor_encode_text_string
-0000013e  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-00000152  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-00000156  0002252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
-0000015a  0002262f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
-00000162  00022530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
-00000168  00022630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
-00000172  0002620a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext11new_encoder17h654d770da61aedbcE
-0000017e  00026d0a R_ARM_THM_CALL         00000000   cbor_encoder_create_array
-00000186  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-0000018a  00021f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.18
-00000190  00021f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.18
-00000194  0002680a R_ARM_THM_CALL         00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
-000001ac  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-000001b8  0002610a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
-000001c4  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
-000001ce  00026b0a R_ARM_THM_CALL         00000000   cbor_encode_text_string
-000001d6  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-000001e0  00026a0a R_ARM_THM_CALL         00000000   cbor_encode_int
-000001e8  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-000001ec  0002232f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
-000001f2  00022330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
-00000200  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-00000204  0002252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
-00000208  0002262f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
-00000214  00022530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
-0000021a  00022630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
-0000021e  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-00000226  00026c0a R_ARM_THM_CALL         00000000   cbor_encoder_close_container
-0000022e  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-0000023e  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-00000246  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
-0000024c  00026c0a R_ARM_THM_CALL         00000000   cbor_encoder_close_container
-00000254  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-0000025a  00025b0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network14do_server_post17h63b4208c05d74765E
-0000026e  00021c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.14
-00000274  00021c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.14
-00000278  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
-00000284  0002272f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.25
-0000028a  00022730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.25
-0000028e  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
-0000029a  00021a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.11
-0000029e  00021a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.11
-000002a2  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-000002a8  00021d2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.16
-000002ac  00021d30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.16
-000002b0  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-000002b6  00021b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13
-000002ba  00021b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13
-000002be  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000008c  00025d0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network16init_server_post17h27f63ed9509825d3E
+000000b4  00025b0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network12prepare_post17h850eb70da8c09a26E
+000000b8  0002682f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
+000000bc  0002232f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
+000000c0  0002242f R_ARM_THM_MOVW_ABS_NC  00000004   .Lanon.3ed011473997af99b525cde47c9eaaac.22
+000000c6  00022330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
+000000ca  00022430 R_ARM_THM_MOVT_ABS     00000004   .Lanon.3ed011473997af99b525cde47c9eaaac.22
+000000ce  00026830 R_ARM_THM_MOVT_ABS     00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
+000000e0  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+000000e8  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
+000000f2  00026f0a R_ARM_THM_CALL         00000000   cbor_encoder_create_map
+000000fa  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+000000fe  0002252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000104  00022530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000108  0002690a R_ARM_THM_CALL         00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
+0000011c  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+00000128  0002620a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
+00000134  0002670a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
+0000013e  00026c0a R_ARM_THM_CALL         00000000   cbor_encode_text_string
+00000146  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+0000015a  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+0000015e  0002252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000162  0002262f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
+0000016a  00022530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000170  00022630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
+0000017a  0002630a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext11new_encoder17h654d770da61aedbcE
+00000186  00026e0a R_ARM_THM_CALL         00000000   cbor_encoder_create_array
+0000018e  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+00000192  00021f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.18
+00000198  00021f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.18
+0000019c  0002690a R_ARM_THM_CALL         00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
+000001b4  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+000001c0  0002620a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
+000001cc  0002670a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
+000001d6  00026c0a R_ARM_THM_CALL         00000000   cbor_encode_text_string
+000001de  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+000001e8  00026b0a R_ARM_THM_CALL         00000000   cbor_encode_int
+000001f0  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+000001f4  0002232f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
+000001fa  00022330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21
+00000208  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+0000020c  0002252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000210  0002262f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
+0000021c  00022530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000222  00022630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24
+00000226  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+0000022e  00026d0a R_ARM_THM_CALL         00000000   cbor_encoder_close_container
+00000236  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+00000246  0002660a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+0000024e  0002650a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
+00000254  00026d0a R_ARM_THM_CALL         00000000   cbor_encoder_close_container
+0000025c  0002640a R_ARM_THM_CALL         00000000   _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+00000262  00025c0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network14do_server_post17h63b4208c05d74765E
+00000276  00021c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.14
+0000027c  00021c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.14
+00000280  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
+0000028c  0002272f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.25
+00000292  00022730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.25
+00000296  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
+000002a2  00021a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.11
+000002a6  00021a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.11
+000002aa  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000002b0  00021d2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.16
+000002b4  00021d30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.16
+000002b8  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000002be  00021b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13
+000002c2  00021b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13
+000002c6  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E' at offset 0xbf24 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E' at offset 0xbf70 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0002392a R_ARM_PREL31           00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
 
-Relocation section '.rel.text.main' at offset 0xbf2c contains 34 entries:
+Relocation section '.rel.text.main' at offset 0xbf78 contains 34 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000002  0002600a R_ARM_THM_CALL         00000000   _ZN6mynewt7sysinit17hc2bae3266fb1ff2aE
+00000002  0002610a R_ARM_THM_CALL         00000000   _ZN6mynewt7sysinit17hc2bae3266fb1ff2aE
 00000006  0002312f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.6
 0000000c  00023130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.6
 00000010  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
 00000014  0002332f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E
 0000001c  00023330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E
 00000020  0002540a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h7c5e0a202348e33cE
-00000028  0002730a R_ARM_THM_CALL         00000000   null_sensor
+00000028  0002740a R_ARM_THM_CALL         00000000   null_sensor
 0000002c  0002332f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E
 00000034  00023330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E
 00000038  0002550a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor8bindings23mgr_find_next_bydevname17hc658a5853b69921dE
-00000046  0002700a R_ARM_THM_CALL         00000000   is_null_sensor
+00000046  0002710a R_ARM_THM_CALL         00000000   is_null_sensor
 0000004e  0002342f R_ARM_THM_MOVW_ABS_NC  00000001   _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
 00000052  00023430 R_ARM_THM_MOVT_ABS     00000001   _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
 00000056  0002520a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor10as_untyped17hc683efc51e7df2deE
 0000006e  0002530a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor17register_listener17he319e84e05fa897bE
-00000078  00025d0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network22start_server_transport17he5c189d769aa6683E
-00000084  00025f0a R_ARM_THM_CALL         00000000   _ZN6mynewt6kernel2os15eventq_dflt_get17hb17cddfc29115d4fE
-00000090  00025e0a R_ARM_THM_CALL         00000000   _ZN6mynewt6kernel2os10eventq_run17h49917a2d6a4028eaE
+00000078  00025e0a R_ARM_THM_CALL         00000000   _ZN6mynewt4libs14sensor_network22start_server_transport17he5c189d769aa6683E
+00000084  0002600a R_ARM_THM_CALL         00000000   _ZN6mynewt6kernel2os15eventq_dflt_get17hb17cddfc29115d4fE
+00000090  00025f0a R_ARM_THM_CALL         00000000   _ZN6mynewt6kernel2os10eventq_run17h49917a2d6a4028eaE
 0000009a  00022b2f R_ARM_THM_MOVW_ABS_NC  00000018   .Lanon.3ed011473997af99b525cde47c9eaaac.29
 0000009e  00022b30 R_ARM_THM_MOVT_ABS     00000018   .Lanon.3ed011473997af99b525cde47c9eaaac.29
 000000a2  0002360a R_ARM_THM_CALL         00000001   _ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
@@ -265,11 +266,11 @@ Relocation section '.rel.text.main' at offset 0xbf2c contains 34 entries:
 000000de  00023230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.9
 000000e2  00024f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 
-Relocation section '.rel.ARM.exidx.text.main' at offset 0xc03c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text.main' at offset 0xc088 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023a2a R_ARM_PREL31           00000000   .text.main
 
-Relocation section '.rel.text.rust_begin_unwind' at offset 0xc044 contains 18 entries:
+Relocation section '.rel.text.rust_begin_unwind' at offset 0xc090 contains 18 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00024e0a R_ARM_THM_CALL         00000000   _ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E
 00000008  00024c0a R_ARM_THM_CALL         00000000   _ZN4core5panic8Location4file17h94cc6af18de736c4E
@@ -288,46 +289,46 @@ Relocation section '.rel.text.rust_begin_unwind' at offset 0xc044 contains 18 en
 00000054  00022c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.30
 00000058  0002570a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h578959f818f159a0E
 0000005c  0002560a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17ha743c57e8b1e2e3cE
-00000060  0002690a R_ARM_THM_CALL         00000000   __bkpt
+00000060  00026a0a R_ARM_THM_CALL         00000000   __bkpt
 
-Relocation section '.rel.ARM.exidx.text.rust_begin_unwind' at offset 0xc0d4 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text.rust_begin_unwind' at offset 0xc120 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023b2a R_ARM_PREL31           00000000   .text.rust_begin_unwind
 
-Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2' at offset 0xc0dc contains 2 entries:
+Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2' at offset 0xc128 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023c02 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0
 00000008  00023d02 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1
 
-Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4' at offset 0xc0ec contains 1 entry:
+Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4' at offset 0xc138 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023e02 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3
 
-Relocation section '.rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E' at offset 0xc0f4 contains 1 entry:
+Relocation section '.rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E' at offset 0xc140 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023f02 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5
 
-Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9' at offset 0xc0fc contains 2 entries:
+Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9' at offset 0xc148 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00024102 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7
 00000008  00024202 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8
 
-Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11' at offset 0xc10c contains 2 entries:
+Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11' at offset 0xc158 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00024102 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7
 00000008  00024202 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8
 
-Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13' at offset 0xc11c contains 2 entries:
+Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13' at offset 0xc168 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00024302 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.12
 00000008  00024202 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8
 
-Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16' at offset 0xc12c contains 2 entries:
+Relocation section '.rel.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16' at offset 0xc178 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00024402 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.15
 00000008  00024202 R_ARM_ABS32            00000000   .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8
 
-Relocation section '.rel.debug_loc' at offset 0xc13c contains 116 entries:
+Relocation section '.rel.debug_loc' at offset 0xc188 contains 120 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023702 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
 00000004  00023702 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
@@ -393,60 +394,64 @@ Relocation section '.rel.debug_loc' at offset 0xc13c contains 116 entries:
 000001e2  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
 000001f1  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
 000001f5  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
-00000205  00023a02 R_ARM_ABS32            00000000   .text.main
-00000209  00023a02 R_ARM_ABS32            00000000   .text.main
-00000219  00023a02 R_ARM_ABS32            00000000   .text.main
-0000021d  00023a02 R_ARM_ABS32            00000000   .text.main
-00000224  00023a02 R_ARM_ABS32            00000000   .text.main
-00000228  00023a02 R_ARM_ABS32            00000000   .text.main
+000001fc  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
+00000200  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
+0000020f  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
+00000213  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
+00000223  00023a02 R_ARM_ABS32            00000000   .text.main
+00000227  00023a02 R_ARM_ABS32            00000000   .text.main
 00000237  00023a02 R_ARM_ABS32            00000000   .text.main
 0000023b  00023a02 R_ARM_ABS32            00000000   .text.main
-0000025c  00023a02 R_ARM_ABS32            00000000   .text.main
-00000260  00023a02 R_ARM_ABS32            00000000   .text.main
-0000026f  00023a02 R_ARM_ABS32            00000000   .text.main
-00000273  00023a02 R_ARM_ABS32            00000000   .text.main
-00000282  00023a02 R_ARM_ABS32            00000000   .text.main
-00000286  00023a02 R_ARM_ABS32            00000000   .text.main
-00000292  00023a02 R_ARM_ABS32            00000000   .text.main
-00000296  00023a02 R_ARM_ABS32            00000000   .text.main
-000002ab  00023a02 R_ARM_ABS32            00000000   .text.main
-000002af  00023a02 R_ARM_ABS32            00000000   .text.main
-000002bb  00023a02 R_ARM_ABS32            00000000   .text.main
-000002bf  00023a02 R_ARM_ABS32            00000000   .text.main
-000002d4  00023a02 R_ARM_ABS32            00000000   .text.main
-000002d8  00023a02 R_ARM_ABS32            00000000   .text.main
-000002e4  00023a02 R_ARM_ABS32            00000000   .text.main
-000002e8  00023a02 R_ARM_ABS32            00000000   .text.main
-000002fd  00023a02 R_ARM_ABS32            00000000   .text.main
-00000301  00023a02 R_ARM_ABS32            00000000   .text.main
-00000309  00023a02 R_ARM_ABS32            00000000   .text.main
-0000030d  00023a02 R_ARM_ABS32            00000000   .text.main
-0000031d  00023a02 R_ARM_ABS32            00000000   .text.main
-00000321  00023a02 R_ARM_ABS32            00000000   .text.main
-00000330  00023a02 R_ARM_ABS32            00000000   .text.main
-00000334  00023a02 R_ARM_ABS32            00000000   .text.main
-00000340  00023a02 R_ARM_ABS32            00000000   .text.main
-00000344  00023a02 R_ARM_ABS32            00000000   .text.main
-00000359  00023a02 R_ARM_ABS32            00000000   .text.main
-0000035d  00023a02 R_ARM_ABS32            00000000   .text.main
-0000036c  00023a02 R_ARM_ABS32            00000000   .text.main
-00000370  00023a02 R_ARM_ABS32            00000000   .text.main
-0000037f  00023a02 R_ARM_ABS32            00000000   .text.main
-00000383  00023a02 R_ARM_ABS32            00000000   .text.main
-00000392  00023a02 R_ARM_ABS32            00000000   .text.main
-00000396  00023a02 R_ARM_ABS32            00000000   .text.main
-000003a5  00023a02 R_ARM_ABS32            00000000   .text.main
-000003a9  00023a02 R_ARM_ABS32            00000000   .text.main
-000003b8  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003bc  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003cb  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003cf  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003de  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003e2  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003f6  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-000003fa  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000242  00023a02 R_ARM_ABS32            00000000   .text.main
+00000246  00023a02 R_ARM_ABS32            00000000   .text.main
+00000255  00023a02 R_ARM_ABS32            00000000   .text.main
+00000259  00023a02 R_ARM_ABS32            00000000   .text.main
+0000027a  00023a02 R_ARM_ABS32            00000000   .text.main
+0000027e  00023a02 R_ARM_ABS32            00000000   .text.main
+0000028d  00023a02 R_ARM_ABS32            00000000   .text.main
+00000291  00023a02 R_ARM_ABS32            00000000   .text.main
+000002a0  00023a02 R_ARM_ABS32            00000000   .text.main
+000002a4  00023a02 R_ARM_ABS32            00000000   .text.main
+000002b0  00023a02 R_ARM_ABS32            00000000   .text.main
+000002b4  00023a02 R_ARM_ABS32            00000000   .text.main
+000002c9  00023a02 R_ARM_ABS32            00000000   .text.main
+000002cd  00023a02 R_ARM_ABS32            00000000   .text.main
+000002d9  00023a02 R_ARM_ABS32            00000000   .text.main
+000002dd  00023a02 R_ARM_ABS32            00000000   .text.main
+000002f2  00023a02 R_ARM_ABS32            00000000   .text.main
+000002f6  00023a02 R_ARM_ABS32            00000000   .text.main
+00000302  00023a02 R_ARM_ABS32            00000000   .text.main
+00000306  00023a02 R_ARM_ABS32            00000000   .text.main
+0000031b  00023a02 R_ARM_ABS32            00000000   .text.main
+0000031f  00023a02 R_ARM_ABS32            00000000   .text.main
+00000327  00023a02 R_ARM_ABS32            00000000   .text.main
+0000032b  00023a02 R_ARM_ABS32            00000000   .text.main
+0000033b  00023a02 R_ARM_ABS32            00000000   .text.main
+0000033f  00023a02 R_ARM_ABS32            00000000   .text.main
+0000034e  00023a02 R_ARM_ABS32            00000000   .text.main
+00000352  00023a02 R_ARM_ABS32            00000000   .text.main
+0000035e  00023a02 R_ARM_ABS32            00000000   .text.main
+00000362  00023a02 R_ARM_ABS32            00000000   .text.main
+00000377  00023a02 R_ARM_ABS32            00000000   .text.main
+0000037b  00023a02 R_ARM_ABS32            00000000   .text.main
+0000038a  00023a02 R_ARM_ABS32            00000000   .text.main
+0000038e  00023a02 R_ARM_ABS32            00000000   .text.main
+0000039d  00023a02 R_ARM_ABS32            00000000   .text.main
+000003a1  00023a02 R_ARM_ABS32            00000000   .text.main
+000003b0  00023a02 R_ARM_ABS32            00000000   .text.main
+000003b4  00023a02 R_ARM_ABS32            00000000   .text.main
+000003c3  00023a02 R_ARM_ABS32            00000000   .text.main
+000003c7  00023a02 R_ARM_ABS32            00000000   .text.main
+000003d6  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+000003da  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+000003e9  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+000003ed  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+000003fc  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000400  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000414  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000418  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 
-Relocation section '.rel.debug_info' at offset 0xc4dc contains 946 entries:
+Relocation section '.rel.debug_info' at offset 0xc548 contains 947 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00024602 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00003a02 R_ARM_ABS32            00000000   
@@ -500,902 +505,903 @@ Relocation section '.rel.debug_info' at offset 0xc4dc contains 946 entries:
 000001c5  00024502 R_ARM_ABS32            00000000   .debug_loc
 000001c9  0000c902 R_ARM_ABS32            000006f1   
 000001d4  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
-000001dd  0000ed02 R_ARM_ABS32            000009ef   
-000001ec  0000f202 R_ARM_ABS32            00000ac0   
-000001f0  0000f302 R_ARM_ABS32            00000aff   
-000001fd  0000b702 R_ARM_ABS32            0000060d   
-00000209  00021302 R_ARM_ABS32            00002c8d   
-00000216  0000ed02 R_ARM_ABS32            000009ef   
-00000222  0000b902 R_ARM_ABS32            00000618   
-00000232  0000ed02 R_ARM_ABS32            000009ef   
-0000023e  0000b902 R_ARM_ABS32            00000618   
-0000024c  0000ed02 R_ARM_ABS32            000009ef   
-00000258  0000b902 R_ARM_ABS32            00000618   
-00000267  0000d402 R_ARM_ABS32            00000785   
-0000026c  0000d502 R_ARM_ABS32            00000791   
-00000270  0000d602 R_ARM_ABS32            000007cc   
-0000027c  0000b902 R_ARM_ABS32            00000618   
-00000288  0000c902 R_ARM_ABS32            000006f1   
-00000294  0000db02 R_ARM_ABS32            0000082d   
-000002a0  0000e902 R_ARM_ABS32            000009c1   
-000002ae  0000ea02 R_ARM_ABS32            000009c5   
-000002ba  0000db02 R_ARM_ABS32            0000082d   
-000002c6  0000e902 R_ARM_ABS32            000009c1   
-000002d4  0000eb02 R_ARM_ABS32            000009d7   
-000002e0  0000db02 R_ARM_ABS32            0000082d   
-000002ec  0000e902 R_ARM_ABS32            000009c1   
-000002fc  0000b902 R_ARM_ABS32            00000618   
-00000308  0000ea02 R_ARM_ABS32            000009c5   
-00000314  00008f02 R_ARM_ABS32            0000037c   
-00000321  0000db02 R_ARM_ABS32            0000082d   
-0000032d  0000e902 R_ARM_ABS32            000009c1   
-00000339  0000e902 R_ARM_ABS32            000009c1   
-0000034b  0000eb02 R_ARM_ABS32            000009d7   
-00000357  0000db02 R_ARM_ABS32            0000082d   
-00000363  0000e902 R_ARM_ABS32            000009c1   
-00000372  0000db02 R_ARM_ABS32            0000082d   
-0000037e  0000e902 R_ARM_ABS32            000009c1   
-0000038c  0000ec02 R_ARM_ABS32            000009e6   
-00000398  0000ed02 R_ARM_ABS32            000009ef   
-000003a4  0000b902 R_ARM_ABS32            00000618   
-000003b4  0000ed02 R_ARM_ABS32            000009ef   
-000003c0  0000b902 R_ARM_ABS32            00000618   
-000003cf  00023a02 R_ARM_ABS32            00000000   .text.main
-000003d9  00002302 R_ARM_ABS32            000030c4   
+000001dd  00024502 R_ARM_ABS32            00000000   .debug_loc
+000001e1  0000ed02 R_ARM_ABS32            000009ef   
+000001f0  0000f202 R_ARM_ABS32            00000ac0   
+000001f4  0000f302 R_ARM_ABS32            00000aff   
+00000201  0000b702 R_ARM_ABS32            0000060d   
+0000020d  00021302 R_ARM_ABS32            00002c8d   
+0000021a  0000ed02 R_ARM_ABS32            000009ef   
+00000226  0000b902 R_ARM_ABS32            00000618   
+00000236  0000ed02 R_ARM_ABS32            000009ef   
+00000242  0000b902 R_ARM_ABS32            00000618   
+00000250  0000ed02 R_ARM_ABS32            000009ef   
+0000025c  0000b902 R_ARM_ABS32            00000618   
+0000026b  0000d402 R_ARM_ABS32            00000785   
+00000270  0000d502 R_ARM_ABS32            00000791   
+00000274  0000d602 R_ARM_ABS32            000007cc   
+00000280  0000b902 R_ARM_ABS32            00000618   
+0000028c  0000c902 R_ARM_ABS32            000006f1   
+00000298  0000db02 R_ARM_ABS32            0000082d   
+000002a4  0000e902 R_ARM_ABS32            000009c1   
+000002b2  0000ea02 R_ARM_ABS32            000009c5   
+000002be  0000db02 R_ARM_ABS32            0000082d   
+000002ca  0000e902 R_ARM_ABS32            000009c1   
+000002d8  0000eb02 R_ARM_ABS32            000009d7   
+000002e4  0000db02 R_ARM_ABS32            0000082d   
+000002f0  0000e902 R_ARM_ABS32            000009c1   
+00000300  0000b902 R_ARM_ABS32            00000618   
+0000030c  0000ea02 R_ARM_ABS32            000009c5   
+00000318  00008f02 R_ARM_ABS32            0000037c   
+00000325  0000db02 R_ARM_ABS32            0000082d   
+00000331  0000e902 R_ARM_ABS32            000009c1   
+0000033d  0000e902 R_ARM_ABS32            000009c1   
+0000034f  0000eb02 R_ARM_ABS32            000009d7   
+0000035b  0000db02 R_ARM_ABS32            0000082d   
+00000367  0000e902 R_ARM_ABS32            000009c1   
+00000376  0000db02 R_ARM_ABS32            0000082d   
+00000382  0000e902 R_ARM_ABS32            000009c1   
+00000390  0000ec02 R_ARM_ABS32            000009e6   
+0000039c  0000ed02 R_ARM_ABS32            000009ef   
+000003a8  0000b902 R_ARM_ABS32            00000618   
+000003b8  0000ed02 R_ARM_ABS32            000009ef   
+000003c4  0000b902 R_ARM_ABS32            00000618   
+000003d3  00023a02 R_ARM_ABS32            00000000   .text.main
 000003dd  00002302 R_ARM_ABS32            000030c4   
-000003ec  00024802 R_ARM_ABS32            00000000   .debug_ranges
-000003f7  00023a02 R_ARM_ABS32            00000000   .text.main
-00000402  00024502 R_ARM_ABS32            00000000   .debug_loc
-0000040c  00024802 R_ARM_ABS32            00000000   .debug_ranges
-00000411  00024502 R_ARM_ABS32            00000000   .debug_loc
-0000041a  00023a02 R_ARM_ABS32            00000000   .text.main
-00000423  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000433  00024802 R_ARM_ABS32            00000000   .debug_ranges
-0000043a  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000443  00024502 R_ARM_ABS32            00000000   .debug_loc
-0000044c  00023a02 R_ARM_ABS32            00000000   .text.main
-00000455  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000464  00024802 R_ARM_ABS32            00000000   .debug_ranges
-0000046b  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000474  00024502 R_ARM_ABS32            00000000   .debug_loc
-0000047d  00023a02 R_ARM_ABS32            00000000   .text.main
-00000486  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000495  00024802 R_ARM_ABS32            00000000   .debug_ranges
-0000049c  00024502 R_ARM_ABS32            00000000   .debug_loc
-000004a5  00024502 R_ARM_ABS32            00000000   .debug_loc
-000004ae  00023a02 R_ARM_ABS32            00000000   .text.main
-000004b7  00024502 R_ARM_ABS32            00000000   .debug_loc
-000004c0  00023a02 R_ARM_ABS32            00000000   .text.main
-000004c9  00024502 R_ARM_ABS32            00000000   .debug_loc
-000004d9  00024802 R_ARM_ABS32            00000000   .debug_ranges
-000004e0  00024502 R_ARM_ABS32            00000000   .debug_loc
-000004e9  00024502 R_ARM_ABS32            00000000   .debug_loc
-000004f2  00023a02 R_ARM_ABS32            00000000   .text.main
-000004fb  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000507  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-00000511  00002402 R_ARM_ABS32            000030c9   
-00000515  00002502 R_ARM_ABS32            000030db   
-00000520  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000524  00002b02 R_ARM_ABS32            00003101   
-0000052f  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-00000538  00024502 R_ARM_ABS32            00000000   .debug_loc
-0000053c  00003202 R_ARM_ABS32            00003153   
-00000547  00024802 R_ARM_ABS32            00000000   .debug_ranges
-0000054c  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000550  00003302 R_ARM_ABS32            0000315c   
-0000055b  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-00000564  00024502 R_ARM_ABS32            00000000   .debug_loc
-00000568  00003402 R_ARM_ABS32            00003161   
-0000057a  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-00000587  00004002 R_ARM_ABS32            000000a2   
-0000058c  00004802 R_ARM_ABS32            000000da   
-00000593  00004102 R_ARM_ABS32            000000a9   
-0000059f  00004b02 R_ARM_ABS32            0000011b   
-000005a8  00006902 R_ARM_ABS32            00000221   
-000005af  00005802 R_ARM_ABS32            00000162   
-000005b5  00005902 R_ARM_ABS32            0000016a   
-000005bf  00005a02 R_ARM_ABS32            00000175   
-000005c9  00005b02 R_ARM_ABS32            00000180   
-000005d3  00005c02 R_ARM_ABS32            0000018d   
-000005dd  00005d02 R_ARM_ABS32            00000198   
-000005e7  00005e02 R_ARM_ABS32            000001a0   
-000005f1  00005f02 R_ARM_ABS32            000001ab   
-000005fb  00006002 R_ARM_ABS32            000001b6   
-00000605  00006102 R_ARM_ABS32            000001c0   
-0000060f  00006202 R_ARM_ABS32            000001cb   
-00000619  00006302 R_ARM_ABS32            000001d6   
-00000623  00006402 R_ARM_ABS32            000001e3   
-0000062d  00006502 R_ARM_ABS32            000001ef   
-00000637  00006602 R_ARM_ABS32            000001fc   
-00000641  00006702 R_ARM_ABS32            0000020a   
-0000064b  00006802 R_ARM_ABS32            00000214   
-00000657  0000b602 R_ARM_ABS32            0000060a   
-0000065c  0000b702 R_ARM_ABS32            0000060d   
-00000661  0000be02 R_ARM_ABS32            0000063b   
-00000668  0000b802 R_ARM_ABS32            00000614   
-00000673  0000b902 R_ARM_ABS32            00000618   
-0000067f  0000bd02 R_ARM_ABS32            0000062b   
-00000694  00007502 R_ARM_ABS32            00000282   
-000006a2  0000ba02 R_ARM_ABS32            0000061c   
-000006b0  0000bb02 R_ARM_ABS32            00000621   
-000006bd  00007502 R_ARM_ABS32            00000282   
-000006c4  0000ba02 R_ARM_ABS32            0000061c   
-000006cb  00007902 R_ARM_ABS32            00000298   
-000006d7  0000bb02 R_ARM_ABS32            00000621   
-000006de  00007902 R_ARM_ABS32            00000298   
-000006eb  0000c802 R_ARM_ABS32            000006dc   
-000006f2  0000c602 R_ARM_ABS32            000006b7   
-000006fd  0000c702 R_ARM_ABS32            000006c5   
-00000709  0000cc02 R_ARM_ABS32            0000071d   
-0000070e  0000d302 R_ARM_ABS32            00000774   
-00000715  0000cd02 R_ARM_ABS32            00000726   
-00000720  0000ce02 R_ARM_ABS32            0000072f   
-0000072c  0000d202 R_ARM_ABS32            00000751   
-00000733  0000cf02 R_ARM_ABS32            0000073b   
-0000073e  00007e02 R_ARM_ABS32            000002b6   
-0000074d  0000d002 R_ARM_ABS32            00000743   
-00000756  0000d102 R_ARM_ABS32            0000074b   
-0000075c  0000b702 R_ARM_ABS32            0000060d   
-00000763  0000f402 R_ARM_ABS32            00000b15   
-0000076e  00011102 R_ARM_ABS32            00000e81   
-00000779  00014502 R_ARM_ABS32            0000120b   
-00000784  00014602 R_ARM_ABS32            00001213   
-0000078f  00014702 R_ARM_ABS32            0000121a   
-0000079a  00014802 R_ARM_ABS32            00001226   
-000007a5  00014902 R_ARM_ABS32            00001231   
-000007b0  0001d102 R_ARM_ABS32            0000271c   
-000007bb  0001dd02 R_ARM_ABS32            00002792   
-000007c6  0001ec02 R_ARM_ABS32            00002833   
-000007d1  0001f602 R_ARM_ABS32            0000291c   
-000007dc  0001ff02 R_ARM_ABS32            000029c8   
-000007e7  00020202 R_ARM_ABS32            00002a93   
-000007f2  00020302 R_ARM_ABS32            00002a9d   
-000007fd  00020e02 R_ARM_ABS32            00002c1f   
-00000808  00021002 R_ARM_ABS32            00002c47   
-00000814  0001cf02 R_ARM_ABS32            000026dd   
-0000081b  00014a02 R_ARM_ABS32            00001239   
-00000826  00014f02 R_ARM_ABS32            00001541   
-00000831  00015602 R_ARM_ABS32            0000169b   
-0000083c  00015902 R_ARM_ABS32            0000176f   
-00000847  0001c302 R_ARM_ABS32            00002487   
-00000852  0001c602 R_ARM_ABS32            00002543   
-0000085d  0001c702 R_ARM_ABS32            00002560   
-00000868  0001ca02 R_ARM_ABS32            00002614   
-00000873  0001cb02 R_ARM_ABS32            0000262a   
-0000087e  0001ce02 R_ARM_ABS32            000026d4   
-0000088a  00015202 R_ARM_ABS32            00001564   
-00000891  00015002 R_ARM_ABS32            0000154f   
-0000089c  00015102 R_ARM_ABS32            0000155a   
-000008a8  0001bf02 R_ARM_ABS32            00002330   
-000008af  00015a02 R_ARM_ABS32            00001785   
-000008ba  00015b02 R_ARM_ABS32            00001795   
-000008c5  0001b502 R_ARM_ABS32            00002140   
-000008d0  0001b602 R_ARM_ABS32            00002150   
-000008db  0001b702 R_ARM_ABS32            00002159   
-000008e6  0001b802 R_ARM_ABS32            00002164   
-000008f1  0001b902 R_ARM_ABS32            00002173   
-000008fc  0001bd02 R_ARM_ABS32            000022fb   
-00000907  0001be02 R_ARM_ABS32            00002306   
-00000913  0001b402 R_ARM_ABS32            00002132   
-0000091a  00015c02 R_ARM_ABS32            000017a4   
-00000925  00016402 R_ARM_ABS32            00001885   
-00000930  00016c02 R_ARM_ABS32            0000196e   
-0000093b  00017402 R_ARM_ABS32            00001a57   
-00000946  00017d02 R_ARM_ABS32            00001b42   
-00000951  00017e02 R_ARM_ABS32            00001b47   
-0000095c  00017f02 R_ARM_ABS32            00001b4c   
-00000967  00018702 R_ARM_ABS32            00001c31   
-00000972  00018b02 R_ARM_ABS32            00001cf3   
-0000097d  00018c02 R_ARM_ABS32            00001cf8   
-00000988  00019402 R_ARM_ABS32            00001de7   
-00000993  0001a602 R_ARM_ABS32            00001f57   
-0000099e  0001ac02 R_ARM_ABS32            00002038   
-000009a9  0001b202 R_ARM_ABS32            0000211a   
-000009b5  00016302 R_ARM_ABS32            0000183d   
-000009bc  00007902 R_ARM_ABS32            00000298   
-000009cb  00008b02 R_ARM_ABS32            00000349   
-000009d1  00016002 R_ARM_ABS32            000017ba   
-000009d8  00015d02 R_ARM_ABS32            000017a8   
-000009e3  00015e02 R_ARM_ABS32            000017ae   
-000009ee  00015f02 R_ARM_ABS32            000017b4   
-000009f9  0000ce02 R_ARM_ABS32            0000072f   
-00000a05  00016b02 R_ARM_ABS32            00001924   
-00000a0c  00007902 R_ARM_ABS32            00000298   
-00000a1b  00008b02 R_ARM_ABS32            00000349   
-00000a21  00016802 R_ARM_ABS32            0000189b   
-00000a28  00016502 R_ARM_ABS32            00001889   
-00000a33  00016602 R_ARM_ABS32            0000188f   
-00000a3e  00016702 R_ARM_ABS32            00001895   
-00000a49  0000ce02 R_ARM_ABS32            0000072f   
-00000a55  00017302 R_ARM_ABS32            00001a0d   
-00000a5c  00007902 R_ARM_ABS32            00000298   
-00000a6b  00008b02 R_ARM_ABS32            00000349   
-00000a71  00017002 R_ARM_ABS32            00001984   
-00000a78  00016d02 R_ARM_ABS32            00001972   
-00000a83  00016e02 R_ARM_ABS32            00001978   
-00000a8e  00016f02 R_ARM_ABS32            0000197e   
-00000a99  0000ce02 R_ARM_ABS32            0000072f   
-00000aa5  00017c02 R_ARM_ABS32            00001af9   
-00000aac  00007902 R_ARM_ABS32            00000298   
-00000abb  00008b02 R_ARM_ABS32            00000349   
-00000ac1  00017902 R_ARM_ABS32            00001a73   
-00000ac8  00017502 R_ARM_ABS32            00001a5b   
-00000ad3  00017602 R_ARM_ABS32            00001a61   
-00000ade  00017702 R_ARM_ABS32            00001a67   
-00000ae9  00017802 R_ARM_ABS32            00001a6d   
-00000af4  0000ce02 R_ARM_ABS32            0000072f   
-00000b00  00018602 R_ARM_ABS32            00001be8   
-00000b07  00007902 R_ARM_ABS32            00000298   
-00000b16  00008b02 R_ARM_ABS32            00000349   
-00000b1c  00018302 R_ARM_ABS32            00001b62   
-00000b23  00018002 R_ARM_ABS32            00001b50   
-00000b2e  00018102 R_ARM_ABS32            00001b56   
-00000b39  00018202 R_ARM_ABS32            00001b5c   
-00000b44  0000ce02 R_ARM_ABS32            0000072f   
-00000b50  00018a02 R_ARM_ABS32            00001caa   
-00000b57  00007902 R_ARM_ABS32            00000298   
-00000b66  00008b02 R_ARM_ABS32            00000349   
-00000b6c  00019302 R_ARM_ABS32            00001d9d   
-00000b73  00007902 R_ARM_ABS32            00000298   
-00000b82  00008b02 R_ARM_ABS32            00000349   
-00000b88  00019002 R_ARM_ABS32            00001d14   
-00000b8f  00018d02 R_ARM_ABS32            00001cfc   
-00000b9a  00018e02 R_ARM_ABS32            00001d05   
-00000ba5  00018f02 R_ARM_ABS32            00001d0c   
-00000bb0  0000ce02 R_ARM_ABS32            0000072f   
-00000bbc  0001a502 R_ARM_ABS32            00001f0d   
-00000bc3  00007902 R_ARM_ABS32            00000298   
-00000bd2  00008b02 R_ARM_ABS32            00000349   
-00000bd8  0001a202 R_ARM_ABS32            00001e84   
-00000bdf  00019502 R_ARM_ABS32            00001deb   
-00000bea  00019602 R_ARM_ABS32            00001df1   
-00000bf5  00019702 R_ARM_ABS32            00001df7   
-00000c00  00019802 R_ARM_ABS32            00001dfd   
-00000c0b  00019902 R_ARM_ABS32            00001e03   
-00000c16  00019a02 R_ARM_ABS32            00001e0b   
-00000c21  00019b02 R_ARM_ABS32            00001e19   
-00000c2c  00019c02 R_ARM_ABS32            00001e28   
-00000c37  00019d02 R_ARM_ABS32            00001e39   
-00000c42  00019e02 R_ARM_ABS32            00001e44   
-00000c4d  00019f02 R_ARM_ABS32            00001e4f   
-00000c58  0001a002 R_ARM_ABS32            00001e5a   
-00000c63  0000ce02 R_ARM_ABS32            0000072f   
-00000c6f  0001a102 R_ARM_ABS32            00001e61   
-00000c76  0000cf02 R_ARM_ABS32            0000073b   
-00000c81  00007e02 R_ARM_ABS32            000002b6   
-00000c90  0000d002 R_ARM_ABS32            00000743   
-00000c99  0000d102 R_ARM_ABS32            0000074b   
-00000c9f  0001ab02 R_ARM_ABS32            00001fee   
-00000ca6  00007902 R_ARM_ABS32            00000298   
-00000cb5  00008b02 R_ARM_ABS32            00000349   
-00000cbb  0001a802 R_ARM_ABS32            00001f65   
-00000cc2  0001a702 R_ARM_ABS32            00001f5b   
-00000ccd  0000ce02 R_ARM_ABS32            0000072f   
-00000cd9  0001b102 R_ARM_ABS32            000020d0   
-00000ce0  00007902 R_ARM_ABS32            00000298   
-00000cef  00008b02 R_ARM_ABS32            00000349   
-00000cf5  0001ae02 R_ARM_ABS32            00002047   
-00000cfc  0001ad02 R_ARM_ABS32            0000203d   
-00000d07  0000ce02 R_ARM_ABS32            0000072f   
-00000d13  00000202 R_ARM_ABS32            0000230f   
-00000d1a  00012e02 R_ARM_ABS32            000010a8   
-00000d26  0001dc02 R_ARM_ABS32            00002781   
-00000d2d  0001d202 R_ARM_ABS32            00002722   
-00000d38  0001d602 R_ARM_ABS32            00002744   
-00000d43  0001db02 R_ARM_ABS32            00002776   
-00000d4f  0001eb02 R_ARM_ABS32            00002828   
-00000d56  0001de02 R_ARM_ABS32            00002798   
-00000d61  0001df02 R_ARM_ABS32            000027a0   
-00000d6c  0001e002 R_ARM_ABS32            000027a7   
-00000d77  0001e102 R_ARM_ABS32            000027b1   
-00000d82  0001e202 R_ARM_ABS32            000027b9   
-00000d8d  0001e402 R_ARM_ABS32            000027e3   
-00000d98  0001e502 R_ARM_ABS32            000027ee   
-00000da3  0001e602 R_ARM_ABS32            000027fa   
-00000daf  0001ea02 R_ARM_ABS32            0000281d   
-00000db6  0001e702 R_ARM_ABS32            00002802   
-00000dc1  0001e802 R_ARM_ABS32            0000280b   
-00000dcc  0001e902 R_ARM_ABS32            00002816   
-00000dd8  0001fe02 R_ARM_ABS32            000029b3   
-00000ddf  00011302 R_ARM_ABS32            00000e90   
-00000deb  0001fc02 R_ARM_ABS32            00002970   
-00000df2  0001f702 R_ARM_ABS32            0000292c   
-00000dfd  0001f802 R_ARM_ABS32            0000293b   
-00000e08  0001f902 R_ARM_ABS32            00002943   
-00000e13  0001fa02 R_ARM_ABS32            0000294a   
-00000e1f  0001fb02 R_ARM_ABS32            00002952   
-00000e26  00012e02 R_ARM_ABS32            000010a8   
-00000e32  00020d02 R_ARM_ABS32            00002c0a   
-00000e39  00011302 R_ARM_ABS32            00000e90   
-00000e45  00020b02 R_ARM_ABS32            00002bc7   
-00000e4c  00020402 R_ARM_ABS32            00002aad   
-00000e57  00020502 R_ARM_ABS32            00002ac2   
-00000e62  00020802 R_ARM_ABS32            00002b9a   
-00000e6d  00020902 R_ARM_ABS32            00002ba1   
-00000e79  00020a02 R_ARM_ABS32            00002ba9   
-00000e80  00012e02 R_ARM_ABS32            000010a8   
-00000e8c  00020f02 R_ARM_ABS32            00002c32   
-00000e93  00011302 R_ARM_ABS32            00000e90   
-00000e9f  00021102 R_ARM_ABS32            00002c4e   
-00000ea6  00012e02 R_ARM_ABS32            000010a8   
-00000eb5  0000dc02 R_ARM_ABS32            00000835   
-00000eba  0000dd02 R_ARM_ABS32            0000083e   
-00000ebf  0000e702 R_ARM_ABS32            00000988   
-00000ec6  0000de02 R_ARM_ABS32            00000847   
-00000ed1  0000e502 R_ARM_ABS32            00000977   
-00000edc  0000e602 R_ARM_ABS32            00000982   
-00000ee7  00007f02 R_ARM_ABS32            000002bc   
-00000ef3  0000e302 R_ARM_ABS32            0000092e   
-00000efa  0000df02 R_ARM_ABS32            0000084e   
-00000f05  0000e202 R_ARM_ABS32            00000920   
-00000f13  0000f502 R_ARM_ABS32            00000b1b   
-00000f18  0000f602 R_ARM_ABS32            00000b22   
-00000f1d  00010f02 R_ARM_ABS32            00000e5a   
-00000f24  0000f702 R_ARM_ABS32            00000b25   
-00000f2f  00010302 R_ARM_ABS32            00000d3b   
-00000f3a  00010602 R_ARM_ABS32            00000df5   
-00000f45  00010702 R_ARM_ABS32            00000e01   
-00000f50  00010802 R_ARM_ABS32            00000e0a   
-00000f5b  00010902 R_ARM_ABS32            00000e16   
-00000f66  00010a02 R_ARM_ABS32            00000e22   
-00000f71  00010b02 R_ARM_ABS32            00000e2b   
-00000f7c  00010c02 R_ARM_ABS32            00000e33   
-00000f88  00010202 R_ARM_ABS32            00000d2b   
-00000f8f  0000f802 R_ARM_ABS32            00000b31   
-00000f9a  0000fb02 R_ARM_ABS32            00000bf5   
-00000fa5  0000fe02 R_ARM_ABS32            00000c96   
-00000fb0  00010102 R_ARM_ABS32            00000d22   
-00000fbc  00010e02 R_ARM_ABS32            00000e45   
-00000fc3  00010d02 R_ARM_ABS32            00000e3b   
-00000fcf  00014402 R_ARM_ABS32            00001202   
-00000fd6  00011202 R_ARM_ABS32            00000e88   
-00000fe1  00014002 R_ARM_ABS32            000011e3   
-00000fec  00014102 R_ARM_ABS32            000011e8   
-00000ff7  00014202 R_ARM_ABS32            000011f0   
-00001002  00014302 R_ARM_ABS32            000011f9   
-0000100e  00013f02 R_ARM_ABS32            000011cc   
-00001015  00011302 R_ARM_ABS32            00000e90   
-00001021  00013d02 R_ARM_ABS32            000011a3   
-00001028  00011402 R_ARM_ABS32            00000e9a   
-00001033  00011602 R_ARM_ABS32            00000eae   
-0000103e  00011702 R_ARM_ABS32            00000eb9   
-00001049  00011902 R_ARM_ABS32            00000ec9   
-00001054  00011a02 R_ARM_ABS32            00000ed2   
-0000105f  00011b02 R_ARM_ABS32            00000ed9   
-0000106a  00011c02 R_ARM_ABS32            00000ee1   
-00001075  00011d02 R_ARM_ABS32            00000ee9   
-00001080  00011e02 R_ARM_ABS32            00000ef3   
-0000108b  00011f02 R_ARM_ABS32            00000ef9   
-00001096  00012002 R_ARM_ABS32            00000f00   
-000010a1  00012302 R_ARM_ABS32            00000f69   
-000010ac  00012402 R_ARM_ABS32            00000f6f   
-000010b7  00012502 R_ARM_ABS32            00000f75   
-000010c2  00013102 R_ARM_ABS32            000010df   
-000010cd  00013202 R_ARM_ABS32            000010ed   
-000010d8  00013302 R_ARM_ABS32            000010f8   
-000010e3  00013402 R_ARM_ABS32            00001105   
-000010ee  00013602 R_ARM_ABS32            0000112a   
-000010f9  00013b02 R_ARM_ABS32            00001182   
-00001105  00013002 R_ARM_ABS32            000010cf   
-0000110c  00012602 R_ARM_ABS32            00000f84   
-00001117  00012702 R_ARM_ABS32            00000f94   
-00001122  00012802 R_ARM_ABS32            00000fa4   
-0000112d  00012c02 R_ARM_ABS32            00001099   
-00001138  00012d02 R_ARM_ABS32            000010a0   
-00001144  00012f02 R_ARM_ABS32            000010b1   
-0000114b  00012e02 R_ARM_ABS32            000010a8   
-00001157  00013502 R_ARM_ABS32            00001114   
-0000115e  00010d02 R_ARM_ABS32            00000e3b   
-0000116a  00013a02 R_ARM_ABS32            0000116c   
-00001171  00013702 R_ARM_ABS32            00001134   
-0000117c  00013802 R_ARM_ABS32            0000113d   
-00001188  00013c02 R_ARM_ABS32            0000118d   
-0000118f  00012e02 R_ARM_ABS32            000010a8   
-0000119b  0001d502 R_ARM_ABS32            00002739   
-000011a2  0001d302 R_ARM_ABS32            0000272a   
-000011ad  0001d402 R_ARM_ABS32            00002731   
-000011b9  0001da02 R_ARM_ABS32            0000276a   
-000011c0  0001d702 R_ARM_ABS32            0000274c   
-000011cb  0001d902 R_ARM_ABS32            0000275f   
-000011d7  0001f502 R_ARM_ABS32            00002913   
-000011de  0001ed02 R_ARM_ABS32            00002843   
-000011e9  0001ee02 R_ARM_ABS32            0000284d   
-000011f4  0001f202 R_ARM_ABS32            000028ed   
-000011ff  0001f302 R_ARM_ABS32            000028f4   
-0000120b  0001f402 R_ARM_ABS32            000028fc   
-00001212  00010d02 R_ARM_ABS32            00000e3b   
-0000121e  00001202 R_ARM_ABS32            00002e87   
-00001225  00000b02 R_ARM_ABS32            00002e17   
-00001230  00000c02 R_ARM_ABS32            00002e21   
-0000123b  00000d02 R_ARM_ABS32            00002e2a   
-00001247  00001102 R_ARM_ABS32            00002e6f   
-0000124e  00000e02 R_ARM_ABS32            00002e33   
-00001259  00000f02 R_ARM_ABS32            00002e3e   
-00001268  00004702 R_ARM_ABS32            000000d4   
-0000126f  00004202 R_ARM_ABS32            000000b1   
-0000127a  00004502 R_ARM_ABS32            000000c7   
-0000128a  00004402 R_ARM_ABS32            000000bd   
-0000128f  00004302 R_ARM_ABS32            000000ba   
-00001296  00004602 R_ARM_ABS32            000000ce   
-0000129d  00004a02 R_ARM_ABS32            00000116   
-000012a2  00004b02 R_ARM_ABS32            0000011b   
-000012ab  00004e02 R_ARM_ABS32            00000129   
-000012b2  00004c02 R_ARM_ABS32            00000122   
-000012b8  00004d02 R_ARM_ABS32            00000125   
-000012bf  00023802 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
-000012c9  00001e02 R_ARM_ABS32            00003015   
-000012cd  00001f02 R_ARM_ABS32            00003048   
-000012d9  00024502 R_ARM_ABS32            00000000   .debug_loc
-000012dd  00000802 R_ARM_ABS32            00002e0f   
-000012e8  00024502 R_ARM_ABS32            00000000   .debug_loc
-000012ec  00002802 R_ARM_ABS32            000030e9   
-000012fb  00024802 R_ARM_ABS32            00000000   .debug_ranges
-00001302  00024502 R_ARM_ABS32            00000000   .debug_loc
-0000130b  00024502 R_ARM_ABS32            00000000   .debug_loc
-00001319  0000d702 R_ARM_ABS32            000007dd   
-0000131f  0000d802 R_ARM_ABS32            000007df   
-00001334  00004c02 R_ARM_ABS32            00000122   
-00001341  00004d02 R_ARM_ABS32            00000125   
-0000134e  00004c02 R_ARM_ABS32            00000122   
-00001355  00007902 R_ARM_ABS32            00000298   
-00001364  00008b02 R_ARM_ABS32            00000349   
-0000136d  0000d702 R_ARM_ABS32            000007dd   
-00001373  00004d02 R_ARM_ABS32            00000125   
-0000137a  00007902 R_ARM_ABS32            00000298   
-00001389  00008b02 R_ARM_ABS32            00000349   
-00001392  0000d702 R_ARM_ABS32            000007dd   
-00001398  00000602 R_ARM_ABS32            00002da8   
-0000139c  00000702 R_ARM_ABS32            00002de8   
-000013a9  00008b02 R_ARM_ABS32            00000349   
-000013b2  0000d702 R_ARM_ABS32            000007dd   
-000013b7  0000f102 R_ARM_ABS32            00000abb   
-000013c2  00000802 R_ARM_ABS32            00002e0f   
-000013ce  00000902 R_ARM_ABS32            00002e13   
-000013db  00000a02 R_ARM_ABS32            00002e15   
-000013eb  00006e02 R_ARM_ABS32            0000024e   
-000013f0  0000ee02 R_ARM_ABS32            000009f3   
-000013f4  0000ef02 R_ARM_ABS32            00000a63   
-00001405  00008b02 R_ARM_ABS32            00000349   
-0000140e  0000d702 R_ARM_ABS32            000007dd   
-00001413  0000f102 R_ARM_ABS32            00000abb   
-0000141f  00000302 R_ARM_ABS32            00002c96   
-00001423  00000402 R_ARM_ABS32            00002d06   
-00001434  00008b02 R_ARM_ABS32            00000349   
-0000143d  0000d702 R_ARM_ABS32            000007dd   
-00001442  0000f102 R_ARM_ABS32            00000abb   
-0000144f  0000f002 R_ARM_ABS32            00000a91   
-00001464  00004c02 R_ARM_ABS32            00000122   
-00001472  00004d02 R_ARM_ABS32            00000125   
-0000147f  00004c02 R_ARM_ABS32            00000122   
-00001486  00007902 R_ARM_ABS32            00000298   
-00001495  00008b02 R_ARM_ABS32            00000349   
-0000149e  0000d702 R_ARM_ABS32            000007dd   
-000014a4  00004d02 R_ARM_ABS32            00000125   
-000014ab  00007902 R_ARM_ABS32            00000298   
-000014ba  00008b02 R_ARM_ABS32            00000349   
-000014c3  0000d702 R_ARM_ABS32            000007dd   
-000014ca  00000502 R_ARM_ABS32            00002d59   
-000014df  00004c02 R_ARM_ABS32            00000122   
-000014ed  00004d02 R_ARM_ABS32            00000125   
-000014fa  00004c02 R_ARM_ABS32            00000122   
-00001501  00007902 R_ARM_ABS32            00000298   
-00001510  00008b02 R_ARM_ABS32            00000349   
-00001519  0000d702 R_ARM_ABS32            000007dd   
-0000151f  00004d02 R_ARM_ABS32            00000125   
-00001526  00007902 R_ARM_ABS32            00000298   
-00001535  00008b02 R_ARM_ABS32            00000349   
-0000153e  0000d702 R_ARM_ABS32            000007dd   
-00001545  00001402 R_ARM_ABS32            00002eb4   
-0000155a  00004c02 R_ARM_ABS32            00000122   
-00001568  00004d02 R_ARM_ABS32            00000125   
-00001575  00004c02 R_ARM_ABS32            00000122   
-0000157c  00007902 R_ARM_ABS32            00000298   
-0000158b  00008b02 R_ARM_ABS32            00000349   
-00001594  0000d702 R_ARM_ABS32            000007dd   
-0000159a  00004d02 R_ARM_ABS32            00000125   
-000015a1  00007902 R_ARM_ABS32            00000298   
-000015b0  00008b02 R_ARM_ABS32            00000349   
-000015b9  0000d702 R_ARM_ABS32            000007dd   
-000015bf  00001502 R_ARM_ABS32            00002efc   
-000015c3  00001602 R_ARM_ABS32            00002f3c   
-000015d4  00008b02 R_ARM_ABS32            00000349   
-000015dd  0000d702 R_ARM_ABS32            000007dd   
-000015e2  0000f102 R_ARM_ABS32            00000abb   
-000015ed  00000802 R_ARM_ABS32            00002e0f   
-000015f9  00000902 R_ARM_ABS32            00002e13   
-00001606  00000a02 R_ARM_ABS32            00002e15   
-00001617  00004f02 R_ARM_ABS32            00000130   
-0000161c  00005002 R_ARM_ABS32            00000134   
-00001621  00005102 R_ARM_ABS32            00000137   
-0000162a  00005602 R_ARM_ABS32            00000154   
-00001631  00005202 R_ARM_ABS32            0000013a   
-00001637  00005302 R_ARM_ABS32            0000013f   
-0000163d  00005402 R_ARM_ABS32            00000145   
-00001643  00005502 R_ARM_ABS32            0000014c   
-0000164a  00008802 R_ARM_ABS32            000002fe   
-00001651  00007602 R_ARM_ABS32            00000287   
-0000165c  00007b02 R_ARM_ABS32            000002a5   
-00001668  00007a02 R_ARM_ABS32            0000029c   
-0000167d  00007702 R_ARM_ABS32            00000290   
-0000168b  00007802 R_ARM_ABS32            00000295   
-00001698  00007702 R_ARM_ABS32            00000290   
-0000169f  00007802 R_ARM_ABS32            00000295   
-000016a6  00007902 R_ARM_ABS32            00000298   
-000016b3  00008702 R_ARM_ABS32            000002f3   
-000016ba  00007c02 R_ARM_ABS32            000002ac   
-000016c5  00007e02 R_ARM_ABS32            000002b6   
-000016d0  00007f02 R_ARM_ABS32            000002bc   
-000016db  00008002 R_ARM_ABS32            000002c2   
-000016e6  00008602 R_ARM_ABS32            000002ed   
-000016f2  00008502 R_ARM_ABS32            000002e7   
-00001707  00008102 R_ARM_ABS32            000002cc   
-00001715  00008202 R_ARM_ABS32            000002cf   
-00001723  00008302 R_ARM_ABS32            000002d5   
-00001731  00008402 R_ARM_ABS32            000002df   
-0000173e  00008102 R_ARM_ABS32            000002cc   
-00001745  00007902 R_ARM_ABS32            00000298   
-00001751  00008202 R_ARM_ABS32            000002cf   
-00001758  00007902 R_ARM_ABS32            00000298   
-00001764  00008302 R_ARM_ABS32            000002d5   
-0000176b  00008402 R_ARM_ABS32            000002df   
-00001775  00006e02 R_ARM_ABS32            0000024e   
-0000177a  00023702 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
-00001784  00001c02 R_ARM_ABS32            00002fc2   
-00001788  00001d02 R_ARM_ABS32            0000300c   
-00001794  00024502 R_ARM_ABS32            00000000   .debug_loc
-00001798  0000f102 R_ARM_ABS32            00000abb   
-000017a3  00024502 R_ARM_ABS32            00000000   .debug_loc
-000017a7  00002702 R_ARM_ABS32            000030e7   
-000017b6  00008b02 R_ARM_ABS32            00000349   
-000017bd  0000b102 R_ARM_ABS32            0000057e   
-000017c4  00006f02 R_ARM_ABS32            00000257   
-000017cf  00004f02 R_ARM_ABS32            00000130   
-000017da  00008e02 R_ARM_ABS32            00000377   
-000017e5  0000b202 R_ARM_ABS32            00000588   
-000017e9  0000b302 R_ARM_ABS32            000005ba   
-000017f6  00006f02 R_ARM_ABS32            00000257   
-00001801  00008e02 R_ARM_ABS32            00000377   
-0000180e  0000ae02 R_ARM_ABS32            0000053d   
-00001815  00008f02 R_ARM_ABS32            0000037c   
-00001820  00009f02 R_ARM_ABS32            00000420   
-0000182c  00009d02 R_ARM_ABS32            0000040a   
-00001833  00009002 R_ARM_ABS32            00000382   
-0000183e  00009202 R_ARM_ABS32            0000038b   
-0000184a  0000ab02 R_ARM_ABS32            000004bb   
-00001851  00007f02 R_ARM_ABS32            000002bc   
-0000185c  00007c02 R_ARM_ABS32            000002ac   
-00001867  00007e02 R_ARM_ABS32            000002b6   
-00001872  00008602 R_ARM_ABS32            000002ed   
-0000187d  00008002 R_ARM_ABS32            000002c2   
-00001888  0000a102 R_ARM_ABS32            00000438   
-00001893  0000a302 R_ARM_ABS32            00000447   
-0000189e  00008e02 R_ARM_ABS32            00000377   
-000018aa  0000a202 R_ARM_ABS32            0000043c   
-000018b1  00009602 R_ARM_ABS32            000003ae   
-000018bc  00009802 R_ARM_ABS32            000003be   
-000018c9  00006a02 R_ARM_ABS32            0000022d   
-000018d2  00006d02 R_ARM_ABS32            00000247   
-000018d9  00006b02 R_ARM_ABS32            00000231   
-000018df  00006c02 R_ARM_ABS32            0000023c   
-000018e7  00007302 R_ARM_ABS32            00000277   
-000018ec  00008d02 R_ARM_ABS32            00000350   
-00001901  00007502 R_ARM_ABS32            00000282   
-0000190e  00008c02 R_ARM_ABS32            0000034b   
-0000191b  00007502 R_ARM_ABS32            00000282   
-00001926  00008b02 R_ARM_ABS32            00000349   
-0000192c  00008c02 R_ARM_ABS32            0000034b   
-00001933  00007902 R_ARM_ABS32            00000298   
-00001942  00008b02 R_ARM_ABS32            00000349   
-00001949  0000a002 R_ARM_ABS32            0000042a   
-0000195e  00007502 R_ARM_ABS32            00000282   
-0000196c  00008c02 R_ARM_ABS32            0000034b   
-00001979  00007502 R_ARM_ABS32            00000282   
-00001984  00008b02 R_ARM_ABS32            00000349   
-0000198a  00008c02 R_ARM_ABS32            0000034b   
-00001991  00007902 R_ARM_ABS32            00000298   
-000019a0  00008b02 R_ARM_ABS32            00000349   
-000019a7  0000e102 R_ARM_ABS32            000008b6   
-000019bc  00007502 R_ARM_ABS32            00000282   
-000019c9  00008c02 R_ARM_ABS32            0000034b   
-000019d6  00007502 R_ARM_ABS32            00000282   
-000019e1  00008b02 R_ARM_ABS32            00000349   
-000019e7  00008c02 R_ARM_ABS32            0000034b   
-000019ee  00007902 R_ARM_ABS32            00000298   
-000019fd  00008b02 R_ARM_ABS32            00000349   
-00001a04  0000fa02 R_ARM_ABS32            00000b93   
-00001a19  00007502 R_ARM_ABS32            00000282   
-00001a26  00008c02 R_ARM_ABS32            0000034b   
-00001a33  00007502 R_ARM_ABS32            00000282   
-00001a3e  00008b02 R_ARM_ABS32            00000349   
-00001a44  00008c02 R_ARM_ABS32            0000034b   
-00001a4b  00007902 R_ARM_ABS32            00000298   
-00001a5a  00008b02 R_ARM_ABS32            00000349   
-00001a61  0000fd02 R_ARM_ABS32            00000c47   
-00001a76  00007502 R_ARM_ABS32            00000282   
-00001a83  00008c02 R_ARM_ABS32            0000034b   
-00001a90  00007502 R_ARM_ABS32            00000282   
-00001a9b  00008b02 R_ARM_ABS32            00000349   
-00001aa1  00008c02 R_ARM_ABS32            0000034b   
-00001aa8  00007902 R_ARM_ABS32            00000298   
-00001ab7  00008b02 R_ARM_ABS32            00000349   
-00001abe  00010002 R_ARM_ABS32            00000cdd   
-00001ad3  00007502 R_ARM_ABS32            00000282   
-00001ae0  00008c02 R_ARM_ABS32            0000034b   
-00001aed  00007502 R_ARM_ABS32            00000282   
-00001af8  00008b02 R_ARM_ABS32            00000349   
-00001afe  00008c02 R_ARM_ABS32            0000034b   
-00001b05  00007902 R_ARM_ABS32            00000298   
-00001b14  00008b02 R_ARM_ABS32            00000349   
-00001b1b  00010502 R_ARM_ABS32            00000d98   
-00001b30  00007502 R_ARM_ABS32            00000282   
-00001b3d  00008c02 R_ARM_ABS32            0000034b   
-00001b4a  00007502 R_ARM_ABS32            00000282   
-00001b55  00008b02 R_ARM_ABS32            00000349   
-00001b5b  00008c02 R_ARM_ABS32            0000034b   
-00001b62  00007902 R_ARM_ABS32            00000298   
-00001b71  00008b02 R_ARM_ABS32            00000349   
-00001b78  00012202 R_ARM_ABS32            00000f34   
-00001b8d  00007502 R_ARM_ABS32            00000282   
-00001b9a  00008c02 R_ARM_ABS32            0000034b   
-00001ba7  00007502 R_ARM_ABS32            00000282   
-00001bb2  00008b02 R_ARM_ABS32            00000349   
-00001bb8  00008c02 R_ARM_ABS32            0000034b   
-00001bbf  00007902 R_ARM_ABS32            00000298   
-00001bce  00008b02 R_ARM_ABS32            00000349   
-00001bd5  00012b02 R_ARM_ABS32            00001033   
-00001bea  00007502 R_ARM_ABS32            00000282   
-00001bf7  00008c02 R_ARM_ABS32            0000034b   
-00001c04  00007502 R_ARM_ABS32            00000282   
-00001c0f  00008b02 R_ARM_ABS32            00000349   
-00001c15  00008c02 R_ARM_ABS32            0000034b   
-00001c1c  00007902 R_ARM_ABS32            00000298   
-00001c2b  00008b02 R_ARM_ABS32            00000349   
-00001c32  00014e02 R_ARM_ABS32            0000143d   
-00001c47  00007502 R_ARM_ABS32            00000282   
-00001c54  00008c02 R_ARM_ABS32            0000034b   
-00001c61  00007502 R_ARM_ABS32            00000282   
-00001c6c  00008b02 R_ARM_ABS32            00000349   
-00001c72  00008c02 R_ARM_ABS32            0000034b   
-00001c79  00007902 R_ARM_ABS32            00000298   
-00001c88  00008b02 R_ARM_ABS32            00000349   
-00001c8f  00014c02 R_ARM_ABS32            000012bd   
-00001ca4  00007502 R_ARM_ABS32            00000282   
-00001cb1  00008c02 R_ARM_ABS32            0000034b   
-00001cbe  00007502 R_ARM_ABS32            00000282   
-00001cc9  00008b02 R_ARM_ABS32            00000349   
-00001ccf  00008c02 R_ARM_ABS32            0000034b   
-00001cd6  00007902 R_ARM_ABS32            00000298   
-00001ce5  00008b02 R_ARM_ABS32            00000349   
-00001cec  00015502 R_ARM_ABS32            00001618   
-00001d01  00007502 R_ARM_ABS32            00000282   
-00001d0e  00008c02 R_ARM_ABS32            0000034b   
-00001d1b  00007502 R_ARM_ABS32            00000282   
-00001d26  00008b02 R_ARM_ABS32            00000349   
-00001d2c  00008c02 R_ARM_ABS32            0000034b   
-00001d33  00007902 R_ARM_ABS32            00000298   
-00001d42  00008b02 R_ARM_ABS32            00000349   
-00001d49  00015802 R_ARM_ABS32            00001708   
-00001d5e  00007502 R_ARM_ABS32            00000282   
-00001d6b  00008c02 R_ARM_ABS32            0000034b   
-00001d78  00007502 R_ARM_ABS32            00000282   
-00001d83  00008b02 R_ARM_ABS32            00000349   
-00001d89  00008c02 R_ARM_ABS32            0000034b   
-00001d90  00007902 R_ARM_ABS32            00000298   
-00001d9f  00008b02 R_ARM_ABS32            00000349   
-00001da6  0001c202 R_ARM_ABS32            000023fc   
-00001dbb  00007502 R_ARM_ABS32            00000282   
-00001dc8  00008c02 R_ARM_ABS32            0000034b   
-00001dd5  00007502 R_ARM_ABS32            00000282   
-00001de0  00008b02 R_ARM_ABS32            00000349   
-00001de6  00008c02 R_ARM_ABS32            0000034b   
-00001ded  00007902 R_ARM_ABS32            00000298   
-00001dfc  00008b02 R_ARM_ABS32            00000349   
-00001e03  0001bc02 R_ARM_ABS32            00002256   
-00001e18  00007502 R_ARM_ABS32            00000282   
-00001e25  00008c02 R_ARM_ABS32            0000034b   
-00001e32  00007502 R_ARM_ABS32            00000282   
-00001e3d  00008b02 R_ARM_ABS32            00000349   
-00001e43  00008c02 R_ARM_ABS32            0000034b   
-00001e4a  00007902 R_ARM_ABS32            00000298   
-00001e59  00008b02 R_ARM_ABS32            00000349   
-00001e60  0001c502 R_ARM_ABS32            000024ef   
-00001e75  00007502 R_ARM_ABS32            00000282   
-00001e82  00008c02 R_ARM_ABS32            0000034b   
-00001e8f  00007502 R_ARM_ABS32            00000282   
-00001e9a  00008b02 R_ARM_ABS32            00000349   
-00001ea0  00008c02 R_ARM_ABS32            0000034b   
-00001ea7  00007902 R_ARM_ABS32            00000298   
-00001eb6  00008b02 R_ARM_ABS32            00000349   
-00001ebd  0001c902 R_ARM_ABS32            000025c0   
-00001ed2  00007502 R_ARM_ABS32            00000282   
-00001edf  00008c02 R_ARM_ABS32            0000034b   
-00001eec  00007502 R_ARM_ABS32            00000282   
-00001ef7  00008b02 R_ARM_ABS32            00000349   
-00001efd  00008c02 R_ARM_ABS32            0000034b   
-00001f04  00007902 R_ARM_ABS32            00000298   
-00001f13  00008b02 R_ARM_ABS32            00000349   
-00001f1a  0001cd02 R_ARM_ABS32            00002685   
-00001f2f  00007502 R_ARM_ABS32            00000282   
-00001f3c  00008c02 R_ARM_ABS32            0000034b   
-00001f49  00007502 R_ARM_ABS32            00000282   
-00001f54  00008b02 R_ARM_ABS32            00000349   
-00001f5a  00008c02 R_ARM_ABS32            0000034b   
-00001f61  00007902 R_ARM_ABS32            00000298   
-00001f70  00008b02 R_ARM_ABS32            00000349   
-00001f77  0001f102 R_ARM_ABS32            000028ad   
-00001f8c  00007502 R_ARM_ABS32            00000282   
-00001f99  00008c02 R_ARM_ABS32            0000034b   
-00001fa6  00007502 R_ARM_ABS32            00000282   
-00001fb1  00008b02 R_ARM_ABS32            00000349   
-00001fb7  00008c02 R_ARM_ABS32            0000034b   
-00001fbe  00007902 R_ARM_ABS32            00000298   
-00001fcd  00008b02 R_ARM_ABS32            00000349   
-00001fd4  00020102 R_ARM_ABS32            00002a2e   
-00001fe9  00007502 R_ARM_ABS32            00000282   
-00001ff6  00008c02 R_ARM_ABS32            0000034b   
-00002003  00007502 R_ARM_ABS32            00000282   
-0000200e  00008b02 R_ARM_ABS32            00000349   
-00002014  00008c02 R_ARM_ABS32            0000034b   
-0000201b  00007902 R_ARM_ABS32            00000298   
-0000202a  00008b02 R_ARM_ABS32            00000349   
-00002031  00020702 R_ARM_ABS32            00002b2e   
-00002046  00007502 R_ARM_ABS32            00000282   
-00002053  00008c02 R_ARM_ABS32            0000034b   
-00002060  00007502 R_ARM_ABS32            00000282   
-0000206b  00008b02 R_ARM_ABS32            00000349   
-00002071  00008c02 R_ARM_ABS32            0000034b   
-00002078  00007902 R_ARM_ABS32            00000298   
-00002087  00008b02 R_ARM_ABS32            00000349   
-0000208e  00003102 R_ARM_ABS32            00003135   
-000020a3  00007502 R_ARM_ABS32            00000282   
-000020b0  00008c02 R_ARM_ABS32            0000034b   
-000020bd  00007502 R_ARM_ABS32            00000282   
-000020c8  00008b02 R_ARM_ABS32            00000349   
-000020ce  00008c02 R_ARM_ABS32            0000034b   
-000020d5  00007902 R_ARM_ABS32            00000298   
-000020e4  00008b02 R_ARM_ABS32            00000349   
-000020ec  00009302 R_ARM_ABS32            0000039a   
-000020f1  00009c02 R_ARM_ABS32            000003f1   
-000020fc  00008b02 R_ARM_ABS32            00000349   
-00002102  0000a902 R_ARM_ABS32            0000047b   
-0000210d  00008b02 R_ARM_ABS32            00000349   
-00002113  00016202 R_ARM_ABS32            000017fd   
-0000211e  00008b02 R_ARM_ABS32            00000349   
-00002124  00016a02 R_ARM_ABS32            000018e2   
-0000212f  00008b02 R_ARM_ABS32            00000349   
-00002135  00017202 R_ARM_ABS32            000019cb   
-00002140  00008b02 R_ARM_ABS32            00000349   
-00002146  00017b02 R_ARM_ABS32            00001ab8   
-00002151  00008b02 R_ARM_ABS32            00000349   
-00002157  00018502 R_ARM_ABS32            00001ba7   
-00002162  00008b02 R_ARM_ABS32            00000349   
-00002168  00018902 R_ARM_ABS32            00001c69   
-00002173  00008b02 R_ARM_ABS32            00000349   
-00002179  00019202 R_ARM_ABS32            00001d5b   
-00002184  00008b02 R_ARM_ABS32            00000349   
-0000218a  0001a402 R_ARM_ABS32            00001ecb   
-00002195  00008b02 R_ARM_ABS32            00000349   
-0000219b  0001aa02 R_ARM_ABS32            00001fac   
-000021a6  00008b02 R_ARM_ABS32            00000349   
-000021ac  0001b002 R_ARM_ABS32            0000208e   
-000021b7  00008b02 R_ARM_ABS32            00000349   
-000021be  00009402 R_ARM_ABS32            000003a1   
-000021c3  00009502 R_ARM_ABS32            000003a5   
-000021c8  00009b02 R_ARM_ABS32            000003e5   
-000021cf  00009602 R_ARM_ABS32            000003ae   
-000021da  00009802 R_ARM_ABS32            000003be   
-000021e8  0000a402 R_ARM_ABS32            0000044e   
-000021ed  0000aa02 R_ARM_ABS32            0000049f   
-000021f4  0000a502 R_ARM_ABS32            00000454   
-000021ff  0000a602 R_ARM_ABS32            00000458   
-0000220a  0000a702 R_ARM_ABS32            0000045c   
-00002219  00008b02 R_ARM_ABS32            00000349   
-00002220  00002502 R_ARM_ABS32            000030db   
-00002225  00003702 R_ARM_ABS32            00003173   
-0000222c  00002c02 R_ARM_ABS32            00003106   
-00002237  00002f02 R_ARM_ABS32            00003117   
-00002242  00003202 R_ARM_ABS32            00003153   
-0000224e  00003602 R_ARM_ABS32            0000316a   
-00002255  00003302 R_ARM_ABS32            0000315c   
-00002260  00003402 R_ARM_ABS32            00003161   
-0000226b  00003502 R_ARM_ABS32            00003166   
-00002278  00002d02 R_ARM_ABS32            0000310e   
-0000227d  00002e02 R_ARM_ABS32            00003112   
-00002284  00009602 R_ARM_ABS32            000003ae   
-0000228f  00009802 R_ARM_ABS32            000003be   
-0000229d  00005702 R_ARM_ABS32            0000015e   
-000022a4  00007202 R_ARM_ABS32            0000026f   
-000022ab  00004202 R_ARM_ABS32            000000b1   
-000022b6  00004502 R_ARM_ABS32            000000c7   
-000022c6  00007102 R_ARM_ABS32            00000263   
-000022cb  00007002 R_ARM_ABS32            0000025e   
-000022d2  00004202 R_ARM_ABS32            000000b1   
-000022dd  00004502 R_ARM_ABS32            000000c7   
-000022e9  00007402 R_ARM_ABS32            0000027e   
-000022f0  00008a02 R_ARM_ABS32            0000032a   
-000022f7  00004202 R_ARM_ABS32            000000b1   
-00002302  00004502 R_ARM_ABS32            000000c7   
-00002312  00008902 R_ARM_ABS32            00000307   
-00002317  00007d02 R_ARM_ABS32            000002b1   
-0000231e  0000b002 R_ARM_ABS32            00000565   
-00002325  00004202 R_ARM_ABS32            000000b1   
-00002330  00004502 R_ARM_ABS32            000000c7   
-00002340  0000af02 R_ARM_ABS32            00000548   
-00002349  00009e02 R_ARM_ABS32            0000040f   
-0000234e  00009102 R_ARM_ABS32            00000388   
-00002359  00009702 R_ARM_ABS32            000003b6   
-00002362  00009a02 R_ARM_ABS32            000003d9   
-00002374  00009902 R_ARM_ABS32            000003c5   
-0000237f  0000ad02 R_ARM_ABS32            000004df   
-00002398  0000ac02 R_ARM_ABS32            000004c5   
-000023a1  0000a802 R_ARM_ABS32            00000464   
-000023a6  0000bc02 R_ARM_ABS32            00000627   
-000023b1  0000c002 R_ARM_ABS32            00000653   
-000023b6  0000c202 R_ARM_ABS32            00000676   
-000023db  0000d902 R_ARM_ABS32            00000807   
-000023e0  0000da02 R_ARM_ABS32            00000828   
-000023eb  0000e802 R_ARM_ABS32            00000994   
-000023f4  0000e402 R_ARM_ABS32            00000942   
-000023fd  0000e002 R_ARM_ABS32            00000854   
-0000241b  00021202 R_ARM_ABS32            00002c63   
-00002424  00011002 R_ARM_ABS32            00000e61   
-0000242d  0000f902 R_ARM_ABS32            00000b39   
-0000244b  0000fc02 R_ARM_ABS32            00000c00   
-00002469  0000ff02 R_ARM_ABS32            00000ca0   
-0000247d  00010402 R_ARM_ABS32            00000d43   
-00002496  00013e02 R_ARM_ABS32            000011ab   
-0000249f  00011502 R_ARM_ABS32            00000ea5   
-000024a4  00011802 R_ARM_ABS32            00000ec5   
-000024af  00012102 R_ARM_ABS32            00000f07   
-000024bf  00012a02 R_ARM_ABS32            00000fd5   
-000024d8  00012902 R_ARM_ABS32            00000fac   
-000024e1  00013902 R_ARM_ABS32            00001146   
-000024ea  0001d002 R_ARM_ABS32            000026eb   
-000024f3  00014d02 R_ARM_ABS32            00001341   
-0000251b  00014b02 R_ARM_ABS32            00001241   
-0000253e  00015402 R_ARM_ABS32            0000159d   
-0000255c  00015302 R_ARM_ABS32            0000156f   
-00002572  00015702 R_ARM_ABS32            000016a9   
-0000258b  0001c102 R_ARM_ABS32            00002379   
-000025a9  0001c002 R_ARM_ABS32            00002343   
-000025b2  00016102 R_ARM_ABS32            000017ca   
-000025bb  00016902 R_ARM_ABS32            000018ad   
-000025c4  00017102 R_ARM_ABS32            00001996   
-000025cd  00017a02 R_ARM_ABS32            00001a84   
-000025d6  00018402 R_ARM_ABS32            00001b73   
-000025df  00018802 R_ARM_ABS32            00001c35   
-000025e8  00019102 R_ARM_ABS32            00001d26   
-000025f1  0001a302 R_ARM_ABS32            00001e96   
-00002607  0001a902 R_ARM_ABS32            00001f77   
-00002610  0001af02 R_ARM_ABS32            00002059   
-00002615  0001b302 R_ARM_ABS32            0000212e   
-00002620  0001bb02 R_ARM_ABS32            000021b9   
-00002643  0001ba02 R_ARM_ABS32            00002188   
-0000264c  0001c402 R_ARM_ABS32            000024a3   
-00002665  0001c802 R_ARM_ABS32            00002574   
-0000267e  0001cc02 R_ARM_ABS32            0000263e   
-0000268e  0001d802 R_ARM_ABS32            0000275b   
-00002699  0001e302 R_ARM_ABS32            000027c1   
-000026af  0001f002 R_ARM_ABS32            00002875   
-000026bf  0001ef02 R_ARM_ABS32            00002853   
-000026c8  0001fd02 R_ARM_ABS32            00002980   
-000026d1  00020002 R_ARM_ABS32            000029d1   
-000026eb  00020c02 R_ARM_ABS32            00002bd7   
-000026f4  00020602 R_ARM_ABS32            00002aca   
-00002712  00001302 R_ARM_ABS32            00002e91   
-0000271b  00001002 R_ARM_ABS32            00002e48   
-00002720  00001702 R_ARM_ABS32            00002f83   
-00002725  00001802 R_ARM_ABS32            00002f8c   
-0000272a  00001902 R_ARM_ABS32            00002f90   
-0000272e  00001a02 R_ARM_ABS32            00002fba   
-00002744  00001b02 R_ARM_ABS32            00002fbf   
-0000274b  00002002 R_ARM_ABS32            00003073   
-00002756  00002602 R_ARM_ABS32            000030e1   
-0000275f  00003802 R_ARM_ABS32            0000317d   
-00002768  00003002 R_ARM_ABS32            0000311f   
-00002771  00003902 R_ARM_ABS32            00003195   
+000003e1  00002302 R_ARM_ABS32            000030c4   
+000003f0  00024802 R_ARM_ABS32            00000000   .debug_ranges
+000003fb  00023a02 R_ARM_ABS32            00000000   .text.main
+00000406  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000410  00024802 R_ARM_ABS32            00000000   .debug_ranges
+00000415  00024502 R_ARM_ABS32            00000000   .debug_loc
+0000041e  00023a02 R_ARM_ABS32            00000000   .text.main
+00000427  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000437  00024802 R_ARM_ABS32            00000000   .debug_ranges
+0000043e  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000447  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000450  00023a02 R_ARM_ABS32            00000000   .text.main
+00000459  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000468  00024802 R_ARM_ABS32            00000000   .debug_ranges
+0000046f  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000478  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000481  00023a02 R_ARM_ABS32            00000000   .text.main
+0000048a  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000499  00024802 R_ARM_ABS32            00000000   .debug_ranges
+000004a0  00024502 R_ARM_ABS32            00000000   .debug_loc
+000004a9  00024502 R_ARM_ABS32            00000000   .debug_loc
+000004b2  00023a02 R_ARM_ABS32            00000000   .text.main
+000004bb  00024502 R_ARM_ABS32            00000000   .debug_loc
+000004c4  00023a02 R_ARM_ABS32            00000000   .text.main
+000004cd  00024502 R_ARM_ABS32            00000000   .debug_loc
+000004dd  00024802 R_ARM_ABS32            00000000   .debug_ranges
+000004e4  00024502 R_ARM_ABS32            00000000   .debug_loc
+000004ed  00024502 R_ARM_ABS32            00000000   .debug_loc
+000004f6  00023a02 R_ARM_ABS32            00000000   .text.main
+000004ff  00024502 R_ARM_ABS32            00000000   .debug_loc
+0000050b  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000515  00002402 R_ARM_ABS32            000030c9   
+00000519  00002502 R_ARM_ABS32            000030db   
+00000524  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000528  00002b02 R_ARM_ABS32            00003101   
+00000533  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+0000053c  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000540  00003202 R_ARM_ABS32            00003153   
+0000054b  00024802 R_ARM_ABS32            00000000   .debug_ranges
+00000550  00024502 R_ARM_ABS32            00000000   .debug_loc
+00000554  00003302 R_ARM_ABS32            0000315c   
+0000055f  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000568  00024502 R_ARM_ABS32            00000000   .debug_loc
+0000056c  00003402 R_ARM_ABS32            00003161   
+0000057e  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+0000058b  00004002 R_ARM_ABS32            000000a2   
+00000590  00004802 R_ARM_ABS32            000000da   
+00000597  00004102 R_ARM_ABS32            000000a9   
+000005a3  00004b02 R_ARM_ABS32            0000011b   
+000005ac  00006902 R_ARM_ABS32            00000221   
+000005b3  00005802 R_ARM_ABS32            00000162   
+000005b9  00005902 R_ARM_ABS32            0000016a   
+000005c3  00005a02 R_ARM_ABS32            00000175   
+000005cd  00005b02 R_ARM_ABS32            00000180   
+000005d7  00005c02 R_ARM_ABS32            0000018d   
+000005e1  00005d02 R_ARM_ABS32            00000198   
+000005eb  00005e02 R_ARM_ABS32            000001a0   
+000005f5  00005f02 R_ARM_ABS32            000001ab   
+000005ff  00006002 R_ARM_ABS32            000001b6   
+00000609  00006102 R_ARM_ABS32            000001c0   
+00000613  00006202 R_ARM_ABS32            000001cb   
+0000061d  00006302 R_ARM_ABS32            000001d6   
+00000627  00006402 R_ARM_ABS32            000001e3   
+00000631  00006502 R_ARM_ABS32            000001ef   
+0000063b  00006602 R_ARM_ABS32            000001fc   
+00000645  00006702 R_ARM_ABS32            0000020a   
+0000064f  00006802 R_ARM_ABS32            00000214   
+0000065b  0000b602 R_ARM_ABS32            0000060a   
+00000660  0000b702 R_ARM_ABS32            0000060d   
+00000665  0000be02 R_ARM_ABS32            0000063b   
+0000066c  0000b802 R_ARM_ABS32            00000614   
+00000677  0000b902 R_ARM_ABS32            00000618   
+00000683  0000bd02 R_ARM_ABS32            0000062b   
+00000698  00007502 R_ARM_ABS32            00000282   
+000006a6  0000ba02 R_ARM_ABS32            0000061c   
+000006b4  0000bb02 R_ARM_ABS32            00000621   
+000006c1  00007502 R_ARM_ABS32            00000282   
+000006c8  0000ba02 R_ARM_ABS32            0000061c   
+000006cf  00007902 R_ARM_ABS32            00000298   
+000006db  0000bb02 R_ARM_ABS32            00000621   
+000006e2  00007902 R_ARM_ABS32            00000298   
+000006ef  0000c802 R_ARM_ABS32            000006dc   
+000006f6  0000c602 R_ARM_ABS32            000006b7   
+00000701  0000c702 R_ARM_ABS32            000006c5   
+0000070d  0000cc02 R_ARM_ABS32            0000071d   
+00000712  0000d302 R_ARM_ABS32            00000774   
+00000719  0000cd02 R_ARM_ABS32            00000726   
+00000724  0000ce02 R_ARM_ABS32            0000072f   
+00000730  0000d202 R_ARM_ABS32            00000751   
+00000737  0000cf02 R_ARM_ABS32            0000073b   
+00000742  00007e02 R_ARM_ABS32            000002b6   
+00000751  0000d002 R_ARM_ABS32            00000743   
+0000075a  0000d102 R_ARM_ABS32            0000074b   
+00000760  0000b702 R_ARM_ABS32            0000060d   
+00000767  0000f402 R_ARM_ABS32            00000b15   
+00000772  00011102 R_ARM_ABS32            00000e81   
+0000077d  00014502 R_ARM_ABS32            0000120b   
+00000788  00014602 R_ARM_ABS32            00001213   
+00000793  00014702 R_ARM_ABS32            0000121a   
+0000079e  00014802 R_ARM_ABS32            00001226   
+000007a9  00014902 R_ARM_ABS32            00001231   
+000007b4  0001d102 R_ARM_ABS32            0000271c   
+000007bf  0001dd02 R_ARM_ABS32            00002792   
+000007ca  0001ec02 R_ARM_ABS32            00002833   
+000007d5  0001f602 R_ARM_ABS32            0000291c   
+000007e0  0001ff02 R_ARM_ABS32            000029c8   
+000007eb  00020202 R_ARM_ABS32            00002a93   
+000007f6  00020302 R_ARM_ABS32            00002a9d   
+00000801  00020e02 R_ARM_ABS32            00002c1f   
+0000080c  00021002 R_ARM_ABS32            00002c47   
+00000818  0001cf02 R_ARM_ABS32            000026dd   
+0000081f  00014a02 R_ARM_ABS32            00001239   
+0000082a  00014f02 R_ARM_ABS32            00001541   
+00000835  00015602 R_ARM_ABS32            0000169b   
+00000840  00015902 R_ARM_ABS32            0000176f   
+0000084b  0001c302 R_ARM_ABS32            00002487   
+00000856  0001c602 R_ARM_ABS32            00002543   
+00000861  0001c702 R_ARM_ABS32            00002560   
+0000086c  0001ca02 R_ARM_ABS32            00002614   
+00000877  0001cb02 R_ARM_ABS32            0000262a   
+00000882  0001ce02 R_ARM_ABS32            000026d4   
+0000088e  00015202 R_ARM_ABS32            00001564   
+00000895  00015002 R_ARM_ABS32            0000154f   
+000008a0  00015102 R_ARM_ABS32            0000155a   
+000008ac  0001bf02 R_ARM_ABS32            00002330   
+000008b3  00015a02 R_ARM_ABS32            00001785   
+000008be  00015b02 R_ARM_ABS32            00001795   
+000008c9  0001b502 R_ARM_ABS32            00002140   
+000008d4  0001b602 R_ARM_ABS32            00002150   
+000008df  0001b702 R_ARM_ABS32            00002159   
+000008ea  0001b802 R_ARM_ABS32            00002164   
+000008f5  0001b902 R_ARM_ABS32            00002173   
+00000900  0001bd02 R_ARM_ABS32            000022fb   
+0000090b  0001be02 R_ARM_ABS32            00002306   
+00000917  0001b402 R_ARM_ABS32            00002132   
+0000091e  00015c02 R_ARM_ABS32            000017a4   
+00000929  00016402 R_ARM_ABS32            00001885   
+00000934  00016c02 R_ARM_ABS32            0000196e   
+0000093f  00017402 R_ARM_ABS32            00001a57   
+0000094a  00017d02 R_ARM_ABS32            00001b42   
+00000955  00017e02 R_ARM_ABS32            00001b47   
+00000960  00017f02 R_ARM_ABS32            00001b4c   
+0000096b  00018702 R_ARM_ABS32            00001c31   
+00000976  00018b02 R_ARM_ABS32            00001cf3   
+00000981  00018c02 R_ARM_ABS32            00001cf8   
+0000098c  00019402 R_ARM_ABS32            00001de7   
+00000997  0001a602 R_ARM_ABS32            00001f57   
+000009a2  0001ac02 R_ARM_ABS32            00002038   
+000009ad  0001b202 R_ARM_ABS32            0000211a   
+000009b9  00016302 R_ARM_ABS32            0000183d   
+000009c0  00007902 R_ARM_ABS32            00000298   
+000009cf  00008b02 R_ARM_ABS32            00000349   
+000009d5  00016002 R_ARM_ABS32            000017ba   
+000009dc  00015d02 R_ARM_ABS32            000017a8   
+000009e7  00015e02 R_ARM_ABS32            000017ae   
+000009f2  00015f02 R_ARM_ABS32            000017b4   
+000009fd  0000ce02 R_ARM_ABS32            0000072f   
+00000a09  00016b02 R_ARM_ABS32            00001924   
+00000a10  00007902 R_ARM_ABS32            00000298   
+00000a1f  00008b02 R_ARM_ABS32            00000349   
+00000a25  00016802 R_ARM_ABS32            0000189b   
+00000a2c  00016502 R_ARM_ABS32            00001889   
+00000a37  00016602 R_ARM_ABS32            0000188f   
+00000a42  00016702 R_ARM_ABS32            00001895   
+00000a4d  0000ce02 R_ARM_ABS32            0000072f   
+00000a59  00017302 R_ARM_ABS32            00001a0d   
+00000a60  00007902 R_ARM_ABS32            00000298   
+00000a6f  00008b02 R_ARM_ABS32            00000349   
+00000a75  00017002 R_ARM_ABS32            00001984   
+00000a7c  00016d02 R_ARM_ABS32            00001972   
+00000a87  00016e02 R_ARM_ABS32            00001978   
+00000a92  00016f02 R_ARM_ABS32            0000197e   
+00000a9d  0000ce02 R_ARM_ABS32            0000072f   
+00000aa9  00017c02 R_ARM_ABS32            00001af9   
+00000ab0  00007902 R_ARM_ABS32            00000298   
+00000abf  00008b02 R_ARM_ABS32            00000349   
+00000ac5  00017902 R_ARM_ABS32            00001a73   
+00000acc  00017502 R_ARM_ABS32            00001a5b   
+00000ad7  00017602 R_ARM_ABS32            00001a61   
+00000ae2  00017702 R_ARM_ABS32            00001a67   
+00000aed  00017802 R_ARM_ABS32            00001a6d   
+00000af8  0000ce02 R_ARM_ABS32            0000072f   
+00000b04  00018602 R_ARM_ABS32            00001be8   
+00000b0b  00007902 R_ARM_ABS32            00000298   
+00000b1a  00008b02 R_ARM_ABS32            00000349   
+00000b20  00018302 R_ARM_ABS32            00001b62   
+00000b27  00018002 R_ARM_ABS32            00001b50   
+00000b32  00018102 R_ARM_ABS32            00001b56   
+00000b3d  00018202 R_ARM_ABS32            00001b5c   
+00000b48  0000ce02 R_ARM_ABS32            0000072f   
+00000b54  00018a02 R_ARM_ABS32            00001caa   
+00000b5b  00007902 R_ARM_ABS32            00000298   
+00000b6a  00008b02 R_ARM_ABS32            00000349   
+00000b70  00019302 R_ARM_ABS32            00001d9d   
+00000b77  00007902 R_ARM_ABS32            00000298   
+00000b86  00008b02 R_ARM_ABS32            00000349   
+00000b8c  00019002 R_ARM_ABS32            00001d14   
+00000b93  00018d02 R_ARM_ABS32            00001cfc   
+00000b9e  00018e02 R_ARM_ABS32            00001d05   
+00000ba9  00018f02 R_ARM_ABS32            00001d0c   
+00000bb4  0000ce02 R_ARM_ABS32            0000072f   
+00000bc0  0001a502 R_ARM_ABS32            00001f0d   
+00000bc7  00007902 R_ARM_ABS32            00000298   
+00000bd6  00008b02 R_ARM_ABS32            00000349   
+00000bdc  0001a202 R_ARM_ABS32            00001e84   
+00000be3  00019502 R_ARM_ABS32            00001deb   
+00000bee  00019602 R_ARM_ABS32            00001df1   
+00000bf9  00019702 R_ARM_ABS32            00001df7   
+00000c04  00019802 R_ARM_ABS32            00001dfd   
+00000c0f  00019902 R_ARM_ABS32            00001e03   
+00000c1a  00019a02 R_ARM_ABS32            00001e0b   
+00000c25  00019b02 R_ARM_ABS32            00001e19   
+00000c30  00019c02 R_ARM_ABS32            00001e28   
+00000c3b  00019d02 R_ARM_ABS32            00001e39   
+00000c46  00019e02 R_ARM_ABS32            00001e44   
+00000c51  00019f02 R_ARM_ABS32            00001e4f   
+00000c5c  0001a002 R_ARM_ABS32            00001e5a   
+00000c67  0000ce02 R_ARM_ABS32            0000072f   
+00000c73  0001a102 R_ARM_ABS32            00001e61   
+00000c7a  0000cf02 R_ARM_ABS32            0000073b   
+00000c85  00007e02 R_ARM_ABS32            000002b6   
+00000c94  0000d002 R_ARM_ABS32            00000743   
+00000c9d  0000d102 R_ARM_ABS32            0000074b   
+00000ca3  0001ab02 R_ARM_ABS32            00001fee   
+00000caa  00007902 R_ARM_ABS32            00000298   
+00000cb9  00008b02 R_ARM_ABS32            00000349   
+00000cbf  0001a802 R_ARM_ABS32            00001f65   
+00000cc6  0001a702 R_ARM_ABS32            00001f5b   
+00000cd1  0000ce02 R_ARM_ABS32            0000072f   
+00000cdd  0001b102 R_ARM_ABS32            000020d0   
+00000ce4  00007902 R_ARM_ABS32            00000298   
+00000cf3  00008b02 R_ARM_ABS32            00000349   
+00000cf9  0001ae02 R_ARM_ABS32            00002047   
+00000d00  0001ad02 R_ARM_ABS32            0000203d   
+00000d0b  0000ce02 R_ARM_ABS32            0000072f   
+00000d17  00000202 R_ARM_ABS32            0000230f   
+00000d1e  00012e02 R_ARM_ABS32            000010a8   
+00000d2a  0001dc02 R_ARM_ABS32            00002781   
+00000d31  0001d202 R_ARM_ABS32            00002722   
+00000d3c  0001d602 R_ARM_ABS32            00002744   
+00000d47  0001db02 R_ARM_ABS32            00002776   
+00000d53  0001eb02 R_ARM_ABS32            00002828   
+00000d5a  0001de02 R_ARM_ABS32            00002798   
+00000d65  0001df02 R_ARM_ABS32            000027a0   
+00000d70  0001e002 R_ARM_ABS32            000027a7   
+00000d7b  0001e102 R_ARM_ABS32            000027b1   
+00000d86  0001e202 R_ARM_ABS32            000027b9   
+00000d91  0001e402 R_ARM_ABS32            000027e3   
+00000d9c  0001e502 R_ARM_ABS32            000027ee   
+00000da7  0001e602 R_ARM_ABS32            000027fa   
+00000db3  0001ea02 R_ARM_ABS32            0000281d   
+00000dba  0001e702 R_ARM_ABS32            00002802   
+00000dc5  0001e802 R_ARM_ABS32            0000280b   
+00000dd0  0001e902 R_ARM_ABS32            00002816   
+00000ddc  0001fe02 R_ARM_ABS32            000029b3   
+00000de3  00011302 R_ARM_ABS32            00000e90   
+00000def  0001fc02 R_ARM_ABS32            00002970   
+00000df6  0001f702 R_ARM_ABS32            0000292c   
+00000e01  0001f802 R_ARM_ABS32            0000293b   
+00000e0c  0001f902 R_ARM_ABS32            00002943   
+00000e17  0001fa02 R_ARM_ABS32            0000294a   
+00000e23  0001fb02 R_ARM_ABS32            00002952   
+00000e2a  00012e02 R_ARM_ABS32            000010a8   
+00000e36  00020d02 R_ARM_ABS32            00002c0a   
+00000e3d  00011302 R_ARM_ABS32            00000e90   
+00000e49  00020b02 R_ARM_ABS32            00002bc7   
+00000e50  00020402 R_ARM_ABS32            00002aad   
+00000e5b  00020502 R_ARM_ABS32            00002ac2   
+00000e66  00020802 R_ARM_ABS32            00002b9a   
+00000e71  00020902 R_ARM_ABS32            00002ba1   
+00000e7d  00020a02 R_ARM_ABS32            00002ba9   
+00000e84  00012e02 R_ARM_ABS32            000010a8   
+00000e90  00020f02 R_ARM_ABS32            00002c32   
+00000e97  00011302 R_ARM_ABS32            00000e90   
+00000ea3  00021102 R_ARM_ABS32            00002c4e   
+00000eaa  00012e02 R_ARM_ABS32            000010a8   
+00000eb9  0000dc02 R_ARM_ABS32            00000835   
+00000ebe  0000dd02 R_ARM_ABS32            0000083e   
+00000ec3  0000e702 R_ARM_ABS32            00000988   
+00000eca  0000de02 R_ARM_ABS32            00000847   
+00000ed5  0000e502 R_ARM_ABS32            00000977   
+00000ee0  0000e602 R_ARM_ABS32            00000982   
+00000eeb  00007f02 R_ARM_ABS32            000002bc   
+00000ef7  0000e302 R_ARM_ABS32            0000092e   
+00000efe  0000df02 R_ARM_ABS32            0000084e   
+00000f09  0000e202 R_ARM_ABS32            00000920   
+00000f17  0000f502 R_ARM_ABS32            00000b1b   
+00000f1c  0000f602 R_ARM_ABS32            00000b22   
+00000f21  00010f02 R_ARM_ABS32            00000e5a   
+00000f28  0000f702 R_ARM_ABS32            00000b25   
+00000f33  00010302 R_ARM_ABS32            00000d3b   
+00000f3e  00010602 R_ARM_ABS32            00000df5   
+00000f49  00010702 R_ARM_ABS32            00000e01   
+00000f54  00010802 R_ARM_ABS32            00000e0a   
+00000f5f  00010902 R_ARM_ABS32            00000e16   
+00000f6a  00010a02 R_ARM_ABS32            00000e22   
+00000f75  00010b02 R_ARM_ABS32            00000e2b   
+00000f80  00010c02 R_ARM_ABS32            00000e33   
+00000f8c  00010202 R_ARM_ABS32            00000d2b   
+00000f93  0000f802 R_ARM_ABS32            00000b31   
+00000f9e  0000fb02 R_ARM_ABS32            00000bf5   
+00000fa9  0000fe02 R_ARM_ABS32            00000c96   
+00000fb4  00010102 R_ARM_ABS32            00000d22   
+00000fc0  00010e02 R_ARM_ABS32            00000e45   
+00000fc7  00010d02 R_ARM_ABS32            00000e3b   
+00000fd3  00014402 R_ARM_ABS32            00001202   
+00000fda  00011202 R_ARM_ABS32            00000e88   
+00000fe5  00014002 R_ARM_ABS32            000011e3   
+00000ff0  00014102 R_ARM_ABS32            000011e8   
+00000ffb  00014202 R_ARM_ABS32            000011f0   
+00001006  00014302 R_ARM_ABS32            000011f9   
+00001012  00013f02 R_ARM_ABS32            000011cc   
+00001019  00011302 R_ARM_ABS32            00000e90   
+00001025  00013d02 R_ARM_ABS32            000011a3   
+0000102c  00011402 R_ARM_ABS32            00000e9a   
+00001037  00011602 R_ARM_ABS32            00000eae   
+00001042  00011702 R_ARM_ABS32            00000eb9   
+0000104d  00011902 R_ARM_ABS32            00000ec9   
+00001058  00011a02 R_ARM_ABS32            00000ed2   
+00001063  00011b02 R_ARM_ABS32            00000ed9   
+0000106e  00011c02 R_ARM_ABS32            00000ee1   
+00001079  00011d02 R_ARM_ABS32            00000ee9   
+00001084  00011e02 R_ARM_ABS32            00000ef3   
+0000108f  00011f02 R_ARM_ABS32            00000ef9   
+0000109a  00012002 R_ARM_ABS32            00000f00   
+000010a5  00012302 R_ARM_ABS32            00000f69   
+000010b0  00012402 R_ARM_ABS32            00000f6f   
+000010bb  00012502 R_ARM_ABS32            00000f75   
+000010c6  00013102 R_ARM_ABS32            000010df   
+000010d1  00013202 R_ARM_ABS32            000010ed   
+000010dc  00013302 R_ARM_ABS32            000010f8   
+000010e7  00013402 R_ARM_ABS32            00001105   
+000010f2  00013602 R_ARM_ABS32            0000112a   
+000010fd  00013b02 R_ARM_ABS32            00001182   
+00001109  00013002 R_ARM_ABS32            000010cf   
+00001110  00012602 R_ARM_ABS32            00000f84   
+0000111b  00012702 R_ARM_ABS32            00000f94   
+00001126  00012802 R_ARM_ABS32            00000fa4   
+00001131  00012c02 R_ARM_ABS32            00001099   
+0000113c  00012d02 R_ARM_ABS32            000010a0   
+00001148  00012f02 R_ARM_ABS32            000010b1   
+0000114f  00012e02 R_ARM_ABS32            000010a8   
+0000115b  00013502 R_ARM_ABS32            00001114   
+00001162  00010d02 R_ARM_ABS32            00000e3b   
+0000116e  00013a02 R_ARM_ABS32            0000116c   
+00001175  00013702 R_ARM_ABS32            00001134   
+00001180  00013802 R_ARM_ABS32            0000113d   
+0000118c  00013c02 R_ARM_ABS32            0000118d   
+00001193  00012e02 R_ARM_ABS32            000010a8   
+0000119f  0001d502 R_ARM_ABS32            00002739   
+000011a6  0001d302 R_ARM_ABS32            0000272a   
+000011b1  0001d402 R_ARM_ABS32            00002731   
+000011bd  0001da02 R_ARM_ABS32            0000276a   
+000011c4  0001d702 R_ARM_ABS32            0000274c   
+000011cf  0001d902 R_ARM_ABS32            0000275f   
+000011db  0001f502 R_ARM_ABS32            00002913   
+000011e2  0001ed02 R_ARM_ABS32            00002843   
+000011ed  0001ee02 R_ARM_ABS32            0000284d   
+000011f8  0001f202 R_ARM_ABS32            000028ed   
+00001203  0001f302 R_ARM_ABS32            000028f4   
+0000120f  0001f402 R_ARM_ABS32            000028fc   
+00001216  00010d02 R_ARM_ABS32            00000e3b   
+00001222  00001202 R_ARM_ABS32            00002e87   
+00001229  00000b02 R_ARM_ABS32            00002e17   
+00001234  00000c02 R_ARM_ABS32            00002e21   
+0000123f  00000d02 R_ARM_ABS32            00002e2a   
+0000124b  00001102 R_ARM_ABS32            00002e6f   
+00001252  00000e02 R_ARM_ABS32            00002e33   
+0000125d  00000f02 R_ARM_ABS32            00002e3e   
+0000126c  00004702 R_ARM_ABS32            000000d4   
+00001273  00004202 R_ARM_ABS32            000000b1   
+0000127e  00004502 R_ARM_ABS32            000000c7   
+0000128e  00004402 R_ARM_ABS32            000000bd   
+00001293  00004302 R_ARM_ABS32            000000ba   
+0000129a  00004602 R_ARM_ABS32            000000ce   
+000012a1  00004a02 R_ARM_ABS32            00000116   
+000012a6  00004b02 R_ARM_ABS32            0000011b   
+000012af  00004e02 R_ARM_ABS32            00000129   
+000012b6  00004c02 R_ARM_ABS32            00000122   
+000012bc  00004d02 R_ARM_ABS32            00000125   
+000012c3  00023802 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
+000012cd  00001e02 R_ARM_ABS32            00003015   
+000012d1  00001f02 R_ARM_ABS32            00003048   
+000012dd  00024502 R_ARM_ABS32            00000000   .debug_loc
+000012e1  00000802 R_ARM_ABS32            00002e0f   
+000012ec  00024502 R_ARM_ABS32            00000000   .debug_loc
+000012f0  00002802 R_ARM_ABS32            000030e9   
+000012ff  00024802 R_ARM_ABS32            00000000   .debug_ranges
+00001306  00024502 R_ARM_ABS32            00000000   .debug_loc
+0000130f  00024502 R_ARM_ABS32            00000000   .debug_loc
+0000131d  0000d702 R_ARM_ABS32            000007dd   
+00001323  0000d802 R_ARM_ABS32            000007df   
+00001338  00004c02 R_ARM_ABS32            00000122   
+00001345  00004d02 R_ARM_ABS32            00000125   
+00001352  00004c02 R_ARM_ABS32            00000122   
+00001359  00007902 R_ARM_ABS32            00000298   
+00001368  00008b02 R_ARM_ABS32            00000349   
+00001371  0000d702 R_ARM_ABS32            000007dd   
+00001377  00004d02 R_ARM_ABS32            00000125   
+0000137e  00007902 R_ARM_ABS32            00000298   
+0000138d  00008b02 R_ARM_ABS32            00000349   
+00001396  0000d702 R_ARM_ABS32            000007dd   
+0000139c  00000602 R_ARM_ABS32            00002da8   
+000013a0  00000702 R_ARM_ABS32            00002de8   
+000013ad  00008b02 R_ARM_ABS32            00000349   
+000013b6  0000d702 R_ARM_ABS32            000007dd   
+000013bb  0000f102 R_ARM_ABS32            00000abb   
+000013c6  00000802 R_ARM_ABS32            00002e0f   
+000013d2  00000902 R_ARM_ABS32            00002e13   
+000013df  00000a02 R_ARM_ABS32            00002e15   
+000013ef  00006e02 R_ARM_ABS32            0000024e   
+000013f4  0000ee02 R_ARM_ABS32            000009f3   
+000013f8  0000ef02 R_ARM_ABS32            00000a63   
+00001409  00008b02 R_ARM_ABS32            00000349   
+00001412  0000d702 R_ARM_ABS32            000007dd   
+00001417  0000f102 R_ARM_ABS32            00000abb   
+00001423  00000302 R_ARM_ABS32            00002c96   
+00001427  00000402 R_ARM_ABS32            00002d06   
+00001438  00008b02 R_ARM_ABS32            00000349   
+00001441  0000d702 R_ARM_ABS32            000007dd   
+00001446  0000f102 R_ARM_ABS32            00000abb   
+00001453  0000f002 R_ARM_ABS32            00000a91   
+00001468  00004c02 R_ARM_ABS32            00000122   
+00001476  00004d02 R_ARM_ABS32            00000125   
+00001483  00004c02 R_ARM_ABS32            00000122   
+0000148a  00007902 R_ARM_ABS32            00000298   
+00001499  00008b02 R_ARM_ABS32            00000349   
+000014a2  0000d702 R_ARM_ABS32            000007dd   
+000014a8  00004d02 R_ARM_ABS32            00000125   
+000014af  00007902 R_ARM_ABS32            00000298   
+000014be  00008b02 R_ARM_ABS32            00000349   
+000014c7  0000d702 R_ARM_ABS32            000007dd   
+000014ce  00000502 R_ARM_ABS32            00002d59   
+000014e3  00004c02 R_ARM_ABS32            00000122   
+000014f1  00004d02 R_ARM_ABS32            00000125   
+000014fe  00004c02 R_ARM_ABS32            00000122   
+00001505  00007902 R_ARM_ABS32            00000298   
+00001514  00008b02 R_ARM_ABS32            00000349   
+0000151d  0000d702 R_ARM_ABS32            000007dd   
+00001523  00004d02 R_ARM_ABS32            00000125   
+0000152a  00007902 R_ARM_ABS32            00000298   
+00001539  00008b02 R_ARM_ABS32            00000349   
+00001542  0000d702 R_ARM_ABS32            000007dd   
+00001549  00001402 R_ARM_ABS32            00002eb4   
+0000155e  00004c02 R_ARM_ABS32            00000122   
+0000156c  00004d02 R_ARM_ABS32            00000125   
+00001579  00004c02 R_ARM_ABS32            00000122   
+00001580  00007902 R_ARM_ABS32            00000298   
+0000158f  00008b02 R_ARM_ABS32            00000349   
+00001598  0000d702 R_ARM_ABS32            000007dd   
+0000159e  00004d02 R_ARM_ABS32            00000125   
+000015a5  00007902 R_ARM_ABS32            00000298   
+000015b4  00008b02 R_ARM_ABS32            00000349   
+000015bd  0000d702 R_ARM_ABS32            000007dd   
+000015c3  00001502 R_ARM_ABS32            00002efc   
+000015c7  00001602 R_ARM_ABS32            00002f3c   
+000015d8  00008b02 R_ARM_ABS32            00000349   
+000015e1  0000d702 R_ARM_ABS32            000007dd   
+000015e6  0000f102 R_ARM_ABS32            00000abb   
+000015f1  00000802 R_ARM_ABS32            00002e0f   
+000015fd  00000902 R_ARM_ABS32            00002e13   
+0000160a  00000a02 R_ARM_ABS32            00002e15   
+0000161b  00004f02 R_ARM_ABS32            00000130   
+00001620  00005002 R_ARM_ABS32            00000134   
+00001625  00005102 R_ARM_ABS32            00000137   
+0000162e  00005602 R_ARM_ABS32            00000154   
+00001635  00005202 R_ARM_ABS32            0000013a   
+0000163b  00005302 R_ARM_ABS32            0000013f   
+00001641  00005402 R_ARM_ABS32            00000145   
+00001647  00005502 R_ARM_ABS32            0000014c   
+0000164e  00008802 R_ARM_ABS32            000002fe   
+00001655  00007602 R_ARM_ABS32            00000287   
+00001660  00007b02 R_ARM_ABS32            000002a5   
+0000166c  00007a02 R_ARM_ABS32            0000029c   
+00001681  00007702 R_ARM_ABS32            00000290   
+0000168f  00007802 R_ARM_ABS32            00000295   
+0000169c  00007702 R_ARM_ABS32            00000290   
+000016a3  00007802 R_ARM_ABS32            00000295   
+000016aa  00007902 R_ARM_ABS32            00000298   
+000016b7  00008702 R_ARM_ABS32            000002f3   
+000016be  00007c02 R_ARM_ABS32            000002ac   
+000016c9  00007e02 R_ARM_ABS32            000002b6   
+000016d4  00007f02 R_ARM_ABS32            000002bc   
+000016df  00008002 R_ARM_ABS32            000002c2   
+000016ea  00008602 R_ARM_ABS32            000002ed   
+000016f6  00008502 R_ARM_ABS32            000002e7   
+0000170b  00008102 R_ARM_ABS32            000002cc   
+00001719  00008202 R_ARM_ABS32            000002cf   
+00001727  00008302 R_ARM_ABS32            000002d5   
+00001735  00008402 R_ARM_ABS32            000002df   
+00001742  00008102 R_ARM_ABS32            000002cc   
+00001749  00007902 R_ARM_ABS32            00000298   
+00001755  00008202 R_ARM_ABS32            000002cf   
+0000175c  00007902 R_ARM_ABS32            00000298   
+00001768  00008302 R_ARM_ABS32            000002d5   
+0000176f  00008402 R_ARM_ABS32            000002df   
+00001779  00006e02 R_ARM_ABS32            0000024e   
+0000177e  00023702 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
+00001788  00001c02 R_ARM_ABS32            00002fc2   
+0000178c  00001d02 R_ARM_ABS32            0000300c   
+00001798  00024502 R_ARM_ABS32            00000000   .debug_loc
+0000179c  0000f102 R_ARM_ABS32            00000abb   
+000017a7  00024502 R_ARM_ABS32            00000000   .debug_loc
+000017ab  00002702 R_ARM_ABS32            000030e7   
+000017ba  00008b02 R_ARM_ABS32            00000349   
+000017c1  0000b102 R_ARM_ABS32            0000057e   
+000017c8  00006f02 R_ARM_ABS32            00000257   
+000017d3  00004f02 R_ARM_ABS32            00000130   
+000017de  00008e02 R_ARM_ABS32            00000377   
+000017e9  0000b202 R_ARM_ABS32            00000588   
+000017ed  0000b302 R_ARM_ABS32            000005ba   
+000017fa  00006f02 R_ARM_ABS32            00000257   
+00001805  00008e02 R_ARM_ABS32            00000377   
+00001812  0000ae02 R_ARM_ABS32            0000053d   
+00001819  00008f02 R_ARM_ABS32            0000037c   
+00001824  00009f02 R_ARM_ABS32            00000420   
+00001830  00009d02 R_ARM_ABS32            0000040a   
+00001837  00009002 R_ARM_ABS32            00000382   
+00001842  00009202 R_ARM_ABS32            0000038b   
+0000184e  0000ab02 R_ARM_ABS32            000004bb   
+00001855  00007f02 R_ARM_ABS32            000002bc   
+00001860  00007c02 R_ARM_ABS32            000002ac   
+0000186b  00007e02 R_ARM_ABS32            000002b6   
+00001876  00008602 R_ARM_ABS32            000002ed   
+00001881  00008002 R_ARM_ABS32            000002c2   
+0000188c  0000a102 R_ARM_ABS32            00000438   
+00001897  0000a302 R_ARM_ABS32            00000447   
+000018a2  00008e02 R_ARM_ABS32            00000377   
+000018ae  0000a202 R_ARM_ABS32            0000043c   
+000018b5  00009602 R_ARM_ABS32            000003ae   
+000018c0  00009802 R_ARM_ABS32            000003be   
+000018cd  00006a02 R_ARM_ABS32            0000022d   
+000018d6  00006d02 R_ARM_ABS32            00000247   
+000018dd  00006b02 R_ARM_ABS32            00000231   
+000018e3  00006c02 R_ARM_ABS32            0000023c   
+000018eb  00007302 R_ARM_ABS32            00000277   
+000018f0  00008d02 R_ARM_ABS32            00000350   
+00001905  00007502 R_ARM_ABS32            00000282   
+00001912  00008c02 R_ARM_ABS32            0000034b   
+0000191f  00007502 R_ARM_ABS32            00000282   
+0000192a  00008b02 R_ARM_ABS32            00000349   
+00001930  00008c02 R_ARM_ABS32            0000034b   
+00001937  00007902 R_ARM_ABS32            00000298   
+00001946  00008b02 R_ARM_ABS32            00000349   
+0000194d  0000a002 R_ARM_ABS32            0000042a   
+00001962  00007502 R_ARM_ABS32            00000282   
+00001970  00008c02 R_ARM_ABS32            0000034b   
+0000197d  00007502 R_ARM_ABS32            00000282   
+00001988  00008b02 R_ARM_ABS32            00000349   
+0000198e  00008c02 R_ARM_ABS32            0000034b   
+00001995  00007902 R_ARM_ABS32            00000298   
+000019a4  00008b02 R_ARM_ABS32            00000349   
+000019ab  0000e102 R_ARM_ABS32            000008b6   
+000019c0  00007502 R_ARM_ABS32            00000282   
+000019cd  00008c02 R_ARM_ABS32            0000034b   
+000019da  00007502 R_ARM_ABS32            00000282   
+000019e5  00008b02 R_ARM_ABS32            00000349   
+000019eb  00008c02 R_ARM_ABS32            0000034b   
+000019f2  00007902 R_ARM_ABS32            00000298   
+00001a01  00008b02 R_ARM_ABS32            00000349   
+00001a08  0000fa02 R_ARM_ABS32            00000b93   
+00001a1d  00007502 R_ARM_ABS32            00000282   
+00001a2a  00008c02 R_ARM_ABS32            0000034b   
+00001a37  00007502 R_ARM_ABS32            00000282   
+00001a42  00008b02 R_ARM_ABS32            00000349   
+00001a48  00008c02 R_ARM_ABS32            0000034b   
+00001a4f  00007902 R_ARM_ABS32            00000298   
+00001a5e  00008b02 R_ARM_ABS32            00000349   
+00001a65  0000fd02 R_ARM_ABS32            00000c47   
+00001a7a  00007502 R_ARM_ABS32            00000282   
+00001a87  00008c02 R_ARM_ABS32            0000034b   
+00001a94  00007502 R_ARM_ABS32            00000282   
+00001a9f  00008b02 R_ARM_ABS32            00000349   
+00001aa5  00008c02 R_ARM_ABS32            0000034b   
+00001aac  00007902 R_ARM_ABS32            00000298   
+00001abb  00008b02 R_ARM_ABS32            00000349   
+00001ac2  00010002 R_ARM_ABS32            00000cdd   
+00001ad7  00007502 R_ARM_ABS32            00000282   
+00001ae4  00008c02 R_ARM_ABS32            0000034b   
+00001af1  00007502 R_ARM_ABS32            00000282   
+00001afc  00008b02 R_ARM_ABS32            00000349   
+00001b02  00008c02 R_ARM_ABS32            0000034b   
+00001b09  00007902 R_ARM_ABS32            00000298   
+00001b18  00008b02 R_ARM_ABS32            00000349   
+00001b1f  00010502 R_ARM_ABS32            00000d98   
+00001b34  00007502 R_ARM_ABS32            00000282   
+00001b41  00008c02 R_ARM_ABS32            0000034b   
+00001b4e  00007502 R_ARM_ABS32            00000282   
+00001b59  00008b02 R_ARM_ABS32            00000349   
+00001b5f  00008c02 R_ARM_ABS32            0000034b   
+00001b66  00007902 R_ARM_ABS32            00000298   
+00001b75  00008b02 R_ARM_ABS32            00000349   
+00001b7c  00012202 R_ARM_ABS32            00000f34   
+00001b91  00007502 R_ARM_ABS32            00000282   
+00001b9e  00008c02 R_ARM_ABS32            0000034b   
+00001bab  00007502 R_ARM_ABS32            00000282   
+00001bb6  00008b02 R_ARM_ABS32            00000349   
+00001bbc  00008c02 R_ARM_ABS32            0000034b   
+00001bc3  00007902 R_ARM_ABS32            00000298   
+00001bd2  00008b02 R_ARM_ABS32            00000349   
+00001bd9  00012b02 R_ARM_ABS32            00001033   
+00001bee  00007502 R_ARM_ABS32            00000282   
+00001bfb  00008c02 R_ARM_ABS32            0000034b   
+00001c08  00007502 R_ARM_ABS32            00000282   
+00001c13  00008b02 R_ARM_ABS32            00000349   
+00001c19  00008c02 R_ARM_ABS32            0000034b   
+00001c20  00007902 R_ARM_ABS32            00000298   
+00001c2f  00008b02 R_ARM_ABS32            00000349   
+00001c36  00014e02 R_ARM_ABS32            0000143d   
+00001c4b  00007502 R_ARM_ABS32            00000282   
+00001c58  00008c02 R_ARM_ABS32            0000034b   
+00001c65  00007502 R_ARM_ABS32            00000282   
+00001c70  00008b02 R_ARM_ABS32            00000349   
+00001c76  00008c02 R_ARM_ABS32            0000034b   
+00001c7d  00007902 R_ARM_ABS32            00000298   
+00001c8c  00008b02 R_ARM_ABS32            00000349   
+00001c93  00014c02 R_ARM_ABS32            000012bd   
+00001ca8  00007502 R_ARM_ABS32            00000282   
+00001cb5  00008c02 R_ARM_ABS32            0000034b   
+00001cc2  00007502 R_ARM_ABS32            00000282   
+00001ccd  00008b02 R_ARM_ABS32            00000349   
+00001cd3  00008c02 R_ARM_ABS32            0000034b   
+00001cda  00007902 R_ARM_ABS32            00000298   
+00001ce9  00008b02 R_ARM_ABS32            00000349   
+00001cf0  00015502 R_ARM_ABS32            00001618   
+00001d05  00007502 R_ARM_ABS32            00000282   
+00001d12  00008c02 R_ARM_ABS32            0000034b   
+00001d1f  00007502 R_ARM_ABS32            00000282   
+00001d2a  00008b02 R_ARM_ABS32            00000349   
+00001d30  00008c02 R_ARM_ABS32            0000034b   
+00001d37  00007902 R_ARM_ABS32            00000298   
+00001d46  00008b02 R_ARM_ABS32            00000349   
+00001d4d  00015802 R_ARM_ABS32            00001708   
+00001d62  00007502 R_ARM_ABS32            00000282   
+00001d6f  00008c02 R_ARM_ABS32            0000034b   
+00001d7c  00007502 R_ARM_ABS32            00000282   
+00001d87  00008b02 R_ARM_ABS32            00000349   
+00001d8d  00008c02 R_ARM_ABS32            0000034b   
+00001d94  00007902 R_ARM_ABS32            00000298   
+00001da3  00008b02 R_ARM_ABS32            00000349   
+00001daa  0001c202 R_ARM_ABS32            000023fc   
+00001dbf  00007502 R_ARM_ABS32            00000282   
+00001dcc  00008c02 R_ARM_ABS32            0000034b   
+00001dd9  00007502 R_ARM_ABS32            00000282   
+00001de4  00008b02 R_ARM_ABS32            00000349   
+00001dea  00008c02 R_ARM_ABS32            0000034b   
+00001df1  00007902 R_ARM_ABS32            00000298   
+00001e00  00008b02 R_ARM_ABS32            00000349   
+00001e07  0001bc02 R_ARM_ABS32            00002256   
+00001e1c  00007502 R_ARM_ABS32            00000282   
+00001e29  00008c02 R_ARM_ABS32            0000034b   
+00001e36  00007502 R_ARM_ABS32            00000282   
+00001e41  00008b02 R_ARM_ABS32            00000349   
+00001e47  00008c02 R_ARM_ABS32            0000034b   
+00001e4e  00007902 R_ARM_ABS32            00000298   
+00001e5d  00008b02 R_ARM_ABS32            00000349   
+00001e64  0001c502 R_ARM_ABS32            000024ef   
+00001e79  00007502 R_ARM_ABS32            00000282   
+00001e86  00008c02 R_ARM_ABS32            0000034b   
+00001e93  00007502 R_ARM_ABS32            00000282   
+00001e9e  00008b02 R_ARM_ABS32            00000349   
+00001ea4  00008c02 R_ARM_ABS32            0000034b   
+00001eab  00007902 R_ARM_ABS32            00000298   
+00001eba  00008b02 R_ARM_ABS32            00000349   
+00001ec1  0001c902 R_ARM_ABS32            000025c0   
+00001ed6  00007502 R_ARM_ABS32            00000282   
+00001ee3  00008c02 R_ARM_ABS32            0000034b   
+00001ef0  00007502 R_ARM_ABS32            00000282   
+00001efb  00008b02 R_ARM_ABS32            00000349   
+00001f01  00008c02 R_ARM_ABS32            0000034b   
+00001f08  00007902 R_ARM_ABS32            00000298   
+00001f17  00008b02 R_ARM_ABS32            00000349   
+00001f1e  0001cd02 R_ARM_ABS32            00002685   
+00001f33  00007502 R_ARM_ABS32            00000282   
+00001f40  00008c02 R_ARM_ABS32            0000034b   
+00001f4d  00007502 R_ARM_ABS32            00000282   
+00001f58  00008b02 R_ARM_ABS32            00000349   
+00001f5e  00008c02 R_ARM_ABS32            0000034b   
+00001f65  00007902 R_ARM_ABS32            00000298   
+00001f74  00008b02 R_ARM_ABS32            00000349   
+00001f7b  0001f102 R_ARM_ABS32            000028ad   
+00001f90  00007502 R_ARM_ABS32            00000282   
+00001f9d  00008c02 R_ARM_ABS32            0000034b   
+00001faa  00007502 R_ARM_ABS32            00000282   
+00001fb5  00008b02 R_ARM_ABS32            00000349   
+00001fbb  00008c02 R_ARM_ABS32            0000034b   
+00001fc2  00007902 R_ARM_ABS32            00000298   
+00001fd1  00008b02 R_ARM_ABS32            00000349   
+00001fd8  00020102 R_ARM_ABS32            00002a2e   
+00001fed  00007502 R_ARM_ABS32            00000282   
+00001ffa  00008c02 R_ARM_ABS32            0000034b   
+00002007  00007502 R_ARM_ABS32            00000282   
+00002012  00008b02 R_ARM_ABS32            00000349   
+00002018  00008c02 R_ARM_ABS32            0000034b   
+0000201f  00007902 R_ARM_ABS32            00000298   
+0000202e  00008b02 R_ARM_ABS32            00000349   
+00002035  00020702 R_ARM_ABS32            00002b2e   
+0000204a  00007502 R_ARM_ABS32            00000282   
+00002057  00008c02 R_ARM_ABS32            0000034b   
+00002064  00007502 R_ARM_ABS32            00000282   
+0000206f  00008b02 R_ARM_ABS32            00000349   
+00002075  00008c02 R_ARM_ABS32            0000034b   
+0000207c  00007902 R_ARM_ABS32            00000298   
+0000208b  00008b02 R_ARM_ABS32            00000349   
+00002092  00003102 R_ARM_ABS32            00003135   
+000020a7  00007502 R_ARM_ABS32            00000282   
+000020b4  00008c02 R_ARM_ABS32            0000034b   
+000020c1  00007502 R_ARM_ABS32            00000282   
+000020cc  00008b02 R_ARM_ABS32            00000349   
+000020d2  00008c02 R_ARM_ABS32            0000034b   
+000020d9  00007902 R_ARM_ABS32            00000298   
+000020e8  00008b02 R_ARM_ABS32            00000349   
+000020f0  00009302 R_ARM_ABS32            0000039a   
+000020f5  00009c02 R_ARM_ABS32            000003f1   
+00002100  00008b02 R_ARM_ABS32            00000349   
+00002106  0000a902 R_ARM_ABS32            0000047b   
+00002111  00008b02 R_ARM_ABS32            00000349   
+00002117  00016202 R_ARM_ABS32            000017fd   
+00002122  00008b02 R_ARM_ABS32            00000349   
+00002128  00016a02 R_ARM_ABS32            000018e2   
+00002133  00008b02 R_ARM_ABS32            00000349   
+00002139  00017202 R_ARM_ABS32            000019cb   
+00002144  00008b02 R_ARM_ABS32            00000349   
+0000214a  00017b02 R_ARM_ABS32            00001ab8   
+00002155  00008b02 R_ARM_ABS32            00000349   
+0000215b  00018502 R_ARM_ABS32            00001ba7   
+00002166  00008b02 R_ARM_ABS32            00000349   
+0000216c  00018902 R_ARM_ABS32            00001c69   
+00002177  00008b02 R_ARM_ABS32            00000349   
+0000217d  00019202 R_ARM_ABS32            00001d5b   
+00002188  00008b02 R_ARM_ABS32            00000349   
+0000218e  0001a402 R_ARM_ABS32            00001ecb   
+00002199  00008b02 R_ARM_ABS32            00000349   
+0000219f  0001aa02 R_ARM_ABS32            00001fac   
+000021aa  00008b02 R_ARM_ABS32            00000349   
+000021b0  0001b002 R_ARM_ABS32            0000208e   
+000021bb  00008b02 R_ARM_ABS32            00000349   
+000021c2  00009402 R_ARM_ABS32            000003a1   
+000021c7  00009502 R_ARM_ABS32            000003a5   
+000021cc  00009b02 R_ARM_ABS32            000003e5   
+000021d3  00009602 R_ARM_ABS32            000003ae   
+000021de  00009802 R_ARM_ABS32            000003be   
+000021ec  0000a402 R_ARM_ABS32            0000044e   
+000021f1  0000aa02 R_ARM_ABS32            0000049f   
+000021f8  0000a502 R_ARM_ABS32            00000454   
+00002203  0000a602 R_ARM_ABS32            00000458   
+0000220e  0000a702 R_ARM_ABS32            0000045c   
+0000221d  00008b02 R_ARM_ABS32            00000349   
+00002224  00002502 R_ARM_ABS32            000030db   
+00002229  00003702 R_ARM_ABS32            00003173   
+00002230  00002c02 R_ARM_ABS32            00003106   
+0000223b  00002f02 R_ARM_ABS32            00003117   
+00002246  00003202 R_ARM_ABS32            00003153   
+00002252  00003602 R_ARM_ABS32            0000316a   
+00002259  00003302 R_ARM_ABS32            0000315c   
+00002264  00003402 R_ARM_ABS32            00003161   
+0000226f  00003502 R_ARM_ABS32            00003166   
+0000227c  00002d02 R_ARM_ABS32            0000310e   
+00002281  00002e02 R_ARM_ABS32            00003112   
+00002288  00009602 R_ARM_ABS32            000003ae   
+00002293  00009802 R_ARM_ABS32            000003be   
+000022a1  00005702 R_ARM_ABS32            0000015e   
+000022a8  00007202 R_ARM_ABS32            0000026f   
+000022af  00004202 R_ARM_ABS32            000000b1   
+000022ba  00004502 R_ARM_ABS32            000000c7   
+000022ca  00007102 R_ARM_ABS32            00000263   
+000022cf  00007002 R_ARM_ABS32            0000025e   
+000022d6  00004202 R_ARM_ABS32            000000b1   
+000022e1  00004502 R_ARM_ABS32            000000c7   
+000022ed  00007402 R_ARM_ABS32            0000027e   
+000022f4  00008a02 R_ARM_ABS32            0000032a   
+000022fb  00004202 R_ARM_ABS32            000000b1   
+00002306  00004502 R_ARM_ABS32            000000c7   
+00002316  00008902 R_ARM_ABS32            00000307   
+0000231b  00007d02 R_ARM_ABS32            000002b1   
+00002322  0000b002 R_ARM_ABS32            00000565   
+00002329  00004202 R_ARM_ABS32            000000b1   
+00002334  00004502 R_ARM_ABS32            000000c7   
+00002344  0000af02 R_ARM_ABS32            00000548   
+0000234d  00009e02 R_ARM_ABS32            0000040f   
+00002352  00009102 R_ARM_ABS32            00000388   
+0000235d  00009702 R_ARM_ABS32            000003b6   
+00002366  00009a02 R_ARM_ABS32            000003d9   
+00002378  00009902 R_ARM_ABS32            000003c5   
+00002383  0000ad02 R_ARM_ABS32            000004df   
+0000239c  0000ac02 R_ARM_ABS32            000004c5   
+000023a5  0000a802 R_ARM_ABS32            00000464   
+000023aa  0000bc02 R_ARM_ABS32            00000627   
+000023b5  0000c002 R_ARM_ABS32            00000653   
+000023ba  0000c202 R_ARM_ABS32            00000676   
+000023df  0000d902 R_ARM_ABS32            00000807   
+000023e4  0000da02 R_ARM_ABS32            00000828   
+000023ef  0000e802 R_ARM_ABS32            00000994   
+000023f8  0000e402 R_ARM_ABS32            00000942   
+00002401  0000e002 R_ARM_ABS32            00000854   
+0000241f  00021202 R_ARM_ABS32            00002c63   
+00002428  00011002 R_ARM_ABS32            00000e61   
+00002431  0000f902 R_ARM_ABS32            00000b39   
+0000244f  0000fc02 R_ARM_ABS32            00000c00   
+0000246d  0000ff02 R_ARM_ABS32            00000ca0   
+00002481  00010402 R_ARM_ABS32            00000d43   
+0000249a  00013e02 R_ARM_ABS32            000011ab   
+000024a3  00011502 R_ARM_ABS32            00000ea5   
+000024a8  00011802 R_ARM_ABS32            00000ec5   
+000024b3  00012102 R_ARM_ABS32            00000f07   
+000024c3  00012a02 R_ARM_ABS32            00000fd5   
+000024dc  00012902 R_ARM_ABS32            00000fac   
+000024e5  00013902 R_ARM_ABS32            00001146   
+000024ee  0001d002 R_ARM_ABS32            000026eb   
+000024f7  00014d02 R_ARM_ABS32            00001341   
+0000251f  00014b02 R_ARM_ABS32            00001241   
+00002542  00015402 R_ARM_ABS32            0000159d   
+00002560  00015302 R_ARM_ABS32            0000156f   
+00002576  00015702 R_ARM_ABS32            000016a9   
+0000258f  0001c102 R_ARM_ABS32            00002379   
+000025ad  0001c002 R_ARM_ABS32            00002343   
+000025b6  00016102 R_ARM_ABS32            000017ca   
+000025bf  00016902 R_ARM_ABS32            000018ad   
+000025c8  00017102 R_ARM_ABS32            00001996   
+000025d1  00017a02 R_ARM_ABS32            00001a84   
+000025da  00018402 R_ARM_ABS32            00001b73   
+000025e3  00018802 R_ARM_ABS32            00001c35   
+000025ec  00019102 R_ARM_ABS32            00001d26   
+000025f5  0001a302 R_ARM_ABS32            00001e96   
+0000260b  0001a902 R_ARM_ABS32            00001f77   
+00002614  0001af02 R_ARM_ABS32            00002059   
+00002619  0001b302 R_ARM_ABS32            0000212e   
+00002624  0001bb02 R_ARM_ABS32            000021b9   
+00002647  0001ba02 R_ARM_ABS32            00002188   
+00002650  0001c402 R_ARM_ABS32            000024a3   
+00002669  0001c802 R_ARM_ABS32            00002574   
+00002682  0001cc02 R_ARM_ABS32            0000263e   
+00002692  0001d802 R_ARM_ABS32            0000275b   
+0000269d  0001e302 R_ARM_ABS32            000027c1   
+000026b3  0001f002 R_ARM_ABS32            00002875   
+000026c3  0001ef02 R_ARM_ABS32            00002853   
+000026cc  0001fd02 R_ARM_ABS32            00002980   
+000026d5  00020002 R_ARM_ABS32            000029d1   
+000026ef  00020c02 R_ARM_ABS32            00002bd7   
+000026f8  00020602 R_ARM_ABS32            00002aca   
+00002716  00001302 R_ARM_ABS32            00002e91   
+0000271f  00001002 R_ARM_ABS32            00002e48   
+00002724  00001702 R_ARM_ABS32            00002f83   
+00002729  00001802 R_ARM_ABS32            00002f8c   
+0000272e  00001902 R_ARM_ABS32            00002f90   
+00002732  00001a02 R_ARM_ABS32            00002fba   
+00002748  00001b02 R_ARM_ABS32            00002fbf   
+0000274f  00002002 R_ARM_ABS32            00003073   
+0000275a  00002602 R_ARM_ABS32            000030e1   
+00002763  00003802 R_ARM_ABS32            0000317d   
+0000276c  00003002 R_ARM_ABS32            0000311f   
+00002775  00003902 R_ARM_ABS32            00003195   
 
-Relocation section '.rel.debug_ranges' at offset 0xe26c contains 80 entries:
+Relocation section '.rel.debug_ranges' at offset 0xe2e0 contains 80 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00023802 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
 00000004  00023802 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
@@ -1478,15 +1484,15 @@ Relocation section '.rel.debug_ranges' at offset 0xe26c contains 80 entries:
 000001b8  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 000001bc  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 
-Relocation section '.rel.debug_pubnames' at offset 0xe4ec contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0xe560 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00024702 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0xe4f4 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0xe568 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00024702 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0xe4fc contains 10 entries:
+Relocation section '.rel.debug_frame' at offset 0xe570 contains 10 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00024902 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00023702 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
@@ -1499,13 +1505,13 @@ Relocation section '.rel.debug_frame' at offset 0xe4fc contains 10 entries:
 00000078  00024902 R_ARM_ABS32            00000000   .debug_frame
 0000007c  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 
-Relocation section '.rel.debug_line' at offset 0xe54c contains 5 entries:
+Relocation section '.rel.debug_line' at offset 0xe5c0 contains 5 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000157  00023702 R_ARM_ABS32            00000000   .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
 00000171  00023802 R_ARM_ABS32            00000000   .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
 000001a2  00023902 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
-000002e7  00023a02 R_ARM_ABS32            00000000   .text.main
-000003b8  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+000002f0  00023a02 R_ARM_ABS32            00000000   .text.main
+000003c1  00023b02 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 
 Unwind section '.ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E' at offset 0x40 contains 1 entry:
 
@@ -1517,22 +1523,22 @@ Unwind section '.ARM.exidx.text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d
 0x0 <_ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E>: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E' at offset 0x364 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E' at offset 0x36c contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text.main' at offset 0x454 contains 1 entry:
+Unwind section '.ARM.exidx.text.main' at offset 0x45c contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text.rust_begin_unwind' at offset 0x4c4 contains 1 entry:
+Unwind section '.ARM.exidx.text.rust_begin_unwind' at offset 0x4cc contains 1 entry:
 
 0x0 <rust_begin_unwind>: 0x1 [cantunwind]
 
 
-Symbol table '.symtab' contains 629 entries:
+Symbol table '.symtab' contains 630 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 FILE    LOCAL  DEFAULT  ABS app.o6vxcoia-cgu.0
@@ -2098,7 +2104,7 @@ Symbol table '.symtab' contains 629 entries:
    561: 00000000    15 OBJECT  LOCAL  DEFAULT   33 .Lanon.3ed011473997af99b525cde47c9eaaac.6
    562: 00000000    24 OBJECT  LOCAL  DEFAULT   36 .Lanon.3ed011473997af99b525cde47c9eaaac.9
    563: 00000000     8 OBJECT  LOCAL  DEFAULT   31 _ZN3app10app_sensor13SENSOR_DEVICE17hf13677561c0ef3d6E
-   564: 00000001   708 FUNC    LOCAL  DEFAULT   11 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
+   564: 00000001   716 FUNC    LOCAL  DEFAULT   11 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E
    565: 00000001    12 FUNC    LOCAL  DEFAULT    3 _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
    566: 00000001    80 FUNC    LOCAL  DEFAULT    7 _ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E
    567: 00000000     0 SECTION LOCAL  DEFAULT    3 
@@ -2137,32 +2143,33 @@ Symbol table '.symtab' contains 629 entries:
    600: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console6buffer17h2c2282a002afa912E
    601: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console8printhex17h075b8327916646d1E
    602: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4Strn3new17hd3927fe713482c61E
-   603: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network14do_server_post17h63b4208c05d74765E
-   604: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network16init_server_post17h27f63ed9509825d3E
-   605: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network22start_server_transport17he5c189d769aa6683E
-   606: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os10eventq_run17h49917a2d6a4028eaE
-   607: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17hb17cddfc29115d4fE
-   608: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt7sysinit17hc2bae3266fb1ff2aE
-   609: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
-   610: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11new_encoder17h654d770da61aedbcE
-   611: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
-   612: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
-   613: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
-   614: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
-   615: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
-   616: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
-   617: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND __bkpt
-   618: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encode_int
-   619: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encode_text_string
-   620: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encoder_close_container
-   621: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encoder_create_array
-   622: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encoder_create_map
-   623: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND get_temp_raw_data
-   624: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor
-   625: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor_data
-   626: 00000001   232 FUNC    GLOBAL DEFAULT   15 main
-   627: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND null_sensor
-   628: 00000001   102 FUNC    GLOBAL DEFAULT   19 rust_begin_unwind
+   603: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network12prepare_post17h850eb70da8c09a26E
+   604: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network14do_server_post17h63b4208c05d74765E
+   605: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network16init_server_post17h27f63ed9509825d3E
+   606: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network22start_server_transport17he5c189d769aa6683E
+   607: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os10eventq_run17h49917a2d6a4028eaE
+   608: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17hb17cddfc29115d4fE
+   609: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt7sysinit17hc2bae3266fb1ff2aE
+   610: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
+   611: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11new_encoder17h654d770da61aedbcE
+   612: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
+   613: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
+   614: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
+   615: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
+   616: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
+   617: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
+   618: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND __bkpt
+   619: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encode_int
+   620: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encode_text_string
+   621: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encoder_close_container
+   622: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encoder_create_array
+   623: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND cbor_encoder_create_map
+   624: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND get_temp_raw_data
+   625: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor
+   626: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND is_null_sensor_data
+   627: 00000001   232 FUNC    GLOBAL DEFAULT   15 main
+   628: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND null_sensor
+   629: 00000001   102 FUNC    GLOBAL DEFAULT   19 rust_begin_unwind
 
 No version information found in this file.
 Attribute Section: aeabi

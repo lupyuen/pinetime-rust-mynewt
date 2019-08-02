@@ -35,10 +35,11 @@ fn function_is_whitelisted(fname: &str) -> bool {
         "sensor_set_poll_rate_ms"           => { true }
 
         //  libs/sensor_network
-        "do_server_post"            => { true }
-        "get_device_id"             => { true }
-        "init_server_post"          => { true }
-        "start_server_transport"    => { true }
+        "do_server_post"                    => { true }
+        "get_device_id"                     => { true }
+        "init_server_post"                  => { true }
+        "sensor_network_prepare_post"       => { true }
+        "start_server_transport"            => { true }
 
         _ => { false }  //  Else not whitelisted.
     }
@@ -407,9 +408,14 @@ fn get_namespace(fname: &str) -> &str {
     let namespace = fname_split[0];
     //  Match the namespace and ignore if it's not a known namespace.
     match namespace {
-        "start" => { "" }   //  `start` is not a valid namespace e.g. `start_server_transport()
-        "init"  => { "" }   //  `init` is not a valid namespace e.g. `init_server_post()
-        "do"    => { "" }   //  `do` is not a valid namespace e.g. `do_server_post()
+        "start"  => { "" }   //  `start` is not a valid namespace e.g. `start_server_transport()
+        "init"   => { "" }   //  `init` is not a valid namespace e.g. `init_server_post()
+        "do"     => { "" }   //  `do` is not a valid namespace e.g. `do_server_post()
+        "sensor" => {
+            //  If it matches `sensor_network`, return `sensor_network`.
+            if fname.starts_with("sensor_network_") { "sensor_network" }
+            else { "sensor" }
+        }
         _ => { namespace }  //  Else it's a valid namspace
     }
 }

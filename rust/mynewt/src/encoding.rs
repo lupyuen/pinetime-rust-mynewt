@@ -19,3 +19,9 @@ pub mod json;    // Export `json.rs` as Rust module `mynewt::encoding::json`
 pub mod tinycbor;  // Export `tinycbor.rs` as Rust module `mynewt::encoding::tinycbor`
 
 pub mod coap_context;  // Export `coap_context.rs` as Rust module `mynewt::encoding::coap_context`
+
+//  Content Types
+/// CoAP Payload is in JSON format
+pub const APPLICATION_JSON: i32 = 50;
+/// CoAP Payload is in CBOR format
+pub const APPLICATION_CBOR: i32 = 60;

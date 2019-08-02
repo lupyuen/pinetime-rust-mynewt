@@ -49,6 +49,8 @@ int send_sensor_data(struct sensor_value *val) {
     bool rc = init_server_post(NULL);
     if (!rc) { return SYS_EAGAIN; }  //  If network transport not ready, tell caller (Sensor Listener) to try again later.
 
+    assert(false);  //  TODO: Call sensor_network_prepare_post() in CP_ROOT
+
     //  Compose the CoAP Payload in JSON using the CP macros.
     CP_ROOT({                     //  Create the payload root
         CP_ARRAY(root, values, {  //  Create "values" as an array of items under the root

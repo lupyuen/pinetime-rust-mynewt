@@ -1317,7 +1317,7 @@
 #define MYNEWT_VAL_COAP_CBOR_ENCODING (1)
 
 
-/* Overridden by apps/my_sensor_app (defined by libs/sensor_coap) */
+/* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_coap) */
 
 #define MYNEWT_VAL_COAP_JSON_ENCODING (1)
 
@@ -27625,19 +27625,27 @@ _Bool
 # 32 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
     sensor_coap_ready(void);
 
-//  Create a new sensor post request to send to CoAP server.  coap_content_format is 
-//  APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
+//  Create a new sensor post request to send to CoAP server.  
 
-# 36 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
+# 35 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
 _Bool 
-# 36 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
-    init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
+# 35 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+    init_sensor_post(struct oc_server_handle *server);
+
+//  Prepare the new sensor post request for writing the payload. 
+//  coap_content_format is APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
+//  Return true if successful.
+
+# 40 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
+_Bool 
+# 40 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+    prepare_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format);
 
 //  Send the sensor post request to CoAP server.
 
-# 39 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
+# 43 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 3 4
 _Bool 
-# 39 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+# 43 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
     do_sensor_post(void);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -29723,7 +29731,7 @@ int json_read_array(struct json_buffer *, const struct json_array_t *);
  *   @} OSEncoding
  * @} OSJSON
  */
-# 46 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+# 50 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
 #define COAP_CONTENT_FORMAT APPLICATION_JSON /*  Specify JSON content type and accept type in the CoAP header.*/
 #define JSON_VALUE_TYPE_EXT_FLOAT (6) /*  For custom encoding of floats.*/
 
@@ -29779,10 +29787,10 @@ void json_rep_end_root_object(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON-Only Encoding Macros
-# 121 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+# 125 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  CBOR-Only Encoding Macros
-# 145 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
+# 149 "libs/sensor_coap/include/sensor_coap/sensor_coap.h"
 ///////////////////////////////////////////////////////////////////////////////
 //  JSON and CBOR Coexistence Encoding Macros
 
@@ -29807,7 +29815,7 @@ void json_rep_end_root_object(void);
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-# 154 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+# 158 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
 # 1 "repos/apache-mynewt-core/net/oic/include/oic/messaging/coap/constants.h" 1
 /*
  * Copyright (c) 2016 Intel Corporation
@@ -29841,7 +29849,7 @@ void json_rep_end_root_object(void);
  *
  * This file is part of the Contiki operating system.
  */
-# 155 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
+# 159 "libs/sensor_coap/include/sensor_coap/sensor_coap.h" 2
 
 #undef COAP_CONTENT_FORMAT
 extern int oc_content_format; //  CoAP Payload encoding format: APPLICATION_JSON or APPLICATION_CBOR
@@ -30330,13 +30338,13 @@ free_rsp:
                ;
 }
 
-///  Create a new sensor post request to send to CoAP server.
+///  Create a new sensor post request to send to CoAP server. Return true if successful.
 
 # 163 "libs/sensor_coap/src/sensor_coap.c" 3 4
 _Bool
 
 # 164 "libs/sensor_coap/src/sensor_coap.c"
-init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
+init_sensor_post(struct oc_server_handle *server)
 {
     ((oc_sensor_coap_ready) ? (void)0 : __assert_func(
 # 166 "libs/sensor_coap/src/sensor_coap.c" 3 4
@@ -30362,107 +30370,148 @@ init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_cont
 # 166 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                   ((void *)0)
 # 166 "libs/sensor_coap/src/sensor_coap.c"
+                                  ));
+    //  Lock the semaphore for preparing the CoAP request.
+    os_error_t rc = os_sem_pend(&oc_sem, (
+# 168 "libs/sensor_coap/src/sensor_coap.c" 3 4
+                                        (0xffffffffUL)
+# 168 "libs/sensor_coap/src/sensor_coap.c"
+                                        )); //  Allow only 1 task to be creating a sensor request at any time.
+    ((rc == OS_OK) ? (void)0 : __assert_func(
+# 169 "libs/sensor_coap/src/sensor_coap.c" 3 4
+   ((void *)0)
+# 169 "libs/sensor_coap/src/sensor_coap.c"
+   , 0, 
+# 169 "libs/sensor_coap/src/sensor_coap.c" 3 4
+   ((void *)0)
+# 169 "libs/sensor_coap/src/sensor_coap.c"
+   , 
+# 169 "libs/sensor_coap/src/sensor_coap.c" 3 4
+   ((void *)0)
+# 169 "libs/sensor_coap/src/sensor_coap.c"
+   ));
+    return 
+# 170 "libs/sensor_coap/src/sensor_coap.c" 3 4
+          1
+# 170 "libs/sensor_coap/src/sensor_coap.c"
+              ;
+}
+
+///  Prepare the new sensor post request for writing the payload. 
+///  coap_content_format is APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
+///  Return true if successful.
+
+# 176 "libs/sensor_coap/src/sensor_coap.c" 3 4
+_Bool
+
+# 177 "libs/sensor_coap/src/sensor_coap.c"
+prepare_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
+{
+    ((oc_sensor_coap_ready) ? (void)0 : __assert_func(
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
+   ((void *)0)
+# 179 "libs/sensor_coap/src/sensor_coap.c"
+   , 0, 
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
+   ((void *)0)
+# 179 "libs/sensor_coap/src/sensor_coap.c"
+   , 
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
+   ((void *)0)
+# 179 "libs/sensor_coap/src/sensor_coap.c"
+   )); ((server) ? (void)0 : __assert_func(
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
+                                  ((void *)0)
+# 179 "libs/sensor_coap/src/sensor_coap.c"
+                                  , 0, 
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
+                                  ((void *)0)
+# 179 "libs/sensor_coap/src/sensor_coap.c"
+                                  , 
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
+                                  ((void *)0)
+# 179 "libs/sensor_coap/src/sensor_coap.c"
                                   )); ((uri) ? (void)0 : __assert_func(
-# 166 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                    ((void *)0)
-# 166 "libs/sensor_coap/src/sensor_coap.c"
+# 179 "libs/sensor_coap/src/sensor_coap.c"
                                                    , 0, 
-# 166 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                    ((void *)0)
-# 166 "libs/sensor_coap/src/sensor_coap.c"
+# 179 "libs/sensor_coap/src/sensor_coap.c"
                                                    , 
-# 166 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 179 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                    ((void *)0)
-# 166 "libs/sensor_coap/src/sensor_coap.c"
+# 179 "libs/sensor_coap/src/sensor_coap.c"
                                                    ));
 
 
 
 
     ((coap_content_format != 0) ? (void)0 : __assert_func(
-# 171 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 184 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 171 "libs/sensor_coap/src/sensor_coap.c"
+# 184 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 171 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 184 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 171 "libs/sensor_coap/src/sensor_coap.c"
+# 184 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 171 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 184 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 171 "libs/sensor_coap/src/sensor_coap.c"
-   )); //  CoAP Content Format not specified
-
-    //  Lock the semaphore for preparing the CoAP request.
-    os_error_t rc = os_sem_pend(&oc_sem, (
-# 174 "libs/sensor_coap/src/sensor_coap.c" 3 4
-                                        (0xffffffffUL)
-# 174 "libs/sensor_coap/src/sensor_coap.c"
-                                        )); //  Allow only 1 task to be creating a sensor request at any time.
-    ((rc == OS_OK) ? (void)0 : __assert_func(
-# 175 "libs/sensor_coap/src/sensor_coap.c" 3 4
-   ((void *)0)
-# 175 "libs/sensor_coap/src/sensor_coap.c"
-   , 0, 
-# 175 "libs/sensor_coap/src/sensor_coap.c" 3 4
-   ((void *)0)
-# 175 "libs/sensor_coap/src/sensor_coap.c"
-   , 
-# 175 "libs/sensor_coap/src/sensor_coap.c" 3 4
-   ((void *)0)
-# 175 "libs/sensor_coap/src/sensor_coap.c"
-   ));
+# 184 "libs/sensor_coap/src/sensor_coap.c"
+   )); //  CoAP Content Format must be specified
 
     oc_content_format = coap_content_format;
     oc_qos_t qos = LOW_QOS; //  Default to low QoS, no transactions.
     oc_response_handler_t handler = handle_coap_response;
     oc_client_cb_t *cb;
     
-# 181 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 190 "libs/sensor_coap/src/sensor_coap.c" 3 4
    _Bool 
-# 181 "libs/sensor_coap/src/sensor_coap.c"
+# 190 "libs/sensor_coap/src/sensor_coap.c"
         status = 
-# 181 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 190 "libs/sensor_coap/src/sensor_coap.c" 3 4
                  0
-# 181 "libs/sensor_coap/src/sensor_coap.c"
+# 190 "libs/sensor_coap/src/sensor_coap.c"
                       ;
 
     cb = oc_ri_alloc_client_cb(uri, server, OC_POST, handler, qos);
     if (!cb) {
         rc = os_sem_release(&oc_sem); //  Failed.  Release the semaphore.
         ((rc == OS_OK) ? (void)0 : __assert_func(
-# 186 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 195 "libs/sensor_coap/src/sensor_coap.c" 3 4
        ((void *)0)
-# 186 "libs/sensor_coap/src/sensor_coap.c"
+# 195 "libs/sensor_coap/src/sensor_coap.c"
        , 0, 
-# 186 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 195 "libs/sensor_coap/src/sensor_coap.c" 3 4
        ((void *)0)
-# 186 "libs/sensor_coap/src/sensor_coap.c"
+# 195 "libs/sensor_coap/src/sensor_coap.c"
        , 
-# 186 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 195 "libs/sensor_coap/src/sensor_coap.c" 3 4
        ((void *)0)
-# 186 "libs/sensor_coap/src/sensor_coap.c"
+# 195 "libs/sensor_coap/src/sensor_coap.c"
        ));
         return 
-# 187 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 196 "libs/sensor_coap/src/sensor_coap.c" 3 4
               0
-# 187 "libs/sensor_coap/src/sensor_coap.c"
+# 196 "libs/sensor_coap/src/sensor_coap.c"
                    ;
     }
     status = prepare_coap_request(cb, 
-# 189 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 198 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                      ((void *)0)
-# 189 "libs/sensor_coap/src/sensor_coap.c"
+# 198 "libs/sensor_coap/src/sensor_coap.c"
                                          );
     return status;
 }
 
 ///  Send the sensor post request to CoAP server.
 
-# 194 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 203 "libs/sensor_coap/src/sensor_coap.c" 3 4
 _Bool
 
-# 195 "libs/sensor_coap/src/sensor_coap.c"
+# 204 "libs/sensor_coap/src/sensor_coap.c"
 do_sensor_post(void)
 {
     return dispatch_coap_request();
@@ -30484,44 +30533,44 @@ static struct os_mbuf *coap_json_mbuf;
 int json_write_mbuf(void *buf, char *data, int len) {
     if (oc_content_format != APPLICATION_JSON) { return 0; } //  Exit if we are encoding CBOR, not JSON.
     ((coap_json_mbuf) ? (void)0 : __assert_func(
-# 215 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 224 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 215 "libs/sensor_coap/src/sensor_coap.c"
+# 224 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 215 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 224 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 215 "libs/sensor_coap/src/sensor_coap.c"
+# 224 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 215 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 224 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 215 "libs/sensor_coap/src/sensor_coap.c"
+# 224 "libs/sensor_coap/src/sensor_coap.c"
    ));
     ((data) ? (void)0 : __assert_func(
-# 216 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 225 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 216 "libs/sensor_coap/src/sensor_coap.c"
+# 225 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 216 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 225 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 216 "libs/sensor_coap/src/sensor_coap.c"
+# 225 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 216 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 225 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 216 "libs/sensor_coap/src/sensor_coap.c"
+# 225 "libs/sensor_coap/src/sensor_coap.c"
    ));
     //  console_printf("json "); console_buffer(data, len); console_printf("\n");  ////
     int rc = os_mbuf_append(coap_json_mbuf, data, len); ((rc == 0) ? (void)0 : __assert_func(
-# 218 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 227 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                         ((void *)0)
-# 218 "libs/sensor_coap/src/sensor_coap.c"
+# 227 "libs/sensor_coap/src/sensor_coap.c"
                                                         , 0, 
-# 218 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 227 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                         ((void *)0)
-# 218 "libs/sensor_coap/src/sensor_coap.c"
+# 227 "libs/sensor_coap/src/sensor_coap.c"
                                                         , 
-# 218 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 227 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                         ((void *)0)
-# 218 "libs/sensor_coap/src/sensor_coap.c"
+# 227 "libs/sensor_coap/src/sensor_coap.c"
                                                         ));
     if (rc) { return -1; }
     return 0;
@@ -30530,17 +30579,17 @@ int json_write_mbuf(void *buf, char *data, int len) {
 ///  Prepare to write a new JSON CoAP payload into the mbuf.
 void json_rep_new(struct os_mbuf *m) {
     ((m) ? (void)0 : __assert_func(
-# 225 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 234 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 225 "libs/sensor_coap/src/sensor_coap.c"
+# 234 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 225 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 234 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 225 "libs/sensor_coap/src/sensor_coap.c"
+# 234 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 225 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 234 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 225 "libs/sensor_coap/src/sensor_coap.c"
+# 234 "libs/sensor_coap/src/sensor_coap.c"
    ));
     json_rep_reset(); //  Erase the JSON encoder.
     coap_json_mbuf = m;
@@ -30555,9 +30604,9 @@ void json_rep_new(struct os_mbuf *m) {
 ///  Close the current JSON CoAP payload.  Erase the JSON encoder.
 void json_rep_reset(void) {
     coap_json_mbuf = 
-# 238 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 247 "libs/sensor_coap/src/sensor_coap.c" 3 4
                     ((void *)0)
-# 238 "libs/sensor_coap/src/sensor_coap.c"
+# 247 "libs/sensor_coap/src/sensor_coap.c"
                         ;
     memset(&coap_json_encoder, 0, sizeof(coap_json_encoder)); //  Erase the encoder.
     coap_json_encoder.je_write = json_write_mbuf;
@@ -30566,17 +30615,17 @@ void json_rep_reset(void) {
 ///  Finalise the payload and return the payload size.
 int json_rep_finalize(void) {
     ((coap_json_mbuf) ? (void)0 : __assert_func(
-# 245 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 254 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 245 "libs/sensor_coap/src/sensor_coap.c"
+# 254 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 245 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 254 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 245 "libs/sensor_coap/src/sensor_coap.c"
+# 254 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 245 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 254 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 245 "libs/sensor_coap/src/sensor_coap.c"
+# 254 "libs/sensor_coap/src/sensor_coap.c"
    ));
     int size = (((struct os_mbuf_pkthdr *) ((uint8_t *)&(coap_json_mbuf)->om_data + sizeof(struct os_mbuf)))->omp_len);
 #define DUMP_COAP 
@@ -30598,17 +30647,17 @@ int json_rep_finalize(void) {
 /// ```
 void json_rep_start_root_object(void) {
     int rc = json_encode_object_start(&coap_json_encoder); ((rc == 0) ? (void)0 : __assert_func(
-# 265 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 274 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                            ((void *)0)
-# 265 "libs/sensor_coap/src/sensor_coap.c"
+# 274 "libs/sensor_coap/src/sensor_coap.c"
                                                            , 0, 
-# 265 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 274 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                            ((void *)0)
-# 265 "libs/sensor_coap/src/sensor_coap.c"
+# 274 "libs/sensor_coap/src/sensor_coap.c"
                                                            , 
-# 265 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 274 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                            ((void *)0)
-# 265 "libs/sensor_coap/src/sensor_coap.c"
+# 274 "libs/sensor_coap/src/sensor_coap.c"
                                                            ));
 }
 
@@ -30618,25 +30667,25 @@ void json_rep_start_root_object(void) {
 ///  ```
 void json_rep_end_root_object(void) {
     int rc = json_encode_object_finish(&coap_json_encoder); ((rc == 0) ? (void)0 : __assert_func(
-# 273 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 282 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                             ((void *)0)
-# 273 "libs/sensor_coap/src/sensor_coap.c"
+# 282 "libs/sensor_coap/src/sensor_coap.c"
                                                             , 0, 
-# 273 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 282 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                             ((void *)0)
-# 273 "libs/sensor_coap/src/sensor_coap.c"
+# 282 "libs/sensor_coap/src/sensor_coap.c"
                                                             , 
-# 273 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 282 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                                             ((void *)0)
-# 273 "libs/sensor_coap/src/sensor_coap.c"
+# 282 "libs/sensor_coap/src/sensor_coap.c"
                                                             ));
 }
 
 static int json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv);
 static void split_float(float f, 
-# 277 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 286 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                 _Bool 
-# 277 "libs/sensor_coap/src/sensor_coap.c"
+# 286 "libs/sensor_coap/src/sensor_coap.c"
                                      *neg, int *i, int *d);
 
 ///  Extended version of json_encode_object_entry that handles floats.  Original version: repos\apache-mynewt-core\encoding\json\src\json_encode.c
@@ -30645,41 +30694,41 @@ json_encode_object_entry_ext(struct json_encoder *encoder, char *key,
         struct json_value *val)
 {
     ((encoder) ? (void)0 : __assert_func(
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
    )); ((key) ? (void)0 : __assert_func(
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
                     ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
                     , 0, 
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
                     ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
                     , 
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
                     ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
                     )); ((val) ? (void)0 : __assert_func(
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                  ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
                                  , 0, 
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                  ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
                                  , 
-# 284 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 293 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                  ((void *)0)
-# 284 "libs/sensor_coap/src/sensor_coap.c"
+# 293 "libs/sensor_coap/src/sensor_coap.c"
                                  ));
     int rc;
 
@@ -30708,29 +30757,29 @@ static int
 json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
 {
     ((encoder) ? (void)0 : __assert_func(
-# 311 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 320 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 311 "libs/sensor_coap/src/sensor_coap.c"
+# 320 "libs/sensor_coap/src/sensor_coap.c"
    , 0, 
-# 311 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 320 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 311 "libs/sensor_coap/src/sensor_coap.c"
+# 320 "libs/sensor_coap/src/sensor_coap.c"
    , 
-# 311 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 320 "libs/sensor_coap/src/sensor_coap.c" 3 4
    ((void *)0)
-# 311 "libs/sensor_coap/src/sensor_coap.c"
+# 320 "libs/sensor_coap/src/sensor_coap.c"
    )); ((jv) ? (void)0 : __assert_func(
-# 311 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 320 "libs/sensor_coap/src/sensor_coap.c" 3 4
                      ((void *)0)
-# 311 "libs/sensor_coap/src/sensor_coap.c"
+# 320 "libs/sensor_coap/src/sensor_coap.c"
                      , 0, 
-# 311 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 320 "libs/sensor_coap/src/sensor_coap.c" 3 4
                      ((void *)0)
-# 311 "libs/sensor_coap/src/sensor_coap.c"
+# 320 "libs/sensor_coap/src/sensor_coap.c"
                      , 
-# 311 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 320 "libs/sensor_coap/src/sensor_coap.c" 3 4
                      ((void *)0)
-# 311 "libs/sensor_coap/src/sensor_coap.c"
+# 320 "libs/sensor_coap/src/sensor_coap.c"
                      ));
     int rc;
     int len;
@@ -30739,9 +30788,9 @@ json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
         case (6) /*  For custom encoding of floats.*/: {
             //  Encode the float with 2 decimal places.
             
-# 318 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 327 "libs/sensor_coap/src/sensor_coap.c" 3 4
            _Bool 
-# 318 "libs/sensor_coap/src/sensor_coap.c"
+# 327 "libs/sensor_coap/src/sensor_coap.c"
                 neg; int i, d;
             float f = jv->jv_val.fl;
             split_float(f, &neg, &i, &d); //  Split the float into neg, integer and decimal parts (two decimal places)
@@ -30768,9 +30817,9 @@ err:
 
 ///  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
 static void split_float(float f, 
-# 343 "libs/sensor_coap/src/sensor_coap.c" 3 4
+# 352 "libs/sensor_coap/src/sensor_coap.c" 3 4
                                 _Bool 
-# 343 "libs/sensor_coap/src/sensor_coap.c"
+# 352 "libs/sensor_coap/src/sensor_coap.c"
                                      *neg, int *i, int *d) {
     *neg = (f < 0.0f); //  True if f is negative
     float f_abs = *neg ? -f : f; //  Absolute value of f

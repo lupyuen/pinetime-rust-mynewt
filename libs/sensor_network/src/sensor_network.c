@@ -114,9 +114,9 @@ struct sensor_network_endpoint {  //  Represents one Server Endpoint e.g. ESP826
 
 static struct sensor_network_interface sensor_network_interfaces[MAX_INTERFACE_TYPES];  //  All Network Interfaces
 static struct sensor_network_endpoint sensor_network_endpoints[MAX_INTERFACE_TYPES];    //  All Server Endpoints
-static int sensor_network_encoding[MAX_INTERFACE_TYPES] = {  //  Encoding for each Network Interface
-    APPLICATION_JSON,  //  Send to Server: JSON encoding for payload
-    APPLICATION_CBOR,  //  Send to Collector: CBOR encoding for payload
+static int sensor_network_encoding[MAX_INTERFACE_TYPES] = {  //  Default encoding for each Network Interface
+    APPLICATION_JSON,  //  Send to Server:    Default to JSON encoding for payload
+    APPLICATION_CBOR,  //  Send to Collector: Default to CBOR encoding for payload
 };
 static const char *sensor_network_shortname[MAX_INTERFACE_TYPES] = {  //  Short name of each Network Interface
     "svr",  //  Send to Server
@@ -259,6 +259,10 @@ bool init_collector_post(void) {
     return status;
 }
 
+//  Interface type and URI of the CoAP message being composed.
+static uint8_t current_iface_type = 0xff;
+static const char *current_uri = NULL;
+
 bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     //  Start composing the CoAP Server or Collector message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
@@ -267,15 +271,32 @@ bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     if (uri == NULL || uri[0] == 0) { uri = COAP_URI; }
     assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
-    assert(iface->network_device);  assert(iface->register_transport_func);
     void *endpoint = &sensor_network_endpoints[iface_type];
-    int encoding = sensor_network_encoding[iface_type];
+    assert(iface->network_device);  assert(iface->register_transport_func);  assert(endpoint);
     if (!iface->transport_registered) {
         //  If transport has not been registered, wait for the transport to be registered.
         console_printf("NET network not ready\n");
         return false;
     }
-    bool status = init_sensor_post(endpoint, uri, encoding);
+    current_iface_type = iface_type;
+    current_uri = uri;
+    bool status = init_sensor_post(endpoint);
+    assert(status);
+    return status;
+}
+
+bool sensor_network_prepare_post(int encoding) {
+    //  Set the encoding format for the CoAP message: APPLICATION_JSON or APPLICATION_CBOR.  If set to 0, use the default encoding format.
+    //  Return true if successful.
+    uint8_t iface_type = current_iface_type;
+    const char *uri = current_uri;
+    assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
+    void *endpoint = &sensor_network_endpoints[iface_type];
+    assert(endpoint);
+
+    //  Use the specified encoding. If not specified, select the default encoding for the interface type.
+    int enc = (encoding > 0) ? encoding : sensor_network_encoding[iface_type];
+    bool status = prepare_sensor_post(endpoint, uri, enc);
     assert(status);
     return status;
 }

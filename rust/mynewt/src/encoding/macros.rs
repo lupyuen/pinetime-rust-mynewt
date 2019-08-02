@@ -415,6 +415,8 @@ macro_rules! unexpected_token {
 macro_rules! coap_root {  
   (@cbor $context:ident $children0:block) => {{  //  CBOR
     d!(begin cbor coap_root);
+    //  Set the payload format.
+    unsafe { sensor_network::prepare_post(mynewt::encoding::APPLICATION_CBOR); }
     $crate::oc_rep_start_root_object!($context);
     $children0;
     $crate::oc_rep_end_root_object!($context);
@@ -423,9 +425,11 @@ macro_rules! coap_root {
 
   (@json $context:ident $children0:block) => {{  //  JSON
     d!(begin json coap_root);
-    unsafe { sensor_coap::json_rep_start_root_object() }
+    //  Set the payload format.
+    unsafe { sensor_network::prepare_post(mynewt::encoding::APPLICATION_JSON); }
+    unsafe { sensor_coap::json_rep_start_root_object(); }
     $children0;
-    unsafe { sensor_coap::json_rep_end_root_object() }
+    unsafe { sensor_coap::json_rep_end_root_object(); }
     d!(end json coap_root);
   }};
 }

@@ -11,11 +11,7 @@ pub struct oc_server_handle {
     _unused: [u8; 0],
 }
 #[proc_macros::safe_wrap(attr)] extern "C" {
-    pub fn init_sensor_post(
-        server: *mut oc_server_handle,
-        uri: *const ::cty::c_char,
-        coap_content_format: ::cty::c_int,
-    ) -> bool;
+    pub fn init_sensor_post(server: *mut oc_server_handle) -> bool;
 }
 #[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn do_sensor_post() -> bool;
@@ -69,6 +65,9 @@ impl Default for sensor_network_interface {
 }
 #[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn sensor_network_init_post(iface_type: u8, uri: *const ::cty::c_char) -> bool;
+}
+#[proc_macros::safe_wrap(attr)] extern "C" {
+    pub fn sensor_network_prepare_post(encoding: ::cty::c_int) -> bool;
 }
 #[proc_macros::safe_wrap(attr)] extern "C" {
     pub fn do_server_post() -> bool;

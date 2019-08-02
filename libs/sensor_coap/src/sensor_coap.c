@@ -159,20 +159,29 @@ free_rsp:
     return false;
 }
 
-///  Create a new sensor post request to send to CoAP server.
+///  Create a new sensor post request to send to CoAP server. Return true if successful.
 bool
-init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
+init_sensor_post(struct oc_server_handle *server)
+{
+    assert(oc_sensor_coap_ready);  assert(server);
+    //  Lock the semaphore for preparing the CoAP request.
+    os_error_t rc = os_sem_pend(&oc_sem, OS_TIMEOUT_NEVER);  //  Allow only 1 task to be creating a sensor request at any time.
+    assert(rc == OS_OK);
+    return true;
+}
+
+///  Prepare the new sensor post request for writing the payload. 
+///  coap_content_format is APPLICATION_JSON or APPLICATION_CBOR. If coap_content_format is 0, use the default format.
+///  Return true if successful.
+bool
+prepare_sensor_post(struct oc_server_handle *server, const char *uri, int coap_content_format)
 {
     assert(oc_sensor_coap_ready);  assert(server);  assert(uri);
 #ifdef COAP_CONTENT_FORMAT
     //  If content format is not specified, select the default.
     if (coap_content_format == 0) { coap_content_format = COAP_CONTENT_FORMAT; }
 #endif  //  COAP_CONTENT_FORMAT
-    assert(coap_content_format != 0);  //  CoAP Content Format not specified
-
-    //  Lock the semaphore for preparing the CoAP request.
-    os_error_t rc = os_sem_pend(&oc_sem, OS_TIMEOUT_NEVER);  //  Allow only 1 task to be creating a sensor request at any time.
-    assert(rc == OS_OK);
+    assert(coap_content_format != 0);  //  CoAP Content Format must be specified
 
     oc_content_format = coap_content_format;
     oc_qos_t qos = LOW_QOS;  //  Default to low QoS, no transactions.
@@ -182,7 +191,7 @@ init_sensor_post(struct oc_server_handle *server, const char *uri, int coap_cont
 
     cb = oc_ri_alloc_client_cb(uri, server, OC_POST, handler, qos);
     if (!cb) {
-        rc = os_sem_release(&oc_sem);  //  Failed.  Release the semaphore.
+        os_error_t rc = os_sem_release(&oc_sem);  //  Failed.  Release the semaphore.
         assert(rc == OS_OK);
         return false;
     }
