@@ -113,7 +113,7 @@ mod app_sensor {
         if !unsafe { !sensor::is_null_sensor(sensor) } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !sensor::is_null_sensor(sensor) }",
-                                           "rust/app/src/app_sensor.rs",
+                                           "rust\\app\\src\\app_sensor.rs",
                                            55u32, 5u32))
             }
         };
@@ -143,7 +143,7 @@ mod app_sensor {
         if !unsafe { !sensor::is_null_sensor(sensor) } {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !sensor::is_null_sensor(sensor) }",
-                                           "rust/app/src/app_sensor.rs",
+                                           "rust\\app\\src\\app_sensor.rs",
                                            79u32, 5u32))
             }
         };
@@ -152,7 +152,7 @@ mod app_sensor {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "rust/app/src/app_sensor.rs",
+                                               "rust\\app\\src\\app_sensor.rs",
                                                83u32, 55u32))
                 }
             };
@@ -190,7 +190,7 @@ mod app_sensor {
                 if !(rc == 0) {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                   "rust/app/src/app_sensor.rs",
+                                                   "rust\\app\\src\\app_sensor.rs",
                                                    115u32, 13u32))
                     }
                 };
@@ -215,7 +215,7 @@ mod app_sensor {
                 if !(rc == 0) {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                   "rust/app/src/app_sensor.rs",
+                                                   "rust\\app\\src\\app_sensor.rs",
                                                    128u32, 13u32))
                     }
                 };
@@ -226,7 +226,7 @@ mod app_sensor {
                 if !false {
                     {
                         ::core::panicking::panic(&("assertion failed: false",
-                                                   "rust/app/src/app_sensor.rs",
+                                                   "rust\\app\\src\\app_sensor.rs",
                                                    142u32, 13u32))
                     }
                 };
@@ -264,7 +264,7 @@ mod app_network {
             if !false {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
-                                               "rust/app/src/app_network.rs",
+                                               "rust\\app\\src\\app_network.rs",
                                                52u32, 46u32))
                 }
             };

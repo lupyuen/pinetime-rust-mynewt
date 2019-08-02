@@ -59,7 +59,7 @@ if errorlevel 1 goto :EOF
 ::  Create rustlib, the library that contains the compiled Rust app and its dependencies (except libcore).  Create in temp folder named "tmprustlib"
 @echo "----- Consolidate Rust app and external libraries"
 if exist tmprustlib (
-    rd /s tmprustlib
+    rd /q /s tmprustlib
 )
 if not exist tmprustlib (
     mkdir tmprustlib
