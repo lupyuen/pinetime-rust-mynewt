@@ -282,8 +282,7 @@ mod app_network {
                     {
                         "begin oc_rep_start_root_object";
                         unsafe {
-                            let encoder =
-                                COAP_CONTEXT.encoder("root", "_map");
+                            let encoder = COAP_CONTEXT.encoder(_ROOT, _MAP);
                             let res =
                                 mynewt::encoding::tinycbor::cbor_encoder_create_map(COAP_CONTEXT.global_encoder(),
                                                                                     encoder,
@@ -301,7 +300,7 @@ mod app_network {
                                     "values".to_bytes_optional_nul();
                                 unsafe {
                                     let encoder =
-                                        COAP_CONTEXT.encoder("root", "_map");
+                                        COAP_CONTEXT.encoder("root", _MAP);
                                     let res =
                                         mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
                                                                                             COAP_CONTEXT.key_to_cstr(key_with_opt_null),
@@ -316,7 +315,7 @@ mod app_network {
                                                                  "_map");
                                         let encoder =
                                             COAP_CONTEXT.new_encoder("values",
-                                                                     "_array");
+                                                                     _ARRAY);
                                         let res =
                                             mynewt::encoding::tinycbor::cbor_encoder_create_array(parent_encoder,
                                                                                                   encoder,
@@ -348,7 +347,7 @@ mod app_network {
                                                                                      "_array");
                                                             let encoder =
                                                                 COAP_CONTEXT.new_encoder("values",
-                                                                                         "_map");
+                                                                                         _MAP);
                                                             let res =
                                                                 mynewt::encoding::tinycbor::cbor_encoder_create_map(parent_encoder,
                                                                                                                     encoder,
@@ -371,7 +370,7 @@ mod app_network {
                                                         unsafe {
                                                             let encoder =
                                                                 COAP_CONTEXT.encoder("values",
-                                                                                     "_map");
+                                                                                     _MAP);
                                                             let res =
                                                                 mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
                                                                                                                     COAP_CONTEXT.key_to_cstr(key_with_opt_null),
@@ -393,7 +392,7 @@ mod app_network {
                                                     unsafe {
                                                         let encoder =
                                                             COAP_CONTEXT.encoder("values",
-                                                                                 "_map");
+                                                                                 _MAP);
                                                         let res =
                                                             mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
                                                                                                                 COAP_CONTEXT.key_to_cstr(key_with_opt_null),
@@ -415,7 +414,7 @@ mod app_network {
                                                                                      "_array");
                                                             let encoder =
                                                                 COAP_CONTEXT.encoder("values",
-                                                                                     "_map");
+                                                                                     _MAP);
                                                             let res =
                                                                 mynewt::encoding::tinycbor::cbor_encoder_close_container(parent_encoder,
                                                                                                                          encoder);
@@ -448,7 +447,7 @@ mod app_network {
                                                                  "_map");
                                         let encoder =
                                             COAP_CONTEXT.encoder("values",
-                                                                 "_array");
+                                                                 _ARRAY);
                                         let res =
                                             mynewt::encoding::tinycbor::cbor_encoder_close_container(parent_encoder,
                                                                                                      encoder);
@@ -464,8 +463,7 @@ mod app_network {
                     {
                         "begin oc_rep_end_root_object";
                         unsafe {
-                            let encoder =
-                                COAP_CONTEXT.encoder("root", "_map");
+                            let encoder = COAP_CONTEXT.encoder(_ROOT, _MAP);
                             let res =
                                 mynewt::encoding::tinycbor::cbor_encoder_close_container(COAP_CONTEXT.global_encoder(),
                                                                                          encoder);

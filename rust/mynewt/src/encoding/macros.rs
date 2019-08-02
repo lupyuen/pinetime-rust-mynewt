@@ -342,7 +342,7 @@ macro_rules! parse {
   (@none { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin none root);
-    let root = "root";  //  Top level object is named "root".
+    let root = _ROOT;  //  Top level object is named "root".
     //  Expand the items inside { ... } and add them to root.
     $crate::parse!(@none @object root () ($($tt)+) ($($tt)+));
     d!(end none root);
@@ -836,7 +836,7 @@ macro_rules! oc_rep_start_root_object {
   ($obj:ident) => {{
     d!(begin oc_rep_start_root_object);
     mynewt_macros::try_cbor!({
-      let encoder = COAP_CONTEXT.encoder("root", "_map");
+      let encoder = COAP_CONTEXT.encoder(_ROOT, _MAP);
       //  Previously: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength)
       cbor_encoder_create_map(
         COAP_CONTEXT.global_encoder(),
@@ -853,7 +853,7 @@ macro_rules! oc_rep_end_root_object {
   ($obj:ident) => {{
     d!(begin oc_rep_end_root_object);
     mynewt_macros::try_cbor!({
-      let encoder = COAP_CONTEXT.encoder("root", "_map");
+      let encoder = COAP_CONTEXT.encoder(_ROOT, _MAP);
       //  Previously: g_err |= cbor_encoder_close_container(&g_encoder, &root_map)
       cbor_encoder_close_container(
         COAP_CONTEXT.global_encoder(),
@@ -881,7 +881,7 @@ macro_rules! oc_rep_start_object {
       //  Previously: CborEncoder key##_map
       let encoder = COAP_CONTEXT.new_encoder(
         stringify!($key), 
-        "_map"
+        _MAP
       );
       //  Previously: g_err |= cbor_encoder_create_map(&parent, &key##_map, CborIndefiniteLength)
       cbor_encoder_create_map(
@@ -910,7 +910,7 @@ macro_rules! oc_rep_end_object {
       );
       let encoder = COAP_CONTEXT.encoder(
         stringify!($key), 
-        "_map"
+        _MAP
       );
       //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_map)
       cbor_encoder_close_container(
@@ -939,7 +939,7 @@ macro_rules! oc_rep_start_array {
       //  Previously: CborEncoder key ##_array;
       let encoder = COAP_CONTEXT.new_encoder(
         stringify!($key), 
-        "_array"
+        _ARRAY
       );
       //  Previously: g_err |= cbor_encoder_create_array(&parent, &key##_array, CborIndefiniteLength));
       cbor_encoder_create_array(
@@ -968,7 +968,7 @@ macro_rules! oc_rep_end_array {
       );
       let encoder = COAP_CONTEXT.encoder(
         stringify!($key), 
-        "_array"
+        _ARRAY
       );
       //  Previously: g_err |= cbor_encoder_close_container(&parent, &key##_array)
       cbor_encoder_close_container(
@@ -998,7 +998,7 @@ macro_rules! oc_rep_set_array {
     mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($object), 
-        "_map"
+        _MAP
       );
       //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
@@ -1084,7 +1084,7 @@ macro_rules! oc_rep_set_int {
     mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($obj), 
-        "_map"
+        _MAP
       );
       //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
@@ -1113,7 +1113,7 @@ macro_rules! oc_rep_set_int {
     mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($obj), 
-        "_map"
+        _MAP
       );
       //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(
@@ -1147,7 +1147,7 @@ macro_rules! oc_rep_set_text_string {
     mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($obj), 
-        "_map"
+        _MAP
       );
       //  Previously: g_err |= cbor_encode_text_string(&object##_map, #key, strlen(#key))
       cbor_encode_text_string(

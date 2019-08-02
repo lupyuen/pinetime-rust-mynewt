@@ -26,7 +26,8 @@ const COAP_KEY_SIZE: usize = 32;
 const COAP_VALUE_SIZE: usize = 32;
 
 /// Global CBOR root map
-static mut cbor_encoder: CborEncoder = fill_zero!(CborEncoder);
+static mut cbor_encoder0: CborEncoder = fill_zero!(CborEncoder);
+static mut cbor_encoder1: CborEncoder = fill_zero!(CborEncoder);
 
 impl CoapContext {
 
@@ -71,9 +72,10 @@ impl CoapContext {
 
     /// Create a new CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
     pub fn new_encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
-        //  console::print("new_encoder: "); console::print(key); console::print(suffix); console::print("\n");
+        console::print("new_encoder: "); console::print(key); console::print(suffix); console::print("\n");
         //  TODO: Allow multiple keys
-        if key == "values" { unsafe { &mut cbor_encoder } }
+        if (key, suffix)      == ("values", _ARRAY) { unsafe { &mut cbor_encoder0 } }
+        else if (key, suffix) == ("values", _MAP)   { unsafe { &mut cbor_encoder1 } }
         else {
             //  TODO
             assert!(false);  //  No such encoder.
@@ -83,10 +85,11 @@ impl CoapContext {
 
     /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
     pub fn encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
-        //  console::print("encoder: "); console::print(key); console::print(suffix); console::print("\n");
-        if (key, suffix) == ("root", "_map") { unsafe { &mut super::root_map } }
+        console::print("encoder: "); console::print(key); console::print(suffix); console::print("\n");
         //  TODO: Allow multiple keys
-        else if key == "values" { unsafe { &mut cbor_encoder } }
+        if (key, suffix)      == ("root", "_map")   { unsafe { &mut super::root_map } }
+        else if (key, suffix) == ("values", _ARRAY) { unsafe { &mut cbor_encoder0 } }
+        else if (key, suffix) == ("values", _MAP)   { unsafe { &mut cbor_encoder1 } }
         else {
             //  TODO
             assert!(false);  //  No such encoder.
@@ -157,3 +160,12 @@ impl ToBytesOptionalNull for CStr {
         self.to_bytes_with_nul()
     }
 }
+
+/// Root of CoAP document
+pub const _ROOT: &str = "root";
+
+/// Map element of CoAP document
+pub const _MAP: &str = "_map";
+
+/// Array element of CoAP document
+pub const _ARRAY: &str = "_array";
