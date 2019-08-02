@@ -818,7 +818,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:62
 
     //  Compose the CoAP Payload using the coap!() macro.
-    //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format:
+    //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.
     let _payload = coap!( @json {        
   b2:	2132      	movs	r1, #50	; 0x32
   b4:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::prepare_post>
@@ -914,7 +914,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  1a8:	f7ff fffe 	bl	0 <json_helper_close_array>
  1ac:	f7ff fffe 	bl	0 <json_rep_end_root_object>
  1b0:	a802      	add	r0, sp, #8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:77
     });
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
@@ -926,7 +926,7 @@ _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
  1b6:	f89d 0008 	ldrb.w	r0, [sp, #8]
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:77
  1ba:	2801      	cmp	r0, #1
  1bc:	d10e      	bne.n	1dc <app::app_sensor::handle_sensor_data+0x1dc>
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
@@ -947,7 +947,7 @@ _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
  1d6:	b005      	add	sp, #20
  1d8:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:78
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:79
 
     console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
  1dc:	f240 0000 	movw	r0, #0

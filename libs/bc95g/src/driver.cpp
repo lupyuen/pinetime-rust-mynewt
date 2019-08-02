@@ -532,6 +532,7 @@ static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const
     const uint8_t *data, uint16_t length, uint8_t sequence, struct os_mbuf *mbuf) {
     uint16_t local_port = socket->local_port;
     int local_port_response = -1, length_response = -1;
+    console_printf("AT> NSOST=%d,%s,%d,%d,\n", local_port, host, port, length);
     internal_timeout(BC95G_SEND_TIMEOUT);
     bool res = (
         send_atp(dev) &&  //  Will pause between commands.
