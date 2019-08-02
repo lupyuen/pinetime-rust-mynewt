@@ -3318,7 +3318,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\sr
   84:	2d01      	cmp	r5, #1
   86:	d1f3      	bne.n	70 <<cortex_m::itm::Port as core::fmt::Write>::write_str+0x70>
   88:	f854 5b04 	ldr.w	r5, [r4], #4
-_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17h2dd8ea3cc81a465cE():
+_ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17h5826a54f593ea170E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/num/mod.rs:3347
   8c:	3301      	adds	r3, #1
 _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h30e956ebe71272dbE():
@@ -4889,7 +4889,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\sr
     pub fn is_pendsv_pending() -> bool {
    0:	f64e 5004 	movw	r0, #60676	; 0xed04
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN4core3ptr13read_volatile17h196eb0d22de05ef1E():
+_ZN5vcell21VolatileCell$LT$T$GT$3get17hfcf5464297029d58E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/ptr/mod.rs:873
    8:	6800      	ldr	r0, [r0, #0]
 _ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17hfd237ace41b397a6E():
@@ -5232,7 +5232,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\sr
     pub fn has_wrapped(&mut self) -> bool {
    0:	f24e 0010 	movw	r0, #57360	; 0xe010
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN17volatile_register11RW$LT$T$GT$4read17h72a39808f2598fb1E():
+_ZN4core3ptr13read_volatile17h196eb0d22de05ef1E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/ptr/mod.rs:873
    8:	6800      	ldr	r0, [r0, #0]
 _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h653bffcf632f1590E():
@@ -7098,7 +7098,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\s
  12c:	2800      	cmp	r0, #0
  12e:	f43f afac 	beq.w	8a <<cstr_core::CStr as core::fmt::Debug>::fmt+0x8a>
  132:	e025      	b.n	180 <<cstr_core::CStr as core::fmt::Debug>::fmt+0x180>
-_ZN9cstr_core5ascii14escape_default17h4390fb1b54d9def5E():
+_ZN116_$LT$core..iter..adapters..flatten..FlattenCompat$LT$I$C$U$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h61d689ad8aa5a174E():
 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src/lib.rs:135
             _ => ([b'\\', b'x', hexify(c >> 4), hexify(c & 0xf)], 4),
  134:	f002 000f 	and.w	r0, r2, #15
@@ -7115,7 +7115,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\s
  146:	bf38      	it	cc
  148:	2130      	movcc	r1, #48	; 0x30
  14a:	eb01 1112 	add.w	r1, r1, r2, lsr #4
-_ZN9cstr_core5ascii14escape_default17h4390fb1b54d9def5E():
+_ZN116_$LT$core..iter..adapters..flatten..FlattenCompat$LT$I$C$U$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h61d689ad8aa5a174E():
 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src/lib.rs:135
             _ => ([b'\\', b'x', hexify(c >> 4), hexify(c & 0xf)], 4),
  14e:	0409      	lsls	r1, r1, #16
@@ -7148,7 +7148,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\s
  182:	4630      	mov	r0, r6
  184:	b013      	add	sp, #76	; 0x4c
  186:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-_ZN90_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next28_$u7b$$u7b$closure$u7d$$u7d$17hff9452e630fa63b7E():
+_ZN90_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h1a4cd5046aa53f63E():
 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src/lib.rs:154
             self.range.next().map(|i| self.data[i])
  18a:	f240 0000 	movw	r0, #0
@@ -7601,7 +7601,7 @@ _ZN50_$LT$cstr_core..CStr$u20$as$u20$core..cmp..Ord$GT$3cmp17h20a60b0b08e83ec3E(
   3e:	2100      	movs	r1, #0
   40:	f7ff fffe 	bl	0 <core::slice::slice_index_len_fail>
   44:	defe      	udf	#254	; 0xfe
-_ZN9cstr_core4CStr8to_bytes17he84c19109741c587E():
+_ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h51bcc4bcbb226822E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/slice/mod.rs:2746
   46:	4628      	mov	r0, r5
 _ZN50_$LT$cstr_core..CStr$u20$as$u20$core..cmp..Ord$GT$3cmp17h20a60b0b08e83ec3E():
