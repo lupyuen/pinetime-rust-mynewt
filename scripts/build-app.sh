@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
-#  Build Mynewt application on macOS and Linux
+#  macOS and Linux Bash script to build Rust application hosted on Mynewt OS
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
-
-#  Build the application and show the size.
-# newt build bluepill_my_sensor
-# newt size -v bluepill_my_sensor
-# exit
-
-#####################################################################
-#  TODO: Build Rust application hosted on Mynewt OS
 
 set +x ; echo ; echo "----- Building Rust app and Mynewt OS..." ; set -x
 
