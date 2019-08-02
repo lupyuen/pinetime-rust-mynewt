@@ -55,7 +55,7 @@ do
     fi
 done
 
-#  TODO: Expand Rust macros
+#  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
 rustup default nightly
 set +e  # Ignore errors
 pushd rust/mynewt ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
@@ -100,7 +100,9 @@ if [ ! -d $rust_app_dir ]; then
     mkdir -p $rust_app_dir
 fi
 cp rustlib.a $rust_app_dest
-touch $rust_app_dest
+
+#  Update the timestamp on libs_rust_app.a so that Mynewt build won't overwrite the Rust app we have copied.
+arm-none-eabi-ar s $rust_app_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application and libraries (except libcore)
 arm-none-eabi-objdump -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
@@ -125,8 +127,10 @@ fi
 for f in $rust_libcore_src
 do
     cp $f $rust_libcore_dest
-    touch $rust_libcore_dest
 done
+
+#  Update the timestamp on libs_rust_libcore.a so that Mynewt build won't overwrite the Rust libcore we have copied.
+arm-none-eabi-ar s $rust_libcore_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application.
 set +e

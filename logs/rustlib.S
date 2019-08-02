@@ -12835,7 +12835,7 @@ _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h8f9ae13d0f2f984cE():
 c:\stm32bluepill-mynewt-sensor/rust\mynewt\src\encoding/coap_context.rs:91
         else if (key, suffix) == ("values", _ARRAY) { unsafe { &mut cbor_encoder0 } }
   e0:	b338      	cbz	r0, 132 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h8f9ae13d0f2f984cE+0x132>
-_ZN4core3str6traits54_$LT$impl$u20$core..cmp..PartialEq$u20$for$u20$str$GT$2eq17h9cff5851a604d0c4E():
+_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17h9a0ae322cff87ff0E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/slice/mod.rs:5315
   e2:	42be      	cmp	r6, r7
   e4:	d02c      	beq.n	140 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h8f9ae13d0f2f984cE+0x140>
@@ -12886,7 +12886,7 @@ c:\stm32bluepill-mynewt-sensor/rust\mynewt\src\encoding/coap_context.rs:98
  13a:	4630      	mov	r0, r6
  13c:	b001      	add	sp, #4
  13e:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN4core5tuple69_$LT$impl$u20$core..cmp..PartialEq$u20$for$u20$$LP$A$C$$u20$B$RP$$GT$2eq17h9e2dddc40ef659ebE():
+_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17h9a0ae322cff87ff0E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/slice/mod.rs:5312
  140:	2d04      	cmp	r5, #4
  142:	d0db      	beq.n	fc <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h8f9ae13d0f2f984cE+0xfc>

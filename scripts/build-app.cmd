@@ -37,12 +37,13 @@ if not exist %rust_app_dest% (
 ::  Delete the compiled ROM image to force the Mynewt build to relink the Rust app with Mynewt OS.
 if exist %app_build% (
     del %app_build%
+    if errorlevel 1 goto :EOF
 )
 
 ::  Delete the compiled Rust app to force the Rust build to relink the Rust app.  Sometimes there are multiple copies of the compiled app, this deletes all copies.
 for %%f in (%rust_build_dir%\libapp*.rlib) do del %%f
 
-::  TODO: Expand Rust macros
+::  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
 rustup default nightly
 pushd rust\mynewt && cargo rustc -v %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libmynewt-expanded.rs && popd
 pushd rust\app    && cargo rustc -v %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libapp-expanded.rs    && popd
@@ -60,26 +61,35 @@ if errorlevel 1 goto :EOF
 @echo "----- Consolidate Rust app and external libraries"
 if exist tmprustlib (
     rd /q /s tmprustlib
+    if errorlevel 1 goto :EOF
 )
 if not exist tmprustlib (
     mkdir tmprustlib
+    if errorlevel 1 goto :EOF
 )
 pushd tmprustlib
+if errorlevel 1 goto :EOF
 
 ::  Extract the object (*.o) files in the compiled Rust output (*.rlib).
 for %%f in (%rust_build_dir%\*.rlib) do arm-none-eabi-ar x %%f
+if errorlevel 1 goto :EOF
 
 ::  Archive the object (*.o) files into rustlib.a.
 @echo "arm-none-eabi-ar r rustlib.a *.o"
 arm-none-eabi-ar r rustlib.a *.o
+if errorlevel 1 goto :EOF
 
 ::  Overwrite libs_rust_app.a in the Mynewt build by rustlib.a.  libs_rust_app.a was originally created from libs\rust_app.
 if not exist %rust_app_dir% (
     mkdir -p %rust_app_dir%
+    if errorlevel 1 goto :EOF
 )
 copy rustlib.a %rust_app_dest%
-:: TODO
-:: touch %rust_app_dest%
+if errorlevel 1 goto :EOF
+
+::  Update the timestamp on libs_rust_app.a so that Mynewt build won't overwrite the Rust app we have copied.
+arm-none-eabi-ar s %rust_app_dest%
+if errorlevel 1 goto :EOF
 
 ::  Dump the ELF and disassembly for the compiled Rust application and libraries (except libcore)
 arm-none-eabi-objdump -t -S            --line-numbers --wide rustlib.a >..\logs\rustlib.S 2>&1
@@ -95,14 +105,20 @@ for /f %%l in ('rustc --print sysroot --target thumbv7m-none-eabi') do set rust_
 ::  Copy libcore to the Mynewt build folder.
 if not exist %rust_libcore_dir% (
     mkdir %rust_libcore_dir%
+    if errorlevel 1 goto :EOF
 )
 if exist %rust_libcore_dest% (
     del %rust_libcore_dest%
+    if errorlevel 1 goto :EOF
 )
 ::  Get the Rust compiler sysroot e.g. C:\Users\guppy\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcore-6ea1de1c8a090cbc.rlib
+::  Overwrite our custom libs_rust_libcore.a to inject Rust libcore into the build.
 for %%f in (%rust_sysroot%\lib\rustlib\thumbv7m-none-eabi\lib\libcore-*.rlib) do copy %%f %rust_libcore_dest%
-::  TODO
-::  touch %rust_libcore_dest%
+if errorlevel 1 goto :EOF
+
+::  Update the timestamp on libs_rust_libcore.a so that Mynewt build won't overwrite the Rust libcore we have copied.
+arm-none-eabi-ar s %rust_libcore_dest%
+if errorlevel 1 goto :EOF
 
 ::  Dump the ELF and disassembly for the compiled Rust application.
 arm-none-eabi-readelf -a --wide target\thumbv7m-none-eabi\%rust_build_profile%\libapp.rlib >logs\libapp.elf 2>&1
