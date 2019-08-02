@@ -58,22 +58,17 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
     if !rc { return Err(MynewtError::SYS_EAGAIN); }  //  If network transport not ready, tell caller (Sensor Listener) to try again later.
 
     //  Compose the CoAP Payload using the coap!() macro.
-    let _payload = coap!(
-        //  To encode CoAP Payload in JSON format:
-        //  @json {
-        
-        //  To encode CoAP Payload in CBOR format:
-        @cbor {
-            //  Create "values" as an array of items under the root.
-            //  Append to the "values" array:
-            //  {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-            //  TODO: "device": device_id,
+    //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format:
+    let _payload = coap!( @json {        
+        //  Create "values" as an array of items under the root.
+        //  Append to the "values" array:
+        //  {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+        //  TODO: "device": device_id,
 
-            //  Append to the "values" array the Sensor Key and Sensor Value:
-            //  {"key": "t", "value": 2870}
-            val,
-        }
-    );
+        //  Append to the "values" array the Sensor Key and Sensor Value:
+        //  {"key": "t", "value": 2870}
+        val,
+    });
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
     //  message to the background task, we release a semaphore that unblocks other requests
