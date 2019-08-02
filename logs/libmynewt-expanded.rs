@@ -6067,9 +6067,9 @@ pub mod encoding {
                                {
                                d ! ( begin cbor coap_root ) ; unsafe {
                                sensor_network :: prepare_post (
-                               mynewt :: encoding :: APPLICATION_CBOR ) ; } $
-                               crate :: oc_rep_start_root_object ! ( $ context
-                               ) ; $ children0 ; $ crate ::
+                               mynewt :: encoding :: APPLICATION_CBOR ) ? ; }
+                               $ crate :: oc_rep_start_root_object ! (
+                               $ context ) ; $ children0 ; $ crate ::
                                oc_rep_end_root_object ! ( $ context ) ; d ! (
                                end cbor coap_root ) ; } } ; (
                                @ json $ context : ident $ children0 : block )
@@ -6077,7 +6077,7 @@ pub mod encoding {
                                {
                                d ! ( begin json coap_root ) ; unsafe {
                                sensor_network :: prepare_post (
-                               mynewt :: encoding :: APPLICATION_JSON ) ; }
+                               mynewt :: encoding :: APPLICATION_JSON ) ? ; }
                                unsafe {
                                sensor_coap :: json_rep_start_root_object (  )
                                ; } $ children0 ; unsafe {

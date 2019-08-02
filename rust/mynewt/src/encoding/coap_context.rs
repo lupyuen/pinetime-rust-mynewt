@@ -71,7 +71,7 @@ impl CoapContext {
 
     /// Create a new CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
     pub fn new_encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
-        console::print("new_encoder: "); console::print(key); console::print(suffix); console::print("\n");
+        //  console::print("new_encoder: "); console::print(key); console::print(suffix); console::print("\n");
         //  TODO: Allow multiple keys
         if key == "values" { unsafe { &mut cbor_encoder } }
         else {
@@ -83,7 +83,7 @@ impl CoapContext {
 
     /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
     pub fn encoder(&self, key: &str, suffix: &str) -> *mut super::tinycbor::CborEncoder {
-        console::print("encoder: "); console::print(key); console::print(suffix); console::print("\n");
+        //  console::print("encoder: "); console::print(key); console::print(suffix); console::print("\n");
         if (key, suffix) == ("root", "_map") { unsafe { &mut super::root_map } }
         //  TODO: Allow multiple keys
         else if key == "values" { unsafe { &mut cbor_encoder } }
