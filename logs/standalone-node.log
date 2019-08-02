@@ -13,7 +13,7 @@ Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 Info : clock speed 1000 kHz
 Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
-Info : Target voltage: 3.221136
+Info : Target voltage: 3.219551
 Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : Listening on port 50000 for gdb connections
 Info : accepting 'gdb' connection on tcp/50000
@@ -25,7 +25,7 @@ target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
 Enable ARM Semihosting to show debug output
 semihosting is enabled
-Info : Padding image section 0 at 0x0800b342 with 2 bytes
+Info : Padding image section 0 at 0x0800f46e with 2 bytes
 target halted due to breakpoint, current mode: Thread 
 xPSR: 0x61000000 pc: 0x2000003a msp: 0x20005000, semihosting
 target halted due to debug-request, current mode: Thread 
@@ -34,29 +34,26 @@ target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
 Info : halted: PC: 0x0800010e
 Info : halted: PC: 0x0800112e
-Info : halted: PC: 0x0800121c
+Info : halted: PC: 0x08001bde
 ADC create adc1
 TMP create temp_stm32_0
 ADC open ch 16
 ADC open ch 16
 STM read int temp sensor
 RND personalise with hw id 54 ff 6e 06 50 78 49 55 16 53 16 87 
-RND seed with temp entropy 2f 04 fd 3d f1 00 00 03 d0 00 00 00 4f 00 00 00 0d 00 00 03 d3 00 00 00 0f 10 00 00 0f 10 00 00 
+RND seed with temp entropy 3c 5b 5b 5e d1 4c 4b 5c 3c 5e 2b 3d 5b 5b 5c 0f 79 5b 5b 5b 14 c4 b5 00 cf 5c 00 2e 40 b3 d5 b5 
 NET hwid 54 ff 6e 06 50 78 49 55 16 53 16 87 
 NET standalone node 
 NBT create bc95g_0
 NET svr bc95g_0
 [
 ]
-TMP poll temp_stm32_0
+Rust TMP poll 
 NET start
 NET svr bc95g_0
 [
-AT> AT
-AT= OK
-AT> AT
-AT= OK
-AT> AT
+AT> 
+AT
 AT= OK
 AT> NCONFIG=AUTOCONNECT,FALSE
 AT= OK
@@ -64,7 +61,7 @@ AT> QREGSWT=2
 AT= OK
 AT> NRB
 AT< REBOOTING
-AT<  '��`
+AT< �P"A�
 AT< Boot: Unsigned
 AT< Security B.. Verified
 AT< Protocol A.. Verified
@@ -90,11 +87,11 @@ AT= +CEREG:0,2
 AT= OK
 ADC open ch 16
 STM read int temp sensor
-NET random device id ac913c504b27e00bc8b68dfe843b297c
+Rust handle_sensor_data
+TMP listener got rawtmp 
+Rust send_sensor_data
 NET network not ready
-AT> CEREG?
-AT= +CEREG:0,2
-AT= OK
+TMP network not ready
 AT> CEREG?
 AT= +CEREG:0,2
 AT= OK
@@ -111,133 +108,103 @@ AT= OK
 NET free mbuf 12
 ADC open ch 16
 STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1757}]}
+Rust handle_sensor_data
+TMP listener got rawtmp 
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
 NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
+https://blue-pill-geolocate.appspot.com?device=%s
 [
 NBT send udp
-NBT send mbuf 174...
-58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 35 37 7d 5d 7d 
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 06 f2 ff ff ff 
 NBT send mbuf OK
 AT> ,1
 AT= 1,1
-AT< 74
+AT< 10
 AT= OK
 ]
 NET free mbuf 12
 ADC open ch 16
 STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1757}]}
+Rust handle_sensor_data
+TMP listener got rawtmp 
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
 NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
+https://blue-pill-geolocate.appspot.com?device=%s
 [
 NBT send udp
-NBT send mbuf 174...
-58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 35 37 7d 5d 7d 
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 06 f4 ff ff ff 
 NBT send mbuf OK
 AT> ,2
 AT< +NSOSTR:1,1,1
-AT< +NSONMI:1,35
+AT< +NSONMI:1,64
 AT= 1,1
-AT< 74
+AT< 10
 AT= OK
 ]
 NET free mbuf 12
 ADC open ch 16
 STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1757}]}
+Rust handle_sensor_data
+TMP listener got rawtmp 
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
 NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
+https://blue-pill-geolocate.appspot.com?device=%s
 [
 NBT send udp
-NBT send mbuf 174...
-58 02 00 03 9c 8d da df 79 ca f1 c4 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 35 37 7d 5d 7d 
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 03 9c 8d da df 79 ca f1 c4 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 06 f4 ff ff ff 
 NBT send mbuf OK
 AT> ,3
 AT< +NSOSTR:1,2,1
 AT= 1,1
-AT< 74
+AT< 10
 AT= OK
 ]
-NET free mbuf 12
-ADC open ch 16
-STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1772}]}
-NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
-[
-NBT send udp
-NBT send mbuf 174...
-58 02 00 04 29 fa 69 2d 5d 19 00 a9 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 37 32 7d 5d 7d 
-NBT send mbuf OK
-AT> ,4
-AT< +NSOSTR:1,3,1
-AT= 1,1
-AT< 74
-AT= OK
-]
-NET free mbuf 12
-ADC open ch 16
-STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1757}]}
-NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
-[
-NBT send udp
-NBT send mbuf 174...
-58 02 00 05 7e bb df cc 1e 53 31 53 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 35 37 7d 5d 7d 
-NBT send mbuf OK
-AT> ,5
-AT< +NSOSTR:1,4,1
-AT= 1,1
-AT< 74
-AT= OK
-]
-NET free mbuf 12
-ADC open ch 16
-STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1757}]}
-NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
-[
-NBT send udp
-NBT send mbuf 174...
-58 02 00 06 1c 24 2a 0e 4c 1c e1 a5 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 35 37 7d 5d 7d 
-NBT send mbuf OK
-AT> ,6
-AT< +NSOSTR:1,5,1
-AT= 1,1
-AT< 74
-AT= OK
-]
-NET free mbuf 12
-ADC open ch 16
-STM read int temp sensor
-NET payload size 102
-{"values": [{"key": "device","value": "ac913c504b27e00bc8b68dfe843b297c"},{"key": "t","value": 1757}]}
-NET view your sensor at 
-https://blue-pill-geolocate.appspot.com?device=ac913c504b27e00bc8b68dfe843b297c
-[
-NBT send udp
-NBT send mbuf 174...
-58 02 00 07 ff 26 9e 27 6f c0 53 e1 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
-7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 61 63 39 31 33 63 35 30 34 62 32 37 65 30 30 62 63 38 62 36 38 64 66 65 38 34 33 62 32 39 37 63 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 35 37 7d 5d 7d 
-NBT send mbuf OK
-AT> ,7
-AT< +NSOSTR:1,6,1
-AT= 1,1
-AT< 74
-AT= OK
-]
+shutdown command invoked

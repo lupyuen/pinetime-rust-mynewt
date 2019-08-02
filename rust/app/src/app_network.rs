@@ -59,7 +59,7 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
 
     //  Compose the CoAP Payload using the coap!() macro.
     //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.
-    let _payload = coap!( @json {        
+    let _payload = coap!( @cbor {        
         //  Create `values` as an array of items under the root.
         //  Append to the `values` array:
         //  `{"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}`
