@@ -161,13 +161,19 @@ impl ToBytesOptionalNull for CStr {
     }
 }
 
+/*
 /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
 impl ToBytesOptionalNull for crate::Strn {
     /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
     fn to_bytes_optional_nul(&self) -> &[u8] {
+        if self.cstr != 0 as *const u8 { 
+            return unsafe { ::core::mem::transmute::<*const u8, &[u8]>(self.cstr) };
+            //return self.cstr as &[u8]; 
+        }
         self.bytestr
     }
 }
+*/
 
 /// Root of CoAP document
 pub const _ROOT: &str = "root";

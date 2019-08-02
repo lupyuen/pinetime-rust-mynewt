@@ -75,6 +75,8 @@ pub mod kernel {
 
 
 
+
+
     //  Functions below are located in the Mynewt build output `libs_mynewt_rust.a`
     //! Mynewt Kernel API for Rust
     use crate::{result::*, Out, Ptr, Strn};
@@ -6443,6 +6445,28 @@ pub mod encoding {
         #[macro_export]
         macro_rules! json_rep_set_text_string((
                                               $ context : ident , $ key :
+                                              ident , $ value : ident ) => {
+                                              {
+                                              concat ! (
+                                              "-- jtxtii" , " o: " , stringify
+                                              ! ( $ context ) , ", k: " ,
+                                              stringify ! ( $ key ) , ", v: "
+                                              , stringify ! ( $ value ) ) ;
+                                              let key_with_null : & str = $
+                                              crate :: stringify_null ! (
+                                              $ key ) ; let
+                                              value_with_opt_null : & [ u8 ] =
+                                              $ value . to_bytes_optional_nul
+                                              (  ) ; unsafe {
+                                              mynewt :: libs :: mynewt_rust ::
+                                              json_helper_set_text_string (
+                                              $ context . to_void_ptr (  ) , $
+                                              context . key_to_cstr (
+                                              key_with_null . as_bytes (  ) )
+                                              , $ context . value_to_cstr (
+                                              value_with_opt_null ) ) } ; } }
+                                              ; (
+                                              $ context : ident , $ key :
                                               ident , $ value : expr ) => {
                                               {
                                               concat ! (
@@ -8363,11 +8387,6 @@ pub mod encoding {
             fn to_bytes_optional_nul(&self) -> &[u8] {
                 self.to_bytes_with_nul()
             }
-        }
-        /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
-        impl ToBytesOptionalNull for crate::Strn {
-            /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
-            fn to_bytes_optional_nul(&self) -> &[u8] { self.bytestr }
         }
         /// Root of CoAP document
         pub const _ROOT: &str = "root";
@@ -10625,6 +10644,8 @@ pub mod result {
 pub struct Strn {
     /// Byte string terminated with null
     pub bytestr: &'static [u8],
+    /// Pointer to a null-terminated string
+    pub cstr: *const u8,
 }
 impl Strn {
     /// Create a new byte string. Fail if the last byte is not zero.
@@ -10653,18 +10674,19 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           113u32, 9u32))
+                                                           115u32, 9u32))
                         }
                     }
                 }
             }
         };
-        let res = Strn{bytestr: bs,};
+        let res = Strn{bytestr: bs, cstr: 0 as *const u8,};
         res
     }
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
     pub fn as_cstr(self) -> *const ::cty::c_char {
+        if self.cstr != 0 as *const u8 { return self.cstr; }
         let bs: &'static [u8] = self.bytestr;
         {
             match (&bs.last(), &Some(&0u8)) {
@@ -10686,7 +10708,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           123u32, 9u32))
+                                                           129u32, 9u32))
                         }
                     }
                 }
@@ -10718,7 +10740,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           132u32, 9u32))
+                                                           138u32, 9u32))
                         }
                     }
                 }
@@ -10749,7 +10771,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           140u32, 9u32))
+                                                           146u32, 9u32))
                         }
                     }
                 }
@@ -10778,7 +10800,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           146u32, 9u32))
+                                                           152u32, 9u32))
                         }
                     }
                 }
@@ -10786,6 +10808,10 @@ impl Strn {
         };
     }
 }
+///  Allow threads to share Strn, since it is static.
+unsafe impl Send for Strn { }
+///  Allow threads to share Strn, since it is static.
+unsafe impl Sync for Strn { }
 ///  Declare a pointer that will be used by C functions to return a value
 pub type Out<T> = &'static mut T;
 ///  Declare a `void *` pointer that will be passed to C functions

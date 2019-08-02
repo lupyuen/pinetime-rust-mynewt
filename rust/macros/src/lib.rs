@@ -97,7 +97,7 @@ pub fn init_strn(item: TokenStream) -> TokenStream {
     //  Get the literal string value.
     let val = input.value();
     //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
-    let expanded = format!(r#"Strn{{ bytestr: b"{}\0" }}"#, val);
+    let expanded = format!(r#"Strn{{ bytestr: b"{}\0", cstr: 0 as *const ::cty::c_char }}"#, val);
     //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
     expanded.parse().unwrap()
 }

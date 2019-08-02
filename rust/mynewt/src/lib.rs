@@ -99,7 +99,9 @@ pub mod result {
 /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
 pub struct Strn {
     /// Byte string terminated with null
-    pub bytestr: &'static [u8]
+    pub bytestr: &'static [u8],
+    /// Pointer to a null-terminated string
+    pub cstr: *const u8,
 }
 
 impl Strn {
@@ -111,13 +113,17 @@ impl Strn {
     pub fn new(bs: &'static [u8]) -> Strn {
         //  Last byte must be 0.
         assert_eq!(bs.last(), Some(&0u8));
-        let res = Strn { bytestr: bs };
+        let res = Strn { 
+            bytestr: bs,
+            cstr: 0 as *const u8
+        };
         res
     }
 
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
     pub fn as_cstr(self) -> *const ::cty::c_char {
+        if self.cstr != 0 as *const u8 { return self.cstr; }
         //  Last byte must be 0.
         let bs: &'static [u8] = self.bytestr;
         assert_eq!(bs.last(), Some(&0u8));
@@ -146,6 +152,12 @@ impl Strn {
         assert_eq!(bs.last(), Some(&0u8));
     }
 }
+
+///  Allow threads to share Strn, since it is static.
+unsafe impl Send for Strn {}
+
+///  Allow threads to share Strn, since it is static.
+unsafe impl Sync for Strn {}
 
 ///  Declare a pointer that will be used by C functions to return a value
 pub type Out<T> = &'static mut T;

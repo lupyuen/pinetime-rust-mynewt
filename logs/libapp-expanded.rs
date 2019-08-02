@@ -92,7 +92,8 @@ mod app_sensor {
     use mynewt_macros::{init_strn};
     use crate::app_network::send_sensor_data;
     ///  Sensor to be polled
-    static SENSOR_DEVICE: Strn = Strn{bytestr: b"temp_stm32_0\0",};
+    static SENSOR_DEVICE: Strn =
+        Strn{bytestr: b"temp_stm32_0\0", cstr: 0 as *const ::cty::c_char,};
     ///  Poll sensor every 10,000 milliseconds (10 seconds)  
     const SENSOR_POLL_TIME: u32 = (10 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
@@ -247,7 +248,7 @@ mod app_network {
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
     use mynewt_macros::{strn, strn2};
-    pub fn get_device_id2() -> MynewtResult<&'static Strn> {
+    pub fn get_device_id2() -> MynewtResult<Strn> {
         "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
         extern "C" {
             pub fn get_device_id() -> *const ::cty::c_char;
@@ -255,9 +256,10 @@ mod app_network {
         "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
         unsafe {
             "----------Insert Call: `let result_code = os_task_init(`----------";
-            let result_value = get_device_id();
-            let wrap_result: &'static Strn = &Strn{bytestr: b"abcd\0",};
-            Ok(&wrap_result)
+            let result_value: *const ::cty::c_char = get_device_id();
+            let wrap_result: Strn =
+                Strn{bytestr: b"BAD_STRN\0", cstr: result_value,};
+            Ok(wrap_result)
         }
     }
     /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
@@ -278,7 +280,7 @@ mod app_network {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/app_network.rs",
-                                               67u32, 46u32))
+                                               71u32, 46u32))
                 }
             };
         }
