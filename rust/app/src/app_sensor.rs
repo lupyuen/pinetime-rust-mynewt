@@ -23,20 +23,14 @@ use mynewt::{
     hw::sensor::{        
         self,                               //  Import Mynewt Sensor API functions
         sensor_ptr,                         //  Import Mynewt Sensor API types
-        sensor_arg,
-        sensor_data_ptr,
-        sensor_listener,
-        sensor_temp_data,
-        sensor_temp_raw_data,
-        sensor_type_t,
-        SensorValue,
-        SensorValueType,
+        sensor_arg, sensor_data_ptr, sensor_listener,
+        sensor_temp_data, sensor_temp_raw_data, sensor_type_t,
+        SensorValue, SensorValueType,
     },
     sys::console,                           //  Import Mynewt Console API
-    fill_zero,                              //  Import Mynewt macros
-    Strn,
+    fill_zero, Strn,                        //  Import Mynewt macros    
 };
-use proc_macros::{ init_strn };             //  Import procedural macros
+use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
 use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
 
 ///  Sensor to be polled

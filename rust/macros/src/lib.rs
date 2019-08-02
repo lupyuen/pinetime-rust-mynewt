@@ -114,7 +114,7 @@ pub fn try_cbor(item: TokenStream) -> TokenStream {
                             func.to_string().starts_with("cbor_encoder_") {
                             //  Add error checking to the CBOR statement.
                             let updated_stmt = quote! { 
-                                let res = tinycbor::#stmt_tokens;
+                                let res = mynewt::encoding::tinycbor::#stmt_tokens;
                                 COAP_CONTEXT.check_result(res);
                             };
                             //  Append updated statement tokens to result.

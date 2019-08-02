@@ -5793,6 +5793,8 @@ pub mod encoding {
         ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
         ///  First parameter is `@none`, `@json`, `@cbor` or `@cbormin`, to indicate
         ///  no encoding (testing), JSON encoding, CBOR encoding for thethings.io or CBOR minimal key-value encoding.
+        ///  JSON and CBOR encoding looks like: `{ values: [{key:..., value:...}, ...] }`.
+        ///  CBOR Minimal encoding looks like: `{ key: value, ... }`.
         ///  Second parameter is the JSON message to be transmitted.
         ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
         #[macro_export]
@@ -5926,6 +5928,15 @@ pub mod encoding {
                            $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
                            $ comma : tt $ ( $ copy : tt ) * ) ) => {
                            "--------------------" ; $ crate ::
+                           coap_item_int_val ! (
+                           @ cbor $ object , $ ( $ key ) * ) ;
+                           "--------------------" ; $ crate :: parse ! (
+                           @ cbor @ object $ object (  ) ( $ ( $ rest ) * ) (
+                           $ ( $ rest ) * ) ) ; } ; (
+                           @ cbormin @ object $ object : ident (
+                           $ ( $ key : tt ) * ) ( , $ ( $ rest : tt ) * ) (
+                           $ comma : tt $ ( $ copy : tt ) * ) ) => {
+                           "--------------------" ; $ crate ::
                            coap_set_int_val ! (
                            @ cbor $ object , $ ( $ key ) * ) ;
                            "--------------------" ; $ crate :: parse ! (
@@ -6047,12 +6058,12 @@ pub mod encoding {
                            => {
                            {
                            d ! ( begin cbor root ) ; $ crate :: coap_root ! (
-                           @ cbor COAP_CONTEXT {
+                           @ cbormin COAP_CONTEXT {
                            $ crate :: parse ! (
-                           @ cbor @ object COAP_CONTEXT (  ) ( $ ( $ tt ) + )
-                           ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root ) ;
-                           (  ) } } ; ( @ $ enc : ident $ other : expr ) => {
-                           $ other } ;);
+                           @ cbormin @ object COAP_CONTEXT (  ) ( $ ( $ tt ) +
+                           ) ( $ ( $ tt ) + ) ) ; } ) ; d ! ( end cbor root )
+                           ; (  ) } } ; ( @ $ enc : ident $ other : expr ) =>
+                           { $ other } ;);
         ///  TODO: Parse the vector e.g. array items
         #[macro_export]
         macro_rules! parse_vector(( $ ( $ content : tt ) * ) => {
@@ -6066,7 +6077,8 @@ pub mod encoding {
                                ) => {
                                {
                                d ! ( begin cbor coap_root ) ; unsafe {
-                               sensor_network :: prepare_post (
+                               mynewt :: libs :: sensor_network ::
+                               prepare_post (
                                mynewt :: encoding :: APPLICATION_CBOR ) ? ; }
                                $ crate :: oc_rep_start_root_object ! (
                                $ context ) ; $ children0 ; $ crate ::
@@ -6076,13 +6088,16 @@ pub mod encoding {
                                => {
                                {
                                d ! ( begin json coap_root ) ; unsafe {
-                               sensor_network :: prepare_post (
+                               mynewt :: libs :: sensor_network ::
+                               prepare_post (
                                mynewt :: encoding :: APPLICATION_JSON ) ? ; }
                                unsafe {
-                               sensor_coap :: json_rep_start_root_object (  )
-                               ; } $ children0 ; unsafe {
-                               sensor_coap :: json_rep_end_root_object (  ) ;
-                               } d ! ( end json coap_root ) ; } } ;);
+                               mynewt :: libs :: sensor_coap ::
+                               json_rep_start_root_object (  ) ; } $ children0
+                               ; unsafe {
+                               mynewt :: libs :: sensor_coap ::
+                               json_rep_end_root_object (  ) ; } d ! (
+                               end json coap_root ) ; } } ;);
         ///  Compose an array under `object`, named as `key` (e.g. `values`).  Add `children` as array elements.
         #[macro_export]
         macro_rules! coap_array((
@@ -6201,9 +6216,8 @@ pub mod encoding {
                                       else {
                                       unsafe {
                                       COAP_CONTEXT . fail (
-                                      coap_context :: CoapError ::
-                                      VALUE_NOT_UINT ) } ; } d ! (
-                                      end cbor coap_set_int_val ) ; } } ; (
+                                      CoapError :: VALUE_NOT_UINT ) } ; } d !
+                                      ( end cbor coap_set_int_val ) ; } } ; (
                                       @ json $ context : ident , $ val0 : expr
                                       ) => {
                                       {
@@ -6217,9 +6231,8 @@ pub mod encoding {
                                       else {
                                       unsafe {
                                       COAP_CONTEXT . fail (
-                                      coap_context :: CoapError ::
-                                      VALUE_NOT_UINT ) } ; } d ! (
-                                      end json coap_set_int_val ) ; } } ;);
+                                      CoapError :: VALUE_NOT_UINT ) } ; } d !
+                                      ( end json coap_set_int_val ) ; } } ;);
         ///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
         #[macro_export]
         macro_rules! coap_item_int_val((
@@ -6236,9 +6249,9 @@ pub mod encoding {
                                        ; } else {
                                        unsafe {
                                        COAP_CONTEXT . fail (
-                                       coap_context :: CoapError ::
-                                       VALUE_NOT_UINT ) } ; } d ! (
-                                       end cbor coap_item_int_val ) ; } } ; (
+                                       CoapError :: VALUE_NOT_UINT ) } ; } d !
+                                       ( end cbor coap_item_int_val ) ; } } ;
+                                       (
                                        @ json $ context : ident , $ val0 :
                                        expr ) => {
                                        {
@@ -6252,9 +6265,9 @@ pub mod encoding {
                                        ; } else {
                                        unsafe {
                                        COAP_CONTEXT . fail (
-                                       coap_context :: CoapError ::
-                                       VALUE_NOT_UINT ) } ; } d ! (
-                                       end json coap_item_int_val ) ; } } ;);
+                                       CoapError :: VALUE_NOT_UINT ) } ; } d !
+                                       ( end json coap_item_int_val ) ; } }
+                                       ;);
         ///  Assume we are writing an object now.  Write the key name and start a child array.
         ///  ```
         ///  {a:b --> {a:b, key:[
@@ -6269,7 +6282,8 @@ pub mod encoding {
                                         $ key ) ) ; let key_with_null : & str
                                         = $ crate :: stringify_null ! ( $ key
                                         ) ; unsafe {
-                                        mynewt_rust :: json_helper_set_array (
+                                        mynewt :: libs :: mynewt_rust ::
+                                        json_helper_set_array (
                                         $ context . to_void_ptr (  ) , $
                                         context . key_to_cstr (
                                         key_with_null . as_bytes (  ) ) ) ; }
@@ -6283,7 +6297,8 @@ pub mod encoding {
                                         $ key ) ) ; let key_with_opt_null : &
                                         [ u8 ] = $ key . to_bytes_optional_nul
                                         (  ) ; unsafe {
-                                        mynewt_rust :: json_helper_set_array (
+                                        mynewt :: libs :: mynewt_rust ::
+                                        json_helper_set_array (
                                         $ context . to_void_ptr (  ) , $
                                         context . key_to_cstr (
                                         key_with_opt_null ) ) ; } ; } } ;);
@@ -6299,7 +6314,7 @@ pub mod encoding {
                                           key_with_null : & str = $ crate ::
                                           stringify_null ! ( $ key ) ; unsafe
                                           {
-                                          mynewt_rust ::
+                                          mynewt :: libs :: mynewt_rust ::
                                           json_helper_close_array (
                                           $ context . to_void_ptr (  ) , $
                                           context . key_to_cstr (
@@ -6312,7 +6327,7 @@ pub mod encoding {
                                           key_with_opt_null : & [ u8 ] = $ key
                                           . to_bytes_optional_nul (  ) ;
                                           unsafe {
-                                          mynewt_rust ::
+                                          mynewt :: libs :: mynewt_rust ::
                                           json_helper_close_array (
                                           $ context . to_void_ptr (  ) , $
                                           context . key_to_cstr (
@@ -6332,6 +6347,7 @@ pub mod encoding {
                                                       : & str = $ crate ::
                                                       stringify_null ! (
                                                       $ context ) ; unsafe {
+                                                      mynewt :: libs ::
                                                       mynewt_rust ::
                                                       json_helper_object_array_start_item
                                                       (
@@ -6349,6 +6365,7 @@ pub mod encoding {
                                                       u8 ] = $ context .
                                                       to_bytes_optional_nul (
                                                       ) ; unsafe {
+                                                      mynewt :: libs ::
                                                       mynewt_rust ::
                                                       json_helper_object_array_start_item
                                                       (
@@ -6366,6 +6383,7 @@ pub mod encoding {
                                                     key_with_null : & str = $
                                                     crate :: stringify_null !
                                                     ( $ context ) ; unsafe {
+                                                    mynewt :: libs ::
                                                     mynewt_rust ::
                                                     json_helper_object_array_end_item
                                                     (
@@ -6379,6 +6397,7 @@ pub mod encoding {
                                                     ] = $ context .
                                                     to_bytes_optional_nul (  )
                                                     ; unsafe {
+                                                    mynewt :: libs ::
                                                     mynewt_rust ::
                                                     json_helper_object_array_end_item
                                                     (
@@ -6398,7 +6417,8 @@ pub mod encoding {
                                       $ value ) ) ; let key_with_null : & str
                                       = $ crate :: stringify_null ! ( $ key )
                                       ; let value = $ value as u64 ; unsafe {
-                                      mynewt_rust :: json_helper_set_int (
+                                      mynewt :: libs :: mynewt_rust ::
+                                      json_helper_set_int (
                                       $ context . to_void_ptr (  ) , $ context
                                       . key_to_cstr (
                                       key_with_null . as_bytes (  ) ) , value
@@ -6414,7 +6434,8 @@ pub mod encoding {
                                       [ u8 ] = $ key . to_bytes_optional_nul (
                                        ) ; let value = $ value as u64 ; unsafe
                                       {
-                                      mynewt_rust :: json_helper_set_int (
+                                      mynewt :: libs :: mynewt_rust ::
+                                      json_helper_set_int (
                                       $ context . to_void_ptr (  ) , $ context
                                       . key_to_cstr ( key_with_opt_null ) ,
                                       value ) } ; } } ;);
@@ -6435,7 +6456,7 @@ pub mod encoding {
                                               value_with_opt_null : & [ u8 ] =
                                               $ value . to_bytes_optional_nul
                                               (  ) ; unsafe {
-                                              mynewt_rust ::
+                                              mynewt :: libs :: mynewt_rust ::
                                               json_helper_set_text_string (
                                               $ context . to_void_ptr (  ) , $
                                               context . key_to_cstr (
@@ -6457,7 +6478,7 @@ pub mod encoding {
                                               & [ u8 ] = $ value .
                                               to_bytes_optional_nul (  ) ;
                                               unsafe {
-                                              mynewt_rust ::
+                                              mynewt :: libs :: mynewt_rust ::
                                               json_helper_set_text_string (
                                               $ context . to_void_ptr (  ) , $
                                               context . key_to_cstr (
@@ -6470,13 +6491,14 @@ pub mod encoding {
                                               {
                                               d ! (
                                               begin oc_rep_start_root_object )
-                                              ; proc_macros :: try_cbor ! (
+                                              ; mynewt_macros :: try_cbor ! (
                                               {
                                               let encoder = COAP_CONTEXT .
                                               encoder ( "root" , "_map" ) ;
                                               cbor_encoder_create_map (
                                               COAP_CONTEXT . global_encoder (
-                                              ) , encoder , tinycbor ::
+                                              ) , encoder , mynewt :: encoding
+                                              :: tinycbor ::
                                               CborIndefiniteLength ) ; } ) ; d
                                               ! ( end oc_rep_start_root_object
                                               ) ; } } ;);
@@ -6484,7 +6506,7 @@ pub mod encoding {
         macro_rules! oc_rep_end_root_object(( $ obj : ident ) => {
                                             {
                                             d ! ( begin oc_rep_end_root_object
-                                            ) ; proc_macros :: try_cbor ! (
+                                            ) ; mynewt_macros :: try_cbor ! (
                                             {
                                             let encoder = COAP_CONTEXT .
                                             encoder ( "root" , "_map" ) ;
@@ -6504,8 +6526,8 @@ pub mod encoding {
                                          ) , stringify ! ( $ parent_suffix ) ,
                                          ", key: " , stringify ! ( $ key ) ,
                                          ", child: " , stringify ! ( $ key ) ,
-                                         "_map" ) ; proc_macros :: try_cbor !
-                                         (
+                                         "_map" ) ; mynewt_macros :: try_cbor
+                                         ! (
                                          {
                                          let parent_encoder = COAP_CONTEXT .
                                          encoder (
@@ -6514,9 +6536,10 @@ pub mod encoding {
                                          = COAP_CONTEXT . new_encoder (
                                          stringify ! ( $ key ) , "_map" ) ;
                                          cbor_encoder_create_map (
-                                         parent_encoder , encoder , tinycbor
-                                         :: CborIndefiniteLength ) ; } ) ; d !
-                                         ( end oc_rep_start_object ) ; } } ;);
+                                         parent_encoder , encoder , mynewt ::
+                                         encoding :: tinycbor ::
+                                         CborIndefiniteLength ) ; } ) ; d ! (
+                                         end oc_rep_start_object ) ; } } ;);
         #[macro_export]
         macro_rules! oc_rep_end_object((
                                        $ parent : ident , $ key : ident , $
@@ -6528,7 +6551,8 @@ pub mod encoding {
                                        , stringify ! ( $ parent_suffix ) ,
                                        ", key: " , stringify ! ( $ key ) ,
                                        ", child: " , stringify ! ( $ key ) ,
-                                       "_map" ) ; proc_macros :: try_cbor ! (
+                                       "_map" ) ; mynewt_macros :: try_cbor !
+                                       (
                                        {
                                        let parent_encoder = COAP_CONTEXT .
                                        encoder (
@@ -6550,8 +6574,8 @@ pub mod encoding {
                                         ) , stringify ! ( $ parent_suffix ) ,
                                         ", key: " , stringify ! ( $ key ) ,
                                         ", child: " , stringify ! ( $ key ) ,
-                                        "_array" ) ; proc_macros :: try_cbor !
-                                        (
+                                        "_array" ) ; mynewt_macros :: try_cbor
+                                        ! (
                                         {
                                         let parent_encoder = COAP_CONTEXT .
                                         encoder (
@@ -6560,7 +6584,8 @@ pub mod encoding {
                                         COAP_CONTEXT . new_encoder (
                                         stringify ! ( $ key ) , "_array" ) ;
                                         cbor_encoder_create_array (
-                                        parent_encoder , encoder , tinycbor ::
+                                        parent_encoder , encoder , mynewt ::
+                                        encoding :: tinycbor ::
                                         CborIndefiniteLength ) ; } ) ; d ! (
                                         end oc_rep_start_array ) ; } } ;);
         #[macro_export]
@@ -6574,7 +6599,7 @@ pub mod encoding {
                                       ( $ parent_suffix ) , ", key: " ,
                                       stringify ! ( $ key ) , ", child: " ,
                                       stringify ! ( $ key ) , "_array" ) ;
-                                      proc_macros :: try_cbor ! (
+                                      mynewt_macros :: try_cbor ! (
                                       {
                                       let parent_encoder = COAP_CONTEXT .
                                       encoder (
@@ -6600,8 +6625,8 @@ pub mod encoding {
                                       stringify ! ( $ object ) , "_map" ) ;
                                       let key_with_opt_null : & [ u8 ] =
                                       stringify ! ( $ key ) .
-                                      to_bytes_optional_nul (  ) ; proc_macros
-                                      :: try_cbor ! (
+                                      to_bytes_optional_nul (  ) ;
+                                      mynewt_macros :: try_cbor ! (
                                       {
                                       let encoder = COAP_CONTEXT . encoder (
                                       stringify ! ( $ object ) , "_map" ) ;
@@ -6678,7 +6703,8 @@ pub mod encoding {
                                     ", v: " , stringify ! ( $ value ) ) ; let
                                     key_with_null : & str = $ crate ::
                                     stringify_null ! ( $ key ) ; let value = $
-                                    value as i64 ; proc_macros :: try_cbor ! (
+                                    value as i64 ; mynewt_macros :: try_cbor !
+                                    (
                                     {
                                     let encoder = COAP_CONTEXT . encoder (
                                     stringify ! ( $ obj ) , "_map" ) ;
@@ -6697,7 +6723,8 @@ pub mod encoding {
                                     ", v: " , stringify ! ( $ value ) ) ; let
                                     key_with_opt_null : & [ u8 ] = $ key .
                                     to_bytes_optional_nul (  ) ; let value = $
-                                    value as i64 ; proc_macros :: try_cbor ! (
+                                    value as i64 ; mynewt_macros :: try_cbor !
+                                    (
                                     {
                                     let encoder = COAP_CONTEXT . encoder (
                                     stringify ! ( $ obj ) , "_map" ) ;
@@ -6710,22 +6737,21 @@ pub mod encoding {
         ///  Encode a text value 
         #[macro_export]
         macro_rules! oc_rep_set_text_string((
-                                            $ object : ident , $ key : expr ,
-                                            $ value : expr ) => {
+                                            $ obj : ident , $ key : expr , $
+                                            value : expr ) => {
                                             {
                                             concat ! (
                                             "begin oc_rep_set_text_string " ,
-                                            ", object: " , stringify ! (
-                                            $ object ) , ", key: " , stringify
-                                            ! ( $ key ) , ", value: " ,
-                                            stringify ! ( $ value ) ,
-                                            ", child: " , stringify ! (
-                                            $ object ) , "_map" ) ; let
-                                            key_with_opt_null : & [ u8 ] = $
-                                            key . to_bytes_optional_nul (  ) ;
-                                            let value_with_opt_null : & [ u8 ]
-                                            = $ value . to_bytes_optional_nul
-                                            (  ) ; proc_macros :: try_cbor ! (
+                                            ", c: " , stringify ! ( $ obj ) ,
+                                            ", k: " , stringify ! ( $ key ) ,
+                                            ", v: " , stringify ! ( $ value )
+                                            , ", ch: " , stringify ! ( $ obj )
+                                            , "_map" ) ; let key_with_opt_null
+                                            : & [ u8 ] = $ key .
+                                            to_bytes_optional_nul (  ) ; let
+                                            value_with_opt_null : & [ u8 ] = $
+                                            value . to_bytes_optional_nul (  )
+                                            ; mynewt_macros :: try_cbor ! (
                                             {
                                             let encoder = COAP_CONTEXT .
                                             encoder (
@@ -8148,10 +8174,6 @@ pub mod encoding {
             /// Create a new CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
             pub fn new_encoder(&self, key: &str, suffix: &str)
              -> *mut super::tinycbor::CborEncoder {
-                console::print("new_encoder: ");
-                console::print(key);
-                console::print(suffix);
-                console::print("\n");
                 if key == "values" {
                     unsafe { &mut cbor_encoder }
                 } else {
@@ -8168,10 +8190,6 @@ pub mod encoding {
             /// Return the CBOR encoder for the current map or array, e.g. `key=root, suffix=_map` 
             pub fn encoder(&self, key: &str, suffix: &str)
              -> *mut super::tinycbor::CborEncoder {
-                console::print("encoder: ");
-                console::print(key);
-                console::print(suffix);
-                console::print("\n");
                 if (key, suffix) == ("root", "_map") {
                     unsafe { &mut super::root_map }
                 } else if key == "values" {

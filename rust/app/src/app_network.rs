@@ -23,27 +23,18 @@
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
 
 use mynewt::{
-    result::*,            //  Import Mynewt result and error types
-    hw::sensor::{        
-        SensorValue,
-        SensorValueType,
+    result::*,                  //  Import Mynewt result and error types
+    hw::sensor::{               //  Import Mynewt Sensor API
+        SensorValue, SensorValueType,
     },
-    sys::console,         //  Import Mynewt Console API
-    encoding::{
-        coap_context::{   //  Import Mynewt JSON Encoder Context
-            self,
-            COAP_CONTEXT,
-            ToBytesOptionalNull,
-        },
-        tinycbor,         //  Import Mynewt TinyCBOR API
-    },
+    sys::console,               //  Import Mynewt Console API
+    encoding::coap_context::*,  //  Import Mynewt Encoding API
     libs::{
-        sensor_network,   //  Import Mynewt Sensor Network API
+        sensor_network,         //  Import Mynewt Sensor Network API
     },
-    coap, d,              //  Import Mynewt macros
-    Strn,
+    coap, d, Strn,              //  Import Mynewt macros
 };
-use proc_macros::{ strn }; //  Import procedural macros
+use mynewt_macros::{ strn };    //  Import Mynewt procedural macros
  
 /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
@@ -68,10 +59,10 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
 
     //  Compose the CoAP Payload using the coap!() macro.
     let _payload = coap!(
-        //  To encode payload in JSON format: (`COAP_JSON_ENCODING: 1` in `syscfg.yml`)
+        //  To encode CoAP Payload in JSON format:
         //  @json {
         
-        //  To encode payload in CBOR format: (`COAP_CBOR_ENCODING: 1` in `syscfg.yml`)
+        //  To encode CoAP Payload in CBOR format:
         @cbor {
             //  Create "values" as an array of items under the root.
             //  Append to the "values" array:

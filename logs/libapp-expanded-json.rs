@@ -46,7 +46,7 @@ extern crate cortex_m;
 //  Declare the external library `cortex_m`
 extern crate mynewt;
 //  Declare the Mynewt library
-extern crate macros as mynewt_macros;
+extern crate macros as proc_macros;
 //  Declare the Mynewt Procedural Macros library
 
 mod app_sensor {
@@ -89,7 +89,7 @@ mod app_sensor {
                               sensor_temp_raw_data, sensor_type_t,
                               SensorValue, SensorValueType}, sys::console,
                  fill_zero, Strn};
-    use mynewt_macros::{init_strn};
+    use proc_macros::{init_strn};
     use crate::app_network::send_sensor_data;
     ///  Sensor to be polled
     static SENSOR_DEVICE: Strn = Strn{bytestr: b"temp_stm32_0\0",};
@@ -114,7 +114,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !sensor::is_null_sensor(sensor) }",
                                            "rust/app/src/app_sensor.rs",
-                                           55u32, 5u32))
+                                           61u32, 5u32))
             }
         };
         let listener =
@@ -144,7 +144,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { !sensor::is_null_sensor(sensor) }",
                                            "rust/app/src/app_sensor.rs",
-                                           79u32, 5u32))
+                                           85u32, 5u32))
             }
         };
         let sensor_value = get_temperature(sensor_data, sensor_type);
@@ -153,7 +153,7 @@ mod app_sensor {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/app_sensor.rs",
-                                               83u32, 55u32))
+                                               89u32, 55u32))
                 }
             };
         }
@@ -191,7 +191,7 @@ mod app_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
                                                    "rust/app/src/app_sensor.rs",
-                                                   115u32, 13u32))
+                                                   121u32, 13u32))
                     }
                 };
                 if rawtempdata.strd_temp_raw_is_valid == 0 {
@@ -216,7 +216,7 @@ mod app_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: rc == 0",
                                                    "rust/app/src/app_sensor.rs",
-                                                   128u32, 13u32))
+                                                   134u32, 13u32))
                     }
                 };
                 if tempdata.std_temp_is_valid() == 0 { return return_value; }
@@ -227,7 +227,7 @@ mod app_sensor {
                     {
                         ::core::panicking::panic(&("assertion failed: false",
                                                    "rust/app/src/app_sensor.rs",
-                                                   142u32, 13u32))
+                                                   148u32, 13u32))
                     }
                 };
                 return return_value;
@@ -244,9 +244,11 @@ mod app_network {
     //!  fixes response parsing bugs.  The patched file must be present in that location.
     //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
     use mynewt::{result::*, hw::sensor::{SensorValue, SensorValueType},
-                 sys::console, encoding::coap_context::*,
+                 sys::console,
+                 encoding::{coap_context::{self, COAP_CONTEXT,
+                                           ToBytesOptionalNull}},
                  libs::{sensor_network}, coap, d, Strn};
-    use mynewt_macros::{strn};
+    use proc_macros::{strn};
     /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
     /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
     /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -265,7 +267,7 @@ mod app_network {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/app_network.rs",
-                                               52u32, 46u32))
+                                               60u32, 46u32))
                 }
             };
         }
@@ -273,95 +275,48 @@ mod app_network {
         if !rc { return Err(MynewtError::SYS_EAGAIN); }
         let _payload =
             {
-                "begin cbor root";
+                "begin json root";
                 {
-                    "begin cbor coap_root";
+                    "begin json coap_root";
                     unsafe {
-                        mynewt::libs::sensor_network::prepare_post(mynewt::encoding::APPLICATION_CBOR)?;
+                        mynewt::libs::sensor_network::prepare_post(mynewt::encoding::APPLICATION_JSON)?;
+                    }
+                    unsafe {
+                        mynewt::libs::sensor_coap::json_rep_start_root_object();
                     }
                     {
-                        "begin oc_rep_start_root_object";
-                        unsafe {
-                            let encoder =
-                                COAP_CONTEXT.encoder("root", "_map");
-                            let res =
-                                mynewt::encoding::tinycbor::cbor_encoder_create_map(COAP_CONTEXT.global_encoder(),
-                                                                                    encoder,
-                                                                                    mynewt::encoding::tinycbor::CborIndefiniteLength);
-                            COAP_CONTEXT.check_result(res);
-                        };
-                        "end oc_rep_start_root_object";
-                    };
-                    {
                         {
-                            "begin cbor coap_array , object : root , key : values";
+                            "begin json coap_array , object : COAP_CONTEXT , key : values";
                             {
-                                "begin oc_rep_set_array , object: root, key: values, child: root_map";
-                                let key_with_opt_null: &[u8] =
-                                    "values".to_bytes_optional_nul();
+                                "<< jarri , o: COAP_CONTEXT, k: values";
+                                let key_with_null: &str = "values\u{0}";
                                 unsafe {
-                                    let encoder =
-                                        COAP_CONTEXT.encoder("root", "_map");
-                                    let res =
-                                        mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
-                                                                                            COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                            COAP_CONTEXT.cstr_len(key_with_opt_null));
-                                    COAP_CONTEXT.check_result(res);
+                                    mynewt::libs::mynewt_rust::json_helper_set_array(COAP_CONTEXT.to_void_ptr(),
+                                                                                     COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
                                 };
-                                {
-                                    "begin oc_rep_start_array , parent: root_map, key: values, child: values_array";
-                                    unsafe {
-                                        let parent_encoder =
-                                            COAP_CONTEXT.encoder("root",
-                                                                 "_map");
-                                        let encoder =
-                                            COAP_CONTEXT.new_encoder("values",
-                                                                     "_array");
-                                        let res =
-                                            mynewt::encoding::tinycbor::cbor_encoder_create_array(parent_encoder,
-                                                                                                  encoder,
-                                                                                                  mynewt::encoding::tinycbor::CborIndefiniteLength);
-                                        COAP_CONTEXT.check_result(res);
-                                    };
-                                    "end oc_rep_start_array";
-                                };
-                                "end oc_rep_set_array";
                             };
                             {
                                 " >>  >> val >> ,";
                                 "--------------------";
                                 {
-                                    "begin cbor coap_item_int_val , c : values , val : val";
+                                    "begin json coap_item_int_val , c : COAP_CONTEXT , val : val";
                                     if let SensorValueType::Uint(val) =
                                            val.val {
                                         {
-                                            "begin cbor coap_item_int , key : val.key , value : val";
+                                            "begin json coap_item_int , key : val.key , value : val";
                                             {
-                                                "begin cbor coap_item , array : values";
+                                                "begin json coap_item , array : COAP_CONTEXT";
                                                 {
-                                                    "begin oc_rep_object_array_start_item , key: values, child: values_array";
-                                                    {
-                                                        "begin oc_rep_start_object , parent: values_array, key: values, child: values_map";
-                                                        unsafe {
-                                                            let parent_encoder =
-                                                                COAP_CONTEXT.encoder("values",
-                                                                                     "_array");
-                                                            let encoder =
-                                                                COAP_CONTEXT.new_encoder("values",
-                                                                                         "_map");
-                                                            let res =
-                                                                mynewt::encoding::tinycbor::cbor_encoder_create_map(parent_encoder,
-                                                                                                                    encoder,
-                                                                                                                    mynewt::encoding::tinycbor::CborIndefiniteLength);
-                                                            COAP_CONTEXT.check_result(res);
-                                                        };
-                                                        "end oc_rep_start_object";
+                                                    "<< jitmi c: COAP_CONTEXT";
+                                                    let key_with_null: &str =
+                                                        "COAP_CONTEXT\u{0}";
+                                                    unsafe {
+                                                        mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
                                                     };
-                                                    "end oc_rep_object_array_start_item";
                                                 };
                                                 {
                                                     {
-                                                        "begin oc_rep_set_text_string , c: values, k: \"key\", v: val.key, ch: values_map";
+                                                        "-- jtxte o: COAP_CONTEXT, k: \"key\", v: val.key";
                                                         let key_with_opt_null:
                                                                 &[u8] =
                                                             "key".to_bytes_optional_nul();
@@ -369,113 +324,63 @@ mod app_network {
                                                                 &[u8] =
                                                             val.key.to_bytes_optional_nul();
                                                         unsafe {
-                                                            let encoder =
-                                                                COAP_CONTEXT.encoder("values",
-                                                                                     "_map");
-                                                            let res =
-                                                                mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
-                                                                                                                    COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                                                    COAP_CONTEXT.cstr_len(key_with_opt_null));
-                                                            COAP_CONTEXT.check_result(res);
-                                                            let res =
-                                                                mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
-                                                                                                                    COAP_CONTEXT.value_to_cstr(value_with_opt_null),
-                                                                                                                    COAP_CONTEXT.cstr_len(value_with_opt_null));
-                                                            COAP_CONTEXT.check_result(res);
+                                                            mynewt::libs::mynewt_rust::json_helper_set_text_string(COAP_CONTEXT.to_void_ptr(),
+                                                                                                                   COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                                                   COAP_CONTEXT.value_to_cstr(value_with_opt_null))
                                                         };
-                                                        "end oc_rep_set_text_string";
                                                     };
-                                                    "-- cinte c: values, k: \"value\", v: val";
-                                                    let key_with_opt_null:
-                                                            &[u8] =
-                                                        "value".to_bytes_optional_nul();
-                                                    let value = val as i64;
-                                                    unsafe {
-                                                        let encoder =
-                                                            COAP_CONTEXT.encoder("values",
-                                                                                 "_map");
-                                                        let res =
-                                                            mynewt::encoding::tinycbor::cbor_encode_text_string(encoder,
-                                                                                                                COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                                                COAP_CONTEXT.cstr_len(key_with_opt_null));
-                                                        COAP_CONTEXT.check_result(res);
-                                                        let res =
-                                                            mynewt::encoding::tinycbor::cbor_encode_int(encoder,
-                                                                                                        value);
-                                                        COAP_CONTEXT.check_result(res);
+                                                    {
+                                                        "-- jinte o: COAP_CONTEXT, k: \"value\", v: val";
+                                                        let key_with_opt_null:
+                                                                &[u8] =
+                                                            "value".to_bytes_optional_nul();
+                                                        let value =
+                                                            val as u64;
+                                                        unsafe {
+                                                            mynewt::libs::mynewt_rust::json_helper_set_int(COAP_CONTEXT.to_void_ptr(),
+                                                                                                           COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                                           value)
+                                                        };
                                                     };
                                                 };
                                                 {
-                                                    "begin oc_rep_object_array_end_item , key: values, child: values_array";
-                                                    {
-                                                        "begin oc_rep_end_object , parent: values_array, key: values, child: values_map";
-                                                        unsafe {
-                                                            let parent_encoder =
-                                                                COAP_CONTEXT.encoder("values",
-                                                                                     "_array");
-                                                            let encoder =
-                                                                COAP_CONTEXT.encoder("values",
-                                                                                     "_map");
-                                                            let res =
-                                                                mynewt::encoding::tinycbor::cbor_encoder_close_container(parent_encoder,
-                                                                                                                         encoder);
-                                                            COAP_CONTEXT.check_result(res);
-                                                        };
-                                                        "end oc_rep_end_object";
+                                                    ">>";
+                                                    let key_with_null: &str =
+                                                        "COAP_CONTEXT\u{0}";
+                                                    unsafe {
+                                                        mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
                                                     };
-                                                    "end oc_rep_object_array_end_item";
                                                 };
-                                                "end cbor coap_item";
+                                                "end json coap_item";
                                             };
-                                            "end cbor coap_item_int";
+                                            "end json coap_item_int";
                                         };
                                     } else {
                                         unsafe {
-                                            COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT)
+                                            COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT)
                                         };
                                     }
-                                    "end cbor coap_item_int_val";
+                                    "end json coap_item_int_val";
                                 };
                                 "--------------------";
                             };
                             {
-                                "begin oc_rep_close_array , object: root, key: values, child: root_map";
-                                {
-                                    "begin oc_rep_end_array , parent: root_map, key: values, child: values_array";
-                                    unsafe {
-                                        let parent_encoder =
-                                            COAP_CONTEXT.encoder("root",
-                                                                 "_map");
-                                        let encoder =
-                                            COAP_CONTEXT.encoder("values",
-                                                                 "_array");
-                                        let res =
-                                            mynewt::encoding::tinycbor::cbor_encoder_close_container(parent_encoder,
-                                                                                                     encoder);
-                                        COAP_CONTEXT.check_result(res);
-                                    };
-                                    "end oc_rep_end_array";
+                                ">>";
+                                let key_with_null: &str = "values\u{0}";
+                                unsafe {
+                                    mynewt::libs::mynewt_rust::json_helper_close_array(COAP_CONTEXT.to_void_ptr(),
+                                                                                       COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
                                 };
-                                "end oc_rep_close_array";
                             };
-                            "end cbor coap_array";
+                            "end json coap_array";
                         };
                     };
-                    {
-                        "begin oc_rep_end_root_object";
-                        unsafe {
-                            let encoder =
-                                COAP_CONTEXT.encoder("root", "_map");
-                            let res =
-                                mynewt::encoding::tinycbor::cbor_encoder_close_container(COAP_CONTEXT.global_encoder(),
-                                                                                         encoder);
-                            COAP_CONTEXT.check_result(res);
-                        };
-                        "end oc_rep_end_root_object";
-                    };
-                    "end cbor coap_root";
+                    unsafe {
+                        mynewt::libs::sensor_coap::json_rep_end_root_object();
+                    }
+                    "end json coap_root";
                 };
-                "end cbor root";
+                "end json root";
                 ()
             };
         sensor_network::do_server_post()?;

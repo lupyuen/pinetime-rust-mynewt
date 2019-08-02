@@ -8,6 +8,8 @@
 ///  Macro to compose a CoAP payload with JSON or CBOR encoding.
 ///  First parameter is `@none`, `@json`, `@cbor` or `@cbormin`, to indicate
 ///  no encoding (testing), JSON encoding, CBOR encoding for thethings.io or CBOR minimal key-value encoding.
+///  JSON and CBOR encoding looks like: `{ values: [{key:..., value:...}, ...] }`.
+///  CBOR Minimal encoding looks like: `{ key: value, ... }`.
 ///  Second parameter is the JSON message to be transmitted.
 ///  Adapted from the `json!()` macro: https://docs.serde.rs/src/serde_json/macros.rs.html
 #[macro_export]
@@ -161,7 +163,7 @@ macro_rules! parse {
     $crate::parse!(@none @object $object () ($($rest)*) ($($rest)*));
   };
 
-  // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
+  // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.  Encode as `{key:..., value:...}`. 
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
     $crate::coap_item_int_val!(@json
@@ -173,8 +175,20 @@ macro_rules! parse {
     $crate::parse!(@json @object $object () ($($rest)*) ($($rest)*));
   };
 
-  // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
+  // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.  Encode as `{key:..., value:...}`. 
   (@cbor @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
+    "--------------------";
+    $crate::coap_item_int_val!(@cbor
+      $object,  //  _object, 
+      $($key)*  //  _sensor_value
+    );
+    "--------------------";
+    //  Continue expanding the rest of the JSON.
+    $crate::parse!(@cbor @object $object () ($($rest)*) ($($rest)*));
+  };
+
+  // CBOR Minimal Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.  Encode as `{key: value}`. 
+  (@cbormin @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
     $crate::coap_set_int_val!(@cbor
       $object,  //  _object, 
@@ -368,9 +382,9 @@ macro_rules! parse {
   (@cbormin { $($tt:tt)+ }) => {{
     //  Substitute with this code...
     d!(begin cbor root);
-    $crate::coap_root!(@cbor COAP_CONTEXT {  //  Create the payload root
+    $crate::coap_root!(@cbormin COAP_CONTEXT {  //  Create the payload root
         //  Expand the items inside { ... } and add them to root.
-        $crate::parse!(@cbor @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
+        $crate::parse!(@cbormin @object COAP_CONTEXT () ($($tt)+) ($($tt)+));  //  TODO: Change COAP_CONTEXT to CBOR
     });  //  Close the payload root
     d!(end cbor root);
     ()
@@ -416,7 +430,7 @@ macro_rules! coap_root {
   (@cbor $context:ident $children0:block) => {{  //  CBOR
     d!(begin cbor coap_root);
     //  Set the payload format.
-    unsafe { sensor_network::prepare_post(mynewt::encoding::APPLICATION_CBOR) ? ; }
+    unsafe { mynewt::libs::sensor_network::prepare_post(mynewt::encoding::APPLICATION_CBOR) ? ; }
     $crate::oc_rep_start_root_object!($context);
     $children0;
     $crate::oc_rep_end_root_object!($context);
@@ -426,10 +440,10 @@ macro_rules! coap_root {
   (@json $context:ident $children0:block) => {{  //  JSON
     d!(begin json coap_root);
     //  Set the payload format.
-    unsafe { sensor_network::prepare_post(mynewt::encoding::APPLICATION_JSON) ? ; }
-    unsafe { sensor_coap::json_rep_start_root_object(); }
+    unsafe { mynewt::libs::sensor_network::prepare_post(mynewt::encoding::APPLICATION_JSON) ? ; }
+    unsafe { mynewt::libs::sensor_coap::json_rep_start_root_object(); }
     $children0;
-    unsafe { sensor_coap::json_rep_end_root_object(); }
+    unsafe { mynewt::libs::sensor_coap::json_rep_end_root_object(); }
     d!(end json coap_root);
   }};
 }
@@ -535,7 +549,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::oc_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_set_int_val);
   }};
@@ -545,7 +559,7 @@ macro_rules! coap_set_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::json_rep_set_int!($context, $val0.key, val);
     } else {
-      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_set_int_val);
   }};
@@ -559,7 +573,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::coap_item_int!(@cbor $context, $val0.key, val);
     } else {
-      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end cbor coap_item_int_val);
   }};
@@ -569,7 +583,7 @@ macro_rules! coap_item_int_val {
     if let SensorValueType::Uint(val) = $val0.val {
       $crate::coap_item_int!(@json $context, $val0.key, val);
     } else {
-      unsafe { COAP_CONTEXT.fail(coap_context::CoapError::VALUE_NOT_UINT) };  //  Value not uint
+      unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
     d!(end json coap_item_int_val);
   }};
@@ -594,7 +608,7 @@ macro_rules! json_rep_set_array {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     unsafe {
-      mynewt_rust::json_helper_set_array(
+      mynewt::libs::mynewt_rust::json_helper_set_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_null.as_bytes())
       ); 
@@ -610,7 +624,7 @@ macro_rules! json_rep_set_array {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe {
-      mynewt_rust::json_helper_set_array(
+      mynewt::libs::mynewt_rust::json_helper_set_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_opt_null)
       ); 
@@ -631,7 +645,7 @@ macro_rules! json_rep_close_array {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     unsafe { 
-      mynewt_rust::json_helper_close_array(
+      mynewt::libs::mynewt_rust::json_helper_close_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_null.as_bytes())
       ) 
@@ -645,7 +659,7 @@ macro_rules! json_rep_close_array {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
-      mynewt_rust::json_helper_close_array(
+      mynewt::libs::mynewt_rust::json_helper_close_array(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_opt_null)
       ) 
@@ -667,7 +681,7 @@ macro_rules! json_rep_object_array_start_item {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($context);    //  TODO
     unsafe { 
-      mynewt_rust::json_helper_object_array_start_item(
+      mynewt::libs::mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
@@ -681,7 +695,7 @@ macro_rules! json_rep_object_array_start_item {
     //  Convert key char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $context.to_bytes_optional_nul();  //  TODO
     unsafe { 
-      mynewt_rust::json_helper_object_array_start_item(
+      mynewt::libs::mynewt_rust::json_helper_object_array_start_item(
         $context.key_to_cstr(key_with_opt_null)
       ) 
     };
@@ -701,7 +715,7 @@ macro_rules! json_rep_object_array_end_item {
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($context);  //  TODO
     unsafe { 
-      mynewt_rust::json_helper_object_array_end_item(
+      mynewt::libs::mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_null.as_bytes())
       ) 
     };
@@ -714,7 +728,7 @@ macro_rules! json_rep_object_array_end_item {
     //  Convert key char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $context.to_bytes_optional_nul();  //  TODO
     unsafe { 
-      mynewt_rust::json_helper_object_array_end_item(
+      mynewt::libs::mynewt_rust::json_helper_object_array_end_item(
         $context.key_to_cstr(key_with_opt_null)
       ) 
     };
@@ -735,7 +749,7 @@ macro_rules! json_rep_set_int {
     let key_with_null: &str = $crate::stringify_null!($key);
     let value = $value as u64;
     unsafe {
-      mynewt_rust::json_helper_set_int(
+      mynewt::libs::mynewt_rust::json_helper_set_int(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_null.as_bytes()),
         value
@@ -754,7 +768,7 @@ macro_rules! json_rep_set_int {
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value = $value as u64;
     unsafe {
-      mynewt_rust::json_helper_set_int(
+      mynewt::libs::mynewt_rust::json_helper_set_int(
         $context.to_void_ptr(), 
         $context.key_to_cstr(key_with_opt_null),
         value
@@ -778,7 +792,7 @@ macro_rules! json_rep_set_text_string {
     //  Convert value to char array, which may or may not be null-terminated.
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
-      mynewt_rust::json_helper_set_text_string(
+      mynewt::libs::mynewt_rust::json_helper_set_text_string(
         $context.to_void_ptr(),
         $context.key_to_cstr(key_with_null.as_bytes()),
         $context.value_to_cstr(value_with_opt_null)
@@ -797,7 +811,7 @@ macro_rules! json_rep_set_text_string {
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
     unsafe {
-      mynewt_rust::json_helper_set_text_string(
+      mynewt::libs::mynewt_rust::json_helper_set_text_string(
         $context.to_void_ptr(), 
         $context.key_to_cstr(key_with_opt_null),
         $context.value_to_cstr(value_with_opt_null)
@@ -821,13 +835,13 @@ macro_rules! json_rep_set_text_string {
 macro_rules! oc_rep_start_root_object {
   ($obj:ident) => {{
     d!(begin oc_rep_start_root_object);
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder("root", "_map");
       //  Previously: g_err |= cbor_encoder_create_map(&g_encoder, &root_map, CborIndefiniteLength)
       cbor_encoder_create_map(
         COAP_CONTEXT.global_encoder(),
         encoder,
-        tinycbor::CborIndefiniteLength
+        mynewt::encoding::tinycbor::CborIndefiniteLength
       ); 
     });
     d!(end oc_rep_start_root_object);
@@ -838,7 +852,7 @@ macro_rules! oc_rep_start_root_object {
 macro_rules! oc_rep_end_root_object {
   ($obj:ident) => {{
     d!(begin oc_rep_end_root_object);
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder("root", "_map");
       //  Previously: g_err |= cbor_encoder_close_container(&g_encoder, &root_map)
       cbor_encoder_close_container(
@@ -859,7 +873,7 @@ macro_rules! oc_rep_start_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let parent_encoder = COAP_CONTEXT.encoder(
         stringify!($parent), 
         stringify!($parent_suffix)
@@ -873,7 +887,7 @@ macro_rules! oc_rep_start_object {
       cbor_encoder_create_map(
         parent_encoder,
         encoder,
-        tinycbor::CborIndefiniteLength
+        mynewt::encoding::tinycbor::CborIndefiniteLength
       );
     });
     d!(end oc_rep_start_object);
@@ -889,7 +903,7 @@ macro_rules! oc_rep_end_object {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_map"  //  key##_map
     );
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let parent_encoder = COAP_CONTEXT.encoder(
         stringify!($parent), 
         stringify!($parent_suffix)
@@ -917,7 +931,7 @@ macro_rules! oc_rep_start_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let parent_encoder = COAP_CONTEXT.encoder(
         stringify!($parent), 
         stringify!($parent_suffix)
@@ -931,7 +945,7 @@ macro_rules! oc_rep_start_array {
       cbor_encoder_create_array(
         parent_encoder, 
         encoder,
-        tinycbor::CborIndefiniteLength
+        mynewt::encoding::tinycbor::CborIndefiniteLength
       );
     });
     d!(end oc_rep_start_array);
@@ -947,7 +961,7 @@ macro_rules! oc_rep_end_array {
       ", key: ",    stringify!($key),
       ", child: ",  stringify!($key), "_array"  //  key##_array
     );
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let parent_encoder = COAP_CONTEXT.encoder(
         stringify!($parent), 
         stringify!($parent_suffix)
@@ -981,7 +995,7 @@ macro_rules! oc_rep_set_array {
     );
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null:   &[u8] = stringify!($key).to_bytes_optional_nul();
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($object), 
         "_map"
@@ -1067,7 +1081,7 @@ macro_rules! oc_rep_set_int {
     //  Convert key to null-terminated char array. If key is `t`, convert to `"t\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     let value = $value as i64;
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($obj), 
         "_map"
@@ -1096,7 +1110,7 @@ macro_rules! oc_rep_set_int {
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value = $value as i64;
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($obj), 
         "_map"
@@ -1119,18 +1133,18 @@ macro_rules! oc_rep_set_int {
 ///  Encode a text value 
 #[macro_export]
 macro_rules! oc_rep_set_text_string {
-  ($object:ident, $key:expr, $value:expr) => {{
+  ($obj:ident, $key:expr, $value:expr) => {{
     concat!(
       "begin oc_rep_set_text_string ",
-      ", object: ", stringify!($object),
-      ", key: ",    stringify!($key),
-      ", value: ",  stringify!($value),
-      ", child: ",  stringify!($object), "_map"  //  object##_map
+      ", c: ",  stringify!($obj),
+      ", k: ",  stringify!($key),
+      ", v: ",  stringify!($value),
+      ", ch: ", stringify!($obj), "_map"  //  object##_map
     );
     //  Convert key and value to char array, which may or may not be null-terminated.
     let key_with_opt_null:   &[u8] = $key.to_bytes_optional_nul();
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
-    proc_macros::try_cbor!({
+    mynewt_macros::try_cbor!({
       let encoder = COAP_CONTEXT.encoder(
         stringify!($obj), 
         "_map"
