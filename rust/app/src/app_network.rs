@@ -46,11 +46,7 @@ pub fn get_device_id2() -> MynewtResult<Strn> {
     unsafe {
         "----------Insert Call: `let result_code = os_task_init(`----------";
         let result_value: *const ::cty::c_char = get_device_id();
-        let wrap_result: Strn = Strn{ 
-            bytestr: b"BAD_STRN\0",
-            //cstr: 0 as *const u8,
-            cstr: result_value,
-        };
+        let wrap_result: Strn = Strn::from_cstr(result_value);
         Ok(wrap_result)
     }
 }

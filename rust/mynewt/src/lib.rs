@@ -96,7 +96,9 @@ pub mod result {
     }
 }
 
-/// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
+/// Represents a null-terminated string, suitable for passing to Mynewt APIs as `* const char`.
+/// The string could be a null-terminated byte string created in Rust, or a pointer to a null-terminated string returned by C.
+/// Pointer may be null.
 pub struct Strn {
     /// Either a byte string terminated with null, or a pointer to a null-terminated string
     pub rep: StrnRep
@@ -112,7 +114,7 @@ pub enum StrnRep {
 }
 
 impl Strn {
-    /// Create a new byte string. Fail if the last byte is not zero.
+    /// Create a new `Strn` with a byte string. Fail if the last byte is not zero.
     /// ```
     /// Strn::new(b"network\0")
     /// strn!("network")
@@ -125,8 +127,15 @@ impl Strn {
         }
     }
 
+    /// Create a new `Strn` with a null-terminated string pointer returned by C.
+    pub fn from_cstr(cstr: *const u8) -> Strn {
+        Strn { 
+            rep: StrnRep::CStr(cstr)
+        }
+    }
+
     /// Return a pointer to the string
-    pub fn as_ptr(self) -> *const u8 {
+    pub fn as_ptr(&self) -> *const u8 {
         match self.rep {
             StrnRep::ByteStr(bs) => { bs.as_ptr() }
             StrnRep::CStr(cstr)  => { cstr }
@@ -134,13 +143,15 @@ impl Strn {
     }
 
     /// Return the length of the string. TODO: For safety, we limit to 128.
-    pub fn len(self) -> usize {
+    pub fn len(&self) -> usize {
         match self.rep {
             StrnRep::ByteStr(bs) => { bs.len() }
             StrnRep::CStr(cstr)  => { 
+                //  Look for the null termination.
+                if cstr.is_null() { return 0; }
                 for len in 0..127 {
                     let ptr: *const u8 =  ((cstr as u32) + len) as *const u8;
-                    if *ptr == 0 { return len as usize; }                    
+                    if unsafe { *ptr } == 0 { return len as usize; }                    
                 }
                 assert!(false);  //  String too long
                 return 128 as usize;
@@ -150,7 +161,7 @@ impl Strn {
 
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
-    pub fn as_cstr(self) -> *const ::cty::c_char {
+    pub fn as_cstr(&self) -> *const ::cty::c_char {
         match self.rep {
             StrnRep::ByteStr(bs) => { 
                 //  Last byte must be 0.
@@ -163,7 +174,7 @@ impl Strn {
 
     /// Return the byte string.
     /// Fail if the last byte is not zero.
-    pub fn as_bytestr(self) -> &'static [u8] {
+    pub fn as_bytestr(&self) -> &'static [u8] {
         match self.rep {
             StrnRep::ByteStr(bs) => {
                 //  Last byte must be 0.
@@ -178,7 +189,7 @@ impl Strn {
     }
 
     /// Fail if the last byte is not zero.
-    pub fn validate(self) {
+    pub fn validate(&self) {
         match self.rep {
             StrnRep::ByteStr(bs) => {         
                 //  Last byte must be 0.

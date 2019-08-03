@@ -146,7 +146,7 @@ pub fn strn3(item: TokenStream) -> TokenStream {
 }
 
 /// Initialise a null-terminated bytestring `Strn` that's suitable for passing to Mynewt APIs
-/// `init_strn!("network")` expands to `Strn{ bytestr: b"network\0" }`
+/// `init_strn!("network")` expands to `Strn{ rep: ByteStr(b"network\0") }`
 /// Used like this:
 /// ```
 /// static STATIC_STRN: Strn = init_strn!("network");
@@ -156,12 +156,20 @@ pub fn strn3(item: TokenStream) -> TokenStream {
 pub fn init_strn(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a literal string e.g. `"network"`.
     let input = parse_macro_input!(item as syn::LitStr);
-    //  Get the literal string value.
-    let val = input.value();
-    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
-    let expanded = format!(r#"Strn{{ bytestr: b"{}\0", cstr: 0 as *const ::cty::c_char }}"#, val);
-    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
-    expanded.parse().unwrap()
+    let span = proc_macro2::Span::call_site();
+
+    //  Get the literal string value and terminate with null. Convert to bytestring.
+    let val = input.value().to_string() + "\0";
+    let bytestr = syn::LitByteStr::new(val.as_bytes(), span);
+
+    //  Compose the macro expansion as tokens.
+    let expanded = quote! {
+        Strn {
+            rep: mynewt::StrnRep::ByteStr(#bytestr)
+        }
+    };
+    //  Return the expanded tokens back to the Rust compiler.
+    return expanded.into();
 }
 
 /// Transform a block of CBOR encoding calls by adding error checking. All lines must terminate with `;`

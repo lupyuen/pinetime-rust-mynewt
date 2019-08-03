@@ -305,17 +305,10 @@ fn transform_arg(arg: &ArgCaptured) -> TransformedArg {
         //  * const :: cty :: c_char => &Strn
         "* const :: cty :: c_char" => {
             wrap_type = "&Strn".to_string();
-            //  e.g. Strn::validate_bytestr(name.bytestr)
-            //validation_stmt = format!("Strn::validate_bytestr({}.as_bytestr())", ident);
-            validation_stmt = format!(r#"
-                let {}_bs: &'static [u8] = match {}.rep {{
-                    crate::StrnRep::ByteStr(bs) => {{ bs }}
-                    crate::StrnRep::CStr(cstr)  => {{ b"\0" }}
-                }};
-                Strn::validate_bytestr({}_bs);
-            "#, ident, ident, ident);
-            //  e.g. name.bytestr.as_ptr()
-            call_expr = format!("{}_bs.as_ptr()", ident);
+            //  e.g. `name.validate()`
+            validation_stmt = format!("{}.validate()", ident);
+            //  e.g. `name.as_ptr()`
+            call_expr = format!("{}.as_ptr()", ident);
         }
         //  * mut :: cty :: c_void => Ptr
         "* mut :: cty :: c_void" => {
