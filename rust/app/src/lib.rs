@@ -18,10 +18,10 @@
  */
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server over NB-IoT.
 //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-//!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/main.c`
+//!  fixes AT response parsing bugs.  The patched file must be present in that location.
+//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/main.c`
 
-#![no_std]  //  Don't link with standard Rust library, which is not compatible with embedded systems
+#![no_std]                       //  Don't link with standard Rust library, which is not compatible with embedded systems
 #![feature(trace_macros)]        //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]       //  Allow `concat_idents!()` macro used in `coap!()` macro
 #![feature(const_transmute)]     //  Allow `transmute` for initialising Mynewt structs
@@ -69,21 +69,22 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
                 .expect("GET fail")
         ).expect("RUN fail");
     }
-    //  Never comes here.
+    //  Never comes here
 }
 
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     //  Display the filename and line number to the Semihosting Console.
+    console::print("panic ");
     if let Some(location) = info.location() {
         let file = location.file();
         let line = location.line();
-        console::print("panic at ");  console::buffer(&file);
+        console::print("at ");        console::buffer(&file);
         console::print(" line 0x");   console::printhex(line as u8);  //  TODO: Print in decimal not hex. Allow more than 255 lines.
         console::print("\n");         console::flush();
     } else {
-        console::print("panic unknown loc\n");  console::flush();
+        console::print("no loc\n");   console::flush();
     }
     //  Pause in the debugger.
     bkpt();

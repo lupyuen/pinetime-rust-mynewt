@@ -17,6 +17,7 @@
  * under the License.
  */
 //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
+//!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
 
 use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types

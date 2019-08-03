@@ -20,7 +20,7 @@
 //!  The sensor data will be transmitted over NB-IoT.
 //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
 //!  fixes response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
+//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/network.c`
 
 use mynewt::{
     result::*,                  //  Import Mynewt result and error types
