@@ -98,19 +98,18 @@ pub mod result {
 
 /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
 pub struct Strn {
-    /// Byte string terminated with null
-    pub bytestr: &'static [u8],
-    /// Pointer to a null-terminated string
-    pub cstr: *const u8,
+    /// Either a byte string terminated with null, or a pointer to a null-terminated string
+    pub rep: StrnRep
 }
 
-/*
+/// Either a byte string or a string pointer
 #[repr(u8)]
-enum Strn {
+pub enum StrnRep {
+    /// Byte string terminated with null
     ByteStr(&'static [u8]),
+    /// Pointer to a null-terminated string
     CStr(*const u8),
 }
-*/
 
 impl Strn {
     /// Create a new byte string. Fail if the last byte is not zero.
@@ -121,37 +120,72 @@ impl Strn {
     pub fn new(bs: &'static [u8]) -> Strn {
         //  Last byte must be 0.
         assert_eq!(bs.last(), Some(&0u8));
-        let res = Strn { 
-            bytestr: bs,
-            cstr: 0 as *const u8
-        };
-        res
+        Strn { 
+            rep: StrnRep::ByteStr(bs)
+        }
+    }
+
+    /// Return a pointer to the string
+    pub fn as_ptr(self) -> *const u8 {
+        match self.rep {
+            StrnRep::ByteStr(bs) => { bs.as_ptr() }
+            StrnRep::CStr(cstr)  => { cstr }
+        }
+    }
+
+    /// Return the length of the string. TODO: For safety, we limit to 128.
+    pub fn len(self) -> usize {
+        match self.rep {
+            StrnRep::ByteStr(bs) => { bs.len() }
+            StrnRep::CStr(cstr)  => { 
+                for len in 0..127 {
+                    let ptr: *const u8 =  ((cstr as u32) + len) as *const u8;
+                    if *ptr == 0 { return len as usize; }                    
+                }
+                assert!(false);  //  String too long
+                return 128 as usize;
+            }
+        }
     }
 
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
     pub fn as_cstr(self) -> *const ::cty::c_char {
-        if self.cstr != 0 as *const u8 { return self.cstr; }
-        //  Last byte must be 0.
-        let bs: &'static [u8] = self.bytestr;
-        assert_eq!(bs.last(), Some(&0u8));
-        bs.as_ptr() as *const ::cty::c_char
+        match self.rep {
+            StrnRep::ByteStr(bs) => { 
+                //  Last byte must be 0.
+                assert_eq!(bs.last(), Some(&0u8));
+                bs.as_ptr() as *const ::cty::c_char
+            }
+            StrnRep::CStr(cstr)  => { cstr }
+        }
     }
 
     /// Return the byte string.
     /// Fail if the last byte is not zero.
     pub fn as_bytestr(self) -> &'static [u8] {
-        //  Last byte must be 0.
-        let bs: &'static [u8] = self.bytestr;
-        assert_eq!(bs.last(), Some(&0u8));
-        &bs
+        match self.rep {
+            StrnRep::ByteStr(bs) => {
+                //  Last byte must be 0.
+                assert_eq!(bs.last(), Some(&0u8));
+                &bs
+            }
+            StrnRep::CStr(_cstr)  => { 
+                assert!(false);  //  Not implemented
+                b"\0"
+            }
+        }
     }
 
     /// Fail if the last byte is not zero.
     pub fn validate(self) {
-        //  Last byte must be 0.
-        let bs = &self.bytestr;
-        assert_eq!(bs.last(), Some(&0u8));
+        match self.rep {
+            StrnRep::ByteStr(bs) => {         
+                //  Last byte must be 0.
+                assert_eq!(bs.last(), Some(&0u8));
+            }
+            StrnRep::CStr(_cstr)  => {}
+        }
     }
 
     /// Fail if the last byte is not zero.

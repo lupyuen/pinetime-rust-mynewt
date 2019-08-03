@@ -62,19 +62,16 @@ pub mod kernel {
 
 
 
-    /*
-    #[repr(u8)]
-    enum Strn {
-        ByteStr(&'static [u8]),
-        CStr(*const u8),
-    }
-    */
+
+    //  Last byte must be 0.
+
+
+    //  String too long
 
     //  Last byte must be 0.
 
     //  Last byte must be 0.
-
-    //  Last byte must be 0.
+    //  Not implemented
 
     //  Last byte must be 0.
 
@@ -2421,13 +2418,12 @@ pub mod kernel {
                                     arg8: u16) -> ::cty::c_int;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-            Strn::validate_bytestr(arg2.bytestr);
+            Strn::validate_bytestr(arg2.as_bytestr());
             unsafe {
                 "----------Insert Call: `let result_code = os_task_init(`----------";
                 let result_value =
                     os_task_init(arg1 as *mut os_task,
-                                 arg2.bytestr.as_ptr() as
-                                     *const ::cty::c_char,
+                                 arg2.as_ptr() as *const ::cty::c_char,
                                  arg3 as os_task_func_t,
                                  arg4 as *mut ::cty::c_void, arg5 as u8,
                                  arg6 as os_time_t,
@@ -4231,12 +4227,11 @@ pub mod hw {
                      -> *mut sensor;
                 }
                 "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-                Strn::validate_bytestr(devname.bytestr);
+                Strn::validate_bytestr(devname.as_bytestr());
                 unsafe {
                     "----------Insert Call: `let result_code = os_task_init(`----------";
                     let result_value =
-                        sensor_mgr_find_next_bydevname(devname.bytestr.as_ptr()
-                                                           as
+                        sensor_mgr_find_next_bydevname(devname.as_ptr() as
                                                            *const ::cty::c_char,
                                                        prev_cursor as
                                                            *mut sensor);
@@ -4273,11 +4268,11 @@ pub mod hw {
                      -> ::cty::c_int;
                 }
                 "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-                Strn::validate_bytestr(devname.bytestr);
+                Strn::validate_bytestr(devname.as_bytestr());
                 unsafe {
                     "----------Insert Call: `let result_code = os_task_init(`----------";
                     let result_value =
-                        sensor_set_poll_rate_ms(devname.bytestr.as_ptr() as
+                        sensor_set_poll_rate_ms(devname.as_ptr() as
                                                     *const ::cty::c_char,
                                                 poll_rate as u32);
                     if result_value == 0 {
@@ -5745,6 +5740,13 @@ pub mod sys {
         //! Display messages on Arm Semihosting Console (via OpenOCD)
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
         pub fn print(msg: &str) {
+            unsafe {
+                console_buffer(msg.as_ptr(), msg.len() as u32);
+                console_flush();
+            }
+        }
+        ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+        pub fn print_strn(msg: &crate::Strn) {
             unsafe {
                 console_buffer(msg.as_ptr(), msg.len() as u32);
                 console_flush();
@@ -8094,7 +8096,7 @@ pub mod encoding {
         use cstr_core::CStr;
         use cty::*;
         use crate::{sys::console, encoding::tinycbor::CborEncoder, fill_zero,
-                    Strn};
+                    Strn, StrnRep};
         /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
         pub static mut COAP_CONTEXT: CoapContext =
             unsafe {
@@ -8138,14 +8140,16 @@ pub mod encoding {
             };
         impl CoapContext {
             pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
-                let key_cstr =
-                    if key.cstr.is_null() {
-                        self.key_to_cstr(key.bytestr)
-                    } else { key.cstr };
-                let value_cstr =
-                    if value.cstr.is_null() {
-                        self.value_to_cstr(value.bytestr)
-                    } else { value.cstr };
+                let key_cstr: *const u8 =
+                    match key.rep {
+                        StrnRep::ByteStr(bs) => { self.key_to_cstr(bs) }
+                        StrnRep::CStr(cstr) => { cstr }
+                    };
+                let value_cstr: *const u8 =
+                    match value.rep {
+                        StrnRep::ByteStr(bs) => { self.value_to_cstr(bs) }
+                        StrnRep::CStr(cstr) => { cstr }
+                    };
                 unsafe {
                     crate::libs::mynewt_rust::json_helper_set_text_string(self.to_void_ptr(),
                                                                           key_cstr,
@@ -8163,7 +8167,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   57u32, 9u32))
+                                                   61u32, 9u32))
                     }
                 };
                 self.key_buffer[..s.len()].copy_from_slice(s);
@@ -8181,7 +8185,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   70u32, 9u32))
+                                                   74u32, 9u32))
                     }
                 };
                 self.value_buffer[..s.len()].copy_from_slice(s);
@@ -8215,7 +8219,7 @@ pub mod encoding {
                         {
                             ::core::panicking::panic(&("assertion failed: false",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       97u32, 13u32))
+                                                       101u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8239,7 +8243,7 @@ pub mod encoding {
                         {
                             ::core::panicking::panic(&("assertion failed: false",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       111u32, 13u32))
+                                                       115u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8267,7 +8271,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   118u32,
+                                                                   122u32,
                                                                    9u32))
                                 }
                             }
@@ -8297,7 +8301,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   123u32,
+                                                                   127u32,
                                                                    9u32))
                                 }
                             }
@@ -9372,12 +9376,11 @@ pub mod libs {
                 pub fn init_server_post(uri: *const ::cty::c_char) -> bool;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-            Strn::validate_bytestr(uri.bytestr);
+            Strn::validate_bytestr(uri.as_bytestr());
             unsafe {
                 "----------Insert Call: `let result_code = os_task_init(`----------";
                 let result_value =
-                    init_server_post(uri.bytestr.as_ptr() as
-                                         *const ::cty::c_char);
+                    init_server_post(uri.as_ptr() as *const ::cty::c_char);
                 Ok(result_value)
             }
         }
@@ -10640,10 +10643,18 @@ pub mod result {
 }
 /// Represents a null-terminated byte string, suitable for passing to Mynewt APIs as `* const char`
 pub struct Strn {
+    /// Either a byte string terminated with null, or a pointer to a null-terminated string
+    pub rep: StrnRep,
+}
+/// Either a byte string or a string pointer
+#[repr(u8)]
+pub enum StrnRep {
+
     /// Byte string terminated with null
-    pub bytestr: &'static [u8],
+    ByteStr(&'static [u8]),
+
     /// Pointer to a null-terminated string
-    pub cstr: *const u8,
+    CStr(*const u8),
 }
 impl Strn {
     /// Create a new byte string. Fail if the last byte is not zero.
@@ -10672,109 +10683,158 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           123u32, 9u32))
+                                                           122u32, 9u32))
                         }
                     }
                 }
             }
         };
-        let res = Strn{bytestr: bs, cstr: 0 as *const u8,};
-        res
+        Strn{rep: StrnRep::ByteStr(bs),}
+    }
+    /// Return a pointer to the string
+    pub fn as_ptr(self) -> *const u8 {
+        match self.rep {
+            StrnRep::ByteStr(bs) => { bs.as_ptr() }
+            StrnRep::CStr(cstr) => { cstr }
+        }
+    }
+    /// Return the length of the string. TODO: For safety, we limit to 128.
+    pub fn len(self) -> usize {
+        match self.rep {
+            StrnRep::ByteStr(bs) => { bs.len() }
+            StrnRep::CStr(cstr) => {
+                for len in 0..127 {
+                    let ptr: *const u8 = ((cstr as u32) + len) as *const u8;
+                    if *ptr == 0 { return len as usize; }
+                }
+                if !false {
+                    {
+                        ::core::panicking::panic(&("assertion failed: false",
+                                                   "rust/mynewt/src/lib.rs",
+                                                   145u32, 17u32))
+                    }
+                };
+                return 128 as usize;
+            }
+        }
     }
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
     pub fn as_cstr(self) -> *const ::cty::c_char {
-        if self.cstr != 0 as *const u8 { return self.cstr; }
-        let bs: &'static [u8] = self.bytestr;
-        {
-            match (&bs.last(), &Some(&0u8)) {
-                (left_val, right_val) => {
-                    if !(*left_val == *right_val) {
-                        {
-                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                          "`,\n right: `",
-                                                                                          "`"],
-                                                                                        &match (&&*left_val,
-                                                                                                &&*right_val)
-                                                                                             {
-                                                                                             (arg0,
-                                                                                              arg1)
-                                                                                             =>
-                                                                                             [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                              ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt)],
-                                                                                         }),
-                                                         &("rust/mynewt/src/lib.rs",
-                                                           137u32, 9u32))
+        match self.rep {
+            StrnRep::ByteStr(bs) => {
+                {
+                    match (&bs.last(), &Some(&0u8)) {
+                        (left_val, right_val) => {
+                            if !(*left_val == *right_val) {
+                                {
+                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                  "`,\n right: `",
+                                                                                                  "`"],
+                                                                                                &match (&&*left_val,
+                                                                                                        &&*right_val)
+                                                                                                     {
+                                                                                                     (arg0,
+                                                                                                      arg1)
+                                                                                                     =>
+                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                 }),
+                                                                 &("rust/mynewt/src/lib.rs",
+                                                                   157u32,
+                                                                   17u32))
+                                }
+                            }
                         }
                     }
-                }
+                };
+                bs.as_ptr() as *const ::cty::c_char
             }
-        };
-        bs.as_ptr() as *const ::cty::c_char
+            StrnRep::CStr(cstr) => { cstr }
+        }
     }
     /// Return the byte string.
     /// Fail if the last byte is not zero.
     pub fn as_bytestr(self) -> &'static [u8] {
-        let bs: &'static [u8] = self.bytestr;
-        {
-            match (&bs.last(), &Some(&0u8)) {
-                (left_val, right_val) => {
-                    if !(*left_val == *right_val) {
-                        {
-                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                          "`,\n right: `",
-                                                                                          "`"],
-                                                                                        &match (&&*left_val,
-                                                                                                &&*right_val)
-                                                                                             {
-                                                                                             (arg0,
-                                                                                              arg1)
-                                                                                             =>
-                                                                                             [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                              ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt)],
-                                                                                         }),
-                                                         &("rust/mynewt/src/lib.rs",
-                                                           146u32, 9u32))
+        match self.rep {
+            StrnRep::ByteStr(bs) => {
+                {
+                    match (&bs.last(), &Some(&0u8)) {
+                        (left_val, right_val) => {
+                            if !(*left_val == *right_val) {
+                                {
+                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                  "`,\n right: `",
+                                                                                                  "`"],
+                                                                                                &match (&&*left_val,
+                                                                                                        &&*right_val)
+                                                                                                     {
+                                                                                                     (arg0,
+                                                                                                      arg1)
+                                                                                                     =>
+                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                 }),
+                                                                 &("rust/mynewt/src/lib.rs",
+                                                                   170u32,
+                                                                   17u32))
+                                }
+                            }
                         }
                     }
-                }
+                };
+                &bs
             }
-        };
-        &bs
+            StrnRep::CStr(_cstr) => {
+                if !false {
+                    {
+                        ::core::panicking::panic(&("assertion failed: false",
+                                                   "rust/mynewt/src/lib.rs",
+                                                   174u32, 17u32))
+                    }
+                };
+                b"\0"
+            }
+        }
     }
     /// Fail if the last byte is not zero.
     pub fn validate(self) {
-        let bs = &self.bytestr;
-        {
-            match (&bs.last(), &Some(&0u8)) {
-                (left_val, right_val) => {
-                    if !(*left_val == *right_val) {
-                        {
-                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                          "`,\n right: `",
-                                                                                          "`"],
-                                                                                        &match (&&*left_val,
-                                                                                                &&*right_val)
-                                                                                             {
-                                                                                             (arg0,
-                                                                                              arg1)
-                                                                                             =>
-                                                                                             [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                              ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt)],
-                                                                                         }),
-                                                         &("rust/mynewt/src/lib.rs",
-                                                           154u32, 9u32))
+        match self.rep {
+            StrnRep::ByteStr(bs) => {
+                {
+                    match (&bs.last(), &Some(&0u8)) {
+                        (left_val, right_val) => {
+                            if !(*left_val == *right_val) {
+                                {
+                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                  "`,\n right: `",
+                                                                                                  "`"],
+                                                                                                &match (&&*left_val,
+                                                                                                        &&*right_val)
+                                                                                                     {
+                                                                                                     (arg0,
+                                                                                                      arg1)
+                                                                                                     =>
+                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                 }),
+                                                                 &("rust/mynewt/src/lib.rs",
+                                                                   185u32,
+                                                                   17u32))
+                                }
+                            }
                         }
                     }
-                }
+                };
             }
-        };
+            StrnRep::CStr(_cstr) => { }
+        }
     }
     /// Fail if the last byte is not zero.
     pub fn validate_bytestr(bs: &'static [u8]) {
@@ -10798,7 +10858,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           160u32, 9u32))
+                                                           194u32, 9u32))
                         }
                     }
                 }

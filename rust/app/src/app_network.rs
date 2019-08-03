@@ -98,7 +98,8 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
     //  to compose and post CoAP messages.
     sensor_network::do_server_post() ? ;
 
-    console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
+    console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=");
+    console::print_strn(&device_id); console::print("\n");
 
     //  The CoAP Background Task will call oc_tx_ucast() in the network driver to transmit the message.
     Ok(())

@@ -5,7 +5,7 @@ use cty::*;               //  Import C types from cty library: https://crates.io
 use crate::{
     sys::console,
     encoding::tinycbor::CborEncoder,
-    fill_zero, Strn,
+    fill_zero, Strn, StrnRep,
 };
 
 /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
@@ -32,12 +32,16 @@ static mut cbor_encoder1: CborEncoder = fill_zero!(CborEncoder);
 impl CoapContext {
 
     pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
-        let key_cstr = 
-            if key.cstr.is_null() { self.key_to_cstr(key.bytestr) }
-            else { key.cstr };
-        let value_cstr = 
-            if value.cstr.is_null() { self.value_to_cstr(value.bytestr) }
-            else { value.cstr };
+        let key_cstr: *const u8 =
+            match key.rep {
+                StrnRep::ByteStr(bs) => { self.key_to_cstr(bs) }
+                StrnRep::CStr(cstr)  => { cstr }
+            };
+        let value_cstr: *const u8 =
+            match value.rep {
+                StrnRep::ByteStr(bs) => { self.value_to_cstr(bs) }
+                StrnRep::CStr(cstr)  => { cstr }
+            };
         unsafe {
             crate::libs::mynewt_rust::json_helper_set_text_string(
                 self.to_void_ptr(),
