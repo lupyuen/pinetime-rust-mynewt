@@ -95,13 +95,19 @@ pub fn strn3(item: TokenStream) -> TokenStream {
 
     let expr = parse_macro_input!(item as syn::Expr);
     let expr_str = quote! { #expr }.to_string();
-    println!("strn: {:#?}", expr);
-    //  println!("strn3: {:#?}", expr_str);
+    let span = proc_macro2::Span::call_site();
     match expr {
         syn::Expr::Macro(expr) => {
+            //  Transform `stringify ! ( value )` to `&Strn::new( b"value\0" )`
             println!("macro: {:#?}", expr_str);
+            let expr_split: Vec<&str> = expr_str.splitn(2, "stringify ! ( ").collect();
+            let ident = expr_split[1];
+            let ident_split: Vec<&str> = ident.splitn(2, " )").collect();
+            let ident = ident_split[0].to_string() + "\0";            
+            println!("ident: {:#?}", ident);
+            let bytestr = syn::LitByteStr::new(ident.as_bytes(), span);
             let expanded = quote! {
-                &Strn::new( b"zzzmacro\0" )
+                &Strn::new( #bytestr )
             };
             return expanded.into();
         }
@@ -124,6 +130,8 @@ pub fn strn3(item: TokenStream) -> TokenStream {
         }
         _ => {}
     };
+    println!("strn: {:#?}", expr);
+    println!("strn3: {:#?}", expr_str);
     let expanded = quote! { &Strn::new( b"zzzunknown\0" ) };
     expanded.into()
 }

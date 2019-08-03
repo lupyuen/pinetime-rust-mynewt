@@ -6461,8 +6461,9 @@ pub mod encoding {
                                               stringify ! ( $ key ) , ", v: "
                                               , stringify ! ( $ value ) ) ;
                                               let key_strn = strn3 ! (
-                                              stringify ! ( $ key ) ) ; } } ;
-                                              (
+                                              stringify ! ( $ key ) ) ; let
+                                              value_strn = strn3 ! ( $ value )
+                                              ; } } ; (
                                               $ context : ident , $ key : expr
                                               , $ value : expr ) => {
                                               {

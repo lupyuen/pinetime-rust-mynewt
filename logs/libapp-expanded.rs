@@ -1,77 +1,28 @@
 item: "stringify ! ( key )"
-strn: Macro(
-    ExprMacro {
-        attrs: [],
-        mac: Macro {
-            path: Path {
-                leading_colon: None,
-                segments: [
-                    PathSegment {
-                        ident: Ident {
-                            ident: "stringify",
-                            span: #69 bytes(3868755..3868764),
-                        },
-                        arguments: None,
-                    },
-                ],
-            },
-            bang_token: Bang,
-            delimiter: Paren(
-                Paren,
-            ),
-            tts: TokenStream [
-                Group {
-                    delimiter: None,
-                    stream: TokenStream [
-                        Ident {
-                            ident: "key",
-                            span: #61 bytes(3867229..3867232),
-                        },
-                    ],
-                    span: #69 bytes(3868769..3868774),
-                },
-            ],
-        },
-    },
-)
 macro: "stringify ! ( key )"
-item: "stringify ! ( value )"
-strn: Macro(
-    ExprMacro {
+ident: "key\u{0}"
+item: "\"device\""
+strn: Group(
+    ExprGroup {
         attrs: [],
-        mac: Macro {
-            path: Path {
-                leading_colon: None,
-                segments: [
-                    PathSegment {
-                        ident: Ident {
-                            ident: "stringify",
-                            span: #73 bytes(3868755..3868764),
-                        },
-                        arguments: None,
+        group_token: Group,
+        expr: Lit(
+            ExprLit {
+                attrs: [],
+                lit: Str(
+                    LitStr {
+                        token: Literal { lit: Str_(device), suffix: None, span: Span { lo: BytePos(3868806), hi: BytePos(3868813), ctxt: #69 } },
                     },
-                ],
+                ),
             },
-            bang_token: Bang,
-            delimiter: Paren(
-                Paren,
-            ),
-            tts: TokenStream [
-                Group {
-                    delimiter: None,
-                    stream: TokenStream [
-                        Ident {
-                            ident: "value",
-                            span: #61 bytes(3867296..3867301),
-                        },
-                    ],
-                    span: #73 bytes(3868769..3868774),
-                },
-            ],
-        },
+        ),
     },
 )
+strn3: "  \"device\"  "
+item: "stringify ! ( value )"
 macro: "stringify ! ( value )"
+ident: "value\u{0}"
+item: "$crate::parse!(@ json device_id)"
 #![feature(prelude_import)]
 #![no_std]
 /*
@@ -402,12 +353,15 @@ mod app_network {
                                             {
                                                 "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
                                                 let key_strn =
-                                                    &Strn::new(b"zzzmacro\0");
+                                                    &Strn::new(b"key\x00");
+                                                let value_strn =
+                                                    &Strn::new(b"zzzunknown\0");
                                             };
                                             {
                                                 "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json device_id)";
                                                 let key_strn =
-                                                    &Strn::new(b"zzzmacro\0");
+                                                    &Strn::new(b"value\x00");
+                                                let value_strn = device_id;
                                             };
                                         };
                                         {

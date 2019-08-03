@@ -801,7 +801,7 @@ macro_rules! json_rep_set_text_string {
     };
     */
     let key_strn = strn3!(stringify!($key));
-    //let value_strn = strn3!($value);
+    let value_strn = strn3!($value);
   }};
 
   ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
