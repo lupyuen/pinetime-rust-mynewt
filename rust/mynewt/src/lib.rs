@@ -161,12 +161,12 @@ impl Strn {
 
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
-    pub fn as_cstr(&self) -> *const ::cty::c_char {
+    pub fn as_cstr(&self) -> *const u8 {
         match self.rep {
             StrnRep::ByteStr(bs) => { 
                 //  Last byte must be 0.
                 assert_eq!(bs.last(), Some(&0u8));
-                bs.as_ptr() as *const ::cty::c_char
+                bs.as_ptr() as *const u8
             }
             StrnRep::CStr(cstr)  => { cstr }
         }

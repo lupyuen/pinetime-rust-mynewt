@@ -45,8 +45,8 @@ impl CoapContext {
         unsafe {
             crate::libs::mynewt_rust::json_helper_set_text_string(
                 self.to_void_ptr(),
-                key_cstr,
-                value_cstr
+                key_cstr as *const c_char,
+                value_cstr as *const c_char
             )
         };
     }
@@ -54,27 +54,27 @@ impl CoapContext {
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
-    pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {                
+    pub fn key_to_cstr(&mut self, s: &[u8]) -> *const u8 {                
         //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
+        if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
         //  Else copy into static key buffer and return pointer to buffer.
         assert!(s.len() < COAP_KEY_SIZE);  //  Key too long
         self.key_buffer[..s.len()].copy_from_slice(s);
         self.key_buffer[s.len()] = 0;
-        self.key_buffer.as_ptr() as *const c_char
+        self.key_buffer.as_ptr() as *const u8
     }
 
     /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP values.
     /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
     /// append null and return the buffer as a pointer.
-    pub fn value_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+    pub fn value_to_cstr(&mut self, s: &[u8]) -> *const u8 {
         //  If null-terminated, return as pointer.
-        if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
+        if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
         //  Else copy into static value buffer and return pointer to buffer.
         assert!(s.len() < COAP_VALUE_SIZE);  //  Value too long
         self.value_buffer[..s.len()].copy_from_slice(s);
         self.value_buffer[s.len()] = 0;
-        self.value_buffer.as_ptr() as *const c_char
+        self.value_buffer.as_ptr() as *const u8
     }
 
     /// Compute the byte length of the string in `s`.

@@ -173,7 +173,7 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             #validation_tokens
             unsafe {
-            "----------Insert Call: `let result_code = os_task_init(`----------";
+                "----------Insert Call: `let result_value = os_task_init(`----------";
                 #get_result_tokens #fname_token(
                     //  "----------Insert Call Expr----------";
                     #call_tokens
@@ -187,6 +187,7 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
                         stack_bottom.as_ptr() as *mut os_stack_t,  //  Converted to pointer
                         stack_size as u16  */
                 );
+                "----------Insert Result: `Ok(Strn::from_cstr(result_value))`----------";
                 #return_result_tokens
             }
         }
@@ -339,9 +340,10 @@ fn transform_arg(arg: &ArgCaptured) -> TransformedArg {
     }
 }
 
-/// Transform the extern return type e.g. `:: cty :: c_int`
+/// Transform the extern return type e.g. `:: cty :: c_int` becomes `MynewtResult< () >`
 fn transform_return_type(output: &ReturnType) -> TransformedReturnType {
     let extern_type = quote! { output }.to_string();
+    let type_span = output.span();
     let wrap_type =
         if let ReturnType::Type (_, return_type) = output {
             //  e.g. `:: cty :: c_int` for Mynewt error code, or `* mut os_eventq`
@@ -352,35 +354,46 @@ fn transform_return_type(output: &ReturnType) -> TransformedReturnType {
 
     //  Declare the result type.
     let declare_result_tokens =
-        if wrap_type == ":: cty :: c_int" {  //  Mynewt error code
-            quote! { MynewtResult<()> }                        
-        }
-        else if wrap_type != "" {
-            let return_type_tokens = syn::parse_str::<Type>(&wrap_type).unwrap();
-            quote! { MynewtResult< #return_type_tokens > }  //  Specified return type e.g. `* mut os_eventq`
-        }
-        else { 
-            quote! { MynewtResult<()> }  //  No return type
-        };
+        match wrap_type.as_str() {
+            //  No return type (void)
+            ""                          => { quote! { MynewtResult< () > } }
+            //  Mynewt error code
+            ":: cty :: c_int"           => { quote! { MynewtResult< () > } }
+            //  String becomes `Strn`
+            "* const :: cty :: c_char"  => { quote! { MynewtResult< Strn > } }
+            //  Specified return type e.g. `* mut os_eventq`
+            _ => {
+                let return_type_tokens = syn::parse_str::<Type>(&wrap_type).unwrap();
+                quote! { MynewtResult< #return_type_tokens > }  
+            }
+        };        
     //  Assign the result.
     let get_result_tokens =
-        if wrap_type != "" { quote! { let result_value = } }
-        else { quote! {} };  //  No return type, so no result.
+        match wrap_type.as_str() {
+            "" => { quote! {} }  //  No return type, so no result.
+            _  => { quote! { let result_value = } }
+        };
     //  Return the result or error.
     let return_result_tokens = 
-    if wrap_type == ":: cty :: c_int" {  //  Mynewt error code
-        quote! {                         
-            if result_value == 0 { Ok(()) }
-            else { Err(MynewtError::from(result_value)) }
-        }
-    }
-    else if wrap_type != "" {
-        quote! { Ok( result_value ) }  //  Return Ok with return value.
-    }
-    else { 
-        quote! { Ok(()) }  //  If no return type, return nothing.
-    };
-    let type_span = output.span();
+        match wrap_type.as_str() {
+            //  If no return type, return nothing
+            "" => { quote! { Ok( () ) } }
+            //  Return Mynewt error code
+            ":: cty :: c_int" => {  
+                quote! {                         
+                    if result_value == 0 { Ok( () ) }
+                    else { Err( MynewtError::from(result_value) ) }
+                }
+            }
+            //  Return string wrapped as `Strn`
+            "* const :: cty :: c_char" => { 
+                quote! { 
+                    Ok( Strn::from_cstr(result_value as *const u8) )
+                } 
+            }
+            //  Return specified type e.g. `* mut os_eventq`
+            _ => { quote! { Ok( result_value ) } }
+        };
     //  Return the transformed return type.
     TransformedReturnType {
         extern_type:                Box::new(extern_type),
