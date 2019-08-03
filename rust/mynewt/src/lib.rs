@@ -9,32 +9,29 @@
 
 extern crate macros as mynewt_macros;  //  Import Procedural Macros from `macros` library
 
-//#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-pub mod kernel;     //  Mynewt Kernel API. Export folder `kernel` as Rust module `mynewt::kernel`
+pub mod kernel;                   //  Mynewt Kernel API. Export folder `kernel` as Rust module `mynewt::kernel`
 
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-pub mod hw;         //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
+pub mod hw;                       //  Mynewt Hardware API. Export folder `hw` as Rust module `mynewt::hw`
 
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
-pub mod sys;        //  Mynewt System API. Export folder `sys` as Rust module `mynewt::sys`
+pub mod sys;                      //  Mynewt System API. Export folder `sys` as Rust module `mynewt::sys`
 
 #[macro_use]                      //  Allow macros from Rust module `encoding`
-#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-pub mod encoding;   //  Mynewt Encoding API. Export folder `encoding` as Rust module `mynewt::encoding`
+pub mod encoding;                 //  Mynewt Encoding API. Export folder `encoding` as Rust module `mynewt::encoding`
 
 #[macro_use]                      //  Allow macros from Rust module `util`
-pub mod util;       //  Mynewt Utility API. Export folder `encoding` as Rust module `mynewt::util`
+pub mod util;                     //  Mynewt Utility API. Export folder `encoding` as Rust module `mynewt::util`
 
-#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
-pub mod libs;       //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
+pub mod libs;                     //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
 
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 pub fn sysinit() {
