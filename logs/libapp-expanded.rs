@@ -2,27 +2,11 @@ item: "stringify ! ( key )"
 macro: "stringify ! ( key )"
 ident: "key\u{0}"
 item: "\"device\""
-strn: Group(
-    ExprGroup {
-        attrs: [],
-        group_token: Group,
-        expr: Lit(
-            ExprLit {
-                attrs: [],
-                lit: Str(
-                    LitStr {
-                        token: Literal { lit: Str_(device), suffix: None, span: Span { lo: BytePos(3868806), hi: BytePos(3868813), ctxt: #69 } },
-                    },
-                ),
-            },
-        ),
-    },
-)
-strn3: "  \"device\"  "
+lit: "device\u{0}"
 item: "stringify ! ( value )"
 macro: "stringify ! ( value )"
 ident: "value\u{0}"
-item: "$crate::parse!(@ json device_id)"
+item: "$crate::parse!(@ json &device_id)"
 #![feature(prelude_import)]
 #![no_std]
 /*
@@ -335,10 +319,10 @@ mod app_network {
                                 };
                             };
                             {
-                                " >>  >> \"device\" >> : device_id , val ,";
-                                "add1 key : \"device\" value : $crate::parse!(@ json device_id) to object :\nCOAP_CONTEXT";
+                                " >>  >> \"device\" >> : & device_id , val ,";
+                                "add1 key : \"device\" value : $crate::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
                                 {
-                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json device_id)";
+                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json &device_id)";
                                     {
                                         "begin json coap_item , array : COAP_CONTEXT";
                                         {
@@ -352,16 +336,25 @@ mod app_network {
                                         {
                                             {
                                                 "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
-                                                let key_strn =
+                                                let key_strn: &Strn =
                                                     &Strn::new(b"key\x00");
-                                                let value_strn =
-                                                    &Strn::new(b"zzzunknown\0");
+                                                let value_strn: &Strn =
+                                                    &Strn::new(b"device\x00");
+                                                unsafe {
+                                                    COAP_CONTEXT.json_helper_set_text_string(key_strn,
+                                                                                             value_strn)
+                                                };
                                             };
                                             {
-                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json device_id)";
-                                                let key_strn =
+                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json &device_id)";
+                                                let key_strn: &Strn =
                                                     &Strn::new(b"value\x00");
-                                                let value_strn = device_id;
+                                                let value_strn: &Strn =
+                                                    &device_id;
+                                                unsafe {
+                                                    COAP_CONTEXT.json_helper_set_text_string(key_strn,
+                                                                                             value_strn)
+                                                };
                                             };
                                         };
                                         {

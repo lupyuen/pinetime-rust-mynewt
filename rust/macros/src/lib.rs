@@ -88,14 +88,23 @@ pub fn strn2(item: TokenStream) -> TokenStream {
 pub fn strn3(item: TokenStream) -> TokenStream {
     println!("item: {:#?}", item.to_string());
     let item_str = item.to_string();
-    //  $crate::parse!(@ json device_id)
+    let span = proc_macro2::Span::call_site();
     if item_str.starts_with("$crate::parse!") {
+        //  `$crate::parse!(@ json device_id)`
         return item;
+    } else if item_str.starts_with("\"") && item_str.ends_with("\"") {
+        //  Transform `"\"device\""` to `&Strn::new( b"device\0" )`
+        let item_split: Vec<&str> = item_str.splitn(3, "\"").collect();
+        let lit = item_split[1].to_string() + "\0";            
+        println!("lit: {:#?}", lit);
+        let bytestr = syn::LitByteStr::new(lit.as_bytes(), span);
+        let expanded = quote! {
+            &Strn::new( #bytestr )
+        };
+        return expanded.into();
     }
-
     let expr = parse_macro_input!(item as syn::Expr);
     let expr_str = quote! { #expr }.to_string();
-    let span = proc_macro2::Span::call_site();
     match expr {
         syn::Expr::Macro(expr) => {
             //  Transform `stringify ! ( value )` to `&Strn::new( b"value\0" )`

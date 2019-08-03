@@ -6460,10 +6460,14 @@ pub mod encoding {
                                               ! ( $ context ) , ", k: " ,
                                               stringify ! ( $ key ) , ", v: "
                                               , stringify ! ( $ value ) ) ;
-                                              let key_strn = strn3 ! (
-                                              stringify ! ( $ key ) ) ; let
-                                              value_strn = strn3 ! ( $ value )
-                                              ; } } ; (
+                                              let key_strn : & Strn = strn3 !
+                                              ( stringify ! ( $ key ) ) ; let
+                                              value_strn : & Strn = strn3 ! (
+                                              $ value ) ; unsafe {
+                                              $ context .
+                                              json_helper_set_text_string (
+                                              key_strn , value_strn ) } ; } }
+                                              ; (
                                               $ context : ident , $ key : expr
                                               , $ value : expr ) => {
                                               {
@@ -8090,7 +8094,8 @@ pub mod encoding {
         //! COAP encoder state used by CoAP encoding macros
         use cstr_core::CStr;
         use cty::*;
-        use crate::{sys::console, encoding::tinycbor::CborEncoder, fill_zero};
+        use crate::{sys::console, encoding::tinycbor::CborEncoder, fill_zero,
+                    Strn};
         /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
         pub static mut COAP_CONTEXT: CoapContext =
             unsafe {
@@ -8133,15 +8138,34 @@ pub mod encoding {
                                                           ::core::mem::size_of::<CborEncoder>()])
             };
         impl CoapContext {
+            pub fn json_helper_set_text_string(&mut self, key: &Strn,
+                                               value: &Strn) {
+                let key_cstr =
+                    if key.cstr.is_null() {
+                        self.key_to_cstr(key.bytestr)
+                    } else { key.cstr };
+                let value_cstr =
+                    if value.cstr.is_null() {
+                        self.value_to_cstr(value.bytestr)
+                    } else { value.cstr };
+                unsafe {
+                    crate::libs::mynewt_rust::json_helper_set_text_string(self.to_void_ptr(),
+                                                                          key_cstr,
+                                                                          value_cstr)
+                };
+            }
             /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
             /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
             /// append null and return the buffer as a pointer.
             pub fn key_to_cstr(&mut self, s: &[u8]) -> *const c_char {
+                if s.last() == Some(&0) {
+                    return s.as_ptr() as *const c_char;
+                }
                 if !(s.len() < COAP_KEY_SIZE) {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   41u32, 9u32))
+                                                   57u32, 9u32))
                     }
                 };
                 self.key_buffer[..s.len()].copy_from_slice(s);
@@ -8159,7 +8183,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   54u32, 9u32))
+                                                   70u32, 9u32))
                     }
                 };
                 self.value_buffer[..s.len()].copy_from_slice(s);
@@ -8193,7 +8217,7 @@ pub mod encoding {
                         {
                             ::core::panicking::panic(&("assertion failed: false",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       81u32, 13u32))
+                                                       97u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8217,7 +8241,7 @@ pub mod encoding {
                         {
                             ::core::panicking::panic(&("assertion failed: false",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       95u32, 13u32))
+                                                       111u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8245,7 +8269,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   102u32,
+                                                                   118u32,
                                                                    9u32))
                                 }
                             }
@@ -8275,7 +8299,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Debug::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   107u32,
+                                                                   123u32,
                                                                    9u32))
                                 }
                             }
