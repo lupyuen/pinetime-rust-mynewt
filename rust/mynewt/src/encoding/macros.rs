@@ -605,6 +605,7 @@ macro_rules! json_rep_set_array {
       ", o: ", stringify!($context),
       ", k: ", stringify!($key)
     );
+    //  TODO: Switch to $context.json_set_array()
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     unsafe {
@@ -621,6 +622,7 @@ macro_rules! json_rep_set_array {
       ", o: ", stringify!($context),
       ", k: ", stringify!($key)
     );
+    //  TODO: Switch to $context.json_set_array()
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe {
@@ -642,6 +644,7 @@ macro_rules! json_rep_close_array {
     concat!(
       ">>"
     );
+    //  TODO: Switch to $context.json_close_array()
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     unsafe { 
@@ -656,6 +659,7 @@ macro_rules! json_rep_close_array {
     concat!(
       ">>"
     );
+    //  TODO: Switch to $context.json_close_array()
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     unsafe { 
@@ -678,6 +682,7 @@ macro_rules! json_rep_object_array_start_item {
       "<< jitmi",
       " c: ", stringify!($context)
     );
+    //  TODO: Switch to $context.json_object_array_start_item()
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($context);    //  TODO
     unsafe { 
@@ -692,6 +697,7 @@ macro_rules! json_rep_object_array_start_item {
       "<< jitme",
       " c: ", stringify!($context)
     );
+    //  TODO: Switch to $context.json_object_array_start_item()
     //  Convert key char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $context.to_bytes_optional_nul();  //  TODO
     unsafe { 
@@ -712,6 +718,7 @@ macro_rules! json_rep_object_array_end_item {
     concat!(
       ">>"
     );
+    //  TODO: Switch to $context.json_object_array_end_item()
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($context);  //  TODO
     unsafe { 
@@ -725,6 +732,7 @@ macro_rules! json_rep_object_array_end_item {
     concat!(
       ">>"
     );
+    //  TODO: Switch to $context.json_object_array_end_item()
     //  Convert key char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $context.to_bytes_optional_nul();  //  TODO
     unsafe { 
@@ -745,6 +753,7 @@ macro_rules! json_rep_set_int {
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
+    //  TODO: Switch to $context.json_set_int()
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     let value = $value as u64;
@@ -764,6 +773,7 @@ macro_rules! json_rep_set_int {
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
+    //  TODO: Switch to $context.json_set_int()
     //  Convert key to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value = $value as u64;
@@ -787,19 +797,6 @@ macro_rules! json_rep_set_text_string {
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
-    /*
-    //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
-    let key_with_null: &str = $crate::stringify_null!($key);
-    //  Convert value to char array, which may or may not be null-terminated.
-    let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
-    unsafe {
-      mynewt::libs::mynewt_rust::json_helper_set_text_string(
-        $context.to_void_ptr(),
-        $context.key_to_cstr(key_with_null.as_bytes()),
-        $context.value_to_cstr(value_with_opt_null)
-      )
-    };
-    */
     let key_strn: &Strn = strn3!(stringify!($key));
     let value_strn: &Strn = strn3!($value);
     unsafe { $context.json_set_text_string(key_strn, value_strn) };
@@ -812,6 +809,7 @@ macro_rules! json_rep_set_text_string {
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
+    //  TODO: Switch to $context.json_set_text_string()
     //  Convert key and value to char array, which may or may not be null-terminated.
     let key_with_opt_null: &[u8] = $key.to_bytes_optional_nul();
     let value_with_opt_null: &[u8] = $value.to_bytes_optional_nul();
