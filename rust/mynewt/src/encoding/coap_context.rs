@@ -31,7 +31,7 @@ static mut cbor_encoder1: CborEncoder = fill_zero!(CborEncoder);
 
 impl CoapContext {
 
-    pub fn json_helper_set_text_string(&mut self, key: &Strn, value: &Strn) {
+    pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
         let key_cstr = 
             if key.cstr.is_null() { self.key_to_cstr(key.bytestr) }
             else { key.cstr };

@@ -802,7 +802,7 @@ macro_rules! json_rep_set_text_string {
     */
     let key_strn: &Strn = strn3!(stringify!($key));
     let value_strn: &Strn = strn3!($value);
-    unsafe { $context.json_helper_set_text_string(key_strn, value_strn) };
+    unsafe { $context.json_set_text_string(key_strn, value_strn) };
   }};
 
   ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...

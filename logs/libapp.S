@@ -610,7 +610,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb3808f319694c4fdE
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E
-00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E
+00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
 00000000         *UND*	00000000 _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
 00000000         *UND*	00000000 __bkpt
@@ -898,7 +898,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  13c:	4658      	mov	r0, fp
  13e:	4631      	mov	r1, r6
  140:	463a      	mov	r2, r7
- 142:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E>
+ 142:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E>
  146:	ae08      	add	r6, sp, #32
  148:	f240 0100 	movw	r1, #0
  14c:	f2c0 0100 	movt	r1, #0
@@ -908,7 +908,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  158:	aa01      	add	r2, sp, #4
  15a:	4658      	mov	r0, fp
  15c:	4631      	mov	r1, r6
- 15e:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E>
+ 15e:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E>
  162:	4658      	mov	r0, fp
  164:	4649      	mov	r1, r9
  166:	220d      	movs	r2, #13

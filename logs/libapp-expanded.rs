@@ -341,8 +341,8 @@ mod app_network {
                                                 let value_strn: &Strn =
                                                     &Strn::new(b"device\x00");
                                                 unsafe {
-                                                    COAP_CONTEXT.json_helper_set_text_string(key_strn,
-                                                                                             value_strn)
+                                                    COAP_CONTEXT.json_set_text_string(key_strn,
+                                                                                      value_strn)
                                                 };
                                             };
                                             {
@@ -352,8 +352,8 @@ mod app_network {
                                                 let value_strn: &Strn =
                                                     &device_id;
                                                 unsafe {
-                                                    COAP_CONTEXT.json_helper_set_text_string(key_strn,
-                                                                                             value_strn)
+                                                    COAP_CONTEXT.json_set_text_string(key_strn,
+                                                                                      value_strn)
                                                 };
                                             };
                                         };

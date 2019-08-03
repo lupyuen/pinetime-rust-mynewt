@@ -617,7 +617,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb3808f319694c4fdE
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E
-00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E
+00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E
 00000000         *UND*	00000000 _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h5e91d8ef2e33c9a1E
 00000000         *UND*	00000000 _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h04bf219ed69c9cdbE
 00000000         *UND*	00000000 __bkpt
@@ -905,7 +905,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  13c:	4658      	mov	r0, fp
  13e:	4631      	mov	r1, r6
  140:	463a      	mov	r2, r7
- 142:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E>
+ 142:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E>
  146:	ae08      	add	r6, sp, #32
  148:	f240 0100 	movw	r1, #0
  14c:	f2c0 0100 	movt	r1, #0
@@ -915,7 +915,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  158:	aa01      	add	r2, sp, #4
  15a:	4658      	mov	r0, fp
  15c:	4631      	mov	r1, r6
- 15e:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E>
+ 15e:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E>
  162:	4658      	mov	r0, fp
  164:	4649      	mov	r1, r9
  166:	220d      	movs	r2, #13
@@ -7315,7 +7315,7 @@ _ZN9cstr_core4CStr8to_bytes17h01698a6d2c5e5247E():
 _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h2f7697f004fab061E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2745
    a:	b19b      	cbz	r3, 34 <_ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17h798b42703b6d984fE+0x34>
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17h6158e9f6e134098aE():
+_ZN4core5slice81_$LT$impl$u20$core..cmp..PartialEq$LT$$u5b$B$u5d$$GT$$u20$for$u20$$u5b$A$u5d$$GT$2eq17hd837a503ad0fd448E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
    c:	428a      	cmp	r2, r1
    e:	bf1c      	itt	ne
@@ -7325,7 +7325,7 @@ _ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17h798b42703b6d9
         self.to_bytes().eq(other.to_bytes())
     }
   12:	bd80      	popne	{r7, pc}
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17h6158e9f6e134098aE():
+_ZN4core5slice81_$LT$impl$u20$core..cmp..PartialEq$LT$$u5b$B$u5d$$GT$$u20$for$u20$$u5b$A$u5d$$GT$2eq17hd837a503ad0fd448E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5245
   14:	4560      	cmp	r0, ip
   16:	d006      	beq.n	26 <_ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17h798b42703b6d984fE+0x26>
@@ -10386,103 +10386,103 @@ SYMBOL TABLE:
 00005a67 l       .debug_str	00000000 
 00005ae5 l       .debug_str	00000000 
 00005b55 l       .debug_str	00000000 
-00005bb5 l       .debug_str	00000000 
-00005bd1 l       .debug_str	00000000 
-00005c1d l       .debug_str	00000000 
-00005c26 l       .debug_str	00000000 
-00005c79 l       .debug_str	00000000 
-00005c88 l       .debug_str	00000000 
-00005cb5 l       .debug_str	00000000 
-00005d05 l       .debug_str	00000000 
-00005d11 l       .debug_str	00000000 
-00005d5c l       .debug_str	00000000 
-00005d64 l       .debug_str	00000000 
-00005db5 l       .debug_str	00000000 
-00005dc2 l       .debug_str	00000000 
-00005e0a l       .debug_str	00000000 
-00005e0f l       .debug_str	00000000 
-00005e5f l       .debug_str	00000000 
-00005e6b l       .debug_str	00000000 
-00005ef0 l       .debug_str	00000000 
-00005f06 l       .debug_str	00000000 
-00005f82 l       .debug_str	00000000 
-00006002 l       .debug_str	00000000 
-0000608a l       .debug_str	00000000 
-000060b1 l       .debug_str	00000000 
-000060b9 l       .debug_str	00000000 
-0000613e l       .debug_str	00000000 
-00006143 l       .debug_str	00000000 
-0000616b l       .debug_str	00000000 
-0000616f l       .debug_str	00000000 
-0000619b l       .debug_str	00000000 
-000061a3 l       .debug_str	00000000 
-000061d3 l       .debug_str	00000000 
-000061de l       .debug_str	00000000 
-0000620b l       .debug_str	00000000 
-00006214 l       .debug_str	00000000 
-00006249 l       .debug_str	00000000 
-00006254 l       .debug_str	00000000 
-0000628e l       .debug_str	00000000 
-0000629e l       .debug_str	00000000 
-000062e6 l       .debug_str	00000000 
-00006319 l       .debug_str	00000000 
-00006323 l       .debug_str	00000000 
-0000636e l       .debug_str	00000000 
-00006386 l       .debug_str	00000000 
-000063d5 l       .debug_str	00000000 
-00006419 l       .debug_str	00000000 
-0000642a l       .debug_str	00000000 
-00006476 l       .debug_str	00000000 
-0000648d l       .debug_str	00000000 
-000064d3 l       .debug_str	00000000 
-000064e4 l       .debug_str	00000000 
-0000650e l       .debug_str	00000000 
-00006550 l       .debug_str	00000000 
-0000655d l       .debug_str	00000000 
-000065a1 l       .debug_str	00000000 
-000065b0 l       .debug_str	00000000 
+00005bae l       .debug_str	00000000 
+00005bc3 l       .debug_str	00000000 
+00005c0f l       .debug_str	00000000 
+00005c18 l       .debug_str	00000000 
+00005c6b l       .debug_str	00000000 
+00005c7a l       .debug_str	00000000 
+00005ca7 l       .debug_str	00000000 
+00005cf7 l       .debug_str	00000000 
+00005d03 l       .debug_str	00000000 
+00005d4e l       .debug_str	00000000 
+00005d56 l       .debug_str	00000000 
+00005da7 l       .debug_str	00000000 
+00005db4 l       .debug_str	00000000 
+00005dfc l       .debug_str	00000000 
+00005e01 l       .debug_str	00000000 
+00005e51 l       .debug_str	00000000 
+00005e5d l       .debug_str	00000000 
+00005ee2 l       .debug_str	00000000 
+00005ef8 l       .debug_str	00000000 
+00005f74 l       .debug_str	00000000 
+00005ff4 l       .debug_str	00000000 
+0000607c l       .debug_str	00000000 
+000060a3 l       .debug_str	00000000 
+000060ab l       .debug_str	00000000 
+00006130 l       .debug_str	00000000 
+00006135 l       .debug_str	00000000 
+0000615d l       .debug_str	00000000 
+00006161 l       .debug_str	00000000 
+0000618d l       .debug_str	00000000 
+00006195 l       .debug_str	00000000 
+000061c5 l       .debug_str	00000000 
+000061d0 l       .debug_str	00000000 
+000061fd l       .debug_str	00000000 
+00006206 l       .debug_str	00000000 
+0000623b l       .debug_str	00000000 
+00006246 l       .debug_str	00000000 
+00006280 l       .debug_str	00000000 
+00006290 l       .debug_str	00000000 
+000062d8 l       .debug_str	00000000 
+0000630b l       .debug_str	00000000 
+00006315 l       .debug_str	00000000 
+00006360 l       .debug_str	00000000 
+00006378 l       .debug_str	00000000 
+000063c7 l       .debug_str	00000000 
+0000640b l       .debug_str	00000000 
+0000641c l       .debug_str	00000000 
+00006468 l       .debug_str	00000000 
+0000647f l       .debug_str	00000000 
+000064c5 l       .debug_str	00000000 
+000064d6 l       .debug_str	00000000 
+00006500 l       .debug_str	00000000 
+00006542 l       .debug_str	00000000 
+0000654f l       .debug_str	00000000 
+00006593 l       .debug_str	00000000 
+000065a2 l       .debug_str	00000000 
+000065e5 l       .debug_str	00000000 
 000065f3 l       .debug_str	00000000 
-00006601 l       .debug_str	00000000 
-00006630 l       .debug_str	00000000 
-0000668e l       .debug_str	00000000 
-000066ba l       .debug_str	00000000 
-000066c0 l       .debug_str	00000000 
-000066c6 l       .debug_str	00000000 
-000066d0 l       .debug_str	00000000 
-000066d6 l       .debug_str	00000000 
-0000676a l       .debug_str	00000000 
-00006773 l       .debug_str	00000000 
-0000677b l       .debug_str	00000000 
-00006780 l       .debug_str	00000000 
-0000678d l       .debug_str	00000000 
-0000679a l       .debug_str	00000000 
-0000679c l       .debug_str	00000000 
+00006622 l       .debug_str	00000000 
+00006680 l       .debug_str	00000000 
+000066ac l       .debug_str	00000000 
+000066b2 l       .debug_str	00000000 
+000066b8 l       .debug_str	00000000 
+000066c2 l       .debug_str	00000000 
+000066c8 l       .debug_str	00000000 
+0000675c l       .debug_str	00000000 
+00006765 l       .debug_str	00000000 
+0000676d l       .debug_str	00000000 
+00006772 l       .debug_str	00000000 
+0000677f l       .debug_str	00000000 
+0000678c l       .debug_str	00000000 
+0000678e l       .debug_str	00000000 
+00006792 l       .debug_str	00000000 
 000067a0 l       .debug_str	00000000 
-000067ae l       .debug_str	00000000 
-000067b7 l       .debug_str	00000000 
-000067c2 l       .debug_str	00000000 
-000067ef l       .debug_str	00000000 
+000067a9 l       .debug_str	00000000 
+000067b4 l       .debug_str	00000000 
+000067e1 l       .debug_str	00000000 
+000067e8 l       .debug_str	00000000 
+000067ec l       .debug_str	00000000 
 000067f6 l       .debug_str	00000000 
-000067fa l       .debug_str	00000000 
-00006804 l       .debug_str	00000000 
-0000680a l       .debug_str	00000000 
-0000680f l       .debug_str	00000000 
-00006820 l       .debug_str	00000000 
-00006824 l       .debug_str	00000000 
-00006831 l       .debug_str	00000000 
-00006852 l       .debug_str	00000000 
-00006857 l       .debug_str	00000000 
-0000685c l       .debug_str	00000000 
-00006861 l       .debug_str	00000000 
-0000686c l       .debug_str	00000000 
-00006877 l       .debug_str	00000000 
-0000687c l       .debug_str	00000000 
-00006881 l       .debug_str	00000000 
-00006886 l       .debug_str	00000000 
-0000688e l       .debug_str	00000000 
+000067fc l       .debug_str	00000000 
+00006801 l       .debug_str	00000000 
+00006812 l       .debug_str	00000000 
+00006816 l       .debug_str	00000000 
+00006823 l       .debug_str	00000000 
+00006844 l       .debug_str	00000000 
+00006849 l       .debug_str	00000000 
+0000684e l       .debug_str	00000000 
+00006853 l       .debug_str	00000000 
+0000685e l       .debug_str	00000000 
+00006869 l       .debug_str	00000000 
+0000686e l       .debug_str	00000000 
+00006873 l       .debug_str	00000000 
+00006878 l       .debug_str	00000000 
+00006880 l       .debug_str	00000000 
+0000688c l       .debug_str	00000000 
+00006896 l       .debug_str	00000000 
 0000689a l       .debug_str	00000000 
-000068a4 l       .debug_str	00000000 
-000068a8 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000058 l       .debug_str	00000000 
@@ -11194,51 +11194,51 @@ SYMBOL TABLE:
 00004658 l       .debug_str	00000000 
 0000466c l       .debug_str	00000000 
 00000000 l     O .bss..L_MergedGlobals	00000020 .L_MergedGlobals
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.12	00000018 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.12
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.14	00000018 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.14
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.15	0000000d .Lanon.2be03797ef5442cf9afc5a5b42a58d76.15
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.16	00000001 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.16
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.17	00000006 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.17
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.18	00000006 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.18
-00000008 l     O .rodata.cst4	00000004 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.19
-00000000 l     O .rodata.cst4	00000004 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.2
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.21	00000018 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.21
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.22	00000009 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.22
-0000000c l     O .rodata.cst4	00000004 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.23
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.24	00000018 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.24
-00000010 l     O .rodata.cst4	00000004 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.25
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.27	00000018 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.27
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.28	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.28
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.29	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.29
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.3	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.3
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.31	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.31
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.32	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.32
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.33	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.33
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.34	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.34
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.35	00000010 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.35
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.36	0000000e .Lanon.2be03797ef5442cf9afc5a5b42a58d76.36
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.37	00000002 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.37
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.38	0000000c .Lanon.2be03797ef5442cf9afc5a5b42a58d76.38
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.39	00000009 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.39
-00000004 l     O .rodata.cst4	00000004 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.4
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.40	0000000d .Lanon.2be03797ef5442cf9afc5a5b42a58d76.40
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.41	0000000c .Lanon.2be03797ef5442cf9afc5a5b42a58d76.41
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.42	0000000b .Lanon.2be03797ef5442cf9afc5a5b42a58d76.42
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.43	0000000c .Lanon.2be03797ef5442cf9afc5a5b42a58d76.43
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.44	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.44
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.45	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.45
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.46	00000009 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.46
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.47	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.47
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.48	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.48
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.49	00000007 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.49
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.50	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.50
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.51	0000000c .Lanon.2be03797ef5442cf9afc5a5b42a58d76.51
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.52	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.52
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.53	0000000a .Lanon.2be03797ef5442cf9afc5a5b42a58d76.53
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.54	00000007 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.54
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.7	00000018 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.7
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.8	00000001 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.8
-00000000 l     O .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.9	00000004 .Lanon.2be03797ef5442cf9afc5a5b42a58d76.9
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.12	00000018 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.12
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.14	00000018 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.14
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.15	0000000d .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.15
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.16	00000001 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.16
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.17	00000006 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.17
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.18	00000006 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.18
+00000008 l     O .rodata.cst4	00000004 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.19
+00000000 l     O .rodata.cst4	00000004 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.2
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.21	00000018 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.21
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.22	00000009 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.22
+0000000c l     O .rodata.cst4	00000004 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.23
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.24	00000018 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.24
+00000010 l     O .rodata.cst4	00000004 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.25
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.27	00000018 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.27
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.28	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.28
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.29	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.29
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.3	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.3
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.31	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.31
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.32	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.32
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.33	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.33
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.34	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.34
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.35	00000010 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.35
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.36	0000000e .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.36
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.37	00000002 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.37
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.38	0000000c .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.38
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.39	00000009 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.39
+00000004 l     O .rodata.cst4	00000004 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.4
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.40	0000000d .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.40
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.41	0000000c .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.41
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.42	0000000b .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.42
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.43	0000000c .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.43
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.44	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.44
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.45	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.45
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.46	00000009 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.46
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.47	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.47
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.48	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.48
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.49	00000007 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.49
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.50	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.50
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.51	0000000c .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.51
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.52	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.52
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.53	0000000a .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.53
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.54	00000007 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.54
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.7	00000018 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.7
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.8	00000001 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.8
+00000000 l     O .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.9	00000004 .Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.9
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h6ab2f5982a2ba83aE	00000036 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h6ab2f5982a2ba83aE
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h8544e6928b9f07deE	0000003a _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h8544e6928b9f07deE
 00000000 l     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h926198afa8396cd4E	00000052 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h926198afa8396cd4E
@@ -11285,7 +11285,7 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h84615af0f8996ddfE	00000000 .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h84615af0f8996ddfE
 00000000 l    d  .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc3dacb55893a6c5bE	00000000 .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc3dacb55893a6c5bE
 00000000 l    d  .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5ce4d102a0cac4eeE	00000000 .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5ce4d102a0cac4eeE
-00000000 l    d  .text._ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E	00000000 .text._ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E
+00000000 l    d  .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E	00000000 .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E
 00000000 l    d  .text._ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E	00000000 .text._ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E
 00000000 l    d  .text._ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E	00000000 .text._ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E
 00000000 l    d  .text._ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E	00000000 .text._ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
@@ -11318,19 +11318,19 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN6mynewt4libs14sensor_network14do_server_post17h63b4208c05d74765E	00000000 .text._ZN6mynewt4libs14sensor_network14do_server_post17h63b4208c05d74765E
 00000000 l    d  .text._ZN6mynewt4libs14sensor_network13get_device_id17h75b7b0ff3b20c451E	00000000 .text._ZN6mynewt4libs14sensor_network13get_device_id17h75b7b0ff3b20c451E
 00000000 l    d  .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hffcd2d6e43a98b23E	00000000 .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hffcd2d6e43a98b23E
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.0	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.0
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.1	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.1
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.3	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.3
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.5	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.5
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.6	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.6
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.0	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.0
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.1	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.1
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.3	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.3
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.5	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.5
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.6	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.6
 00000000 l    d  .data._ZN6mynewt2hw6sensor17LISTENER_INTERNAL17heac3f46594964dacE	00000000 .data._ZN6mynewt2hw6sensor17LISTENER_INTERNAL17heac3f46594964dacE
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.8	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.8
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.10	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.10
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.11	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.11
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.13	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.13
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.20	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.20
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.26	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.26
-00000000 l    d  .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.30	00000000 .rodata..Lanon.2be03797ef5442cf9afc5a5b42a58d76.30
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.8	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.8
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.10	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.10
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.11	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.11
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.13	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.13
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.20	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.20
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.26	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.26
+00000000 l    d  .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.30	00000000 .rodata..Lanon.6d2ebf09e0b9672a1c3c3682c71fa0df.30
 00000000 l    d  .bss..L_MergedGlobals	00000000 .bss..L_MergedGlobals
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -11398,7 +11398,7 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE	0000005a _ZN6mynewt8encoding12coap_context11CoapContext12check_result17h4fc63e9e40c0702cE
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E	00000038 _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E	0000000a _ZN6mynewt8encoding12coap_context11CoapContext14global_encoder17hb62da92cb21c0672E
-00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E	0000008a _ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E
+00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E	0000008a _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext4fail17h68cffd9b539196daE	0000005e _ZN6mynewt8encoding12coap_context11CoapContext4fail17h68cffd9b539196daE
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE	00000152 _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h276b4097dd5ff58dE
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E	00000016 _ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17hf8908a5278c4cf14E
@@ -12353,12 +12353,12 @@ _ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$
     }
    8:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E:
+Disassembly of section .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E:
 
-00000000 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E>:
-_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E():
+00000000 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E>:
+_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:34
-    pub fn json_helper_set_text_string(&mut self, key: &Strn, value: &Strn) {
+    pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
    0:	b5f0      	push	{r4, r5, r6, r7, lr}
    2:	b081      	sub	sp, #4
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:36
@@ -12366,29 +12366,29 @@ _ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h39
    4:	688d      	ldr	r5, [r1, #8]
    6:	4616      	mov	r6, r2
    8:	4604      	mov	r4, r0
-   a:	b995      	cbnz	r5, 32 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x32>
+   a:	b995      	cbnz	r5, 32 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x32>
    c:	e9d1 5700 	ldrd	r5, r7, [r1]
 _ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3377
   10:	2f01      	cmp	r7, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc4196ce7ebbdad50E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  12:	d304      	bcc.n	1e <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x1e>
+  12:	d304      	bcc.n	1e <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x1e>
 _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E():
   14:	1e78      	subs	r0, r7, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc4196ce7ebbdad50E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   16:	42b8      	cmp	r0, r7
-  18:	d201      	bcs.n	1e <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x1e>
+  18:	d201      	bcs.n	1e <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x1e>
 _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E():
   1a:	5c28      	ldrb	r0, [r5, r0]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:55
         if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
-  1c:	b148      	cbz	r0, 32 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x32>
+  1c:	b148      	cbz	r0, 32 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x32>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:57
         assert!(s.len() < COAP_KEY_SIZE);  //  Key too long
   1e:	2f20      	cmp	r7, #32
-  20:	d225      	bcs.n	6e <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x6e>
+  20:	d225      	bcs.n	6e <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x6e>
 _ZN4core10intrinsics19copy_nonoverlapping17h56d118bcb7088371E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
   22:	4620      	mov	r0, r4
@@ -12396,39 +12396,39 @@ _ZN4core10intrinsics19copy_nonoverlapping17h56d118bcb7088371E():
   26:	463a      	mov	r2, r7
   28:	f7ff fffe 	bl	0 <__aeabi_memcpy>
   2c:	2000      	movs	r0, #0
-_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E():
+_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E():
   2e:	4625      	mov	r5, r4
 _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17h0f82664be59056e7E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:59
         self.key_buffer[s.len()] = 0;
   30:	55e0      	strb	r0, [r4, r7]
-_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E():
+_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:39
             if value.cstr.is_null() { self.value_to_cstr(value.bytestr) }
   32:	68b2      	ldr	r2, [r6, #8]
-  34:	b9a2      	cbnz	r2, 60 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x60>
+  34:	b9a2      	cbnz	r2, 60 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x60>
   36:	e9d6 2600 	ldrd	r2, r6, [r6]
 _ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3377
   3a:	2e01      	cmp	r6, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc4196ce7ebbdad50E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  3c:	d304      	bcc.n	48 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x48>
+  3c:	d304      	bcc.n	48 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x48>
 _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E():
   3e:	1e70      	subs	r0, r6, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc4196ce7ebbdad50E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
   40:	42b0      	cmp	r0, r6
-  42:	d201      	bcs.n	48 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x48>
+  42:	d201      	bcs.n	48 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x48>
 _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E():
   44:	5c10      	ldrb	r0, [r2, r0]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:68
         if s.last() == Some(&0) { return s.as_ptr() as *const c_char; }
-  46:	b158      	cbz	r0, 60 <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x60>
+  46:	b158      	cbz	r0, 60 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x60>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:70
         assert!(s.len() < COAP_VALUE_SIZE);  //  Value too long
   48:	2e20      	cmp	r6, #32
-  4a:	d217      	bcs.n	7c <_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E+0x7c>
+  4a:	d217      	bcs.n	7c <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E+0x7c>
 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17h1dd807f71ed996daE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:413
   4c:	f104 0720 	add.w	r7, r4, #32
@@ -12439,13 +12439,13 @@ _ZN4core10intrinsics19copy_nonoverlapping17h56d118bcb7088371E():
   54:	4638      	mov	r0, r7
   56:	f7ff fffe 	bl	0 <__aeabi_memcpy>
   5a:	2000      	movs	r0, #0
-_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E():
+_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E():
   5c:	463a      	mov	r2, r7
 _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h4eb8afb9652b8128E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:72
         self.value_buffer[s.len()] = 0;
   5e:	55b8      	strb	r0, [r7, r6]
-_ZN6mynewt8encoding12coap_context11CoapContext27json_helper_set_text_string17h393a11fe9f9a90a7E():
+_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h6ac22a693ed197a8E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:42
             crate::libs::mynewt_rust::json_helper_set_text_string(
   60:	4620      	mov	r0, r4

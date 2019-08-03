@@ -6464,10 +6464,9 @@ pub mod encoding {
                                               ( stringify ! ( $ key ) ) ; let
                                               value_strn : & Strn = strn3 ! (
                                               $ value ) ; unsafe {
-                                              $ context .
-                                              json_helper_set_text_string (
-                                              key_strn , value_strn ) } ; } }
-                                              ; (
+                                              $ context . json_set_text_string
+                                              ( key_strn , value_strn ) } ; }
+                                              } ; (
                                               $ context : ident , $ key : expr
                                               , $ value : expr ) => {
                                               {
@@ -8138,8 +8137,7 @@ pub mod encoding {
                                                           ::core::mem::size_of::<CborEncoder>()])
             };
         impl CoapContext {
-            pub fn json_helper_set_text_string(&mut self, key: &Strn,
-                                               value: &Strn) {
+            pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
                 let key_cstr =
                     if key.cstr.is_null() {
                         self.key_to_cstr(key.bytestr)

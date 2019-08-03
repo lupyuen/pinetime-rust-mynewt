@@ -610,7 +610,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::key_to_cstr
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::to_void_ptr
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::value_to_cstr
-00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::json_helper_set_text_string
+00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::json_set_text_string
 00000000         *UND*	00000000 mynewt::encoding::coap_context::COAP_CONTEXT
 00000000         *UND*	00000000 <str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000         *UND*	00000000 __bkpt
@@ -898,7 +898,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  13c:	4658      	mov	r0, fp
  13e:	4631      	mov	r1, r6
  140:	463a      	mov	r2, r7
- 142:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::json_helper_set_text_string>
+ 142:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::json_set_text_string>
  146:	ae08      	add	r6, sp, #32
  148:	f240 0100 	movw	r1, #0
  14c:	f2c0 0100 	movt	r1, #0
@@ -908,7 +908,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
  158:	aa01      	add	r2, sp, #4
  15a:	4658      	mov	r0, fp
  15c:	4631      	mov	r1, r6
- 15e:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::json_helper_set_text_string>
+ 15e:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::json_set_text_string>
  162:	4658      	mov	r0, fp
  164:	4649      	mov	r1, r9
  166:	220d      	movs	r2, #13
