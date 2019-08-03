@@ -797,8 +797,9 @@ macro_rules! json_rep_set_text_string {
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
-    let key_strn: &Strn = strn3!(stringify!($key));
-    let value_strn: &Strn = strn3!($value);
+    //  Convert key and value to Strn.
+    let key_strn: &Strn = strn!(stringify!($key));
+    let value_strn: &Strn = strn!($value);
     unsafe { $context.json_set_text_string(key_strn, value_strn) };
   }};
 

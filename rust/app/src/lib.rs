@@ -45,7 +45,7 @@ use mynewt::{
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
-#[no_mangle]                     //  Don't mangle the name "main"
+#[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
     //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
     //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup

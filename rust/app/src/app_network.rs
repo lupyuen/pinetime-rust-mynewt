@@ -34,7 +34,7 @@ use mynewt::{
     },
     coap, d, Strn,              //  Import Mynewt macros
 };
-use mynewt_macros::{ strn, strn2, strn3 };    //  Import Mynewt procedural macros
+use mynewt_macros::strn;        //  Import Mynewt procedural macros
 
 /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 

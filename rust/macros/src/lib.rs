@@ -33,70 +33,23 @@ pub fn out(item: TokenStream) -> TokenStream {
     expanded.parse().unwrap()
 }
 
-/// Transform input string into a null-terminated bytestring that's suitable for passing to Mynewt APIs
-/// `strn!("network")` expands to `&Strn::new( b"network\0" )`
+/// Create a `Strn` containing a null-terminated byte string that's suitable for passing to Mynewt APIs.
+/// `strn!("network")` expands to `&Strn::new( b"network\0" )`.
+/// For macro calls like `strn!( stringify!( value ) )`, return `&Strn::new( b"value\0" )`.
+/// For complex macro calls like `strn!( $crate::parse!(@ json device_id) )`, return the parameter as is.
 #[proc_macro]
 pub fn strn(item: TokenStream) -> TokenStream {
-    //  Parse the macro input as a literal string e.g. `"network"`.
-    let input = parse_macro_input!(item as syn::LitStr);
-    //  Get the literal string value.
-    let val = input.value();
-    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
-    let expanded = format!(r#"&Strn::new( b"{}\0" )"#, val);
-    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
-    expanded.parse().unwrap()
-}
-
-/// ```
-/// strn!( "network" );
-/// strn!( sensor_network::get_device_id() ? );
-/// ```
-#[proc_macro]
-pub fn strn2(item: TokenStream) -> TokenStream {
-    //  Parse the macro input as a literal string e.g. `"network"`.
-    let expr = parse_macro_input!(item as syn::Expr);
-    println!("strn: {:#?}", expr);
-    println!("strn2: {:#?}", quote! { #expr }.to_string());
-    /*
-    //  `expr` is either `Lit` or `Try`.  TODO: Allow `&str`
-    match expr {
-        syn::Expr::Lit(expr) => {
-            //  Get the literal string value.
-            let lit = expr.lit;
-            println!("lit: {:#?}", quote! { #lit }.to_string());
-            let expanded = quote! {
-                &Strn::new( b"zzz\0" )
-            };
-            return expanded.into();
-        }
-        syn::Expr::Try(expr) => {
-            let expanded = quote! {
-                &Strn::new(
-                    #expr
-                )
-            };
-            return expanded.into();
-        }
-        _ => {}
-    };
-    */
-    let expanded = quote! { &Strn::new( b"xyz\0" ) };
-    expanded.into()
-}
-
-#[proc_macro]
-pub fn strn3(item: TokenStream) -> TokenStream {
-    println!("item: {:#?}", item.to_string());
+    //  println!("item: {:#?}", item.to_string());
     let item_str = item.to_string();
     let span = proc_macro2::Span::call_site();
     if item_str.starts_with("$crate::parse!") {
-        //  `$crate::parse!(@ json device_id)`
+        //  If `item_str` looks like `$crate::parse!(@ json device_id)`, return as is.
         return item;
     } else if item_str.starts_with("\"") && item_str.ends_with("\"") {
-        //  Transform `"\"device\""` to `&Strn::new( b"device\0" )`
+        //  Transform literal `"\"device\""` to `&Strn::new( b"device\0" )`
         let item_split: Vec<&str> = item_str.splitn(3, "\"").collect();
         let lit = item_split[1].to_string() + "\0";            
-        println!("lit: {:#?}", lit);
+        //  println!("lit: {:#?}", lit);
         let bytestr = syn::LitByteStr::new(lit.as_bytes(), span);
         let expanded = quote! {
             &Strn::new( #bytestr )
@@ -107,13 +60,12 @@ pub fn strn3(item: TokenStream) -> TokenStream {
     let expr_str = quote! { #expr }.to_string();
     match expr {
         syn::Expr::Macro(expr) => {
-            //  Transform `stringify ! ( value )` to `&Strn::new( b"value\0" )`
-            println!("macro: {:#?}", expr_str);
+            //  Transform macro `stringify ! ( value )` to `&Strn::new( b"value\0" )`
             let expr_split: Vec<&str> = expr_str.splitn(2, "stringify ! ( ").collect();
             let ident = expr_split[1];
             let ident_split: Vec<&str> = ident.splitn(2, " )").collect();
             let ident = ident_split[0].to_string() + "\0";            
-            println!("ident: {:#?}", ident);
+            //  println!("ident: {:#?}", ident);
             let bytestr = syn::LitByteStr::new(ident.as_bytes(), span);
             let expanded = quote! {
                 &Strn::new( #bytestr )
@@ -121,27 +73,22 @@ pub fn strn3(item: TokenStream) -> TokenStream {
             return expanded.into();
         }
         syn::Expr::Lit(expr) => {
-            //  Get the literal string value.
-            let lit = expr.lit;
-            println!("lit: {:#?}", expr_str);
-            let expanded = quote! {
-                &Strn::new( b"zzzlit\0" )
-            };
+            //  Literals already handled above. Should not come here.
+            assert!(false);  //  Not supported
+            let expanded = quote! { &Strn::new( b"\0" ) };
             return expanded.into();
         }
         syn::Expr::Try(expr) => {
-            let expanded = quote! {
-                &Strn::new(
-                    #expr
-                )
-            };
+            //  Handle `strn!( fn() ? )`
+            let expanded = quote! { &Strn::new( #expr ) };
             return expanded.into();
         }
         _ => {}
     };
-    println!("strn: {:#?}", expr);
-    println!("strn3: {:#?}", expr_str);
-    let expanded = quote! { &Strn::new( b"zzzunknown\0" ) };
+    //  println!("strn: {:#?}", expr);
+    //  println!("strn3: {:#?}", expr_str);
+    assert!(false);  //  Not supported
+    let expanded = quote! { &Strn::new( b"\0" ) };
     expanded.into()
 }
 

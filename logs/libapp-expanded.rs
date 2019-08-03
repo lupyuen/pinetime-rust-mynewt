@@ -1,12 +1,3 @@
-item: "stringify ! ( key )"
-macro: "stringify ! ( key )"
-ident: "key\u{0}"
-item: "\"device\""
-lit: "device\u{0}"
-item: "stringify ! ( value )"
-macro: "stringify ! ( value )"
-ident: "value\u{0}"
-item: "$crate::parse!(@ json &device_id)"
 #![feature(prelude_import)]
 #![no_std]
 /*
@@ -256,7 +247,7 @@ mod app_network {
     use mynewt::{result::*, hw::sensor::{SensorValue, SensorValueType},
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
-    use mynewt_macros::{strn, strn2, strn3};
+    use mynewt_macros::strn;
     /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
     /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
     /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -271,7 +262,7 @@ mod app_network {
     pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
         console::print("Rust send_sensor_data\n");
         let device_id = sensor_network::get_device_id()?;
-        let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
+        let rc = sensor_network::init_server_post(&Strn::new(b"\x00"))?;
         if !rc { return Err(MynewtError::SYS_EAGAIN); }
         let _payload =
             {
