@@ -62,6 +62,14 @@ pub mod kernel {
 
 
 
+    /*
+    #[repr(u8)]
+    enum Strn {
+        ByteStr(&'static [u8]),
+        CStr(*const u8),
+    }
+    */
+
     //  Last byte must be 0.
 
     //  Last byte must be 0.
@@ -6445,28 +6453,6 @@ pub mod encoding {
         #[macro_export]
         macro_rules! json_rep_set_text_string((
                                               $ context : ident , $ key :
-                                              ident , $ value : ident ) => {
-                                              {
-                                              concat ! (
-                                              "-- jtxtii" , " o: " , stringify
-                                              ! ( $ context ) , ", k: " ,
-                                              stringify ! ( $ key ) , ", v: "
-                                              , stringify ! ( $ value ) ) ;
-                                              let key_with_null : & str = $
-                                              crate :: stringify_null ! (
-                                              $ key ) ; let
-                                              value_with_opt_null : & [ u8 ] =
-                                              $ value . to_bytes_optional_nul
-                                              (  ) ; unsafe {
-                                              mynewt :: libs :: mynewt_rust ::
-                                              json_helper_set_text_string (
-                                              $ context . to_void_ptr (  ) , $
-                                              context . key_to_cstr (
-                                              key_with_null . as_bytes (  ) )
-                                              , $ context . value_to_cstr (
-                                              value_with_opt_null ) ) } ; } }
-                                              ; (
-                                              $ context : ident , $ key :
                                               ident , $ value : expr ) => {
                                               {
                                               concat ! (
@@ -6474,20 +6460,9 @@ pub mod encoding {
                                               ! ( $ context ) , ", k: " ,
                                               stringify ! ( $ key ) , ", v: "
                                               , stringify ! ( $ value ) ) ;
-                                              let key_with_null : & str = $
-                                              crate :: stringify_null ! (
-                                              $ key ) ; let
-                                              value_with_opt_null : & [ u8 ] =
-                                              $ value . to_bytes_optional_nul
-                                              (  ) ; unsafe {
-                                              mynewt :: libs :: mynewt_rust ::
-                                              json_helper_set_text_string (
-                                              $ context . to_void_ptr (  ) , $
-                                              context . key_to_cstr (
-                                              key_with_null . as_bytes (  ) )
-                                              , $ context . value_to_cstr (
-                                              value_with_opt_null ) ) } ; } }
-                                              ; (
+                                              let key_strn = strn3 ! (
+                                              stringify ! ( $ key ) ) ; } } ;
+                                              (
                                               $ context : ident , $ key : expr
                                               , $ value : expr ) => {
                                               {
@@ -10674,7 +10649,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           115u32, 9u32))
+                                                           123u32, 9u32))
                         }
                     }
                 }
@@ -10708,7 +10683,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           129u32, 9u32))
+                                                           137u32, 9u32))
                         }
                     }
                 }
@@ -10740,7 +10715,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           138u32, 9u32))
+                                                           146u32, 9u32))
                         }
                     }
                 }
@@ -10771,7 +10746,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           146u32, 9u32))
+                                                           154u32, 9u32))
                         }
                     }
                 }
@@ -10800,7 +10775,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Debug::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           152u32, 9u32))
+                                                           160u32, 9u32))
                         }
                     }
                 }

@@ -56,6 +56,8 @@ pub fn strn2(item: TokenStream) -> TokenStream {
     //  Parse the macro input as a literal string e.g. `"network"`.
     let expr = parse_macro_input!(item as syn::Expr);
     println!("strn: {:#?}", expr);
+    println!("strn2: {:#?}", quote! { #expr }.to_string());
+    /*
     //  `expr` is either `Lit` or `Try`.  TODO: Allow `&str`
     match expr {
         syn::Expr::Lit(expr) => {
@@ -77,10 +79,53 @@ pub fn strn2(item: TokenStream) -> TokenStream {
         }
         _ => {}
     };
-    //  Compose the macro expansion as a string. `r#"..."#` represents a raw string (for convenience) 
-    let expanded = format!(r#"&Strn::new( b"{}\0" )"#, "abc");
-    //  Parse the string into Rust tokens and return the expanded tokens back to the compiler.
-    expanded.parse().unwrap()
+    */
+    let expanded = quote! { &Strn::new( b"xyz\0" ) };
+    expanded.into()
+}
+
+#[proc_macro]
+pub fn strn3(item: TokenStream) -> TokenStream {
+    println!("item: {:#?}", item.to_string());
+    let item_str = item.to_string();
+    //  $crate::parse!(@ json device_id)
+    if item_str.starts_with("$crate::parse!") {
+        return item;
+    }
+
+    let expr = parse_macro_input!(item as syn::Expr);
+    let expr_str = quote! { #expr }.to_string();
+    println!("strn: {:#?}", expr);
+    //  println!("strn3: {:#?}", expr_str);
+    match expr {
+        syn::Expr::Macro(expr) => {
+            println!("macro: {:#?}", expr_str);
+            let expanded = quote! {
+                &Strn::new( b"zzzmacro\0" )
+            };
+            return expanded.into();
+        }
+        syn::Expr::Lit(expr) => {
+            //  Get the literal string value.
+            let lit = expr.lit;
+            println!("lit: {:#?}", expr_str);
+            let expanded = quote! {
+                &Strn::new( b"zzzlit\0" )
+            };
+            return expanded.into();
+        }
+        syn::Expr::Try(expr) => {
+            let expanded = quote! {
+                &Strn::new(
+                    #expr
+                )
+            };
+            return expanded.into();
+        }
+        _ => {}
+    };
+    let expanded = quote! { &Strn::new( b"zzzunknown\0" ) };
+    expanded.into()
 }
 
 /// Initialise a null-terminated bytestring `Strn` that's suitable for passing to Mynewt APIs

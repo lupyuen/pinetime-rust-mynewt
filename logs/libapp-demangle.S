@@ -4,66 +4,63 @@ app-65c720a40574e4de.app.o6vxcoia-cgu.0.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 app.o6vxcoia-cgu.0
-00002260 l       .debug_str	00000000 
-00002b64 l       .debug_str	00000000 
-00002b6b l       .debug_str	00000000 
-00002b80 l       .debug_str	00000000 
-00002baa l       .debug_str	00000000 
-00002bb3 l       .debug_str	00000000 
-00002c23 l       .debug_str	00000000 
-00002c76 l       .debug_str	00000000 
-00002cc5 l       .debug_str	00000000 
-00002d05 l       .debug_str	00000000 
-00002d2c l       .debug_str	00000000 
-00002d30 l       .debug_str	00000000 
-00002d32 l       .debug_str	00000000 
-00002d34 l       .debug_str	00000000 
-00002d3e l       .debug_str	00000000 
+00002277 l       .debug_str	00000000 
+00002bc1 l       .debug_str	00000000 
+00002bca l       .debug_str	00000000 
+00002c3a l       .debug_str	00000000 
+00002c8d l       .debug_str	00000000 
+00002cdc l       .debug_str	00000000 
+00002d1c l       .debug_str	00000000 
+00002d43 l       .debug_str	00000000 
 00002d47 l       .debug_str	00000000 
-00002d50 l       .debug_str	00000000 
-00002d5b l       .debug_str	00000000 
-00002d65 l       .debug_str	00000000 
-00002d8c l       .debug_str	00000000 
-00002da4 l       .debug_str	00000000 
-00002dae l       .debug_str	00000000 
-00002dd1 l       .debug_str	00000000 
-00002e19 l       .debug_str	00000000 
-00002e59 l       .debug_str	00000000 
-00002ea0 l       .debug_str	00000000 
-00002ea9 l       .debug_str	00000000 
-00002ead l       .debug_str	00000000 
-00002ed7 l       .debug_str	00000000 
-00002edc l       .debug_str	00000000 
-00002edf l       .debug_str	00000000 
-00002f29 l       .debug_str	00000000 
-00002f32 l       .debug_str	00000000 
-00002f65 l       .debug_str	00000000 
-00002f90 l       .debug_str	00000000 
-00002f92 l       .debug_str	00000000 
-00002fce l       .debug_str	00000000 
-00002fe1 l       .debug_str	00000000 
-00002fe6 l       .debug_str	00000000 
+00002d49 l       .debug_str	00000000 
+00002d4b l       .debug_str	00000000 
+00002d55 l       .debug_str	00000000 
+00002d5e l       .debug_str	00000000 
+00002d67 l       .debug_str	00000000 
+00002d72 l       .debug_str	00000000 
+00002d7c l       .debug_str	00000000 
+00002da3 l       .debug_str	00000000 
+00002dbb l       .debug_str	00000000 
+00002dc5 l       .debug_str	00000000 
+00002de8 l       .debug_str	00000000 
+00002e30 l       .debug_str	00000000 
+00002e70 l       .debug_str	00000000 
+00002eb7 l       .debug_str	00000000 
+00002ec0 l       .debug_str	00000000 
+00002ec4 l       .debug_str	00000000 
+00002eee l       .debug_str	00000000 
+00002ef3 l       .debug_str	00000000 
+00002ef6 l       .debug_str	00000000 
+00002f40 l       .debug_str	00000000 
+00002f49 l       .debug_str	00000000 
+00002f7c l       .debug_str	00000000 
+00002fa7 l       .debug_str	00000000 
+00002fa9 l       .debug_str	00000000 
+00002fe5 l       .debug_str	00000000 
 00002ff8 l       .debug_str	00000000 
-00002ffe l       .debug_str	00000000 
-00003004 l       .debug_str	00000000 
-00003006 l       .debug_str	00000000 
-0000300c l       .debug_str	00000000 
-00003011 l       .debug_str	00000000 
-0000301e l       .debug_str	00000000 
+00002ffd l       .debug_str	00000000 
+0000300f l       .debug_str	00000000 
+00003015 l       .debug_str	00000000 
+0000301b l       .debug_str	00000000 
+0000301d l       .debug_str	00000000 
 00003023 l       .debug_str	00000000 
-0000302b l       .debug_str	00000000 
-0000302f l       .debug_str	00000000 
-00003034 l       .debug_str	00000000 
-0000303c l       .debug_str	00000000 
-00003052 l       .debug_str	00000000 
-00003070 l       .debug_str	00000000 
-00003079 l       .debug_str	00000000 
-0000307e l       .debug_str	00000000 
-00003083 l       .debug_str	00000000 
+00003028 l       .debug_str	00000000 
+00003035 l       .debug_str	00000000 
+0000303a l       .debug_str	00000000 
+00003042 l       .debug_str	00000000 
+00003046 l       .debug_str	00000000 
+0000304b l       .debug_str	00000000 
+00003053 l       .debug_str	00000000 
+00003069 l       .debug_str	00000000 
 00003087 l       .debug_str	00000000 
 00003090 l       .debug_str	00000000 
+00003095 l       .debug_str	00000000 
 0000309a l       .debug_str	00000000 
-000030b2 l       .debug_str	00000000 
+0000309e l       .debug_str	00000000 
+000030a7 l       .debug_str	00000000 
+000030b1 l       .debug_str	00000000 
+000030c9 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -226,307 +223,312 @@ SYMBOL TABLE:
 000007e4 l       .debug_str	00000000 
 0000080c l       .debug_str	00000000 
 0000082d l       .debug_str	00000000 
-00000831 l       .debug_str	00000000 
-0000083b l       .debug_str	00000000 
-00000840 l       .debug_str	00000000 
-0000084e l       .debug_str	00000000 
-00000862 l       .debug_str	00000000 
+00000837 l       .debug_str	00000000 
+0000083c l       .debug_str	00000000 
+0000084a l       .debug_str	00000000 
+0000085c l       .debug_str	00000000 
+00000870 l       .debug_str	00000000 
 00000874 l       .debug_str	00000000 
-00000878 l       .debug_str	00000000 
+0000087d l       .debug_str	00000000 
 00000881 l       .debug_str	00000000 
-000008ba l       .debug_str	00000000 
-000008c9 l       .debug_str	00000000 
-000008fb l       .debug_str	00000000 
-00000908 l       .debug_str	00000000 
-00000914 l       .debug_str	00000000 
-00000984 l       .debug_str	00000000 
-000009b2 l       .debug_str	00000000 
-000009dc l       .debug_str	00000000 
-000009e1 l       .debug_str	00000000 
-00000a20 l       .debug_str	00000000 
-00000a36 l       .debug_str	00000000 
-00000a3c l       .debug_str	00000000 
-00000a43 l       .debug_str	00000000 
-00000a46 l       .debug_str	00000000 
-00000a52 l       .debug_str	00000000 
+0000088a l       .debug_str	00000000 
+00000898 l       .debug_str	00000000 
+000008d1 l       .debug_str	00000000 
+000008e0 l       .debug_str	00000000 
+00000912 l       .debug_str	00000000 
+0000091f l       .debug_str	00000000 
+0000092b l       .debug_str	00000000 
+0000099b l       .debug_str	00000000 
+000009c9 l       .debug_str	00000000 
+000009f3 l       .debug_str	00000000 
+000009f8 l       .debug_str	00000000 
+00000a37 l       .debug_str	00000000 
+00000a4d l       .debug_str	00000000 
+00000a53 l       .debug_str	00000000 
 00000a5a l       .debug_str	00000000 
-00000ab4 l       .debug_str	00000000 
-00000b16 l       .debug_str	00000000 
-00000b21 l       .debug_str	00000000 
-00000b68 l       .debug_str	00000000 
-00000bb7 l       .debug_str	00000000 
-00000bc1 l       .debug_str	00000000 
-00000bfe l       .debug_str	00000000 
-00000c43 l       .debug_str	00000000 
-00000c4c l       .debug_str	00000000 
-00000c5c l       .debug_str	00000000 
-00000c64 l       .debug_str	00000000 
-00000cb9 l       .debug_str	00000000 
-00000d16 l       .debug_str	00000000 
-00000d22 l       .debug_str	00000000 
-00000d2b l       .debug_str	00000000 
-00000d37 l       .debug_str	00000000 
-00000d43 l       .debug_str	00000000 
-00000d4c l       .debug_str	00000000 
-00000d54 l       .debug_str	00000000 
-00000d5c l       .debug_str	00000000 
-00000d66 l       .debug_str	00000000 
-00000d7b l       .debug_str	00000000 
-00000d82 l       .debug_str	00000000 
-00000da2 l       .debug_str	00000000 
-00000da9 l       .debug_str	00000000 
-00000db1 l       .debug_str	00000000 
-00000dbb l       .debug_str	00000000 
-00000dc6 l       .debug_str	00000000 
-00000dcf l       .debug_str	00000000 
-00000dda l       .debug_str	00000000 
+00000a5d l       .debug_str	00000000 
+00000a69 l       .debug_str	00000000 
+00000a71 l       .debug_str	00000000 
+00000acb l       .debug_str	00000000 
+00000b2d l       .debug_str	00000000 
+00000b38 l       .debug_str	00000000 
+00000b7f l       .debug_str	00000000 
+00000bce l       .debug_str	00000000 
+00000bd8 l       .debug_str	00000000 
+00000c15 l       .debug_str	00000000 
+00000c5a l       .debug_str	00000000 
+00000c63 l       .debug_str	00000000 
+00000c73 l       .debug_str	00000000 
+00000c7b l       .debug_str	00000000 
+00000cd0 l       .debug_str	00000000 
+00000d2d l       .debug_str	00000000 
+00000d39 l       .debug_str	00000000 
+00000d42 l       .debug_str	00000000 
+00000d4e l       .debug_str	00000000 
+00000d5a l       .debug_str	00000000 
+00000d63 l       .debug_str	00000000 
+00000d6b l       .debug_str	00000000 
+00000d73 l       .debug_str	00000000 
+00000d7d l       .debug_str	00000000 
+00000d92 l       .debug_str	00000000 
+00000d99 l       .debug_str	00000000 
+00000db9 l       .debug_str	00000000 
+00000dc0 l       .debug_str	00000000 
+00000dc8 l       .debug_str	00000000 
+00000dd2 l       .debug_str	00000000 
+00000ddd l       .debug_str	00000000 
 00000de6 l       .debug_str	00000000 
-00000dea l       .debug_str	00000000 
-00000df3 l       .debug_str	00000000 
-00000dfa l       .debug_str	00000000 
-00000e02 l       .debug_str	00000000 
+00000df1 l       .debug_str	00000000 
+00000dfd l       .debug_str	00000000 
+00000e01 l       .debug_str	00000000 
 00000e0a l       .debug_str	00000000 
-00000e14 l       .debug_str	00000000 
-00000e1a l       .debug_str	00000000 
+00000e11 l       .debug_str	00000000 
+00000e19 l       .debug_str	00000000 
 00000e21 l       .debug_str	00000000 
-00000e28 l       .debug_str	00000000 
-00000e55 l       .debug_str	00000000 
-00000e8a l       .debug_str	00000000 
-00000e90 l       .debug_str	00000000 
-00000e96 l       .debug_str	00000000 
-00000ea5 l       .debug_str	00000000 
-00000eb5 l       .debug_str	00000000 
-00000ec5 l       .debug_str	00000000 
-00000ecd l       .debug_str	00000000 
-00000ef6 l       .debug_str	00000000 
-00000f54 l       .debug_str	00000000 
-00000fba l       .debug_str	00000000 
-00000fc1 l       .debug_str	00000000 
-00000fc9 l       .debug_str	00000000 
-00000fd2 l       .debug_str	00000000 
-00000ff0 l       .debug_str	00000000 
-00001000 l       .debug_str	00000000 
-0000100e l       .debug_str	00000000 
-00001019 l       .debug_str	00000000 
-00001026 l       .debug_str	00000000 
-00001035 l       .debug_str	00000000 
-0000104b l       .debug_str	00000000 
-00001055 l       .debug_str	00000000 
-0000105e l       .debug_str	00000000 
-00001067 l       .debug_str	00000000 
-0000108d l       .debug_str	00000000 
-000010a3 l       .debug_str	00000000 
-000010ae l       .debug_str	00000000 
-000010c4 l       .debug_str	00000000 
-000010cc l       .debug_str	00000000 
-000010ed l       .debug_str	00000000 
+00000e2b l       .debug_str	00000000 
+00000e31 l       .debug_str	00000000 
+00000e38 l       .debug_str	00000000 
+00000e3f l       .debug_str	00000000 
+00000e6c l       .debug_str	00000000 
+00000ea1 l       .debug_str	00000000 
+00000ea7 l       .debug_str	00000000 
+00000ead l       .debug_str	00000000 
+00000ebc l       .debug_str	00000000 
+00000ecc l       .debug_str	00000000 
+00000edc l       .debug_str	00000000 
+00000ee4 l       .debug_str	00000000 
+00000f0d l       .debug_str	00000000 
+00000f6b l       .debug_str	00000000 
+00000fd1 l       .debug_str	00000000 
+00000fd8 l       .debug_str	00000000 
+00000fe0 l       .debug_str	00000000 
+00000fe9 l       .debug_str	00000000 
+00001007 l       .debug_str	00000000 
+00001017 l       .debug_str	00000000 
+00001025 l       .debug_str	00000000 
+00001030 l       .debug_str	00000000 
+0000103d l       .debug_str	00000000 
+0000104c l       .debug_str	00000000 
+00001062 l       .debug_str	00000000 
+0000106c l       .debug_str	00000000 
+00001075 l       .debug_str	00000000 
+0000107e l       .debug_str	00000000 
+000010a4 l       .debug_str	00000000 
+000010ba l       .debug_str	00000000 
+000010c5 l       .debug_str	00000000 
+000010db l       .debug_str	00000000 
+000010e3 l       .debug_str	00000000 
 00001104 l       .debug_str	00000000 
-00001109 l       .debug_str	00000000 
-00001111 l       .debug_str	00000000 
-0000111a l       .debug_str	00000000 
-00001123 l       .debug_str	00000000 
-0000112c l       .debug_str	00000000 
-00001134 l       .debug_str	00000000 
-0000113b l       .debug_str	00000000 
-00001147 l       .debug_str	00000000 
+0000111b l       .debug_str	00000000 
+00001120 l       .debug_str	00000000 
+00001128 l       .debug_str	00000000 
+00001131 l       .debug_str	00000000 
+0000113a l       .debug_str	00000000 
+00001143 l       .debug_str	00000000 
+0000114b l       .debug_str	00000000 
 00001152 l       .debug_str	00000000 
-0000115a l       .debug_str	00000000 
-00001162 l       .debug_str	00000000 
-000011de l       .debug_str	00000000 
-00001262 l       .debug_str	00000000 
-0000135e l       .debug_str	00000000 
-00001462 l       .debug_str	00000000 
-00001470 l       .debug_str	00000000 
-0000147b l       .debug_str	00000000 
-00001485 l       .debug_str	00000000 
-00001490 l       .debug_str	00000000 
-000014be l       .debug_str	00000000 
-00001539 l       .debug_str	00000000 
-000015bc l       .debug_str	00000000 
-000015ca l       .debug_str	00000000 
-00001629 l       .debug_str	00000000 
-00001690 l       .debug_str	00000000 
-000016a6 l       .debug_str	00000000 
-000016b6 l       .debug_str	00000000 
-000016c5 l       .debug_str	00000000 
-000016c9 l       .debug_str	00000000 
-000016cf l       .debug_str	00000000 
-000016d5 l       .debug_str	00000000 
-000016db l       .debug_str	00000000 
-000016eb l       .debug_str	00000000 
-0000171e l       .debug_str	00000000 
-0000175e l       .debug_str	00000000 
-000017a6 l       .debug_str	00000000 
-000017aa l       .debug_str	00000000 
-000017b0 l       .debug_str	00000000 
-000017b6 l       .debug_str	00000000 
-000017bc l       .debug_str	00000000 
-000017ce l       .debug_str	00000000 
-00001803 l       .debug_str	00000000 
-00001845 l       .debug_str	00000000 
-0000188f l       .debug_str	00000000 
-00001893 l       .debug_str	00000000 
-00001899 l       .debug_str	00000000 
-0000189f l       .debug_str	00000000 
-000018a5 l       .debug_str	00000000 
-000018b7 l       .debug_str	00000000 
-000018ec l       .debug_str	00000000 
-0000192e l       .debug_str	00000000 
-00001978 l       .debug_str	00000000 
-0000197c l       .debug_str	00000000 
-00001982 l       .debug_str	00000000 
-00001988 l       .debug_str	00000000 
-0000198e l       .debug_str	00000000 
-00001994 l       .debug_str	00000000 
+0000115e l       .debug_str	00000000 
+00001169 l       .debug_str	00000000 
+00001171 l       .debug_str	00000000 
+00001179 l       .debug_str	00000000 
+000011f5 l       .debug_str	00000000 
+00001279 l       .debug_str	00000000 
+00001375 l       .debug_str	00000000 
+00001479 l       .debug_str	00000000 
+00001487 l       .debug_str	00000000 
+00001492 l       .debug_str	00000000 
+0000149c l       .debug_str	00000000 
+000014a7 l       .debug_str	00000000 
+000014d5 l       .debug_str	00000000 
+00001550 l       .debug_str	00000000 
+000015d3 l       .debug_str	00000000 
+000015e1 l       .debug_str	00000000 
+00001640 l       .debug_str	00000000 
+000016a7 l       .debug_str	00000000 
+000016bd l       .debug_str	00000000 
+000016cd l       .debug_str	00000000 
+000016dc l       .debug_str	00000000 
+000016e0 l       .debug_str	00000000 
+000016e6 l       .debug_str	00000000 
+000016ec l       .debug_str	00000000 
+000016f2 l       .debug_str	00000000 
+00001702 l       .debug_str	00000000 
+00001735 l       .debug_str	00000000 
+00001775 l       .debug_str	00000000 
+000017bd l       .debug_str	00000000 
+000017c1 l       .debug_str	00000000 
+000017c7 l       .debug_str	00000000 
+000017cd l       .debug_str	00000000 
+000017d3 l       .debug_str	00000000 
+000017e5 l       .debug_str	00000000 
+0000181a l       .debug_str	00000000 
+0000185c l       .debug_str	00000000 
+000018a6 l       .debug_str	00000000 
+000018aa l       .debug_str	00000000 
+000018b0 l       .debug_str	00000000 
+000018b6 l       .debug_str	00000000 
+000018bc l       .debug_str	00000000 
+000018ce l       .debug_str	00000000 
+00001903 l       .debug_str	00000000 
+00001945 l       .debug_str	00000000 
+0000198f l       .debug_str	00000000 
+00001993 l       .debug_str	00000000 
+00001999 l       .debug_str	00000000 
+0000199f l       .debug_str	00000000 
 000019a5 l       .debug_str	00000000 
-000019d9 l       .debug_str	00000000 
-00001a1a l       .debug_str	00000000 
-00001a63 l       .debug_str	00000000 
-00001a68 l       .debug_str	00000000 
-00001a6d l       .debug_str	00000000 
-00001a71 l       .debug_str	00000000 
-00001a77 l       .debug_str	00000000 
-00001a7d l       .debug_str	00000000 
-00001a83 l       .debug_str	00000000 
+000019ab l       .debug_str	00000000 
+000019bc l       .debug_str	00000000 
+000019f0 l       .debug_str	00000000 
+00001a31 l       .debug_str	00000000 
+00001a7a l       .debug_str	00000000 
+00001a7f l       .debug_str	00000000 
+00001a84 l       .debug_str	00000000 
+00001a88 l       .debug_str	00000000 
+00001a8e l       .debug_str	00000000 
 00001a94 l       .debug_str	00000000 
-00001ac8 l       .debug_str	00000000 
-00001b09 l       .debug_str	00000000 
-00001b52 l       .debug_str	00000000 
-00001b56 l       .debug_str	00000000 
-00001b8a l       .debug_str	00000000 
-00001bcb l       .debug_str	00000000 
-00001c14 l       .debug_str	00000000 
-00001c19 l       .debug_str	00000000 
-00001c1d l       .debug_str	00000000 
-00001c26 l       .debug_str	00000000 
-00001c2d l       .debug_str	00000000 
-00001c35 l       .debug_str	00000000 
-00001c47 l       .debug_str	00000000 
-00001c7c l       .debug_str	00000000 
-00001cbe l       .debug_str	00000000 
-00001d08 l       .debug_str	00000000 
-00001d0c l       .debug_str	00000000 
-00001d12 l       .debug_str	00000000 
-00001d18 l       .debug_str	00000000 
-00001d1e l       .debug_str	00000000 
-00001d24 l       .debug_str	00000000 
-00001d2c l       .debug_str	00000000 
-00001d3a l       .debug_str	00000000 
-00001d49 l       .debug_str	00000000 
-00001d5a l       .debug_str	00000000 
-00001d65 l       .debug_str	00000000 
-00001d70 l       .debug_str	00000000 
-00001d7b l       .debug_str	00000000 
-00001d82 l       .debug_str	00000000 
-00001da5 l       .debug_str	00000000 
-00001db7 l       .debug_str	00000000 
-00001dec l       .debug_str	00000000 
-00001e2e l       .debug_str	00000000 
-00001e78 l       .debug_str	00000000 
-00001e7c l       .debug_str	00000000 
-00001e86 l       .debug_str	00000000 
-00001e98 l       .debug_str	00000000 
-00001ecd l       .debug_str	00000000 
-00001f0f l       .debug_str	00000000 
-00001f59 l       .debug_str	00000000 
-00001f5e l       .debug_str	00000000 
-00001f68 l       .debug_str	00000000 
-00001f7a l       .debug_str	00000000 
-00001faf l       .debug_str	00000000 
-00001ff1 l       .debug_str	00000000 
-0000203b l       .debug_str	00000000 
-0000204f l       .debug_str	00000000 
-0000205d l       .debug_str	00000000 
-0000206d l       .debug_str	00000000 
-00002076 l       .debug_str	00000000 
-00002081 l       .debug_str	00000000 
-00002090 l       .debug_str	00000000 
-000020a5 l       .debug_str	00000000 
-000020d6 l       .debug_str	00000000 
-00002173 l       .debug_str	00000000 
-00002218 l       .debug_str	00000000 
-00002223 l       .debug_str	00000000 
-0000222c l       .debug_str	00000000 
-0000224d l       .debug_str	00000000 
-00002296 l       .debug_str	00000000 
-00002319 l       .debug_str	00000000 
-000023a4 l       .debug_str	00000000 
-000023c0 l       .debug_str	00000000 
-0000240c l       .debug_str	00000000 
-00002460 l       .debug_str	00000000 
-0000247d l       .debug_str	00000000 
-00002491 l       .debug_str	00000000 
-000024dd l       .debug_str	00000000 
-00002531 l       .debug_str	00000000 
-00002547 l       .debug_str	00000000 
-0000255b l       .debug_str	00000000 
-000025a2 l       .debug_str	00000000 
-000025f1 l       .debug_str	00000000 
-000025fa l       .debug_str	00000000 
+00001a9a l       .debug_str	00000000 
+00001aab l       .debug_str	00000000 
+00001adf l       .debug_str	00000000 
+00001b20 l       .debug_str	00000000 
+00001b69 l       .debug_str	00000000 
+00001b6d l       .debug_str	00000000 
+00001ba1 l       .debug_str	00000000 
+00001be2 l       .debug_str	00000000 
+00001c2b l       .debug_str	00000000 
+00001c30 l       .debug_str	00000000 
+00001c34 l       .debug_str	00000000 
+00001c3d l       .debug_str	00000000 
+00001c44 l       .debug_str	00000000 
+00001c4c l       .debug_str	00000000 
+00001c5e l       .debug_str	00000000 
+00001c93 l       .debug_str	00000000 
+00001cd5 l       .debug_str	00000000 
+00001d1f l       .debug_str	00000000 
+00001d23 l       .debug_str	00000000 
+00001d29 l       .debug_str	00000000 
+00001d2f l       .debug_str	00000000 
+00001d35 l       .debug_str	00000000 
+00001d3b l       .debug_str	00000000 
+00001d43 l       .debug_str	00000000 
+00001d51 l       .debug_str	00000000 
+00001d60 l       .debug_str	00000000 
+00001d71 l       .debug_str	00000000 
+00001d7c l       .debug_str	00000000 
+00001d87 l       .debug_str	00000000 
+00001d92 l       .debug_str	00000000 
+00001d99 l       .debug_str	00000000 
+00001dbc l       .debug_str	00000000 
+00001dce l       .debug_str	00000000 
+00001e03 l       .debug_str	00000000 
+00001e45 l       .debug_str	00000000 
+00001e8f l       .debug_str	00000000 
+00001e93 l       .debug_str	00000000 
+00001e9d l       .debug_str	00000000 
+00001eaf l       .debug_str	00000000 
+00001ee4 l       .debug_str	00000000 
+00001f26 l       .debug_str	00000000 
+00001f70 l       .debug_str	00000000 
+00001f75 l       .debug_str	00000000 
+00001f7f l       .debug_str	00000000 
+00001f91 l       .debug_str	00000000 
+00001fc6 l       .debug_str	00000000 
+00002008 l       .debug_str	00000000 
+00002052 l       .debug_str	00000000 
+00002066 l       .debug_str	00000000 
+00002074 l       .debug_str	00000000 
+00002084 l       .debug_str	00000000 
+0000208d l       .debug_str	00000000 
+00002098 l       .debug_str	00000000 
+000020a7 l       .debug_str	00000000 
+000020bc l       .debug_str	00000000 
+000020ed l       .debug_str	00000000 
+0000218a l       .debug_str	00000000 
+0000222f l       .debug_str	00000000 
+0000223a l       .debug_str	00000000 
+00002243 l       .debug_str	00000000 
+00002264 l       .debug_str	00000000 
+000022ad l       .debug_str	00000000 
+00002330 l       .debug_str	00000000 
+000023bb l       .debug_str	00000000 
+000023d7 l       .debug_str	00000000 
+00002423 l       .debug_str	00000000 
+00002477 l       .debug_str	00000000 
+00002494 l       .debug_str	00000000 
+000024a8 l       .debug_str	00000000 
+000024f4 l       .debug_str	00000000 
+00002548 l       .debug_str	00000000 
+0000255e l       .debug_str	00000000 
+00002572 l       .debug_str	00000000 
+000025b9 l       .debug_str	00000000 
 00002608 l       .debug_str	00000000 
-00002639 l       .debug_str	00000000 
-0000263f l       .debug_str	00000000 
-00002647 l       .debug_str	00000000 
-0000264e l       .debug_str	00000000 
+00002611 l       .debug_str	00000000 
+0000261f l       .debug_str	00000000 
+00002650 l       .debug_str	00000000 
 00002656 l       .debug_str	00000000 
-00002661 l       .debug_str	00000000 
-00002669 l       .debug_str	00000000 
+0000265e l       .debug_str	00000000 
+00002665 l       .debug_str	00000000 
+0000266d l       .debug_str	00000000 
 00002678 l       .debug_str	00000000 
-0000267c l       .debug_str	00000000 
-00002687 l       .debug_str	00000000 
+00002680 l       .debug_str	00000000 
+0000268f l       .debug_str	00000000 
 00002693 l       .debug_str	00000000 
 0000269e l       .debug_str	00000000 
-000026af l       .debug_str	00000000 
+000026aa l       .debug_str	00000000 
 000026b5 l       .debug_str	00000000 
-000026bd l       .debug_str	00000000 
-000026c4 l       .debug_str	00000000 
-000026ce l       .debug_str	00000000 
-000026d6 l       .debug_str	00000000 
-000026de l       .debug_str	00000000 
-00002700 l       .debug_str	00000000 
-0000270b l       .debug_str	00000000 
+000026c6 l       .debug_str	00000000 
+000026cc l       .debug_str	00000000 
+000026d4 l       .debug_str	00000000 
+000026db l       .debug_str	00000000 
+000026e5 l       .debug_str	00000000 
+000026ed l       .debug_str	00000000 
+000026f5 l       .debug_str	00000000 
 00002717 l       .debug_str	00000000 
-0000271f l       .debug_str	00000000 
-00002728 l       .debug_str	00000000 
-00002733 l       .debug_str	00000000 
-0000273a l       .debug_str	00000000 
-00002745 l       .debug_str	00000000 
-00002750 l       .debug_str	00000000 
-00002760 l       .debug_str	00000000 
-0000276a l       .debug_str	00000000 
-00002770 l       .debug_str	00000000 
-00002792 l       .debug_str	00000000 
-000027ca l       .debug_str	00000000 
-0000280a l       .debug_str	00000000 
-00002811 l       .debug_str	00000000 
-00002819 l       .debug_str	00000000 
+00002722 l       .debug_str	00000000 
+0000272e l       .debug_str	00000000 
+00002736 l       .debug_str	00000000 
+0000273f l       .debug_str	00000000 
+0000274a l       .debug_str	00000000 
+00002751 l       .debug_str	00000000 
+0000275c l       .debug_str	00000000 
+00002767 l       .debug_str	00000000 
+00002777 l       .debug_str	00000000 
+00002781 l       .debug_str	00000000 
+00002787 l       .debug_str	00000000 
+000027a9 l       .debug_str	00000000 
+000027e1 l       .debug_str	00000000 
+00002821 l       .debug_str	00000000 
+00002828 l       .debug_str	00000000 
 00002830 l       .debug_str	00000000 
-00002839 l       .debug_str	00000000 
-00002849 l       .debug_str	00000000 
-00002858 l       .debug_str	00000000 
+00002847 l       .debug_str	00000000 
+00002850 l       .debug_str	00000000 
 00002860 l       .debug_str	00000000 
-00002867 l       .debug_str	00000000 
 0000286f l       .debug_str	00000000 
-0000288d l       .debug_str	00000000 
-0000289d l       .debug_str	00000000 
-000028d0 l       .debug_str	00000000 
-000028e5 l       .debug_str	00000000 
-000028ee l       .debug_str	00000000 
-0000294b l       .debug_str	00000000 
-000029b0 l       .debug_str	00000000 
-000029ba l       .debug_str	00000000 
-000029ca l       .debug_str	00000000 
-000029df l       .debug_str	00000000 
-000029e7 l       .debug_str	00000000 
-00002a4b l       .debug_str	00000000 
-00002ab7 l       .debug_str	00000000 
-00002abe l       .debug_str	00000000 
-00002ac6 l       .debug_str	00000000 
-00002ae4 l       .debug_str	00000000 
-00002af4 l       .debug_str	00000000 
-00002b27 l       .debug_str	00000000 
-00002b3c l       .debug_str	00000000 
-00002b4f l       .debug_str	00000000 
+00002877 l       .debug_str	00000000 
+0000287e l       .debug_str	00000000 
+00002886 l       .debug_str	00000000 
+000028a4 l       .debug_str	00000000 
+000028b4 l       .debug_str	00000000 
+000028e7 l       .debug_str	00000000 
+000028fc l       .debug_str	00000000 
+00002905 l       .debug_str	00000000 
+00002962 l       .debug_str	00000000 
+000029c7 l       .debug_str	00000000 
+000029d1 l       .debug_str	00000000 
+000029e1 l       .debug_str	00000000 
+000029f6 l       .debug_str	00000000 
+000029fe l       .debug_str	00000000 
+00002a62 l       .debug_str	00000000 
+00002ace l       .debug_str	00000000 
+00002ad5 l       .debug_str	00000000 
+00002add l       .debug_str	00000000 
+00002afb l       .debug_str	00000000 
+00002b0b l       .debug_str	00000000 
+00002b3e l       .debug_str	00000000 
+00002b53 l       .debug_str	00000000 
+00002b66 l       .debug_str	00000000 
+00002b7b l       .debug_str	00000000 
+00002b82 l       .debug_str	00000000 
+00002b97 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.10
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.11
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.13
@@ -534,31 +536,28 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.16	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.16
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.17	00000019 .Lanon.3ed011473997af99b525cde47c9eaaac.17
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.18	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.18
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.19	00000009 .Lanon.3ed011473997af99b525cde47c9eaaac.19
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.19	00000016 .Lanon.3ed011473997af99b525cde47c9eaaac.19
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2	00000010 .Lanon.3ed011473997af99b525cde47c9eaaac.2
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.20	00000016 .Lanon.3ed011473997af99b525cde47c9eaaac.20
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.21	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.21
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.22	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.22
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.23	0000000d .Lanon.3ed011473997af99b525cde47c9eaaac.23
-00000000 l     O .rodata.cst4	00000004 .Lanon.3ed011473997af99b525cde47c9eaaac.24
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.25	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.25
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.26	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.26
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.27	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.27
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.28	00000005 .Lanon.3ed011473997af99b525cde47c9eaaac.28
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.29	0000004b .Lanon.3ed011473997af99b525cde47c9eaaac.29
-00000000 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.30
-00000008 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.31
-00000010 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.32
-00000018 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.33
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.34	00000012 .Lanon.3ed011473997af99b525cde47c9eaaac.34
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.35	00000009 .Lanon.3ed011473997af99b525cde47c9eaaac.35
-00000020 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.36
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.37	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.37
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.20	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.20
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.21	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.21
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.22	0000000d .Lanon.3ed011473997af99b525cde47c9eaaac.22
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.23	00000009 .Lanon.3ed011473997af99b525cde47c9eaaac.23
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.24	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.24
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.25	00000005 .Lanon.3ed011473997af99b525cde47c9eaaac.25
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.26	0000004b .Lanon.3ed011473997af99b525cde47c9eaaac.26
+00000000 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.27
+00000008 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.28
+00000010 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.29
+00000018 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.30
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.31	00000012 .Lanon.3ed011473997af99b525cde47c9eaaac.31
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.32	00000009 .Lanon.3ed011473997af99b525cde47c9eaaac.32
+00000020 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.33
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.34	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.34
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4	00000010 .Lanon.3ed011473997af99b525cde47c9eaaac.4
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6	0000000f .Lanon.3ed011473997af99b525cde47c9eaaac.6
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.9
 00000000 l     O .rodata._ZN3app10app_sensor13SENSOR_DEVICE17h31cb9432cbc8a7caE	0000000c app::app_sensor::SENSOR_DEVICE
-00000000 l     F .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E	000002c6 app::app_sensor::handle_sensor_data
+00000000 l     F .text._ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E	0000025a app::app_sensor::handle_sensor_data
 00000000 l     F .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E	0000000c <&T as core::fmt::Display>::fmt
 00000000 l     F .text._ZN4core6result13unwrap_failed17h4b64b7a78ab076d1E	00000050 core::result::unwrap_failed
 00000000 l    d  .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E	00000000 .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h422d517eccc73a15E
@@ -609,7 +608,6 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 mynewt::encoding::coap_context::CoapContext::value_to_cstr
 00000000         *UND*	00000000 mynewt::encoding::coap_context::COAP_CONTEXT
 00000000         *UND*	00000000 <str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
-00000000         *UND*	00000000 <mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000         *UND*	00000000 __bkpt
 00000000         *UND*	00000000 get_device_id
 00000000         *UND*	00000000 get_temp_raw_data
@@ -695,7 +693,7 @@ _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
 ///  Return 0 if we have handled the sensor data successfully.
 extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg, 
    0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	b089      	sub	sp, #36	; 0x24
+   4:	b085      	sub	sp, #20
    6:	4605      	mov	r5, r0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:75
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
@@ -720,16 +718,16 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  Return 0 to Mynewt to indicate no error.  Should not end with a semicolon (;).
     MynewtError::SYS_EOK
 }
-  24:	b009      	add	sp, #36	; 0x24
+  24:	b005      	add	sp, #20
   26:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:79
     assert!(unsafe { !sensor::is_null_sensor(sensor) });
   2a:	4628      	mov	r0, r5
   2c:	f7ff fffe 	bl	0 <is_null_sensor>
   30:	2800      	cmp	r0, #0
-  32:	f040 8133 	bne.w	29c <app::app_sensor::handle_sensor_data+0x29c>
+  32:	f040 80fd 	bne.w	230 <app::app_sensor::handle_sensor_data+0x230>
   36:	2000      	movs	r0, #0
-  38:	a906      	add	r1, sp, #24
+  38:	a902      	add	r1, sp, #8
 _ZN3app10app_sensor15get_temperature17h019ecf0f82edebc9E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:113
 fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
@@ -738,8 +736,8 @@ fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> 
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
             //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
             let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
-  3a:	f88d 001c 	strb.w	r0, [sp, #28]
-  3e:	9006      	str	r0, [sp, #24]
+  3a:	f88d 000c 	strb.w	r0, [sp, #12]
+  3e:	9002      	str	r0, [sp, #8]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:114
             let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
   40:	4620      	mov	r0, r4
@@ -747,14 +745,14 @@ fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> 
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:115
             assert!(rc == 0);
   46:	2800      	cmp	r0, #0
-  48:	f040 812f 	bne.w	2aa <app::app_sensor::handle_sensor_data+0x2aa>
+  48:	f040 80f9 	bne.w	23e <app::app_sensor::handle_sensor_data+0x23e>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
 
             //  Check that the raw temperature data is valid.
             if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
-  4c:	f89d 001c 	ldrb.w	r0, [sp, #28]
+  4c:	f89d 000c 	ldrb.w	r0, [sp, #12]
   50:	2800      	cmp	r0, #0
-  52:	f000 8131 	beq.w	2b8 <app::app_sensor::handle_sensor_data+0x2b8>
+  52:	f000 80fb 	beq.w	24c <app::app_sensor::handle_sensor_data+0x24c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:122
 
             //  Raw temperature data is valid.  Copy and display it.
@@ -765,7 +763,7 @@ fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> 
   5c:	f2c0 0000 	movt	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:121
             return_value.val = SensorValueType::Uint(rawtempdata.strd_temp_raw);  //  Raw Temperature in integer (0 to 4095)
-  60:	f8dd a018 	ldr.w	sl, [sp, #24]
+  60:	f8dd a008 	ldr.w	sl, [sp, #8]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:122
             console::print("TMP listener got rawtmp \n");  // return_value->int_val);
   64:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
@@ -785,219 +783,167 @@ _ZN3app11app_network14get_device_id217h5798c2782d2df21dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:48
         let result_value: *const ::cty::c_char = get_device_id();
   76:	f7ff fffe 	bl	0 <get_device_id>
+  7a:	ad02      	add	r5, sp, #8
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:74
-    if let SensorValueType::None = val.val { assert!(false); }
-    // let device_id = strn2!( sensor_network::get_device_id() ? );
-    // let device_id2 = strn2!( "network" );
-    let device_id = get_device_id2() ?;
-  7a:	9003      	str	r0, [sp, #12]
-  7c:	2009      	movs	r0, #9
-  7e:	9002      	str	r0, [sp, #8]
-  80:	f240 0000 	movw	r0, #0
-  84:	ad06      	add	r5, sp, #24
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:79
+    let device_id = get_device_id2() ?;
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = sensor_network::init_server_post(strn!("")) ? ;
-  86:	f240 0100 	movw	r1, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:74
-    let device_id = get_device_id2() ?;
-  8a:	f2c0 0000 	movt	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:79
-    let rc = sensor_network::init_server_post(strn!("")) ? ;
-  8e:	f2c0 0100 	movt	r1, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:74
-    let device_id = get_device_id2() ?;
-  92:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:79
-    let rc = sensor_network::init_server_post(strn!("")) ? ;
-  94:	4628      	mov	r0, r5
-  96:	2201      	movs	r2, #1
-  98:	f7ff fffe 	bl	0 <mynewt::Strn::new>
-  9c:	a804      	add	r0, sp, #16
-  9e:	4629      	mov	r1, r5
-  a0:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::init_server_post>
+  7c:	f240 0100 	movw	r1, #0
+  80:	f2c0 0100 	movt	r1, #0
+  84:	2201      	movs	r2, #1
+  86:	4628      	mov	r0, r5
+  88:	f7ff fffe 	bl	0 <mynewt::Strn::new>
+  8c:	4668      	mov	r0, sp
+  8e:	4629      	mov	r1, r5
+  90:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::init_server_post>
 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hfc45991b9511dbacE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
-  a4:	9804      	ldr	r0, [sp, #16]
-  a6:	b2c1      	uxtb	r1, r0
+  94:	9800      	ldr	r0, [sp, #0]
+  96:	b2c1      	uxtb	r1, r0
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:79
-  a8:	2901      	cmp	r1, #1
-  aa:	d107      	bne.n	bc <app::app_sensor::handle_sensor_data+0xbc>
-  ac:	9805      	ldr	r0, [sp, #20]
+  98:	2901      	cmp	r1, #1
+  9a:	d107      	bne.n	ac <app::app_sensor::handle_sensor_data+0xac>
+  9c:	9801      	ldr	r0, [sp, #4]
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:93
     if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
-  ae:	3006      	adds	r0, #6
-  b0:	f000 80de 	beq.w	270 <app::app_sensor::handle_sensor_data+0x270>
-  b4:	2000      	movs	r0, #0
+  9e:	3006      	adds	r0, #6
+  a0:	f000 80b0 	beq.w	204 <app::app_sensor::handle_sensor_data+0x204>
+  a4:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:101
 }
-  b6:	b009      	add	sp, #36	; 0x24
-  b8:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+  a6:	b005      	add	sp, #20
+  a8:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:80
     if !rc { return Err(MynewtError::SYS_EAGAIN); }  //  If network transport not ready, tell caller (Sensor Listener) to try again later.
-  bc:	f410 4f7f 	tst.w	r0, #65280	; 0xff00
-  c0:	f000 80d6 	beq.w	270 <app::app_sensor::handle_sensor_data+0x270>
-  c4:	a806      	add	r0, sp, #24
+  ac:	f410 4f7f 	tst.w	r0, #65280	; 0xff00
+  b0:	f000 80a8 	beq.w	204 <app::app_sensor::handle_sensor_data+0x204>
+  b4:	a802      	add	r0, sp, #8
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
 
     //  Compose the CoAP Payload using the coap!() macro.
     //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.
     let _payload = coap!( @json {        
-  c6:	2132      	movs	r1, #50	; 0x32
-  c8:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::prepare_post>
+  b6:	2132      	movs	r1, #50	; 0x32
+  b8:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::prepare_post>
 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hfc45991b9511dbacE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
-  cc:	f89d 0018 	ldrb.w	r0, [sp, #24]
+  bc:	f89d 0008 	ldrb.w	r0, [sp, #8]
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
-  d0:	2801      	cmp	r0, #1
-  d2:	f000 80c9 	beq.w	268 <app::app_sensor::handle_sensor_data+0x268>
-  d6:	f7ff fffe 	bl	0 <json_rep_start_root_object>
-  da:	f240 0b00 	movw	fp, #0
-  de:	f2c0 0b00 	movt	fp, #0
+  c0:	2801      	cmp	r0, #1
+  c2:	f000 809b 	beq.w	1fc <app::app_sensor::handle_sensor_data+0x1fc>
+  c6:	f7ff fffe 	bl	0 <json_rep_start_root_object>
+  ca:	f240 0b00 	movw	fp, #0
+  ce:	f2c0 0b00 	movt	fp, #0
+  d2:	4658      	mov	r0, fp
+  d4:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
+  d8:	f240 0100 	movw	r1, #0
+  dc:	4607      	mov	r7, r0
+  de:	f2c0 0100 	movt	r1, #0
   e2:	4658      	mov	r0, fp
-  e4:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
-  e8:	f240 0100 	movw	r1, #0
-  ec:	4607      	mov	r7, r0
-  ee:	f2c0 0100 	movt	r1, #0
-  f2:	4658      	mov	r0, fp
-  f4:	2207      	movs	r2, #7
-  f6:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
-  fa:	4601      	mov	r1, r0
-  fc:	4638      	mov	r0, r7
-  fe:	f7ff fffe 	bl	0 <json_helper_set_array>
- 102:	f240 0900 	movw	r9, #0
- 106:	4658      	mov	r0, fp
- 108:	f2c0 0900 	movt	r9, #0
- 10c:	220d      	movs	r2, #13
- 10e:	4649      	mov	r1, r9
- 110:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 114:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
- 118:	f240 0000 	movw	r0, #0
- 11c:	2106      	movs	r1, #6
- 11e:	f2c0 0000 	movt	r0, #0
- 122:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
- 126:	4606      	mov	r6, r0
- 128:	4658      	mov	r0, fp
- 12a:	460f      	mov	r7, r1
- 12c:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
- 130:	f240 0100 	movw	r1, #0
- 134:	4604      	mov	r4, r0
- 136:	f2c0 0100 	movt	r1, #0
- 13a:	4658      	mov	r0, fp
- 13c:	2204      	movs	r2, #4
- 13e:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 142:	4605      	mov	r5, r0
- 144:	4658      	mov	r0, fp
- 146:	4631      	mov	r1, r6
- 148:	463a      	mov	r2, r7
- 14a:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::value_to_cstr>
- 14e:	4602      	mov	r2, r0
- 150:	4620      	mov	r0, r4
- 152:	4629      	mov	r1, r5
- 154:	f7ff fffe 	bl	0 <json_helper_set_text_string>
- 158:	a801      	add	r0, sp, #4
- 15a:	f7ff fffe 	bl	0 <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
- 15e:	4604      	mov	r4, r0
- 160:	4658      	mov	r0, fp
- 162:	460d      	mov	r5, r1
- 164:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
- 168:	f240 0100 	movw	r1, #0
- 16c:	4606      	mov	r6, r0
- 16e:	f2c0 0100 	movt	r1, #0
- 172:	4658      	mov	r0, fp
- 174:	2206      	movs	r2, #6
- 176:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 17a:	4607      	mov	r7, r0
- 17c:	4658      	mov	r0, fp
- 17e:	4621      	mov	r1, r4
- 180:	462a      	mov	r2, r5
- 182:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::value_to_cstr>
- 186:	4602      	mov	r2, r0
- 188:	4630      	mov	r0, r6
- 18a:	4639      	mov	r1, r7
- 18c:	f7ff fffe 	bl	0 <json_helper_set_text_string>
- 190:	4658      	mov	r0, fp
- 192:	4649      	mov	r1, r9
- 194:	220d      	movs	r2, #13
- 196:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 19a:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
- 19e:	4658      	mov	r0, fp
- 1a0:	4649      	mov	r1, r9
- 1a2:	220d      	movs	r2, #13
- 1a4:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 1a8:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
- 1ac:	f240 0000 	movw	r0, #0
- 1b0:	2103      	movs	r1, #3
- 1b2:	f2c0 0000 	movt	r0, #0
- 1b6:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
- 1ba:	4604      	mov	r4, r0
- 1bc:	f240 0000 	movw	r0, #0
- 1c0:	460d      	mov	r5, r1
- 1c2:	f2c0 0000 	movt	r0, #0
- 1c6:	2101      	movs	r1, #1
- 1c8:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
- 1cc:	4606      	mov	r6, r0
- 1ce:	4658      	mov	r0, fp
- 1d0:	460f      	mov	r7, r1
- 1d2:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
- 1d6:	4680      	mov	r8, r0
- 1d8:	4658      	mov	r0, fp
- 1da:	4621      	mov	r1, r4
- 1dc:	462a      	mov	r2, r5
+  e4:	2207      	movs	r2, #7
+  e6:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+  ea:	4601      	mov	r1, r0
+  ec:	4638      	mov	r0, r7
+  ee:	f7ff fffe 	bl	0 <json_helper_set_array>
+  f2:	f240 0900 	movw	r9, #0
+  f6:	4658      	mov	r0, fp
+  f8:	f2c0 0900 	movt	r9, #0
+  fc:	220d      	movs	r2, #13
+  fe:	4649      	mov	r1, r9
+ 100:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+ 104:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
+ 108:	f240 0600 	movw	r6, #0
+ 10c:	a802      	add	r0, sp, #8
+ 10e:	f2c0 0600 	movt	r6, #0
+ 112:	2209      	movs	r2, #9
+ 114:	4631      	mov	r1, r6
+ 116:	f7ff fffe 	bl	0 <mynewt::Strn::new>
+ 11a:	a802      	add	r0, sp, #8
+ 11c:	4631      	mov	r1, r6
+ 11e:	2209      	movs	r2, #9
+ 120:	f7ff fffe 	bl	0 <mynewt::Strn::new>
+ 124:	4658      	mov	r0, fp
+ 126:	4649      	mov	r1, r9
+ 128:	220d      	movs	r2, #13
+ 12a:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+ 12e:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
+ 132:	4658      	mov	r0, fp
+ 134:	4649      	mov	r1, r9
+ 136:	220d      	movs	r2, #13
+ 138:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+ 13c:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
+ 140:	f240 0000 	movw	r0, #0
+ 144:	2103      	movs	r1, #3
+ 146:	f2c0 0000 	movt	r0, #0
+ 14a:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
+ 14e:	4606      	mov	r6, r0
+ 150:	f240 0000 	movw	r0, #0
+ 154:	460f      	mov	r7, r1
+ 156:	f2c0 0000 	movt	r0, #0
+ 15a:	2101      	movs	r1, #1
+ 15c:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
+ 160:	4604      	mov	r4, r0
+ 162:	4658      	mov	r0, fp
+ 164:	460d      	mov	r5, r1
+ 166:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
+ 16a:	4680      	mov	r8, r0
+ 16c:	4658      	mov	r0, fp
+ 16e:	4631      	mov	r1, r6
+ 170:	463a      	mov	r2, r7
+ 172:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+ 176:	4606      	mov	r6, r0
+ 178:	4658      	mov	r0, fp
+ 17a:	4621      	mov	r1, r4
+ 17c:	462a      	mov	r2, r5
+ 17e:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::value_to_cstr>
+ 182:	4602      	mov	r2, r0
+ 184:	4640      	mov	r0, r8
+ 186:	4631      	mov	r1, r6
+ 188:	f7ff fffe 	bl	0 <json_helper_set_text_string>
+ 18c:	f240 0000 	movw	r0, #0
+ 190:	2105      	movs	r1, #5
+ 192:	f2c0 0000 	movt	r0, #0
+ 196:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
+ 19a:	4604      	mov	r4, r0
+ 19c:	4658      	mov	r0, fp
+ 19e:	460d      	mov	r5, r1
+ 1a0:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
+ 1a4:	4606      	mov	r6, r0
+ 1a6:	4658      	mov	r0, fp
+ 1a8:	4621      	mov	r1, r4
+ 1aa:	462a      	mov	r2, r5
+ 1ac:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+ 1b0:	4601      	mov	r1, r0
+ 1b2:	4630      	mov	r0, r6
+ 1b4:	4652      	mov	r2, sl
+ 1b6:	2300      	movs	r3, #0
+ 1b8:	f7ff fffe 	bl	0 <json_helper_set_int>
+ 1bc:	4658      	mov	r0, fp
+ 1be:	4649      	mov	r1, r9
+ 1c0:	220d      	movs	r2, #13
+ 1c2:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
+ 1c6:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
+ 1ca:	4658      	mov	r0, fp
+ 1cc:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
+ 1d0:	f240 0100 	movw	r1, #0
+ 1d4:	4604      	mov	r4, r0
+ 1d6:	4658      	mov	r0, fp
+ 1d8:	f2c0 0100 	movt	r1, #0
+ 1dc:	2207      	movs	r2, #7
  1de:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 1e2:	4604      	mov	r4, r0
- 1e4:	4658      	mov	r0, fp
- 1e6:	4631      	mov	r1, r6
- 1e8:	463a      	mov	r2, r7
- 1ea:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::value_to_cstr>
- 1ee:	4602      	mov	r2, r0
- 1f0:	4640      	mov	r0, r8
- 1f2:	4621      	mov	r1, r4
- 1f4:	f7ff fffe 	bl	0 <json_helper_set_text_string>
- 1f8:	f240 0000 	movw	r0, #0
- 1fc:	2105      	movs	r1, #5
- 1fe:	f2c0 0000 	movt	r0, #0
- 202:	f7ff fffe 	bl	0 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>
- 206:	4604      	mov	r4, r0
- 208:	4658      	mov	r0, fp
- 20a:	460d      	mov	r5, r1
- 20c:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
- 210:	4606      	mov	r6, r0
- 212:	4658      	mov	r0, fp
- 214:	4621      	mov	r1, r4
- 216:	462a      	mov	r2, r5
- 218:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 21c:	4601      	mov	r1, r0
- 21e:	4630      	mov	r0, r6
- 220:	4652      	mov	r2, sl
- 222:	2300      	movs	r3, #0
- 224:	f7ff fffe 	bl	0 <json_helper_set_int>
- 228:	4658      	mov	r0, fp
- 22a:	4649      	mov	r1, r9
- 22c:	220d      	movs	r2, #13
- 22e:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 232:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
- 236:	4658      	mov	r0, fp
- 238:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::to_void_ptr>
- 23c:	f240 0100 	movw	r1, #0
- 240:	4604      	mov	r4, r0
- 242:	4658      	mov	r0, fp
- 244:	f2c0 0100 	movt	r1, #0
- 248:	2207      	movs	r2, #7
- 24a:	f7ff fffe 	bl	0 <mynewt::encoding::coap_context::CoapContext::key_to_cstr>
- 24e:	4601      	mov	r1, r0
- 250:	4620      	mov	r0, r4
- 252:	f7ff fffe 	bl	0 <json_helper_close_array>
- 256:	f7ff fffe 	bl	0 <json_rep_end_root_object>
- 25a:	a806      	add	r0, sp, #24
+ 1e2:	4601      	mov	r1, r0
+ 1e4:	4620      	mov	r0, r4
+ 1e6:	f7ff fffe 	bl	0 <json_helper_close_array>
+ 1ea:	f7ff fffe 	bl	0 <json_rep_end_root_object>
+ 1ee:	a802      	add	r0, sp, #8
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:99
     });
 
@@ -1005,64 +951,64 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
     //  message to the background task, we release a semaphore that unblocks other requests
     //  to compose and post CoAP messages.
     sensor_network::do_server_post() ? ;
- 25c:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::do_server_post>
+ 1f0:	f7ff fffe 	bl	0 <mynewt::libs::sensor_network::do_server_post>
 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hfc45991b9511dbacE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
- 260:	f89d 0018 	ldrb.w	r0, [sp, #24]
+ 1f4:	f89d 0008 	ldrb.w	r0, [sp, #8]
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:99
- 264:	2801      	cmp	r0, #1
- 266:	d10e      	bne.n	286 <app::app_sensor::handle_sensor_data+0x286>
+ 1f8:	2801      	cmp	r0, #1
+ 1fa:	d10e      	bne.n	21a <app::app_sensor::handle_sensor_data+0x21a>
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
- 268:	9807      	ldr	r0, [sp, #28]
+ 1fc:	9803      	ldr	r0, [sp, #12]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:93
     if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
- 26a:	3006      	adds	r0, #6
- 26c:	f47f af22 	bne.w	b4 <app::app_sensor::handle_sensor_data+0xb4>
+ 1fe:	3006      	adds	r0, #6
+ 200:	f47f af50 	bne.w	a4 <app::app_sensor::handle_sensor_data+0xa4>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:95
             console::print("TMP network not ready\n");
- 270:	f240 0000 	movw	r0, #0
- 274:	2116      	movs	r1, #22
- 276:	f2c0 0000 	movt	r0, #0
- 27a:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
- 27e:	2000      	movs	r0, #0
+ 204:	f240 0000 	movw	r0, #0
+ 208:	2116      	movs	r1, #22
+ 20a:	f2c0 0000 	movt	r0, #0
+ 20e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+ 212:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:101
 }
- 280:	b009      	add	sp, #36	; 0x24
- 282:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 214:	b005      	add	sp, #20
+ 216:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:101
 
     console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=%s\n");  //  , device_id);
- 286:	f240 0000 	movw	r0, #0
- 28a:	214b      	movs	r1, #75	; 0x4b
- 28c:	f2c0 0000 	movt	r0, #0
+ 21a:	f240 0000 	movw	r0, #0
+ 21e:	214b      	movs	r1, #75	; 0x4b
+ 220:	f2c0 0000 	movt	r0, #0
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
- 290:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
- 294:	2000      	movs	r0, #0
+ 224:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+ 228:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:101
- 296:	b009      	add	sp, #36	; 0x24
- 298:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 22a:	b005      	add	sp, #20
+ 22c:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:79
     assert!(unsafe { !sensor::is_null_sensor(sensor) });
- 29c:	f240 0000 	movw	r0, #0
- 2a0:	f2c0 0000 	movt	r0, #0
- 2a4:	f7ff fffe 	bl	0 <core::panicking::panic>
- 2a8:	defe      	udf	#254	; 0xfe
+ 230:	f240 0000 	movw	r0, #0
+ 234:	f2c0 0000 	movt	r0, #0
+ 238:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 23c:	defe      	udf	#254	; 0xfe
 _ZN3app10app_sensor15get_temperature17h019ecf0f82edebc9E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:115
             assert!(rc == 0);
- 2aa:	f240 0000 	movw	r0, #0
- 2ae:	f2c0 0000 	movt	r0, #0
- 2b2:	f7ff fffe 	bl	0 <core::panicking::panic>
- 2b6:	defe      	udf	#254	; 0xfe
+ 23e:	f240 0000 	movw	r0, #0
+ 242:	f2c0 0000 	movt	r0, #0
+ 246:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 24a:	defe      	udf	#254	; 0xfe
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:83
     if let SensorValueType::None = sensor_value.val { assert!(false); }  //  Invalid type
- 2b8:	f240 0000 	movw	r0, #0
- 2bc:	f2c0 0000 	movt	r0, #0
- 2c0:	f7ff fffe 	bl	0 <core::panicking::panic>
- 2c4:	defe      	udf	#254	; 0xfe
+ 24c:	f240 0000 	movw	r0, #0
+ 250:	f2c0 0000 	movt	r0, #0
+ 254:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 258:	defe      	udf	#254	; 0xfe
 
 Disassembly of section .text.main:
 

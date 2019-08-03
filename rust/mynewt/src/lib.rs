@@ -104,6 +104,14 @@ pub struct Strn {
     pub cstr: *const u8,
 }
 
+/*
+#[repr(u8)]
+enum Strn {
+    ByteStr(&'static [u8]),
+    CStr(*const u8),
+}
+*/
+
 impl Strn {
     /// Create a new byte string. Fail if the last byte is not zero.
     /// ```

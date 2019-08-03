@@ -34,7 +34,7 @@ use mynewt::{
     },
     coap, d, Strn,              //  Import Mynewt macros
 };
-use mynewt_macros::{ strn, strn2 };    //  Import Mynewt procedural macros
+use mynewt_macros::{ strn, strn2, strn3 };    //  Import Mynewt procedural macros
 
 // pub fn get_device_id2() -> MynewtResult<*const ::cty::c_char> {
 pub fn get_device_id2() -> MynewtResult<Strn> {

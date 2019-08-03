@@ -1,3 +1,77 @@
+item: "stringify ! ( key )"
+strn: Macro(
+    ExprMacro {
+        attrs: [],
+        mac: Macro {
+            path: Path {
+                leading_colon: None,
+                segments: [
+                    PathSegment {
+                        ident: Ident {
+                            ident: "stringify",
+                            span: #69 bytes(3868755..3868764),
+                        },
+                        arguments: None,
+                    },
+                ],
+            },
+            bang_token: Bang,
+            delimiter: Paren(
+                Paren,
+            ),
+            tts: TokenStream [
+                Group {
+                    delimiter: None,
+                    stream: TokenStream [
+                        Ident {
+                            ident: "key",
+                            span: #61 bytes(3867229..3867232),
+                        },
+                    ],
+                    span: #69 bytes(3868769..3868774),
+                },
+            ],
+        },
+    },
+)
+macro: "stringify ! ( key )"
+item: "stringify ! ( value )"
+strn: Macro(
+    ExprMacro {
+        attrs: [],
+        mac: Macro {
+            path: Path {
+                leading_colon: None,
+                segments: [
+                    PathSegment {
+                        ident: Ident {
+                            ident: "stringify",
+                            span: #73 bytes(3868755..3868764),
+                        },
+                        arguments: None,
+                    },
+                ],
+            },
+            bang_token: Bang,
+            delimiter: Paren(
+                Paren,
+            ),
+            tts: TokenStream [
+                Group {
+                    delimiter: None,
+                    stream: TokenStream [
+                        Ident {
+                            ident: "value",
+                            span: #61 bytes(3867296..3867301),
+                        },
+                    ],
+                    span: #73 bytes(3868769..3868774),
+                },
+            ],
+        },
+    },
+)
+macro: "stringify ! ( value )"
 #![feature(prelude_import)]
 #![no_std]
 /*
@@ -247,7 +321,7 @@ mod app_network {
     use mynewt::{result::*, hw::sensor::{SensorValue, SensorValueType},
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
-    use mynewt_macros::{strn, strn2};
+    use mynewt_macros::{strn, strn2, strn3};
     pub fn get_device_id2() -> MynewtResult<Strn> {
         "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
         extern "C" {
@@ -327,29 +401,13 @@ mod app_network {
                                         {
                                             {
                                                 "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
-                                                let key_with_null: &str =
-                                                    "key\u{0}";
-                                                let value_with_opt_null:
-                                                        &[u8] =
-                                                    "device".to_bytes_optional_nul();
-                                                unsafe {
-                                                    mynewt::libs::mynewt_rust::json_helper_set_text_string(COAP_CONTEXT.to_void_ptr(),
-                                                                                                           COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
-                                                                                                           COAP_CONTEXT.value_to_cstr(value_with_opt_null))
-                                                };
+                                                let key_strn =
+                                                    &Strn::new(b"zzzmacro\0");
                                             };
                                             {
                                                 "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json device_id)";
-                                                let key_with_null: &str =
-                                                    "value\u{0}";
-                                                let value_with_opt_null:
-                                                        &[u8] =
-                                                    device_id.to_bytes_optional_nul();
-                                                unsafe {
-                                                    mynewt::libs::mynewt_rust::json_helper_set_text_string(COAP_CONTEXT.to_void_ptr(),
-                                                                                                           COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()),
-                                                                                                           COAP_CONTEXT.value_to_cstr(value_with_opt_null))
-                                                };
+                                                let key_strn =
+                                                    &Strn::new(b"zzzmacro\0");
                                             };
                                         };
                                         {

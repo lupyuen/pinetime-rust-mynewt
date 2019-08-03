@@ -787,6 +787,7 @@ macro_rules! json_rep_set_text_string {
       ", k: ", stringify!($key),
       ", v: ", stringify!($value)
     );
+    /*
     //  Convert key to null-terminated char array. If key is `device`, convert to `"device\u{0}"`
     let key_with_null: &str = $crate::stringify_null!($key);
     //  Convert value to char array, which may or may not be null-terminated.
@@ -798,6 +799,9 @@ macro_rules! json_rep_set_text_string {
         $context.value_to_cstr(value_with_opt_null)
       )
     };
+    */
+    let key_strn = strn3!(stringify!($key));
+    //let value_strn = strn3!($value);
   }};
 
   ($context:ident, $key:expr, $value:expr) => {{  //  If $key is expression...
