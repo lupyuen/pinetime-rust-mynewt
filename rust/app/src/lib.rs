@@ -47,14 +47,14 @@ use mynewt::{
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
-    //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
+    //  Initialise the Mynewt packages and Blue Pill internal temperature sensor driver.
     //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
-    //  Starting polling the temperature sensor every 10 seconds in the background.
+    //  Start polling the temperature sensor every 10 seconds in the background.
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
 
