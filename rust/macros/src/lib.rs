@@ -59,7 +59,7 @@ pub fn strn(item: TokenStream) -> TokenStream {
     let expr = parse_macro_input!(item as syn::Expr);
     let expr_str = quote! { #expr }.to_string();
     match expr {
-        syn::Expr::Macro(expr) => {
+        syn::Expr::Macro(_expr) => {
             //  Transform macro `stringify ! ( value )` to `&Strn::new( b"value\0" )`
             let expr_split: Vec<&str> = expr_str.splitn(2, "stringify ! ( ").collect();
             let ident = expr_split[1];
@@ -72,7 +72,7 @@ pub fn strn(item: TokenStream) -> TokenStream {
             };
             return expanded.into();
         }
-        syn::Expr::Lit(expr) => {
+        syn::Expr::Lit(_expr) => {
             //  Literals already handled above. Should not come here.
             assert!(false);  //  Not supported
             let expanded = quote! { &Strn::new( b"\0" ) };

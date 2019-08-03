@@ -5747,17 +5747,11 @@ pub mod sys {
         //! Display messages on Arm Semihosting Console (via OpenOCD)
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
         pub fn print(msg: &str) {
-            unsafe {
-                console_buffer(msg.as_ptr(), msg.len() as u32);
-                console_flush();
-            }
+            unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
         }
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
         pub fn print_strn(msg: &crate::Strn) {
-            unsafe {
-                console_buffer(msg.as_ptr(), msg.len() as u32);
-                console_flush();
-            }
+            unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
         }
         ///  Add the string to the output buffer.
         pub fn buffer(msg: &str) {

@@ -2,27 +2,20 @@
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
 pub fn print(msg: &str) {
-    unsafe {
-        //  Call the Semihosting Console API, which is unsafe.
-        console_buffer(msg.as_ptr(), msg.len() as u32);
-        console_flush();  //  TODO: Remove this.
-    }
+    //  Call the Semihosting Console API, which is unsafe.
+    unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
 }
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
 pub fn print_strn(msg: &crate::Strn) {
-    unsafe {
-        //  Call the Semihosting Console API, which is unsafe.
-        console_buffer(msg.as_ptr(), msg.len() as u32);
-        console_flush();  //  TODO: Remove this.
-    }
+    //  Call the Semihosting Console API, which is unsafe.
+    unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
 }
 
 ///  Add the string to the output buffer.
 pub fn buffer(msg: &str) {
-    unsafe {
-        console_buffer(msg.as_ptr(), msg.len() as u32);
-    }
+    //  Call the Semihosting Console API, which is unsafe.
+    unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
 }
 
 ///  Write a byte in hexadecimal to the output buffer.

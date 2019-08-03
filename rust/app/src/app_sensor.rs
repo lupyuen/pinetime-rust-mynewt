@@ -25,7 +25,7 @@ use mynewt::{
         self,                               //  Import Mynewt Sensor API functions
         sensor_ptr,                         //  Import Mynewt Sensor API types
         sensor_arg, sensor_data_ptr, sensor_listener,
-        sensor_temp_data, sensor_temp_raw_data, sensor_type_t,
+        sensor_temp_raw_data, sensor_type_t,
         SensorValue, SensorValueType,
     },
     sys::console,                           //  Import Mynewt Console API
@@ -46,7 +46,7 @@ const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_
 ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
-    console::print("Rust TMP poll \n");  //  SENSOR_DEVICE "\n";
+    console::print("Rust TMP poll\n");
 
     //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
@@ -74,6 +74,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg, 
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
     console::print("Rust handle_sensor_data\n");
+
     //  Check that the temperature data is valid.
     if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
     assert!(!sensor.is_null(), "null sensor");
@@ -86,11 +87,11 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  CoAP server.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    let rc = send_sensor_data(&sensor_value);
+    let ret = send_sensor_data(&sensor_value);
 
     //  `SYS_EAGAIN` means that the Network Task is still starting up the network.
     //  We drop the sensor data and send at the next poll.
-    if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
+    if let Err(err) = ret {  //  `if let` will assign `err` to the error code inside `ret`
         if err == MynewtError::SYS_EAGAIN {
             console::print("TMP network not ready\n");
             return MynewtError::SYS_EOK; 
@@ -100,50 +101,27 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     MynewtError::SYS_EOK
 }
 
-///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
-///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
-///  the raw or computed temperature, as well as the key and value type.
-#[allow(unreachable_patterns)]
-#[allow(unused_variables)]
+///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which include the key `t`. 
+///  `sensor_type` indicates the type of data in `sensor_data`.
+#[allow(non_snake_case, unused_variables)]
 fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
-    let mut return_value = SensorValue::default();
-    match sensor_type {                           //  Is this raw or computed temperature?
-        SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
-            //  Interpret the sensor data as a sensor_temp_raw_data struct that contains raw temp.
-            let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
-            let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
-            assert!(rc == 0);
-
-            //  Check that the raw temperature data is valid.
-            if rawtempdata.strd_temp_raw_is_valid == 0 { return return_value; }  //  Exit if data is not valid
-
-            //  Raw temperature data is valid.  Copy and display it.
-            return_value.val = SensorValueType::Uint(rawtempdata.strd_temp_raw);  //  Raw Temperature in integer (0 to 4095)
-            console::print("TMP listener got rawtmp \n");  // return_value->int_val);
-        },
-        SENSOR_TYPE_AMBIENT_TEMPERATURE => {      //  If this is computed temperature...
-            //  Interpret the sensor data as a sensor_temp_data struct that contains computed temp.
-            let mut tempdata = fill_zero!(sensor_temp_data);
-            let rc = unsafe { sensor::get_temp_data(sensor_data, &mut tempdata) };
-            assert!(rc == 0);
-
-            //  Check that the computed temperature data is valid.
-            if tempdata.std_temp_is_valid() == 0 { return return_value; }  //  Exit if data is not valid
-
-            //  Computed temperature data is valid.  Copy and display it.
-            return_value.val = SensorValueType::Float(tempdata.std_temp);  //  Temperature in floating point.
-            /*
-            #if !MYNEWT_VAL(RAW_TEMP)  //  The following line contains floating-point code. We should compile only if we are not using raw temp.
-                        console::printf("TMP poll data: tmp ");  console::printfloat(return_value->float_val);  console::printf("\n");  ////
-            #endif  //  !MYNEWT_VAL(RAW_TEMP)
-            */
-        },
-        _ => {
-            assert!(false);  //  Unknown temperature sensor type
-            return return_value;
+    console::print("TMP listener got rawtmp\n");
+    //  Construct and return a new `SensorValue` (without semicolon)
+    SensorValue {
+        key: TEMP_SENSOR_KEY,  //  Sensor data key is `t`
+        val: match sensor_type {
+            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
+                //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
+                let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
+                let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
+                assert_eq!(rc, 0, "rawtmp fail");
+                //  Check that the raw temperature data is valid.
+                assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
+                //  Raw temperature data is valid.  Return it.
+                SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
+            }
+            //  Unknown type of sensor value
+            //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
         }
     }
-    //  Return the key and value type for raw or computed temperature, as defined in temp_stm32.h.
-    return_value.key = TEMP_SENSOR_KEY;
-    return_value  //  Should not end with a semicolon (;)
 }

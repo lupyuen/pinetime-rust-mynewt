@@ -86,10 +86,9 @@ mod app_sensor {
     //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
     use mynewt::{result::*,
                  hw::sensor::{self, sensor_ptr, sensor_arg, sensor_data_ptr,
-                              sensor_listener, sensor_temp_data,
-                              sensor_temp_raw_data, sensor_type_t,
-                              SensorValue, SensorValueType}, sys::console,
-                 fill_zero, Strn};
+                              sensor_listener, sensor_temp_raw_data,
+                              sensor_type_t, SensorValue, SensorValueType},
+                 sys::console, fill_zero, Strn};
     use mynewt_macros::{init_strn};
     use crate::app_network::send_sensor_data;
     ///  Sensor to be polled
@@ -105,7 +104,7 @@ mod app_sensor {
     ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_sensor_listener() -> MynewtResult<()> {
-        console::print("Rust TMP poll \n");
+        console::print("Rust TMP poll\n");
         sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
         let sensor =
             sensor::mgr_find_next_bydevname(&SENSOR_DEVICE,
@@ -142,7 +141,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           79u32, 5u32))
+                                           80u32, 5u32))
             }
         };
         let sensor_value = get_temperature(sensor_data, sensor_type);
@@ -151,12 +150,12 @@ mod app_sensor {
                 {
                     ::core::panicking::panic(&("bad type",
                                                "rust/app/src/app_sensor.rs",
-                                               83u32, 55u32))
+                                               84u32, 55u32))
                 }
             };
         }
-        let rc = send_sensor_data(&sensor_value);
-        if let Err(err) = rc {
+        let ret = send_sensor_data(&sensor_value);
+        if let Err(err) = ret {
             if err == MynewtError::SYS_EAGAIN {
                 console::print("TMP network not ready\n");
                 return MynewtError::SYS_EOK;
@@ -164,75 +163,105 @@ mod app_sensor {
         }
         MynewtError::SYS_EOK
     }
-    ///  Get the temperature value, raw or computed.  `sensor_data` contains the raw or computed temperature. 
-    ///  `sensor_type` indicates whether `sensor_data` contains raw or computed temperature.  We return 
-    ///  the raw or computed temperature, as well as the key and value type.
-    #[allow(unreachable_patterns)]
-    #[allow(unused_variables)]
+    ///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which include the key `t`. 
+    ///  `sensor_type` indicates the type of data in `sensor_data`.
+    #[allow(non_snake_case, unused_variables)]
     fn get_temperature(sensor_data: sensor_data_ptr,
                        sensor_type: sensor_type_t) -> SensorValue {
-        let mut return_value = SensorValue::default();
-        match sensor_type {
-            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {
-                let mut rawtempdata =
-                    unsafe {
-                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_temp_raw_data>()],
-                                                 sensor_temp_raw_data>([0;
-                                                                           ::core::mem::size_of::<sensor_temp_raw_data>()])
-                    };
-                let rc =
-                    unsafe {
-                        sensor::get_temp_raw_data(sensor_data,
-                                                  &mut rawtempdata)
-                    };
-                if !(rc == 0) {
-                    {
-                        ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                   "rust/app/src/app_sensor.rs",
-                                                   115u32, 13u32))
-                    }
-                };
-                if rawtempdata.strd_temp_raw_is_valid == 0 {
-                    return return_value;
-                }
-                return_value.val =
-                    SensorValueType::Uint(rawtempdata.strd_temp_raw);
-                console::print("TMP listener got rawtmp \n");
-            }
-            SENSOR_TYPE_AMBIENT_TEMPERATURE => {
-                let mut tempdata =
-                    unsafe {
-                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_temp_data>()],
-                                                 sensor_temp_data>([0;
-                                                                       ::core::mem::size_of::<sensor_temp_data>()])
-                    };
-                let rc =
-                    unsafe {
-                        sensor::get_temp_data(sensor_data, &mut tempdata)
-                    };
-                if !(rc == 0) {
-                    {
-                        ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                   "rust/app/src/app_sensor.rs",
-                                                   128u32, 13u32))
-                    }
-                };
-                if tempdata.std_temp_is_valid() == 0 { return return_value; }
-                return_value.val = SensorValueType::Float(tempdata.std_temp);
-            }
-            _ => {
-                if !false {
-                    {
-                        ::core::panicking::panic(&("assertion failed: false",
-                                                   "rust/app/src/app_sensor.rs",
-                                                   142u32, 13u32))
-                    }
-                };
-                return return_value;
-            }
-        }
-        return_value.key = TEMP_SENSOR_KEY;
-        return_value
+        console::print("TMP listener got rawtmp\n");
+        SensorValue{key: TEMP_SENSOR_KEY,
+                    val:
+                        match sensor_type {
+                            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {
+                                let mut rawtempdata =
+                                    unsafe {
+                                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_temp_raw_data>()],
+                                                                 sensor_temp_raw_data>([0;
+                                                                                           ::core::mem::size_of::<sensor_temp_raw_data>()])
+                                    };
+                                let rc =
+                                    unsafe {
+                                        sensor::get_temp_raw_data(sensor_data,
+                                                                  &mut rawtempdata)
+                                    };
+                                {
+                                    match (&(rc), &(0)) {
+                                        (left_val, right_val) => {
+                                            if !(*left_val == *right_val) {
+                                                {
+                                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                                  "`,\n right: `",
+                                                                                                                  "`: "],
+                                                                                                                &match (&&*left_val,
+                                                                                                                        &&*right_val,
+                                                                                                                        &::core::fmt::Arguments::new_v1(&["rawtmp fail"],
+                                                                                                                                                        &match ()
+                                                                                                                                                             {
+                                                                                                                                                             ()
+                                                                                                                                                             =>
+                                                                                                                                                             [],
+                                                                                                                                                         }))
+                                                                                                                     {
+                                                                                                                     (arg0,
+                                                                                                                      arg1,
+                                                                                                                      arg2)
+                                                                                                                     =>
+                                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                                   ::core::fmt::Display::fmt)],
+                                                                                                                 }),
+                                                                                 &("rust/app/src/app_sensor.rs",
+                                                                                   117u32,
+                                                                                   17u32))
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+                                {
+                                    match (&(rawtempdata.strd_temp_raw_is_valid),
+                                           &(0)) {
+                                        (left_val, right_val) => {
+                                            if *left_val == *right_val {
+                                                {
+                                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left != right)`\n  left: `",
+                                                                                                                  "`,\n right: `",
+                                                                                                                  "`: "],
+                                                                                                                &match (&&*left_val,
+                                                                                                                        &&*right_val,
+                                                                                                                        &::core::fmt::Arguments::new_v1(&["bad rawtmp"],
+                                                                                                                                                        &match ()
+                                                                                                                                                             {
+                                                                                                                                                             ()
+                                                                                                                                                             =>
+                                                                                                                                                             [],
+                                                                                                                                                         }))
+                                                                                                                     {
+                                                                                                                     (arg0,
+                                                                                                                      arg1,
+                                                                                                                      arg2)
+                                                                                                                     =>
+                                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                                   ::core::fmt::Display::fmt)],
+                                                                                                                 }),
+                                                                                 &("rust/app/src/app_sensor.rs",
+                                                                                   119u32,
+                                                                                   17u32))
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+                                SensorValueType::Uint(rawtempdata.strd_temp_raw)
+                            }
+                        },}
     }
 }
 mod app_network {
