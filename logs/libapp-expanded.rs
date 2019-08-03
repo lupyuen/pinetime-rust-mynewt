@@ -20,8 +20,8 @@
  */
 //!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server over NB-IoT.
 //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-//!  fixes ESP8266 response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/main.c`
+//!  fixes AT response parsing bugs.  The patched file must be present in that location.
+//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/main.c`
 
 #![no_std]
 //  Don't link with standard Rust library, which is not compatible with embedded systems
@@ -76,13 +76,14 @@ mod app_sensor {
     //  Loop forever...
     //  Processing events...
     //  From default event queue.
-    //  Never comes here.
+    //  Never comes here
 
     //  Display the filename and line number to the Semihosting Console.
     //  TODO: Print in decimal not hex. Allow more than 255 lines.
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
+    //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
     use mynewt::{result::*,
                  hw::sensor::{self, sensor_ptr, sensor_arg, sensor_data_ptr,
                               sensor_listener, sensor_temp_data,
@@ -108,14 +109,12 @@ mod app_sensor {
         sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
         let sensor =
             sensor::mgr_find_next_bydevname(&SENSOR_DEVICE,
-                                            unsafe {
-                                                sensor::null_sensor()
-                                            })?;
-        if !unsafe { !sensor::is_null_sensor(sensor) } {
+                                            core::ptr::null_mut())?;
+        if !!sensor.is_null() {
             {
-                ::core::panicking::panic(&("assertion failed: unsafe { !sensor::is_null_sensor(sensor) }",
+                ::core::panicking::panic(&("no sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           55u32, 5u32))
+                                           56u32, 5u32))
             }
         };
         let listener =
@@ -138,12 +137,10 @@ mod app_sensor {
                                      sensor_type: sensor_type_t)
      -> MynewtError {
         console::print("Rust handle_sensor_data\n");
-        if unsafe { sensor::is_null_sensor_data(sensor_data) } {
-            return MynewtError::SYS_EINVAL;
-        }
-        if !unsafe { !sensor::is_null_sensor(sensor) } {
+        if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }
+        if !!sensor.is_null() {
             {
-                ::core::panicking::panic(&("assertion failed: unsafe { !sensor::is_null_sensor(sensor) }",
+                ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/app_sensor.rs",
                                            79u32, 5u32))
             }
@@ -152,7 +149,7 @@ mod app_sensor {
         if let SensorValueType::None = sensor_value.val {
             if !false {
                 {
-                    ::core::panicking::panic(&("assertion failed: false",
+                    ::core::panicking::panic(&("bad type",
                                                "rust/app/src/app_sensor.rs",
                                                83u32, 55u32))
                 }
@@ -243,7 +240,7 @@ mod app_network {
     //!  The sensor data will be transmitted over NB-IoT.
     //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
     //!  fixes response parsing bugs.  The patched file must be present in that location.
-    //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust/apps/my_sensor_app/OLDsrc/send_coap.c`
+    //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/network.c`
     use mynewt::{result::*, hw::sensor::{SensorValue, SensorValueType},
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
@@ -449,16 +446,17 @@ extern "C" fn main() -> ! {
 ///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
+    console::print("panic ");
     if let Some(location) = info.location() {
         let file = location.file();
         let line = location.line();
-        console::print("panic at ");
+        console::print("at ");
         console::buffer(&file);
         console::print(" line 0x");
         console::printhex(line as u8);
         console::print("\n");
         console::flush();
-    } else { console::print("panic unknown loc\n"); console::flush(); }
+    } else { console::print("no loc\n"); console::flush(); }
     bkpt();
     loop  { }
 }

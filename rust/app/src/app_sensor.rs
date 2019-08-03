@@ -52,8 +52,8 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, unsafe { sensor::null_sensor() }) ? ;
-    assert!(unsafe{ !sensor::is_null_sensor(sensor) });
+    let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
+    assert!(!sensor.is_null(), "no sensor");
 
     //  Define the listener function to be called after polling the temperature sensor.
     let listener = sensor_listener {
@@ -75,13 +75,12 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
     console::print("Rust handle_sensor_data\n");
     //  Check that the temperature data is valid.
-    //  TODO
-    if unsafe { sensor::is_null_sensor_data(sensor_data) } { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
-    assert!(unsafe { !sensor::is_null_sensor(sensor) });
+    if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
+    assert!(!sensor.is_null(), "null sensor");
 
     //  Get the temperature sensor value. It could be raw or computed.
     let sensor_value = get_temperature(sensor_data, sensor_type);
-    if let SensorValueType::None = sensor_value.val { assert!(false); }  //  Invalid type
+    if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
 
     //  Compose a CoAP message with the temperature sensor data and send to the 
     //  CoAP server.  The message will be enqueued for transmission by the OIC 
@@ -89,7 +88,7 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  to be transmitted.
     let rc = send_sensor_data(&sensor_value);
 
-    //  SYS_EAGAIN means that the Network Task is still starting up the ESP8266.
+    //  `SYS_EAGAIN` means that the Network Task is still starting up the network.
     //  We drop the sensor data and send at the next poll.
     if let Err(err) = rc {  //  `if let` will assign `err` to the error code inside `rc`
         if err == MynewtError::SYS_EAGAIN {
