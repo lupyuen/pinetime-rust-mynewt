@@ -239,41 +239,41 @@ impl json_encoder {
         __bindgen_bitfield_unit
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_object_start(arg1: *mut json_encoder) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_object_key(
         encoder: *mut json_encoder,
         key: *mut ::cty::c_char,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_object_entry(
         arg1: *mut json_encoder,
         arg2: *mut ::cty::c_char,
         arg3: *mut json_value,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_object_finish(arg1: *mut json_encoder) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_array_name(
         encoder: *mut json_encoder,
         name: *mut ::cty::c_char,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_array_start(encoder: *mut json_encoder) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_array_value(
         encoder: *mut json_encoder,
         val: *mut json_value,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_encode_array_finish(encoder: *mut json_encoder) -> ::cty::c_int;
 }
 pub const json_type_t_integer: json_type = 0;
@@ -448,9 +448,9 @@ pub struct json_buffer {
     pub jb_read_next: json_buffer_read_next_byte_t,
     pub jb_read_prev: json_buffer_read_prev_byte_t,
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_read_object(arg1: *mut json_buffer, arg2: *const json_attr_t) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn json_read_array(arg1: *mut json_buffer, arg2: *const json_array_t) -> ::cty::c_int;
 }

@@ -2767,7 +2767,7 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true")
+#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
 
 
 
@@ -31609,7 +31609,7 @@ static char device_id_text[(1 + 16 /*  16 random bytes in binary device ID*/ * 2
 //  CoAP Connection Settings e.g. coap://coap.thethings.io/v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 //  COAP_HOST, COAP_PORT, COAP_URI are defined in targets/bluepill_my_sensor/syscfg.yml
 static const char COAP_HOST[] = ("104.199.85.211"); //  CoAP hostname e.g. coap.thethings.io
-static const char COAP_URI[] = ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true"); //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
+static const char COAP_URI[] = ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"); //  CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8
 
 /////////////////////////////////////////////////////////
 //  Sensor Networks: Interfaces, Endpoints and Encoding

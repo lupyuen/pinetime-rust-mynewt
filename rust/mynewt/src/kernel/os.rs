@@ -116,19 +116,19 @@ pub type __uint16_t = ::cty::c_ushort;
 pub type __int32_t = ::cty::c_long;
 pub type __uint32_t = ::cty::c_ulong;
 pub type __int64_t = ::cty::c_longlong;
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_info_init() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_init_idle_task();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Check whether or not the OS has been started."]
     #[doc = ""]
     #[doc = " Return: 1 if the OS has been started and 0 if it has not yet been started."]
     pub fn os_started() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize the OS, including memory areas and housekeeping functions."]
     #[doc = " This calls into the architecture specific OS initialization."]
     #[doc = ""]
@@ -139,15 +139,15 @@ pub type __int64_t = ::cty::c_longlong;
         >,
     );
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Start the OS and begin processing."]
     pub fn os_start();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Reboots the system."]
     pub fn os_reboot(reason: ::cty::c_int);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Performs a system reset.  This is typically done at the end of a reboot"]
     #[doc = " procedure."]
     pub fn os_system_reset();
@@ -173,61 +173,61 @@ pub use self::os_error as os_error_t;
 pub struct os_stack {
     _unused: [u8; 0],
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_task_stack_init(
         arg1: *mut os_task,
         arg2: *mut os_stack_t,
         arg3: ::cty::c_int,
     ) -> *mut os_stack_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_ctx_sw(arg1: *mut os_task);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_save_sr() -> os_sr_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_restore_sr(arg1: os_sr_t);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_in_critical() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_init();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_start() -> u32;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_os_init() -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_os_start() -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_set_env(arg1: *mut os_stack_t);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_arch_init_task_stack(sf: *mut os_stack_t);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_default_irq_asm();
 }
 pub type os_time_t = u32;
 pub type os_stime_t = i32;
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get the current OS time in ticks"]
     #[doc = ""]
     #[doc = " Return: OS time in ticks"]
     pub fn os_time_get() -> os_time_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Move OS time forward ticks."]
     #[doc = ""]
     #[doc = " - __`ticks`__: The number of ticks to move time forward."]
     pub fn os_time_advance(ticks: ::cty::c_int);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Puts the current task to sleep for the specified number of os ticks. There"]
     #[doc = " is no delay if ticks is 0."]
     #[doc = ""]
@@ -300,7 +300,7 @@ impl Default for os_time_change_listener {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Set the time of day.  This does not modify os time, but rather just modifies"]
     #[doc = " the offset by which we are tracking real time against os time.  This"]
     #[doc = " function notifies all registered time change listeners."]
@@ -311,7 +311,7 @@ impl Default for os_time_change_listener {
     #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_settimeofday(utctime: *mut os_timeval, tz: *mut os_timezone) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get the current time of day.  Returns the time of day in UTC"]
     #[doc = " into the tv argument, and returns the timezone (if set) into"]
     #[doc = " tz."]
@@ -322,22 +322,22 @@ impl Default for os_time_change_listener {
     #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn os_gettimeofday(utctime: *mut os_timeval, tz: *mut os_timezone) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_time_is_set() -> bool;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get time since boot in microseconds."]
     #[doc = ""]
     #[doc = " Return: time since boot in microseconds"]
     pub fn os_get_uptime_usec() -> i64;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get time since boot as os_timeval."]
     #[doc = ""]
     #[doc = " - __`tv`__: Structure to put the time since boot."]
     pub fn os_get_uptime(tvp: *mut os_timeval);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Converts milliseconds to OS ticks."]
     #[doc = ""]
     #[doc = " - __`ms`__:                    The milliseconds input."]
@@ -347,7 +347,7 @@ impl Default for os_time_change_listener {
     #[doc = "                                  large to fit in a uint32_t."]
     pub fn os_time_ms_to_ticks(ms: u32, out_ticks: *mut os_time_t) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Converts OS ticks to milliseconds."]
     #[doc = ""]
     #[doc = " - __`ticks`__:                 The OS ticks input."]
@@ -357,7 +357,7 @@ impl Default for os_time_change_listener {
     #[doc = "                                  large to fit in a uint32_t."]
     pub fn os_time_ticks_to_ms(ticks: os_time_t, out_ms: *mut u32) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Registers a time change listener.  Whenever the time is set, all registered"]
     #[doc = " listeners are notified.  The provided pointer is added to an internal list,"]
     #[doc = " so the listener's lifetime must extend indefinitely (or until the listener"]
@@ -372,7 +372,7 @@ impl Default for os_time_change_listener {
     #[doc = " - __`listener`__:              The listener to register."]
     pub fn os_time_change_listen(listener: *mut os_time_change_listener);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Unregisters a time change listener."]
     #[doc = ""]
     #[doc = " NOTE: This function is not thread safe.  The following operations must be"]
@@ -437,33 +437,33 @@ impl Default for os_eventq {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize the event queue"]
     #[doc = ""]
     #[doc = " - __`evq`__: The event queue to initialize"]
     pub fn os_eventq_init(arg1: *mut os_eventq);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Check whether the event queue is initialized."]
     #[doc = ""]
     #[doc = " - __`evq`__: The event queue to check"]
     pub fn os_eventq_inited(evq: *const os_eventq) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Put an event on the event queue."]
     #[doc = ""]
     #[doc = " - __`evq`__: The event queue to put an event on"]
     #[doc = " - __`ev`__: The event to put on the queue"]
     pub fn os_eventq_put(arg1: *mut os_eventq, arg2: *mut os_event);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Poll an event from the event queue and return it immediately."]
     #[doc = " If no event is available, don't block, just return NULL."]
     #[doc = ""]
     #[doc = " Return: Event from the queue, or NULL if none available."]
     pub fn os_eventq_get_no_wait(evq: *mut os_eventq) -> *mut os_event;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Pull a single item from an event queue.  This function blocks until there"]
     #[doc = " is an item on the event queue to read."]
     #[doc = ""]
@@ -472,14 +472,14 @@ impl Default for os_eventq {
     #[doc = " Return: The event from the queue"]
     pub fn os_eventq_get(arg1: *mut os_eventq) -> *mut os_event;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Pull a single item off the event queue and call it's event"]
     #[doc = " callback."]
     #[doc = ""]
     #[doc = " - __`evq`__: The event queue to pull the item off."]
     pub fn os_eventq_run(evq: *mut os_eventq);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Poll the list of event queues specified by the evq parameter"]
     #[doc = " (size nevqs), and return the \"first\" event available on any of"]
     #[doc = " the queues.  Event queues are searched in the order that they"]
@@ -496,20 +496,20 @@ impl Default for os_eventq {
         arg3: os_time_t,
     ) -> *mut os_event;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Remove an event from the queue."]
     #[doc = ""]
     #[doc = " - __`evq`__: The event queue to remove the event from"]
     #[doc = " - __`ev`__:  The event to remove from the queue"]
     pub fn os_eventq_remove(arg1: *mut os_eventq, arg2: *mut os_event);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Retrieves the default event queue processed by OS main task."]
     #[doc = ""]
     #[doc = " Return:                      The default event queue."]
     pub fn os_eventq_dflt_get() -> *mut os_eventq;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " @cond INTERNAL_HIDDEN"]
     #[doc = " [DEPRECATED]"]
     pub fn os_eventq_designate(
@@ -556,7 +556,7 @@ impl Default for os_callout_list {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a callout."]
     #[doc = ""]
     #[doc = " Callouts are used to schedule events in the future onto a task's event"]
@@ -579,13 +579,13 @@ impl Default for os_callout_list {
         ev_arg: *mut ::cty::c_void,
     );
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Stop the callout from firing off, any pending events will be cleared."]
     #[doc = ""]
     #[doc = " - __`c`__: The callout to stop"]
     pub fn os_callout_stop(arg1: *mut os_callout);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Reset the callout to fire off in 'ticks' ticks."]
     #[doc = ""]
     #[doc = " - __`c`__: The callout to reset"]
@@ -594,7 +594,7 @@ impl Default for os_callout_list {
     #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn os_callout_reset(arg1: *mut os_callout, arg2: os_time_t) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Returns the number of ticks which remains to callout."]
     #[doc = ""]
     #[doc = " - __`c`__: The callout to check"]
@@ -603,11 +603,11 @@ impl Default for os_callout_list {
     #[doc = " Return: Number of ticks to first pending callout"]
     pub fn os_callout_remaining_ticks(arg1: *mut os_callout, arg2: os_time_t) -> os_time_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " @cond INTERNAL_HIDDEN"]
     pub fn os_callout_tick();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_callout_wakeup_ticks(now: os_time_t) -> os_time_t;
 }
 pub type hal_timer_cb = ::core::option::Option<unsafe extern "C" fn(arg: *mut ::cty::c_void)>;
@@ -646,7 +646,7 @@ impl Default for hal_timer {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize the cputime module. This must be called after os_init is called"]
     #[doc = " and before any other timer API are used. This should be called only once"]
     #[doc = " and should be called before the hardware timer is used."]
@@ -656,13 +656,13 @@ impl Default for hal_timer {
     #[doc = " Return: int 0 on success; -1 on error."]
     pub fn os_cputime_init(clock_freq: u32) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Returns the low 32 bits of cputime."]
     #[doc = ""]
     #[doc = " Return: uint32_t The lower 32 bits of cputime"]
     pub fn os_cputime_get32() -> u32;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Converts the given number of nanoseconds into cputime ticks."]
     #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
     #[doc = ""]
@@ -671,7 +671,7 @@ impl Default for hal_timer {
     #[doc = " Return: uint32_t The number of ticks corresponding to 'nsecs'"]
     pub fn os_cputime_nsecs_to_ticks(nsecs: u32) -> u32;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Convert the given number of ticks into nanoseconds."]
     #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
     #[doc = ""]
@@ -680,7 +680,7 @@ impl Default for hal_timer {
     #[doc = " Return: uint32_t The number of nanoseconds corresponding to 'ticks'"]
     pub fn os_cputime_ticks_to_nsecs(ticks: u32) -> u32;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Wait until 'nsecs' nanoseconds has elapsed. This is a blocking delay."]
     #[doc = " Not defined if OS_CPUTIME_FREQ_PWR2 is defined."]
     #[doc = ""]
@@ -688,19 +688,19 @@ impl Default for hal_timer {
     #[doc = " - __`nsecs`__: The number of nanoseconds to wait."]
     pub fn os_cputime_delay_nsecs(nsecs: u32);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Wait until the number of ticks has elapsed. This is a blocking delay."]
     #[doc = ""]
     #[doc = " - __`ticks`__: The number of ticks to wait."]
     pub fn os_cputime_delay_ticks(ticks: u32);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Wait until 'usecs' microseconds has elapsed. This is a blocking delay."]
     #[doc = ""]
     #[doc = " - __`usecs`__: The number of usecs to wait."]
     pub fn os_cputime_delay_usecs(usecs: u32);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a CPU timer, using the given HAL timer."]
     #[doc = ""]
     #[doc = " - __`timer`__: The timer to initialize. Cannot be NULL."]
@@ -708,7 +708,7 @@ impl Default for hal_timer {
     #[doc = " - __`arg`__:   Pointer to data object to pass to timer."]
     pub fn os_cputime_timer_init(timer: *mut hal_timer, fp: hal_timer_cb, arg: *mut ::cty::c_void);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Start a cputimer that will expire at 'cputime'. If cputime has already"]
     #[doc = " passed, the timer callback will still be called (at interrupt context)."]
     #[doc = ""]
@@ -722,7 +722,7 @@ impl Default for hal_timer {
     #[doc = ""]
     pub fn os_cputime_timer_start(timer: *mut hal_timer, cputime: u32) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Sets a cpu timer that will expire 'usecs' microseconds from the current"]
     #[doc = " cputime."]
     #[doc = ""]
@@ -735,7 +735,7 @@ impl Default for hal_timer {
     #[doc = "         invalid"]
     pub fn os_cputime_timer_relative(timer: *mut hal_timer, usecs: u32) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Stops a cputimer from running. The timer is removed from the timer queue"]
     #[doc = " and interrupts are disabled if no timers are left on the queue. Can be"]
     #[doc = " called even if timer is not running."]
@@ -816,7 +816,7 @@ impl Default for os_dev {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Suspend the operation of the device."]
     #[doc = ""]
     #[doc = " - __`dev`__: The device to suspend."]
@@ -827,7 +827,7 @@ impl Default for os_dev {
     #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn os_dev_suspend(dev: *mut os_dev, suspend_t: os_time_t, force: u8) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Resume the device operation."]
     #[doc = ""]
     #[doc = " - __`dev`__: The device to resume"]
@@ -835,7 +835,7 @@ impl Default for os_dev {
     #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn os_dev_resume(dev: *mut os_dev) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Create a new device in the kernel."]
     #[doc = ""]
     #[doc = " - __`dev`__: The device to create."]
@@ -857,7 +857,7 @@ impl Default for os_dev {
         arg: *mut ::cty::c_void,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Lookup a device by name."]
     #[doc = ""]
     #[doc = " WARNING: This should be called before any locking on the device is done, or"]
@@ -868,7 +868,7 @@ impl Default for os_dev {
     #[doc = " Return: A pointer to the device corresponding to name, or NULL if not found."]
     pub fn os_dev_lookup(name: *const ::cty::c_char) -> *mut os_dev;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize all devices for a given state."]
     #[doc = ""]
     #[doc = " - __`stage`__: The stage to initialize."]
@@ -876,7 +876,7 @@ impl Default for os_dev {
     #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_dev_initialize_all(arg1: u8) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Suspend all devices."]
     #[doc = ""]
     #[doc = " - __`suspend_t`__: The number of ticks to suspend this device for"]
@@ -886,13 +886,13 @@ impl Default for os_dev {
     #[doc = "                       returned it."]
     pub fn os_dev_suspend_all(arg1: os_time_t, arg2: u8) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Resume all the devices that were suspended."]
     #[doc = ""]
     #[doc = " Return: 0 on success, -1 if any of the devices have failed to resume."]
     pub fn os_dev_resume_all() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Open a device."]
     #[doc = ""]
     #[doc = " - __`dev`__: The device to open"]
@@ -906,7 +906,7 @@ impl Default for os_dev {
         arg: *mut ::cty::c_void,
     ) -> *mut os_dev;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Close a device."]
     #[doc = ""]
     #[doc = " - __`dev`__: The device to close"]
@@ -914,13 +914,13 @@ impl Default for os_dev {
     #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn os_dev_close(dev: *mut os_dev) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Clears the device list.  This function does not close any devices or free"]
     #[doc = " any resources; its purpose is to allow a full system reset between unit"]
     #[doc = " tests."]
     pub fn os_dev_reset();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Walk through all devices, calling callback for every device."]
     #[doc = ""]
     #[doc = " - __`walk_func`__: Function to call"]
@@ -932,7 +932,7 @@ impl Default for os_dev {
         arg: *mut ::cty::c_void,
     );
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Operating system level malloc().   This ensures that a safe malloc occurs"]
     #[doc = " within the context of the OS.  Depending on platform, the OS may rely on"]
     #[doc = " libc's malloc() implementation, which is not guaranteed to be thread-safe."]
@@ -943,7 +943,7 @@ impl Default for os_dev {
     #[doc = " Return: A pointer to the memory region allocated."]
     pub fn os_malloc(size: usize) -> *mut ::cty::c_void;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Operating system level free().  See description of os_malloc() for reasoning."]
     #[doc = ""]
     #[doc = " Free's memory allocated by malloc."]
@@ -951,7 +951,7 @@ impl Default for os_dev {
     #[doc = " - __`mem`__: The memory to free."]
     pub fn os_free(mem: *mut ::cty::c_void);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Operating system level realloc(). See description of os_malloc() for reasoning."]
     #[doc = ""]
     #[doc = " Reallocates the memory at ptr, to be size contiguouos bytes."]
@@ -1066,7 +1066,7 @@ impl Default for os_mqueue {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initializes an mqueue.  An mqueue is a queue of mbufs that ties to a"]
     #[doc = " particular task's event queue.  Mqueues form a helper API around a common"]
     #[doc = " paradigm: wait on an event queue until at least one packet is available,"]
@@ -1088,7 +1088,7 @@ impl Default for os_mqueue {
         arg: *mut ::cty::c_void,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Remove and return a single mbuf from the mbuf queue.  Does not block."]
     #[doc = ""]
     #[doc = " - __`mq`__: The mbuf queue to pull an element off of."]
@@ -1096,7 +1096,7 @@ impl Default for os_mqueue {
     #[doc = " Return: The next mbuf in the queue, or NULL if queue has no mbufs."]
     pub fn os_mqueue_get(arg1: *mut os_mqueue) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Adds a packet (i.e. packet header mbuf) to an mqueue. The event associated"]
     #[doc = " with the mqueue gets posted to the specified eventq."]
     #[doc = ""]
@@ -1111,7 +1111,7 @@ impl Default for os_mqueue {
         arg3: *mut os_mbuf,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " MSYS is a system level mbuf registry.  Allows the system to share"]
     #[doc = " packet buffers amongst the various networking stacks that can be running"]
     #[doc = " simultaeneously."]
@@ -1128,7 +1128,7 @@ impl Default for os_mqueue {
     #[doc = " Return: 0 on success, non-zero on failure"]
     pub fn os_msys_register(arg1: *mut os_mbuf_pool) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Allocate a mbuf from msys.  Based upon the data size requested,"]
     #[doc = " os_msys_get() will choose the mbuf pool that has the best fit."]
     #[doc = ""]
@@ -1138,11 +1138,11 @@ impl Default for os_mqueue {
     #[doc = " Return: A freshly allocated mbuf on success, NULL on failure."]
     pub fn os_msys_get(dsize: u16, leadingspace: u16) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " De-registers all mbuf pools from msys."]
     pub fn os_msys_reset();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Allocate a packet header structure from the MSYS pool.  See"]
     #[doc = " os_msys_register() for a description of MSYS."]
     #[doc = ""]
@@ -1152,19 +1152,19 @@ impl Default for os_mqueue {
     #[doc = " Return: A freshly allocated mbuf on success, NULL on failure."]
     pub fn os_msys_get_pkthdr(dsize: u16, user_hdr_len: u16) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Count the number of blocks in all the mbuf pools that are allocated."]
     #[doc = ""]
     #[doc = " Return: total number of blocks allocated in Msys"]
     pub fn os_msys_count() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Return the number of free blocks in Msys"]
     #[doc = ""]
     #[doc = " Return: Number of free blocks available in Msys"]
     pub fn os_msys_num_free() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a pool of mbufs."]
     #[doc = ""]
     #[doc = " - __`omp`__:     The mbuf pool to initialize"]
@@ -1180,7 +1180,7 @@ impl Default for os_mqueue {
         arg3: u16,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get an mbuf from the mbuf pool.  The mbuf is allocated, and initialized"]
     #[doc = " prior to being returned."]
     #[doc = ""]
@@ -1191,7 +1191,7 @@ impl Default for os_mqueue {
     #[doc = " Return: An initialized mbuf on success, and NULL on failure."]
     pub fn os_mbuf_get(omp: *mut os_mbuf_pool, arg1: u16) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Allocate a new packet header mbuf out of the os_mbuf_pool."]
     #[doc = ""]
     #[doc = " - __`omp`__: The mbuf pool to allocate out of"]
@@ -1200,7 +1200,7 @@ impl Default for os_mqueue {
     #[doc = " Return: A freshly allocated mbuf on success, NULL on failure."]
     pub fn os_mbuf_get_pkthdr(omp: *mut os_mbuf_pool, pkthdr_len: u8) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Duplicate a chain of mbufs.  Return the start of the duplicated chain."]
     #[doc = ""]
     #[doc = " - __`omp`__: The mbuf pool to duplicate out of"]
@@ -1209,7 +1209,7 @@ impl Default for os_mqueue {
     #[doc = " Return: A pointer to the new chain of mbufs"]
     pub fn os_mbuf_dup(m: *mut os_mbuf) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Locates the specified absolute offset within an mbuf chain.  The offset"]
     #[doc = " can be one past than the total length of the chain, but no greater."]
     #[doc = ""]
@@ -1223,7 +1223,7 @@ impl Default for os_mqueue {
     #[doc = "                              NULL if the specified offset is out of bounds."]
     pub fn os_mbuf_off(om: *const os_mbuf, off: ::cty::c_int, out_off: *mut u16) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_mbuf_copydata(
         m: *const os_mbuf,
         off: ::cty::c_int,
@@ -1231,7 +1231,7 @@ impl Default for os_mqueue {
         dst: *mut ::cty::c_void,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " @brief Calculates the length of an mbuf chain."]
     #[doc = ""]
     #[doc = " Calculates the length of an mbuf chain.  If the mbuf contains a packet"]
@@ -1244,7 +1244,7 @@ impl Default for os_mqueue {
     #[doc = "                                  chain."]
     pub fn os_mbuf_len(om: *const os_mbuf) -> u16;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Append data onto a mbuf"]
     #[doc = ""]
     #[doc = " - __`om`__:   The mbuf to append the data onto"]
@@ -1254,7 +1254,7 @@ impl Default for os_mqueue {
     #[doc = " Return: 0 on success, and an error code on failure"]
     pub fn os_mbuf_append(m: *mut os_mbuf, arg1: *const ::cty::c_void, arg2: u16) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Reads data from one mbuf and appends it to another.  On error, the specified"]
     #[doc = " data range may be partially appended.  Neither mbuf is required to contain"]
     #[doc = " an mbuf packet header."]
@@ -1275,7 +1275,7 @@ impl Default for os_mqueue {
         len: u16,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Release a mbuf back to the pool"]
     #[doc = ""]
     #[doc = " - __`omp`__: The Mbuf pool to release back to"]
@@ -1284,7 +1284,7 @@ impl Default for os_mqueue {
     #[doc = " Return: 0 on success, -1 on failure"]
     pub fn os_mbuf_free(mb: *mut os_mbuf) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Free a chain of mbufs"]
     #[doc = ""]
     #[doc = " - __`omp`__: The mbuf pool to free the chain of mbufs into"]
@@ -1293,7 +1293,7 @@ impl Default for os_mqueue {
     #[doc = " Return: 0 on success, -1 on failure"]
     pub fn os_mbuf_free_chain(om: *mut os_mbuf) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Adjust the length of a mbuf, trimming either from the head or the tail"]
     #[doc = " of the mbuf."]
     #[doc = ""]
@@ -1303,7 +1303,7 @@ impl Default for os_mqueue {
     #[doc = "                tail of the mbuf."]
     pub fn os_mbuf_adj(mp: *mut os_mbuf, req_len: ::cty::c_int);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Performs a memory compare of the specified region of an mbuf chain against a"]
     #[doc = " flat buffer."]
     #[doc = ""]
@@ -1323,7 +1323,7 @@ impl Default for os_mqueue {
         len: ::cty::c_int,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Compares the contents of two mbuf chains.  The ranges of the two chains to"]
     #[doc = " be compared are specified via the two offset parameters and the len"]
     #[doc = " parameter.  Neither mbuf chain is required to contain a packet header."]
@@ -1349,7 +1349,7 @@ impl Default for os_mqueue {
         len: u16,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Increases the length of an mbuf chain by adding data to the front.  If there"]
     #[doc = " is insufficient room in the leading mbuf, additional mbufs are allocated and"]
     #[doc = " prepended as necessary.  If this function fails to allocate an mbuf, the"]
@@ -1365,7 +1365,7 @@ impl Default for os_mqueue {
     #[doc = "                              NULL on failure."]
     pub fn os_mbuf_prepend(om: *mut os_mbuf, len: ::cty::c_int) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Prepends a chunk of empty data to the specified mbuf chain and ensures the"]
     #[doc = " chunk is contiguous.  If either operation fails, the specified mbuf chain is"]
     #[doc = " freed and NULL is returned."]
@@ -1377,7 +1377,7 @@ impl Default for os_mqueue {
     #[doc = "                              NULL on failure (and the mbuf chain is freed)."]
     pub fn os_mbuf_prepend_pullup(om: *mut os_mbuf, len: u16) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Copies the contents of a flat buffer into an mbuf chain, starting at the"]
     #[doc = " specified destination offset.  If the mbuf is too small for the source data,"]
     #[doc = " it is extended as necessary.  If the destination mbuf contains a packet"]
@@ -1397,7 +1397,7 @@ impl Default for os_mqueue {
         len: ::cty::c_int,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Attaches a second mbuf chain onto the end of the first.  If the first chain"]
     #[doc = " contains a packet header, the header's length is updated.  If the second"]
     #[doc = " chain has a packet header, its header is cleared."]
@@ -1406,7 +1406,7 @@ impl Default for os_mqueue {
     #[doc = " - __`second`__:                The mbuf chain that gets attached."]
     pub fn os_mbuf_concat(first: *mut os_mbuf, second: *mut os_mbuf);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Increases the length of an mbuf chain by the specified amount.  If there is"]
     #[doc = " not sufficient room in the last buffer, a new buffer is allocated and"]
     #[doc = " appended to the chain.  It is an error to request more data than can fit in"]
@@ -1420,7 +1420,7 @@ impl Default for os_mqueue {
     #[doc = "                              NULL on failure."]
     pub fn os_mbuf_extend(om: *mut os_mbuf, len: u16) -> *mut ::cty::c_void;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Rearrange a mbuf chain so that len bytes are contiguous,"]
     #[doc = " and in the data area of an mbuf (so that OS_MBUF_DATA() will"]
     #[doc = " work on a structure of size len.)  Returns the resulting"]
@@ -1437,7 +1437,7 @@ impl Default for os_mqueue {
     #[doc = " Return: The contiguous mbuf chain on success, NULL on failure."]
     pub fn os_mbuf_pullup(om: *mut os_mbuf, len: u16) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Removes and frees empty mbufs from the front of a chain.  If the chain"]
     #[doc = " contains a packet header, it is preserved."]
     #[doc = ""]
@@ -1446,7 +1446,7 @@ impl Default for os_mqueue {
     #[doc = " Return:                      The head of the trimmed mbuf chain."]
     pub fn os_mbuf_trim_front(om: *mut os_mbuf) -> *mut os_mbuf;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Increases the length of an mbuf chain by inserting a gap at the specified"]
     #[doc = " offset.  The contents of the gap are indeterminate.  If the mbuf chain"]
     #[doc = " contains a packet header, its total length is increased accordingly."]
@@ -1575,7 +1575,7 @@ pub struct os_mempool_info {
     #[doc = " Name of the memory pool"]
     pub omi_name: [::cty::c_char; 32usize],
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get information about the next system memory pool."]
     #[doc = ""]
     #[doc = " - __`mempool`__: The current memory pool, or NULL if starting iteration."]
@@ -1590,7 +1590,7 @@ pub struct os_mempool_info {
     ) -> *mut os_mempool;
 }
 pub type os_membuf_t = u32;
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a memory pool."]
     #[doc = ""]
     #[doc = " - __`mp`__:            Pointer to a pointer to a mempool"]
@@ -1608,7 +1608,7 @@ pub type os_membuf_t = u32;
         name: *mut ::cty::c_char,
     ) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initializes an extended memory pool.  Extended attributes (e.g., callbacks)"]
     #[doc = " are not specified when this function is called; they are assigned manually"]
     #[doc = " after initialization."]
@@ -1628,7 +1628,7 @@ pub type os_membuf_t = u32;
         name: *mut ::cty::c_char,
     ) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Removes the specified mempool from the list of initialized mempools."]
     #[doc = ""]
     #[doc = " - __`mp`__:                    The mempool to unregister."]
@@ -1638,7 +1638,7 @@ pub type os_membuf_t = u32;
     #[doc = "                                  registered."]
     pub fn os_mempool_unregister(mp: *mut os_mempool) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Clears a memory pool."]
     #[doc = ""]
     #[doc = " - __`mp`__:            The mempool to clear."]
@@ -1646,10 +1646,10 @@ pub type os_membuf_t = u32;
     #[doc = " Return: os_error_t"]
     pub fn os_mempool_clear(mp: *mut os_mempool) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_mempool_is_sane(mp: *const os_mempool) -> bool;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Checks if a memory block was allocated from the specified mempool."]
     #[doc = ""]
     #[doc = " - __`mp`__:                    The mempool to check as parent."]
@@ -1662,7 +1662,7 @@ pub type os_membuf_t = u32;
         block_addr: *const ::cty::c_void,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get a memory block from a memory pool"]
     #[doc = ""]
     #[doc = " - __`mp`__: Pointer to the memory pool"]
@@ -1670,7 +1670,7 @@ pub type os_membuf_t = u32;
     #[doc = " Return: void* Pointer to block if available; NULL otherwise"]
     pub fn os_memblock_get(mp: *mut os_mempool) -> *mut ::cty::c_void;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Puts the memory block back into the pool, ignoring the put callback, if any."]
     #[doc = " This function should only be called from a put callback to free a block"]
     #[doc = " without causing infinite recursion."]
@@ -1684,7 +1684,7 @@ pub type os_membuf_t = u32;
         block_addr: *mut ::cty::c_void,
     ) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Puts the memory block back into the pool"]
     #[doc = ""]
     #[doc = " - __`mp`__: Pointer to memory pool"]
@@ -1719,7 +1719,7 @@ impl Default for os_mutex {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Create a mutex and initialize it."]
     #[doc = ""]
     #[doc = " - __`mu`__: Pointer to mutex"]
@@ -1729,7 +1729,7 @@ impl Default for os_mutex {
     #[doc = "      OS_OK               no error."]
     pub fn os_mutex_init(mu: *mut os_mutex) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Release a mutex."]
     #[doc = ""]
     #[doc = " - __`mu`__: Pointer to the mutex to be released"]
@@ -1740,7 +1740,7 @@ impl Default for os_mutex {
     #[doc = "      OS_OK           No error"]
     pub fn os_mutex_release(mu: *mut os_mutex) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Pend (wait) for a mutex."]
     #[doc = ""]
     #[doc = " - __`mu`__: Pointer to mutex."]
@@ -1784,14 +1784,14 @@ impl Default for os_sanity_check {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " @cond INTERNAL_HIDDEN"]
     pub fn os_sanity_init() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sanity_run();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Provide a \"task checkin\" for the sanity task."]
     #[doc = ""]
     #[doc = " - __`t`__: The task to check in"]
@@ -1799,7 +1799,7 @@ impl Default for os_sanity_check {
     #[doc = " Return: 0 on success, error code on failure"]
     pub fn os_sanity_task_checkin(arg1: *mut os_task) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a sanity check"]
     #[doc = ""]
     #[doc = " - __`sc`__: The sanity check to initialize"]
@@ -1807,7 +1807,7 @@ impl Default for os_sanity_check {
     #[doc = " Return: 0 on success, error code on failure."]
     pub fn os_sanity_check_init(arg1: *mut os_sanity_check) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Register a sanity check"]
     #[doc = ""]
     #[doc = " - __`sc`__: The sanity check to register"]
@@ -1815,7 +1815,7 @@ impl Default for os_sanity_check {
     #[doc = " Return: 0 on success, error code on failure"]
     pub fn os_sanity_check_register(arg1: *mut os_sanity_check) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Reset the os sanity check, so that it doesn't trip up the"]
     #[doc = " sanity timer."]
     #[doc = ""]
@@ -1933,7 +1933,7 @@ impl Default for os_task_stailq {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a task."]
     #[doc = ""]
     #[doc = " This function initializes the task structure pointed to by t,"]
@@ -1964,13 +1964,13 @@ impl Default for os_task_stailq {
         arg8: u16,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Removes specified task"]
     #[doc = " XXX"]
     #[doc = " NOTE: This interface is currently experimental and not ready for common use"]
     pub fn os_task_remove(t: *mut os_task) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Return the number of tasks initialized."]
     #[doc = ""]
     #[doc = " Return: number of tasks initialized"]
@@ -2001,7 +2001,7 @@ pub struct os_task_info {
     #[doc = " Name of this task"]
     pub oti_name: [::cty::c_char; 32usize],
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Iterate through tasks, and return the following information about them:"]
     #[doc = ""]
     #[doc = " - Priority"]
@@ -2042,23 +2042,23 @@ impl Default for os_task_list {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_ctx_sw_hook(arg1: *mut os_task);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Returns the currently running task. Note that this task may or may not be"]
     #[doc = " the highest priority task ready to run."]
     #[doc = ""]
     #[doc = " Return: The currently running task."]
     pub fn os_sched_get_current_task() -> *mut os_task;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_set_current_task(arg1: *mut os_task);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_next_task() -> *mut os_task;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Performs context switch if needed. If next_t is set, that task will be made"]
     #[doc = " running. If next_t is NULL, highest priority ready to run is swapped in. This"]
     #[doc = " function can be called when new tasks were made ready to run or if the current"]
@@ -2091,26 +2091,26 @@ impl Default for os_task_list {
     #[doc = " ```"]
     pub fn os_sched(arg1: *mut os_task);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " @cond INTERNAL_HIDDEN"]
     pub fn os_sched_os_timer_exp();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_insert(arg1: *mut os_task) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_sleep(arg1: *mut os_task, nticks: os_time_t) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_wakeup(arg1: *mut os_task) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_remove(arg1: *mut os_task) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_resort(arg1: *mut os_task);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_sched_wakeup_ticks(now: os_time_t) -> os_time_t;
 }
 #[doc = " Structure representing an OS semaphore."]
@@ -2135,7 +2135,7 @@ impl Default for os_sem {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a semaphore"]
     #[doc = ""]
     #[doc = " - __`sem`__: Pointer to semaphore"]
@@ -2146,7 +2146,7 @@ impl Default for os_sem {
     #[doc = "      OS_OK               no error."]
     pub fn os_sem_init(sem: *mut os_sem, tokens: u16) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Release a semaphore."]
     #[doc = ""]
     #[doc = " - __`sem`__: Pointer to the semaphore to be released"]
@@ -2156,7 +2156,7 @@ impl Default for os_sem {
     #[doc = "      OS_OK No error"]
     pub fn os_sem_release(sem: *mut os_sem) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " os sem pend"]
     #[doc = ""]
     #[doc = " Pend (wait) for a semaphore."]
@@ -2173,13 +2173,13 @@ impl Default for os_sem {
     #[doc = "      OS_OK               no error."]
     pub fn os_sem_pend(sem: *mut os_sem, timeout: os_time_t) -> os_error_t;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_mempool_module_init();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_msys_init();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Set up the periodic timer to interrupt at a frequency of 'os_ticks_per_sec'."]
     #[doc = " 'prio' is the cpu-specific priority of the periodic timer interrupt."]
     #[doc = ""]
@@ -2187,19 +2187,19 @@ impl Default for os_sem {
     #[doc = " - __`prio`__:             Priority of the OS tick timer"]
     pub fn os_tick_init(os_ticks_per_sec: u32, prio: ::cty::c_int);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Halt CPU for up to 'n' ticks."]
     #[doc = ""]
     #[doc = " - __`n`__: The number of ticks to halt the CPU for"]
     pub fn os_tick_idle(n: os_time_t);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut os_main_task: os_task;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut os_main_stack: [os_stack_t; 1024usize];
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Idle operating system task, runs when no other tasks are running."]
     #[doc = " The idle task operates in tickless mode, which means it looks for"]
     #[doc = " the next time an event in the system needs to run, and then tells"]
@@ -2208,6 +2208,6 @@ impl Default for os_sem {
     #[doc = " - __`arg`__: unused"]
     pub fn os_idle_task(arg: *mut ::cty::c_void);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub fn os_pkg_init();
 }

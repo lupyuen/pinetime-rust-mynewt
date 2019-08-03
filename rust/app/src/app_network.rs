@@ -36,21 +36,6 @@ use mynewt::{
 };
 use mynewt_macros::{ strn, strn2, strn3 };    //  Import Mynewt procedural macros
 
-// pub fn get_device_id2() -> MynewtResult<*const ::cty::c_char> {
-pub fn get_device_id2() -> MynewtResult<Strn> {
-    "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
-    extern "C" {
-        pub fn get_device_id() -> *const ::cty::c_char;
-    }
-    "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-    unsafe {
-        "----------Insert Call: `let result_code = os_task_init(`----------";
-        let result_value: *const ::cty::c_char = get_device_id();
-        let wrap_result: Strn = Strn::from_cstr(result_value);
-        Ok(wrap_result)
-    }
-}
-
 /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
 /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -64,22 +49,22 @@ pub fn get_device_id2() -> MynewtResult<Strn> {
 /// ```
 pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust send_sensor_data\n");
-    if let SensorValueType::None = val.val { assert!(false); }
-    // let device_id = strn2!( sensor_network::get_device_id() ? );
-    // let device_id2 = strn2!( "network" );
-    let device_id = get_device_id2() ?;
+    //  Get a randomly-generated device ID that changes each time we restart the device.
+    let device_id = sensor_network::get_device_id() ?;
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
     let rc = sensor_network::init_server_post(strn!("")) ? ;
-    if !rc { return Err(MynewtError::SYS_EAGAIN); }  //  If network transport not ready, tell caller (Sensor Listener) to try again later.
+
+    //  If network transport not ready, tell caller (Sensor Listener) to try again later.
+    if !rc { return Err(MynewtError::SYS_EAGAIN); }
 
     //  Compose the CoAP Payload using the coap!() macro.
     //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.
     let _payload = coap!( @json {        
         //  Create `values` as an array of items under the root.
-        //  Append to the `values` array:
+        //  Append to the `values` array the random device ID:
         //  `{"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}`
         "device": &device_id,
 
@@ -94,9 +79,10 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
     //  to compose and post CoAP messages.
     sensor_network::do_server_post() ? ;
 
+    //  Display the URL with the random device ID for viewing the sensor data.
     console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=");
     console::print_strn(&device_id); console::print("\n");
 
-    //  The CoAP Background Task will call oc_tx_ucast() in the network driver to transmit the message.
+    //  The CoAP Background Task will transmit the message in the background.
     Ok(())
 }

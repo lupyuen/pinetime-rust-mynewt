@@ -284,7 +284,7 @@ impl Default for os_task__bindgen_ty_3 {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Package init function. Remove when we have post-kernel init stages."]
     pub fn sensor_pkg_init();
 }
@@ -751,7 +751,7 @@ impl Default for sensor_read_ctx {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Lock access to the sensor_itf specified by si.  Blocks until lock acquired."]
     #[doc = ""]
     #[doc = " - __`si`__: The sensor_itf to lock"]
@@ -760,7 +760,7 @@ impl Default for sensor_read_ctx {
     #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_itf_lock(si: *mut sensor_itf, timeout: os_time_t) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Unlock access to the sensor_itf specified by si."]
     #[doc = ""]
     #[doc = " - __`si`__: The sensor_itf to unlock access to"]
@@ -768,7 +768,7 @@ impl Default for sensor_read_ctx {
     #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_itf_unlock(si: *mut sensor_itf);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Initialize a sensor"]
     #[doc = ""]
     #[doc = " - __`sensor`__: The sensor to initialize"]
@@ -777,7 +777,7 @@ impl Default for sensor_read_ctx {
     #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_init(sensor: *mut sensor, dev: *mut os_dev) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Lock access to the sensor specified by sensor.  Blocks until lock acquired."]
     #[doc = ""]
     #[doc = " - __`sensor`__: The sensor to lock"]
@@ -785,13 +785,13 @@ impl Default for sensor_read_ctx {
     #[doc = " Return: 0 on success, non-zero on failure."]
     pub fn sensor_lock(sensor: *mut sensor) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Unlock access to the sensor specified by sensor."]
     #[doc = ""]
     #[doc = " - __`sensor`__: The sensor to unlock access to."]
     pub fn sensor_unlock(sensor: *mut sensor);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Register a sensor listener. This allows a calling application to receive"]
     #[doc = " callbacks for data from a given sensor object."]
     #[doc = ""]
@@ -807,7 +807,7 @@ impl Default for sensor_read_ctx {
         listener: *mut sensor_listener,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Un-register a sensor listener. This allows a calling application to clear"]
     #[doc = " callbacks for a given sensor object."]
     #[doc = ""]
@@ -820,7 +820,7 @@ impl Default for sensor_read_ctx {
         listener: *mut sensor_listener,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Register a sensor error callback.  The callback is executed when the sensor"]
     #[doc = " manager fails to read from the given sensor."]
     #[doc = ""]
@@ -835,7 +835,7 @@ impl Default for sensor_read_ctx {
         arg: *mut ::cty::c_void,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Register a sensor notifier. This allows a calling application to receive"]
     #[doc = " callbacks any time a requested event is observed."]
     #[doc = ""]
@@ -848,7 +848,7 @@ impl Default for sensor_read_ctx {
         notifier: *mut sensor_notifier,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Un-register a sensor notifier. This allows a calling application to stop"]
     #[doc = " receiving callbacks for events on the sensor object."]
     #[doc = ""]
@@ -861,7 +861,7 @@ impl Default for sensor_read_ctx {
         notifier: *mut sensor_notifier,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Read the data for sensor type \"type,\" from the given sensor and"]
     #[doc = " return the result into the \"value\" parameter."]
     #[doc = ""]
@@ -880,15 +880,15 @@ impl Default for sensor_read_ctx {
         timeout: u32,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Lock sensor manager to access the list of sensors"]
     pub fn sensor_mgr_lock() -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Unlock sensor manager once the list of sensors has been accessed"]
     pub fn sensor_mgr_unlock();
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Register the sensor with the global sensor list. This makes the sensor"]
     #[doc = " searchable by other packages, who may want to look it up by type."]
     #[doc = ""]
@@ -897,7 +897,7 @@ impl Default for sensor_read_ctx {
     #[doc = " Return: 0 on success, non-zero error code on failure."]
     pub fn sensor_mgr_register(sensor: *mut sensor) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get the current eventq, the system is misconfigured if there is still"]
     #[doc = " no parent eventq."]
     #[doc = ""]
@@ -907,7 +907,7 @@ impl Default for sensor_read_ctx {
 pub type sensor_mgr_compare_func_t = ::core::option::Option<
     unsafe extern "C" fn(arg1: *mut sensor, arg2: *mut ::cty::c_void) -> ::cty::c_int,
 >;
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " The sensor manager contains a list of sensors, this function returns"]
     #[doc = " the next sensor in that list, for which compare_func() returns successful"]
     #[doc = " (one).  If prev_cursor is provided, the function starts at that point"]
@@ -932,7 +932,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         arg3: *mut sensor,
     ) -> *mut sensor;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Find the \"next\" sensor available for a given sensor type."]
     #[doc = ""]
     #[doc = " If the sensor parameter, is present find the next entry from that"]
@@ -945,7 +945,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
     #[doc = "         none found."]
     pub fn sensor_mgr_find_next_bytype(type_: sensor_type_t, sensor: *mut sensor) -> *mut sensor;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Search the sensor list and find the next sensor that corresponds"]
     #[doc = " to a given device name."]
     #[doc = ""]
@@ -958,7 +958,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         prev_cursor: *mut sensor,
     ) -> *mut sensor;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Check if sensor type matches"]
     #[doc = ""]
     #[doc = " - __`sensor`__: The sensor object"]
@@ -967,14 +967,14 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
     #[doc = " Return: 1 if matches, 0 if it doesn't match."]
     pub fn sensor_mgr_match_bytype(sensor: *mut sensor, arg1: *mut ::cty::c_void) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Set the sensor poll rate"]
     #[doc = ""]
     #[doc = " - __`devname`__: Name of the sensor"]
     #[doc = " - __`poll_rate`__: The poll rate in milli seconds"]
     pub fn sensor_set_poll_rate_ms(devname: *const ::cty::c_char, poll_rate: u32) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Set the sensor poll rate multiple based on the device name, sensor type"]
     #[doc = ""]
     #[doc = " - __`devname`__: Name of the sensor"]
@@ -984,7 +984,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         stt: *mut sensor_type_traits,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Transmit OIC trigger"]
     #[doc = ""]
     #[doc = " - __`sensor`__: Ptr to the sensor"]
@@ -998,7 +998,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         type_: sensor_type_t,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Sensor trigger initialization"]
     #[doc = ""]
     #[doc = " - __`sensor`__: Ptr to the sensor"]
@@ -1010,7 +1010,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         notify: sensor_trigger_notify_func_t,
     );
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Search the sensor type traits list for specific type of sensor"]
     #[doc = ""]
     #[doc = " - __`type`__: The sensor type to search for"]
@@ -1023,7 +1023,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         sensor: *mut sensor,
     ) -> *mut sensor_type_traits;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Get the type traits for a sensor"]
     #[doc = ""]
     #[doc = " - __`devname`__: Name of the sensor"]
@@ -1037,7 +1037,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         arg3: sensor_type_t,
     ) -> *mut sensor;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Set the thresholds along with the comparison algo for a sensor"]
     #[doc = ""]
     #[doc = " - __`devname`__: Name of the sensor"]
@@ -1049,7 +1049,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         stt: *mut sensor_type_traits,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Clears the low threshold for a sensor"]
     #[doc = ""]
     #[doc = " - __`devname`__: Name of the sensor"]
@@ -1061,7 +1061,7 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         type_: sensor_type_t,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Clears the high threshold for a sensor"]
     #[doc = ""]
     #[doc = " - __`devname`__: Name of the sensor"]
@@ -1073,26 +1073,26 @@ pub type sensor_mgr_compare_func_t = ::core::option::Option<
         type_: sensor_type_t,
     ) -> ::cty::c_int;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Puts a notification event on the sensor manager evq"]
     #[doc = ""]
     #[doc = " - __`ctx`__: Notification event context"]
     #[doc = " - __`evtype`__: The notification event type"]
     pub fn sensor_mgr_put_notify_evt(ctx: *mut sensor_notify_ev_ctx, evtype: sensor_event_type_t);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Puts a interrupt event on the sensor manager evq"]
     #[doc = ""]
     #[doc = " - __`sensor`__: Sensor Ptr as interrupt event context"]
     pub fn sensor_mgr_put_interrupt_evt(sensor: *mut sensor);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Puts read event on the sensor manager evq"]
     #[doc = ""]
     #[doc = " - __`arg`__: Argument"]
     pub fn sensor_mgr_put_read_evt(arg: *mut ::cty::c_void);
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Resets the sensor"]
     #[doc = ""]
     #[doc = " - __`Ptr`__: to sensor"]
@@ -1834,18 +1834,18 @@ impl Default for _bindgen_ty_1 {
         unsafe { ::core::mem::zeroed() }
     }
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut sensor_mgr: _bindgen_ty_1;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut sensor_base_ts: sensor_timestamp;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut sensor_read_event: os_event;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut sensor_notify_evt_pool: os_mempool;
 }
-#[proc_macros::safe_wrap(attr)] extern "C" {
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     pub static mut sensor_notify_evt_area: [os_membuf_t; 60usize];
 }

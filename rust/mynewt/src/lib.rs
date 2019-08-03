@@ -7,7 +7,7 @@
 #![feature(proc_macro_hygiene)]   //  Allow proc macros to be unhygienic
 #![feature(custom_attribute)]     //  Allow Custom Attributes like `#[safe_wrap]`
 
-extern crate macros as proc_macros;  //  Import Procedural Macros from `macros` library
+extern crate macros as mynewt_macros;  //  Import Procedural Macros from `macros` library
 
 #[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case

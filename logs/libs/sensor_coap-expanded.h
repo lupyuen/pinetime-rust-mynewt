@@ -1335,7 +1335,7 @@
 
 /* Overridden by targets/bluepill_my_sensor (defined by libs/sensor_network) */
 
-#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8?cbor=true")
+#define MYNEWT_VAL_COAP_URI ("v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8")
 
 
 
@@ -30478,7 +30478,7 @@ prepare_sensor_post(struct oc_server_handle *server, const char *uri, int coap_c
 
     cb = oc_ri_alloc_client_cb(uri, server, OC_POST, handler, qos);
     if (!cb) {
-        rc = os_sem_release(&oc_sem); //  Failed.  Release the semaphore.
+        os_error_t rc = os_sem_release(&oc_sem); //  Failed.  Release the semaphore.
         ((rc == OS_OK) ? (void)0 : __assert_func(
 # 195 "libs/sensor_coap/src/sensor_coap.c" 3 4
        ((void *)0)

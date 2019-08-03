@@ -1,13 +1,3 @@
-wrap_type: ""
-wrap_type: "* mut os_eventq"
-wrap_type: ":: cty :: c_int"
-wrap_type: "* mut sensor"
-wrap_type: ":: cty :: c_int"
-wrap_type: ":: cty :: c_int"
-wrap_type: "bool"
-wrap_type: "bool"
-wrap_type: "bool"
-wrap_type: "* const :: cty :: c_char"
 item: "stringify ! ( key )"
 macro: "stringify ! ( key )"
 ident: "key\u{0}"
@@ -267,19 +257,6 @@ mod app_network {
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
     use mynewt_macros::{strn, strn2, strn3};
-    pub fn get_device_id2() -> MynewtResult<Strn> {
-        "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
-        extern "C" {
-            pub fn get_device_id() -> *const ::cty::c_char;
-        }
-        "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
-        unsafe {
-            "----------Insert Call: `let result_code = os_task_init(`----------";
-            let result_value: *const ::cty::c_char = get_device_id();
-            let wrap_result: Strn = Strn::from_cstr(result_value);
-            Ok(wrap_result)
-        }
-    }
     /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
     /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
     /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -293,16 +270,7 @@ mod app_network {
     /// ```
     pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
         console::print("Rust send_sensor_data\n");
-        if let SensorValueType::None = val.val {
-            if !false {
-                {
-                    ::core::panicking::panic(&("assertion failed: false",
-                                               "rust/app/src/app_network.rs",
-                                               67u32, 46u32))
-                }
-            };
-        }
-        let device_id = get_device_id2()?;
+        let device_id = sensor_network::get_device_id()?;
         let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
         if !rc { return Err(MynewtError::SYS_EAGAIN); }
         let _payload =
