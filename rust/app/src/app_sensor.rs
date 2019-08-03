@@ -34,14 +34,14 @@ use mynewt::{
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
 use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
 
-///  Sensor to be polled
-static SENSOR_DEVICE: Strn = init_strn!("temp_stm32_0");
+///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
+static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
 ///  Poll sensor every 10,000 milliseconds (10 seconds)  
-const SENSOR_POLL_TIME: u32  = (10 * 1000);  
+const SENSOR_POLL_TIME: u32     = (10 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
-const TEMP_SENSOR_KEY: &str = "t";
-///  Set to raw sensor type
-const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;  
+const TEMP_SENSOR_KEY: &str     = "t";
+///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
+const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
 ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
@@ -80,7 +80,7 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     assert!(!sensor.is_null(), "null sensor");
 
     //  Get the temperature sensor value. It could be raw or computed.
-    let sensor_value = get_temperature(sensor_data, sensor_type);
+    let sensor_value = convert_sensor_data(sensor_data, sensor_type);
     if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
 
     //  Compose a CoAP message with the temperature sensor data and send to the 
@@ -101,10 +101,10 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     MynewtError::SYS_EOK
 }
 
-///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which include the key `t`. 
+///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key `t`. 
 ///  `sensor_type` indicates the type of data in `sensor_data`.
 #[allow(non_snake_case, unused_variables)]
-fn get_temperature(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
+fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
     console::print("TMP listener got rawtmp\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {

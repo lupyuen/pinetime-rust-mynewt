@@ -91,14 +91,14 @@ mod app_sensor {
                  sys::console, fill_zero, Strn};
     use mynewt_macros::{init_strn};
     use crate::app_network::send_sensor_data;
-    ///  Sensor to be polled
+    ///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
     ///  Poll sensor every 10,000 milliseconds (10 seconds)  
     const SENSOR_POLL_TIME: u32 = (10 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: &str = "t";
-    ///  Set to raw sensor type
+    ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
     const TEMP_SENSOR_TYPE: sensor_type_t =
         sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
     ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
@@ -112,7 +112,7 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("no sensor",
-                                           "rust\\app\\src\\app_sensor.rs",
+                                           "rust/app/src/app_sensor.rs",
                                            56u32, 5u32))
             }
         };
@@ -140,16 +140,16 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("null sensor",
-                                           "rust\\app\\src\\app_sensor.rs",
+                                           "rust/app/src/app_sensor.rs",
                                            80u32, 5u32))
             }
         };
-        let sensor_value = get_temperature(sensor_data, sensor_type);
+        let sensor_value = convert_sensor_data(sensor_data, sensor_type);
         if let SensorValueType::None = sensor_value.val {
             if !false {
                 {
                     ::core::panicking::panic(&("bad type",
-                                               "rust\\app\\src\\app_sensor.rs",
+                                               "rust/app/src/app_sensor.rs",
                                                84u32, 55u32))
                 }
             };
@@ -163,11 +163,11 @@ mod app_sensor {
         }
         MynewtError::SYS_EOK
     }
-    ///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which include the key `t`. 
+    ///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key `t`. 
     ///  `sensor_type` indicates the type of data in `sensor_data`.
     #[allow(non_snake_case, unused_variables)]
-    fn get_temperature(sensor_data: sensor_data_ptr,
-                       sensor_type: sensor_type_t) -> SensorValue {
+    fn convert_sensor_data(sensor_data: sensor_data_ptr,
+                           sensor_type: sensor_type_t) -> SensorValue {
         console::print("TMP listener got rawtmp\n");
         SensorValue{key: TEMP_SENSOR_KEY,
                     val:
@@ -213,7 +213,7 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust\\app\\src\\app_sensor.rs",
+                                                                                 &("rust/app/src/app_sensor.rs",
                                                                                    117u32,
                                                                                    17u32))
                                                 }
@@ -251,7 +251,7 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust\\app\\src\\app_sensor.rs",
+                                                                                 &("rust/app/src/app_sensor.rs",
                                                                                    119u32,
                                                                                    17u32))
                                                 }
