@@ -20,14 +20,3 @@ mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
 name       = "app"  # Output will be named `libapp.rlib`
 test       = false
 bench      = false
-
-# Options for `cargo build`
-[profile.dev]
-panic = "abort"     # Disable stack unwinding on panic
-
-# Options for `cargo build --release`
-[profile.release]
-panic         = "abort"     # Disable stack unwinding on panic
-codegen-units = 1           # Better optimizations
-debug         = true        # Symbols are nice and they don't increase the size on Flash
-lto           = true        # Better optimizations

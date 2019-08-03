@@ -23,10 +23,9 @@ extern crate compiler_builtins as compiler_builtins;
 extern crate macros as mynewt_macros;
 //  Import Procedural Macros from `macros` library
 
-//  Suppress warnings of unused constants and vars
+//#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 //  Allow type names to have non-camel case
 //  Allow globals to have lowercase letters
-#[allow(dead_code)]
 #[allow(non_camel_case_types)]
 #[allow(non_upper_case_globals)]
 pub mod kernel {
@@ -5636,11 +5635,41 @@ pub mod hw {
                                  listener: sensor_listener)
          -> MynewtResult<()> {
             unsafe {
-                if !(LISTENER_INTERNAL.sl_sensor_type == 0) {
-                    {
-                        ::core::panicking::panic(&("assertion failed: LISTENER_INTERNAL.sl_sensor_type == 0",
-                                                   "rust/mynewt/src/hw/sensor.rs",
-                                                   71u32, 14u32))
+                {
+                    match (&(LISTENER_INTERNAL.sl_sensor_type), &(0)) {
+                        (left_val, right_val) => {
+                            if !(*left_val == *right_val) {
+                                {
+                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                  "`,\n right: `",
+                                                                                                  "`: "],
+                                                                                                &match (&&*left_val,
+                                                                                                        &&*right_val,
+                                                                                                        &::core::fmt::Arguments::new_v1(&["reg lis"],
+                                                                                                                                        &match ()
+                                                                                                                                             {
+                                                                                                                                             ()
+                                                                                                                                             =>
+                                                                                                                                             [],
+                                                                                                                                         }))
+                                                                                                     {
+                                                                                                     (arg0,
+                                                                                                      arg1,
+                                                                                                      arg2)
+                                                                                                     =>
+                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                   ::core::fmt::Display::fmt)],
+                                                                                                 }),
+                                                                 &("rust/mynewt/src/hw/sensor.rs",
+                                                                   71u32,
+                                                                   14u32))
+                                }
+                            }
+                        }
                     }
                 }
             };
@@ -5790,14 +5819,6 @@ pub mod sys {
 #[allow(non_upper_case_globals)]
 pub mod encoding {
     //! Mynewt Encoding API for Rust
-    /// TODO: Defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
-    #[link(name = "net_oic")]
-    extern "C" {
-        /// Global CBOR encoder
-        pub static mut g_encoder: tinycbor::CborEncoder;
-        /// Global CBOR root map
-        pub static mut root_map: tinycbor::CborEncoder;
-    }
     #[macro_use]
     pub mod macros {
         //!  Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`.
@@ -6777,6 +6798,7 @@ pub mod encoding {
                                             } } ;);
     }
     /// Contains Rust bindings for Mynewt JSON Encoding API `encoding/json`
+    #[allow(unused_imports)]
     pub mod json {
         use super::*;
         #[repr(C)]
@@ -7540,6 +7562,7 @@ pub mod encoding {
         }
     }
     /// Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`
+    #[allow(unused_imports)]
     pub mod tinycbor {
         use super::*;
         pub const CborIndefiniteLength: usize = 0xffffffffusize;
@@ -8168,7 +8191,7 @@ pub mod encoding {
                 if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
                 if !(s.len() < COAP_KEY_SIZE) {
                     {
-                        ::core::panicking::panic(&("assertion failed: s.len() < COAP_KEY_SIZE",
+                        ::core::panicking::panic(&("big key",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
                                                    61u32, 9u32))
                     }
@@ -8184,7 +8207,7 @@ pub mod encoding {
                 if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
                 if !(s.len() < COAP_VALUE_SIZE) {
                     {
-                        ::core::panicking::panic(&("assertion failed: s.len() < COAP_VALUE_SIZE",
+                        ::core::panicking::panic(&("big value",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
                                                    74u32, 9u32))
                     }
@@ -8218,9 +8241,9 @@ pub mod encoding {
                 } else {
                     if !false {
                         {
-                            ::core::panicking::panic(&("assertion failed: false",
+                            ::core::panicking::panic(&("new_encoder fail",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       101u32, 13u32))
+                                                       100u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8242,9 +8265,9 @@ pub mod encoding {
                 } else {
                     if !false {
                         {
-                            ::core::panicking::panic(&("assertion failed: false",
+                            ::core::panicking::panic(&("encoder fail",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       115u32, 13u32))
+                                                       113u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8253,26 +8276,36 @@ pub mod encoding {
             /// Fail the encoding with an error if `res` is non-zero.
             pub fn check_result(&self, res: u32) {
                 {
-                    match (&res, &0) {
+                    match (&(res), &(0)) {
                         (left_val, right_val) => {
                             if !(*left_val == *right_val) {
                                 {
                                     ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                                   "`,\n right: `",
-                                                                                                  "`"],
+                                                                                                  "`: "],
                                                                                                 &match (&&*left_val,
-                                                                                                        &&*right_val)
+                                                                                                        &&*right_val,
+                                                                                                        &::core::fmt::Arguments::new_v1(&["enc fail"],
+                                                                                                                                        &match ()
+                                                                                                                                             {
+                                                                                                                                             ()
+                                                                                                                                             =>
+                                                                                                                                             [],
+                                                                                                                                         }))
                                                                                                      {
                                                                                                      (arg0,
-                                                                                                      arg1)
+                                                                                                      arg1,
+                                                                                                      arg2)
                                                                                                      =>
                                                                                                      [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                       ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                   ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   122u32,
+                                                                   120u32,
                                                                    9u32))
                                 }
                             }
@@ -8283,26 +8316,36 @@ pub mod encoding {
             /// Fail the encoding with an error
             pub fn fail(&mut self, err: CoapError) {
                 {
-                    match (&err, &CoapError::OK) {
+                    match (&(err), &(CoapError::OK)) {
                         (left_val, right_val) => {
                             if !(*left_val == *right_val) {
                                 {
                                     ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                                   "`,\n right: `",
-                                                                                                  "`"],
+                                                                                                  "`: "],
                                                                                                 &match (&&*left_val,
-                                                                                                        &&*right_val)
+                                                                                                        &&*right_val,
+                                                                                                        &::core::fmt::Arguments::new_v1(&["enc fail"],
+                                                                                                                                        &match ()
+                                                                                                                                             {
+                                                                                                                                             ()
+                                                                                                                                             =>
+                                                                                                                                             [],
+                                                                                                                                         }))
                                                                                                      {
                                                                                                      (arg0,
-                                                                                                      arg1)
+                                                                                                      arg1,
+                                                                                                      arg2)
                                                                                                      =>
                                                                                                      [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                       ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                   ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   127u32,
+                                                                   125u32,
                                                                    9u32))
                                 }
                             }
@@ -8398,6 +8441,14 @@ pub mod encoding {
         /// Array element of CoAP document
         pub const _ARRAY: &str = "_array";
     }
+    /// CBOR encoders defined in repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
+    #[link(name = "net_oic")]
+    extern "C" {
+        /// Global CBOR encoder
+        pub static mut g_encoder: tinycbor::CborEncoder;
+        /// Global CBOR root map
+        pub static mut root_map: tinycbor::CborEncoder;
+    }
     /// CoAP Payload is in JSON format
     pub const APPLICATION_JSON: i32 = 50;
     /// CoAP Payload is in CBOR format
@@ -8470,6 +8521,7 @@ pub mod libs {
     use crate::{result::*, kernel::os::*, hw::sensor::*, encoding::json::*,
                 libs::sensor_coap::*, Strn};
     /// Contains Rust bindings for Mynewt Custom API `libs/sensor_coap`
+    #[allow(improper_ctypes)]
     pub mod sensor_coap {
         use super::*;
         #[repr(C)]
@@ -10669,26 +10721,36 @@ impl Strn {
     /// ```
     pub fn new(bs: &'static [u8]) -> Strn {
         {
-            match (&bs.last(), &Some(&0u8)) {
+            match (&(bs.last()), &(Some(&0u8))) {
                 (left_val, right_val) => {
                     if !(*left_val == *right_val) {
                         {
                             ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                           "`,\n right: `",
-                                                                                          "`"],
+                                                                                          "`: "],
                                                                                         &match (&&*left_val,
-                                                                                                &&*right_val)
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["no null"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
                                                                                              {
                                                                                              (arg0,
-                                                                                              arg1)
+                                                                                              arg1,
+                                                                                              arg2)
                                                                                              =>
                                                                                              [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt)],
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           124u32, 9u32))
+                                                           123u32, 9u32))
                         }
                     }
                 }
@@ -10719,9 +10781,9 @@ impl Strn {
                 }
                 if !false {
                     {
-                        ::core::panicking::panic(&("assertion failed: false",
+                        ::core::panicking::panic(&("big strn",
                                                    "rust/mynewt/src/lib.rs",
-                                                   156u32, 17u32))
+                                                   155u32, 17u32))
                     }
                 };
                 return 128 as usize;
@@ -10734,26 +10796,36 @@ impl Strn {
         match self.rep {
             StrnRep::ByteStr(bs) => {
                 {
-                    match (&bs.last(), &Some(&0u8)) {
+                    match (&(bs.last()), &(Some(&0u8))) {
                         (left_val, right_val) => {
                             if !(*left_val == *right_val) {
                                 {
                                     ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                                   "`,\n right: `",
-                                                                                                  "`"],
+                                                                                                  "`: "],
                                                                                                 &match (&&*left_val,
-                                                                                                        &&*right_val)
+                                                                                                        &&*right_val,
+                                                                                                        &::core::fmt::Arguments::new_v1(&["no null"],
+                                                                                                                                        &match ()
+                                                                                                                                             {
+                                                                                                                                             ()
+                                                                                                                                             =>
+                                                                                                                                             [],
+                                                                                                                                         }))
                                                                                                      {
                                                                                                      (arg0,
-                                                                                                      arg1)
+                                                                                                      arg1,
+                                                                                                      arg2)
                                                                                                      =>
                                                                                                      [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                       ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                   ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   168u32,
+                                                                   166u32,
                                                                    17u32))
                                 }
                             }
@@ -10771,26 +10843,36 @@ impl Strn {
         match self.rep {
             StrnRep::ByteStr(bs) => {
                 {
-                    match (&bs.last(), &Some(&0u8)) {
+                    match (&(bs.last()), &(Some(&0u8))) {
                         (left_val, right_val) => {
                             if !(*left_val == *right_val) {
                                 {
                                     ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                                   "`,\n right: `",
-                                                                                                  "`"],
+                                                                                                  "`: "],
                                                                                                 &match (&&*left_val,
-                                                                                                        &&*right_val)
+                                                                                                        &&*right_val,
+                                                                                                        &::core::fmt::Arguments::new_v1(&["no null"],
+                                                                                                                                        &match ()
+                                                                                                                                             {
+                                                                                                                                             ()
+                                                                                                                                             =>
+                                                                                                                                             [],
+                                                                                                                                         }))
                                                                                                      {
                                                                                                      (arg0,
-                                                                                                      arg1)
+                                                                                                      arg1,
+                                                                                                      arg2)
                                                                                                      =>
                                                                                                      [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                       ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                   ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   181u32,
+                                                                   178u32,
                                                                    17u32))
                                 }
                             }
@@ -10802,9 +10884,9 @@ impl Strn {
             StrnRep::CStr(_cstr) => {
                 if !false {
                     {
-                        ::core::panicking::panic(&("assertion failed: false",
+                        ::core::panicking::panic(&("strn cstr",
                                                    "rust/mynewt/src/lib.rs",
-                                                   185u32, 17u32))
+                                                   182u32, 17u32))
                     }
                 };
                 b"\0"
@@ -10816,26 +10898,36 @@ impl Strn {
         match self.rep {
             StrnRep::ByteStr(bs) => {
                 {
-                    match (&bs.last(), &Some(&0u8)) {
+                    match (&(bs.last()), &(Some(&0u8))) {
                         (left_val, right_val) => {
                             if !(*left_val == *right_val) {
                                 {
                                     ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                                   "`,\n right: `",
-                                                                                                  "`"],
+                                                                                                  "`: "],
                                                                                                 &match (&&*left_val,
-                                                                                                        &&*right_val)
+                                                                                                        &&*right_val,
+                                                                                                        &::core::fmt::Arguments::new_v1(&["no null"],
+                                                                                                                                        &match ()
+                                                                                                                                             {
+                                                                                                                                             ()
+                                                                                                                                             =>
+                                                                                                                                             [],
+                                                                                                                                         }))
                                                                                                      {
                                                                                                      (arg0,
-                                                                                                      arg1)
+                                                                                                      arg1,
+                                                                                                      arg2)
                                                                                                      =>
                                                                                                      [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                       ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt)],
+                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                   ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   196u32,
+                                                                   192u32,
                                                                    17u32))
                                 }
                             }
@@ -10849,26 +10941,36 @@ impl Strn {
     /// Fail if the last byte is not zero.
     pub fn validate_bytestr(bs: &'static [u8]) {
         {
-            match (&bs.last(), &Some(&0u8)) {
+            match (&(bs.last()), &(Some(&0u8))) {
                 (left_val, right_val) => {
                     if !(*left_val == *right_val) {
                         {
                             ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
                                                                                           "`,\n right: `",
-                                                                                          "`"],
+                                                                                          "`: "],
                                                                                         &match (&&*left_val,
-                                                                                                &&*right_val)
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["no null"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
                                                                                              {
                                                                                              (arg0,
-                                                                                              arg1)
+                                                                                              arg1,
+                                                                                              arg2)
                                                                                              =>
                                                                                              [::core::fmt::ArgumentV1::new(arg0,
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt)],
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           205u32, 9u32))
+                                                           200u32, 9u32))
                         }
                     }
                 }

@@ -68,7 +68,7 @@ impl From<sensor_data_func> for sensor_data_func_untyped {
 ///  `listener`: The listener to register onto the sensor.
 ///  Returns `Ok()` on success, `Err()` containing `MynewtError` error code on failure.
 pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> MynewtResult<()> {  //  Returns an error code upon error. 
-    unsafe { assert!(LISTENER_INTERNAL.sl_sensor_type == 0) };  //  Make sure it's not used.
+    unsafe { assert_eq!(LISTENER_INTERNAL.sl_sensor_type, 0, "reg lis") };  //  Make sure it's not used.
     //  Copy the caller's listener to the internal listener.
     unsafe { LISTENER_INTERNAL = listener };
     //  Pass the internal listener to the unsafe Mynewt API.

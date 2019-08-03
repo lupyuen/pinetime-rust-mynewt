@@ -74,7 +74,7 @@ pub fn strn(item: TokenStream) -> TokenStream {
         }
         syn::Expr::Lit(_expr) => {
             //  Literals already handled above. Should not come here.
-            assert!(false);  //  Not supported
+            assert!(false, "strn lit");  //  Not supported
             let expanded = quote! { &Strn::new( b"\0" ) };
             return expanded.into();
         }
@@ -87,7 +87,7 @@ pub fn strn(item: TokenStream) -> TokenStream {
     };
     //  println!("strn: {:#?}", expr);
     //  println!("strn3: {:#?}", expr_str);
-    assert!(false);  //  Not supported
+    assert!(false, "strn");  //  Not supported
     let expanded = quote! { &Strn::new( b"\0" ) };
     expanded.into()
 }

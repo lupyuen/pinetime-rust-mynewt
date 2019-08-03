@@ -9,7 +9,7 @@
 
 extern crate macros as mynewt_macros;  //  Import Procedural Macros from `macros` library
 
-#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
+//#[allow(dead_code)]               //  Suppress warnings of unused constants and vars
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod kernel;     //  Mynewt Kernel API. Export folder `kernel` as Rust module `mynewt::kernel`
@@ -120,8 +120,7 @@ impl Strn {
     /// strn!("network")
     /// ```
     pub fn new(bs: &'static [u8]) -> Strn {
-        //  Last byte must be 0.
-        assert_eq!(bs.last(), Some(&0u8));
+        assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
         Strn { 
             rep: StrnRep::ByteStr(bs)
         }
@@ -153,7 +152,7 @@ impl Strn {
                     let ptr: *const u8 =  ((cstr as u32) + len) as *const u8;
                     if unsafe { *ptr } == 0 { return len as usize; }                    
                 }
-                assert!(false);  //  String too long
+                assert!(false, "big strn");  //  String too long
                 return 128 as usize;
             }
         }
@@ -164,8 +163,7 @@ impl Strn {
     pub fn as_cstr(&self) -> *const u8 {
         match self.rep {
             StrnRep::ByteStr(bs) => { 
-                //  Last byte must be 0.
-                assert_eq!(bs.last(), Some(&0u8));
+                assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
                 bs.as_ptr() as *const u8
             }
             StrnRep::CStr(cstr)  => { cstr }
@@ -176,13 +174,12 @@ impl Strn {
     /// Fail if the last byte is not zero.
     pub fn as_bytestr(&self) -> &'static [u8] {
         match self.rep {
-            StrnRep::ByteStr(bs) => {
-                //  Last byte must be 0.
-                assert_eq!(bs.last(), Some(&0u8));
+            StrnRep::ByteStr(bs) => {                
+                assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
                 &bs
             }
             StrnRep::CStr(_cstr)  => { 
-                assert!(false);  //  Not implemented
+                assert!(false, "strn cstr");  //  Not implemented
                 b"\0"
             }
         }
@@ -192,8 +189,7 @@ impl Strn {
     pub fn validate(&self) {
         match self.rep {
             StrnRep::ByteStr(bs) => {         
-                //  Last byte must be 0.
-                assert_eq!(bs.last(), Some(&0u8));
+                assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
             }
             StrnRep::CStr(_cstr)  => {}
         }
@@ -201,8 +197,7 @@ impl Strn {
 
     /// Fail if the last byte is not zero.
     pub fn validate_bytestr(bs: &'static [u8]) {
-        //  Last byte must be 0.
-        assert_eq!(bs.last(), Some(&0u8));
+        assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
     }
 }
 

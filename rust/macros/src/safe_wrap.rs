@@ -86,13 +86,13 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
             }
             _ => {
                 println!("safe_wrap_internal: Unknown extern {:#?}", quote! { #foreign_item }.to_string());
-                assert!(false); //  TODO: Handle unknown extern.
+                assert!(false, "Unknown extern");  //  TODO: Handle unknown extern.
             }
         }        
         break;
     }
     println!("safe_wrap_internal: Loop should not terminate");
-    assert!(false);  //  TODO: Handle non-function externs.
+    assert!(false, "Non-function extern");  //  TODO: Handle non-function externs.
     "// Should not come here".parse().unwrap()
 }
 
@@ -283,7 +283,7 @@ fn transform_arg_list(args: &Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
             //println!("arg: {:#?}", arg);
             let arg_transformed = transform_arg(&arg);
             res.push(arg_transformed);
-        } else { assert!(false); }
+        } else { assert!(false, "Unknown arg"); }
     }
     res
 }
@@ -453,6 +453,7 @@ struct TransformedArg {
 }
 
 /// Extern return type declaration transformed
+#[allow(dead_code)]  //  TODO
 struct TransformedReturnType {
     /// Original extern type e.g. `:: cty :: c_int` or `* mut os_eventq`
     extern_type: Box<String>,
@@ -469,6 +470,7 @@ struct TransformedReturnType {
 }
 
 /// Extern function name transformed
+#[allow(dead_code)]  //  TODO
 struct TransformedFunctionName {
     /// Identifier e.g. `os_task_init`
     ident: Box<String>,

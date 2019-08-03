@@ -58,7 +58,7 @@ impl CoapContext {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
         //  Else copy into static key buffer and return pointer to buffer.
-        assert!(s.len() < COAP_KEY_SIZE);  //  Key too long
+        assert!(s.len() < COAP_KEY_SIZE, "big key");  //  Key too long
         self.key_buffer[..s.len()].copy_from_slice(s);
         self.key_buffer[s.len()] = 0;
         self.key_buffer.as_ptr() as *const u8
@@ -71,7 +71,7 @@ impl CoapContext {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
         //  Else copy into static value buffer and return pointer to buffer.
-        assert!(s.len() < COAP_VALUE_SIZE);  //  Value too long
+        assert!(s.len() < COAP_VALUE_SIZE, "big value");  //  Value too long
         self.value_buffer[..s.len()].copy_from_slice(s);
         self.value_buffer[s.len()] = 0;
         self.value_buffer.as_ptr() as *const u8
@@ -97,8 +97,7 @@ impl CoapContext {
         if (key, suffix)      == ("values", _ARRAY) { unsafe { &mut cbor_encoder0 } }
         else if (key, suffix) == ("values", _MAP)   { unsafe { &mut cbor_encoder1 } }
         else {
-            //  TODO
-            assert!(false);  //  No such encoder.
+            assert!(false, "new_encoder fail");  //  TODO: No such encoder.
             unsafe { &mut super::root_map }
         }        
     }
@@ -111,20 +110,19 @@ impl CoapContext {
         else if (key, suffix) == ("values", _ARRAY) { unsafe { &mut cbor_encoder0 } }
         else if (key, suffix) == ("values", _MAP)   { unsafe { &mut cbor_encoder1 } }
         else {
-            //  TODO
-            assert!(false);  //  No such encoder.
+            assert!(false, "encoder fail");  //  TODO: No such encoder.
             unsafe { &mut super::root_map }
         }        
     }
 
     /// Fail the encoding with an error if `res` is non-zero.
     pub fn check_result(&self, res: u32) {
-        assert_eq!(res, 0);
+        assert_eq!(res, 0, "enc fail");
     }
 
     /// Fail the encoding with an error
     pub fn fail(&mut self, err: CoapError) {
-        assert_eq!(err, CoapError::OK);
+        assert_eq!(err, CoapError::OK, "enc fail");
     }
 
     /// Cast itself as a `*mut c_void`
