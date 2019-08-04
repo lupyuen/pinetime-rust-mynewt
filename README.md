@@ -33,7 +33,7 @@ Sample logs for Windows may be found in the [logs folder](logs)
 
 This repository contains...
 
-[`src`](src): Rust Application
+[`rust`](rust): Rust Application
 
 [`Cargo.toml`](Cargo.toml): Rust Build Settings
 
