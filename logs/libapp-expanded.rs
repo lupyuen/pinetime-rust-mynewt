@@ -1,8 +1,3 @@
-item: "(  )"
-item: "stringify ! ( key )"
-item: "\"device\""
-item: "stringify ! ( value )"
-item: "$crate::parse!(@ json &device_id)"
 #![feature(prelude_import)]
 #![no_std]
 /*
