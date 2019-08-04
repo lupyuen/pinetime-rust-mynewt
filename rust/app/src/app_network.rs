@@ -50,7 +50,7 @@ use mynewt_macros::strn;        //  Import Mynewt procedural macros
 pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust send_sensor_data\n");
     //  Get a randomly-generated device ID that changes each time we restart the device.
-    let device_id = sensor_network::get_device_id() ?;
+    let device_id = sensor_network::get_device_id() ? ;
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).

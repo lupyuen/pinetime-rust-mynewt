@@ -63,7 +63,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     };
 
     //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
-    sensor::register_listener(sensor, listener)?;  //  `?` means in case of error, return error now.
+    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
 
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
