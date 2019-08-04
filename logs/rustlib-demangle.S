@@ -936,7 +936,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
   9c:	980b      	ldr	r0, [sp, #44]	; 0x2c
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:94
-    if let Err(err) = ret {  //  `if let` will assign `err` to the error code inside `ret`
+    if let Err(err) = res {  //  `if let` will assign `err` to the error code inside `res`
   9e:	3006      	adds	r0, #6
   a0:	d106      	bne.n	b0 <app::app_sensor::handle_sensor_data+0xb0>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:96
@@ -1114,7 +1114,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
 _ZN3app10app_sensor18handle_sensor_data17hce4161ccff29c081E():
  23e:	9813      	ldr	r0, [sp, #76]	; 0x4c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:94
-    if let Err(err) = ret {  //  `if let` will assign `err` to the error code inside `ret`
+    if let Err(err) = res {  //  `if let` will assign `err` to the error code inside `res`
  240:	3006      	adds	r0, #6
  242:	f43f af2e 	beq.w	a2 <app::app_sensor::handle_sensor_data+0xa2>
  246:	e733      	b.n	fffffe6a <.Lanon.3ed011473997af99b525cde47c9eaaac.47+0xfffffe4a>

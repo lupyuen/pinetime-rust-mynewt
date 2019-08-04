@@ -159,8 +159,8 @@ mod app_sensor {
                 }
             };
         }
-        let ret = send_sensor_data(&sensor_value);
-        if let Err(err) = ret {
+        let res = send_sensor_data(&sensor_value);
+        if let Err(err) = res {
             if err == MynewtError::SYS_EAGAIN {
                 console::print("TMP network not ready\n");
                 return MynewtError::SYS_EOK;

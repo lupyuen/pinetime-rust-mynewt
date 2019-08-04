@@ -87,11 +87,11 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  CoAP server.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    let ret = send_sensor_data(&sensor_value);
+    let res = send_sensor_data(&sensor_value);
 
     //  `SYS_EAGAIN` means that the Network Task is still starting up the network.
     //  We drop the sensor data and send at the next poll.
-    if let Err(err) = ret {  //  `if let` will assign `err` to the error code inside `ret`
+    if let Err(err) = res {  //  `if let` will assign `err` to the error code inside `res`
         if err == MynewtError::SYS_EAGAIN {
             console::print("TMP network not ready\n");
             return MynewtError::SYS_EOK; 
