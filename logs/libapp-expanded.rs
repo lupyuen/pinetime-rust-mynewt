@@ -1,3 +1,8 @@
+item: "(  )"
+item: "stringify ! ( key )"
+item: "\"device\""
+item: "stringify ! ( value )"
+item: "$crate::parse!(@ json &device_id)"
 #![feature(prelude_import)]
 #![no_std]
 /*
@@ -61,14 +66,14 @@ mod app_sensor {
 
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
-    //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
+    //  Initialise the Mynewt packages and Blue Pill internal temperature sensor driver.
     //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 
-    //  Starting polling the temperature sensor every 10 seconds in the background.
+    //  Start polling the temperature sensor every 10 seconds in the background.
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
 
@@ -288,7 +293,7 @@ mod app_network {
     pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
         console::print("Rust send_sensor_data\n");
         let device_id = sensor_network::get_device_id()?;
-        let rc = sensor_network::init_server_post(&Strn::new(b"\x00"))?;
+        let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
         if !rc { return Err(MynewtError::SYS_EAGAIN); }
         let _payload =
             {

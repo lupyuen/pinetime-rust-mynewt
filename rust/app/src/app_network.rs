@@ -55,7 +55,7 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    let rc = sensor_network::init_server_post(strn!("")) ? ;  //  `strn!("")` means use default CoAP URI in `syscfg.yml`
+    let rc = sensor_network::init_server_post( strn!(()) ) ? ;  //  `strn!(())` means use default CoAP URI in `syscfg.yml`
 
     //  If network transport not ready, tell caller (Sensor Listener) to try again later.
     if !rc { return Err(MynewtError::SYS_EAGAIN); }

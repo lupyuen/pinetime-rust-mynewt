@@ -891,7 +891,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
   64:	a812      	add	r0, sp, #72	; 0x48
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:53
     //  Get a randomly-generated device ID that changes each time we restart the device.
-    let device_id = sensor_network::get_device_id() ?;
+    let device_id = sensor_network::get_device_id() ? ;
   66:	f7ff fffe 	bl	0 <_ZN6mynewt4libs14sensor_network13get_device_id17hd4a8ff26286a906dE>
 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h99ed3ab290884f4dE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
@@ -909,7 +909,7 @@ _ZN3app11app_network16send_sensor_data17heee59bf1f47d143dE():
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
     //  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.
-    let rc = sensor_network::init_server_post(strn!("")) ? ;  //  `strn!("")` means use default CoAP URI in `syscfg.yml`
+    let rc = sensor_network::init_server_post( strn!(()) ) ? ;  //  `strn!(())` means use default CoAP URI in `syscfg.yml`
   7c:	f240 0100 	movw	r1, #0
   80:	f2c0 0100 	movt	r1, #0
   84:	4628      	mov	r0, r5
@@ -1275,7 +1275,7 @@ main():
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
    0:	b086      	sub	sp, #24
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:55
-    //  Initialise the Mynewt packages and BME280 / temp_stm32 temperature sensor driver.
+    //  Initialise the Mynewt packages and Blue Pill internal temperature sensor driver.
     //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
@@ -1323,7 +1323,7 @@ _ZN3app10app_sensor21start_sensor_listener17h6305ebcaba950138E():
   50:	2100      	movs	r1, #0
   52:	f04f 6280 	mov.w	r2, #67108864	; 0x4000000
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:66
-    sensor::register_listener(sensor, listener)?;  //  `?` means in case of error, return error now.
+    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
   56:	9101      	str	r1, [sp, #4]
   58:	9200      	str	r2, [sp, #0]
   5a:	9104      	str	r1, [sp, #16]
@@ -1338,7 +1338,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$6expect17h1415bf1e9cd2cea1E():
   6c:	d120      	bne.n	b0 <main+0xb0>
 main():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:62
-    //  Starting polling the temperature sensor every 10 seconds in the background.
+    //  Start polling the temperature sensor every 10 seconds in the background.
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
 

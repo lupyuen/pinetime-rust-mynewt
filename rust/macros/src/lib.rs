@@ -35,14 +35,20 @@ pub fn out(item: TokenStream) -> TokenStream {
 
 /// Create a `Strn` containing a null-terminated byte string that's suitable for passing to Mynewt APIs.
 /// `strn!("network")` expands to `&Strn::new( b"network\0" )`.
+/// `strn!(())` expands to `&Strn::new( b"\0" )`.
 /// For macro calls like `strn!( stringify!( value ) )`, return `&Strn::new( b"value\0" )`.
 /// For complex macro calls like `strn!( $crate::parse!(@ json device_id) )`, return the parameter as is.
 #[proc_macro]
 pub fn strn(item: TokenStream) -> TokenStream {
-    //  println!("item: {:#?}", item.to_string());
     let item_str = item.to_string();
     let span = proc_macro2::Span::call_site();
-    if item_str.starts_with("$crate::parse!") {
+    println!("item: {:#?}", item_str);
+    if item_str == "(  )" {
+        let expanded = quote! {
+            &Strn::new( b"\0" )
+        };
+        return expanded.into();
+    } else if item_str.starts_with("$crate::parse!") {
         //  If `item_str` looks like `$crate::parse!(@ json device_id)`, return as is.
         return item;
     } else if item_str.starts_with("\"") && item_str.ends_with("\"") {
