@@ -19,15 +19,15 @@
 #
 -->
 
-# NB-IoT Sensor Application based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill and Apache Mynewt
+# Rust NB-IoT Sensor Application based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill and Apache Mynewt
 
 Refer to the tutorial...
 
-[_Connect STM32 Blue Pill to NB-IoT with Quectel BC95-G and Apache Mynewt_](https://medium.com/@ly.lee/connect-stm32-blue-pill-to-nb-iot-with-quectel-bc95-g-and-apache-mynewt-c99a9d8417a9?source=friends_link&sk=34fb9befbea42e98cb5942d66f594027)
+[_Rust Rocks NB-IoT! STM32 Blue Pill with Quectel BC95-G on Apache Mynewt_](https://medium.com/@ly.lee/rust-rocks-nb-iot-stm32-blue-pill-with-quectel-bc95-g-on-apache-mynewt-ef62a7e28f7e?sk=aaa21371f68a07c543066b6b89a760f0)
 
 # Installation, Build, Flash and Debug Logs
 
-Sample logs for Windows and Ubuntu Linux may be found in the [logs folder](logs)
+Sample logs for Windows may be found in the [logs folder](logs)
 
 # Contents
 
