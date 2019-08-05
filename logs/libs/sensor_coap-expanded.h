@@ -16,6 +16,7 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
+#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4

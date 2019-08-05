@@ -7,7 +7,7 @@
 -DFLOAT_SUPPORT
 -DMYNEWT=1
 -DSTM32F103xB
--Og
+-Os
 -Wall
 -Werror
 -fdata-sections

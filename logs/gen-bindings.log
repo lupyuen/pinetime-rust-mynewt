@@ -10,27 +10,27 @@
 + local libcmd=bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
 + '[' json == tinycbor ']'
 ++ cat
-+ local 'whitelist=            --whitelist-function (?i)json.*             --whitelist-type     (?i)json.*             --whitelist-var      (?i)json.* '
-+ generate_bindings json encoding/json encoding/json bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd --whitelist-function '(?i)json.*' --whitelist-type '(?i)json.*' --whitelist-var '(?i)json.*'
++ local 'whitelist=            --raw-line use             --raw-line super::*;             --whitelist-function (?i)json.*             --whitelist-type     (?i)json.*             --whitelist-var      (?i)json.*'
++ generate_bindings json encoding/json encoding/json bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd --raw-line use --raw-line 'super::*;' --whitelist-function '(?i)json.*' --whitelist-type '(?i)json.*' --whitelist-var '(?i)json.*'
 + local libname=json
 + local modname=encoding/json
 + local libdir=encoding/json
 + local libcmd=bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
 + shift 4
-+ local 'whitelist=--whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*'
-+ echo 'whitelist=--whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*'
-whitelist=--whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*
++ local 'whitelist=--raw-line use --raw-line super::*; --whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*'
+whitelist=--raw-line use --raw-line super::*; --whitelist-function (?i)json.* --whitelist-type (?i)json.* --whitelist-var (?i)json.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/encoding/json-expanded.h
-+ local expandpath=src/mynewt/encoding/json.rs
-+ local tmpexpandpath=src/mynewt/encoding/json.tmp
++ local expandpath=rust/mynewt/src/encoding/json.rs
++ local tmpexpandpath=rust/mynewt/src/encoding/json.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/encoding/json-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --whitelist-function '(?i)json.*' --whitelist-type '(?i)json.*' --whitelist-var '(?i)json.*' -o src/mynewt/encoding/json.tmp logs/encoding/json-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --whitelist-function '(?i)json.*' --whitelist-type '(?i)json.*' --whitelist-var '(?i)json.*' -o rust/mynewt/src/encoding/json.tmp logs/encoding/json-expanded.h
 logs/encoding/json-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/encoding/json-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/encoding/json-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -150,14 +150,15 @@ logs/encoding/json-expanded.h:940:15: warning: incompatible redeclaration of lib
 logs/encoding/json-expanded.h:943:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
 logs/encoding/json-expanded.h:1063:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
 logs/encoding/json-expanded.h:1064:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
-+ cat src/mynewt/encoding/json.tmp
++ cat rust/mynewt/src/encoding/json.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/encoding/json.tmp
++ rm rust/mynewt/src/encoding/json.tmp
 + generate_bindings_encoding tinycbor cborencoder cbor
 + local libname=tinycbor
 + local srcname=cborencoder
@@ -167,27 +168,27 @@ logs/encoding/json-expanded.h:1064:12: warning: incompatible redeclaration of li
 + local libcmd=bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
 + '[' tinycbor == tinycbor ']'
 ++ cat
-+ local 'whitelist=            --raw-line pub             --raw-line const             --raw-line CborIndefiniteLength:usize=0xffffffffusize;             --blacklist-item     CborIndefiniteLength             --whitelist-function (?i)cbor.*             --whitelist-type     (?i)cbor.*             --whitelist-var      (?i)cbor.* '
-+ generate_bindings tinycbor encoding/tinycbor encoding/tinycbor bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd --raw-line pub --raw-line const --raw-line 'CborIndefiniteLength:usize=0xffffffffusize;' --blacklist-item CborIndefiniteLength --whitelist-function '(?i)cbor.*' --whitelist-type '(?i)cbor.*' --whitelist-var '(?i)cbor.*'
++ local 'whitelist=            --raw-line use             --raw-line super::*;             --raw-line pub             --raw-line const             --raw-line CborIndefiniteLength:usize=0xffffffffusize;             --blacklist-item     CborIndefiniteLength             --whitelist-function (?i)cbor.*             --whitelist-type     (?i)cbor.*             --whitelist-var      (?i)cbor.*'
++ generate_bindings tinycbor encoding/tinycbor encoding/tinycbor bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd --raw-line use --raw-line 'super::*;' --raw-line pub --raw-line const --raw-line 'CborIndefiniteLength:usize=0xffffffffusize;' --blacklist-item CborIndefiniteLength --whitelist-function '(?i)cbor.*' --whitelist-type '(?i)cbor.*' --whitelist-var '(?i)cbor.*'
 + local libname=tinycbor
 + local modname=encoding/tinycbor
 + local libdir=encoding/tinycbor
 + local libcmd=bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
 + shift 4
-+ local 'whitelist=--raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*'
-+ echo 'whitelist=--raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*'
-whitelist=--raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*
++ local 'whitelist=--raw-line use --raw-line super::*; --raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*'
+whitelist=--raw-line use --raw-line super::*; --raw-line pub --raw-line const --raw-line CborIndefiniteLength:usize=0xffffffffusize; --blacklist-item CborIndefiniteLength --whitelist-function (?i)cbor.* --whitelist-type (?i)cbor.* --whitelist-var (?i)cbor.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/encoding/tinycbor-expanded.h
-+ local expandpath=src/mynewt/encoding/tinycbor.rs
-+ local tmpexpandpath=src/mynewt/encoding/tinycbor.tmp
++ local expandpath=rust/mynewt/src/encoding/tinycbor.rs
++ local tmpexpandpath=rust/mynewt/src/encoding/tinycbor.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/encoding/tinycbor-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line pub --raw-line const --raw-line 'CborIndefiniteLength:usize=0xffffffffusize;' --blacklist-item CborIndefiniteLength --whitelist-function '(?i)cbor.*' --whitelist-type '(?i)cbor.*' --whitelist-var '(?i)cbor.*' -o src/mynewt/encoding/tinycbor.tmp logs/encoding/tinycbor-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --raw-line pub --raw-line const --raw-line 'CborIndefiniteLength:usize=0xffffffffusize;' --blacklist-item CborIndefiniteLength --whitelist-function '(?i)cbor.*' --whitelist-type '(?i)cbor.*' --whitelist-var '(?i)cbor.*' -o rust/mynewt/src/encoding/tinycbor.tmp logs/encoding/tinycbor-expanded.h
 logs/encoding/tinycbor-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/encoding/tinycbor-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/encoding/tinycbor-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -289,35 +290,36 @@ logs/encoding/tinycbor-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro re
 logs/encoding/tinycbor-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
 logs/encoding/tinycbor-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
 logs/encoding/tinycbor-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
-logs/encoding/tinycbor-expanded.h:3931:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3933:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3934:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3935:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3936:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3939:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3941:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3949:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3951:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3952:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3954:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3955:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3956:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3957:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3958:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:3961:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:4242:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:4243:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:5713:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:5714:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
-logs/encoding/tinycbor-expanded.h:5715:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
-+ cat src/mynewt/encoding/tinycbor.tmp
+logs/encoding/tinycbor-expanded.h:3754:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3756:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3757:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3758:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3759:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3762:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3764:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3772:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3774:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3775:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3777:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3778:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3779:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3780:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3781:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:3784:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:4065:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:4066:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:5536:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:5537:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/encoding/tinycbor-expanded.h:5538:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
++ cat rust/mynewt/src/encoding/tinycbor.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/encoding/tinycbor.tmp
++ rm rust/mynewt/src/encoding/tinycbor.tmp
 + generate_bindings_kernel os os os
 + local libname=os
 + local srcname=os
@@ -326,27 +328,27 @@ logs/encoding/tinycbor-expanded.h:5715:14: warning: incompatible redeclaration o
 + local libdir=kernel/os
 + local libcmd=bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
 ++ cat
-+ local 'whitelist=        --whitelist-var      (?i)SYS_E.*         --whitelist-function (?i)os_.*         --whitelist-type     (?i)os_.*         --whitelist-var      (?i)os_.* '
-+ generate_bindings os kernel/os kernel/os bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd --whitelist-var '(?i)SYS_E.*' --whitelist-function '(?i)os_.*' --whitelist-type '(?i)os_.*' --whitelist-var '(?i)os_.*'
++ local 'whitelist=        --raw-line use         --raw-line super::*;         --whitelist-var      (?i)SYS_E.*         --whitelist-function (?i)os_.*         --whitelist-type     (?i)os_.*         --whitelist-var      (?i)os_.*'
++ generate_bindings os kernel/os kernel/os bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd --raw-line use --raw-line 'super::*;' --whitelist-var '(?i)SYS_E.*' --whitelist-function '(?i)os_.*' --whitelist-type '(?i)os_.*' --whitelist-var '(?i)os_.*'
 + local libname=os
 + local modname=kernel/os
 + local libdir=kernel/os
 + local libcmd=bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
 + shift 4
-+ local 'whitelist=--whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*'
-+ echo 'whitelist=--whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*'
-whitelist=--whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*
++ local 'whitelist=--raw-line use --raw-line super::*; --whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*'
+whitelist=--raw-line use --raw-line super::*; --whitelist-var (?i)SYS_E.* --whitelist-function (?i)os_.* --whitelist-type (?i)os_.* --whitelist-var (?i)os_.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/kernel/os-expanded.h
-+ local expandpath=src/mynewt/kernel/os.rs
-+ local tmpexpandpath=src/mynewt/kernel/os.tmp
++ local expandpath=rust/mynewt/src/kernel/os.rs
++ local tmpexpandpath=rust/mynewt/src/kernel/os.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/kernel/os-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --whitelist-var '(?i)SYS_E.*' --whitelist-function '(?i)os_.*' --whitelist-type '(?i)os_.*' --whitelist-var '(?i)os_.*' -o src/mynewt/kernel/os.tmp logs/kernel/os-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --whitelist-var '(?i)SYS_E.*' --whitelist-function '(?i)os_.*' --whitelist-type '(?i)os_.*' --whitelist-var '(?i)os_.*' -o rust/mynewt/src/kernel/os.tmp logs/kernel/os-expanded.h
 logs/kernel/os-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/kernel/os-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/kernel/os-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -448,36 +450,37 @@ logs/kernel/os-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro redefined 
 logs/kernel/os-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
 logs/kernel/os-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
 logs/kernel/os-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
-logs/kernel/os-expanded.h:3638:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:3639:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:3640:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:4722:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
-logs/kernel/os-expanded.h:22551:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22553:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22554:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22555:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22556:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22559:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22561:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22569:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22571:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22572:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22574:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22575:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22576:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22577:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22578:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22581:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22701:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
-logs/kernel/os-expanded.h:22702:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
-+ cat src/mynewt/kernel/os.tmp
+logs/kernel/os-expanded.h:3461:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:3462:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:3463:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:4545:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/kernel/os-expanded.h:22374:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22376:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22377:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22378:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22379:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22382:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22384:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22392:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22394:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22395:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22397:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22398:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22399:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22400:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22401:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22404:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22524:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/kernel/os-expanded.h:22525:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat rust/mynewt/src/kernel/os.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/kernel/os.tmp
++ rm rust/mynewt/src/kernel/os.tmp
 + generate_bindings_hw sensor sensor sensor
 + local libname=sensor
 + local srcname=sensor
@@ -486,27 +489,27 @@ logs/kernel/os-expanded.h:22702:12: warning: incompatible redeclaration of libra
 + local libdir=hw/sensor
 + local libcmd=bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
 ++ cat
-+ local 'whitelist=        --whitelist-function (?i)sensor.*         --whitelist-type     (?i)sensor.*         --whitelist-var      (?i)sensor.* '
-+ generate_bindings sensor hw/sensor/bindings hw/sensor bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd --whitelist-function '(?i)sensor.*' --whitelist-type '(?i)sensor.*' --whitelist-var '(?i)sensor.*'
++ local 'whitelist=        --raw-line use         --raw-line super::*;         --blacklist-item     os_callout         --blacklist-item     os_dev              --blacklist-item     os_dev_handlers         --blacklist-item     os_event         --blacklist-item     os_eventq         --blacklist-item     os_memblock         --blacklist-item     os_mempool         --blacklist-item     os_mutex         --blacklist-item     os_sanity_check         --blacklist-item     os_task         --blacklist-item     os_timeval         --blacklist-item     os_timezone         --whitelist-function (?i)sensor.*         --whitelist-type     (?i)sensor.*         --whitelist-var      (?i)sensor.*'
++ generate_bindings sensor hw/sensor/bindings hw/sensor bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd --raw-line use --raw-line 'super::*;' --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --whitelist-function '(?i)sensor.*' --whitelist-type '(?i)sensor.*' --whitelist-var '(?i)sensor.*'
 + local libname=sensor
 + local modname=hw/sensor/bindings
 + local libdir=hw/sensor
 + local libcmd=bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
 + shift 4
-+ local 'whitelist=--whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*'
-+ echo 'whitelist=--whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*'
-whitelist=--whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*
++ local 'whitelist=--raw-line use --raw-line super::*; --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*'
+whitelist=--raw-line use --raw-line super::*; --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --whitelist-function (?i)sensor.* --whitelist-type (?i)sensor.* --whitelist-var (?i)sensor.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/hw/sensor/bindings-expanded.h
-+ local expandpath=src/mynewt/hw/sensor/bindings.rs
-+ local tmpexpandpath=src/mynewt/hw/sensor/bindings.tmp
++ local expandpath=rust/mynewt/src/hw/sensor/bindings.rs
++ local tmpexpandpath=rust/mynewt/src/hw/sensor/bindings.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/hw/sensor/bindings-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --whitelist-function '(?i)sensor.*' --whitelist-type '(?i)sensor.*' --whitelist-var '(?i)sensor.*' -o src/mynewt/hw/sensor/bindings.tmp logs/hw/sensor/bindings-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --whitelist-function '(?i)sensor.*' --whitelist-type '(?i)sensor.*' --whitelist-var '(?i)sensor.*' -o rust/mynewt/src/hw/sensor/bindings.tmp logs/hw/sensor/bindings-expanded.h
 logs/hw/sensor/bindings-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/hw/sensor/bindings-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/hw/sensor/bindings-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -624,20 +627,21 @@ logs/hw/sensor/bindings-expanded.h:782:12: warning: incompatible redeclaration o
 logs/hw/sensor/bindings-expanded.h:783:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
 logs/hw/sensor/bindings-expanded.h:784:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
 logs/hw/sensor/bindings-expanded.h:787:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
-logs/hw/sensor/bindings-expanded.h:5178:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
-logs/hw/sensor/bindings-expanded.h:5179:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
-logs/hw/sensor/bindings-expanded.h:5180:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
-logs/hw/sensor/bindings-expanded.h:6262:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
-logs/hw/sensor/bindings-expanded.h:24151:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
-logs/hw/sensor/bindings-expanded.h:24152:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
-+ cat src/mynewt/hw/sensor/bindings.tmp
+logs/hw/sensor/bindings-expanded.h:5001:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:5002:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:5003:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:6085:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/hw/sensor/bindings-expanded.h:23974:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/hw/sensor/bindings-expanded.h:23975:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat rust/mynewt/src/hw/sensor/bindings.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/hw/sensor/bindings.tmp
++ rm rust/mynewt/src/hw/sensor/bindings.tmp
 + generate_bindings_libs mynewt_rust mynewt_rust mynewt_rust
 + local libname=mynewt_rust
 + local srcname=mynewt_rust
@@ -649,27 +653,27 @@ logs/hw/sensor/bindings-expanded.h:24152:12: warning: incompatible redeclaration
 + '[' mynewt_rust == sensor_coap ']'
 + '[' mynewt_rust == mynewt_rust ']'
 ++ cat
-+ local 'whitelist=            --raw-line use             --raw-line super::super::encoding::json::*;             --blacklist-item     json_encoder             --blacklist-item     json_value             --whitelist-function (?i)rust_sysinit             --whitelist-function (?i)device_get_name             --whitelist-function (?i)get_temp_.*             --whitelist-function (?i)is_null_sensor.*             --whitelist-function (?i)null_sensor             --whitelist-function (?i)sensor_get_device             --whitelist-function (?i)json_helper_.*'
-+ generate_bindings mynewt_rust libs/mynewt_rust libs/mynewt_rust bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-function '(?i)rust_sysinit' --whitelist-function '(?i)device_get_name' --whitelist-function '(?i)get_temp_.*' --whitelist-function '(?i)is_null_sensor.*' --whitelist-function '(?i)null_sensor' --whitelist-function '(?i)sensor_get_device' --whitelist-function '(?i)json_helper_.*'
++ local 'whitelist=            --raw-line use             --raw-line super::*;             --blacklist-item     os_callout             --blacklist-item     os_dev                 --blacklist-item     os_dev_handlers             --blacklist-item     os_event             --blacklist-item     os_eventq             --blacklist-item     os_memblock             --blacklist-item     os_mempool             --blacklist-item     os_mutex             --blacklist-item     os_sanity_check             --blacklist-item     os_task             --blacklist-item     os_timeval             --blacklist-item     os_timezone             --blacklist-item     sensor             --blacklist-item     sensor_accel_data             --blacklist-item     sensor_cfg             --blacklist-item     sensor_color_data             --blacklist-item     sensor_data_t             --blacklist-item     sensor_driver             --blacklist-item     sensor_euler_data             --blacklist-item     sensor_gyro_data             --blacklist-item     sensor_humid_data             --blacklist-item     sensor_int              --blacklist-item     sensor_itf                 --blacklist-item     sensor_light_data             --blacklist-item     sensor_listener             --blacklist-item     sensor_mag_data             --blacklist-item     sensor_notifier             --blacklist-item     sensor_press_data             --blacklist-item     sensor_quat_data             --blacklist-item     sensor_timestamp             --blacklist-item     sensor_temp_data             --blacklist-item     sensor_type_traits             --whitelist-function (?i)rust_sysinit             --whitelist-type     (?i)sensor_temp_raw_data             --whitelist-function (?i)device_get_name             --whitelist-function (?i)get_temp_.*             --whitelist-function (?i)is_null_sensor.*             --whitelist-function (?i)null_sensor             --whitelist-function (?i)sensor_get_device             --whitelist-function (?i)json_helper_.*'
++ generate_bindings mynewt_rust libs/mynewt_rust libs/mynewt_rust bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd --raw-line use --raw-line 'super::*;' --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --blacklist-item sensor --blacklist-item sensor_accel_data --blacklist-item sensor_cfg --blacklist-item sensor_color_data --blacklist-item sensor_data_t --blacklist-item sensor_driver --blacklist-item sensor_euler_data --blacklist-item sensor_gyro_data --blacklist-item sensor_humid_data --blacklist-item sensor_int --blacklist-item sensor_itf --blacklist-item sensor_light_data --blacklist-item sensor_listener --blacklist-item sensor_mag_data --blacklist-item sensor_notifier --blacklist-item sensor_press_data --blacklist-item sensor_quat_data --blacklist-item sensor_timestamp --blacklist-item sensor_temp_data --blacklist-item sensor_type_traits --whitelist-function '(?i)rust_sysinit' --whitelist-type '(?i)sensor_temp_raw_data' --whitelist-function '(?i)device_get_name' --whitelist-function '(?i)get_temp_.*' --whitelist-function '(?i)is_null_sensor.*' --whitelist-function '(?i)null_sensor' --whitelist-function '(?i)sensor_get_device' --whitelist-function '(?i)json_helper_.*'
 + local libname=mynewt_rust
 + local modname=libs/mynewt_rust
 + local libdir=libs/mynewt_rust
 + local libcmd=bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
 + shift 4
-+ local 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-function (?i)rust_sysinit --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*'
-+ echo 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-function (?i)rust_sysinit --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*'
-whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-function (?i)rust_sysinit --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*
++ local 'whitelist=--raw-line use --raw-line super::*; --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --blacklist-item sensor --blacklist-item sensor_accel_data --blacklist-item sensor_cfg --blacklist-item sensor_color_data --blacklist-item sensor_data_t --blacklist-item sensor_driver --blacklist-item sensor_euler_data --blacklist-item sensor_gyro_data --blacklist-item sensor_humid_data --blacklist-item sensor_int --blacklist-item sensor_itf --blacklist-item sensor_light_data --blacklist-item sensor_listener --blacklist-item sensor_mag_data --blacklist-item sensor_notifier --blacklist-item sensor_press_data --blacklist-item sensor_quat_data --blacklist-item sensor_timestamp --blacklist-item sensor_temp_data --blacklist-item sensor_type_traits --whitelist-function (?i)rust_sysinit --whitelist-type (?i)sensor_temp_raw_data --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --blacklist-item sensor --blacklist-item sensor_accel_data --blacklist-item sensor_cfg --blacklist-item sensor_color_data --blacklist-item sensor_data_t --blacklist-item sensor_driver --blacklist-item sensor_euler_data --blacklist-item sensor_gyro_data --blacklist-item sensor_humid_data --blacklist-item sensor_int --blacklist-item sensor_itf --blacklist-item sensor_light_data --blacklist-item sensor_listener --blacklist-item sensor_mag_data --blacklist-item sensor_notifier --blacklist-item sensor_press_data --blacklist-item sensor_quat_data --blacklist-item sensor_timestamp --blacklist-item sensor_temp_data --blacklist-item sensor_type_traits --whitelist-function (?i)rust_sysinit --whitelist-type (?i)sensor_temp_raw_data --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*'
+whitelist=--raw-line use --raw-line super::*; --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --blacklist-item sensor --blacklist-item sensor_accel_data --blacklist-item sensor_cfg --blacklist-item sensor_color_data --blacklist-item sensor_data_t --blacklist-item sensor_driver --blacklist-item sensor_euler_data --blacklist-item sensor_gyro_data --blacklist-item sensor_humid_data --blacklist-item sensor_int --blacklist-item sensor_itf --blacklist-item sensor_light_data --blacklist-item sensor_listener --blacklist-item sensor_mag_data --blacklist-item sensor_notifier --blacklist-item sensor_press_data --blacklist-item sensor_quat_data --blacklist-item sensor_timestamp --blacklist-item sensor_temp_data --blacklist-item sensor_type_traits --whitelist-function (?i)rust_sysinit --whitelist-type (?i)sensor_temp_raw_data --whitelist-function (?i)device_get_name --whitelist-function (?i)get_temp_.* --whitelist-function (?i)is_null_sensor.* --whitelist-function (?i)null_sensor --whitelist-function (?i)sensor_get_device --whitelist-function (?i)json_helper_.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/libs/mynewt_rust-expanded.h
-+ local expandpath=src/mynewt/libs/mynewt_rust.rs
-+ local tmpexpandpath=src/mynewt/libs/mynewt_rust.tmp
++ local expandpath=rust/mynewt/src/libs/mynewt_rust.rs
++ local tmpexpandpath=rust/mynewt/src/libs/mynewt_rust.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/libs/mynewt_rust-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/mynewt_rust.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-function '(?i)rust_sysinit' --whitelist-function '(?i)device_get_name' --whitelist-function '(?i)get_temp_.*' --whitelist-function '(?i)is_null_sensor.*' --whitelist-function '(?i)null_sensor' --whitelist-function '(?i)sensor_get_device' --whitelist-function '(?i)json_helper_.*' -o src/mynewt/libs/mynewt_rust.tmp logs/libs/mynewt_rust-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --blacklist-item os_callout --blacklist-item os_dev --blacklist-item os_dev_handlers --blacklist-item os_event --blacklist-item os_eventq --blacklist-item os_memblock --blacklist-item os_mempool --blacklist-item os_mutex --blacklist-item os_sanity_check --blacklist-item os_task --blacklist-item os_timeval --blacklist-item os_timezone --blacklist-item sensor --blacklist-item sensor_accel_data --blacklist-item sensor_cfg --blacklist-item sensor_color_data --blacklist-item sensor_data_t --blacklist-item sensor_driver --blacklist-item sensor_euler_data --blacklist-item sensor_gyro_data --blacklist-item sensor_humid_data --blacklist-item sensor_int --blacklist-item sensor_itf --blacklist-item sensor_light_data --blacklist-item sensor_listener --blacklist-item sensor_mag_data --blacklist-item sensor_notifier --blacklist-item sensor_press_data --blacklist-item sensor_quat_data --blacklist-item sensor_timestamp --blacklist-item sensor_temp_data --blacklist-item sensor_type_traits --whitelist-function '(?i)rust_sysinit' --whitelist-type '(?i)sensor_temp_raw_data' --whitelist-function '(?i)device_get_name' --whitelist-function '(?i)get_temp_.*' --whitelist-function '(?i)is_null_sensor.*' --whitelist-function '(?i)null_sensor' --whitelist-function '(?i)sensor_get_device' --whitelist-function '(?i)json_helper_.*' -o rust/mynewt/src/libs/mynewt_rust.tmp logs/libs/mynewt_rust-expanded.h
 logs/libs/mynewt_rust-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/mynewt_rust-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/mynewt_rust-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -771,14 +775,37 @@ logs/libs/mynewt_rust-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro red
 logs/libs/mynewt_rust-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/mynewt_rust-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
 logs/libs/mynewt_rust-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
-+ cat src/mynewt/libs/mynewt_rust.tmp
+logs/libs/mynewt_rust-expanded.h:3536:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:3537:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:3538:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:4620:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/mynewt_rust-expanded.h:22449:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22451:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22452:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22453:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22454:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22457:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22459:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22467:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22469:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22470:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22472:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22473:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22474:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22475:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22476:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22479:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22599:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/libs/mynewt_rust-expanded.h:22600:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat rust/mynewt/src/libs/mynewt_rust.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/libs/mynewt_rust.tmp
++ rm rust/mynewt/src/libs/mynewt_rust.tmp
 + generate_bindings_libs sensor_network sensor_network sensor_network
 + local libname=sensor_network
 + local srcname=sensor_network
@@ -788,27 +815,27 @@ logs/libs/mynewt_rust-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro re
 + local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
 + '[' sensor_network == sensor_network ']'
 ++ cat
-+ local 'whitelist=            --raw-line use             --raw-line super::sensor_coap::*;             --blacklist-item     sensor_value             --whitelist-function (?i)init_.*_post             --whitelist-function (?i)do_.*_post             --whitelist-function (?i)is_.*_node             --whitelist-function (?i)register_.*_transport             --whitelist-function (?i)should_send_to_.*             --whitelist-function (?i)get_device_id             --whitelist-function (?i)sensor_network.*             --whitelist-type     (?i)sensor_network.*             --whitelist-var      (?i)sensor_network.* '
-+ generate_bindings sensor_network libs/sensor_network libs/sensor_network bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd --raw-line use --raw-line 'super::sensor_coap::*;' --blacklist-item sensor_value --whitelist-function '(?i)init_.*_post' --whitelist-function '(?i)do_.*_post' --whitelist-function '(?i)is_.*_node' --whitelist-function '(?i)register_.*_transport' --whitelist-function '(?i)should_send_to_.*' --whitelist-function '(?i)get_device_id' --whitelist-function '(?i)sensor_network.*' --whitelist-type '(?i)sensor_network.*' --whitelist-var '(?i)sensor_network.*'
++ local 'whitelist=            --raw-line use             --raw-line super::*;             --blacklist-item     sensor_value             --whitelist-function (?i)init_.*_post             --whitelist-function (?i)do_.*_post             --whitelist-function (?i)is_.*_node             --whitelist-function (?i)start_.*_transport             --whitelist-function (?i)register_.*_transport             --whitelist-function (?i)should_send_to_.*             --whitelist-function (?i)get_device_id             --whitelist-function (?i)sensor_network.*             --whitelist-type     (?i)sensor_network.*             --whitelist-var      (?i)sensor_network.*'
++ generate_bindings sensor_network libs/sensor_network libs/sensor_network bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd --raw-line use --raw-line 'super::*;' --blacklist-item sensor_value --whitelist-function '(?i)init_.*_post' --whitelist-function '(?i)do_.*_post' --whitelist-function '(?i)is_.*_node' --whitelist-function '(?i)start_.*_transport' --whitelist-function '(?i)register_.*_transport' --whitelist-function '(?i)should_send_to_.*' --whitelist-function '(?i)get_device_id' --whitelist-function '(?i)sensor_network.*' --whitelist-type '(?i)sensor_network.*' --whitelist-var '(?i)sensor_network.*'
 + local libname=sensor_network
 + local modname=libs/sensor_network
 + local libdir=libs/sensor_network
 + local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
 + shift 4
-+ local 'whitelist=--raw-line use --raw-line super::sensor_coap::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*'
-+ echo 'whitelist=--raw-line use --raw-line super::sensor_coap::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*'
-whitelist=--raw-line use --raw-line super::sensor_coap::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*
++ local 'whitelist=--raw-line use --raw-line super::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)start_.*_transport --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)start_.*_transport --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*'
+whitelist=--raw-line use --raw-line super::*; --blacklist-item sensor_value --whitelist-function (?i)init_.*_post --whitelist-function (?i)do_.*_post --whitelist-function (?i)is_.*_node --whitelist-function (?i)start_.*_transport --whitelist-function (?i)register_.*_transport --whitelist-function (?i)should_send_to_.* --whitelist-function (?i)get_device_id --whitelist-function (?i)sensor_network.* --whitelist-type (?i)sensor_network.* --whitelist-var (?i)sensor_network.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/libs/sensor_network-expanded.h
-+ local expandpath=src/mynewt/libs/sensor_network.rs
-+ local tmpexpandpath=src/mynewt/libs/sensor_network.tmp
++ local expandpath=rust/mynewt/src/libs/sensor_network.rs
++ local tmpexpandpath=rust/mynewt/src/libs/sensor_network.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/libs/sensor_network-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::sensor_coap::*;' --blacklist-item sensor_value --whitelist-function '(?i)init_.*_post' --whitelist-function '(?i)do_.*_post' --whitelist-function '(?i)is_.*_node' --whitelist-function '(?i)register_.*_transport' --whitelist-function '(?i)should_send_to_.*' --whitelist-function '(?i)get_device_id' --whitelist-function '(?i)sensor_network.*' --whitelist-type '(?i)sensor_network.*' --whitelist-var '(?i)sensor_network.*' -o src/mynewt/libs/sensor_network.tmp logs/libs/sensor_network-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --blacklist-item sensor_value --whitelist-function '(?i)init_.*_post' --whitelist-function '(?i)do_.*_post' --whitelist-function '(?i)is_.*_node' --whitelist-function '(?i)start_.*_transport' --whitelist-function '(?i)register_.*_transport' --whitelist-function '(?i)should_send_to_.*' --whitelist-function '(?i)get_device_id' --whitelist-function '(?i)sensor_network.*' --whitelist-type '(?i)sensor_network.*' --whitelist-var '(?i)sensor_network.*' -o rust/mynewt/src/libs/sensor_network.tmp logs/libs/sensor_network-expanded.h
 logs/libs/sensor_network-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_network-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_network-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -910,36 +937,37 @@ logs/libs/sensor_network-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro 
 logs/libs/sensor_network-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_network-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_network-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
-logs/libs/sensor_network-expanded.h:3509:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3511:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3512:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3513:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3514:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3517:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3519:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3527:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3529:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3530:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3532:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3533:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3534:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3535:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3536:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:3539:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:4100:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:4101:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:4102:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:5184:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
-logs/libs/sensor_network-expanded.h:23069:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_network-expanded.h:23070:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
-+ cat src/mynewt/libs/sensor_network.tmp
+logs/libs/sensor_network-expanded.h:3332:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3334:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3335:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3336:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3337:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3340:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3342:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3350:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3352:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3353:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3355:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3356:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3357:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3358:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3359:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3362:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3923:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3924:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:3925:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:5007:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_network-expanded.h:22892:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_network-expanded.h:22893:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat rust/mynewt/src/libs/sensor_network.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/libs/sensor_network.tmp
++ rm rust/mynewt/src/libs/sensor_network.tmp
 + generate_bindings_libs sensor_coap sensor_coap sensor_coap
 + local libname=sensor_coap
 + local srcname=sensor_coap
@@ -950,27 +978,27 @@ logs/libs/sensor_network-expanded.h:23070:12: warning: incompatible redeclaratio
 + '[' sensor_coap == sensor_network ']'
 + '[' sensor_coap == sensor_coap ']'
 ++ cat
-+ local 'whitelist=            --raw-line use             --raw-line super::super::encoding::json::*;             --blacklist-item     json_encoder             --blacklist-item     json_value             --whitelist-type     (?i)sensor_value             --whitelist-function (?i)init_sensor_.*             --whitelist-function (?i)sensor_coap_.*             --whitelist-function (?i)do_sensor_.*             --whitelist-var      (?i)coap_.*             --whitelist-function (?i)json_rep_.*             --whitelist-function (?i)sensor_coap.*'
-+ generate_bindings sensor_coap libs/sensor_coap libs/sensor_coap bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-type '(?i)sensor_value' --whitelist-function '(?i)init_sensor_.*' --whitelist-function '(?i)sensor_coap_.*' --whitelist-function '(?i)do_sensor_.*' --whitelist-var '(?i)coap_.*' --whitelist-function '(?i)json_rep_.*' --whitelist-function '(?i)sensor_coap.*'
++ local 'whitelist=            --raw-line use             --raw-line super::*;             --blacklist-item     json_encoder             --blacklist-item     json_value             --whitelist-type     (?i)sensor_value             --whitelist-function (?i)init_sensor_.*             --whitelist-function (?i)sensor_coap_.*             --whitelist-function (?i)do_sensor_.*             --whitelist-var      (?i)coap_.*             --whitelist-function (?i)json_rep_.*             --whitelist-function (?i)sensor_coap.*'
++ generate_bindings sensor_coap libs/sensor_coap libs/sensor_coap bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd --raw-line use --raw-line 'super::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-type '(?i)sensor_value' --whitelist-function '(?i)init_sensor_.*' --whitelist-function '(?i)sensor_coap_.*' --whitelist-function '(?i)do_sensor_.*' --whitelist-var '(?i)coap_.*' --whitelist-function '(?i)json_rep_.*' --whitelist-function '(?i)sensor_coap.*'
 + local libname=sensor_coap
 + local modname=libs/sensor_coap
 + local libdir=libs/sensor_coap
 + local libcmd=bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
 + shift 4
-+ local 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*'
-+ echo 'whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*'
-whitelist=--raw-line use --raw-line super::super::encoding::json::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*
++ local 'whitelist=--raw-line use --raw-line super::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*'
++ echo 'whitelist=--raw-line use --raw-line super::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*'
+whitelist=--raw-line use --raw-line super::*; --blacklist-item json_encoder --blacklist-item json_value --whitelist-type (?i)sensor_value --whitelist-function (?i)init_sensor_.* --whitelist-function (?i)sensor_coap_.* --whitelist-function (?i)do_sensor_.* --whitelist-var (?i)coap_.* --whitelist-function (?i)json_rep_.* --whitelist-function (?i)sensor_coap.*
 + local expandcmd=logs/gen-bindings.txt
 + local expandfile=logs/libs/sensor_coap-expanded.h
-+ local expandpath=src/mynewt/libs/sensor_coap.rs
-+ local tmpexpandpath=src/mynewt/libs/sensor_coap.tmp
++ local expandpath=rust/mynewt/src/libs/sensor_coap.rs
++ local tmpexpandpath=rust/mynewt/src/libs/sensor_coap.tmp
 + tail +2 bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
 + sed '/^-o/,$ d'
 + cat
 + echo logs/libs/sensor_coap-expanded.h
 + tail -1 bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
 + arm-none-eabi-gcc @logs/gen-bindings.txt
-+ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::super::encoding::json::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-type '(?i)sensor_value' --whitelist-function '(?i)init_sensor_.*' --whitelist-function '(?i)sensor_coap_.*' --whitelist-function '(?i)do_sensor_.*' --whitelist-var '(?i)coap_.*' --whitelist-function '(?i)json_rep_.*' --whitelist-function '(?i)sensor_coap.*' -o src/mynewt/libs/sensor_coap.tmp logs/libs/sensor_coap-expanded.h
++ bindgen --use-core --ctypes-prefix ::cty --with-derive-default --no-derive-copy --no-derive-debug --no-layout-tests --raw-line use --raw-line 'super::*;' --blacklist-item json_encoder --blacklist-item json_value --whitelist-type '(?i)sensor_value' --whitelist-function '(?i)init_sensor_.*' --whitelist-function '(?i)sensor_coap_.*' --whitelist-function '(?i)do_sensor_.*' --whitelist-var '(?i)coap_.*' --whitelist-function '(?i)json_rep_.*' --whitelist-function '(?i)sensor_coap.*' -o rust/mynewt/src/libs/sensor_coap.tmp logs/libs/sensor_coap-expanded.h
 logs/libs/sensor_coap-expanded.h:9:9: warning: '__GNUC__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_coap-expanded.h:10:9: warning: '__GNUC_MINOR__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_coap-expanded.h:12:9: warning: '__VERSION__' macro redefined [-Wmacro-redefined], err: false
@@ -1072,36 +1100,39 @@ logs/libs/sensor_coap-expanded.h:192:9: warning: '__LDBL_DENORM_MIN__' macro red
 logs/libs/sensor_coap-expanded.h:376:9: warning: '__USER_LABEL_PREFIX__' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_coap-expanded.h:390:9: warning: '__GCC_ATOMIC_LLONG_LOCK_FREE' macro redefined [-Wmacro-redefined], err: false
 logs/libs/sensor_coap-expanded.h:397:9: warning: '__SIZEOF_PTRDIFF_T__' macro redefined [-Wmacro-redefined], err: false
-logs/libs/sensor_coap-expanded.h:3633:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:3634:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:3635:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:4717:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
-logs/libs/sensor_coap-expanded.h:22546:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22548:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22549:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22550:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22551:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22554:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22556:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22564:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22566:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22567:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22569:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22570:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22571:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22572:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22573:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22576:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22696:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
-logs/libs/sensor_coap-expanded.h:22697:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
-+ cat src/mynewt/libs/sensor_coap.tmp
+logs/libs/sensor_coap-expanded.h:3456:14: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:3457:14: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:3458:14: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:4540:9: warning: redefining builtin macro [-Wbuiltin-macro-redefined], err: false
+logs/libs/sensor_coap-expanded.h:22369:14: warning: incompatible redeclaration of library function 'memchr' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22371:12: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22372:14: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22373:14: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22374:14: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22377:13: warning: incompatible redeclaration of library function 'bzero' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22379:12: warning: incompatible redeclaration of library function 'strncasecmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22387:15: warning: incompatible redeclaration of library function 'strcspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22389:14: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22390:15: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22392:14: warning: incompatible redeclaration of library function 'strncat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22393:15: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22394:12: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22395:14: warning: incompatible redeclaration of library function 'strncpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22396:15: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22399:15: warning: incompatible redeclaration of library function 'strspn' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22519:12: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration], err: false
+logs/libs/sensor_coap-expanded.h:22520:12: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration], err: false
++ cat rust/mynewt/src/libs/sensor_coap.tmp
++ sed 's/^extern "C" /#[mynewt_macros::safe_wrap(attr)] extern "C" /'
 + sed 's/@param \([^ ][^ ]*\) /- __`\1`__: /'
 + sed 's/@return /Return: /'
 + sed 's/@code{.c}/```c/'
 + sed 's/@code/```/'
 + sed 's/@endcode/```/'
 + sed s/@note/__Note:__/
-+ rm src/mynewt/libs/sensor_coap.tmp
++ rm rust/mynewt/src/libs/sensor_coap.tmp
 + exit
 + echo $'�\234\205' $'�\227�' '️Done!'
 ✅ ◾ ️Done!
+
+Terminal will be reused by tasks, press any key to close it.
