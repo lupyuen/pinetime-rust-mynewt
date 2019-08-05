@@ -223,21 +223,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " cargo doc --document-private-items && echo ✅ ◾ ️Done! "
+                    " cargo doc --document-private-items && echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
+                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
                 ]
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! "
+                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
                 ]
             },
             "problemMatcher": [],

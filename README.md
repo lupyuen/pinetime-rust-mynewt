@@ -67,7 +67,7 @@ This repository contains...
 
 [`.vscode`](.vscode): Visual Studio Code macros for install, build and deploy
 
-[View Rust Documentation](https://lupyuen.github.io/stm32bluepill-mynewt-sensor/rust/mylib/)
+[View Rust Documentation](https://lupyuen.github.io/stm32bluepill-mynewt-sensor/rust/app/)
 
 # How This Application Was Created
 
