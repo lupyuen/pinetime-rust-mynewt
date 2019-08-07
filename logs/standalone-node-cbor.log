@@ -1,0 +1,1020 @@
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+none separate
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.231746
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+target halted due to debug-request, current mode: Handler HardFault
+xPSR: 0x01000003 pc: 0x08000168 msp: 0x20004fe0
+Info : device id = 0x20036410
+Info : flash size = 64kbytes
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000003a msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+Info : halted: PC: 0x0800010e
+Info : halted: PC: 0x0800112e
+Info : halted: PC: 0x08001e42
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+ADC open ch 16
+STM read int temp sensor
+RND personalise with hw id 54 ff 6e 06 50 78 49 55 16 53 16 87 
+RND seed with temp entropy 90 e2 e0 00 ff 00 1f 1d 30 0d 20 15 80 02 00 11 0f fe 22 01 d0 2e 00 2e 20 e2 00 e2 e0 00 00 95 
+NET hwid 54 ff 6e 06 50 78 49 55 16 53 16 87 
+NET standalone node 
+NBT create bc95g_0
+NET svr bc95g_0
+[
+]
+Rust TMP poll
+NET start
+NET svr bc95g_0
+[
+AT> 
+AT
+AT< ERROR
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+NET random device id 72cc83a786e537863fcdc8fb6aa1aa9c
+NET network not ready
+TMP network not ready
+AT response mismatch: found "ERROR
+"
+   expected "OK%n"
+AT> 
+AT
+AT= OK
+AT> NCONFIG=AUTOCONNECT,FALSE
+AT= OK
+AT> QREGSWT=2
+AT= OK
+AT> NRB
+AT< REBOOTING
+AT< �'�p
+AT< Boot: Unsigned
+AT< Security B.. Verified
+AT< Protocol A.. Verified
+AT< Apps A...... Verified
+AT< REBOOT_CAUSE_APPLICATION_AT
+AT< Neul 
+AT= OK
+AT> AT
+AT= OK
+AT> NBAND=8
+AT= OK
+AT> CFUN=1
+AT= OK
+AT> CGATT=1
+AT= OK
+AT> CEREG=0
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+NET network not ready
+TMP network not ready
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,1
+AT= OK
+AT> CGATT?
+AT= +CGATT:1
+AT= OK
+AT> NSOCR=DGRAM,17,0,1
+AT= 1
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=72cc83a786e537863fcdc8fb6aa1aa9c
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,100,
+NBT send mbuf 100...
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 32 ff ff ff 
+NBT send mbuf OK
+AT> ,1
+AT= 1,1
+AT< 00
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=72cc83a786e537863fcdc8fb6aa1aa9c
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,100,
+NBT send mbuf 100...
+58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 51 ff ff ff 
+NBT send mbuf OK
+AT> ,2
+AT< +NSOSTR:1,1,1
+AT< +NSONMI:1,77
+AT= 1,1
+AT< 00
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=72cc83a786e537863fcdc8fb6aa1aa9c
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,100,
+NBT send mbuf 100...
+58 02 00 03 9c 8d da df 79 ca f1 c4 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 2b ff ff ff 
+NBT send mbuf OK
+AT> ,3
+AT< +NSOSTR:1,2,1
+AT= 1,1
+AT< 00
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=72cc83a786e537863fcdc8fb6aa1aa9c
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,100,
+NBT send mbuf 100...
+58 02 00 04 29 fa 69 2d 5d 19 00 a9 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 47 ff ff ff 
+NBT send mbuf OK
+AT> ,4
+AT< +NSOSTR:1,3,1
+AT= 1,1
+AT< 00
+AT= OK
+]
+shutdown command invoked
+gdb-detach
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+none separate
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.223809
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+Info : device id = 0x20036410
+Info : flash size = 64kbytes
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000003a msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+Info : halted: PC: 0x0800010e
+Info : halted: PC: 0x0800112e
+Info : halted: PC: 0x08001e42
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+ADC open ch 16
+STM read int temp sensor
+RND personalise with hw id 54 ff 6e 06 50 78 49 55 16 53 16 87 
+RND seed with temp entropy 50 6c e0 2e f3 e0 00 02 ef 2f 00 04 c0 00 00 01 d0 0f 10 01 f0 0e 20 00 00 00 00 0e 20 0f 10 4c 
+NET hwid 54 ff 6e 06 50 78 49 55 16 53 16 87 
+NET standalone node 
+NBT create bc95g_0
+NET svr bc95g_0
+[
+]
+Rust TMP poll
+NET start
+NET svr bc95g_0
+[
+AT> 
+AT
+AT< ERROR
+AT= OK
+AT> NCONFIG=AUTOCONNECT,FALSE
+AT= OK
+AT> QREGSWT=2
+AT= OK
+AT> NRB
+AT< REBOOTING
+AT< ��`
+AT< Boot: Unsigned
+AT< Security B.. Verified
+AT< Protocol A.. Verified
+AT< Apps A...... Verified
+AT< REBOOT_CAUSE_APPLICATION_AT
+AT< Neul 
+AT= OK
+AT> AT
+AT= OK
+AT> NBAND=8
+AT= OK
+AT> CFUN=1
+AT= OK
+AT> CGATT=1
+AT= OK
+AT> CEREG=0
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+NET random device id ec10998834294ab7ce08a67cc175ed34
+NET network not ready
+TMP network not ready
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,1
+AT= OK
+AT> CGATT?
+AT= +CGATT:1
+AT= OK
+AT> NSOCR=DGRAM,17,0,1
+AT= 1
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 13 ff ff ff 
+NBT send mbuf OK
+AT> ,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 2c ff ff ff 
+NBT send mbuf OK
+AT> ,2
+AT< +NSOSTR:1,1,1
+AT< +NSONMI:1,64
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 03 9c 8d da df 79 ca f1 c4 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 21 ff ff ff 
+NBT send mbuf OK
+AT> ,3
+AT< +NSOSTR:1,2,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 04 29 fa 69 2d 5d 19 00 a9 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 2d ff ff ff 
+NBT send mbuf OK
+AT> ,4
+AT< +NSOSTR:1,3,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 05 7e bb df cc 1e 53 31 53 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 2d ff ff ff 
+NBT send mbuf OK
+AT> ,5
+AT< +NSOSTR:1,4,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 06 1c 24 2a 0e 4c 1c e1 a5 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 17 ff ff ff 
+NBT send mbuf OK
+AT> ,6
+AT< +NSOSTR:1,5,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 07 ff 26 9e 27 6f c0 53 e1 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 18 ff ff ff 
+NBT send mbuf OK
+AT> ,7
+AT< +NSOSTR:1,6,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 08 ba bf 02 e5 ab e8 18 26 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 17 ff ff ff 
+NBT send mbuf OK
+AT> ,8
+AT< +NSOSTR:1,7,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 09 30 82 c5 f5 0e d3 8a 7b b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 1c ff ff ff 
+NBT send mbuf OK
+AT> ,9
+AT< +NSOSTR:1,8,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 0a ec 2b 4e ac 7a 74 72 7c b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 1b ff ff ff 
+NBT send mbuf OK
+AT> ,10
+AT< +NSOSTR:1,9,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 0b 1e b1 71 20 2a 8f c9 eb b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 1d ff ff ff 
+NBT send mbuf OK
+AT> ,11
+AT< +NSOSTR:1,10,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 0c 33 df fd c6 e2 67 9c 93 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 1f ff ff ff 
+NBT send mbuf OK
+AT> ,12
+AT< +NSOSTR:1,11,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 0d 0f 4f 72 b0 b7 63 08 f0 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 23 ff ff ff 
+NBT send mbuf OK
+AT> ,13
+AT< +NSOSTR:1,12,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 0e ea 00 d0 c0 78 78 65 48 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 3f ff ff ff 
+NBT send mbuf OK
+AT> ,14
+AT< +NSOSTR:1,13,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 0f c4 9b 8a 52 b8 f9 80 f8 b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 25 ff ff ff 
+NBT send mbuf OK
+AT> ,15
+AT< +NSOSTR:1,14,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 10 86 ea 9a d6 79 ec 00 cc b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 25 ff ff ff 
+NBT send mbuf OK
+AT> ,16
+AT< +NSOSTR:1,15,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 11 b7 d0 ae 23 77 ab e9 6d b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 23 ff ff ff 
+NBT send mbuf OK
+AT> ,17
+AT< +NSOSTR:1,16,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 12 d7 90 80 46 0e 46 3f 0e b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 23 ff ff ff 
+NBT send mbuf OK
+AT> ,18
+AT< +NSOSTR:1,17,1
+AT= 1,1
+AT< 10
+AT= OK
+]
+NET free mbuf 12
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+encoder: root_map
+encoder: root_map
+encoder: root_map
+new_encoder: values_array
+encoder: values_array
+new_encoder: values_map
+encoder: values_map
+encoder: values_map
+encoder: values_array
+encoder: values_map
+encoder: root_map
+encoder: values_array
+encoder: root_map
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=ec10998834294ab7ce08a67cc175ed34
+[
+NBT send udp
+AT> NSOST=1,104.199.85.211,5683,110,
+NBT send mbuf 110...
+58 02 00 13 5c de 43 c5 c8 a3 c2 7f b2 76 32 06 74 68 69 6e 67 73 0d 28 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 3f 63 62 6f 72 3d 74 72 75 65 11 3c 51 3c ff 
+bf 66 76 61 6c 75 65 73 9f bf 63 6b 65 79 61 74 65 76 61 6c 75 65 19 07 24 ff ff ff 
+NBT send mbuf OK
+AT> ,19
+AT< +NSOSTR:1,18,1
+AT= 1,1
+AT< 10
+AT= OK
+]
