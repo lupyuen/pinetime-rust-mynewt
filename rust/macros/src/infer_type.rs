@@ -17,10 +17,17 @@
  * under the License.
  */
 //! Mynewt Macro that infers the types in a Rust function
-use std::collections::HashMap;
 extern crate proc_macro;
 use proc_macro::TokenStream;
 //use proc_macro2::Span;
+use std::{
+    collections::HashMap,
+    error::Error,
+    fs::File,
+    io::prelude::*,
+    path::Path,
+};
+use rustc_serialize::json;
 use quote::{
     quote, 
     //quote_spanned,
@@ -99,18 +106,36 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
             _ => { assert!(false, "Unknown input"); }
         }
     }
+
+    /*
+    //  TODO: Add this function to the global declaration list.
+    let encoded = json::encode(&all_para).unwrap();
+    println!("encoded: {:#?}", encoded);
+    //  let decoded: TestStruct = json::decode(&encoded).unwrap();
+    let path = Path::new("test.json");
+    let display = path.display();
+    // Open a file in write-only mode, returns `io::Result<File>`
+    let mut file = match File::create(&path) {
+        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+        Ok(file) => file,
+    };
+    match file.write_all(encoded.as_bytes()) {
+        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+        Ok(_) => println!("successfully wrote to {}", display),
+    }
+    */
+
+    //  Combine the new Rust function definition with the old function body.
     let new_decl = syn::FnDecl {
         inputs: new_inputs,
         ..*decl
     };
-
-    //  Combine the new Rust function definition with the old function body.
     let output = syn::ItemFn {
         decl: Box::new(new_decl),
         block: block,
         ..input
     };
-
+    //  Return the new Rust function definition to the Rust Compiler.
     let expanded = quote! {        
         #output
     };
