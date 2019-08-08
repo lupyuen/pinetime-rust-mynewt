@@ -31,6 +31,17 @@ use syn::{
     Expr,
 };
 
+/// Return the Mynewt API function declaration for the function named `fname`
+fn get_decl(fname: &str) -> &str {
+    match fname {
+        "sensor::set_poll_rate_ms"          => "&Strn, u32",
+        "sensor::mgr_find_next_bydevname"   => "&Strn, *mut sensor",
+        "sensor::new_sensor_listener"       => "&Strn, u32",
+        "sensor::register_listener"         => "*mut sensor, sensor_listener",
+        _ => ""
+    }
+}
+
 /// Given a Rust function definition, infer the placeholder types in the function
 pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
@@ -88,9 +99,8 @@ fn infer_from_call(all_para: &mut HashMap<Box<String>, Box<String>>, call: &syn:
 
     //  Fetch the Mynewt API function declaration
     //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
-    //  TODO
-    if fname != "sensor::set_poll_rate_ms" { return }
-    let decl_str: &'static str = "&Strn, u32";
+    let decl_str = get_decl(&fname);
+    if decl_str == "" { return };
     let decl_types: Vec<&str> = decl_str.split(",").collect();
 
     //  For each argument `arg` in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
