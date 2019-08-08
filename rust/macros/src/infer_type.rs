@@ -82,10 +82,9 @@ fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
         match stmt {
             //  `let x = fname( ... )`
             syn::Stmt::Local(local) => {
-                match &local.init {
-                    Some((_eq, expr)) => { infer_from_expr(&all_para, &expr); }
-                    _ => {}
-                };
+                if let Some((_eq, expr)) = &local.init {
+                    infer_from_expr(&all_para, &expr);
+                }
             }
             //  `fname( ... )`
             syn::Stmt::Expr(expr) => { infer_from_expr(&all_para, &expr); }
@@ -94,8 +93,7 @@ fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
             //  Not interested in item definitions: `fn fname( ... ) { ... }`
             syn::Stmt::Item(_item) => {}
         };
-        //  break; ////
-        /*
+        /* `stmt` looks like:
                 Semi(
                     Try(
                         ExprTry {
@@ -137,9 +135,15 @@ fn infer_from_expr(all_para: &Vec<Box<String>>, expr: &Expr) {
         Expr::Binary(expr) => {}
         Expr::Unary(expr) => {}
         Expr::Let(expr) => {}
-        Expr::If(expr) => {}
+        //  `if cond { ... } else { ... }`
+        Expr::If(expr) => {
+            infer_from_expr(&all_para, &expr.cond);
+            infer_from_block(&all_para, &expr.then_branch);
+            if let Some((_else, expr)) = &expr.else_branch {
+                infer_from_expr(&all_para, &expr);
+            }
+        }
         Expr::While(expr) => {}
-
         Expr::ForLoop(expr) => {}
         Expr::Loop(expr) => {}
         Expr::Paren(expr) => {}
@@ -177,7 +181,7 @@ fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
         //  `sensor` has inferred type `&Strn`
         //  `poll_time` has inferred type `u32`
 
-        /*
+        /* `arg` looks like:
             Path(
             ExprPath {
                 attrs: [],
