@@ -60,13 +60,13 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     let mut all_para: HashMap<Box<String>, Box<String>> = HashMap::new();
-    for input in decl.inputs {
+    for input in &decl.inputs {
         //  Mark each parameter for Type Inference.
         //  println!("input: {:#?}", input);
         match input {
             syn::FnArg::Captured(arg_captured) => {
                 //  println!("arg_captured: {:#?}", arg_captured);
-                let pat = arg_captured.pat;
+                let pat = &arg_captured.pat;
                 //  println!("pat: {:#?}", pat);
                 //  `para` is the name of the parameter e.g. `sensor`
                 let para = quote!{ #pat }.to_string();
@@ -81,7 +81,24 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     let block = input.block;
     infer_from_block(&mut all_para, &block);
 
-    "// Should not come here".parse().unwrap()
+    //  println!("decl: {:#?}", decl.to_string());
+
+    //  Now that the types have been inferred, generate the Rust function declaration with the inferred types.
+    let new_decl = syn::FnDecl {
+        ..*decl
+    };
+
+    //  Combine the new Rust function definition with the old function body.
+    let output = syn::ItemFn {
+        decl: Box::new(new_decl),
+        block: block,
+        ..input
+    };
+
+    let expanded = quote! {        
+        #output
+    };
+    expanded.into()
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
