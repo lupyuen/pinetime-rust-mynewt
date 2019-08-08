@@ -45,7 +45,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as Rust function definition.
     let input: syn::ItemFn = parse_macro_input!(item as syn::ItemFn);
-    println!("input: {:#?}", input);
+    //  println!("input: {:#?}", input);
 
     //  Process the Function Declaration
     //  e.g. `fn start_sensor_listener(sensor, sensor_type, poll_time) -> MynewtResult<()>`
@@ -57,6 +57,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     println!("fname: {:#?}", fname);
 
     //  For each parameter...
+    let mut all_para: Vec<Box<String>> = Vec::new();
     for input in decl.inputs {
         //  Mark each parameter for Type Inference.
         //  println!("input: {:#?}", input);
@@ -68,82 +69,83 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 //  `para` is the name of the parameter e.g. `sensor`
                 let para = quote!{ #pat }.to_string();
                 println!("para: {:#?}", para);
+                all_para.push(Box::new(para));
             }
             _ => { assert!(false, "Unknown input"); }
         }
         break;
     }
 
-
     //  Process the Block of code inside the function.
-    //  For each function call...
-    //  If this function call is for a Mynewt API...
-    //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
-    /*
-            stmts: [
-            Semi(
-                Try(
-                    ExprTry {
-                        attrs: [],
-                        expr: Call(
-                            ExprCall {
-                                attrs: [],
-                                func: Path(
-                                    ExprPath {
-                                        attrs: [],
-                                        qself: None,
-                                        path: Path {
-                                            leading_colon: None,
-                                            segments: [
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "sensor",
-                                                        span: #0 bytes(0..0),
+    let block = input.block;
+    //  For each statement...
+    //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ?`
+    for stmt in block.stmts {
+        println!("stmt: {:#?}", stmt);
+        /*
+                Semi(
+                    Try(
+                        ExprTry {
+                            attrs: [],
+                            expr: Call(
+                                ExprCall {
+                                    attrs: [],
+                                    func: Path(
+                                        ExprPath {
+                                            attrs: [],
+                                            qself: None,
+                                            path: Path {
+                                                leading_colon: None,
+                                                segments: [
+                                                    PathSegment {
+                                                        ident: Ident {
+                                                            ident: "sensor",
+                                                            span: #0 bytes(0..0),
+                                                        },
+                                                        arguments: None,
                                                     },
-                                                    arguments: None,
-                                                },
-                                                Colon2,
-                                                PathSegment {
-                                                    ident: Ident {
-                                                        ident: "set_poll_rate_ms",
-                                                        span: #0 bytes(0..0),
-                                                    },
-                                                    arguments: None,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                ),
-    */
-    //  For each argument in function call `args` e.g. `sensor`, `poll_time`, ...
-    /*
-        Path(
-        ExprPath {
-            attrs: [],
-            qself: None,
-            path: Path {
-                leading_colon: None,
-                segments: [
-                    PathSegment {
-                        ident: Ident {
-                            ident: "sensor",
-                            span: #0 bytes(0..0),
-                        },
-                        arguments: None,
-                    },
-                ],
-            },
-        },
-    */
-    //  Fetch the Mynewt API function declaration
-    //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
+                                                    Colon2,
+                                                    PathSegment {
+                                                        ident: Ident {
+                                                            ident: "set_poll_rate_ms",
+                                                            span: #0 bytes(0..0),
+                                                        },
+                                                        arguments: None, ...
+        */
 
-    //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
-    //  parameter type (e.g. `&Strn`).
+        //  For each function call...
+        
+        //  If this function call is for a Mynewt API...
+        //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
 
-    //  Remember the inferred type of the identifier...
-    //  `sensor` has inferred type `&Strn`
-    //  `poll_time` has inferred type `u32`
+        //  For each argument in function call `args` e.g. `sensor`, `poll_time`, ...
+        /*
+            Path(
+            ExprPath {
+                attrs: [],
+                qself: None,
+                path: Path {
+                    leading_colon: None,
+                    segments: [
+                        PathSegment {
+                            ident: Ident {
+                                ident: "sensor",
+                                span: #0 bytes(0..0),
+                            },
+                            arguments: None, ...
+        */
+        //  Fetch the Mynewt API function declaration
+        //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
+
+        //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
+        //  parameter type (e.g. `&Strn`).
+
+        //  Remember the inferred type of the identifier...
+        //  `sensor` has inferred type `&Strn`
+        //  `poll_time` has inferred type `u32`
+
+        break;
+    }
 
     "// Should not come here".parse().unwrap()
 }
