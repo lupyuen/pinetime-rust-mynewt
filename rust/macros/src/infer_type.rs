@@ -72,6 +72,51 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     "// Should not come here".parse().unwrap()
 }
 
+/// Infer the types of the parameters in `all_para` recursively from the function call `call`
+fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
+    //  println!("call: {:#?}", call);
+    //  For each function call `ExprCall`...    
+    //  If this function call `ExprCall.func` is for a Mynewt API...
+    //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
+    let func = &call.func;
+    // println!("func: {:#?}", quote!{ #func }.to_string());
+
+    //  `fname` looks like `sensor::set_poll_rate_ms`
+    let fname = quote!{ #func }.to_string().replace(" ", "");
+    println!("fname: {:#?}", fname);
+
+    //  Fetch the Mynewt API function declaration
+    //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
+
+    //  For each argument in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
+    let args = &call.args;
+    for arg in args {
+        println!("arg: {:#?}", quote!{ #arg }.to_string());
+        //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
+        //  parameter type (e.g. `&Strn`).
+
+        //  Remember the inferred type of the identifier...
+        //  `sensor` has inferred type `&Strn`
+        //  `poll_time` has inferred type `u32`
+
+        /* `arg` looks like:
+            Path(
+            ExprPath {
+                attrs: [],
+                qself: None,
+                path: Path {
+                    leading_colon: None,
+                    segments: [
+                        PathSegment {
+                            ident: Ident {
+                                ident: "sensor",
+                                span: #0 bytes(0..0),
+                            },
+                            arguments: None, ...
+        */
+    }
+}
+
 /// Infer the types of the parameters in `all_para` recursively from the code block `block`
 fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
     //  For each statement in the block...
@@ -184,45 +229,4 @@ fn infer_from_expr(all_para: &Vec<Box<String>>, expr: &Expr) {
         //  Not interested: InPlace, Field, Index, Range, Path, Reference, Break, Continue, Return, Macro, Struct, Repeat, Async, TryBlock, Yield, Verbatim
         _ => {}
     };
-}
-
-/// Infer the types of the parameters in `all_para` recursively from the function call `call`
-fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
-    //  println!("call: {:#?}", call);
-    //  For each function call `ExprCall`...    
-    //  If this function call `ExprCall.func` is for a Mynewt API...
-    //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
-    let func = &call.func;
-    println!("func: {:#?}", quote!{ #func }.to_string());
-
-    //  Fetch the Mynewt API function declaration
-    //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
-
-    //  For each argument in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
-    let args = &call.args;
-    for arg in args {
-        println!("arg: {:#?}", quote!{ #arg }.to_string());
-        //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
-        //  parameter type (e.g. `&Strn`).
-
-        //  Remember the inferred type of the identifier...
-        //  `sensor` has inferred type `&Strn`
-        //  `poll_time` has inferred type `u32`
-
-        /* `arg` looks like:
-            Path(
-            ExprPath {
-                attrs: [],
-                qself: None,
-                path: Path {
-                    leading_colon: None,
-                    segments: [
-                        PathSegment {
-                            ident: Ident {
-                                ident: "sensor",
-                                span: #0 bytes(0..0),
-                            },
-                            arguments: None, ...
-        */
-    }
 }
