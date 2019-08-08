@@ -81,10 +81,26 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     let block = input.block;
     infer_from_block(&mut all_para, &block);
 
-    //  println!("decl: {:#?}", decl.to_string());
-
     //  Now that the types have been inferred, generate the Rust function declaration with the inferred types.
+    let mut new_inputs = decl.inputs.clone();
+    //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
+    for input in &mut new_inputs {
+        //  Set the inferred type of each parameter.
+        //  println!("input: {:#?}", input);
+        match input {
+            syn::FnArg::Captured(arg_captured) => {
+                //  `para` is the name of the parameter e.g. `sensor`
+                let pat = &arg_captured.pat;
+                let para = quote!{ #pat }.to_string();
+                let type_str = all_para.get(&para).unwrap();
+                let tokens = type_str.parse().unwrap();
+                arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
+            }
+            _ => { assert!(false, "Unknown input"); }
+        }
+    }
     let new_decl = syn::FnDecl {
+        inputs: new_inputs,
         ..*decl
     };
 
