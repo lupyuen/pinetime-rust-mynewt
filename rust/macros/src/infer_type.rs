@@ -90,6 +90,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 
     //  Now that the types have been inferred, generate the Rust function declaration with the inferred types.
     let mut new_inputs = decl.inputs.clone();
+    let mut all_para_types: ParaTypeList = Vec::new();
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     for input in &mut new_inputs {
         //  Set the inferred type of each parameter.
@@ -97,33 +98,24 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
         match input {
             syn::FnArg::Captured(arg_captured) => {
                 //  `para` is the name of the parameter e.g. `sensor`
+                //  Change the type of the argument.
                 let pat = &arg_captured.pat;
                 let para = quote!{ #pat }.to_string();
                 let type_str = all_para.get(&para).unwrap();
                 let tokens = type_str.parse().unwrap();
                 arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
+
+                //  Remember the parameter type globally e.g. [sensor, &Strn]
+                let para_type: ParaType = vec![Box::new(para), Box::new(type_str.to_string())];
+                all_para_types.push(para_type);                
             }
             _ => { assert!(false, "Unknown input"); }
         }
     }
-
-    /*
-    //  TODO: Add this function to the global declaration list.
-    let encoded = json::encode(&all_para).unwrap();
-    println!("encoded: {:#?}", encoded);
-    //  let decoded: TestStruct = json::decode(&encoded).unwrap();
-    let path = Path::new("test.json");
-    let display = path.display();
-    // Open a file in write-only mode, returns `io::Result<File>`
-    let mut file = match File::create(&path) {
-        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
-        Ok(file) => file,
-    };
-    match file.write_all(encoded.as_bytes()) {
-        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-        Ok(_) => println!("successfully wrote to {}", display),
-    }
-    */
+    //  Add this function to the global declaration list.
+    let mut all_funcs: FuncTypeMap = HashMap::new();
+    all_funcs.insert(Box::new(fname), all_para_types);
+    save_decls(&all_funcs);
 
     //  Combine the new Rust function definition with the old function body.
     let new_decl = syn::FnDecl {
@@ -141,6 +133,55 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     };
     expanded.into()
 }
+
+/// Load the function declarations from a JSON file.
+fn load_decls() {
+    // Create a path to the desired file
+    let path = Path::new("hello.txt");
+    let display = path.display();
+
+    // Open the path in read-only mode, returns `io::Result<File>`
+    let mut file = match File::open(&path) {
+        // The `description` method of `io::Error` returns a string that
+        // describes the error
+        Err(why) => panic!("couldn't open {}: {}", display,
+                                                   why.description()),
+        Ok(file) => file,
+    };
+
+    // Read the file contents into a string, returns `io::Result<usize>`
+    let mut s = String::new();
+    match file.read_to_string(&mut s) {
+        Err(why) => panic!("couldn't read {}: {}", display,
+                                                   why.description()),
+        Ok(_) => print!("{} contains:\n{}", display, s),
+    };
+    //  let decoded: TestStruct = json::decode(&encoded).unwrap();
+}
+
+/// Save the function declarations to a JSON file.
+fn save_decls(all_funcs: &FuncTypeMap) {
+    let encoded = json::encode(&all_funcs).unwrap();
+    println!("save_decls: {:#?}", encoded);
+    let path = Path::new("test.json");
+    let display = path.display();
+    // Open a file in write-only mode, returns `io::Result<File>`
+    let mut file = match File::create(&path) {
+        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+        Ok(file) => file,
+    };
+    match file.write_all(encoded.as_bytes()) {
+        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+        Ok(_) => println!("successfully wrote to {}", display),
+    };
+}
+
+/// Represents the name and type of a parameter e.g. `[sensor, &Strn]`
+type ParaType = Vec<Box<String>>;
+/// Represents a list of parameter names and types
+type ParaTypeList = Vec<ParaType>;
+/// Represents a function name indexed to the function's parameters
+type FuncTypeMap = HashMap<Box<String>, ParaTypeList>;
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
 fn infer_from_call(all_para: &mut HashMap<Box<String>, Box<String>>, call: &syn::ExprCall) {
