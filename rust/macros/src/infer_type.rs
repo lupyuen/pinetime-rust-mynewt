@@ -26,6 +26,7 @@ use quote::{
 };
 use syn::{
     parse_macro_input,
+    Block,
     Expr,
 };
 
@@ -64,18 +65,24 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
         }
     }
 
-    //  Process the Block of code inside the function.
+    //  Infer the types from the Block of code inside the function.
     let block = input.block;
-    //  For each statement...
+    infer_from_block(&all_para, &block);
+
+    "// Should not come here".parse().unwrap()
+}
+
+/// Infer the types of the parameters in `all_para` recursively from the code block `block`
+fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
+    //  For each statement in the block...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ?`
-    for stmt in block.stmts {
+    for stmt in &block.stmts {
         //  Look for the expression inside the statement and infer the types from the expression.
         //  println!("stmt: {:#?}", stmt);
         match stmt {
             //  `let x = fname( ... )`
             syn::Stmt::Local(local) => {
-                let init: Option<(syn::token::Eq, Box<syn::Expr>)> = local.init;
-                match init {
+                match &local.init {
                     Some((_eq, expr)) => { infer_from_expr(&all_para, &expr); }
                     _ => {}
                 };
@@ -87,7 +94,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
             //  Not interested in item definitions: `fn fname( ... ) { ... }`
             syn::Stmt::Item(_item) => {}
         };
-        break; ////
+        //  break; ////
         /*
                 Semi(
                     Try(
@@ -119,8 +126,6 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                                                         arguments: None, ...
         */        
     }
-
-    "// Should not come here".parse().unwrap()
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
