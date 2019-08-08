@@ -19,25 +19,14 @@
 //! Mynewt Macro that infers the types in a Rust function
 extern crate proc_macro;
 use proc_macro::TokenStream;
-use proc_macro2::Span;
-use quote::{quote, quote_spanned};
+//use proc_macro2::Span;
+use quote::{
+    quote, 
+    //quote_spanned,
+};
 use syn::{
     parse_macro_input,
-    //ArgCaptured,
-    //Expr,
-    //FnArg::{
-        //self,
-        //Captured,
-    //},
-    //ForeignItem,
-    //ForeignItemFn,
-    //Ident,
-    //ItemForeignMod,
-    //ReturnType,
-    //Type,
-    //punctuated::Punctuated,
-    //spanned::Spanned,
-    //token::Comma,
+    Expr,
 };
 
 /// Given a Rust function definition, infer the placeholder types in the function
@@ -48,7 +37,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     //  println!("input: {:#?}", input);
 
     //  Process the Function Declaration
-    //  e.g. `fn start_sensor_listener(sensor, sensor_type, poll_time) -> MynewtResult<()>`
+    //  e.g. `fn start_sensor_listener(sensor: _, sensor_type: _, poll_time: _) -> MynewtResult<()>`
     let decl = input.decl;
     //  println!("decl: {:#?}", decl);
 
@@ -56,7 +45,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     let fname = input.ident.to_string();
     println!("fname: {:#?}", fname);
 
-    //  For each parameter...
+    //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     let mut all_para: Vec<Box<String>> = Vec::new();
     for input in decl.inputs {
         //  Mark each parameter for Type Inference.
@@ -73,7 +62,6 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
             }
             _ => { assert!(false, "Unknown input"); }
         }
-        break;
     }
 
     //  Process the Block of code inside the function.
@@ -81,7 +69,25 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     //  For each statement...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ?`
     for stmt in block.stmts {
-        println!("stmt: {:#?}", stmt);
+        //  Look for the expression inside the statement and infer the types from the expression.
+        //  println!("stmt: {:#?}", stmt);
+        match stmt {
+            //  `let x = fname( ... )`
+            syn::Stmt::Local(local) => {
+                let init: Option<(syn::token::Eq, Box<syn::Expr>)> = local.init;
+                match init {
+                    Some((_eq, expr)) => { infer_from_expr(&all_para, &expr); }
+                    _ => {}
+                };
+            }
+            //  `fname( ... )`
+            syn::Stmt::Expr(expr) => { infer_from_expr(&all_para, &expr); }
+            //  `fname( ... );`
+            syn::Stmt::Semi(expr, _semi) => { infer_from_expr(&all_para, &expr); }
+            //  Not interested in item definitions: `fn fname( ... ) { ... }`
+            syn::Stmt::Item(_item) => {}
+        };
+        break; ////
         /*
                 Semi(
                     Try(
@@ -111,14 +117,61 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                                                             span: #0 bytes(0..0),
                                                         },
                                                         arguments: None, ...
-        */
+        */        
+    }
 
-        //  For each function call...
-        
-        //  If this function call is for a Mynewt API...
-        //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
+    "// Should not come here".parse().unwrap()
+}
 
-        //  For each argument in function call `args` e.g. `sensor`, `poll_time`, ...
+/// Infer the types of the parameters in `all_para` recursively from the expression `expr`
+fn infer_from_expr(all_para: &Vec<Box<String>>, expr: &Expr) {
+    //  println!("expr: {:#?}", expr);
+    match expr {
+        //  `fname( ... )`
+        Expr::Call(expr) => { infer_from_call(&all_para, &expr); }
+        Expr::Binary(expr) => {}
+        Expr::Unary(expr) => {}
+        Expr::Let(expr) => {}
+        Expr::If(expr) => {}
+        Expr::While(expr) => {}
+
+        Expr::ForLoop(expr) => {}
+        Expr::Loop(expr) => {}
+        Expr::Paren(expr) => {}
+        Expr::Group(expr) => {}
+        //  `fname( ... ) ?`
+        Expr::Try(expr) => { infer_from_expr(&all_para, &expr.expr); }
+
+        //  TODO: Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, Assign, AssignOp
+
+        //  Not interested: Field, Index, Range, Path, Reference, Break, Continue, Return, Macro, Struct, Repeat, Async, TryBlock, Yield, Verbatim
+        _ => {}
+    };
+}
+
+/// Infer the types of the parameters in `all_para` recursively from the function call `call`
+fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
+    //  println!("call: {:#?}", call);
+    //  For each function call `ExprCall`...    
+    //  If this function call `ExprCall.func` is for a Mynewt API...
+    //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
+    let func = &call.func;
+    println!("func: {:#?}", quote!{ #func }.to_string());
+
+    //  Fetch the Mynewt API function declaration
+    //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
+
+    //  For each argument in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
+    let args = &call.args;
+    for arg in args {
+        println!("arg: {:#?}", quote!{ #arg }.to_string());
+        //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
+        //  parameter type (e.g. `&Strn`).
+
+        //  Remember the inferred type of the identifier...
+        //  `sensor` has inferred type `&Strn`
+        //  `poll_time` has inferred type `u32`
+
         /*
             Path(
             ExprPath {
@@ -134,18 +187,5 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                             },
                             arguments: None, ...
         */
-        //  Fetch the Mynewt API function declaration
-        //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
-
-        //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
-        //  parameter type (e.g. `&Strn`).
-
-        //  Remember the inferred type of the identifier...
-        //  `sensor` has inferred type `&Strn`
-        //  `poll_time` has inferred type `u32`
-
-        break;
     }
-
-    "// Should not come here".parse().unwrap()
 }
