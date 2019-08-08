@@ -80,7 +80,7 @@ fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
         //  Look for the expression inside the statement and infer the types from the expression.
         //  println!("stmt: {:#?}", stmt);
         match stmt {
-            //  `let x = fname( ... )`
+            //  `let x = ...`
             syn::Stmt::Local(local) => {
                 if let Some((_eq, expr)) = &local.init {
                     infer_from_expr(&all_para, &expr);
@@ -132,9 +132,19 @@ fn infer_from_expr(all_para: &Vec<Box<String>>, expr: &Expr) {
     match expr {
         //  `fname( ... )`
         Expr::Call(expr) => { infer_from_call(&all_para, &expr); }
-        Expr::Binary(expr) => {}
-        Expr::Unary(expr) => {}
-        Expr::Let(expr) => {}
+        //  `... + ...`
+        Expr::Binary(expr) => {
+            infer_from_expr(&all_para, &expr.left);
+            infer_from_expr(&all_para, &expr.right);
+        }
+        //  `- ...`
+        Expr::Unary(expr) => {
+            infer_from_expr(&all_para, &expr.expr);            
+        }
+        //  `let x = ...`
+        Expr::Let(expr) => {
+            infer_from_expr(&all_para, &expr.expr);            
+        }
         //  `if cond { ... } else { ... }`
         Expr::If(expr) => {
             infer_from_expr(&all_para, &expr.cond);
@@ -143,17 +153,35 @@ fn infer_from_expr(all_para: &Vec<Box<String>>, expr: &Expr) {
                 infer_from_expr(&all_para, &expr);
             }
         }
-        Expr::While(expr) => {}
-        Expr::ForLoop(expr) => {}
-        Expr::Loop(expr) => {}
-        Expr::Paren(expr) => {}
-        Expr::Group(expr) => {}
+        //  `while cond { ... }`
+        Expr::While(expr) => {
+            infer_from_expr(&all_para, &expr.cond);
+            infer_from_block(&all_para, &expr.body);
+        }
+        //  `for i in ... { ... }`
+        Expr::ForLoop(expr) => {
+            infer_from_expr(&all_para, &expr.expr);
+            infer_from_block(&all_para, &expr.body);
+        }
+        //  `loop { ... }`
+        Expr::Loop(expr) => {
+            infer_from_block(&all_para, &expr.body);
+
+        }
+        //  `( ... )`
+        Expr::Paren(expr) => {
+            infer_from_expr(&all_para, &expr.expr);
+        }
+        //  `...`
+        Expr::Group(expr) => {
+            infer_from_expr(&all_para, &expr.expr);
+        }
         //  `fname( ... ) ?`
         Expr::Try(expr) => { infer_from_expr(&all_para, &expr.expr); }
 
-        //  TODO: Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, Assign, AssignOp
+        //  TODO: Box, Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, Assign, AssignOp
 
-        //  Not interested: Field, Index, Range, Path, Reference, Break, Continue, Return, Macro, Struct, Repeat, Async, TryBlock, Yield, Verbatim
+        //  Not interested: InPlace, Field, Index, Range, Path, Reference, Break, Continue, Return, Macro, Struct, Repeat, Async, TryBlock, Yield, Verbatim
         _ => {}
     };
 }
