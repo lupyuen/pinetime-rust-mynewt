@@ -22,7 +22,8 @@
 //! ```
 #![recursion_limit="128"] //  Increase recursion limit to prevent quote!{} errors
 
-mod safe_wrap;  //  Include safe_wrap.rs
+mod safe_wrap;   //  Include safe_wrap.rs
+mod infer_type;  //  Include infer_type.rs
 
 extern crate proc_macro;
 use proc_macro::TokenStream;
@@ -31,10 +32,16 @@ use syn::{
     parse_macro_input,
 };
 
-/// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
+/// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function
 #[proc_macro_attribute]
 pub fn safe_wrap(attr: TokenStream, item: TokenStream) -> TokenStream {
     safe_wrap::safe_wrap_internal(attr, item)
+}
+
+/// Given a Rust function definition, infer the placeholder types in the function
+#[proc_macro_attribute]
+pub fn infer_type(attr: TokenStream, item: TokenStream) -> TokenStream {
+    infer_type::infer_type_internal(attr, item)
 }
 
 /// Given a static mutable variable, return an unsafe mutable pointer that's suitable for passing to Mynewt APIs for writing output.
