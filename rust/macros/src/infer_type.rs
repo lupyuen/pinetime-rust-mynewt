@@ -36,8 +36,8 @@ fn get_decl(fname: &str) -> &str {
     match fname {
         "sensor::set_poll_rate_ms"          => "&Strn, u32",
         "sensor::mgr_find_next_bydevname"   => "&Strn, *mut sensor",
-        "sensor::new_sensor_listener"       => "&Strn, u32",
         "sensor::register_listener"         => "*mut sensor, sensor_listener",
+        "new_sensor_listener"               => "sensor_type_t, sensor_data_func",
         _ => ""
     }
 }
@@ -140,7 +140,7 @@ fn infer_from_call(all_para: &mut HashMap<Box<String>, Box<String>>, call: &syn:
     let args = &call.args;
     for pos in 0 .. args.len() {
         let arg = &args[pos];
-        let arg_str = quote!{ #arg }.to_string();
+        let arg_str = quote!{ #arg }.to_string().replace(" ", "");
         let decl_type = &decl_types[pos].trim();
         //  println!("arg: {:#?}", arg);
 
