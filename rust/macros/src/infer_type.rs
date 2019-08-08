@@ -45,27 +45,35 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as Rust function definition.
     let input: syn::ItemFn = parse_macro_input!(item as syn::ItemFn);
-    //  println!("input: {:#?}", input);
+    println!("input: {:#?}", input);
 
-    //  Process the Function Declaration.
+    //  Process the Function Declaration
+    //  e.g. `fn start_sensor_listener(sensor, sensor_type, poll_time) -> MynewtResult<()>`
     let decl = input.decl;
     //  println!("decl: {:#?}", decl);
 
+    //  `fname` is function name e.g. `start_sensor_listener`
+    let fname = input.ident.to_string();
+    println!("fname: {:#?}", fname);
+
     //  For each parameter...
     for input in decl.inputs {
+        //  Mark each parameter for Type Inference.
         //  println!("input: {:#?}", input);
         match input {
             syn::FnArg::Captured(arg_captured) => {
-                println!("arg_captured: {:#?}", arg_captured);
+                //  println!("arg_captured: {:#?}", arg_captured);
                 let pat = arg_captured.pat;
-                println!("pat: {:#?}", quote!{ #pat }.to_string());
+                //  println!("pat: {:#?}", pat);
+                //  `para` is the name of the parameter e.g. `sensor`
+                let para = quote!{ #pat }.to_string();
+                println!("para: {:#?}", para);
             }
             _ => { assert!(false, "Unknown input"); }
         }
         break;
     }
 
-    //  Mark each parameter for Type Inference.
 
     //  Process the Block of code inside the function.
     //  For each function call...
