@@ -87,13 +87,23 @@ fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
 
     //  Fetch the Mynewt API function declaration
     //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
+    //  TODO
+    if fname != "sensor::set_poll_rate_ms" { return }
+    let decl_str: &'static str = "&Strn, u32";
+    let decl_types: Vec<&str> = decl_str.split(",").collect();
 
-    //  For each argument in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
+    //  For each argument `arg` in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
     let args = &call.args;
-    for arg in args {
-        println!("arg: {:#?}", quote!{ #arg }.to_string());
-        //  Match the identifier `ident` (e.g. `sensor`) with the corresponding Mynewt API 
-        //  parameter type (e.g. `&Strn`).
+    for pos in 0 .. args.len() {
+        let arg = &args[pos];
+        let decl_type = &decl_types[pos].trim();
+        println!("arg: {:#?}", arg);
+
+        //  If argument `arg` is not an identifier, skip.
+
+        //  Match the identifier `ident` in `arg` (e.g. `sensor`) with the corresponding Mynewt API 
+        //  parameter type `decl_type` (e.g. `&Strn`).
+        println!("arg: {} / decl: {}", quote!{ #arg }.to_string(), decl_type);
 
         //  Remember the inferred type of the identifier...
         //  `sensor` has inferred type `&Strn`
