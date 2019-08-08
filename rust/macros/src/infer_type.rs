@@ -17,6 +17,7 @@
  * under the License.
  */
 //! Mynewt Macro that infers the types in a Rust function
+use std::collections::HashMap;
 extern crate proc_macro;
 use proc_macro::TokenStream;
 //use proc_macro2::Span;
@@ -47,7 +48,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     println!("fname: {:#?}", fname);
 
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
-    let mut all_para: Vec<Box<String>> = Vec::new();
+    let mut all_para: HashMap<Box<String>, Box<String>> = HashMap::new();
     for input in decl.inputs {
         //  Mark each parameter for Type Inference.
         //  println!("input: {:#?}", input);
@@ -59,7 +60,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 //  `para` is the name of the parameter e.g. `sensor`
                 let para = quote!{ #pat }.to_string();
                 println!("para: {:#?}", para);
-                all_para.push(Box::new(para));
+                all_para.insert(Box::new(para), Box::new("".to_string()));
             }
             _ => { assert!(false, "Unknown input"); }
         }
@@ -67,13 +68,13 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 
     //  Infer the types from the Block of code inside the function.
     let block = input.block;
-    infer_from_block(&all_para, &block);
+    infer_from_block(&mut all_para, &block);
 
     "// Should not come here".parse().unwrap()
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
-fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
+fn infer_from_call(all_para: &mut HashMap<Box<String>, Box<String>>, call: &syn::ExprCall) {
     //  println!("call: {:#?}", call);
     //  For each function call `ExprCall`...    
     //  If this function call `ExprCall.func` is for a Mynewt API...
@@ -96,14 +97,16 @@ fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
     let args = &call.args;
     for pos in 0 .. args.len() {
         let arg = &args[pos];
+        let arg_str = quote!{ #arg }.to_string();
         let decl_type = &decl_types[pos].trim();
-        println!("arg: {:#?}", arg);
+        //  println!("arg: {:#?}", arg);
 
-        //  If argument `arg` is not an identifier, skip.
+        //  If argument `arg` is not in our list of parameters `all_para`, skip.
 
         //  Match the identifier `ident` in `arg` (e.g. `sensor`) with the corresponding Mynewt API 
         //  parameter type `decl_type` (e.g. `&Strn`).
-        println!("arg: {} / decl: {}", quote!{ #arg }.to_string(), decl_type);
+        println!("{} has inferred type {}", arg_str, decl_type);
+        all_para.insert(Box::new(arg_str), Box::new(decl_type.to_string()));
 
         //  Remember the inferred type of the identifier...
         //  `sensor` has inferred type `&Strn`
@@ -128,7 +131,7 @@ fn infer_from_call(all_para: &Vec<Box<String>>, call: &syn::ExprCall) {
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the code block `block`
-fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
+fn infer_from_block(all_para: &mut HashMap<Box<String>, Box<String>>, block: &Block) {
     //  For each statement in the block...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ?`
     for stmt in &block.stmts {
@@ -138,13 +141,13 @@ fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
             //  `let x = ...`
             syn::Stmt::Local(local) => {
                 if let Some((_eq, expr)) = &local.init {
-                    infer_from_expr(&all_para, &expr);
+                    infer_from_expr(all_para, &expr);
                 }
             }
             //  `fname( ... )`
-            syn::Stmt::Expr(expr) => { infer_from_expr(&all_para, &expr); }
+            syn::Stmt::Expr(expr) => { infer_from_expr(all_para, &expr); }
             //  `fname( ... );`
-            syn::Stmt::Semi(expr, _semi) => { infer_from_expr(&all_para, &expr); }
+            syn::Stmt::Semi(expr, _semi) => { infer_from_expr(all_para, &expr); }
             //  Not interested in item definitions: `fn fname( ... ) { ... }`
             syn::Stmt::Item(_item) => {}
         };
@@ -182,57 +185,57 @@ fn infer_from_block(all_para: &Vec<Box<String>>, block: &Block) {
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
-fn infer_from_expr(all_para: &Vec<Box<String>>, expr: &Expr) {
+fn infer_from_expr(all_para: &mut HashMap<Box<String>, Box<String>>, expr: &Expr) {
     //  println!("expr: {:#?}", expr);
     match expr {
         //  `fname( ... )`
-        Expr::Call(expr) => { infer_from_call(&all_para, &expr); }
+        Expr::Call(expr) => { infer_from_call(all_para, &expr); }
         //  `... + ...`
         Expr::Binary(expr) => {
-            infer_from_expr(&all_para, &expr.left);
-            infer_from_expr(&all_para, &expr.right);
+            infer_from_expr(all_para, &expr.left);
+            infer_from_expr(all_para, &expr.right);
         }
         //  `- ...`
         Expr::Unary(expr) => {
-            infer_from_expr(&all_para, &expr.expr);            
+            infer_from_expr(all_para, &expr.expr);            
         }
         //  `let x = ...`
         Expr::Let(expr) => {
-            infer_from_expr(&all_para, &expr.expr);            
+            infer_from_expr(all_para, &expr.expr);            
         }
         //  `if cond { ... } else { ... }`
         Expr::If(expr) => {
-            infer_from_expr(&all_para, &expr.cond);
-            infer_from_block(&all_para, &expr.then_branch);
+            infer_from_expr(all_para, &expr.cond);
+            infer_from_block(all_para, &expr.then_branch);
             if let Some((_else, expr)) = &expr.else_branch {
-                infer_from_expr(&all_para, &expr);
+                infer_from_expr(all_para, &expr);
             }
         }
         //  `while cond { ... }`
         Expr::While(expr) => {
-            infer_from_expr(&all_para, &expr.cond);
-            infer_from_block(&all_para, &expr.body);
+            infer_from_expr(all_para, &expr.cond);
+            infer_from_block(all_para, &expr.body);
         }
         //  `for i in ... { ... }`
         Expr::ForLoop(expr) => {
-            infer_from_expr(&all_para, &expr.expr);
-            infer_from_block(&all_para, &expr.body);
+            infer_from_expr(all_para, &expr.expr);
+            infer_from_block(all_para, &expr.body);
         }
         //  `loop { ... }`
         Expr::Loop(expr) => {
-            infer_from_block(&all_para, &expr.body);
+            infer_from_block(all_para, &expr.body);
 
         }
         //  `( ... )`
         Expr::Paren(expr) => {
-            infer_from_expr(&all_para, &expr.expr);
+            infer_from_expr(all_para, &expr.expr);
         }
         //  `...`
         Expr::Group(expr) => {
-            infer_from_expr(&all_para, &expr.expr);
+            infer_from_expr(all_para, &expr.expr);
         }
         //  `fname( ... ) ?`
-        Expr::Try(expr) => { infer_from_expr(&all_para, &expr.expr); }
+        Expr::Try(expr) => { infer_from_expr(all_para, &expr.expr); }
 
         //  TODO: Box, Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, Assign, AssignOp
 
