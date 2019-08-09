@@ -51,6 +51,9 @@ fn get_decl(fname: &str) -> &str {
 
 /// Given a Rust function definition, infer the placeholder types in the function
 pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    //  Load the global declaration list
+    let mut all_funcs = load_decls();
+
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as Rust function definition.
     let input: syn::ItemFn = parse_macro_input!(item as syn::ItemFn);
@@ -119,9 +122,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
             _ => { assert!(false, "Unknown input"); }
         }
     }
-
     //  Add this function to the global declaration list.
-    let mut all_funcs: FuncTypeMap = HashMap::new();
     all_funcs.insert(Box::new(fname), all_para_types);
     save_decls(&all_funcs);
 
@@ -143,9 +144,10 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 }
 
 /// Load the function declarations from a JSON file.
-fn load_decls() {
+fn load_decls() -> FuncTypeMap {
+    //  let mut all_funcs: FuncTypeMap = HashMap::new();
     // Create a path to the desired file
-    let path = Path::new("hello.txt");
+    let path = Path::new("test.json");
     let display = path.display();
 
     // Open the path in read-only mode, returns `io::Result<File>`
@@ -156,7 +158,6 @@ fn load_decls() {
                                                    why.description()),
         Ok(file) => file,
     };
-
     // Read the file contents into a string, returns `io::Result<usize>`
     let mut s = String::new();
     match file.read_to_string(&mut s) {
@@ -164,7 +165,8 @@ fn load_decls() {
                                                    why.description()),
         Ok(_) => print!("{} contains:\n{}", display, s),
     };
-    //  let decoded: TestStruct = json::decode(&encoded).unwrap();
+    let all_funcs: FuncTypeMap = json::decode(&s).unwrap();
+    return all_funcs;
 }
 
 /// Save the function declarations to a JSON file.
