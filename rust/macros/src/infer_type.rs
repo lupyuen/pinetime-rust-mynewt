@@ -215,21 +215,19 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
     //  For each argument `arg` in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
     let args = &call.args;
     for pos in 0 .. args.len() {
+        //  Match the identifier `ident` in `arg` (e.g. `sensor`) with the corresponding Mynewt API 
+        //  parameter type `decl_type` (e.g. `&Strn`).
+        //  TODO: If argument `arg` is not in our list of parameters `all_para`, skip.
         let arg = &args[pos];
         let arg_str = quote!{ #arg }.to_string().replace(" ", "");
         let decl_type = &decl_types[pos].trim();
         //  println!("arg: {:#?}", arg);
 
-        //  If argument `arg` is not in our list of parameters `all_para`, skip.
-
-        //  Match the identifier `ident` in `arg` (e.g. `sensor`) with the corresponding Mynewt API 
-        //  parameter type `decl_type` (e.g. `&Strn`).
-        println!("{} has inferred type {}", arg_str, decl_type);
-        all_para.insert(Box::new(arg_str), Box::new(decl_type.to_string()));
-
         //  Remember the inferred type of the identifier...
         //  `sensor` has inferred type `&Strn`
         //  `poll_time` has inferred type `u32`
+        println!("{} has inferred type {}", arg_str, decl_type);
+        all_para.insert(Box::new(arg_str), Box::new(decl_type.to_string()));
 
         /* `arg` looks like:
             Path(
@@ -254,11 +252,35 @@ fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
     //  println!("macro: {:#?}", macro_expr);
     let mac = &macro_expr.mac;
     let path = &mac.path;
+    let path_str = quote!{ #path }.to_string();
     let tts = &mac.tts;
-    //  `path` looks like `coap`
-    //  `tts` looks like `@ json { \"device\" : & device_id , sensor_data , }`
-    println!("path: {:#?}", quote!{ #path }.to_string());
-    println!("tts: {:#?}", quote!{ #tts }.to_string());
+    let tts_str = quote!{ #tts }.to_string();
+    //  `path_str` looks like `coap`
+    //  `tts_str` looks like `@ json { \"device\" : & device_id , sensor_data , }`
+    //  println!("path: {:#?}", quote!{ #path }.to_string());
+    //  println!("tts: {:#?}",  quote!{ #tts }.to_string());
+    //  If macro is not `coap`, quit.
+    if path_str != "coap" { return }
+    //  We will parse `tts_str` the simplistic way, by spltting strings. Look for singleton fields like `sensor_data`.
+    let tts_split: Vec<&str> = tts_str.splitn(2, "{").collect();
+    if tts_split.len() < 2 { return }
+    let tts_str = tts_split[1];
+
+    let tts_split: Vec<&str> = tts_str.splitn(2, "}").collect();
+    if tts_split.len() < 2 { return }
+    let tts_str = tts_split[0];
+
+    //  `tts_str` contains `\"device\" : & device_id , sensor_data ,`
+    let tts_split: Vec<&str> = tts_str.split(",").collect();
+    for field in tts_split {
+        let field = field.trim();
+        if field == "" { continue }          //  Skip empty fields
+        if field.contains(":") { continue }  //  Skip `key:val` fields
+        //  Field must be a singleton like `sensor_data`. Infer as type `&SensorValue`.
+        let decl_type = "&SensorValue";
+        println!("{} has inferred type {}", field, decl_type);
+        all_para.insert(Box::new(field.to_string()), Box::new(decl_type.to_string()));
+    }
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the code block `block`
