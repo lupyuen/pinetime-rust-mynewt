@@ -38,21 +38,17 @@ use syn::{
     Expr,
 };
 
-/// Return the Mynewt API function declaration for the function named `fname`
-fn get_decl(fname: &str) -> &str {
-    match fname {
-        "sensor::set_poll_rate_ms"          => "&Strn, u32",
-        "sensor::mgr_find_next_bydevname"   => "&Strn, *mut sensor",
-        "sensor::register_listener"         => "*mut sensor, sensor_listener",
-        "new_sensor_listener"               => "sensor_type_t, sensor_data_func",
-        _ => ""
-    }
-}
+const MYNEWT_DECL_JSON: &str = r#"{
+    "sensor::set_poll_rate_ms"          : [ ["_", "&Strn"], ["_", "u32"] ],
+    "sensor::mgr_find_next_bydevname"   : [ ["_", "&Strn"], ["_", "*mut sensor"] ],
+    "sensor::register_listener"         : [ ["_", "*mut sensor"], ["_", "sensor_listener"] ],
+    "new_sensor_listener"               : [ ["_", "sensor_type_t"], ["_", "sensor_data_func"] ]
+}"#;
 
 /// Given a Rust function definition, infer the placeholder types in the function
 pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
     //  Load the global declaration list
-    let mut all_funcs = load_decls();
+    //  unsafe { SOURCE_DECL = load_decls() }
 
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as Rust function definition.
@@ -123,8 +119,8 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
         }
     }
     //  Add this function to the global declaration list.
-    all_funcs.insert(Box::new(fname), all_para_types);
-    save_decls(&all_funcs);
+    SOURCE_DECL.insert(Box::new(fname), all_para_types);
+    save_decls(&SOURCE_DECL);
 
     //  Combine the new Rust function definition with the old function body.
     let new_decl = syn::FnDecl {
@@ -143,58 +139,6 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     expanded.into()
 }
 
-/// Load the function declarations from a JSON file.
-fn load_decls() -> FuncTypeMap {
-    //  let mut all_funcs: FuncTypeMap = HashMap::new();
-    // Create a path to the desired file
-    let path = Path::new("test.json");
-    let display = path.display();
-
-    // Open the path in read-only mode, returns `io::Result<File>`
-    let mut file = match File::open(&path) {
-        // The `description` method of `io::Error` returns a string that
-        // describes the error
-        Err(why) => panic!("couldn't open {}: {}", display,
-                                                   why.description()),
-        Ok(file) => file,
-    };
-    // Read the file contents into a string, returns `io::Result<usize>`
-    let mut s = String::new();
-    match file.read_to_string(&mut s) {
-        Err(why) => panic!("couldn't read {}: {}", display,
-                                                   why.description()),
-        Ok(_) => print!("{} contains:\n{}", display, s),
-    };
-    let all_funcs: FuncTypeMap = json::decode(&s).unwrap();
-    return all_funcs;
-}
-
-/// Save the function declarations to a JSON file.
-fn save_decls(all_funcs: &FuncTypeMap) {
-    let encoded = json::encode(&all_funcs).unwrap();
-    println!("save_decls: {:#?}", encoded);
-    let path = Path::new("test.json");
-    let display = path.display();
-    // Open a file in write-only mode, returns `io::Result<File>`
-    let mut file = match File::create(&path) {
-        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
-        Ok(file) => file,
-    };
-    match file.write_all(encoded.as_bytes()) {
-        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-        Ok(_) => println!("successfully wrote to {}", display),
-    };
-}
-
-/// Represents a map of parameter names indexed to the parameter type.
-type ParaMap = HashMap<Box<String>, Box<String>>;
-/// Represents the name and type of a parameter e.g. `[sensor, &Strn]`
-type ParaType = Vec<Box<String>>;
-/// Represents a list of parameter names and types
-type ParaTypeList = Vec<ParaType>;
-/// Represents a function name indexed to the function's parameters
-type FuncTypeMap = HashMap<Box<String>, ParaTypeList>;
-
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
 fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
     //  println!("call: {:#?}", call);
@@ -210,9 +154,8 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
 
     //  Fetch the Mynewt API function declaration
     //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
-    let decl_str = get_decl(&fname);
-    if decl_str == "" { return };
-    let decl_types: Vec<&str> = decl_str.split(",").collect();
+    let decl_list = get_decl(&fname);
+    if decl_list.len() == 0 { return };  //  Function declaration not found.
 
     //  For each argument `arg` in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
     let args = &call.args;
@@ -222,7 +165,7 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
         //  TODO: If argument `arg` is not in our list of parameters `all_para`, skip.
         let arg = &args[pos];
         let arg_str = quote!{ #arg }.to_string().replace(" ", "");
-        let decl_type = &decl_types[pos].trim();
+        let decl_type = &decl_list[pos][1];
         //  println!("arg: {:#?}", arg);
 
         //  Remember the inferred type of the identifier...
@@ -404,3 +347,67 @@ fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
         _ => {}
     };
 }
+
+lazy_static::lazy_static! {
+    //  Mynewt function declarations
+    static ref MYNEWT_DECL: FuncTypeMap = json::decode(&MYNEWT_DECL_JSON.to_string()).unwrap();
+    ///  Source function declarations loaded from JSON file
+    static ref SOURCE_DECL: FuncTypeMap = load_decls();
+    static ref EMPTY_PARA_TYPE_LIST: ParaTypeList = Vec::new();    
+}
+
+/// Return the Mynewt API function declaration for the function named `fname`
+fn get_decl(fname: &str) -> &ParaTypeList {
+    if let Some(para_type_list) = MYNEWT_DECL.get(&fname.to_string()) { return &para_type_list }
+    if let Some(para_type_list) = SOURCE_DECL.get(&fname.to_string()) { return &para_type_list }
+    &EMPTY_PARA_TYPE_LIST
+}
+
+/// Load the function declarations from a JSON file.
+fn load_decls() -> FuncTypeMap {
+    // Create a path to the desired file
+    let path = Path::new("test.json");
+    let display = path.display();
+
+    // Open the path in read-only mode, returns `io::Result<File>`
+    let mut file = match File::open(&path) {
+        // The `description` method of `io::Error` returns a string that describes the error
+        Err(why) => return HashMap::new(),
+        Ok(file) => file
+    };
+    // Read the file contents into a string, returns `io::Result<usize>`
+    let mut s = String::new();
+    match file.read_to_string(&mut s) {
+        Err(why) => return HashMap::new(),
+        Ok(_) => {}
+    };
+    println!("load_decls: {}, {:#?}", display, s);
+    let all_funcs: FuncTypeMap = json::decode(&s).unwrap();
+    return all_funcs;
+}
+
+/// Save the function declarations to a JSON file.
+fn save_decls(all_funcs: &FuncTypeMap) {
+    let encoded = json::encode(&all_funcs).unwrap();
+    let path = Path::new("test.json");
+    let display = path.display();
+    println!("save_decls: {}, {:#?}", display, encoded);
+    // Open a file in write-only mode, returns `io::Result<File>`
+    let mut file = match File::create(&path) {
+        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+        Ok(file) => file,
+    };
+    match file.write_all(encoded.as_bytes()) {
+        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+        Ok(_) => println!("successfully wrote to {}", display),
+    };
+}
+
+/// Represents a map of parameter names indexed to the parameter type.
+type ParaMap = HashMap<Box<String>, Box<String>>;
+/// Represents the name and type of a parameter e.g. `[sensor, &Strn]`
+type ParaType = Vec<Box<String>>;
+/// Represents a list of parameter names and types
+type ParaTypeList = Vec<ParaType>;
+/// Represents a function name indexed to the function's parameters
+type FuncTypeMap = HashMap<Box<String>, ParaTypeList>;
