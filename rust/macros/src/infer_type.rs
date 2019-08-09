@@ -103,16 +103,17 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 let para = quote!{ #pat }.to_string();
                 let type_str = match all_para.get(&para) {
                     Some(type_str) => {
-                        let tokens = type_str.parse().unwrap();
-                        arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
+                        //let tokens = type_str.parse().unwrap();
+                        //arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
                         type_str
                     }
                     //  If we can't infer the type, leave as `_` for now. Maybe another function will infer this type.
                     //  None => "_"
                     None => {
-                        let tokens = "u8".parse().unwrap();
-                        arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
-                        "u8"
+                        let type_str = "u8";
+                        //let tokens = type_str.parse().unwrap();
+                        //arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
+                        type_str
                     }
                 };
                 //  Remember the parameter type globally e.g. [sensor, &Strn]
@@ -122,7 +123,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
             _ => { assert!(false, "Unknown input"); }
         }
     }
-    
+
     //  Add this function to the global declaration list.
     let mut all_funcs: FuncTypeMap = HashMap::new();
     all_funcs.insert(Box::new(fname), all_para_types);
