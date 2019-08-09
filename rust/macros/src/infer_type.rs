@@ -119,8 +119,9 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
         }
     }
     //  Add this function to the global declaration list.
-    SOURCE_DECL.insert(Box::new(fname), all_para_types);
-    save_decls(&SOURCE_DECL);
+    let mut new_func_map: FuncTypeMap = SOURCE_DECL.clone(); 
+    new_func_map.insert(Box::new(fname), all_para_types);
+    save_decls(&new_func_map);
 
     //  Combine the new Rust function definition with the old function body.
     let new_decl = syn::FnDecl {
