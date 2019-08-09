@@ -66,7 +66,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     println!("fname: {:#?}", fname);
 
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
-    let mut all_para: HashMap<Box<String>, Box<String>> = HashMap::new();
+    let mut all_para: ParaMap = HashMap::new();
     for input in &decl.inputs {
         //  Mark each parameter for Type Inference.
         //  println!("input: {:#?}", input);
@@ -184,6 +184,8 @@ fn save_decls(all_funcs: &FuncTypeMap) {
     };
 }
 
+/// Represents a map of parameter names indexed to the parameter type.
+type ParaMap = HashMap<Box<String>, Box<String>>;
 /// Represents the name and type of a parameter e.g. `[sensor, &Strn]`
 type ParaType = Vec<Box<String>>;
 /// Represents a list of parameter names and types
@@ -192,7 +194,7 @@ type ParaTypeList = Vec<ParaType>;
 type FuncTypeMap = HashMap<Box<String>, ParaTypeList>;
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
-fn infer_from_call(all_para: &mut HashMap<Box<String>, Box<String>>, call: &syn::ExprCall) {
+fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
     //  println!("call: {:#?}", call);
     //  For each function call `ExprCall`...    
     //  If this function call `ExprCall.func` is for a Mynewt API...
@@ -247,8 +249,20 @@ fn infer_from_call(all_para: &mut HashMap<Box<String>, Box<String>>, call: &syn:
     }
 }
 
+///  For macro call `coap!( ..., sensor_data )`, infer `sensor_data` as `&SensorValue`
+fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
+    //  println!("macro: {:#?}", macro_expr);
+    let mac = &macro_expr.mac;
+    let path = &mac.path;
+    let tts = &mac.tts;
+    //  `path` looks like `coap`
+    //  `tts` looks like `@ json { \"device\" : & device_id , sensor_data , }`
+    println!("path: {:#?}", quote!{ #path }.to_string());
+    println!("tts: {:#?}", quote!{ #tts }.to_string());
+}
+
 /// Infer the types of the parameters in `all_para` recursively from the code block `block`
-fn infer_from_block(all_para: &mut HashMap<Box<String>, Box<String>>, block: &Block) {
+fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
     //  For each statement in the block...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ?`
     for stmt in &block.stmts {
@@ -302,7 +316,7 @@ fn infer_from_block(all_para: &mut HashMap<Box<String>, Box<String>>, block: &Bl
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
-fn infer_from_expr(all_para: &mut HashMap<Box<String>, Box<String>>, expr: &Expr) {
+fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
     //  println!("expr: {:#?}", expr);
     match expr {
         //  `fname( ... )`
@@ -352,11 +366,17 @@ fn infer_from_expr(all_para: &mut HashMap<Box<String>, Box<String>>, expr: &Expr
             infer_from_expr(all_para, &expr.expr);
         }
         //  `fname( ... ) ?`
-        Expr::Try(expr) => { infer_from_expr(all_para, &expr.expr); }
+        Expr::Try(expr) => { 
+            infer_from_expr(all_para, &expr.expr); 
+        }
+        //  For macro call `coap!( ..., sensor_data )`, infer `sensor_data` as `&SensorValue`
+        Expr::Macro(expr) => {
+            infer_from_macro(all_para, &expr);
+        }
 
         //  TODO: Box, Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, Assign, AssignOp
 
-        //  Not interested: InPlace, Field, Index, Range, Path, Reference, Break, Continue, Return, Macro, Struct, Repeat, Async, TryBlock, Yield, Verbatim
+        //  Not interested: InPlace, Field, Index, Range, Path, Reference, Break, Continue, Return, Struct, Repeat, Async, TryBlock, Yield, Verbatim
         _ => {}
     };
 }
