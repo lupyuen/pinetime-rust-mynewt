@@ -332,7 +332,7 @@ static bool sleep(uint16_t seconds) {
 /// Wait for NB-IoT network registration
 static bool wait_for_registration(struct bc95g *dev) {
     //  CEREG_QUERY: query registration
-    for (uint8_t i = 0; i < 10; i++) {
+    for (uint8_t i = 0; i < 20; i++) {
         //  Response contains 2 integers: `code` and `status` e.g. `=+CEREG:0,1`
         int code = -1, status = -1;
         bool res = send_query(dev, CEREG_QUERY, &code, &status);
@@ -347,13 +347,13 @@ static bool wait_for_registration(struct bc95g *dev) {
         console_flush();
         sleep(2);
     }
-    return false;  //  Not registered after 5 retries, quit.
+    return false;  //  Not registered after 20 retries, quit.
 }
 
 /// Wait for NB-IoT network to be attached
 static bool wait_for_attach(struct bc95g *dev) {
     //  CGATT_QUERY: query attach
-    for (uint8_t i = 0; i < 10; i++) {
+    for (uint8_t i = 0; i < 20; i++) {
         //  Response contains 1 integer: `state` e.g. `=+CGATT:1`
         int state = -1;
         bool res = send_query(dev, CGATT_QUERY, &state, NULL);
@@ -368,12 +368,12 @@ static bool wait_for_attach(struct bc95g *dev) {
         console_flush();
         sleep(2);
     }
-    return false;  //  Not attached after 10 retries, quit.
+    return false;  //  Not attached after 20 retries, quit.
 }
 
 /// At startup, keep sending AT and wait for module to respond OK. This skips the ERROR response at startup.
 static bool wait_for_ok(struct bc95g *dev) {
-    for (uint8_t i = 0; i < 10; i++) {
+    for (uint8_t i = 0; i < 20; i++) {
         //  Send AT and check for OK response.  Insert "\r\n" in case there was a previous command.
         bool res = (
             parser.send("\r\nAT") &&
@@ -388,7 +388,7 @@ static bool wait_for_ok(struct bc95g *dev) {
         console_flush();
         sleep(2);
     }
-    return false;  //  Can't get OK 10 retries, quit.
+    return false;  //  Can't get OK 20 retries, quit.
 }
 
 /// [Phase 0] Prepare to transmit

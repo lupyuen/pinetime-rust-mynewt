@@ -10,6 +10,9 @@
 # runner = "gdb -q -x openocd.gdb"
 
 rustflags = [
+  # Needed to access span info in `proc_macro2`
+  "--cfg",  "procmacro2_semver_exempt",
+  
   # Expand macros.
   # "-Z", "unstable-options", "--pretty",  "expanded",
 

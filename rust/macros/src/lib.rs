@@ -20,7 +20,8 @@
 //! ```
 //! clear ; cargo rustc -- -Z unstable-options --pretty expanded | head -20
 //! ```
-#![recursion_limit="128"] //  Increase recursion limit to prevent quote!{} errors
+#![recursion_limit="128"]     //  Increase recursion limit to prevent quote!{} errors
+#![feature(proc_macro_span)]  //  Allow use of spans in Procedural Macros
 
 mod safe_wrap;   //  Include safe_wrap.rs
 mod infer_type;  //  Include infer_type.rs

@@ -18,8 +18,12 @@
  */
 //! Mynewt Macro that infers the types in a Rust function
 extern crate proc_macro;
-use proc_macro::TokenStream;
-//use proc_macro2::Span;
+use proc_macro::{
+    TokenStream,
+};
+use proc_macro2::{
+    Span,
+};
 use std::{
     collections::HashMap,
     error::Error,
@@ -31,11 +35,13 @@ use rustc_serialize::json;
 use quote::{
     quote, 
     //quote_spanned,
+    ToTokens,
 };
 use syn::{
     parse_macro_input,
     Block,
     Expr,
+    spanned::Spanned,
 };
 
 const MYNEWT_DECL_JSON: &str = r#"{
@@ -47,9 +53,6 @@ const MYNEWT_DECL_JSON: &str = r#"{
 
 /// Given a Rust function definition, infer the placeholder types in the function
 pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    //  Load the global declaration list
-    //  unsafe { SOURCE_DECL = load_decls() }
-
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
     //  Parse the macro input as Rust function definition.
     let input: syn::ItemFn = parse_macro_input!(item as syn::ItemFn);
@@ -283,9 +286,24 @@ fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
     }
 }
 
+/// Display the span. The following must be set in `.cargo/config`:
+/// ```yml
+/// [build]
+/// rustflags = [ "--cfg",  "procmacro2_semver_exempt" ]
+/// ```
+fn s(span: Span) {
+    /*
+    let file = span.source_file();
+    let start = span.start();
+    let end = span.end();
+    println!("span: {:#?} / {:#?} / {:#?}", file, start, end);
+    */
+}
+
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
 fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
     //  println!("expr: {:#?}", expr);
+    s(expr.span());
     match expr {
         //  `fname( ... )`
         Expr::Call(expr) => { infer_from_call(all_para, &expr); }
@@ -349,15 +367,16 @@ fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
     };
 }
 
+//  Init the globals lazily because Rust doesn't allow `::new()` to be called during init
 lazy_static::lazy_static! {
-    //  Mynewt function declarations
+    ///  Mynewt function declarations
     static ref MYNEWT_DECL: FuncTypeMap = json::decode(&MYNEWT_DECL_JSON.to_string()).unwrap();
     ///  Source function declarations loaded from JSON file
     static ref SOURCE_DECL: FuncTypeMap = load_decls();
     static ref EMPTY_PARA_TYPE_LIST: ParaTypeList = Vec::new();    
 }
 
-/// Return the Mynewt API function declaration for the function named `fname`
+/// Return the Mynewt API function declaration or previously-inferred parameter types for the function named `fname`
 fn get_decl(fname: &str) -> &ParaTypeList {
     if let Some(para_type_list) = MYNEWT_DECL.get(&fname.to_string()) { return &para_type_list }
     if let Some(para_type_list) = SOURCE_DECL.get(&fname.to_string()) { return &para_type_list }
@@ -373,13 +392,13 @@ fn load_decls() -> FuncTypeMap {
     // Open the path in read-only mode, returns `io::Result<File>`
     let mut file = match File::open(&path) {
         // The `description` method of `io::Error` returns a string that describes the error
-        Err(why) => return HashMap::new(),
+        Err(_why) => return HashMap::new(),
         Ok(file) => file
     };
     // Read the file contents into a string, returns `io::Result<usize>`
     let mut s = String::new();
     match file.read_to_string(&mut s) {
-        Err(why) => return HashMap::new(),
+        Err(_why) => return HashMap::new(),
         Ok(_) => {}
     };
     println!("load_decls: {}, {:#?}", display, s);
