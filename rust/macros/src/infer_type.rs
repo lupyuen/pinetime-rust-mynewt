@@ -78,7 +78,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 //  `para` is the name of the parameter e.g. `sensor`
                 let para = quote!{ #pat }.to_string();
                 println!("para: {:#?}", para);
-                all_para.insert(Box::new(para), Box::new("".to_string()));
+                all_para.insert(Box::new(para), Box::new("_".to_string()));
             }
             _ => { assert!(false, "Unknown input"); }
         }
@@ -102,21 +102,17 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 let pat = &arg_captured.pat;
                 let para = quote!{ #pat }.to_string();
                 let type_str = match all_para.get(&para) {
-                    Some(type_str) => {
-                        //let tokens = type_str.parse().unwrap();
-                        //arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
-                        type_str
-                    }
+                    //  Return the type if it exists.
+                    Some(type_str) => type_str,
                     //  If we can't infer the type, leave as `_` for now. Maybe another function will infer this type.
-                    //  None => "_"
-                    None => {
-                        let type_str = "u8";
-                        //let tokens = type_str.parse().unwrap();
-                        //arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
-                        type_str
-                    }
+                    None => "_"
                 };
-                //  Remember the parameter type globally e.g. [sensor, &Strn]
+                if type_str != "_" {
+                    //  If the type exists, remember it.
+                    let tokens = type_str.parse().unwrap();
+                    arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
+                }
+                //  Remember the parameter type globally e.g. `[sensor, &Strn]`
                 let para_type: ParaType = vec![Box::new(para), Box::new(type_str.to_string())];
                 all_para_types.push(para_type);                
             }
