@@ -82,6 +82,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 let para = quote!{ #pat }.to_string();
                 println!("para: {:#?}", para);
                 all_para.insert(Box::new(para), Box::new("_".to_string()));
+                s(pat.span());
             }
             _ => { assert!(false, "Unknown input"); }
         }
@@ -166,6 +167,7 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
 
     //  For each argument `arg` in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
     let args = &call.args;
+    s(args.span());
     for pos in 0 .. args.len() {
         //  Match the identifier `ident` in `arg` (e.g. `sensor`) with the corresponding Mynewt API 
         //  parameter type `decl_type` (e.g. `&Strn`).
@@ -182,6 +184,7 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
         all_para.insert(Box::new(arg_str.clone()), Box::new(decl_type.to_string()));
 
         println!("{} has inferred type {}", arg_str, decl_type);
+        s(arg.span());
         println!("#i {} | {} | {} | {} | {}", get_current_function(), arg_str, fname, decl_name, decl_type);
 
         /* `arg` looks like:
@@ -200,6 +203,7 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
                             arguments: None, ...
         */
     }
+    s(args.span());
     s(call.span());
 }
 
@@ -255,14 +259,21 @@ fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
         match stmt {
             //  `let x = ...`
             syn::Stmt::Local(local) => {
+                s(stmt.span());
                 if let Some((_eq, expr)) = &local.init {
                     infer_from_expr(all_para, &expr);
                 }
             }
             //  `fname( ... )`
-            syn::Stmt::Expr(expr) => { infer_from_expr(all_para, &expr); }
+            syn::Stmt::Expr(expr) => { 
+                s(stmt.span());
+                infer_from_expr(all_para, &expr); 
+            }
             //  `fname( ... );`
-            syn::Stmt::Semi(expr, _semi) => { infer_from_expr(all_para, &expr); }
+            syn::Stmt::Semi(expr, _semi) => { 
+                s(stmt.span());
+                infer_from_expr(all_para, &expr); 
+            }
             //  Not interested in item definitions: `fn fname( ... ) { ... }`
             syn::Stmt::Item(_item) => {}
         };
