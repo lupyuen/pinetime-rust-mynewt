@@ -291,13 +291,17 @@ fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
 /// [build]
 /// rustflags = [ "--cfg",  "procmacro2_semver_exempt" ]
 /// ```
+#[cfg(procmacro2_semver_exempt)]
 fn s(span: Span) {
-    /*
     let file = span.source_file();
     let start = span.start();
     let end = span.end();
     println!("span: {:#?} / {:#?} / {:#?}", file, start, end);
-    */
+}
+
+/// If spans not enabled, do nothing
+#[cfg(not(procmacro2_semver_exempt))]
+fn s(span: Span) {
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
