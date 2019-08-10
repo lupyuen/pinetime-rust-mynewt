@@ -35,7 +35,7 @@ use rustc_serialize::json;
 use quote::{
     quote, 
     //quote_spanned,
-    ToTokens,
+    //ToTokens,
 };
 use syn::{
     parse_macro_input,
@@ -45,10 +45,10 @@ use syn::{
 };
 
 const MYNEWT_DECL_JSON: &str = r#"{
-    "sensor::set_poll_rate_ms"          : [ ["_", "&Strn"], ["_", "u32"] ],
-    "sensor::mgr_find_next_bydevname"   : [ ["_", "&Strn"], ["_", "*mut sensor"] ],
-    "sensor::register_listener"         : [ ["_", "*mut sensor"], ["_", "sensor_listener"] ],
-    "new_sensor_listener"               : [ ["_", "sensor_type_t"], ["_", "sensor_data_func"] ]
+    "sensor::set_poll_rate_ms"          : [ ["devname", "&Strn"],       ["poll_rate", "u32"] ],
+    "sensor::mgr_find_next_bydevname"   : [ ["devname", "&Strn"],       ["prev_cursor", "*mut sensor"] ],
+    "sensor::register_listener"         : [ ["sensor", "*mut sensor"],  ["listener", "sensor_listener"] ],
+    "new_sensor_listener"               : [ ["sl_sensor_type", "sensor_type_t"],     ["sl_func", "sensor_data_func"] ]
 }"#;
 
 /// Given a Rust function definition, infer the placeholder types in the function
