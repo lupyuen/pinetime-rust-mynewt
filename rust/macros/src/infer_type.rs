@@ -162,6 +162,7 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
     //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
     let decl_list = get_decl(&fname);
     if decl_list.len() == 0 { return };  //  Function declaration not found.
+    m(&fname, call.span());
 
     //  For each argument `arg` in function call `ExprCall.args` e.g. `sensor`, `poll_time`, ...
     let args = &call.args;
@@ -217,6 +218,8 @@ fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
     //  println!("tts: {:#?}",  quote!{ #tts }.to_string());
     //  If macro is not `coap`, quit.
     if path_str != "coap" { return }
+    m(&path_str, macro_expr.span());
+
     //  We will parse `tts_str` the simplistic way, by spltting strings. Look for singleton fields like `sensor_data`.
     let tts_split: Vec<&str> = tts_str.splitn(2, "{").collect();
     if tts_split.len() < 2 { return }
@@ -235,7 +238,7 @@ fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
         //  Field must be a singleton like `sensor_data`. Infer as type `&SensorValue`.
         let decl_type = "&SensorValue";
         println!("{} has inferred type {}", field, decl_type);
-        println!("#i {} | {} | {} | {} | {}", get_current_function(), field, "coap", "singleton", decl_type);
+        println!("#i {} | {} | {} | {} | {}", get_current_function(), field, path_str, "singleton", decl_type);
         all_para.insert(Box::new(field.to_string()), Box::new(decl_type.to_string()));
     }
     s(macro_expr.span());
@@ -436,8 +439,20 @@ fn s(span: Span) {
 
 /// If spans not enabled, do nothing
 #[cfg(not(procmacro2_semver_exempt))]
-fn s(span: Span) {
+fn s(_span: Span) {}
+
+/// Display the function being matched and the span
+#[cfg(procmacro2_semver_exempt)]
+fn m(fname: &str, span: Span) {
+    let file = span.source_file();
+    let start = span.start();
+    let end = span.end();
+    println!("#m {} | {} | {} | {} | {} | {}", fname, file.path().to_str().unwrap(), start.line, start.column, end.line, end.column);
 }
+
+/// If spans not enabled, do nothing
+#[cfg(not(procmacro2_semver_exempt))]
+fn m(_fname: &str, _span: Span) {}
 
 /// Return the name of current function being processed.
 fn get_current_function() -> Box<String> {
