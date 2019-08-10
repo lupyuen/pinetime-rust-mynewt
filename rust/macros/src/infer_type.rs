@@ -65,6 +65,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 
     //  `fname` is function name e.g. `start_sensor_listener`
     let fname = input.ident.to_string();
+    unsafe { CURRENT_FUNC = Some(Box::new(fname.clone())); }
     println!("fname: {:#?}", fname);
 
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
@@ -146,6 +147,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
 fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
     //  println!("call: {:#?}", call);
+    s(call.span());
     //  For each function call `ExprCall`...    
     //  If this function call `ExprCall.func` is for a Mynewt API...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
@@ -169,14 +171,17 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
         //  TODO: If argument `arg` is not in our list of parameters `all_para`, skip.
         let arg = &args[pos];
         let arg_str = quote!{ #arg }.to_string().replace(" ", "");
+        let decl_name = &decl_list[pos][0];
         let decl_type = &decl_list[pos][1];
         //  println!("arg: {:#?}", arg);
 
         //  Remember the inferred type of the identifier...
         //  `sensor` has inferred type `&Strn`
         //  `poll_time` has inferred type `u32`
+        all_para.insert(Box::new(arg_str.clone()), Box::new(decl_type.to_string()));
+
         println!("{} has inferred type {}", arg_str, decl_type);
-        all_para.insert(Box::new(arg_str), Box::new(decl_type.to_string()));
+        println!("#i {} | {} | {} | {} | {}", get_current_function(), arg_str, fname, decl_name, decl_type);
 
         /* `arg` looks like:
             Path(
@@ -194,11 +199,13 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
                             arguments: None, ...
         */
     }
+    s(call.span());
 }
 
 ///  For macro call `coap!( ..., sensor_data )`, infer `sensor_data` as `&SensorValue`
 fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
     //  println!("macro: {:#?}", macro_expr);
+    s(macro_expr.span());
     let mac = &macro_expr.mac;
     let path = &mac.path;
     let path_str = quote!{ #path }.to_string();
@@ -228,12 +235,15 @@ fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
         //  Field must be a singleton like `sensor_data`. Infer as type `&SensorValue`.
         let decl_type = "&SensorValue";
         println!("{} has inferred type {}", field, decl_type);
+        println!("#i {} | {} | {} | {} | {}", get_current_function(), field, "coap", "singleton", decl_type);
         all_para.insert(Box::new(field.to_string()), Box::new(decl_type.to_string()));
     }
+    s(macro_expr.span());
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the code block `block`
 fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
+    s(block.span());
     //  For each statement in the block...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ?`
     for stmt in &block.stmts {
@@ -284,24 +294,7 @@ fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
                                                         arguments: None, ...
         */        
     }
-}
-
-/// Display the span. The following must be set in `.cargo/config`:
-/// ```yml
-/// [build]
-/// rustflags = [ "--cfg",  "procmacro2_semver_exempt" ]
-/// ```
-#[cfg(procmacro2_semver_exempt)]
-fn s(span: Span) {
-    let file = span.source_file();
-    let start = span.start();
-    let end = span.end();
-    println!("span: {:#?} / {:#?} / {:#?}", file, start, end);
-}
-
-/// If spans not enabled, do nothing
-#[cfg(not(procmacro2_semver_exempt))]
-fn s(span: Span) {
+    s(block.span());
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
@@ -369,6 +362,7 @@ fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
         //  Not interested: InPlace, Field, Index, Range, Path, Reference, Break, Continue, Return, Struct, Repeat, Async, TryBlock, Yield, Verbatim
         _ => {}
     };
+    s(expr.span());
 }
 
 //  Init the globals lazily because Rust doesn't allow `::new()` to be called during init
@@ -426,6 +420,34 @@ fn save_decls(all_funcs: &FuncTypeMap) {
         Ok(_) => println!("successfully wrote to {}", display),
     };
 }
+
+/// Display the span. The following must be set in `.cargo/config`:
+/// ```yml
+/// [build]
+/// rustflags = [ "--cfg",  "procmacro2_semver_exempt" ]
+/// ```
+#[cfg(procmacro2_semver_exempt)]
+fn s(span: Span) {
+    let file = span.source_file();
+    let start = span.start();
+    let end = span.end();
+    println!("#s {} | {} | {} | {} | {}", file.path().to_str().unwrap(), start.line, start.column, end.line, end.column);
+}
+
+/// If spans not enabled, do nothing
+#[cfg(not(procmacro2_semver_exempt))]
+fn s(span: Span) {
+}
+
+/// Return the name of current function being processed.
+fn get_current_function() -> Box<String> {
+    let s = unsafe { format!("{:?}", CURRENT_FUNC) };
+    let s2: Vec<&str> = s.splitn(3, "\"").collect();
+    return Box::new(s2[1].to_string());
+}
+
+/// Name of current function being processed
+static mut CURRENT_FUNC: Option<Box<String>> = None;
 
 /// Represents a map of parameter names indexed to the parameter type.
 type ParaMap = HashMap<Box<String>, Box<String>>;
