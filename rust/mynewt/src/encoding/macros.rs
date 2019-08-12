@@ -142,20 +142,59 @@ macro_rules! parse {
     $crate::parse!();
   };
 
-  // Missing colon and value for last entry. Trigger a reasonable error
-  // message.
-  (@$enc:ident @object $object:ident ($($key:tt)+) () $copy:tt) => {
-    // "unexpected end of macro invocation"
-    $crate::parse!();
+  /////////////////////////////////////////////////////////////////////////////
+  // Last entry is a key without colon and value. Assume this is a SensorValue type with key and value.  
+  // e.g. `{ ..., sensor_value }`
+
+  // No Encoding
+  (@none @object $object:ident ($($key:tt)+) () $copy:tt) => {
+    d!(TODO: extract key, value from _sensor_value: $($key)+ and add to _object: $object);
+    "--------------------";
   };
 
+  // JSON Encoding: Encode as `{key:..., value:...}`. 
+  (@json @object $object:ident ($($key:tt)+) () $copy:tt) => {
+    "--------------------";
+    $crate::coap_item_int_val!(@json
+      $object,  //  _object, 
+      $($key)+  //  _sensor_value
+    );
+    "--------------------";
+  };
+
+  // CBOR Encoding: Encode as `{key:..., value:...}`. 
+  (@cbor @object $object:ident ($($key:tt)+) () $copy:tt) => {
+    "--------------------";
+    $crate::coap_item_int_val!(@cbor
+      $object,  //  _object, 
+      $($key)+  //  _sensor_value
+    );
+    "--------------------";
+  };
+
+  // CBOR Minimal Encoding: Encode as `{key: value}`. 
+  (@cbormin @object $object:ident ($($key:tt)+) () $copy:tt) => {
+    "--------------------";
+    $crate::coap_set_int_val!(@cbor
+      $object,  //  _object, 
+      $($key)+  //  _sensor_value
+    );
+    "--------------------";
+  };
+  
+  /////////////////////////////////////////////////////////////////////////////
   // Misplaced colon. Trigger a reasonable error message.
+
   (@$enc:ident @object $object:ident () (: $($rest:tt)*) ($colon:tt $($copy:tt)*)) => {
     // Takes no arguments so "no rules expected the token `:`".
     $crate::unexpected_token!($colon);
   };
 
-  // No Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.
+  /////////////////////////////////////////////////////////////////////////////
+  // Found a key followed by a comma. Assume this is a SensorValue type with key and value.  
+  // e.g. `{ ..., sensor_value, ... }`
+
+  // No Encoding
   (@none @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     d!(TODO: extract key, value from _sensor_value: $($key)* and add to _object: $object);
     "--------------------";
@@ -163,7 +202,7 @@ macro_rules! parse {
     $crate::parse!(@none @object $object () ($($rest)*) ($($rest)*));
   };
 
-  // JSON Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.  Encode as `{key:..., value:...}`. 
+  // JSON Encoding: Encode as `{key:..., value:...}`. 
   (@json @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
     $crate::coap_item_int_val!(@json
@@ -175,7 +214,7 @@ macro_rules! parse {
     $crate::parse!(@json @object $object () ($($rest)*) ($($rest)*));
   };
 
-  // CBOR Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.  Encode as `{key:..., value:...}`. 
+  // CBOR Encoding: Encode as `{key:..., value:...}`. 
   (@cbor @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
     $crate::coap_item_int_val!(@cbor
@@ -187,7 +226,7 @@ macro_rules! parse {
     $crate::parse!(@cbor @object $object () ($($rest)*) ($($rest)*));
   };
 
-  // CBOR Minimal Encoding: Found a key followed by a comma. Assume this is a SensorValue type with key and value.  Encode as `{key: value}`. 
+  // CBOR Minimal Encoding: Encode as `{key: value}`. 
   (@cbormin @object $object:ident ($($key:tt)*) (, $($rest:tt)*) ($comma:tt $($copy:tt)*)) => {
     "--------------------";
     $crate::coap_set_int_val!(@cbor
@@ -203,14 +242,18 @@ macro_rules! parse {
   // Takes no arguments so "no rules expected the token `,`".
   ////unexpected_token!($comma);
 
+  /////////////////////////////////////////////////////////////////////////////
   // Key is fully parenthesized. This avoids clippy double_parens false
   // positives because the parenthesization may be necessary here.
+
   (@$enc:ident @object $object:ident () (($key:expr) : $($rest:tt)*) $copy:tt) => {
     d!( got () );
     $crate::parse!(@$enc @object $object ($key) (: $($rest)*) (: $($rest)*));
   };
 
+  /////////////////////////////////////////////////////////////////////////////
   // Munch a token into the current key.
+
   (@$enc:ident @object $object:ident ($($key:tt)*) ($tt:tt $($rest:tt)*) $copy:tt) => {    
     $crate::nx!( ($($key)*), ($tt), ($($rest)*) );
     //  Parse the next token while we are in the @object state.

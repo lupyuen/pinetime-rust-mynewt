@@ -74,7 +74,7 @@ fn send_sensor_data(sensor_data: _) -> MynewtResult<()> {
   let network_ready = sensor_network::init_server_post(DEFAULT_URI) ? ;
   if network_ready {
     let payload = coap!( @json {
-      device: device_id,
+      "device": device_id,
       sensor_data
     });
     sensor_network::do_server_post() ? ;
