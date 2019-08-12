@@ -127,8 +127,8 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
             _ => { assert!(false, "Unknown input"); }
         }
     }
-    //  Add this function to the global declaration list.
-    let mut new_func_map: FuncTypeMap = SOURCE_DECL.clone(); 
+    //  Add this function to the global declaration list. Must reload because another process may have updated the file.
+    let mut new_func_map = load_decls();
     new_func_map.insert(Box::new(fname), all_para_types);
     save_decls(&new_func_map);
 

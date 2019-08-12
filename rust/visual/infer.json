@@ -1,1 +1,28 @@
-{"send_sensor_data":[["sensor_data","&SensorValue"]]}
+{
+    "send_sensor_data": [
+        [
+            "sensor_data",
+            "&SensorValue"
+        ]
+    ],
+    "start_sensor_listener": [
+        [
+            "sensor",
+            "&Strn"
+        ],
+        [
+            "sensor_type",
+            "_"
+        ],
+        [
+            "poll_time",
+            "u32"
+        ]
+    ],
+    "handle_sensor_data": [
+        [
+            "sensor_data",
+            "&SensorValue"
+        ]
+    ]
+}
