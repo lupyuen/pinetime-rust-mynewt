@@ -440,7 +440,7 @@ fn save_decls(all_funcs: &FuncTypeMap) {
     };
     match file.write_all(encoded.as_bytes()) {
         Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-        Ok(_) => println!("{} updated", display),
+        Ok(_) => println!("{}: updated {}", get_current_function(), display),
     };
 }
 
