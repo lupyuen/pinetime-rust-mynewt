@@ -70,7 +70,7 @@ fn handle_sensor_data(sensor_data: _) -> MynewtResult<()> {
 /// and Sensor Value in `sensor_data` and send to the CoAP server.
 #[mynewt_macros::infer_type(attr)]  //  Infer the missing types
 fn send_sensor_data(sensor_data: _) -> MynewtResult<()> {
-  let device_id = sensor_network::get_device_id() ? ;
+  let device_id = &sensor_network::get_device_id() ? ;
   let network_ready = sensor_network::init_server_post(DEFAULT_URI) ? ;
   if network_ready {
     let payload = coap!( @json {
