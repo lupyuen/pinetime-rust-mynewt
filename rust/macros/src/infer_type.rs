@@ -44,12 +44,16 @@ use syn::{
     spanned::Spanned,
 };
 
+/// Mynewt API Declarations
 const MYNEWT_DECL_JSON: &str = r#"{
     "sensor::set_poll_rate_ms"          : [ ["devname", "&Strn"],       ["poll_rate", "u32"] ],
     "sensor::mgr_find_next_bydevname"   : [ ["devname", "&Strn"],       ["prev_cursor", "*mut sensor"] ],
     "sensor::register_listener"         : [ ["sensor", "*mut sensor"],  ["listener", "sensor_listener"] ],
     "new_sensor_listener"               : [ ["sl_sensor_type", "sensor_type_t"],     ["sl_func", "sensor_data_func"] ]
 }"#;
+
+/// File for storing type inference across builds
+const INFER_FILE: &str = "infer.json";
 
 /// Given a Rust function definition, infer the placeholder types in the function
 pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
@@ -398,7 +402,7 @@ fn get_decl(fname: &str) -> &ParaTypeList {
 /// Load the function declarations from a JSON file.
 fn load_decls() -> FuncTypeMap {
     // Create a path to the desired file
-    let path = Path::new("test.json");
+    let path = Path::new(INFER_FILE);
     let display = path.display();
 
     // Open the path in read-only mode, returns `io::Result<File>`
@@ -421,7 +425,7 @@ fn load_decls() -> FuncTypeMap {
 /// Save the function declarations to a JSON file.
 fn save_decls(all_funcs: &FuncTypeMap) {
     let encoded = json::encode(&all_funcs).unwrap();
-    let path = Path::new("test.json");
+    let path = Path::new(INFER_FILE);
     let display = path.display();
     println!("save_decls: {}, {:#?}", display, encoded);
     // Open a file in write-only mode, returns `io::Result<File>`
