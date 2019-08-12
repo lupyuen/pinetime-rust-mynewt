@@ -24,8 +24,8 @@ rust_app_dest=$rust_app_dir/libs_rust_app.a
 rust_libcore_dir=$PWD/bin/targets/bluepill_my_sensor/app/libs/rust_libcore
 rust_libcore_dest=$rust_libcore_dir/libs_rust_libcore.a
 
-#  Rust build options: Allow use of `span` in Procedural Macros
-rust_build_options= # --cfg procmacro2_semver_exempt
+#  Rust build options
+rust_build_options=
 if [ "$rust_build_profile" == 'release' ]; then
     # Build for release
     rust_build_options=--release $rust_build_options
@@ -59,8 +59,8 @@ done
 #  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
 rustup default nightly
 set +e  # Ignore errors
-pushd rust/mynewt ; cargo rustc -v --cfg procmacro2_semver_exempt $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
-pushd rust/app    ; cargo rustc -v --cfg procmacro2_semver_exempt $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
+pushd rust/mynewt ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
+pushd rust/app    ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
 set -e  # Stop on errors
 
 #  Build the Rust app in "src" folder.

@@ -76,6 +76,15 @@ pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Myne
     Ok(())
 }
 
+///  Return a new `sensor_listener` with the sensor type and listener function.
+pub fn new_sensor_listener(sensor_type: sensor_type_t, func: sensor_data_func) -> MynewtResult<sensor_listener> {
+    Ok(sensor_listener {
+        sl_sensor_type: sensor_type,
+        sl_func:        as_untyped(func),
+        ..fill_zero!(sensor_listener)
+    })
+}
+
 ///  Define the listener function to be called after polling the sensor.
 ///  This is a static mutable copy of the listener passed in through `register_listener`.
 ///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
