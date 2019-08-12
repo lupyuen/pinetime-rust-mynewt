@@ -122,7 +122,8 @@ fn panic(info: &PanicInfo) -> ! {
     loop {}
 }
 
-const DEFAULT_URI: Strn = init_strn!("");
+/// Use default COAP_URI from syscfg.yml
+const DEFAULT_URI: &Strn = &init_strn!("");
 
 //  Globals: sensor, sensor_type, poll_time, sensor_data, eventq, millisec, previous, sensor_object, listener, uri, func, SENSOR_DEVICE, device_id, SENSOR_POLL_TIME, network_ready, TEMP_SENSOR_KEY, TEMP_SENSOR_TYPE, DEFAULT_URI, payload, SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 

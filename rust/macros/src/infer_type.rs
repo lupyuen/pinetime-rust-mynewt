@@ -70,7 +70,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     //  `fname` is function name e.g. `start_sensor_listener`
     let fname = input.ident.to_string();
     unsafe { CURRENT_FUNC = Some(Box::new(fname.clone())); }
-    println!("fname: {:#?}", fname);
+    //  println!("fname: {:#?}", fname);
 
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     let mut all_para: ParaMap = HashMap::new();
@@ -84,7 +84,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 //  println!("pat: {:#?}", pat);
                 //  `para` is the name of the parameter e.g. `sensor`
                 let para = quote!{ #pat }.to_string();
-                println!("para: {:#?}", para);
+                //  println!("para: {:#?}", para);
                 all_para.insert(Box::new(para), Box::new("_".to_string()));
                 s(pat.span());
             }
@@ -157,11 +157,11 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
     //  If this function call `ExprCall.func` is for a Mynewt API...
     //  e.g. `sensor::set_poll_rate_ms(sensor, poll_time) ? ;`
     let func = &call.func;
-    // println!("func: {:#?}", quote!{ #func }.to_string());
+    //  println!("func: {:#?}", quote!{ #func }.to_string());
 
     //  `fname` looks like `sensor::set_poll_rate_ms`
     let fname = quote!{ #func }.to_string().replace(" ", "");
-    println!("fname: {:#?}", fname);
+    //  println!("fname: {:#?}", fname);
 
     //  Fetch the Mynewt API function declaration
     //  e.g. `fn sensor::set_poll_rate_ms(&Strn, u32)`
@@ -178,7 +178,6 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
         //  TODO: If argument `arg` is not in our list of parameters `all_para`, skip.
         let arg = &args[pos];
         let arg_str = quote!{ #arg }.to_string().replace(" ", "");
-        let decl_name = &decl_list[pos][0];
         let decl_type = &decl_list[pos][1];
         //  println!("arg: {:#?}", arg);
 
@@ -187,9 +186,14 @@ fn infer_from_call(all_para: &mut ParaMap, call: &syn::ExprCall) {
         //  `poll_time` has inferred type `u32`
         all_para.insert(Box::new(arg_str.clone()), Box::new(decl_type.to_string()));
 
-        println!("{} has inferred type {}", arg_str, decl_type);
+        println!("{}: {} has inferred type {}", get_current_function(), arg_str, decl_type);
         s(arg.span());
-        println!("#i {} | {} | {} | {} | {}", get_current_function(), arg_str, fname, decl_name, decl_type);
+
+        #[cfg(procmacro2_semver_exempt)]  //  For replay log
+        {
+            let decl_name = &decl_list[pos][0];
+            println!("#i {} | {} | {} | {} | {}", get_current_function(), arg_str, fname, decl_name, decl_type);
+        }
 
         /* `arg` looks like:
             Path(
@@ -245,7 +249,8 @@ fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
         if field.contains(":") { continue }  //  Skip `key:val` fields
         //  Field must be a singleton like `sensor_data`. Infer as type `&SensorValue`.
         let decl_type = "&SensorValue";
-        println!("{} has inferred type {}", field, decl_type);
+        println!("{}: {} has inferred type {}", get_current_function(), field, decl_type);
+        #[cfg(procmacro2_semver_exempt)]  //  For replay log
         println!("#i {} | {} | {} | {} | {}", get_current_function(), field, path_str, "singleton", decl_type);
         all_para.insert(Box::new(field.to_string()), Box::new(decl_type.to_string()));
     }
@@ -403,7 +408,7 @@ fn get_decl(fname: &str) -> &ParaTypeList {
 fn load_decls() -> FuncTypeMap {
     // Create a path to the desired file
     let path = Path::new(INFER_FILE);
-    let display = path.display();
+    let _display = path.display();
 
     // Open the path in read-only mode, returns `io::Result<File>`
     let mut file = match File::open(&path) {
@@ -417,7 +422,7 @@ fn load_decls() -> FuncTypeMap {
         Err(_why) => return HashMap::new(),
         Ok(_) => {}
     };
-    println!("load_decls: {}, {:#?}", display, s);
+    // println!("load_decls: {}, {:#?}", display, s);
     let all_funcs: FuncTypeMap = json::decode(&s).unwrap();
     return all_funcs;
 }
@@ -427,7 +432,7 @@ fn save_decls(all_funcs: &FuncTypeMap) {
     let encoded = json::encode(&all_funcs).unwrap();
     let path = Path::new(INFER_FILE);
     let display = path.display();
-    println!("save_decls: {}, {:#?}", display, encoded);
+    // println!("save_decls: {}, {:#?}", display, encoded);
     // Open a file in write-only mode, returns `io::Result<File>`
     let mut file = match File::create(&path) {
         Err(why) => panic!("couldn't create {}: {}", display, why.description()),
@@ -435,7 +440,7 @@ fn save_decls(all_funcs: &FuncTypeMap) {
     };
     match file.write_all(encoded.as_bytes()) {
         Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-        Ok(_) => println!("successfully wrote to {}", display),
+        Ok(_) => println!("{} updated", display),
     };
 }
 
@@ -444,7 +449,7 @@ fn save_decls(all_funcs: &FuncTypeMap) {
 /// [build]
 /// rustflags = [ "--cfg",  "procmacro2_semver_exempt" ]
 /// ```
-#[cfg(procmacro2_semver_exempt)]
+#[cfg(procmacro2_semver_exempt)]  //  For replay log
 fn s(span: Span) {
     let file = span.source_file();
     let start = span.start();
@@ -457,7 +462,7 @@ fn s(span: Span) {
 fn s(_span: Span) {}
 
 /// Display the function being matched and the span
-#[cfg(procmacro2_semver_exempt)]
+#[cfg(procmacro2_semver_exempt)]  //  For replay log
 fn m(fname: &str, span: Span) {
     let file = span.source_file();
     let start = span.start();
