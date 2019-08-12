@@ -11,6 +11,7 @@ extern crate mynewt;                    //  Declare the Mynewt library
 extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros library
 
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
+use core::ptr::null_mut;
 use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
 use mynewt::{
     result::*,              //  Import Mynewt API Result and Error types
@@ -23,9 +24,10 @@ use mynewt::{
         sensor_arg, sensor_data_ptr, sensor_listener,
         sensor_temp_raw_data, sensor_type_t,
         SensorValue, SensorValueType,
+        SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,
     },
-    libs::sensor_network,   //  Import Mynewt Sensor Network Library
-    fill_zero, Strn,        //  Import Mynewt macros
+    libs::sensor_network,      //  Import Mynewt Sensor Network Library
+    Strn, fill_zero, coap, d,  //  Import Mynewt macros
 };
 use mynewt_macros::{ init_strn, strn };  //  Import Mynewt procedural macros
 
@@ -90,10 +92,6 @@ extern "C" fn main() -> ! {  //  Declare `extern "C"` because it will be called 
     on_start()
         .expect("on_start fail");
 
-    //  Start the `forever` task.
-    start_task()
-        .expect("forever fail");
-
     //  Mynewt event loop
     loop {                         //  Loop forever...
         os::eventq_run(            //  Process events...
@@ -123,6 +121,8 @@ fn panic(info: &PanicInfo) -> ! {
     //  Loop forever so that device won't restart.
     loop {}
 }
+
+const DEFAULT_URI: Strn = init_strn!("");
 
 //  Globals: sensor, sensor_type, poll_time, sensor_data, eventq, millisec, previous, sensor_object, listener, uri, func, SENSOR_DEVICE, device_id, SENSOR_POLL_TIME, network_ready, TEMP_SENSOR_KEY, TEMP_SENSOR_TYPE, DEFAULT_URI, payload, SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
