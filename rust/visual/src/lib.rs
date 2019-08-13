@@ -20,24 +20,22 @@ use mynewt::{
     encoding::coap_context::*,  //  Import Mynewt Encoding API
     hw::sensor::{
         self,               //  Import Mynewt Sensor API functions
-        sensor_ptr,         //  Import Mynewt Sensor API types
-        sensor_arg, sensor_data_ptr, sensor_listener,
-        sensor_temp_raw_data, sensor_type_t,
+        sensor_type_t,      //  Import Mynewt Sensor API types
         SensorValue, SensorValueType,
         SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,
     },
-    libs::sensor_network,      //  Import Mynewt Sensor Network Library
-    Strn, fill_zero, coap, d,  //  Import Mynewt macros
+    libs::sensor_network,   //  Import Mynewt Sensor Network Library
+    Strn, coap, d,          //  Import Mynewt macros
 };
 use mynewt_macros::{ init_strn, strn };  //  Import Mynewt procedural macros
 
 /// Will be run upon startup to initialise the app
 fn on_start() -> MynewtResult<()> {
-    let SENSOR_DEVICE = strn!( "temp_stm32_0" );
+    let SENSOR_DEVICE = &init_strn!( "temp_stm32_0" );
     let SENSOR_POLL_TIME = 10000;
-    let TEMP_SENSOR_KEY = strn!( "t" );
+    let TEMP_SENSOR_KEY = &init_strn!( "t" );
     let TEMP_SENSOR_TYPE = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
-    start_sensor_listener(SENSOR_DEVICE, TEMP_SENSOR_TYPE, SENSOR_POLL_TIME) ? ;
+    start_sensor_listener(SENSOR_DEVICE, TEMP_SENSOR_KEY, TEMP_SENSOR_TYPE, SENSOR_POLL_TIME) ? ;
     sensor_network::start_server_transport() ? ;
 
     //  Return success to `main()`.
@@ -47,11 +45,11 @@ fn on_start() -> MynewtResult<()> {
 /// Ask Mynewt to poll the temperature sensor every
 /// 10 seconds and call `handle_sensor_data()`.
 #[mynewt_macros::infer_type(attr)]  //  Infer the missing types
-fn start_sensor_listener(sensor: _, sensor_type: _, poll_time: _) -> MynewtResult<()> {
+fn start_sensor_listener(sensor: _, sensor_key: _, sensor_type: _, poll_time: _) -> MynewtResult<()> {
   sensor::set_poll_rate_ms(sensor, poll_time) ? ;
   let sensor_object = sensor::mgr_find_next_bydevname(sensor, null_mut()) ? ;
   if sensor_object != null_mut() {
-    let listener = sensor::new_sensor_listener(sensor_type, handle_sensor_data) ? ;
+    let listener = sensor::new_sensor_listener(sensor_key, sensor_type, handle_sensor_data) ? ;
     sensor::register_listener(sensor_object, listener) ? ;
   }
   Ok(())
@@ -73,7 +71,7 @@ fn send_sensor_data(sensor_data: _) -> MynewtResult<()> {
   let device_id = &sensor_network::get_device_id() ? ;
   let network_ready = sensor_network::init_server_post(DEFAULT_URI) ? ;
   if network_ready {
-    let payload = coap!( @json {
+    let _payload = coap!( @json {
       "device": device_id,
       sensor_data
     });
