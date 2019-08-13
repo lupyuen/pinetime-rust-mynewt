@@ -113,7 +113,7 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("no sensor",
-                                           "rust/app/src/app_sensor.rs",
+                                           "rust\\app\\src\\app_sensor.rs",
                                            56u32, 5u32))
             }
         };
@@ -141,7 +141,7 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("null sensor",
-                                           "rust/app/src/app_sensor.rs",
+                                           "rust\\app\\src\\app_sensor.rs",
                                            80u32, 5u32))
             }
         };
@@ -150,7 +150,7 @@ mod app_sensor {
             if !false {
                 {
                     ::core::panicking::panic(&("bad type",
-                                               "rust/app/src/app_sensor.rs",
+                                               "rust\\app\\src\\app_sensor.rs",
                                                84u32, 55u32))
                 }
             };
@@ -214,7 +214,7 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust/app/src/app_sensor.rs",
+                                                                                 &("rust\\app\\src\\app_sensor.rs",
                                                                                    117u32,
                                                                                    17u32))
                                                 }
@@ -252,7 +252,7 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust/app/src/app_sensor.rs",
+                                                                                 &("rust\\app\\src\\app_sensor.rs",
                                                                                    119u32,
                                                                                    17u32))
                                                 }
