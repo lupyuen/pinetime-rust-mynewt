@@ -138,10 +138,13 @@ impl Strn {
         }
     }
 
-    /// Return the length of the string. TODO: For safety, we limit to 128.
+    /// Return the length of the string, excluding the terminating null. For safety, we limit to 128.
     pub fn len(&self) -> usize {
         match self.rep {
-            StrnRep::ByteStr(bs) => { bs.len() }
+            StrnRep::ByteStr(bs) => { 
+                assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
+                bs.len() - 1  //  Don't count the terminating null.
+            }
             StrnRep::CStr(cstr)  => { 
                 //  Look for the null termination.
                 if cstr.is_null() { return 0; }
