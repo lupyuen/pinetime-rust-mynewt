@@ -46,10 +46,10 @@ use syn::{
 
 /// Mynewt API Declarations
 const MYNEWT_DECL_JSON: &str = r#"{
-    "sensor::set_poll_rate_ms"          : [ ["devname", "&Strn"],       ["poll_rate", "u32"] ],
-    "sensor::mgr_find_next_bydevname"   : [ ["devname", "&Strn"],       ["prev_cursor", "*mut sensor"] ],
-    "sensor::register_listener"         : [ ["sensor", "*mut sensor"],  ["listener", "sensor_listener"] ],
-    "sensor::new_sensor_listener"               : [ ["sl_sensor_type", "sensor_type_t"],     ["sl_func", "sensor_data_func"] ]
+    "sensor::set_poll_rate_ms"          : [ ["devname", "&Strn"],            ["poll_rate",   "u32"]             ],
+    "sensor::mgr_find_next_bydevname"   : [ ["devname", "&Strn"],            ["prev_cursor", "*mut sensor"]     ],
+    "sensor::register_listener"         : [ ["sensor",  "*mut sensor"],      ["listener",    "sensor_listener"] ],
+    "sensor::new_sensor_listener"       : [ ["sensor_key", "&'static Strn"], ["sensor_type", "sensor_type_t"],  ["listener_func", "SensorValueFunc"] ]
 }"#;
 
 /// File for storing type inference across builds

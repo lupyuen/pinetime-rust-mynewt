@@ -2,6 +2,10 @@
 //! Auto-generated Rust bindings are in the `bindings` module.
 
 use ::cty::c_void;
+use mynewt_macros::{
+    init_strn,
+};
+use crate as mynewt;
 use crate::{
     result::*,
     kernel::os::*,
@@ -76,13 +80,108 @@ pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Myne
     Ok(())
 }
 
-///  Return a new `sensor_listener` with the sensor type and listener function.
-pub fn new_sensor_listener(sensor_type: sensor_type_t, func: sensor_data_func) -> MynewtResult<sensor_listener> {
-    Ok(sensor_listener {
+///  Wrapped version of `sensor_data_func` used by Visual Embedded Rust
+pub type SensorValueFunc = fn(sensor_value: &SensorValue) -> MynewtResult<()>;
+
+///  Return a new `sensor_listener` with the sensor type and sensor value function. Called by Visual Embedded Rust.
+pub fn new_sensor_listener(
+    sensor_key:     &'static Strn,
+    sensor_type:    sensor_type_t, 
+    listener_func:  SensorValueFunc
+) -> MynewtResult<sensor_listener> {
+    assert!(!sensor_key.is_empty(), "missing sensor key");
+    //  Allocate a `sensor_listener_info`
+    let mut arg = MAX_SENSOR_LISTENERS + 1;
+    for i in 0 .. MAX_SENSOR_LISTENERS {
+        let info = unsafe { SENSOR_LISTENERS[i] };
+        if info.sensor_key.is_empty() {
+            arg = i;
+            break;
+        }
+    }
+    assert!(arg < MAX_SENSOR_LISTENERS, "increase MAX_SENSOR_LISTENERS");
+    unsafe { SENSOR_LISTENERS[arg] = sensor_listener_info {
+        sensor_key,
+        sensor_type,
+        listener_func,
+    } };
+    let listener = sensor_listener {
         sl_sensor_type: sensor_type,
-        sl_func:        as_untyped(func),
+        sl_func:        Some(wrap_sensor_listener),
+        sl_arg:         arg as *mut c_void,
         ..fill_zero!(sensor_listener)
-    })
+    };
+    Ok(listener)
+}
+
+///  Wrap the sensor value function into a sensor data function
+extern "C" fn wrap_sensor_listener(
+    sensor:        sensor_ptr,
+    arg:           sensor_arg,
+    sensor_data:   sensor_data_ptr,
+    sensor_type:   sensor_type_t
+) -> i32 {
+    //  Use `arg` to fetch the `sensor_listener_info`
+    let arg = arg as usize;
+    assert!(arg < MAX_SENSOR_LISTENERS, "bad sensor arg");
+    let info = unsafe { SENSOR_LISTENERS[arg] };
+    assert!(!info.sensor_key.is_empty(), "missing sensor key");
+
+    //  Check that the sensor data is valid
+    if sensor_data.is_null() { return SYS_EINVAL }  //  Exit if data is missing
+    assert!(!sensor.is_null(), "null sensor");
+
+    //  Convert the sensor data to sensor value
+    let sensor_value = convert_sensor_data(sensor_data, info.sensor_key, sensor_type);
+    if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
+
+    //  Call the unwrapped function
+    (info.listener_func)(&sensor_value)
+        .expect("sensor listener fail");
+
+    //  Return 0 to Mynewt to indicate no error
+    0
+}
+
+///  Define the info needed for converting sensor data into sensor value and calling a listener function
+#[derive(Clone, Copy)]
+struct sensor_listener_info {
+    sensor_key:     &'static Strn,
+    sensor_type:    sensor_type_t, 
+    listener_func:  SensorValueFunc,
+}
+
+const MAX_SENSOR_LISTENERS: usize = 2;
+static mut SENSOR_LISTENERS: [sensor_listener_info; MAX_SENSOR_LISTENERS] = [
+    sensor_listener_info { 
+        sensor_key:     &init_strn!(""), 
+        sensor_type:    0, 
+        listener_func:  null_sensor_value_func 
+    }; MAX_SENSOR_LISTENERS
+];
+
+///  Convert the sensor data received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key. 
+///  `sensor_type` indicates the type of data in `sensor_data`.
+#[allow(non_snake_case, unused_variables)]
+fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, sensor_type: sensor_type_t) -> SensorValue {
+    //  Construct and return a new `SensorValue` (without semicolon)
+    SensorValue {
+        key: sensor_key,
+        val: match sensor_type {
+            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
+                //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
+                let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
+                let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
+                assert_eq!(rc, 0, "rawtmp fail");
+                //  Check that the raw temperature data is valid.
+                assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
+                //  Raw temperature data is valid.  Return it.
+                SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
+            }
+            //  Unknown type of sensor value
+            _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
+        }
+    }
 }
 
 ///  Define the listener function to be called after polling the sensor.
@@ -100,6 +199,12 @@ extern fn null_sensor_data_func(
     _sensor_data: sensor_data_ptr, 
     _sensor_type: sensor_type_t) -> i32
     { 0 }
+
+///  Define a default sensor value function in case there is none.
+fn null_sensor_value_func(
+    _sensor_value: &SensorValue
+    ) -> MynewtResult<()> 
+    { Ok(()) }
 
 ///  Import the custom interop helper library at `libs/mynewt_rust`
 #[link(name = "libs_mynewt_rust")]  //  Functions below are located in the Mynewt build output `libs_mynewt_rust.a`
@@ -131,22 +236,6 @@ extern {
     pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
 }
 
-///  We will open internal temperature sensor `temp_stm32_0`.
-///  Must sync with apps/my_sensor_app/src/listen_sensor.h
-//pub const SENSOR_DEVICE: *const c_char = TEMP_STM32_DEVICE;
-//pub const TEMP_STM32_DEVICE: *const c_char = b"temp_stm32_0\0".as_ptr() as *const c_char;  //  TODO
-
-//  Must sync with libs/temp_stm32/include/temp_stm32/temp_stm32.h
-//  #if MYNEWT_VAL(RAW_TEMP)                                       //  If we are returning raw temperature (integers)...
-///  Return integer sensor values
-//pub const TEMP_SENSOR_VALUE_TYPE: i32 = sensor::SENSOR_VALUE_TYPE_INT32 as i32;         
-
-//  #else                                                          //  If we are returning computed temperature (floating-point)...
-//  pub const TEMP_SENSOR_TYPE       SENSOR_TYPE_AMBIENT_TEMPERATURE //  Set to floating-point sensor type
-//  pub const TEMP_SENSOR_VALUE_TYPE SENSOR_VALUE_TYPE_FLOAT         //  Return floating-point sensor values
-//  pub const TEMP_SENSOR_KEY        "tmp"                           //  Use key (field name) `tmp` to transmit computed temperature to CoAP Server or Collector Node
-//  #endif  //  MYNEWT_VAL(RAW_TEMP)
-
 ///  Sensor type for raw temperature sensor.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t = 
@@ -156,7 +245,7 @@ pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t =
 ///  or float (computed), we use the struct to return both integer and float values.
 pub struct SensorValue {
   ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-  pub key: &'static str,  //  Previously: pub key: &'static [u8],
+  pub key: &'static Strn,
   ///  The type of the sensor value and the value.
   pub val: SensorValueType,
 }
@@ -166,7 +255,7 @@ impl Default for SensorValue {
   #[inline]
   fn default() -> SensorValue {
     SensorValue {
-      key: "",
+      key: &init_strn!(""),
       val: SensorValueType::None,
     }
   }

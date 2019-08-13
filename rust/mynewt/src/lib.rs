@@ -155,6 +155,11 @@ impl Strn {
         }
     }
 
+    /// Return true if the string is empty
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
     pub fn as_cstr(&self) -> *const u8 {

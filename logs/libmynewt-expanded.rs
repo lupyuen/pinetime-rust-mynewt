@@ -66,6 +66,7 @@ pub mod kernel {
     //  Look for the null termination.
     //  String too long
 
+
     //  Last byte must be 0.
 
     //  Last byte must be 0.
@@ -2741,6 +2742,8 @@ pub mod hw {
         //! Contains the Mynewt Sensor API for Rust, including the safe version of the API.
         //! Auto-generated Rust bindings are in the `bindings` module.
         use ::cty::c_void;
+        use mynewt_macros::{init_strn};
+        use crate as mynewt;
         use crate::{result::*, kernel::os::*, Strn, fill_zero};
         /// Contains the auto-generated Rust bindings for the Mynewt Sensor API
         mod bindings {
@@ -5662,7 +5665,7 @@ pub mod hw {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/hw/sensor.rs",
-                                                                   71u32,
+                                                                   75u32,
                                                                    14u32))
                                 }
                             }
@@ -5676,18 +5679,241 @@ pub mod hw {
             };
             Ok(())
         }
-        ///  Return a new `sensor_listener` with the sensor type and listener function.
-        pub fn new_sensor_listener(sensor_type: sensor_type_t,
-                                   func: sensor_data_func)
+        ///  Wrapped version of `sensor_data_func` used by Visual Embedded Rust
+        pub type SensorValueFunc
+            =
+            fn(sensor_value: &SensorValue) -> MynewtResult<()>;
+        ///  Return a new `sensor_listener` with the sensor type and sensor value function. Called by Visual Embedded Rust.
+        pub fn new_sensor_listener(sensor_key: &'static Strn,
+                                   sensor_type: sensor_type_t,
+                                   listener_func: SensorValueFunc)
          -> MynewtResult<sensor_listener> {
-            Ok(sensor_listener{sl_sensor_type: sensor_type,
-                               sl_func:
-                                   as_untyped(func),
+            if !!sensor_key.is_empty() {
+                {
+                    ::core::panicking::panic(&("missing sensor key",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               92u32, 5u32))
+                }
+            };
+            let mut arg = MAX_SENSOR_LISTENERS + 1;
+            for i in 0..MAX_SENSOR_LISTENERS {
+                let info = unsafe { SENSOR_LISTENERS[i] };
+                if info.sensor_key.is_empty() { arg = i; break ; }
+            }
+            if !(arg < MAX_SENSOR_LISTENERS) {
+                {
+                    ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               102u32, 5u32))
+                }
+            };
+            unsafe {
+                SENSOR_LISTENERS[arg] =
+                    sensor_listener_info{sensor_key,
+                                         sensor_type,
+                                         listener_func,}
+            };
+            let listener =
+                sensor_listener{sl_sensor_type: sensor_type,
+                                sl_func: Some(wrap_sensor_listener),
+                                sl_arg:
+                                    arg as
+                                        *mut c_void,
                                                        ..unsafe {
                                                              ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
                                                                                       sensor_listener>([0;
                                                                                                            ::core::mem::size_of::<sensor_listener>()])
-                                                         }})
+                                                         }};
+            Ok(listener)
+        }
+        ///  Wrap the sensor value function into a sensor data function
+        extern "C" fn wrap_sensor_listener(sensor: sensor_ptr,
+                                           arg: sensor_arg,
+                                           sensor_data: sensor_data_ptr,
+                                           sensor_type: sensor_type_t)
+         -> i32 {
+            let arg = arg as usize;
+            if !(arg < MAX_SENSOR_LISTENERS) {
+                {
+                    ::core::panicking::panic(&("bad sensor arg",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               126u32, 5u32))
+                }
+            };
+            let info = unsafe { SENSOR_LISTENERS[arg] };
+            if !!info.sensor_key.is_empty() {
+                {
+                    ::core::panicking::panic(&("missing sensor key",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               128u32, 5u32))
+                }
+            };
+            if sensor_data.is_null() { return SYS_EINVAL }
+            if !!sensor.is_null() {
+                {
+                    ::core::panicking::panic(&("null sensor",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               132u32, 5u32))
+                }
+            };
+            let sensor_value =
+                convert_sensor_data(sensor_data, info.sensor_key,
+                                    sensor_type);
+            if let SensorValueType::None = sensor_value.val {
+                if !false {
+                    {
+                        ::core::panicking::panic(&("bad type",
+                                                   "rust/mynewt/src/hw/sensor.rs",
+                                                   136u32, 55u32))
+                    }
+                };
+            }
+            (info.listener_func)(&sensor_value).expect("sensor listener fail");
+            0
+        }
+        ///  Define the info needed for converting sensor data into sensor value and calling a listener function
+        #[rustc_copy_clone_marker]
+        struct sensor_listener_info {
+            sensor_key: &'static Strn,
+            sensor_type: sensor_type_t,
+            listener_func: SensorValueFunc,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::clone::Clone for sensor_listener_info {
+            #[inline]
+            fn clone(&self) -> sensor_listener_info {
+                {
+                    let _: ::core::clone::AssertParamIsClone<&'static Strn>;
+                    let _: ::core::clone::AssertParamIsClone<sensor_type_t>;
+                    let _: ::core::clone::AssertParamIsClone<SensorValueFunc>;
+                    *self
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::marker::Copy for sensor_listener_info { }
+        const MAX_SENSOR_LISTENERS: usize = 2;
+        static mut SENSOR_LISTENERS:
+               [sensor_listener_info; MAX_SENSOR_LISTENERS] =
+            [sensor_listener_info{sensor_key:
+                                      &Strn{rep:
+                                                mynewt::StrnRep::ByteStr(b"\x00"),},
+                                  sensor_type: 0,
+                                  listener_func: null_sensor_value_func,};
+                MAX_SENSOR_LISTENERS];
+        ///  Convert the sensor data received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key. 
+        ///  `sensor_type` indicates the type of data in `sensor_data`.
+        #[allow(non_snake_case, unused_variables)]
+        fn convert_sensor_data(sensor_data: sensor_data_ptr,
+                               sensor_key: &'static Strn,
+                               sensor_type: sensor_type_t) -> SensorValue {
+            SensorValue{key: sensor_key,
+                        val:
+                            match sensor_type {
+                                SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {
+                                    let mut rawtempdata =
+                                        unsafe {
+                                            ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_temp_raw_data>()],
+                                                                     sensor_temp_raw_data>([0;
+                                                                                               ::core::mem::size_of::<sensor_temp_raw_data>()])
+                                        };
+                                    let rc =
+                                        unsafe {
+                                            get_temp_raw_data(sensor_data,
+                                                              &mut rawtempdata)
+                                        };
+                                    {
+                                        match (&(rc), &(0)) {
+                                            (left_val, right_val) => {
+                                                if !(*left_val == *right_val)
+                                                   {
+                                                    {
+                                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                                      "`,\n right: `",
+                                                                                                                      "`: "],
+                                                                                                                    &match (&&*left_val,
+                                                                                                                            &&*right_val,
+                                                                                                                            &::core::fmt::Arguments::new_v1(&["rawtmp fail"],
+                                                                                                                                                            &match ()
+                                                                                                                                                                 {
+                                                                                                                                                                 ()
+                                                                                                                                                                 =>
+                                                                                                                                                                 [],
+                                                                                                                                                             }))
+                                                                                                                         {
+                                                                                                                         (arg0,
+                                                                                                                          arg1,
+                                                                                                                          arg2)
+                                                                                                                         =>
+                                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                                                     }),
+                                                                                     &("rust/mynewt/src/hw/sensor.rs",
+                                                                                       175u32,
+                                                                                       17u32))
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    };
+                                    {
+                                        match (&(rawtempdata.strd_temp_raw_is_valid),
+                                               &(0)) {
+                                            (left_val, right_val) => {
+                                                if *left_val == *right_val {
+                                                    {
+                                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left != right)`\n  left: `",
+                                                                                                                      "`,\n right: `",
+                                                                                                                      "`: "],
+                                                                                                                    &match (&&*left_val,
+                                                                                                                            &&*right_val,
+                                                                                                                            &::core::fmt::Arguments::new_v1(&["bad rawtmp"],
+                                                                                                                                                            &match ()
+                                                                                                                                                                 {
+                                                                                                                                                                 ()
+                                                                                                                                                                 =>
+                                                                                                                                                                 [],
+                                                                                                                                                             }))
+                                                                                                                         {
+                                                                                                                         (arg0,
+                                                                                                                          arg1,
+                                                                                                                          arg2)
+                                                                                                                         =>
+                                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                                                     }),
+                                                                                     &("rust/mynewt/src/hw/sensor.rs",
+                                                                                       177u32,
+                                                                                       17u32))
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    };
+                                    SensorValueType::Uint(rawtempdata.strd_temp_raw)
+                                }
+                                _ => {
+                                    if !false {
+                                        {
+                                            ::core::panicking::panic(&("sensor type",
+                                                                       "rust/mynewt/src/hw/sensor.rs",
+                                                                       182u32,
+                                                                       20u32))
+                                        }
+                                    };
+                                    SensorValueType::Uint(0)
+                                }
+                            },}
         }
         ///  Define the listener function to be called after polling the sensor.
         ///  This is a static mutable copy of the listener passed in through `register_listener`.
@@ -5707,6 +5933,11 @@ pub mod hw {
                                             _sensor_type: sensor_type_t)
          -> i32 {
             0
+        }
+        ///  Define a default sensor value function in case there is none.
+        fn null_sensor_value_func(_sensor_value: &SensorValue)
+         -> MynewtResult<()> {
+            Ok(())
         }
         ///  Import the custom interop helper library at `libs/mynewt_rust`
         #[link(name = "libs_mynewt_rust")]
@@ -5734,9 +5965,6 @@ pub mod hw {
             ///  C API: `int is_null_sensor_data(void *p)`
             pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
         }
-        ///  We will open internal temperature sensor `temp_stm32_0`.
-        ///  Must sync with apps/my_sensor_app/src/listen_sensor.h
-        ///  Return integer sensor values
         ///  Sensor type for raw temperature sensor.
         ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
         pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t =
@@ -5745,7 +5973,7 @@ pub mod hw {
         ///  or float (computed), we use the struct to return both integer and float values.
         pub struct SensorValue {
             ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
-            pub key: &'static str,
+            pub key: &'static Strn,
             ///  The type of the sensor value and the value.
             pub val: SensorValueType,
         }
@@ -5753,7 +5981,10 @@ pub mod hw {
         impl Default for SensorValue {
             #[inline]
             fn default() -> SensorValue {
-                SensorValue{key: "", val: SensorValueType::None,}
+                SensorValue{key:
+                                &Strn{rep:
+                                          mynewt::StrnRep::ByteStr(b"\x00"),},
+                            val: SensorValueType::None,}
             }
         }
         ///  Represents the type and value of a sensor data value.
@@ -8464,6 +8695,25 @@ pub mod encoding {
                 self.to_bytes_with_nul()
             }
         }
+        /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
+        impl ToBytesOptionalNull for crate::Strn {
+            /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
+            fn to_bytes_optional_nul(&self) -> &[u8] {
+                match self.rep {
+                    StrnRep::ByteStr(bs) => { bs }
+                    StrnRep::CStr(_cstr) => {
+                        if !false {
+                            {
+                                ::core::panicking::panic(&("strn bytes",
+                                                           "rust/mynewt/src/encoding/coap_context.rs",
+                                                           188u32, 40u32))
+                            }
+                        };
+                        &[]
+                    }
+                }
+            }
+        }
         /// Root of CoAP document
         pub const _ROOT: &str = "root";
         /// Map element of CoAP document
@@ -10819,6 +11069,8 @@ impl Strn {
             }
         }
     }
+    /// Return true if the string is empty
+    pub fn is_empty(&self) -> bool { self.len() == 0 }
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
     pub fn as_cstr(&self) -> *const u8 {
@@ -10854,7 +11106,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   163u32,
+                                                                   168u32,
                                                                    17u32))
                                 }
                             }
@@ -10901,7 +11153,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   175u32,
+                                                                   180u32,
                                                                    17u32))
                                 }
                             }
@@ -10915,7 +11167,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("strn cstr",
                                                    "rust/mynewt/src/lib.rs",
-                                                   179u32, 17u32))
+                                                   184u32, 17u32))
                     }
                 };
                 b"\0"
@@ -10956,7 +11208,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   189u32,
+                                                                   194u32,
                                                                    17u32))
                                 }
                             }
@@ -10999,7 +11251,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           197u32, 9u32))
+                                                           202u32, 9u32))
                         }
                     }
                 }

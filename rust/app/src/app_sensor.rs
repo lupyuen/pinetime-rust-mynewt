@@ -39,7 +39,7 @@ static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
 ///  Poll sensor every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32     = (10 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
-const TEMP_SENSOR_KEY: &str     = "t";
+const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
@@ -108,7 +108,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
     console::print("TMP listener got rawtmp\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
-        key: TEMP_SENSOR_KEY,  //  Sensor data key is `t`
+        key: &TEMP_SENSOR_KEY,  //  Sensor data key is `t`
         val: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
                 //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
