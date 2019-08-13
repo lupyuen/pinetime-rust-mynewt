@@ -8,8 +8,6 @@ The application was ported from the C version at [`/apps/my_sensor_app`](/apps/m
 
 [`lib.rs`](lib.rs): Main library module. Contains `main()`, called by Mynewt at startup, and the panic handler. Imports the modules below via the `mod` directive.
 
-[`app_base.rs`](app_base.rs): Common declarations
-
 [`app_sensor.rs`](app_sensor.rs): Calls the [Mynewt Sensor Framework API](https://mynewt.apache.org/latest/os/modules/sensor_framework/sensor_framework.html) to poll the [Blue Pill internal temperature sensor](/libs/temp_stm32) every 10 seconds, and register a Listener Function that will be called after each poll.
 
 [`app_network.rs`](app_network.rs): Transmit sensor data. Called by the Listener Function after each poll of the internal temperature sensor.
