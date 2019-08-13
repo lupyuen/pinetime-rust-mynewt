@@ -1,1 +1,1 @@
-{"send_sensor_data":[["sensor_data","&SensorValue"]],"start_sensor_listener":[["sensor","&Strn"],["sensor_key","&'static Strn"],["sensor_type","sensor_type_t"],["poll_time","u32"]],"handle_sensor_data":[["sensor_data","&SensorValue"]]}
+{"start_sensor_listener":[["sensor","&Strn"],["sensor_key","&'static Strn"],["sensor_type","sensor_type_t"],["poll_time","u32"]],"send_sensor_data":[["sensor_data","&SensorValue"]],"handle_sensor_data":[["sensor_data","&SensorValue"]]}
