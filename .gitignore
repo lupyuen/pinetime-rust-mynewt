@@ -40,3 +40,4 @@ Cargo.lock
 target/
 OLDrust
 tmprustlib
+*.7z
