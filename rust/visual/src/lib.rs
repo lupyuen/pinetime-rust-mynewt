@@ -27,7 +27,7 @@ use mynewt::{
     libs::sensor_network,   //  Import Mynewt Sensor Network Library
     Strn, coap, d,          //  Import Mynewt macros
 };
-use mynewt_macros::{ init_strn, strn };  //  Import Mynewt procedural macros
+use mynewt_macros::{ infer_type, init_strn, strn };  //  Import Mynewt procedural macros
 
 /// Will be run upon startup to initialise the app
 fn on_start() -> MynewtResult<()> {
@@ -44,7 +44,7 @@ fn on_start() -> MynewtResult<()> {
 
 /// Ask Mynewt to poll the temperature sensor every
 /// 10 seconds and call `handle_sensor_data()`.
-#[mynewt_macros::infer_type(attr)]  //  Infer the missing types
+#[infer_type]  //  Infer the missing types
 fn start_sensor_listener(sensor: _, sensor_key: _, sensor_type: _, poll_time: _) -> MynewtResult<()> {
   sensor::set_poll_rate_ms(sensor, poll_time) ? ;
   let sensor_object = sensor::mgr_find_next_bydevname(sensor, null_mut()) ? ;
@@ -58,7 +58,7 @@ fn start_sensor_listener(sensor: _, sensor_key: _, sensor_type: _, poll_time: _)
 /// This listener function is called every 10 seconds by Mynewt
 /// to handle the polled sensor data. We convert the sensor
 /// data to our transmission format and transmit to the server.
-#[mynewt_macros::infer_type(attr)]  //  Infer the missing types
+#[infer_type]  //  Infer the missing types
 fn handle_sensor_data(sensor_data: _) -> MynewtResult<()> {
   send_sensor_data(sensor_data) ? ;
   Ok(())
@@ -66,7 +66,7 @@ fn handle_sensor_data(sensor_data: _) -> MynewtResult<()> {
 
 /// Compose a CoAP JSON message with the Sensor Key (field name)
 /// and Sensor Value in `sensor_data` and send to the CoAP server.
-#[mynewt_macros::infer_type(attr)]  //  Infer the missing types
+#[infer_type]  //  Infer the missing types
 fn send_sensor_data(sensor_data: _) -> MynewtResult<()> {
   let device_id = &sensor_network::get_device_id() ? ;
   let network_ready = sensor_network::init_server_post(DEFAULT_URI) ? ;
