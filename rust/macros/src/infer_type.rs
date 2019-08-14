@@ -64,21 +64,21 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
 
     //  Process the Function Declaration
     //  e.g. `fn start_sensor_listener(sensor: _, sensor_type: _, poll_time: _) -> MynewtResult<()>`
-    let decl = input.decl;
-    //  println!("decl: {:#?}", decl);
+    let sig = &input.sig;
+    //  println!("sig: {:#?}", sig);
 
     //  `fname` is function name e.g. `start_sensor_listener`
-    let fname = input.ident.to_string();
+    let fname = sig.ident.to_string();
     unsafe { CURRENT_FUNC = Some(Box::new(fname.clone())); }
     //  println!("fname: {:#?}", fname);
 
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     let mut all_para: ParaMap = HashMap::new();
-    for input in &decl.inputs {
+    for input in &sig.inputs {
         //  Mark each parameter for Type Inference.
         //  println!("input: {:#?}", input);
         match input {
-            syn::FnArg::Captured(arg_captured) => {
+            syn::FnArg::Typed(arg_captured) => {
                 //  println!("arg_captured: {:#?}", arg_captured);
                 let pat = &arg_captured.pat;
                 //  println!("pat: {:#?}", pat);
@@ -97,14 +97,14 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     infer_from_block(&mut all_para, &block);
 
     //  Now that the types have been inferred, generate the Rust function declaration with the inferred types.
-    let mut new_inputs = decl.inputs.clone();
+    let mut new_inputs = sig.inputs.clone();
     let mut all_para_types: ParaTypeList = Vec::new();
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     for input in &mut new_inputs {
         //  Set the inferred type of each parameter.
         //  println!("input: {:#?}", input);
         match input {
-            syn::FnArg::Captured(arg_captured) => {
+            syn::FnArg::Typed(arg_captured) => {
                 //  `para` is the name of the parameter e.g. `sensor`
                 //  Change the type of the argument.
                 let pat = &arg_captured.pat;
@@ -118,7 +118,7 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
                 if type_str != "_" {
                     //  If the type exists, remember it.
                     let tokens = type_str.parse().unwrap();
-                    arg_captured.ty =  parse_macro_input!(tokens as syn::Type);
+                    arg_captured.ty =  Box::new(parse_macro_input!(tokens as syn::Type));
                 }
                 //  Remember the parameter type globally e.g. `[sensor, &Strn]`
                 let para_type: ParaType = vec![Box::new(para), Box::new(type_str.to_string())];
@@ -133,13 +133,13 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     save_decls(&new_func_map);
 
     //  Combine the new Rust function definition with the old function body.
-    let new_decl = syn::FnDecl {
+    let new_sig = syn::Signature {
         inputs: new_inputs,
-        ..*decl
+        ..sig.clone()
     };
     let output = syn::ItemFn {
-        decl: Box::new(new_decl),
-        block: block,
+        sig:    new_sig,
+        block:  block,
         ..input
     };
     //  Return the new Rust function definition to the Rust Compiler.
@@ -222,7 +222,8 @@ fn infer_from_macro(all_para: &mut ParaMap, macro_expr: &syn::ExprMacro) {
     let mac = &macro_expr.mac;
     let path = &mac.path;
     let path_str = quote!{ #path }.to_string();
-    let tts = &mac.tts;
+    //  println!("mac: {:#?}", mac);
+    let tts = &mac.tokens;
     let tts_str = quote!{ #tts }.to_string();
     //  `path_str` looks like `coap`
     //  `tts_str` looks like `@ json { \"device\" : & device_id , sensor_data , }`

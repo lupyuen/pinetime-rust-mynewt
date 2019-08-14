@@ -23,16 +23,13 @@ use proc_macro2::Span;
 use quote::{quote, quote_spanned};
 use syn::{
     parse_macro_input,
-    ArgCaptured,
     Expr,
-    FnArg::{
-        self,
-        Captured,
-    },
+    FnArg,
     ForeignItem,
     ForeignItemFn,
     Ident,
     ItemForeignMod,
+    PatType,
     ReturnType,
     Type,
     punctuated::Punctuated,
@@ -85,7 +82,8 @@ fn get_namespace(fname: &str) -> &str {
 
 /// Given an `extern "C"` block of function declarations, generate the safe wrapper for the function.
 pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
+    //  println!("attr: {:#?}", attr);
+    //  println!("item: {:#?}", item);
     //  Parse the macro input as an extern "C" function declaration.
     let input = parse_macro_input!(item as ItemForeignMod);
     //  println!("input: {:#?}", input);
@@ -117,12 +115,13 @@ pub fn safe_wrap_internal(_attr: TokenStream, item: TokenStream) -> TokenStream 
 /// Return the safe wrapper tokens for the extern function
 pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
     //  println!("foreign_fn: {:#?}", foreign_fn);
+    let sig = &foreign_fn.sig;  //  Get the function signature
     //  Contains `#[doc] ... pub fn ...`
     let foreign_item_tokens = quote! { #foreign_fn };
     //  println!("foreign_item_tokens: {:#?}", foreign_item_tokens.to_string());
 
     //  Get the function name, with and without namespace (`os_task_init` vs `task_init`)
-    let transformed_fname = transform_function_name(&foreign_fn.ident);
+    let transformed_fname = transform_function_name(&sig.ident);
     let TransformedFunctionName{ 
         ident: fname,
         token: fname_token, 
@@ -139,7 +138,7 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
     let attrs = &foreign_fn.attrs;
     let mut doc_tokens = proc_macro2::TokenStream::new();
     for attr in attrs {
-        // println!("attr: {:#?}", quote! { #attr }.to_string());
+        //  println!("attr: {:#?}", quote! { #attr }.to_string());
         let attr_span = attr.span();
         let tokens = quote_spanned!(attr_span => #attr);
         doc_tokens.extend(tokens);
@@ -151,7 +150,7 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
     //  let extern_decl_tokens = quote_spanned!(extern_decl_span => #extern_decl);
 
     //  Transform the return type.
-    let transformed_ret = transform_return_type(&foreign_fn.decl.output);
+    let transformed_ret = transform_return_type(&sig.output);
     let TransformedReturnType{ 
         declare_result_tokens, get_result_tokens, return_result_tokens, .. 
     } = transformed_ret;
@@ -160,7 +159,7 @@ pub fn wrap_function(foreign_fn: &ForeignItemFn) -> proc_macro2::TokenStream {
     //  (1) Wrap Declaration: How the arg type is exposed via the wrapper
     //  (2) Validation Stmt: To validate each arg if needed, e.g. check strings are null-terminated
     //  (3) Call Expr: Inside the wrapper, call the Mynewt API with type casting
-    let args = &foreign_fn.decl.inputs;
+    let args = &sig.inputs;
     let transformed_args = transform_arg_list(args);
 
     //  For all args, collect the tokens for the Wrap, Validation and Call forms.
@@ -266,7 +265,7 @@ fn collect_validation(args: &Vec<TransformedArg>) -> proc_macro2::TokenStream {
         let TransformedArg{ validation_stmt, ident_span, .. } = arg;
         if validation_stmt.as_str() == "" { continue; }
         let stmt_token = syn::parse_str::<Expr>(validation_stmt).unwrap();
-        let tokens = quote_spanned!(ident_span=> #stmt_token);
+        let tokens = quote_spanned!(**ident_span=> #stmt_token);
         expanded.extend(quote!{ #tokens ; });  //  Add a semicolon.
     }
     //  Return the expanded tokens.
@@ -281,8 +280,8 @@ fn expand_decl(ident: &str, ty: &str, ident_span: &Span, type_span: &Span, separ
     let ident_token = syn::parse_str::<Expr>(ident).unwrap();
     let type_token = syn::parse_str::<Type>(ty).unwrap();
     //  Wrap the parsed tokens with the spans (locations) of the ident and type.
-    let ident_token_spanned = quote_spanned!(ident_span=> #ident_token);
-    let type_token_spanned  = quote_spanned!(type_span => #type_token);
+    let ident_token_spanned = quote_spanned!(*ident_span=> #ident_token);
+    let type_token_spanned  = quote_spanned!(*type_span => #type_token);
     //  Return the tokens.
     match separator {
         Separator::Colon => { quote!{ #ident_token_spanned : #type_token_spanned } }
@@ -292,25 +291,26 @@ fn expand_decl(ident: &str, ty: &str, ident_span: &Span, type_span: &Span, separ
 
 /// Given a list of extern function arg declarations, return the transformed args.
 fn transform_arg_list(args: &Punctuated<FnArg, Comma>) -> Vec<TransformedArg>{
-    //println!("args: {:#?}", args);
+    // println!("args: {:#?}", args);
     let mut res = Vec::new();
-    for cap in args {
-        //println!("cap: {:#?}", cap);
-        if let Captured(arg) = cap {
+    for arg in args {
+        //  println!("arg: {:#?}", arg);
+        if let FnArg::Typed(arg) = arg {
             //  `arg` contains `pat : ty`
-            //println!("arg: {:#?}", arg);
+            //  println!("arg: {:#?}", arg);
             let arg_transformed = transform_arg(&arg);
             res.push(arg_transformed);
-        } else { assert!(false, "Unknown arg"); }
+        }
+        else { assert!(false, "Unknown arg"); }
     }
     res
 }
 
 /// Transform the extern arg for Wrap declaration, Validation statement and Call expression.
-fn transform_arg(arg: &ArgCaptured) -> TransformedArg {
+fn transform_arg(arg: &PatType) -> TransformedArg {
     //  `arg` contains `pat : ty` e.g. `t : * mut os_task`
     //  println!("arg: {:#?}", arg);
-    let ArgCaptured{ pat, ty, .. } = arg;
+    let syn::PatType { pat, ty, .. } = arg;
     //  println!("pat: {}, ty: {}", quote!{ #pat }, quote!{ #ty });
     let pat_span = pat.span();  //  syn::Pat
     let ty_span = ty.span();    //  syn::Type
@@ -425,11 +425,11 @@ fn transform_return_type(output: &ReturnType) -> TransformedReturnType {
 
 /// Transform the extern function name e.g. `os_task_init`
 fn transform_function_name(ident: &Ident) -> TransformedFunctionName {
-    // Get namespace e.g. `os`
+    //  Get namespace e.g. `os`
     let fname = ident.to_string();
     let namespace = get_namespace(&fname);
-    // println!("namespace: {:#?}", namespace);
-    // Get namespace prefix e.g. `os_`
+    //  !("namespace: {:#?}", namespace);
+    //  Get namespace prefix e.g. `os_`
     let namespace_prefix = 
         if namespace.len() > 0 { 
             format!("{}_", namespace).to_string()  //  e.g. `os_`
