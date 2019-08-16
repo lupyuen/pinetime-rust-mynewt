@@ -3092,7 +3092,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\sr
   84:	2d01      	cmp	r5, #1
   86:	d1f3      	bne.n	70 <<cortex_m::itm::Port as core::fmt::Write>::write_str+0x70>
   88:	f854 5b04 	ldr.w	r5, [r4], #4
-_ZN4core3num23_$LT$impl$u20$usize$GT$11checked_add17h5826a54f593ea170E():
+_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_add17h2dd8ea3cc81a465cE():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/num/mod.rs:3347
   8c:	3301      	adds	r3, #1
 _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h30e956ebe71272dbE():
@@ -4663,7 +4663,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\sr
     pub fn is_pendsv_pending() -> bool {
    0:	f64e 5004 	movw	r0, #60676	; 0xed04
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN5vcell21VolatileCell$LT$T$GT$3get17hfcf5464297029d58E():
+_ZN4core3ptr13read_volatile17h196eb0d22de05ef1E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/ptr/mod.rs:873
    8:	6800      	ldr	r0, [r0, #0]
 _ZN8cortex_m10peripheral3scb43_$LT$impl$u20$cortex_m..peripheral..SCB$GT$17is_pendsv_pending17hfd237ace41b397a6E():
@@ -5006,7 +5006,7 @@ C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\sr
     pub fn has_wrapped(&mut self) -> bool {
    0:	f24e 0010 	movw	r0, #57360	; 0xe010
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN4core3ptr13read_volatile17h196eb0d22de05ef1E():
+_ZN17volatile_register11RW$LT$T$GT$4read17h72a39808f2598fb1E():
 /rustc/03ee55bb1c8c2379fdabf68e306186b390444f61/src/libcore/ptr/mod.rs:873
    8:	6800      	ldr	r0, [r0, #0]
 _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$11has_wrapped17h653bffcf632f1590E():
