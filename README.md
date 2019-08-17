@@ -73,15 +73,15 @@ This repository contains...
 
 # How This Application Was Created
 
-The Windows version of the `newt` command-line tool in `newt\newt.exe` was created from 
+The Windows version of the `newt` command-line tool in `newt/newt.exe` was created from 
 
-`https://github.com/lupyuen/mynewt-newt`
+[`github.com/lupyuen/mynewt-newt`](https://github.com/lupyuen/mynewt-newt)
 
 The Mynewt application was originally based on: 
 
-`https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html`
+[`mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html`](https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html)
 
-`https://mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html`
+[`mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html`](https://mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html)
 
 ```bash
 cd /mnt/c
