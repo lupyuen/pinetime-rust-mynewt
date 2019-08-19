@@ -25,6 +25,8 @@
 #include <hal/hal_bsp.h>
 #include <hal/hal_system.h>
 #include <hal/hal_flash.h>
+#include <hal/hal_gpio.h>
+#include <bsp/bsp.h>
 #include <console/console.h>
 #include <sysflash/sysflash.h>
 
@@ -36,7 +38,7 @@ extern const struct flash_area sysflash_map_dflt[];  //  Contains addresses of f
 
 //  First word contains initial MSP value
 //  Second word contains address of entry point (Reset_Handler)
-static uint32_t img_start[2];
+static void *img_start[2];
 
 int
 main(void)
@@ -48,15 +50,18 @@ main(void)
     //  Previously: flash_map_init();
     //  Previously: rc = boot_go(&rsp);
 
-    //  First word contains initial MSP value
-    img_start[0] = (uint32_t) &_estack;  //  ORIGIN (RAM) + LENGTH (RAM) = 0x20005000
+    //  First word contains initial MSP value (estack = end of RAM)
+    img_start[0] = (void *) &_estack;  //  ORIGIN (RAM) + LENGTH (RAM) = 0x20005000
 
     //  Second word contains address of entry point (Reset_Handler)
-    img_start[1] = sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x08001000
-        + 0x12c;  //  Offset of Reset_Handler from start of image
-
+    img_start[1] = (void *) (
+        sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x08001000
+        + 0x12c  //  Offset of Reset_Handler from start of image
+        + 1      //  Needed for Arm jumps
+    );
+    
     //  Jump to Reset_Handler of the application.
-    hal_system_start((void *) img_start);
+    hal_system_start(img_start);
 
     //  Should never come here.
     return 0;
