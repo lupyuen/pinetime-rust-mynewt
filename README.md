@@ -19,9 +19,11 @@
 #
 -->
 
-# Rust NB-IoT Sensor Application based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill and Apache Mynewt
+# Visual Embedded Rust Sensor Application for NB-IoT based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill and Apache Mynewt
 
-Refer to the tutorial...
+Refer to the tutorials...
+
+[_Visual Embedded Rust Programming with Visual Studio Code_](https://medium.com/@ly.lee/visual-embedded-rust-programming-with-visual-studio-code-1bc1262e398c?sk=222de63e45993aacd0db5a2e4b1f33c7)
 
 [_Rust Rocks NB-IoT! STM32 Blue Pill with Quectel BC95-G on Apache Mynewt_](https://medium.com/@ly.lee/rust-rocks-nb-iot-stm32-blue-pill-with-quectel-bc95-g-on-apache-mynewt-ef62a7e28f7e?sk=aaa21371f68a07c543066b6b89a760f0)
 
@@ -71,13 +73,15 @@ This repository contains...
 
 # How This Application Was Created
 
-`newt\newt.exe` based on `https://github.com/lupyuen/mynewt-newt`
+The Windows version of the `newt` command-line tool in `newt/newt.exe` was created from 
 
-Based on 
+[`github.com/lupyuen/mynewt-newt`](https://github.com/lupyuen/mynewt-newt)
 
-https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html
+The Mynewt application was originally based on: 
 
-https://mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html
+[`mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html`](https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html)
+
+[`mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html`](https://mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html)
 
 ```bash
 cd /mnt/c
