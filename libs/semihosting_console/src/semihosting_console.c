@@ -116,9 +116,9 @@ static struct os_mbuf *semihost_mbuf = NULL;
 
 void console_flush(void) {
     //  Flush output buffer to the console log.  This will be slow.
-    if (!log_enabled) { return; }  //  Skip if log not enabled.
-    if (!semihost_mbuf) { return; }  //  Buffer is empty, nothing to write.
-    if (os_arch_in_isr()) { return; }  //  Don't flush if we are called during an interrupt.
+    if (!log_enabled) { return; }       //  Skip if log not enabled.
+    if (!semihost_mbuf) { return; }     //  Buffer is empty, nothing to write.
+    if (os_arch_in_isr()) { return; }   //  Don't flush if we are called during an interrupt.
 
     //  Swap mbufs first to prevent concurrency problems.
     struct os_mbuf *old = semihost_mbuf;
@@ -131,14 +131,15 @@ void console_flush(void) {
         semihost_write(SEMIHOST_HANDLE, data, size);  //  Write the data to Semihosting output.
         m = m->om_next.sle_next;                      //  Fetch next mbuf in the chain.
     }
-    os_mbuf_free_chain(old);  //  Deallocate the old chain.
+    if (old) { os_mbuf_free_chain(old); }  //  Deallocate the old chain.
 }
 
 void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
     int rc;
-    if (!log_enabled) { return; }  //  Skip if log not enabled.
-    if (!semihost_mbuf) {  //  Allocate mbuf if not already allocated.
+    if (!log_enabled) { return; }           //  Skip if log not enabled.
+    if (!debugger_connected()) { return; }  //  If debugger is not connected, quit.
+    if (!semihost_mbuf) {                   //  Allocate mbuf if not already allocated.
         semihost_mbuf = os_msys_get_pkthdr(length, 0);
         if (!semihost_mbuf) { return; }  //  If out of memory, quit.
     }
