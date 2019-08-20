@@ -4,6 +4,8 @@
 #include <os/os.h>
 #include <console/console.h>
 #include <sensor_network/sensor_network.h>
+#include <bsp/bsp.h>
+#include <hal/hal_gpio.h>
 #include "util.h"
 #include "bc95g/bc95g.h"
 #include "bc95g/transport.h"
@@ -69,6 +71,10 @@ int bc95g_register_transport(const char *network_device0, struct bc95g_server *s
         os_dev_close((struct os_dev *) dev);
         //  Unlock the BC95G driver for exclusive use.
     }
+
+    //  Set the LED for output: PC13. TODO: Super Blue Pill uses a different pin for LED.
+    hal_gpio_init_out(LED_BLINK_PIN, 1);
+
     return 0;
 }
 
@@ -110,6 +116,9 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     sequence++;
     if (sequence == 0) { sequence = 1; }
     int rc;
+
+    //  Blink the LED.
+    hal_gpio_toggle(LED_BLINK_PIN);
 
     {   //  Lock the BC95G driver for exclusive use.  Find the BC95G device by name.
         struct bc95g *dev = (struct bc95g *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  network_device is `bc95g_0`

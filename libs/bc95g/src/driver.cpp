@@ -6,6 +6,8 @@
 #include <sensor/sensor.h>
 #include <console/console.h>
 #include <sensor_network/sensor_network.h>
+#include <bsp/bsp.h>
+#include <hal/hal_gpio.h>
 #include "bc95g/bc95g.h"
 #include "bc95g/transport.h"
 #include "util.h"
@@ -331,10 +333,12 @@ static bool sleep(uint16_t seconds) {
 
 /// Wait for NB-IoT network registration
 static bool wait_for_registration(struct bc95g *dev) {
-    //  CEREG_QUERY: query registration
+    //  Set the LED for output: PC13. TODO: Super Blue Pill uses a different pin for LED.
+    hal_gpio_init_out(LED_BLINK_PIN, 1);
     for (uint8_t i = 0; i < 20; i++) {
         //  Response contains 2 integers: `code` and `status` e.g. `=+CEREG:0,1`
         int code = -1, status = -1;
+        //  CEREG_QUERY: query registration
         bool res = send_query(dev, CEREG_QUERY, &code, &status);
         if (!res) { return false; }  //  If send failed, quit.
         assert(status >= 0);
@@ -343,7 +347,8 @@ static bool wait_for_registration(struct bc95g *dev) {
         if (status == 1) { return true; }  //  If registered, exit.
 
         //  If not yet registered to network, `status` will be 2 and we should recheck in a while.
-        //  Wait 2 seconds and retry.
+        //  Wait 2 seconds and retry.        
+        hal_gpio_toggle(LED_BLINK_PIN);  //  Blink the LED.
         console_flush();
         sleep(2);
     }
@@ -352,10 +357,10 @@ static bool wait_for_registration(struct bc95g *dev) {
 
 /// Wait for NB-IoT network to be attached
 static bool wait_for_attach(struct bc95g *dev) {
-    //  CGATT_QUERY: query attach
     for (uint8_t i = 0; i < 20; i++) {
         //  Response contains 1 integer: `state` e.g. `=+CGATT:1`
         int state = -1;
+        //  CGATT_QUERY: query attach
         bool res = send_query(dev, CGATT_QUERY, &state, NULL);
         if (!res) { return false; }  //  If send failed, quit.
         assert(state >= 0);
