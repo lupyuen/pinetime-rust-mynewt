@@ -39,6 +39,10 @@ void disable_log(void) { log_enabled = false; }
 void enable_buffer(void) { buffer_enabled = true; }  //  Enable buffering.
 void disable_buffer(void) { buffer_enabled = false; console_flush(); }  //  Disable buffering.
 
+//#define DISABLE_SEMIHOSTING ////
+
+#ifndef DISABLE_SEMIHOSTING
+
 //  ARM Semihosting code from 
 //  http://www.keil.com/support/man/docs/ARMCC/armcc_pge1358787046598.htm
 //  http://www.keil.com/support/man/docs/ARMCC/armcc_pge1358787048379.htm
@@ -83,18 +87,29 @@ static int __semihost(int command, void* message) {
 // #define SYS_RENAME (0xf)
 // #define SYS_EXIT   (0x18)
 
+static int debugger_connected(void) {
+    //  Return non-zero if debugger is connected. From repos/apache-mynewt-core/hw/mcu/ambiq/apollo2/src/hal_system.c
+    return CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk;
+}
+#endif  //  !DISABLE_SEMIHOSTING
+
 // We normally set the file handle to 2 to write to the debugger's stderr output.
 #define SEMIHOST_HANDLE 2
 
 static int semihost_write(uint32_t fh, const unsigned char *buffer, unsigned int length) {
     //  Write "length" number of bytes from "buffer" to the debugger's file handle fh.
     //  We normally set fh=2 to write to the debugger's stderr output.
+#ifdef DISABLE_SEMIHOSTING
+    return 0;
+#else
+    if (!debugger_connected()) { return 0; }  //  If debugger is not connected, quit.
     if (length == 0) { return 0; }
     uint32_t args[3];
     args[0] = (uint32_t)fh;
     args[1] = (uint32_t)buffer;
     args[2] = (uint32_t)length;
     return __semihost(SYS_WRITE, args);
+#endif  //  DISABLE_SEMIHOSTING
 }
 
 static struct os_mbuf *semihost_mbuf = NULL;

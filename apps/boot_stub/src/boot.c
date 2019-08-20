@@ -36,10 +36,6 @@
 void *_estack;  //  End of stack, defined in Linker Script.
 extern const struct flash_area sysflash_map_dflt[];  //  Contains addresses of flash sections. Defined in bin/targets/bluepill_boot/generated/src/bluepill_boot-sysflash.c
 
-//  First word contains initial MSP value
-//  Second word contains address of entry point (Reset_Handler)
-//  static void *img_start[2];
-
 int
 main(void)
 {
