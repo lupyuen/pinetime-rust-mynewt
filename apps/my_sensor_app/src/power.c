@@ -1,16 +1,15 @@
 //  Implement Power Management functions
 #include <os/mynewt.h>
 #include <bsp/bsp.h>
+#include "rtc.h"
+#include "power.h"
 
 void platform_set_alarm(uint32_t millisec);
 void target_enter_sleep_mode(void);
 void pwr_voltage_regulator_low_power_in_stop(void);
-void pwr_disable_backup_domain_write_protect(void);
 void pwr_set_stop_mode(void);
 void pwr_set_standby_mode(void);
 void pwr_clear_wakeup_flag(void);
-uint32_t rtc_get_counter_val(void);
-void rtc_set_alarm_time(uint32_t alarm_time);
 
 void sleep_ticks(os_time_t ticks) {
     //  Set the wakeup alarm for current time + ticks milliseconds.
@@ -20,48 +19,6 @@ void sleep_ticks(os_time_t ticks) {
     target_enter_sleep_mode();
     //  target_enter_deep_sleep_stop_mode();
     //  target_enter_deep_sleep_standby_mode();
-}
-
-void platform_set_alarm(uint32_t millisec) {
-	//  Set alarm for millisec milliseconds from now.
-	//  debug_print("alm <"); debug_print_unsigned(millisec / 1000); ////
-	//  if (!alarmFunc) { debug_print("alm? "); } ////
-	volatile uint32_t now = rtc_get_counter_val();
-
-	//  Not documented, but you must disable write protection else the alarm time will not be set and rtc_exit_config_mode() will hang.
-	//  TODO: Disable only if write protection is enabled.
-	pwr_disable_backup_domain_write_protect();
-	rtc_set_alarm_time(now + millisec);
-
-#ifdef NOTUSED
-	//  Must disable interrupts otherwise rtc_exit_config_mode() will hang after setting alarm. 
-	cm_disable_interrupts();
-
-	//  Not documented, but you must disable write protection else the alarm time will not be set.
-	pwr_disable_backup_domain_write_protect();
-
-	rtc_interrupt_disable(RTC_SEC);
-	rtc_interrupt_disable(RTC_ALR);
-	rtc_interrupt_disable(RTC_OW);
-	
-	rtc_set_alarm_time(now + millisec);
-	exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt.
-	exti_enable_request(EXTI17);
-
-	nvic_enable_irq(NVIC_RTC_IRQ);        //  Enable RTC tick interrupt processing.
-	nvic_enable_irq(NVIC_RTC_ALARM_IRQ);  //  Enable RTC alarm wakeup interrupt processing.
-
-	rtc_clear_flag(RTC_SEC);
-	rtc_clear_flag(RTC_ALR);
-	rtc_clear_flag(RTC_OW);
-	rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
-	rtc_interrupt_enable(RTC_ALR);  //  Allow RTC to generate alarm interrupts.
-
-	cm_enable_interrupts();
-#endif  //  NOTUSED
-
-	//  debug_print("> "); ////
-	//  TODO: rtc_enable_alarm()
 }
 
 #define _SET_BIT(var, bit)   { var |= bit; }   //  Set the specified bit of var to 1, e.g. _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 1.
@@ -198,169 +155,3 @@ void pwr_set_stop_mode(void)
 {
         PWR->CR &= ~PWR_CR_PDDS;
 }
-
-///////////////////////////////////////////////////////////////////////////////
-//  Real-Time Clock and Alarm Functions (from libopencm3 STM32F1)
-
-/* Generic memory-mapped I/O accessor functions */
-#define MMIO8(addr)             (*(volatile uint8_t *)(addr))
-#define MMIO16(addr)            (*(volatile uint16_t *)(addr))
-#define MMIO32(addr)            (*(volatile uint32_t *)(addr))
-#define MMIO64(addr)            (*(volatile uint64_t *)(addr))
-
-/* --- RTC registers ------------------------------------------------------- */
-
-/* RTC control register high (RTC_CRH) */
-#define RTC_CRH                         MMIO32(RTC_BASE + 0x00)
-
-/* RTC control register low (RTC_CRL) */
-#define RTC_CRL                         MMIO32(RTC_BASE + 0x04)
-
-/* RTC prescaler load register (RTC_PRLH / RTC_PRLL) */
-#define RTC_PRLH                        MMIO32(RTC_BASE + 0x08)
-#define RTC_PRLL                        MMIO32(RTC_BASE + 0x0c)
-
-/* RTC prescaler divider register (RTC_DIVH / RTC_DIVL) */
-#define RTC_DIVH                        MMIO32(RTC_BASE + 0x10)
-#define RTC_DIVL                        MMIO32(RTC_BASE + 0x14)
-
-/* RTC counter register (RTC_CNTH / RTC_CNTL) */
-#define RTC_CNTH                        MMIO32(RTC_BASE + 0x18)
-#define RTC_CNTL                        MMIO32(RTC_BASE + 0x1c)
-
-/* RTC alarm register high (RTC_ALRH / RTC_ALRL) */
-#define RTC_ALRH                        MMIO32(RTC_BASE + 0x20)
-#define RTC_ALRL                        MMIO32(RTC_BASE + 0x24)
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Enter Configuration Mode.
-Prime the RTC for configuration changes by giving access to the prescaler,
-and counter and alarm registers.
-*/
-
-void rtc_enter_config_mode(void)
-{
-	uint32_t reg32;
-
-	/* Wait until the RTOFF bit is 1 (no RTC register writes ongoing). */
-	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
-
-	/* Enter configuration mode. */
-	RTC_CRL |= RTC_CRL_CNF;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Leave Configuration Mode.
-Revert the RTC to operational state.
-*/
-
-void rtc_exit_config_mode(void)
-{
-	uint32_t reg32;
-
-	/* Exit configuration mode. */
-	RTC_CRL &= ~RTC_CRL_CNF;
-
-	/* Wait until the RTOFF bit is 1 (our RTC register write finished). */
-	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Set the Alarm Time.
- 
-@param[in] alarm_time uint32_t. time at which the alarm event is triggered.
-*/
-
-void rtc_set_alarm_time(uint32_t alarm_time)
-{
-        rtc_enter_config_mode();
-        RTC_ALRL = (alarm_time & 0x0000ffff);
-        RTC_ALRH = (alarm_time & 0xffff0000) >> 16;
-        rtc_exit_config_mode();
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Enable the Alarm.
- 
-*/
-
-void rtc_enable_alarm(void)
-{
-        rtc_enter_config_mode();
-        RTC_CRH |= RTC_CRH_ALRIE;
-        rtc_exit_config_mode();
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Disable the Alarm.
- 
-*/
-
-void rtc_disable_alarm(void)
-{
-        rtc_enter_config_mode();
-        RTC_CRH &= ~RTC_CRH_ALRIE;
-        rtc_exit_config_mode();
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Set the prescaler Value
- 
-@param[in] prescale_val uint32_t. 20 bit prescale divider.
-*/
-
-void rtc_set_prescale_val(uint32_t prescale_val)
-{
-        rtc_enter_config_mode();
-        RTC_PRLL = prescale_val & 0x0000ffff;         /* PRL[15:0] */
-        RTC_PRLH = (prescale_val & 0x000f0000) >> 16; /* PRL[19:16] */
-        rtc_exit_config_mode();
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC return the Counter Value
- 
-@returns uint32_t: the 32 bit counter value.
-*/
-
-uint32_t rtc_get_counter_val(void)
-{
-        return (RTC_CNTH << 16) | RTC_CNTL;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC return the prescaler Value
- 
-@returns uint32_t: the 20 bit prescale divider.
-*/
-
-uint32_t rtc_get_prescale_div_val(void)
-{
-        return (RTC_DIVH << 16) | RTC_DIVL;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC return the Alarm Value
- 
-@returns uint32_t: the 32 bit alarm value.
-*/
-
-uint32_t rtc_get_alarm_val(void)
-{
-        return (RTC_ALRH << 16) | RTC_ALRL;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC set the Counter
- 
-@param[in] counter_val 32 bit time setting for the counter.
-*/
-
-void rtc_set_counter_val(uint32_t counter_val)
-{
-        rtc_enter_config_mode();
-        RTC_CNTH = (counter_val & 0xffff0000) >> 16; /* CNT[31:16] */
-        RTC_CNTL = counter_val & 0x0000ffff;         /* CNT[15:0] */
-        rtc_exit_config_mode();
-}
-
