@@ -153,5 +153,60 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/sensor/src/sensor.c",
+		"bookmarks": [
+			{
+				"line": 237,
+				"column": 15,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/kernel/os/src/os_callout.c",
+		"bookmarks": [
+			{
+				"line": 123,
+				"column": 7,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/kernel/os/src/os.c",
+		"bookmarks": [
+			{
+				"line": 140,
+				"column": 14,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c",
+		"bookmarks": [
+			{
+				"line": 24,
+				"column": 5,
+				"label": ""
+			},
+			{
+				"line": 27,
+				"column": 6,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/src/hal_os_tick.c",
+		"bookmarks": [
+			{
+				"line": 139,
+				"column": 9,
+				"label": ""
+			}
+		]
 	}
 ]
