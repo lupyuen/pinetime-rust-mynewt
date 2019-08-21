@@ -125,82 +125,112 @@ void target_enter_deep_sleep_standby_mode(void) {
 ///////////////////////////////////////////////////////////////////////////////
 //  Power Management Functions (from libopencm3 STM32F1)
 
- /*---------------------------------------------------------------------------*/
- /** @brief Disable Backup Domain Write Protection.
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Backup Domain Write Protection.
  
- This allows backup domain registers to be changed. These registers are write
- protected after a reset.
- */
- 
- void pwr_disable_backup_domain_write_protect(void)
- {
-         PWR_CR |= PWR_CR_DBP;
- }
+This allows backup domain registers to be changed. These registers are write
+protected after a reset.
+*/
 
- /*---------------------------------------------------------------------------*/
- /** @brief Voltage Regulator On in Stop Mode.
+void pwr_disable_backup_domain_write_protect(void)
+{
+        PWR->CR |= PWR_CR_DBP;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Voltage Regulator On in Stop Mode.
  
- */
+*/
+
+void pwr_voltage_regulator_on_in_stop(void)
+{
+        PWR->CR &= ~PWR_CR_LPDS;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Voltage Regulator Low Power in Stop Mode.
  
- void pwr_voltage_regulator_on_in_stop(void)
- {
-         PWR_CR &= ~PWR_CR_LPDS;
- }
+*/
+
+void pwr_voltage_regulator_low_power_in_stop(void)
+{
+        PWR->CR |= PWR_CR_LPDS;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clear the Standby Flag.
  
- /*---------------------------------------------------------------------------*/
- /** @brief Voltage Regulator Low Power in Stop Mode.
+This is set when the processor returns from a standby mode.
+*/
+
+void pwr_clear_standby_flag(void)
+{
+        PWR->CR |= PWR_CR_CSBF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clear the Wakeup Flag.
  
- */
+This is set when the processor receives a wakeup signal.
+*/
+
+void pwr_clear_wakeup_flag(void)
+{
+        PWR->CR |= PWR_CR_CWUF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set Standby Mode in Deep Sleep.
  
- void pwr_voltage_regulator_low_power_in_stop(void)
- {
-         PWR_CR |= PWR_CR_LPDS;
- }
+*/
+
+void pwr_set_standby_mode(void)
+{
+        PWR->CR |= PWR_CR_PDDS;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set Stop Mode in Deep Sleep.
  
- /*---------------------------------------------------------------------------*/
- /** @brief Clear the Standby Flag.
- 
- This is set when the processor returns from a standby mode.
- */
- 
- void pwr_clear_standby_flag(void)
- {
-         PWR_CR |= PWR_CR_CSBF;
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief Clear the Wakeup Flag.
- 
- This is set when the processor receives a wakeup signal.
- */
- 
- void pwr_clear_wakeup_flag(void)
- {
-         PWR_CR |= PWR_CR_CWUF;
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief Set Standby Mode in Deep Sleep.
- 
- */
- 
- void pwr_set_standby_mode(void)
- {
-         PWR_CR |= PWR_CR_PDDS;
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief Set Stop Mode in Deep Sleep.
- 
- */
- 
- void pwr_set_stop_mode(void)
- {
-         PWR_CR &= ~PWR_CR_PDDS;
- }
+*/
+
+void pwr_set_stop_mode(void)
+{
+        PWR->CR &= ~PWR_CR_PDDS;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Real-Time Clock and Alarm Functions (from libopencm3 STM32F1)
+
+/* Generic memory-mapped I/O accessor functions */
+#define MMIO8(addr)             (*(volatile uint8_t *)(addr))
+#define MMIO16(addr)            (*(volatile uint16_t *)(addr))
+#define MMIO32(addr)            (*(volatile uint32_t *)(addr))
+#define MMIO64(addr)            (*(volatile uint64_t *)(addr))
+
+/* --- RTC registers ------------------------------------------------------- */
+
+/* RTC control register high (RTC_CRH) */
+#define RTC_CRH                         MMIO32(RTC_BASE + 0x00)
+
+/* RTC control register low (RTC_CRL) */
+#define RTC_CRL                         MMIO32(RTC_BASE + 0x04)
+
+/* RTC prescaler load register (RTC_PRLH / RTC_PRLL) */
+#define RTC_PRLH                        MMIO32(RTC_BASE + 0x08)
+#define RTC_PRLL                        MMIO32(RTC_BASE + 0x0c)
+
+/* RTC prescaler divider register (RTC_DIVH / RTC_DIVL) */
+#define RTC_DIVH                        MMIO32(RTC_BASE + 0x10)
+#define RTC_DIVL                        MMIO32(RTC_BASE + 0x14)
+
+/* RTC counter register (RTC_CNTH / RTC_CNTL) */
+#define RTC_CNTH                        MMIO32(RTC_BASE + 0x18)
+#define RTC_CNTL                        MMIO32(RTC_BASE + 0x1c)
+
+/* RTC alarm register high (RTC_ALRH / RTC_ALRL) */
+#define RTC_ALRH                        MMIO32(RTC_BASE + 0x20)
+#define RTC_ALRL                        MMIO32(RTC_BASE + 0x24)
 
 /*---------------------------------------------------------------------------*/
 /** @brief RTC Enter Configuration Mode.
@@ -235,102 +265,102 @@ void rtc_exit_config_mode(void)
 	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 }
 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC Set the Alarm Time.
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Set the Alarm Time.
  
- @param[in] alarm_time uint32_t. time at which the alarm event is triggered.
- */
- 
- void rtc_set_alarm_time(uint32_t alarm_time)
- {
-         rtc_enter_config_mode();
-         RTC_ALRL = (alarm_time & 0x0000ffff);
-         RTC_ALRH = (alarm_time & 0xffff0000) >> 16;
-         rtc_exit_config_mode();
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC Enable the Alarm.
- 
- */
- 
- void rtc_enable_alarm(void)
- {
-         rtc_enter_config_mode();
-         RTC_CRH |= RTC_CRH_ALRIE;
-         rtc_exit_config_mode();
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC Disable the Alarm.
- 
- */
- 
- void rtc_disable_alarm(void)
- {
-         rtc_enter_config_mode();
-         RTC_CRH &= ~RTC_CRH_ALRIE;
-         rtc_exit_config_mode();
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC Set the prescaler Value
- 
- @param[in] prescale_val uint32_t. 20 bit prescale divider.
- */
- 
- void rtc_set_prescale_val(uint32_t prescale_val)
- {
-         rtc_enter_config_mode();
-         RTC_PRLL = prescale_val & 0x0000ffff;         /* PRL[15:0] */
-         RTC_PRLH = (prescale_val & 0x000f0000) >> 16; /* PRL[19:16] */
-         rtc_exit_config_mode();
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC return the Counter Value
- 
- @returns uint32_t: the 32 bit counter value.
- */
- 
- uint32_t rtc_get_counter_val(void)
- {
-         return (RTC_CNTH << 16) | RTC_CNTL;
- }
- 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC return the prescaler Value
- 
- @returns uint32_t: the 20 bit prescale divider.
- */
- 
- uint32_t rtc_get_prescale_div_val(void)
- {
-         return (RTC_DIVH << 16) | RTC_DIVL;
- }
+@param[in] alarm_time uint32_t. time at which the alarm event is triggered.
+*/
 
- /*---------------------------------------------------------------------------*/
- /** @brief RTC return the Alarm Value
+void rtc_set_alarm_time(uint32_t alarm_time)
+{
+        rtc_enter_config_mode();
+        RTC_ALRL = (alarm_time & 0x0000ffff);
+        RTC_ALRH = (alarm_time & 0xffff0000) >> 16;
+        rtc_exit_config_mode();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Enable the Alarm.
  
- @returns uint32_t: the 32 bit alarm value.
- */
+*/
+
+void rtc_enable_alarm(void)
+{
+        rtc_enter_config_mode();
+        RTC_CRH |= RTC_CRH_ALRIE;
+        rtc_exit_config_mode();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Disable the Alarm.
  
- uint32_t rtc_get_alarm_val(void)
- {
-         return (RTC_ALRH << 16) | RTC_ALRL;
- }
+*/
+
+void rtc_disable_alarm(void)
+{
+        rtc_enter_config_mode();
+        RTC_CRH &= ~RTC_CRH_ALRIE;
+        rtc_exit_config_mode();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Set the prescaler Value
  
- /*---------------------------------------------------------------------------*/
- /** @brief RTC set the Counter
+@param[in] prescale_val uint32_t. 20 bit prescale divider.
+*/
+
+void rtc_set_prescale_val(uint32_t prescale_val)
+{
+        rtc_enter_config_mode();
+        RTC_PRLL = prescale_val & 0x0000ffff;         /* PRL[15:0] */
+        RTC_PRLH = (prescale_val & 0x000f0000) >> 16; /* PRL[19:16] */
+        rtc_exit_config_mode();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC return the Counter Value
  
- @param[in] counter_val 32 bit time setting for the counter.
- */
+@returns uint32_t: the 32 bit counter value.
+*/
+
+uint32_t rtc_get_counter_val(void)
+{
+        return (RTC_CNTH << 16) | RTC_CNTL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC return the prescaler Value
  
- void rtc_set_counter_val(uint32_t counter_val)
- {
-         rtc_enter_config_mode();
-         RTC_CNTH = (counter_val & 0xffff0000) >> 16; /* CNT[31:16] */
-         RTC_CNTL = counter_val & 0x0000ffff;         /* CNT[15:0] */
-         rtc_exit_config_mode();
- }
+@returns uint32_t: the 20 bit prescale divider.
+*/
+
+uint32_t rtc_get_prescale_div_val(void)
+{
+        return (RTC_DIVH << 16) | RTC_DIVL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC return the Alarm Value
  
+@returns uint32_t: the 32 bit alarm value.
+*/
+
+uint32_t rtc_get_alarm_val(void)
+{
+        return (RTC_ALRH << 16) | RTC_ALRL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC set the Counter
+ 
+@param[in] counter_val 32 bit time setting for the counter.
+*/
+
+void rtc_set_counter_val(uint32_t counter_val)
+{
+        rtc_enter_config_mode();
+        RTC_CNTH = (counter_val & 0xffff0000) >> 16; /* CNT[31:16] */
+        RTC_CNTL = counter_val & 0x0000ffff;         /* CNT[15:0] */
+        rtc_exit_config_mode();
+}
+
