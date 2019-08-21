@@ -63,7 +63,8 @@
 			"save_sensor_value.h": "c",
 			"sensor_type_desc.h": "c",
 			"sensor_network.h": "c",
-			"listen_sensor.h": "c"
+			"listen_sensor.h": "c",
+			"hal_os_tick.h": "c"
 		}
 	}
 }

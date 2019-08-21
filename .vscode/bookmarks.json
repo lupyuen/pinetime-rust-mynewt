@@ -188,12 +188,12 @@
 		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c",
 		"bookmarks": [
 			{
-				"line": 24,
+				"line": 27,
 				"column": 5,
 				"label": ""
 			},
 			{
-				"line": 27,
+				"line": 30,
 				"column": 6,
 				"label": ""
 			}
