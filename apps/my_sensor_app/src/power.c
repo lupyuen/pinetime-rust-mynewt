@@ -1,18 +1,31 @@
 //  Implement Power Management functions
 #include <os/mynewt.h>
+#include <bsp/bsp.h>
+
+void platform_set_alarm(uint32_t millisec);
+void target_enter_sleep_mode(void);
+void pwr_voltage_regulator_low_power_in_stop(void);
+void pwr_disable_backup_domain_write_protect(void);
+void pwr_set_stop_mode(void);
+void pwr_set_standby_mode(void);
+void pwr_clear_wakeup_flag(void);
+uint32_t rtc_get_counter_val(void);
+void rtc_set_alarm_time(uint32_t alarm_time);
 
 void sleep_ticks(os_time_t ticks) {
     //  Set the wakeup alarm for current time + ticks milliseconds.
     platform_set_alarm(ticks);
 
-    //  Enter deep sleep standby mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
-    target_enter_deep_sleep_standby_mode();
+    //  Enter sleep mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
+    target_enter_sleep_mode();
+    //  target_enter_deep_sleep_stop_mode();
+    //  target_enter_deep_sleep_standby_mode();
 }
 
 void platform_set_alarm(uint32_t millisec) {
 	//  Set alarm for millisec milliseconds from now.
 	//  debug_print("alm <"); debug_print_unsigned(millisec / 1000); ////
-	if (!alarmFunc) { debug_print("alm? "); } ////
+	//  if (!alarmFunc) { debug_print("alm? "); } ////
 	volatile uint32_t now = rtc_get_counter_val();
 
 	//  Not documented, but you must disable write protection else the alarm time will not be set and rtc_exit_config_mode() will hang.
@@ -51,16 +64,16 @@ void platform_set_alarm(uint32_t millisec) {
 	//  TODO: rtc_enable_alarm()
 }
 
-#define SET_BIT(var, bit)   { var |= bit; }   //  Set the specified bit of var to 1, e.g. SET_BIT(SCB_SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 1.
-#define CLEAR_BIT(var, bit) { var &= ~bit; }  //  Set the specified bit of var to 0, e.g. CLEAR_BIT(SCB_SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 0.
+#define _SET_BIT(var, bit)   { var |= bit; }   //  Set the specified bit of var to 1, e.g. _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 1.
+#define _CLEAR_BIT(var, bit) { var &= ~bit; }  //  Set the specified bit of var to 0, e.g. _CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 0.
 
 void target_enter_sleep_mode(void) {
     //  To enter Sleep Now Mode: WFI (Wait for Interrupt) or WFE (Wait for Event) while:
     //  – SLEEPDEEP = 0 and
     //  – SLEEPONEXIT = 0 
     //  Assume caller has set RTC Wakeup Alarm.
-    CLEAR_BIT(SCB_SCR, SCB_SCR_SLEEPDEEP);    //  Clear SLEEPDEEP bit of Cortex System Control Register.
-    CLEAR_BIT(SCB_SCR, SCB_SCR_SLEEPONEXIT);  //  Clear SLEEPONEXIT bit of Cortex System Control Register.
+    _CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);    //  Clear SLEEPDEEP bit of Cortex System Control Register.
+    _CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPONEXIT_Msk);  //  Clear SLEEPONEXIT bit of Cortex System Control Register.
     __DSB();
     __WFI();  //  Wait for interrupt from RTC Alarm.
 }
@@ -84,7 +97,7 @@ void target_enter_deep_sleep_stop_mode(void) {
 
     pwr_set_stop_mode();   //  Clear PWR_CR_PDDS.
     pwr_voltage_regulator_low_power_in_stop();  //  Switch voltage regulator to low power mode.
-    SET_BIT(SCB_SCR, SCB_SCR_SLEEPDEEP);        //  Set SLEEPDEEP bit of Cortex System Control Register.
+    _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);        //  Set SLEEPDEEP bit of Cortex System Control Register.
     __DSB();
     __WFI();  //  Wait for interrupt from RTC Alarm.
 }
@@ -104,13 +117,25 @@ void target_enter_deep_sleep_standby_mode(void) {
 
     pwr_set_standby_mode();   //  Set PWR_CR_PDDS.
     pwr_clear_wakeup_flag();  //  Clear WUF.    
-    SET_BIT(SCB_SCR, SCB_SCR_SLEEPDEEP);  //  Set SLEEPDEEP bit of Cortex System Control Register.
+    _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);  //  Set SLEEPDEEP bit of Cortex System Control Register.
     __DSB();
     __WFI();  //  Wait for interrupt from RTC Alarm.
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Power Management Functions (from libopencm3 STM32F1)
+
+ /*---------------------------------------------------------------------------*/
+ /** @brief Disable Backup Domain Write Protection.
+ 
+ This allows backup domain registers to be changed. These registers are write
+ protected after a reset.
+ */
+ 
+ void pwr_disable_backup_domain_write_protect(void)
+ {
+         PWR_CR |= PWR_CR_DBP;
+ }
 
  /*---------------------------------------------------------------------------*/
  /** @brief Voltage Regulator On in Stop Mode.
@@ -177,6 +202,53 @@ void target_enter_deep_sleep_standby_mode(void) {
 ///////////////////////////////////////////////////////////////////////////////
 //  Real-Time Clock and Alarm Functions (from libopencm3 STM32F1)
 
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Enter Configuration Mode.
+Prime the RTC for configuration changes by giving access to the prescaler,
+and counter and alarm registers.
+*/
+
+void rtc_enter_config_mode(void)
+{
+	uint32_t reg32;
+
+	/* Wait until the RTOFF bit is 1 (no RTC register writes ongoing). */
+	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+
+	/* Enter configuration mode. */
+	RTC_CRL |= RTC_CRL_CNF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Leave Configuration Mode.
+Revert the RTC to operational state.
+*/
+
+void rtc_exit_config_mode(void)
+{
+	uint32_t reg32;
+
+	/* Exit configuration mode. */
+	RTC_CRL &= ~RTC_CRL_CNF;
+
+	/* Wait until the RTOFF bit is 1 (our RTC register write finished). */
+	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+}
+
+ /*---------------------------------------------------------------------------*/
+ /** @brief RTC Set the Alarm Time.
+ 
+ @param[in] alarm_time uint32_t. time at which the alarm event is triggered.
+ */
+ 
+ void rtc_set_alarm_time(uint32_t alarm_time)
+ {
+         rtc_enter_config_mode();
+         RTC_ALRL = (alarm_time & 0x0000ffff);
+         RTC_ALRH = (alarm_time & 0xffff0000) >> 16;
+         rtc_exit_config_mode();
+ }
+ 
  /*---------------------------------------------------------------------------*/
  /** @brief RTC Enable the Alarm.
  
