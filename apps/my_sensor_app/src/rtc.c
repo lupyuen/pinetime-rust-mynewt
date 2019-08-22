@@ -68,118 +68,118 @@ void rtc_enter_config_mode(void);
 void rtc_exit_config_mode(void);
 
 static void rtc_setup(void) {
-	//  Setup RTC interrupts for tick and alarm wakeup.
-	rcc_enable_rtc_clock();
-	rtc_interrupt_disable(RTC_SEC);
-	rtc_interrupt_disable(RTC_ALR);
-	rtc_interrupt_disable(RTC_OW);
+    //  Setup RTC interrupts for tick and alarm wakeup.
+    rcc_enable_rtc_clock();
+    rtc_interrupt_disable(RTC_SEC);
+    rtc_interrupt_disable(RTC_ALR);
+    rtc_interrupt_disable(RTC_OW);
 
-	//  Note: Older versions of rtc_awake_from_off() and rtc_auto_awake() cause qemu to crash with error
-	//  "hardware error: you are must enter to configuration mode for write in any registre" in hw\timer\stm32_rtc.c
-	console_printf("rtc awake...\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
+    //  Note: Older versions of rtc_awake_from_off() and rtc_auto_awake() cause qemu to crash with error
+    //  "hardware error: you are must enter to configuration mode for write in any registre" in hw\timer\stm32_rtc.c
+    console_printf("rtc awake...\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
 #ifdef AUTO_AWAKE	
-	//  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
-	//  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
-	//  Otherwise enable it with the clock source and set the prescale value.
-	rtc_auto_awake(clock_source, prescale);
+    //  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
+    //  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
+    //  Otherwise enable it with the clock source and set the prescale value.
+    rtc_auto_awake(clock_source, prescale);
 #else
-	//  rtc_auto_awake() will not reset the RTC when you press the RST button.
-	//  It will also continue to count while the MCU is held in reset. If
-	//  you want it to reset, use custom_rtc_awake_from_off()
-	rtc_awake_from_off(clock_source);  //  This will enable RTC.
-	rtc_set_prescale_val(prescale);
+    //  rtc_auto_awake() will not reset the RTC when you press the RST button.
+    //  It will also continue to count while the MCU is held in reset. If
+    //  you want it to reset, use custom_rtc_awake_from_off()
+    rtc_awake_from_off(clock_source);  //  This will enable RTC.
+    rtc_set_prescale_val(prescale);
 #endif  //  AUTO_AWAKE
-	console_printf("rtc awake ok\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
+    console_printf("rtc awake ok\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
 
     NVIC_SetVector(RTC_IRQn,       (uint32_t) rtc_isr);        //  Set the Interrupt Service Routine for RTC
     NVIC_SetVector(RTC_Alarm_IRQn, (uint32_t) rtc_alarm_isr);  //  Set the Interrupt Service Routine for RTC Alarm
-	
-	rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0.
-	rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now.
-	exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt.
-	exti_enable_request(EXTI17);
+    
+    rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0.
+    rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now.
+    exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt.
+    exti_enable_request(EXTI17);
 
-	nvic_enable_irq(NVIC_RTC_IRQ);        //  Enable RTC tick interrupt processing.
-	nvic_enable_irq(NVIC_RTC_ALARM_IRQ);  //  Enable RTC alarm wakeup interrupt processing.
+    nvic_enable_irq(NVIC_RTC_IRQ);        //  Enable RTC tick interrupt processing.
+    nvic_enable_irq(NVIC_RTC_ALARM_IRQ);  //  Enable RTC alarm wakeup interrupt processing.
 
-	__disable_irq();
-	rtc_clear_flag(RTC_SEC);
-	rtc_clear_flag(RTC_ALR);
-	rtc_clear_flag(RTC_OW);
-	////rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
-	rtc_interrupt_enable(RTC_ALR);  //  Allow RTC to generate alarm interrupts.
-	__enable_irq();
+    __disable_irq();
+    rtc_clear_flag(RTC_SEC);
+    rtc_clear_flag(RTC_ALR);
+    rtc_clear_flag(RTC_OW);
+    ////rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
+    rtc_interrupt_enable(RTC_ALR);  //  Allow RTC to generate alarm interrupts.
+    __enable_irq();
 }
 
 void platform_start_timer(void (*tickFunc0)(void), void (*alarmFunc0)(void)) {
     //  Start the STM32 Timer to generate interrupt ticks to perform task switching.
-  	tickFunc = tickFunc0;    //  Allow tickFunc to be modified at every call to platform_start_timer().
-  	alarmFunc = alarmFunc0;  //  Allow alarmFunc to be modified at every call to platform_start_timer().
-	
-	//  But system timer will only be started once.
-	static bool timerStarted = false;
-	if (timerStarted) { return; }
-	timerStarted = true;
-	console_printf("platform_start_timer\n"); ////
-	rtc_setup();
+      tickFunc = tickFunc0;    //  Allow tickFunc to be modified at every call to platform_start_timer().
+      alarmFunc = alarmFunc0;  //  Allow alarmFunc to be modified at every call to platform_start_timer().
+    
+    //  But system timer will only be started once.
+    static bool timerStarted = false;
+    if (timerStarted) { return; }
+    timerStarted = true;
+    console_printf("platform_start_timer\n"); ////
+    rtc_setup();
 }
 
 void platform_set_alarm(uint32_t millisec) {
-	//  Set alarm for millisec milliseconds from now.
-	//  debug_print("alm <"); debug_print_unsigned(millisec / 1000); ////
-	if (!alarmFunc) { console_printf("alm? "); } ////
-	volatile uint32_t now = rtc_get_counter_val();
+    //  Set alarm for millisec milliseconds from now.
+    //  debug_print("alm <"); debug_print_unsigned(millisec / 1000); ////
+    if (!alarmFunc) { console_printf("alm? "); } ////
+    volatile uint32_t now = rtc_get_counter_val();
 
-	//  Not documented, but you must disable write protection else the alarm time will not be set and rtc_exit_config_mode() will hang.
-	//  TODO: Disable only if write protection is enabled.
-	pwr_disable_backup_domain_write_protect();
-	rtc_set_alarm_time(now + millisec);
+    //  Not documented, but you must disable write protection else the alarm time will not be set and rtc_exit_config_mode() will hang.
+    //  TODO: Disable only if write protection is enabled.
+    pwr_disable_backup_domain_write_protect();
+    rtc_set_alarm_time(now + millisec);
 }
 
 volatile uint32_t platform_get_alarm(void) {
-	//  Get alarm time.
-	return rtc_get_alarm_val();
+    //  Get alarm time.
+    return rtc_get_alarm_val();
 }
 
 void rtc_isr(void) {
-	//  Interrupt Service Routine for RTC Tick, Alarm, Overflow.  Don't call any I/O functions here.
+    //  Interrupt Service Routine for RTC Tick, Alarm, Overflow.  Don't call any I/O functions here.
     //  Alarm handled by rtc_alarm_isr()
-	if (rtc_check_flag(RTC_SEC)) {
-		//  We hit an RTC tick interrupt.
-		rtc_clear_flag(RTC_SEC);
-		tickCount++;
-		//  Call the tick function.
-		if (tickFunc != NULL) { tickFunc(); }
-		return;
-	}
+    if (rtc_check_flag(RTC_SEC)) {
+        //  We hit an RTC tick interrupt.
+        rtc_clear_flag(RTC_SEC);
+        tickCount++;
+        //  Call the tick function.
+        if (tickFunc != NULL) { tickFunc(); }
+        return;
+    }
 }
 
 void rtc_alarm_isr(void) {
-	//  Interrupt Service Routine for RTC Alarm Wakeup.  Don't call any I/O functions here.
-	//  The RTC alarm appears as EXTI 17 which must be reset independently of the RTC alarm flag.
-	exti_reset_request(EXTI17);
-	rtc_clear_flag(RTC_ALR);
-	alarmCount++;
-	//  Call the alarm function.
-	if (alarmFunc != NULL) { alarmFunc(); }
+    //  Interrupt Service Routine for RTC Alarm Wakeup.  Don't call any I/O functions here.
+    //  The RTC alarm appears as EXTI 17 which must be reset independently of the RTC alarm flag.
+    exti_reset_request(EXTI17);
+    rtc_clear_flag(RTC_ALR);
+    alarmCount++;
+    //  Call the alarm function.
+    if (alarmFunc != NULL) { alarmFunc(); }
 }
 
 volatile uint32_t millis(void) {
-	//  Return the number of millisecond ticks since startup.
-	//  Compatible with Arduino's millis() function.
-	//  TODO: Compensate for clock slowdown because we truncated RCC_LSE 32.768 kHz to 32.
-	return rtc_get_counter_val();  //  More accurate, uses hardware counters.
-	// return tickCount;  //  Less accurate, excludes ARM Semihosting time. 
+    //  Return the number of millisecond ticks since startup.
+    //  Compatible with Arduino's millis() function.
+    //  TODO: Compensate for clock slowdown because we truncated RCC_LSE 32.768 kHz to 32.
+    return rtc_get_counter_val();  //  More accurate, uses hardware counters.
+    // return tickCount;  //  Less accurate, excludes ARM Semihosting time. 
 }
 
 volatile uint32_t platform_alarm_count(void) {
-	//  Return the number of alarms triggered since startup.
-	return alarmCount;  //  For testing whether alarm ISR was called.
+    //  Return the number of alarms triggered since startup.
+    return alarmCount;  //  For testing whether alarm ISR was called.
 }
 
 volatile uint32_t platform_tick_count(void) {
-	//  Return the number of alarms triggered since startup.  Less accurate, excludes ARM Semihosting time.
-	return tickCount;  //  For testing whether tick ISR was called.
+    //  Return the number of alarms triggered since startup.  Less accurate, excludes ARM Semihosting time.
+    return tickCount;  //  For testing whether tick ISR was called.
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -393,7 +393,7 @@ enum rcc_periph_clken {
 
 uint32_t rcc_rtc_clock_enabled_flag(void)
 {
-	return RCC->BDCR & RCC_BDCR_RTCEN;
+    return RCC->BDCR & RCC_BDCR_RTCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -402,7 +402,7 @@ uint32_t rcc_rtc_clock_enabled_flag(void)
 
 void rcc_enable_rtc_clock(void)
 {
-	RCC->BDCR |= RCC_BDCR_RTCEN;
+    RCC->BDCR |= RCC_BDCR_RTCEN;
 }
 
 #define _RCC_REG(i)             MMIO32(RCC_BASE + ((i) >> 5))
@@ -540,13 +540,13 @@ and counter and alarm registers.
 
 void rtc_enter_config_mode(void)
 {
-	uint32_t reg32;
+    uint32_t reg32;
 
-	/* Wait until the RTOFF bit is 1 (no RTC register writes ongoing). */
-	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+    /* Wait until the RTOFF bit is 1 (no RTC register writes ongoing). */
+    while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 
-	/* Enter configuration mode. */
-	RTC_CRL |= RTC_CRL_CNF;
+    /* Enter configuration mode. */
+    RTC_CRL |= RTC_CRL_CNF;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -556,13 +556,13 @@ Revert the RTC to operational state.
 
 void rtc_exit_config_mode(void)
 {
-	uint32_t reg32;
+    uint32_t reg32;
 
-	/* Exit configuration mode. */
-	RTC_CRL &= ~RTC_CRL_CNF;
+    /* Exit configuration mode. */
+    RTC_CRL &= ~RTC_CRL_CNF;
 
-	/* Wait until the RTOFF bit is 1 (our RTC register write finished). */
-	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+    /* Wait until the RTOFF bit is 1 (our RTC register write finished). */
+    while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 }
 
 /*---------------------------------------------------------------------------*/

@@ -50,20 +50,46 @@ void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
     platform_start_timer(power_timer_tick, power_timer_alarm);
 }
 
+static uint32_t last_ticks = 0;  //  Expected ticks to be slept for last call to power_sleep()
+static uint32_t start_time = 0;  //  Start time (in ticks) for last call to power_sleep()
+static uint32_t end_time = 0;    //  End time (in ticks) for last call to power_sleep()
+static uint32_t max_sleep = 1;
+
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
     //  If ticks is 0, no need to wait.
     if (ticks == 0) { power_sync_time(); return; }
-
     //  if (ticks < 2000) { ticks = 2000; }  //  Force to sleep in blocks of 2 seconds.
+
+    //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.
+    uint32_t diff_time = end_time - start_time;
+    if (diff_time > max_sleep) { max_sleep = diff_time; }    
+    if (last_ticks > 1000) { console_printf("sleep expected %ld ms / actual %ld ms\n", last_ticks, diff_time); console_flush(); }
+
+    //  Stop the system timer.  TODO: Start the timer after sleeping.
+    NVIC_DisableIRQ(TIM2_IRQn);
+#ifdef NOTUSED    
+    NVIC_DisableIRQ(TIM1_BRK_IRQn);
+    NVIC_DisableIRQ(TIM1_UP_IRQn);
+    NVIC_DisableIRQ(TIM1_TRG_COM_IRQn );
+    NVIC_DisableIRQ(TIM1_CC_IRQn);
+    NVIC_DisableIRQ(TIM3_IRQn);
+#endif  //  NOTUSED
 
     //  Set the alarm to wake up in `ticks` milliseconds from now.
     platform_set_alarm(ticks);
+
+    //  Remember the sleep info to be displayed at next call.
+    last_ticks = ticks;
+    start_time = rtc_get_counter_val();
 
     //  Enter Sleep Now Mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
     target_enter_sleep_mode();
     //  target_enter_deep_sleep_stop_mode();     //  Enter Deep Sleep Stop Mode
     //  target_enter_deep_sleep_standby_mode();  //  Enter Deep Sleep Standby Mode
+
+    //  Remember the sleep end time to be displayed at next call.
+    end_time = rtc_get_counter_val();
 
     //  Upon waking, sync the OS time.
     power_sync_time();
