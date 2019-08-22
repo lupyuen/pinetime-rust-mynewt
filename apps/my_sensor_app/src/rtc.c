@@ -129,36 +129,6 @@ void platform_set_alarm(uint32_t millisec) {
 	//  TODO: Disable only if write protection is enabled.
 	pwr_disable_backup_domain_write_protect();
 	rtc_set_alarm_time(now + millisec);
-
-#ifdef NOTUSED
-	//  Must disable interrupts otherwise rtc_exit_config_mode() will hang after setting alarm. 
-	cm_disable_interrupts();
-
-	//  Not documented, but you must disable write protection else the alarm time will not be set.
-	pwr_disable_backup_domain_write_protect();
-
-	rtc_interrupt_disable(RTC_SEC);
-	rtc_interrupt_disable(RTC_ALR);
-	rtc_interrupt_disable(RTC_OW);
-	
-	rtc_set_alarm_time(now + millisec);
-	exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt.
-	exti_enable_request(EXTI17);
-
-	nvic_enable_irq(NVIC_RTC_IRQ);        //  Enable RTC tick interrupt processing.
-	nvic_enable_irq(NVIC_RTC_ALARM_IRQ);  //  Enable RTC alarm wakeup interrupt processing.
-
-	rtc_clear_flag(RTC_SEC);
-	rtc_clear_flag(RTC_ALR);
-	rtc_clear_flag(RTC_OW);
-	rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
-	rtc_interrupt_enable(RTC_ALR);  //  Allow RTC to generate alarm interrupts.
-
-	cm_enable_interrupts();
-#endif  //  NOTUSED
-
-	//  debug_print("> "); ////
-	//  TODO: rtc_enable_alarm()
 }
 
 volatile uint32_t platform_get_alarm(void) {
@@ -168,6 +138,7 @@ volatile uint32_t platform_get_alarm(void) {
 
 void RTC_IRQHandler(void) {
 	//  Interrupt Service Routine for RTC Tick, Alarm, Overflow.  Don't call any I/O functions here.
+    //  Alarm handled by rtc_alarm_isr()
 	if (rtc_check_flag(RTC_SEC)) {
 		//  We hit an RTC tick interrupt.
 		rtc_clear_flag(RTC_SEC);
@@ -176,16 +147,6 @@ void RTC_IRQHandler(void) {
 		if (tickFunc != NULL) { tickFunc(); }
 		return;
 	}
-#ifdef NOTUSED  //  Alarm handled by rtc_alarm_isr()
-	if (rtc_check_flag(RTC_ALR)) {
-		//  We hit an RTC alarm interrupt.
-		rtc_clear_flag(RTC_ALR);
-		alarmCount++;
-		//  Call the alarm function.
-		if (alarmFunc != NULL) { alarmFunc(); }
-		return;
-	}
-#endif  //  NOTUSED
 }
 
 void RTC_Alarm_IRQHandler(void) {
