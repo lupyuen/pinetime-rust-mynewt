@@ -8,6 +8,7 @@
 #define _SET_BIT(var, bit)   { var |= bit; }   //  Set the specified bit of var to 1, e.g. _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 1.
 #define _CLEAR_BIT(var, bit) { var &= ~bit; }  //  Set the specified bit of var to 0, e.g. _CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 0.
 
+void power_sync_time();
 void target_enter_sleep_mode(void);
 void pwr_voltage_regulator_low_power_in_stop(void);
 void pwr_set_stop_mode(void);
@@ -15,6 +16,16 @@ void pwr_set_standby_mode(void);
 void pwr_clear_wakeup_flag(void);
 
 extern os_time_t g_os_time;
+
+static void timer_tick() {
+    //  This is called every millisecond.
+    power_sync_time();
+}
+
+static void timer_alarm() {
+    //  This is called when the Real-Time Clock alarm is triggered.
+    power_sync_time();
+}
 
 void power_sync_time() {
     //  Sync the OS time to the RTC time.
@@ -26,24 +37,17 @@ void power_sync_time() {
 void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
     //  Init the power management.
     assert(os_ticks_per_sec == 1000);  //  Assume 1 millisecond tick.
-    platform_start_timer(NULL, NULL);
-
-    //  TODO: Start the SysTick.
+    platform_start_timer(timer_tick, timer_alarm);
 }
 
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
-
-    //  TODO: Stop the SysTick.
-
     platform_set_alarm(ticks);
 
     //  Enter sleep mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
     target_enter_sleep_mode();
     //  target_enter_deep_sleep_stop_mode();
     //  target_enter_deep_sleep_standby_mode();
-
-    //  TODO: Resume the SysTick.
 }
 
 void power_init_systick(uint32_t reload_val, int prio) {
