@@ -71,8 +71,6 @@ mod app_sensor {
     //  Start polling the temperature sensor every 10 seconds in the background.
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
-    ////sensor_network::start_server_transport()
-    ////.expect("NET fail");
 
     //  Main event loop
     //  Loop forever...
@@ -470,6 +468,7 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 extern "C" fn main() -> ! {
     mynewt::sysinit();
     app_sensor::start_sensor_listener().expect("TMP fail");
+    sensor_network::start_server_transport().expect("NET fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

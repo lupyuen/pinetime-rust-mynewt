@@ -64,7 +64,7 @@ void power_sleep(os_time_t ticks) {
     //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.
     uint32_t diff_time = end_time - start_time;
     if (diff_time > max_sleep) { max_sleep = diff_time; }    
-    if (last_ticks > 1000) { console_printf("sleep expected %ld ms / actual %ld ms\n", last_ticks, diff_time); console_flush(); }
+    //  if (last_ticks > 1000) { console_printf("sleep expected %ld ms / actual %ld ms\n", last_ticks, diff_time); console_flush(); }
 
     //  Stop the system timer.  TODO: Start the timer after sleeping.
     NVIC_DisableIRQ(TIM2_IRQn);
