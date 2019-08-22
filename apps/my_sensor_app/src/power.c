@@ -53,7 +53,8 @@ void power_sleep(os_time_t ticks) {
     //  If ticks is 0, no need to wait.
     if (ticks == 0) { power_sync_time(); return; }
 
-    console_printf("\n"); console_flush(); ////
+    //console_printf("\n"); 
+    console_flush(); ////
 
     //  Set the alarm to wake up in `ticks` milliseconds from now.
     platform_set_alarm(ticks);
