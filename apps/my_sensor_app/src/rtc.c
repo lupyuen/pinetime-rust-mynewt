@@ -74,7 +74,7 @@ static void rtc_setup(void) {
 
 	//  Note: Older versions of rtc_awake_from_off() and rtc_auto_awake() cause qemu to crash with error
 	//  "hardware error: you are must enter to configuration mode for write in any registre" in hw\timer\stm32_rtc.c
-	console_printf("rtc awake...\n"); console_flush(); //  rtc_awake_from_off() fails on qemu.
+	console_printf("rtc awake...\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
 #ifdef AUTO_AWAKE	
 	//  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
 	//  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
@@ -87,7 +87,7 @@ static void rtc_setup(void) {
 	rtc_awake_from_off(clock_source);  //  This will enable RTC.
 	rtc_set_prescale_val(prescale);
 #endif  //  AUTO_AWAKE
-	console_printf("rtc awake ok\n"); console_flush(); //  rtc_awake_from_off() fails on qemu.
+	console_printf("rtc awake ok\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
 	
 	rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0.
 	rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now.

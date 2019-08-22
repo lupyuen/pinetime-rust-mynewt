@@ -25,6 +25,8 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
+void platform_start_timer(void (*tickFunc0)(void), void (*alarmFunc0)(void));
+void platform_set_alarm(uint32_t millisec);
 uint32_t rtc_get_counter_val(void);
 void rtc_set_alarm_time(uint32_t alarm_time);
 

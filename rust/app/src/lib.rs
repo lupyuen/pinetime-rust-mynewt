@@ -59,8 +59,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         .expect("TMP fail");
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
-    sensor_network::start_server_transport()
-        .expect("NET fail");
+    ////sensor_network::start_server_transport()
+        ////.expect("NET fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
