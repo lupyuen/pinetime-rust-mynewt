@@ -14,6 +14,7 @@
             "executable": "bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
             //  For Bootloader: "executable": "bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf",
             "device": "STM32F103C8",
+            "svdFile": "scripts/STM32F103xx.svd",
             "configFiles": [ 
                 //  Tell OpenOCD to open the ST Link connection to STM32F1 MCU.
                 "interface/stlink-v2.cfg",

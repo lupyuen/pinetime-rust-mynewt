@@ -46,6 +46,8 @@ typedef enum {
         /** Counter Overflow Flag */    RTC_OW,
 } rtcflag_t;
  
+void rtc_isr(void);
+void rtc_alarm_isr(void);
 void nvic_enable_irq(uint8_t irqn);
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig);
 void exti_enable_request(uint32_t extis);
@@ -88,6 +90,9 @@ static void rtc_setup(void) {
 	rtc_set_prescale_val(prescale);
 #endif  //  AUTO_AWAKE
 	console_printf("rtc awake ok\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
+
+    NVIC_SetVector(RTC_IRQn,       (uint32_t) rtc_isr);        //  Set the Interrupt Service Routine for RTC
+    NVIC_SetVector(RTC_Alarm_IRQn, (uint32_t) rtc_alarm_isr);  //  Set the Interrupt Service Routine for RTC Alarm
 	
 	rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0.
 	rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now.
@@ -136,7 +141,7 @@ volatile uint32_t platform_get_alarm(void) {
 	return rtc_get_alarm_val();
 }
 
-void RTC_IRQHandler(void) {
+void rtc_isr(void) {
 	//  Interrupt Service Routine for RTC Tick, Alarm, Overflow.  Don't call any I/O functions here.
     //  Alarm handled by rtc_alarm_isr()
 	if (rtc_check_flag(RTC_SEC)) {
@@ -149,7 +154,7 @@ void RTC_IRQHandler(void) {
 	}
 }
 
-void RTC_Alarm_IRQHandler(void) {
+void rtc_alarm_isr(void) {
 	//  Interrupt Service Routine for RTC Alarm Wakeup.  Don't call any I/O functions here.
 	//  The RTC alarm appears as EXTI 17 which must be reset independently of the RTC alarm flag.
 	exti_reset_request(EXTI17);

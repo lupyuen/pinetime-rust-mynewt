@@ -12191,7 +12191,7 @@ _ZN9cstr_core4CStr8to_bytes17h93eda32c0da042ddE():
 _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h643b5ee7ddfdb733E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2745
    a:	b19b      	cbz	r3, 34 <<cstr_core::CStr as core::cmp::PartialEq>::eq+0x34>
-_ZN4core5slice81_$LT$impl$u20$core..cmp..PartialEq$LT$$u5b$B$u5d$$GT$$u20$for$u20$$u5b$A$u5d$$GT$2eq17h5cea533fd9a14fc7E():
+_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17hb23ce43de2920e61E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
    c:	428a      	cmp	r2, r1
    e:	bf1c      	itt	ne
@@ -12201,7 +12201,7 @@ _ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc96cc93fede58
         self.to_bytes().eq(other.to_bytes())
     }
   12:	bd80      	popne	{r7, pc}
-_ZN4core5slice81_$LT$impl$u20$core..cmp..PartialEq$LT$$u5b$B$u5d$$GT$$u20$for$u20$$u5b$A$u5d$$GT$2eq17h5cea533fd9a14fc7E():
+_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17hb23ce43de2920e61E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5245
   14:	4560      	cmp	r0, ip
   16:	d006      	beq.n	26 <<cstr_core::CStr as core::cmp::PartialEq>::eq+0x26>

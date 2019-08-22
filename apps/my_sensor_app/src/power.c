@@ -21,13 +21,13 @@ extern os_time_t g_os_time;
 void power_timer_tick() {
     //  This is called every millisecond.
     //  Warning: This is called from an interrupt handler.
-    ////power_sync_time();
+    power_sync_time();
 }
 
 void power_timer_alarm() {
     //  This is called when the Real-Time Clock alarm is triggered.
     //  Warning: This is called from an interrupt handler.
-    ////power_sync_time();
+    power_sync_time();
 }
 
 void power_sync_time() {
@@ -50,13 +50,14 @@ void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
 
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
-    console_flush(); ////
     //  If ticks is 0, no need to wait.
     if (ticks == 0) { power_sync_time(); return; }
 
-    //  Set the alarm to wake up in ticks milliseconds from now.
+    console_printf("\n"); console_flush(); ////
+
+    //  Set the alarm to wake up in `ticks` milliseconds from now.
     platform_set_alarm(ticks);
-    
+
     //  Enter Sleep Now Mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
     target_enter_sleep_mode();
     //  target_enter_deep_sleep_stop_mode();     //  Enter Deep Sleep Stop Mode
