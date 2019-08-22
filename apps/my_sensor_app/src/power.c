@@ -55,6 +55,8 @@ void power_sleep(os_time_t ticks) {
     //  If ticks is 0, no need to wait.
     if (ticks == 0) { power_sync_time(); return; }
 
+    ticks = 1000;  //  Force to sleep in blocks of 1 second.
+
     //  Set the alarm to wake up in `ticks` milliseconds from now.
     platform_set_alarm(ticks);
 
