@@ -11884,7 +11884,7 @@ _ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h7432aee919b568aa
  12c:	2800      	cmp	r0, #0
  12e:	f43f afac 	beq.w	8a <_ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h7432aee919b568aaE+0x8a>
  132:	e025      	b.n	180 <_ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h7432aee919b568aaE+0x180>
-_ZN9cstr_core5ascii14escape_default17hd7c5e0f659c32343E():
+_ZN116_$LT$core..iter..adapters..flatten..FlattenCompat$LT$I$C$U$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h9ee4fb2a97b0df58E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:135
             _ => ([b'\\', b'x', hexify(c >> 4), hexify(c & 0xf)], 4),
  134:	f002 000f 	and.w	r0, r2, #15
@@ -11901,7 +11901,7 @@ _ZN9cstr_core5ascii14escape_default6hexify17h2048d1b6edf0630fE():
  146:	bf38      	it	cc
  148:	2130      	movcc	r1, #48	; 0x30
  14a:	eb01 1112 	add.w	r1, r1, r2, lsr #4
-_ZN9cstr_core5ascii14escape_default17hd7c5e0f659c32343E():
+_ZN116_$LT$core..iter..adapters..flatten..FlattenCompat$LT$I$C$U$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h9ee4fb2a97b0df58E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:135
             _ => ([b'\\', b'x', hexify(c >> 4), hexify(c & 0xf)], 4),
  14e:	0409      	lsls	r1, r1, #16
@@ -11934,7 +11934,7 @@ _ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h7432aee919b568aa
  182:	4630      	mov	r0, r6
  184:	b013      	add	sp, #76	; 0x4c
  186:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-_ZN90_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next28_$u7b$$u7b$closure$u7d$$u7d$17hb3c36c9f3b7ec148E():
+_ZN90_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17ha1a383228828f988E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:154
             self.range.next().map(|i| self.data[i])
  18a:	f240 0000 	movw	r0, #0
