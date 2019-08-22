@@ -11,6 +11,8 @@
 
 void power_sync_time();
 void target_enter_sleep_mode(void);
+void target_enter_deep_sleep_stop_mode(void);
+void target_enter_deep_sleep_standby_mode(void);
 void pwr_voltage_regulator_low_power_in_stop(void);
 void pwr_set_stop_mode(void);
 void pwr_set_standby_mode(void);
@@ -52,9 +54,6 @@ void power_sleep(os_time_t ticks) {
     //  Set the wakeup alarm for current time + ticks milliseconds.
     //  If ticks is 0, no need to wait.
     if (ticks == 0) { power_sync_time(); return; }
-
-    //console_printf("\n"); 
-    console_flush(); ////
 
     //  Set the alarm to wake up in `ticks` milliseconds from now.
     platform_set_alarm(ticks);
