@@ -41,9 +41,9 @@
             "postLaunchCommands": [
                 //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
                 //  So we bypass the Bootloader and jump to the Application directly.
-                "stepi",                    //  Must step before setting PC.
-                "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler.
-                "stepi",                    //  Execute the Reset Handler.
+                ////"stepi",                    //  Must step before setting PC.
+                ////"set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler.
+                ////"stepi",                    //  Execute the Reset Handler.
                 "break main",               //  Break at main().
                 "break __assert_func",      //  Break for any assert failures.
                 "break os_default_irq",     //  Break for any unhandled interrupts.

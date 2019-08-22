@@ -101,7 +101,7 @@ static void rtc_setup(void) {
 	rtc_clear_flag(RTC_SEC);
 	rtc_clear_flag(RTC_ALR);
 	rtc_clear_flag(RTC_OW);
-	rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
+	////rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
 	rtc_interrupt_enable(RTC_ALR);  //  Allow RTC to generate alarm interrupts.
 	__enable_irq();
 }
@@ -166,7 +166,7 @@ volatile uint32_t platform_get_alarm(void) {
 	return rtc_get_alarm_val();
 }
 
-void rtc_isr(void) {
+void RTC_IRQHandler(void) {
 	//  Interrupt Service Routine for RTC Tick, Alarm, Overflow.  Don't call any I/O functions here.
 	if (rtc_check_flag(RTC_SEC)) {
 		//  We hit an RTC tick interrupt.
@@ -188,7 +188,7 @@ void rtc_isr(void) {
 #endif  //  NOTUSED
 }
 
-void rtc_alarm_isr(void) {
+void RTC_Alarm_IRQHandler(void) {
 	//  Interrupt Service Routine for RTC Alarm Wakeup.  Don't call any I/O functions here.
 	//  The RTC alarm appears as EXTI 17 which must be reset independently of the RTC alarm flag.
 	exti_reset_request(EXTI17);

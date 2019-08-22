@@ -1,7 +1,8 @@
 //  Implement Power Management functions
+#include <assert.h>
 #include <os/mynewt.h>
 #include <bsp/bsp.h>
-#include <assert.h>
+#include <console/console.h>
 #include "rtc.h"
 #include "power.h"
 
@@ -17,37 +18,55 @@ void pwr_clear_wakeup_flag(void);
 
 extern os_time_t g_os_time;
 
-static void timer_tick() {
+void power_timer_tick() {
     //  This is called every millisecond.
-    power_sync_time();
+    //  Warning: This is called from an interrupt handler.
+    ////power_sync_time();
 }
 
-static void timer_alarm() {
+void power_timer_alarm() {
     //  This is called when the Real-Time Clock alarm is triggered.
-    power_sync_time();
+    //  Warning: This is called from an interrupt handler.
+    ////power_sync_time();
 }
 
 void power_sync_time() {
-    //  Sync the OS time to the RTC time.
+    //  Sync the OS time to the RTC time.  Warning: This function must be safe to be called from an interrupt handler.
+
+    //  Compute the ticks elapsed.
     volatile uint32_t now = rtc_get_counter_val();
     int diff_ticks = now - g_os_time;
+
+    //  If ticks elapsed is above 0, update the OS clock.
+    if (diff_ticks <= 0) { return; }
     os_time_advance(diff_ticks);
 }
 
 void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
     //  Init the power management.
     assert(os_ticks_per_sec == 1000);  //  Assume 1 millisecond tick.
-    platform_start_timer(timer_tick, timer_alarm);
+    platform_start_timer(power_timer_tick, power_timer_alarm);
 }
 
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
+    console_flush(); ////
+
+    if (ticks == 0) {
+        //  No need to wait.
+        power_sync_time();
+        return;
+    }
+
     platform_set_alarm(ticks);
 
     //  Enter sleep mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
     target_enter_sleep_mode();
     //  target_enter_deep_sleep_stop_mode();
     //  target_enter_deep_sleep_standby_mode();
+
+    //  Upon waking, sync the OS time.
+    power_sync_time();
 }
 
 void power_init_systick(uint32_t reload_val, int prio) {
@@ -57,6 +76,15 @@ void power_init_systick(uint32_t reload_val, int prio) {
 
     /* Set the system tick priority */
     NVIC_SetPriority(SysTick_IRQn, prio);
+
+    /*
+     * Keep clocking debug even when CPU is sleeping, stopped or in standby.
+     */
+#if !MYNEWT_VAL(MCU_STM32F0)
+    DBGMCU->CR |= (DBGMCU_CR_DBG_SLEEP | DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY);
+#else
+    DBGMCU->CR |= (DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY);
+#endif
 }
 
 void power_start_systick() {
