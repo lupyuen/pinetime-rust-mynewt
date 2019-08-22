@@ -4,7 +4,7 @@
 #include <console/console.h>
 #include "power.h"
 #include "rtc.h"
-
+ 
 //  Select Oscillator for the realtime clock: 
 //  RCC_HSE: 62.5 kHz, fastest oscillator, doesn't work in Stop or Standby Low Power mode. 
 //  RCC_LSE: 32.768 kHz, slowest oscillator, works in Stop or Standby Low Power mode. 
@@ -12,6 +12,8 @@
 //  We choose RCC_LSE because we need to wake up in Low Power mode.
 
 #define USE_RCC_LSE  //  We use Low Power Mode...
+
+enum rcc_osc { RCC_PLL, RCC_PLL2, RCC_PLL3, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI };
 
 #ifdef USE_RCC_LSE   //  If using Low Power Mode...
 const rcc_osc clock_source = RCC_LSE;
@@ -33,7 +35,29 @@ static void (*alarmFunc)(void) = NULL;    //  This is the alarm function we will
 static volatile uint32_t tickCount = 0;   //  Number of millisecond ticks elapsed.
 static volatile uint32_t alarmCount = 0;  //  Number of alarms elapsed.
 
+/** RTC Interrupt Flags */
+typedef enum {
+        /** Counter Second Flag */      RTC_SEC,
+        /** Alarm Event Flag */         RTC_ALR,
+        /** Counter Overflow Flag */    RTC_OW,
+} rtcflag_t;
+ 
+void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig);
+void exti_enable_request(uint32_t extis);
+void exti_reset_request(uint32_t extis);
+void rcc_enable_rtc_clock(void);
+void rtc_awake_from_off(enum rcc_osc clock_source);
 void rtc_set_prescale_val(uint32_t prescale_val);
+void rtc_set_alarm_time(uint32_t alarm_time);
+uint32_t rtc_get_counter_val(void);
+uint32_t rtc_get_alarm_val(void);
+void rtc_set_counter_val(uint32_t counter_val);
+void rtc_interrupt_enable(rtcflag_t flag_val);
+void rtc_interrupt_disable(rtcflag_t flag_val);
+void rtc_clear_flag(rtcflag_t flag_val);
+uint32_t rtc_check_flag(rtcflag_t flag_val);
+void rtc_enter_config_mode(void);
+void rtc_exit_config_mode(void);
 
 static void rtc_setup(void) {
 	//  Setup RTC interrupts for tick and alarm wakeup.
@@ -186,7 +210,59 @@ volatile uint32_t platform_tick_count(void) {
 	return tickCount;  //  For testing whether tick ISR was called.
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//  EXTI Peripheral API (from libopencm3 STM32F1)
 
+void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
+{
+    switch (trig) {
+    case EXTI_TRIGGER_RISING:
+        EXTI_RTSR |= extis;
+        EXTI_FTSR &= ~extis;
+        break;
+    case EXTI_TRIGGER_FALLING:
+        EXTI_RTSR &= ~extis;
+        EXTI_FTSR |= extis;
+        break;
+    case EXTI_TRIGGER_BOTH:
+        EXTI_RTSR |= extis;
+        EXTI_FTSR |= extis;
+        break;
+    }
+}
+
+void exti_enable_request(uint32_t extis)
+{
+    /* Enable interrupts. */
+    EXTI_IMR |= extis;
+
+    /* Enable events. */
+    EXTI_EMR |= extis;
+}
+
+void exti_disable_request(uint32_t extis)
+{
+    /* Disable interrupts. */
+    EXTI_IMR &= ~extis;
+
+    /* Disable events. */
+    EXTI_EMR &= ~extis;
+}
+
+/*
+* Reset the interrupt request by writing a 1 to the corresponding
+* pending bit register.
+*/
+void exti_reset_request(uint32_t extis)
+{
+#if defined(EXTI_RPR1) && defined(EXTI_FPR1)
+        EXTI_RPR1 = extis;
+        EXTI_FPR1 = extis;
+#else
+        EXTI_PR = extis;
+#endif
+}
+ 
 ///////////////////////////////////////////////////////////////////////////////
 //  Real-Time Clock and Alarm Functions (from libopencm3 STM32F1)
 
@@ -219,6 +295,176 @@ volatile uint32_t platform_tick_count(void) {
 /* RTC alarm register high (RTC_ALRH / RTC_ALRL) */
 #define RTC_ALRH                        MMIO32(RTC_BASE + 0x20)
 #define RTC_ALRL                        MMIO32(RTC_BASE + 0x24)
+
+#define _REG_BIT(base, bit)             (((base) << 5) + (bit))
+
+/* V = value line F100
+* N = standard line F101, F102, F103
+* C = communication line F105, F107
+*/
+enum rcc_periph_clken {
+
+        /* AHB peripherals */
+        RCC_DMA1        = _REG_BIT(0x14, 0),/*VNC*/
+        RCC_DMA2        = _REG_BIT(0x14, 1),/*VNC*/
+        RCC_SRAM        = _REG_BIT(0x14, 2),/*VNC*/
+        RCC_FLTF        = _REG_BIT(0x14, 4),/*VNC*/
+        RCC_CRC         = _REG_BIT(0x14, 6),/*VNC*/
+        RCC_FSMC        = _REG_BIT(0x14, 8),/*VN-*/
+        RCC_SDIO        = _REG_BIT(0x14, 10),/*-N-*/
+        RCC_OTGFS       = _REG_BIT(0x14, 12),/*--C*/
+        RCC_ETHMAC      = _REG_BIT(0x14, 14),/*--C*/
+        RCC_ETHMACTX    = _REG_BIT(0x14, 15),/*--C*/
+        RCC_ETHMACRX    = _REG_BIT(0x14, 16),/*--C*/
+
+        /* APB2 peripherals */
+        RCC_AFIO        = _REG_BIT(0x18, 0),/*VNC*/
+        RCC_GPIOA       = _REG_BIT(0x18, 2),/*VNC*/
+        RCC_GPIOB       = _REG_BIT(0x18, 3),/*VNC*/
+        RCC_GPIOC       = _REG_BIT(0x18, 4),/*VNC*/
+        RCC_GPIOD       = _REG_BIT(0x18, 5),/*VNC*/
+        RCC_GPIOE       = _REG_BIT(0x18, 6),/*VNC*/
+        RCC_GPIOF       = _REG_BIT(0x18, 7),/*VN-*/
+        RCC_GPIOG       = _REG_BIT(0x18, 8),/*VN-*/
+        RCC_ADC1        = _REG_BIT(0x18, 9),/*VNC*/
+        RCC_ADC2        = _REG_BIT(0x18, 10),/*-NC*/
+        RCC_TIM1        = _REG_BIT(0x18, 11),/*VNC*/
+        RCC_SPI1        = _REG_BIT(0x18, 12),/*VNC*/
+        RCC_TIM8        = _REG_BIT(0x18, 13),/*-N-*/
+        RCC_USART1      = _REG_BIT(0x18, 14),/*VNC*/
+        RCC_ADC3        = _REG_BIT(0x18, 15),/*-N-*/
+        RCC_TIM15       = _REG_BIT(0x18, 16),/*V--*/
+        RCC_TIM16       = _REG_BIT(0x18, 17),/*V--*/
+        RCC_TIM17       = _REG_BIT(0x18, 18),/*V--*/
+        RCC_TIM9        = _REG_BIT(0x18, 19),/*-N-*/
+        RCC_TIM10       = _REG_BIT(0x18, 20),/*-N-*/
+        RCC_TIM11       = _REG_BIT(0x18, 21),/*-N-*/
+
+        /* APB1 peripherals */
+        RCC_TIM2        = _REG_BIT(0x1C, 0),/*VNC*/
+        RCC_TIM3        = _REG_BIT(0x1C, 1),/*VNC*/
+        RCC_TIM4        = _REG_BIT(0x1C, 2),/*VNC*/
+        RCC_TIM5        = _REG_BIT(0x1C, 3),/*VNC*/
+        RCC_TIM6        = _REG_BIT(0x1C, 4),/*VNC*/
+        RCC_TIM7        = _REG_BIT(0x1C, 5),/*VNC*/
+        RCC_TIM12       = _REG_BIT(0x1C, 6),/*VN-*/
+        RCC_TIM13       = _REG_BIT(0x1C, 7),/*VN-*/
+        RCC_TIM14       = _REG_BIT(0x1C, 8),/*VN-*/
+        RCC_WWDG        = _REG_BIT(0x1C, 11),/*VNC*/
+        RCC_SPI2        = _REG_BIT(0x1C, 14),/*VNC*/
+        RCC_SPI3        = _REG_BIT(0x1C, 15),/*VNC*/
+        RCC_USART2      = _REG_BIT(0x1C, 17),/*VNC*/
+        RCC_USART3      = _REG_BIT(0x1C, 18),/*VNC*/
+        RCC_UART4       = _REG_BIT(0x1C, 19),/*VNC*/
+        RCC_UART5       = _REG_BIT(0x1C, 20),/*VNC*/
+        RCC_I2C1        = _REG_BIT(0x1C, 21),/*VNC*/
+        RCC_I2C2        = _REG_BIT(0x1C, 22),/*VNC*/
+        RCC_USB         = _REG_BIT(0x1C, 23),/*-N-*/
+        RCC_CAN         = _REG_BIT(0x1C, 25),/*-N-*/
+        RCC_CAN1        = _REG_BIT(0x1C, 25),/*--C*/
+        RCC_CAN2        = _REG_BIT(0x1C, 26),/*--C*/
+        RCC_BKP         = _REG_BIT(0x1C, 27),/*VNC*/
+        RCC_PWR         = _REG_BIT(0x1C, 28),/*VNC*/
+        RCC_DAC         = _REG_BIT(0x1C, 29),/*VNC*/
+        RCC_CEC         = _REG_BIT(0x1C, 30),/*V--*/
+};
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC RTC Clock Enabled Flag
+@returns uint32_t. Nonzero if the RTC Clock is enabled.
+*/
+
+uint32_t rcc_rtc_clock_enabled_flag(void)
+{
+	return RCC->BDCR & RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the RTC clock
+*/
+
+void rcc_enable_rtc_clock(void)
+{
+	RCC->BDCR |= RCC_BDCR_RTCEN;
+}
+
+#define _RCC_REG(i)             MMIO32(RCC_BASE + ((i) >> 5))
+#define _RCC_BIT(i)             (1 << ((i) & 0x1f))
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Peripheral Clock in running mode.
+ *
+ * Enable the clock on particular peripheral.
+ *
+ * @param[in] clken rcc_periph_clken Peripheral RCC
+ *
+ * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
+ */
+
+void rcc_periph_clock_enable(enum rcc_periph_clken clken)
+{
+        _RCC_REG(clken) |= _RCC_BIT(clken);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Peripheral Clock in running mode.
+ * Disable the clock on particular peripheral.
+ *
+ * @param[in] clken rcc_periph_clken Peripheral RCC
+ *
+ * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
+ */
+
+void rcc_periph_clock_disable(enum rcc_periph_clken clken)
+{
+        _RCC_REG(clken) &= ~_RCC_BIT(clken);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Set Operational from the Off state.
+ 
+Power up the backup domain clocks, enable write access to the backup domain,
+select the clock source, clear the RTC registers and enable the RTC.
+
+@param[in] clock_source ::rcc_osc. RTC clock source. Only the values HSE, LSE
+    and LSI are permitted.
+*/
+
+void rtc_awake_from_off(enum rcc_osc clock_source)
+{
+        uint32_t reg32;
+
+        /* Enable power and backup interface clocks. */
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
+
+        /* Enable access to the backup registers and the RTC. */
+        pwr_disable_backup_domain_write_protect();
+
+        /* Set the clock source */
+        rcc_set_rtc_clock_source(clock_source);
+
+        /* Clear the RTC Control Register */
+        RTC_CRH = 0;
+        RTC_CRL = 0;
+
+        /* Enable the RTC. */
+        rcc_enable_rtc_clock();
+
+        /* Clear the Registers */
+        rtc_enter_config_mode();
+        RTC_PRLH = 0;
+        RTC_PRLL = 0;
+        RTC_CNTH = 0;
+        RTC_CNTL = 0;
+        RTC_ALRH = 0xFFFF;
+        RTC_ALRL = 0xFFFF;
+        rtc_exit_config_mode();
+
+        /* Wait for the RSF bit in RTC_CRL to be set by hardware. */
+        RTC_CRL &= ~RTC_CRL_RSF;
+        while ((reg32 = (RTC_CRL & RTC_CRL_RSF)) == 0);
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief RTC Enter Configuration Mode.
@@ -352,3 +598,166 @@ void rtc_set_counter_val(uint32_t counter_val)
         rtc_exit_config_mode();
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Enable Interrupt
+ 
+@param[in] flag_val ::rtcflag_t: The flag to enable.
+*/
+
+void rtc_interrupt_enable(rtcflag_t flag_val)
+{
+        rtc_enter_config_mode();
+
+        /* Set the correct interrupt enable. */
+        switch (flag_val) {
+        case RTC_SEC:
+                RTC_CRH |= RTC_CRH_SECIE;
+                break;
+        case RTC_ALR:
+                RTC_CRH |= RTC_CRH_ALRIE;
+                break;
+        case RTC_OW:
+                RTC_CRH |= RTC_CRH_OWIE;
+                break;
+        }
+
+        rtc_exit_config_mode();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Disable Interrupt
+ 
+@param[in] flag_val ::rtcflag_t: The flag to disable.
+*/
+
+void rtc_interrupt_disable(rtcflag_t flag_val)
+{
+        rtc_enter_config_mode();
+
+        /* Disable the correct interrupt enable. */
+        switch (flag_val) {
+        case RTC_SEC:
+                RTC_CRH &= ~RTC_CRH_SECIE;
+                break;
+        case RTC_ALR:
+                RTC_CRH &= ~RTC_CRH_ALRIE;
+                break;
+        case RTC_OW:
+                RTC_CRH &= ~RTC_CRH_OWIE;
+                break;
+        }
+
+        rtc_exit_config_mode();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Clear an Interrupt Flag
+ 
+@param[in] flag_val ::rtcflag_t: The flag to clear.
+*/
+
+void rtc_clear_flag(rtcflag_t flag_val)
+{
+        /* Configuration mode not needed. */
+
+        /* Clear the correct flag. */
+        switch (flag_val) {
+        case RTC_SEC:
+                RTC_CRL &= ~RTC_CRL_SECF;
+                break;
+        case RTC_ALR:
+                RTC_CRL &= ~RTC_CRL_ALRF;
+                break;
+        case RTC_OW:
+                RTC_CRL &= ~RTC_CRL_OWF;
+                break;
+        }
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Return a Flag Setting
+ 
+@param[in] flag_val ::rtcflag_t: The flag to check.
+@returns uint32_t: a nonzero value if the flag is set, zero otherwise.
+*/
+
+uint32_t rtc_check_flag(rtcflag_t flag_val)
+{
+        uint32_t reg32;
+
+        /* Read correct flag. */
+        switch (flag_val) {
+        case RTC_SEC:
+                reg32 = RTC_CRL & RTC_CRL_SECF;
+                break;
+        case RTC_ALR:
+                reg32 = RTC_CRL & RTC_CRL_ALRF;
+                break;
+        case RTC_OW:
+                reg32 = RTC_CRL & RTC_CRL_OWF;
+                break;
+        default:
+                reg32 = 0;
+                break;
+        }
+
+        return reg32;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Start RTC after Standby Mode.
+ 
+Enable the backup domain clocks, enable write access to the backup
+domain and the RTC, and synchronise the RTC register access.
+*/
+
+void rtc_awake_from_standby(void)
+{
+        uint32_t reg32;
+
+        /* Enable power and backup interface clocks. */
+        rcc_periph_clock_enable(RCC->PWR);
+        rcc_periph_clock_enable(RCC->BKP);
+
+        /* Enable access to the backup registers and the RTC. */
+        pwr_disable_backup_domain_write_protect();
+
+        /* Wait for the RSF bit in RTC_CRL to be set by hardware. */
+        RTC_CRL &= ~RTC_CRL_RSF;
+        while ((reg32 = (RTC_CRL & RTC_CRL_RSF)) == 0);
+
+        /* Wait for the last write operation to finish. */
+        /* TODO: Necessary? */
+        while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RTC Configuration on Wakeup
+ 
+Enable the backup domain clocks and write access to the backup domain.
+If the RTC has not been enabled, set the clock source and prescaler value.
+The parameters are not used if the RTC has already been enabled.
+
+@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE, LSE
+    and LSI are permitted.
+@param[in] prescale_val uint32_t. 20 bit prescale divider.
+*/
+
+void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
+{
+        uint32_t reg32;
+
+        /* Enable power and backup interface clocks. */
+        rcc_periph_clock_enable(RCC->PWR);
+        rcc_periph_clock_enable(RCC->BKP);
+
+        reg32 = rcc_rtc_clock_enabled_flag();
+
+        if (reg32 != 0) {
+                rtc_awake_from_standby();
+        } else {
+                rtc_awake_from_off(clock_source);
+                rtc_set_prescale_val(prescale_val);
+        }
+}
+/**@}*/
