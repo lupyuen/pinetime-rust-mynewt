@@ -4,7 +4,13 @@
 #include <console/console.h>
 #include "power.h"
 #include "rtc.h"
- 
+
+#define NVIC_RTC_IRQ 3
+#define NVIC_RTC_ALARM_IRQ 41
+#define EXTI17                          (1 << 17)
+enum exti_trigger_type {    EXTI_TRIGGER_RISING,    EXTI_TRIGGER_FALLING,    EXTI_TRIGGER_BOTH };
+enum rcc_osc { RCC_PLL, RCC_PLL2, RCC_PLL3, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI };
+
 //  Select Oscillator for the realtime clock: 
 //  RCC_HSE: 62.5 kHz, fastest oscillator, doesn't work in Stop or Standby Low Power mode. 
 //  RCC_LSE: 32.768 kHz, slowest oscillator, works in Stop or Standby Low Power mode. 
@@ -13,12 +19,10 @@
 
 #define USE_RCC_LSE  //  We use Low Power Mode...
 
-enum rcc_osc { RCC_PLL, RCC_PLL2, RCC_PLL3, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI };
-
 #ifdef USE_RCC_LSE   //  If using Low Power Mode...
-const rcc_osc clock_source = RCC_LSE;
+const enum rcc_osc clock_source = RCC_LSE;
 #else   //  If not using Low Power Mode...
-const rcc_osc clock_source = RCC_HSE;
+const enum rcc_osc clock_source = RCC_HSE;
 #endif  //  USE_RCC_LSE
 
 //  Set the clock prescaling value, so that we will get a tick interrupt every 1 millisecond. Dependent on LSE or HSE clock selection.
@@ -42,10 +46,12 @@ typedef enum {
         /** Counter Overflow Flag */    RTC_OW,
 } rtcflag_t;
  
+void nvic_enable_irq(uint8_t irqn);
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig);
 void exti_enable_request(uint32_t extis);
 void exti_reset_request(uint32_t extis);
 void rcc_enable_rtc_clock(void);
+void rcc_set_rtc_clock_source(enum rcc_osc clock_source);
 void rtc_awake_from_off(enum rcc_osc clock_source);
 void rtc_set_prescale_val(uint32_t prescale_val);
 void rtc_set_alarm_time(uint32_t alarm_time);
@@ -91,13 +97,13 @@ static void rtc_setup(void) {
 	nvic_enable_irq(NVIC_RTC_IRQ);        //  Enable RTC tick interrupt processing.
 	nvic_enable_irq(NVIC_RTC_ALARM_IRQ);  //  Enable RTC alarm wakeup interrupt processing.
 
-	cm_disable_interrupts();
+	__disable_irq();
 	rtc_clear_flag(RTC_SEC);
 	rtc_clear_flag(RTC_ALR);
 	rtc_clear_flag(RTC_OW);
 	rtc_interrupt_enable(RTC_SEC);  //  Allow RTC to generate tick interrupts.
 	rtc_interrupt_enable(RTC_ALR);  //  Allow RTC to generate alarm interrupts.
-	cm_enable_interrupts();
+	__enable_irq();
 }
 
 void platform_start_timer(void (*tickFunc0)(void), void (*alarmFunc0)(void)) {
@@ -211,22 +217,73 @@ volatile uint32_t platform_tick_count(void) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//  NVIC API (from libopencm3 STM32F1)
+
+/* Generic memory-mapped I/O accessor functions */
+#define MMIO8(addr)             (*(volatile uint8_t *)(addr))
+#define MMIO16(addr)            (*(volatile uint16_t *)(addr))
+#define MMIO32(addr)            (*(volatile uint32_t *)(addr))
+#define MMIO64(addr)            (*(volatile uint64_t *)(addr))
+
+/** ISER: Interrupt Set Enable Registers
+ * @note 8 32bit Registers
+ * @note Single register on CM0
+ */
+#define NVIC_ISER(iser_id)              MMIO32(NVIC_BASE + 0x00 + \
+                                                ((iser_id) * 4))
+
+/* NVIC_BASE + 0x020 (0xE000 E120 - 0xE000 E17F): Reserved */
+
+/** ICER: Interrupt Clear Enable Registers
+ * @note 8 32bit Registers
+ * @note Single register on CM0
+ */
+#define NVIC_ICER(icer_id)              MMIO32(NVIC_BASE + 0x80 + \
+                                                ((icer_id) * 4))
+
+/*---------------------------------------------------------------------------*/
+/** @brief NVIC Enable Interrupt
+ *
+ * Enables a user interrupt.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
+ */
+
+void nvic_enable_irq(uint8_t irqn)
+{
+        NVIC_ISER(irqn / 32) = (1 << (irqn % 32));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief NVIC Disable Interrupt
+ *
+ * Disables a user interrupt.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
+ */
+
+void nvic_disable_irq(uint8_t irqn)
+{
+        NVIC_ICER(irqn / 32) = (1 << (irqn % 32));
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //  EXTI Peripheral API (from libopencm3 STM32F1)
 
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 {
     switch (trig) {
     case EXTI_TRIGGER_RISING:
-        EXTI_RTSR |= extis;
-        EXTI_FTSR &= ~extis;
+        EXTI->RTSR |= extis;
+        EXTI->FTSR &= ~extis;
         break;
     case EXTI_TRIGGER_FALLING:
-        EXTI_RTSR &= ~extis;
-        EXTI_FTSR |= extis;
+        EXTI->RTSR &= ~extis;
+        EXTI->FTSR |= extis;
         break;
     case EXTI_TRIGGER_BOTH:
-        EXTI_RTSR |= extis;
-        EXTI_FTSR |= extis;
+        EXTI->RTSR |= extis;
+        EXTI->FTSR |= extis;
         break;
     }
 }
@@ -234,19 +291,19 @@ void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 void exti_enable_request(uint32_t extis)
 {
     /* Enable interrupts. */
-    EXTI_IMR |= extis;
+    EXTI->IMR |= extis;
 
     /* Enable events. */
-    EXTI_EMR |= extis;
+    EXTI->EMR |= extis;
 }
 
 void exti_disable_request(uint32_t extis)
 {
     /* Disable interrupts. */
-    EXTI_IMR &= ~extis;
+    EXTI->IMR &= ~extis;
 
     /* Disable events. */
-    EXTI_EMR &= ~extis;
+    EXTI->EMR &= ~extis;
 }
 
 /*
@@ -259,18 +316,12 @@ void exti_reset_request(uint32_t extis)
         EXTI_RPR1 = extis;
         EXTI_FPR1 = extis;
 #else
-        EXTI_PR = extis;
+        EXTI->PR = extis;
 #endif
 }
  
 ///////////////////////////////////////////////////////////////////////////////
 //  Real-Time Clock and Alarm Functions (from libopencm3 STM32F1)
-
-/* Generic memory-mapped I/O accessor functions */
-#define MMIO8(addr)             (*(volatile uint8_t *)(addr))
-#define MMIO16(addr)            (*(volatile uint16_t *)(addr))
-#define MMIO32(addr)            (*(volatile uint32_t *)(addr))
-#define MMIO64(addr)            (*(volatile uint64_t *)(addr))
 
 /* --- RTC registers ------------------------------------------------------- */
 
@@ -390,6 +441,55 @@ void rcc_enable_rtc_clock(void)
 
 #define _RCC_REG(i)             MMIO32(RCC_BASE + ((i) >> 5))
 #define _RCC_BIT(i)             (1 << ((i) & 0x1f))
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the RTC clock
+ 
+@param[in] clock_source RTC clock source. Only HSE/128, LSE and LSI.
+*/
+
+void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
+{
+        uint32_t reg32;
+
+        switch (clock_source) {
+        case RCC_LSE:
+                /* Turn the LSE on and wait while it stabilises. */
+                RCC->BDCR |= RCC_BDCR_LSEON;
+                while ((reg32 = (RCC->BDCR & RCC_BDCR_LSERDY)) == 0);
+
+                /* Choose LSE as the RTC clock source. */
+                RCC->BDCR &= ~((1 << 8) | (1 << 9));
+                RCC->BDCR |= (1 << 8);
+                break;
+        case RCC_LSI:
+                /* Turn the LSI on and wait while it stabilises. */
+                RCC->CSR |= RCC_CSR_LSION;
+                while ((reg32 = (RCC->CSR & RCC_CSR_LSIRDY)) == 0);
+
+                /* Choose LSI as the RTC clock source. */
+                RCC->BDCR &= ~((1 << 8) | (1 << 9));
+                RCC->BDCR |= (1 << 9);
+                break;
+        case RCC_HSE:
+                /* Turn the HSE on and wait while it stabilises. */
+                RCC->CR |= RCC_CR_HSEON;
+                while ((reg32 = (RCC->CR & RCC_CR_HSERDY)) == 0);
+
+                /* Choose HSE as the RTC clock source. */
+                RCC->BDCR &= ~((1 << 8) | (1 << 9));
+                RCC->BDCR |= (1 << 9) | (1 << 8);
+                break;
+        case RCC_PLL:
+        case RCC_PLL2:
+        case RCC_PLL3:
+        case RCC_HSI:
+                /* Unusable clock source, here to prevent warnings. */
+                /* Turn off clock sources to RTC. */
+                RCC->BDCR &= ~((1 << 8) | (1 << 9));
+                break;
+        }
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief Enable Peripheral Clock in running mode.
@@ -716,8 +816,8 @@ void rtc_awake_from_standby(void)
         uint32_t reg32;
 
         /* Enable power and backup interface clocks. */
-        rcc_periph_clock_enable(RCC->PWR);
-        rcc_periph_clock_enable(RCC->BKP);
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
 
         /* Enable access to the backup registers and the RTC. */
         pwr_disable_backup_domain_write_protect();
@@ -748,8 +848,8 @@ void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
         uint32_t reg32;
 
         /* Enable power and backup interface clocks. */
-        rcc_periph_clock_enable(RCC->PWR);
-        rcc_periph_clock_enable(RCC->BKP);
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
 
         reg32 = rcc_rtc_clock_enabled_flag();
 
