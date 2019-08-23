@@ -23,7 +23,7 @@
 //  0x100 Exception Message: Send message with high priority
 //  0x200 Release Indicator: indicate release after next message
 //  0x400 Release Indicator: indicate release after next message has been replied
-#define TRANSMIT_FLAGS "0x200"  //  Release the connection i.e. don't wait for response. Saves power. See https://forum.iot.t-mobile.nl/topic/278/how-much-battery-lifetime-can-we-expect-with-a-sara-n200-module-on-our-iot-network
+////#define TRANSMIT_FLAGS "0x200"  //  Release the connection i.e. don't wait for response. Saves power. See https://forum.iot.t-mobile.nl/topic/278/how-much-battery-lifetime-can-we-expect-with-a-sara-n200-module-on-our-iot-network
 
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
