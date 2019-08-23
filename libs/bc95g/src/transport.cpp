@@ -96,6 +96,7 @@ int init_bc95g_endpoint(struct bc95g_endpoint *endpoint, const char *host, uint1
 //  OIC Callback Functions
 
 extern int network_is_busy;
+#define ALWAYS_ATTACHED  //  Never detach from NB-IoT network. Consumes more power.
 
 static void oc_tx_ucast(struct os_mbuf *m) {
     //  Transmit the chain of mbufs to the network over UDP.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
@@ -140,8 +141,10 @@ static void oc_tx_ucast(struct os_mbuf *m) {
         rc = bc95g_socket_close(dev, socket);
         assert(rc == 0);
 
+#ifndef ALWAYS_ATTACHED
         //  Detach from NB-IoT network.
         rc = bc95g_detach(dev);
+#endif  //  ALWAYS_ATTACHED
 
         //  Close the BC95G device when we are done.
         os_dev_close((struct os_dev *) dev);
