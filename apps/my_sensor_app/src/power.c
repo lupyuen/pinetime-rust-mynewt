@@ -58,7 +58,7 @@ static uint32_t max_sleep = 1;
 
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
-    //  If ticks is 0, no need to wait.
+    //  If network is busy connecting, or ticks is 0, don't sleep.  AT response may be garbled if we sleep.
     if (network_is_busy || ticks == 0) { power_sync_time(); return; }
     //  if (ticks < 2000) { ticks = 2000; }  //  Force to sleep in blocks of 2 seconds.
 
