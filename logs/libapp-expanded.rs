@@ -94,8 +94,8 @@ mod app_sensor {
     ///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
-    ///  Poll sensor every 10,000 milliseconds (10 seconds)  
-    const SENSOR_POLL_TIME: u32 = (10 * 1000);
+    ///  Poll sensor every 60,000 milliseconds (60 seconds)  
+    const SENSOR_POLL_TIME: u32 = (60 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};

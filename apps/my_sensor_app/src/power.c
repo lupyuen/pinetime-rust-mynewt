@@ -19,6 +19,7 @@ void pwr_set_standby_mode(void);
 void pwr_clear_wakeup_flag(void);
 
 extern os_time_t g_os_time;
+int network_is_busy = 0;
 
 void power_timer_tick() {
     //  This is called every millisecond.
@@ -58,7 +59,7 @@ static uint32_t max_sleep = 1;
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
     //  If ticks is 0, no need to wait.
-    if (ticks == 0) { power_sync_time(); return; }
+    if (network_is_busy || ticks == 0) { power_sync_time(); return; }
     //  if (ticks < 2000) { ticks = 2000; }  //  Force to sleep in blocks of 2 seconds.
 
     //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.

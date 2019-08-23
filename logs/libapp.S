@@ -1293,7 +1293,7 @@ _ZN3app10app_sensor21start_sensor_listener17h1497147758d31eaaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:52
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   14:	f240 0000 	movw	r0, #0
-  18:	f242 7110 	movw	r1, #10000	; 0x2710
+  18:	f64e 2160 	movw	r1, #60000	; 0xea60
   1c:	f2c0 0000 	movt	r0, #0
   20:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17he698cfb7bf5b51c7E>
   24:	2801      	cmp	r0, #1

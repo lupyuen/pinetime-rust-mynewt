@@ -95,6 +95,8 @@ int init_bc95g_endpoint(struct bc95g_endpoint *endpoint, const char *host, uint1
 ///////////////////////////////////////////////////////////////////////////////
 //  OIC Callback Functions
 
+extern int network_is_busy;
+
 static void oc_tx_ucast(struct os_mbuf *m) {
     //  Transmit the chain of mbufs to the network over UDP.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
 
@@ -116,6 +118,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
     hal_gpio_toggle(LED_BLINK_PIN);
 
     {   //  Lock the BC95G driver for exclusive use.  Find the BC95G device by name.
+        network_is_busy = 1;
         struct bc95g *dev = (struct bc95g *) os_dev_open(network_device, OS_TIMEOUT_NEVER, NULL);  //  network_device is `bc95g_0`
         assert(dev != NULL);
         console_printf("NBT send udp\n");
@@ -139,11 +142,11 @@ static void oc_tx_ucast(struct os_mbuf *m) {
 
         //  Detach from NB-IoT network.
         rc = bc95g_detach(dev);
-        assert(rc == 0);
 
         //  Close the BC95G device when we are done.
         os_dev_close((struct os_dev *) dev);
         //  Unlock the BC95G driver for exclusive use.
+        network_is_busy = 0;
     }
 
     //  After sending, free the chain of mbufs.

@@ -1307,7 +1307,7 @@ _ZN3app10app_sensor21start_sensor_listener17h1497147758d31eaaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:52
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   14:	f240 0000 	movw	r0, #0
-  18:	f242 7110 	movw	r1, #10000	; 0x2710
+  18:	f64e 2160 	movw	r1, #60000	; 0xea60
   1c:	f2c0 0000 	movt	r0, #0
   20:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17he698cfb7bf5b51c7E>
   24:	2801      	cmp	r0, #1
@@ -7972,14 +7972,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
         if ptr as usize % 2 == 1 {
    6:	07cb      	lsls	r3, r1, #31
    8:	d00f      	beq.n	2a <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h0b3c3d462ec4cc2cE+0x2a>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    a:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
             while !port.is_fifo_ready() {}
    c:	2b01      	cmp	r3, #1
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    e:	bf1c      	itt	ne
   10:	6803      	ldrne	r3, [r0, #0]
@@ -7987,14 +7987,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
   12:	2b01      	cmpne	r3, #1
   14:	d005      	beq.n	22 <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h0b3c3d462ec4cc2cE+0x22>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   16:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
   18:	2b01      	cmp	r3, #1
   1a:	d002      	beq.n	22 <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h0b3c3d462ec4cc2cE+0x22>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   1c:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():

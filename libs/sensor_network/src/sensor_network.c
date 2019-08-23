@@ -188,8 +188,8 @@ static void network_task_func(void *arg) {
     rc = sensor_network_register_transport(iface_type);  assert(rc == 0);
 
     while (true) {  //  Loop forever...        
-        console_printf("NET free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
-        os_time_delay(10 * OS_TICKS_PER_SEC);                      //  Wait 10 seconds before repeating.
+        //  console_printf("NET free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
+        os_time_delay(1000 * OS_TICKS_PER_SEC);                      //  Wait 1000 seconds before repeating.
     }
     assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }

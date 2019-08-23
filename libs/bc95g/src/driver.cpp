@@ -434,9 +434,11 @@ static bool prepare_to_transmit(struct bc95g *dev) {
 /// [Phase 1] Attach to network
 static bool attach_to_network(struct bc95g *dev) {
     return (        
+        //  CFUN_QUERY: query network function
+        send_command(dev, CFUN_QUERY) &&
+
         //  CFUN_ENABLE: enable network function
         send_command(dev, CFUN_ENABLE) &&
-        //send_command(dev, CFUN_QUERY) &&
 
         //  CGATT: attach network
         send_command(dev, CGATT) &&
