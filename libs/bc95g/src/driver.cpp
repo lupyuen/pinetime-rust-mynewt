@@ -63,8 +63,7 @@ enum CommandId {
     CGATT_QUERY,    //  query attach
 
     //  [2] Transmit message
-    NSOCR,  //  allocate port
-    NSOST,  //  transmit
+    NSOCR,   //  allocate port
 
     //  [3] Receive response
     NSORF,  //  receive msg
@@ -96,7 +95,6 @@ static const char *COMMANDS[] = {
 
     //  [2] Transmit message
     "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
-    "NSOST=%d,%s,%d,%d,%s,%d",  //  NSOST: transmit
 
     //  [3] Receive response
     "NSORF=1,%d",  //  NSORF: receive msg
@@ -532,17 +530,32 @@ static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t length, s
     return result;
 }
 
+//  NSOSTF Flags:
+//  0x100 Exception Message: Send message with high priority
+//  0x200 Release Indicator: indicate release after next message
+//  0x400 Release Indicator: indicate release after next message has been replied
+#define TRANSMIT_FLAGS "0x200"  //  Release the connection i.e. don't wait for response. Saves power. See https://forum.iot.t-mobile.nl/topic/278/how-much-battery-lifetime-can-we-expect-with-a-sara-n200-module-on-our-iot-network
+
 /// Transmit the `data` buffer if `data` is non-null, or the chain of mbufs.  Return number of bytes sent.
 static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, 
     const uint8_t *data, uint16_t length, uint8_t sequence, struct os_mbuf *mbuf) {
     uint16_t local_port = socket->local_port;
     int local_port_response = -1, length_response = -1;
-    console_printf("AT> NSOST=%d,%s,%d,%d,\n", local_port, host, port, length);
+#ifdef TRANSMIT_FLAGS
+    console_printf("AT> NSOSTF=%d,%s,%d,%s,%d,\n", local_port, host, port, TRANSMIT_FLAGS, length);
+#else
+    console_printf("AT> NSOST=%d,%s,%d,%d,\n",     local_port, host, port, length);
+#endif  //  TRANSMIT_FLAGS
     internal_timeout(BC95G_SEND_TIMEOUT);
     bool res = (
         send_atp(dev) &&  //  Will pause between commands.
+#ifdef TRANSMIT_FLAGS
+        parser.printf("NSOSTF=%d,%s,%d,%s,%d,",
+            local_port, host, port, TRANSMIT_FLAGS, length) &&
+#else
         parser.printf("NSOST=%d,%s,%d,%d,",
             local_port, host, port, length) &&
+#endif  //  TRANSMIT_FLAGS
         send_data(dev, data, length, mbuf) &&
         parser.send(",%d", sequence) &&
         parser.recv("%d,%d", &local_port_response, &length_response) &&
