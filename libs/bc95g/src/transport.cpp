@@ -95,8 +95,11 @@ int init_bc95g_endpoint(struct bc95g_endpoint *endpoint, const char *host, uint1
 ///////////////////////////////////////////////////////////////////////////////
 //  OIC Callback Functions
 
+/// Set this to 1 so that `power_sleep()` will not sleep when network is busy connecting.
 extern int network_is_busy;
-#define ALWAYS_ATTACHED  //  Never detach from NB-IoT network. Consumes more power.
+
+/// Never detach from NB-IoT network. Consumes more power.
+// #define ALWAYS_ATTACHED
 
 static void oc_tx_ucast(struct os_mbuf *m) {
     //  Transmit the chain of mbufs to the network over UDP.  First mbuf is CoAP header, remaining mbufs contain the CoAP payload.
