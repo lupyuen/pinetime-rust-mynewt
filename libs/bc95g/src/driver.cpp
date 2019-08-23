@@ -13,6 +13,18 @@
 #include "util.h"
 #include "ATParser.h"
 
+/// Number of retries for NB-IoT network registration
+#define MAX_REGISTRATION_RETRIES 40
+
+/// Number of retries for NB-IoT network attach
+#define MAX_ATTACH_RETRIES 40
+
+//  Transmit (NSOSTF) Flags:
+//  0x100 Exception Message: Send message with high priority
+//  0x200 Release Indicator: indicate release after next message
+//  0x400 Release Indicator: indicate release after next message has been replied
+#define TRANSMIT_FLAGS "0x200"  //  Release the connection i.e. don't wait for response. Saves power. See https://forum.iot.t-mobile.nl/topic/278/how-much-battery-lifetime-can-we-expect-with-a-sara-n200-module-on-our-iot-network
+
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size);
 
 //  Controller buffers.  TODO: Support multiple instances.
@@ -333,7 +345,7 @@ static bool sleep(uint16_t seconds) {
 static bool wait_for_registration(struct bc95g *dev) {
     //  Set the LED for output: PC13. TODO: Super Blue Pill uses a different pin for LED.
     hal_gpio_init_out(LED_BLINK_PIN, 1);
-    for (uint8_t i = 0; i < 20; i++) {
+    for (uint8_t i = 0; i < MAX_REGISTRATION_RETRIES; i++) {
         //  Response contains 2 integers: `code` and `status` e.g. `=+CEREG:0,1`
         int code = -1, status = -1;
         //  CEREG_QUERY: query registration
@@ -350,12 +362,12 @@ static bool wait_for_registration(struct bc95g *dev) {
         console_flush();
         sleep(2);
     }
-    return false;  //  Not registered after 20 retries, quit.
+    return false;  //  Not registered after retries, quit.
 }
 
 /// Wait for NB-IoT network to be attached
 static bool wait_for_attach(struct bc95g *dev) {
-    for (uint8_t i = 0; i < 20; i++) {
+    for (uint8_t i = 0; i < MAX_ATTACH_RETRIES; i++) {
         //  Response contains 1 integer: `state` e.g. `=+CGATT:1`
         int state = -1;
         //  CGATT_QUERY: query attach
@@ -371,7 +383,7 @@ static bool wait_for_attach(struct bc95g *dev) {
         console_flush();
         sleep(2);
     }
-    return false;  //  Not attached after 20 retries, quit.
+    return false;  //  Not attached after retries, quit.
 }
 
 /// At startup, keep sending AT and wait for module to respond OK. This skips the ERROR response at startup.
@@ -410,16 +422,16 @@ static bool prepare_to_transmit(struct bc95g *dev) {
         //  Reboot will take longer than other commands. We wait then flush.
         parser.send("AT") &&
         expect_ok(dev) &&
-        (parser.flush() == 0)
+        (parser.flush() == 0) &&
+
+        //  NBAND: select band. Configure `NBIOT_BAND` in `targets/bluepill_my_sensor/syscfg.yml`
+        send_command_int(dev, NBAND, MYNEWT_VAL(NBIOT_BAND))
     );
 }
 
 /// [Phase 1] Attach to network
 static bool attach_to_network(struct bc95g *dev) {
     return (        
-        //  NBAND: select band. Configure `NBIOT_BAND` in `targets/bluepill_my_sensor/syscfg.yml`
-        send_command_int(dev, NBAND, MYNEWT_VAL(NBIOT_BAND)) &&
-
         //  CFUN: enable functions
         send_command(dev, CFUN) &&
         //send_command(dev, CFUN_QUERY) &&
@@ -529,12 +541,6 @@ static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t length, s
     _log(_f, result);
     return result;
 }
-
-//  NSOSTF Flags:
-//  0x100 Exception Message: Send message with high priority
-//  0x200 Release Indicator: indicate release after next message
-//  0x400 Release Indicator: indicate release after next message has been replied
-#define TRANSMIT_FLAGS "0x200"  //  Release the connection i.e. don't wait for response. Saves power. See https://forum.iot.t-mobile.nl/topic/278/how-much-battery-lifetime-can-we-expect-with-a-sara-n200-module-on-our-iot-network
 
 /// Transmit the `data` buffer if `data` is non-null, or the chain of mbufs.  Return number of bytes sent.
 static int send_tx_command(struct bc95g *dev, struct bc95g_socket *socket, const char *host, uint16_t port, 

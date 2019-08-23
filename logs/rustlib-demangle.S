@@ -27722,7 +27722,7 @@ _ZN6mynewt3sys7console5print17hd50240000fba952aE():
   2e:	2101      	movs	r1, #1
   30:	f2c0 0000 	movt	r0, #0
   34:	f7ff fffe 	bl	0 <console_buffer>
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17he92e04eab1021a65E():
+_ZN4core3str6traits54_$LT$impl$u20$core..cmp..PartialEq$u20$for$u20$str$GT$2eq17h1e8eb1c62b0622d9E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
   38:	2f06      	cmp	r7, #6
   3a:	d02a      	beq.n	92 <mynewt::encoding::coap_context::CoapContext::encoder+0x92>
@@ -27843,7 +27843,7 @@ _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h37cd83e640d0725aE():
  116:	4630      	mov	r0, r6
  118:	b001      	add	sp, #4
  11a:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17he92e04eab1021a65E():
+_ZN4core5tuple69_$LT$impl$u20$core..cmp..PartialEq$u20$for$u20$$LP$A$C$$u20$B$RP$$GT$2eq17h1140aa4fafcbbbd9E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
  11c:	2d04      	cmp	r5, #4
  11e:	d0a1      	beq.n	64 <mynewt::encoding::coap_context::CoapContext::encoder+0x64>
