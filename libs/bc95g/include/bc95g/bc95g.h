@@ -63,6 +63,12 @@ int bc95g_config(struct bc95g *dev, struct bc95g_cfg *cfg);
 //  Connect to the NB-IoT network.  Return 0 if successful.
 int bc95g_connect(struct bc95g *dev);  
 
+//  Attach to the NB-IoT network.  Return 0 if successful.
+int bc95g_attach(struct bc95g *dev);
+
+//  Detach from the NB-IoT network.  Return 0 if successful.
+int bc95g_detach(struct bc95g *dev);
+
 //  Allocate a socket and save to `socket_ptr`.  Return 0 if successful.
 int bc95g_socket_open(struct bc95g *dev, struct bc95g_socket **socket_ptr);
 

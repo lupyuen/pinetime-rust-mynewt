@@ -20,7 +20,6 @@ static void oc_shutdown(void);
 
 static const char *network_device;     //  Name of the BC95G device that will be used for transmitting CoAP messages e.g. "bc95g_0" 
 static struct bc95g_server *server;    //  CoAP Server host and port.  We only support 1 server.
-static bc95g_socket *socket;           //  Reusable UDP socket connection.
 static uint8_t transport_id = -1;      //  Will contain the Transport ID allocated by Mynewt OIC.
 
 //  Definition of BC95G driver as a transport for CoAP.  Only 1 BC95G driver instance supported.
@@ -57,10 +56,6 @@ int bc95g_register_transport(const char *network_device0, struct bc95g_server *s
         //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
         //  to pass BC95G events to this function.
         rc = bc95g_connect(dev);
-        assert(rc == 0);
-
-        //  Allocate a new UDP socket.
-        rc = bc95g_socket_open(dev, &socket);
         assert(rc == 0);
 
         //  BC95G registered.  Remember the details.
@@ -109,7 +104,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
 
     assert(endpoint);  assert(endpoint->host);  assert(endpoint->port);  //  Host and endpoint should be in the endpoint.
     assert(server);  assert(endpoint->host == server->endpoint.host);  assert(endpoint->port == server->endpoint.port);  //  We only support 1 server connection. Must match the message endpoint.
-    assert(network_device);  assert(socket);
+    assert(network_device);
 
     //  Running sequence number for the message: 1 to 255.
     static uint8_t sequence = 0;
@@ -125,9 +120,26 @@ static void oc_tx_ucast(struct os_mbuf *m) {
         assert(dev != NULL);
         console_printf("NBT send udp\n");
 
+        //  Attach to NB-IoT network.
+        rc = bc95g_attach(dev);
+        assert(rc == 0);
+
+        //  Allocate a new UDP socket.
+        bc95g_socket *socket = NULL;
+        rc = bc95g_socket_open(dev, &socket);
+        assert(rc == 0);  assert(socket);
+
         //  Send the consolidated buffer via UDP.
         rc = bc95g_socket_tx_mbuf(dev, socket, endpoint->host, endpoint->port, sequence, m);
         assert(rc > 0);
+
+        //  Close the UDP socket.
+        rc = bc95g_socket_close(dev, socket);
+        assert(rc == 0);
+
+        //  Detach from NB-IoT network.
+        rc = bc95g_detach(dev);
+        assert(rc == 0);
 
         //  Close the BC95G device when we are done.
         os_dev_close((struct os_dev *) dev);

@@ -67,7 +67,8 @@ enum CommandId {
 
     //  [1] Attach to network
     NBAND,          //  select band
-    CFUN,           //  enable functions
+    CFUN_ENABLE,    //  enable network function
+    CFUN_DISABLE,   //  disable network function
     CFUN_QUERY,     //  query functions
     CEREG,          //  network registration
     CEREG_QUERY,    //  query registration
@@ -98,7 +99,8 @@ static const char *COMMANDS[] = {
 
     //  [1] Attach to network
     "NBAND=%d", //  NBAND: select band
-    "CFUN=1",   //  CFUN: enable functions
+    "CFUN=1",   //  CFUN_ENABLE: enable network function
+    "CFUN=0",   //  CFUN_DISABLE: disable network function
     "CFUN?",    //  CFUN_QUERY: query functions
     "CEREG=0",  //  CEREG: network registration
     "CEREG?",   //  CEREG_QUERY: query registration
@@ -110,7 +112,7 @@ static const char *COMMANDS[] = {
 
     //  [3] Receive response
     "NSORF=1,%d",  //  NSORF: receive msg
-    "NSOCL=1,%d",  //  NSOCL: close port
+    "NSOCL=%d",  //  NSOCL: close port
 
     //  [4] Diagnostics
     "CGPADDR",   //  CGPADDR: IP address
@@ -432,8 +434,8 @@ static bool prepare_to_transmit(struct bc95g *dev) {
 /// [Phase 1] Attach to network
 static bool attach_to_network(struct bc95g *dev) {
     return (        
-        //  CFUN: enable functions
-        send_command(dev, CFUN) &&
+        //  CFUN_ENABLE: enable network function
+        send_command(dev, CFUN_ENABLE) &&
         //send_command(dev, CFUN_QUERY) &&
 
         //  CGATT: attach network
@@ -459,10 +461,25 @@ int bc95g_connect(struct bc95g *dev) {
     internal_timeout(BC95G_CONNECT_TIMEOUT);
     return (
         //  [Phase 0] Prepare to transmit
-        prepare_to_transmit(dev) &&
+        prepare_to_transmit(dev)
+    ) ? 0 : dev->last_error;
+}
 
+int bc95g_attach(struct bc95g *dev) {
+    //  Attach to the NB-IoT network.  Return 0 if successful.
+    internal_timeout(BC95G_CONNECT_TIMEOUT);
+    return (
         //  [Phase 1] Attach to network
         attach_to_network(dev)
+    ) ? 0 : dev->last_error;
+}
+
+int bc95g_detach(struct bc95g *dev) {
+    //  Detach from the NB-IoT network.  Return 0 if successful.
+    internal_timeout(BC95G_CONNECT_TIMEOUT);
+    return (
+        //  CFUN_DISABLE: disable network function
+        send_command(dev, CFUN_DISABLE)
     ) ? 0 : dev->last_error;
 }
 

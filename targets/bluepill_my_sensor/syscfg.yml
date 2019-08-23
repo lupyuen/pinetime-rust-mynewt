@@ -35,30 +35,12 @@ syscfg.vals:
     COAP_URI:          '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
 
     ###########################################################################
-    # Sensor Settings
-
-    # Sensor device is the STM32 Internal Temperature Sensor
-    SENSOR_DEVICE:     MYNEWT_VAL(TEMP_STM32_DEVICE)
-
-    # Sensor value will be sent as field name `t`
-    SENSOR_KEY:        '"t"'
-
-    # Type of sensor is raw ambient temperature
-    SENSOR_TYPE:       SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-
-    # Raw temperature sensor value is an integer (0 to 4095)
-    SENSOR_VALUE_TYPE: SENSOR_VALUE_TYPE_INT32
-
-    # Poll the sensor every 10,000 milliseconds (10 seconds)
-    SENSOR_POLL_TIME:  10 * 1000
-
-    ###########################################################################
     # Network Settings
 
     NBIOT_BAND:             8  # Connect to this NB-IoT band
     SENSOR_NETWORK:         1  # Enable Sensor Network library
     SENSOR_COAP:            1  # Send sensor data to CoAP server
-    COAP_CBOR_ENCODING:     1  # Enable CBOR encoding of CoAP payload
+    COAP_CBOR_ENCODING:     0  # Disable CBOR encoding of CoAP payload
     COAP_JSON_ENCODING:     1  # Enable JSON encoding of CoAP payload
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
 
@@ -68,4 +50,4 @@ syscfg.vals:
     BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
     ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+    HMAC_PRNG:              0  # Disable HMAC PRNG pseudorandom number generator

@@ -3343,14 +3343,14 @@ _ZN8cortex_m3itm9write_all17h88facc8f29db9f59E():
         if ptr as usize % 2 == 1 {
    6:	07cb      	lsls	r3, r1, #31
    8:	d00f      	beq.n	2a <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17haae66b2603708f53E+0x2a>
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h673be2e68e48459dE():
+_ZN4core3ptr13read_volatile17h54f4d47e7896c820E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    a:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h88facc8f29db9f59E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
             while !port.is_fifo_ready() {}
    c:	2b01      	cmp	r3, #1
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h673be2e68e48459dE():
+_ZN4core3ptr13read_volatile17h54f4d47e7896c820E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    e:	bf1c      	itt	ne
   10:	6803      	ldrne	r3, [r0, #0]
@@ -3358,14 +3358,14 @@ _ZN8cortex_m3itm9write_all17h88facc8f29db9f59E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
   12:	2b01      	cmpne	r3, #1
   14:	d005      	beq.n	22 <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17haae66b2603708f53E+0x22>
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h673be2e68e48459dE():
+_ZN4core3ptr13read_volatile17h54f4d47e7896c820E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   16:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h88facc8f29db9f59E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
   18:	2b01      	cmp	r3, #1
   1a:	d002      	beq.n	22 <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17haae66b2603708f53E+0x22>
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17h673be2e68e48459dE():
+_ZN4core3ptr13read_volatile17h54f4d47e7896c820E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   1c:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h88facc8f29db9f59E():
@@ -16943,7 +16943,7 @@ fn repeat_byte(b: u8) -> usize {
 
 pub fn memchr(n1: u8, haystack: &[u8]) -> Option<usize> {
    0:	b570      	push	{r4, r5, r6, lr}
-_ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$13get_unchecked17h38c836297d671cc7E():
+_ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h4e4d34e4f8a70e93E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1077
    2:	eb01 0c02 	add.w	ip, r1, r2
 _ZN6memchr8fallback11repeat_byte17hc0f3dab16c60b503E():
