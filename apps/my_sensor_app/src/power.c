@@ -61,13 +61,13 @@ void power_sleep(os_time_t ticks) {
 
     //  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
     if (ticks < 10 * 1000) {
-        target_enter_sleep_mode();              //  Enter Sleep Now Mode
+        target_enter_sleep_mode();  //  Enter Sleep Now Mode
     } else {
         console_printf("z%d\n", (int) (ticks / 1000)); console_flush();
-        target_enter_deep_sleep_stop_mode();    //  Enter Deep Sleep Stop Mode
+        target_enter_sleep_mode();                   //  Enter Sleep Now Mode
+        //  target_enter_deep_sleep_stop_mode();     //  Enter Deep Sleep Stop Mode
+        //  target_enter_deep_sleep_standby_mode();  //  Enter Deep Sleep Standby Mode. Will not return.
     }
-    //  target_enter_deep_sleep_standby_mode();  //  Enter Deep Sleep Standby Mode
-
     //  Remember the sleep end time to be displayed at next call.
     end_time = rtc_get_counter_val();
 

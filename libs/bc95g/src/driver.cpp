@@ -468,36 +468,19 @@ static bool attach_to_network(struct bc95g *dev) {
     );
 }
 
-#include <hal/hal_uart.h>     //  UART functions.  ////
-
 int bc95g_connect(struct bc95g *dev) {
     //  Connect to the NB-IoT network.  Return 0 if successful.
     internal_timeout(BC95G_CONNECT_TIMEOUT);
-    int uart = dev->cfg.uart;
     return (
         //  [Phase 0] Prepare to transmit
-        prepare_to_transmit(dev) &&
-
-        (hal_uart_close(uart) == 0)  ////  TODO
-
+        prepare_to_transmit(dev)
     ) ? 0 : dev->last_error;
 }
-
-extern int setup_uart(BufferedSerial *serial);
 
 int bc95g_attach(struct bc95g *dev) {
     //  Attach to the NB-IoT network.  Return 0 if successful.
     internal_timeout(BC95G_CONNECT_TIMEOUT);
-
-    ////  TODO
-    int rc = setup_uart(&serial);
-    if (rc != 0) { console_printf("setup_uart: %d\n", rc); console_flush(); }
-    assert(rc == 0);
-
     return (        
-        //  In case we wake up from sleep, skip the ERROR response and wait for OK.
-        wait_for_ok(dev) &&
-
         //  [Phase 1] Attach to network
         attach_to_network(dev)
     ) ? 0 : dev->last_error;
