@@ -55,7 +55,9 @@ void exti_enable_request(uint32_t extis);
 void exti_reset_request(uint32_t extis);
 void rcc_enable_rtc_clock(void);
 void rcc_set_rtc_clock_source(enum rcc_osc clock_source);
+void rtc_awake_from_standby(void);
 void rtc_awake_from_off(enum rcc_osc clock_source);
+void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val);
 void rtc_set_prescale_val(uint32_t prescale_val);
 void rtc_set_alarm_time(uint32_t alarm_time);
 uint32_t rtc_get_counter_val(void);
@@ -83,18 +85,18 @@ static void rtc_setup(void) {
     //  Note: Older versions of rtc_awake_from_off() and rtc_auto_awake() cause qemu to crash with error
     //  "hardware error: you are must enter to configuration mode for write in any registre" in hw\timer\stm32_rtc.c
     console_printf("rtc awake...\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
-#ifdef AUTO_AWAKE	
-    //  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
-    //  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
-    //  Otherwise enable it with the clock source and set the prescale value.
-    rtc_auto_awake(clock_source, prescale);
-#else
-    //  rtc_auto_awake() will not reset the RTC when you press the RST button.
-    //  It will also continue to count while the MCU is held in reset. If
-    //  you want it to reset, use custom_rtc_awake_from_off()
-    rtc_awake_from_off(clock_source);  //  This will enable RTC.
-    rtc_set_prescale_val(prescale);
-#endif  //  AUTO_AWAKE
+    if (power_reset_cause() == POWER_RESET_STANDBY) {
+        //  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
+        //  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
+        //  Otherwise enable it with the clock source and set the prescale value.
+        rtc_auto_awake(clock_source, prescale);
+    } else {
+        //  rtc_auto_awake() will not reset the RTC when you press the RST button.
+        //  It will also continue to count while the MCU is held in reset. If
+        //  you want it to reset, use rtc_awake_from_off()
+        rtc_awake_from_off(clock_source);  //  This will enable RTC.
+        rtc_set_prescale_val(prescale);
+    }
     console_printf("rtc awake ok\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
 
     NVIC_SetVector(RTC_IRQn,       (uint32_t) rtc_isr);        //  Set the Interrupt Service Routine for RTC
@@ -543,6 +545,36 @@ void rtc_awake_from_off(enum rcc_osc clock_source)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RTC Configuration on Wakeup
+ 
+Enable the backup domain clocks and write access to the backup domain.
+If the RTC has not been enabled, set the clock source and prescaler value.
+The parameters are not used if the RTC has already been enabled.
+
+@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE, LSE
+    and LSI are permitted.
+@param[in] prescale_val uint32_t. 20 bit prescale divider.
+*/
+
+void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
+{
+        uint32_t reg32;
+
+        /* Enable power and backup interface clocks. */
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
+
+        reg32 = rcc_rtc_clock_enabled_flag();
+
+        if (reg32 != 0) {
+                rtc_awake_from_standby();
+        } else {
+                rtc_awake_from_off(clock_source);
+                rtc_set_prescale_val(prescale_val);
+        }
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RTC Enter Configuration Mode.
 Prime the RTC for configuration changes by giving access to the prescaler,
 and counter and alarm registers.
@@ -806,34 +838,3 @@ void rtc_awake_from_standby(void)
         /* TODO: Necessary? */
         while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 }
-
-/*---------------------------------------------------------------------------*/
-/** @brief RTC Configuration on Wakeup
- 
-Enable the backup domain clocks and write access to the backup domain.
-If the RTC has not been enabled, set the clock source and prescaler value.
-The parameters are not used if the RTC has already been enabled.
-
-@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE, LSE
-    and LSI are permitted.
-@param[in] prescale_val uint32_t. 20 bit prescale divider.
-*/
-
-void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
-{
-        uint32_t reg32;
-
-        /* Enable power and backup interface clocks. */
-        rcc_periph_clock_enable(RCC_PWR);
-        rcc_periph_clock_enable(RCC_BKP);
-
-        reg32 = rcc_rtc_clock_enabled_flag();
-
-        if (reg32 != 0) {
-                rtc_awake_from_standby();
-        } else {
-                rtc_awake_from_off(clock_source);
-                rtc_set_prescale_val(prescale_val);
-        }
-}
-/**@}*/

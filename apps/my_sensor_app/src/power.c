@@ -165,7 +165,8 @@ void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
     platform_start_timer(power_timer_tick, power_timer_alarm);
     //  When waking from standby, set the Mynewt time.
     if (power_reset_cause() == POWER_RESET_STANDBY) {
-        g_os_time = rtc_get_counter_val();
+        //  g_os_time = rtc_get_counter_val();
+        power_sync_time();
     }
 }
 
