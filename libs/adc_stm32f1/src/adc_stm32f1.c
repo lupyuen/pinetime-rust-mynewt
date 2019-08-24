@@ -67,9 +67,15 @@ struct stm32f1_adc_stats {
 
 static struct stm32f1_adc_stats stm32f1_adc_stats;
 
+/// Set to 1 if RTC has been configured. Defined in apps/my_sensor_app/src/rtc.c
+extern int rtc_configured;
+
 static void
 config_clk(void)
 {
+    //  Don't configure the clocks if RTC has already configured them.
+    if (rtc_configured) { return; }
+
     //  Added to configure the ADC clock.  According to Blue Pill HAL: repos/apache-mynewt-core/hw/bsp/bluepill/src/hal_bsp.c
     //    HSI Clock = 8 MHz
     //    PLL Clock = (HSI / 2) * 16 = 64 MHz

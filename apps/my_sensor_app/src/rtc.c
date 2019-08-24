@@ -67,8 +67,13 @@ uint32_t rtc_check_flag(rtcflag_t flag_val);
 void rtc_enter_config_mode(void);
 void rtc_exit_config_mode(void);
 
+/// Set to 1 if RTC has been configured. Used by libs/adc_stm32f1/src/adc_stm32f1.c
+int rtc_configured = 0;
+
 static void rtc_setup(void) {
     //  Setup RTC interrupts for tick and alarm wakeup.
+    rtc_configured = 1;  //  Tell adc_stm32f1 that the clocks have already been configured, don't configure again.
+    
     rcc_enable_rtc_clock();
     rtc_interrupt_disable(RTC_SEC);
     rtc_interrupt_disable(RTC_ALR);
@@ -113,8 +118,8 @@ static void rtc_setup(void) {
 
 void platform_start_timer(void (*tickFunc0)(void), void (*alarmFunc0)(void)) {
     //  Start the STM32 Timer to generate interrupt ticks to perform task switching.
-      tickFunc = tickFunc0;    //  Allow tickFunc to be modified at every call to platform_start_timer().
-      alarmFunc = alarmFunc0;  //  Allow alarmFunc to be modified at every call to platform_start_timer().
+    tickFunc = tickFunc0;    //  Allow tickFunc to be modified at every call to platform_start_timer().
+    alarmFunc = alarmFunc0;  //  Allow alarmFunc to be modified at every call to platform_start_timer().
     
     //  But system timer will only be started once.
     static bool timerStarted = false;
