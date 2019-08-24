@@ -25,6 +25,8 @@ extern os_time_t g_os_time;
 /// `bc95g` driver will set this to 1 so that `power_sleep()` will not sleep when network is busy connecting. See libs/bc95g/src/transport.cpp
 int network_is_busy = 0;
 
+int network_has_transmitted = 0;
+
 static uint32_t last_ticks = 0;  //  Expected ticks to be slept for last call to power_sleep()
 static uint32_t start_time = 0;  //  Start time (in ticks) for last call to power_sleep()
 static uint32_t end_time = 0;    //  End time (in ticks) for last call to power_sleep()
@@ -37,6 +39,8 @@ void power_sleep(os_time_t ticks) {
 
     //  If network is busy connecting, or ticks is 0, don't sleep.  AT response may be garbled if we sleep.
     if (network_is_busy || ticks == 0) { power_sync_time(); return; }
+
+    if (network_has_transmitted) { ticks = 60 * 1000; }
 
     //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.
     uint32_t diff_time = end_time - start_time;
@@ -61,7 +65,8 @@ void power_sleep(os_time_t ticks) {
     start_time = rtc_get_counter_val();
 
     //  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
-    if (ticks < 10 * 1000) {
+    //  if (ticks < 10 * 1000) {
+    if (!network_has_transmitted) {
         target_enter_sleep_mode();  //  Enter Sleep Now Mode
     } else {
         int reset_cause = power_reset_cause();

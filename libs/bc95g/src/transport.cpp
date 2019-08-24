@@ -13,6 +13,8 @@
 /// Set this to 1 so that `power_sleep()` will not sleep when network is busy connecting.  Defined in apps/my_sensor_app/src/power.c
 extern int network_is_busy;
 
+extern int network_has_transmitted;
+
 /// Never detach from NB-IoT network. Consumes more power.
 // #define ALWAYS_ATTACHED
 
@@ -155,6 +157,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
         os_dev_close((struct os_dev *) dev);
         //  Unlock the BC95G driver for exclusive use.
         network_is_busy = 0;  //  Tell the Task Scheduler it's OK to sleep.
+        network_has_transmitted = 1;
     }
 
     //  After sending, free the chain of mbufs.

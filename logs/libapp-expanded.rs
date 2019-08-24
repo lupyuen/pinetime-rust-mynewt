@@ -96,7 +96,7 @@ mod app_sensor {
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
     ///  Poll sensor every 60,000 milliseconds (60 seconds)  
     ///const SENSOR_POLL_TIME: u32     = (60 * 1000);  
-    const SENSOR_POLL_TIME: u32 = (30 * 1000);
+    const SENSOR_POLL_TIME: u32 = (20 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};
