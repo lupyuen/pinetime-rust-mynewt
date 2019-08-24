@@ -1,6 +1,7 @@
 //  Implement Real-Time Clock functions
 #include <os/mynewt.h>
 #include <bsp/bsp.h>
+#include <hal/hal_system.h>
 #include <console/console.h>
 #include "power.h"
 #include "rtc.h"
@@ -67,13 +68,13 @@ uint32_t rtc_check_flag(rtcflag_t flag_val);
 void rtc_enter_config_mode(void);
 void rtc_exit_config_mode(void);
 
-/// Set to 1 if RTC has been configured. Used by libs/adc_stm32f1/src/adc_stm32f1.c
+/// rtc_setup() will set this to 1 when RTC has been configured. Used by libs/adc_stm32f1/src/adc_stm32f1.c to prevent configuring RTC twice.
 int rtc_configured = 0;
 
 static void rtc_setup(void) {
     //  Setup RTC interrupts for tick and alarm wakeup.
     rtc_configured = 1;  //  Tell adc_stm32f1 that the clocks have already been configured, don't configure again.
-    
+
     rcc_enable_rtc_clock();
     rtc_interrupt_disable(RTC_SEC);
     rtc_interrupt_disable(RTC_ALR);
@@ -99,8 +100,12 @@ static void rtc_setup(void) {
     NVIC_SetVector(RTC_IRQn,       (uint32_t) rtc_isr);        //  Set the Interrupt Service Routine for RTC
     NVIC_SetVector(RTC_Alarm_IRQn, (uint32_t) rtc_alarm_isr);  //  Set the Interrupt Service Routine for RTC Alarm
     
-    rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0.
-    rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now.
+    if (power_reset_cause() != POWER_RESET_STANDBY) {
+        //  Set the RTC time only at power on. Don't set it when waking from standby.
+        rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0.
+        rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now.
+    }
+
     exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt.
     exti_enable_request(EXTI17);
 

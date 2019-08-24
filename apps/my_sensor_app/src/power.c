@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <os/mynewt.h>
 #include <bsp/bsp.h>
+#include <hal/hal_system.h>
 #include <console/console.h>
 #include "rtc.h"
 #include "power.h"
@@ -63,10 +64,14 @@ void power_sleep(os_time_t ticks) {
     if (ticks < 10 * 1000) {
         target_enter_sleep_mode();  //  Enter Sleep Now Mode
     } else {
-        console_printf("z%d\n", (int) (ticks / 1000)); console_flush();
-        target_enter_sleep_mode();                   //  Enter Sleep Now Mode
+        int reset_cause = power_reset_cause();
+        console_printf("reset_cause %d\n", reset_cause); console_flush();
+        uint32_t time = rtc_get_counter_val();
+        console_printf("time %d secs\n", (int) (time / 1000)); console_flush();
+        console_printf("deep sleep %d secs\n", (int) (ticks / 1000)); console_flush();
+        //  target_enter_sleep_mode();               //  Enter Sleep Now Mode
         //  target_enter_deep_sleep_stop_mode();     //  Enter Deep Sleep Stop Mode
-        //  target_enter_deep_sleep_standby_mode();  //  Enter Deep Sleep Standby Mode. Will not return.
+        target_enter_deep_sleep_standby_mode();      //  Enter Deep Sleep Standby Mode. Will not return. Device will restart upon waking.
     }
     //  Remember the sleep end time to be displayed at next call.
     end_time = rtc_get_counter_val();
@@ -158,6 +163,10 @@ void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
     //  Init the power management.
     assert(os_ticks_per_sec == 1000);  //  Assume 1 millisecond tick.
     platform_start_timer(power_timer_tick, power_timer_alarm);
+    //  When waking from standby, set the Mynewt time.
+    if (power_reset_cause() == POWER_RESET_STANDBY) {
+        g_os_time = rtc_get_counter_val();
+    }
 }
 
 void power_init_systick(uint32_t reload_val, int prio) {
@@ -186,6 +195,36 @@ void power_start_systick() {
 void power_stop_systick() {
     //  Stop the system time ticker.
     _CLEAR_BIT(SysTick->CTRL, 0x0007);
+}
+
+enum power_reset_reason power_reset_cause(void) {
+    //  Same as hal_reset_cause() except we added RESET_STANDBY.
+    static enum power_reset_reason reason;
+    uint32_t reg;
+
+    if (reason) {
+        return reason;
+    }
+
+    reg = RCC->CSR;
+
+    if (reg & RCC_CSR_WWDGRSTF) {
+        reason = POWER_RESET_WATCHDOG;
+    } else if (reg & RCC_CSR_SFTRSTF) {
+        reason = POWER_RESET_SOFT;
+    } else if (reg & RCC_CSR_PINRSTF) {
+        reason = POWER_RESET_PIN;
+    } else if (reg & RCC_CSR_LPWRRSTF) {
+        /* For L1xx this is low-power reset */
+        reason = POWER_RESET_BROWNOUT;
+    } else if (reg & PWR_CSR_SBF) {
+        //  Added: Reset due to exit from standby mode
+        reason = POWER_RESET_STANDBY;
+    } else {
+        reason = POWER_RESET_POR;
+    }
+    RCC->CSR |= RCC_CSR_RMVF;
+    return reason;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
