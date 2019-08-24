@@ -40,7 +40,15 @@ void power_sleep(os_time_t ticks) {
     //  If network is busy connecting, or ticks is 0, don't sleep.  AT response may be garbled if we sleep.
     if (network_is_busy || ticks == 0) { power_sync_time(); return; }
 
-    if (network_has_transmitted) { ticks = 60 * 1000; }
+    //  After transmission, sleep for 60 seconds.
+    if (network_has_transmitted) { 
+        ticks = 60 * 1000; 
+        int reset_cause = power_reset_cause();
+        console_printf("reset_cause %d\n", reset_cause); console_flush();
+        uint32_t time = rtc_get_counter_val();
+        console_printf("time %d secs\n", (int) (time / 1000)); console_flush();
+        console_printf("deep sleep %d secs\n", (int) (ticks / 1000)); console_flush();
+    }
 
     //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.
     uint32_t diff_time = end_time - start_time;
@@ -69,11 +77,6 @@ void power_sleep(os_time_t ticks) {
     if (!network_has_transmitted) {
         target_enter_sleep_mode();  //  Enter Sleep Now Mode
     } else {
-        int reset_cause = power_reset_cause();
-        console_printf("reset_cause %d\n", reset_cause); console_flush();
-        uint32_t time = rtc_get_counter_val();
-        console_printf("time %d secs\n", (int) (time / 1000)); console_flush();
-        console_printf("deep sleep %d secs\n", (int) (ticks / 1000)); console_flush();
         //  target_enter_sleep_mode();               //  Enter Sleep Now Mode
         //  target_enter_deep_sleep_stop_mode();     //  Enter Deep Sleep Stop Mode
         target_enter_deep_sleep_standby_mode();      //  Enter Deep Sleep Standby Mode. Will not return. Device will restart upon waking.

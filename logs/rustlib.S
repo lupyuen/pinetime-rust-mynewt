@@ -33620,7 +33620,7 @@ _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4last17h1297893c3d3dc63eE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:234
   12:	2300      	movs	r3, #0
   14:	f04f 0c00 	mov.w	ip, #0
-_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
+_ZN4core3num23_$LT$impl$u20$usize$GT$11checked_sub17h5554c2393ce36cbdE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3377
   18:	1e4a      	subs	r2, r1, #1
 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4last17h1297893c3d3dc63eE():
