@@ -12215,7 +12215,7 @@ _ZN9cstr_core4CStr8to_bytes17h93eda32c0da042ddE():
 _ZN99_$LT$core..ops..range..Range$LT$usize$GT$$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h643b5ee7ddfdb733E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2745
    a:	b19b      	cbz	r3, 34 <_ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc96cc93fede58c29E+0x34>
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17hb23ce43de2920e61E():
+_ZN4core5slice81_$LT$impl$u20$core..cmp..PartialEq$LT$$u5b$B$u5d$$GT$$u20$for$u20$$u5b$A$u5d$$GT$2eq17h5cea533fd9a14fc7E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
    c:	428a      	cmp	r2, r1
    e:	bf1c      	itt	ne
@@ -12225,7 +12225,7 @@ _ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc96cc93fede58
         self.to_bytes().eq(other.to_bytes())
     }
   12:	bd80      	popne	{r7, pc}
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17hb23ce43de2920e61E():
+_ZN4core5slice81_$LT$impl$u20$core..cmp..PartialEq$LT$$u5b$B$u5d$$GT$$u20$for$u20$$u5b$A$u5d$$GT$2eq17h5cea533fd9a14fc7E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5245
   14:	4560      	cmp	r0, ip
   16:	d006      	beq.n	26 <_ZN56_$LT$cstr_core..CStr$u20$as$u20$core..cmp..PartialEq$GT$2eq17hc96cc93fede58c29E+0x26>
@@ -13298,7 +13298,7 @@ _ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h8842e40ee149e7b0
  12c:	2800      	cmp	r0, #0
  12e:	f43f afac 	beq.w	8a <_ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h8842e40ee149e7b0E+0x8a>
  132:	e025      	b.n	180 <_ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h8842e40ee149e7b0E+0x180>
-_ZN9cstr_core5ascii14escape_default17heaf129901b0e87c0E():
+_ZN116_$LT$core..iter..adapters..flatten..FlattenCompat$LT$I$C$U$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h754543db0356ca57E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:135
             _ => ([b'\\', b'x', hexify(c >> 4), hexify(c & 0xf)], 4),
  134:	f002 000f 	and.w	r0, r2, #15
@@ -13315,7 +13315,7 @@ _ZN9cstr_core5ascii14escape_default6hexify17hd36ec8af4ab1f057E():
  146:	bf38      	it	cc
  148:	2130      	movcc	r1, #48	; 0x30
  14a:	eb01 1112 	add.w	r1, r1, r2, lsr #4
-_ZN9cstr_core5ascii14escape_default17heaf129901b0e87c0E():
+_ZN116_$LT$core..iter..adapters..flatten..FlattenCompat$LT$I$C$U$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h754543db0356ca57E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:135
             _ => ([b'\\', b'x', hexify(c >> 4), hexify(c & 0xf)], 4),
  14e:	0409      	lsls	r1, r1, #16
@@ -13348,7 +13348,7 @@ _ZN52_$LT$cstr_core..CStr$u20$as$u20$core..fmt..Debug$GT$3fmt17h8842e40ee149e7b0
  182:	4630      	mov	r0, r6
  184:	b013      	add	sp, #76	; 0x4c
  186:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-_ZN90_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next28_$u7b$$u7b$closure$u7d$$u7d$17hdc2ea4f7a5fb8afbE():
+_ZN90_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hea2f60c52c056d12E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:154
             self.range.next().map(|i| self.data[i])
  18a:	f240 0000 	movw	r0, #0
