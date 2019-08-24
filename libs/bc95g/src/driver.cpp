@@ -401,11 +401,11 @@ static bool wait_for_ok(struct bc95g *dev) {
             parser.flush();
             return true;
         }
-        //  Wait 2 seconds and retry.
+        //  Wait 1 second and retry.
         console_flush();
-        sleep(2);
+        sleep(1);
     }
-    return false;  //  Can't get OK 20 retries, quit.
+    return false;  //  Can't get OK after 20 retries, quit.
 }
 
 /// [Phase 0] Prepare to transmit
@@ -471,6 +471,9 @@ int bc95g_attach(struct bc95g *dev) {
     //  Attach to the NB-IoT network.  Return 0 if successful.
     internal_timeout(BC95G_CONNECT_TIMEOUT);
     return (
+        //  In case we wake up from sleep, skip the ERROR response and wait for OK.
+        wait_for_ok(dev) &&
+
         //  [Phase 1] Attach to network
         attach_to_network(dev)
     ) ? 0 : dev->last_error;
