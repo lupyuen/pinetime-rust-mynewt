@@ -18,38 +18,11 @@ void pwr_set_stop_mode(void);
 void pwr_set_standby_mode(void);
 void pwr_clear_wakeup_flag(void);
 
+/// Mynewt maintains the current time here
 extern os_time_t g_os_time;
+
+/// `bc95g` driver will set this to 1 so that `power_sleep()` will not sleep when network is busy connecting. See libs/bc95g/src/transport.cpp
 int network_is_busy = 0;
-
-void power_timer_tick() {
-    //  This is called every millisecond.
-    //  Warning: This is called from an interrupt handler.
-    power_sync_time();
-}
-
-void power_timer_alarm() {
-    //  This is called when the Real-Time Clock alarm is triggered.
-    //  Warning: This is called from an interrupt handler.
-    power_sync_time();
-}
-
-void power_sync_time() {
-    //  Sync the OS time to the RTC time.  Warning: This function must be safe to be called from an interrupt handler.
-
-    //  Compute the ticks elapsed.
-    volatile uint32_t now = rtc_get_counter_val();
-    int diff_ticks = now - g_os_time;
-
-    //  If ticks elapsed is above 0, update the OS clock.
-    if (diff_ticks <= 0) { return; }
-    os_time_advance(diff_ticks);
-}
-
-void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
-    //  Init the power management.
-    assert(os_ticks_per_sec == 1000);  //  Assume 1 millisecond tick.
-    platform_start_timer(power_timer_tick, power_timer_alarm);
-}
 
 static uint32_t last_ticks = 0;  //  Expected ticks to be slept for last call to power_sleep()
 static uint32_t start_time = 0;  //  Start time (in ticks) for last call to power_sleep()
@@ -58,9 +31,11 @@ static uint32_t max_sleep = 1;
 
 void power_sleep(os_time_t ticks) {    
     //  Set the wakeup alarm for current time + ticks milliseconds.
+    //  if (ticks < 2000) { ticks = 2000; }  //  Force to sleep in blocks of 2 seconds
+    if (ticks < 10) { ticks = 10; }  //  Force to sleep at least 10 milliseconds
+
     //  If network is busy connecting, or ticks is 0, don't sleep.  AT response may be garbled if we sleep.
     if (network_is_busy || ticks == 0) { power_sync_time(); return; }
-    //  if (ticks < 2000) { ticks = 2000; }  //  Force to sleep in blocks of 2 seconds.
 
     //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.
     uint32_t diff_time = end_time - start_time;
@@ -84,9 +59,13 @@ void power_sleep(os_time_t ticks) {
     last_ticks = ticks;
     start_time = rtc_get_counter_val();
 
-    //  Enter Sleep Now Mode.  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
-    target_enter_sleep_mode();
-    //  target_enter_deep_sleep_stop_mode();     //  Enter Deep Sleep Stop Mode
+    //  Note: Don't enter deep sleep too soon, because Blue Pill will not allow reflashing while sleeping.
+    if (ticks < 10 * 1000) {
+        target_enter_sleep_mode();  //  Enter Sleep Now Mode.  
+    } else {
+        console_printf("z%d ", (int) (ticks / 1000));
+        target_enter_deep_sleep_standby_mode();  //  Enter Deep Sleep Standby Mode
+    }
     //  target_enter_deep_sleep_standby_mode();  //  Enter Deep Sleep Standby Mode
 
     //  Remember the sleep end time to be displayed at next call.
@@ -94,34 +73,6 @@ void power_sleep(os_time_t ticks) {
 
     //  Upon waking, sync the OS time.
     power_sync_time();
-}
-
-void power_init_systick(uint32_t reload_val, int prio) {
-    /* Set the system time ticker up */
-    SysTick->LOAD = reload_val;
-    SysTick->VAL = 0;
-
-    /* Set the system tick priority */
-    NVIC_SetPriority(SysTick_IRQn, prio);
-
-    /*
-     * Keep clocking debug even when CPU is sleeping, stopped or in standby.
-     */
-#if !MYNEWT_VAL(MCU_STM32F0)
-    DBGMCU->CR |= (DBGMCU_CR_DBG_SLEEP | DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY);
-#else
-    DBGMCU->CR |= (DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY);
-#endif
-}
-
-void power_start_systick() {
-    //  Start the system time ticker.
-    _SET_BIT(SysTick->CTRL, 0x0007);
-}
-
-void power_stop_systick() {
-    //  Stop the system time ticker.
-    _CLEAR_BIT(SysTick->CTRL, 0x0007);
 }
 
 void target_enter_sleep_mode(void) {
@@ -177,6 +128,64 @@ void target_enter_deep_sleep_standby_mode(void) {
     _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);  //  Set SLEEPDEEP bit of Cortex System Control Register.
     __DSB();
     __WFI();  //  Wait for interrupt from RTC Alarm.
+}
+
+void power_sync_time() {
+    //  Sync the OS time to the RTC time.  Warning: This function must be safe to be called from an interrupt handler.
+
+    //  Compute the ticks elapsed.
+    volatile uint32_t now = rtc_get_counter_val();
+    int diff_ticks = now - g_os_time;
+
+    //  If ticks elapsed is above 0, update the OS clock.
+    if (diff_ticks <= 0) { return; }
+    os_time_advance(diff_ticks);
+}
+
+void power_timer_tick() {
+    //  This is called every millisecond.
+    //  Warning: This is called from an interrupt handler.
+    power_sync_time();
+}
+
+void power_timer_alarm() {
+    //  This is called when the Real-Time Clock alarm is triggered.
+    //  Warning: This is called from an interrupt handler.
+    power_sync_time();
+}
+
+void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
+    //  Init the power management.
+    assert(os_ticks_per_sec == 1000);  //  Assume 1 millisecond tick.
+    platform_start_timer(power_timer_tick, power_timer_alarm);
+}
+
+void power_init_systick(uint32_t reload_val, int prio) {
+    /* Set the system time ticker up */
+    SysTick->LOAD = reload_val;
+    SysTick->VAL = 0;
+
+    /* Set the system tick priority */
+    NVIC_SetPriority(SysTick_IRQn, prio);
+
+    /*
+     * Keep clocking debug even when CPU is sleeping, stopped or in standby.
+     */
+#if !MYNEWT_VAL(MCU_STM32F0)
+    DBGMCU->CR |= (DBGMCU_CR_DBG_SLEEP | DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY);
+#else
+    DBGMCU->CR |= (DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY);
+#endif
+}
+
+void power_start_systick() {
+    //  Start the system time ticker.
+    _SET_BIT(SysTick->CTRL, 0x0007);
+}
+
+void power_stop_systick() {
+    //  Stop the system time ticker.
+    _CLEAR_BIT(SysTick->CTRL, 0x0007);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
