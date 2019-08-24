@@ -477,10 +477,23 @@ int bc95g_connect(struct bc95g *dev) {
     ) ? 0 : dev->last_error;
 }
 
+#include <hal/hal_uart.h>     //  UART functions.  ////
+
 int bc95g_attach(struct bc95g *dev) {
     //  Attach to the NB-IoT network.  Return 0 if successful.
     internal_timeout(BC95G_CONNECT_TIMEOUT);
-    return (
+    ////  TODO
+    int uart = dev->cfg.uart;
+    int baud = 9600; //// 
+    int rc = hal_uart_config(uart,
+        baud,
+        8,
+        1,
+        HAL_UART_PARITY_NONE,
+        HAL_UART_FLOW_CTL_NONE
+    );
+    assert(rc == 0);
+    return (        
         //  In case we wake up from sleep, skip the ERROR response and wait for OK.
         wait_for_ok(dev) &&
 
