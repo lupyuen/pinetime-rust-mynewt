@@ -1,0 +1,227 @@
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+none separate
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.219551
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+Info : device id = 0x20036410
+Info : flash size = 64kbytes
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+Info : Padding image section 0 at 0x0800fa72 with 2 bytes
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000003a msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0800010c msp: 0x20005000, semihosting
+Info : halted: PC: 0x08001a62
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+NET hwid 54 ff 6e 06 50 78 49 55 16 53 16 87 
+NET standalone node 
+NBT create bc95g_0
+NET svr bc95g_0
+[
+]
+Rust TMP poll
+NET start
+NET svr bc95g_0
+[
+AT> 
+AT
+AT= OK
+AT> NCONFIG=AUTOCONNECT,FALSE
+AT= OK
+AT> QREGSWT=2
+AT= OK
+AT> NRB
+AT< REBOOTING
+AT<  '�`
+AT< Boot: Unsigned
+AT< Security B.. Verified
+AT< Protocol A.. Verified
+AT< Apps A...... Verified
+AT< REBOOT_CAUSE_APPLICATION_AT
+AT< Neul 
+AT= OK
+AT> AT
+AT= OK
+AT> NBAND=8
+AT= OK
+]
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+NET random device id 00000000000000000000000000000000
+NET payload size 102
+{"values": [{"key": "device","value": "00000000000000000000000000000000"},{"key": "t","value": 1798}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=00000000000000000000000000000000
+[
+NBT send udp
+AT> CFUN?
+AT< +CFUN:0
+AT= OK
+AT> CFUN=1
+AT= OK
+AT> CGATT=1
+AT= OK
+AT> CEREG=0
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,1
+AT= OK
+AT> CGATT?
+AT= +CGATT:1
+AT= OK
+AT> NSOCR=DGRAM,17,0,1
+AT= 1
+AT= OK
+AT> NSOSTF=1,104.199.85.211,5683,0x200,174,
+NBT send mbuf 174...
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 39 38 7d 5d 7d 
+NBT send mbuf OK
+AT> ,1
+AT= 1,1
+AT< 74
+AT= OK
+AT> NSOCL=1
+AT= OK
+AT> CFUN=0
+AT= OK
+]
+reset_cause 4
+time 29 secs
+deep sleep 60 secs
+Info : halted: PC: 0x08001a62
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+NET hwid 54 ff 6e 06 50 78 49 55 16 53 16 87 
+NET standalone node 
+NBT create bc95g_0
+NET svr bc95g_0
+[
+]
+Rust TMP poll
+NET start
+NET svr bc95g_0
+[
+AT> 
+AT
+AT= OK
+AT> NCONFIG=AUTOCONNECT,FALSE
+AT= OK
+AT> QREGSWT=2
+AT= OK
+AT> NRB
+AT< REBOOTING
+AT< �@�`
+AT< Boot: Unsigned
+AT< Security B.. Verified
+AT< Protocol A.. Verified
+AT< Apps A...... Verified
+AT< REBOOT_CAUSE_APPLICATION_AT
+AT< Neul 
+AT= OK
+AT> AT
+AT= OK
+AT> NBAND=8
+AT= OK
+]
+ADC open ch 16
+STM read int temp sensor
+Rust handle_sensor_data
+TMP listener got rawtmp
+Rust send_sensor_data
+NET random device id 00000000000000000000000000000000
+NET payload size 102
+{"values": [{"key": "device","value": "00000000000000000000000000000000"},{"key": "t","value": 1792}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=00000000000000000000000000000000
+[
+NBT send udp
+AT> CFUN?
+AT< +CFUN:0
+AT= OK
+AT> CFUN=1
+AT= OK
+AT> CGATT=1
+AT= OK
+AT> CEREG=0
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,1
+AT= OK
+AT> CGATT?
+AT= +CGATT:1
+AT= OK
+AT> NSOCR=DGRAM,17,0,1
+AT= 1
+AT= OK
+AT> NSOSTF=1,104.199.85.211,5683,0x200,174,
+NBT send mbuf 174...
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 22 7d 2c 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 31 37 39 32 7d 5d 7d 
+NBT send mbuf OK
+AT> ,1
+AT= 1,1
+AT< 74
+AT= OK
+AT> NSOCL=1
+AT= OK
+AT> CFUN=0
+AT= OK
+]
+reset_cause 2
+time 28 secs
+deep sleep 60 secs
+Info : halted: PC: 0x08001a62
+ADC create adc1
+TMP create temp_stm32_0
+ADC open ch 16
+NET hwid 54 ff 6e 06 50 78 49 55 16 53 16 87 
+NET standalone node 
+NBT create bc95g_0
+NET svr bc95g_0
+[
+]
+Rust TMP poll
+NET start
+NET svr bc95g_0
+[
+AT> 
+AT
+AT= OK
+AT> NCONFIG=AUTOCONNECT,FALSE
+AT= OK
+AT> QREGSWT=2
+AT= OK
