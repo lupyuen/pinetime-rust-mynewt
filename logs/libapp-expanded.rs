@@ -95,7 +95,8 @@ mod app_sensor {
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
     ///  Poll sensor every 60,000 milliseconds (60 seconds)  
-    const SENSOR_POLL_TIME: u32 = (60 * 1000);
+    ///const SENSOR_POLL_TIME: u32     = (60 * 1000);  
+    const SENSOR_POLL_TIME: u32 = (30 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};
@@ -114,7 +115,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("no sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           56u32, 5u32))
+                                           57u32, 5u32))
             }
         };
         let listener =
@@ -142,7 +143,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           80u32, 5u32))
+                                           81u32, 5u32))
             }
         };
         let sensor_value = convert_sensor_data(sensor_data, sensor_type);
@@ -151,7 +152,7 @@ mod app_sensor {
                 {
                     ::core::panicking::panic(&("bad type",
                                                "rust/app/src/app_sensor.rs",
-                                               84u32, 55u32))
+                                               85u32, 55u32))
                 }
             };
         }
@@ -215,7 +216,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   117u32,
+                                                                                   118u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -253,7 +254,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   119u32,
+                                                                                   120u32,
                                                                                    17u32))
                                                 }
                                             }

@@ -794,7 +794,7 @@ Disassembly of section .text._ZN3app10app_sensor18handle_sensor_data17h79eb4755e
 
 00000000 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE>:
 _ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:75
     Ok(())
 }
 
@@ -804,7 +804,7 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
    0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
    4:	b099      	sub	sp, #100	; 0x64
    6:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:77
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
     console::print("Rust handle_sensor_data\n");
    8:	f240 0000 	movw	r0, #0
@@ -812,18 +812,18 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
   10:	2118      	movs	r1, #24
   12:	4614      	mov	r4, r2
   14:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17hd50240000fba952aE>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:79
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:80
 
     //  Check that the temperature data is valid.
     if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
   18:	2c00      	cmp	r4, #0
   1a:	d04d      	beq.n	b8 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0xb8>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:81
     assert!(!sensor.is_null(), "null sensor");
   1c:	2d00      	cmp	r5, #0
   1e:	f000 8122 	beq.w	266 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0x266>
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:109
 
 ///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key `t`. 
 ///  `sensor_type` indicates the type of data in `sensor_data`.
@@ -836,7 +836,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
   2c:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17hd50240000fba952aE>
   30:	ad01      	add	r5, sp, #4
   32:	2600      	movs	r6, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
         key: &TEMP_SENSOR_KEY,  //  Sensor data key is `t`
         val: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
@@ -844,28 +844,28 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
                 let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
                 let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
   34:	4620      	mov	r0, r4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:115
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:116
                 let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
   36:	f88d 6008 	strb.w	r6, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
                 let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
   3a:	4629      	mov	r1, r5
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:115
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:116
                 let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
   3c:	9601      	str	r6, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
                 let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
   3e:	f7ff fffe 	bl	0 <get_temp_raw_data>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
                 assert_eq!(rc, 0, "rawtmp fail");
   42:	2800      	cmp	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
                 let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
   44:	9003      	str	r0, [sp, #12]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
                 assert_eq!(rc, 0, "rawtmp fail");
   46:	f040 8115 	bne.w	274 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0x274>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
                 //  Check that the raw temperature data is valid.
                 assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
   4a:	f89d 0008 	ldrb.w	r0, [sp, #8]
@@ -883,7 +883,7 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
   58:	2116      	movs	r1, #22
   5a:	f2c0 0000 	movt	r0, #0
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:121
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:122
                 //  Raw temperature data is valid.  Return it.
                 SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
   5e:	9c01      	ldr	r4, [sp, #4]
@@ -930,18 +930,18 @@ _ZN3app11app_network16send_sensor_data17h3295296628e22717E():
   9a:	d112      	bne.n	c2 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0xc2>
   9c:	980b      	ldr	r0, [sp, #44]	; 0x2c
 _ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:94
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:95
     if let Err(err) = res {  //  `if let` will assign `err` to the error code inside `res`
   9e:	3006      	adds	r0, #6
   a0:	d106      	bne.n	b0 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0xb0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:97
             console::print("TMP network not ready\n");
   a2:	f240 0000 	movw	r0, #0
   a6:	2116      	movs	r1, #22
   a8:	f2c0 0000 	movt	r0, #0
   ac:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17hd50240000fba952aE>
   b0:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:102
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:103
 }
   b2:	b019      	add	sp, #100	; 0x64
   b4:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
@@ -1107,7 +1107,7 @@ _ZN3app11app_network16send_sensor_data17h3295296628e22717E():
  23a:	d104      	bne.n	246 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0x246>
 _ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE():
  23c:	9813      	ldr	r0, [sp, #76]	; 0x4c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:94
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:95
     if let Err(err) = res {  //  `if let` will assign `err` to the error code inside `res`
  23e:	3006      	adds	r0, #6
  240:	f43f af2f 	beq.w	a2 <_ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE+0xa2>
@@ -1130,7 +1130,7 @@ _ZN3app11app_network16send_sensor_data17h3295296628e22717E():
  260:	f2c0 0000 	movt	r0, #0
  264:	e722      	b.n	fffffe48 <.Lanon.3ed011473997af99b525cde47c9eaaac.48+0xfffffe28>
 _ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:81
     assert!(!sensor.is_null(), "null sensor");
  266:	f240 0000 	movw	r0, #0
  26a:	f2c0 0000 	movt	r0, #0
@@ -1138,7 +1138,7 @@ _ZN3app10app_sensor18handle_sensor_data17h79eb4755e3c99ccdE():
  272:	defe      	udf	#254	; 0xfe
  274:	a803      	add	r0, sp, #12
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
                 assert_eq!(rc, 0, "rawtmp fail");
  276:	9010      	str	r0, [sp, #64]	; 0x40
  278:	f240 0000 	movw	r0, #0
@@ -1146,7 +1146,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  27c:	9617      	str	r6, [sp, #92]	; 0x5c
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
  27e:	f2c0 0000 	movt	r0, #0
  282:	a911      	add	r1, sp, #68	; 0x44
  284:	9011      	str	r0, [sp, #68]	; 0x44
@@ -1162,7 +1162,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  29c:	f2c0 0000 	movt	r0, #0
  2a0:	9012      	str	r0, [sp, #72]	; 0x48
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
  2a2:	f240 0000 	movw	r0, #0
  2a6:	f2c0 0000 	movt	r0, #0
  2aa:	900f      	str	r0, [sp, #60]	; 0x3c
@@ -1181,7 +1181,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  2c6:	9009      	str	r0, [sp, #36]	; 0x24
  2c8:	e9cd 6107 	strd	r6, r1, [sp, #28]
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
  2cc:	f240 0100 	movw	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
@@ -1189,18 +1189,18 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  2d4:	f240 0000 	movw	r0, #0
  2d8:	f2c0 0000 	movt	r0, #0
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
  2dc:	f2c0 0100 	movt	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  2e0:	9004      	str	r0, [sp, #16]
  2e2:	a804      	add	r0, sp, #16
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:118
  2e4:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  2e8:	defe      	udf	#254	; 0xfe
  2ea:	1d28      	adds	r0, r5, #4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
                 assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
  2ec:	9010      	str	r0, [sp, #64]	; 0x40
  2ee:	f240 0000 	movw	r0, #0
@@ -1208,13 +1208,13 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  2f2:	f240 0100 	movw	r1, #0
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
  2f6:	f2c0 0000 	movt	r0, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  2fa:	f2c0 0100 	movt	r1, #0
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
  2fe:	9011      	str	r0, [sp, #68]	; 0x44
  300:	2000      	movs	r0, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
@@ -1229,7 +1229,7 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  314:	f2c0 0100 	movt	r1, #0
  318:	9112      	str	r1, [sp, #72]	; 0x48
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
  31a:	f240 0100 	movw	r1, #0
  31e:	f2c0 0100 	movt	r1, #0
  322:	910f      	str	r1, [sp, #60]	; 0x3c
@@ -1251,14 +1251,14 @@ _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
  348:	f240 0000 	movw	r0, #0
  34c:	f2c0 0000 	movt	r0, #0
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
  350:	f240 0100 	movw	r1, #0
 _ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
  354:	9004      	str	r0, [sp, #16]
  356:	a804      	add	r0, sp, #16
 _ZN3app10app_sensor19convert_sensor_data17h8de66336c1027443E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:120
  358:	f2c0 0100 	movt	r1, #0
  35c:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  360:	defe      	udf	#254	; 0xfe
@@ -1284,21 +1284,21 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <_ZN6mynewt7sysinit17h090e57ed8a26d343E>
 _ZN3app10app_sensor21start_sensor_listener17h1497147758d31eaaE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:49
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:50
     console::print("Rust TMP poll\n");
    6:	f240 0000 	movw	r0, #0
    a:	210e      	movs	r1, #14
    c:	f2c0 0000 	movt	r0, #0
   10:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17hd50240000fba952aE>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:52
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:53
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   14:	f240 0000 	movw	r0, #0
-  18:	f64e 2160 	movw	r1, #60000	; 0xea60
+  18:	f247 5130 	movw	r1, #30000	; 0x7530
   1c:	f2c0 0000 	movt	r0, #0
   20:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17he698cfb7bf5b51c7E>
   24:	2801      	cmp	r0, #1
   26:	d142      	bne.n	ae <main+0xae>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
   28:	f240 0100 	movw	r1, #0
   2c:	4668      	mov	r0, sp
@@ -1309,21 +1309,21 @@ _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
   38:	e9dd 0400 	ldrd	r0, r4, [sp]
 _ZN3app10app_sensor21start_sensor_listener17h1497147758d31eaaE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
   3c:	2801      	cmp	r0, #1
   3e:	d014      	beq.n	6a <main+0x6a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:57
     assert!(!sensor.is_null(), "no sensor");
   40:	2c00      	cmp	r4, #0
   42:	d045      	beq.n	d0 <main+0xd0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:61
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:62
         sl_func       : sensor::as_untyped(handle_sensor_data),  //  Listener function
   44:	f240 0000 	movw	r0, #0
   48:	f2c0 0000 	movt	r0, #0
   4c:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor10as_untyped17hc52911d8f92952d2E>
   50:	2100      	movs	r1, #0
   52:	f04f 6280 	mov.w	r2, #67108864	; 0x4000000
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:67
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
   56:	9101      	str	r1, [sp, #4]
   58:	9200      	str	r2, [sp, #0]
@@ -1408,7 +1408,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$6expect17h227a6c964a897fdfE():
   ca:	f7ff fffe 	bl	0 <main>
   ce:	defe      	udf	#254	; 0xfe
 _ZN3app10app_sensor21start_sensor_listener17h1497147758d31eaaE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:57
     assert!(!sensor.is_null(), "no sensor");
   d0:	f240 0000 	movw	r0, #0
   d4:	f2c0 0000 	movt	r0, #0

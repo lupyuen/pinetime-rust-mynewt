@@ -37,7 +37,8 @@ use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for send
 ///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
 ///  Poll sensor every 60,000 milliseconds (60 seconds)  
-const SENSOR_POLL_TIME: u32     = (60 * 1000);  
+///const SENSOR_POLL_TIME: u32     = (60 * 1000);  
+const SENSOR_POLL_TIME: u32     = (30 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
 const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
