@@ -84,7 +84,7 @@ mod app_sensor {
     //  Loop forever so that device won't restart.
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
     //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
-    use mynewt::{result::*,
+    use mynewt::{result::*, kernel::os,
                  hw::sensor::{self, sensor_ptr, sensor_arg, sensor_data_ptr,
                               sensor_listener, sensor_temp_raw_data,
                               sensor_type_t, SensorValue, SensorValueType},
@@ -115,20 +115,66 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("no sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           57u32, 5u32))
+                                           58u32, 5u32))
             }
         };
-        let listener =
-            sensor_listener{sl_sensor_type: TEMP_SENSOR_TYPE,
-                            sl_func:
-                                sensor::as_untyped(handle_sensor_data),
-                                                                          ..unsafe
-                                                                            {
-                                                                                ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
-                                                                                                         sensor_listener>([0;
-                                                                                                                              ::core::mem::size_of::<sensor_listener>()])
-                                                                            }};
-        sensor::register_listener(sensor, listener)?;
+        if unsafe { power_standby_wakeup() == 0 } {
+            let listener =
+                sensor_listener{sl_sensor_type: TEMP_SENSOR_TYPE,
+                                sl_func:
+                                    sensor::as_untyped(handle_sensor_data),
+                                                                              ..unsafe
+                                                                                {
+                                                                                    ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
+                                                                                                             sensor_listener>([0;
+                                                                                                                                  ::core::mem::size_of::<sensor_listener>()])
+                                                                                }};
+            sensor::register_listener(sensor, listener)?;
+        } else {
+            let rc =
+                unsafe {
+                    sensor::sensor_read(sensor, TEMP_SENSOR_TYPE,
+                                        sensor::as_untyped(handle_sensor_data),
+                                        core::ptr::null_mut(),
+                                        os::OS_TIMEOUT_NEVER)
+                };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["read fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/app/src/app_sensor.rs",
+                                                               82u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+        }
         Ok(())
     }
     ///  This listener function is called every 10 seconds by Mynewt to handle the polled sensor data.
@@ -143,7 +189,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           81u32, 5u32))
+                                           96u32, 5u32))
             }
         };
         let sensor_value = convert_sensor_data(sensor_data, sensor_type);
@@ -152,7 +198,7 @@ mod app_sensor {
                 {
                     ::core::panicking::panic(&("bad type",
                                                "rust/app/src/app_sensor.rs",
-                                               85u32, 55u32))
+                                               100u32, 55u32))
                 }
             };
         }
@@ -216,7 +262,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   118u32,
+                                                                                   133u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -254,7 +300,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   120u32,
+                                                                                   135u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -264,6 +310,9 @@ mod app_sensor {
                                 SensorValueType::Uint(rawtempdata.strd_temp_raw)
                             }
                         },}
+    }
+    extern "C" {
+        fn power_standby_wakeup() -> i32;
     }
 }
 mod app_network {

@@ -21,6 +21,7 @@
 
 use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types
+    kernel::os,                             //  Import Mynewt OS API
     hw::sensor::{        
         self,                               //  Import Mynewt Sensor API functions
         sensor_ptr,                         //  Import Mynewt Sensor API types
@@ -56,16 +57,30 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
     assert!(!sensor.is_null(), "no sensor");
 
-    //  Define the listener function to be called after polling the temperature sensor.
-    let listener = sensor_listener {
-        sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature
-        sl_func       : sensor::as_untyped(handle_sensor_data),  //  Listener function
-        ..fill_zero!(sensor_listener)           //  Set other fields to 0
-    };
+    //  Read the sensor by polling (at power on) or directly (at sleep wakeup).
+    if unsafe { power_standby_wakeup() == 0 } {
+        //  At power on, we let Mynewt poll our sensor.
+        //  Define the listener function to be called after polling the temperature sensor.
+        let listener = sensor_listener {
+            sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature
+            sl_func       : sensor::as_untyped(handle_sensor_data),  //  Listener function
+            ..fill_zero!(sensor_listener)           //  Set other fields to 0
+        };
 
-    //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
-    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
-
+        //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
+        sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
+    } else {
+        //  At sleep wakeup, read the sensor directly instead of polling.
+        let rc = unsafe { 
+            sensor::sensor_read(
+                sensor, 
+                TEMP_SENSOR_TYPE, 
+                sensor::as_untyped(handle_sensor_data),
+                core::ptr::null_mut(), 
+                os::OS_TIMEOUT_NEVER
+            ) };
+        assert_eq!(rc, 0, "read fail");
+    }
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
 }
@@ -125,4 +140,8 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
             //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
         }
     }
+}
+
+extern {
+    fn power_standby_wakeup() -> i32;
 }

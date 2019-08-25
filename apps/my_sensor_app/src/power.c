@@ -236,6 +236,12 @@ enum power_reset_reason power_reset_cause(void) {
     return reason;
 }
 
+int power_standby_wakeup(void) {
+    //  Return true if we have been woken up from Deep Sleep Standby Mode.
+    if (power_reset_cause() == POWER_RESET_STANDBY) { return 1; }
+    return 0;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Power Management Functions (from libopencm3 STM32F1)
 

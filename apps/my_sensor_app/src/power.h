@@ -45,8 +45,13 @@ enum power_reset_reason {
     POWER_RESET_STANDBY = 7,
 };
 
-void pwr_disable_backup_domain_write_protect(void);
+///  Return 1 if we have been woken up from Deep Sleep Standby Mode.
+int power_standby_wakeup(void);
+
+///  Return reason for the reset.
 enum power_reset_reason power_reset_cause(void);
+
+void pwr_disable_backup_domain_write_protect(void);
 
 #ifdef __cplusplus
 }

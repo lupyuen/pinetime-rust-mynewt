@@ -43,6 +43,8 @@ static const struct oc_transport transport = {
     oc_shutdown,  //  void (*ot_shutdown)(void);
 };
 
+extern "C" int power_standby_wakeup();
+
 int bc95g_register_transport(const char *network_device0, struct bc95g_server *server0, const char *host, uint16_t port) {
     //  Register the BC95G device as the transport for the specifed CoAP server.  
     //  network_device is the BC95G device name e.g. "bc95g_0".  Return 0 if successful.
@@ -61,11 +63,13 @@ int bc95g_register_transport(const char *network_device0, struct bc95g_server *s
         int rc = init_bc95g_server(server0, host, port);
         assert(rc == 0);
 
-        //  Connect to NB-IoT network.  This may take a while to complete (or fail), thus we
-        //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
-        //  to pass BC95G events to this function.
-        rc = bc95g_connect(dev);
-        assert(rc == 0);
+        if (!power_standby_wakeup()) {
+            //  At power on, connect to NB-IoT network.  This may take a while to complete (or fail), thus we
+            //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
+            //  to pass BC95G events to this function.
+            rc = bc95g_connect(dev);
+            assert(rc == 0);
+        }
 
         //  BC95G registered.  Remember the details.
         network_device = network_device0;

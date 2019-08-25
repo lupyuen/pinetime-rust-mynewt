@@ -392,25 +392,26 @@ static bool wait_for_attach(struct bc95g *dev) {
 static bool wait_for_ok(struct bc95g *dev) {
     //  Send AT and check for OK response.  Insert "\r\n" in case there was a previous command.
     bool res = (
+        parser.send("AT") &&
+        parser.recv("OK")
+    );
+    //  If OK received, flush the response and continue to next command.
+    if (res) { parser.flush(); return true; }
+    //  Send AT and check for OK response.  Insert "\r\n" in case there was a previous command.
+    res = (
         parser.send("\r\nAT") &&
         parser.recv("OK")
     );
-    if (res) {
-        //  If OK received, flush the response and continue to next command.
-        parser.flush();
-        return true;
-    }
+    //  If OK received, flush the response and continue to next command.
+    if (res) { parser.flush(); return true; }
     for (uint8_t i = 0; i < 20; i++) {
         //  Send AT and check for OK response.
         res = (
             parser.send("AT") &&
             parser.recv("OK")
         );
-        if (res) {
-            //  If OK received, flush the response and continue to next command.
-            parser.flush();
-            return true;
-        }        
+        //  If OK received, flush the response and continue to next command.
+        if (res) { parser.flush(); return true; }        
         //  Wait 1 second and retry.
         console_flush();
         sleep(1);
@@ -444,6 +445,9 @@ static bool prepare_to_transmit(struct bc95g *dev) {
 /// [Phase 1] Attach to network
 static bool attach_to_network(struct bc95g *dev) {
     return (        
+        //  At wakeup, skip the ERROR response and wait for OK.
+        wait_for_ok(dev) &&
+
         //  CFUN_QUERY: query network function
         send_command(dev, CFUN_QUERY) &&
 
