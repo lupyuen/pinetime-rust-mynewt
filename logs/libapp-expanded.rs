@@ -118,7 +118,7 @@ mod app_sensor {
                                            58u32, 5u32))
             }
         };
-        if unsafe { power_standby_wakeup() == 0 } {
+        if !standby_wakeup() {
             let listener =
                 sensor_listener{sl_sensor_type: TEMP_SENSOR_TYPE,
                                 sl_func:
@@ -131,49 +131,9 @@ mod app_sensor {
                                                                                 }};
             sensor::register_listener(sensor, listener)?;
         } else {
-            let rc =
-                unsafe {
-                    sensor::sensor_read(sensor, TEMP_SENSOR_TYPE,
-                                        sensor::as_untyped(handle_sensor_data),
-                                        core::ptr::null_mut(),
-                                        os::OS_TIMEOUT_NEVER)
-                };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["read fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/app/src/app_sensor.rs",
-                                                               82u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
+            sensor::read(sensor, TEMP_SENSOR_TYPE,
+                         sensor::as_untyped(handle_sensor_data),
+                         core::ptr::null_mut(), os::OS_TIMEOUT_NEVER)?;
         }
         Ok(())
     }
@@ -189,7 +149,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           96u32, 5u32))
+                                           94u32, 5u32))
             }
         };
         let sensor_value = convert_sensor_data(sensor_data, sensor_type);
@@ -198,7 +158,7 @@ mod app_sensor {
                 {
                     ::core::panicking::panic(&("bad type",
                                                "rust/app/src/app_sensor.rs",
-                                               100u32, 55u32))
+                                               98u32, 55u32))
                 }
             };
         }
@@ -262,7 +222,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   133u32,
+                                                                                   131u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -300,7 +260,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   135u32,
+                                                                                   133u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -313,6 +273,9 @@ mod app_sensor {
     }
     extern "C" {
         fn power_standby_wakeup() -> i32;
+    }
+    fn standby_wakeup() -> bool {
+        if unsafe { power_standby_wakeup() == 0 } { false } else { true }
     }
 }
 mod app_network {

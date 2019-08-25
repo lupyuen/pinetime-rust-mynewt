@@ -2746,7 +2746,7 @@ pub mod hw {
         use ::cty::c_void;
         use mynewt_macros::{init_strn};
         use crate as mynewt;
-        use crate::{result::*, kernel::os::*, Strn, fill_zero};
+        use crate::{result::*, kernel::os::*, Ptr, Strn, fill_zero};
         /// Contains the auto-generated Rust bindings for the Mynewt Sensor API
         mod bindings {
             use super::*;
@@ -4090,26 +4090,60 @@ pub mod hw {
                                                       *mut sensor_notifier)
                  -> ::cty::c_int;
             }
-            extern "C" {
-                #[doc =
-                      " Read the data for sensor type \"type,\" from the given sensor and"]
-                #[doc = " return the result into the \"value\" parameter."]
-                #[doc = ""]
-                #[doc = " - __`sensor`__: The sensor to read data from"]
-                #[doc =
-                      " - __`type`__: The type of sensor data to read from the sensor"]
-                #[doc =
-                      " - __`data_func`__: The callback to call for data returned from that sensor"]
-                #[doc =
-                      " - __`arg`__: The argument to pass to this callback."]
-                #[doc =
-                      " - __`timeout`__: Timeout before aborting sensor read"]
-                #[doc = ""]
-                #[doc = " Return: 0 on success, non-zero on failure."]
-                pub fn sensor_read(sensor: *mut sensor, type_: sensor_type_t,
-                                   data_func: sensor_data_func_t,
-                                   arg: *mut ::cty::c_void, timeout: u32)
-                 -> ::cty::c_int;
+            #[doc =
+                  " Read the data for sensor type \"type,\" from the given sensor and"]
+            #[doc = " return the result into the \"value\" parameter."]
+            #[doc = ""]
+            #[doc = " - __`sensor`__: The sensor to read data from"]
+            #[doc =
+                  " - __`type`__: The type of sensor data to read from the sensor"]
+            #[doc =
+                  " - __`data_func`__: The callback to call for data returned from that sensor"]
+            #[doc = " - __`arg`__: The argument to pass to this callback."]
+            #[doc = " - __`timeout`__: Timeout before aborting sensor read"]
+            #[doc = ""]
+            #[doc = " Return: 0 on success, non-zero on failure."]
+            pub fn read(sensor: *mut sensor, type_: sensor_type_t,
+                        data_func: sensor_data_func_t, arg: Ptr, timeout: u32)
+             -> MynewtResult<()> {
+                "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
+                extern "C" {
+                    #[doc =
+                          " Read the data for sensor type \"type,\" from the given sensor and"]
+                    #[doc =
+                          " return the result into the \"value\" parameter."]
+                    #[doc = ""]
+                    #[doc = " - __`sensor`__: The sensor to read data from"]
+                    #[doc =
+                          " - __`type`__: The type of sensor data to read from the sensor"]
+                    #[doc =
+                          " - __`data_func`__: The callback to call for data returned from that sensor"]
+                    #[doc =
+                          " - __`arg`__: The argument to pass to this callback."]
+                    #[doc =
+                          " - __`timeout`__: Timeout before aborting sensor read"]
+                    #[doc = ""]
+                    #[doc = " Return: 0 on success, non-zero on failure."]
+                    pub fn sensor_read(sensor: *mut sensor,
+                                       type_: sensor_type_t,
+                                       data_func: sensor_data_func_t,
+                                       arg: *mut ::cty::c_void, timeout: u32)
+                     -> ::cty::c_int;
+                }
+                "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+                unsafe {
+                    "----------Insert Call: `let result_value = os_task_init(`----------";
+                    let result_value =
+                        sensor_read(sensor as *mut sensor,
+                                    type_ as sensor_type_t,
+                                    data_func as sensor_data_func_t,
+                                    arg as *mut ::cty::c_void,
+                                    timeout as u32);
+                    "----------Insert Result: `Ok(Strn::from_cstr(result_value))`----------";
+                    if result_value == 0 {
+                        Ok(())
+                    } else { Err(MynewtError::from(result_value)) }
+                }
             }
             extern "C" {
                 #[doc = " Lock sensor manager to access the list of sensors"]
@@ -5667,7 +5701,7 @@ pub mod hw {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/hw/sensor.rs",
-                                                                   75u32,
+                                                                   76u32,
                                                                    14u32))
                                 }
                             }
@@ -5694,7 +5728,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               92u32, 5u32))
+                                               93u32, 5u32))
                 }
             };
             let mut arg = MAX_SENSOR_LISTENERS + 1;
@@ -5706,7 +5740,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               102u32, 5u32))
+                                               103u32, 5u32))
                 }
             };
             unsafe {
@@ -5739,7 +5773,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("bad sensor arg",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               126u32, 5u32))
+                                               127u32, 5u32))
                 }
             };
             let info = unsafe { SENSOR_LISTENERS[arg] };
@@ -5747,7 +5781,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               128u32, 5u32))
+                                               129u32, 5u32))
                 }
             };
             if sensor_data.is_null() { return SYS_EINVAL }
@@ -5755,7 +5789,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("null sensor",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               132u32, 5u32))
+                                               133u32, 5u32))
                 }
             };
             let sensor_value =
@@ -5766,7 +5800,7 @@ pub mod hw {
                     {
                         ::core::panicking::panic(&("bad type",
                                                    "rust/mynewt/src/hw/sensor.rs",
-                                                   136u32, 55u32))
+                                                   137u32, 55u32))
                     }
                 };
             }
@@ -5857,7 +5891,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       175u32,
+                                                                                       176u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5895,7 +5929,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       177u32,
+                                                                                       178u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5909,7 +5943,7 @@ pub mod hw {
                                         {
                                             ::core::panicking::panic(&("sensor type",
                                                                        "rust/mynewt/src/hw/sensor.rs",
-                                                                       182u32,
+                                                                       183u32,
                                                                        20u32))
                                         }
                                     };

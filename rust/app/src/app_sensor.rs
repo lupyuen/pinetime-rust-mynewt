@@ -58,11 +58,11 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     assert!(!sensor.is_null(), "no sensor");
 
     //  Read the sensor by polling (at power on) or directly (at sleep wakeup).
-    if unsafe { power_standby_wakeup() == 0 } {
+    if !standby_wakeup() {
         //  At power on, we let Mynewt poll our sensor.
         //  Define the listener function to be called after polling the temperature sensor.
         let listener = sensor_listener {
-            sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: ambient temperature
+            sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: Raw ambient temperature
             sl_func       : sensor::as_untyped(handle_sensor_data),  //  Listener function
             ..fill_zero!(sensor_listener)           //  Set other fields to 0
         };
@@ -71,15 +71,13 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
         sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
     } else {
         //  At sleep wakeup, read the sensor directly instead of polling.
-        let rc = unsafe { 
-            sensor::sensor_read(
-                sensor, 
-                TEMP_SENSOR_TYPE, 
-                sensor::as_untyped(handle_sensor_data),
-                core::ptr::null_mut(), 
-                os::OS_TIMEOUT_NEVER
-            ) };
-        assert_eq!(rc, 0, "read fail");
+        sensor::read(
+            sensor, 
+            TEMP_SENSOR_TYPE,  //  Type of sensor: Raw ambient temperature
+            sensor::as_untyped(handle_sensor_data),  //  Handler function
+            core::ptr::null_mut(), 
+            os::OS_TIMEOUT_NEVER
+        ) ? ;
     }
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
@@ -144,4 +142,8 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
 
 extern {
     fn power_standby_wakeup() -> i32;
+}
+fn standby_wakeup() -> bool {
+    if unsafe { power_standby_wakeup() == 0 } { false }
+    else { true }
 }

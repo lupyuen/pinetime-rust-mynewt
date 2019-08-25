@@ -47,6 +47,7 @@ fn function_is_whitelisted(fname: &str) -> bool {
 
         //  hw/sensor
         "sensor_mgr_find_next_bydevname"    => { true }
+        "sensor_read"                       => { true }
         "sensor_set_poll_rate_ms"           => { true }
 
         //  libs/sensor_network

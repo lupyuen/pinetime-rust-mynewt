@@ -9,6 +9,7 @@ use crate as mynewt;
 use crate::{
     result::*,
     kernel::os::*,
+    Ptr,
     Strn,
     fill_zero,
 };
