@@ -94,8 +94,7 @@ mod app_sensor {
     ///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
-    ///  Poll sensor every 60,000 milliseconds (60 seconds)  
-    ///const SENSOR_POLL_TIME: u32     = (60 * 1000);  
+    ///  Poll sensor every 20,000 milliseconds (20 seconds)  
     const SENSOR_POLL_TIME: u32 = (20 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
@@ -103,11 +102,10 @@ mod app_sensor {
     ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
     const TEMP_SENSOR_TYPE: sensor_type_t =
         sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
-    ///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
+    ///  Ask Mynewt to poll the temperature sensor and call `handle_sensor_data()`.
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_sensor_listener() -> MynewtResult<()> {
         console::print("Rust TMP poll\n");
-        sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
         let sensor =
             sensor::mgr_find_next_bydevname(&SENSOR_DEVICE,
                                             core::ptr::null_mut())?;
@@ -115,10 +113,11 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("no sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           58u32, 5u32))
+                                           54u32, 5u32))
             }
         };
         if !standby_wakeup() {
+            sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
             let listener =
                 sensor_listener{sl_sensor_type: TEMP_SENSOR_TYPE,
                                 sl_func:
@@ -149,7 +148,7 @@ mod app_sensor {
             {
                 ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/app_sensor.rs",
-                                           94u32, 5u32))
+                                           92u32, 5u32))
             }
         };
         let sensor_value = convert_sensor_data(sensor_data, sensor_type);
@@ -158,7 +157,7 @@ mod app_sensor {
                 {
                     ::core::panicking::panic(&("bad type",
                                                "rust/app/src/app_sensor.rs",
-                                               98u32, 55u32))
+                                               96u32, 55u32))
                 }
             };
         }
@@ -222,7 +221,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   131u32,
+                                                                                   129u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -260,7 +259,7 @@ mod app_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/app_sensor.rs",
-                                                                                   133u32,
+                                                                                   131u32,
                                                                                    17u32))
                                                 }
                                             }

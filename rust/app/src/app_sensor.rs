@@ -37,21 +37,17 @@ use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for send
 
 ///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
-///  Poll sensor every 60,000 milliseconds (60 seconds)  
-///const SENSOR_POLL_TIME: u32     = (60 * 1000);  
+///  Poll sensor every 20,000 milliseconds (20 seconds)  
 const SENSOR_POLL_TIME: u32     = (20 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
 const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
-///  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_sensor_data()`.
+///  Ask Mynewt to poll the temperature sensor and call `handle_sensor_data()`.
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust TMP poll\n");
-
-    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
-    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
@@ -59,7 +55,9 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 
     //  Read the sensor by polling (at power on) or directly (at sleep wakeup).
     if !standby_wakeup() {
-        //  At power on, we let Mynewt poll our sensor.
+        //  At power on, we let Mynewt poll our sensor every 20 seconds.
+        sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
+
         //  Define the listener function to be called after polling the temperature sensor.
         let listener = sensor_listener {
             sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: Raw ambient temperature
@@ -67,7 +65,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
             ..fill_zero!(sensor_listener)           //  Set other fields to 0
         };
 
-        //  Register the Listener Function to be called every 10 seconds, with the polled sensor data.
+        //  Register the Listener Function to be called with the polled sensor data.
         sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
     } else {
         //  At sleep wakeup, read the sensor directly instead of polling.
