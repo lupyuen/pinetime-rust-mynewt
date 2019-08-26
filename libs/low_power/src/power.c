@@ -1,3 +1,21 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 //  Implement Power Management functions
 #include <assert.h>
 #include <os/mynewt.h>
@@ -58,13 +76,13 @@ void power_sleep(os_time_t ticks) {
 
     //  Stop the system timer.  TODO: Start the timer after sleeping.
     NVIC_DisableIRQ(TIM2_IRQn);
-#ifdef NOTUSED    
+//#ifdef NOTUSED    
     NVIC_DisableIRQ(TIM1_BRK_IRQn);
     NVIC_DisableIRQ(TIM1_UP_IRQn);
     NVIC_DisableIRQ(TIM1_TRG_COM_IRQn );
     NVIC_DisableIRQ(TIM1_CC_IRQn);
     NVIC_DisableIRQ(TIM3_IRQn);
-#endif  //  NOTUSED
+//#endif  //  NOTUSED
 
     //  Set the alarm to wake up in `ticks` milliseconds from now.
     platform_set_alarm(ticks);

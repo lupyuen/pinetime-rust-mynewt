@@ -185,21 +185,6 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c",
-		"bookmarks": [
-			{
-				"line": 33,
-				"column": 5,
-				"label": ""
-			},
-			{
-				"line": 36,
-				"column": 6,
-				"label": ""
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/src/hal_os_tick.c",
 		"bookmarks": [
 			{

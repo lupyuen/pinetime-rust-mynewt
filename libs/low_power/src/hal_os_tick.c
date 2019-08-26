@@ -16,17 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+//  Updated HAL to support low power tickless task scheduler. Derived from repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c
+#define LOW_POWER
 
 #include <assert.h>
 #include "os/mynewt.h"
 #include <hal/hal_os_tick.h>
 
-//  Enable low power tickless task scheduler
-#define LOW_POWER ////
-
-extern void console_buffer(const char *buffer, unsigned int length); ////
-extern void console_printhex(uint8_t v); ////
-
+extern void console_buffer(const char *buffer, unsigned int length);
+extern void console_printhex(uint8_t v);
 extern void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio);
 extern void power_sleep(os_time_t ticks);
 

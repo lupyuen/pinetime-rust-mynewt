@@ -123,15 +123,10 @@ static const char *sensor_network_shortname[MAX_INTERFACE_TYPES] = {  //  Short 
     "col",  //  Send to Collector
 };
 
-//  Storage for Network Task
-#define NETWORK_TASK_STACK_SIZE OS_STACK_ALIGN(256)  //  Size of the stack (in 4-byte units)
-static uint8_t network_task_stack[sizeof(os_stack_t) * NETWORK_TASK_STACK_SIZE];  //  Stack space
-static struct os_task network_task;    //  Mynewt task object will be saved here
-
 /////////////////////////////////////////////////////////
 //  Start Network Interface for CoAP Transport as Background Task (Server and Collector)
 
-static void network_task_func(void *arg);  //  Defined below
+static void start_transport_callback(struct os_event *ev);  //  Defined below
 
 int start_server_transport(void) {
     //  For Standalone Node and Collector Node: In a background task, connect to NB-IoT or WiFi Access Point and register the driver as the network transport for CoAP Server.
@@ -152,46 +147,32 @@ int start_collector_transport(void) {
 }
 
 int sensor_network_start_transport(uint8_t iface_type) {
-    //  Start a background task to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
-    //  We use a background task because connecting to NB-IoT or WiFi Access Point may be slow.
+    //  Start a callout to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
+    //  We use a callout because connecting to NB-IoT or WiFi Access Point may be slow.
     //  Return 0 if successful.
     assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     if (iface->transport_registered) { return 0; }  //  Quit if transport already registered and endpoint has been created.
 
-    int rc = os_task_init(  //  Create a new task and start it...
-        &network_task,      //  Task object will be saved here.
-        "network",          //  Name of task.
-        network_task_func,  //  Function to execute when task starts.
-        (void *)(uint32_t)iface_type, //  Pass network interface type to above function.
-        10,  //  Task priority: highest is 0, lowest is 255.  Main task is 127.
-        OS_WAIT_FOREVER,    //  Don't do sanity / watchdog checking.
-        (os_stack_t *) network_task_stack,  //  Stack space for the task.
-        NETWORK_TASK_STACK_SIZE);           //  Size of the stack (in 4-byte units).
-    assert(rc == 0);
-    return rc;
+    //  Define the callout and trigger in 1 second.
+    static struct os_callout callout;
+    os_callout_init(&callout, os_eventq_dflt_get(), start_transport_callback, (void *)(uint32_t)iface_type);
+    os_callout_reset(&callout, 1 * OS_TICKS_PER_SEC);  //  Trigger the callout in 1 second
+    return 0;
 }
 
-static void network_task_func(void *arg) {
-    //  Network Task runs this function in the background to prepare the network drivers
-    //  for transmitting sensor data messages.
+static void start_transport_callback(struct os_event *ev) {
     //  For Collector Node and Standalone Node: We connect to NB-IoT network or WiFi access point. 
     //  Connecting to the NB-IoT network or WiFi access point may be slow so we do this in the background.
     //  Register the driver as the network transport for CoAP Server.  
     //  For Collector Node and Sensor Nodes: We register the nRF24L01 driver as the network transport for 
     //  CoAP Collector.
-    uint8_t iface_type = (uint8_t)(uint32_t)arg;
+    uint8_t iface_type = (uint8_t)(uint32_t)ev->ev_arg;
     console_printf("NET start\n");
     int rc = 0;
 
     //  Register the network transport.
     rc = sensor_network_register_transport(iface_type);  assert(rc == 0);
-
-    while (true) {  //  Loop forever...        
-        //  console_printf("NET free mbuf %d\n", os_msys_num_free());  //  Display number of free mbufs, to catch CoAP memory leaks.
-        os_time_delay(1000 * OS_TICKS_PER_SEC);                      //  Wait 1000 seconds before repeating.
-    }
-    assert(false);  //  Never comes here.  If this task function terminates, the program will crash.
 }
 
 /////////////////////////////////////////////////////////
