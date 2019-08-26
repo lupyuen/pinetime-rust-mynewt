@@ -36,3 +36,8 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
+
+#  Linker flags
+pkg.lflags:    
+    - -Wl,-wrap,os_tick_init  #  Rename all os_tick_init() references to __wrap_os_tick_init(), so that we can provide a custom implementation
+    - -Wl,-wrap,os_tick_idle  #  Rename all os_tick_idle() references to __wrap_os_tick_idle(), so that we can provide a custom implementation
