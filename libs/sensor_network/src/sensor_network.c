@@ -146,6 +146,8 @@ int start_collector_transport(void) {
     return rc;
 }
 
+extern int power_standby_wakeup();
+
 int sensor_network_start_transport(uint8_t iface_type) {
     //  Start a callout to register the Network Interface as the network transport for CoAP Server or CoAP Collector.
     //  We use a callout because connecting to NB-IoT or WiFi Access Point may be slow.
@@ -154,11 +156,17 @@ int sensor_network_start_transport(uint8_t iface_type) {
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
     if (iface->transport_registered) { return 0; }  //  Quit if transport already registered and endpoint has been created.
 
-    //  Define the callout and trigger in 1 second.
-    static struct os_callout callout;
-    os_callout_init(&callout, os_eventq_dflt_get(), start_transport_callback, (void *)(uint32_t)iface_type);
-    os_callout_reset(&callout, 1 * OS_TICKS_PER_SEC);  //  Trigger the callout in 1 second
-    return 0;
+    if (!power_standby_wakeup()) {
+        //  On power up: Define the callout and trigger it in 1 second.
+        static struct os_callout callout;
+        os_callout_init(&callout, os_eventq_dflt_get(), start_transport_callback, (void *)(uint32_t)iface_type);
+        os_callout_reset(&callout, 1 * OS_TICKS_PER_SEC);  //  Trigger the callout in 1 second
+        return 0;       
+    } else {
+        //  On standby wakeup: Register the network transport directly.
+        int rc = sensor_network_register_transport(iface_type);  assert(rc == 0);
+        return rc;
+    }
 }
 
 static void start_transport_callback(struct os_event *ev) {

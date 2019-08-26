@@ -39,5 +39,6 @@ pkg.init:
 
 #  Linker flags
 pkg.lflags:    
-    - -Wl,-wrap,os_tick_init  #  Rename all os_tick_init() references to __wrap_os_tick_init(), so that we can provide a custom implementation
-    - -Wl,-wrap,os_tick_idle  #  Rename all os_tick_idle() references to __wrap_os_tick_idle(), so that we can provide a custom implementation
+    - -Wl,-wrap,os_tick_init     #  Rename all os_tick_init() references to __wrap_os_tick_init(), so that we can provide a custom implementation
+    - -Wl,-wrap,os_tick_idle     #  Rename all os_tick_idle() references to __wrap_os_tick_idle(), so that we can provide a custom implementation
+    - -Wl,-wrap,hal_reset_cause  #  Rename all hal_reset_cause() references to __wrap_hal_reset_cause(), so that we can provide a custom implementation

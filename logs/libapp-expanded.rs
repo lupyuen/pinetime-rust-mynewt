@@ -68,9 +68,10 @@ mod app_sensor {
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 
-    //  Start polling the temperature sensor every 10 seconds in the background.
-
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
+
+    //  Start polling the temperature sensor every 10 seconds in the background.
+    //  If this is a standby wakeup, the server transport must already be started.
 
     //  Main event loop
     //  Loop forever...
@@ -479,8 +480,8 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    app_sensor::start_sensor_listener().expect("TMP fail");
     sensor_network::start_server_transport().expect("NET fail");
+    app_sensor::start_sensor_listener().expect("TMP fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

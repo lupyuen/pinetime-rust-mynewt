@@ -236,7 +236,10 @@ enum power_reset_reason power_reset_cause(void) {
 
     reg = RCC->CSR;
 
-    if (reg & RCC_CSR_WWDGRSTF) {
+    if (reg & PWR_CSR_SBF) {
+        //  Added: Reset due to exit from standby mode
+        reason = POWER_RESET_STANDBY;
+    } else if (reg & RCC_CSR_WWDGRSTF) {
         reason = POWER_RESET_WATCHDOG;
     } else if (reg & RCC_CSR_SFTRSTF) {
         reason = POWER_RESET_SOFT;
@@ -245,9 +248,6 @@ enum power_reset_reason power_reset_cause(void) {
     } else if (reg & RCC_CSR_LPWRRSTF) {
         /* For L1xx this is low-power reset */
         reason = POWER_RESET_BROWNOUT;
-    } else if (reg & PWR_CSR_SBF) {
-        //  Added: Reset due to exit from standby mode
-        reason = POWER_RESET_STANDBY;
     } else {
         reason = POWER_RESET_POR;
     }
