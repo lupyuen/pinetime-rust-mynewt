@@ -41,6 +41,10 @@ pkg.deps:
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
 #   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
 
+# Low Power Support
+pkg.deps.LOW_POWER:
+    - "libs/low_power"                     #  Low Power Support for STM32 Blue Pill
+
 # Quectel BC95-G NB-IoT driver
 pkg.deps.BC95G:
     - "libs/bc95g"                         #  Quectel BC95-G NB-IoT driver

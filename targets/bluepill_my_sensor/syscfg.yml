@@ -47,6 +47,7 @@ syscfg.vals:
     ###########################################################################
     # Hardware Settings
      
+    LOW_POWER:              1  # Enable low power support for STM32 Blue Pill
     BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
     ADC_1:                  1  # Enable port ADC1 for internal temperature sensor

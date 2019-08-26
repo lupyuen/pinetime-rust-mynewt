@@ -38,6 +38,9 @@ syscfg.defs:
     SENSOR_POLL_TIME:
         description: 'Poll the sensor every N milliseconds e.g. 10 * 1000'
         value:       UNDEFINED_SENSOR_POLL_TIME
+    LOW_POWER:
+        description: 'Enable low power support for STM32 Blue Pill'
+        value:        0        
     BC95G:
         description: 'Enable NB-IoT access with Quectel BC95-G'
         value:        0        
@@ -124,6 +127,7 @@ syscfg.vals:
     ###########################################################################
     # Hardware Settings
      
+    LOW_POWER:              1  # Enable low power support for STM32 Blue Pill
     BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
     ADC_1:                  1  # Enable port ADC1 for internal temperature sensor

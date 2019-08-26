@@ -18,28 +18,21 @@
 
 # Dependencies for this package
 
-pkg.name:        libs/bc95g
-pkg.description: Driver for Quectel BC95-G NB-IoT transceiver
+pkg.name:        libs/low_power
+pkg.description: Driver for Low Power Support on STM32 Blue Pill
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - bc95g
-    - nbiot
+    - stm32
+    - power
 
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/hw/hal"
-    - "@apache-mynewt-core/hw/sensor"
-    - "@apache-mynewt-core/net/oic"        #  OIC library
-    - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library. Needs vsscanf.c patch.
-    - "libs/sensor_network"                #  Sensor Network library
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
 # and calls them according to the Stage number, highest number first.
-# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    # bc95g should be initialised after rf24l01 (Stage 640)
-    bc95g_create: 650  # Call bc95g_create() to initialise the BC95G driver during startup

@@ -27432,7 +27432,7 @@ _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17heb57dad15
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:42
                 StrnRep::ByteStr(bs) => { self.value_to_cstr(bs) }
   48:	e9d6 2601 	ldrd	r2, r6, [r6, #4]
-_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4last17h8b9405b6d8a00141E():
+_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3377
   4c:	2e01      	cmp	r6, #1
 _ZN70_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..cmp..PartialEq$GT$2eq17h732234dcb0067ceaE():
@@ -33694,7 +33694,7 @@ _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4last17h1297893c3d3dc63eE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:234
   12:	2300      	movs	r3, #0
   14:	f04f 0c00 	mov.w	ip, #0
-_ZN4core3num23_$LT$impl$u20$usize$GT$11checked_sub17h5554c2393ce36cbdE():
+_ZN4core3num23_$LT$impl$u20$usize$GT$15overflowing_sub17h3d9756556b058eb6E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3377
   18:	1e4a      	subs	r2, r1, #1
 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4last17h1297893c3d3dc63eE():

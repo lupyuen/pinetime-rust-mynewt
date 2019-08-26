@@ -1,0 +1,6 @@
+# System Configuration Setting Definitions:
+#   Below are the settings defined by this app and their default values. To change the settings, 
+#   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
+#   Strings must be enclosed by '"..."'
+
+syscfg.defs:
