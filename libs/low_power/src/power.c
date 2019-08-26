@@ -42,7 +42,8 @@ void power_sleep(os_time_t ticks) {
 
     //  After transmission, sleep for 60 seconds.
     if (network_has_transmitted) { 
-        ticks = 60 * 1000; 
+        ticks = ((os_time_t) 10) * 60 * 1000;  //  Sleep for 10 minutes.
+        //  ticks = 60 * 1000;  //  Sleep for 60 seconds.
         int reset_cause = power_reset_cause();
         console_printf("reset_cause %d\n", reset_cause); console_flush();
         uint32_t time = rtc_get_counter_val();
