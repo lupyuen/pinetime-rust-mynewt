@@ -25,33 +25,8 @@
 extern "C" {  //  Expose the types and functions below to C functions.
 #endif
 
-/**
- * Reboot reason. Same as hal_reset_reason, except we add RESET_STANDBY.
- */
-enum power_reset_reason {
-    /** Power on Reset */
-    POWER_RESET_POR = 1,
-    /** Caused by Reset Pin */
-    POWER_RESET_PIN = 2,
-    /** Caused by Watchdog */
-    POWER_RESET_WATCHDOG = 3,
-    /** Soft reset, either system reset or crash */
-    POWER_RESET_SOFT = 4,
-    /** Low supply voltage */
-    POWER_RESET_BROWNOUT = 5,
-    /** Restart due to user request */
-    POWER_RESET_REQUESTED = 6,
-    /** Added: Restart due to exit from standby mode */
-    POWER_RESET_STANDBY = 7,
-};
-
-///  Return 1 if we have been woken up from Deep Sleep Standby Mode.
+///  Return 1 if we have been woken up from Deep Sleep Standby Mode, 0 otherwise.
 int power_standby_wakeup(void);
-
-///  Return reason for the reset.
-enum power_reset_reason power_reset_cause(void);
-
-void pwr_disable_backup_domain_write_protect(void);
 
 #ifdef __cplusplus
 }

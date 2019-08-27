@@ -61,11 +61,10 @@ void power_sleep(os_time_t ticks) {
     if (network_has_transmitted) { 
         ticks = ((os_time_t) 10) * 60 * 1000;  //  Sleep for 10 minutes.
         //  ticks = 60 * 1000;  //  Sleep for 60 seconds.
-        int reset_cause = power_reset_cause();
-        console_printf("reset_cause %d\n", reset_cause); console_flush();
-        uint32_t time = rtc_get_counter_val();
-        console_printf("time %d secs\n", (int) (time / 1000)); console_flush();
-        console_printf("deep sleep %d secs\n", (int) (ticks / 1000)); console_flush();
+        int wakeup = power_standby_wakeup(); console_printf("wakeup %d\n", wakeup);
+        uint32_t time = rtc_get_counter_val(); console_printf("time %d secs\n", (int) (time / 1000));
+        console_printf("deep sleep %d secs\n", (int) (ticks / 1000)); 
+        console_flush();
     }
 
     //  Compute the ticks slept for last call.  Display the expected and actual ticks slept.
@@ -190,9 +189,8 @@ void power_init(uint32_t os_ticks_per_sec, uint32_t reload_val, int prio) {
     assert(os_ticks_per_sec == 1000);  //  Assume 1 millisecond tick.
     platform_start_timer(power_timer_tick, power_timer_alarm);
     //  When waking from standby, set the Mynewt time.
-    if (power_reset_cause() == POWER_RESET_STANDBY) {
+    if (power_standby_wakeup()) {
         g_os_time = rtc_get_counter_val();
-        //  power_sync_time();
     }
 }
 
@@ -224,41 +222,21 @@ void power_stop_systick() {
     _CLEAR_BIT(SysTick->CTRL, 0x0007);
 }
 
-enum power_reset_reason power_reset_cause(void) {
-    //  Same as hal_reset_cause() except we added RESET_STANDBY.
-    static enum power_reset_reason reason;
-    uint32_t reg;
-
-    if (reason) {
-        return reason;
-    }
-
-    //  Added: Must power on the PWR registers before accessing them
-    rcc_periph_clock_enable(RCC_PWR);
-
-    reg = RCC->CSR;
-
-    if (reg & PWR_CSR_SBF) {
-        //  Added: Reset due to exit from standby mode
-        reason = POWER_RESET_STANDBY;
-    } else if (reg & RCC_CSR_WWDGRSTF) {
-        reason = POWER_RESET_WATCHDOG;
-    } else if (reg & RCC_CSR_SFTRSTF) {
-        reason = POWER_RESET_SOFT;
-    } else if (reg & RCC_CSR_PINRSTF) {
-        reason = POWER_RESET_PIN;
-    } else if (reg & RCC_CSR_LPWRRSTF) {
-        /* For L1xx this is low-power reset */
-        reason = POWER_RESET_BROWNOUT;
-    } else {
-        reason = POWER_RESET_POR;
-    }
-    RCC->CSR |= RCC_CSR_RMVF;
-    return reason;
-}
+#define __HAL_PWR_GET_FLAG(__FLAG__) ((PWR->CSR & (__FLAG__)) == (__FLAG__))
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__) SET_BIT(PWR->CR, ((__FLAG__) << 2))
+#define PWR_FLAG_WU                     PWR_CSR_WUF
+#define PWR_FLAG_SB                     PWR_CSR_SBF
 
 int power_standby_wakeup(void) {
     //  Return true if we have been woken up from Deep Sleep Standby Mode.
-    if (power_reset_cause() == POWER_RESET_STANDBY) { return 1; }
-    return 0;
+    static int standby_wakeup = -1;
+    if (standby_wakeup == -1) {
+        //  First time only: Read the PWR register and remember the result.        
+        rcc_periph_clock_enable(RCC_PWR);  //  Must power on the PWR register before accessing
+        if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB)) { standby_wakeup = 1; }  //  Wakeup from standby
+        else { standby_wakeup = 0; }  //  Not a wakeup from standby
+        //  Clear the PWR flag.
+        __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU|PWR_FLAG_SB);
+    }
+    return standby_wakeup;
 }

@@ -23,6 +23,7 @@
 #include <console/console.h>
 #include "rcc.h"
 #include "rtc.h"
+#include "pwr.h"
 #include "low_power.h"
 #include "alarm.h"
 
@@ -32,7 +33,7 @@
 //  RCC_LSI: 40 kHz, works in Stop or Standby Low Power mode. 
 //  We choose RCC_LSE because we need to wake up in Low Power mode.
 
-#define USE_RCC_LSE  //  We use Low Power Mode...
+#define USE_RCC_LSE  //  We use Low Power Mode
 
 #ifdef USE_RCC_LSE   //  If using Low Power Mode...
 const enum rcc_osc clock_source = RCC_LSE;
@@ -57,47 +58,43 @@ static volatile uint32_t alarmCount = 0;  //  Number of alarms elapsed.
 void rtc_isr(void);
 void rtc_alarm_isr(void);
 
-/// rtc_setup() will set this to 1 when RTC has been configured. Used by libs/adc_stm32f1/src/adc_stm32f1.c to prevent configuring RTC twice.
+/// alarm_setup() will set this to 1 when RTC has been configured. Used by libs/adc_stm32f1/src/adc_stm32f1.c to prevent configuring RTC twice.
 int rtc_configured = 0;
 
 static void alarm_setup(void) {
     //  Setup RTC interrupts for tick and alarm wakeup.
     rtc_configured = 1;  //  Tell adc_stm32f1 that the clocks have already been configured, don't configure again.
 
+    //  Power on the RTC before using.
     rcc_enable_rtc_clock();
     rtc_interrupt_disable(RTC_SEC);
     rtc_interrupt_disable(RTC_ALR);
     rtc_interrupt_disable(RTC_OW);
 
-    //  Note: Older versions of rtc_awake_from_off() and rtc_auto_awake() cause qemu to crash with error
-    //  "hardware error: you are must enter to configuration mode for write in any registre" in hw\timer\stm32_rtc.c
-    console_printf("rtc awake...\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
-    if (power_reset_cause() == POWER_RESET_STANDBY) {
-        //  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
-        //  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
-        //  Otherwise enable it with the clock source and set the prescale value.
-        rtc_auto_awake(clock_source, prescale);
-    } else {
+    if (!power_standby_wakeup()) {  //  At power on...
         //  rtc_auto_awake() will not reset the RTC when you press the RST button.
         //  It will also continue to count while the MCU is held in reset. If
         //  you want it to reset, use rtc_awake_from_off()
         rtc_awake_from_off(clock_source);  //  This will enable RTC.
         rtc_set_prescale_val(prescale);
+
+        //  Set the RTC time only at power on. Don't set it when waking from standby.
+        rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0
+        rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now
+
+    } else {  //  At standby wakeup...
+        //  From: https://github.com/libopencm3/libopencm3-examples/blob/master/examples/stm32/f1/stm32vl-discovery/rtc/rtc.c
+        //  rtc_auto_awake(): If the RTC is pre-configured just allow access, don't reconfigure.
+        //  Otherwise enable it with the clock source and set the prescale value.
+        rtc_auto_awake(clock_source, prescale);
     }
-    console_printf("rtc awake ok\n"); // console_flush(); //  rtc_awake_from_off() fails on qemu.
+    
+    exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt
+    exti_enable_request(EXTI17);
 
     NVIC_SetVector(RTC_IRQn,       (uint32_t) rtc_isr);        //  Set the Interrupt Service Routine for RTC
     NVIC_SetVector(RTC_Alarm_IRQn, (uint32_t) rtc_alarm_isr);  //  Set the Interrupt Service Routine for RTC Alarm
     
-    if (power_reset_cause() != POWER_RESET_STANDBY) {
-        //  Set the RTC time only at power on. Don't set it when waking from standby.
-        rtc_set_counter_val(0);              //  Start counting millisecond ticks from 0
-        rtc_set_alarm_time((uint32_t) -1);   //  Reset alarm to -1 or 0xffffffff so we don't trigger now
-    }
-
-    exti_set_trigger(EXTI17, EXTI_TRIGGER_RISING);  //  Enable alarm wakeup via the interrupt
-    exti_enable_request(EXTI17);
-
     nvic_enable_irq(NVIC_RTC_IRQ);        //  Enable RTC tick interrupt processing
     nvic_enable_irq(NVIC_RTC_ALARM_IRQ);  //  Enable RTC alarm wakeup interrupt processing
 
