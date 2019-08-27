@@ -3102,14 +3102,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
             if len > 1 {
   34:	2a02      	cmp	r2, #2
   36:	d354      	bcc.n	e2 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17hd2e314001924b83dE+0xe2>
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
+_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   38:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
                 while !port.is_fifo_ready() {}
   3a:	2b01      	cmp	r3, #1
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
+_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   3c:	bf1c      	itt	ne
   3e:	6803      	ldrne	r3, [r0, #0]
@@ -3117,14 +3117,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
   40:	2b01      	cmpne	r3, #1
   42:	d005      	beq.n	50 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17hd2e314001924b83dE+0x50>
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
+_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   44:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:54
   46:	2b01      	cmp	r3, #1
   48:	d002      	beq.n	50 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17hd2e314001924b83dE+0x50>
-_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
+_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   4a:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
@@ -3336,14 +3336,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
         if ptr as usize % 2 == 1 {
    6:	07cb      	lsls	r3, r1, #31
    8:	d00f      	beq.n	2a <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h0b3c3d462ec4cc2cE+0x2a>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    a:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
             while !port.is_fifo_ready() {}
    c:	2b01      	cmp	r3, #1
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    e:	bf1c      	itt	ne
   10:	6803      	ldrne	r3, [r0, #0]
@@ -3351,14 +3351,14 @@ _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
   12:	2b01      	cmpne	r3, #1
   14:	d005      	beq.n	22 <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h0b3c3d462ec4cc2cE+0x22>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   16:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.0/src/itm.rs:42
   18:	2b01      	cmp	r3, #1
   1a:	d002      	beq.n	22 <_ZN56_$LT$cortex_m..itm..Port$u20$as$u20$core..fmt..Write$GT$9write_str17h0b3c3d462ec4cc2cE+0x22>
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN8cortex_m10peripheral3itm4Stim13is_fifo_ready17hdbd890bb34216f11E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
   1c:	6803      	ldr	r3, [r0, #0]
 _ZN8cortex_m3itm9write_all17h34ed86ddbf0ecd73E():
