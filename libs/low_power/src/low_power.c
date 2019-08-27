@@ -22,8 +22,11 @@
 #include <bsp/bsp.h>
 #include <hal/hal_system.h>
 #include <console/console.h>
+#include "rcc.h"
 #include "rtc.h"
-#include "power.h"
+#include "pwr.h"
+#include "alarm.h"
+#include "low_power.h"
 
 #define _SET_BIT(var, bit)   { var |= bit; }   //  Set the specified bit of var to 1, e.g. _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 1.
 #define _CLEAR_BIT(var, bit) { var &= ~bit; }  //  Set the specified bit of var to 0, e.g. _CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 0.
@@ -32,10 +35,6 @@ void power_sync_time();
 void target_enter_sleep_mode(void);
 void target_enter_deep_sleep_stop_mode(void);
 void target_enter_deep_sleep_standby_mode(void);
-void pwr_voltage_regulator_low_power_in_stop(void);
-void pwr_set_stop_mode(void);
-void pwr_set_standby_mode(void);
-void pwr_clear_wakeup_flag(void);
 
 /// Mynewt maintains the current time here
 extern os_time_t g_os_time;
@@ -234,6 +233,9 @@ enum power_reset_reason power_reset_cause(void) {
         return reason;
     }
 
+    //  Added: Must power on the PWR registers before accessing them
+    rcc_periph_clock_enable(RCC_PWR);
+
     reg = RCC->CSR;
 
     if (reg & PWR_CSR_SBF) {
@@ -259,81 +261,4 @@ int power_standby_wakeup(void) {
     //  Return true if we have been woken up from Deep Sleep Standby Mode.
     if (power_reset_cause() == POWER_RESET_STANDBY) { return 1; }
     return 0;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//  Power Management Functions (from libopencm3 STM32F1)
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable Backup Domain Write Protection.
- 
-This allows backup domain registers to be changed. These registers are write
-protected after a reset.
-*/
-
-void pwr_disable_backup_domain_write_protect(void)
-{
-        PWR->CR |= PWR_CR_DBP;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Voltage Regulator On in Stop Mode.
- 
-*/
-
-void pwr_voltage_regulator_on_in_stop(void)
-{
-        PWR->CR &= ~PWR_CR_LPDS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Voltage Regulator Low Power in Stop Mode.
- 
-*/
-
-void pwr_voltage_regulator_low_power_in_stop(void)
-{
-        PWR->CR |= PWR_CR_LPDS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear the Standby Flag.
- 
-This is set when the processor returns from a standby mode.
-*/
-
-void pwr_clear_standby_flag(void)
-{
-        PWR->CR |= PWR_CR_CSBF;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear the Wakeup Flag.
- 
-This is set when the processor receives a wakeup signal.
-*/
-
-void pwr_clear_wakeup_flag(void)
-{
-        PWR->CR |= PWR_CR_CWUF;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Set Standby Mode in Deep Sleep.
- 
-*/
-
-void pwr_set_standby_mode(void)
-{
-        PWR->CR |= PWR_CR_PDDS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Set Stop Mode in Deep Sleep.
- 
-*/
-
-void pwr_set_stop_mode(void)
-{
-        PWR->CR &= ~PWR_CR_PDDS;
 }
