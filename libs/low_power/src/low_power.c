@@ -228,7 +228,7 @@ void power_stop_systick() {
 #define PWR_FLAG_SB                     PWR_CSR_SBF
 
 int power_standby_wakeup(void) {
-    //  Return true if we have been woken up from Deep Sleep Standby Mode.
+    //  Return 1 if we have been woken up from Deep Sleep Standby Mode, 0 otherwise.
     static int standby_wakeup = -1;
     if (standby_wakeup == -1) {
         //  First time only: Read the PWR register and remember the result.        
