@@ -1,6 +1,7 @@
+
 > Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\build-app.cmd && echo ✅ ◾ ️Done! " <
 
-"----- Building Rust app and Mynewt OS..."    
+"----- Building Rust app and Mynewt OS..."
 
 c:\stm32bluepill-mynewt-sensor>set rust_build_profile=release
 
@@ -14,7 +15,7 @@ c:\stm32bluepill-mynewt-sensor>set rust_app_dest=c:\stm32bluepill-mynewt-sensor\
 
 c:\stm32bluepill-mynewt-sensor>set rust_libcore_dir=c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore
 
-c:\stm32bluepill-mynewt-sensor>set rust_libcore_dest=c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore\libs_rustt_libcore.a
+c:\stm32bluepill-mynewt-sensor>set rust_libcore_dest=c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore\libs_rust_libcore.a
 
 c:\stm32bluepill-mynewt-sensor>if release == release (set rust_build_options=--release  )  else (set rust_build_options=  )
 
@@ -22,84 +23,68 @@ c:\stm32bluepill-mynewt-sensor>if not exist c:\stm32bluepill-mynewt-sensor\bin\t
 
  newt\newt.exe build bluepill_my_sensor
 )
-"----- Build Mynewt stubs for Rust app and Rust libcore (ignore error)"
+"----- Build Mynewt stubs for Rust app and Rust libcore (ignore error)"  
 WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
 Building target targets/bluepill_my_sensor
 Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysdown-app.c
-Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysflash.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/aes_encrypt.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/aes_decrypt.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/cbc_mode.c
 Compiling apps/my_sensor_app/src/vsscanf.c
 Compiling apps/my_sensor_app/src/support.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/cmac_mode.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ccm_mode.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_mode.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ctr_prng.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_dsa.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_dh.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/ecc_platform_specific.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/hmac_prng.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/hmac.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/sha256.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/mynewt.c
-Compiling repos/apache-mynewt-core/crypto/tinycrypt/src/utils.c
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.c
+Compiling bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysflash.c
 Compiling repos/apache-mynewt-core/encoding/json/src/json_encode.c
 Compiling repos/apache-mynewt-core/encoding/cborattr/src/cborattr.c
-Compiling repos/apache-mynewt-core/encoding/json/src/json_decode.c 
+Compiling repos/apache-mynewt-core/encoding/json/src/json_decode.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_reader.c
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_writer.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_reader.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_writer.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborerrorstrings.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder_close_container_checked.c
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborerrorstrings.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborparser.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborparser_dup_string.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/open_memstream.c
 Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cborpretty.c
-Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbortojson.c
 Compiling hw/bsp/bluepill-64kb/src/system_stm32f1xx.c
+Compiling repos/apache-mynewt-core/encoding/tinycbor/src/cbortojson.c
 Assembling hw/bsp/bluepill-64kb/src/arch/cortex_m3/startup_stm32f103xb.s
+Compiling hw/bsp/bluepill-64kb/src/hal_bsp.c
 Compiling repos/apache-mynewt-core/hw/cmsis-core/src/cmsis_nvic.c
 Compiling repos/apache-mynewt-core/hw/drivers/uart/src/uart.c
-Compiling hw/bsp/bluepill-64kb/src/hal_bsp.c
-Compiling repos/apache-mynewt-core/hw/drivers/adc/src/adc.c
-Compiling repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src/uart_hal.c
 Compiling repos/apache-mynewt-core/hw/hal/src/hal_common.c
+Compiling repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src/uart_hal.c
+Compiling repos/apache-mynewt-core/hw/drivers/adc/src/adc.c
 Compiling repos/apache-mynewt-core/hw/hal/src/hal_flash.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_flash.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_gpio.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_i2c.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_spi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system_start.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_timer.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_watchdog.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v1.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v2.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_spi.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_timer.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cec.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_crc.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_eth.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_hcd.c
@@ -108,130 +93,130 @@ Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1x
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_irda.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_mmc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nand.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pccard.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sd.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_smartcard.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_adc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dac.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_i2c.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_pwr.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_sdmmc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_reset_cause.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_flash.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_reset_cause.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/hal_timer_freq.c
 Compiling repos/apache-mynewt-core/hw/sensor/src/sensor_oic.c
-Compiling repos/apache-mynewt-core/hw/sensor/src/sensor.c
 Compiling repos/apache-mynewt-core/hw/sensor/src/sensor_shell.c
-Compiling repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c
 Compiling repos/apache-mynewt-core/kernel/os/src/endian.c
+Compiling repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c
+Compiling repos/apache-mynewt-core/hw/sensor/src/sensor.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_callout.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime.c
-Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_high.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_1mhz.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_high.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_pwr2.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_dev.c
-Compiling repos/apache-mynewt-core/kernel/os/src/os_heap.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_eventq.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_heap.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mbuf.c
-Compiling repos/apache-mynewt-core/kernel/os/src/os_msys.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mempool.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_msys.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mutex.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sanity.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sched.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sem.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_stacktrace.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_task.c
-Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/HAL_CM3.s
-Compiling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_arch_arm.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_time.c
-Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/SVC_Table.s
+Compiling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_arch_arm.c
+Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/HAL_CM3.s
 Compiling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/os_fault.c
+Assembling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/m3/SVC_Table.s
 Compiling repos/apache-mynewt-core/libc/baselibc/src/asprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atoi.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atol.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/bsearch.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atoll.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/bsearch.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/bzero.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/calloc.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/fgets.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/inline.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/jrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/lrand48.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/malloc.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memchr.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcpy.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/memmem.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memfile.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/memmem.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memmove.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memrchr.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/mrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memset.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memswap.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/mrand48.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/qsort.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/mynewt.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/realloc.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/nrand48.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/sscanf.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/qsort.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/realloc.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sprintf.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/sscanf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/start.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strchr.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcmp.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcspn.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strlcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strdup.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strncasecmp.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strlen.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strlcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strlcpy.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strncpy.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strlen.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strncasecmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strncat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strncmp.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strncpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strndup.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strnlen.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strpbrk.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoimax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoumax.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strpbrk.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strrchr.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strsep.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strspn.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strstr.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok_r.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtol.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoll.c
@@ -241,43 +226,48 @@ Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoumax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vasprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vsprintf.c
-Compiling libs/adc_stm32f1/src/creator.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c
 Compiling libs/adc_stm32f1/src/adc_stm32f1.c
 Compiling libs/bc95g/src/util.c
+Compiling libs/adc_stm32f1/src/creator.c
+Compiling libs/low_power/src/alarm.c
+Compiling libs/low_power/src/hal_os_tick.c
+Compiling libs/low_power/src/low_power.c
+Compiling libs/low_power/src/pwr.c
 Compiling libs/bc95g/src/MyBuffer.cpp
-Compiling libs/bc95g/src/BufferedSerial.cpp
+Compiling libs/low_power/src/rcc.c
+Compiling libs/low_power/src/rtc.c
 Compiling libs/bc95g/src/creator.cpp
+Compiling libs/bc95g/src/BufferedSerial.cpp
 Compiling libs/bc95g/src/ATParser.cpp
-Compiling libs/hmac_prng/src/hmac_prng.c
 Compiling libs/bc95g/src/transport.cpp
 Compiling libs/bc95g/src/driver.cpp
 Compiling libs/mynewt_rust/src/json_helper.c
 Compiling libs/mynewt_rust/src/mynewt_rust.c
-Compiling libs/rust_app/src/stub.c
 Compiling libs/mynewt_rust/src/sensor_helper.c
+Compiling libs/rust_app/src/stub.c
 Compiling libs/rust_libcore/src/stub.c
-Compiling libs/semihosting_console/src/console.c
-Compiling libs/semihosting_console/src/semihosting_console.c
 Compiling libs/semihosting_console/src/console_fmt.c
+Compiling libs/semihosting_console/src/semihosting_console.c
+Compiling libs/semihosting_console/src/console.c
 Compiling libs/semihosting_console/src/ticks.c
-Compiling libs/sensor_coap/src/sensor_coap.c
-Compiling libs/temp_stm32/src/creator.c
-Compiling libs/temp_stm32/src/temp_stm32.c
 Compiling libs/sensor_network/src/sensor_network.c
-Compiling repos/apache-mynewt-core/net/oic/src/api/oc_core_res.c
+Compiling libs/temp_stm32/src/creator.c
+Compiling libs/sensor_coap/src/sensor_coap.c
+Compiling libs/temp_stm32/src/temp_stm32.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_client_api.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_buffer.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_discovery.c
+Compiling repos/apache-mynewt-core/net/oic/src/api/oc_core_res.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_helpers.c
-Compiling repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_main.c
+Compiling repos/apache-mynewt-core/net/oic/src/api/oc_rep.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_ri.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_uuid.c
 Compiling repos/apache-mynewt-core/net/oic/src/api/oc_server_api.c
-Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/observe.c
+Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/engine.c
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/separate.c
 Compiling repos/apache-mynewt-core/net/oic/src/messaging/coap/transactions.c
@@ -285,32 +275,31 @@ Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/abort.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ble_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/clock.c
-Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ip4_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/conns.c
+Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ip4_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/ip_adaptor.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/log.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/random.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/lora_adaptor.c
-Compiling repos/apache-mynewt-core/net/oic/src/security/oc_cred.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/storage.c
-Compiling repos/apache-mynewt-core/net/oic/src/security/oc_acl.c
 Compiling repos/apache-mynewt-core/net/oic/src/port/mynewt/serial_adaptor.c
+Compiling repos/apache-mynewt-core/net/oic/src/security/oc_acl.c
+Compiling repos/apache-mynewt-core/net/oic/src/security/oc_cred.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_doxm.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_dtls.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_pstat.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_store.c
 Compiling repos/apache-mynewt-core/net/oic/src/security/oc_svr.c
-Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/flash_map/src/flash_map.c
-Compiling repos/apache-mynewt-core/sys/log/stub/src/log.c
+Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/mfg/src/mfg.c
+Compiling repos/apache-mynewt-core/sys/log/stub/src/log.c
 Compiling repos/apache-mynewt-core/sys/sysdown/src/sysdown.c
-Compiling repos/apache-mynewt-core/util/mem/src/mem.c
 Compiling repos/apache-mynewt-core/sys/sysinit/src/sysinit.c
+Compiling repos/apache-mynewt-core/util/mem/src/mem.c
 Compiling repos/apache-mynewt-core/util/rwlock/src/rwlock.c
 Archiving apps_my_sensor_app.a
 Archiving bluepill_my_sensor-sysinit-app.a
-Archiving crypto_tinycrypt.a
 Archiving encoding_cborattr.a
 Archiving encoding_json.a
 Archiving encoding_tinycbor.a
@@ -328,7 +317,7 @@ Archiving kernel_os.a
 Archiving libc_baselibc.a
 Archiving libs_adc_stm32f1.a
 Archiving libs_bc95g.a
-Archiving libs_hmac_prng.a
+Archiving libs_low_power.a
 Archiving libs_mynewt_rust.a
 Archiving libs_rust_app.a
 Archiving libs_rust_libcore.a
@@ -347,14 +336,14 @@ Archiving util_mem.a
 Archiving util_rwlock.a
 Linking c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 Error: c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/libc/baselibc/libc_baselibc.a(start.o): In function `_start':
-c:\stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/start.c:37: undefined reference to `main'
+c:\stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src/start.c:39: undefined reference to `main'
 collect2.exe: error: ld returned 1 exit status
 
 
-c:\stm32bluepill-mynewt-sensor>if exist c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\apps\my_sensor_app\my_sensor_app.elf ( 
+c:\stm32bluepill-mynewt-sensor>if exist c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\apps\my_sensor_app\my_sensor_app.elf (  
 del c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\apps\my_sensor_app\my_sensor_app.elf
  if errorlevel 1 goto :EOF
-) 
+)
 
 c:\stm32bluepill-mynewt-sensor>for %f in (c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libapp*.rlib) do del %f
 
@@ -369,108 +358,106 @@ c:\stm32bluepill-mynewt-sensor>pushd rust\mynewt   && cargo rustc -v --release  
    Compiling semver-parser v0.7.0
    Compiling typenum v1.10.0
    Compiling proc-macro2 v1.0.0
-   Compiling memchr v2.2.0
    Compiling unicode-xid v0.2.0
-   Compiling stable_deref_trait v1.1.1
+   Compiling memchr v2.2.0
    Compiling syn v1.0.1
+   Compiling stable_deref_trait v1.1.1
    Compiling vcell v0.1.0
      Running `rustc --crate-name semver_parser C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\semver-parser-0.7.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=aa110cd3792170ce -C extra-filename=-aa110cd3792170ce --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
      Running `rustc --crate-name build_script_main C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\typenum-1.10.0\build/main.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=3e465296daf4964d -C extra-filename=-3e465296daf4964d --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\typenum-3e465296daf4964d -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
      Running `rustc --edition=2018 --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-macro2-1.0.0\build.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" --cfg "feature=\"proc-macro\"" -C metadata=9a678b5e3429c4f8 -C extra-filename=-9a678b5e3429c4f8 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\proc-macro2-9a678b5e3429c4f8 -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
-     Running `rustc --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.2.0\build.rs --color 
-always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=188f9d3f1bc40453 -C extra-filename=-188f9d3f1bc40453 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\memchr-188f9d3f1bc40453 -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
-     Running `rustc --crate-name unicode_xid C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\unicode-xid-0.2.0\src\lib.rs --color 
-always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" -C metadata=64faa431cedb4d93 -C extra-filename=-64faa431cedb4d93 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
-     Running `rustc --crate-name stable_deref_trait C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\stable_deref_trait-1.1.1\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=653cdf565d7008c1 -C extra-filename=-653cdf565d7008c1 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name unicode_xid C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\unicode-xid-0.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" -C metadata=64faa431cedb4d93 -C extra-filename=-64faa431cedb4d93 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
+     Running `rustc --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.2.0\build.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=188f9d3f1bc40453 -C extra-filename=-188f9d3f1bc40453 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\memchr-188f9d3f1bc40453 -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
      Running `rustc --edition=2018 --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\syn-1.0.1\build.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"clone-impls\"" --cfg "feature=\"default\"" --cfg "feature=\"derive\"" --cfg "feature=\"extra-traits\"" --cfg "feature=\"full\"" --cfg "feature=\"parsing\"" --cfg "feature=\"printing\"" --cfg "feature=\"proc-macro\"" --cfg "feature=\"proc-macro2\"" --cfg "feature=\"quote\"" -C metadata=4987afa122887b7a -C extra-filename=-4987afa122887b7a --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\syn-4987afa122887b7a -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
-     Running `rustc --crate-name vcell C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\vcell-0.1.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=55c9e3cff9acfa7f -C extra-filename=-55c9e3cff9acfa7f --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
-   Compiling cty v0.1.5                                                                                                                          
-     Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.1.5\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=2b184e63f093d7f9 -C extra-filename=-2b184e63f093d7f9 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints 
-allow`
+     Running `rustc --crate-name stable_deref_trait C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\stable_deref_trait-1.1.1\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=653cdf565d7008c1 -C extra-filename=-653cdf565d7008c1 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name vcell C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\vcell-0.1.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=55c9e3cff9acfa7f -C extra-filename=-55c9e3cff9acfa7f --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L 
+dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling cty v0.1.5
    Compiling cortex-m v0.6.0
-   Compiling rustc-serialize v0.3.24
+     Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.1.5\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=2b184e63f093d7f9 -C extra-filename=-2b184e63f093d7f9 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
      Running `rustc --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\build.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=b0b5a5b5862db77b -C extra-filename=-b0b5a5b5862db77b --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\cortex-m-b0b5a5b5862db77b -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
-     Running `rustc --crate-name rustc_serialize C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\rustc-serialize-0.3.24\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=eb9c4bd23969abfa -C extra-filename=-eb9c4bd23969abfa --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
-     Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.1.5\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=3780e3a24a068b13 -C extra-filename=-3780e3a24a068b13 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
    Compiling cty v0.2.0
-   Compiling lazy_static v1.3.0
-     Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=a1c722e8d09495d7 -C extra-filename=-a1c722e8d09495d7 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints 
-allow`
-     Running `rustc --crate-name lazy_static C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\lazy_static-1.3.0\src\lib.rs --color 
-always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=42b9e5e897c35838 -C extra-filename=-42b9e5e897c35838 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
+   Compiling lazy_static v1.3.0                                          
+     Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=a1c722e8d09495d7 -C extra-filename=-a1c722e8d09495d7 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
+     Running `rustc --crate-name lazy_static C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\lazy_static-1.3.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=42b9e5e897c35838 -C extra-filename=-42b9e5e897c35838 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
+   Compiling rustc-serialize v0.3.24                                     
+     Running `rustc --crate-name rustc_serialize C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\rustc-serialize-0.3.24\src\lib.rs 
+--color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=eb9c4bd23969abfa -C extra-filename=-eb9c4bd23969abfa --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow`
+     Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.1.5\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=3780e3a24a068b13 -C extra-filename=-3780e3a24a068b13 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
      Running `rustc --crate-name cty C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cty-0.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=1fbd0c8c5d2ca399 -C extra-filename=-1fbd0c8c5d2ca399 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
-   Compiling volatile-register v0.2.0
+   Compiling volatile-register v0.2.0                                    
    Compiling semver v0.9.0
-     Running `rustc --crate-name volatile_register C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\volatile-register-0.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=abc6b56240fedd28 -C extra-filename=-abc6b56240fedd28 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern vcell=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libvcell-55c9e3cff9acfa7f.rlib --cap-lints 
-allow -C link-arg=-Tlink.x`
-     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\proc-macro2-9a678b5e3429c4f8\build-script-build`
-     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\syn-4987afa122887b7a\build-script-build`
-     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\memchr-188f9d3f1bc40453\build-script-build`
-     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\memchr-188f9d3f1bc40453\build-script-build`
+     Running `rustc --crate-name volatile_register C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\volatile-register-0.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=abc6b56240fedd28 -C extra-filename=-abc6b56240fedd28 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern vcell=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libvcell-55c9e3cff9acfa7f.rlib --cap-lints allow -C link-arg=-Tlink.x`
      Running `rustc --crate-name semver C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\semver-0.9.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" -C metadata=1eef1cc841f1a81c -C extra-filename=-1eef1cc841f1a81c --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern semver_parser=c:\stm32bluepill-mynewt-sensor\target\release\deps\libsemver_parser-aa110cd3792170ce.rlib --cap-lints allow`
-     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\cortex-m-b0b5a5b5862db77b\build-script-build`
-     Running `rustc --crate-name memchr C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=0f3a8d204ce12504 -C extra-filename=-0f3a8d204ce12504 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x --cfg memchr_runtime_simd --cfg memchr_runtime_sse2 --cfg memchr_runtime_sse42 --cfg memchr_runtime_avx`       
-     Running `rustc --edition=2018 --crate-name proc_macro2 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-macro2-1.0.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" --cfg "feature=\"proc-macro\"" -C metadata=e6f1ebd76257fff9 -C extra-filename=-e6f1ebd76257fff9 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern unicode_xid=c:\stm32bluepill-mynewt-sensor\target\release\deps\libunicode_xid-64faa431cedb4d93.rlib --cap-lints allow --cfg use_proc_macro --cfg wrap_proc_macro --cfg proc_macro_span`
-     Running `rustc --crate-name memchr C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=b72ca029ed0780b4 -C extra-filename=-b72ca029ed0780b4 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow --cfg memchr_runtime_simd --cfg memchr_runtime_sse2 --cfg memchr_runtime_sse42 --cfg memchr_runtime_avx`
+     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\proc-macro2-9a678b5e3429c4f8\build-script-build`
+     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\memchr-188f9d3f1bc40453\build-script-build`
      Running `c:\stm32bluepill-mynewt-sensor\target\release\build\typenum-3e465296daf4964d\build-script-main`
-     Running `rustc --crate-name typenum C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\typenum-1.10.0\src\lib.rs --color always 
---crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=79027948bc4b412c -C extra-filename=-79027948bc4b412c --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
-   Compiling cstr_core v0.1.2
-     Running `rustc --crate-name cstr_core C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=e5e2f5687364de7c -C extra-filename=-e5e2f5687364de7c --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps 
---extern cty=c:\stm32bluepill-mynewt-sensor\target\release\deps\libcty-2b184e63f093d7f9.rlib --extern memchr=c:\stm32bluepill-mynewt-sensor\target\release\deps\libmemchr-b72ca029ed0780b4.rlib --cap-lints allow`
-     Running `rustc --crate-name cstr_core C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=bb4c76c07424b2f3 -C extra-filename=-bb4c76c07424b2f3 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L 
-dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-3780e3a24a068b13.rlib --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib --cap-lints allow -C link-arg=-Tlink.x`
-   Compiling rustc_version v0.2.3
-     Running `rustc --crate-name rustc_version C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\rustc_version-0.2.3\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=c48522308ece2d89 -C extra-filename=-c48522308ece2d89 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\releap-lints allow -C link-arg=-Tlink.x`                                                                                    allow`
-   Compiling as-slice v0.1.0
-     Running `rustc --crate-name as_slice C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\as-slice-0.1.0rray-0.12.0\src\lib.rs --c\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-unito=2 -C metadata=783b6f34c1s=1 -C debuginfo=2 -C metadata=77f118ce56dccdad -C extra-filename=-77f118ce56dccdad --out-dir c:\stm32bluepill-mynewt-seps --target thumbv7m-noneensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\tl-mynewt-sensor\target\relarget\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern genericb412c.rlib --cap-lints all_array=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libgeneric_array-783b6f34c1f4bc88.rlib --extern stable_deref_trait=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libstable_deref_trait-65                          3cdf565d7008c1.rlib --cap-lints allow -C link-arg=-Tlink.x`                                                            \src\lib.rs --color always
-   Compiling bare-metal v0.2.4                                                                                         data=77f118ce56dccdad -C e
-     Running `rustc --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\baret thumbv7m-none-eabi -L de-metal-0.2.4\build.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginnsor\target\release\deps -fo=2 -C metadata=08f5347f9dfe479f -C extra-filename=-08f5347f9dfe479f --out-dir c:\stm32bluepill-mynewt-sensor\target\rf4bc88.rlib --extern stablelease\build\bare-metal-08f5347f9dfe479f -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern rust8c1.rlib --cap-lints allowc_version=c:\stm32bluepill-mynewt-sensor\target\release\deps\librustc_version-c48522308ece2d89.rlib --cap-lints allow` 
-     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\bare-metal-08f5347f9dfe479f\build-script-build`      
-     Running `rustc --crate-name bare_metal C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\bare-metal-0-metal-0.2.4\build.rs --co.2.4\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-dfe479f -C extra-filename=units=1 -C debuginfo=2 -C metadata=dea8e5967f023c5e -C extra-filename=-dea8e5967f023c5e --out-dir c:\stm32bluepill-mynecy=c:\stm32bluepill-mynewtwt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensc48522308ece2d89.rlib --caor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints 
-allow -C link-arg=-Tlink.x`
-   Compiling quote v1.0.0                                                                                              .2.4\src\lib.rs --color al
-     Running `rustc --edition=2018 --crate-name quote C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\qumetadata=dea8e5967f023c5e ote-1.0.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -Carget thumbv7m-none-eabi - debuginfo=2 --cfg "feature=\"default\"" --cfg "feature=\"proc-macro\"" --cfg "feature=\"proc-macro2\"" -C metadata=a37t-sensor\target\release\de223ed5aecd306 -C extra-filename=-a37223ed5aecd306 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern proc_macro2=c:\stm32bluepill-mynewt-sensor\target\release\deps\libproc_macro2-e6f1ebd76257fff9.rlib --cap-lints allow`                                                      ote-1.0.0\src\lib.rs --col
-   Compiling aligned v0.3.1                                                                                            e=\"default\"" --cfg "feat
-     Running `rustc --edition=2018 --crate-name aligned C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\out-dir c:\stm32bluepill-maligned-0.3.1\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -Cc:\stm32bluepill-mynewt-se codegen-units=1 -C debuginfo=2 -C metadata=cd155c2da953e126 -C extra-filename=-cd155c2da953e126 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --ealigned-0.3.1\src\lib.rs -xtern as_slice=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libas_slice-77f118ce56dccdad.rlib nfo=2 -C metadata=cd155c2d
---cap-lints allow -C link-arg=-Tlink.x`                                                                                \deps --target thumbv7m-no
-     Running `rustc --crate-name cortex_m C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0ill-mynewt-sensor\target\r\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-unite56dccdad.rlib --cap-lintss=1 -C debuginfo=2 -C metadata=889dcd31dcf4169c -C extra-filename=-889dcd31dcf4169c --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\t\src\lib.rs --color alwaysarget\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern aligneddata=889dcd31dcf4169c -C e=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libaligned-cd155c2da953e126.rlib --extern bare_mt thumbv7m-none-eabi -L deetal=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libbare_metal-dea8e5967f023c5e.rlib --externnsor\target\release\deps - volatile_register=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libvolatile_register-abc6b5624--extern bare_metal=c:\stm0fedd28.rlib --cap-lints allow -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\releaseegister=c:\stm32bluepill-m\build\cortex-m-1335251e9cdd9939\out --cfg cortex_m --cfg armv7m -l static=cortex-m`                                   k-arg=-Tlink.x -L c:\stm32
-     Running `rustc --edition=2018 --crate-name syn C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\syn-m -l static=cortex-m`     1.0.1\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C deb1.0.1\src\lib.rs --color auginfo=2 --cfg "feature=\"clone-impls\"" --cfg "feature=\"default\"" --cfg "feature=\"derive\"" --cfg "feature=\"extra-clone-impls\"" --cfg "feattraits\"" --cfg "feature=\"full\"" --cfg "feature=\"parsing\"" --cfg "feature=\"printing\"" --cfg "feature=\"proc-macroparsing\"" --cfg "feature=\"" --cfg "feature=\"proc-macro2\"" --cfg "feature=\"quote\"" -C metadata=90aa667ee929895d -C extra-filename=-90aa667ee667ee929895d -C extra-file929895d --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\targewt-sensor\target\release\dt\release\deps --extern proc_macro2=c:\stm32bluepill-mynewt-sensor\target\release\deps\libproc_macro2-e6f1ebd76257fff9.rn quote=c:\stm32bluepill-rlib --extern quote=c:\stm32bluepill-mynewt-sensor\target\release\deps\libquote-a37223ed5aecd306.rlib --extern unicode_rget\release\deps\libunicoxid=c:\stm32bluepill-mynewt-sensor\target\release\deps\libunicode_xid-64faa431cedb4d93.rlib --cap-lints allow`
+     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\memchr-188f9d3f1bc40453\build-script-build`
+     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\cortex-m-b0b5a5b5862db77b\build-script-build`
+     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\syn-4987afa122887b7a\build-script-build`
+     Running `rustc --edition=2018 --crate-name proc_macro2 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-macro2-1.0.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" --cfg "feature=\"proc-macro\"" -C metadata=e6f1ebd76257fff9 -C extra-filename=-e6f1ebd76257fff9 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern unicode_xid=c:\stm32bluepill-mynewt-sensor\target\release\deps\libunicode_xid-64faa431cedb4d93.rlib --cap-lints allow --cfg use_proc_macro --cfg wrap_proc_macro --cfg proc_macro_span`
+     Running `rustc --crate-name memchr C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort 
+-C codegen-units=1 -C debuginfo=2 -C metadata=0f3a8d204ce12504 -C extra-filename=-0f3a8d204ce12504 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x --cfg memchr_runtime_simd --cfg memchr_runtime_sse2 --cfg memchr_runtime_sse42 --cfg memchr_runtime_avx`
+     Running `rustc --crate-name memchr C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.2.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=b72ca029ed0780b4 -C extra-filename=-b72ca029ed0780b4 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow --cfg memchr_runtime_simd --cfg memchr_runtime_sse2 --cfg memchr_runtime_sse42 --cfg memchr_runtime_avx`
+     Running `rustc --crate-name typenum C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\typenum-1.10.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=79027948bc4b412c -C extra-filename=-79027948bc4b412c --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling rustc_version v0.2.3                                        
+     Running `rustc --crate-name rustc_version C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\rustc_version-0.2.3\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=c48522308ece2d89 -C extra-filename=-c48522308ece2d89 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern semver=c:\stm32bluepill-mynewt-sensor\target\release\deps\libsemver-1eef1cc841f1a81c.rlib --cap-lints allow`
+   Compiling cstr_core v0.1.2                                            
+     Running `rustc --crate-name cstr_core C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=e5e2f5687364de7c -C extra-filename=-e5e2f5687364de7c --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cty=c:\stm32bluepill-mynewt-sensor\target\release\deps\libcty-2b184e63f093d7f9.rlib --extern memchr=c:\stm32bluepill-mynewt-sensor\target\release\deps\libmemchr-b72ca029ed0780b4.rlib --cap-lints allow`
+     Running `rustc --crate-name cstr_core C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cstr_core-0.1.2\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=bb4c76c07424b2f3 -C extra-filename=-bb4c76c07424b2f3 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-3780e3a24a068b13.rlib --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling generic-array v0.12.0                                       
+     Running `rustc --crate-name generic_array C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\generic-array-0.12.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 
+-C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=783b6f34c1f4bc88 -C extra-filename=-783b6f34c1f4bc88 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern typenum=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libtypenum-79027948bc4b412c.rlib --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling bare-metal v0.2.4                                           
+     Running `rustc --crate-name build_script_build C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\bare-metal-0.2.4\build.rs --color always --crate-type bin --emit=dep-info,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=08f5347f9dfe479f -C extra-filename=-08f5347f9dfe479f --out-dir c:\stm32bluepill-mynewt-sensor\target\release\build\bare-metal-08f5347f9dfe479f -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern rustc_version=c:\stm32bluepill-mynewt-sensor\target\release\deps\librustc_version-c48522308ece2d89.rlib --cap-lints allow`
+     Running `c:\stm32bluepill-mynewt-sensor\target\release\build\bare-metal-08f5347f9dfe479f\build-script-build`
+     Running `rustc --crate-name bare_metal C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\bare-metal-0.2.4\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=dea8e5967f023c5e -C extra-filename=-dea8e5967f023c5e --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling as-slice v0.1.0                                             
+     Running `rustc --crate-name as_slice C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\as-slice-0.1.0\src\lib.rs --color always 
+--crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=77f118ce56dccdad -C extra-filename=-77f118ce56dccdad --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern generic_array=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libgeneric_array-783b6f34c1f4bc88.rlib --extern stable_deref_trait=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libstable_deref_trait-653cdf565d7008c1.rlib --cap-lints allow -C link-arg=-Tlink.x`
+   Compiling quote v1.0.0                                                
+     Running `rustc --edition=2018 --crate-name quote C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\quote-1.0.0\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"default\"" --cfg "feature=\"proc-macro\"" --cfg "feature=\"proc-macro2\"" -C metadata=a37223ed5aecd306 -C extra-filename=-a37223ed5aecd306 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern proc_macro2=c:\stm32bluepill-mynewt-sensor\target\release\deps\libproc_macro2-e6f1ebd76257fff9.rlib --cap-lints allow`
+   Compiling aligned v0.3.1                                              
+     Running `rustc --edition=2018 --crate-name aligned C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\aligned-0.3.1\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=cd155c2da953e126 -C extra-filename=-cd155c2da953e126 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern as_slice=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libas_slice-77f118ce56dccdad.rlib --cap-lints allow -C link-arg=-Tlink.x`
+     Running `rustc --crate-name cortex_m C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.0\src\lib.rs --color always 
+--crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=889dcd31dcf4169c -C extra-filename=-889dcd31dcf4169c --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern aligned=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libaligned-cd155c2da953e126.rlib --extern bare_metal=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libbare_metal-dea8e5967f023c5e.rlib --extern volatile_register=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libvolatile_register-abc6b56240fedd28.rlib --cap-lints allow -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\build\cortex-m-1335251e9cdd9939\out --cfg cortex_m --cfg armv7m -l static=cortex-m`
+     Running `rustc --edition=2018 --crate-name syn C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\syn-1.0.1\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C codegen-units=1 -C debuginfo=2 --cfg "feature=\"clone-impls\"" --cfg "feature=\"default\"" --cfg "feature=\"derive\"" --cfg "feature=\"extra-traits\"" --cfg "feature=\"full\"" --cfg "feature=\"parsing\"" --cfg "feature=\"printing\"" --cfg "feature=\"proc-macro\"" --cfg "feature=\"proc-macro2\"" --cfg "feature=\"quote\"" -C metadata=90aa667ee929895d -C extra-filename=-90aa667ee929895d --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern proc_macro2=c:\stm32bluepill-mynewt-sensor\target\release\deps\libproc_macro2-e6f1ebd76257fff9.rlib --extern quote=c:\stm32bluepill-mynewt-sensor\target\release\deps\libquote-a37223ed5aecd306.rlib --extern unicode_xid=c:\stm32bluepill-mynewt-sensor\target\release\deps\libunicode_xid-64faa431cedb4d93.rlib --cap-lints allow`
    Compiling macros v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\macros)
      Running `rustc --edition=2018 --crate-name macros rust\macros\src\lib.rs --color always --crate-type proc-macro --emit=dep-info,link -C prefer-dynamic -C opt-level=3 -C codegen-units=1 -C debuginfo=2 -C metadata=ad7128e255ce7ec9 -C extra-filename=-ad7128e255ce7ec9 --out-dir c:\stm32bluepill-mynewt-sensor\target\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cstr_core=c:\stm32bluepill-mynewt-sensor\target\release\deps\libcstr_core-e5e2f5687364de7c.rlib --extern cty=c:\stm32bluepill-mynewt-sensor\target\release\deps\libcty-a1c722e8d09495d7.rlib --extern lazy_static=c:\stm32bluepill-mynewt-sensor\target\release\deps\liblazy_static-42b9e5e897c35838.rlib --extern memchr=c:\stm32bluepill-mynewt-sensor\target\release\deps\libmemchr-b72ca029ed0780b4.rlib --extern proc_macro2=c:\stm32bluepill-mynewt-sensor\target\release\deps\libproc_macro2-e6f1ebd76257fff9.rlib --extern quote=c:\stm32bluepill-mynewt-sensor\target\release\deps\libquote-a37223ed5aecd306.rlib --extern rustc_serialize=c:\stm32bluepill-mynewt-sensor\target\release\deps\librustc_serialize-eb9c4bd23969abfa.rlib --extern syn=c:\stm32bluepill-mynewt-sensor\target\release\deps\libsyn-90aa667ee929895d.rlib`
-   Compiling mynewt v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\mynewt)
+   Compiling mynewt v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\mynewt)  
      Running `rustc --edition=2018 --crate-name mynewt rust\mynewt\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -Z unstable-options --pretty expanded -C metadata=21d635b1579bdad6 -C extra-filename=-21d635b1579bdad6 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cortex_m=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcortex_m-889dcd31dcf4169c.rlib --extern cstr_core=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcstr_core-bb4c76c07424b2f3.rlib --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-1fbd0c8c5d2ca399.rlib --extern macros=c:\stm32bluepill-mynewt-sensor\target\release\deps\macros-ad7128e255ce7ec9.dll --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\build\cortex-m-1335251e9cdd9939\out`
-    Finished release [optimized + debuginfo] target(s) in 1m 55s
+    Finished release [optimized + debuginfo] target(s) in 2m 00s         
 
 c:\stm32bluepill-mynewt-sensor>pushd rust\app      && cargo rustc -v --release  -- -Z unstable-options --pretty expanded      1>..\..\logs\libapp-expanded.rs  && popd
        Fresh semver-parser v0.7.0
        Fresh unicode-xid v0.2.0
        Fresh stable_deref_trait v1.1.1
        Fresh vcell v0.1.0
-       Fresh rustc-serialize v0.3.24
-       Fresh cty v0.1.5
        Fresh lazy_static v1.3.0
+       Fresh cty v0.1.5
+       Fresh rustc-serialize v0.3.24
        Fresh cty v0.2.0
        Fresh semver v0.9.0
+       Fresh volatile-register v0.2.0
        Fresh typenum v1.10.0
        Fresh rustc_version v0.2.3
-       Fresh volatile-register v0.2.0
        Fresh proc-macro2 v1.0.0
        Fresh generic-array v0.12.0
        Fresh memchr v2.2.0
        Fresh as-slice v0.1.0
        Fresh quote v1.0.0
        Fresh cstr_core v0.1.2
-       Fresh syn v1.0.1
        Fresh bare-metal v0.2.4
+       Fresh syn v1.0.1
        Fresh aligned v0.3.1
        Fresh cortex-m v0.6.0
-       Fresh macros v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\macros)
+       Fresh macros v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\macros)  
    Compiling mynewt v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\mynewt)
-     Running `rustc --edition=2018 --crate-name mynewt rust\mynewt\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=193a703fedcb0552 -C extra-filename=-193a703fedcb0552 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cortex_m=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcortex_m-889dcd31dcf4169c.rlib --extern cstr_core=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcstr_core-bb4c76c07424b2f3.rlib --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-1fbd0c8c5d2ca399.rlib --extern macros=c:\stm32bluepill-mynewt-sensor\target\release\deps\macros-ad7128e255ce7ec9.dll --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\build\cortex-m-1335251e9cdd9939\out`
-   Compiling app v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\app)
+     Running `rustc --edition=2018 --crate-name mynewt rust\mynewt\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=193a703fedcb0552 -C extra-filename=-193a703fedcb0552 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cortex_m=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcortex_m-889dcd31dcf4169c.rlib --extern 
+cstr_core=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcstr_core-bb4c76c07424b2f3.rlib --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-1fbd0c8c5d2ca399.rlib --extern macros=c:\stm32bluepill-mynewt-sensor\target\release\deps\macros-ad7128e255ce7ec9.dll --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\build\cortex-m-1335251e9cdd9939\out`
+   Compiling app v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\app)        
      Running `rustc --edition=2018 --crate-name app rust\app\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -Z unstable-options --pretty expanded -C metadata=73484fa98c83922b -C extra-filename=-73484fa98c83922b --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cortex_m=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcortex_m-889dcd31dcf4169c.rlib --extern cstr_core=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcstr_core-bb4c76c07424b2f3.rlib --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-1fbd0c8c5d2ca399.rlib --extern macros=c:\stm32bluepill-mynewt-sensor\target\release\deps\macros-ad7128e255ce7ec9.dll --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib --extern mynewt=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmynewt-193a703fedcb0552.rlib -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\build\cortex-m-1335251e9cdd9939\out`
-    Finished release [optimized + debuginfo] target(s) in 3.19s
+    Finished release [optimized + debuginfo] target(s) in 2.95s          
 "----- Build Rust app"
 
 c:\stm32bluepill-mynewt-sensor>cargo build -v --release
@@ -478,69 +465,29 @@ c:\stm32bluepill-mynewt-sensor>cargo build -v --release
        Fresh unicode-xid v0.2.0
        Fresh stable_deref_trait v1.1.1
        Fresh vcell v0.1.0
-       Fresh rustc-serialize v0.3.24
        Fresh cty v0.1.5
+       Fresh rustc-serialize v0.3.24
        Fresh lazy_static v1.3.0
        Fresh cty v0.2.0
        Fresh semver v0.9.0
        Fresh volatile-register v0.2.0
        Fresh rustc_version v0.2.3
        Fresh typenum v1.10.0
-       Fresh generic-array v0.12.0
        Fresh proc-macro2 v1.0.0
+       Fresh generic-array v0.12.0
        Fresh memchr v2.2.0
-       Fresh as-slice v0.1.0
        Fresh quote v1.0.0
+       Fresh as-slice v0.1.0
        Fresh cstr_core v0.1.2
-       Fresh syn v1.0.1
        Fresh bare-metal v0.2.4
+       Fresh syn v1.0.1
        Fresh aligned v0.3.1
+       Fresh macros v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\macros)  
        Fresh cortex-m v0.6.0
-       Fresh macros v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\macros)
-       Fresh mynewt v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\mynewt)
-   Compiling app v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\app)
+       Fresh mynewt v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\mynewt)  
+   Compiling app v0.1.0 (C:\stm32bluepill-mynewt-sensor\rust\app)        
      Running `rustc --edition=2018 --crate-name app rust\app\src\lib.rs --color always --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C codegen-units=1 -C debuginfo=2 -C metadata=7da95246e43bf8c3 -C extra-filename=-7da95246e43bf8c3 --out-dir c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps --target thumbv7m-none-eabi -L dependency=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps -L dependency=c:\stm32bluepill-mynewt-sensor\target\release\deps --extern cortex_m=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcortex_m-889dcd31dcf4169c.rlib --extern cstr_core=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcstr_core-bb4c76c07424b2f3.rlib --extern cty=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libcty-1fbd0c8c5d2ca399.rlib --extern macros=c:\stm32bluepill-mynewt-sensor\target\release\deps\macros-ad7128e255ce7ec9.dll --extern memchr=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmemchr-0f3a8d204ce12504.rlib --extern mynewt=c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\libmynewt-193a703fedcb0552.rlib -C link-arg=-Tlink.x -L c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\build\cortex-m-1335251e9cdd9939\out`
-start_sensor_listener: sensor_name has inferred type &Strn
-start_sensor_listener: poll_time has inferred type u32
-start_sensor_listener: sensor_name has inferred type &Strn
-start_sensor_listener: null_mut() has inferred type *mut sensor
-start_sensor_listener: sensor_key has inferred type &'static Strn
-start_sensor_listener: sensor_type has inferred type sensor_type_t
-start_sensor_listener: handle_sensor_data has inferred type SensorValueFunc
-start_sensor_listener: sensor_driver has inferred type *mut sensor
-start_sensor_listener: listener has inferred type sensor_listener
-start_sensor_listener: updated infer.json
-handle_sensor_data: sensor_data has inferred type &SensorValue
-handle_sensor_data: updated infer.json
-send_sensor_data: sensor_data has inferred type &SensorValue
-send_sensor_data: updated infer.json
-warning: variable `SENSOR_DEVICE` should have a snake case name
-  --> rust\app\src\lib.rs:38:9
-   |
-38 |     let SENSOR_DEVICE = &init_strn!( "temp_stm32_0" );
-   |         ^^^^^^^^^^^^^ help: convert the identifier to snake case: `sensor_device`
-   |
-   = note: #[warn(non_snake_case)] on by default
-
-warning: variable `SENSOR_POLL_TIME` should have a snake case name
-  --> rust\app\src\lib.rs:40:9
-   |
-40 |     let SENSOR_POLL_TIME = 10000;
-   |         ^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `sensor_poll_time`
-
-warning: variable `TEMP_SENSOR_KEY` should have a snake case name
-  --> rust\app\src\lib.rs:42:9
-   |
-42 |     let TEMP_SENSOR_KEY = &init_strn!( "t" );
-   |         ^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `temp_sensor_key`
-
-warning: variable `TEMP_SENSOR_TYPE` should have a snake case name
-  --> rust\app\src\lib.rs:44:9
-   |
-44 |     let TEMP_SENSOR_TYPE = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
-   |         ^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `temp_sensor_type`
-
-    Finished release [optimized + debuginfo] target(s) in 0.90s
+    Finished release [optimized + debuginfo] target(s) in 0.81s          
 
 c:\stm32bluepill-mynewt-sensor>if errorlevel 1 goto :EOF
 
@@ -561,7 +508,7 @@ mkdir tmprustlib
 
 c:\stm32bluepill-mynewt-sensor>pushd tmprustlib
 
-c:\stm32bluepill-mynewt-sensor\tmprustlib>if errorlevel 1 goto :EOF
+c:\stm32bluepill-mynewt-sensor\tmprustlib>if errorlevel 1 goto :EOF      
 
 c:\stm32bluepill-mynewt-sensor\tmprustlib>for %f in (c:\stm32bluepill-mynewt-sensor\target\thumbv7m-none-eabi\release\deps\*.rlib) do arm-none-eabi-ar x %f
 
@@ -611,13 +558,14 @@ mkdir -p c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\
 c:\stm32bluepill-mynewt-sensor\tmprustlib>copy rustlib.a c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_app\libs_rust_app.a
         1 file(s) copied.
 
-c:\stm32bluepill-mynewt-sensor\tmprustlib>if errorlevel 1 goto :EOF
+c:\stm32bluepill-mynewt-sensor\tmprustlib>if errorlevel 1 goto :EOF      
 
 c:\stm32bluepill-mynewt-sensor\tmprustlib>arm-none-eabi-ar s c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_app\libs_rust_app.a
 
 c:\stm32bluepill-mynewt-sensor\tmprustlib>if errorlevel 1 goto :EOF 
 
-c:\stm32bluepill-mynewt-sensor\tmprustlib>arm-none-eabi-objdump -t -S            --line-numbers --wide rustlib.a  1>..\logs\rustlib.S 2>&1
+c:\stm32bluepill-mynewt-sensor\tmprustlib>arm-none-eabi-objdump -t -S    
+        --line-numbers --wide rustlib.a  1>..\logs\rustlib.S 2>&1        
 
 c:\stm32bluepill-mynewt-sensor\tmprustlib>arm-none-eabi-objdump -t -S --demangle --line-numbers --wide rustlib.a  1>..\logs\rustlib-demangle.S 2>&1
 
@@ -626,14 +574,14 @@ c:\stm32bluepill-mynewt-sensor\tmprustlib>popd
 
 c:\stm32bluepill-mynewt-sensor>for /F %l in ('rustc --print sysroot --target thumbv7m-none-eabi') do set rust_sysroot=%l
 
-c:\stm32bluepill-mynewt-sensor>set rust_sysroot=C:\Users\guppy\.rustup\toolchains\nightly-x86_64-pc-windows-msvc 
+c:\stm32bluepill-mynewt-sensor>set rust_sysroot=C:\Users\guppy\.rustup\toolchains\nightly-x86_64-pc-windows-msvc
 
 c:\stm32bluepill-mynewt-sensor>if not exist c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore (
 mkdir c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore
  if errorlevel 1 goto :EOF
 )
 
-c:\stm32bluepill-mynewt-sensor>if exist c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore\libs_rust_libcore.a (
+c:\stm32bluepill-mynewt-sensor>if exist c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore\libs_rust_libcore.a ( 
 del c:\stm32bluepill-mynewt-sensor\bin\targets\bluepill_my_sensor\app\libs\rust_libcore\libs_rust_libcore.a
  if errorlevel 1 goto :EOF
 )
@@ -656,7 +604,7 @@ c:\stm32bluepill-mynewt-sensor>arm-none-eabi-objdump -t -S            --line-num
 c:\stm32bluepill-mynewt-sensor>arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target\thumbv7m-none-eabi\release\libapp.rlib  1>logs\libapp-demangle.S 2>&1
 "----- Build and link Mynewt with Rust app"
 
-c:\stm32bluepill-mynewt-sensor>newt\newt.exe build bluepill_my_sensor
+c:\stm32bluepill-mynewt-sensor>newt\newt.exe build bluepill_my_sensor    
 WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
 Building target targets/bluepill_my_sensor
 Linking c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
@@ -664,50 +612,48 @@ Target successfully built: targets/bluepill_my_sensor
 
 c:\stm32bluepill-mynewt-sensor>if errorlevel 1 goto :EOF
 
-c:\stm32bluepill-mynewt-sensor>newt\newt.exe size -v bluepill_my_sensor
+c:\stm32bluepill-mynewt-sensor>newt\newt.exe size -v bluepill_my_sensor  
 WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
 Size of Application Image: app
 Mem FLASH: 0x8001000-0x8010000
 Mem RAM: 0x20000000-0x20005000
   FLASH     RAM
-    234     320 *fill*
-   1084       0 apps_my_sensor_app.a
-   1874       0 crypto_tinycrypt.a
-    820       0 encoding_json.a
-     56       0 encoding_tinycbor.a
-    676      64 hw_bsp_bluepill-64kb.a
-     40       0 hw_cmsis-core.a
-     34       0 hw_drivers_adc.a
-    396       0 hw_drivers_uart_uart_hal.a
-    132       0 hw_hal.a
-   2572      84 hw_mcu_stm_stm32_common.a
-   5216      32 hw_mcu_stm_stm32f1xx.a
+    292     323 *fill*
+   1448       0 apps_my_sensor_app.a
+    944       0 encoding_json.a
+    730      64 hw_bsp_bluepill-64kb.a
+     52       0 hw_cmsis-core.a
+     32       0 hw_drivers_adc.a
+    428       0 hw_drivers_uart_uart_hal.a
+    154       0 hw_hal.a
+   3270      84 hw_mcu_stm_stm32_common.a
+   5996      32 hw_mcu_stm_stm32f1xx.a
       2       0 hw_sensor_creator.a
-   1332     260 hw_sensor.a
-   6206    8217 kernel_os.a
-   2382      50 libc_baselibc.a
-    947     268 libs_adc_stm32f1.a
-   3924    1411 libs_bc95g.a
-    293     360 libs_hmac_prng.a
-    282       0 libs_mynewt_rust.a
-   5521     144 libs_rust_app.a
+   1528     260 hw_sensor.a
+   6760    8217 kernel_os.a
+   2638      50 libc_baselibc.a
+   1139     268 libs_adc_stm32f1.a
+   5216    1407 libs_bc95g.a
+   2034      45 libs_low_power.a
+    298       0 libs_mynewt_rust.a
+   4898      88 libs_rust_app.a
   13291       0 libs_rust_libcore.a
-    517      40 libs_semihosting_console.a
-    858     237 libs_sensor_coap.a
-   1532    1329 libs_sensor_network.a
-    836     240 libs_temp_stm32.a
-   2327     462 net_oic.a
-    268     128 sys_flash_map.a
+    715      40 libs_semihosting_console.a
+    974     229 libs_sensor_coap.a
+   1751     241 libs_sensor_network.a
+   1057     240 libs_temp_stm32.a
+   2453     394 net_oic.a
+    334     128 sys_flash_map.a
       2       0 sys_log_modlog.a
-    534      29 sys_mfg.a
+    686      29 sys_mfg.a
      30       5 sys_sysinit.a
-     50       0 util_mem.a
-    154       0 bluepill_my_sensor-sysinit-app.a
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug 
+     48       0 util_mem.a
+    148       0 bluepill_my_sensor-sysinit-app.a
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-  55164     300   13412   68876   10d0c c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+  60082     252   11924   72258   11a42 c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf    
 
 c:\stm32bluepill-mynewt-sensor>if errorlevel 1 goto :EOF
 ✅ ◾ ️Done! 

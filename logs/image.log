@@ -7,8 +7,6 @@ Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compile
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/generated/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/cborattr/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/json/src
@@ -37,7 +35,7 @@ Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compile
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/creator/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src
-Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/
+Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m3/      
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
@@ -46,7 +44,7 @@ Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compile
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/bc95g/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/hmac_prng/src
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/low_power/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/mynewt_rust/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
@@ -86,34 +84,36 @@ Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compile
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 App image successfully generated: c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
-Mem RAM: 0x20000000-0x20005000
 Mem FLASH: 0x8001000-0x8010000
+Mem RAM: 0x20000000-0x20005000
 WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
 Size of Application Image: app
-Mem FLASH: 0x8001000-0x8010000
 Mem RAM: 0x20000000-0x20005000
+Mem FLASH: 0x8001000-0x8010000
   FLASH     RAM
-    216     329 *fill*
-   2147      24 apps_my_sensor_app.a
-   1926       0 crypto_tinycrypt.a
+    292     323 *fill*
+   1448       0 apps_my_sensor_app.a
     944       0 encoding_json.a
     730      64 hw_bsp_bluepill-64kb.a
      52       0 hw_cmsis-core.a
      32       0 hw_drivers_adc.a
     428       0 hw_drivers_uart_uart_hal.a
     154       0 hw_hal.a
-   3174      84 hw_mcu_stm_stm32_common.a
-   5970      32 hw_mcu_stm_stm32f1xx.a
+   3270      84 hw_mcu_stm_stm32_common.a
+   5996      32 hw_mcu_stm_stm32f1xx.a
       2       0 hw_sensor_creator.a
    1528     260 hw_sensor.a
-   6796    8217 kernel_os.a
+   6760    8217 kernel_os.a
    2638      50 libc_baselibc.a
-   1129     268 libs_adc_stm32f1.a
-   4796    1411 libs_bc95g.a
-    348     360 libs_hmac_prng.a
-    677      40 libs_semihosting_console.a
-    934     229 libs_sensor_coap.a
-   1722    1324 libs_sensor_network.a
+   1139     268 libs_adc_stm32f1.a
+   5216    1407 libs_bc95g.a
+   2034      45 libs_low_power.a
+    298       0 libs_mynewt_rust.a
+   4898      88 libs_rust_app.a
+  13291       0 libs_rust_libcore.a
+    715      40 libs_semihosting_console.a
+    974     229 libs_sensor_coap.a
+   1751     241 libs_sensor_network.a
    1057     240 libs_temp_stm32.a
    2453     394 net_oic.a
     334     128 sys_flash_map.a
@@ -121,10 +121,12 @@ Mem RAM: 0x20000000-0x20005000
     686      29 sys_mfg.a
      30       5 sys_sysinit.a
      48       0 util_mem.a
-    152       0 bluepill_my_sensor-sysinit-app.a
+    148       0 bluepill_my_sensor-sysinit-app.a
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m3, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-  41822     244   13276   55342    d82e c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+  60082     252   11924   72258   11a42 c:/stm32bluepill-mynewt-sensor/bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf    
 ✅ ◾ ️Done! 
+
+Terminal will be reused by tasks, press any key to close it.
