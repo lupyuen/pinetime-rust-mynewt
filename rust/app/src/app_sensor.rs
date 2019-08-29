@@ -44,7 +44,7 @@ const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
-///  Ask Mynewt to poll the temperature sensor and call `handle_sensor_data()`.
+///  Ask Mynewt to poll or read the temperature sensor and call `handle_sensor_data()`
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust TMP poll\n");
@@ -55,7 +55,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
 
     //  Read the sensor by polling (at power on) or directly (at sleep wakeup).
     if !standby_wakeup() {
-        //  At power on, we let Mynewt poll our sensor every 20 seconds.
+        //  At power on, we ask Mynewt to poll our sensor every 20 seconds.
         sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
         //  Define the listener function to be called after polling the temperature sensor.
