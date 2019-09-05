@@ -14672,7 +14672,7 @@ _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$f
 _ZN6mynewt4Strn3len17ha536df896bbaf27fE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:153
   2c:	78d3      	ldrb	r3, [r2, #3]
-_ZN4core3num21_$LT$impl$u20$u32$GT$15overflowing_add17he817d48b391f12e2E():
+_ZN47_$LT$u32$u20$as$u20$core..iter..range..Step$GT$9add_usize17ha669f8cfbb5fcbb7E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3349
   2e:	1d02      	adds	r2, r0, #4
 _ZN6mynewt4Strn3len17ha536df896bbaf27fE():
