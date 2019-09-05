@@ -99,24 +99,6 @@ syscfg.vals:
     COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
 
     ###########################################################################
-    # Sensor Settings
-
-    # Sensor device is the STM32 Internal Temperature Sensor
-    SENSOR_DEVICE:     MYNEWT_VAL(TEMP_STM32_DEVICE)
-
-    # Sensor value will be sent as field name `t`
-    SENSOR_KEY:        '"t"'
-
-    # Type of sensor is raw ambient temperature
-    SENSOR_TYPE:       SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW
-
-    # Raw temperature sensor value is an integer (0 to 4095)
-    SENSOR_VALUE_TYPE: SENSOR_VALUE_TYPE_INT32
-
-    # Poll the sensor every 10,000 milliseconds (10 seconds)
-    SENSOR_POLL_TIME:  10 * 1000
-
-    ###########################################################################
     # Network Settings
 
     SENSOR_NETWORK:         1  # Enable Sensor Network library
