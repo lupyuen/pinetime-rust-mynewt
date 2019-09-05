@@ -69,6 +69,8 @@ mod app_sensor {
 
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
+    ////sensor_network::start_server_transport()
+    ////.expect("NET fail");
 
     //  Start polling the temperature sensor every 10 seconds in the background.
     //  If this is a standby wakeup, the server transport must already be started.
@@ -92,11 +94,11 @@ mod app_sensor {
                  sys::console, fill_zero, Strn};
     use mynewt_macros::{init_strn};
     use crate::app_network::send_sensor_data;
-    ///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
+    ///  Sensor to be polled: `temp_stub_0` is the stub temperature sensor
     static SENSOR_DEVICE: Strn =
-        Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
-    ///  Poll sensor every 20,000 milliseconds (20 seconds)  
-    const SENSOR_POLL_TIME: u32 = (20 * 1000);
+        Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stub_0\x00"),};
+    ///  Poll sensor every 10,000 milliseconds (10 seconds)  
+    const SENSOR_POLL_TIME: u32 = (10 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};
@@ -480,7 +482,6 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    sensor_network::start_server_transport().expect("NET fail");
     app_sensor::start_sensor_listener().expect("TMP fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");

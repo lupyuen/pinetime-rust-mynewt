@@ -35,10 +35,10 @@ use mynewt::{
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
 use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
 
-///  Sensor to be polled: `temp_stm32_0` is Blue Pill's internal temperature sensor
-static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
-///  Poll sensor every 20,000 milliseconds (20 seconds)  
-const SENSOR_POLL_TIME: u32     = (20 * 1000);  
+///  Sensor to be polled: `temp_stub_0` is the stub temperature sensor
+static SENSOR_DEVICE: Strn      = init_strn!("temp_stub_0");
+///  Poll sensor every 10,000 milliseconds (10 seconds)  
+const SENSOR_POLL_TIME: u32     = (10 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
 const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
