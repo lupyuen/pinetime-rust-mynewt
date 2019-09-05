@@ -107,7 +107,7 @@ EOF
 sudo apt update -y
 sudo apt install newt -y
 which newt    #  Should show "/usr/bin/newt"
-newt version  #  Should show "Version: 1.6.0" or later.  Should NOT show "...-dev".
+newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
 echo "***** Installing mynewt..."
 
