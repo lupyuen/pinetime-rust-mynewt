@@ -47,6 +47,7 @@ syscfg.vals:
     ###########################################################################
     # Hardware Settings
      
+    HARDFLOAT:              1  # Enable hardware floating-point support for STM32L476RC
     LOW_POWER:              0  # Disable low power support for STM32 Blue Pill
     BC95G:                  1  # Enable Quectel BC95-G NB-IoT driver    
     TEMP_STUB:              1  # Enable stub temperature sensor
