@@ -8,6 +8,16 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 #  echo $PATH
 
+#  Versions to install
+mynewt_version=mynewt_1_7_0_tag
+nimble_version=nimble_1_2_0_tag
+mcuboot_version=v1.3.1
+
+#  Previously:
+#  mynewt_version=mynewt_1_6_0_tag
+#  nimble_version=nimble_1_1_0_tag
+#  mcuboot_version=v1.3.0
+
 echo "***** Installing git..."
 
 #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
@@ -103,64 +113,7 @@ if [ -d repos ]; then
 fi
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder.
-set +e              #  TODO: Remove this when newt install is fixed
-newt install -v -f  #  TODO: "git checkout" fails due to uncommitted files
-set -e              #  TODO: Remove this when newt install is fixed
-
-#  If you see "Error: Unknown subcommand: get-url"
-#  then upgrade git as shown above.
-
-echo "***** Reparing mynewt..."
-
-#  TODO: newt install fails due to uncommitted files. Need to check out manually.
-
-#  Check out core mynewt_1_6_0_tag.
-if [ -d repos/apache-mynewt-core ]; then
-    pushd repos/apache-mynewt-core
-    git checkout mynewt_1_6_0_tag -f
-    popd
-fi
-#  Check out nimble nimble_1_1_0_tag, which matches mynewt_1_6_0_tag.
-if [ -d repos/apache-mynewt-nimble ]; then
-    pushd repos/apache-mynewt-nimble
-    git checkout nimble_1_1_0_tag -f
-    popd
-fi
-#  Check out mcuboot v1.3.0, which matches mynewt_1_6_0_tag.
-if [ -d repos/mcuboot ]; then
-    pushd repos/mcuboot
-    git checkout v1.3.0 -f
-    popd
-fi
-
-#  If apache-mynewt-core is missing, then the installation failed.
-if [ ! -d repos/apache-mynewt-core ]; then
-    echo "***** newt install failed"
-    exit 1
-fi
-
-#  If apache-mynewt-nimble is missing, then the installation failed.
-if [ ! -d repos/apache-mynewt-nimble ]; then
-    echo "***** newt install failed"
-    exit 1
-fi
-
-echo "***** Patching mynewt with custom files..."
-
-#  Change the ROM layout to reduce bootloader size. Move application image to lower 64 KB ROM.
-if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old ]; then
-    cp repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld \
-       repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld.old
-fi
-cp patch/bluepill.ld \
-       repos/apache-mynewt-core/hw/bsp/bluepill/bluepill.ld
-
-if [ ! -e repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old ]; then
-    cp repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml \
-       repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml.old
-fi
-cp patch/bsp.yml \
-       repos/apache-mynewt-core/hw/bsp/bluepill/bsp.yml
+newt install -v -f
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
