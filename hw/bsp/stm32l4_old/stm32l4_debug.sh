@@ -1,4 +1,4 @@
-#
+#!/bin/sh
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -7,8 +7,8 @@
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
 # 
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,26 +17,18 @@
 # under the License.
 #
 
-pkg.name: hw/bsp/stm32l4
-pkg.type: bsp
-pkg.description: BSP definition for Ghostyu NB-EK-L476 (STM32L476RCT6)
-pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage:    "https://github.com/lupyuen"
-pkg.keywords:
-    - stm32
-    - stm32l4
+# Called with following variables set:
+#  - CORE_PATH is absolute path to @apache-mynewt-core
+#  - BSP_PATH is absolute path to hw/bsp/bsp_name
+#  - BIN_BASENAME is the path to prefix to target binary,
+#    .elf appended to name is the ELF file
+#  - FEATURES holds the target features string
+#  - EXTRA_JTAG_CMD holds extra parameters to pass to jtag software
+#  - RESET set if target should be reset when attaching
+#  - NO_GDB set if we should not start gdb to debug
+#
+. $CORE_PATH/hw/scripts/stlink.sh
 
-pkg.cflags:
-    - -DSTM32L476xx
+FILE_NAME=$BIN_BASENAME.elf
 
-pkg.cflags.HARDFLOAT:
-    - -mfloat-abi=hard -mfpu=fpv4-sp-d16
-
-pkg.deps:
-    - "@apache-mynewt-core/hw/mcu/stm/stm32l4xx"
-    - "@apache-mynewt-core/libc/baselibc"
-
-pkg.deps.UART_0:
-    - "@apache-mynewt-core/hw/drivers/uart/uart_hal"
-pkg.deps.UART_1:
-    - "@apache-mynewt-core/hw/drivers/uart/uart_hal"
+stlink_debug

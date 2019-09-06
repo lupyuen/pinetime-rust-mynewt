@@ -1,4 +1,6 @@
-## Bluepill STMF103C8
+## Bluepill STMF103C8 with 64 KB flash ROM
+
+Updated to fit into 64 KB flash ROM. Should be used with Bootloader Stub `boot_stub`.
 
 Serial "uart0" of mynewt is actually using USART2 peripheral, which has default pin mapping of TX2: A2, RX2: A3
 

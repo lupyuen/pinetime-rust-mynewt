@@ -18,10 +18,11 @@
  */
 
 /* Linker script to configure memory regions. */
+/* STM32L476RCT6 has 128 KB of RAM */
 MEMORY
 {
   FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 16K
-  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 64K
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 128K /* Updated */
 }
 
 /* The bootloader does not contain an image header */
