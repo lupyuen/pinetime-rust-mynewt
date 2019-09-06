@@ -312,8 +312,10 @@ int bc95g_default_cfg(struct bc95g_cfg *cfg) {
 }
 
 int bc95g_config(struct bc95g *drv, struct bc95g_cfg *cfg) {
-    //  Apply the BC95G driver configuration.  Return 0 if successful.
-    return 0;  //  Nothing to do.  We will apply the config in bc95g_open().
+    //  Copy the BC95G driver configuration from cfg into drv.  Return 0 if successful.
+    struct bc95g_cfg *drv_cfg = &drv->cfg;
+    drv_cfg->uart = cfg->uart;    
+    return 0;
 }
 
 static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {

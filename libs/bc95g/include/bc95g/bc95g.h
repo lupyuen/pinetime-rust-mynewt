@@ -57,8 +57,8 @@ int bc95g_default_cfg(struct bc95g_cfg *cfg);
 //  Configure the BC95G driver.  Called by os_dev_create().  Return 0 if successful.
 int bc95g_init(struct os_dev *dev0, void *arg);
 
-//  Apply the BC95G driver configuration.  Return 0 if successful.
-int bc95g_config(struct bc95g *dev, struct bc95g_cfg *cfg);  
+//  Copy the BC95G driver configuration from cfg into drv.  Return 0 if successful.
+int bc95g_config(struct bc95g *drv, struct bc95g_cfg *cfg);  
 
 //  Connect to the NB-IoT network.  Return 0 if successful.
 int bc95g_connect(struct bc95g *dev);  

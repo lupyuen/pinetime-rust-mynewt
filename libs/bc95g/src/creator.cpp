@@ -76,7 +76,7 @@ static int config_device(void) {
     rc = DEVICE_CFG_DEFAULT(&cfg);
     assert(rc == 0);
 
-    //  Apply the device config.
+    //  Copy the default config into the device.
     rc = DEVICE_CFG_FUNC((struct DEVICE_DEV *)dev, &cfg);
     os_dev_close(dev);
     return rc;
