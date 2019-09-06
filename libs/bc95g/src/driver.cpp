@@ -272,7 +272,7 @@ static int bc95g_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
         bc95g_parser_buffer, BC95G_PARSER_BUFFER_SIZE,
         false
     );
-    internal_configure(cfg->uart);         //  Configure the UART port.  0 means UART2.
+    internal_configure(cfg->uart);         //  Configure the UART port.  0 means UART2, 1 means UART1.
     internal_attach(&bc95g_event, dev);    //  Set the callback for BC95G events.
     return 0;
 }
@@ -315,6 +315,8 @@ int bc95g_config(struct bc95g *drv, struct bc95g_cfg *cfg) {
     //  Copy the BC95G driver configuration from cfg into drv.  Return 0 if successful.
     struct bc95g_cfg *drv_cfg = &drv->cfg;
     drv_cfg->uart = cfg->uart;    
+    assert(drv_cfg->uart == MYNEWT_VAL(BC95G_UART));
+    internal_configure(drv_cfg->uart);  //  Configure the UART port.  0 means UART2, 1 means UART1.
     return 0;
 }
 
