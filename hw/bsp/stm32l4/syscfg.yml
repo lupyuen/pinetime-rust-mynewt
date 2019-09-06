@@ -56,6 +56,22 @@ syscfg.defs:
         description: 'RTS pin for USART1, PA12, PB3'
         value: -1
 
+    UART_2:
+        description: 'Whether to enable USART3'
+        value:  0
+    UART_2_PIN_TX:
+        description: 'TX pin for USART3, PB11'
+        value: MCU_GPIO_PORTB(11)
+    UART_2_PIN_RX:
+        description: 'RX pin for USART3, PB10'
+        value: MCU_GPIO_PORTB(10)
+    UART_2_PIN_CTS:
+        description: 'CTS pin for USART3, PB13'
+        value: -1
+    UART_2_PIN_RTS:
+        description: 'RTS pin for USART3, PB14'
+        value: -1
+
     TIMER_0:
         description: 'Whether to enable TIMER_0'
         value: 1

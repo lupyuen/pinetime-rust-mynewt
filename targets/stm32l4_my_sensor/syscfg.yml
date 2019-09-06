@@ -49,7 +49,8 @@ syscfg.vals:
      
     UART_0:                 1  # Enable USART2
     UART_1:                 1  # Enable USART1
-    BC95G_UART:             1  # Connect to BC95-G module on UART1
+    UART_2:                 1  # Enable USART3
+    BC95G_UART:             2  # Connect to BC95-G module on USART3
     HARDFLOAT:              1  # Enable hardware floating-point support for STM32L476RC
     LOW_POWER:              0  # Disable low power support for STM32 Blue Pill
 

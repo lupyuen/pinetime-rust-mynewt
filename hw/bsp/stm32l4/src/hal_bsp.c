@@ -78,6 +78,22 @@ static const struct stm32_uart_cfg uart1_cfg = {
 };
 #endif
 
+#if MYNEWT_VAL(UART_2)
+static struct uart_dev hal_uart2;
+
+static const struct stm32_uart_cfg uart2_cfg = {
+    .suc_uart = USART3,
+    .suc_rcc_reg = &RCC->APB1ENR1,
+    .suc_rcc_dev = RCC_APB1ENR1_USART3EN,
+    .suc_pin_tx = MYNEWT_VAL(UART_2_PIN_TX),
+    .suc_pin_rx = MYNEWT_VAL(UART_2_PIN_RX),
+    .suc_pin_rts = MYNEWT_VAL(UART_2_PIN_RTS),
+    .suc_pin_cts = MYNEWT_VAL(UART_2_PIN_CTS),
+    .suc_pin_af = GPIO_AF7_USART3,
+    .suc_irqn = USART3_IRQn
+};
+#endif
+
 #if MYNEWT_VAL(I2C_0)
 /*
  * NOTE: The PB8 and PB9 pins are connected through jumpers in the board to
@@ -182,6 +198,12 @@ hal_bsp_init(void)
 #if MYNEWT_VAL(UART_1)
     rc = os_dev_create((struct os_dev *) &hal_uart1, "uart1",
       OS_DEV_INIT_PRIMARY, 0, uart_hal_init, (void *)&uart1_cfg);
+    assert(rc == 0);
+#endif
+
+#if MYNEWT_VAL(UART_2)
+    rc = os_dev_create((struct os_dev *) &hal_uart2, "uart2",
+      OS_DEV_INIT_PRIMARY, 0, uart_hal_init, (void *)&uart2_cfg);
     assert(rc == 0);
 #endif
 

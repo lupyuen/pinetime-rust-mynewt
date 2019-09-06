@@ -42,7 +42,7 @@ extern uint8_t _ram_start;
 #define LED_BLINK_PIN   MCU_GPIO_PORTA(15)  //  Updated for Ghostyu NB-EK-L476
 
 /* UART */
-#define UART_CNT 2
+#define UART_CNT 3  //  Updated for Ghostyu NB-EK-L476
 
 /* Arduino pins */
 #define ARDUINO_PIN_D0      MCU_GPIO_PORTA(3)
