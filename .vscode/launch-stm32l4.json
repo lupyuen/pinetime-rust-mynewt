@@ -17,11 +17,11 @@
             "configFiles": [ 
                 //  Tell OpenOCD to open the ST Link connection to STM32F1 MCU.
                 "interface/stlink-v2.cfg",
-                ////"target/stm32f1x.cfg",
-                "target/stm32l4x.cfg", ////
+                //  Previously: "target/stm32f1x.cfg",
+                "target/stm32l4x.cfg",
                 //  Tell OpenOCD to run our custom debug commands.
-                ////"scripts/debug.ocd" 
-                "scripts/stm32l4/debug.ocd" ////
+                //  Previously: "scripts/debug.ocd" 
+                "scripts/stm32l4/debug.ocd"
             ],
             "preLaunchCommands": [
                 //  Before loading the Application, run these gdb commands.
@@ -42,14 +42,13 @@
             ],
             "postLaunchCommands": [
                 //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
-                //  So we bypass the Bootloader and jump to the Application directly.
-                "stepi",                    //  Must step before setting PC.
-                "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler.
-                "stepi",                    //  Execute the Reset Handler.
-                "break main",               //  Break at main().
-                "break __assert_func",      //  Break for any assert failures.
-                "break os_default_irq"      //  Break for any unhandled interrupts.
-                //  "continue",                 //  Run until main() and break.
+                //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
+                //  "stepi",                    //  Must step before setting PC
+                //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
+                //  "stepi",                    //  Execute the Reset Handler
+                "break main",                   //  Break at main()
+                "break __assert_func",          //  Break for any assert failures
+                "break os_default_irq"          //  Break for any unhandled interrupts
             ],
             "preRestartCommands": [
             ],

@@ -30,8 +30,8 @@ echo ""
 
 # Bootloader address must sync with hw/bsp/stm32l4/bsp.yml
 echo "Flashing Bootloader to Blue Pill..."
-flash write_image erase unlock bin/targets/stm32l4_boot/app/apps/boot/boot.elf.bin 0x08000000
-flash verify_bank 0            bin/targets/stm32l4_boot/app/apps/boot/boot.elf.bin 0x00000000
+flash write_image erase unlock bin/targets/stm32l4_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000
+flash verify_bank 0            bin/targets/stm32l4_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
 echo ""
 
 # Restart the device.
