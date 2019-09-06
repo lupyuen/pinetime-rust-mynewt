@@ -20,13 +20,13 @@
 pkg.name: apps/boot_stub
 pkg.type: app
 pkg.description: Boot loader stub.
-pkg.author: "Apache Mynewt <dev@mynewt.apache.org>"
-pkg.homepage: "http://mynewt.apache.org/"
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
     - loader
+    - stub
 
 pkg.deps:
-    - "@apache-mynewt-core/boot/bootutil"
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/sys/console/stub"
     - "@apache-mynewt-core/sys/log/stub"

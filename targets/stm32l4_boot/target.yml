@@ -1,4 +1,4 @@
-target.app: "@apache-mynewt-core/apps/boot"
+target.app: "apps/boot_stub"
 target.bsp: "hw/bsp/stm32l4"
 #target.build_profile: optimized
 target.build_profile: debug
