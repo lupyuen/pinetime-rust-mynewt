@@ -21,7 +21,7 @@ bsp.name: "stm32l4"
 bsp.url: https://medium.com/@ly.lee/quick-peek-of-huawei-liteos-with-nb-iot-on-ghostyu-nb-ek-l476-developer-kit-2bbfb7f2fbcc?source=friends_link&sk=37f71270cd52f497fb6fb8139917031c
 bsp.maker: "Ghostyu"
 bsp.arch: cortex_m4
-bsp.compiler: compiler/arm-none-eabi-m4
+bsp.compiler: "@apache-mynewt-core/compiler/arm-none-eabi-m4"
 bsp.linkerscript:
     - "hw/bsp/stm32l4/stm32l4.ld"
     - "@apache-mynewt-core/hw/mcu/stm/stm32l4xx/stm32l476.ld"

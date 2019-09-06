@@ -4524,7 +4524,7 @@ impl DCB {
     pub fn enable_trace(&mut self) {
    0:	f64e 50fc 	movw	r0, #60924	; 0xedfc
    4:	f2ce 0000 	movt	r0, #57344	; 0xe000
-_ZN4core3ptr13read_volatile17h92e63e8c8f835ddbE():
+_ZN5vcell21VolatileCell$LT$T$GT$3get17h17dd8fd9cb52682eE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    8:	6801      	ldr	r1, [r0, #0]
 _ZN8cortex_m10peripheral3dcb43_$LT$impl$u20$cortex_m..peripheral..DCB$GT$12enable_trace28_$u7b$$u7b$closure$u7d$$u7d$17hbd0fa21ecfb49578E():
