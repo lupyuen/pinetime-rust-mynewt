@@ -307,7 +307,7 @@ err:
 int bc95g_default_cfg(struct bc95g_cfg *cfg) {
     //  Copy the default BC95G config into cfg.  Returns 0.
     memset(cfg, 0, sizeof(struct bc95g_cfg));  //  Zero the entire object.
-    cfg->uart = 0;  //  Default to UART number 0, which is UART2.
+    cfg->uart = MYNEWT_VAL(BC95G_UART);  //  0 for UART2, 1 for UART1.
     return 0;
 }
 

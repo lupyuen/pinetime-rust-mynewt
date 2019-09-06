@@ -8,3 +8,6 @@ syscfg.defs:
     NBIOT_BAND:
         description: 'Connect to this NB-IoT band e.g. 8'
         value:       8
+    BC95G_UART:
+        description: 'UART port for accessing BC95-G module. 0 means UART2, 1 means UART1'
+        value:       0

@@ -17,8 +17,8 @@ cp .vscode/launch-stm32l4.json .vscode/launch.json
 set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." ; set -x
 
 #  Rust build profile: debug or release
-#  rust_build_profile=debug
-rust_build_profile=release
+rust_build_profile=debug
+#  rust_build_profile=release
 
 #  Location of the compiled ROM image.  We will remove this to force relinking the Rust app with Mynewt OS.
 app_build=$PWD/bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf

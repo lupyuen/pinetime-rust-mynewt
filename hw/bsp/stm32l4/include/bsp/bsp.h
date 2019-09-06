@@ -39,7 +39,7 @@ extern uint8_t _ram_start;
 #define RAM_SIZE        (96 * 1024)
 
 /* LED pins */
-#define LED_BLINK_PIN   MCU_GPIO_PORTA(5)
+#define LED_BLINK_PIN   MCU_GPIO_PORTA(15)  //  Updated for Ghostyu NB-EK-L476
 
 /* UART */
 #define UART_CNT 2

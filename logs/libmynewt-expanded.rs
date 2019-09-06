@@ -3045,7 +3045,7 @@ pub mod hw {
                 }
                 #[inline]
                 pub fn get_bit(&self, index: usize) -> bool {
-                    if false {
+                    if true {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -3063,7 +3063,7 @@ pub mod hw {
                 }
                 #[inline]
                 pub fn set_bit(&mut self, index: usize, val: bool) {
-                    if false {
+                    if true {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -3081,7 +3081,7 @@ pub mod hw {
                 }
                 #[inline]
                 pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                    if false {
+                    if true {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -3090,7 +3090,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -3099,7 +3099,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -3124,7 +3124,7 @@ pub mod hw {
                 #[inline]
                 pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                            val: u64) {
-                    if false {
+                    if true {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -3133,7 +3133,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -3142,7 +3142,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -7382,7 +7382,7 @@ pub mod encoding {
             pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
             #[inline]
             pub fn get_bit(&self, index: usize) -> bool {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -7400,7 +7400,7 @@ pub mod encoding {
             }
             #[inline]
             pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -7418,7 +7418,7 @@ pub mod encoding {
             }
             #[inline]
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -7427,7 +7427,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -7436,7 +7436,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -7461,7 +7461,7 @@ pub mod encoding {
             #[inline]
             pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                        val: u64) {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -7470,7 +7470,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -7479,7 +7479,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -9123,7 +9123,7 @@ pub mod libs {
             pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
             #[inline]
             pub fn get_bit(&self, index: usize) -> bool {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -9141,7 +9141,7 @@ pub mod libs {
             }
             #[inline]
             pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -9159,7 +9159,7 @@ pub mod libs {
             }
             #[inline]
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -9168,7 +9168,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -9177,7 +9177,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -9202,7 +9202,7 @@ pub mod libs {
             #[inline]
             pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                        val: u64) {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -9211,7 +9211,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -9220,7 +9220,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -10146,7 +10146,7 @@ pub mod libs {
             pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
             #[inline]
             pub fn get_bit(&self, index: usize) -> bool {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -10164,7 +10164,7 @@ pub mod libs {
             }
             #[inline]
             pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -10182,7 +10182,7 @@ pub mod libs {
             }
             #[inline]
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -10191,7 +10191,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -10200,7 +10200,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -10225,7 +10225,7 @@ pub mod libs {
             #[inline]
             pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                        val: u64) {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -10234,7 +10234,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -10243,7 +10243,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
