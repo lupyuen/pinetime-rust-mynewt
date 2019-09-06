@@ -31,6 +31,35 @@ Refer to the tutorials...
 
 [_Rust Rocks NB-IoT! STM32 Blue Pill with Quectel BC95-G on Apache Mynewt_](https://medium.com/@ly.lee/rust-rocks-nb-iot-stm32-blue-pill-with-quectel-bc95-g-on-apache-mynewt-ef62a7e28f7e?sk=aaa21371f68a07c543066b6b89a760f0)
 
+# Fixes for Mynewt type conversion build warnings
+
+1️⃣ `repos/apache-mynewt-core/kernel/os/include/os/os_mutex.h` line 122 <br>
+```C
+    return mu->mu_level;
+```
+Change to
+```C
+    return (os_error_t) mu->mu_level;
+```
+
+2️⃣ `repos/apache-mynewt-core/hw/sensor/include/sensor/sensor.h` line 847 <br>
+```C
+    return (sensor->s_types & sensor->s_mask & type);
+```
+Change to
+```C
+    return (sensor_type_t) (sensor->s_types & sensor->s_mask & type);
+```
+
+3️⃣ `repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h` line 201 <br>
+```C
+    {   return encoder->writer->bytes_written; }
+```
+Change to
+```C
+    {   return (CborError) encoder->writer->bytes_written; }
+```
+
 # Installation, Build, Flash and Debug Logs
 
 Sample logs for Windows may be found in the [logs folder](logs)

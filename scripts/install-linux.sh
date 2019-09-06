@@ -120,4 +120,4 @@ fi
 newt install -v -f
 
 set +x  #  Stop echoing all commands.
-echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
+echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
