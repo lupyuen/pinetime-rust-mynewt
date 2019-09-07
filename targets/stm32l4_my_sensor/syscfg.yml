@@ -58,5 +58,5 @@ syscfg.vals:
     
     TEMP_STUB:              1  # Enable stub temperature sensor
     TEMP_STM32:             0  # Disable Blue Pill internal temperature sensor
-    ADC_1:                  0  # Disable port ADC1
+    ADC_1:                  1  # Enable port ADC1
     HMAC_PRNG:              0  # Disable HMAC PRNG pseudorandom number generator

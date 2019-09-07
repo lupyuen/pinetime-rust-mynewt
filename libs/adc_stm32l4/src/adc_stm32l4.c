@@ -61,17 +61,17 @@ stm32l4_adc_clk_enable(ADC_HandleTypeDef *hadc)
     switch (adc_addr) {
 #if defined(ADC1)
         case (uintptr_t)ADC1:
-            __HAL_RCC_ADC1_CLK_ENABLE();
+            __HAL_RCC_ADC_CLK_ENABLE();
             break;
 #endif
 #if defined(ADC2)
         case (uintptr_t)ADC2:
-            __HAL_RCC_ADC2_CLK_ENABLE();
+            __HAL_RCC_ADC_CLK_ENABLE();
             break;
 #endif
 #if defined(ADC3)
         case (uintptr_t)ADC3:
-            __HAL_RCC_ADC3_CLK_ENABLE();
+            __HAL_RCC_ADC_CLK_ENABLE();
             break;
 #endif
         default:
@@ -87,17 +87,17 @@ stm32l4_adc_clk_disable(ADC_HandleTypeDef *hadc)
     switch (adc_addr) {
 #if defined(ADC1)
         case (uintptr_t)ADC1:
-            __HAL_RCC_ADC1_CLK_DISABLE();
+            __HAL_RCC_ADC_CLK_DISABLE();
             break;
 #endif
 #if defined(ADC2)
         case (uintptr_t)ADC2:
-            __HAL_RCC_ADC2_CLK_DISABLE();
+            __HAL_RCC_ADC_CLK_DISABLE();
             break;
 #endif
 #if defined(ADC3)
         case (uintptr_t)ADC3:
-            __HAL_RCC_ADC3_CLK_DISABLE();
+            __HAL_RCC_ADC_CLK_DISABLE();
             break;
 #endif
         default:
@@ -123,28 +123,28 @@ stm32l4_resolve_adc_gpio(ADC_HandleTypeDef *adc, uint8_t cnum,
         case (uintptr_t)ADC2:
 #endif
             switch(cnum) {
-                case ADC_CHANNEL_4:
+                case MYNEWT_ADC_CHANNEL_4:
                     pin = ADC12_CH4_PIN;
                     goto done;
-                case ADC_CHANNEL_5:
+                case MYNEWT_ADC_CHANNEL_5:
                     pin = ADC12_CH5_PIN;
                     goto done;
-                case ADC_CHANNEL_6:
+                case MYNEWT_ADC_CHANNEL_6:
                     pin = ADC12_CH6_PIN;
                     goto done;
-                case ADC_CHANNEL_7:
+                case MYNEWT_ADC_CHANNEL_7:
                     pin = ADC12_CH7_PIN;
                     goto done;
-                case ADC_CHANNEL_8:
+                case MYNEWT_ADC_CHANNEL_8:
                     pin = ADC12_CH8_PIN;
                     goto done;
-                case ADC_CHANNEL_9:
+                case MYNEWT_ADC_CHANNEL_9:
                     pin = ADC12_CH9_PIN;
                     goto done;
-                case ADC_CHANNEL_14:
+                case MYNEWT_ADC_CHANNEL_14:
                     pin = ADC12_CH14_PIN;
                     goto done;
-                case ADC_CHANNEL_15:
+                case MYNEWT_ADC_CHANNEL_15:
                     pin = ADC12_CH15_PIN;
                     goto done;
             }
@@ -156,52 +156,52 @@ stm32l4_resolve_adc_gpio(ADC_HandleTypeDef *adc, uint8_t cnum,
 #if defined(ADC3)
         case (uintptr_t)ADC3:
             switch(cnum) {
-                case ADC_CHANNEL_0:
+                case MYNEWT_ADC_CHANNEL_0:
                     pin = ADC123_CH0_PIN;
                     goto done;
-                case ADC_CHANNEL_1:
+                case MYNEWT_ADC_CHANNEL_1:
                     pin = ADC123_CH1_PIN;
                     goto done;
-                case ADC_CHANNEL_2:
+                case MYNEWT_ADC_CHANNEL_2:
                     pin = ADC123_CH2_PIN;
                     goto done;
-                case ADC_CHANNEL_3:
+                case MYNEWT_ADC_CHANNEL_3:
                     pin = ADC123_CH3_PIN;
                     goto done;
-                case ADC_CHANNEL_4:
+                case MYNEWT_ADC_CHANNEL_4:
                     pin = ADC3_CH4_PIN;
                     goto done;
-                case ADC_CHANNEL_5:
+                case MYNEWT_ADC_CHANNEL_5:
                     pin = ADC3_CH5_PIN;
                     goto done;
-                case ADC_CHANNEL_6:
+                case MYNEWT_ADC_CHANNEL_6:
                     pin = ADC3_CH6_PIN;
                     goto done;
-                case ADC_CHANNEL_7:
+                case MYNEWT_ADC_CHANNEL_7:
                     pin = ADC3_CH7_PIN;
                     goto done;
-                case ADC_CHANNEL_8:
+                case MYNEWT_ADC_CHANNEL_8:
                     pin = ADC3_CH8_PIN;
                     goto done;
-                case ADC_CHANNEL_9:
+                case MYNEWT_ADC_CHANNEL_9:
                     pin = ADC3_CH9_PIN;
                     goto done;
-                case ADC_CHANNEL_10:
+                case MYNEWT_ADC_CHANNEL_10:
                     pin = ADC123_CH10_PIN;
                     goto done;
-                case ADC_CHANNEL_11:
+                case MYNEWT_ADC_CHANNEL_11:
                     pin = ADC123_CH11_PIN;
                     goto done;
-                case ADC_CHANNEL_12:
+                case MYNEWT_ADC_CHANNEL_12:
                     pin = ADC123_CH12_PIN;
                     goto done;
-                case ADC_CHANNEL_13:
+                case MYNEWT_ADC_CHANNEL_13:
                     pin = ADC123_CH13_PIN;
                     goto done;
-                case ADC_CHANNEL_14:
+                case MYNEWT_ADC_CHANNEL_14:
                     pin = ADC3_CH14_PIN;
                     goto done;
-                case ADC_CHANNEL_15:
+                case MYNEWT_ADC_CHANNEL_15:
                     pin = ADC3_CH15_PIN;
                     goto done;
             }

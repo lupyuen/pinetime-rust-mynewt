@@ -75,7 +75,8 @@ pkg.deps.TEMP_STUB:
 
 # STM32F1 ADC driver (for internal temperature sensor)
 pkg.deps.ADC_1:
-    - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
+#### TODO:    - "libs/adc_stm32f1"                   #  ADC driver for STM32F1, for internal temperature sensor
+    - "libs/adc_stm32l4"                   #  ADC driver for STM32L4, for internal temperature sensor
 
 # ESP8266 WiFi Driver
 pkg.deps.ESP8266:

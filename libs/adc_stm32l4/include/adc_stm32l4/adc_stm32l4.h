@@ -26,6 +26,29 @@
 extern "C" {
 #endif
 
+//  TODO
+#define MYNEWT_ADC_CHANNEL_0           ( 0x00000000U)
+#define MYNEWT_ADC_CHANNEL_1           ( 0x00000001U)
+#define MYNEWT_ADC_CHANNEL_2           ( 0x00000002U)
+#define MYNEWT_ADC_CHANNEL_3           ( 0x00000003U)
+#define MYNEWT_ADC_CHANNEL_4           ( 0x00000004U)
+#define MYNEWT_ADC_CHANNEL_5           ( 0x00000005U)
+#define MYNEWT_ADC_CHANNEL_6           ( 0x00000006U)
+#define MYNEWT_ADC_CHANNEL_7           ( 0x00000007U)
+#define MYNEWT_ADC_CHANNEL_8           ( 0x00000008U)
+#define MYNEWT_ADC_CHANNEL_9           ( 0x00000009U)
+#define MYNEWT_ADC_CHANNEL_10          ( 0x0000000AU)
+#define MYNEWT_ADC_CHANNEL_11          ( 0x0000000BU)
+#define MYNEWT_ADC_CHANNEL_12          ( 0x0000000CU)
+#define MYNEWT_ADC_CHANNEL_13          ( 0x0000000DU)
+#define MYNEWT_ADC_CHANNEL_14          ( 0x0000000EU)
+#define MYNEWT_ADC_CHANNEL_15          ( 0x0000000FU)
+#define MYNEWT_ADC_CHANNEL_16          ( 0x00000010U)
+#define MYNEWT_ADC_CHANNEL_17          ( 0x00000011U)
+#define MYNEWT_ADC_CHANNEL_VREFINT     MYNEWT_ADC_CHANNEL_0
+#define MYNEWT_ADC_CHANNEL_TEMPSENSOR  MYNEWT_ADC_CHANNEL_17
+#define MYNEWT_ADC_CHANNEL_VBAT        MYNEWT_ADC_CHANNEL_18
+
 //  STM32L4 ADC1 device name
 #define STM32L4_ADC1_DEVICE "adc1"
 
@@ -61,7 +84,7 @@ struct stm32l4_adc_dev_cfg {
     void *primarybuf;
     void *secondarybuf;
     int buflen;
-    void *sac_adc_handle;  //  Actual type: ADC_HandleTypeDef *
+    ADC_HandleTypeDef *sac_adc_handle;
 };
 
 //  Create the STM32L4 ADC1 device.  Implemented in creator.c, function DEVICE_CREATE().
