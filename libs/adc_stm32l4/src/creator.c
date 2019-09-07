@@ -23,32 +23,29 @@
 #include <adc_stm32l4/adc_stm32l4.h>
 #include <console/console.h>
 
-//  BSP Definitions for ADC1.  Only ADC1 is supported.
+//  BSP Definitions for ADC1.  Only ADC1 is supported.  Based on https://github.com/cnoviello/mastering-stm32/blob/master/nucleo-f446RE/src/ch12/main-ex1.c
 
-#define STM32L4_ADC_DEFAULT_INIT_TD {\
-    /* TODO: .ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2, */ \
-    /* TODO: .Resolution     = ADC_RESOLUTION12b, */ \
-    .DataAlign             = ADC_DATAALIGN_RIGHT, /* Align the converted result right */ \
+#define STM32L4_ADC_DEFAULT_INIT_TD { \
+    .ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV2, \
+    .Resolution            = ADC_RESOLUTION_12B, \
     .ScanConvMode          = DISABLE,             /* Disable scan conversion mode */ \
-    /* TODO: .EOCSelection = DISABLE, */ \
     .ContinuousConvMode    = ENABLE,              /* Disable continuous conversion mode, because we start and stop the ADC at each poll */ \
+    .DiscontinuousConvMode = DISABLE, \
+    .DataAlign             = ADC_DATAALIGN_RIGHT, /* Align the converted result right */ \
     .NbrOfConversion       = 1,                   /* Number of channels of the regular group that will be converted in scan mode: Only 1 channel */ \
-    .DiscontinuousConvMode = DISABLE,\
-    .NbrOfDiscConversion   = 0,\
-    .ExternalTrigConv      = ADC_SOFTWARE_START,  /* Trigger the conversion by software */ \
-    /* TODO: .ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE, */ \
-    /* TODO: .DMAContinuousRequests = ENABLE */ \
+    .DMAContinuousRequests = DISABLE, \
+    .EOCSelection          = ADC_EOC_SEQ_CONV, \
 }
 
 /*****************ADC1 Config ***************/
-#define STM32L4_DEFAULT_ADC1_HANDLE {\
-    .Init     = STM32L4_ADC_DEFAULT_INIT_TD,\
-    .Instance = ADC1,\
+#define STM32L4_DEFAULT_ADC1_HANDLE { \
+    .Init       = STM32L4_ADC_DEFAULT_INIT_TD, \
+    .Instance   = ADC1, \
     /* TODO: .NbrOfCurrentConversionRank = 0, */ \
     .DMA_Handle = NULL, /* TODO: &adc1_dma00_handle, */ \
-    .Lock       = HAL_UNLOCKED,\
-    .State      = 0,\
-    .ErrorCode  = 0\
+    .Lock       = HAL_UNLOCKED, \
+    .State      = 0, \
+    .ErrorCode  = 0, \
 }
 
 static ADC_HandleTypeDef adc1_handle = STM32L4_DEFAULT_ADC1_HANDLE;

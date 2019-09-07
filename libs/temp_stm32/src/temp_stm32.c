@@ -40,9 +40,9 @@ static const struct sensor_driver g_temp_stm32_sensor_driver = {
 
 //  Config for the temperature channel on ADC1.
 static ADC_ChannelConfTypeDef temp_channel_config = {
-    .Channel      = ADC_CHANNEL_TEMPSENSOR,      //  Channel number of temperature sensor on ADC1.  For Blue Pill: 16
+    .Channel      = ADC_CHANNEL_TEMPSENSOR,      //  Channel number of temperature sensor on ADC1.
     .Rank         = ADC_REGULAR_RANK_1,          //  Every ADC1 channel should be assigned a rank to indicate which channel gets converted first.  Rank 1 is the first to be converted.
-    .SamplingTime = ADC_SAMPLETIME_239CYCLES_5,  //  Sampling time 239.5 ADC clock cycles. ADC clock (APB2/PCLK2) runs at 8 MHz
+    .SamplingTime = ADC_SAMPLETIME_640CYCLES_5,  //  Sampling time 640 ADC clock cycles.
 };
 
 int temp_stm32_default_cfg(struct temp_stm32_cfg *cfg) {
@@ -293,7 +293,7 @@ int temp_stm32_get_raw_temperature(struct temp_stm32 *dev, int num_readings, int
         //  Read the ADC value: rawtemp will be in the range 0 to 4095.
         rawtemp = -1;
         //  Block until the temperature is read from the ADC channel.
-        rc = adc_read_channel(dev->adc, ADC_CHANNEL_TEMPSENSOR, &rawtemp);
+        rc = adc_read_channel(dev->adc, 0, &rawtemp);  //  Channel number is not used
         assert(rc == 0);
         if (rc) { goto err; }
         assert(rawtemp > 0);  //  If equals 0, it means we haven't sampled any values.  Check the above note.
