@@ -106,6 +106,7 @@ static const struct stm32_uart_cfg uart2_cfg = {
     .suc_irqn = USART3_IRQn
 };
 */
+
 #endif
 
 #if MYNEWT_VAL(I2C_0)
