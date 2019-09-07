@@ -47,26 +47,28 @@ bsp.flash_map:
             # Must sync with stm32l4.ld, scripts/stm32l4/flash-app.ocd
             device: 0
             offset: 0x08004000
-            size:   64kB
-        FLASH_AREA_IMAGE_1:
-            device: 0
-            offset: 0x08014000
-            size:   64kB
-        FLASH_AREA_IMAGE_SCRATCH:
-            device: 0
-            offset: 0x08024000
-            size:   32kB
+            size:   128kB
 
         # Updated: User areas.
         FLASH_AREA_REBOOT_LOG:
             user_id: 0
             device: 0
-            offset: 0x0802c000
+            offset: 0x08024000
             size:   32kB
         FLASH_AREA_NFFS:
             user_id: 1
             device: 0
-            offset: 0x08034000
+            offset: 0x0802c000
             size:   16kB
 
-# Ends at 0x08038000 (224 KB)
+        # Updated: Second application image is not supported.
+        FLASH_AREA_IMAGE_1:  # Second application image is not supported.
+            device: 0
+            offset: 0x08030000
+            size: 0kB
+        FLASH_AREA_IMAGE_SCRATCH:  # Swapping of application image is not supported.
+            device: 0
+            offset: 0x08030010
+            size: 0kB
+
+# Ends at 0x08030010 (192 KB)

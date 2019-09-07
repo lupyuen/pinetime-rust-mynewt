@@ -4,3 +4,7 @@ pkg.type:       target
 pkg.description: 
 pkg.author: 
 pkg.homepage: 
+
+#  C compiler flags
+pkg.cflags:
+    - -DHAL_ADC_MODULE_ENABLED #  Enable ADC module in repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.c
