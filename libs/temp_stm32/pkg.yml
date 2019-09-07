@@ -32,7 +32,8 @@ pkg.deps:
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/hw/sensor"
     - "libs/custom_sensor"  # Custom sensor definition for STM32 Internal Temperature Sensor raw values
-    - "libs/adc_stm32f1"    # Temperature sensor depends on STM32F1 ADC driver
+#### TODO    - "libs/adc_stm32f1"    # Temperature sensor depends on STM32F1 ADC driver
+    - "libs/adc_stm32l4"    # Temperature sensor depends on STM32L4 ADC driver
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
