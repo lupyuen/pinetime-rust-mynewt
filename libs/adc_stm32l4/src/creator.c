@@ -16,16 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//  Create STM32F1 ADC1 port driver. Adapted from repos/apache-mynewt-core/hw/bsp/olimex_stm32-e407_devboard/src/hal_bsp.c
-#include <stm32f1xx_hal.h>
-#include <stm32f1xx_hal_dma.h>
-#include <stm32f1xx_hal_adc.h>
-#include <adc_stm32f1/adc_stm32f1.h>
+//  Create STM32L4 ADC1 port driver
+#include <stm32l4xx_hal.h>
+#include <stm32l4xx_hal_dma.h>
+#include <stm32l4xx_hal_adc.h>
+#include <adc_stm32l4/adc_stm32l4.h>
 #include <console/console.h>
 
 //  BSP Definitions for ADC1.  Only ADC1 is supported.
 
-#define STM32F1_ADC_DEFAULT_INIT_TD {\
+#define STM32L4_ADC_DEFAULT_INIT_TD {\
     /* TODO: .ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2, */ \
     /* TODO: .Resolution     = ADC_RESOLUTION12b, */ \
     .DataAlign             = ADC_DATAALIGN_RIGHT, /* Align the converted result right */ \
@@ -41,8 +41,8 @@
 }
 
 /*****************ADC1 Config ***************/
-#define STM32F1_DEFAULT_ADC1_HANDLE {\
-    .Init     = STM32F1_ADC_DEFAULT_INIT_TD,\
+#define STM32L4_DEFAULT_ADC1_HANDLE {\
+    .Init     = STM32L4_ADC_DEFAULT_INIT_TD,\
     .Instance = ADC1,\
     /* TODO: .NbrOfCurrentConversionRank = 0, */ \
     .DMA_Handle = NULL, /* TODO: &adc1_dma00_handle, */ \
@@ -51,29 +51,29 @@
     .ErrorCode  = 0\
 }
 
-static ADC_HandleTypeDef adc1_handle = STM32F1_DEFAULT_ADC1_HANDLE;
+static ADC_HandleTypeDef adc1_handle = STM32L4_DEFAULT_ADC1_HANDLE;
 
 //  We support total 18 channels on ADC1, including ADC_CHANNEL_TEMPSENSOR and ADC_CHANNEL_VREFINT.
-#define STM32F1_ADC1_DEFAULT_CONFIG {\
+#define STM32L4_ADC1_DEFAULT_CONFIG {\
     .sac_chan_count = 18,\
-    .sac_chans = (struct adc_chan_config [18]){{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},/* TODO: STM32F1_ADC1_DEFAULT_SAC */ {0},{0},{0},{0},{0},{0},{0},{0} } ,\
+    .sac_chans = (struct adc_chan_config [18]){{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},/* TODO: STM32L4_ADC1_DEFAULT_SAC */ {0},{0},{0},{0},{0},{0},{0},{0} } ,\
     .sac_adc_handle = &adc1_handle,\
 }
 /*********************************************/
 
 //  Define the device specifics here so the device creator code below can be generic.
-#define DEVICE_NAME      STM32F1_ADC1_DEVICE  //  Name of device
+#define DEVICE_NAME      STM32L4_ADC1_DEVICE  //  Name of device
 #define DEVICE_DEV       adc_dev              //  Device type
-#define DEVICE_INSTANCE  stm32f1_adc1_dev     //  Device instance
-#define DEVICE_CFG       stm32f1_adc_dev_cfg  //  Device config
-#define DEVICE_INIT      stm32f1_adc_dev_init //  Device init function
-#define DEVICE_CREATE    stm32f1_adc_create   //  Device create function
+#define DEVICE_INSTANCE  stm32l4_adc1_dev     //  Device instance
+#define DEVICE_CFG       stm32l4_adc_dev_cfg  //  Device config
+#define DEVICE_INIT      stm32l4_adc_dev_init //  Device init function
+#define DEVICE_CREATE    stm32l4_adc_create   //  Device create function
 #define DEVICE_ITF       adc1_config          //  Device interface
-//  #define DEVICE_CFG_FUNC  stm32f1_adc1_config  //  Device config function
+//  #define DEVICE_CFG_FUNC  stm32l4_adc1_config  //  Device config function
 
 static struct DEVICE_DEV DEVICE_INSTANCE;
 
-static struct DEVICE_CFG DEVICE_ITF = STM32F1_ADC1_DEFAULT_CONFIG;
+static struct DEVICE_CFG DEVICE_ITF = STM32L4_ADC1_DEFAULT_CONFIG;
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Generic Device Creator Code
