@@ -2663,7 +2663,8 @@ fn standby_wakeup() -> bool {
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:145
     if unsafe { power_standby_wakeup() == 0 } { false }
   22:	e7ff      	b.n	24 <_ZN3app10app_sensor14standby_wakeup17hcba670e2cd66cdf7E+0x24>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:147
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/*
   24:	f89d 0007 	ldrb.w	r0, [sp, #7]
   28:	b002      	add	sp, #8
   2a:	bd80      	pop	{r7, pc}
