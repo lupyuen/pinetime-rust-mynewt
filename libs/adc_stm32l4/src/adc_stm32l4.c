@@ -56,6 +56,7 @@ static struct stm32l4_adc_stats stm32l4_adc_stats;
 static void
 stm32l4_adc_clk_enable(ADC_HandleTypeDef *hadc)
 {
+    assert(hadc);
     uintptr_t adc_addr = (uintptr_t)hadc->Instance;
 
     switch (adc_addr) {
@@ -82,6 +83,7 @@ stm32l4_adc_clk_enable(ADC_HandleTypeDef *hadc)
 static void
 stm32l4_adc_clk_disable(ADC_HandleTypeDef *hadc)
 {
+    assert(hadc);
     uintptr_t adc_addr = (uintptr_t)hadc->Instance;
 
     switch (adc_addr) {
@@ -109,6 +111,7 @@ static int
 stm32l4_resolve_adc_gpio(ADC_HandleTypeDef *adc, uint8_t cnum,
         GPIO_InitTypeDef *gpio)
 {
+    assert(adc);
     uintptr_t adc_addr = (uintptr_t)adc->Instance;
     uint32_t pin;
     int rc;
@@ -223,6 +226,7 @@ done:
 static IRQn_Type
 stm32l4_resolve_adc_dma_irq(DMA_HandleTypeDef *hdma)
 {
+    assert(hdma);
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
 
     ////  TODO: assert(STM32L4_IS_DMA_ADC_CHANNEL(hdma->Init.Channel));
@@ -294,6 +298,7 @@ dma2_stream7_irq_handler(void)
 uint32_t
 stm32l4_resolve_adc_dma_irq_handler(DMA_HandleTypeDef *hdma)
 {
+    assert(hdma);
     switch((uintptr_t)hdma->Instance) {
         /* DMA2 */
         ////  TODO: Verify
@@ -319,6 +324,7 @@ stm32l4_resolve_adc_dma_irq_handler(DMA_HandleTypeDef *hdma)
 static int
 stm32l4_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
 {
+    assert(hdma);
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
     ////  TODO: Verify
     return ((stream_addr & 0xFF) - ((uintptr_t)DMA2_Channel1_BASE & 0xFF))/0x18;
@@ -327,6 +333,7 @@ stm32l4_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
 void
 HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
 {
+    assert(hadc);
     ++stm32l4_adc_stats.adc_error;
 
     if (hadc->ErrorCode & HAL_ADC_ERROR_DMA) {
@@ -358,6 +365,7 @@ HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 
     assert(hadc);
     hdma = hadc->DMA_Handle;
+    assert(hdma);
 
     ++stm32l4_adc_stats.adc_dma_xfer_complete;
 
@@ -401,17 +409,19 @@ stm32l4_adc_dma_init(ADC_HandleTypeDef* hadc)
     hdma = hadc->DMA_Handle;
 
     stm32l4_adc_clk_enable(hadc);
-    __HAL_RCC_DMA2_CLK_ENABLE();
 
-    HAL_DMA_Init(hdma);
-    dma_handle[stm32l4_resolve_dma_handle_idx(hdma)] = hdma;
+    if (hdma) {
+        __HAL_RCC_DMA2_CLK_ENABLE();
 
-    NVIC_SetPriority(stm32l4_resolve_adc_dma_irq(hdma),
-                     NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-    NVIC_SetVector(stm32l4_resolve_adc_dma_irq(hdma),
-                   stm32l4_resolve_adc_dma_irq_handler(hdma));
-    NVIC_EnableIRQ(stm32l4_resolve_adc_dma_irq(hdma));
+        HAL_DMA_Init(hdma);
+        dma_handle[stm32l4_resolve_dma_handle_idx(hdma)] = hdma;
 
+        NVIC_SetPriority(stm32l4_resolve_adc_dma_irq(hdma),
+                        NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+        NVIC_SetVector(stm32l4_resolve_adc_dma_irq(hdma),
+                    stm32l4_resolve_adc_dma_irq_handler(hdma));
+        NVIC_EnableIRQ(stm32l4_resolve_adc_dma_irq(hdma));
+    }
 }
 
 static void
@@ -447,22 +457,30 @@ stm32l4_adc_uninit(struct adc_dev *dev)
     hdma = hadc->DMA_Handle;
     cnum = dev->ad_chans->c_cnum;
 
-    __HAL_RCC_DMA2_CLK_DISABLE();
-    if (HAL_DMA_DeInit(hdma) != HAL_OK) {
-        assert(0);
+    if (hdma) {
+        __HAL_RCC_DMA2_CLK_DISABLE();
+        if (HAL_DMA_DeInit(hdma) != HAL_OK) {
+            assert(0);
+        }
     }
     stm32l4_adc_clk_disable(hadc);
 
-    NVIC_DisableIRQ(stm32l4_resolve_adc_dma_irq(hdma));
-
-    if (stm32l4_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
-        goto err;
+    if (hdma) {
+        NVIC_DisableIRQ(stm32l4_resolve_adc_dma_irq(hdma));
     }
 
-    if (hal_gpio_deinit_stm(gpio_td.Pin, &gpio_td)) {
-        goto err;
+    //  Temperature, VREF and VBAT channels don't use GPIO.  No need to deinit GPIO.
+    if (cnum != MYNEWT_ADC_CHANNEL_TEMPSENSOR && 
+        cnum != MYNEWT_ADC_CHANNEL_VREFINT &&
+        cnum != MYNEWT_ADC_CHANNEL_VBAT) {
+        //  Deinit the GPIO.
+        if (stm32l4_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
+            goto err;
+        }
+        if (hal_gpio_deinit_stm(gpio_td.Pin, &gpio_td)) {
+            goto err;
+        }
     }
-
 err:
     return;
 }
@@ -512,7 +530,9 @@ stm32l4_adc_open(struct os_dev *odev, uint32_t wait, void *arg)
     hadc = cfg->sac_adc_handle;
     hdma = hadc->DMA_Handle;
 
-    adc_dma[stm32l4_resolve_dma_handle_idx(hdma)] = dev;
+    if (hdma) {
+        adc_dma[stm32l4_resolve_dma_handle_idx(hdma)] = dev;
+    }
 
     return (OS_OK);
 err:
@@ -565,7 +585,7 @@ stm32l4_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
 
     rc = OS_EINVAL;
 
-    if (dev == NULL /* && !IS_ADC_CHANNEL(cnum) */ ) {  ////  TODO: Verify
+    if (dev == NULL) {
         goto err;
     }
 
@@ -584,11 +604,16 @@ stm32l4_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
     dev->ad_chans[cnum].c_configured = 1;
     dev->ad_chans[cnum].c_cnum = cnum;
 
-    if (stm32l4_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
-        goto err;
+    //  Temperature, VREF and VBAT channels don't use GPIO.  No need to init GPIO.
+    if (cnum != MYNEWT_ADC_CHANNEL_TEMPSENSOR && 
+        cnum != MYNEWT_ADC_CHANNEL_VREFINT &&
+        cnum != MYNEWT_ADC_CHANNEL_VBAT) {
+        //  Init GPIO.
+        if (stm32l4_resolve_adc_gpio(hadc, cnum, &gpio_td)) {
+            goto err;
+        }
+        hal_gpio_init_stm(gpio_td.Pin, &gpio_td);
     }
-
-    hal_gpio_init_stm(gpio_td.Pin, &gpio_td);
 
     return (OS_OK);
 err:
@@ -678,15 +703,31 @@ err:
 static int
 stm32l4_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
 {
+    //  New implementation that actually blocks when reading a channel.
     ADC_HandleTypeDef *hadc;
     struct stm32l4_adc_dev_cfg *cfg;
+    int val = -1;
 
     assert(dev != NULL && result != NULL);
     cfg  = (struct stm32l4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
 
-    *result = HAL_ADC_GetValue(hadc);
+    //  TODO: while (HAL_ADCEx_Calibration_Start(hadc) != HAL_OK);  // Calibrate AD converter.
 
+    //  Start reading ADC values and convert them by rank.
+    HAL_ADC_Start(hadc);
+
+    //  Wait for ADC conversion to be completed.
+    HAL_StatusTypeDef rc = HAL_ADC_PollForConversion(hadc, 10 * 1000);  //  Wait up to 10 seconds.  TODO: Yield to task scheduler while waiting.
+    assert(rc == HAL_OK);
+    if (rc != HAL_OK) { HAL_ADC_Stop(hadc); return rc; }  //  Exit in case of error.
+
+    //  Fetch the converted ADC value.
+    val = HAL_ADC_GetValue(hadc);
+    *result = val;
+
+    //  Stop reading ADC values.
+    HAL_ADC_Stop(hadc);
     return (OS_OK);
 }
 
