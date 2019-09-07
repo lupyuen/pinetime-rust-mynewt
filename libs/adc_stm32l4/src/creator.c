@@ -50,10 +50,15 @@
 
 static ADC_HandleTypeDef adc1_handle = STM32L4_DEFAULT_ADC1_HANDLE;
 
-//  We support total 18 channels on ADC1, including ADC_CHANNEL_TEMPSENSOR and ADC_CHANNEL_VREFINT.
-#define STM32L4_ADC1_DEFAULT_CONFIG {\
-    .sac_chan_count = 18,\
-    .sac_chans = (struct adc_chan_config [18]){{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},/* TODO: STM32L4_ADC1_DEFAULT_SAC */ {0},{0},{0},{0},{0},{0},{0},{0} } ,\
+//  We support total 19 channels on ADC1, including MYNEWT_ADC_CHANNEL_TEMPSENSOR, MYNEWT_ADC_CHANNEL_VREFINT, MYNEWT_ADC_CHANNEL_VBAT.
+#define STM32L4_ADC1_DEFAULT_CONFIG { \
+    .sac_chan_count = MYNEWT_ADC_CHANNEL_COUNT, \
+    .sac_chans = (struct adc_chan_config [MYNEWT_ADC_CHANNEL_COUNT]) { \
+        {0},{0},{0},{0},{0}, \
+        {0},{0},{0},{0},{0}, \
+        {0},{0},{0},{0},{0}, \
+        {0},{0},{0},{0} \
+    } ,\
     .sac_adc_handle = &adc1_handle,\
 }
 /*********************************************/

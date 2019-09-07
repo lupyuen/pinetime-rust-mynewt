@@ -26,7 +26,7 @@
 extern "C" {
 #endif
 
-//  TODO
+#define MYNEWT_ADC_CHANNEL_COUNT       19  //  Total 19 channels
 #define MYNEWT_ADC_CHANNEL_0           ( 0x00000000U)
 #define MYNEWT_ADC_CHANNEL_1           ( 0x00000001U)
 #define MYNEWT_ADC_CHANNEL_2           ( 0x00000002U)
@@ -45,6 +45,7 @@ extern "C" {
 #define MYNEWT_ADC_CHANNEL_15          ( 0x0000000FU)
 #define MYNEWT_ADC_CHANNEL_16          ( 0x00000010U)
 #define MYNEWT_ADC_CHANNEL_17          ( 0x00000011U)
+#define MYNEWT_ADC_CHANNEL_18          ( 0x00000012U)
 #define MYNEWT_ADC_CHANNEL_VREFINT     MYNEWT_ADC_CHANNEL_0
 #define MYNEWT_ADC_CHANNEL_TEMPSENSOR  MYNEWT_ADC_CHANNEL_17
 #define MYNEWT_ADC_CHANNEL_VBAT        MYNEWT_ADC_CHANNEL_18
