@@ -81,19 +81,7 @@ static const struct stm32_uart_cfg uart1_cfg = {
 #if MYNEWT_VAL(UART_2)
 static struct uart_dev hal_uart2;
 
-static const struct stm32_uart_cfg uart2_cfg = {
-    .suc_uart = LPUART1,
-    .suc_rcc_reg = &RCC->APB1ENR2,
-    .suc_rcc_dev = RCC_APB1ENR2_LPUART1EN,
-    .suc_pin_tx = MYNEWT_VAL(UART_2_PIN_TX),
-    .suc_pin_rx = MYNEWT_VAL(UART_2_PIN_RX),
-    .suc_pin_rts = MYNEWT_VAL(UART_2_PIN_RTS),
-    .suc_pin_cts = MYNEWT_VAL(UART_2_PIN_CTS),
-    .suc_pin_af = GPIO_AF8_LPUART1,
-    .suc_irqn = LPUART1_IRQn
-};
-
-/*
+//  For USART3
 static const struct stm32_uart_cfg uart2_cfg = {
     .suc_uart = USART3,
     .suc_rcc_reg = &RCC->APB1ENR1,
@@ -105,8 +93,19 @@ static const struct stm32_uart_cfg uart2_cfg = {
     .suc_pin_af = GPIO_AF7_USART3,
     .suc_irqn = USART3_IRQn
 };
-*/
 
+/*  For LPUART1 (not working yet)
+static const struct stm32_uart_cfg uart2_cfg = {
+    .suc_uart = LPUART1,
+    .suc_rcc_reg = &RCC->APB1ENR2,
+    .suc_rcc_dev = RCC_APB1ENR2_LPUART1EN,
+    .suc_pin_tx = MYNEWT_VAL(UART_2_PIN_TX),
+    .suc_pin_rx = MYNEWT_VAL(UART_2_PIN_RX),
+    .suc_pin_rts = MYNEWT_VAL(UART_2_PIN_RTS),
+    .suc_pin_cts = MYNEWT_VAL(UART_2_PIN_CTS),
+    .suc_pin_af = GPIO_AF8_LPUART1,
+    .suc_irqn = LPUART1_IRQn
+}; */
 #endif
 
 #if MYNEWT_VAL(I2C_0)
