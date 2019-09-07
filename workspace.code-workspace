@@ -65,7 +65,8 @@
 			"sensor_network.h": "c",
 			"listen_sensor.h": "c",
 			"hal_os_tick.h": "c",
-			"hal_system.h": "c"
+			"hal_system.h": "c",
+			"stm32l4xx_hal_dma.h": "c"
 		}
 	}
 }

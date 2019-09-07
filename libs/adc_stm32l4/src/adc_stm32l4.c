@@ -28,8 +28,8 @@
 #include "stm32l4xx_hal_cortex.h"
 #include "stm32l4xx_hal.h"
 #include "adc_stm32l4/adc_stm32l4.h"
-#include "stm32l4xx_hal_dma.h"
 #include "mcu/stm32l4xx_mynewt_hal.h"
+// #include "stm32l476xx.h"  ////  TODO
 
 #if MYNEWT_VAL(ADC_1)||MYNEWT_VAL(ADC_2)||MYNEWT_VAL(ADC_3)
 #include <adc/adc.h>
@@ -225,29 +225,28 @@ stm32l4_resolve_adc_dma_irq(DMA_HandleTypeDef *hdma)
 {
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
 
-    assert(STM32L4_IS_DMA_ADC_CHANNEL(hdma->Init.Channel));
+    ////  TODO: assert(STM32L4_IS_DMA_ADC_CHANNEL(hdma->Init.Channel));
 
     switch(stream_addr) {
         /* DMA2 */
-        case (uintptr_t)DMA2_Stream0:
-            return DMA2_Stream0_IRQn;
-        case (uintptr_t)DMA2_Stream1:
-            return DMA2_Stream1_IRQn;
-        case (uintptr_t)DMA2_Stream2:
-            return DMA2_Stream2_IRQn;
-        case (uintptr_t)DMA2_Stream3:
-            return DMA2_Stream3_IRQn;
-        case (uintptr_t)DMA2_Stream4:
-            return DMA2_Stream4_IRQn;
+        ////  TODO: Verify
+        case (uintptr_t)DMA2_Channel1:
+            return DMA2_Channel1_IRQn;
+        case (uintptr_t)DMA2_Channel2:
+            return DMA2_Channel2_IRQn;
+        case (uintptr_t)DMA2_Channel3:
+            return DMA2_Channel3_IRQn;
+        case (uintptr_t)DMA2_Channel4:
+            return DMA2_Channel4_IRQn;
+        case (uintptr_t)DMA2_Channel5:
+            return DMA2_Channel5_IRQn;
+        case (uintptr_t)DMA2_Channel6:
+            return DMA2_Channel6_IRQn;
+        case (uintptr_t)DMA2_Channel7:
+            return DMA2_Channel7_IRQn;
         default:
             assert(0);
     }
-}
-
-static void
-dma2_stream0_irq_handler(void)
-{
-    HAL_DMA_IRQHandler(dma_handle[0]);
 }
 
 static void
@@ -274,21 +273,44 @@ dma2_stream4_irq_handler(void)
     HAL_DMA_IRQHandler(dma_handle[4]);
 }
 
+static void
+dma2_stream5_irq_handler(void)
+{
+    HAL_DMA_IRQHandler(dma_handle[5]);
+}
+
+static void
+dma2_stream6_irq_handler(void)
+{
+    HAL_DMA_IRQHandler(dma_handle[6]);
+}
+
+static void
+dma2_stream7_irq_handler(void)
+{
+    HAL_DMA_IRQHandler(dma_handle[7]);
+}
+
 uint32_t
 stm32l4_resolve_adc_dma_irq_handler(DMA_HandleTypeDef *hdma)
 {
     switch((uintptr_t)hdma->Instance) {
         /* DMA2 */
-        case (uintptr_t)DMA2_Stream0:
-            return (uint32_t)&dma2_stream0_irq_handler;
-        case (uintptr_t)DMA2_Stream1:
+        ////  TODO: Verify
+        case (uintptr_t)DMA2_Channel1:
             return (uint32_t)&dma2_stream1_irq_handler;
-        case (uintptr_t)DMA2_Stream2:
+        case (uintptr_t)DMA2_Channel2:
             return (uint32_t)&dma2_stream2_irq_handler;
-        case (uintptr_t)DMA2_Stream3:
+        case (uintptr_t)DMA2_Channel3:
             return (uint32_t)&dma2_stream3_irq_handler;
-        case (uintptr_t)DMA2_Stream4:
+        case (uintptr_t)DMA2_Channel4:
             return (uint32_t)&dma2_stream4_irq_handler;
+        case (uintptr_t)DMA2_Channel5:
+            return (uint32_t)&dma2_stream5_irq_handler;
+        case (uintptr_t)DMA2_Channel6:
+            return (uint32_t)&dma2_stream6_irq_handler;
+        case (uintptr_t)DMA2_Channel7:
+            return (uint32_t)&dma2_stream7_irq_handler;
         default:
             assert(0);
     }
@@ -298,7 +320,8 @@ static int
 stm32l4_resolve_dma_handle_idx(DMA_HandleTypeDef *hdma)
 {
     uintptr_t stream_addr = (uintptr_t)hdma->Instance;
-    return ((stream_addr & 0xFF) - ((uintptr_t)DMA2_Stream0_BASE & 0xFF))/0x18;
+    ////  TODO: Verify
+    return ((stream_addr & 0xFF) - ((uintptr_t)DMA2_Channel1_BASE & 0xFF))/0x18;
 }
 
 void
@@ -542,7 +565,7 @@ stm32l4_adc_configure_channel(struct adc_dev *dev, uint8_t cnum,
 
     rc = OS_EINVAL;
 
-    if (dev == NULL && !IS_ADC_CHANNEL(cnum)) {
+    if (dev == NULL /* && !IS_ADC_CHANNEL(cnum) */ ) {  ////  TODO: Verify
         goto err;
     }
 
