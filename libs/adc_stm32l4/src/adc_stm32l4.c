@@ -29,7 +29,6 @@
 #include "stm32l4xx_hal.h"
 #include "adc_stm32l4/adc_stm32l4.h"
 #include "mcu/stm32l4xx_mynewt_hal.h"
-// #include "stm32l476xx.h"  ////  TODO
 
 #if MYNEWT_VAL(ADC_1)||MYNEWT_VAL(ADC_2)||MYNEWT_VAL(ADC_3)
 #include <adc/adc.h>
@@ -697,11 +696,11 @@ err:
  * Blocking read of an ADC channel, returns result as an integer.
  *
  * @param1 ADC device structure
- * @param2 channel number
+ * @param2 channel number (not used)
  * @param3 ADC result ptr
  */
 static int
-stm32l4_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
+stm32l4_adc_read_channel(struct adc_dev *dev, uint8_t _cnum, int *result)
 {
     //  New implementation that actually blocks when reading a channel.
     ADC_HandleTypeDef *hadc;
@@ -711,8 +710,10 @@ stm32l4_adc_read_channel(struct adc_dev *dev, uint8_t cnum, int *result)
     assert(dev != NULL && result != NULL);
     cfg  = (struct stm32l4_adc_dev_cfg *)dev->ad_dev.od_init_arg;
     hadc = cfg->sac_adc_handle;
+    assert(hadc);
 
-    //  TODO: while (HAL_ADCEx_Calibration_Start(hadc) != HAL_OK);  // Calibrate AD converter.
+    //  Calibrate AD converter.
+    while (HAL_ADCEx_Calibration_Start(hadc, ADC_SINGLE_ENDED) != HAL_OK) {}
 
     //  Start reading ADC values and convert them by rank.
     HAL_ADC_Start(hadc);
