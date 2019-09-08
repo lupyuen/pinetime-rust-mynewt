@@ -45,6 +45,10 @@ pkg.deps:
 pkg.deps.LOW_POWER:
     - "libs/low_power"                     #  Low Power Support for STM32 Blue Pill
 
+# Quectel L70-R GPS driver
+pkg.deps.GPS_L70R:
+    - "libs/gps_l70r"                      #  Quectel L70-R GPS driver
+
 # Quectel BC95-G NB-IoT driver
 pkg.deps.BC95G:
     - "libs/bc95g"                         #  Quectel BC95-G NB-IoT driver

@@ -17,29 +17,29 @@
  * under the License.
  */
 
-//  Create BC95G device
+//  Create device
 #include "os/mynewt.h"
 #include "console/console.h"
 #include "sensor/sensor.h"
 #include "util.h"
-#include "bc95g/bc95g.h"  //  Specific to device
+#include "gps_l70r/gps_l70r.h"  //  Specific to device
 
 //  Define the device specifics here so the device creation code below can be generic.
-#define DEVICE_NAME        BC95G_DEVICE  //  Name of device
-#define DEVICE_DEV         bc95g         //  Device type
-#define DEVICE_INSTANCE    bc95g         //  Device instance
-#define DEVICE_CFG         bc95g_cfg     //  Device config
-#define DEVICE_CFG_DEFAULT bc95g_default_cfg  //  Device default config
-#define DEVICE_CFG_FUNC    bc95g_config  //  Device config function
-#define DEVICE_INIT        bc95g_init    //  Device init function
-#define DEVICE_CREATE      bc95g_create  //  Device create function
-#define DEVICE_ITF         uart_0_itf_bc95g   //  Device interface
+#define DEVICE_NAME        GPS_L70R_DEVICE  //  Name of device
+#define DEVICE_DEV         gps_l70r         //  Device type
+#define DEVICE_INSTANCE    gps_l70r         //  Device instance
+#define DEVICE_CFG         gps_l70r_cfg     //  Device config
+#define DEVICE_CFG_DEFAULT gps_l70r_default_cfg  //  Device default config
+#define DEVICE_CFG_FUNC    gps_l70r_config  //  Device config function
+#define DEVICE_INIT        gps_l70r_init    //  Device init function
+#define DEVICE_CREATE      gps_l70r_create  //  Device create function
+#define DEVICE_ITF         uart_0_itf_gps_l70r   //  Device interface
 
 static struct DEVICE_DEV DEVICE_INSTANCE;  //  Global instance of the device
 
 static struct sensor_itf DEVICE_ITF = {    //  Global sensor interface for the device
     .si_type = SENSOR_ITF_UART,            //  Sensor interface type: UART
-    .si_num  = MYNEWT_VAL(BC95G_UART),     //  Sensor interface number: 0 for UART1, 1 for UART2
+    .si_num  = MYNEWT_VAL(GPS_L70R_UART),     //  Sensor interface number: 0 for UART1, 1 for UART2
 };
 
 ///////////////////////////////////////////////////////////////////////////////
