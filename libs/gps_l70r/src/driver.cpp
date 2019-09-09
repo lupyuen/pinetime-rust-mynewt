@@ -321,6 +321,39 @@ static int register_transport(const char *network_device, void *server_endpoint,
 /////////////////////////////////////////////////////////
 //  GPS_L70R Driver Interface
 
+int gps_l70r_start(void) {
+    //  device_name is the GPS_L70R device name e.g. "gps_l70r_0".
+    const char *device_name = GPS_L70R_DEVICE;
+    assert(device_name);
+
+    ////  TODO: Enable NB-IoT module at PA0.
+    ////hal_gpio_init_out(MCU_GPIO_PORTA(0), 1);
+
+    {   //  Lock the GPS_L70R driver for exclusive use.  Find the GPS_L70R device by name.
+        network_is_busy = 1;  //  Tell the Task Scheduler not to sleep (because it causes dropped UART response)
+        struct gps_l70r *dev = (struct gps_l70r *) os_dev_open(device_name, OS_TIMEOUT_NEVER, NULL);  //  GPS_L70R_DEVICE is "gps_l70r_0"
+        assert(dev != NULL);
+
+        if (!power_standby_wakeup()) {
+            //  At power on, connect to NB-IoT network.  This may take a while to complete (or fail), thus we
+            //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
+            //  to pass GPS_L70R events to this function.
+            rc = gps_l70r_connect(dev);
+            assert(rc == 0);
+        }
+
+        //  Close the GPS_L70R device when we are done.
+        os_dev_close((struct os_dev *) dev);
+        //  Unlock the GPS_L70R driver for exclusive use.
+        network_is_busy = 0;  //  Tell the Task Scheduler it's OK to sleep.
+    }
+
+    //  Set the LED for output: PC13. TODO: Super Blue Pill uses a different pin for LED.
+    hal_gpio_init_out(LED_BLINK_PIN, 1);
+
+    return 0;
+}
+
 /// Callback for GPS_L70R events
 static void gps_l70r_event(void *drv) {
 #ifdef TODO

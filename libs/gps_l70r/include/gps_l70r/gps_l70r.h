@@ -104,6 +104,9 @@ void gps_l70r_socket_attach(struct bc95g *dev, struct gps_l70r_socket *socket, v
 
 const char *gps_l70r_get_ip_address(struct bc95g *dev);   //  Get the client IP address.
 
+////  TODO
+int gps_l70r_start(void);
+
 #ifdef __cplusplus
 }
 #endif

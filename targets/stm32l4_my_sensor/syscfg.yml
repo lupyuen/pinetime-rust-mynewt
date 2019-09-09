@@ -48,15 +48,16 @@ syscfg.vals:
     # Hardware Settings
      
     UART_0:                 0  # Disable USART2
-    UART_1:                 0  # Disable USART1
-    UART_2:                 1  # Enable USART3
+    UART_1:                 1  # Enable USART1 for GPS module
+    UART_2:                 0  # Disable USART3 for NB-IoT module
     HARDFLOAT:              1  # Enable hardware floating-point support for STM32L476RC
     LOW_POWER:              0  # Disable low power support for STM32 Blue Pill
 
     GPS_L70R:               1  # Enable driver for Quectel L70R GPS module
     GPS_L70R_UART:          1  # Connect to BC95-G module on USART2    
-    BC95G:                  1  # Enable driver for Quectel BC95-G NB-IoT module
+    BC95G:                  0  # Disable driver for Quectel BC95-G NB-IoT module
     BC95G_UART:             2  # Connect to BC95-G module on USART3    
+    
     ADC_1:                  1  # Enable port ADC1
     TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
     TEMP_STUB:              0  # Disable stub temperature sensor
