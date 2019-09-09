@@ -118,8 +118,7 @@ static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_
     parser.init(serial, parserbuf, parserbuf_size);
     packets = 0;
     packets_end = &packets;
-    serial.baud(9600);  //  TODO: Increase the bitrate
-    parser.debugOn(debug);
+    serial.baud(9600);
 }
 
 /// Configure the UART port
@@ -127,14 +126,9 @@ static void internal_configure(int uart) {
     serial.configure(uart);
 }
 
-/// Attach to the UART port
+/// Attach callback to the UART port
 static void internal_attach(void (*func)(void *), void *arg) {
     serial.attach(func, arg);
-}
-
-/// Set the response timeout
-static void internal_timeout(uint32_t timeout_ms) {
-    parser.setTimeout(timeout_ms);
 }
 
 /////////////////////////////////////////////////////////
@@ -248,9 +242,6 @@ static int gps_l70r_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     struct gps_l70r *dev = (struct gps_l70r *) dev0;
     struct gps_l70r_cfg *cfg = &dev->cfg;
 
-    //  Erase the socket info.
-    memset(cfg->sockets, 0, sizeof(cfg->sockets));
-
     //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
     internal_init(
         gps_l70r_tx_buffer, GPS_L70R_TX_BUFFER_SIZE,
@@ -306,13 +297,6 @@ int gps_l70r_config(struct gps_l70r *drv, struct gps_l70r_cfg *cfg) {
     return 0;
 }
 
-static int register_transport(const char *network_device, void *server_endpoint, const char *host, uint16_t port, uint8_t server_endpoint_size) {
-    //  Called by Sensor Network Interface to register the transport.
-    assert(server_endpoint_size >= sizeof(struct gps_l70r_server));  //  Server Endpoint too small
-    int rc = gps_l70r_register_transport(network_device, (struct gps_l70r_server *) server_endpoint, host, port);
-    return rc;
-}
-
 /////////////////////////////////////////////////////////
 //  GPS_L70R Driver Interface
 
@@ -360,282 +344,8 @@ static void gps_l70r_event(void *drv) {
 #endif  //  TODO
 }
 
-/// Sleep for the specified number of seconds
-static bool sleep(uint16_t seconds) {
-    os_time_delay(seconds * OS_TICKS_PER_SEC);
-    return true;
-}
-
-/// Wait for NB-IoT network registration
-static bool wait_for_registration(struct gps_l70r *dev) {
-    //  Set the LED for output: PC13. TODO: Super Blue Pill uses a different pin for LED.
-    hal_gpio_init_out(LED_BLINK_PIN, 1);
-    for (uint8_t i = 0; i < MAX_REGISTRATION_RETRIES; i++) {
-        //  Response contains 2 integers: `code` and `status` e.g. `=+CEREG:0,1`
-        int code = -1, status = -1;
-        //  CEREG_QUERY: query registration
-        bool res = send_query(dev, CEREG_QUERY, &code, &status);
-        if (!res) { return false; }  //  If send failed, quit.
-        assert(status >= 0);
-
-        //  If registered to network, response should be `=+CEREG:0,1` i.e. `status` should be 1
-        if (status == 1) { return true; }  //  If registered, exit.
-
-        //  If not yet registered to network, `status` will be 2 and we should recheck in a while.
-        //  Wait 2 seconds and retry.        
-        hal_gpio_toggle(LED_BLINK_PIN);  //  Blink the LED.
-        console_flush();
-        sleep(2);
-    }
-    return false;  //  Not registered after retries, quit.
-}
-
-/// Wait for NB-IoT network to be attached
-static bool wait_for_attach(struct gps_l70r *dev) {
-    for (uint8_t i = 0; i < MAX_ATTACH_RETRIES; i++) {
-        //  Response contains 1 integer: `state` e.g. `=+CGATT:1`
-        int state = -1;
-        //  CGATT_QUERY: query attach
-        bool res = send_query(dev, CGATT_QUERY, &state, NULL);
-        if (!res) { return false; }  //  If send failed, quit.
-        assert(state >= 0);
-
-        //  If attached to network, response should be `=+CGATT:1` i.e. `state` should be 1
-        if (state == 1) { return true; }  //  If attached, exit.
-
-        //  If not yet attached to network, `state` will be 0 and we should recheck in a while.
-        //  Wait 2 seconds and retry.
-        console_flush();
-        sleep(2);
-    }
-    return false;  //  Not attached after retries, quit.
-}
-
-/// At startup, keep sending AT and wait for module to respond OK. This skips the ERROR response at startup.
-static bool wait_for_ok(struct gps_l70r *dev) {
-    bool res = false;
-    //  Send ATE0 to disable echo and check for OK response.
-    res = (
-        parser.send("ATE0") &&
-        parser.recv("OK")
-    );
-    //  If OK received, flush the response and continue to next command.
-    if (res) { parser.flush(); return true; }
-
-    //  Send ATE0 to disable echo and check for OK response.  Insert "\r\n" in case there was a previous command.
-    res = (
-        parser.send("\r\nATE0") &&
-        parser.recv("OK")
-    );
-    //  If OK received, flush the response and continue to next command.
-    if (res) { parser.flush(); return true; }
-
-    for (uint8_t i = 0; i < 20; i++) {
-        //  Send ATE0 to disable echo and check for OK response.
-        res = (
-            parser.send("ATE0") &&
-            parser.recv("OK")
-        );
-        //  If OK received, flush the response and continue to next command.
-        if (res) { parser.flush(); return true; }        
-        //  Wait 1 second and retry.
-        console_flush();
-        sleep(1);
-    }
-    return false;  //  Can't get OK after 20 retries, quit.
-}
-
-/// [Phase 0] Prepare to transmit
-static bool prepare_to_transmit(struct gps_l70r *dev) {
-    return (
-        //  At startup, skip the ERROR response and wait for OK.
-        wait_for_ok(dev) &&
-
-        //  NCONFIG: configure
-        send_command(dev, NCONFIG) &&
-        //  QREGSWT: huawei
-        send_command(dev, QREGSWT) &&
-        //  NRB: reboot
-        send_command(dev, NRB) &&
-
-        //  Reboot will take longer than other commands. We wait then flush.
-        parser.send("AT") &&
-        expect_ok(dev) &&
-        (parser.flush() == 0) &&
-
-        //  NBAND: select band. Configure `NBIOT_BAND` in `targets/bluepill_my_sensor/syscfg.yml`
-        send_command_int(dev, NBAND, MYNEWT_VAL(NBIOT_BAND))
-    );
-}
-
-/// [Phase 1] Attach to network
-static bool attach_to_network(struct gps_l70r *dev) {
-    return (        
-        //  At wakeup, skip the ERROR response and wait for OK.
-        wait_for_ok(dev) &&
-
-        //  CFUN_QUERY: query network function
-        send_command(dev, CFUN_QUERY) &&
-
-        //  CFUN_ENABLE: enable network function
-        send_command(dev, CFUN_ENABLE) &&
-
-        //  CGATT: attach network
-        send_command(dev, CGATT) &&
-        //send_command(dev, CGATT_QUERY) &&
-
-        //  CEREG: network registration
-        send_command(dev, CEREG) &&
-        //send_command(dev, CEREG_QUERY) &&
-
-        //  CEREG_QUERY: query registration
-        wait_for_registration(dev) &&
-
-        //  CGATT_QUERY: query attach
-        wait_for_attach(dev) &&
-
-        true
-    );
-}
-
 int gps_l70r_connect(struct gps_l70r *dev) {
-    //  Connect to the NB-IoT network.  Return 0 if successful.
-    internal_timeout(GPS_L70R_CONNECT_TIMEOUT);
-    return (
-        //  [Phase 0] Prepare to transmit
-        prepare_to_transmit(dev)
-    ) ? 0 : dev->last_error;
-}
-
-int gps_l70r_attach(struct gps_l70r *dev) {
-    //  Attach to the NB-IoT network.  Return 0 if successful.
-    internal_timeout(GPS_L70R_CONNECT_TIMEOUT);
-    return (        
-        //  [Phase 1] Attach to network
-        attach_to_network(dev)
-    ) ? 0 : dev->last_error;
-}
-
-int gps_l70r_detach(struct gps_l70r *dev) {
-    //  Detach from the NB-IoT network.  Return 0 if successful.
-    internal_timeout(GPS_L70R_CONNECT_TIMEOUT);
-    return (
-        //  CFUN_DISABLE: disable network function
-        send_command(dev, CFUN_DISABLE)
-    ) ? 0 : dev->last_error;
-}
-
-int gps_l70r_socket_open(struct gps_l70r *dev, struct gps_l70r_socket **socket_ptr) {
-    //  Allocate a socket and save to `socket_ptr`.  Return 0 if successful.
-    //  [Phase 2A] Allocate port
-    int local_port = 0;
-    //  NSOCR: allocate port
-    internal_timeout(GPS_L70R_MISC_TIMEOUT);
-    bool res = send_query_int(dev, NSOCR, &local_port);
-    if (!res) { return dev->last_error; }
-    assert(local_port > 0);
-
-    //  Store into first socket.
-    gps_l70r_socket *socket = &cfg(dev)->sockets[0];
-    socket->local_port = (uint16_t) local_port;
-    *socket_ptr = socket;
+    //  TODO
+    //  Return 0 if successful.
     return 0;
-}
-
-int gps_l70r_socket_close(struct gps_l70r *dev, struct gps_l70r_socket *socket) {
-    //  Close the socket.  Return 0 if successful.
-    assert(socket && socket == &cfg(dev)->sockets[0]);
-    internal_timeout(GPS_L70R_MISC_TIMEOUT);
-    int local_port = socket->local_port;
-    assert(local_port > 0);
-    //  NSOCL: close port
-    bool res = send_command_int(dev, NSOCL, local_port);
-    if (!res) { return dev->last_error; }
-    //  Erase the socket.
-    memset(socket, 0, sizeof(gps_l70r_socket));
-    return 0;
-}
-
-/// Given n=0..15, return '0'..'f'.
-static char nibble_to_hex(uint8_t n) {
-    return (n < 10)
-        ? '0' + n
-        : 'a' + n - 10;
-}
-
-/// Send the data as hex digits.
-static bool send_hex(struct gps_l70r *dev, const uint8_t *data, uint16_t size) {
-    console_dump(data, size); console_printf("\n");
-    char hex[2];
-    for (uint16_t i = 0; i < size; i++) {
-        uint8_t b = data[i];
-        hex[0] = nibble_to_hex(b >> 4);
-        hex[1] = nibble_to_hex(b & 0xf);
-        int res = parser.write(hex, 2);
-        if (res <= 0) { return false; }
-    }
-    return true;
-}
-
-/// Send the `data` buffer if `data` is non-null, or the chain of mbufs.
-static bool send_data(struct gps_l70r *dev, const uint8_t *data, uint16_t length, struct os_mbuf *mbuf) {
-    if (data && length > 0) {
-        //  Send the data buffer as hex digits.
-        return send_hex(dev, data, length);
-    }
-    //  Send the mbuf chain.
-    assert(mbuf);
-    uint32_t chain_size = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
-    const char *_f = "send mbuf";
-    console_printf("%s%s %u...\n", _nbt, _f, (unsigned) chain_size);  console_flush();
-    struct os_mbuf *m = mbuf;
-    bool result = true;
-    while (m) {  //  Send each mbuf in the chain.
-        const uint8_t *data = OS_MBUF_DATA(m, const uint8_t *);  //  Fetch the mbuf data.
-        uint16_t size = m->om_len;  //  Fetch the size for the single mbuf.
-        bool res = send_hex(dev, data, size);
-        if (!res) { result = false; break; }
-        m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
-    }
-    _log(_f, result);
-    return result;
-}
-
-/// Transmit the `data` buffer if `data` is non-null, or the chain of mbufs.  Return number of bytes sent.
-static int send_tx_command(struct gps_l70r *dev, struct gps_l70r_socket *socket, const char *host, uint16_t port, 
-    const uint8_t *data, uint16_t length, uint8_t sequence, struct os_mbuf *mbuf) {
-    uint16_t local_port = socket->local_port;
-    int local_port_response = -1, length_response = -1;
-#ifdef TRANSMIT_FLAGS
-    console_printf("AT> NSOSTF=%d,%s,%d,%s,%d,\n", local_port, host, port, TRANSMIT_FLAGS, length);
-#else
-    console_printf("AT> NSOST=%d,%s,%d,%d,\n",     local_port, host, port, length);
-#endif  //  TRANSMIT_FLAGS
-    internal_timeout(GPS_L70R_SEND_TIMEOUT);
-    bool res = (
-        send_atp(dev) &&  //  Will pause between commands.
-#ifdef TRANSMIT_FLAGS
-        parser.printf("NSOSTF=%d,%s,%d,%s,%d,",
-            local_port, host, port, TRANSMIT_FLAGS, length) &&
-#else
-        parser.printf("NSOST=%d,%s,%d,%d,",
-            local_port, host, port, length) &&
-#endif  //  TRANSMIT_FLAGS
-        send_data(dev, data, length, mbuf) &&
-        parser.send(",%d", sequence) &&
-        parser.recv("%d,%d", &local_port_response, &length_response) &&
-        parser.recv("OK")
-    );
-    return res ? length : 0;
-}
-
-int gps_l70r_socket_tx(struct gps_l70r *dev, struct gps_l70r_socket *socket, const char *host, uint16_t port, const uint8_t *data, uint16_t length, uint8_t sequence) {
-    //  Transmit the buffer through the socket.  `length` is the number of bytes in `data`.  `sequence` is a running message sequence number 1 to 255.  Return number of bytes transmitted.
-    return send_tx_command(dev, socket, host, port, data, length, sequence, NULL);
-}
-
-int gps_l70r_socket_tx_mbuf(struct gps_l70r *dev, struct gps_l70r_socket *socket, const char *host, uint16_t port, uint8_t sequence, struct os_mbuf *mbuf) {
-    //  Transmit the chain of mbufs through the socket.  `sequence` is a running message sequence number 1 to 255.  Return number of bytes transmitted.
-    uint16_t length = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
-    return send_tx_command(dev, socket, host, port, NULL, length, sequence, mbuf);
 }
