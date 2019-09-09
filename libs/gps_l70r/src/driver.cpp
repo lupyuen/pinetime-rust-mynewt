@@ -168,6 +168,7 @@ int gps_l70r_start(void) {
 /// Callback for GPS_L70R events
 static void gps_l70r_event(void *drv) {
     ////  TODO
+    console_printf("."); ////
 #ifdef TODO
     for (int i = 0; i < GPS_L70R_SOCKET_COUNT; i++) {
         if (_cbs[i].callback) {
@@ -178,7 +179,7 @@ static void gps_l70r_event(void *drv) {
 }
 
 int gps_l70r_connect(struct gps_l70r *dev) {
-    //  TODO
     //  Return 0 if successful.
+    serial.prime();
     return 0;
 }

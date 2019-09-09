@@ -29,6 +29,8 @@
 #include "buffered_serial/buffered_serial.h"
 
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
+extern "C" char rx_buf[];
+extern "C" char *rx_ptr;
 
 ////  TODO
 char rx_buf[256];        //  Receive buffer.  TODO: Support multiple instances.
