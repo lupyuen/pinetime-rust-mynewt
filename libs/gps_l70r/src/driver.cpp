@@ -180,6 +180,13 @@ static void rx_callback(struct os_event *ev) {
         int ch = serial.getc(0);  //  Note: this will block if there is nothing to read.
         parser.encode(ch);  //  Parse the GPS data.
         char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); ////
+        if (ch == '\n') { console_flush(); } ////
+    }
+    if (parser.location.isUpdated()) {
+        console_printf("*** LAT="); console_printfloat(parser.location.lat());
+        console_printf(" / LNG=");  console_printfloat(parser.location.lng());
+        console_printf(" / ALT=");  console_printfloat(parser.altitude.meters());
+        console_printf("\n"); console_flush(); ////
     }
 }
 
