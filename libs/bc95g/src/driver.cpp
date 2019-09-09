@@ -29,7 +29,7 @@
 #include "bc95g/bc95g.h"
 #include "bc95g/transport.h"
 #include "util.h"
-#include "ATParser.h"
+#include "at_parser.h"
 
 /// Number of retries for NB-IoT network registration
 #define MAX_REGISTRATION_RETRIES 40

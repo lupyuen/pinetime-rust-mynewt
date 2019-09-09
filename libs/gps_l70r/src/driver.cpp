@@ -115,9 +115,6 @@ static const char ATP[] = "AT+";
 static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug) {
     serial.init(txbuf, txbuf_size, rxbuf, rxbuf_size);
-    parser.init(serial, parserbuf, parserbuf_size);
-    packets = 0;
-    packets_end = &packets;
     serial.baud(9600);
 }
 

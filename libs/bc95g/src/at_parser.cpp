@@ -21,7 +21,7 @@
 
 #include <assert.h>
 #include <console/console.h>  //  Actually points to libs/semihosting_console
-#include "ATParser.h"
+#include "at_parser.h"
 #include "util.h"
 
 //  e.g.  debug_if(dbg_on, "AT> %s\r\n", _buffer)
