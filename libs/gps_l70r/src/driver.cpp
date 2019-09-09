@@ -32,16 +32,11 @@ static char gps_l70r_rx_buffer[GPS_L70R_RX_BUFFER_SIZE];  //  RX Buffer
 static char gps_l70r_parser_buffer[GPS_L70R_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
 static bool first_open = true;  //  True if this is the first time opening the driver
 
-//  Controller objects. TODO: Support multiple instances.
+//  Buffered serial port. TODO: Support multiple instances.
 static BufferedSerial serial;
-static ATParser parser;
-static struct packet {
-    struct packet *next;
-    int id;
-    uint32_t len;
-    // data follows
-} *packets, **packets_end;
-//  static char ip_buffer[16];
+
+//  GPS parser.  TODO: Support multiple instances.
+static TinyGPSPlus parser;
 
 /////////////////////////////////////////////////////////
 //  AT Functions
