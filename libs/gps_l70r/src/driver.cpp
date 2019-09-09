@@ -26,6 +26,10 @@
 #include <buffered_serial/buffered_serial.h>
 #include "gps_l70r/gps_l70r.h"
 
+/// Set this to 1 so that `power_sleep()` will not sleep when network is busy connecting.  Defined in apps/my_sensor_app/src/power.c
+extern "C" int network_is_busy;
+extern "C" int power_standby_wakeup();
+
 //  Controller buffers.  TODO: Support multiple instances.
 static char gps_l70r_tx_buffer[GPS_L70R_TX_BUFFER_SIZE];  //  TX Buffer
 static char gps_l70r_rx_buffer[GPS_L70R_RX_BUFFER_SIZE];  //  RX Buffer
@@ -37,76 +41,6 @@ static BufferedSerial serial;
 
 //  GPS parser.  TODO: Support multiple instances.
 static TinyGPSPlus parser;
-
-/////////////////////////////////////////////////////////
-//  AT Functions
-
-/// IDs of the AT commands
-enum CommandId {
-    //  Sequence MUST match commands[] below.
-    FIRST_COMMAND = 0,
-
-    //  [0] Prepare to transmit
-    NCONFIG,    //  configure
-    QREGSWT,    //  huawei
-    NRB,        //  reboot
-
-    //  [1] Attach to network
-    NBAND,          //  select band
-    CFUN_ENABLE,    //  enable network function
-    CFUN_DISABLE,   //  disable network function
-    CFUN_QUERY,     //  query functions
-    CEREG,          //  network registration
-    CEREG_QUERY,    //  query registration
-    CGATT,          //  attach network
-    CGATT_QUERY,    //  query attach
-
-    //  [2] Transmit message
-    NSOCR,   //  allocate port
-
-    //  [3] Receive response
-    NSORF,  //  receive msg
-    NSOCL,  //  close port
-
-    //  [4] Diagnostics
-    CGPADDR,   //  IP address
-    NUESTATS,  //  network stats
-};
-
-/// List of AT commands
-static const char *COMMANDS[] = {
-    //  Sequence MUST match CommandId.
-    "",  //  FIRST_COMMAND
-
-    //  [0] Prepare to transmit
-    "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
-    "QREGSWT=2",    //  QREGSWT: huawei
-    "NRB",          //  NRB: reboot
-
-    //  [1] Attach to network
-    "NBAND=%d", //  NBAND: select band
-    "CFUN=1",   //  CFUN_ENABLE: enable network function
-    "CFUN=0",   //  CFUN_DISABLE: disable network function
-    "CFUN?",    //  CFUN_QUERY: query functions
-    "CEREG=0",  //  CEREG: network registration
-    "CEREG?",   //  CEREG_QUERY: query registration
-    "CGATT=1",  //  CGATT: attach network
-    "CGATT?",   //  CGATT_QUERY: query attach
-
-    //  [2] Transmit message
-    "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
-
-    //  [3] Receive response
-    "NSORF=1,%d",  //  NSORF: receive msg
-    "NSOCL=%d",  //  NSOCL: close port
-
-    //  [4] Diagnostics
-    "CGPADDR",   //  CGPADDR: IP address
-    "NUESTATS",  //  NUESTATS: network stats
-};
-
-/// Prefix for all commands: `AT+`
-static const char ATP[] = "AT+";
 
 /////////////////////////////////////////////////////////
 //  Internal Functions
@@ -129,105 +63,10 @@ static void internal_attach(void (*func)(void *), void *arg) {
 }
 
 /////////////////////////////////////////////////////////
-//  Send AT Commands
-
-/// Return the command for the command ID.  Excludes the `AT+`.
-static const char *get_command(struct gps_l70r *dev, enum CommandId id) {
-    assert(id >= 0);
-    assert(id < (sizeof(COMMANDS) / sizeof(COMMANDS[0])));  //  Invalid id
-    const char *cmd = COMMANDS[id];
-    dev->last_error = id;  //  Set command ID as the last error.
-    return cmd;
-}
-
-/// Send `AT+`.
-static bool send_atp(struct gps_l70r *dev) {
-    return parser.write(ATP, sizeof(ATP) - 1) > 0;
-}
-
-/// Expect `OK` as the response for each command and query.
-static bool expect_ok(struct gps_l70r *dev) {
-    return parser.recv("OK");
-}
-
-/// Send an AT command with no parameters.
-static bool send_command(struct gps_l70r *dev, enum CommandId id) {
-    const char *cmd = get_command(dev, id);
-    //debug_gps_l70r = 1;  ////
-    bool res = (
-        send_atp(dev) &&
-        parser.send(cmd) &&
-        expect_ok(dev)
-    );
-    //debug_gps_l70r = 0;  ////
-    console_flush();
-    return res;
-}
-
-///  Send an AT command with 1 int parameter e.g. `AT+NSOCL=1`
-static bool send_command_int(struct gps_l70r *dev, enum CommandId id, int arg) {
-    const char *cmd = get_command(dev, id);
-    bool res = (
-        send_atp(dev) &&
-        parser.send(cmd, arg) &&
-        expect_ok(dev)
-    );
-    //console_flush();
-    return res;
-}
-
-/// Send an AT query like `AT+CGATT?` or `AT+CEREG?`. Parse the comma-delimited result and return the parsed result.
-/// If `res1` is non-null and `res2` is null and the response is `=+CGATT:1` then `res1` is set to 1.
-/// If `res1` and `res2` are both non-null and the response is `=+CEREG:0,1` then `res1` is set to 0 and `res2` is set to 1.
-static bool send_query(struct gps_l70r *dev, enum CommandId id, int *res1, int *res2) {
-    assert(res1);
-    const char *cmd = get_command(dev, id);
-    char cmd_response[17];  memset(cmd_response, 0, sizeof(cmd_response));
-    *res1 = -1; 
-    if (res2) { *res2 = -1; }
-    //debug_gps_l70r = 1;  ////
-    bool res = (
-        send_atp(dev) &&
-        //  For `recv()` format string, see http://www.cplusplus.com/reference/cstdio/scanf/
-        parser.send(cmd) && (
-            (res2 == NULL)  //  Expecting 1 or 2 results?
-            //  If 1 result: Match a response like `=+CGATT:1`. `cmd_response` will be set to `CGATT` after matching `%16[^:]`
-            ? parser.recv("+%16[^:]:%d", cmd_response, res1)  //  Note: cmd is max 16 chars
-            //  If 2 results: Match a response like `=+CEREG:0,1`. `cmd_response` will be set to `CEREG` after matching `%16[^:]`
-            : parser.recv("+%16[^:]:%d,%d", cmd_response, res1, res2)  //  Note: cmd is max 16 chars
-            // : parser.recv("+CEREG:%d,%d", &arg1, &arg2)
-        ) &&
-        expect_ok(dev)
-    );
-    //debug_gps_l70r = 0;  ////
-    console_flush();
-    //asm("bkpt"); ////
-    return res;
-}
-
-/// Send an AT query like `AT+NSOCR=DGRAM,17,0,1`. Return the parsed result, which contains 1 integer.
-static bool send_query_int(struct gps_l70r *dev, enum CommandId id, int *result) {
-    assert(result);
-    const char *cmd = get_command(dev, id);
-    *result = -1;
-    //debug_gps_l70r = 1;  ////
-    bool res = {
-        send_atp(dev) &&
-        parser.send(cmd) &&
-        parser.recv("%d", result) &&
-        expect_ok(dev)
-    };
-    //debug_gps_l70r = 0;  ////
-    console_flush();
-    //asm("bkpt"); ////
-    return res;
-}
-
-/////////////////////////////////////////////////////////
 //  Device Creation Functions
 
 /// Return the GPS_L70R Config
-static gps_l70r_cfg *cfg(struct gps_l70r *dev) { return &dev->cfg; }
+////static gps_l70r_cfg *cfg(struct gps_l70r *dev) { return &dev->cfg; }
 static void gps_l70r_event(void *drv);
 
 /// If first time we are opening the driver: Prepare the GPS_L70R transceiver for use.  Lock the UART port.
@@ -268,10 +107,6 @@ int gps_l70r_init(struct os_dev *dev0, void *arg) {
 
     //  Register the handlers for opening and closing the device.
     OS_DEV_SETHANDLERS(dev0, gps_l70r_open, gps_l70r_close);
-
-    //  Register the Sensor Network Interface.
-    rc = sensor_network_register_interface(&network_iface);
-    assert(rc == 0);
 
     return (OS_OK);
 err:
@@ -314,7 +149,7 @@ int gps_l70r_start(void) {
             //  At power on, connect to NB-IoT network.  This may take a while to complete (or fail), thus we
             //  need to run this in the Network Task in background.  The Main Task will run the Event Loop
             //  to pass GPS_L70R events to this function.
-            rc = gps_l70r_connect(dev);
+            int rc = gps_l70r_connect(dev);
             assert(rc == 0);
         }
 

@@ -21,8 +21,17 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+//  Added for Mynewt
 #include "tiny_gps_plus/tiny_gps_plus.h"
-#define byte uint8_t
+#define byte    uint8_t
+#define PI      M_PI
+#define TWO_PI  (M_PI * 2.0)
+#define sq(x)   (x * x)
+#define radians(x) (x * M_PI / 180.0)
+#define degrees(x) (x * 180.0 / M_PI)
+#define seed48 NOTUSED_seed48
+#include <math.h>
+#undef seed48
 
 #include <string.h>
 #include <ctype.h>

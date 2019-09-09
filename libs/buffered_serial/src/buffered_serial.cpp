@@ -59,7 +59,6 @@ int setup_uart(BufferedSerial *serial) {
     //  Configure the UART port HAL settings.
     int rc;
     int uart = serial->_uart;
-    assert(uart == MYNEWT_VAL(BC95G_UART));
     uint32_t baud = serial->_baud;
 
     //  Init rx buffer.
