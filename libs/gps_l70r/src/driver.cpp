@@ -183,10 +183,17 @@ static void rx_callback(struct os_event *ev) {
         if (ch == '\n') { console_flush(); } ////
     }
     if (parser.location.isUpdated()) {
-        console_printf("*** LAT="); console_printfloat(parser.location.lat());
-        console_printf(" / LNG=");  console_printfloat(parser.location.lng());
-        console_printf(" / ALT=");  console_printfloat(parser.altitude.meters());
+        console_printf("*** lat="); console_printfloat(parser.location.lat());
+        console_printf(" / lng=");  console_printfloat(parser.location.lng());
+        console_printf(" / alt=");  console_printfloat(parser.altitude.meters());
         console_printf("\n"); console_flush(); ////
+    } else if (parser.satellites.isUpdated()) {
+        static uint32_t lastSat = 0;
+        uint32_t sat = parser.satellites.value();
+        if (sat != lastSat) {
+            lastSat = sat;
+            console_printf("*** satellites=%ld\n", sat); console_flush(); ////
+        }
     }
 }
 
