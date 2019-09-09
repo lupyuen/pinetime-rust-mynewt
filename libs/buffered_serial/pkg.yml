@@ -18,22 +18,19 @@
 
 # Dependencies for this package
 
-pkg.name:        libs/gps_l70r
-pkg.description: Driver for Quectel L70-R GPS
+pkg.name:        libs/buffered_serial
+pkg.description: Buffered Serial Port
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - quectel
-    - gps
-    - l70r
+    - buffered
+    - serial
+    - uart
 
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"
     - "@apache-mynewt-core/hw/hal"
-    - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
-    - "libs/tiny_gps_plus"                 #  TinyGPS++ library for parsing NMEA streams
-    - "libs/buffered_serial"               #  Buffered Serial Port
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
@@ -42,4 +39,3 @@ pkg.deps:
 # Generated sysinit(): bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 pkg.init:
-    gps_l70r_create: 700  # Call gps_l70r_create() to initialise the driver during startup

@@ -23,7 +23,92 @@
 #include <bsp/bsp.h>
 #include <hal/hal_gpio.h>
 #include <tiny_gps_plus/tiny_gps_plus.h>
+#include <buffered_serial/buffered_serial.h>
 #include "gps_l70r/gps_l70r.h"
+
+//  Controller buffers.  TODO: Support multiple instances.
+static char gps_l70r_tx_buffer[GPS_L70R_TX_BUFFER_SIZE];  //  TX Buffer
+static char gps_l70r_rx_buffer[GPS_L70R_RX_BUFFER_SIZE];  //  RX Buffer
+static char gps_l70r_parser_buffer[GPS_L70R_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
+static bool first_open = true;  //  True if this is the first time opening the driver
+
+//  Controller objects. TODO: Support multiple instances.
+static BufferedSerial serial;
+static ATParser parser;
+static struct packet {
+    struct packet *next;
+    int id;
+    uint32_t len;
+    // data follows
+} *packets, **packets_end;
+//  static char ip_buffer[16];
+
+/////////////////////////////////////////////////////////
+//  AT Functions
+
+/// IDs of the AT commands
+enum CommandId {
+    //  Sequence MUST match commands[] below.
+    FIRST_COMMAND = 0,
+
+    //  [0] Prepare to transmit
+    NCONFIG,    //  configure
+    QREGSWT,    //  huawei
+    NRB,        //  reboot
+
+    //  [1] Attach to network
+    NBAND,          //  select band
+    CFUN_ENABLE,    //  enable network function
+    CFUN_DISABLE,   //  disable network function
+    CFUN_QUERY,     //  query functions
+    CEREG,          //  network registration
+    CEREG_QUERY,    //  query registration
+    CGATT,          //  attach network
+    CGATT_QUERY,    //  query attach
+
+    //  [2] Transmit message
+    NSOCR,   //  allocate port
+
+    //  [3] Receive response
+    NSORF,  //  receive msg
+    NSOCL,  //  close port
+
+    //  [4] Diagnostics
+    CGPADDR,   //  IP address
+    NUESTATS,  //  network stats
+};
+
+/// List of AT commands
+static const char *COMMANDS[] = {
+    //  Sequence MUST match CommandId.
+    "",  //  FIRST_COMMAND
+
+    //  [0] Prepare to transmit
+    "NCONFIG=AUTOCONNECT,FALSE",  //  NCONFIG: configure
+    "QREGSWT=2",    //  QREGSWT: huawei
+    "NRB",          //  NRB: reboot
+
+    //  [1] Attach to network
+    "NBAND=%d", //  NBAND: select band
+    "CFUN=1",   //  CFUN_ENABLE: enable network function
+    "CFUN=0",   //  CFUN_DISABLE: disable network function
+    "CFUN?",    //  CFUN_QUERY: query functions
+    "CEREG=0",  //  CEREG: network registration
+    "CEREG?",   //  CEREG_QUERY: query registration
+    "CGATT=1",  //  CGATT: attach network
+    "CGATT?",   //  CGATT_QUERY: query attach
+
+    //  [2] Transmit message
+    "NSOCR=DGRAM,17,0,1",  //  NSOCR: allocate port
+
+    //  [3] Receive response
+    "NSORF=1,%d",  //  NSORF: receive msg
+    "NSOCL=%d",  //  NSOCL: close port
+
+    //  [4] Diagnostics
+    "CGPADDR",   //  CGPADDR: IP address
+    "NUESTATS",  //  NUESTATS: network stats
+};
 
 /// Prefix for all commands: `AT+`
 static const char ATP[] = "AT+";
