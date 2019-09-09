@@ -31,6 +31,6 @@ const char *gps_okfailed(int ok) {
 }
 
 void gps_log(const char *func, int ok) {
-    console_printf("%s%s%s", _gps, func, _okfailed(ok));
+    console_printf("%s%s%s", _gps, func, gps_okfailed(ok));
     console_flush();
 }

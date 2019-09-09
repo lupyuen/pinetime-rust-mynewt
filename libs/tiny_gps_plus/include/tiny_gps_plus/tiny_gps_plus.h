@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define __TinyGPSPlus_h
 
 #if defined(MYNEWT)  //  For Mynewt
-#include <stdint.h>
-#include <osarch.h>
+#include <os/os.h>
 ////#if OS_TICKS_PER_SEC=="(1000)"
 #define millis() os_time_get()
 ////#else
