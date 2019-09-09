@@ -24,7 +24,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef __TinyGPSPlus_h
 #define __TinyGPSPlus_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
+#if defined(MYNEWT)  //  For Mynewt
+#include <stdint.h>
+#include <osarch.h>
+////#if OS_TICKS_PER_SEC=="(1000)"
+#define millis() os_time_get()
+////#else
+////#error millis() not defined for OS_TICKS_PER_SEC
+////#endif  //  OS_TICKS_PER_SEC
+
+#elif defined(ARDUINO) && ARDUINO >= 100  //  For Arduino
 #include "Arduino.h"
 #else
 #include "WProgram.h"
