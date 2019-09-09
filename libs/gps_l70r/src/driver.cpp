@@ -332,6 +332,7 @@ int gps_l70r_start(void) {
 
 /// Callback for GPS_L70R events
 static void gps_l70r_event(void *drv) {
+    ////  TODO
 #ifdef TODO
     for (int i = 0; i < GPS_L70R_SOCKET_COUNT; i++) {
         if (_cbs[i].callback) {
