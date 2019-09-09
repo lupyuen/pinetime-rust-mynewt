@@ -42,6 +42,10 @@ static BufferedSerial serial;
 //  GPS parser.  TODO: Support multiple instances.
 static TinyGPSPlus parser;
 
+static struct os_callout rx_callout;
+static void rx_event(void *drv);
+static void rx_callback(struct os_event *ev);
+
 /////////////////////////////////////////////////////////
 //  Internal Functions
 
@@ -65,10 +69,6 @@ static void internal_attach(void (*func)(void *), void *arg) {
 /////////////////////////////////////////////////////////
 //  Device Creation Functions
 
-/// Return the GPS_L70R Config
-////static gps_l70r_cfg *cfg(struct gps_l70r *dev) { return &dev->cfg; }
-static void gps_l70r_event(void *drv);
-
 /// If first time we are opening the driver: Prepare the GPS_L70R transceiver for use.  Lock the UART port.
 static int gps_l70r_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     if (!first_open) { console_printf("[\n"); return 0; }  ////
@@ -86,7 +86,7 @@ static int gps_l70r_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
         false
     );
     internal_configure(cfg->uart);         //  Configure the UART port.  0 means UART2, 1 means UART1.
-    internal_attach(&gps_l70r_event, dev);    //  Set the callback for GPS_L70R events.
+    internal_attach(&rx_event, dev);    //  Set the callback for GPS_L70R events.
     return 0;
 }
 
@@ -137,8 +137,11 @@ int gps_l70r_start(void) {
     const char *device_name = GPS_L70R_DEVICE;
     assert(device_name);
 
-    ////  TODO: Enable NB-IoT module at PA0.
-    ////hal_gpio_init_out(MCU_GPIO_PORTA(0), 1);
+    //  Init the callout to handle received UART data.
+    os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_callback, NULL);
+
+    ////  TODO: Enable GPS module at PA1.
+    hal_gpio_init_out(MCU_GPIO_PORTA(1), 0);
 
     {   //  Lock the GPS_L70R driver for exclusive use.  Find the GPS_L70R device by name.
         network_is_busy = 1;  //  Tell the Task Scheduler not to sleep (because it causes dropped UART response)
@@ -165,17 +168,19 @@ int gps_l70r_start(void) {
     return 0;
 }
 
-/// Callback for GPS_L70R events
-static void gps_l70r_event(void *drv) {
-    ////  TODO
-    console_printf("."); ////
-#ifdef TODO
-    for (int i = 0; i < GPS_L70R_SOCKET_COUNT; i++) {
-        if (_cbs[i].callback) {
-            _cbs[i].callback(_cbs[i].data);
-        }
+static void rx_event(void *drv) {
+    //  Interrupt callback when we receive data on the GPS UART. Fire a callout to handle the received data.
+    //  This is called by the Interrupt Service Routine, don't do any processing here.
+    os_callout_reset(&rx_callout, 0);  //  Trigger the callout
+}
+
+static void rx_callback(struct os_event *ev) {
+    //  Callout that is invoked we receive data on the GPS UART.  Parse the received data.
+    while (serial.readable()) {
+        int ch = serial.getc(0);  //  Note: this will block if there is nothing to read.
+        parser.encode(ch);  //  Parse the GPS data.
+        char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); ////
     }
-#endif  //  TODO
 }
 
 int gps_l70r_connect(struct gps_l70r *dev) {
