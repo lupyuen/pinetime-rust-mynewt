@@ -260,13 +260,13 @@ bool sensor_network_init_post(uint8_t iface_type, const char *uri) {
     if (uri == NULL || uri[0] == 0) { uri = COAP_URI; }
     assert(uri);  assert(iface_type >= 0 && iface_type < MAX_INTERFACE_TYPES);
     struct sensor_network_interface *iface = &sensor_network_interfaces[iface_type];
-    void *endpoint = &sensor_network_endpoints[iface_type];
-    assert(iface->network_device);  assert(iface->register_transport_func);  assert(endpoint);
     if (!iface->transport_registered) {
         //  If transport has not been registered, wait for the transport to be registered.
         console_printf("NET network not ready\n");
         return false;
     }
+    void *endpoint = &sensor_network_endpoints[iface_type];
+    assert(iface->network_device);  assert(iface->register_transport_func);  assert(endpoint);
     current_iface_type = iface_type;
     current_uri = uri;
     bool status = init_sensor_post(endpoint);
