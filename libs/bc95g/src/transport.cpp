@@ -68,8 +68,10 @@ int bc95g_register_transport(const char *network_device0, struct bc95g_server *s
     //  network_device is the BC95G device name e.g. "bc95g_0".  Return 0 if successful.
     assert(network_device0);  assert(server0);
 
-    ////  TODO: Enable NB-IoT module at PA0.
-    ////hal_gpio_init_out(MCU_GPIO_PORTA(0), 1);
+#if MYNEWT_VAL(BC95G_ENABLE_PIN) >= 0
+    ////  Enable NB-IoT module: Set PA0 to high for Ghostyu L476 dev kit
+    hal_gpio_init_out(MYNEWT_VAL(BC95G_ENABLE_PIN), 0);
+#endif  //  BC95G_ENABLE_PIN
 
     {   //  Lock the BC95G driver for exclusive use.  Find the BC95G device by name.
         network_is_busy = 1;  //  Tell the Task Scheduler not to sleep (because it causes dropped UART response)

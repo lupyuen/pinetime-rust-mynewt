@@ -8,3 +8,6 @@ syscfg.defs:
     GPS_L70R_UART:
         description: 'UART port for accessing GPS module. 0 means UART2, 1 means UART1, 2 means UART3'
         value:       -1
+    GPS_L70R_ENABLE_PIN:
+        description: 'GPIO Pin that enables and disables the GPS module. Set to -1 for no pin.'
+        value:       -1

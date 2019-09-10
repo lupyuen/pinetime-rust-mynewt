@@ -9,5 +9,8 @@ syscfg.defs:
         description: 'Connect to this NB-IoT band e.g. 8'
         value:       8
     BC95G_UART:
-        description: 'UART port for accessing BC95-G module. 0 means UART2, 1 means UART1, 2 means UART3'
+        description: 'UART port for accessing NB-IoT module. 0 means UART2, 1 means UART1, 2 means UART3'
         value:       0
+    BC95G_ENABLE_PIN:
+        description: 'GPIO Pin that enables and disables the NB-IoT module. Set to -1 for no pin.'
+        value:       -1

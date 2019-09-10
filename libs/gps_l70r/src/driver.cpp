@@ -270,8 +270,10 @@ int gps_l70r_start(void) {
     //  Init the callout to handle received UART data.
     os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_callback, NULL);
 
-    ////  TODO: Enable GPS module at PA1.
-    hal_gpio_init_out(MCU_GPIO_PORTA(1), 0);
+#if MYNEWT_VAL(GPS_L70R_ENABLE_PIN) >= 0
+    ////  Enable GPS module: Set PA1 to high for Ghostyu L476 dev kit
+    hal_gpio_init_out(MYNEWT_VAL(GPS_L70R_ENABLE_PIN), 0);
+#endif  //  GPS_L70R_ENABLE_PIN
 
     {   //  Lock the GPS_L70R driver for exclusive use.  Find the GPS_L70R device by name.
         network_is_busy = 1;  //  Tell the Task Scheduler not to sleep (because it causes dropped UART response)
