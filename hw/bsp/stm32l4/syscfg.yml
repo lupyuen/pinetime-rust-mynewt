@@ -21,92 +21,84 @@ syscfg.defs:
     # STM32L431     has 256 KB of ROM
     # STM32L476RCT6 has 256 KB of ROM
     STM32_FLASH_SIZE_KB:
-        description: 'Total flash size in KB.'
-        value: 256  # Updated
+        description:    'Total flash size in KB.'
+        value:          256  # Updated
 
     # For USART2
     UART_0:
-        description: 'Whether to enable USART2'
-        value:  1
+        description:    'Whether to enable USART2'
+        value:          1
     UART_0_PIN_TX:
-        description: 'TX pin for USART2, PA2, PD5'
-        value: MCU_GPIO_PORTA(2)
+        description:    'TX pin for USART2, PA2, PD5'
+        value:          MCU_GPIO_PORTA(2)
     UART_0_PIN_RX:
-        description: 'RX pin for USART2, PA3, PD6'
-        value: MCU_GPIO_PORTA(3)
+        description:    'RX pin for USART2, PA3, PD6'
+        value:          MCU_GPIO_PORTA(3)
     UART_0_PIN_CTS:
-        description: 'CTS pin for USART2, PA0, PD3'
-        value: -1
+        description:    'CTS pin for USART2, PA0, PD3'
+        value:          -1
     UART_0_PIN_RTS:
-        description: 'RTS pin for USART2, PA1, PD4'
-        value: -1
+        description:    'RTS pin for USART2, PA1, PD4'
+        value:          -1
+    UART_0_SWAP_TXRX:
+        description:    'Swap TX/RX pins for USART2 if set to 1'
+        value:          0
 
     # For USART1
     UART_1:
-        description: 'Whether to enable USART1'
-        value:  0
+        description:    'Whether to enable USART1'
+        value:          0
     UART_1_PIN_TX:
-        description: 'TX pin for USART1, PA9, PB6'
-        value: MCU_GPIO_PORTA(9)
+        description:    'TX pin for USART1, PA9, PB6'
+        value:          MCU_GPIO_PORTA(9)
     UART_1_PIN_RX:
-        description: 'RX pin for USART1, PA10, PB7'
-        value: MCU_GPIO_PORTA(10)
+        description:    'RX pin for USART1, PA10, PB7'
+        value:          MCU_GPIO_PORTA(10)
     UART_1_PIN_CTS:
-        description: 'CTS pin for USART1, PA11, PB4'
-        value: -1
+        description:    'CTS pin for USART1, PA11, PB4'
+        value:          -1
     UART_1_PIN_RTS:
-        description: 'RTS pin for USART1, PA12, PB3'
-        value: -1
+        description:    'RTS pin for USART1, PA12, PB3'
+        value:          -1
+    UART_1_SWAP_TXRX:
+        description:    'Swap TX/RX pins for USART1 if set to 1'
+        value:          0
 
     # For USART3. To flip USART3 TX/RX so that it behaves like LPUART1, insert "cr2 |= USART_CR2_SWAP;" at repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c, line 470
     UART_2:
-        description: 'Whether to enable USART3'
-        value:  0
+        description:    'Whether to enable USART3'
+        value:          0
     UART_2_PIN_TX:
-        description: 'TX pin for USART3, PB10'
-        value: MCU_GPIO_PORTB(10)
+        description:    'TX pin for USART3, PB10'
+        value:          MCU_GPIO_PORTB(10)
     UART_2_PIN_RX:
-        description: 'RX pin for USART3, PB11'
-        value: MCU_GPIO_PORTB(11)
+        description:    'RX pin for USART3, PB11'
+        value:          MCU_GPIO_PORTB(11)
     UART_2_PIN_CTS:
-        description: 'CTS pin for USART3, PB13'
-        value: -1
+        description:    'CTS pin for USART3, PB13'
+        value:          -1
     UART_2_PIN_RTS:
-        description: 'RTS pin for USART3, PB14'
-        value: -1
-
-    # For LPUART1 (not working yet)
-    # UART_2:
-    #     description: 'Whether to enable LPUART1'
-    #     value:  0
-    # UART_2_PIN_TX:
-    #     description: 'TX pin for LPUART1, PB11'
-    #     value: MCU_GPIO_PORTB(11)
-    # UART_2_PIN_RX:
-    #     description: 'RX pin for LPUART1, PB10'
-    #     value: MCU_GPIO_PORTB(10)
-    # UART_2_PIN_CTS:
-    #     description: 'CTS pin for LPUART1, PB13'
-    #     value: -1
-    # UART_2_PIN_RTS:
-    #     description: 'RTS pin for LPUART1, PB12'
-    #     value: -1
+        description:    'RTS pin for USART3, PB14'
+        value:          -1
+    UART_2_SWAP_TXRX:
+        description:    'Swap TX/RX pins for USART3 if set to 1'
+        value:          0
 
     TIMER_0:
-        description: 'Whether to enable TIMER_0'
-        value: 1
+        description:    'Whether to enable TIMER_0'
+        value:          1
 
     TIMER_1:
-        description: 'Whether to enable TIMER_1'
-        value: 0
+        description:    'Whether to enable TIMER_1'
+        value:          0
 
     TIMER_2:
-        description: 'Whether to enable TIMER_2'
-        value: 0
+        description:    'Whether to enable TIMER_2'
+        value:          0
 
 syscfg.vals:
-    REBOOT_LOG_FLASH_AREA: FLASH_AREA_REBOOT_LOG
-    CONFIG_FCB_FLASH_AREA: FLASH_AREA_NFFS
-    NFFS_FLASH_AREA: FLASH_AREA_NFFS
-    COREDUMP_FLASH_AREA: FLASH_AREA_IMAGE_1
-    BOOTUTIL_MAX_IMG_SECTORS: 256
+    REBOOT_LOG_FLASH_AREA:      FLASH_AREA_REBOOT_LOG
+    CONFIG_FCB_FLASH_AREA:      FLASH_AREA_NFFS
+    NFFS_FLASH_AREA:            FLASH_AREA_NFFS
+    COREDUMP_FLASH_AREA:        FLASH_AREA_IMAGE_1
+    BOOTUTIL_MAX_IMG_SECTORS:   256
