@@ -10,6 +10,6 @@ https://medium.com/@ly.lee/quick-peek-of-huawei-liteos-with-nb-iot-on-ghostyu-nb
 
 ## Dependencies
 
-[`tiny_gps_plus`](../libs/tiny_gps_plus): TinyGPS++ library ported from Arduino to Mynewt
+[`tiny_gps_plus`](../../libs/tiny_gps_plus): TinyGPS++ library ported from Arduino to Mynewt
 
-[`buffered_serial`](../libs/buffered_serial): Buffered Serial library ported from mbed to Mynewt
+[`buffered_serial`](../../libs/buffered_serial): Buffered Serial library ported from mbed to Mynewt
