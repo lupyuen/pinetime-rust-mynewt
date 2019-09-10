@@ -29,12 +29,12 @@
 #include "buffered_serial/buffered_serial.h"
 
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
-extern "C" char rx_buf[];
-extern "C" char *rx_ptr;
+////extern "C" char rx_buf[];
+////extern "C" char *rx_ptr;
 
 ////  TODO
-char rx_buf[256];        //  Receive buffer.  TODO: Support multiple instances.
-char *rx_ptr = NULL;     //  Pointer to next receive buffer byte to be received.  TODO: Support multiple instances.
+////char rx_buf[256];        //  Receive buffer.  TODO: Support multiple instances.
+////char *rx_ptr = NULL;     //  Pointer to next receive buffer byte to be received.  TODO: Support multiple instances.
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
@@ -46,7 +46,7 @@ static int uart_tx_char(void *arg) {
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
-    if (rx_ptr - rx_buf < (int) sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
+    ////if (rx_ptr - rx_buf < (int) sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int rc = serial->rxIrq(byte);
@@ -64,8 +64,8 @@ int setup_uart(BufferedSerial *serial) {
     uint32_t baud = serial->_baud;
 
     //  Init rx buffer.
-    memset(rx_buf, 0, sizeof(rx_buf));
-    rx_ptr = rx_buf;
+    ////memset(rx_buf, 0, sizeof(rx_buf));
+    ////rx_ptr = rx_buf;
 
     //  Define the UART callbacks.
     rc = hal_uart_init_cbs(uart,
