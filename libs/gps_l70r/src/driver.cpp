@@ -45,6 +45,7 @@ static TinyGPSPlus parser;
 static struct os_callout rx_callout;
 static void rx_event(void *drv);
 static void rx_callback(struct os_event *ev);
+static void printfloat(float f);
 
 /////////////////////////////////////////////////////////
 //  Internal Functions
@@ -183,16 +184,16 @@ static void rx_callback(struct os_event *ev) {
         if (ch == '\n') { console_flush(); } ////
     }
     if (parser.location.isUpdated()) {
-        console_printf("*** lat="); console_printfloat(parser.location.lat());
-        console_printf(" / lng=");  console_printfloat(parser.location.lng());
-        console_printf(" / alt=");  console_printfloat(parser.altitude.meters());
+        console_printf("*** lat: "); printfloat(parser.location.lat());
+        console_printf(" / lng: ");  printfloat(parser.location.lng());
+        console_printf(" / alt: ");  console_printfloat(parser.altitude.meters());
         console_printf("\n"); console_flush(); ////
     } else if (parser.satellites.isUpdated()) {
         static uint32_t lastSat = 0;
         uint32_t sat = parser.satellites.value();
         if (sat != lastSat) {
             lastSat = sat;
-            console_printf("*** satellites=%ld\n", sat); console_flush(); ////
+            console_printf("*** satellites: %ld\n", sat); console_flush(); ////
         }
     }
 }
@@ -201,4 +202,19 @@ int gps_l70r_connect(struct gps_l70r *dev) {
     //  Return 0 if successful.
     serial.prime();
     return 0;
+}
+
+static void split_float(float f, bool *neg, int *i, int *d) {
+    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 4 decimal places.
+    *neg = (f < 0.0f);                    //  True if f is negative
+    float f_abs = *neg ? -f : f;          //  Absolute value of f
+    *i = (int) f_abs;                     //  Integer part
+    *d = ((int) (10000.0f * f_abs)) % 10000;  //  Two decimal places
+}
+
+static void printfloat(float f) {
+    //  Write a float to the output buffer, with 4 decimal places.
+    bool neg; int i, d;
+    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 2 decimal places
+    console_printf("%s%d.%04d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
 }
