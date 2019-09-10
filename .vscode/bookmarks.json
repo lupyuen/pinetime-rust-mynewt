@@ -228,5 +228,30 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c",
+		"bookmarks": [
+			{
+				"line": 2,
+				"column": 15,
+				"label": ""
+			},
+			{
+				"line": 3179,
+				"column": 22,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c",
+		"bookmarks": [
+			{
+				"line": 468,
+				"column": 20,
+				"label": ""
+			}
+		]
 	}
 ]
