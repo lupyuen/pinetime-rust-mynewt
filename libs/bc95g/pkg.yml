@@ -23,8 +23,9 @@ pkg.description: Driver for Quectel BC95-G NB-IoT transceiver
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - bc95g
+    - quectel
     - nbiot
+    - bc95g
 
 pkg.deps:
     - "@apache-mynewt-core/kernel/os"
@@ -32,6 +33,7 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"
     - "@apache-mynewt-core/net/oic"        #  OIC library
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library. Needs vsscanf.c patch.
+    - "libs/buffered_serial"               #  Buffered Serial Port
     - "libs/sensor_network"                #  Sensor Network library
 
 # Initialisation functions to be called by sysinit() during startup.

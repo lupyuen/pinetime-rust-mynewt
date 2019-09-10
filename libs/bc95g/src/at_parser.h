@@ -22,7 +22,7 @@
 #define AT_PARSER_H
 
 #include <cstdarg>
-#include "BufferedSerial.h"
+#include "buffered_serial/buffered_serial.h"
 #define MAX_OOBS 2  //  Up to 2 callbacks allowed.
 
 /**

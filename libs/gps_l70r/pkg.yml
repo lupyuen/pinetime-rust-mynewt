@@ -19,7 +19,7 @@
 # Dependencies for this package
 
 pkg.name:        libs/gps_l70r
-pkg.description: Driver for Quectel L70-R GPS
+pkg.description: Driver for Quectel L70-R GPS module
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
