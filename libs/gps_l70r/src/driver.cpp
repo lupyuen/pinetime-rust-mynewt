@@ -46,6 +46,39 @@ static struct os_callout rx_callout;
 static void rx_event(void *drv);
 static void rx_callback(struct os_event *ev);
 static void printfloat(float f);
+static const char *compute_checksum(const uint8_t *buf);
+static char nibble_to_hex(uint8_t n);
+
+/////////////////////////////////////////////////////////
+//  GPS Commands. Refer to "L70-R Series GPS Protocol Specification"
+
+/* Structure of MTK NMEA Packet
+"$"           : Each NMEA message starts with ‘$’
+"P"           : For proprietary message
+"MTK"         : MTK proprietary message
+"000" to "999": Packet Type
+Data          : Data fields, delimited by comma
+"*"           : End of data field
+"00" to "FF"  : Checksum, 2 hex digits, Exclusive OR of all characters between "$" and "*"
+<CR><LF>      : End of message
+Example: $PMTK869,1,1*35<CR><LF>
+*/
+
+/// IDs of the GPS commands
+enum CommandId {
+    //  Sequence MUST match commands[] below.
+    FIRST_COMMAND = 0,
+    EASY_QUERY,
+    EASY_ENABLE,
+};
+
+/// List of GPS commands. Exclude the leading "$PMTK" and the trailing "*" and checksum.
+static const char *COMMANDS[] = {
+    //  Sequence MUST match CommandId.
+    "",          //  FIRST_COMMAND
+    "869,0",     //  EASY_QUERY
+    "869,1,%d",  //  EASY_ENABLE: 0 to disable EASY, 1 to enable EASY
+};
 
 /////////////////////////////////////////////////////////
 //  Internal Functions
@@ -65,6 +98,106 @@ static void internal_configure(int uart) {
 /// Attach callback to the UART port
 static void internal_attach(void (*func)(void *), void *arg) {
     serial.attach(func, arg);
+}
+
+/////////////////////////////////////////////////////////
+//  Send Commands
+
+/// Return the GPS command for the command ID.  Excludes the leading "$PMTK" and the trailing "*" and checksum.
+static const char *get_command(struct gps_l70r *dev, enum CommandId id) {
+    assert(id >= 0);
+    assert(id < (sizeof(COMMANDS) / sizeof(COMMANDS[0])));  //  Invalid id
+    const char *cmd = COMMANDS[id];
+    dev->last_error = id;  //  Set command ID as the last error.
+    return cmd;
+}
+
+/// Send a GPS command with parameters substituted e.g. cmd=`869,1,1` will send `$PMTK869,1,1*35<CR><LF>`
+static bool send_raw_command(struct gps_l70r *dev, const char *cmd) {
+    static char raw_buf[64];
+    assert(dev);  assert(cmd);  assert(strlen(cmd) + 16 < sizeof(raw_buf));
+    //debug_gps_l70r = 1;  ////
+    //  Structure of MTK NMEA Packet...
+    sprintf(raw_buf,
+        //  "$"           : Each NMEA message starts with "$"
+        "$"
+        //  "P"           : For proprietary message
+        "P"
+        //  "MTK"         : MTK proprietary message
+        "MTK"
+        //  "000" to "999": Packet Type
+        //  Data          : Data fields, delimited by comma
+        "%s"
+        ,
+        cmd
+    );
+    const char *checksum = compute_checksum((const uint8_t *) raw_buf);
+    //  "*"           : End of data field
+    strcat(raw_buf, "*");
+    //  "00" to "FF"  : Checksum, 2 hex digits, Exclusive OR of all characters between "$" and "*"
+    strcat(raw_buf, checksum);
+    //  <CR><LF>      : End of message
+    strcat(raw_buf, "\r\n");
+    console_printf("GPS> %s", raw_buf);
+
+    bool res = serial.write(raw_buf, strlen(raw_buf));
+    /*
+    bool res = (
+        parser.write(raw_buf, strlen(raw_buf)) &&
+        //  "*"           : End of data field
+        parser.write("*", 1) &&
+        //  "00" to "FF"  : Checksum, 2 hex digits, Exclusive OR of all characters between "$" and "*"
+        parser.write(checksum, 2) &&
+        //  <CR><LF>      : End of message
+        parser.write("\r\n", 2)
+    );
+    */
+    //debug_gps_l70r = 0;  ////
+    console_flush();
+    return res;
+}
+
+/// Send a GPS command with no parameters e.g. `$PMTK869,0*??<CR><LF>`
+static bool send_command(struct gps_l70r *dev, enum CommandId id) {
+    assert(dev);
+    const char *cmd = get_command(dev, id);
+    bool res = send_raw_command(dev, cmd);
+    console_flush();
+    return res;
+}
+
+/*
+///  Send a GPS command with 1 int parameter e.g. `$PMTK869,1,1*35<CR><LF>`
+static bool send_command_int(struct gps_l70r *dev, enum CommandId id, int arg) {
+    static char cmd_buf[64];
+    assert(dev);
+    const char *cmd = get_command(dev, id);
+    assert(cmd);  assert(strlen(cmd) + 16 < sizeof(cmd_buf));
+    sprintf(cmd_buf, cmd, arg);
+    bool res = send_raw_command(dev, cmd_buf);
+    console_flush();
+    return res;
+}
+*/
+
+static const char *compute_checksum(const uint8_t *buf) {
+    //  Return a string with 2 hex digits, that is the exclusive OR of all bytes in buf (excluding leading "$").
+    assert(buf);
+    //  Skip leading "$"
+    if (buf[0] == '$') { buf++; }
+    //  Exclusive OR the bytes
+    uint8_t checksum = 0;
+    for (;;) {
+        if (*buf == 0) { break; }
+        checksum = checksum ^ *buf;
+        buf++;
+    }
+    //  Convert checksum to text.
+    static char checksum_str[3];
+    checksum_str[0] = nibble_to_hex(checksum >> 4);
+    checksum_str[1] = nibble_to_hex(checksum & 0xf);
+    checksum_str[2] = 0;
+    return checksum_str;
 }
 
 /////////////////////////////////////////////////////////
@@ -169,6 +302,15 @@ int gps_l70r_start(void) {
     return 0;
 }
 
+int gps_l70r_connect(struct gps_l70r *dev) {
+    //  Return 0 if successful.
+    serial.prime();  //  Start transmitting and receiving on UART port
+    serial.write("\r\n\r\n", 4);
+    send_command(dev, EASY_QUERY);  //  Get EASY status
+    ////send_command_int(dev, EASY_ENABLE, 1);  //  Enable EASY to accelerate TTFF by predicting satellite navigation messages from received ephemeris
+    return 0;
+}
+
 static void rx_event(void *drv) {
     //  Interrupt callback when we receive data on the GPS UART. Fire a callout to handle the received data.
     //  This is called by the Interrupt Service Routine, don't do any processing here.
@@ -198,23 +340,24 @@ static void rx_callback(struct os_event *ev) {
     }
 }
 
-int gps_l70r_connect(struct gps_l70r *dev) {
-    //  Return 0 if successful.
-    serial.prime();
-    return 0;
-}
-
 static void split_float(float f, bool *neg, int *i, int *d) {
-    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 4 decimal places.
+    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
     *neg = (f < 0.0f);                    //  True if f is negative
     float f_abs = *neg ? -f : f;          //  Absolute value of f
     *i = (int) f_abs;                     //  Integer part
-    *d = ((int) (10000.0f * f_abs)) % 10000;  //  Two decimal places
+    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  6 decimal places
 }
 
 static void printfloat(float f) {
-    //  Write a float to the output buffer, with 4 decimal places.
+    //  Write a float to the output buffer, with 6 decimal places.
     bool neg; int i, d;
-    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 2 decimal places
-    console_printf("%s%d.%04d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
+    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 6 decimal places
+    console_printf("%s%d.%06d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
+}
+
+/// Given n=0..15, return '0'..'F'.
+static char nibble_to_hex(uint8_t n) {
+    return (n < 10)
+        ? '0' + n
+        : 'A' + n - 10;
 }
