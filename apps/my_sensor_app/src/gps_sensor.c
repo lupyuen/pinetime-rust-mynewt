@@ -77,7 +77,10 @@ static int handle_gps_data(struct sensor* sensor, void *arg, void *sensor_data, 
         !geolocation->sgd_latitude_is_valid  ||
         !geolocation->sgd_longitude_is_valid ||
         !geolocation->sgd_altitude_is_valid
-    ) { return SYS_EINVAL; }  //  Exit if data is not valid
+    ) { 
+        console_printf("GPS not ready\n"); console_flush(); ////
+        return SYS_EINVAL;  //  Exit if data is not valid
+    }
 
     console_printf("handle_gps_data lat: "); printfloat(geolocation->sgd_latitude);
     console_printf(" / lng: ");  printfloat(geolocation->sgd_longitude);
