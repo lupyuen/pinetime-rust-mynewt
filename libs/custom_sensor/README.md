@@ -1,5 +1,11 @@
 # `custom_sensor`
 
-Custom sensor data definition for STM32 Internal Temperature Sensor raw values.
+Custom sensor data definitions:
 
-Used by `libs/remote_sensor` library.
+1. Raw Temperature for STM32 Internal Temperature Sensor raw values
+
+    Used by [`/libs/temp_stm32`](../../libs/temp_stm32) library
+
+2. GPS Geolocation: Latitude, Longitude, Altitude
+
+    Used by [`/libs/gps_l70r`](../../libs/gps_l70r) library

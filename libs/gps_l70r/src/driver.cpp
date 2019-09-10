@@ -40,7 +40,7 @@ static bool first_open = true;  //  True if this is the first time opening the d
 static BufferedSerial serial;
 
 //  GPS parser.  TODO: Support multiple instances.
-static TinyGPSPlus parser;
+TinyGPSPlus gps_parser;  //  Shared with sensor.cpp
 
 static struct os_callout rx_callout;
 static void rx_event(void *drv);
@@ -116,7 +116,6 @@ static const char *get_command(struct gps_l70r *dev, enum CommandId id) {
 static bool send_raw_command(struct gps_l70r *dev, const char *cmd) {
     static char raw_buf[64];
     assert(dev);  assert(cmd);  assert(strlen(cmd) + 16 < sizeof(raw_buf));
-    //debug_gps_l70r = 1;  ////
     //  Structure of MTK NMEA Packet...
     sprintf(raw_buf,
         //  "$"           : Each NMEA message starts with "$"
@@ -131,7 +130,7 @@ static bool send_raw_command(struct gps_l70r *dev, const char *cmd) {
         ,
         cmd
     );
-    const char *checksum = compute_checksum((const uint8_t *) raw_buf);
+    const char *checksum = compute_checksum((const uint8_t *) raw_buf);  //  Compute the checksum based on the above fields
     //  "*"           : End of data field
     strcat(raw_buf, "*");
     //  "00" to "FF"  : Checksum, 2 hex digits, Exclusive OR of all characters between "$" and "*"
@@ -140,19 +139,8 @@ static bool send_raw_command(struct gps_l70r *dev, const char *cmd) {
     strcat(raw_buf, "\r\n");
     console_printf("GPS> %s", raw_buf);
 
+    //  Write to complete NMEA packet to the GPS UART
     bool res = serial.write(raw_buf, strlen(raw_buf));
-    /*
-    bool res = (
-        parser.write(raw_buf, strlen(raw_buf)) &&
-        //  "*"           : End of data field
-        parser.write("*", 1) &&
-        //  "00" to "FF"  : Checksum, 2 hex digits, Exclusive OR of all characters between "$" and "*"
-        parser.write(checksum, 2) &&
-        //  <CR><LF>      : End of message
-        parser.write("\r\n", 2)
-    );
-    */
-    //debug_gps_l70r = 0;  ////
     console_flush();
     return res;
 }
@@ -224,7 +212,7 @@ static int gps_l70r_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     return 0;
 }
 
-/// Shutdown the GPS_L70R transceiver.  Unlock the UART port.
+/// Shutdown the GPS transceiver.  Unlock the UART port.
 static int gps_l70r_close(struct os_dev *dev0) {
     //  TODO: Undo driver.init(), driver.configure() and driver.attach()
     console_printf("]\n");  console_flush();  ////
@@ -233,11 +221,14 @@ static int gps_l70r_close(struct os_dev *dev0) {
 }
 
 int gps_l70r_init(struct os_dev *dev0, void *arg) {
-    //  Configure the GPS_L70R driver.  Called by os_dev_create().  Return 0 if successful.
+    //  Configure the GPS driver.  Called by os_dev_create().  Return 0 if successful.
     struct gps_l70r *dev;
     int rc;
     if (!arg || !dev0) { rc = SYS_ENODEV; goto err; }
     dev = (struct gps_l70r *) dev0;  assert(dev);
+
+    //  Configure the driver as a Mynewt Sensor so that it may be used with the Mynewt Sensor Framework
+    rc = gps_l70r_sensor_init(dev, arg);  assert(rc == 0);
 
     //  Register the handlers for opening and closing the device.
     OS_DEV_SETHANDLERS(dev0, gps_l70r_open, gps_l70r_close);
@@ -257,9 +248,14 @@ int gps_l70r_default_cfg(struct gps_l70r_cfg *cfg) {
 int gps_l70r_config(struct gps_l70r *drv, struct gps_l70r_cfg *cfg) {
     //  Copy the GPS_L70R driver configuration from cfg into drv.  Return 0 if successful.
     struct gps_l70r_cfg *drv_cfg = &drv->cfg;
+
+    //  Configure the UART port.  0 means UART2, 1 means UART1.
     drv_cfg->uart = cfg->uart;    
     assert(drv_cfg->uart == MYNEWT_VAL(GPS_L70R_UART));
-    internal_configure(drv_cfg->uart);  //  Configure the UART port.  0 means UART2, 1 means UART1.
+    internal_configure(drv_cfg->uart);
+
+    //  Configure the GPS sensor.
+    int rc = gps_l70r_sensor_config(drv, cfg);  assert(rc == 0);
     return 0;
 }
 
@@ -321,18 +317,18 @@ static void rx_callback(struct os_event *ev) {
     //  Callout that is invoked we receive data on the GPS UART.  Parse the received data.
     while (serial.readable()) {
         int ch = serial.getc(0);  //  Note: this will block if there is nothing to read.
-        parser.encode(ch);  //  Parse the GPS data.
+        gps_parser.encode(ch);  //  Parse the GPS data.
         char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); ////
         if (ch == '\n') { console_flush(); } ////
     }
-    if (parser.location.isUpdated()) {
-        console_printf("*** lat: "); printfloat(parser.location.lat());
-        console_printf(" / lng: ");  printfloat(parser.location.lng());
-        console_printf(" / alt: ");  console_printfloat(parser.altitude.meters());
+    if (gps_parser.location.isUpdated()) {
+        console_printf("*** lat: "); printfloat(gps_parser.location.lat());
+        console_printf(" / lng: ");  printfloat(gps_parser.location.lng());
+        console_printf(" / alt: ");  console_printfloat(gps_parser.altitude.meters());
         console_printf("\n"); console_flush(); ////
-    } else if (parser.satellites.isUpdated()) {
+    } else if (gps_parser.satellites.isUpdated()) {
         static uint32_t lastSat = 0;
-        uint32_t sat = parser.satellites.value();
+        uint32_t sat = gps_parser.satellites.value();
         if (sat != lastSat) {
             lastSat = sat;
             console_printf("*** satellites: %ld\n", sat); console_flush(); ////

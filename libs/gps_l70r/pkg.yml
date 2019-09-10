@@ -34,6 +34,7 @@ pkg.deps:
     - "@apache-mynewt-core/libc/baselibc"  #  Baselibc, the tiny version of standard C library
     - "libs/tiny_gps_plus"                 #  TinyGPS++ library for parsing NMEA streams
     - "libs/buffered_serial"               #  Buffered Serial Port
+    - "libs/custom_sensor"                 #  Custom sensor data type for Geolocation
 
 # Initialisation functions to be called by sysinit() during startup.
 # Mynewt consolidates the initialisation functions into sysinit()
