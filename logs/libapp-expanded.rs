@@ -74,8 +74,12 @@ mod app_sensor {
 
     //  Start polling the temperature sensor every 10 seconds in the background.
     //  If this is a standby wakeup, the server transport must already be started.
+    ////app_sensor::start_sensor_listener()
+    ////.expect("TMP fail");
 
     //  Start the GPS.
+
+    //  Start polling the GPS.
 
     //  Main event loop
     //  Loop forever...
@@ -484,11 +488,14 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    app_sensor::start_sensor_listener().expect("TMP fail");
     extern "C" {
         fn gps_l70r_start() -> i32;
     }
     unsafe { gps_l70r_start() };
+    extern "C" {
+        fn start_gps_listener();
+    }
+    unsafe { start_gps_listener() };
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
