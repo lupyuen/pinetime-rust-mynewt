@@ -38,10 +38,10 @@
 static int handle_gps_data(struct sensor* sensor, void *arg, void *sensor_data, sensor_type_t type);
 static void printfloat(float f);
 
-//  Define the listener function to be called after polling the temperature sensor.
+//  Define the listener function to be called after polling the GPS sensor.
 static struct sensor_listener listener = {
-    .sl_sensor_type = SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW,  //  Type of sensor: raw ambient temperature (integer)
-    .sl_func        = handle_gps_data,                   //  Listener function to be called with the sensor data
+    .sl_sensor_type = SENSOR_TYPE_GEOLOCATION,  //  Type of sensor: Geolocation
+    .sl_func        = handle_gps_data,          //  Listener function to be called with the sensor data
     .sl_arg         = NULL,
 };
 
