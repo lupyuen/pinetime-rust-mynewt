@@ -73,6 +73,9 @@ int setup_uart(BufferedSerial *serial) {
         uart_rx_char, serial);
     if (rc != 0) { return rc; }
 
+    //// TODO
+    USART3->CR2 |= USART_CR2_SWAP; //// Swap TX/RX so that USART3 behaves like LPUART1
+
     //  Set UART parameters.
     assert(baud != 0);
     rc = hal_uart_config(uart,

@@ -253,5 +253,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h",
+		"bookmarks": [
+			{
+				"line": 967,
+				"column": 10,
+				"label": ""
+			}
+		]
 	}
 ]
