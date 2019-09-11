@@ -46,12 +46,12 @@ static struct sensor_listener listener = {
 };
 
 int start_gps_listener(void) {
-    //  Ask Mynewt to poll the temperature sensor every 10 seconds and call `handle_gps_data()`.
+    //  Ask Mynewt to poll the GPS sensor every 10 seconds and call `handle_gps_data()`.
     //  Return 0 if successful.
     if (strlen(GPS_DEVICE) == 0) { return 0; }  //  Sensor device not defined.
     console_printf("GPS poll %s\n", GPS_DEVICE);
 
-    //  Set the sensor polling time to 10 seconds.  SENSOR_DEVICE is "temp_stm32_0", SENSOR_POLL_TIME is 10,000.
+    //  Set the sensor polling time to 10 seconds.  GPS_DEVICE is "gps_l70r_0", GPS_POLL_TIME is 10,000.
     int rc = sensor_set_poll_rate_ms(GPS_DEVICE, GPS_POLL_TIME);
     assert(rc == 0);
 
@@ -71,7 +71,7 @@ static int handle_gps_data(struct sensor* sensor, void *arg, void *sensor_data, 
     if (sensor_data == NULL) { return SYS_EINVAL; }      //  Exit if data is missing
     assert(sensor && type == SENSOR_TYPE_GEOLOCATION);   //  We only support Geolocation sensor data
 
-    //  Interpret the sensor data as a struct that contains raw temp.
+    //  Interpret the sensor data as a struct that contains geolocation.
     struct sensor_geolocation_data *geolocation = (struct sensor_geolocation_data *) sensor_data;
     if (
         !geolocation->sgd_latitude_is_valid  ||
