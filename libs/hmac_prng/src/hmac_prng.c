@@ -4,7 +4,6 @@
 #include <hal/hal_bsp.h>
 #include <console/console.h>
 #include <tinycrypt/hmac_prng.h>
-#include <adc_stm32f1/adc_stm32f1.h>
 #include <temp_stm32/temp_stm32.h>
 #include "hmac_prng/hmac_prng.h"
 

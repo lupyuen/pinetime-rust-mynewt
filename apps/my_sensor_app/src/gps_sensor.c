@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
+//  Poll the GPS sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
 
 //  Configure SENSOR_DEVICE and  SENSOR_POLL_TIME by editing `targets/bluepill_my_sensor/syscfg.yml`
 //  Mynewt consolidates all app settings into "bin/targets/bluepill_my_sensor/generated/include/syscfg/syscfg.h"
@@ -28,8 +28,6 @@
 #include <sensor_network/sensor_network.h>  //  For Sensor Network Library
 #include <sensor_coap/sensor_coap.h>        //  For sensor_value
 #include <custom_sensor/custom_sensor.h>    //  For sensor_temp_raw_data
-//#include "network.h"                        //  For send_sensor_data()
-//#include "sensor.h"
 
 #define GPS_DEVICE      "gps_l70r_0"
 #define GPS_POLL_TIME   (10 * 1000)
