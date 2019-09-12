@@ -28,6 +28,18 @@
 #include <hal/hal_uart.h>     //  UART functions.
 #include "buffered_serial/buffered_serial.h"
 
+#define _SET_BIT(var, bit)   { var |= (bit); }   //  Set the specified bit of var to 1, e.g. _SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 1.
+#define _CLEAR_BIT(var, bit) { var &= ~(bit); }  //  Set the specified bit of var to 0, e.g. _CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP) sets bit SCB_SCR_SLEEPDEEP of SCB_SCR to 0.
+
+//  From repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
+#if !MYNEWT_VAL(STM32_HAL_UART_HAS_SR)
+#  define STATUS(x)     ((x)->ISR)
+#  define RXDR(x)       ((x)->RDR)
+#else
+#  define STATUS(x)     ((x)->SR)
+#  define RXDR(x)       ((x)->DR)
+#endif
+
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
 ////extern "C" char rx_buf[];
 ////extern "C" char *rx_ptr;
@@ -73,11 +85,6 @@ int setup_uart(BufferedSerial *serial) {
         uart_rx_char, serial);
     if (rc != 0) { return rc; }
 
-    //// TODO
-    if (uart == 2) {
-        USART3->CR2 |= USART_CR2_SWAP; //// Swap TX/RX so that USART3 behaves like LPUART1
-    }
-
     //  Set UART parameters.
     assert(baud != 0);
     rc = hal_uart_config(uart,
@@ -88,6 +95,30 @@ int setup_uart(BufferedSerial *serial) {
         HAL_UART_FLOW_CTL_NONE
     );
     if (rc != 0) { return rc; }
+
+    //// TODO
+#ifdef NOTUSED    
+    if (uart == 2) {
+        // Swap TX/RX so that USART3 behaves like LPUART1
+        console_printf("USART3->CR2: %lx | %lx ", USART3->CR2, USART_CR2_SWAP);
+
+        //  u->u_regs->CR1 |= (USART_CR1_RXNEIE | USART_CR1_UE);
+        _CLEAR_BIT(USART3->CR1, USART_CR1_UE);
+        (void) RXDR(USART3);
+        (void) STATUS(USART3);
+
+        _SET_BIT(USART3->CR2, USART_CR2_SWAP);
+        (void) RXDR(USART3);
+        (void) STATUS(USART3);
+
+        _SET_BIT(USART3->CR1, USART_CR1_UE);
+        (void) RXDR(USART3);
+        (void) STATUS(USART3);
+
+        console_printf("-> %lx\n", USART3->CR2); console_flush();
+    }
+#endif  //  NOTUSED
+
     return 0;
 }
 
