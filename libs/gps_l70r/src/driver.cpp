@@ -242,6 +242,9 @@ int gps_l70r_default_cfg(struct gps_l70r_cfg *cfg) {
     //  Copy the default GPS_L70R config into cfg.  Returns 0.
     memset(cfg, 0, sizeof(struct gps_l70r_cfg));  //  Zero the entire object.
     cfg->uart = MYNEWT_VAL(GPS_L70R_UART);  //  0 for UART2, 1 for UART1.
+
+    //  Copy the default sensor config.
+    int rc = gps_l70r_sensor_default_cfg(cfg);  assert(rc == 0);
     return 0;
 }
 

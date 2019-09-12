@@ -117,6 +117,12 @@ err:
     return (rc);
 }
 
+int gps_l70r_sensor_default_cfg(struct gps_l70r_cfg *cfg) {
+    //  Copy the default sensor config into cfg.  Returns 0.
+    cfg->bc_s_mask = SENSOR_TYPE_ALL;  //  Return all sensor values
+    return 0;
+}
+
 /**
  * Configure GPS sensor
  *

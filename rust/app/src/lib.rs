@@ -54,6 +54,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
+/*
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
     sensor_network::start_server_transport()
         .expect("NET fail");
@@ -62,8 +63,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  If this is a standby wakeup, the server transport must already be started.
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
+*/
 
-/*
     //  Start the GPS.
     extern { fn gps_l70r_start() -> i32; }
     unsafe { gps_l70r_start() };
@@ -71,7 +72,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  Start polling the GPS.
     extern { fn start_gps_listener(); }
     unsafe { start_gps_listener() };
-*/
 
     //  Main event loop
     loop {                            //  Loop forever...

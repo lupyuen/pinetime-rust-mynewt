@@ -80,6 +80,9 @@ int gps_l70r_start(void);
 //  Configure the GPS driver as a Mynewt Sensor.  Return 0 if successful.
 int gps_l70r_sensor_init(struct gps_l70r *dev, void *arg);
 
+//  Copy the default sensor config into cfg.  Returns 0.
+int gps_l70r_sensor_default_cfg(struct gps_l70r_cfg *cfg);
+
 //  Configure the GPS sensor.  Return 0 if successful.
 int gps_l70r_sensor_config(struct gps_l70r *dev, struct gps_l70r_cfg *cfg);
 
