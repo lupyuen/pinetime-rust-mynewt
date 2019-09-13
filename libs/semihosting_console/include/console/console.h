@@ -46,18 +46,13 @@ typedef void (*completion_cb)(char *str, console_append_char_cb cb);
 
 //  Implemented only for Semihosting Console.
 void console_buffer(const char *buffer, unsigned int length);  //  Add the string to the output buffer.
-void console_printhex(uint8_t v);  //  Write a char in hexadecimal to the output buffer.
-void console_printfloat(float f);  //  Write a float to the output buffer, with 1 decimal place.
+void console_printhex(uint8_t v);    //  Write a char in hexadecimal to the output buffer.
+void console_printfloat(float f);    //  Write a float to the output buffer, with 2 decimal places.
+void console_printdouble(double f);  //  Write a double to the output buffer, with 6 decimal places.
 void console_dump(const uint8_t *buffer, unsigned int len);  //  Append "length" number of bytes from "buffer" to the output buffer in hex format.
 void console_flush(void);  //  Flush the output buffer to the console.
 
-/**
- * De initializes the UART console.
- */
 void console_deinit(void);
-/**
- * Re Initializes the UART console.
- */
 void console_reinit(void);
 int console_init(console_rx_cb rx_cb);
 int console_is_init(void);

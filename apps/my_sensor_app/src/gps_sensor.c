@@ -34,7 +34,6 @@
 
 //  Defined later below
 static int handle_gps_data(struct sensor* sensor, void *arg, void *sensor_data, sensor_type_t type);
-static void printfloat(float f);
 
 //  Define the listener function to be called after polling the GPS sensor.
 static struct sensor_listener listener = {
@@ -80,8 +79,8 @@ static int handle_gps_data(struct sensor* sensor, void *arg, void *sensor_data, 
         return SYS_EINVAL;  //  Exit if data is not valid
     }
 
-    console_printf("handle_gps_data lat: "); printfloat(geolocation->sgd_latitude);
-    console_printf(" / lng: ");  printfloat(geolocation->sgd_longitude);
+    console_printf("handle_gps_data lat: "); console_printdouble(geolocation->sgd_latitude);
+    console_printf(" / lng: ");  console_printdouble(geolocation->sgd_longitude);
     console_printf(" / alt: ");  console_printfloat(geolocation->sgd_altitude);
     console_printf("\n"); console_flush(); ////
 
@@ -106,19 +105,4 @@ static int handle_gps_data(struct sensor* sensor, void *arg, void *sensor_data, 
     assert(rc == 0);
 #endif  //  NOTUSED    
     return rc;
-}
-
-static void split_float(float f, bool *neg, int *i, int *d) {
-    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
-    *neg = (f < 0.0f);                    //  True if f is negative
-    float f_abs = *neg ? -f : f;          //  Absolute value of f
-    *i = (int) f_abs;                     //  Integer part
-    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  6 decimal places
-}
-
-static void printfloat(float f) {
-    //  Write a float to the output buffer, with 6 decimal places.
-    bool neg; int i, d;
-    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 6 decimal places
-    console_printf("%s%d.%06d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
 }

@@ -86,9 +86,9 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
 
     //  Show the GPS geolocation.
     if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.val {
-        console::print("lat: ");   console::print_double(latitude);
-        console::print(", lng: "); console::print_double(longitude);
-        console::print(", alt: "); console::print_double(altitude);
+        console::print("lat: ");   console::printdouble(latitude);
+        console::print(", lng: "); console::printdouble(longitude);
+        console::print(", alt: "); console::printfloat(altitude as f32);
         console::print("\n"); console::flush();
     }
 
@@ -99,10 +99,10 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
     MynewtError::SYS_EOK
 }
 
-///  Convert the geolocation value received from Mynewt into a `SensorValue` for transmission. 
+///  Convert the geolocation value received from Mynewt into a Geolocation `SensorValue` for transmission. 
 ///  `sensor_type` indicates the type of data in `sensor_data`.
 #[allow(non_snake_case, unused_variables)]
-fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
+fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
     console::print("GPS listener got geolocation\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
@@ -111,7 +111,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
             SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
                 //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
                 let mut geolocation = fill_zero!(sensor_geolocation_data);
-                let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut geolocation) };
+                let rc = unsafe { sensor::get_geolocation_data(sensor_data, &mut geolocation) };
                 assert_eq!(rc, 0, "geodata fail");
                 //  Check that the geolocation data is valid.
                 assert!(
@@ -121,9 +121,9 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
                     "bad geodata");                
                 //  Geolocation data is valid.  Return it.
                 SensorValueType::Geolocation {
-                    latitude:  geolocation.latitude,
-                    longitude: geolocation.longitude,
-                    altitude:  geolocation.altitude,
+                    latitude:  geolocation.sgd_latitude,
+                    longitude: geolocation.sgd_longitude,
+                    altitude:  geolocation.sgd_altitude,
                 }
             }
             //  Unknown type of sensor value
@@ -133,5 +133,5 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
 }
 
 //  Aggregate the sensor value with other sensor data before transmitting to server.
-fn aggregate_sensor_data(SensorValue &sensor_value) {
+fn aggregate_sensor_data(sensor_value: &SensorValue) {
 }

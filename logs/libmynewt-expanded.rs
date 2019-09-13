@@ -5701,7 +5701,7 @@ pub mod hw {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/hw/sensor.rs",
-                                                                   76u32,
+                                                                   65u32,
                                                                    14u32))
                                 }
                             }
@@ -5728,7 +5728,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               93u32, 5u32))
+                                               82u32, 5u32))
                 }
             };
             let mut arg = MAX_SENSOR_LISTENERS + 1;
@@ -5740,7 +5740,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               103u32, 5u32))
+                                               92u32, 5u32))
                 }
             };
             unsafe {
@@ -5773,7 +5773,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("bad sensor arg",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               127u32, 5u32))
+                                               116u32, 5u32))
                 }
             };
             let info = unsafe { SENSOR_LISTENERS[arg] };
@@ -5781,7 +5781,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               129u32, 5u32))
+                                               118u32, 5u32))
                 }
             };
             if sensor_data.is_null() { return SYS_EINVAL }
@@ -5789,7 +5789,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("null sensor",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               133u32, 5u32))
+                                               122u32, 5u32))
                 }
             };
             let sensor_value =
@@ -5800,7 +5800,7 @@ pub mod hw {
                     {
                         ::core::panicking::panic(&("bad type",
                                                    "rust/mynewt/src/hw/sensor.rs",
-                                                   137u32, 55u32))
+                                                   126u32, 55u32))
                     }
                 };
             }
@@ -5891,7 +5891,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       176u32,
+                                                                                       165u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5929,7 +5929,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       178u32,
+                                                                                       167u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5943,7 +5943,7 @@ pub mod hw {
                                         {
                                             ::core::panicking::panic(&("sensor type",
                                                                        "rust/mynewt/src/hw/sensor.rs",
-                                                                       183u32,
+                                                                       172u32,
                                                                        20u32))
                                         }
                                     };
@@ -5988,6 +5988,12 @@ pub mod hw {
             ///  C API: `int get_temp_data(void *sensor_data, struct sensor_temp_data *dest)`
             pub fn get_temp_data(sensor_data: sensor_data_ptr,
                                  dest: *mut sensor_temp_data) -> i32;
+            ///  Interpret `sensor_data` as a `sensor_geolocation_data` struct that contains geolocation.
+            ///  Copy the sensor data into `dest`.  Return 0 if successful.
+            ///  C API: `int get_geolocation_data(void *sensor_data, struct sensor_geolocation_data *dest)`
+            pub fn get_geolocation_data(sensor_data: sensor_data_ptr,
+                                        dest: *mut sensor_geolocation_data)
+             -> i32;
             ///  Return the Mynewt device for the Mynewt sensor.
             ///  C API: `struct os_dev *sensor_get_device(struct sensor *s)`
             pub fn sensor_get_device(sensor: sensor_ptr) -> *mut os_dev;
@@ -6001,10 +6007,12 @@ pub mod hw {
             ///  C API: `int is_null_sensor_data(void *p)`
             pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
         }
-        ///  Sensor type for raw temperature sensor.
+        ///  Sensor type for raw temperature sensor and geolocation.
         ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
         pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t =
             crate::libs::mynewt_rust::sensor_type_t_SENSOR_TYPE_USER_DEFINED_1;
+        pub const SENSOR_TYPE_GEOLOCATION: sensor_type_t =
+            crate::libs::mynewt_rust::sensor_type_t_SENSOR_TYPE_USER_DEFINED_2;
         ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
         ///  or float (computed), we use the struct to return both integer and float values.
         pub struct SensorValue {
@@ -6034,15 +6042,39 @@ pub mod hw {
 
             ///  32-bit float. For computed temp, contains the computed temp float value
             Float(f32),
+
+            ///  Geolocation
+            Geolocation {
+                latitude: f64,
+                longitude: f64,
+                altitude: f64,
+            },
         }
         ///  Represents a single temperature sensor raw value.
-        ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
+        ///  TODO: Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
         #[repr(C, packed)]
         pub struct sensor_temp_raw_data {
             ///  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
             pub strd_temp_raw: u32,
             ///  1 if data is valid
             pub strd_temp_raw_is_valid: u8,
+        }
+        ///  Represents a GPS Geolocation.
+        ///  TODO: Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
+        #[repr(C, packed)]
+        pub struct sensor_geolocation_data {
+            ///  Latitude (degrees)
+            pub sgd_latitude: f64,
+            ///  Longitude (degrees)
+            pub sgd_longitude: f64,
+            ///  Altitude (metres)
+            pub sgd_altitude: f64,
+            ///  1 if latitude is valid
+            pub sgd_latitude_is_valid: u8,
+            ///  1 if longitude is valid
+            pub sgd_longitude_is_valid: u8,
+            ///  1 if altitude is valid
+            pub sgd_altitude_is_valid: u8,
         }
     }
 }
@@ -6066,6 +6098,10 @@ pub mod sys {
         ///  Write a byte in hexadecimal to the output buffer.
         ///  C API: `void console_printhex(uint8_t v)`
         pub fn printhex(v: u8) { unsafe { console_printhex(v); } }
+        ///  Write a float to the output buffer, with 2 decimal places.
+        pub fn printfloat(v: f32) { unsafe { console_printfloat(v); } }
+        ///  Write a double to the output buffer, with 6 decimal places.
+        pub fn printdouble(v: f64) { unsafe { console_printdouble(v); } }
         ///  Flush the output buffer to the console.
         pub fn flush() { unsafe { console_flush(); } }
         ///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD).
@@ -6078,9 +6114,12 @@ pub mod sys {
             ///  Write a byte in hexadecimal to the output buffer.
             ///  C API: `void console_printhex(uint8_t v)`
             fn console_printhex(v: u8);
-            ///  Write a float to the output buffer, with 1 decimal place.
+            ///  Write a float to the output buffer, with 2 decimal places.
             ///  C API: `void console_printfloat(float f)`
             fn console_printfloat(f: f32);
+            ///  Write a double to the output buffer, with 6 decimal places.
+            ///  C API: `void console_printdouble(double d)`
+            fn console_printdouble(d: f64);
             ///  Append "length" number of bytes from "buffer" to the output buffer in hex format.
             ///  C API: `void console_dump(const uint8_t *buffer, unsigned int len)`
             fn console_dump(buffer: *const u8, len: u32);

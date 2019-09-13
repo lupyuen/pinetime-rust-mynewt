@@ -23,6 +23,15 @@ int get_temp_data(void *sensor_data, struct sensor_temp_data *dest) {
     return 0;
 }
 
+///  Interpret `sensor_data` as a `sensor_geolocation_data` struct that contains geolocation.
+///  Copy the sensor data into `dest`.  Return 0 if successful.
+int get_geolocation_data(void *sensor_data, struct sensor_geolocation_data *dest) {
+    assert(sensor_data); assert(dest);
+    struct sensor_geolocation_data *src = (struct sensor_geolocation_data *) sensor_data;
+    memcpy(dest, src, sizeof(struct sensor_geolocation_data));
+    return 0;
+}
+
 ///  Return the Mynewt device for the Mynewt sensor.
 struct os_dev *sensor_get_device(struct sensor *s) {
     assert(s);

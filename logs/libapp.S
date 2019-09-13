@@ -186,6 +186,39 @@ _ZN4core6result19Result$LT$T$C$E$GT$6expect17h2fff601934191de6E():
   56:	bd80      	pop	{r7, pc}
   58:	e7fb      	b.n	52 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h2fff601934191de6E+0x52>
 
+app-f1b560250e7c1912.33lb048wgwfq1m7e.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 33lb048wgwfq1m7e
+000000e4 l       .debug_str	00000000 
+000000ec l       .debug_str	00000000 
+000000f1 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+00000089 l       .debug_str	00000000 
+00000094 l       .debug_str	00000000 
+0000009f l       .debug_str	00000000 
+000000a6 l       .debug_str	00000000 
+000000aa l       .debug_str	00000000 
+000000ad l       .debug_str	00000000 
+000000b5 l       .debug_str	00000000 
+000000b9 l       .debug_str	00000000 
+000000c2 l       .debug_str	00000000 
+000000cc l       .debug_str	00000000 
+000000d3 l       .debug_str	00000000 
+000000d9 l       .debug_str	00000000 
+000000df l       .debug_str	00000000 
+00000000 l     O .rodata._ZN3app10gps_sensor10GPS_DEVICE17ha4662272fc84c34aE	0000000c _ZN3app10gps_sensor10GPS_DEVICE17ha4662272fc84c34aE
+00000000 l    d  .rodata..Lanon.d41d8cd98f00b204e9800998ecf8427e.0	00000000 .rodata..Lanon.d41d8cd98f00b204e9800998ecf8427e.0
+00000000 l    d  .rodata._ZN3app10gps_sensor10GPS_DEVICE17ha4662272fc84c34aE	00000000 .rodata._ZN3app10gps_sensor10GPS_DEVICE17ha4662272fc84c34aE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_line	00000000 .debug_line
+
+
+
 app-f1b560250e7c1912.3kxuqob6slyisrfp.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
@@ -373,7 +406,7 @@ Disassembly of section .text.main:
 
 00000000 <main>:
 main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:49
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:50
 };
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -381,7 +414,7 @@ main():
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
    0:	b086      	sub	sp, #24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:55
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:56
     //  Initialise the Mynewt packages and Blue Pill internal temperature sensor driver.
     //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
@@ -390,7 +423,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <_ZN6mynewt7sysinit17hca204e3e3a01257fE>
    6:	e7ff      	b.n	2 <gps_l70r_start+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:71
         .expect("TMP fail");
 */
 
@@ -400,7 +433,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
    8:	f7ff fffe 	bl	0 <gps_l70r_start>
    c:	9003      	str	r0, [sp, #12]
    e:	e7ff      	b.n	10 <main+0x10>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
 
     //  Start polling the GPS.
     extern { fn start_gps_listener(); }
@@ -408,7 +441,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   10:	f7ff fffe 	bl	0 <start_gps_listener>
   14:	e7ff      	b.n	16 <main+0x16>
   16:	a804      	add	r0, sp, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:79
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:80
 
     //  Main event loop
     loop {                            //  Loop forever...
@@ -423,7 +456,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   2a:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h2fff601934191de6E>
   2e:	9002      	str	r0, [sp, #8]
   30:	e7ff      	b.n	32 <main+0x32>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:78
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:79
         os::eventq_run(               //  Processing events...
   32:	9802      	ldr	r0, [sp, #8]
   34:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os10eventq_run17hf94349a19187232aE>
@@ -435,7 +468,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   46:	9801      	ldr	r0, [sp, #4]
   48:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h5d84aa78d3cb1f4bE>
   4c:	e7ff      	b.n	4e <main+0x4e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:77
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:78
     loop {                            //  Loop forever...
   4e:	e7e2      	b.n	16 <main+0x16>
 
@@ -443,7 +476,7 @@ Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
     //  Never comes here
 }
 
@@ -453,7 +486,7 @@ fn panic(info: &PanicInfo) -> ! {
    0:	b088      	sub	sp, #32
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:90
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:91
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    6:	f240 0000 	movw	r0, #0
@@ -463,7 +496,7 @@ fn panic(info: &PanicInfo) -> ! {
   12:	4611      	mov	r1, r2
   14:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17hb1682fdf35bd72e2E>
   18:	e7ff      	b.n	1a <rust_begin_unwind+0x1a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:91
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:92
     if let Some(location) = info.location() {
   1a:	9802      	ldr	r0, [sp, #8]
   1c:	f7ff fffe 	bl	0 <_ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E>
@@ -475,20 +508,20 @@ fn panic(info: &PanicInfo) -> ! {
   2a:	e7ff      	b.n	2c <rust_begin_unwind+0x2c>
   2c:	9803      	ldr	r0, [sp, #12]
   2e:	9004      	str	r0, [sp, #16]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:92
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:93
         let file = location.file();
   30:	9804      	ldr	r0, [sp, #16]
   32:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4file17h94cc6af18de736c4E>
   36:	9106      	str	r1, [sp, #24]
   38:	9005      	str	r0, [sp, #20]
   3a:	e7ff      	b.n	3c <rust_begin_unwind+0x3c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:93
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:94
         let line = location.line();
   3c:	9804      	ldr	r0, [sp, #16]
   3e:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4line17h3ffc63f14d0a6636E>
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:94
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:95
         console::print("at ");        console::buffer(&file);
   46:	f240 0000 	movw	r0, #0
   4a:	f2c0 0000 	movt	r0, #0
@@ -499,7 +532,7 @@ fn panic(info: &PanicInfo) -> ! {
   58:	9906      	ldr	r1, [sp, #24]
   5a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console6buffer17h879fbe75b694f9b0E>
   5e:	e7ff      	b.n	12 <rust_begin_unwind+0x12>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:95
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:96
         console::print(" line 0x");   console::printhex(line as u8);  //  TODO: Print in decimal not hex. Allow more than 255 lines.
   60:	f240 0000 	movw	r0, #0
   64:	f2c0 0000 	movt	r0, #0
@@ -509,7 +542,7 @@ fn panic(info: &PanicInfo) -> ! {
   70:	9807      	ldr	r0, [sp, #28]
   72:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h213859656f416868E>
   76:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:97
         console::print("\n");         console::flush();
   78:	f240 0000 	movw	r0, #0
   7c:	f2c0 0000 	movt	r0, #0
@@ -518,10 +551,10 @@ fn panic(info: &PanicInfo) -> ! {
   86:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17hd3edc8d6ed39f65bE+0x2>
   88:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hd3edc8d6ed39f65bE>
   8c:	e7ff      	b.n	8e <rust_begin_unwind+0x8e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:91
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:92
     if let Some(location) = info.location() {
   8e:	e00a      	b.n	a6 <rust_begin_unwind+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:98
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:99
     } else {
         console::print("no loc\n");   console::flush();
   90:	f240 0000 	movw	r0, #0
@@ -541,16 +574,17 @@ _ZN8cortex_m3asm4bkpt17h38d1ae7ad2dd546bE():
             __bkpt();
   a6:	f7ff fffe 	bl	0 <__bkpt>
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:102
     }
     //  Pause in the debugger.
     bkpt();
   aa:	e7ff      	b.n	ac <rust_begin_unwind+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:103
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:104
     //  Loop forever so that device won't restart.
     loop {}
   ac:	e7fe      	b.n	ac <rust_begin_unwind+0xac>
 arm-none-eabi-objdump: rust.metadata.bin: File format not recognized
 arm-none-eabi-objdump: app-f1b560250e7c1912.1100txxf3br1xj2k.rcgu.bc.z: File format not recognized
+arm-none-eabi-objdump: app-f1b560250e7c1912.33lb048wgwfq1m7e.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-f1b560250e7c1912.3kxuqob6slyisrfp.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-f1b560250e7c1912.4lctw9a02p63osgz.rcgu.bc.z: File format not recognized

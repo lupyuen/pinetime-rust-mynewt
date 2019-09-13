@@ -49,9 +49,10 @@ extern crate mynewt;
 extern crate macros as mynewt_macros;
 //  Declare the Mynewt Procedural Macros library
 
-mod app_sensor {
-    //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
+    //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+    //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
 
     //  Import `PanicInfo` type which is used by `panic()` below
     //  Import cortex_m assembly function to inject breakpoint
@@ -93,6 +94,200 @@ mod app_sensor {
     //  TODO: Print in decimal not hex. Allow more than 255 lines.
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
+    //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
+    //!  The sensor data will be transmitted over NB-IoT.
+    //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
+    //!  fixes response parsing bugs.  The patched file must be present in that location.
+    //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/network.c`
+    use mynewt::{result::*, hw::sensor::{SensorValue, SensorValueType},
+                 sys::console, encoding::coap_context::*,
+                 libs::{sensor_network}, coap, d, Strn};
+    use mynewt_macros::strn;
+    /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
+    /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
+    /// Background Task so this function will return without waiting for the message to be transmitted.
+    /// Return `Ok()` if successful, `SYS_EAGAIN` if network is not ready yet.
+    /// For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
+    /// ```json
+    /// {"values":[
+    ///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
+    ///   {"key":"t",      "value":1715}
+    /// ]}
+    /// ```
+    pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
+        console::print("Rust send_sensor_data\n");
+        let device_id = sensor_network::get_device_id()?;
+        let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
+        if !rc { return Err(MynewtError::SYS_EAGAIN); }
+        let _payload =
+            {
+                "begin json root";
+                {
+                    "begin json coap_root";
+                    unsafe {
+                        mynewt::libs::sensor_network::prepare_post(mynewt::encoding::APPLICATION_JSON)?;
+                    }
+                    unsafe {
+                        mynewt::libs::sensor_coap::json_rep_start_root_object();
+                    }
+                    {
+                        {
+                            "begin json coap_array , object : COAP_CONTEXT , key : values";
+                            {
+                                "<< jarri , o: COAP_CONTEXT, k: values";
+                                let key_with_null: &str = "values\u{0}";
+                                unsafe {
+                                    mynewt::libs::mynewt_rust::json_helper_set_array(COAP_CONTEXT.to_void_ptr(),
+                                                                                     COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
+                                };
+                            };
+                            {
+                                " >>  >> \"device\" >> : & device_id , val ,";
+                                "add1 key : \"device\" value : $crate::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
+                                {
+                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json &device_id)";
+                                    {
+                                        "begin json coap_item , array : COAP_CONTEXT";
+                                        {
+                                            "<< jitmi c: COAP_CONTEXT";
+                                            let key_with_null: &str =
+                                                "COAP_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        {
+                                            {
+                                                "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
+                                                let key_strn: &Strn =
+                                                    &Strn::new(b"key\x00");
+                                                let value_strn: &Strn =
+                                                    &Strn::new(b"device\x00");
+                                                unsafe {
+                                                    COAP_CONTEXT.json_set_text_string(key_strn,
+                                                                                      value_strn)
+                                                };
+                                            };
+                                            {
+                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json &device_id)";
+                                                let key_strn: &Strn =
+                                                    &Strn::new(b"value\x00");
+                                                let value_strn: &Strn =
+                                                    &device_id;
+                                                unsafe {
+                                                    COAP_CONTEXT.json_set_text_string(key_strn,
+                                                                                      value_strn)
+                                                };
+                                            };
+                                        };
+                                        {
+                                            ">>";
+                                            let key_with_null: &str =
+                                                "COAP_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
+                                };
+                                "--------------------";
+                                " >>  >> val >> ,";
+                                "--------------------";
+                                {
+                                    "begin json coap_item_int_val , c : COAP_CONTEXT , val : val";
+                                    if let SensorValueType::Uint(val) =
+                                           val.val {
+                                        {
+                                            "begin json coap_item_int , key : val.key , value : val";
+                                            {
+                                                "begin json coap_item , array : COAP_CONTEXT";
+                                                {
+                                                    "<< jitmi c: COAP_CONTEXT";
+                                                    let key_with_null: &str =
+                                                        "COAP_CONTEXT\u{0}";
+                                                    unsafe {
+                                                        mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                                    };
+                                                };
+                                                {
+                                                    {
+                                                        "-- jtxte o: COAP_CONTEXT, k: \"key\", v: val.key";
+                                                        let key_with_opt_null:
+                                                                &[u8] =
+                                                            "key".to_bytes_optional_nul();
+                                                        let value_with_opt_null:
+                                                                &[u8] =
+                                                            val.key.to_bytes_optional_nul();
+                                                        unsafe {
+                                                            mynewt::libs::mynewt_rust::json_helper_set_text_string(COAP_CONTEXT.to_void_ptr(),
+                                                                                                                   COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                                                   COAP_CONTEXT.value_to_cstr(value_with_opt_null))
+                                                        };
+                                                    };
+                                                    {
+                                                        "-- jinte o: COAP_CONTEXT, k: \"value\", v: val";
+                                                        let key_with_opt_null:
+                                                                &[u8] =
+                                                            "value".to_bytes_optional_nul();
+                                                        let value =
+                                                            val as u64;
+                                                        unsafe {
+                                                            mynewt::libs::mynewt_rust::json_helper_set_int(COAP_CONTEXT.to_void_ptr(),
+                                                                                                           COAP_CONTEXT.key_to_cstr(key_with_opt_null),
+                                                                                                           value)
+                                                        };
+                                                    };
+                                                };
+                                                {
+                                                    ">>";
+                                                    let key_with_null: &str =
+                                                        "COAP_CONTEXT\u{0}";
+                                                    unsafe {
+                                                        mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                                    };
+                                                };
+                                                "end json coap_item";
+                                            };
+                                            "end json coap_item_int";
+                                        };
+                                    } else {
+                                        unsafe {
+                                            COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT)
+                                        };
+                                    }
+                                    "end json coap_item_int_val";
+                                };
+                                "--------------------";
+                            };
+                            {
+                                ">>";
+                                let key_with_null: &str = "values\u{0}";
+                                unsafe {
+                                    mynewt::libs::mynewt_rust::json_helper_close_array(COAP_CONTEXT.to_void_ptr(),
+                                                                                       COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                };
+                            };
+                            "end json coap_array";
+                        };
+                    };
+                    unsafe {
+                        mynewt::libs::sensor_coap::json_rep_end_root_object();
+                    }
+                    "end json coap_root";
+                };
+                "end json root";
+                ()
+            };
+        sensor_network::do_server_post()?;
+        console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=");
+        console::print_strn(&device_id);
+        console::print("\n");
+        Ok(())
+    }
+}
+mod app_sensor {
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
     //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
     use mynewt::{result::*, kernel::os,
@@ -288,199 +483,172 @@ mod app_sensor {
         if unsafe { power_standby_wakeup() == 0 } { false } else { true }
     }
 }
-mod app_network {
-    //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
-    //!  The sensor data will be transmitted over NB-IoT.
-    //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-    //!  fixes response parsing bugs.  The patched file must be present in that location.
-    //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/network.c`
-    use mynewt::{result::*, hw::sensor::{SensorValue, SensorValueType},
-                 sys::console, encoding::coap_context::*,
-                 libs::{sensor_network}, coap, d, Strn};
-    use mynewt_macros::strn;
-    /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
-    /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
-    /// Background Task so this function will return without waiting for the message to be transmitted.
-    /// Return `Ok()` if successful, `SYS_EAGAIN` if network is not ready yet.
-    /// For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
-    /// ```json
-    /// {"values":[
-    ///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-    ///   {"key":"t",      "value":1715}
-    /// ]}
-    /// ```
-    pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
-        console::print("Rust send_sensor_data\n");
-        let device_id = sensor_network::get_device_id()?;
-        let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
-        if !rc { return Err(MynewtError::SYS_EAGAIN); }
-        let _payload =
+mod gps_sensor {
+    //!  Poll the GPS sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
+    //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/gps_sensor.c
+    use mynewt::{result::*, kernel::os,
+                 hw::sensor::{self, sensor_ptr, sensor_arg, sensor_data_ptr,
+                              sensor_listener, sensor_geolocation_data,
+                              sensor_type_t, SensorValue, SensorValueType},
+                 sys::console, fill_zero, Strn};
+    use mynewt_macros::{init_strn};
+    use crate::app_network::send_sensor_data;
+    ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
+    static GPS_DEVICE: Strn =
+        Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
+    ///  Poll sensor every 10,000 milliseconds (10 seconds)  
+    const GPS_POLL_TIME: u32 = (10 * 1000);
+    ///  Use key (field name) `geolocation` to transmit GPS geolocation to CoAP Server
+    const GPS_SENSOR_KEY: Strn =
+        Strn{rep: mynewt::StrnRep::ByteStr(b"geolocation\x00"),};
+    ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
+    const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
+    ///  Ask Mynewt to poll the GPS sensor and call `handle_gps_data()`
+    ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
+    pub fn start_gps_listener() -> MynewtResult<()> {
+        console::print("Rust GPS poll\n");
+        let sensor =
+            sensor::mgr_find_next_bydevname(&GPS_DEVICE,
+                                            core::ptr::null_mut())?;
+        if !!sensor.is_null() {
             {
-                "begin json root";
-                {
-                    "begin json coap_root";
-                    unsafe {
-                        mynewt::libs::sensor_network::prepare_post(mynewt::encoding::APPLICATION_JSON)?;
-                    }
-                    unsafe {
-                        mynewt::libs::sensor_coap::json_rep_start_root_object();
-                    }
-                    {
-                        {
-                            "begin json coap_array , object : COAP_CONTEXT , key : values";
-                            {
-                                "<< jarri , o: COAP_CONTEXT, k: values";
-                                let key_with_null: &str = "values\u{0}";
-                                unsafe {
-                                    mynewt::libs::mynewt_rust::json_helper_set_array(COAP_CONTEXT.to_void_ptr(),
-                                                                                     COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()));
-                                };
-                            };
-                            {
-                                " >>  >> \"device\" >> : & device_id , val ,";
-                                "add1 key : \"device\" value : $crate::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
-                                {
-                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json &device_id)";
-                                    {
-                                        "begin json coap_item , array : COAP_CONTEXT";
-                                        {
-                                            "<< jitmi c: COAP_CONTEXT";
-                                            let key_with_null: &str =
-                                                "COAP_CONTEXT\u{0}";
-                                            unsafe {
-                                                mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                            };
-                                        };
-                                        {
-                                            {
-                                                "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
-                                                let key_strn: &Strn =
-                                                    &Strn::new(b"key\x00");
-                                                let value_strn: &Strn =
-                                                    &Strn::new(b"device\x00");
-                                                unsafe {
-                                                    COAP_CONTEXT.json_set_text_string(key_strn,
-                                                                                      value_strn)
-                                                };
-                                            };
-                                            {
-                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json &device_id)";
-                                                let key_strn: &Strn =
-                                                    &Strn::new(b"value\x00");
-                                                let value_strn: &Strn =
-                                                    &device_id;
-                                                unsafe {
-                                                    COAP_CONTEXT.json_set_text_string(key_strn,
-                                                                                      value_strn)
-                                                };
-                                            };
-                                        };
-                                        {
-                                            ">>";
-                                            let key_with_null: &str =
-                                                "COAP_CONTEXT\u{0}";
-                                            unsafe {
-                                                mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                            };
-                                        };
-                                        "end json coap_item";
-                                    };
-                                    "end json coap_item_str";
-                                };
-                                "--------------------";
-                                " >>  >> val >> ,";
-                                "--------------------";
-                                {
-                                    "begin json coap_item_int_val , c : COAP_CONTEXT , val : val";
-                                    if let SensorValueType::Uint(val) =
-                                           val.val {
-                                        {
-                                            "begin json coap_item_int , key : val.key , value : val";
-                                            {
-                                                "begin json coap_item , array : COAP_CONTEXT";
-                                                {
-                                                    "<< jitmi c: COAP_CONTEXT";
-                                                    let key_with_null: &str =
-                                                        "COAP_CONTEXT\u{0}";
-                                                    unsafe {
-                                                        mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                                    };
-                                                };
-                                                {
-                                                    {
-                                                        "-- jtxte o: COAP_CONTEXT, k: \"key\", v: val.key";
-                                                        let key_with_opt_null:
-                                                                &[u8] =
-                                                            "key".to_bytes_optional_nul();
-                                                        let value_with_opt_null:
-                                                                &[u8] =
-                                                            val.key.to_bytes_optional_nul();
-                                                        unsafe {
-                                                            mynewt::libs::mynewt_rust::json_helper_set_text_string(COAP_CONTEXT.to_void_ptr(),
-                                                                                                                   COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                                                   COAP_CONTEXT.value_to_cstr(value_with_opt_null))
-                                                        };
-                                                    };
-                                                    {
-                                                        "-- jinte o: COAP_CONTEXT, k: \"value\", v: val";
-                                                        let key_with_opt_null:
-                                                                &[u8] =
-                                                            "value".to_bytes_optional_nul();
-                                                        let value =
-                                                            val as u64;
-                                                        unsafe {
-                                                            mynewt::libs::mynewt_rust::json_helper_set_int(COAP_CONTEXT.to_void_ptr(),
-                                                                                                           COAP_CONTEXT.key_to_cstr(key_with_opt_null),
-                                                                                                           value)
-                                                        };
-                                                    };
-                                                };
-                                                {
-                                                    ">>";
-                                                    let key_with_null: &str =
-                                                        "COAP_CONTEXT\u{0}";
-                                                    unsafe {
-                                                        mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                                    };
-                                                };
-                                                "end json coap_item";
-                                            };
-                                            "end json coap_item_int";
-                                        };
-                                    } else {
-                                        unsafe {
-                                            COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT)
-                                        };
-                                    }
-                                    "end json coap_item_int_val";
-                                };
-                                "--------------------";
-                            };
-                            {
-                                ">>";
-                                let key_with_null: &str = "values\u{0}";
-                                unsafe {
-                                    mynewt::libs::mynewt_rust::json_helper_close_array(COAP_CONTEXT.to_void_ptr(),
-                                                                                       COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                };
-                            };
-                            "end json coap_array";
-                        };
-                    };
-                    unsafe {
-                        mynewt::libs::sensor_coap::json_rep_end_root_object();
-                    }
-                    "end json coap_root";
-                };
-                "end json root";
-                ()
-            };
-        sensor_network::do_server_post()?;
-        console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=");
-        console::print_strn(&device_id);
-        console::print("\n");
+                ::core::panicking::panic(&("no gps",
+                                           "rust/app/src/gps_sensor.rs",
+                                           54u32, 5u32))
+            }
+        };
+        sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME)?;
+        let listener =
+            sensor_listener{sl_sensor_type: GPS_SENSOR_TYPE,
+                            sl_func:
+                                sensor::as_untyped(handle_gps_data),
+                                                                       ..unsafe
+                                                                         {
+                                                                             ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
+                                                                                                      sensor_listener>([0;
+                                                                                                                           ::core::mem::size_of::<sensor_listener>()])
+                                                                         }};
+        sensor::register_listener(sensor, listener)?;
         Ok(())
     }
+    ///  This listener function is called every 10 seconds by Mynewt to handle the polled GPS data.
+    ///  Return 0 if we have handled the GPS data successfully.
+    extern "C" fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
+                                  sensor_data: sensor_data_ptr,
+                                  sensor_type: sensor_type_t) -> MynewtError {
+        console::print("Rust handle_sensor_data\n");
+        if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }
+        if !!sensor.is_null() {
+            {
+                ::core::panicking::panic(&("null sensor",
+                                           "rust/app/src/gps_sensor.rs",
+                                           81u32, 5u32))
+            }
+        };
+        let sensor_value = convert_gps_data(sensor_data, sensor_type);
+        if let SensorValueType::None = sensor_value.val {
+            if !false {
+                {
+                    ::core::panicking::panic(&("bad type",
+                                               "rust/app/src/gps_sensor.rs",
+                                               85u32, 55u32))
+                }
+            };
+        }
+        if let SensorValueType::Geolocation { latitude, longitude, altitude }
+               = sensor_value.val {
+            console::print("lat: ");
+            console::printdouble(latitude);
+            console::print(", lng: ");
+            console::printdouble(longitude);
+            console::print(", alt: ");
+            console::printfloat(altitude as f32);
+            console::print("\n");
+            console::flush();
+        }
+        aggregate_sensor_data(&sensor_value);
+        MynewtError::SYS_EOK
+    }
+    ///  Convert the geolocation value received from Mynewt into a Geolocation `SensorValue` for transmission. 
+    ///  `sensor_type` indicates the type of data in `sensor_data`.
+    #[allow(non_snake_case, unused_variables)]
+    fn convert_gps_data(sensor_data: sensor_data_ptr,
+                        sensor_type: sensor_type_t) -> SensorValue {
+        console::print("GPS listener got geolocation\n");
+        SensorValue{key: &GPS_SENSOR_KEY,
+                    val:
+                        match sensor_type {
+                            SENSOR_TYPE_GEOLOCATION => {
+                                let mut geolocation =
+                                    unsafe {
+                                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_geolocation_data>()],
+                                                                 sensor_geolocation_data>([0;
+                                                                                              ::core::mem::size_of::<sensor_geolocation_data>()])
+                                    };
+                                let rc =
+                                    unsafe {
+                                        sensor::get_geolocation_data(sensor_data,
+                                                                     &mut geolocation)
+                                    };
+                                {
+                                    match (&(rc), &(0)) {
+                                        (left_val, right_val) => {
+                                            if !(*left_val == *right_val) {
+                                                {
+                                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                                  "`,\n right: `",
+                                                                                                                  "`: "],
+                                                                                                                &match (&&*left_val,
+                                                                                                                        &&*right_val,
+                                                                                                                        &::core::fmt::Arguments::new_v1(&["geodata fail"],
+                                                                                                                                                        &match ()
+                                                                                                                                                             {
+                                                                                                                                                             ()
+                                                                                                                                                             =>
+                                                                                                                                                             [],
+                                                                                                                                                         }))
+                                                                                                                     {
+                                                                                                                     (arg0,
+                                                                                                                      arg1,
+                                                                                                                      arg2)
+                                                                                                                     =>
+                                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                                   ::core::fmt::Debug::fmt),
+                                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                                   ::core::fmt::Display::fmt)],
+                                                                                                                 }),
+                                                                                 &("rust/app/src/gps_sensor.rs",
+                                                                                   115u32,
+                                                                                   17u32))
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+                                if !(geolocation.sgd_latitude_is_valid != 0 &&
+                                         geolocation.sgd_longitude_is_valid !=
+                                             0 &&
+                                         geolocation.sgd_altitude_is_valid !=
+                                             0) {
+                                    {
+                                        ::core::panicking::panic(&("bad geodata",
+                                                                   "rust/app/src/gps_sensor.rs",
+                                                                   117u32,
+                                                                   17u32))
+                                    }
+                                };
+                                SensorValueType::Geolocation{latitude:
+                                                                 geolocation.sgd_latitude,
+                                                             longitude:
+                                                                 geolocation.sgd_longitude,
+                                                             altitude:
+                                                                 geolocation.sgd_altitude,}
+                            }
+                        },}
+    }
+    fn aggregate_sensor_data(sensor_value: &SensorValue) { }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;

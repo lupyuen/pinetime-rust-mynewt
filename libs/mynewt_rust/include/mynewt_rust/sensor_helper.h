@@ -40,6 +40,10 @@ int get_temp_raw_data(void *sensor_data, struct sensor_temp_raw_data *dest);
 ///  Copy the sensor data into `dest`.  Return 0 if successful.
 int get_temp_data(void *sensor_data, struct sensor_temp_data *dest);
 
+///  Interpret `sensor_data` as a `sensor_geolocation_data` struct that contains geolocation.
+///  Copy the sensor data into `dest`.  Return 0 if successful.
+int get_geolocation_data(void *sensor_data, struct sensor_geolocation_data *dest);
+
 ///  Return the Mynewt device for the Mynewt sensor.
 struct os_dev *sensor_get_device(struct sensor *s);
 

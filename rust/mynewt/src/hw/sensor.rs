@@ -209,6 +209,11 @@ extern {
     ///  C API: `int get_temp_data(void *sensor_data, struct sensor_temp_data *dest)`
     pub fn get_temp_data(sensor_data: sensor_data_ptr, dest: *mut sensor_temp_data) -> i32;
 
+    ///  Interpret `sensor_data` as a `sensor_geolocation_data` struct that contains geolocation.
+    ///  Copy the sensor data into `dest`.  Return 0 if successful.
+    ///  C API: `int get_geolocation_data(void *sensor_data, struct sensor_geolocation_data *dest)`
+    pub fn get_geolocation_data(sensor_data: sensor_data_ptr, dest: *mut sensor_geolocation_data) -> i32;
+
     ///  Return the Mynewt device for the Mynewt sensor.
     ///  C API: `struct os_dev *sensor_get_device(struct sensor *s)`
     pub fn sensor_get_device(sensor: sensor_ptr) -> *mut os_dev;
@@ -226,10 +231,12 @@ extern {
     pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
 }
 
-///  Sensor type for raw temperature sensor.
+///  Sensor type for raw temperature sensor and geolocation.
 ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 pub const SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW: sensor_type_t = 
     crate::libs::mynewt_rust::sensor_type_t_SENSOR_TYPE_USER_DEFINED_1;
+pub const SENSOR_TYPE_GEOLOCATION: sensor_type_t =
+    crate::libs::mynewt_rust::sensor_type_t_SENSOR_TYPE_USER_DEFINED_2;
 
 ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
 ///  or float (computed), we use the struct to return both integer and float values.
@@ -264,11 +271,30 @@ pub enum SensorValueType {
 }
 
 ///  Represents a single temperature sensor raw value.
-///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
+///  TODO: Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
 #[repr(C, packed)]  //  Common to C and Rust. Declare as packed because the C struct is packed.
 pub struct sensor_temp_raw_data {   
     ///  Raw temp from STM32 Internal Temp Sensor is 0 to 4095.
     pub strd_temp_raw: u32,          
     ///  1 if data is valid
     pub strd_temp_raw_is_valid: u8,  
+}
+
+///  Represents a GPS Geolocation.
+///  TODO: Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
+#[repr(C, packed)]  //  Common to C and Rust. Declare as packed because the C struct is packed.
+pub struct sensor_geolocation_data {   
+    ///  Latitude (degrees)
+    pub sgd_latitude: f64,
+    ///  Longitude (degrees)
+    pub sgd_longitude: f64,
+    ///  Altitude (metres)
+    pub sgd_altitude: f64,
+
+    ///  1 if latitude is valid
+    pub sgd_latitude_is_valid: u8,
+    ///  1 if longitude is valid
+    pub sgd_longitude_is_valid: u8,
+    ///  1 if altitude is valid
+    pub sgd_altitude_is_valid: u8, 
 }

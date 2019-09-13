@@ -181,11 +181,26 @@ static void split_float(float f, bool *neg, int *i, int *d) {
     *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
 }
 
+static void split_double(double f, bool *neg, int *i, int *d) {
+    //  Split the double f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
+    *neg = (f < 0.0f);                    //  True if f is negative
+    float f_abs = *neg ? -f : f;          //  Absolute value of f
+    *i = (int) f_abs;                     //  Integer part
+    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  6 decimal places
+}
+
 void console_printfloat(float f) {
     //  Write a float to the output buffer, with 2 decimal places.
     bool neg; int i, d;
-    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 2 decimal places
+    split_float(f, &neg, &i, &d);  //  Split the float into neg, integer and decimal parts to 2 decimal places
     console_printf("%s%d.%02d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
+}
+
+void console_printdouble(double f) {
+    //  Write a double to the output buffer, with 6 decimal places.
+    bool neg; int i, d;
+    split_double(f, &neg, &i, &d);  //  Split the double into neg, integer and decimal parts to 6 decimal places
+    console_printf("%s%d.%06d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
 }
 
 void console_dump(const uint8_t *buffer, unsigned int len) {

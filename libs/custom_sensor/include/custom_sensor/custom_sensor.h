@@ -48,7 +48,7 @@ struct sensor_temp_raw_data {
     ///  Raw temp from STM32 Internal Temp Sensor is 0 to 4095
     uint32_t strd_temp_raw;     
     ///  1 if data is valid
-    uint8_t  strd_temp_raw_is_valid:1;  
+    uint8_t  strd_temp_raw_is_valid;  
 } __attribute__((packed));
 
 //  Geolocation
@@ -61,11 +61,11 @@ struct sensor_geolocation_data {
     double sgd_altitude;
 
     ///  1 if latitude is valid
-    uint8_t  sgd_latitude_is_valid:1;  
+    uint8_t  sgd_latitude_is_valid;  
     ///  1 if longitude is valid
-    uint8_t  sgd_longitude_is_valid:1;  
+    uint8_t  sgd_longitude_is_valid;  
     ///  1 if altitude is valid
-    uint8_t  sgd_altitude_is_valid:1;  
+    uint8_t  sgd_altitude_is_valid;  
 } __attribute__((packed));
 
 #ifdef __cplusplus

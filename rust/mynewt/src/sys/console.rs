@@ -24,6 +24,16 @@ pub fn printhex(v: u8) {
     unsafe { console_printhex(v); }
 }
 
+///  Write a float to the output buffer, with 2 decimal places.
+pub fn printfloat(v: f32) {
+    unsafe { console_printfloat(v); }
+}
+
+///  Write a double to the output buffer, with 6 decimal places.
+pub fn printdouble(v: f64) {
+    unsafe { console_printdouble(v); }
+}
+
 ///  Flush the output buffer to the console.
 pub fn flush() {
     unsafe { console_flush(); }
@@ -41,9 +51,13 @@ extern {
     ///  C API: `void console_printhex(uint8_t v)`
     fn console_printhex(v: u8);  
 
-    ///  Write a float to the output buffer, with 1 decimal place.
+    ///  Write a float to the output buffer, with 2 decimal places.
     ///  C API: `void console_printfloat(float f)`
     fn console_printfloat(f: f32);
+
+    ///  Write a double to the output buffer, with 6 decimal places.
+    ///  C API: `void console_printdouble(double d)`
+    fn console_printdouble(d: f64);
 
     ///  Append "length" number of bytes from "buffer" to the output buffer in hex format.
     ///  C API: `void console_dump(const uint8_t *buffer, unsigned int len)`
