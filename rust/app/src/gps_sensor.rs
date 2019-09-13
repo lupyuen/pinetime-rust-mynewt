@@ -73,7 +73,7 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
 ///  Return 0 if we have handled the GPS data successfully.
 extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg, 
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console::print("*** Rust handle_sensor_data\n");
+    console::print("\nInfo: Rust handle_gps_data\n");
 
     //  Check that the GPS geolocation data is available.
     if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if GPS is not ready
@@ -82,13 +82,13 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  Convert the GPS geolocation for transmission.
     let sensor_value = convert_gps_data(sensor_data, sensor_type);
     if let SensorValueType::None = sensor_value.val {
-        console::print("*** GPS not ready\n");
+        console::print("Warn: GPS not ready\n");
         return MynewtError::SYS_EINVAL;   //  Exit if GPS is not ready
     }
 
     //  Show the GPS geolocation.
     if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.val {
-        console::print("*** GPS lat: ");   console::printdouble(latitude);
+        console::print("Info: GPS lat: ");   console::printdouble(latitude);
         console::print(", lng: "); console::printdouble(longitude);
         console::print(", alt: "); console::printfloat(altitude as f32);
         console::print("\n"); console::flush();
@@ -105,7 +105,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
 ///  `sensor_type` indicates the type of data in `sensor_data`.
 #[allow(non_snake_case, unused_variables)]
 fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
-    console::print("GPS listener converting geolocation\n");
+    console::print("Info: GPS listener converting geolocation\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`

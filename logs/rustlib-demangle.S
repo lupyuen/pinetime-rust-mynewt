@@ -1068,8 +1068,8 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.1	0000000e .Lanon.a1ce8d617669cf2f75141f25115b0b98.1
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.10	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.10
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.11	00000001 .Lanon.a1ce8d617669cf2f75141f25115b0b98.11
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.12	00000012 .Lanon.a1ce8d617669cf2f75141f25115b0b98.12
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.13	00000024 .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.12	00000014 .Lanon.a1ce8d617669cf2f75141f25115b0b98.12
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.13	0000002a .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15	0000000c .Lanon.a1ce8d617669cf2f75141f25115b0b98.15
 00000000 l     O .rodata.cst4	00000004 .Lanon.a1ce8d617669cf2f75141f25115b0b98.16
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.20
@@ -1077,9 +1077,9 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.23	00000000 .Lanon.a1ce8d617669cf2f75141f25115b0b98.23
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24	00000010 .Lanon.a1ce8d617669cf2f75141f25115b0b98.24
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.4
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5	0000001c .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5	0000001f .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.7
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.8	0000000d .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.8	0000000f .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.9	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.9
 00000000 l     O .rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E	0000000c app::gps_sensor::GPS_DEVICE
 00000000 l     F .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE	00000144 app::gps_sensor::handle_gps_data
@@ -1368,10 +1368,10 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   18:	f8cd c020 	str.w	ip, [sp, #32]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:76
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console::print("*** Rust handle_sensor_data\n");
+    console::print("\nInfo: Rust handle_sensor_data\n");
   1c:	f240 0000 	movw	r0, #0
   20:	f2c0 0000 	movt	r0, #0
-  24:	211c      	movs	r1, #28
+  24:	211f      	movs	r1, #31
   26:	f8cd e010 	str.w	lr, [sp, #16]
   2a:	9403      	str	r4, [sp, #12]
   2c:	9502      	str	r5, [sp, #8]
@@ -1433,10 +1433,10 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   8a:	d10c      	bne.n	a6 <app::gps_sensor::handle_gps_data+0xa6>
   8c:	e7ff      	b.n	8e <app::gps_sensor::handle_gps_data+0x8e>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:85
-        console::print("*** GPS not ready\n");
+        console::print("Warn: GPS not ready\n");
   8e:	f240 0000 	movw	r0, #0
   92:	f2c0 0000 	movt	r0, #0
-  96:	2112      	movs	r1, #18
+  96:	2114      	movs	r1, #20
   98:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   9c:	e7ff      	b.n	9e <app::gps_sensor::handle_gps_data+0x9e>
   9e:	f06f 0001 	mvn.w	r0, #1
@@ -1457,10 +1457,10 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   be:	ed9d 0b12 	vldr	d0, [sp, #72]	; 0x48
   c2:	ed8d 0b1a 	vstr	d0, [sp, #104]	; 0x68
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:91
-        console::print("*** GPS lat: ");   console::printdouble(latitude);
+        console::print("Info: GPS lat: ");   console::printdouble(latitude);
   c6:	f240 0000 	movw	r0, #0
   ca:	f2c0 0000 	movt	r0, #0
-  ce:	210d      	movs	r1, #13
+  ce:	210f      	movs	r1, #15
   d0:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   d4:	e7ff      	b.n	d6 <app::gps_sensor::handle_gps_data+0xd6>
   d6:	ed9d 0b16 	vldr	d0, [sp, #88]	; 0x58
@@ -1530,10 +1530,10 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
    c:	9315      	str	r3, [sp, #84]	; 0x54
    e:	9214      	str	r2, [sp, #80]	; 0x50
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:108
-    console::print("GPS listener converting geolocation\n");
+    console::print("Info: GPS listener converting geolocation\n");
   10:	f240 0100 	movw	r1, #0
   14:	f2c0 0100 	movt	r1, #0
-  18:	2224      	movs	r2, #36	; 0x24
+  18:	222a      	movs	r2, #42	; 0x2a
   1a:	900b      	str	r0, [sp, #44]	; 0x2c
   1c:	4608      	mov	r0, r1
   1e:	4611      	mov	r1, r2

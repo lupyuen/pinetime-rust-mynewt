@@ -537,7 +537,7 @@ mod gps_sensor {
     extern "C" fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
                                   sensor_data: sensor_data_ptr,
                                   sensor_type: sensor_type_t) -> MynewtError {
-        console::print("*** Rust handle_sensor_data\n");
+        console::print("\nInfo: Rust handle_sensor_data\n");
         if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }
         if !!sensor.is_null() {
             {
@@ -548,12 +548,12 @@ mod gps_sensor {
         };
         let sensor_value = convert_gps_data(sensor_data, sensor_type);
         if let SensorValueType::None = sensor_value.val {
-            console::print("*** GPS not ready\n");
+            console::print("Warn: GPS not ready\n");
             return MynewtError::SYS_EINVAL;
         }
         if let SensorValueType::Geolocation { latitude, longitude, altitude }
                = sensor_value.val {
-            console::print("*** GPS lat: ");
+            console::print("Info: GPS lat: ");
             console::printdouble(latitude);
             console::print(", lng: ");
             console::printdouble(longitude);
@@ -570,7 +570,7 @@ mod gps_sensor {
     #[allow(non_snake_case, unused_variables)]
     fn convert_gps_data(sensor_data: sensor_data_ptr,
                         sensor_type: sensor_type_t) -> SensorValue {
-        console::print("GPS listener converting geolocation\n");
+        console::print("Info: GPS listener converting geolocation\n");
         SensorValue{key: &GPS_SENSOR_KEY,
                     val:
                         match sensor_type {

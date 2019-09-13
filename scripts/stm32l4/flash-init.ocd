@@ -1,8 +1,4 @@
-# This is an OpenOCD script that prepares the STM32 Blue Pill before any flashing.
+# This is an OpenOCD script that prepares the microcontroller before any flashing.
 
 # Disable all openocd messages.
-debug_level 3
-
-# Set flash size to 64 KB instead of default 128 KB
-# echo "Setting flash size to 64 KB..."
-# set FLASH_SIZE 0x10000
+debug_level 0
