@@ -83,6 +83,8 @@ mod app_network {
     //  Start the GPS.
 
     //  Start polling the GPS.
+    //  extern { fn start_gps_listener(); }
+    //  unsafe { start_gps_listener() };
 
     //  Main event loop
     //  Loop forever...
@@ -663,10 +665,7 @@ extern "C" fn main() -> ! {
         fn gps_l70r_start() -> i32;
     }
     unsafe { gps_l70r_start() };
-    extern "C" {
-        fn start_gps_listener();
-    }
-    unsafe { start_gps_listener() };
+    gps_sensor::start_gps_listener().expect("GPS fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

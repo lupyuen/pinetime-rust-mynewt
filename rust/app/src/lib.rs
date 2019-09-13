@@ -71,8 +71,10 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     unsafe { gps_l70r_start() };
 
     //  Start polling the GPS.
-    extern { fn start_gps_listener(); }
-    unsafe { start_gps_listener() };
+    //  extern { fn start_gps_listener(); }
+    //  unsafe { start_gps_listener() };
+    gps_sensor::start_gps_listener()
+        .expect("GPS fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
