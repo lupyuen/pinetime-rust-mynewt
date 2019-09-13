@@ -1070,7 +1070,7 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.23	00000000 .Lanon.a1ce8d617669cf2f75141f25115b0b98.23
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24	00000010 .Lanon.a1ce8d617669cf2f75141f25115b0b98.24
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.4
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5	0000001f .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5	0000001c .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.7
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.8	0000000f .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.9	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.9
@@ -1361,10 +1361,10 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   18:	f8cd c020 	str.w	ip, [sp, #32]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:76
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console::print("\nInfo: Rust handle_sensor_data\n");
+    console::print("\nInfo: Rust handle_gps_data\n");
   1c:	f240 0000 	movw	r0, #0
   20:	f2c0 0000 	movt	r0, #0
-  24:	211f      	movs	r1, #31
+  24:	211c      	movs	r1, #28
   26:	f8cd e010 	str.w	lr, [sp, #16]
   2a:	9403      	str	r4, [sp, #12]
   2c:	9502      	str	r5, [sp, #8]

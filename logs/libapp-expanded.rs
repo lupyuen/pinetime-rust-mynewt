@@ -537,7 +537,7 @@ mod gps_sensor {
     extern "C" fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
                                   sensor_data: sensor_data_ptr,
                                   sensor_type: sensor_type_t) -> MynewtError {
-        console::print("\nInfo: Rust handle_sensor_data\n");
+        console::print("\nInfo: Rust handle_gps_data\n");
         if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }
         if !!sensor.is_null() {
             {
