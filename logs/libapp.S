@@ -588,9 +588,6 @@ app-b90ce02d7e477c3f.4dkwsijwq614g9b5.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 4dkwsijwq614g9b5
 000021fc l       .debug_str	00000000 
-000027d8 l       .debug_str	00000000 
-000027de l       .debug_str	00000000 
-000027e8 l       .debug_str	00000000 
 000027f0 l       .debug_str	00000000 
 000027f6 l       .debug_str	00000000 
 000027fc l       .debug_str	00000000 
@@ -1058,27 +1055,28 @@ SYMBOL TABLE:
 000027c5 l       .debug_str	00000000 
 000027cb l       .debug_str	00000000 
 000027d5 l       .debug_str	00000000 
+000027d8 l       .debug_str	00000000 
+000027de l       .debug_str	00000000 
+000027e8 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.1	0000000e .Lanon.a1ce8d617669cf2f75141f25115b0b98.1
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.10	00000005 .Lanon.a1ce8d617669cf2f75141f25115b0b98.10
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.11	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.11
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.12	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.12
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.13	00000001 .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.14	0000001d .Lanon.a1ce8d617669cf2f75141f25115b0b98.14
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.16	0000000c .Lanon.a1ce8d617669cf2f75141f25115b0b98.16
-00000000 l     O .rodata.cst4	00000004 .Lanon.a1ce8d617669cf2f75141f25115b0b98.17
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.21	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.21
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.23	00000008 .Lanon.a1ce8d617669cf2f75141f25115b0b98.23
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24	00000000 .Lanon.a1ce8d617669cf2f75141f25115b0b98.24
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.25	00000010 .Lanon.a1ce8d617669cf2f75141f25115b0b98.25
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.27	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.27
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.10	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.10
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.11	00000001 .Lanon.a1ce8d617669cf2f75141f25115b0b98.11
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.12	0000000e .Lanon.a1ce8d617669cf2f75141f25115b0b98.12
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.13	00000024 .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15	0000000c .Lanon.a1ce8d617669cf2f75141f25115b0b98.15
+00000000 l     O .rodata.cst4	00000004 .Lanon.a1ce8d617669cf2f75141f25115b0b98.16
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.20
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22	00000008 .Lanon.a1ce8d617669cf2f75141f25115b0b98.22
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.23	00000000 .Lanon.a1ce8d617669cf2f75141f25115b0b98.23
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24	00000010 .Lanon.a1ce8d617669cf2f75141f25115b0b98.24
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.4
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
 00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.7
-00000000 l     O .rodata.cst8	00000008 .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
-00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.9	00000018 .Lanon.a1ce8d617669cf2f75141f25115b0b98.9
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.8	00000005 .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
+00000000 l     O .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.9	00000007 .Lanon.a1ce8d617669cf2f75141f25115b0b98.9
 00000000 l     O .rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E	0000000c _ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E
 00000000 l     F .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE	00000144 _ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE
-00000000 l     F .text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E	00000204 _ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E
+00000000 l     F .text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E	000001fe _ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E
 00000000 l     F .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE	0000000c _ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE
 00000000 l    d  .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E	00000000 .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
 00000000 l    d  .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE	00000000 .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE
@@ -1089,12 +1087,11 @@ SYMBOL TABLE:
 00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.2	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.2
 00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.3	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.3
 00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.6	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.6
-00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15
+00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.14	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.14
+00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.17	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.17
 00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.18	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.18
 00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.19	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.19
-00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20
-00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22
-00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.26	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.26
+00000000 l    d  .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.21	00000000 .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.21
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
@@ -1389,7 +1386,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   48:	f06f 0001 	mvn.w	r0, #1
   4c:	900b      	str	r0, [sp, #44]	; 0x2c
   4e:	e7ff      	b.n	50 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x50>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:102
     //  Aggregate the GPS geolocation with other sensor data before transmitting to server.
     aggregate_sensor_data(&sensor_value);
 
@@ -1423,21 +1420,24 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   80:	f7ff fffe 	bl	0 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE>
   84:	e7ff      	b.n	86 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x86>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:84
-    if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
+    if let SensorValueType::None = sensor_value.val {
   86:	980c      	ldr	r0, [sp, #48]	; 0x30
   88:	2800      	cmp	r0, #0
   8a:	d10c      	bne.n	a6 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0xa6>
   8c:	e7ff      	b.n	8e <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x8e>
-  8e:	2000      	movs	r0, #0
-  90:	2800      	cmp	r0, #0
-  92:	d107      	bne.n	a4 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0xa4>
-  94:	e7ff      	b.n	96 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x96>
-  96:	f240 0000 	movw	r0, #0
-  9a:	f2c0 0000 	movt	r0, #0
-  9e:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  a2:	defe      	udf	#254	; 0xfe
-  a4:	e7ff      	b.n	a6 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:87
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:85
+        console::print("GPS not ready\n");
+  8e:	f240 0000 	movw	r0, #0
+  92:	f2c0 0000 	movt	r0, #0
+  96:	210e      	movs	r1, #14
+  98:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
+  9c:	e7ff      	b.n	9e <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x9e>
+  9e:	f06f 0001 	mvn.w	r0, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:86
+        return MynewtError::SYS_EINVAL;   //  Exit if GPS is not ready
+  a2:	900b      	str	r0, [sp, #44]	; 0x2c
+  a4:	e7d4      	b.n	50 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x50>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:90
     if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.val {
   a6:	980c      	ldr	r0, [sp, #48]	; 0x30
   a8:	2803      	cmp	r0, #3
@@ -1449,7 +1449,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   ba:	ed8d 0b18 	vstr	d0, [sp, #96]	; 0x60
   be:	ed9d 0b12 	vldr	d0, [sp, #72]	; 0x48
   c2:	ed8d 0b1a 	vstr	d0, [sp, #104]	; 0x68
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:88
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:91
         console::print("lat: ");   console::printdouble(latitude);
   c6:	f240 0000 	movw	r0, #0
   ca:	f2c0 0000 	movt	r0, #0
@@ -1459,7 +1459,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   d6:	ed9d 0b16 	vldr	d0, [sp, #88]	; 0x58
   da:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console11printdouble17hd1281c9ee5c89250E>
   de:	e7ff      	b.n	2 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:89
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:92
         console::print(", lng: "); console::printdouble(longitude);
   e0:	f240 0000 	movw	r0, #0
   e4:	f2c0 0000 	movt	r0, #0
@@ -1469,7 +1469,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
   f0:	ed9d 0b18 	vldr	d0, [sp, #96]	; 0x60
   f4:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console11printdouble17hd1281c9ee5c89250E>
   f8:	e7ff      	b.n	2 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:90
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:93
         console::print(", alt: "); console::printfloat(altitude as f32);
   fa:	f240 0000 	movw	r0, #0
   fe:	f2c0 0000 	movt	r0, #0
@@ -1482,7 +1482,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
  116:	ee00 0a10 	vmov	s0, r0
  11a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console10printfloat17hee7bbe9075bdc4a2E>
  11e:	e7ff      	b.n	2 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:91
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:94
         console::print("\n"); console::flush();
  120:	f240 0000 	movw	r0, #0
  124:	f2c0 0000 	movt	r0, #0
@@ -1492,15 +1492,15 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
  130:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17h498d792c115b7281E>
  134:	e7ff      	b.n	136 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x136>
  136:	a80c      	add	r0, sp, #48	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:95
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:98
     aggregate_sensor_data(&sensor_value);
  138:	f7ff fffe 	bl	0 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE>
  13c:	e7ff      	b.n	13e <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x13e>
  13e:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:98
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:101
     MynewtError::SYS_EOK
  140:	900b      	str	r0, [sp, #44]	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:102
 }
  142:	e785      	b.n	50 <_ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE+0x50>
 
@@ -1508,7 +1508,7 @@ Disassembly of section .text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d2
 
 00000000 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E>:
 _ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:104
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:107
 
 ///  Convert the geolocation value received from Mynewt into a Geolocation `SensorValue` for transmission. 
 ///  `sensor_type` indicates the type of data in `sensor_data`.
@@ -1522,11 +1522,11 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
    a:	9113      	str	r1, [sp, #76]	; 0x4c
    c:	9315      	str	r3, [sp, #84]	; 0x54
    e:	9214      	str	r2, [sp, #80]	; 0x50
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:105
-    console::print("GPS listener got geolocation\n");
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:108
+    console::print("GPS listener converting geolocation\n");
   10:	f240 0100 	movw	r1, #0
   14:	f2c0 0100 	movt	r1, #0
-  18:	221d      	movs	r2, #29
+  18:	2224      	movs	r2, #36	; 0x24
   1a:	900b      	str	r0, [sp, #44]	; 0x2c
   1c:	4608      	mov	r0, r1
   1e:	4611      	mov	r1, r2
@@ -1535,7 +1535,7 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
   28:	9408      	str	r4, [sp, #32]
   2a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
   2e:	e7ff      	b.n	30 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x30>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:110
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:113
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`
@@ -1546,7 +1546,7 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
   34:	911f      	str	r1, [sp, #124]	; 0x7c
   36:	901e      	str	r0, [sp, #120]	; 0x78
   38:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:112
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:115
                 //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
                 let mut geolocation = fill_zero!(sensor_geolocation_data);
   3a:	f8cd 00b3 	str.w	r0, [sp, #179]	; 0xb3
@@ -1562,7 +1562,7 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
   50:	f7ff fffe 	bl	0 <__aeabi_memcpy>
   54:	9007      	str	r0, [sp, #28]
   56:	e7ff      	b.n	58 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x58>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:113
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:116
                 let rc = unsafe { sensor::get_geolocation_data(sensor_data, &mut geolocation) };
   58:	9813      	ldr	r0, [sp, #76]	; 0x4c
   5a:	a920      	add	r1, sp, #128	; 0x80
@@ -1570,7 +1570,7 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
   60:	902e      	str	r0, [sp, #184]	; 0xb8
   62:	e7ff      	b.n	64 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x64>
   64:	a82e      	add	r0, sp, #184	; 0xb8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:114
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
                 assert_eq!(rc, 0, "geodata fail");
   66:	902f      	str	r0, [sp, #188]	; 0xbc
   68:	f240 0000 	movw	r0, #0
@@ -1602,16 +1602,15 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
   a8:	2201      	movs	r2, #1
   aa:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117hc2d8281224709357E>
   ae:	e004      	b.n	ba <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0xba>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
                 //  Check that the geolocation data is valid.
-                assert!(
-                    geolocation.sgd_latitude_is_valid  != 0 &&
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
   b0:	f89d 0098 	ldrb.w	r0, [sp, #152]	; 0x98
   b4:	2800      	cmp	r0, #0
   b6:	d165      	bne.n	184 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x184>
   b8:	e060      	b.n	17c <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x17c>
   ba:	a842      	add	r0, sp, #264	; 0x108
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:114
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
                 assert_eq!(rc, 0, "geodata fail");
   bc:	903f      	str	r0, [sp, #252]	; 0xfc
   be:	a843      	add	r0, sp, #268	; 0x10c
@@ -1673,41 +1672,37 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
  152:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
  156:	defe      	udf	#254	; 0xfe
  158:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
-                    geolocation.sgd_latitude_is_valid  != 0 &&
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
  15a:	f88d 0136 	strb.w	r0, [sp, #310]	; 0x136
  15e:	e007      	b.n	170 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x170>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:121
                     geolocation.sgd_longitude_is_valid != 0 &&
-                    geolocation.sgd_altitude_is_valid  != 0, 
+                    geolocation.sgd_altitude_is_valid  != 0 {
  160:	f89d 009a 	ldrb.w	r0, [sp, #154]	; 0x9a
  164:	2800      	cmp	r0, #0
  166:	bf18      	it	ne
  168:	2001      	movne	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
-                    geolocation.sgd_latitude_is_valid  != 0 &&
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
  16a:	f88d 0136 	strb.w	r0, [sp, #310]	; 0x136
  16e:	e7ff      	b.n	170 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x170>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:116
-                assert!(
  170:	f89d 0136 	ldrb.w	r0, [sp, #310]	; 0x136
  174:	07c0      	lsls	r0, r0, #31
  176:	2800      	cmp	r0, #0
- 178:	d012      	beq.n	1a0 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x1a0>
- 17a:	e018      	b.n	1ae <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x1ae>
+ 178:	d112      	bne.n	1a0 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x1a0>
+ 17a:	e02c      	b.n	1d6 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x1d6>
  17c:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
-                    geolocation.sgd_latitude_is_valid  != 0 &&
  17e:	f88d 0137 	strb.w	r0, [sp, #311]	; 0x137
  182:	e007      	b.n	194 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x194>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:120
                     geolocation.sgd_longitude_is_valid != 0 &&
  184:	f89d 0099 	ldrb.w	r0, [sp, #153]	; 0x99
  188:	2800      	cmp	r0, #0
  18a:	bf18      	it	ne
  18c:	2001      	movne	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:117
-                    geolocation.sgd_latitude_is_valid  != 0 &&
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
  18e:	f88d 0137 	strb.w	r0, [sp, #311]	; 0x137
  192:	e7ff      	b.n	194 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x194>
  194:	f89d 0137 	ldrb.w	r0, [sp, #311]	; 0x137
@@ -1715,80 +1710,86 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
  19a:	2800      	cmp	r0, #0
  19c:	d1e0      	bne.n	160 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x160>
  19e:	e7db      	b.n	158 <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x158>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:116
-                assert!(
- 1a0:	f240 0000 	movw	r0, #0
- 1a4:	f2c0 0000 	movt	r0, #0
- 1a8:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
- 1ac:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:123
-                    "bad geodata");                
-                //  Geolocation data is valid.  Return it.
-                SensorValueType::Geolocation {
-                    latitude:  geolocation.sgd_latitude,
- 1ae:	9820      	ldr	r0, [sp, #128]	; 0x80
- 1b0:	9921      	ldr	r1, [sp, #132]	; 0x84
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:124
-                    longitude: geolocation.sgd_longitude,
- 1b2:	9a22      	ldr	r2, [sp, #136]	; 0x88
- 1b4:	9b23      	ldr	r3, [sp, #140]	; 0x8c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:123
-                    latitude:  geolocation.sgd_latitude,
- 1b6:	910d      	str	r1, [sp, #52]	; 0x34
- 1b8:	900c      	str	r0, [sp, #48]	; 0x30
- 1ba:	ed9d 0b0c 	vldr	d0, [sp, #48]	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:124
-                    longitude: geolocation.sgd_longitude,
- 1be:	930f      	str	r3, [sp, #60]	; 0x3c
- 1c0:	920e      	str	r2, [sp, #56]	; 0x38
- 1c2:	ed9d 1b0e 	vldr	d1, [sp, #56]	; 0x38
+                    //  Geolocation data is valid.  Return it.
+                    SensorValueType::Geolocation {
+                        latitude:  geolocation.sgd_latitude,
+ 1a0:	9820      	ldr	r0, [sp, #128]	; 0x80
+ 1a2:	9921      	ldr	r1, [sp, #132]	; 0x84
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:125
-                    altitude:  geolocation.sgd_altitude,
- 1c6:	9825      	ldr	r0, [sp, #148]	; 0x94
- 1c8:	9011      	str	r0, [sp, #68]	; 0x44
- 1ca:	9824      	ldr	r0, [sp, #144]	; 0x90
- 1cc:	9010      	str	r0, [sp, #64]	; 0x40
- 1ce:	ed9d 2b10 	vldr	d2, [sp, #64]	; 0x40
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:122
-                SensorValueType::Geolocation {
- 1d2:	ed8d 0b18 	vstr	d0, [sp, #96]	; 0x60
- 1d6:	ed8d 1b1a 	vstr	d1, [sp, #104]	; 0x68
- 1da:	ed8d 2b1c 	vstr	d2, [sp, #112]	; 0x70
- 1de:	2003      	movs	r0, #3
- 1e0:	9016      	str	r0, [sp, #88]	; 0x58
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:107
+                        longitude: geolocation.sgd_longitude,
+ 1a4:	9a22      	ldr	r2, [sp, #136]	; 0x88
+ 1a6:	9b23      	ldr	r3, [sp, #140]	; 0x8c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:124
+                        latitude:  geolocation.sgd_latitude,
+ 1a8:	910d      	str	r1, [sp, #52]	; 0x34
+ 1aa:	900c      	str	r0, [sp, #48]	; 0x30
+ 1ac:	ed9d 0b0c 	vldr	d0, [sp, #48]	; 0x30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:125
+                        longitude: geolocation.sgd_longitude,
+ 1b0:	930f      	str	r3, [sp, #60]	; 0x3c
+ 1b2:	920e      	str	r2, [sp, #56]	; 0x38
+ 1b4:	ed9d 1b0e 	vldr	d1, [sp, #56]	; 0x38
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:126
+                        altitude:  geolocation.sgd_altitude,
+ 1b8:	9825      	ldr	r0, [sp, #148]	; 0x94
+ 1ba:	9011      	str	r0, [sp, #68]	; 0x44
+ 1bc:	9824      	ldr	r0, [sp, #144]	; 0x90
+ 1be:	9010      	str	r0, [sp, #64]	; 0x40
+ 1c0:	ed9d 2b10 	vldr	d2, [sp, #64]	; 0x40
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:123
+                    SensorValueType::Geolocation {
+ 1c4:	ed8d 0b18 	vstr	d0, [sp, #96]	; 0x60
+ 1c8:	ed8d 1b1a 	vstr	d1, [sp, #104]	; 0x68
+ 1cc:	ed8d 2b1c 	vstr	d2, [sp, #112]	; 0x70
+ 1d0:	2003      	movs	r0, #3
+ 1d2:	9016      	str	r0, [sp, #88]	; 0x58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
+ 1d4:	e002      	b.n	1dc <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x1dc>
+ 1d6:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:130
+                    }
+                } else {
+                    //  Geolocation data is invalid.  Maybe GPS is not ready.
+                    SensorValueType::None
+ 1d8:	9016      	str	r0, [sp, #88]	; 0x58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:119
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
+ 1da:	e7ff      	b.n	1dc <_ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E+0x1dc>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:110
     SensorValue {
- 1e2:	f240 0000 	movw	r0, #0
- 1e6:	f2c0 0000 	movt	r0, #0
- 1ea:	990b      	ldr	r1, [sp, #44]	; 0x2c
- 1ec:	6208      	str	r0, [r1, #32]
- 1ee:	a816      	add	r0, sp, #88	; 0x58
- 1f0:	e8b0 500c 	ldmia.w	r0!, {r2, r3, ip, lr}
- 1f4:	e8a1 500c 	stmia.w	r1!, {r2, r3, ip, lr}
- 1f8:	e890 500c 	ldmia.w	r0, {r2, r3, ip, lr}
- 1fc:	e881 500c 	stmia.w	r1, {r2, r3, ip, lr}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:132
+ 1dc:	f240 0000 	movw	r0, #0
+ 1e0:	f2c0 0000 	movt	r0, #0
+ 1e4:	990b      	ldr	r1, [sp, #44]	; 0x2c
+ 1e6:	6208      	str	r0, [r1, #32]
+ 1e8:	a816      	add	r0, sp, #88	; 0x58
+ 1ea:	e8b0 500c 	ldmia.w	r0!, {r2, r3, ip, lr}
+ 1ee:	e8a1 500c 	stmia.w	r1!, {r2, r3, ip, lr}
+ 1f2:	e890 500c 	ldmia.w	r0, {r2, r3, ip, lr}
+ 1f6:	e881 500c 	stmia.w	r1, {r2, r3, ip, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:137
             }
             //  Unknown type of sensor value
             //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
         }
     }
 }
- 200:	b04e      	add	sp, #312	; 0x138
- 202:	bdb0      	pop	{r4, r5, r7, pc}
+ 1fa:	b04e      	add	sp, #312	; 0x138
+ 1fc:	bdb0      	pop	{r4, r5, r7, pc}
 
 Disassembly of section .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE:
 
 00000000 <_ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE>:
 _ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:135
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:140
 
 ///  Aggregate the sensor value with other sensor data before transmitting to server.
 fn aggregate_sensor_data(_sensor_value: &SensorValue) {
    0:	b082      	sub	sp, #8
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:136
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:141
    6:	9100      	str	r1, [sp, #0]
    8:	b002      	add	sp, #8
    a:	4770      	bx	lr

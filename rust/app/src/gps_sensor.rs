@@ -81,7 +81,10 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
 
     //  Convert the GPS geolocation for transmission.
     let sensor_value = convert_gps_data(sensor_data, sensor_type);
-    if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
+    if let SensorValueType::None = sensor_value.val {
+        console::print("GPS not ready\n");
+        return MynewtError::SYS_EINVAL;   //  Exit if GPS is not ready
+    }
 
     //  Show the GPS geolocation.
     if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.val {
@@ -102,7 +105,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
 ///  `sensor_type` indicates the type of data in `sensor_data`.
 #[allow(non_snake_case, unused_variables)]
 fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
-    console::print("GPS listener got geolocation\n");
+    console::print("GPS listener converting geolocation\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`
@@ -113,17 +116,19 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
                 let rc = unsafe { sensor::get_geolocation_data(sensor_data, &mut geolocation) };
                 assert_eq!(rc, 0, "geodata fail");
                 //  Check that the geolocation data is valid.
-                assert!(
-                    geolocation.sgd_latitude_is_valid  != 0 &&
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
                     geolocation.sgd_longitude_is_valid != 0 &&
-                    geolocation.sgd_altitude_is_valid  != 0, 
-                    "bad geodata");                
-                //  Geolocation data is valid.  Return it.
-                SensorValueType::Geolocation {
-                    latitude:  geolocation.sgd_latitude,
-                    longitude: geolocation.sgd_longitude,
-                    altitude:  geolocation.sgd_altitude,
-                }
+                    geolocation.sgd_altitude_is_valid  != 0 {
+                    //  Geolocation data is valid.  Return it.
+                    SensorValueType::Geolocation {
+                        latitude:  geolocation.sgd_latitude,
+                        longitude: geolocation.sgd_longitude,
+                        altitude:  geolocation.sgd_altitude,
+                    }
+                } else {
+                    //  Geolocation data is invalid.  Maybe GPS is not ready.
+                    SensorValueType::None
+                }                    
             }
             //  Unknown type of sensor value
             //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }

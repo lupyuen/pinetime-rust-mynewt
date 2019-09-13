@@ -548,13 +548,8 @@ mod gps_sensor {
         };
         let sensor_value = convert_gps_data(sensor_data, sensor_type);
         if let SensorValueType::None = sensor_value.val {
-            if !false {
-                {
-                    ::core::panicking::panic(&("bad type",
-                                               "rust/app/src/gps_sensor.rs",
-                                               84u32, 55u32))
-                }
-            };
+            console::print("GPS not ready\n");
+            return MynewtError::SYS_EINVAL;
         }
         if let SensorValueType::Geolocation { latitude, longitude, altitude }
                = sensor_value.val {
@@ -575,7 +570,7 @@ mod gps_sensor {
     #[allow(non_snake_case, unused_variables)]
     fn convert_gps_data(sensor_data: sensor_data_ptr,
                         sensor_type: sensor_type_t) -> SensorValue {
-        console::print("GPS listener got geolocation\n");
+        console::print("GPS listener converting geolocation\n");
         SensorValue{key: &GPS_SENSOR_KEY,
                     val:
                         match sensor_type {
@@ -621,31 +616,25 @@ mod gps_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/gps_sensor.rs",
-                                                                                   114u32,
+                                                                                   117u32,
                                                                                    17u32))
                                                 }
                                             }
                                         }
                                     }
                                 };
-                                if !(geolocation.sgd_latitude_is_valid != 0 &&
-                                         geolocation.sgd_longitude_is_valid !=
-                                             0 &&
-                                         geolocation.sgd_altitude_is_valid !=
-                                             0) {
-                                    {
-                                        ::core::panicking::panic(&("bad geodata",
-                                                                   "rust/app/src/gps_sensor.rs",
-                                                                   116u32,
-                                                                   17u32))
-                                    }
-                                };
-                                SensorValueType::Geolocation{latitude:
-                                                                 geolocation.sgd_latitude,
-                                                             longitude:
-                                                                 geolocation.sgd_longitude,
-                                                             altitude:
-                                                                 geolocation.sgd_altitude,}
+                                if geolocation.sgd_latitude_is_valid != 0 &&
+                                       geolocation.sgd_longitude_is_valid != 0
+                                       &&
+                                       geolocation.sgd_altitude_is_valid != 0
+                                   {
+                                    SensorValueType::Geolocation{latitude:
+                                                                     geolocation.sgd_latitude,
+                                                                 longitude:
+                                                                     geolocation.sgd_longitude,
+                                                                 altitude:
+                                                                     geolocation.sgd_altitude,}
+                                } else { SensorValueType::None }
                             }
                         },}
     }
