@@ -1649,7 +1649,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          50384 (bytes into file)
+  Start of section headers:          50404 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -1661,74 +1661,74 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 00b694 000e3a 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 00b6a8 000e3a 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E PROGBITS        00000000 000034 00018c 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E REL             00000000 009acc 0000e0 08     68   3  4
+  [ 4] .rel.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E REL             00000000 009ae0 0000e0 08     68   3  4
   [ 5] .ARM.exidx.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E ARM_EXIDX       00000000 0001c0 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E REL             00000000 009bac 000008 08     68   5  4
+  [ 6] .rel.ARM.exidx.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E REL             00000000 009bc0 000008 08     68   5  4
   [ 7] .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE PROGBITS        00000000 0001c8 000144 00  AX  0   0  2
-  [ 8] .rel.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE REL             00000000 009bb4 0000f0 08     68   7  4
+  [ 8] .rel.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE REL             00000000 009bc8 0000f0 08     68   7  4
   [ 9] .ARM.exidx.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE ARM_EXIDX       00000000 00030c 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE REL             00000000 009ca4 000008 08     68   9  4
+  [10] .rel.ARM.exidx.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE REL             00000000 009cb8 000008 08     68   9  4
   [11] .text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E PROGBITS        00000000 000314 0001fe 00  AX  0   0  2
-  [12] .rel.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E REL             00000000 009cac 0000e8 08     68  11  4
+  [12] .rel.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E REL             00000000 009cc0 0000e8 08     68  11  4
   [13] .ARM.exidx.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E ARM_EXIDX       00000000 000514 000008 00  AL 11   0  4
-  [14] .rel.ARM.exidx.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E REL             00000000 009d94 000008 08     68  13  4
+  [14] .rel.ARM.exidx.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E REL             00000000 009da8 000008 08     68  13  4
   [15] .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE PROGBITS        00000000 00051c 00000c 00  AX  0   0  2
   [16] .ARM.exidx.text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE ARM_EXIDX       00000000 000528 000008 00  AL 15   0  4
-  [17] .rel.ARM.exidx.text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE REL             00000000 009d9c 000008 08     68  16  4
+  [17] .rel.ARM.exidx.text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE REL             00000000 009db0 000008 08     68  16  4
   [18] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.0 PROGBITS        00000000 000530 00000b 00   A  0   0  1
   [19] .rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E PROGBITS        00000000 00053c 00000c 00   A  0   0  4
-  [20] .rel.rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E REL             00000000 009da4 000008 08     68  19  4
+  [20] .rel.rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E REL             00000000 009db8 000008 08     68  19  4
   [21] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.1 PROGBITS        00000000 000548 00000e 00   A  0   0  1
   [22] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.2 PROGBITS        00000000 000556 000006 00   A  0   0  1
   [23] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.3 PROGBITS        00000000 00055c 00001a 00   A  0   0  1
   [24] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4 PROGBITS        00000000 000578 000018 00   A  0   0  4
-  [25] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4 REL             00000000 009dac 000010 08     68  24  4
-  [26] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5 PROGBITS        00000000 000590 000018 00   A  0   0  1
-  [27] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.6 PROGBITS        00000000 0005a8 00000b 00   A  0   0  1
-  [28] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7 PROGBITS        00000000 0005b4 000018 00   A  0   0  4
-  [29] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7 REL             00000000 009dbc 000010 08     68  28  4
-  [30] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.8 PROGBITS        00000000 0005cc 000005 00   A  0   0  1
-  [31] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.9 PROGBITS        00000000 0005d1 000007 00   A  0   0  1
-  [32] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.10 PROGBITS        00000000 0005d8 000007 00   A  0   0  1
-  [33] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.11 PROGBITS        00000000 0005df 000001 00   A  0   0  1
-  [34] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.12 PROGBITS        00000000 0005e0 00000e 00   A  0   0  1
-  [35] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.13 PROGBITS        00000000 0005ee 000024 00   A  0   0  1
-  [36] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.14 PROGBITS        00000000 000612 00000c 00   A  0   0  1
-  [37] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15 PROGBITS        00000000 000620 00000c 00   A  0   0  4
-  [38] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15 REL             00000000 009dcc 000008 08     68  37  4
-  [39] .rodata.cst4      PROGBITS        00000000 00062c 000004 04  AM  0   0  4
-  [40] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.17 PROGBITS        00000000 000630 00002d 00   A  0   0  1
-  [41] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.18 PROGBITS        00000000 00065d 00000c 00   A  0   0  1
-  [42] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.19 PROGBITS        00000000 000669 000003 00   A  0   0  1
-  [43] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20 PROGBITS        00000000 00066c 000018 00   A  0   0  4
-  [44] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20 REL             00000000 009dd4 000018 08     68  43  4
-  [45] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.21 PROGBITS        00000000 000684 00000c 00   A  0   0  1
-  [46] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22 PROGBITS        00000000 000690 000008 00   A  0   0  4
-  [47] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22 REL             00000000 009dec 000008 08     68  46  4
-  [48] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.23 PROGBITS        00000000 000698 000000 00   A  0   0  4
-  [49] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24 PROGBITS        00000000 000698 000010 00   A  0   0  4
-  [50] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24 REL             00000000 009df4 000008 08     68  49  4
-  [51] .debug_str        PROGBITS        00000000 0006a8 002ab1 01  MS  0   0  1
-  [52] .debug_abbrev     PROGBITS        00000000 003159 00015d 00      0   0  1
-  [53] .debug_info       PROGBITS        00000000 0032b6 001f9d 00      0   0  1
-  [54] .rel.debug_info   REL             00000000 009dfc 001738 08     68  53  4
-  [55] .debug_ranges     PROGBITS        00000000 005253 0000a8 00      0   0  1
-  [56] .rel.debug_ranges REL             00000000 00b534 0000f0 08     68  55  4
-  [57] .debug_macinfo    PROGBITS        00000000 0052fb 000001 00      0   0  1
-  [58] .debug_pubnames   PROGBITS        00000000 0052fc 000135 00      0   0  1
-  [59] .rel.debug_pubnames REL             00000000 00b624 000008 08     68  58  4
-  [60] .debug_pubtypes   PROGBITS        00000000 005431 0021c7 00      0   0  1
-  [61] .rel.debug_pubtypes REL             00000000 00b62c 000008 08     68  60  4
-  [62] .note.GNU-stack   PROGBITS        00000000 0075f8 000000 00      0   0  1
-  [63] .ARM.attributes   ARM_ATTRIBUTES  00000000 0075f8 00003a 00      0   0  1
-  [64] .debug_frame      PROGBITS        00000000 007634 00008c 00      0   0  4
-  [65] .rel.debug_frame  REL             00000000 00b634 000040 08     68  64  4
-  [66] .debug_line       PROGBITS        00000000 0076c0 00022a 00      0   0  1
-  [67] .rel.debug_line   REL             00000000 00b674 000020 08     68  66  4
-  [68] .symtab           SYMTAB          00000000 0078ec 0021e0 10      1 516  4
+  [25] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4 REL             00000000 009dc0 000010 08     68  24  4
+  [26] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.5 PROGBITS        00000000 000590 00001c 00   A  0   0  1
+  [27] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.6 PROGBITS        00000000 0005ac 00000b 00   A  0   0  1
+  [28] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7 PROGBITS        00000000 0005b8 000018 00   A  0   0  4
+  [29] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7 REL             00000000 009dd0 000010 08     68  28  4
+  [30] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.8 PROGBITS        00000000 0005d0 00000d 00   A  0   0  1
+  [31] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.9 PROGBITS        00000000 0005dd 000007 00   A  0   0  1
+  [32] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.10 PROGBITS        00000000 0005e4 000007 00   A  0   0  1
+  [33] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.11 PROGBITS        00000000 0005eb 000001 00   A  0   0  1
+  [34] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.12 PROGBITS        00000000 0005ec 000012 00   A  0   0  1
+  [35] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.13 PROGBITS        00000000 0005fe 000024 00   A  0   0  1
+  [36] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.14 PROGBITS        00000000 000622 00000c 00   A  0   0  1
+  [37] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15 PROGBITS        00000000 000630 00000c 00   A  0   0  4
+  [38] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15 REL             00000000 009de0 000008 08     68  37  4
+  [39] .rodata.cst4      PROGBITS        00000000 00063c 000004 04  AM  0   0  4
+  [40] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.17 PROGBITS        00000000 000640 00002d 00   A  0   0  1
+  [41] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.18 PROGBITS        00000000 00066d 00000c 00   A  0   0  1
+  [42] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.19 PROGBITS        00000000 000679 000003 00   A  0   0  1
+  [43] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20 PROGBITS        00000000 00067c 000018 00   A  0   0  4
+  [44] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20 REL             00000000 009de8 000018 08     68  43  4
+  [45] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.21 PROGBITS        00000000 000694 00000c 00   A  0   0  1
+  [46] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22 PROGBITS        00000000 0006a0 000008 00   A  0   0  4
+  [47] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22 REL             00000000 009e00 000008 08     68  46  4
+  [48] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.23 PROGBITS        00000000 0006a8 000000 00   A  0   0  4
+  [49] .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24 PROGBITS        00000000 0006a8 000010 00   A  0   0  4
+  [50] .rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24 REL             00000000 009e08 000008 08     68  49  4
+  [51] .debug_str        PROGBITS        00000000 0006b8 002ab1 01  MS  0   0  1
+  [52] .debug_abbrev     PROGBITS        00000000 003169 00015d 00      0   0  1
+  [53] .debug_info       PROGBITS        00000000 0032c6 001f9d 00      0   0  1
+  [54] .rel.debug_info   REL             00000000 009e10 001738 08     68  53  4
+  [55] .debug_ranges     PROGBITS        00000000 005263 0000a8 00      0   0  1
+  [56] .rel.debug_ranges REL             00000000 00b548 0000f0 08     68  55  4
+  [57] .debug_macinfo    PROGBITS        00000000 00530b 000001 00      0   0  1
+  [58] .debug_pubnames   PROGBITS        00000000 00530c 000135 00      0   0  1
+  [59] .rel.debug_pubnames REL             00000000 00b638 000008 08     68  58  4
+  [60] .debug_pubtypes   PROGBITS        00000000 005441 0021c7 00      0   0  1
+  [61] .rel.debug_pubtypes REL             00000000 00b640 000008 08     68  60  4
+  [62] .note.GNU-stack   PROGBITS        00000000 007608 000000 00      0   0  1
+  [63] .ARM.attributes   ARM_ATTRIBUTES  00000000 007608 00003a 00      0   0  1
+  [64] .debug_frame      PROGBITS        00000000 007644 00008c 00      0   0  4
+  [65] .rel.debug_frame  REL             00000000 00b648 000040 08     68  64  4
+  [66] .debug_line       PROGBITS        00000000 0076d0 00022d 00      0   0  1
+  [67] .rel.debug_line   REL             00000000 00b688 000020 08     68  66  4
+  [68] .symtab           SYMTAB          00000000 007900 0021e0 10      1 516  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -1741,7 +1741,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E' at offset 0x9acc contains 28 entries:
+Relocation section '.rel.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E' at offset 0x9ae0 contains 28 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  0001dd2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.1
 00000008  0001dd30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.1
@@ -1772,11 +1772,11 @@ Relocation section '.rel.text._ZN3app10gps_sensor18start_gps_listener17h506d2223
 0000016e  00020e0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E
 00000178  0002180a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E' at offset 0x9bac contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E' at offset 0x9bc0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f12a R_ARM_PREL31           00000000   .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
 
-Relocation section '.rel.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE' at offset 0x9bb4 contains 30 entries:
+Relocation section '.rel.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE' at offset 0x9bc8 contains 30 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000001c  0001e92f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
 00000020  0001e930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
@@ -1809,11 +1809,11 @@ Relocation section '.rel.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f12
 00000130  0002160a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17h498d792c115b7281E
 00000138  0001f00a R_ARM_THM_CALL         00000001   _ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE' at offset 0x9ca4 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE' at offset 0x9cb8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f22a R_ARM_PREL31           00000000   .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE
 
-Relocation section '.rel.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E' at offset 0x9cac contains 29 entries:
+Relocation section '.rel.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E' at offset 0x9cc0 contains 29 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000010  0001e12f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
 00000014  0001e130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
@@ -1845,47 +1845,47 @@ Relocation section '.rel.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d
 000001dc  0001e22f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.15
 000001e0  0001e230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.a1ce8d617669cf2f75141f25115b0b98.15
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E' at offset 0x9d94 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E' at offset 0x9da8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f32a R_ARM_PREL31           00000000   .text._ZN3app10gps_sensor16convert_gps_data17hae43ba4a7d24dcd1E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE' at offset 0x9d9c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE' at offset 0x9db0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f42a R_ARM_PREL31           00000000   .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE
 
-Relocation section '.rel.rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E' at offset 0x9da4 contains 1 entry:
+Relocation section '.rel.rodata._ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E' at offset 0x9db8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  0001f502 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.0
 
-Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4' at offset 0x9dac contains 2 entries:
+Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.4' at offset 0x9dc0 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f702 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.2
 00000008  0001f802 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.3
 
-Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7' at offset 0x9dbc contains 2 entries:
+Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.7' at offset 0x9dd0 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f902 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.6
 00000008  0001f802 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.3
 
-Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15' at offset 0x9dcc contains 1 entry:
+Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.15' at offset 0x9de0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  0001fa02 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.14
 
-Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20' at offset 0x9dd4 contains 3 entries:
+Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.20' at offset 0x9de8 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001fb02 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.17
 00000008  0001fc02 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.18
 00000010  0001fd02 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.19
 
-Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22' at offset 0x9dec contains 1 entry:
+Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.22' at offset 0x9e00 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001fe02 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.21
 
-Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24' at offset 0x9df4 contains 1 entry:
+Relocation section '.rel.rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.24' at offset 0x9e08 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f802 R_ARM_ABS32            00000000   .rodata..Lanon.a1ce8d617669cf2f75141f25115b0b98.3
 
-Relocation section '.rel.debug_info' at offset 0x9dfc contains 743 entries:
+Relocation section '.rel.debug_info' at offset 0x9e10 contains 743 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  0001ff02 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00002e02 R_ARM_ABS32            00000000   
@@ -2631,7 +2631,7 @@ Relocation section '.rel.debug_info' at offset 0x9dfc contains 743 entries:
 00001f8f  00002102 R_ARM_ABS32            00002948   
 00001f98  00002d02 R_ARM_ABS32            00002a90   
 
-Relocation section '.rel.debug_ranges' at offset 0xb534 contains 30 entries:
+Relocation section '.rel.debug_ranges' at offset 0xb548 contains 30 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001f102 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
 00000004  0001f102 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
@@ -2664,15 +2664,15 @@ Relocation section '.rel.debug_ranges' at offset 0xb534 contains 30 entries:
 00000098  0001f402 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE
 0000009c  0001f402 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE
 
-Relocation section '.rel.debug_pubnames' at offset 0xb624 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0xb638 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00020002 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0xb62c contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0xb640 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00020002 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0xb634 contains 8 entries:
+Relocation section '.rel.debug_frame' at offset 0xb648 contains 8 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00020202 R_ARM_ABS32            00000000   .debug_frame
 0000001c  0001f102 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
@@ -2683,7 +2683,7 @@ Relocation section '.rel.debug_frame' at offset 0xb634 contains 8 entries:
 0000007c  00020202 R_ARM_ABS32            00000000   .debug_frame
 00000080  0001f402 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor21aggregate_sensor_data17hcbf3c58e0189f44dE
 
-Relocation section '.rel.debug_line' at offset 0xb674 contains 4 entries:
+Relocation section '.rel.debug_line' at offset 0xb688 contains 4 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000049  0001f102 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
 000000db  0001f202 R_ARM_ABS32            00000000   .text._ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE
@@ -3192,7 +3192,7 @@ Symbol table '.symtab' contains 542 entries:
    477: 00000000    14 OBJECT  LOCAL  DEFAULT   21 .Lanon.a1ce8d617669cf2f75141f25115b0b98.1
    478: 00000000     7 OBJECT  LOCAL  DEFAULT   32 .Lanon.a1ce8d617669cf2f75141f25115b0b98.10
    479: 00000000     1 OBJECT  LOCAL  DEFAULT   33 .Lanon.a1ce8d617669cf2f75141f25115b0b98.11
-   480: 00000000    14 OBJECT  LOCAL  DEFAULT   34 .Lanon.a1ce8d617669cf2f75141f25115b0b98.12
+   480: 00000000    18 OBJECT  LOCAL  DEFAULT   34 .Lanon.a1ce8d617669cf2f75141f25115b0b98.12
    481: 00000000    36 OBJECT  LOCAL  DEFAULT   35 .Lanon.a1ce8d617669cf2f75141f25115b0b98.13
    482: 00000000    12 OBJECT  LOCAL  DEFAULT   37 .Lanon.a1ce8d617669cf2f75141f25115b0b98.15
    483: 00000000     4 OBJECT  LOCAL  DEFAULT   39 .Lanon.a1ce8d617669cf2f75141f25115b0b98.16
@@ -3201,9 +3201,9 @@ Symbol table '.symtab' contains 542 entries:
    486: 00000000     0 OBJECT  LOCAL  DEFAULT   48 .Lanon.a1ce8d617669cf2f75141f25115b0b98.23
    487: 00000000    16 OBJECT  LOCAL  DEFAULT   49 .Lanon.a1ce8d617669cf2f75141f25115b0b98.24
    488: 00000000    24 OBJECT  LOCAL  DEFAULT   24 .Lanon.a1ce8d617669cf2f75141f25115b0b98.4
-   489: 00000000    24 OBJECT  LOCAL  DEFAULT   26 .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
+   489: 00000000    28 OBJECT  LOCAL  DEFAULT   26 .Lanon.a1ce8d617669cf2f75141f25115b0b98.5
    490: 00000000    24 OBJECT  LOCAL  DEFAULT   28 .Lanon.a1ce8d617669cf2f75141f25115b0b98.7
-   491: 00000000     5 OBJECT  LOCAL  DEFAULT   30 .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
+   491: 00000000    13 OBJECT  LOCAL  DEFAULT   30 .Lanon.a1ce8d617669cf2f75141f25115b0b98.8
    492: 00000000     7 OBJECT  LOCAL  DEFAULT   31 .Lanon.a1ce8d617669cf2f75141f25115b0b98.9
    493: 00000000    12 OBJECT  LOCAL  DEFAULT   19 _ZN3app10gps_sensor10GPS_DEVICE17h9632919ea1cd25c6E
    494: 00000001   324 FUNC    LOCAL  DEFAULT    7 _ZN3app10gps_sensor15handle_gps_data17hd01302e5f121f8abE

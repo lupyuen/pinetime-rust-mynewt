@@ -4,4 +4,5 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32l4x.cfg -f scripts/stm32l4/flash-boot.ocd
+#openocd/bin/openocd -f scripts/stm32l4/flash-init.ocd -f interface/stlink.cfg -f target/stm32l4x.cfg -f scripts/stm32l4/flash-boot.ocd
+openocd/bin/openocd -f scripts/stm32l4/flash-init.ocd -f interface/stlink-v2-1.cfg -c "transport select hla_swd" -f target/stm32l4x.cfg -f scripts/stm32l4/flash-boot.ocd
