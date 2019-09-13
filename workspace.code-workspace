@@ -70,6 +70,7 @@
 			"optional": "cpp",
 			"system_error": "cpp",
 			"*.tcc": "cpp"
-		}
+		},
+		"rust.racer_completion": false
 	}
 }

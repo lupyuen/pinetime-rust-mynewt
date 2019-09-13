@@ -21,7 +21,6 @@
 
 use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types
-    kernel::os,                             //  Import Mynewt OS API
     hw::sensor::{        
         self,                               //  Import Mynewt Sensor API functions
         sensor_ptr,                         //  Import Mynewt Sensor API types
@@ -33,7 +32,7 @@ use mynewt::{
     fill_zero, Strn,                        //  Import Mynewt macros    
 };
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
-use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
+////use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
 
 ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
 static GPS_DEVICE: Strn      = init_strn!("gps_l70r_0");
@@ -133,5 +132,5 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
 }
 
 ///  Aggregate the sensor value with other sensor data before transmitting to server.
-fn aggregate_sensor_data(sensor_value: &SensorValue) {
+fn aggregate_sensor_data(_sensor_value: &SensorValue) {
 }
