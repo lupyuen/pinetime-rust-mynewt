@@ -496,12 +496,12 @@ mod gps_sensor {
     ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
     static GPS_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
-    ///  Poll sensor every 10,000 milliseconds (10 seconds)  
+    ///  Poll GPS every 10,000 milliseconds (10 seconds)  
     const GPS_POLL_TIME: u32 = (10 * 1000);
     ///  Use key (field name) `geolocation` to transmit GPS geolocation to CoAP Server
     const GPS_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"geolocation\x00"),};
-    ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
+    ///  Type of sensor: Geolocation (latitude, longitude, altitude)
     const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
     ///  Ask Mynewt to poll the GPS sensor and call `handle_gps_data()`
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
@@ -648,6 +648,7 @@ mod gps_sensor {
                             }
                         },}
     }
+    ///  Aggregate the sensor value with other sensor data before transmitting to server.
     fn aggregate_sensor_data(sensor_value: &SensorValue) { }
 }
 use core::panic::PanicInfo;
