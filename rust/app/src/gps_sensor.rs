@@ -39,6 +39,8 @@ use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for send
 static GPS_DEVICE: Strn      = init_strn!("gps_l70r_0");
 ///  Poll sensor every 10,000 milliseconds (10 seconds)  
 const GPS_POLL_TIME: u32     = (10 * 1000);  
+///  Use key (field name) `geolocation` to transmit GPS geolocation to CoAP Server
+const GPS_SENSOR_KEY: Strn   = init_strn!("geolocation");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
 
@@ -74,53 +76,62 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
     sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
     console::print("Rust handle_sensor_data\n");
 
-    //  Check that the temperature data is valid.
-    if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if data is missing
+    //  Check that the GPS geolocation data is available.
+    if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if GPS is not ready
     assert!(!sensor.is_null(), "null sensor");
 
-    //  Convert the GPS data for transmission.
+    //  Convert the GPS geolocation for transmission.
     let sensor_value = convert_gps_data(sensor_data, sensor_type);
     if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
 
-    //  Compose a CoAP message with the GPS sensor data and send to the 
-    //  CoAP server.  The message will be enqueued for transmission by the OIC 
-    //  background task so this function will return without waiting for the message 
-    //  to be transmitted.
-    let res = send_sensor_data(&sensor_value);
-
-    //  `SYS_EAGAIN` means that the Network Task is still starting up the network.
-    //  We drop the sensor data and send at the next poll.
-    if let Err(err) = res {  //  `if let` will assign `err` to the error code inside `res`
-        if err == MynewtError::SYS_EAGAIN {
-            console::print("GPS network not ready\n");
-            return MynewtError::SYS_EOK; 
-        }            
+    //  Show the GPS geolocation.
+    if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.val {
+        console::print("lat: ");   console::print_double(latitude);
+        console::print(", lng: "); console::print_double(longitude);
+        console::print(", alt: "); console::print_double(altitude);
+        console::print("\n"); console::flush();
     }
+
+    //  Aggregate the GPS geolocation with other sensor data before transmitting to server.
+    aggregate_sensor_data(&sensor_value);
+
     //  Return 0 to Mynewt to indicate no error.  Should not end with a semicolon (;).
     MynewtError::SYS_EOK
 }
 
-///  Convert the geolocation value received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key. 
+///  Convert the geolocation value received from Mynewt into a `SensorValue` for transmission. 
 ///  `sensor_type` indicates the type of data in `sensor_data`.
 #[allow(non_snake_case, unused_variables)]
 fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
     console::print("GPS listener got geolocation\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
-        key: &TEMP_SENSOR_KEY,  //  Sensor data key is `t`
+        key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`
         val: match sensor_type {
-            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
-                //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
-                let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
-                let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut rawtempdata) };
-                assert_eq!(rc, 0, "rawtmp fail");
-                //  Check that the raw temperature data is valid.
-                assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
-                //  Raw temperature data is valid.  Return it.
-                SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
+            SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
+                //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
+                let mut geolocation = fill_zero!(sensor_geolocation_data);
+                let rc = unsafe { sensor::get_temp_raw_data(sensor_data, &mut geolocation) };
+                assert_eq!(rc, 0, "geodata fail");
+                //  Check that the geolocation data is valid.
+                assert!(
+                    geolocation.sgd_latitude_is_valid  != 0 &&
+                    geolocation.sgd_longitude_is_valid != 0 &&
+                    geolocation.sgd_altitude_is_valid  != 0, 
+                    "bad geodata");                
+                //  Geolocation data is valid.  Return it.
+                SensorValueType::Geolocation {
+                    latitude:  geolocation.latitude,
+                    longitude: geolocation.longitude,
+                    altitude:  geolocation.altitude,
+                }
             }
             //  Unknown type of sensor value
             //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
         }
     }
+}
+
+//  Aggregate the sensor value with other sensor data before transmitting to server.
+fn aggregate_sensor_data(SensorValue &sensor_value) {
 }

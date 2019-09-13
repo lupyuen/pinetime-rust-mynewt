@@ -53,17 +53,6 @@ pub fn as_untyped(typed: sensor_data_func) -> Option<sensor_data_func_untyped> {
     Some(untyped)
 }
 
-/* Doesn't work because `fn` is a special type
-impl From<sensor_data_func> for sensor_data_func_untyped {
-    fn from(typed: sensor_data_func) -> Self {
-        unsafe { 
-            ::core::mem::transmute::
-                <sensor_data_func, sensor_data_func_untyped>
-                (typed)
-        }  
-    }
-} */
-
 ///  Register a sensor listener. This allows a calling application to receive
 ///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
 ///  that copies the listener locally before passing to Mynewt.
@@ -270,6 +259,8 @@ pub enum SensorValueType {
   Uint(u32),
   ///  32-bit float. For computed temp, contains the computed temp float value
   Float(f32),
+  ///  Geolocation
+  Geolocation { latitude: f64, longitude: f64, altitude: f64 },
 }
 
 ///  Represents a single temperature sensor raw value.
