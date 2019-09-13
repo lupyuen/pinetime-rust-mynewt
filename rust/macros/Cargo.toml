@@ -10,10 +10,10 @@ edition = "2018"
 cty         = "0.2.0"  # C types library: https://crates.io/crates/cty
 cstr_core   = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
 memchr      = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
-syn         = { version = "1.0.1", features = [ "full", "extra-traits" ] } # Rust source code parser: https://crates.io/crates/syn
-quote       = "1.0.0" # Generate Rust source code: https://crates.io/crates/quote
-proc-macro2 = "1.0.0"# Rust procedural macro library: https://crates.io/crates/proc-macro2
-lazy_static = "1.3.0"  # Declare lazy statics: https://docs.rs/lazy_static/1.3.0/lazy_static
+syn         = { version = "1.0.5", features = [ "full", "extra-traits" ] } # Rust source code parser: https://crates.io/crates/syn
+quote       = "1.0.2" # Generate Rust source code: https://crates.io/crates/quote
+proc-macro2 = "1.0.3"# Rust procedural macro library: https://crates.io/crates/proc-macro2
+lazy_static = "1.4.0"  # Declare lazy statics: https://docs.rs/lazy_static/1.3.0/lazy_static
 rustc-serialize = "0.3"# Serialise HashMaps to JSON: https://docs.rs/rustc-serialize/0.3.24/rustc_serialize
 
 # Build this module as a Rust library, which will be called by the compiler to expand Rust Procedural Macros. Not used in runtime.

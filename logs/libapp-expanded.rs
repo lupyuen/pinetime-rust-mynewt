@@ -488,13 +488,12 @@ mod app_sensor {
 mod gps_sensor {
     //!  Poll the GPS sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
     //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/gps_sensor.c
-    use mynewt::{result::*, kernel::os,
+    use mynewt::{result::*,
                  hw::sensor::{self, sensor_ptr, sensor_arg, sensor_data_ptr,
                               sensor_listener, sensor_geolocation_data,
                               sensor_type_t, SensorValue, SensorValueType},
                  sys::console, fill_zero, Strn};
     use mynewt_macros::{init_strn};
-    use crate::app_network::send_sensor_data;
     ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
     static GPS_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
@@ -516,7 +515,7 @@ mod gps_sensor {
             {
                 ::core::panicking::panic(&("no gps",
                                            "rust/app/src/gps_sensor.rs",
-                                           54u32, 5u32))
+                                           53u32, 5u32))
             }
         };
         sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME)?;
@@ -544,7 +543,7 @@ mod gps_sensor {
             {
                 ::core::panicking::panic(&("null sensor",
                                            "rust/app/src/gps_sensor.rs",
-                                           81u32, 5u32))
+                                           80u32, 5u32))
             }
         };
         let sensor_value = convert_gps_data(sensor_data, sensor_type);
@@ -553,7 +552,7 @@ mod gps_sensor {
                 {
                     ::core::panicking::panic(&("bad type",
                                                "rust/app/src/gps_sensor.rs",
-                                               85u32, 55u32))
+                                               84u32, 55u32))
                 }
             };
         }
@@ -622,7 +621,7 @@ mod gps_sensor {
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
                                                                                  &("rust/app/src/gps_sensor.rs",
-                                                                                   115u32,
+                                                                                   114u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -637,7 +636,7 @@ mod gps_sensor {
                                     {
                                         ::core::panicking::panic(&("bad geodata",
                                                                    "rust/app/src/gps_sensor.rs",
-                                                                   117u32,
+                                                                   116u32,
                                                                    17u32))
                                     }
                                 };
@@ -651,7 +650,7 @@ mod gps_sensor {
                         },}
     }
     ///  Aggregate the sensor value with other sensor data before transmitting to server.
-    fn aggregate_sensor_data(sensor_value: &SensorValue) { }
+    fn aggregate_sensor_data(_sensor_value: &SensorValue) { }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
