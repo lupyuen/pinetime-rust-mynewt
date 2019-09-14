@@ -25,23 +25,27 @@ const COAP_KEY_SIZE: usize = 32;
 /// Size of the static value buffer
 const COAP_VALUE_SIZE: usize = 32;
 
-/// Global CBOR root map
+/// Global CBOR root map for encoding CBOR documents
 static mut cbor_encoder0: CborEncoder = fill_zero!(CborEncoder);
 static mut cbor_encoder1: CborEncoder = fill_zero!(CborEncoder);
 
 impl CoapContext {
 
+    ///  Encode a text value into the current JSON document with the specified key
     pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
+        //  Convert the key to C string.
         let key_cstr: *const u8 =
             match key.rep {
                 StrnRep::ByteStr(bs) => { self.key_to_cstr(bs) }
                 StrnRep::CStr(cstr)  => { cstr }
             };
+        //  Convert the value to a C string.
         let value_cstr: *const u8 =
             match value.rep {
                 StrnRep::ByteStr(bs) => { self.value_to_cstr(bs) }
                 StrnRep::CStr(cstr)  => { cstr }
             };
+        //  Encode the value.
         unsafe {
             crate::libs::mynewt_rust::json_helper_set_text_string(
                 self.to_void_ptr(),
