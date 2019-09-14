@@ -93,7 +93,7 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
 
     //  Get the temperature sensor value. It could be raw or computed.
     let sensor_value = convert_sensor_data(sensor_data, sensor_type);
-    if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
+    if let SensorValueType::None = sensor_value.value { assert!(false, "bad type"); }
 
     //  Compose a CoAP message with the temperature sensor data and send to the 
     //  CoAP server.  The message will be enqueued for transmission by the OIC 
@@ -122,7 +122,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
     SensorValue {
         key: &TEMP_SENSOR_KEY,       //  Sensor data key is `t`
         geo: SensorValueType::None,  //  No location
-        val: match sensor_type {
+        value: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
                 //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
                 let mut rawtempdata = fill_zero!(sensor_temp_raw_data);

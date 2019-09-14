@@ -123,7 +123,7 @@ extern "C" fn wrap_sensor_listener(
 
     //  Convert the sensor data to sensor value
     let sensor_value = convert_sensor_data(sensor_data, info.sensor_key, sensor_type);
-    if let SensorValueType::None = sensor_value.val { assert!(false, "bad type"); }
+    if let SensorValueType::None = sensor_value.value { assert!(false, "bad type"); }
 
     //  Call the unwrapped function
     (info.listener_func)(&sensor_value)
@@ -157,8 +157,8 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, 
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: sensor_key,
-        loc: SensorValueType::None,
-        val: match sensor_type {
+        geo: SensorValueType::None,
+        value: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
                 //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
                 let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
@@ -246,7 +246,7 @@ pub struct SensorValue {
   ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
   pub key: &'static Strn,
   ///  The type of the sensor value and the value.
-  pub val: SensorValueType,
+  pub value: SensorValueType,
   ///  Geolocation associated with the sensor value.
   pub geo: SensorValueType,
 }
@@ -257,7 +257,7 @@ impl Default for SensorValue {
   fn default() -> SensorValue {
     SensorValue {
       key: &init_strn!(""),
-      val: SensorValueType::None,
+      value: SensorValueType::None,
       geo: SensorValueType::None,
     }
   }

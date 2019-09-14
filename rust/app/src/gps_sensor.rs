@@ -81,13 +81,13 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
 
     //  Convert the GPS geolocation for transmission.
     let sensor_value = convert_gps_data(sensor_data, sensor_type);
-    if let SensorValueType::None = sensor_value.val {
+    if let SensorValueType::None = sensor_value.value {
         console::print("Warn: GPS not ready\n");
         return MynewtError::SYS_EINVAL;   //  Exit if GPS is not ready
     }
 
     //  Show the GPS geolocation.
-    if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.val {
+    if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.value {
         console::print("Info: GPS lat: ");   console::printdouble(latitude);
         console::print(", lng: "); console::printdouble(longitude);
         console::print(", alt: "); console::printfloat(altitude as f32);
@@ -110,7 +110,7 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
     SensorValue {
         key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`
         geo: SensorValueType::None,
-        val: match sensor_type {
+        value: match sensor_type {
             SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
                 //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
                 let mut geolocation = fill_zero!(sensor_geolocation_data);
@@ -141,9 +141,9 @@ static mut current_geolocation: SensorValueType = SensorValueType::None;
 
 ///  Aggregate the sensor value with other sensor data before transmitting to server.
 fn aggregate_sensor_data(sensor_value: SensorValue) {
-    if let SensorValueType::Geolocation {..} = sensor_value.val {
+    if let SensorValueType::Geolocation {..} = sensor_value.value {
         //  Save the geolocation for later transmission.
-        unsafe { current_geolocation = sensor_value.val };
+        unsafe { current_geolocation = sensor_value.value };
     } else {
         //  Attach the current geolocation to the sensor data for transmission.
         sensor_value.geo = current_geolocation;
