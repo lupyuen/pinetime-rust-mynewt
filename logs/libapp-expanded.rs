@@ -320,7 +320,7 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("no sensor",
-                                           "rust/app/src/app_sensor.rs",
+                                           "rust\\app\\src\\app_sensor.rs",
                                            54u32, 5u32))
             }
         };
@@ -355,17 +355,17 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("null sensor",
-                                           "rust/app/src/app_sensor.rs",
+                                           "rust\\app\\src\\app_sensor.rs",
                                            92u32, 5u32))
             }
         };
         let sensor_value = convert_sensor_data(sensor_data, sensor_type);
-        if let SensorValueType::None = sensor_value.val {
+        if let SensorValueType::None = sensor_value.value {
             if !false {
                 {
                     ::core::panicking::panic(&("bad type",
-                                               "rust/app/src/app_sensor.rs",
-                                               96u32, 55u32))
+                                               "rust\\app\\src\\app_sensor.rs",
+                                               96u32, 57u32))
                 }
             };
         }
@@ -385,7 +385,8 @@ mod app_sensor {
                            sensor_type: sensor_type_t) -> SensorValue {
         console::print("TMP listener got rawtmp\n");
         SensorValue{key: &TEMP_SENSOR_KEY,
-                    val:
+                    geo: SensorValueType::None,
+                    value:
                         match sensor_type {
                             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {
                                 let mut rawtempdata =
@@ -428,8 +429,8 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust/app/src/app_sensor.rs",
-                                                                                   129u32,
+                                                                                 &("rust\\app\\src\\app_sensor.rs",
+                                                                                   130u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -466,8 +467,8 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust/app/src/app_sensor.rs",
-                                                                                   131u32,
+                                                                                 &("rust\\app\\src\\app_sensor.rs",
+                                                                                   132u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -514,7 +515,7 @@ mod gps_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("no gps",
-                                           "rust/app/src/gps_sensor.rs",
+                                           "rust\\app\\src\\gps_sensor.rs",
                                            53u32, 5u32))
             }
         };
@@ -542,17 +543,17 @@ mod gps_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("null sensor",
-                                           "rust/app/src/gps_sensor.rs",
+                                           "rust\\app\\src\\gps_sensor.rs",
                                            80u32, 5u32))
             }
         };
         let sensor_value = convert_gps_data(sensor_data, sensor_type);
-        if let SensorValueType::None = sensor_value.val {
+        if let SensorValueType::None = sensor_value.value {
             console::print("Warn: GPS not ready\n");
             return MynewtError::SYS_EINVAL;
         }
         if let SensorValueType::Geolocation { latitude, longitude, altitude }
-               = sensor_value.val {
+               = sensor_value.value {
             console::print("Info: GPS lat: ");
             console::printdouble(latitude);
             console::print(", lng: ");
@@ -572,7 +573,8 @@ mod gps_sensor {
                         sensor_type: sensor_type_t) -> SensorValue {
         console::print("Info: GPS listener converting geolocation\n");
         SensorValue{key: &GPS_SENSOR_KEY,
-                    val:
+                    geo: SensorValueType::None,
+                    value:
                         match sensor_type {
                             SENSOR_TYPE_GEOLOCATION => {
                                 let mut geolocation =
@@ -615,8 +617,8 @@ mod gps_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust/app/src/gps_sensor.rs",
-                                                                                   117u32,
+                                                                                 &("rust\\app\\src\\gps_sensor.rs",
+                                                                                   118u32,
                                                                                    17u32))
                                                 }
                                             }
@@ -638,8 +640,13 @@ mod gps_sensor {
                             }
                         },}
     }
+    static mut current_geolocation: SensorValueType = SensorValueType::None;
     ///  Aggregate the sensor value with other sensor data before transmitting to server.
-    fn aggregate_sensor_data(_sensor_value: &SensorValue) { }
+    fn aggregate_sensor_data(sensor_value: SensorValue) {
+        if let SensorValueType::Geolocation { .. } = sensor_value.value {
+            unsafe { current_geolocation = sensor_value.value };
+        } else { sensor_value.geo = current_geolocation; }
+    }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;

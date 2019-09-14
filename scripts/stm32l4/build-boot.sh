@@ -4,7 +4,7 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-#  Build the application.
+#  Build the bootloader.
 newt build stm32l4_boot
 
 #  Show the size.
