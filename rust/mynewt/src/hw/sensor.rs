@@ -248,7 +248,7 @@ pub struct SensorValue {
   ///  The type of the sensor value and the value.
   pub val: SensorValueType,
   ///  Geolocation associated with the sensor value.
-  pub loc: SensorValueType,
+  pub geo: SensorValueType,
 }
 
 ///  Default sensor value is `None`
@@ -258,7 +258,7 @@ impl Default for SensorValue {
     SensorValue {
       key: &init_strn!(""),
       val: SensorValueType::None,
-      loc: SensorValueType::None,
+      geo: SensorValueType::None,
     }
   }
 }

@@ -121,7 +121,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: &TEMP_SENSOR_KEY,       //  Sensor data key is `t`
-        loc: SensorValueType::None,  //  No location
+        geo: SensorValueType::None,  //  No location
         val: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
                 //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
