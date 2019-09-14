@@ -120,7 +120,8 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
     console::print("TMP listener got rawtmp\n");
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
-        key: &TEMP_SENSOR_KEY,  //  Sensor data key is `t`
+        key: &TEMP_SENSOR_KEY,       //  Sensor data key is `t`
+        loc: SensorValueType::None,  //  No location
         val: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
                 //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
@@ -133,7 +134,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t)
                 SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
             }
             //  Unknown type of sensor value
-            //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
+            //  _ => { assert!(false, "sensor type"); SensorValueType::None }
         }
     }
 }

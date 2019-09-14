@@ -109,6 +109,7 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`
+        loc: SensorValueType::None,
         val: match sensor_type {
             SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
                 //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
@@ -136,6 +137,16 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
     }
 }
 
+static mut current_geolocation: SensorValueType = SensorValueType::None;
+
 ///  Aggregate the sensor value with other sensor data before transmitting to server.
-fn aggregate_sensor_data(_sensor_value: &SensorValue) {
+fn aggregate_sensor_data(sensor_value: SensorValue) {
+    if let SensorValueType::Geolocation {..} = sensor_value.val {
+        //  Save the geolocation for later transmission.
+        unsafe { current_geolocation = sensor_value.val };
+    } else {
+        //  Attach the current geolocation to the sensor data for transmission.
+        sensor_value.loc = current_geolocation;
+        //  TODO: Transmit sensor value with geolocation.
+    }
 }

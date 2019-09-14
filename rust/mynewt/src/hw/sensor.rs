@@ -157,6 +157,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, 
     //  Construct and return a new `SensorValue` (without semicolon)
     SensorValue {
         key: sensor_key,
+        loc: SensorValueType::None,
         val: match sensor_type {
             SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
                 //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
@@ -169,7 +170,7 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, 
                 SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
             }
             //  Unknown type of sensor value
-            _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
+            _ => { assert!(false, "sensor type"); SensorValueType::None }
         }
     }
 }
@@ -240,11 +241,14 @@ pub const SENSOR_TYPE_GEOLOCATION: sensor_type_t =
 
 ///  Represents a decoded sensor data value. Since temperature may be integer (raw)
 ///  or float (computed), we use the struct to return both integer and float values.
+#[derive(Clone, Copy)]  //  Sensor values may be copied
 pub struct SensorValue {
   ///  Null-terminated string for the key.  `t` for raw temp, `tmp` for computed. When transmitted to CoAP Server or Collector Node, the key (field name) to be used.
   pub key: &'static Strn,
   ///  The type of the sensor value and the value.
   pub val: SensorValueType,
+  ///  Geolocation associated with the sensor value.
+  pub loc: SensorValueType,
 }
 
 ///  Default sensor value is `None`
@@ -254,11 +258,13 @@ impl Default for SensorValue {
     SensorValue {
       key: &init_strn!(""),
       val: SensorValueType::None,
+      loc: SensorValueType::None,
     }
   }
 }
 
 ///  Represents the type and value of a sensor data value.
+#[derive(Clone, Copy)]  //  Sensor values may be copied
 pub enum SensorValueType {
   ///  No value.
   None,
