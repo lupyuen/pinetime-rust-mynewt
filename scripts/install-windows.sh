@@ -113,7 +113,47 @@ if [ -d repos ]; then
 fi
 
 #  Download Mynewt OS into the current project folder, under "repos" subfolder.
-newt install -v -f
+set +e              #  TODO: Remove this when newt install is fixed
+newt install -v -f  #  TODO: "git checkout" fails due to uncommitted files
+set -e              #  TODO: Remove this when newt install is fixed
+
+#  If you see "Error: Unknown subcommand: get-url"
+#  then upgrade git as shown above.
+
+echo "***** Reparing mynewt..."
+
+#  TODO: newt install fails due to uncommitted files. Need to check out manually.
+
+#  Check out core
+if [ -d repos/apache-mynewt-core ]; then
+    pushd repos/apache-mynewt-core
+    git checkout $mynewt_version -f
+    popd
+fi
+#  Check out nimble
+if [ -d repos/apache-mynewt-nimble ]; then
+    pushd repos/apache-mynewt-nimble
+    git checkout $nimble_version -f
+    popd
+fi
+#  Check out mcuboot
+if [ -d repos/mcuboot ]; then
+    pushd repos/mcuboot
+    git checkout $mcuboot_version -f
+    popd
+fi
+
+#  If apache-mynewt-core is missing, then the installation failed.
+if [ ! -d repos/apache-mynewt-core ]; then
+    echo "***** newt install failed"
+    exit 1
+fi
+
+#  If apache-mynewt-nimble is missing, then the installation failed.
+if [ ! -d repos/apache-mynewt-nimble ]; then
+    echo "***** newt install failed"
+    exit 1
+fi
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
