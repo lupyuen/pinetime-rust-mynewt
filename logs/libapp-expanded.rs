@@ -69,22 +69,24 @@ mod app_network {
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
 
 
-    /*
-        //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
-        sensor_network::start_server_transport()
-            .expect("NET fail");
+    //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
 
+    /*
         //  Start polling the temperature sensor every 10 seconds in the background.
         //  If this is a standby wakeup, the server transport must already be started.
         app_sensor::start_sensor_listener()
             .expect("TMP fail");
+
+        //  Start the GPS.
+        extern { fn gps_l70r_start() -> i32; }
+        unsafe { gps_l70r_start() };
+
+        //  Start polling the GPS.
+        //  extern { fn start_gps_listener(); }
+        //  unsafe { start_gps_listener() };
+        gps_sensor::start_gps_listener()
+            .expect("GPS fail");
     */
-
-    //  Start the GPS.
-
-    //  Start polling the GPS.
-    //  extern { fn start_gps_listener(); }
-    //  unsafe { start_gps_listener() };
 
     //  Main event loop
     //  Loop forever...
@@ -674,11 +676,7 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    extern "C" {
-        fn gps_l70r_start() -> i32;
-    }
-    unsafe { gps_l70r_start() };
-    gps_sensor::start_gps_listener().expect("GPS fail");
+    sensor_network::start_server_transport().expect("NET fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
