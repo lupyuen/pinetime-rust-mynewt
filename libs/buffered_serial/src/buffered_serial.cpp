@@ -232,10 +232,9 @@ void BufferedSerial::prime(void)
         _initialised = 1;
         int rc = setup_uart(this);
         assert(rc == 0);
+        hal_uart_start_rx(_uart);  //  Start receiving UART data.
+        hal_uart_start_tx(_uart);  //  Start transmitting UART data.
     }
-    ////  TODO: Don't start at every prime.
-    hal_uart_start_rx(_uart);  //  Start receiving UART data.
-    hal_uart_start_tx(_uart);  //  Start transmitting UART data.
 }
 
 void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)
