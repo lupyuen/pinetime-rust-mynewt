@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#  Flash Mynewt Bootloader
+#  Flash Mynewt Bootloader on macOS and Linux
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.

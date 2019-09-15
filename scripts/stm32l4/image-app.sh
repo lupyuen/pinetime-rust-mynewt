@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#  Create Mynewt Image
+#  Create Mynewt Image for macOS and Linux
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.

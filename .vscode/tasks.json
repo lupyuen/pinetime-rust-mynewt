@@ -17,27 +17,27 @@
         },
         {
             //  Build the Bootloader.
-            "label": "1️⃣ Build bluepill_boot",
+            "label": "1️⃣ Build Bootloader",
             "type": "shell",
             "windows": {
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " newt\\newt.exe build -v bluepill_boot && newt\\newt.exe size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                    " scripts\\stm32l4\\build-boot.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                    " scripts/stm32l4/build-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt build -v bluepill_boot && newt size -v bluepill_boot && echo ✅ ◾ ️Done! "
+                    " scripts/stm32l4/build-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [ "$gcc" ],
@@ -47,7 +47,7 @@
         },
         {
             //  Build the Application.
-            "label": "2️⃣ Build bluepill_my_sensor",
+            "label": "2️⃣ Build Application",
             "type": "shell",
             "windows": {
                 "command": "cmd",
@@ -95,27 +95,27 @@
         },
         {
             //  Create the Application ROM Image.
-            "label": "3️⃣ Image bluepill_my_sensor",
+            "label": "3️⃣ Image Application",
             "type": "shell",
             "windows": {
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " newt\\newt.exe create-image -v bluepill_my_sensor 1.0.0 && newt\\newt.exe size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                    " scripts\\stm32l4\\image-app.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                    " scripts/stm32l4/image-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " newt create-image -v bluepill_my_sensor 1.0.0 && newt size -v bluepill_my_sensor && echo ✅ ◾ ️Done! "
+                    " scripts/stm32l4/image-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -125,13 +125,13 @@
         },
         {
             //  Flash the Bootloader to Blue Pill.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
-            "label": "4️⃣ Load bluepill_boot",
+            "label": "4️⃣ Load Bootloader",
             "type": "shell",
             "windows": {
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
+                    " scripts\\stm32l4\\flash-boot.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
@@ -139,7 +139,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
+                    " scripts/stm32l4/flash-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
@@ -147,7 +147,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-boot.ocd "
+                    " scripts/stm32l4/flash-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -157,13 +157,13 @@
         },
         {
             //  Flash the Application to Blue Pill.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
-            "label": "5️⃣ Load bluepill_my_sensor",
+            "label": "5️⃣ Load Application",
             "type": "shell",
             "windows": {
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " openocd\\bin\\openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                    " scripts\\stm32l4\\flash-app.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
@@ -171,7 +171,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                    " scripts/stm32l4/flash-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
@@ -179,7 +179,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " openocd/bin/openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -f scripts/flash-app.ocd "
+                    " scripts/stm32l4/flash-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -189,7 +189,7 @@
         },
         {
             //  Generate Rust bindings for C libraries.
-            "label": "⛓ Generate Rust bindings",
+            "label": "⛓ Generate Rust Bindings",
             "type": "shell",
             "command": "bash",
             "args": [
@@ -203,7 +203,7 @@
         },
         {
             //  Build Rust library with macros expanded, output to logs/libmylib-expanded.rs.
-            "label": "👓 Expand Rust macros",
+            "label": "👓 Expand Rust Macros",
             "type": "shell",
             "command": "bash",
             "args": [
