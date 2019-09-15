@@ -3049,7 +3049,7 @@ pub mod hw {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            25u32, 9u32))
                             }
                         };
@@ -3067,7 +3067,7 @@ pub mod hw {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            38u32, 9u32))
                             }
                         };
@@ -3085,7 +3085,7 @@ pub mod hw {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            55u32, 9u32))
                             }
                         };
@@ -3094,7 +3094,7 @@ pub mod hw {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            56u32, 9u32))
                             }
                         };
@@ -3104,7 +3104,7 @@ pub mod hw {
                                  self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            57u32, 9u32))
                             }
                         };
@@ -3128,7 +3128,7 @@ pub mod hw {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            73u32, 9u32))
                             }
                         };
@@ -3137,7 +3137,7 @@ pub mod hw {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            74u32, 9u32))
                             }
                         };
@@ -3147,7 +3147,7 @@ pub mod hw {
                                  self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                           "rust/mynewt/src/hw/sensor/bindings.rs",
+                                                           "rust\\mynewt\\src\\hw\\sensor\\bindings.rs",
                                                            75u32, 9u32))
                             }
                         };
@@ -5700,7 +5700,7 @@ pub mod hw {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/hw/sensor.rs",
+                                                                 &("rust\\mynewt\\src\\hw\\sensor.rs",
                                                                    65u32,
                                                                    14u32))
                                 }
@@ -5727,7 +5727,7 @@ pub mod hw {
             if !!sensor_key.is_empty() {
                 {
                     ::core::panicking::panic(&("missing sensor key",
-                                               "rust/mynewt/src/hw/sensor.rs",
+                                               "rust\\mynewt\\src\\hw\\sensor.rs",
                                                82u32, 5u32))
                 }
             };
@@ -5739,7 +5739,7 @@ pub mod hw {
             if !(arg < MAX_SENSOR_LISTENERS) {
                 {
                     ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
-                                               "rust/mynewt/src/hw/sensor.rs",
+                                               "rust\\mynewt\\src\\hw\\sensor.rs",
                                                92u32, 5u32))
                 }
             };
@@ -5772,7 +5772,7 @@ pub mod hw {
             if !(arg < MAX_SENSOR_LISTENERS) {
                 {
                     ::core::panicking::panic(&("bad sensor arg",
-                                               "rust/mynewt/src/hw/sensor.rs",
+                                               "rust\\mynewt\\src\\hw\\sensor.rs",
                                                116u32, 5u32))
                 }
             };
@@ -5780,7 +5780,7 @@ pub mod hw {
             if !!info.sensor_key.is_empty() {
                 {
                     ::core::panicking::panic(&("missing sensor key",
-                                               "rust/mynewt/src/hw/sensor.rs",
+                                               "rust\\mynewt\\src\\hw\\sensor.rs",
                                                118u32, 5u32))
                 }
             };
@@ -5788,7 +5788,7 @@ pub mod hw {
             if !!sensor.is_null() {
                 {
                     ::core::panicking::panic(&("null sensor",
-                                               "rust/mynewt/src/hw/sensor.rs",
+                                               "rust\\mynewt\\src\\hw\\sensor.rs",
                                                122u32, 5u32))
                 }
             };
@@ -5799,7 +5799,7 @@ pub mod hw {
                 if !false {
                     {
                         ::core::panicking::panic(&("bad type",
-                                                   "rust/mynewt/src/hw/sensor.rs",
+                                                   "rust\\mynewt\\src\\hw\\sensor.rs",
                                                    126u32, 57u32))
                     }
                 };
@@ -5891,7 +5891,7 @@ pub mod hw {
                                                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
-                                                                                     &("rust/mynewt/src/hw/sensor.rs",
+                                                                                     &("rust\\mynewt\\src\\hw\\sensor.rs",
                                                                                        166u32,
                                                                                        17u32))
                                                     }
@@ -5929,7 +5929,7 @@ pub mod hw {
                                                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
-                                                                                     &("rust/mynewt/src/hw/sensor.rs",
+                                                                                     &("rust\\mynewt\\src\\hw\\sensor.rs",
                                                                                        168u32,
                                                                                        17u32))
                                                     }
@@ -5943,7 +5943,7 @@ pub mod hw {
                                     if !false {
                                         {
                                             ::core::panicking::panic(&("sensor type",
-                                                                       "rust/mynewt/src/hw/sensor.rs",
+                                                                       "rust\\mynewt\\src\\hw\\sensor.rs",
                                                                        173u32,
                                                                        20u32))
                                         }
@@ -7468,7 +7468,7 @@ pub mod encoding {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        25u32, 9u32))
                         }
                     };
@@ -7486,7 +7486,7 @@ pub mod encoding {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        38u32, 9u32))
                         }
                     };
@@ -7504,7 +7504,7 @@ pub mod encoding {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        55u32, 9u32))
                         }
                     };
@@ -7513,7 +7513,7 @@ pub mod encoding {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        56u32, 9u32))
                         }
                     };
@@ -7523,7 +7523,7 @@ pub mod encoding {
                              self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        57u32, 9u32))
                         }
                     };
@@ -7547,7 +7547,7 @@ pub mod encoding {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        73u32, 9u32))
                         }
                     };
@@ -7556,7 +7556,7 @@ pub mod encoding {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        74u32, 9u32))
                         }
                     };
@@ -7566,7 +7566,7 @@ pub mod encoding {
                              self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/encoding/json.rs",
+                                                       "rust\\mynewt\\src\\encoding\\json.rs",
                                                        75u32, 9u32))
                         }
                     };
@@ -8572,7 +8572,7 @@ pub mod encoding {
                 if !(s.len() < COAP_KEY_SIZE) {
                     {
                         ::core::panicking::panic(&("big key",
-                                                   "rust/mynewt/src/encoding/coap_context.rs",
+                                                   "rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                    65u32, 9u32))
                     }
                 };
@@ -8588,7 +8588,7 @@ pub mod encoding {
                 if !(s.len() < COAP_VALUE_SIZE) {
                     {
                         ::core::panicking::panic(&("big value",
-                                                   "rust/mynewt/src/encoding/coap_context.rs",
+                                                   "rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                    78u32, 9u32))
                     }
                 };
@@ -8622,7 +8622,7 @@ pub mod encoding {
                     if !false {
                         {
                             ::core::panicking::panic(&("new_encoder fail",
-                                                       "rust/mynewt/src/encoding/coap_context.rs",
+                                                       "rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                        104u32, 13u32))
                         }
                     };
@@ -8646,7 +8646,7 @@ pub mod encoding {
                     if !false {
                         {
                             ::core::panicking::panic(&("encoder fail",
-                                                       "rust/mynewt/src/encoding/coap_context.rs",
+                                                       "rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                        117u32, 13u32))
                         }
                     };
@@ -8684,7 +8684,7 @@ pub mod encoding {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/encoding/coap_context.rs",
+                                                                 &("rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                                    124u32,
                                                                    9u32))
                                 }
@@ -8724,7 +8724,7 @@ pub mod encoding {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/encoding/coap_context.rs",
+                                                                 &("rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                                    129u32,
                                                                    9u32))
                                 }
@@ -8824,7 +8824,7 @@ pub mod encoding {
                         if !false {
                             {
                                 ::core::panicking::panic(&("strn bytes",
-                                                           "rust/mynewt/src/encoding/coap_context.rs",
+                                                           "rust\\mynewt\\src\\encoding\\coap_context.rs",
                                                            192u32, 40u32))
                             }
                         };
@@ -9210,7 +9210,7 @@ pub mod libs {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        25u32, 9u32))
                         }
                     };
@@ -9228,7 +9228,7 @@ pub mod libs {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        38u32, 9u32))
                         }
                     };
@@ -9246,7 +9246,7 @@ pub mod libs {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        55u32, 9u32))
                         }
                     };
@@ -9255,7 +9255,7 @@ pub mod libs {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        56u32, 9u32))
                         }
                     };
@@ -9265,7 +9265,7 @@ pub mod libs {
                              self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        57u32, 9u32))
                         }
                     };
@@ -9289,7 +9289,7 @@ pub mod libs {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        73u32, 9u32))
                         }
                     };
@@ -9298,7 +9298,7 @@ pub mod libs {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        74u32, 9u32))
                         }
                     };
@@ -9308,7 +9308,7 @@ pub mod libs {
                              self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/sensor_coap.rs",
+                                                       "rust\\mynewt\\src\\libs\\sensor_coap.rs",
                                                        75u32, 9u32))
                         }
                     };
@@ -10233,7 +10233,7 @@ pub mod libs {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        25u32, 9u32))
                         }
                     };
@@ -10251,7 +10251,7 @@ pub mod libs {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        38u32, 9u32))
                         }
                     };
@@ -10269,7 +10269,7 @@ pub mod libs {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        55u32, 9u32))
                         }
                     };
@@ -10278,7 +10278,7 @@ pub mod libs {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        56u32, 9u32))
                         }
                     };
@@ -10288,7 +10288,7 @@ pub mod libs {
                              self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        57u32, 9u32))
                         }
                     };
@@ -10312,7 +10312,7 @@ pub mod libs {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        73u32, 9u32))
                         }
                     };
@@ -10321,7 +10321,7 @@ pub mod libs {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        74u32, 9u32))
                         }
                     };
@@ -10331,7 +10331,7 @@ pub mod libs {
                              self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                       "rust/mynewt/src/libs/mynewt_rust.rs",
+                                                       "rust\\mynewt\\src\\libs\\mynewt_rust.rs",
                                                        75u32, 9u32))
                         }
                     };
@@ -11147,7 +11147,7 @@ impl Strn {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         &("rust/mynewt/src/lib.rs",
+                                                         &("rust\\mynewt\\src\\lib.rs",
                                                            120u32, 9u32))
                         }
                     }
@@ -11200,7 +11200,7 @@ impl Strn {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/lib.rs",
+                                                                 &("rust\\mynewt\\src\\lib.rs",
                                                                    145u32,
                                                                    17u32))
                                 }
@@ -11219,7 +11219,7 @@ impl Strn {
                 if !false {
                     {
                         ::core::panicking::panic(&("big strn",
-                                                   "rust/mynewt/src/lib.rs",
+                                                   "rust\\mynewt\\src\\lib.rs",
                                                    155u32, 17u32))
                     }
                 };
@@ -11263,7 +11263,7 @@ impl Strn {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/lib.rs",
+                                                                 &("rust\\mynewt\\src\\lib.rs",
                                                                    171u32,
                                                                    17u32))
                                 }
@@ -11310,7 +11310,7 @@ impl Strn {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/lib.rs",
+                                                                 &("rust\\mynewt\\src\\lib.rs",
                                                                    183u32,
                                                                    17u32))
                                 }
@@ -11324,7 +11324,7 @@ impl Strn {
                 if !false {
                     {
                         ::core::panicking::panic(&("strn cstr",
-                                                   "rust/mynewt/src/lib.rs",
+                                                   "rust\\mynewt\\src\\lib.rs",
                                                    187u32, 17u32))
                     }
                 };
@@ -11365,7 +11365,7 @@ impl Strn {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 &("rust/mynewt/src/lib.rs",
+                                                                 &("rust\\mynewt\\src\\lib.rs",
                                                                    197u32,
                                                                    17u32))
                                 }
@@ -11408,7 +11408,7 @@ impl Strn {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         &("rust/mynewt/src/lib.rs",
+                                                         &("rust\\mynewt\\src\\lib.rs",
                                                            205u32, 9u32))
                         }
                     }
