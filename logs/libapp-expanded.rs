@@ -242,8 +242,11 @@ mod app_network {
                                                                                                            value)
                                                         };
                                                     };
-                                                    if let SensorValueType::Geolocation {
-                                                           .. } = geo {
+                                                    unsafe {
+                                                        COAP_CONTEXT.json_set_geolocation(&Strn::new(b"geo\x00"),
+                                                                                          &Strn::new(b"lat\x00"),
+                                                                                          &Strn::new(b"long\x00"),
+                                                                                          geo)
                                                     };
                                                 };
                                                 {
@@ -324,7 +327,7 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("no sensor",
-                                           "rust\\app\\src\\app_sensor.rs",
+                                           "rust/app/src/app_sensor.rs",
                                            54u32, 5u32))
             }
         };
@@ -359,7 +362,7 @@ mod app_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("null sensor",
-                                           "rust\\app\\src\\app_sensor.rs",
+                                           "rust/app/src/app_sensor.rs",
                                            92u32, 5u32))
             }
         };
@@ -368,7 +371,7 @@ mod app_sensor {
             if !false {
                 {
                     ::core::panicking::panic(&("bad type",
-                                               "rust\\app\\src\\app_sensor.rs",
+                                               "rust/app/src/app_sensor.rs",
                                                96u32, 57u32))
                 }
             };
@@ -433,7 +436,7 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust\\app\\src\\app_sensor.rs",
+                                                                                 &("rust/app/src/app_sensor.rs",
                                                                                    130u32,
                                                                                    17u32))
                                                 }
@@ -471,7 +474,7 @@ mod app_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust\\app\\src\\app_sensor.rs",
+                                                                                 &("rust/app/src/app_sensor.rs",
                                                                                    132u32,
                                                                                    17u32))
                                                 }
@@ -519,7 +522,7 @@ mod gps_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("no gps",
-                                           "rust\\app\\src\\gps_sensor.rs",
+                                           "rust/app/src/gps_sensor.rs",
                                            53u32, 5u32))
             }
         };
@@ -547,7 +550,7 @@ mod gps_sensor {
         if !!sensor.is_null() {
             {
                 ::core::panicking::panic(&("null sensor",
-                                           "rust\\app\\src\\gps_sensor.rs",
+                                           "rust/app/src/gps_sensor.rs",
                                            80u32, 5u32))
             }
         };
@@ -621,7 +624,7 @@ mod gps_sensor {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 &("rust\\app\\src\\gps_sensor.rs",
+                                                                                 &("rust/app/src/gps_sensor.rs",
                                                                                    118u32,
                                                                                    17u32))
                                                 }

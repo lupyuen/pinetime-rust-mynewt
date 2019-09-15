@@ -4,7 +4,13 @@ use cstr_core::CStr;      //  Import string utilities from `cstr_core` library: 
 use cty::*;               //  Import C types from cty library: https://crates.io/crates/cty
 use crate::{
     sys::console,
-    encoding::tinycbor::CborEncoder,
+    encoding::{
+        json,                   //  Mynewt JSON encoding library
+        tinycbor::CborEncoder,  //  Mynewt CBOR encoding library
+    },
+    libs::mynewt_rust,          //  JSON encoding helper library
+    libs::sensor_coap,
+    hw::sensor::SensorValueType,
     fill_zero, Strn, StrnRep,
 };
 
@@ -31,33 +37,74 @@ static mut cbor_encoder1: CborEncoder = fill_zero!(CborEncoder);
 
 impl CoapContext {
 
+    ///  Encode a geolocation into the current JSON document with the specified keys:
+    ///  ` key: { lat_key : 41.4121132, long_key : 2.2199454 } `
+    pub fn json_set_geolocation(&mut self, key: &Strn, lat_key: &Strn, long_key: &Strn, geo: SensorValueType) {
+        if let SensorValueType::Geolocation { latitude, longitude, .. } = geo {
+            let notused = self.to_void_ptr();
+            let encoder = unsafe { &mut sensor_coap::coap_json_encoder };
+
+            //  Encode the parent key.
+            let key_cstr = self.key_strn_to_cstr(key);
+            let rc = unsafe { json::json_encode_object_key(encoder, key_cstr as *mut u8) }; 
+            assert!(rc == 0);
+
+            //  Start the object.
+            let rc = unsafe { json::json_encode_object_start(encoder) }; 
+            assert!(rc == 0);
+
+            //  Encode the latitude and longitude.
+            let key_cstr = self.key_strn_to_cstr(lat_key);
+            unsafe { mynewt_rust::json_helper_set_float(notused, key_cstr, latitude as f32) };
+            let key_cstr = self.key_strn_to_cstr(long_key);
+            unsafe { mynewt_rust::json_helper_set_float(notused, key_cstr, longitude as f32) };
+
+            //  Close the object.
+            let rc = unsafe { json::json_encode_object_finish(encoder) }; 
+            assert!(rc == 0);
+        };
+    }
+
     ///  Encode a text value into the current JSON document with the specified key
     pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
+        let notused = self.to_void_ptr();
         //  Convert the key to C string.
-        let key_cstr: *const u8 =
-            match key.rep {
-                StrnRep::ByteStr(bs) => { self.key_to_cstr(bs) }
-                StrnRep::CStr(cstr)  => { cstr }
-            };
+        let key_cstr: *const u8 = self.key_strn_to_cstr(key);
         //  Convert the value to a C string.
-        let value_cstr: *const u8 =
-            match value.rep {
-                StrnRep::ByteStr(bs) => { self.value_to_cstr(bs) }
-                StrnRep::CStr(cstr)  => { cstr }
-            };
+        let value_cstr: *const u8 = self.value_strn_to_cstr(value);
         //  Encode the value.
         unsafe {
-            crate::libs::mynewt_rust::json_helper_set_text_string(
-                self.to_void_ptr(),
+            mynewt_rust::json_helper_set_text_string(
+                notused,
                 key_cstr as *const c_char,
                 value_cstr as *const c_char
             )
         };
     }
 
+    /// Given a Strn key `key`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
+    /// If `key` is null-terminated, return it as a pointer. Else copy `key` to the static key buffer,
+    /// append null and return the static key buffer as a pointer.
+    fn key_strn_to_cstr(&mut self, key: &Strn) -> *const u8 {
+        match key.rep {
+            StrnRep::ByteStr(bs) => { self.key_to_cstr(bs) }
+            StrnRep::CStr(cstr)  => { cstr }
+        }
+    }
+
+    /// Given a Strn value `value`, return a `*char` pointer that is null-terminated. Used for encoding COAP values.
+    /// If `value` is null-terminated, return it as a pointer. Else copy `value` to the static value buffer,
+    /// append null and return the static value buffer as a pointer.
+    fn value_strn_to_cstr(&mut self, value: &Strn) -> *const u8 {
+        match value.rep {
+            StrnRep::ByteStr(bs) => { self.value_to_cstr(bs) }
+            StrnRep::CStr(cstr)  => { cstr }
+        }
+    }
+
     /// Given a key `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP keys.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static key buffer,
+    /// append null and return the static key buffer as a pointer.
     pub fn key_to_cstr(&mut self, s: &[u8]) -> *const u8 {                
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
@@ -69,8 +116,8 @@ impl CoapContext {
     }
 
     /// Given a value `s`, return a `*char` pointer that is null-terminated. Used for encoding COAP values.
-    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static buffer,
-    /// append null and return the buffer as a pointer.
+    /// If `s` is null-terminated, return it as a pointer. Else copy `s` to the static value buffer,
+    /// append null and return the static value buffer as a pointer.
     pub fn value_to_cstr(&mut self, s: &[u8]) -> *const u8 {
         //  If null-terminated, return as pointer.
         if s.last() == Some(&0) { return s.as_ptr() as *const u8; }

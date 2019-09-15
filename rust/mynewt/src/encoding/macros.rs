@@ -518,9 +518,10 @@ macro_rules! coap_item_int {
   (@cbor $array0:ident, $key0:expr, $value0:expr, $geo0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int, key: $key0, value: $value0);
     $crate::coap_item!(@cbor $array0, {
+      //  Set key and value: ` "key": <key0>, "value": <value0> `
       $crate::oc_rep_set_text_string!($array0, "key",   $key0);
       $crate::oc_rep_set_int!(        $array0, "value", $value0);
-      //  TODO: Set geolocation
+      //  TODO: Set geolocation: ` "geo": { "lat" : 41.4121132, "long" : 2.2199454 } `
     });
     d!(end cbor coap_item_int);
   }};
@@ -528,16 +529,11 @@ macro_rules! coap_item_int {
   (@json $array0:ident, $key0:expr, $value0:expr, $geo0:expr) => {{  //  JSON
     d!(begin json coap_item_int, key: $key0, value: $value0);
     $crate::coap_item!(@json $array0, {
+      //  Set key and value: ` "key": <key0>, "value": <value0> `
       $crate::json_rep_set_text_string!($array0, "key",   $key0);
       $crate::json_rep_set_int!(        $array0, "value", $value0);
-      //  TODO: Set geolocation
-      //  "geo" : {
-      //    "lat" : 41.4121132,
-      //    "long" : 2.2199454
-      //  }
-      if let SensorValueType::Geolocation {..} = $geo0 {
-        //  TODO
-      };
+      //  Set geolocation: ` "geo": { "lat" : 41.4121132, "long" : 2.2199454 } `
+      unsafe { $array0.json_set_geolocation(strn!("geo"), strn!("lat"), strn!("long"), $geo0) };
     });
     d!(end json coap_item_int);
   }};
