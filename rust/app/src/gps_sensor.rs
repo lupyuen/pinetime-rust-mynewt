@@ -32,7 +32,7 @@ use mynewt::{
     fill_zero, Strn,                        //  Import Mynewt macros    
 };
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
-////use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
+use crate::app_network;                     //  Import `app_network.rs` for sending sensor data
 
 ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
 static GPS_DEVICE: Strn      = init_strn!("gps_l70r_0");
@@ -95,7 +95,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
     }
 
     //  Aggregate the GPS geolocation with other sensor data before transmitting to server.
-    aggregate_sensor_data(sensor_value);
+    app_network::aggregate_sensor_data(&sensor_value);
 
     //  Return 0 to Mynewt to indicate no error.  Should not end with a semicolon (;).
     MynewtError::SYS_EOK
@@ -131,23 +131,5 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
             //  Unknown type of sensor value
             //  _ => { assert!(false, "sensor type"); SensorValueType::None }
         }
-    }
-}
-
-static mut current_geolocation: SensorValueType = SensorValueType::None;
-
-///  Aggregate the sensor value with other sensor data before transmitting to server.
-fn aggregate_sensor_data(sensor_value: SensorValue) {
-    if let SensorValueType::Geolocation {..} = sensor_value.value {
-        //  Save the geolocation for later transmission.
-        unsafe { current_geolocation = sensor_value.value };
-    } else {
-        //  Attach the current geolocation to the sensor data for transmission.
-        let transmit_value = SensorValue {
-            key:    sensor_value.key,
-            value:  sensor_value.value,
-            geo:    unsafe { current_geolocation }
-        };
-        //  TODO: Transmit sensor value with geolocation.
     }
 }

@@ -36,6 +36,25 @@ use mynewt::{
 };
 use mynewt_macros::strn;        //  Import Mynewt procedural macros
 
+///  Aggregate the sensor value with other sensor data before transmitting to server.
+///  If the sensor value is a GPS geolocation, we remember it and attach it to other sensor data for transmission.
+pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
+    if let SensorValueType::Geolocation {..} = sensor_value.value {
+        //  Save the geolocation for later transmission.
+        unsafe { CURRENT_GEOLOCATION = sensor_value.value };
+        Ok(())
+    } else {
+        //  Attach the current geolocation to the sensor data for transmission.
+        let transmit_value = SensorValue {
+            key:    sensor_value.key,
+            value:  sensor_value.value,
+            geo:    unsafe { CURRENT_GEOLOCATION }
+        };
+        //  Transmit sensor value with geolocation.
+        send_sensor_data(&transmit_value)
+    }
+}
+
 /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
 /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -47,7 +66,7 @@ use mynewt_macros::strn;        //  Import Mynewt procedural macros
 ///   {"key":"t",      "value":1715}
 /// ]}
 /// ```
-pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
+fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust send_sensor_data\n");
     //  Get a randomly-generated device ID that changes each time we restart the device.
     let device_id = sensor_network::get_device_id() ? ;
@@ -86,3 +105,6 @@ pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns a
     //  The CoAP Background Task will transmit the message in the background.
     Ok(())
 }
+
+///  Current geolocation recorded from GPS
+static mut CURRENT_GEOLOCATION: SensorValueType = SensorValueType::None;

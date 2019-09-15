@@ -105,6 +105,21 @@ mod app_network {
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
     use mynewt_macros::strn;
+    ///  Aggregate the sensor value with other sensor data before transmitting to server.
+    ///  If the sensor value is a GPS geolocation, we remember it and attach it to other sensor data for transmission.
+    pub fn aggregate_sensor_data(sensor_value: &SensorValue)
+     -> MynewtResult<()> {
+        if let SensorValueType::Geolocation { .. } = sensor_value.value {
+            unsafe { CURRENT_GEOLOCATION = sensor_value.value };
+            Ok(())
+        } else {
+            let transmit_value =
+                SensorValue{key: sensor_value.key,
+                            value: sensor_value.value,
+                            geo: unsafe { CURRENT_GEOLOCATION },};
+            send_sensor_data(&transmit_value)
+        }
+    }
     /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
     /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
     /// Background Task so this function will return without waiting for the message to be transmitted.
@@ -116,7 +131,7 @@ mod app_network {
     ///   {"key":"t",      "value":1715}
     /// ]}
     /// ```
-    pub fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
+    fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
         console::print("Rust send_sensor_data\n");
         let device_id = sensor_network::get_device_id()?;
         let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
@@ -295,6 +310,8 @@ mod app_network {
         console::print("\n");
         Ok(())
     }
+    ///  Current geolocation recorded from GPS
+    static mut CURRENT_GEOLOCATION: SensorValueType = SensorValueType::None;
 }
 mod app_sensor {
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
@@ -305,7 +322,7 @@ mod app_sensor {
                               sensor_type_t, SensorValue, SensorValueType},
                  sys::console, fill_zero, Strn};
     use mynewt_macros::{init_strn};
-    use crate::app_network::send_sensor_data;
+    use crate::app_network;
     ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
@@ -376,7 +393,7 @@ mod app_sensor {
                 }
             };
         }
-        let res = send_sensor_data(&sensor_value);
+        let res = app_network::aggregate_sensor_data(&sensor_value);
         if let Err(err) = res {
             if err == MynewtError::SYS_EAGAIN {
                 console::print("TMP network not ready\n");
@@ -502,6 +519,7 @@ mod gps_sensor {
                               sensor_type_t, SensorValue, SensorValueType},
                  sys::console, fill_zero, Strn};
     use mynewt_macros::{init_strn};
+    use crate::app_network;
     ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
     static GPS_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
@@ -570,7 +588,7 @@ mod gps_sensor {
             console::print("\n");
             console::flush();
         }
-        aggregate_sensor_data(sensor_value);
+        app_network::aggregate_sensor_data(&sensor_value);
         MynewtError::SYS_EOK
     }
     ///  Convert the geolocation value received from Mynewt into a Geolocation `SensorValue` for transmission. 
@@ -646,18 +664,6 @@ mod gps_sensor {
                                 } else { SensorValueType::None }
                             }
                         },}
-    }
-    static mut current_geolocation: SensorValueType = SensorValueType::None;
-    ///  Aggregate the sensor value with other sensor data before transmitting to server.
-    fn aggregate_sensor_data(sensor_value: SensorValue) {
-        if let SensorValueType::Geolocation { .. } = sensor_value.value {
-            unsafe { current_geolocation = sensor_value.value };
-        } else {
-            let transmit_value =
-                SensorValue{key: sensor_value.key,
-                            value: sensor_value.value,
-                            geo: unsafe { current_geolocation },};
-        }
     }
 }
 use core::panic::PanicInfo;

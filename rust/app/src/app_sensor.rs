@@ -33,7 +33,7 @@ use mynewt::{
     fill_zero, Strn,                        //  Import Mynewt macros    
 };
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
-use crate::app_network::send_sensor_data;   //  Import `app_network.rs` for sending sensor data
+use crate::app_network;                     //  Import `app_network.rs` for sending sensor data
 
 ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
@@ -99,7 +99,7 @@ extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
     //  CoAP server.  The message will be enqueued for transmission by the OIC 
     //  background task so this function will return without waiting for the message 
     //  to be transmitted.
-    let res = send_sensor_data(&sensor_value);
+    let res = app_network::aggregate_sensor_data(&sensor_value);
 
     //  `SYS_EAGAIN` means that the Network Task is still starting up the network.
     //  We drop the sensor data and send at the next poll.
