@@ -51,8 +51,8 @@ syscfg.vals:
     LOW_POWER:              0  # Disable low power support
 
     UART_0:                 1  # Enable USART2 for GPS module
-    UART_1:                 1  # Disable USART1
-    UART_2:                 1  # Enable USART3 for NB-IoT module
+    UART_1:                 0  # Disable USART1
+    UART_2:                 0  # Enable USART3 for NB-IoT module
     UART_2_SWAP_TXRX:       1  # Swap TX/RX pins for USART3 so that USART3 behaves like LPUART1
 
     GPS_L70R:               0  # Enable driver for Quectel L70R GPS module
@@ -60,7 +60,7 @@ syscfg.vals:
     GPS_L70R_ENABLE_PIN:    MCU_GPIO_PORTA(1)  # GPIO Pin PA1 enables and disables the GPS module. Set to -1 for no pin.
 
     BC95G:                  1  # Enable driver for Quectel BC95-G NB-IoT module
-    BC95G_UART:             2  # Connect to Quectel BC95-G module on LPUART1 i.e. USART3 with TX/RX pins swapped
+    BC95G_UART:             0  # Connect to Quectel BC95-G module on LPUART1 i.e. USART3 with TX/RX pins swapped
     BC95G_ENABLE_PIN:       MCU_GPIO_PORTA(0)  # GPIO Pin PA0 enables and disables the NB-IoT module. Set to -1 for no pin.
 
     ADC_1:                  0  # Enable port ADC1

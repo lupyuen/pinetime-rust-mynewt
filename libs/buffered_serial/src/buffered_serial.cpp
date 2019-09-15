@@ -53,6 +53,8 @@ static int uart_tx_char(void *arg) {
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int byte = serial->txIrq();
+    if (byte != -1) { char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); 
+        console_printf("["); console_printhex(byte); console_printf("] "); } ////
     return byte;
 }
 
@@ -62,6 +64,7 @@ static int uart_rx_char(void *arg, uint8_t byte) {
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int rc = serial->rxIrq(byte);
+    if (byte != -1) { char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); } ////
     return rc;
 }
 
