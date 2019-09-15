@@ -248,7 +248,7 @@
 		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c",
 		"bookmarks": [
 			{
-				"line": 468,
+				"line": 469,
 				"column": 20,
 				"label": ""
 			}
