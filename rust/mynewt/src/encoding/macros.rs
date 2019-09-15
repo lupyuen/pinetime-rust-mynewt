@@ -511,24 +511,33 @@ macro_rules! coap_array {
   }};
 }
 
-///  Append a (key + int value) item to the array named `array`:
-///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>} ], ... }`
+///  Append a (key + int value + geo) item to the array named `array`:
+///    `{ <array>: [ ..., {"key": <key0>, "value": <value0>, "geo": <geo0>} ], ... }`
 #[macro_export]
 macro_rules! coap_item_int {
-  (@cbor $array0:ident, $key0:expr, $value0:expr) => {{  //  CBOR
+  (@cbor $array0:ident, $key0:expr, $value0:expr, $geo0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int, key: $key0, value: $value0);
     $crate::coap_item!(@cbor $array0, {
       $crate::oc_rep_set_text_string!($array0, "key",   $key0);
       $crate::oc_rep_set_int!(        $array0, "value", $value0);
+      //  TODO: Set geolocation
     });
     d!(end cbor coap_item_int);
   }};
 
-  (@json $array0:ident, $key0:expr, $value0:expr) => {{  //  JSON
+  (@json $array0:ident, $key0:expr, $value0:expr, $geo0:expr) => {{  //  JSON
     d!(begin json coap_item_int, key: $key0, value: $value0);
     $crate::coap_item!(@json $array0, {
       $crate::json_rep_set_text_string!($array0, "key",   $key0);
       $crate::json_rep_set_int!(        $array0, "value", $value0);
+      //  TODO: Set geolocation
+      //  "geo" : {
+      //    "lat" : 41.4121132,
+      //    "long" : 2.2199454
+      //  }
+      if let SensorValueType::Geolocation {..} = $geo0 {
+        //  TODO
+      };
     });
     d!(end json coap_item_int);
   }};
@@ -589,7 +598,7 @@ macro_rules! coap_item {
 macro_rules! coap_set_int_val {
   (@cbor $context:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_set_int_val, c: $context, val: $val0);
-    if let SensorValueType::Uint(val) = $val0.val {
+    if let SensorValueType::Uint(val) = $val0.value {
       $crate::oc_rep_set_int!($context, $val0.key, val);
     } else {
       unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
@@ -599,7 +608,7 @@ macro_rules! coap_set_int_val {
 
   (@json $context:ident, $val0:expr) => {{  //  JSON
     d!(begin json coap_set_int_val, c: $context, val: $val0);
-    if let SensorValueType::Uint(val) = $val0.val {
+    if let SensorValueType::Uint(val) = $val0.value {
       $crate::json_rep_set_int!($context, $val0.key, val);
     } else {
       unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
@@ -608,13 +617,15 @@ macro_rules! coap_set_int_val {
   }};
 }
 
-///  Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
+///  Encode Integer Sensor Value: Create a new Item object in the parent array and set the Sensor Value's key/value (integer).
+///  ` { ..., val0 } --> { values: [ ... , { key: val0.key, value: val0.value, geo: val0.geo }] } `
 #[macro_export]
 macro_rules! coap_item_int_val {
   (@cbor $context:ident, $val0:expr) => {{  //  CBOR
     d!(begin cbor coap_item_int_val, c: $context, val: $val0);
-    if let SensorValueType::Uint(val) = $val0.val {
-      $crate::coap_item_int!(@cbor $context, $val0.key, val);
+    let geo = $val0.geo;
+    if let SensorValueType::Uint(val) = $val0.value {
+      $crate::coap_item_int!(@cbor $context, $val0.key, val, geo);
     } else {
       unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }
@@ -623,8 +634,9 @@ macro_rules! coap_item_int_val {
 
   (@json $context:ident, $val0:expr) => {{  //  JSON
     d!(begin json coap_item_int_val, c: $context, val: $val0);
-    if let SensorValueType::Uint(val) = $val0.val {
-      $crate::coap_item_int!(@json $context, $val0.key, val);
+    let geo = $val0.geo;
+    if let SensorValueType::Uint(val) = $val0.value {
+      $crate::coap_item_int!(@json $context, $val0.key, val, geo);
     } else {
       unsafe { COAP_CONTEXT.fail(CoapError::VALUE_NOT_UINT) };  //  Value not uint
     }

@@ -95,7 +95,7 @@ extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
     }
 
     //  Aggregate the GPS geolocation with other sensor data before transmitting to server.
-    aggregate_sensor_data(&sensor_value);
+    aggregate_sensor_data(sensor_value);
 
     //  Return 0 to Mynewt to indicate no error.  Should not end with a semicolon (;).
     MynewtError::SYS_EOK
@@ -126,13 +126,10 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
                         longitude: geolocation.sgd_longitude,
                         altitude:  geolocation.sgd_altitude,
                     }
-                } else {
-                    //  Geolocation data is invalid.  Maybe GPS is not ready.
-                    SensorValueType::None
-                }                    
+                } else { SensorValueType::None }  //  Geolocation data is invalid.  Maybe GPS is not ready.                 
             }
             //  Unknown type of sensor value
-            //  _ => { assert!(false, "sensor type"); SensorValueType::Uint(0) }
+            //  _ => { assert!(false, "sensor type"); SensorValueType::None }
         }
     }
 }
@@ -146,7 +143,11 @@ fn aggregate_sensor_data(sensor_value: SensorValue) {
         unsafe { current_geolocation = sensor_value.value };
     } else {
         //  Attach the current geolocation to the sensor data for transmission.
-        sensor_value.geo = current_geolocation;
+        let transmit_value = SensorValue {
+            key:    sensor_value.key,
+            value:  sensor_value.value,
+            geo:    unsafe { current_geolocation }
+        };
         //  TODO: Transmit sensor value with geolocation.
     }
 }
