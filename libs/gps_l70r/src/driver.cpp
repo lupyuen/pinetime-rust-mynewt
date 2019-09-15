@@ -45,7 +45,6 @@ TinyGPSPlus gps_parser;  //  Shared with sensor.cpp
 static struct os_callout rx_callout;
 static void rx_event(void *drv);
 static void rx_callback(struct os_event *ev);
-static void printfloat(float f);
 static const char *compute_checksum(const uint8_t *buf);
 static char nibble_to_hex(uint8_t n);
 
@@ -323,12 +322,12 @@ static void rx_callback(struct os_event *ev) {
     while (serial.readable()) {
         int ch = serial.getc(0);  //  Note: this will block if there is nothing to read.
         gps_parser.encode(ch);  //  Parse the GPS data.
-        char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); ////
+        if (ch != '\r') { char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); } ////
         if (ch == '\n') { console_flush(); } ////
     }
     if (gps_parser.location.isUpdated()) {
-        console_printf("*** lat: "); printfloat(gps_parser.location.lat());
-        console_printf(" / lng: ");  printfloat(gps_parser.location.lng());
+        console_printf("*** lat: "); console_printdouble(gps_parser.location.lat());
+        console_printf(" / lng: ");  console_printdouble(gps_parser.location.lng());
         console_printf(" / alt: ");  console_printfloat(gps_parser.altitude.meters());
         console_printf("\n"); console_flush(); ////
     } else if (gps_parser.satellites.isUpdated()) {
@@ -339,21 +338,6 @@ static void rx_callback(struct os_event *ev) {
             console_printf("*** satellites: %ld\n", sat); console_flush(); ////
         }
     }
-}
-
-static void split_float(float f, bool *neg, int *i, int *d) {
-    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
-    *neg = (f < 0.0f);                    //  True if f is negative
-    float f_abs = *neg ? -f : f;          //  Absolute value of f
-    *i = (int) f_abs;                     //  Integer part
-    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  6 decimal places
-}
-
-static void printfloat(float f) {
-    //  Write a float to the output buffer, with 6 decimal places.
-    bool neg; int i, d;
-    split_float(f, &neg, &i, &d);      //  Split the float into neg, integer and decimal parts to 6 decimal places
-    console_printf("%s%d.%06d", neg ? "-" : "", i, d);   //  Combine the sign, integer and decimal parts
 }
 
 /// Given n=0..15, return '0'..'F'.
