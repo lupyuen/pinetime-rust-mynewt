@@ -53,7 +53,8 @@ static int uart_tx_char(void *arg) {
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int byte = serial->txIrq();
-    if (byte != -1) { char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); 
+    //if (byte != -1) 
+    { char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); 
         console_printf("["); console_printhex(byte); console_printf("] "); } ////
     return byte;
 }
@@ -64,7 +65,8 @@ static int uart_rx_char(void *arg, uint8_t byte) {
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int rc = serial->rxIrq(byte);
-    if (byte != -1) { char buf[1]; buf[0] = (char) byte; 
+    //if (byte != -1) 
+    { char buf[1]; buf[0] = (char) byte; 
         console_printf("("); console_buffer(buf, 1); console_printf(") "); } ////
     return rc;
 }
@@ -233,8 +235,8 @@ void BufferedSerial::prime(void)
         int rc = setup_uart(this);
         assert(rc == 0);
         hal_uart_start_rx(_uart);  //  Start receiving UART data.
-        hal_uart_start_tx(_uart);  //  Start transmitting UART data.
     }
+    hal_uart_start_tx(_uart);  //  Start transmitting UART data.
 }
 
 void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)

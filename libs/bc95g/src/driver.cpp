@@ -412,6 +412,38 @@ static bool wait_for_attach(struct bc95g *dev) {
 
 /// At startup, keep sending AT and wait for module to respond OK. This skips the ERROR response at startup.
 static bool wait_for_ok(struct bc95g *dev) {
+    //  Send AT and check for OK response.  Insert "\r\n" in case there was a previous command.
+    bool res = (
+        parser.send("AT") &&
+        parser.recv("OK")
+    );
+    //  If OK received, flush the response and continue to next command.
+    if (res) { parser.flush(); return true; }
+    //  Send AT and check for OK response.  Insert "\r\n" in case there was a previous command.
+    res = (
+        parser.send("\r\nAT") &&
+        parser.recv("OK")
+    );
+    //  If OK received, flush the response and continue to next command.
+    if (res) { parser.flush(); return true; }
+    for (uint8_t i = 0; i < 20; i++) {
+        //  Send AT and check for OK response.
+        res = (
+            parser.send("AT") &&
+            parser.recv("OK")
+        );
+        //  If OK received, flush the response and continue to next command.
+        if (res) { parser.flush(); return true; }        
+        //  Wait 1 second and retry.
+        console_flush();
+        sleep(1);
+    }
+    return false;  //  Can't get OK after 20 retries, quit.
+}
+
+/*
+/// At startup, keep sending AT and wait for module to respond OK. This skips the ERROR response at startup.
+static bool wait_for_ok(struct bc95g *dev) {
     bool res = false;
     //  Send ATE0 to disable echo and check for OK response.
     res = (
@@ -443,6 +475,7 @@ static bool wait_for_ok(struct bc95g *dev) {
     }
     return false;  //  Can't get OK after 20 retries, quit.
 }
+*/
 
 /// [Phase 0] Prepare to transmit
 static bool prepare_to_transmit(struct bc95g *dev) {
