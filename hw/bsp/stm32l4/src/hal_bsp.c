@@ -49,21 +49,6 @@
 #if MYNEWT_VAL(UART_0)
 static struct uart_dev hal_uart0;
 
-//  USART3
-static const struct stm32_uart_cfg uart0_cfg = {
-    .suc_uart = USART3,
-    .suc_rcc_reg = &RCC->APB1ENR1,
-    .suc_rcc_dev = RCC_APB1ENR1_USART3EN,
-    .suc_pin_tx = MCU_GPIO_PORTB(10),
-    .suc_pin_rx = MCU_GPIO_PORTB(11),
-    .suc_pin_rts = -1,
-    .suc_pin_cts = -1,
-    .suc_pin_af = GPIO_AF7_USART3,
-    .suc_irqn = USART3_IRQn
-};
-
-/*
-//  USART2
 static const struct stm32_uart_cfg uart0_cfg = {
     .suc_uart = USART2,
     .suc_rcc_reg = &RCC->APB1ENR1,
@@ -75,7 +60,6 @@ static const struct stm32_uart_cfg uart0_cfg = {
     .suc_pin_af = GPIO_AF7_USART2,
     .suc_irqn = USART2_IRQn
 };
-*/
 #endif
 
 #if MYNEWT_VAL(UART_1)
