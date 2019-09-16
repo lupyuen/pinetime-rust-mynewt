@@ -24,6 +24,12 @@ pub fn printhex(v: u8) {
     unsafe { console_printhex(v); }
 }
 
+///  Write an int to the output buffer.
+///  C API: `void console_printint(int i)`
+pub fn printint(v: i32) {
+    unsafe { console_printint(v); }
+}
+
 ///  Write a float to the output buffer, with 2 decimal places.
 pub fn printfloat(v: f32) {
     unsafe { console_printfloat(v); }
@@ -50,6 +56,10 @@ extern {
     ///  Write a byte in hexadecimal to the output buffer.
     ///  C API: `void console_printhex(uint8_t v)`
     fn console_printhex(v: u8);  
+
+    ///  Write an int i to the output buffer.
+    ///  C API: `void console_printint(int i)`
+    fn console_printint(i: i32);
 
     ///  Write a float to the output buffer, with 2 decimal places.
     ///  C API: `void console_printfloat(float f)`

@@ -38,6 +38,8 @@ void enable_log(void)  { log_enabled = true; }
 void disable_log(void) { log_enabled = false; }
 void enable_buffer(void) { buffer_enabled = true; }  //  Enable buffering.
 void disable_buffer(void) { buffer_enabled = false; console_flush(); }  //  Disable buffering.
+static void split_float(float f, bool *neg, int *i, int *d);
+static void split_double(double f, bool *neg, int *i, int *d);
 
 //#define DISABLE_SEMIHOSTING ////
 
@@ -173,20 +175,9 @@ void console_printhex(uint8_t v) {
     console_buffer(buffer, strlen(buffer));
 }
 
-static void split_float(float f, bool *neg, int *i, int *d) {
-    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
-    *neg = (f < 0.0f);                    //  True if f is negative
-    float f_abs = *neg ? -f : f;          //  Absolute value of f
-    *i = (int) f_abs;                     //  Integer part
-    *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
-}
-
-static void split_double(double f, bool *neg, int *i, int *d) {
-    //  Split the double f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
-    *neg = (f < 0.0f);                    //  True if f is negative
-    float f_abs = *neg ? -f : f;          //  Absolute value of f
-    *i = (int) f_abs;                     //  Integer part
-    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  6 decimal places
+void console_printint(int i) {
+    //  Write an int i the output buffer.
+    console_printf("%d", i);
 }
 
 void console_printfloat(float f) {
@@ -207,6 +198,22 @@ void console_dump(const uint8_t *buffer, unsigned int len) {
 	//  Append "length" number of bytes from "buffer" to the output buffer in hex format.
     if (buffer == NULL || len == 0) { return; }
 	for (int i = 0; i < len; i++) { console_printhex(buffer[i]); console_buffer(" ", 1); } 
+}
+
+static void split_float(float f, bool *neg, int *i, int *d) {
+    //  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
+    *neg = (f < 0.0f);                    //  True if f is negative
+    float f_abs = *neg ? -f : f;          //  Absolute value of f
+    *i = (int) f_abs;                     //  Integer part
+    *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+}
+
+static void split_double(double f, bool *neg, int *i, int *d) {
+    //  Split the double f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
+    *neg = (f < 0.0f);                    //  True if f is negative
+    float f_abs = *neg ? -f : f;          //  Absolute value of f
+    *i = (int) f_abs;                     //  Integer part
+    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  6 decimal places
 }
 
 static void semihosting_console_write_ch(char c) {

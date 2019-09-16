@@ -88,7 +88,6 @@ mod app_network {
     //  Never comes here
 
     //  Display the filename and line number to the Semihosting Console.
-    //  TODO: Print in decimal not hex. Allow more than 255 lines.
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
     //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
@@ -422,7 +421,7 @@ fn panic(info: &PanicInfo) -> ! {
         console::print("at ");
         console::buffer(&file);
         console::print(" line 0x");
-        console::printhex(line as u8);
+        console::printint(line as i32);
         console::print("\n");
         console::flush();
     } else { console::print("no loc\n"); console::flush(); }

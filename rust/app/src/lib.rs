@@ -70,7 +70,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 
     //  extern { fn start_gps_listener(); }
     //  unsafe { start_gps_listener() };
-    
+
     //  Start polling the GPS.
     gps_sensor::start_gps_listener()
         .expect("GPS fail");
@@ -94,7 +94,7 @@ fn panic(info: &PanicInfo) -> ! {
         let file = location.file();
         let line = location.line();
         console::print("at ");        console::buffer(&file);
-        console::print(" line 0x");   console::printhex(line as u8);  //  TODO: Print in decimal not hex. Allow more than 255 lines.
+        console::print(" line 0x");   console::printint(line as i32);
         console::print("\n");         console::flush();
     } else {
         console::print("no loc\n");   console::flush();
