@@ -27,7 +27,6 @@
 #include "gps_l70r/gps_l70r.h"
 
 /// Set this to 1 so that `power_sleep()` will not sleep when network is busy connecting.  Defined in apps/my_sensor_app/src/power.c
-extern "C" int network_is_busy;
 extern "C" int power_standby_wakeup();
 
 //  Controller buffers.  TODO: Support multiple instances.
@@ -273,12 +272,11 @@ int gps_l70r_start(void) {
     os_callout_init(&rx_callout, os_eventq_dflt_get(), rx_callback, NULL);
 
 #if MYNEWT_VAL(GPS_L70R_ENABLE_PIN) >= 0
-    ////  Enable GPS module: Set PA1 to high for Ghostyu L476 dev kit
-    ////  TODO: hal_gpio_init_out(MYNEWT_VAL(GPS_L70R_ENABLE_PIN), 0);
+    //  Enable GPS module: Set PA1 to high for Ghostyu L476 dev kit
+    hal_gpio_init_out(MYNEWT_VAL(GPS_L70R_ENABLE_PIN), 0);
 #endif  //  GPS_L70R_ENABLE_PIN
 
     {   //  Lock the GPS_L70R driver for exclusive use.  Find the GPS_L70R device by name.
-        network_is_busy = 1;  //  Tell the Task Scheduler not to sleep (because it causes dropped UART response)
         struct gps_l70r *dev = (struct gps_l70r *) os_dev_open(device_name, OS_TIMEOUT_NEVER, NULL);  //  GPS_L70R_DEVICE is "gps_l70r_0"
         assert(dev != NULL);
 
@@ -293,7 +291,6 @@ int gps_l70r_start(void) {
         //  Close the GPS_L70R device when we are done.
         os_dev_close((struct os_dev *) dev);
         //  Unlock the GPS_L70R driver for exclusive use.
-        network_is_busy = 0;  //  Tell the Task Scheduler it's OK to sleep.
     }
 
     //  Set the LED for output: PC13. TODO: Super Blue Pill uses a different pin for LED.
@@ -323,19 +320,19 @@ static void rx_callback(struct os_event *ev) {
         int ch = serial.getc(0);  //  Note: this will block if there is nothing to read.
         gps_parser.encode(ch);  //  Parse the GPS data.
         if (ch != '\r') { char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); } ////
-        if (ch == '\n') { console_flush(); } ////
+        // if (ch == '\n') { console_flush(); } ////
     }
     if (gps_parser.location.isUpdated()) {
         console_printf("*** lat: "); console_printdouble(gps_parser.location.lat());
         console_printf(" / lng: ");  console_printdouble(gps_parser.location.lng());
         console_printf(" / alt: ");  console_printfloat(gps_parser.altitude.meters());
-        console_printf("\n"); console_flush(); ////
+        console_printf("\n"); // console_flush(); ////
     } else if (gps_parser.satellites.isUpdated()) {
         static uint32_t lastSat = 0;
         uint32_t sat = gps_parser.satellites.value();
         if (sat != lastSat) {
             lastSat = sat;
-            console_printf("*** satellites: %ld\n", sat); console_flush(); ////
+            console_printf("*** satellites: %ld\n", sat); // console_flush(); ////
         }
     }
 }

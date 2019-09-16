@@ -161,11 +161,14 @@ extern "C" fn wrap_sensor_listener(
     }
 
     //  Call the unwrapped listener function to hande the sensor value
-    (info.listener_func)(&sensor_value)
-        .expect("sensor listener fail");
+    let res = (info.listener_func)(&sensor_value);
 
-    //  Return 0 to Mynewt to indicate no error
-    0
+    //  Check the result returned by the unwrapped listener function
+    if let Err(_err) = res {
+        SYS_EINVAL  //  Return error to Mynewt
+    } else {
+        0           //  Return 0 to Mynewt to indicate no error
+    }
 }
 
 ///  Define the info needed for converting sensor data into sensor value and calling a listener function

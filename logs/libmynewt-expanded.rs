@@ -5965,8 +5965,8 @@ pub mod hw {
             if let SensorValueType::None = sensor_value.value {
                 return SYS_EINVAL;
             }
-            (info.listener_func)(&sensor_value).expect("sensor listener fail");
-            0
+            let res = (info.listener_func)(&sensor_value);
+            if let Err(_err) = res { SYS_EINVAL } else { 0 }
         }
         ///  Define the info needed for converting sensor data into sensor value and calling a listener function
         #[rustc_copy_clone_marker]

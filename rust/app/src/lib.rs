@@ -56,8 +56,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     mynewt::sysinit();
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
-    sensor_network::start_server_transport()
-        .expect("NET fail");
+    ////sensor_network::start_server_transport()
+        ////.expect("NET fail");
 
     //  Start polling the temperature sensor every 10 seconds in the background.
     //  If this is a standby wakeup, the server transport must already be started.
