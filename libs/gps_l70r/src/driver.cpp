@@ -139,7 +139,7 @@ static bool send_raw_command(struct gps_l70r *dev, const char *cmd) {
 
     //  Write to complete NMEA packet to the GPS UART
     bool res = serial.write(raw_buf, strlen(raw_buf));
-    console_flush();
+    // console_flush();
     return res;
 }
 
@@ -148,7 +148,7 @@ static bool send_command(struct gps_l70r *dev, enum CommandId id) {
     assert(dev);
     const char *cmd = get_command(dev, id);
     bool res = send_raw_command(dev, cmd);
-    console_flush();
+    // console_flush();
     return res;
 }
 
@@ -213,7 +213,7 @@ static int gps_l70r_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 /// Shutdown the GPS transceiver.  Unlock the UART port.
 static int gps_l70r_close(struct os_dev *dev0) {
     //  TODO: Undo driver.init(), driver.configure() and driver.attach()
-    console_printf("]\n");  console_flush();  ////
+    console_printf("]\n");  // console_flush();  ////
     assert(dev0);
     return 0;
 }
@@ -319,7 +319,7 @@ static void rx_callback(struct os_event *ev) {
     while (serial.readable()) {
         int ch = serial.getc(0);  //  Note: this will block if there is nothing to read.
         gps_parser.encode(ch);  //  Parse the GPS data.
-        if (ch != '\r') { char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); } ////
+        // if (ch != '\r') { char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); } ////
         // if (ch == '\n') { console_flush(); } ////
     }
     if (gps_parser.location.isUpdated()) {

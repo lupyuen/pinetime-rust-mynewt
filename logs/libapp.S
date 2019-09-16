@@ -2721,6 +2721,7 @@ app-b90ce02d7e477c3f.4q9qovk8rqwaqec4.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 4q9qovk8rqwaqec4
 00000340 l       .debug_str	00000000 
+00000391 l       .debug_str	00000000 
 000003b5 l       .debug_str	00000000 
 000003d1 l       .debug_str	00000000 
 000003db l       .debug_str	00000000 
@@ -2831,16 +2832,16 @@ SYMBOL TABLE:
 0000036e l       .debug_str	00000000 
 00000372 l       .debug_str	00000000 
 0000037a l       .debug_str	00000000 
-00000391 l       .debug_str	00000000 
 00000000 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.0
 00000008 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.1
 00000010 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.2
 00000018 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.3
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.4
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.5
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.6
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.7
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.8
+00000020 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.4
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.5
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.6
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.7
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.8
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.9
 00000000 l    d  .text.main	00000000 .text.main
 00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -2859,11 +2860,12 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt3sys7console5print17h0f65bc3b0e739871E
 00000000         *UND*	00000000 _ZN6mynewt3sys7console6buffer17h937c567b6e383806E
 00000000         *UND*	00000000 _ZN6mynewt3sys7console8printint17h732f7e3d3f1828c1E
+00000000         *UND*	00000000 _ZN6mynewt4libs14sensor_network22start_server_transport17h71bbe1fb61876184E
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os10eventq_run17h35180d98e8e522beE
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os15eventq_dflt_get17hfdc26cb533694dccE
 00000000         *UND*	00000000 _ZN6mynewt7sysinit17hfbb6001f0140a448E
 00000000         *UND*	00000000 gps_l70r_start
-00000000 g     F .text.main	00000080 main
+00000000 g     F .text.main	0000009a main
 00000000 g     F .text.rust_begin_unwind	000000ac rust_begin_unwind
 
 
@@ -2888,15 +2890,12 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <_ZN6mynewt7sysinit17hfbb6001f0140a448E>
-   6:	e7ff      	b.n	2 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:64
-    ////sensor_network::start_server_transport()
-        ////.expect("NET fail");
+   6:	e7ff      	b.n	2 <_ZN6mynewt4libs14sensor_network22start_server_transport17h71bbe1fb61876184E+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:59
 
-    //  Start polling the temperature sensor every 10 seconds in the background.
-    //  If this is a standby wakeup, the server transport must already be started.
-    app_sensor::start_sensor_listener()
-   8:	f7ff fffe 	bl	0 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E>
+    //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
+    sensor_network::start_server_transport()
+   8:	f7ff fffe 	bl	0 <_ZN6mynewt4libs14sensor_network22start_server_transport17h71bbe1fb61876184E>
    c:	9005      	str	r0, [sp, #20]
    e:	e7ff      	b.n	10 <main+0x10>
   10:	f240 0100 	movw	r1, #0
@@ -2904,16 +2903,31 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   18:	2208      	movs	r2, #8
   1a:	9805      	ldr	r0, [sp, #20]
   1c:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  20:	e7ff      	b.n	2 <gps_l70r_start+0x2>
+  20:	e7ff      	b.n	2 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:64
+        .expect("NET fail");
+
+    //  Start polling the temperature sensor every 10 seconds in the background.
+    //  If this is a standby wakeup, the server transport must already be started.
+    app_sensor::start_sensor_listener()
+  22:	f7ff fffe 	bl	0 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E>
+  26:	9004      	str	r0, [sp, #16]
+  28:	e7ff      	b.n	2a <main+0x2a>
+  2a:	f240 0100 	movw	r1, #0
+  2e:	f2c0 0100 	movt	r1, #0
+  32:	2208      	movs	r2, #8
+  34:	9804      	ldr	r0, [sp, #16]
+  36:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
+  3a:	e7ff      	b.n	2 <gps_l70r_start+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:69
         .expect("TMP fail");
 
     //  Start the GPS.
     extern { fn gps_l70r_start() -> i32; }
     unsafe { gps_l70r_start() };
-  22:	f7ff fffe 	bl	0 <gps_l70r_start>
-  26:	9004      	str	r0, [sp, #16]
-  28:	e7ff      	b.n	2a <main+0x2a>
+  3c:	f7ff fffe 	bl	0 <gps_l70r_start>
+  40:	9003      	str	r0, [sp, #12]
+  42:	e7ff      	b.n	44 <main+0x44>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
 
     //  extern { fn start_gps_listener(); }
@@ -2921,49 +2935,49 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 
     //  Start polling the GPS.
     gps_sensor::start_gps_listener()
-  2a:	f7ff fffe 	bl	0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E>
-  2e:	9003      	str	r0, [sp, #12]
-  30:	e7ff      	b.n	32 <main+0x32>
-  32:	f240 0100 	movw	r1, #0
-  36:	f2c0 0100 	movt	r1, #0
-  3a:	2208      	movs	r2, #8
-  3c:	9803      	ldr	r0, [sp, #12]
-  3e:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  42:	e7ff      	b.n	44 <main+0x44>
+  44:	f7ff fffe 	bl	0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E>
+  48:	9002      	str	r0, [sp, #8]
+  4a:	e7ff      	b.n	4c <main+0x4c>
+  4c:	f240 0100 	movw	r1, #0
+  50:	f2c0 0100 	movt	r1, #0
+  54:	2208      	movs	r2, #8
+  56:	9802      	ldr	r0, [sp, #8]
+  58:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
+  5c:	e7ff      	b.n	5e <main+0x5e>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:79
         .expect("GPS fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
-  44:	e7ff      	b.n	46 <main+0x46>
-  46:	a806      	add	r0, sp, #24
+  5e:	e7ff      	b.n	60 <main+0x60>
+  60:	a806      	add	r0, sp, #24
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:81
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
-  48:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os15eventq_dflt_get17hfdc26cb533694dccE>
-  4c:	e7ff      	b.n	12 <main+0x12>
-  4e:	f240 0100 	movw	r1, #0
-  52:	f2c0 0100 	movt	r1, #0
-  56:	a806      	add	r0, sp, #24
-  58:	2208      	movs	r2, #8
-  5a:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h971a4fb20f73df2aE>
-  5e:	9002      	str	r0, [sp, #8]
-  60:	e7ff      	b.n	62 <main+0x62>
+  62:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os15eventq_dflt_get17hfdc26cb533694dccE>
+  66:	e7ff      	b.n	1a <main+0x1a>
+  68:	f240 0100 	movw	r1, #0
+  6c:	f2c0 0100 	movt	r1, #0
+  70:	a806      	add	r0, sp, #24
+  72:	2208      	movs	r2, #8
+  74:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h971a4fb20f73df2aE>
+  78:	9001      	str	r0, [sp, #4]
+  7a:	e7ff      	b.n	7c <main+0x7c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:80
         os::eventq_run(               //  Processing events...
-  62:	9802      	ldr	r0, [sp, #8]
-  64:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os10eventq_run17h35180d98e8e522beE>
-  68:	9001      	str	r0, [sp, #4]
-  6a:	e7ff      	b.n	6c <main+0x6c>
-  6c:	f240 0100 	movw	r1, #0
-  70:	f2c0 0100 	movt	r1, #0
-  74:	2208      	movs	r2, #8
-  76:	9801      	ldr	r0, [sp, #4]
-  78:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  7c:	e7ff      	b.n	7e <main+0x7e>
+  7c:	9801      	ldr	r0, [sp, #4]
+  7e:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os10eventq_run17h35180d98e8e522beE>
+  82:	9000      	str	r0, [sp, #0]
+  84:	e7ff      	b.n	86 <main+0x86>
+  86:	f240 0100 	movw	r1, #0
+  8a:	f2c0 0100 	movt	r1, #0
+  8e:	2208      	movs	r2, #8
+  90:	9800      	ldr	r0, [sp, #0]
+  92:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
+  96:	e7ff      	b.n	98 <main+0x98>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:79
     loop {                            //  Loop forever...
-  7e:	e7e2      	b.n	46 <main+0x46>
+  98:	e7e2      	b.n	60 <main+0x60>
 
 Disassembly of section .text.rust_begin_unwind:
 

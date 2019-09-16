@@ -5929,7 +5929,7 @@ pub mod hw {
             };
             Ok(listener)
         }
-        ///  Wrap the sensor value function into a sensor data function
+        ///  Wrapped Sensor Listener that converts Mynewt `sensor_data` into our `sensor_value` format and calls the application's Listener Function
         extern "C" fn wrap_sensor_listener(sensor: sensor_ptr,
                                            arg: sensor_arg,
                                            sensor_data: sensor_data_ptr,
