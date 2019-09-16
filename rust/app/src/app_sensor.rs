@@ -38,7 +38,7 @@ use crate::app_network;                     //  Import `app_network.rs` for send
 ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
 ///  Poll sensor every 10,000 milliseconds (10 seconds)  
-const SENSOR_POLL_TIME: u32     = (57 * 1000);  
+const SENSOR_POLL_TIME: u32     = (19 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
 const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)

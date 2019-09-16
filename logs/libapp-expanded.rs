@@ -76,9 +76,6 @@ mod app_network {
 
     //  Start the GPS.
 
-    //  extern { fn start_gps_listener(); }
-    //  unsafe { start_gps_listener() };
-
     //  Start polling the GPS.
 
     //  Main event loop
@@ -90,6 +87,7 @@ mod app_network {
     //  Display the filename and line number to the Semihosting Console.
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
+
     //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
     //!  The sensor data will be transmitted over NB-IoT.
     //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
@@ -270,7 +268,7 @@ mod app_sensor {
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
     ///  Poll sensor every 10,000 milliseconds (10 seconds)  
-    const SENSOR_POLL_TIME: u32 = (57 * 1000);
+    const SENSOR_POLL_TIME: u32 = (19 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};
@@ -312,8 +310,8 @@ mod gps_sensor {
     ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
     static GPS_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
-    ///  Poll GPS every 10,000 milliseconds (10 seconds)  
-    const GPS_POLL_TIME: u32 = (31 * 1000);
+    ///  Poll GPS every 11,000 milliseconds (11 seconds)  
+    const GPS_POLL_TIME: u32 = (11 * 1000);
     ///  Use key (field name) `geo` to transmit GPS geolocation to CoAP Server
     const GPS_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"geo\x00"),};
@@ -351,9 +349,6 @@ extern "C" fn main() -> ! {
     mynewt::sysinit();
     sensor_network::start_server_transport().expect("NET fail");
     app_sensor::start_sensor_listener().expect("TMP fail");
-    extern "C" {
-        fn gps_l70r_start() -> i32;
-    }
     unsafe { gps_l70r_start() };
     gps_sensor::start_gps_listener().expect("GPS fail");
     loop  {
@@ -376,4 +371,7 @@ fn panic(info: &PanicInfo) -> ! {
     } else { console::print("no loc\n"); console::flush(); }
     bkpt();
     loop  { }
+}
+extern "C" {
+    fn gps_l70r_start() -> i32;
 }
