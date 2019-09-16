@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "/Users/Luppy/mynewt/OLDstm32bluepill-mynewt-sensor"
 		}
 	],
 	"settings": {
