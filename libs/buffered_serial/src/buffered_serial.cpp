@@ -41,33 +41,22 @@
 #endif
 
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
-////extern "C" char rx_buf[];
-////extern "C" char *rx_ptr;
-
-////  TODO
-////char rx_buf[256];        //  Receive buffer.  TODO: Support multiple instances.
-////char *rx_ptr = NULL;     //  Pointer to next receive buffer byte to be received.  TODO: Support multiple instances.
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int byte = serial->txIrq();
-    //if (byte != -1) 
-    //{ char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); 
-        //console_printf("["); console_printhex(byte); console_printf("] "); } ////
+    //  { char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); console_printf("["); console_printhex(byte); console_printf("] "); } ////
     return byte;
 }
 
 static int uart_rx_char(void *arg, uint8_t byte) {
     //  UART driver reports incoming byte of data. Return -1 if data was dropped.
-    ////if (rx_ptr - rx_buf < (int) sizeof(rx_buf)) { *rx_ptr++ = byte; }  //  Save to rx buffer.
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int rc = serial->rxIrq(byte);
-    //if (byte != -1) 
-    //{ char buf[1]; buf[0] = (char) byte; 
-        //console_printf("("); console_buffer(buf, 1); console_printf(") "); } ////
+    //  { char buf[1]; buf[0] = (char) byte; console_printf("("); console_buffer(buf, 1); console_printf(") "); } ////
     return rc;
 }
 
@@ -80,10 +69,6 @@ int setup_uart(BufferedSerial *serial) {
     int rc;
     int uart = serial->_uart;
     uint32_t baud = serial->_baud;
-
-    //  Init rx buffer.
-    ////memset(rx_buf, 0, sizeof(rx_buf));
-    ////rx_ptr = rx_buf;
 
     //  Define the UART callbacks.
     rc = hal_uart_init_cbs(uart,
@@ -167,11 +152,6 @@ int BufferedSerial::putc(int c)
 {
     _txbuf.put(c);    
     BufferedSerial::prime();
-#ifdef NOTUSED    
-    hal_uart_blocking_tx(_uart, c);
-    { char buf[1]; buf[0] = (char) c; console_buffer(buf, 1); 
-        console_printf("["); console_printhex(c); console_printf("] "); } ////
-#endif  //  NOTUSED
     return c;
 }
 
