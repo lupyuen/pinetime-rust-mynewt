@@ -5830,10 +5830,9 @@ pub mod hw {
                 }
             }
             if arg < MAX_SENSOR_LISTENERS {
-                let mut wrapped_listener =
-                    unsafe { SENSOR_LISTENERS[arg].listener };
                 unsafe {
-                    sensor_register_listener(sensor, &mut wrapped_listener)
+                    sensor_register_listener(sensor,
+                                             &mut SENSOR_LISTENERS[arg].listener)
                 };
             } else {
                 unsafe {
@@ -5867,7 +5866,7 @@ pub mod hw {
                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                      }),
                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                       94u32,
+                                                                       93u32,
                                                                        18u32))
                                     }
                                 }
@@ -5895,7 +5894,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               112u32, 5u32))
+                                               111u32, 5u32))
                 }
             };
             let mut arg = MAX_SENSOR_LISTENERS + 1;
@@ -5907,7 +5906,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               122u32, 5u32))
+                                               121u32, 5u32))
                 }
             };
             let listener =
@@ -5941,7 +5940,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("bad sensor arg",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               150u32, 5u32))
+                                               149u32, 5u32))
                 }
             };
             let info = unsafe { SENSOR_LISTENERS[arg] };
@@ -5949,7 +5948,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               152u32, 5u32))
+                                               151u32, 5u32))
                 }
             };
             if sensor_data.is_null() { return SYS_EINVAL }
@@ -5957,20 +5956,14 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("null sensor",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               156u32, 5u32))
+                                               155u32, 5u32))
                 }
             };
             let sensor_value =
                 convert_sensor_data(sensor_data, info.sensor_key,
                                     sensor_type);
             if let SensorValueType::None = sensor_value.value {
-                if !false {
-                    {
-                        ::core::panicking::panic(&("bad type",
-                                                   "rust/mynewt/src/hw/sensor.rs",
-                                                   160u32, 57u32))
-                    }
-                };
+                return SYS_EINVAL;
             }
             (info.listener_func)(&sensor_value).expect("sensor listener fail");
             0

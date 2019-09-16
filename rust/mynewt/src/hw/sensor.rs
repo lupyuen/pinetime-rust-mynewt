@@ -86,8 +86,7 @@ pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Myne
     if arg < MAX_SENSOR_LISTENERS {
         //  Found the Wrapped Sensor Listener. Register the associated Sensor Listener with Mynewt.
         //  Pass the associated listener to the unsafe Mynewt API.
-        let mut wrapped_listener = unsafe { SENSOR_LISTENERS[arg].listener };
-        unsafe { sensor_register_listener(sensor, &mut wrapped_listener) };
+        unsafe { sensor_register_listener(sensor, &mut SENSOR_LISTENERS[arg].listener) };
     } else {
         //  TODO: Allocate a Wrapped Sensor Listener.
         //  If not found, copy the listener and register the copied Sensor Listener with Mynewt.
@@ -157,9 +156,11 @@ extern "C" fn wrap_sensor_listener(
 
     //  Convert the sensor data to sensor value
     let sensor_value = convert_sensor_data(sensor_data, info.sensor_key, sensor_type);
-    if let SensorValueType::None = sensor_value.value { assert!(false, "bad type"); }
+    if let SensorValueType::None = sensor_value.value { 
+        return SYS_EINVAL;   //  Exit if sensor is not ready
+    }
 
-    //  Call the unwrapped function
+    //  Call the unwrapped listener function to hande the sensor value
     (info.listener_func)(&sensor_value)
         .expect("sensor listener fail");
 
