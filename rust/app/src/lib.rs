@@ -59,12 +59,12 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     sensor_network::start_server_transport()
         .expect("NET fail");
 
-/*
     //  Start polling the temperature sensor every 10 seconds in the background.
     //  If this is a standby wakeup, the server transport must already be started.
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
 
+/*
     //  Start the GPS.
     extern { fn gps_l70r_start() -> i32; }
     unsafe { gps_l70r_start() };

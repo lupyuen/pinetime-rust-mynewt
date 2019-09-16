@@ -71,12 +71,10 @@ mod app_network {
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
 
-    /*
-        //  Start polling the temperature sensor every 10 seconds in the background.
-        //  If this is a standby wakeup, the server transport must already be started.
-        app_sensor::start_sensor_listener()
-            .expect("TMP fail");
+    //  Start polling the temperature sensor every 10 seconds in the background.
+    //  If this is a standby wakeup, the server transport must already be started.
 
+    /*
         //  Start the GPS.
         extern { fn gps_l70r_start() -> i32; }
         unsafe { gps_l70r_start() };
@@ -677,6 +675,7 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 extern "C" fn main() -> ! {
     mynewt::sysinit();
     sensor_network::start_server_transport().expect("NET fail");
+    app_sensor::start_sensor_listener().expect("TMP fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
