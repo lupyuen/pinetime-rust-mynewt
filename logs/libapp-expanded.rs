@@ -112,15 +112,15 @@ mod app_network {
             send_sensor_data(&transmit_value)
         }
     }
-    /// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
+    /// Compose a CoAP JSON message with the Sensor Key (field name), Value and Geolocation (optional) in `val`
     /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
     /// Background Task so this function will return without waiting for the message to be transmitted.
     /// Return `Ok()` if successful, `SYS_EAGAIN` if network is not ready yet.
-    /// For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
+    /// For the CoAP server hosted at thethings.io, the CoAP payload shall be encoded in JSON like this:
     /// ```json
     /// {"values":[
-    ///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-    ///   {"key":"t",      "value":1715}
+    ///   {"key":"t",      "value":1715, "geo": { "lat": ..., "long": ... }},
+    ///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}
     /// ]}
     /// ```
     fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
@@ -151,58 +151,7 @@ mod app_network {
                                 };
                             };
                             {
-                                " >>  >> \"device\" >> : & device_id , val ,";
-                                "add1 key : \"device\" value : $crate::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
-                                {
-                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json &device_id)";
-                                    {
-                                        "begin json coap_item , array : COAP_CONTEXT";
-                                        {
-                                            "<< jitmi c: COAP_CONTEXT";
-                                            let key_with_null: &str =
-                                                "COAP_CONTEXT\u{0}";
-                                            unsafe {
-                                                mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                            };
-                                        };
-                                        {
-                                            {
-                                                "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
-                                                let key_strn: &Strn =
-                                                    &Strn::new(b"key\x00");
-                                                let value_strn: &Strn =
-                                                    &Strn::new(b"device\x00");
-                                                unsafe {
-                                                    COAP_CONTEXT.json_set_text_string(key_strn,
-                                                                                      value_strn)
-                                                };
-                                            };
-                                            {
-                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json &device_id)";
-                                                let key_strn: &Strn =
-                                                    &Strn::new(b"value\x00");
-                                                let value_strn: &Strn =
-                                                    &device_id;
-                                                unsafe {
-                                                    COAP_CONTEXT.json_set_text_string(key_strn,
-                                                                                      value_strn)
-                                                };
-                                            };
-                                        };
-                                        {
-                                            ">>";
-                                            let key_with_null: &str =
-                                                "COAP_CONTEXT\u{0}";
-                                            unsafe {
-                                                mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
-                                            };
-                                        };
-                                        "end json coap_item";
-                                    };
-                                    "end json coap_item_str";
-                                };
-                                "--------------------";
-                                " >>  >> val >> ,";
+                                " >>  >> val >> , \"device\" : & device_id ,";
                                 "--------------------";
                                 {
                                     "begin json coap_item_int_val , c : COAP_CONTEXT , val : val";
@@ -274,6 +223,57 @@ mod app_network {
                                         };
                                     }
                                     "end json coap_item_int_val";
+                                };
+                                "--------------------";
+                                " >>  >> \"device\" >> : & device_id ,";
+                                "add1 key : \"device\" value : $crate::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
+                                {
+                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json &device_id)";
+                                    {
+                                        "begin json coap_item , array : COAP_CONTEXT";
+                                        {
+                                            "<< jitmi c: COAP_CONTEXT";
+                                            let key_with_null: &str =
+                                                "COAP_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt::libs::mynewt_rust::json_helper_object_array_start_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        {
+                                            {
+                                                "-- jtxti o: COAP_CONTEXT, k: key, v: \"device\"";
+                                                let key_strn: &Strn =
+                                                    &Strn::new(b"key\x00");
+                                                let value_strn: &Strn =
+                                                    &Strn::new(b"device\x00");
+                                                unsafe {
+                                                    COAP_CONTEXT.json_set_text_string(key_strn,
+                                                                                      value_strn)
+                                                };
+                                            };
+                                            {
+                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json &device_id)";
+                                                let key_strn: &Strn =
+                                                    &Strn::new(b"value\x00");
+                                                let value_strn: &Strn =
+                                                    &device_id;
+                                                unsafe {
+                                                    COAP_CONTEXT.json_set_text_string(key_strn,
+                                                                                      value_strn)
+                                                };
+                                            };
+                                        };
+                                        {
+                                            ">>";
+                                            let key_with_null: &str =
+                                                "COAP_CONTEXT\u{0}";
+                                            unsafe {
+                                                mynewt::libs::mynewt_rust::json_helper_object_array_end_item(COAP_CONTEXT.key_to_cstr(key_with_null.as_bytes()))
+                                            };
+                                        };
+                                        "end json coap_item";
+                                    };
+                                    "end json coap_item_str";
                                 };
                                 "--------------------";
                             };

@@ -55,15 +55,15 @@ pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  { 
     }
 }
 
-/// Compose a CoAP JSON message with the Sensor Key (field name) and Value in `val`
+/// Compose a CoAP JSON message with the Sensor Key (field name), Value and Geolocation (optional) in `val`
 /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
 /// Background Task so this function will return without waiting for the message to be transmitted.
 /// Return `Ok()` if successful, `SYS_EAGAIN` if network is not ready yet.
-/// For the CoAP server hosted at thethings.io, the CoAP payload should be encoded in JSON like this:
+/// For the CoAP server hosted at thethings.io, the CoAP payload shall be encoded in JSON like this:
 /// ```json
 /// {"values":[
-///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"},
-///   {"key":"t",      "value":1715}
+///   {"key":"t",      "value":1715, "geo": { "lat": ..., "long": ... }},
+///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}
 /// ]}
 /// ```
 fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
@@ -83,14 +83,14 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
     //  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.
     let _payload = coap!( @json {        
         //  Create `values` as an array of items under the root.
+        //  Assume `val` contains `key: "t", val: 2870, geo: { lat, long }`. 
+        //  Append to the `values` array the Sensor Key and Sensor Value:
+        //  `{"key": "t", "value": 2870, "geo": { "lat": ..., "long": ... }}`
+        val,
+
         //  Append to the `values` array the random device ID:
         //  `{"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}`
         "device": &device_id,
-
-        //  Assume `val` contains `key: "t", val: 2870`. 
-        //  Append to the `values` array the Sensor Key and Sensor Value:
-        //  `{"key": "t", "value": 2870}`
-        val,
     });
 
     //  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the
