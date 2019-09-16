@@ -63,6 +63,6 @@ syscfg.vals:
     BC95G_UART:             2  # Connect to Quectel BC95-G module on LPUART1 i.e. USART3 with TX/RX pins swapped
     BC95G_ENABLE_PIN:       MCU_GPIO_PORTA(0)  # GPIO Pin PA0 enables and disables the NB-IoT module. Set to -1 for no pin.
 
-    ADC_1:                  0  # Enable port ADC1
-    TEMP_STM32:             0  # Enable Blue Pill internal temperature sensor
-    HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
+    ADC_1:                  1  # Enable port ADC1
+    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
+    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
