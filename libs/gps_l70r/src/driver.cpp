@@ -328,15 +328,16 @@ static void rx_callback(struct os_event *ev) {
         console_printf(" / lng: ");  console_printdouble(gps_parser.location.lng());
         console_printf(" / alt: ");  console_printfloat(gps_parser.altitude.meters());
         console_printf("\n"); // console_flush(); ////
-    } else if (gps_parser.satellites.isUpdated()) {
+    } else 
+*/
+    if (gps_parser.satellites.isUpdated()) {
         static uint32_t lastSat = 0;
         uint32_t sat = gps_parser.satellites.value();
         if (sat != lastSat) {
             lastSat = sat;
-            console_printf("*** satellites: %ld\n", sat); // console_flush(); ////
+            console_printf("GPS satellites: %ld\n", sat); // console_flush(); ////
         }
     }
-*/
 }
 
 /// Given n=0..15, return '0'..'F'.
