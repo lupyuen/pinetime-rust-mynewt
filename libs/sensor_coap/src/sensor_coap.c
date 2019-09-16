@@ -323,16 +323,16 @@ json_encode_value_ext(struct json_encoder *encoder, struct json_value *jv)
 
     switch (jv->jv_type) {
         case JSON_VALUE_TYPE_EXT_FLOAT: {
-            //  Encode the float with 2 decimal places.
+            //  Encode the float with 6 decimal places.
             bool neg; int i, d;
             float f = jv->jv_val.fl;
-            split_float(f, &neg, &i, &d);  //  Split the float into neg, integer and decimal parts (two decimal places)
+            split_float(f, &neg, &i, &d);  //  Split the float into neg, integer and decimal parts (6 decimal places)
             len = sprintf(
                 encoder->je_encode_buf,
-                "%s%d.%02d",
+                "%s%d.%06d",
                 neg ? "-" : "",  //  Sign
                 i, //  Integer part
-                d  //  2 decimal places
+                d  //  6 decimal places
             );
             encoder->je_write(encoder->je_arg, encoder->je_encode_buf, len);
             break;
@@ -348,12 +348,12 @@ err:
     return (rc);
 }
 
-///  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 2 decimal places.
+///  Split the float f into 3 parts: neg is true if negative, the absolute integer part i, and the decimal part d, with 6 decimal places.
 static void split_float(float f, bool *neg, int *i, int *d) {
     *neg = (f < 0.0f);                    //  True if f is negative
     float f_abs = *neg ? -f : f;          //  Absolute value of f
     *i = (int) f_abs;                     //  Integer part
-    *d = ((int) (100.0f * f_abs)) % 100;  //  Two decimal places
+    *d = ((int) (1000000.0f * f_abs)) % 1000000;  //  Six decimal places
 }
 
 #endif  //  MYNEWT_VAL(COAP_JSON_ENCODING)

@@ -37,7 +37,7 @@ use crate::app_network;                     //  Import `app_network.rs` for send
 ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
 static GPS_DEVICE: Strn      = init_strn!("gps_l70r_0");
 ///  Poll GPS every 10,000 milliseconds (10 seconds)  
-const GPS_POLL_TIME: u32     = (10 * 1000);  
+const GPS_POLL_TIME: u32     = (31 * 1000);  
 ///  Use key (field name) `geo` to transmit GPS geolocation to CoAP Server
 const GPS_SENSOR_KEY: Strn   = init_strn!("geo");
 ///  Type of sensor: Geolocation (latitude, longitude, altitude)

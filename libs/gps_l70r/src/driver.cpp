@@ -322,6 +322,7 @@ static void rx_callback(struct os_event *ev) {
         // if (ch != '\r') { char buf[1]; buf[0] = (char) ch; console_buffer(buf, 1); } ////
         // if (ch == '\n') { console_flush(); } ////
     }
+/*
     if (gps_parser.location.isUpdated()) {
         console_printf("*** lat: "); console_printdouble(gps_parser.location.lat());
         console_printf(" / lng: ");  console_printdouble(gps_parser.location.lng());
@@ -335,6 +336,7 @@ static void rx_callback(struct os_event *ev) {
             console_printf("*** satellites: %ld\n", sat); // console_flush(); ////
         }
     }
+*/
 }
 
 /// Given n=0..15, return '0'..'F'.
