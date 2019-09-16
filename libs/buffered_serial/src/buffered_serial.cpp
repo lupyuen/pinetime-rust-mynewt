@@ -165,11 +165,15 @@ int BufferedSerial::getc(int timeout)
 
 int BufferedSerial::putc(int c)
 {
-    _txbuf.put(c);
+    ////_txbuf.put(c);
     BufferedSerial::prime();
+    hal_uart_blocking_tx(_uart, c);
+    { char buf[1]; buf[0] = (char) c; console_buffer(buf, 1); 
+        console_printf("["); console_printhex(c); console_printf("] "); } ////
     return c;
 }
 
+#ifdef NOTUSED
 int BufferedSerial::puts(const char *s)
 {
     if (s != NULL) {
@@ -183,6 +187,7 @@ int BufferedSerial::puts(const char *s)
     }
     return 0;
 }
+#endif  //  NOTUSED
 
 extern "C" size_t BufferedSerialThunk(void *buf_serial, const void *s, size_t length)
 {
@@ -235,8 +240,8 @@ void BufferedSerial::prime(void)
         int rc = setup_uart(this);
         assert(rc == 0);
         hal_uart_start_rx(_uart);  //  Start receiving UART data.
+        hal_uart_start_tx(_uart);  //  Start transmitting UART data.
     }
-    hal_uart_start_tx(_uart);  //  Start transmitting UART data.
 }
 
 void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)
