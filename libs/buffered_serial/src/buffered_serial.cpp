@@ -41,13 +41,21 @@
 #endif
 
 extern "C" int BufferedPrintfC(void *stream, int size, const char* format, va_list arg);
+////extern "C" char rx_buf[];
+////extern "C" char *rx_ptr;
+
+////  TODO
+////char rx_buf[256];        //  Receive buffer.  TODO: Support multiple instances.
+////char *rx_ptr = NULL;     //  Pointer to next receive buffer byte to be received.  TODO: Support multiple instances.
 
 static int uart_tx_char(void *arg) {    
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int byte = serial->txIrq();
-    //  { char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); console_printf("["); console_printhex(byte); console_printf("] "); } ////
+    //if (byte != -1) 
+    //{ char buf[1]; buf[0] = (char) byte; console_buffer(buf, 1); 
+        //console_printf("["); console_printhex(byte); console_printf("] "); } ////
     return byte;
 }
 
@@ -57,7 +65,9 @@ static int uart_rx_char(void *arg, uint8_t byte) {
     assert(arg != NULL);
     BufferedSerial *serial = (BufferedSerial *) arg;
     int rc = serial->rxIrq(byte);
-    //  { char buf[1]; buf[0] = (char) byte; console_printf("("); console_buffer(buf, 1); console_printf(") "); } ////
+    //if (byte != -1) 
+    //{ char buf[1]; buf[0] = (char) byte; 
+        //console_printf("("); console_buffer(buf, 1); console_printf(") "); } ////
     return rc;
 }
 
@@ -70,6 +80,10 @@ int setup_uart(BufferedSerial *serial) {
     int rc;
     int uart = serial->_uart;
     uint32_t baud = serial->_baud;
+
+    //  Init rx buffer.
+    ////memset(rx_buf, 0, sizeof(rx_buf));
+    ////rx_ptr = rx_buf;
 
     //  Define the UART callbacks.
     rc = hal_uart_init_cbs(uart,
@@ -114,12 +128,14 @@ int setup_uart(BufferedSerial *serial) {
     return 0;
 }
 
-void BufferedSerial::init(char *rxbuf, uint32_t rxbuf_size, const char* name)
+void BufferedSerial::init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name)
 {
     _initialised = 0;
     _uart = 0;
     _baud = 0;
+    _txbuf_size = txbuf_size;
     _rxbuf_size = rxbuf_size;
+    _txbuf.init(txbuf, txbuf_size);
     _rxbuf.init(rxbuf, rxbuf_size);
     os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
@@ -149,10 +165,13 @@ int BufferedSerial::getc(int timeout)
 
 int BufferedSerial::putc(int c)
 {
-    //  Previously: _txbuf.put(c);
+    _txbuf.put(c);    
     BufferedSerial::prime();
-    hal_uart_blocking_tx(_uart, c);  //  Block until char is sent
-    //  { char buf[1]; buf[0] = (char) c; console_buffer(buf, 1); console_printf("["); console_printhex(c); console_printf("] "); } ////
+#ifdef NOTUSED    
+    hal_uart_blocking_tx(_uart, c);
+    { char buf[1]; buf[0] = (char) c; console_buffer(buf, 1); 
+        console_printf("["); console_printhex(c); console_printf("] "); } ////
+#endif  //  NOTUSED
     return c;
 }
 
@@ -184,8 +203,7 @@ size_t BufferedSerial::write(const void *s, size_t length)
         const char* ptr = (const char*)s;
         const char* end = ptr + length;    
         while (ptr != end) {
-            //  Previously: _txbuf = *(ptr++);
-            putc(*(ptr++));
+            _txbuf = *(ptr++);
         }
         BufferedSerial::prime();    
         return ptr - (const char*)s;
@@ -207,12 +225,10 @@ int BufferedSerial::rxIrq(uint8_t byte)
 int BufferedSerial::txIrq(void)
 {
     //  UART driver asks for more data to send. Return -1 if no more data is available for TX.
-#ifdef NOTUSED    
     if(_txbuf.available()) {
         uint8_t byte = _txbuf.get();  //  Get data from TX buffer.
         return byte;
     }
-#endif  //  NOTUSED
     //  Trigger callback if no more data to send.
     if (_cbs[TxIrq]) { _cbs[TxIrq](_cbs_arg[TxIrq]); }
     return -1;
@@ -226,8 +242,8 @@ void BufferedSerial::prime(void)
         int rc = setup_uart(this);
         assert(rc == 0);
         hal_uart_start_rx(_uart);  //  Start receiving UART data.
-        hal_uart_start_tx(_uart);  //  Start transmitting UART data.
     }
+    hal_uart_start_tx(_uart);  //  Start transmitting UART data in the buffer.  txIrq will retrieve the data from the buffer.
 }
 
 void BufferedSerial::attach(void (*func)(void *), void *arg, IrqType type)

@@ -31,6 +31,7 @@ extern "C" int network_is_busy;
 extern "C" int power_standby_wakeup();
 
 //  Controller buffers.  TODO: Support multiple instances.
+static char gps_l70r_tx_buffer[GPS_L70R_TX_BUFFER_SIZE];  //  TX Buffer
 static char gps_l70r_rx_buffer[GPS_L70R_RX_BUFFER_SIZE];  //  RX Buffer
 static char gps_l70r_parser_buffer[GPS_L70R_PARSER_BUFFER_SIZE];  //  Buffer for ATParser
 static bool first_open = true;  //  True if this is the first time opening the driver
@@ -82,9 +83,9 @@ static const char *COMMANDS[] = {
 //  Internal Functions
 
 /// Initialise the buffers for the driver
-static void internal_init(char *rxbuf, uint32_t rxbuf_size, 
+static void internal_init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, 
     char *parserbuf, uint32_t parserbuf_size, bool debug) {
-    serial.init(rxbuf, rxbuf_size);
+    serial.init(txbuf, txbuf_size, rxbuf, rxbuf_size);
     serial.baud(9600);
 }
 
@@ -200,6 +201,7 @@ static int gps_l70r_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
 
     //  Set the buffers for the C++ instance. We pass in static buffers to avoid dynamic memory allocation (new, delete).
     internal_init(
+        gps_l70r_tx_buffer, GPS_L70R_TX_BUFFER_SIZE,
         gps_l70r_rx_buffer, GPS_L70R_RX_BUFFER_SIZE,
         gps_l70r_parser_buffer, GPS_L70R_PARSER_BUFFER_SIZE,
         false

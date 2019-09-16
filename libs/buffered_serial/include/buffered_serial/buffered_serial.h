@@ -76,7 +76,9 @@
 class BufferedSerial
 {
 private:
+    RingBuffer <char> _txbuf;
     RingBuffer <char> _rxbuf;
+    uint32_t      _txbuf_size;
     uint32_t      _rxbuf_size; 
     uint8_t       _initialised;  //  Set to non-zero if UART port has been initialised.
     os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
@@ -86,11 +88,13 @@ private:
 public:
     /** Create a BufferedSerial port
      *  @param uart UART port number. 0 means UART2
+     *  @param txbuf TX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
+     *  @param txbuf_size TX buffer size
      *  @param rxbuf RX static buffer. Passing in the buffer avoids dynamic memory allocation (new, delete)
-     *  @param rxbuf_size RX buffer size
+     *  @param txbuf_size RX buffer size
      *  @param name optional name
      */
-    void init(char *rxbuf, uint32_t rxbuf_size, const char* name = NULL);
+    void init(char *txbuf, uint32_t txbuf_size, char *rxbuf, uint32_t rxbuf_size, const char* name = NULL);
     
     /** Configure the BufferedSerial port
      *  @param uart UART port number. 0 means UART2
