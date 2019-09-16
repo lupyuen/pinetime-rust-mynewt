@@ -75,21 +75,21 @@ pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> Myne
     let mut arg = MAX_SENSOR_LISTENERS + 1;
     //  Find a matching `sensor_listener_info`
     for i in 0 .. MAX_SENSOR_LISTENERS {
-        let info = unsafe { SENSOR_LISTENERS[i] };
-        if !info.sensor_key.is_empty() &&
-            listener.sl_sensor_type == info.sensor_type &&
-            listener.sl_func        == Some(wrap_sensor_listener) &&
-            listener.sl_arg         == i as *mut c_void {
+        let info = unsafe { SENSOR_LISTENERS[i] };        
+        if  listener.sl_sensor_type == info.listener.sl_sensor_type &&
+            listener.sl_func        == info.listener.sl_func &&
+            listener.sl_arg         == info.listener.sl_arg {
             arg = i;  //  Found the match
             break;
         }
     }
     if arg < MAX_SENSOR_LISTENERS {
-        //  Found the Wrapper Sensor Listener. Register the associated Sensor Listener with Mynewt.
+        //  Found the Wrapped Sensor Listener. Register the associated Sensor Listener with Mynewt.
         //  Pass the associated listener to the unsafe Mynewt API.
         let mut wrapped_listener = unsafe { SENSOR_LISTENERS[arg].listener };
         unsafe { sensor_register_listener(sensor, &mut wrapped_listener) };
     } else {
+        //  TODO: Allocate a Wrapped Sensor Listener.
         //  If not found, copy the listener and register the copied Sensor Listener with Mynewt.
         unsafe { assert_eq!(LISTENER_INTERNAL.sl_sensor_type, 0, "reg lis") };  //  Make sure it's not used.
         //  Copy the caller's listener to the internal listener.

@@ -5822,10 +5822,9 @@ pub mod hw {
             let mut arg = MAX_SENSOR_LISTENERS + 1;
             for i in 0..MAX_SENSOR_LISTENERS {
                 let info = unsafe { SENSOR_LISTENERS[i] };
-                if !info.sensor_key.is_empty() &&
-                       listener.sl_sensor_type == info.sensor_type &&
-                       listener.sl_func == Some(wrap_sensor_listener) &&
-                       listener.sl_arg == i as *mut c_void {
+                if listener.sl_sensor_type == info.listener.sl_sensor_type &&
+                       listener.sl_func == info.listener.sl_func &&
+                       listener.sl_arg == info.listener.sl_arg {
                     arg = i;
                     break ;
                 }
