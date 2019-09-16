@@ -44,7 +44,7 @@ const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
-///  Ask Mynewt to poll or read the temperature sensor and call `handle_sensor_data()`
+///  Ask Mynewt to poll or read the temperature sensor and call `aggregate_sensor_data()`
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust TMP poll\n");
@@ -53,34 +53,24 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
     assert!(!sensor.is_null(), "no sensor");
 
-    //  Read the sensor by polling (at power on) or directly (at sleep wakeup).
-    if !standby_wakeup() {
-        //  At power on, we ask Mynewt to poll our sensor every 20 seconds.
-        sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
+    //  At power on, we ask Mynewt to poll our sensor every 20 seconds.
+    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
-        //  Define the listener function to be called after polling the temperature sensor.
-        let listener = sensor_listener {
-            sl_sensor_type: TEMP_SENSOR_TYPE,       //  Type of sensor: Raw ambient temperature
-            sl_func       : sensor::as_untyped(handle_sensor_data),  //  Listener function
-            ..fill_zero!(sensor_listener)           //  Set other fields to 0
-        };
+    // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
+    let listener = sensor::new_sensor_listener(
+        &TEMP_SENSOR_KEY,   //  Transmit as field: `geo`
+        TEMP_SENSOR_TYPE,   //  Type of sensor: Raw temperature (integer from 0 to 4095)
+        app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
+    ) ? ;
 
-        //  Register the Listener Function to be called with the polled sensor data.
-        sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
-    } else {
-        //  At sleep wakeup, read the sensor directly instead of polling.
-        sensor::read(
-            sensor, 
-            TEMP_SENSOR_TYPE,  //  Type of sensor: Raw ambient temperature
-            sensor::as_untyped(handle_sensor_data),  //  Handler function
-            core::ptr::null_mut(), 
-            os::OS_TIMEOUT_NEVER
-        ) ? ;
-    }
+    //  Register the Listener Function to be called with the polled sensor data.
+    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
+
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
 }
 
+/*
 ///  This listener function is called every 10 seconds by Mynewt to handle the polled sensor data.
 ///  Return 0 if we have handled the sensor data successfully.
 extern fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg, 
@@ -146,3 +136,4 @@ fn standby_wakeup() -> bool {
     if unsafe { power_standby_wakeup() == 0 } { false }
     else { true }
 }
+*/

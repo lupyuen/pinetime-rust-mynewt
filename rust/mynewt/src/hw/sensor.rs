@@ -80,7 +80,7 @@ pub fn new_sensor_listener(
     listener_func:  SensorValueFunc
 ) -> MynewtResult<sensor_listener> {
     assert!(!sensor_key.is_empty(), "missing sensor key");
-    //  Allocate a `sensor_listener_info`
+    //  Find an unused `sensor_listener_info`
     let mut arg = MAX_SENSOR_LISTENERS + 1;
     for i in 0 .. MAX_SENSOR_LISTENERS {
         let info = unsafe { SENSOR_LISTENERS[i] };
@@ -90,11 +90,13 @@ pub fn new_sensor_listener(
         }
     }
     assert!(arg < MAX_SENSOR_LISTENERS, "increase MAX_SENSOR_LISTENERS");
+    //  Allocate the `sensor_listener_info`
     unsafe { SENSOR_LISTENERS[arg] = sensor_listener_info {
         sensor_key,
         sensor_type,
         listener_func,
     } };
+    //  Return a Mynewt `sensor_listener` that wraps the allocated `sensor_listener_info`
     let listener = sensor_listener {
         sl_sensor_type: sensor_type,
         sl_func:        Some(wrap_sensor_listener),
@@ -168,6 +170,23 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, 
                 assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
                 //  Raw temperature data is valid.  Return it.
                 SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
+            }
+            SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
+                //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
+                let mut geolocation = fill_zero!(sensor_geolocation_data);
+                let rc = unsafe { get_geolocation_data(sensor_data, &mut geolocation) };
+                assert_eq!(rc, 0, "geodata fail");
+                //  Check that the geolocation data is valid.
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
+                    geolocation.sgd_longitude_is_valid != 0 &&
+                    geolocation.sgd_altitude_is_valid  != 0 {
+                    //  Geolocation data is valid.  Return it.
+                    SensorValueType::Geolocation {
+                        latitude:  geolocation.sgd_latitude,
+                        longitude: geolocation.sgd_longitude,
+                        altitude:  geolocation.sgd_altitude,
+                    }
+                } else { SensorValueType::None }  //  Geolocation data is invalid.  Maybe GPS is not ready.                 
             }
             //  Unknown type of sensor value
             _ => { assert!(false, "sensor type"); SensorValueType::None }

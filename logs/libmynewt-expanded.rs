@@ -5773,7 +5773,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("bad sensor arg",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               116u32, 5u32))
+                                               118u32, 5u32))
                 }
             };
             let info = unsafe { SENSOR_LISTENERS[arg] };
@@ -5781,7 +5781,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               118u32, 5u32))
+                                               120u32, 5u32))
                 }
             };
             if sensor_data.is_null() { return SYS_EINVAL }
@@ -5789,7 +5789,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("null sensor",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               122u32, 5u32))
+                                               124u32, 5u32))
                 }
             };
             let sensor_value =
@@ -5800,7 +5800,7 @@ pub mod hw {
                     {
                         ::core::panicking::panic(&("bad type",
                                                    "rust/mynewt/src/hw/sensor.rs",
-                                                   126u32, 57u32))
+                                                   128u32, 57u32))
                     }
                 };
             }
@@ -5892,7 +5892,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       166u32,
+                                                                                       168u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5930,7 +5930,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       168u32,
+                                                                                       170u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5939,12 +5939,76 @@ pub mod hw {
                                     };
                                     SensorValueType::Uint(rawtempdata.strd_temp_raw)
                                 }
+                                SENSOR_TYPE_GEOLOCATION => {
+                                    let mut geolocation =
+                                        unsafe {
+                                            ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_geolocation_data>()],
+                                                                     sensor_geolocation_data>([0;
+                                                                                                  ::core::mem::size_of::<sensor_geolocation_data>()])
+                                        };
+                                    let rc =
+                                        unsafe {
+                                            get_geolocation_data(sensor_data,
+                                                                 &mut geolocation)
+                                        };
+                                    {
+                                        match (&(rc), &(0)) {
+                                            (left_val, right_val) => {
+                                                if !(*left_val == *right_val)
+                                                   {
+                                                    {
+                                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                                      "`,\n right: `",
+                                                                                                                      "`: "],
+                                                                                                                    &match (&&*left_val,
+                                                                                                                            &&*right_val,
+                                                                                                                            &::core::fmt::Arguments::new_v1(&["geodata fail"],
+                                                                                                                                                            &match ()
+                                                                                                                                                                 {
+                                                                                                                                                                 ()
+                                                                                                                                                                 =>
+                                                                                                                                                                 [],
+                                                                                                                                                             }))
+                                                                                                                         {
+                                                                                                                         (arg0,
+                                                                                                                          arg1,
+                                                                                                                          arg2)
+                                                                                                                         =>
+                                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                                                     }),
+                                                                                     &("rust/mynewt/src/hw/sensor.rs",
+                                                                                       178u32,
+                                                                                       17u32))
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    };
+                                    if geolocation.sgd_latitude_is_valid != 0
+                                           &&
+                                           geolocation.sgd_longitude_is_valid
+                                               != 0 &&
+                                           geolocation.sgd_altitude_is_valid
+                                               != 0 {
+                                        SensorValueType::Geolocation{latitude:
+                                                                         geolocation.sgd_latitude,
+                                                                     longitude:
+                                                                         geolocation.sgd_longitude,
+                                                                     altitude:
+                                                                         geolocation.sgd_altitude,}
+                                    } else { SensorValueType::None }
+                                }
                                 _ => {
                                     if !false {
                                         {
                                             ::core::panicking::panic(&("sensor type",
                                                                        "rust/mynewt/src/hw/sensor.rs",
-                                                                       173u32,
+                                                                       192u32,
                                                                        20u32))
                                         }
                                     };

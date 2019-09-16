@@ -38,12 +38,12 @@ use crate::app_network;                     //  Import `app_network.rs` for send
 static GPS_DEVICE: Strn      = init_strn!("gps_l70r_0");
 ///  Poll GPS every 10,000 milliseconds (10 seconds)  
 const GPS_POLL_TIME: u32     = (10 * 1000);  
-///  Use key (field name) `geolocation` to transmit GPS geolocation to CoAP Server
-const GPS_SENSOR_KEY: Strn   = init_strn!("geolocation");
+///  Use key (field name) `geo` to transmit GPS geolocation to CoAP Server
+const GPS_SENSOR_KEY: Strn   = init_strn!("geo");
 ///  Type of sensor: Geolocation (latitude, longitude, altitude)
 const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
 
-///  Ask Mynewt to poll the GPS sensor and call `handle_gps_data()`
+///  Ask Mynewt to poll the GPS sensor and call `aggregate_sensor_data()`
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust GPS poll\n");
@@ -55,12 +55,12 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
     //  At power on, we ask Mynewt to poll our sensor every 10 seconds.
     sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME) ? ;
 
-    //  Define the listener function to be called after polling the GPS sensor.
-    let listener = sensor_listener {
-        sl_sensor_type: GPS_SENSOR_TYPE,  //  Type of sensor: GPS Geolocation
-        sl_func       : sensor::as_untyped(handle_gps_data),  //  Listener function
-        ..fill_zero!(sensor_listener)     //  Set other fields to 0
-    };
+    // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
+    let listener = sensor::new_sensor_listener(
+        &GPS_SENSOR_KEY,  //  Transmit as field: `geo`
+        GPS_SENSOR_TYPE,  //  Type of sensor: GPS Geolocation
+        app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
+    ) ? ;
 
     //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
@@ -69,6 +69,7 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
     Ok(())
 }
 
+/*
 ///  This listener function is called every 10 seconds by Mynewt to handle the polled GPS data.
 ///  Return 0 if we have handled the GPS data successfully.
 extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg, 
@@ -133,3 +134,4 @@ fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) ->
         }
     }
 }
+*/

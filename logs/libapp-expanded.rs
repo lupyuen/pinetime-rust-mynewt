@@ -329,7 +329,7 @@ mod app_sensor {
     ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
     const TEMP_SENSOR_TYPE: sensor_type_t =
         sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
-    ///  Ask Mynewt to poll or read the temperature sensor and call `handle_sensor_data()`
+    ///  Ask Mynewt to poll or read the temperature sensor and call `aggregate_sensor_data()`
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_sensor_listener() -> MynewtResult<()> {
         console::print("Rust TMP poll\n");
@@ -343,166 +343,12 @@ mod app_sensor {
                                            54u32, 5u32))
             }
         };
-        if !standby_wakeup() {
-            sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
-            let listener =
-                sensor_listener{sl_sensor_type: TEMP_SENSOR_TYPE,
-                                sl_func:
-                                    sensor::as_untyped(handle_sensor_data),
-                                                                              ..unsafe
-                                                                                {
-                                                                                    ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
-                                                                                                             sensor_listener>([0;
-                                                                                                                                  ::core::mem::size_of::<sensor_listener>()])
-                                                                                }};
-            sensor::register_listener(sensor, listener)?;
-        } else {
-            sensor::read(sensor, TEMP_SENSOR_TYPE,
-                         sensor::as_untyped(handle_sensor_data),
-                         core::ptr::null_mut(), os::OS_TIMEOUT_NEVER)?;
-        }
+        sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
+        let listener =
+            sensor::new_sensor_listener(&TEMP_SENSOR_KEY, TEMP_SENSOR_TYPE,
+                                        app_network::aggregate_sensor_data)?;
+        sensor::register_listener(sensor, listener)?;
         Ok(())
-    }
-    ///  This listener function is called every 10 seconds by Mynewt to handle the polled sensor data.
-    ///  Return 0 if we have handled the sensor data successfully.
-    extern "C" fn handle_sensor_data(sensor: sensor_ptr, _arg: sensor_arg,
-                                     sensor_data: sensor_data_ptr,
-                                     sensor_type: sensor_type_t)
-     -> MynewtError {
-        console::print("Rust handle_sensor_data\n");
-        if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }
-        if !!sensor.is_null() {
-            {
-                ::core::panicking::panic(&("null sensor",
-                                           "rust/app/src/app_sensor.rs",
-                                           92u32, 5u32))
-            }
-        };
-        let sensor_value = convert_sensor_data(sensor_data, sensor_type);
-        if let SensorValueType::None = sensor_value.value {
-            if !false {
-                {
-                    ::core::panicking::panic(&("bad type",
-                                               "rust/app/src/app_sensor.rs",
-                                               96u32, 57u32))
-                }
-            };
-        }
-        let res = app_network::aggregate_sensor_data(&sensor_value);
-        if let Err(err) = res {
-            if err == MynewtError::SYS_EAGAIN {
-                console::print("TMP network not ready\n");
-                return MynewtError::SYS_EOK;
-            }
-        }
-        MynewtError::SYS_EOK
-    }
-    ///  Convert the raw temperature value received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key `t`. 
-    ///  `sensor_type` indicates the type of data in `sensor_data`.
-    #[allow(non_snake_case, unused_variables)]
-    fn convert_sensor_data(sensor_data: sensor_data_ptr,
-                           sensor_type: sensor_type_t) -> SensorValue {
-        console::print("TMP listener got rawtmp\n");
-        SensorValue{key: &TEMP_SENSOR_KEY,
-                    geo: SensorValueType::None,
-                    value:
-                        match sensor_type {
-                            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {
-                                let mut rawtempdata =
-                                    unsafe {
-                                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_temp_raw_data>()],
-                                                                 sensor_temp_raw_data>([0;
-                                                                                           ::core::mem::size_of::<sensor_temp_raw_data>()])
-                                    };
-                                let rc =
-                                    unsafe {
-                                        sensor::get_temp_raw_data(sensor_data,
-                                                                  &mut rawtempdata)
-                                    };
-                                {
-                                    match (&(rc), &(0)) {
-                                        (left_val, right_val) => {
-                                            if !(*left_val == *right_val) {
-                                                {
-                                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                                  "`,\n right: `",
-                                                                                                                  "`: "],
-                                                                                                                &match (&&*left_val,
-                                                                                                                        &&*right_val,
-                                                                                                                        &::core::fmt::Arguments::new_v1(&["rawtmp fail"],
-                                                                                                                                                        &match ()
-                                                                                                                                                             {
-                                                                                                                                                             ()
-                                                                                                                                                             =>
-                                                                                                                                                             [],
-                                                                                                                                                         }))
-                                                                                                                     {
-                                                                                                                     (arg0,
-                                                                                                                      arg1,
-                                                                                                                      arg2)
-                                                                                                                     =>
-                                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                                                   ::core::fmt::Display::fmt)],
-                                                                                                                 }),
-                                                                                 &("rust/app/src/app_sensor.rs",
-                                                                                   130u32,
-                                                                                   17u32))
-                                                }
-                                            }
-                                        }
-                                    }
-                                };
-                                {
-                                    match (&(rawtempdata.strd_temp_raw_is_valid),
-                                           &(0)) {
-                                        (left_val, right_val) => {
-                                            if *left_val == *right_val {
-                                                {
-                                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left != right)`\n  left: `",
-                                                                                                                  "`,\n right: `",
-                                                                                                                  "`: "],
-                                                                                                                &match (&&*left_val,
-                                                                                                                        &&*right_val,
-                                                                                                                        &::core::fmt::Arguments::new_v1(&["bad rawtmp"],
-                                                                                                                                                        &match ()
-                                                                                                                                                             {
-                                                                                                                                                             ()
-                                                                                                                                                             =>
-                                                                                                                                                             [],
-                                                                                                                                                         }))
-                                                                                                                     {
-                                                                                                                     (arg0,
-                                                                                                                      arg1,
-                                                                                                                      arg2)
-                                                                                                                     =>
-                                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                                                   ::core::fmt::Display::fmt)],
-                                                                                                                 }),
-                                                                                 &("rust/app/src/app_sensor.rs",
-                                                                                   132u32,
-                                                                                   17u32))
-                                                }
-                                            }
-                                        }
-                                    }
-                                };
-                                SensorValueType::Uint(rawtempdata.strd_temp_raw)
-                            }
-                        },}
-    }
-    extern "C" {
-        fn power_standby_wakeup() -> i32;
-    }
-    fn standby_wakeup() -> bool {
-        if unsafe { power_standby_wakeup() == 0 } { false } else { true }
     }
 }
 mod gps_sensor {
@@ -520,12 +366,12 @@ mod gps_sensor {
         Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
     ///  Poll GPS every 10,000 milliseconds (10 seconds)  
     const GPS_POLL_TIME: u32 = (10 * 1000);
-    ///  Use key (field name) `geolocation` to transmit GPS geolocation to CoAP Server
+    ///  Use key (field name) `geo` to transmit GPS geolocation to CoAP Server
     const GPS_SENSOR_KEY: Strn =
-        Strn{rep: mynewt::StrnRep::ByteStr(b"geolocation\x00"),};
+        Strn{rep: mynewt::StrnRep::ByteStr(b"geo\x00"),};
     ///  Type of sensor: Geolocation (latitude, longitude, altitude)
     const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
-    ///  Ask Mynewt to poll the GPS sensor and call `handle_gps_data()`
+    ///  Ask Mynewt to poll the GPS sensor and call `aggregate_sensor_data()`
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_gps_listener() -> MynewtResult<()> {
         console::print("Rust GPS poll\n");
@@ -541,124 +387,10 @@ mod gps_sensor {
         };
         sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME)?;
         let listener =
-            sensor_listener{sl_sensor_type: GPS_SENSOR_TYPE,
-                            sl_func:
-                                sensor::as_untyped(handle_gps_data),
-                                                                       ..unsafe
-                                                                         {
-                                                                             ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
-                                                                                                      sensor_listener>([0;
-                                                                                                                           ::core::mem::size_of::<sensor_listener>()])
-                                                                         }};
+            sensor::new_sensor_listener(&GPS_SENSOR_KEY, GPS_SENSOR_TYPE,
+                                        app_network::aggregate_sensor_data)?;
         sensor::register_listener(sensor, listener)?;
         Ok(())
-    }
-    ///  This listener function is called every 10 seconds by Mynewt to handle the polled GPS data.
-    ///  Return 0 if we have handled the GPS data successfully.
-    extern "C" fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg,
-                                  sensor_data: sensor_data_ptr,
-                                  sensor_type: sensor_type_t) -> MynewtError {
-        console::print("\nInfo: Rust handle_gps_data\n");
-        if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }
-        if !!sensor.is_null() {
-            {
-                ::core::panicking::panic(&("null sensor",
-                                           "rust/app/src/gps_sensor.rs",
-                                           80u32, 5u32))
-            }
-        };
-        let sensor_value = convert_gps_data(sensor_data, sensor_type);
-        if let SensorValueType::None = sensor_value.value {
-            console::print("Warn: GPS not ready\n");
-            return MynewtError::SYS_EINVAL;
-        }
-        if let SensorValueType::Geolocation { latitude, longitude, altitude }
-               = sensor_value.value {
-            console::print("Info: GPS lat: ");
-            console::printdouble(latitude);
-            console::print(", lng: ");
-            console::printdouble(longitude);
-            console::print(", alt: ");
-            console::printfloat(altitude as f32);
-            console::print("\n");
-            console::flush();
-        }
-        app_network::aggregate_sensor_data(&sensor_value);
-        MynewtError::SYS_EOK
-    }
-    ///  Convert the geolocation value received from Mynewt into a Geolocation `SensorValue` for transmission. 
-    ///  `sensor_type` indicates the type of data in `sensor_data`.
-    #[allow(non_snake_case, unused_variables)]
-    fn convert_gps_data(sensor_data: sensor_data_ptr,
-                        sensor_type: sensor_type_t) -> SensorValue {
-        console::print("Info: GPS listener converting geolocation\n");
-        SensorValue{key: &GPS_SENSOR_KEY,
-                    geo: SensorValueType::None,
-                    value:
-                        match sensor_type {
-                            SENSOR_TYPE_GEOLOCATION => {
-                                let mut geolocation =
-                                    unsafe {
-                                        ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_geolocation_data>()],
-                                                                 sensor_geolocation_data>([0;
-                                                                                              ::core::mem::size_of::<sensor_geolocation_data>()])
-                                    };
-                                let rc =
-                                    unsafe {
-                                        sensor::get_geolocation_data(sensor_data,
-                                                                     &mut geolocation)
-                                    };
-                                {
-                                    match (&(rc), &(0)) {
-                                        (left_val, right_val) => {
-                                            if !(*left_val == *right_val) {
-                                                {
-                                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                                  "`,\n right: `",
-                                                                                                                  "`: "],
-                                                                                                                &match (&&*left_val,
-                                                                                                                        &&*right_val,
-                                                                                                                        &::core::fmt::Arguments::new_v1(&["geodata fail"],
-                                                                                                                                                        &match ()
-                                                                                                                                                             {
-                                                                                                                                                             ()
-                                                                                                                                                             =>
-                                                                                                                                                             [],
-                                                                                                                                                         }))
-                                                                                                                     {
-                                                                                                                     (arg0,
-                                                                                                                      arg1,
-                                                                                                                      arg2)
-                                                                                                                     =>
-                                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                                                   ::core::fmt::Display::fmt)],
-                                                                                                                 }),
-                                                                                 &("rust/app/src/gps_sensor.rs",
-                                                                                   118u32,
-                                                                                   17u32))
-                                                }
-                                            }
-                                        }
-                                    }
-                                };
-                                if geolocation.sgd_latitude_is_valid != 0 &&
-                                       geolocation.sgd_longitude_is_valid != 0
-                                       &&
-                                       geolocation.sgd_altitude_is_valid != 0
-                                   {
-                                    SensorValueType::Geolocation{latitude:
-                                                                     geolocation.sgd_latitude,
-                                                                 longitude:
-                                                                     geolocation.sgd_longitude,
-                                                                 altitude:
-                                                                     geolocation.sgd_altitude,}
-                                } else { SensorValueType::None }
-                            }
-                        },}
     }
 }
 use core::panic::PanicInfo;
