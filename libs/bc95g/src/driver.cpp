@@ -613,22 +613,27 @@ static bool send_hex(struct bc95g *dev, const uint8_t *data, uint16_t size) {
 static bool send_data(struct bc95g *dev, const uint8_t *data, uint16_t length, struct os_mbuf *mbuf) {
     if (data && length > 0) {
         //  Send the data buffer as hex digits.
+        assert(length * 3 < BC95G_TX_BUFFER_SIZE);  //  Need 3 chars per byte
         return send_hex(dev, data, length);
     }
     //  Send the mbuf chain.
     assert(mbuf);
-    uint32_t chain_size = OS_MBUF_PKTLEN(mbuf);  //  Length of the mbuf chain.
+    uint32_t chain_size = OS_MBUF_PKTLEN(mbuf);     //  Length of the mbuf chain.
+    assert(chain_size * 3 < BC95G_TX_BUFFER_SIZE);  //  Need 3 chars per byte
     const char *_f = "send mbuf";
     console_printf("%s%s %u...\n", _nbt, _f, (unsigned) chain_size);  console_flush();
     struct os_mbuf *m = mbuf;
     bool result = true;
+    uint32_t total_size = 0;
     while (m) {  //  Send each mbuf in the chain.
         const uint8_t *data = OS_MBUF_DATA(m, const uint8_t *);  //  Fetch the mbuf data.
         uint16_t size = m->om_len;  //  Fetch the size for the single mbuf.
         bool res = send_hex(dev, data, size);
         if (!res) { result = false; break; }
+        total_size += size;
         m = m->om_next.sle_next;   //  Fetch next mbuf in the list.
     }
+    assert(total_size == chain_size);  //  Make sure entire chain was transmitted.
     _log(_f, result);
     return result;
 }

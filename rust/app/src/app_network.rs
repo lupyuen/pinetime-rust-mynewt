@@ -85,7 +85,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
         //  Create `values` as an array of items under the root.
         //  Append to the `values` array the random device ID:
         //  `{"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}`
-        ////"device": &device_id,
+        "device": &device_id,
 
         //  Assume `val` contains `key: "t", val: 2870`. 
         //  Append to the `values` array the Sensor Key and Sensor Value:

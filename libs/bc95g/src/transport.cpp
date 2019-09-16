@@ -170,7 +170,7 @@ static void oc_tx_ucast(struct os_mbuf *m) {
 
         //  Send the consolidated buffer via UDP.
         rc = bc95g_socket_tx_mbuf(dev, socket, endpoint->host, endpoint->port, sequence, m);
-        assert(rc > 0);
+        assert(rc > 0);  //  In case of error, try increasing BC95G_TX_BUFFER_SIZE
 
         //  Close the UDP socket.
         rc = bc95g_socket_close(dev, socket);
