@@ -420,7 +420,7 @@ fn panic(info: &PanicInfo) -> ! {
         let line = location.line();
         console::print("at ");
         console::buffer(&file);
-        console::print(" line 0x");
+        console::print(" line ");
         console::printint(line as i32);
         console::print("\n");
         console::flush();

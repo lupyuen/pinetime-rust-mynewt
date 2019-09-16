@@ -93,11 +93,11 @@ fn panic(info: &PanicInfo) -> ! {
     if let Some(location) = info.location() {
         let file = location.file();
         let line = location.line();
-        console::print("at ");        console::buffer(&file);
-        console::print(" line 0x");   console::printint(line as i32);
-        console::print("\n");         console::flush();
+        console::print("at ");       console::buffer(&file);
+        console::print(" line ");    console::printint(line as i32);
+        console::print("\n");        console::flush();
     } else {
-        console::print("no loc\n");   console::flush();
+        console::print("no loc\n");  console::flush();
     }
     //  Pause in the debugger.
     bkpt();

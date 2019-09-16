@@ -20,37 +20,46 @@ mod bindings;  //  Import `bindings.rs` containing the bindings
 /// Export all bindings. TODO: Export only the API bindings.
 pub use self::bindings::*;
 
-/// Points to a `sensor`.  Needed because `sensor` also refers to a namespace.
-pub type sensor_ptr = *mut sensor;
-/// Points to sensor arg passed by Mynewt to sensor listener
-pub type sensor_arg = *mut c_void;
-/// Points to sensor data passed by Mynewt to sensor listener
-pub type sensor_data_ptr = *mut c_void;
-/// Sensor data function that returns `MynewtError` instead of `i32`
-pub type sensor_data_func =
-    unsafe extern "C" fn(
-        sensor: sensor_ptr,
-        arg:    sensor_arg,
-        data:   sensor_data_ptr,
-        stype:  sensor_type_t,
-    ) -> MynewtError;
-/// Sensor data function that returns `i32` instead of `MynewtError`
-pub type sensor_data_func_untyped =
-    unsafe extern "C" fn(
-        sensor: sensor_ptr,
-        arg:    sensor_arg,
-        data:   sensor_data_ptr,
-        stype:  sensor_type_t,
-    ) -> i32;
-
-/// Cast sensor data function from typed to untyped
-pub fn as_untyped(typed: sensor_data_func) -> Option<sensor_data_func_untyped> {
-    let untyped = unsafe { 
-        ::core::mem::transmute::
-            <sensor_data_func, sensor_data_func_untyped>
-            (typed)
-    };
-    Some(untyped)
+///  Convert the sensor data received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key. 
+///  `sensor_type` indicates the type of data in `sensor_data`.
+#[allow(non_snake_case, unused_variables)]
+fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, sensor_type: sensor_type_t) -> SensorValue {
+    //  Construct and return a new `SensorValue` (without semicolon)
+    SensorValue {
+        key: sensor_key,
+        geo: SensorValueType::None,
+        value: match sensor_type {
+            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
+                //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
+                let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
+                let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
+                assert_eq!(rc, 0, "rawtmp fail");
+                //  Check that the raw temperature data is valid.
+                assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
+                //  Raw temperature data is valid.  Return it.
+                SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
+            }
+            SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
+                //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
+                let mut geolocation = fill_zero!(sensor_geolocation_data);
+                let rc = unsafe { get_geolocation_data(sensor_data, &mut geolocation) };
+                assert_eq!(rc, 0, "geodata fail");
+                //  Check that the geolocation data is valid.
+                if  geolocation.sgd_latitude_is_valid  != 0 &&
+                    geolocation.sgd_longitude_is_valid != 0 &&
+                    geolocation.sgd_altitude_is_valid  != 0 {
+                    //  Geolocation data is valid.  Return it.
+                    SensorValueType::Geolocation {
+                        latitude:  geolocation.sgd_latitude,
+                        longitude: geolocation.sgd_longitude,
+                        altitude:  geolocation.sgd_altitude,
+                    }
+                } else { SensorValueType::None }  //  Geolocation data is invalid.  Maybe GPS is not ready.                 
+            }
+            //  TODO: Convert other sensor types
+            _ => { assert!(false, "sensor type"); SensorValueType::None }  //  Unknown type of sensor value
+        }
+    }
 }
 
 ///  Register a sensor listener. This allows a calling application to receive
@@ -62,11 +71,32 @@ pub fn as_untyped(typed: sensor_data_func) -> Option<sensor_data_func_untyped> {
 ///  `listener`: The listener to register onto the sensor.
 ///  Returns `Ok()` on success, `Err()` containing `MynewtError` error code on failure.
 pub fn register_listener(sensor: *mut sensor, listener: sensor_listener) -> MynewtResult<()> {  //  Returns an error code upon error. 
-    unsafe { assert_eq!(LISTENER_INTERNAL.sl_sensor_type, 0, "reg lis") };  //  Make sure it's not used.
-    //  Copy the caller's listener to the internal listener.
-    unsafe { LISTENER_INTERNAL = listener };
-    //  Pass the internal listener to the unsafe Mynewt API.
-    unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) };
+    //  If this is a Wrapped Sensor Listener, register the associated Sensor Listener with Mynewt.
+    let mut arg = MAX_SENSOR_LISTENERS + 1;
+    //  Find a matching `sensor_listener_info`
+    for i in 0 .. MAX_SENSOR_LISTENERS {
+        let info = unsafe { SENSOR_LISTENERS[i] };
+        if !info.sensor_key.is_empty() &&
+            listener.sl_sensor_type == info.sensor_type &&
+            listener.sl_func        == Some(wrap_sensor_listener) &&
+            listener.sl_arg         == i as *mut c_void {
+            arg = i;  //  Found the match
+            break;
+        }
+    }
+    if arg < MAX_SENSOR_LISTENERS {
+        //  Found the Wrapper Sensor Listener. Register the associated Sensor Listener with Mynewt.
+        //  Pass the associated listener to the unsafe Mynewt API.
+        let mut wrapped_listener = unsafe { SENSOR_LISTENERS[arg].listener };
+        unsafe { sensor_register_listener(sensor, &mut wrapped_listener) };
+    } else {
+        //  If not found, copy the listener and register the copied Sensor Listener with Mynewt.
+        unsafe { assert_eq!(LISTENER_INTERNAL.sl_sensor_type, 0, "reg lis") };  //  Make sure it's not used.
+        //  Copy the caller's listener to the internal listener.
+        unsafe { LISTENER_INTERNAL = listener };
+        //  Pass the internal listener to the unsafe Mynewt API.
+        unsafe { sensor_register_listener(sensor, &mut LISTENER_INTERNAL) };
+    }
     Ok(())
 }
 
@@ -89,20 +119,22 @@ pub fn new_sensor_listener(
             break;
         }
     }
-    assert!(arg < MAX_SENSOR_LISTENERS, "increase MAX_SENSOR_LISTENERS");
-    //  Allocate the `sensor_listener_info`
-    unsafe { SENSOR_LISTENERS[arg] = sensor_listener_info {
-        sensor_key,
-        sensor_type,
-        listener_func,
-    } };
-    //  Return a Mynewt `sensor_listener` that wraps the allocated `sensor_listener_info`
+    assert!(arg < MAX_SENSOR_LISTENERS, "increase MAX_SENSOR_LISTENERS");  //  Too many listeners registered. Increase MAX_SENSOR_LISTENERS
+    //  Create a Mynewt `sensor_listener` that wraps the allocated `sensor_listener_info`
     let listener = sensor_listener {
         sl_sensor_type: sensor_type,
         sl_func:        Some(wrap_sensor_listener),
         sl_arg:         arg as *mut c_void,
         ..fill_zero!(sensor_listener)
     };
+    //  Allocate the `sensor_listener_info`
+    unsafe { SENSOR_LISTENERS[arg] = sensor_listener_info {
+        sensor_key,
+        sensor_type,
+        listener_func,
+        listener,
+    } };
+    //  Return the Mynewt `sensor_listener`
     Ok(listener)
 }
 
@@ -141,58 +173,22 @@ struct sensor_listener_info {
     sensor_key:     &'static Strn,
     sensor_type:    sensor_type_t, 
     listener_func:  SensorValueFunc,
+    listener:       sensor_listener,
 }
 
+///  List of wrapped sensor listeners
 const MAX_SENSOR_LISTENERS: usize = 2;
 static mut SENSOR_LISTENERS: [sensor_listener_info; MAX_SENSOR_LISTENERS] = [
     sensor_listener_info { 
         sensor_key:     &init_strn!(""), 
         sensor_type:    0, 
-        listener_func:  null_sensor_value_func 
+        listener_func:  null_sensor_value_func,
+        listener:       sensor_listener {  
+            sl_func: Some(null_sensor_data_func),
+            ..fill_zero!(sensor_listener)
+        },
     }; MAX_SENSOR_LISTENERS
 ];
-
-///  Convert the sensor data received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key. 
-///  `sensor_type` indicates the type of data in `sensor_data`.
-#[allow(non_snake_case, unused_variables)]
-fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, sensor_type: sensor_type_t) -> SensorValue {
-    //  Construct and return a new `SensorValue` (without semicolon)
-    SensorValue {
-        key: sensor_key,
-        geo: SensorValueType::None,
-        value: match sensor_type {
-            SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW => {  //  If this is raw temperature...
-                //  Interpret the sensor data as a `sensor_temp_raw_data` struct that contains raw temp.
-                let mut rawtempdata = fill_zero!(sensor_temp_raw_data);
-                let rc = unsafe { get_temp_raw_data(sensor_data, &mut rawtempdata) };
-                assert_eq!(rc, 0, "rawtmp fail");
-                //  Check that the raw temperature data is valid.
-                assert_ne!(rawtempdata.strd_temp_raw_is_valid, 0, "bad rawtmp");                
-                //  Raw temperature data is valid.  Return it.
-                SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
-            }
-            SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
-                //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
-                let mut geolocation = fill_zero!(sensor_geolocation_data);
-                let rc = unsafe { get_geolocation_data(sensor_data, &mut geolocation) };
-                assert_eq!(rc, 0, "geodata fail");
-                //  Check that the geolocation data is valid.
-                if  geolocation.sgd_latitude_is_valid  != 0 &&
-                    geolocation.sgd_longitude_is_valid != 0 &&
-                    geolocation.sgd_altitude_is_valid  != 0 {
-                    //  Geolocation data is valid.  Return it.
-                    SensorValueType::Geolocation {
-                        latitude:  geolocation.sgd_latitude,
-                        longitude: geolocation.sgd_longitude,
-                        altitude:  geolocation.sgd_altitude,
-                    }
-                } else { SensorValueType::None }  //  Geolocation data is invalid.  Maybe GPS is not ready.                 
-            }
-            //  Unknown type of sensor value
-            _ => { assert!(false, "sensor type"); SensorValueType::None }
-        }
-    }
-}
 
 ///  Define the listener function to be called after polling the sensor.
 ///  This is a static mutable copy of the listener passed in through `register_listener`.
@@ -322,4 +318,50 @@ pub struct sensor_geolocation_data {
     pub sgd_longitude_is_valid: u8,
     ///  1 if altitude is valid
     pub sgd_altitude_is_valid: u8, 
+}
+
+/// Points to a `sensor`.  Needed because `sensor` also refers to a namespace.
+pub type sensor_ptr = *mut sensor;
+/// Points to sensor arg passed by Mynewt to sensor listener
+pub type sensor_arg = *mut c_void;
+/// Points to sensor data passed by Mynewt to sensor listener
+pub type sensor_data_ptr = *mut c_void;
+/// Sensor data function that returns `MynewtError` instead of `i32`
+pub type sensor_data_func =
+    unsafe extern "C" fn(
+        sensor: sensor_ptr,
+        arg:    sensor_arg,
+        data:   sensor_data_ptr,
+        stype:  sensor_type_t,
+    ) -> MynewtError;
+/// Sensor data function that returns `i32` instead of `MynewtError`
+pub type sensor_data_func_untyped =
+    unsafe extern "C" fn(
+        sensor: sensor_ptr,
+        arg:    sensor_arg,
+        data:   sensor_data_ptr,
+        stype:  sensor_type_t,
+    ) -> i32;
+
+/// Cast sensor data function from typed to untyped
+pub fn as_untyped(typed: sensor_data_func) -> Option<sensor_data_func_untyped> {
+    let untyped = unsafe { 
+        ::core::mem::transmute::
+            <sensor_data_func, sensor_data_func_untyped>
+            (typed)
+    };
+    Some(untyped)
+}
+
+///  Implement Copy for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+impl Copy for sensor_listener { }
+///  Implement Clone for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+impl Clone for sensor_listener {
+    fn clone(&self) -> sensor_listener { *self }
+}
+///  Implement Copy for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+impl Copy for sensor_listener__bindgen_ty_1 { }
+///  Implement Clone for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+impl Clone for sensor_listener__bindgen_ty_1 {
+    fn clone(&self) -> sensor_listener__bindgen_ty_1 { *self }
 }

@@ -5631,214 +5631,6 @@ pub mod hw {
         }
         /// Export all bindings. TODO: Export only the API bindings.
         pub use self::bindings::*;
-        /// Points to a `sensor`.  Needed because `sensor` also refers to a namespace.
-        pub type sensor_ptr = *mut sensor;
-        /// Points to sensor arg passed by Mynewt to sensor listener
-        pub type sensor_arg = *mut c_void;
-        /// Points to sensor data passed by Mynewt to sensor listener
-        pub type sensor_data_ptr = *mut c_void;
-        /// Sensor data function that returns `MynewtError` instead of `i32`
-        pub type sensor_data_func
-            =
-            unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
-                                 data: sensor_data_ptr, stype: sensor_type_t)
-                -> MynewtError;
-        /// Sensor data function that returns `i32` instead of `MynewtError`
-        pub type sensor_data_func_untyped
-            =
-            unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
-                                 data: sensor_data_ptr, stype: sensor_type_t)
-                -> i32;
-        /// Cast sensor data function from typed to untyped
-        pub fn as_untyped(typed: sensor_data_func)
-         -> Option<sensor_data_func_untyped> {
-            let untyped =
-                unsafe {
-                    ::core::mem::transmute::<sensor_data_func,
-                                             sensor_data_func_untyped>(typed)
-                };
-            Some(untyped)
-        }
-        ///  Register a sensor listener. This allows a calling application to receive
-        ///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
-        ///  that copies the listener locally before passing to Mynewt.
-        ///  For more information on the type of callbacks available, see the documentation
-        ///  for the sensor listener structure.
-        ///  `sensor`: The sensor to register a listener on.
-        ///  `listener`: The listener to register onto the sensor.
-        ///  Returns `Ok()` on success, `Err()` containing `MynewtError` error code on failure.
-        pub fn register_listener(sensor: *mut sensor,
-                                 listener: sensor_listener)
-         -> MynewtResult<()> {
-            unsafe {
-                {
-                    match (&(LISTENER_INTERNAL.sl_sensor_type), &(0)) {
-                        (left_val, right_val) => {
-                            if !(*left_val == *right_val) {
-                                {
-                                    ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                  "`,\n right: `",
-                                                                                                  "`: "],
-                                                                                                &match (&&*left_val,
-                                                                                                        &&*right_val,
-                                                                                                        &::core::fmt::Arguments::new_v1(&["reg lis"],
-                                                                                                                                        &match ()
-                                                                                                                                             {
-                                                                                                                                             ()
-                                                                                                                                             =>
-                                                                                                                                             [],
-                                                                                                                                         }))
-                                                                                                     {
-                                                                                                     (arg0,
-                                                                                                      arg1,
-                                                                                                      arg2)
-                                                                                                     =>
-                                                                                                     [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                      ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                   ::core::fmt::Debug::fmt),
-                                                                                                      ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                                   ::core::fmt::Display::fmt)],
-                                                                                                 }),
-                                                                 &("rust/mynewt/src/hw/sensor.rs",
-                                                                   65u32,
-                                                                   14u32))
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-            unsafe { LISTENER_INTERNAL = listener };
-            unsafe {
-                sensor_register_listener(sensor, &mut LISTENER_INTERNAL)
-            };
-            Ok(())
-        }
-        ///  Wrapped version of `sensor_data_func` used by Visual Embedded Rust
-        pub type SensorValueFunc
-            =
-            fn(sensor_value: &SensorValue) -> MynewtResult<()>;
-        ///  Return a new `sensor_listener` with the sensor type and sensor value function. Called by Visual Embedded Rust.
-        pub fn new_sensor_listener(sensor_key: &'static Strn,
-                                   sensor_type: sensor_type_t,
-                                   listener_func: SensorValueFunc)
-         -> MynewtResult<sensor_listener> {
-            if !!sensor_key.is_empty() {
-                {
-                    ::core::panicking::panic(&("missing sensor key",
-                                               "rust/mynewt/src/hw/sensor.rs",
-                                               82u32, 5u32))
-                }
-            };
-            let mut arg = MAX_SENSOR_LISTENERS + 1;
-            for i in 0..MAX_SENSOR_LISTENERS {
-                let info = unsafe { SENSOR_LISTENERS[i] };
-                if info.sensor_key.is_empty() { arg = i; break ; }
-            }
-            if !(arg < MAX_SENSOR_LISTENERS) {
-                {
-                    ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
-                                               "rust/mynewt/src/hw/sensor.rs",
-                                               92u32, 5u32))
-                }
-            };
-            unsafe {
-                SENSOR_LISTENERS[arg] =
-                    sensor_listener_info{sensor_key,
-                                         sensor_type,
-                                         listener_func,}
-            };
-            let listener =
-                sensor_listener{sl_sensor_type: sensor_type,
-                                sl_func: Some(wrap_sensor_listener),
-                                sl_arg:
-                                    arg as
-                                        *mut c_void,
-                                                       ..unsafe {
-                                                             ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
-                                                                                      sensor_listener>([0;
-                                                                                                           ::core::mem::size_of::<sensor_listener>()])
-                                                         }};
-            Ok(listener)
-        }
-        ///  Wrap the sensor value function into a sensor data function
-        extern "C" fn wrap_sensor_listener(sensor: sensor_ptr,
-                                           arg: sensor_arg,
-                                           sensor_data: sensor_data_ptr,
-                                           sensor_type: sensor_type_t)
-         -> i32 {
-            let arg = arg as usize;
-            if !(arg < MAX_SENSOR_LISTENERS) {
-                {
-                    ::core::panicking::panic(&("bad sensor arg",
-                                               "rust/mynewt/src/hw/sensor.rs",
-                                               118u32, 5u32))
-                }
-            };
-            let info = unsafe { SENSOR_LISTENERS[arg] };
-            if !!info.sensor_key.is_empty() {
-                {
-                    ::core::panicking::panic(&("missing sensor key",
-                                               "rust/mynewt/src/hw/sensor.rs",
-                                               120u32, 5u32))
-                }
-            };
-            if sensor_data.is_null() { return SYS_EINVAL }
-            if !!sensor.is_null() {
-                {
-                    ::core::panicking::panic(&("null sensor",
-                                               "rust/mynewt/src/hw/sensor.rs",
-                                               124u32, 5u32))
-                }
-            };
-            let sensor_value =
-                convert_sensor_data(sensor_data, info.sensor_key,
-                                    sensor_type);
-            if let SensorValueType::None = sensor_value.value {
-                if !false {
-                    {
-                        ::core::panicking::panic(&("bad type",
-                                                   "rust/mynewt/src/hw/sensor.rs",
-                                                   128u32, 57u32))
-                    }
-                };
-            }
-            (info.listener_func)(&sensor_value).expect("sensor listener fail");
-            0
-        }
-        ///  Define the info needed for converting sensor data into sensor value and calling a listener function
-        #[rustc_copy_clone_marker]
-        struct sensor_listener_info {
-            sensor_key: &'static Strn,
-            sensor_type: sensor_type_t,
-            listener_func: SensorValueFunc,
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::clone::Clone for sensor_listener_info {
-            #[inline]
-            fn clone(&self) -> sensor_listener_info {
-                {
-                    let _: ::core::clone::AssertParamIsClone<&'static Strn>;
-                    let _: ::core::clone::AssertParamIsClone<sensor_type_t>;
-                    let _: ::core::clone::AssertParamIsClone<SensorValueFunc>;
-                    *self
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
-        impl ::core::marker::Copy for sensor_listener_info { }
-        const MAX_SENSOR_LISTENERS: usize = 2;
-        static mut SENSOR_LISTENERS:
-               [sensor_listener_info; MAX_SENSOR_LISTENERS] =
-            [sensor_listener_info{sensor_key:
-                                      &Strn{rep:
-                                                mynewt::StrnRep::ByteStr(b"\x00"),},
-                                  sensor_type: 0,
-                                  listener_func: null_sensor_value_func,};
-                MAX_SENSOR_LISTENERS];
         ///  Convert the sensor data received from Mynewt into a `SensorValue` for transmission, which includes the sensor data key. 
         ///  `sensor_type` indicates the type of data in `sensor_data`.
         #[allow(non_snake_case, unused_variables)]
@@ -5892,7 +5684,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       168u32,
+                                                                                       36u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5930,7 +5722,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       170u32,
+                                                                                       38u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -5982,7 +5774,7 @@ pub mod hw {
                                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                                      }),
                                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       178u32,
+                                                                                       46u32,
                                                                                        17u32))
                                                     }
                                                 }
@@ -6008,7 +5800,7 @@ pub mod hw {
                                         {
                                             ::core::panicking::panic(&("sensor type",
                                                                        "rust/mynewt/src/hw/sensor.rs",
-                                                                       192u32,
+                                                                       60u32,
                                                                        20u32))
                                         }
                                     };
@@ -6016,6 +5808,218 @@ pub mod hw {
                                 }
                             },}
         }
+        ///  Register a sensor listener. This allows a calling application to receive
+        ///  callbacks for data from a given sensor object. This is the safe version of `sensor_register_listener()`
+        ///  that copies the listener locally before passing to Mynewt.
+        ///  For more information on the type of callbacks available, see the documentation
+        ///  for the sensor listener structure.
+        ///  `sensor`: The sensor to register a listener on.
+        ///  `listener`: The listener to register onto the sensor.
+        ///  Returns `Ok()` on success, `Err()` containing `MynewtError` error code on failure.
+        pub fn register_listener(sensor: *mut sensor,
+                                 listener: sensor_listener)
+         -> MynewtResult<()> {
+            let mut arg = MAX_SENSOR_LISTENERS + 1;
+            for i in 0..MAX_SENSOR_LISTENERS {
+                let info = unsafe { SENSOR_LISTENERS[i] };
+                if !info.sensor_key.is_empty() &&
+                       listener.sl_sensor_type == info.sensor_type &&
+                       listener.sl_func == Some(wrap_sensor_listener) &&
+                       listener.sl_arg == i as *mut c_void {
+                    arg = i;
+                    break ;
+                }
+            }
+            if arg < MAX_SENSOR_LISTENERS {
+                let mut wrapped_listener =
+                    unsafe { SENSOR_LISTENERS[arg].listener };
+                unsafe {
+                    sensor_register_listener(sensor, &mut wrapped_listener)
+                };
+            } else {
+                unsafe {
+                    {
+                        match (&(LISTENER_INTERNAL.sl_sensor_type), &(0)) {
+                            (left_val, right_val) => {
+                                if !(*left_val == *right_val) {
+                                    {
+                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                                      "`,\n right: `",
+                                                                                                      "`: "],
+                                                                                                    &match (&&*left_val,
+                                                                                                            &&*right_val,
+                                                                                                            &::core::fmt::Arguments::new_v1(&["reg lis"],
+                                                                                                                                            &match ()
+                                                                                                                                                 {
+                                                                                                                                                 ()
+                                                                                                                                                 =>
+                                                                                                                                                 [],
+                                                                                                                                             }))
+                                                                                                         {
+                                                                                                         (arg0,
+                                                                                                          arg1,
+                                                                                                          arg2)
+                                                                                                         =>
+                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                                     }),
+                                                                     &("rust/mynewt/src/hw/sensor.rs",
+                                                                       94u32,
+                                                                       18u32))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+                unsafe { LISTENER_INTERNAL = listener };
+                unsafe {
+                    sensor_register_listener(sensor, &mut LISTENER_INTERNAL)
+                };
+            }
+            Ok(())
+        }
+        ///  Wrapped version of `sensor_data_func` used by Visual Embedded Rust
+        pub type SensorValueFunc
+            =
+            fn(sensor_value: &SensorValue) -> MynewtResult<()>;
+        ///  Return a new `sensor_listener` with the sensor type and sensor value function. Called by Visual Embedded Rust.
+        pub fn new_sensor_listener(sensor_key: &'static Strn,
+                                   sensor_type: sensor_type_t,
+                                   listener_func: SensorValueFunc)
+         -> MynewtResult<sensor_listener> {
+            if !!sensor_key.is_empty() {
+                {
+                    ::core::panicking::panic(&("missing sensor key",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               112u32, 5u32))
+                }
+            };
+            let mut arg = MAX_SENSOR_LISTENERS + 1;
+            for i in 0..MAX_SENSOR_LISTENERS {
+                let info = unsafe { SENSOR_LISTENERS[i] };
+                if info.sensor_key.is_empty() { arg = i; break ; }
+            }
+            if !(arg < MAX_SENSOR_LISTENERS) {
+                {
+                    ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               122u32, 5u32))
+                }
+            };
+            let listener =
+                sensor_listener{sl_sensor_type: sensor_type,
+                                sl_func: Some(wrap_sensor_listener),
+                                sl_arg:
+                                    arg as
+                                        *mut c_void,
+                                                       ..unsafe {
+                                                             ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
+                                                                                      sensor_listener>([0;
+                                                                                                           ::core::mem::size_of::<sensor_listener>()])
+                                                         }};
+            unsafe {
+                SENSOR_LISTENERS[arg] =
+                    sensor_listener_info{sensor_key,
+                                         sensor_type,
+                                         listener_func,
+                                         listener,}
+            };
+            Ok(listener)
+        }
+        ///  Wrap the sensor value function into a sensor data function
+        extern "C" fn wrap_sensor_listener(sensor: sensor_ptr,
+                                           arg: sensor_arg,
+                                           sensor_data: sensor_data_ptr,
+                                           sensor_type: sensor_type_t)
+         -> i32 {
+            let arg = arg as usize;
+            if !(arg < MAX_SENSOR_LISTENERS) {
+                {
+                    ::core::panicking::panic(&("bad sensor arg",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               150u32, 5u32))
+                }
+            };
+            let info = unsafe { SENSOR_LISTENERS[arg] };
+            if !!info.sensor_key.is_empty() {
+                {
+                    ::core::panicking::panic(&("missing sensor key",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               152u32, 5u32))
+                }
+            };
+            if sensor_data.is_null() { return SYS_EINVAL }
+            if !!sensor.is_null() {
+                {
+                    ::core::panicking::panic(&("null sensor",
+                                               "rust/mynewt/src/hw/sensor.rs",
+                                               156u32, 5u32))
+                }
+            };
+            let sensor_value =
+                convert_sensor_data(sensor_data, info.sensor_key,
+                                    sensor_type);
+            if let SensorValueType::None = sensor_value.value {
+                if !false {
+                    {
+                        ::core::panicking::panic(&("bad type",
+                                                   "rust/mynewt/src/hw/sensor.rs",
+                                                   160u32, 57u32))
+                    }
+                };
+            }
+            (info.listener_func)(&sensor_value).expect("sensor listener fail");
+            0
+        }
+        ///  Define the info needed for converting sensor data into sensor value and calling a listener function
+        #[rustc_copy_clone_marker]
+        struct sensor_listener_info {
+            sensor_key: &'static Strn,
+            sensor_type: sensor_type_t,
+            listener_func: SensorValueFunc,
+            listener: sensor_listener,
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::clone::Clone for sensor_listener_info {
+            #[inline]
+            fn clone(&self) -> sensor_listener_info {
+                {
+                    let _: ::core::clone::AssertParamIsClone<&'static Strn>;
+                    let _: ::core::clone::AssertParamIsClone<sensor_type_t>;
+                    let _: ::core::clone::AssertParamIsClone<SensorValueFunc>;
+                    let _: ::core::clone::AssertParamIsClone<sensor_listener>;
+                    *self
+                }
+            }
+        }
+        #[automatically_derived]
+        #[allow(unused_qualifications)]
+        impl ::core::marker::Copy for sensor_listener_info { }
+        ///  List of wrapped sensor listeners
+        const MAX_SENSOR_LISTENERS: usize = 2;
+        static mut SENSOR_LISTENERS:
+               [sensor_listener_info; MAX_SENSOR_LISTENERS] =
+            [sensor_listener_info{sensor_key:
+                                      &Strn{rep:
+                                                mynewt::StrnRep::ByteStr(b"\x00"),},
+                                  sensor_type: 0,
+                                  listener_func: null_sensor_value_func,
+                                  listener:
+                                      sensor_listener{sl_func:
+                                                          Some(null_sensor_data_func),
+                                                                                         ..unsafe
+                                                                                           {
+                                                                                               ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_listener>()],
+                                                                                                                        sensor_listener>([0;
+                                                                                                                                             ::core::mem::size_of::<sensor_listener>()])
+                                                                                           }},};
+                MAX_SENSOR_LISTENERS];
         ///  Define the listener function to be called after polling the sensor.
         ///  This is a static mutable copy of the listener passed in through `register_listener`.
         ///  Must be static so it won't go out of scope.  Must be mutable so that Rust won't move it while Mynewt is using it.
@@ -6179,6 +6183,46 @@ pub mod hw {
             pub sgd_longitude_is_valid: u8,
             ///  1 if altitude is valid
             pub sgd_altitude_is_valid: u8,
+        }
+        /// Points to a `sensor`.  Needed because `sensor` also refers to a namespace.
+        pub type sensor_ptr = *mut sensor;
+        /// Points to sensor arg passed by Mynewt to sensor listener
+        pub type sensor_arg = *mut c_void;
+        /// Points to sensor data passed by Mynewt to sensor listener
+        pub type sensor_data_ptr = *mut c_void;
+        /// Sensor data function that returns `MynewtError` instead of `i32`
+        pub type sensor_data_func
+            =
+            unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
+                                 data: sensor_data_ptr, stype: sensor_type_t)
+                -> MynewtError;
+        /// Sensor data function that returns `i32` instead of `MynewtError`
+        pub type sensor_data_func_untyped
+            =
+            unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
+                                 data: sensor_data_ptr, stype: sensor_type_t)
+                -> i32;
+        /// Cast sensor data function from typed to untyped
+        pub fn as_untyped(typed: sensor_data_func)
+         -> Option<sensor_data_func_untyped> {
+            let untyped =
+                unsafe {
+                    ::core::mem::transmute::<sensor_data_func,
+                                             sensor_data_func_untyped>(typed)
+                };
+            Some(untyped)
+        }
+        ///  Implement Copy for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+        impl Copy for sensor_listener { }
+        ///  Implement Clone for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+        impl Clone for sensor_listener {
+            fn clone(&self) -> sensor_listener { *self }
+        }
+        ///  Implement Copy for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+        impl Copy for sensor_listener__bindgen_ty_1 { }
+        ///  Implement Clone for `sensor_listener`, because the `SENSOR_LISTENERS` initialiser will copy `sensor_listener` structs
+        impl Clone for sensor_listener__bindgen_ty_1 {
+            fn clone(&self) -> sensor_listener__bindgen_ty_1 { *self }
         }
     }
 }
