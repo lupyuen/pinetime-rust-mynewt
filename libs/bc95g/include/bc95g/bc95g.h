@@ -29,7 +29,7 @@ extern "C" {  //  Expose the types and functions below to C functions.
 #define BC95G_SOCKET_COUNT 1    //  Max number of concurrent UDP operations allowed
 
 //  Use static buffers to avoid dynamic memory allocation (new, delete)
-#define BC95G_TX_BUFFER_SIZE      500  //  Must be large enough to hold sensor and geolocation CoAP UDP messages.
+#define BC95G_TX_BUFFER_SIZE      600  //  Must be large enough to hold sensor and geolocation CoAP UDP messages. 1 byte is represented by 3 chars.
 #define BC95G_RX_BUFFER_SIZE      256
 #define BC95G_PARSER_BUFFER_SIZE  256
 
