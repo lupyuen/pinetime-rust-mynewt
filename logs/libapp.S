@@ -751,7 +751,7 @@ Disassembly of section .text._ZN3app10app_sensor21start_sensor_listener17h090884
 
 00000000 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E>:
 _ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:49
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:45
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
@@ -760,14 +760,14 @@ const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
    0:	b5f0      	push	{r4, r5, r6, r7, lr}
    2:	b0c1      	sub	sp, #260	; 0x104
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:50
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:46
     console::print("Rust TMP poll\n");
    4:	f240 0000 	movw	r0, #0
    8:	f2c0 0000 	movt	r0, #0
    c:	210e      	movs	r1, #14
    e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
   12:	e7ff      	b.n	2 <_ZN4core3ptr8null_mut17h77c2d0fe6651650cE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:53
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:49
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
@@ -793,15 +793,14 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   44:	2801      	cmp	r0, #1
   46:	d001      	beq.n	4c <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x4c>
   48:	e7ff      	b.n	4a <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x4a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:71
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:67
     //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
 
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
-}
   4a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:53
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:49
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
   4c:	9810      	ldr	r0, [sp, #64]	; 0x40
   4e:	9013      	str	r0, [sp, #76]	; 0x4c
@@ -814,19 +813,18 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   60:	900d      	str	r0, [sp, #52]	; 0x34
   62:	e7ff      	b.n	64 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x64>
   64:	e002      	b.n	6c <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x6c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:71
-}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:67
   66:	980d      	ldr	r0, [sp, #52]	; 0x34
   68:	b041      	add	sp, #260	; 0x104
   6a:	bdf0      	pop	{r4, r5, r6, r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:53
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:49
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
   6c:	e7fb      	b.n	66 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x66>
   6e:	9810      	ldr	r0, [sp, #64]	; 0x40
   70:	9014      	str	r0, [sp, #80]	; 0x50
   72:	9814      	ldr	r0, [sp, #80]	; 0x50
   74:	900e      	str	r0, [sp, #56]	; 0x38
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:54
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:50
     assert!(!sensor.is_null(), "no sensor");
   76:	980e      	ldr	r0, [sp, #56]	; 0x38
   78:	f7ff fffe 	bl	0 <_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$7is_null17h80b6c30939e62171E>
@@ -841,7 +839,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   8e:	f2c0 0000 	movt	r0, #0
   92:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   96:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:57
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:53
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   98:	f240 0000 	movw	r0, #0
   9c:	f2c0 0000 	movt	r0, #0
@@ -876,7 +874,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   e2:	900d      	str	r0, [sp, #52]	; 0x34
   e4:	e7ff      	b.n	e6 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0xe6>
   e6:	e7c1      	b.n	6c <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x6c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:60
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
     let listener = sensor::new_sensor_listener(
   e8:	f240 0000 	movw	r0, #0
   ec:	f2c0 0000 	movt	r0, #0
@@ -893,7 +891,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  10c:	a926      	add	r1, sp, #152	; 0x98
  10e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h470504b6f43ee880E>
  112:	e7ff      	b.n	114 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x114>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:64
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:60
     ) ? ;
  114:	981e      	ldr	r0, [sp, #120]	; 0x78
  116:	2800      	cmp	r0, #0
@@ -917,7 +915,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  140:	e7ff      	b.n	142 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x142>
  142:	e793      	b.n	6c <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x6c>
  144:	a81e      	add	r0, sp, #120	; 0x78
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:60
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
     let listener = sensor::new_sensor_listener(
  146:	3008      	adds	r0, #8
  148:	a930      	add	r1, sp, #192	; 0xc0
@@ -928,7 +926,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  156:	4602      	mov	r2, r0
  158:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
  15c:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:67
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:63
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
  160:	990e      	ldr	r1, [sp, #56]	; 0x38
  162:	aa38      	add	r2, sp, #224	; 0xe0
@@ -968,13 +966,12 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  1b4:	e7ff      	b.n	1b6 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x1b6>
  1b6:	e7c4      	b.n	142 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x142>
  1b8:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:66
     Ok(())
  1ba:	900d      	str	r0, [sp, #52]	; 0x34
  1bc:	2001      	movs	r0, #1
  1be:	900d      	str	r0, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:71
-}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:67
  1c0:	e751      	b.n	66 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x66>
 
 app-b90ce02d7e477c3f.29cfty5pwckdmq5t.rcgu.o:     file format elf32-littlearm
@@ -1557,11 +1554,14 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
  15e:	904c      	str	r0, [sp, #304]	; 0x130
  160:	2007      	movs	r0, #7
  162:	904d      	str	r0, [sp, #308]	; 0x134
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/*
  164:	f240 0000 	movw	r0, #0
  168:	f2c0 0000 	movt	r0, #0
  16c:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17ha96fa3cb38da5ddbE>
  170:	9021      	str	r0, [sp, #132]	; 0x84
  172:	e7ff      	b.n	174 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x174>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  174:	984c      	ldr	r0, [sp, #304]	; 0x130
  176:	994d      	ldr	r1, [sp, #308]	; 0x134
  178:	9092      	str	r0, [sp, #584]	; 0x248
@@ -1579,6 +1579,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  188:	9120      	str	r1, [sp, #128]	; 0x80
  18a:	921f      	str	r2, [sp, #124]	; 0x7c
  18c:	e7ff      	b.n	18e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x18e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  18e:	f240 0000 	movw	r0, #0
  192:	f2c0 0000 	movt	r0, #0
  196:	9920      	ldr	r1, [sp, #128]	; 0x80
@@ -1586,6 +1587,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  19a:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  19e:	901e      	str	r0, [sp, #120]	; 0x78
  1a0:	e7ff      	b.n	1a2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x1a2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  1a2:	9821      	ldr	r0, [sp, #132]	; 0x84
  1a4:	991e      	ldr	r1, [sp, #120]	; 0x78
  1a6:	f7ff fffe 	bl	0 <json_helper_set_array>
@@ -1627,6 +1629,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  1f6:	911d      	str	r1, [sp, #116]	; 0x74
  1f8:	921c      	str	r2, [sp, #112]	; 0x70
  1fa:	e7ff      	b.n	1fc <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x1fc>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  1fc:	f240 0000 	movw	r0, #0
  200:	f2c0 0000 	movt	r0, #0
  204:	991d      	ldr	r1, [sp, #116]	; 0x74
@@ -1634,6 +1637,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  208:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  20c:	901b      	str	r0, [sp, #108]	; 0x6c
  20e:	e7ff      	b.n	210 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x210>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  210:	981b      	ldr	r0, [sp, #108]	; 0x6c
  212:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
  216:	e7ff      	b.n	2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2>
@@ -1658,25 +1662,31 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  244:	905c      	str	r0, [sp, #368]	; 0x170
  246:	9917      	ldr	r1, [sp, #92]	; 0x5c
  248:	915d      	str	r1, [sp, #372]	; 0x174
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  24a:	f240 0000 	movw	r0, #0
  24e:	f2c0 0000 	movt	r0, #0
  252:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17ha96fa3cb38da5ddbE>
  256:	9016      	str	r0, [sp, #88]	; 0x58
  258:	e7ff      	b.n	25a <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x25a>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  25a:	995a      	ldr	r1, [sp, #360]	; 0x168
  25c:	9a5b      	ldr	r2, [sp, #364]	; 0x16c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  25e:	f240 0000 	movw	r0, #0
  262:	f2c0 0000 	movt	r0, #0
  266:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  26a:	9015      	str	r0, [sp, #84]	; 0x54
  26c:	e7ff      	b.n	26e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x26e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  26e:	995c      	ldr	r1, [sp, #368]	; 0x170
  270:	9a5d      	ldr	r2, [sp, #372]	; 0x174
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  272:	f240 0000 	movw	r0, #0
  276:	f2c0 0000 	movt	r0, #0
  27a:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17hfc1b92176b61a6eaE>
  27e:	9014      	str	r0, [sp, #80]	; 0x50
  280:	e7ff      	b.n	282 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x282>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  282:	9816      	ldr	r0, [sp, #88]	; 0x58
  284:	9915      	ldr	r1, [sp, #84]	; 0x54
  286:	9a14      	ldr	r2, [sp, #80]	; 0x50
@@ -1697,18 +1707,22 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  2ac:	2300      	movs	r3, #0
  2ae:	9361      	str	r3, [sp, #388]	; 0x184
  2b0:	9260      	str	r2, [sp, #384]	; 0x180
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  2b2:	f240 0000 	movw	r0, #0
  2b6:	f2c0 0000 	movt	r0, #0
  2ba:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17ha96fa3cb38da5ddbE>
  2be:	9011      	str	r0, [sp, #68]	; 0x44
  2c0:	e7ff      	b.n	2c2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2c2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  2c2:	995e      	ldr	r1, [sp, #376]	; 0x178
  2c4:	9a5f      	ldr	r2, [sp, #380]	; 0x17c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  2c6:	f240 0000 	movw	r0, #0
  2ca:	f2c0 0000 	movt	r0, #0
  2ce:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  2d2:	9010      	str	r0, [sp, #64]	; 0x40
  2d4:	e7ff      	b.n	2d6 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2d6>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  2d6:	9a60      	ldr	r2, [sp, #384]	; 0x180
  2d8:	9b61      	ldr	r3, [sp, #388]	; 0x184
  2da:	9811      	ldr	r0, [sp, #68]	; 0x44
@@ -1740,6 +1754,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  324:	e8a2 5018 	stmia.w	r2!, {r3, r4, ip, lr}
  328:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
  32c:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  330:	4668      	mov	r0, sp
  332:	6001      	str	r1, [r0, #0]
  334:	f240 0000 	movw	r0, #0
@@ -1749,6 +1764,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  340:	ab69      	add	r3, sp, #420	; 0x1a4
  342:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_geolocation17h5cef0a66b381353bE>
  346:	e7ff      	b.n	2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  348:	f240 0000 	movw	r0, #0
  34c:	f2c0 0000 	movt	r0, #0
  350:	9075      	str	r0, [sp, #468]	; 0x1d4
@@ -1771,6 +1787,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  36a:	910f      	str	r1, [sp, #60]	; 0x3c
  36c:	920e      	str	r2, [sp, #56]	; 0x38
  36e:	e7ff      	b.n	370 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x370>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  370:	f240 0000 	movw	r0, #0
  374:	f2c0 0000 	movt	r0, #0
  378:	990f      	ldr	r1, [sp, #60]	; 0x3c
@@ -1778,6 +1795,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  37c:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  380:	900d      	str	r0, [sp, #52]	; 0x34
  382:	e7ff      	b.n	384 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x384>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  384:	980d      	ldr	r0, [sp, #52]	; 0x34
  386:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
  38a:	e7ff      	b.n	38c <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x38c>
@@ -1812,6 +1830,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  3ca:	910c      	str	r1, [sp, #48]	; 0x30
  3cc:	920b      	str	r2, [sp, #44]	; 0x2c
  3ce:	e7ff      	b.n	3d0 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x3d0>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  3d0:	f240 0000 	movw	r0, #0
  3d4:	f2c0 0000 	movt	r0, #0
  3d8:	990c      	ldr	r1, [sp, #48]	; 0x30
@@ -1819,6 +1838,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  3dc:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  3e0:	900a      	str	r0, [sp, #40]	; 0x28
  3e2:	e7ff      	b.n	3e4 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x3e4>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  3e4:	980a      	ldr	r0, [sp, #40]	; 0x28
  3e6:	f7ff fffe 	bl	0 <json_helper_object_array_start_item>
  3ea:	e7ff      	b.n	a <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0xa>
@@ -1840,10 +1860,12 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  416:	907e      	str	r0, [sp, #504]	; 0x1f8
  418:	997a      	ldr	r1, [sp, #488]	; 0x1e8
  41a:	9a7e      	ldr	r2, [sp, #504]	; 0x1f8
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  41c:	f240 0000 	movw	r0, #0
  420:	f2c0 0000 	movt	r0, #0
  424:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17hdbc3bda942320fdcE>
  428:	e7ff      	b.n	2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  42a:	f240 0100 	movw	r1, #0
  42e:	f2c0 0100 	movt	r1, #0
  432:	a883      	add	r0, sp, #524	; 0x20c
@@ -1860,10 +1882,12 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
     let _payload = coap!( @json {        
  444:	9982      	ldr	r1, [sp, #520]	; 0x208
  446:	9a86      	ldr	r2, [sp, #536]	; 0x218
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  448:	f240 0000 	movw	r0, #0
  44c:	f2c0 0000 	movt	r0, #0
  450:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17hdbc3bda942320fdcE>
  454:	e7ff      	b.n	2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  456:	f240 0000 	movw	r0, #0
  45a:	f2c0 0000 	movt	r0, #0
  45e:	9087      	str	r0, [sp, #540]	; 0x21c
@@ -1886,6 +1910,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  478:	9109      	str	r1, [sp, #36]	; 0x24
  47a:	9208      	str	r2, [sp, #32]
  47c:	e7ff      	b.n	47e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x47e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  47e:	f240 0000 	movw	r0, #0
  482:	f2c0 0000 	movt	r0, #0
  486:	9909      	ldr	r1, [sp, #36]	; 0x24
@@ -1893,6 +1918,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  48a:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  48e:	9007      	str	r0, [sp, #28]
  490:	e7ff      	b.n	492 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x492>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  492:	9807      	ldr	r0, [sp, #28]
  494:	f7ff fffe 	bl	0 <json_helper_object_array_end_item>
  498:	e7ff      	b.n	2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2>
@@ -1901,11 +1927,13 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  4a2:	9089      	str	r0, [sp, #548]	; 0x224
  4a4:	2007      	movs	r0, #7
  4a6:	908a      	str	r0, [sp, #552]	; 0x228
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  4a8:	f240 0000 	movw	r0, #0
  4ac:	f2c0 0000 	movt	r0, #0
  4b0:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17ha96fa3cb38da5ddbE>
  4b4:	9006      	str	r0, [sp, #24]
  4b6:	e7ff      	b.n	4b8 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x4b8>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  4b8:	9889      	ldr	r0, [sp, #548]	; 0x224
  4ba:	998a      	ldr	r1, [sp, #552]	; 0x228
  4bc:	9096      	str	r0, [sp, #600]	; 0x258
@@ -1923,6 +1951,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  4cc:	9105      	str	r1, [sp, #20]
  4ce:	9204      	str	r2, [sp, #16]
  4d0:	e7ff      	b.n	4d2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x4d2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  4d2:	f240 0000 	movw	r0, #0
  4d6:	f2c0 0000 	movt	r0, #0
  4da:	9905      	ldr	r1, [sp, #20]
@@ -1930,6 +1959,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  4de:	f7ff fffe 	bl	0 <_ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17ha9bcadf10507edfaE>
  4e2:	9003      	str	r0, [sp, #12]
  4e4:	e7ff      	b.n	4e6 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x4e6>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
  4e6:	9806      	ldr	r0, [sp, #24]
  4e8:	9903      	ldr	r1, [sp, #12]
  4ea:	f7ff fffe 	bl	0 <json_helper_close_array>
@@ -2435,7 +2465,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000 g     F .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E	000001c2 .hidden _ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
+00000000 g     F .text._ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E	000001ca .hidden _ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E
 00000000         *UND*	00000000 .hidden _ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E
 00000000         *UND*	00000000 _ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$7is_null17h80b6c30939e62171E
 00000000         *UND*	00000000 _ZN4core3ptr8null_mut17h77c2d0fe6651650cE
@@ -2450,6 +2480,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h00bf1b57699326cfE
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h2548a31748257156E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h470504b6f43ee880E
+00000000         *UND*	00000000 gps_l70r_start
 
 
 
@@ -2457,7 +2488,7 @@ Disassembly of section .text._ZN3app10gps_sensor18start_gps_listener17h506d2223c
 
 00000000 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E>:
 _ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:48
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:45
 ///  Type of sensor: Geolocation (latitude, longitude, altitude)
 const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
 
@@ -2465,223 +2496,229 @@ const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
    0:	b5f0      	push	{r4, r5, r6, r7, lr}
-   2:	b0c1      	sub	sp, #260	; 0x104
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:49
+   2:	b0c3      	sub	sp, #268	; 0x10c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:47
+    //  Start the GPS.
     console::print("Rust GPS poll\n");
    4:	f240 0000 	movw	r0, #0
    8:	f2c0 0000 	movt	r0, #0
    c:	210e      	movs	r1, #14
    e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
-  12:	e7ff      	b.n	2 <_ZN4core3ptr8null_mut17h77c2d0fe6651650cE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:52
+  12:	e7ff      	b.n	2 <gps_l70r_start+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:48
+    unsafe { gps_l70r_start() };
+  14:	f7ff fffe 	bl	0 <gps_l70r_start>
+  18:	900e      	str	r0, [sp, #56]	; 0x38
+  1a:	e7ff      	b.n	1c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:51
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
-  14:	f7ff fffe 	bl	0 <_ZN4core3ptr8null_mut17h77c2d0fe6651650cE>
-  18:	900c      	str	r0, [sp, #48]	; 0x30
-  1a:	e7ff      	b.n	1c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1c>
-  1c:	f240 0100 	movw	r1, #0
-  20:	f2c0 0100 	movt	r1, #0
-  24:	a811      	add	r0, sp, #68	; 0x44
-  26:	9a0c      	ldr	r2, [sp, #48]	; 0x30
-  28:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings23mgr_find_next_bydevname17h1885e7d2ce4be516E>
-  2c:	e7ff      	b.n	2e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x2e>
-  2e:	a80f      	add	r0, sp, #60	; 0x3c
-  30:	a911      	add	r1, sp, #68	; 0x44
-  32:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h2548a31748257156E>
-  36:	e7ff      	b.n	38 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x38>
-  38:	980f      	ldr	r0, [sp, #60]	; 0x3c
-  3a:	2800      	cmp	r0, #0
-  3c:	900b      	str	r0, [sp, #44]	; 0x2c
-  3e:	d016      	beq.n	6e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6e>
-  40:	e7ff      	b.n	42 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x42>
-  42:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  44:	2801      	cmp	r0, #1
-  46:	d001      	beq.n	4c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x4c>
+  1c:	f7ff fffe 	bl	0 <_ZN4core3ptr8null_mut17h77c2d0fe6651650cE>
+  20:	900d      	str	r0, [sp, #52]	; 0x34
+  22:	e7ff      	b.n	24 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x24>
+  24:	f240 0100 	movw	r1, #0
+  28:	f2c0 0100 	movt	r1, #0
+  2c:	a813      	add	r0, sp, #76	; 0x4c
+  2e:	9a0d      	ldr	r2, [sp, #52]	; 0x34
+  30:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings23mgr_find_next_bydevname17h1885e7d2ce4be516E>
+  34:	e7ff      	b.n	36 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x36>
+  36:	a811      	add	r0, sp, #68	; 0x44
+  38:	a913      	add	r1, sp, #76	; 0x4c
+  3a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h2548a31748257156E>
+  3e:	e7ff      	b.n	40 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x40>
+  40:	9811      	ldr	r0, [sp, #68]	; 0x44
+  42:	2800      	cmp	r0, #0
+  44:	900c      	str	r0, [sp, #48]	; 0x30
+  46:	d016      	beq.n	76 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x76>
   48:	e7ff      	b.n	4a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x4a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:70
+  4a:	980c      	ldr	r0, [sp, #48]	; 0x30
+  4c:	2801      	cmp	r0, #1
+  4e:	d001      	beq.n	54 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x54>
+  50:	e7ff      	b.n	52 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x52>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:69
     //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
 
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
 }
-  4a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:52
+  52:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:51
     let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
-  4c:	9810      	ldr	r0, [sp, #64]	; 0x40
-  4e:	9013      	str	r0, [sp, #76]	; 0x4c
-  50:	9813      	ldr	r0, [sp, #76]	; 0x4c
-  52:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
-  56:	900a      	str	r0, [sp, #40]	; 0x28
-  58:	e7ff      	b.n	5a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x5a>
-  5a:	980a      	ldr	r0, [sp, #40]	; 0x28
-  5c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
-  60:	900d      	str	r0, [sp, #52]	; 0x34
-  62:	e7ff      	b.n	64 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x64>
-  64:	e002      	b.n	6c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:70
-}
-  66:	980d      	ldr	r0, [sp, #52]	; 0x34
-  68:	b041      	add	sp, #260	; 0x104
-  6a:	bdf0      	pop	{r4, r5, r6, r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:52
-    let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
-  6c:	e7fb      	b.n	66 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x66>
-  6e:	9810      	ldr	r0, [sp, #64]	; 0x40
-  70:	9014      	str	r0, [sp, #80]	; 0x50
-  72:	9814      	ldr	r0, [sp, #80]	; 0x50
-  74:	900e      	str	r0, [sp, #56]	; 0x38
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:53
-    assert!(!sensor.is_null(), "no gps");
-  76:	980e      	ldr	r0, [sp, #56]	; 0x38
-  78:	f7ff fffe 	bl	0 <_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$7is_null17h80b6c30939e62171E>
-  7c:	9009      	str	r0, [sp, #36]	; 0x24
-  7e:	e7ff      	b.n	80 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x80>
-  80:	9809      	ldr	r0, [sp, #36]	; 0x24
-  82:	07c1      	lsls	r1, r0, #31
-  84:	2900      	cmp	r1, #0
-  86:	d007      	beq.n	98 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x98>
-  88:	e7ff      	b.n	8a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x8a>
-  8a:	f240 0000 	movw	r0, #0
-  8e:	f2c0 0000 	movt	r0, #0
-  92:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  96:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:56
-    sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME) ? ;
-  98:	f240 0000 	movw	r0, #0
-  9c:	f2c0 0000 	movt	r0, #0
-  a0:	f642 21f8 	movw	r1, #11000	; 0x2af8
-  a4:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h554be26f45a098a1E>
-  a8:	9008      	str	r0, [sp, #32]
-  aa:	e7ff      	b.n	ac <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xac>
-  ac:	9808      	ldr	r0, [sp, #32]
-  ae:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h00bf1b57699326cfE>
-  b2:	9015      	str	r0, [sp, #84]	; 0x54
-  b4:	e7ff      	b.n	b6 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xb6>
-  b6:	9815      	ldr	r0, [sp, #84]	; 0x54
-  b8:	1e41      	subs	r1, r0, #1
-  ba:	bf18      	it	ne
-  bc:	2101      	movne	r1, #1
-  be:	2801      	cmp	r0, #1
-  c0:	9107      	str	r1, [sp, #28]
-  c2:	d011      	beq.n	e8 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xe8>
-  c4:	e7ff      	b.n	c6 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xc6>
-  c6:	9807      	ldr	r0, [sp, #28]
-  c8:	2801      	cmp	r0, #1
-  ca:	d1be      	bne.n	4a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x4a>
-  cc:	e7ff      	b.n	ce <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xce>
-  ce:	9815      	ldr	r0, [sp, #84]	; 0x54
-  d0:	9016      	str	r0, [sp, #88]	; 0x58
-  d2:	9816      	ldr	r0, [sp, #88]	; 0x58
-  d4:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
-  d8:	9006      	str	r0, [sp, #24]
-  da:	e7ff      	b.n	dc <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xdc>
-  dc:	9806      	ldr	r0, [sp, #24]
-  de:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
-  e2:	900d      	str	r0, [sp, #52]	; 0x34
-  e4:	e7ff      	b.n	e6 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xe6>
-  e6:	e7c1      	b.n	6c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:59
-    let listener = sensor::new_sensor_listener(
-  e8:	f240 0000 	movw	r0, #0
-  ec:	f2c0 0000 	movt	r0, #0
-  f0:	4669      	mov	r1, sp
-  f2:	6008      	str	r0, [r1, #0]
-  f4:	f240 0100 	movw	r1, #0
-  f8:	f2c0 0100 	movt	r1, #0
-  fc:	a826      	add	r0, sp, #152	; 0x98
-  fe:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
- 102:	2300      	movs	r3, #0
- 104:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor19new_sensor_listener17he57f742295244c52E>
- 108:	e7ff      	b.n	10a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x10a>
- 10a:	a81e      	add	r0, sp, #120	; 0x78
- 10c:	a926      	add	r1, sp, #152	; 0x98
- 10e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h470504b6f43ee880E>
- 112:	e7ff      	b.n	114 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x114>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:63
-    ) ? ;
- 114:	981e      	ldr	r0, [sp, #120]	; 0x78
- 116:	2800      	cmp	r0, #0
- 118:	9005      	str	r0, [sp, #20]
- 11a:	d013      	beq.n	144 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x144>
- 11c:	e7ff      	b.n	11e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x11e>
- 11e:	9805      	ldr	r0, [sp, #20]
- 120:	2801      	cmp	r0, #1
- 122:	f47f af92 	bne.w	4a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x4a>
- 126:	e7ff      	b.n	128 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x128>
- 128:	981f      	ldr	r0, [sp, #124]	; 0x7c
- 12a:	902f      	str	r0, [sp, #188]	; 0xbc
- 12c:	982f      	ldr	r0, [sp, #188]	; 0xbc
- 12e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
- 132:	9004      	str	r0, [sp, #16]
- 134:	e7ff      	b.n	136 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x136>
- 136:	9804      	ldr	r0, [sp, #16]
- 138:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
- 13c:	900d      	str	r0, [sp, #52]	; 0x34
- 13e:	e7ff      	b.n	140 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x140>
- 140:	e7ff      	b.n	142 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x142>
- 142:	e793      	b.n	6c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6c>
- 144:	a81e      	add	r0, sp, #120	; 0x78
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:59
-    let listener = sensor::new_sensor_listener(
- 146:	3008      	adds	r0, #8
- 148:	a930      	add	r1, sp, #192	; 0xc0
- 14a:	460a      	mov	r2, r1
- 14c:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
- 150:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
- 154:	a818      	add	r0, sp, #96	; 0x60
- 156:	4602      	mov	r2, r0
- 158:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
- 15c:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:66
-    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
- 160:	990e      	ldr	r1, [sp, #56]	; 0x38
- 162:	aa38      	add	r2, sp, #224	; 0xe0
- 164:	4613      	mov	r3, r2
- 166:	e890 50f0 	ldmia.w	r0, {r4, r5, r6, r7, ip, lr}
- 16a:	e883 50f0 	stmia.w	r3, {r4, r5, r6, r7, ip, lr}
- 16e:	4608      	mov	r0, r1
- 170:	4611      	mov	r1, r2
- 172:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor17register_listener17h17ebbfb47266c768E>
- 176:	9003      	str	r0, [sp, #12]
- 178:	e7ff      	b.n	17a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x17a>
- 17a:	9803      	ldr	r0, [sp, #12]
- 17c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h00bf1b57699326cfE>
- 180:	9037      	str	r0, [sp, #220]	; 0xdc
- 182:	e7ff      	b.n	184 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x184>
- 184:	9837      	ldr	r0, [sp, #220]	; 0xdc
- 186:	1e41      	subs	r1, r0, #1
- 188:	bf18      	it	ne
- 18a:	2101      	movne	r1, #1
- 18c:	2801      	cmp	r0, #1
- 18e:	9102      	str	r1, [sp, #8]
- 190:	d012      	beq.n	1b8 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1b8>
- 192:	e7ff      	b.n	194 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x194>
- 194:	9802      	ldr	r0, [sp, #8]
- 196:	2801      	cmp	r0, #1
- 198:	f47f af57 	bne.w	4a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x4a>
- 19c:	e7ff      	b.n	19e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x19e>
- 19e:	9837      	ldr	r0, [sp, #220]	; 0xdc
- 1a0:	903e      	str	r0, [sp, #248]	; 0xf8
- 1a2:	983e      	ldr	r0, [sp, #248]	; 0xf8
- 1a4:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
- 1a8:	9001      	str	r0, [sp, #4]
- 1aa:	e7ff      	b.n	1ac <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1ac>
- 1ac:	9801      	ldr	r0, [sp, #4]
- 1ae:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
- 1b2:	900d      	str	r0, [sp, #52]	; 0x34
- 1b4:	e7ff      	b.n	1b6 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1b6>
- 1b6:	e7c4      	b.n	142 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x142>
- 1b8:	2000      	movs	r0, #0
+  54:	9812      	ldr	r0, [sp, #72]	; 0x48
+  56:	9015      	str	r0, [sp, #84]	; 0x54
+  58:	9815      	ldr	r0, [sp, #84]	; 0x54
+  5a:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
+  5e:	900b      	str	r0, [sp, #44]	; 0x2c
+  60:	e7ff      	b.n	62 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x62>
+  62:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  64:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
+  68:	900f      	str	r0, [sp, #60]	; 0x3c
+  6a:	e7ff      	b.n	6c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6c>
+  6c:	e002      	b.n	74 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x74>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:69
-    Ok(())
- 1ba:	900d      	str	r0, [sp, #52]	; 0x34
- 1bc:	2001      	movs	r0, #1
- 1be:	900d      	str	r0, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:70
 }
- 1c0:	e751      	b.n	66 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x66>
+  6e:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  70:	b043      	add	sp, #268	; 0x10c
+  72:	bdf0      	pop	{r4, r5, r6, r7, pc}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:51
+    let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
+  74:	e7fb      	b.n	6e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6e>
+  76:	9812      	ldr	r0, [sp, #72]	; 0x48
+  78:	9016      	str	r0, [sp, #88]	; 0x58
+  7a:	9816      	ldr	r0, [sp, #88]	; 0x58
+  7c:	9010      	str	r0, [sp, #64]	; 0x40
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:52
+    assert!(!sensor.is_null(), "no gps");
+  7e:	9810      	ldr	r0, [sp, #64]	; 0x40
+  80:	f7ff fffe 	bl	0 <_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$7is_null17h80b6c30939e62171E>
+  84:	900a      	str	r0, [sp, #40]	; 0x28
+  86:	e7ff      	b.n	88 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x88>
+  88:	980a      	ldr	r0, [sp, #40]	; 0x28
+  8a:	07c1      	lsls	r1, r0, #31
+  8c:	2900      	cmp	r1, #0
+  8e:	d007      	beq.n	a0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xa0>
+  90:	e7ff      	b.n	92 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x92>
+  92:	f240 0000 	movw	r0, #0
+  96:	f2c0 0000 	movt	r0, #0
+  9a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+  9e:	defe      	udf	#254	; 0xfe
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:55
+    sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME) ? ;
+  a0:	f240 0000 	movw	r0, #0
+  a4:	f2c0 0000 	movt	r0, #0
+  a8:	f642 21f8 	movw	r1, #11000	; 0x2af8
+  ac:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h554be26f45a098a1E>
+  b0:	9009      	str	r0, [sp, #36]	; 0x24
+  b2:	e7ff      	b.n	b4 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xb4>
+  b4:	9809      	ldr	r0, [sp, #36]	; 0x24
+  b6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h00bf1b57699326cfE>
+  ba:	9017      	str	r0, [sp, #92]	; 0x5c
+  bc:	e7ff      	b.n	be <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xbe>
+  be:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  c0:	1e41      	subs	r1, r0, #1
+  c2:	bf18      	it	ne
+  c4:	2101      	movne	r1, #1
+  c6:	2801      	cmp	r0, #1
+  c8:	9108      	str	r1, [sp, #32]
+  ca:	d011      	beq.n	f0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xf0>
+  cc:	e7ff      	b.n	ce <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xce>
+  ce:	9808      	ldr	r0, [sp, #32]
+  d0:	2801      	cmp	r0, #1
+  d2:	d1be      	bne.n	52 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x52>
+  d4:	e7ff      	b.n	d6 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xd6>
+  d6:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  d8:	9018      	str	r0, [sp, #96]	; 0x60
+  da:	9818      	ldr	r0, [sp, #96]	; 0x60
+  dc:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
+  e0:	9007      	str	r0, [sp, #28]
+  e2:	e7ff      	b.n	e4 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xe4>
+  e4:	9807      	ldr	r0, [sp, #28]
+  e6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
+  ea:	900f      	str	r0, [sp, #60]	; 0x3c
+  ec:	e7ff      	b.n	ee <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0xee>
+  ee:	e7c1      	b.n	74 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x74>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:58
+    let listener = sensor::new_sensor_listener(
+  f0:	f240 0000 	movw	r0, #0
+  f4:	f2c0 0000 	movt	r0, #0
+  f8:	4669      	mov	r1, sp
+  fa:	6008      	str	r0, [r1, #0]
+  fc:	f240 0100 	movw	r1, #0
+ 100:	f2c0 0100 	movt	r1, #0
+ 104:	a828      	add	r0, sp, #160	; 0xa0
+ 106:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
+ 10a:	2300      	movs	r3, #0
+ 10c:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor19new_sensor_listener17he57f742295244c52E>
+ 110:	e7ff      	b.n	112 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x112>
+ 112:	a820      	add	r0, sp, #128	; 0x80
+ 114:	a928      	add	r1, sp, #160	; 0xa0
+ 116:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h470504b6f43ee880E>
+ 11a:	e7ff      	b.n	11c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x11c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:62
+    ) ? ;
+ 11c:	9820      	ldr	r0, [sp, #128]	; 0x80
+ 11e:	2800      	cmp	r0, #0
+ 120:	9006      	str	r0, [sp, #24]
+ 122:	d013      	beq.n	14c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x14c>
+ 124:	e7ff      	b.n	126 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x126>
+ 126:	9806      	ldr	r0, [sp, #24]
+ 128:	2801      	cmp	r0, #1
+ 12a:	f47f af92 	bne.w	52 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x52>
+ 12e:	e7ff      	b.n	130 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x130>
+ 130:	9821      	ldr	r0, [sp, #132]	; 0x84
+ 132:	9031      	str	r0, [sp, #196]	; 0xc4
+ 134:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 136:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
+ 13a:	9005      	str	r0, [sp, #20]
+ 13c:	e7ff      	b.n	13e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x13e>
+ 13e:	9805      	ldr	r0, [sp, #20]
+ 140:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
+ 144:	900f      	str	r0, [sp, #60]	; 0x3c
+ 146:	e7ff      	b.n	148 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x148>
+ 148:	e7ff      	b.n	14a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x14a>
+ 14a:	e793      	b.n	74 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x74>
+ 14c:	a820      	add	r0, sp, #128	; 0x80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:58
+    let listener = sensor::new_sensor_listener(
+ 14e:	3008      	adds	r0, #8
+ 150:	a932      	add	r1, sp, #200	; 0xc8
+ 152:	460a      	mov	r2, r1
+ 154:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
+ 158:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+ 15c:	a81a      	add	r0, sp, #104	; 0x68
+ 15e:	4602      	mov	r2, r0
+ 160:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
+ 164:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:65
+    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
+ 168:	9910      	ldr	r1, [sp, #64]	; 0x40
+ 16a:	aa3a      	add	r2, sp, #232	; 0xe8
+ 16c:	4613      	mov	r3, r2
+ 16e:	e890 50f0 	ldmia.w	r0, {r4, r5, r6, r7, ip, lr}
+ 172:	e883 50f0 	stmia.w	r3, {r4, r5, r6, r7, ip, lr}
+ 176:	4608      	mov	r0, r1
+ 178:	4611      	mov	r1, r2
+ 17a:	f7ff fffe 	bl	0 <_ZN6mynewt2hw6sensor17register_listener17h17ebbfb47266c768E>
+ 17e:	9004      	str	r0, [sp, #16]
+ 180:	e7ff      	b.n	182 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x182>
+ 182:	9804      	ldr	r0, [sp, #16]
+ 184:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h00bf1b57699326cfE>
+ 188:	9039      	str	r0, [sp, #228]	; 0xe4
+ 18a:	e7ff      	b.n	18c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x18c>
+ 18c:	9839      	ldr	r0, [sp, #228]	; 0xe4
+ 18e:	1e41      	subs	r1, r0, #1
+ 190:	bf18      	it	ne
+ 192:	2101      	movne	r1, #1
+ 194:	2801      	cmp	r0, #1
+ 196:	9103      	str	r1, [sp, #12]
+ 198:	d012      	beq.n	1c0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1c0>
+ 19a:	e7ff      	b.n	19c <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x19c>
+ 19c:	9803      	ldr	r0, [sp, #12]
+ 19e:	2801      	cmp	r0, #1
+ 1a0:	f47f af57 	bne.w	52 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x52>
+ 1a4:	e7ff      	b.n	1a6 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1a6>
+ 1a6:	9839      	ldr	r0, [sp, #228]	; 0xe4
+ 1a8:	9040      	str	r0, [sp, #256]	; 0x100
+ 1aa:	9840      	ldr	r0, [sp, #256]	; 0x100
+ 1ac:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E>
+ 1b0:	9002      	str	r0, [sp, #8]
+ 1b2:	e7ff      	b.n	1b4 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1b4>
+ 1b4:	9802      	ldr	r0, [sp, #8]
+ 1b6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h6d3955e1a79eef94E>
+ 1ba:	900f      	str	r0, [sp, #60]	; 0x3c
+ 1bc:	e7ff      	b.n	1be <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x1be>
+ 1be:	e7c4      	b.n	14a <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x14a>
+ 1c0:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:68
+    Ok(())
+ 1c2:	900f      	str	r0, [sp, #60]	; 0x3c
+ 1c4:	2001      	movs	r0, #1
+ 1c6:	900f      	str	r0, [sp, #60]	; 0x3c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:69
+}
+ 1c8:	e751      	b.n	6e <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x6e>
 
 app-b90ce02d7e477c3f.4q9qovk8rqwaqec4.rcgu.o:     file format elf32-littlearm
 
@@ -2831,8 +2868,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os10eventq_run17h35180d98e8e522beE
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os15eventq_dflt_get17hfdc26cb533694dccE
 00000000         *UND*	00000000 _ZN6mynewt7sysinit17hfbb6001f0140a448E
-00000000         *UND*	00000000 gps_l70r_start
-00000000 g     F .text.main	0000009a main
+00000000 g     F .text.main	00000092 main
 00000000 g     F .text.rust_begin_unwind	000000ac rust_begin_unwind
 
 
@@ -2885,68 +2921,61 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   32:	2208      	movs	r2, #8
   34:	9804      	ldr	r0, [sp, #16]
   36:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  3a:	e7ff      	b.n	2 <gps_l70r_start+0x2>
+  3a:	e7ff      	b.n	2 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:68
         .expect("TMP fail");
 
-    //  Start the GPS.
-    unsafe { gps_l70r_start() };
-  3c:	f7ff fffe 	bl	0 <gps_l70r_start>
-  40:	9003      	str	r0, [sp, #12]
-  42:	e7ff      	b.n	44 <main+0x44>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:71
-
     //  Start polling the GPS.
     gps_sensor::start_gps_listener()
-  44:	f7ff fffe 	bl	0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E>
-  48:	9002      	str	r0, [sp, #8]
-  4a:	e7ff      	b.n	4c <main+0x4c>
-  4c:	f240 0100 	movw	r1, #0
-  50:	f2c0 0100 	movt	r1, #0
-  54:	2208      	movs	r2, #8
-  56:	9802      	ldr	r0, [sp, #8]
-  58:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  5c:	e7ff      	b.n	5e <main+0x5e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
+  3c:	f7ff fffe 	bl	0 <_ZN3app10gps_sensor18start_gps_listener17h506d2223cd840063E>
+  40:	9003      	str	r0, [sp, #12]
+  42:	e7ff      	b.n	44 <main+0x44>
+  44:	f240 0100 	movw	r1, #0
+  48:	f2c0 0100 	movt	r1, #0
+  4c:	2208      	movs	r2, #8
+  4e:	9803      	ldr	r0, [sp, #12]
+  50:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
+  54:	e7ff      	b.n	56 <main+0x56>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:72
         .expect("GPS fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
-  5e:	e7ff      	b.n	60 <main+0x60>
-  60:	a806      	add	r0, sp, #24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:77
+  56:	e7ff      	b.n	58 <main+0x58>
+  58:	a806      	add	r0, sp, #24
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:74
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
-  62:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os15eventq_dflt_get17hfdc26cb533694dccE>
-  66:	e7ff      	b.n	1a <main+0x1a>
-  68:	f240 0100 	movw	r1, #0
-  6c:	f2c0 0100 	movt	r1, #0
-  70:	a806      	add	r0, sp, #24
-  72:	2208      	movs	r2, #8
-  74:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h971a4fb20f73df2aE>
-  78:	9001      	str	r0, [sp, #4]
-  7a:	e7ff      	b.n	7c <main+0x7c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:76
+  5a:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os15eventq_dflt_get17hfdc26cb533694dccE>
+  5e:	e7ff      	b.n	1a <main+0x1a>
+  60:	f240 0100 	movw	r1, #0
+  64:	f2c0 0100 	movt	r1, #0
+  68:	a806      	add	r0, sp, #24
+  6a:	2208      	movs	r2, #8
+  6c:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h971a4fb20f73df2aE>
+  70:	9002      	str	r0, [sp, #8]
+  72:	e7ff      	b.n	74 <main+0x74>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:73
         os::eventq_run(               //  Processing events...
-  7c:	9801      	ldr	r0, [sp, #4]
-  7e:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os10eventq_run17h35180d98e8e522beE>
-  82:	9000      	str	r0, [sp, #0]
-  84:	e7ff      	b.n	86 <main+0x86>
-  86:	f240 0100 	movw	r1, #0
-  8a:	f2c0 0100 	movt	r1, #0
-  8e:	2208      	movs	r2, #8
-  90:	9800      	ldr	r0, [sp, #0]
-  92:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  96:	e7ff      	b.n	98 <main+0x98>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
+  74:	9802      	ldr	r0, [sp, #8]
+  76:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os10eventq_run17h35180d98e8e522beE>
+  7a:	9001      	str	r0, [sp, #4]
+  7c:	e7ff      	b.n	7e <main+0x7e>
+  7e:	f240 0100 	movw	r1, #0
+  82:	f2c0 0100 	movt	r1, #0
+  86:	2208      	movs	r2, #8
+  88:	9801      	ldr	r0, [sp, #4]
+  8a:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
+  8e:	e7ff      	b.n	90 <main+0x90>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:72
     loop {                            //  Loop forever...
-  98:	e7e2      	b.n	60 <main+0x60>
+  90:	e7e2      	b.n	58 <main+0x58>
 
 Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:86
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:83
     //  Never comes here
 }
 
@@ -2956,7 +2985,7 @@ fn panic(info: &PanicInfo) -> ! {
    0:	b088      	sub	sp, #32
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:85
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    6:	f240 0000 	movw	r0, #0
@@ -2966,7 +2995,7 @@ fn panic(info: &PanicInfo) -> ! {
   12:	4611      	mov	r1, r2
   14:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
   18:	e7ff      	b.n	1a <rust_begin_unwind+0x1a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:86
     if let Some(location) = info.location() {
   1a:	9802      	ldr	r0, [sp, #8]
   1c:	f7ff fffe 	bl	0 <_ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E>
@@ -2978,20 +3007,20 @@ fn panic(info: &PanicInfo) -> ! {
   2a:	e7ff      	b.n	2c <rust_begin_unwind+0x2c>
   2c:	9803      	ldr	r0, [sp, #12]
   2e:	9004      	str	r0, [sp, #16]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:90
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:87
         let file = location.file();
   30:	9804      	ldr	r0, [sp, #16]
   32:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4file17h94cc6af18de736c4E>
   36:	9106      	str	r1, [sp, #24]
   38:	9005      	str	r0, [sp, #20]
   3a:	e7ff      	b.n	3c <rust_begin_unwind+0x3c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:91
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
         let line = location.line();
   3c:	9804      	ldr	r0, [sp, #16]
   3e:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4line17h3ffc63f14d0a6636E>
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:92
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
         console::print("at ");       console::buffer(&file);
   46:	f240 0000 	movw	r0, #0
   4a:	f2c0 0000 	movt	r0, #0
@@ -3002,7 +3031,7 @@ fn panic(info: &PanicInfo) -> ! {
   58:	9906      	ldr	r1, [sp, #24]
   5a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console6buffer17h937c567b6e383806E>
   5e:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:93
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:90
         console::print(" line ");    console::printint(line as i32);
   60:	f240 0000 	movw	r0, #0
   64:	f2c0 0000 	movt	r0, #0
@@ -3012,7 +3041,7 @@ fn panic(info: &PanicInfo) -> ! {
   70:	9807      	ldr	r0, [sp, #28]
   72:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printint17h732f7e3d3f1828c1E>
   76:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:94
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:91
         console::print("\n");        console::flush();
   78:	f240 0000 	movw	r0, #0
   7c:	f2c0 0000 	movt	r0, #0
@@ -3021,10 +3050,10 @@ fn panic(info: &PanicInfo) -> ! {
   86:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17h498d792c115b7281E+0x2>
   88:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17h498d792c115b7281E>
   8c:	e7ff      	b.n	8e <rust_begin_unwind+0x8e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:86
     if let Some(location) = info.location() {
   8e:	e00a      	b.n	a6 <rust_begin_unwind+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:93
     } else {
         console::print("no loc\n");  console::flush();
   90:	f240 0000 	movw	r0, #0
@@ -3044,12 +3073,12 @@ pub fn bkpt() {
         () => unsafe { asm!("bkpt" :::: "volatile") },
   a6:	be00      	bkpt	0x0000
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:96
     }
     //  Pause in the debugger.
     bkpt();
   a8:	e7ff      	b.n	aa <rust_begin_unwind+0xaa>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:98
     //  Loop forever so that device won't restart.
     loop {}
   aa:	e7fe      	b.n	aa <rust_begin_unwind+0xaa>

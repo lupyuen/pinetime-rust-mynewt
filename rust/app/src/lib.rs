@@ -64,9 +64,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
 
-    //  Start the GPS.
-    unsafe { gps_l70r_start() };
-
     //  Start polling the GPS.
     gps_sensor::start_gps_listener()
         .expect("GPS fail");
@@ -100,5 +97,3 @@ fn panic(info: &PanicInfo) -> ! {
     //  Loop forever so that device won't restart.
     loop {}
 }
-
-extern { fn gps_l70r_start() -> i32; }

@@ -23,13 +23,10 @@ use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types
     hw::sensor::{        
         self,                               //  Import Mynewt Sensor API functions
-        sensor_ptr,                         //  Import Mynewt Sensor API types
-        sensor_arg, sensor_data_ptr, sensor_listener,
-        sensor_geolocation_data, sensor_type_t,
-        SensorValue, SensorValueType,
+        sensor_type_t,
     },
     sys::console,                           //  Import Mynewt Console API
-    fill_zero, Strn,                        //  Import Mynewt macros    
+    Strn,                                   //  Import Mynewt macros    
 };
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
 use crate::app_network;                     //  Import `app_network.rs` for sending sensor data
@@ -46,7 +43,9 @@ const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
 ///  Ask Mynewt to poll the GPS sensor and call `aggregate_sensor_data()`
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
+    //  Start the GPS.
     console::print("Rust GPS poll\n");
+    unsafe { gps_l70r_start() };
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
@@ -69,69 +68,5 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
     Ok(())
 }
 
-/*
-///  This listener function is called every 10 seconds by Mynewt to handle the polled GPS data.
-///  Return 0 if we have handled the GPS data successfully.
-extern fn handle_gps_data(sensor: sensor_ptr, _arg: sensor_arg, 
-    sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> MynewtError {
-    console::print("\nInfo: Rust handle_gps_data\n");
-
-    //  Check that the GPS geolocation data is available.
-    if sensor_data.is_null() { return MynewtError::SYS_EINVAL; }  //  Exit if GPS is not ready
-    assert!(!sensor.is_null(), "null sensor");
-
-    //  Convert the GPS geolocation for transmission.
-    let sensor_value = convert_gps_data(sensor_data, sensor_type);
-    if let SensorValueType::None = sensor_value.value {
-        console::print("Warn: GPS not ready\n");
-        return MynewtError::SYS_EINVAL;   //  Exit if GPS is not ready
-    }
-
-    //  Show the GPS geolocation.
-    if let SensorValueType::Geolocation { latitude, longitude, altitude } = sensor_value.value {
-        console::print("Info: GPS lat: ");   console::printdouble(latitude);
-        console::print(", lng: "); console::printdouble(longitude);
-        console::print(", alt: "); console::printfloat(altitude as f32);
-        console::print("\n"); console::flush();
-    }
-
-    //  Aggregate the GPS geolocation with other sensor data before transmitting to server.
-    app_network::aggregate_sensor_data(&sensor_value);
-
-    //  Return 0 to Mynewt to indicate no error.  Should not end with a semicolon (;).
-    MynewtError::SYS_EOK
-}
-
-///  Convert the geolocation value received from Mynewt into a Geolocation `SensorValue` for transmission. 
-///  `sensor_type` indicates the type of data in `sensor_data`.
-#[allow(non_snake_case, unused_variables)]
-fn convert_gps_data(sensor_data: sensor_data_ptr, sensor_type: sensor_type_t) -> SensorValue {
-    console::print("Info: GPS listener converting geolocation\n");
-    //  Construct and return a new `SensorValue` (without semicolon)
-    SensorValue {
-        key: &GPS_SENSOR_KEY,  //  Sensor data key is `geolocation`
-        geo: SensorValueType::None,
-        value: match sensor_type {
-            SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
-                //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
-                let mut geolocation = fill_zero!(sensor_geolocation_data);
-                let rc = unsafe { sensor::get_geolocation_data(sensor_data, &mut geolocation) };
-                assert_eq!(rc, 0, "geodata fail");
-                //  Check that the geolocation data is valid.
-                if  geolocation.sgd_latitude_is_valid  != 0 &&
-                    geolocation.sgd_longitude_is_valid != 0 &&
-                    geolocation.sgd_altitude_is_valid  != 0 {
-                    //  Geolocation data is valid.  Return it.
-                    SensorValueType::Geolocation {
-                        latitude:  geolocation.sgd_latitude,
-                        longitude: geolocation.sgd_longitude,
-                        altitude:  geolocation.sgd_altitude,
-                    }
-                } else { SensorValueType::None }  //  Geolocation data is invalid.  Maybe GPS is not ready.                 
-            }
-            //  Unknown type of sensor value
-            //  _ => { assert!(false, "sensor type"); SensorValueType::None }
-        }
-    }
-}
-*/
+/// Driver function to start the GPS
+extern { fn gps_l70r_start() -> i32; }
