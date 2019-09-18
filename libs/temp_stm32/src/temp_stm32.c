@@ -94,7 +94,7 @@ static int temp_stm32_open(struct os_dev *dev0, uint32_t timeout, void *arg) {
     dev->adc = (struct adc_dev *) os_dev_open(cfg->adc_dev_name, timeout, cfg->adc_open_arg);
     assert(dev->adc);
     if (!dev->adc) { goto err; }
-    console_printf("ADC open ch 16\n");  ////
+    console_printf("ADC open\n");  ////
 
     //  Configure port ADC1 channel 16 for temperature sensor.
     rc = adc_chan_config(dev->adc, cfg->adc_channel, cfg->adc_channel_cfg);
@@ -110,7 +110,7 @@ err:
 
 static int temp_stm32_close(struct os_dev *dev0) {
     //  Close the sensor.  This unlocks the ADC channel.  Return 0 if successful.
-    //  console_printf("close adc1 channel 16\n");  ////
+    //  console_printf("ADC close\n");  ////
     struct temp_stm32 *dev;    
     dev = (struct temp_stm32 *) dev0;
     if (dev->adc) {

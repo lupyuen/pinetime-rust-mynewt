@@ -49,7 +49,9 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
     start_gps_l70r() ? ;
 
     //  Fetch the sensor by name.
-    let sensor = sensor_mgr::find_bydevname(&GPS_DEVICE).next().expect("no GPS");
+    let sensor = sensor_mgr::find_bydevname(&GPS_DEVICE)
+        .next()             //  Fetch the first sensor that matches
+        .expect("no GPS");  //  Stop if no sensor found
 
     //  At power on, we ask Mynewt to poll our GPS sensor every 11 seconds.
     sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME) ? ;

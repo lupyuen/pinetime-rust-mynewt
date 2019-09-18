@@ -47,7 +47,9 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     console::print("Rust TMP poll\n");
 
     //  Fetch the sensor by name.
-    let sensor = sensor_mgr::find_bydevname(&SENSOR_DEVICE).next().expect("no TMP");
+    let sensor = sensor_mgr::find_bydevname(&SENSOR_DEVICE)
+        .next()             //  Fetch the first sensor that matches
+        .expect("no TMP");  //  Stop if no sensor found
 
     //  At power on, we ask Mynewt to poll our temperature sensor every 19 seconds.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
