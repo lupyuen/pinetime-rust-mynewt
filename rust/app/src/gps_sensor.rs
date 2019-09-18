@@ -43,21 +43,21 @@ const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
 ///  Ask Mynewt to poll the GPS sensor and call `aggregate_sensor_data()`
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
 pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
-    //  Start the GPS.
+    //  Start the GPS driver.
     console::print("Rust GPS poll\n");
-    unsafe { gps_l70r_start() };
+    start_gps_l70r() ? ;
 
     //  Fetch the sensor by name, without locking the driver for exclusive access.
     let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
-    assert!(!sensor.is_null(), "no gps");
+    assert!(!sensor.is_null(), "no GPS");
 
-    //  At power on, we ask Mynewt to poll our sensor every 10 seconds.
+    //  At power on, we ask Mynewt to poll our GPS sensor every 11 seconds.
     sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME) ? ;
 
     // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
     let listener = sensor::new_sensor_listener(
         &GPS_SENSOR_KEY,  //  Transmit as field: `geo`
-        GPS_SENSOR_TYPE,  //  Type of sensor: GPS Geolocation
+        GPS_SENSOR_TYPE,  //  Type of sensor data: GPS Geolocation
         app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
     ) ? ;
 
@@ -68,5 +68,11 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
     Ok(())
 }
 
-/// Driver function to start the GPS
-extern { fn gps_l70r_start() -> i32; }
+/// Start the GPS driver for Quectel L70R
+fn start_gps_l70r() -> MynewtResult<()> {
+    //  Driver function to start the GPS
+    extern { fn gps_l70r_start() -> i32; }
+    let res = unsafe { gps_l70r_start() };
+    if res == 0 { Ok(()) }
+    else { Err(MynewtError::from(res)) }
+}

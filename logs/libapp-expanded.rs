@@ -363,7 +363,7 @@ mod gps_sensor {
     ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
     pub fn start_gps_listener() -> MynewtResult<()> {
         console::print("Rust GPS poll\n");
-        unsafe { gps_l70r_start() };
+        start_gps_l70r()?;
         let sensor =
             sensor::mgr_find_next_bydevname(&GPS_DEVICE,
                                             core::ptr::null_mut())?;
@@ -381,9 +381,13 @@ mod gps_sensor {
         sensor::register_listener(sensor, listener)?;
         Ok(())
     }
-    /// Driver function to start the GPS
-    extern "C" {
-        fn gps_l70r_start() -> i32;
+    /// Start the GPS driver for Quectel L70R
+    fn start_gps_l70r() -> MynewtResult<()> {
+        extern "C" {
+            fn gps_l70r_start() -> i32;
+        }
+        let res = unsafe { gps_l70r_start() };
+        if res == 0 { Ok(()) } else { Err(MynewtError::from(res)) }
     }
 }
 use core::panic::PanicInfo;

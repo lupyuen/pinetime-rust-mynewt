@@ -56,6 +56,9 @@ struct gps_l70r {
     int last_error;           //  Last error encountered
 };
 
+//  Start the GPS driver. Return 0 if successful.
+int gps_l70r_start(void);
+
 //  Create the device instance and configure it.  Called by sysinit() during startup, defined in pkg.yml.
 //  Implemented in creator.c as function DEVICE_CREATE().
 void gps_l70r_create(void);
@@ -69,11 +72,8 @@ int gps_l70r_init(struct os_dev *dev0, void *arg);
 //  Copy the GPS_L70R driver configuration from cfg into drv.  Return 0 if successful.
 int gps_l70r_config(struct gps_l70r *drv, struct gps_l70r_cfg *cfg);  
 
-//  Connect to the NB-IoT network.  Return 0 if successful.
+//  Connect to the GPS module.  Return 0 if successful.
 int gps_l70r_connect(struct gps_l70r *dev);  
-
-////  TODO
-int gps_l70r_start(void);
 
 //  Internal Sensor Functions
 

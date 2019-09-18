@@ -264,6 +264,7 @@ int gps_l70r_config(struct gps_l70r *drv, struct gps_l70r_cfg *cfg) {
 //  GPS_L70R Driver Interface
 
 int gps_l70r_start(void) {
+    //  Start the GPS driver. Return 0 if successful.
     //  device_name is the GPS_L70R device name e.g. "gps_l70r_0".
     const char *device_name = GPS_L70R_DEVICE;
     assert(device_name);
@@ -300,7 +301,7 @@ int gps_l70r_start(void) {
 }
 
 int gps_l70r_connect(struct gps_l70r *dev) {
-    //  Return 0 if successful.
+    //  Connect to the GPS module. Return 0 if successful.
     serial.prime();  //  Start transmitting and receiving on UART port
     serial.write("\r\n\r\n", 4);
     send_command(dev, EASY_QUERY);  //  Get EASY status

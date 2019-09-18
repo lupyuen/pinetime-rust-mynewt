@@ -49,13 +49,13 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
     let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
     assert!(!sensor.is_null(), "no sensor");
 
-    //  At power on, we ask Mynewt to poll our sensor every 20 seconds.
+    //  At power on, we ask Mynewt to poll our temperature sensor every 19 seconds.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
     let listener = sensor::new_sensor_listener(
-        &TEMP_SENSOR_KEY,   //  Transmit as field: `geo`
-        TEMP_SENSOR_TYPE,   //  Type of sensor: Raw temperature (integer from 0 to 4095)
+        &TEMP_SENSOR_KEY,   //  Transmit as field: `t`
+        TEMP_SENSOR_TYPE,   //  Type of sensor data: Raw temperature (integer from 0 to 4095)
         app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
     ) ? ;
 
