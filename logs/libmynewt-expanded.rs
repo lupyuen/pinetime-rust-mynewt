@@ -57,7 +57,9 @@ pub mod kernel {
 
 
 
+    //  Strn may be copied
 
+    //  StrnRep may be copied
 
     //  Last byte must be 0.
 
@@ -6217,6 +6219,43 @@ pub mod hw {
             fn clone(&self) -> sensor_listener__bindgen_ty_1 { *self }
         }
     }
+    pub mod sensor_mgr {
+        //! Contains the Mynewt Sensor Manager API for Rust, including the safe version of the API.
+        use ::cty::c_void;
+        use mynewt_macros::{init_strn};
+        use crate as mynewt;
+        use crate::{result::*, kernel::os::*,
+                    hw::sensor::{mgr_find_next_bydevname, sensor, sensor_ptr},
+                    Ptr, Strn, fill_zero};
+        /// State for iterating sensors by device name
+        pub struct SensorsByDevname {
+            /// Device name of the sensor
+            devname: Strn,
+            /// Last sensor that was returned
+            previous: sensor_ptr,
+        }
+        /// Implement the iterator for finding a sensor by device name
+        impl Iterator for SensorsByDevname {
+            /// Iterator returns a pointer to a sensor
+            type
+            Item
+            =
+            sensor_ptr;
+            /// Return the next sensor that matches the device name    
+            fn next(&mut self) -> Option<sensor_ptr> {
+                let sensor =
+                    mgr_find_next_bydevname(&self.devname,
+                                            self.previous).expect("find sensor");
+                if sensor.is_null() {
+                    None
+                } else { self.previous = sensor; Some(sensor) }
+            }
+        }
+        /// Returns an iterator of sensors that match the device name `devname`
+        pub fn find_bydevname(devname: Strn) -> SensorsByDevname {
+            SensorsByDevname{devname, previous: core::ptr::null_mut(),}
+        }
+    }
 }
 #[allow(dead_code)]
 pub mod sys {
@@ -11267,12 +11306,25 @@ pub mod result {
 /// Represents a null-terminated string, suitable for passing to Mynewt APIs as `* const char`.
 /// The string could be a null-terminated byte string created in Rust, or a pointer to a null-terminated string returned by C.
 /// Pointer may be null.
+#[rustc_copy_clone_marker]
 pub struct Strn {
     /// Either a byte string terminated with null, or a pointer to a null-terminated string
     pub rep: StrnRep,
 }
+#[automatically_derived]
+#[allow(unused_qualifications)]
+impl ::core::clone::Clone for Strn {
+    #[inline]
+    fn clone(&self) -> Strn {
+        { let _: ::core::clone::AssertParamIsClone<StrnRep>; *self }
+    }
+}
+#[automatically_derived]
+#[allow(unused_qualifications)]
+impl ::core::marker::Copy for Strn { }
 /// Either a byte string or a string pointer
 #[repr(u8)]
+#[rustc_copy_clone_marker]
 pub enum StrnRep {
 
     /// Byte string terminated with null
@@ -11281,6 +11333,21 @@ pub enum StrnRep {
     /// Pointer to a null-terminated string
     CStr(*const u8),
 }
+#[automatically_derived]
+#[allow(unused_qualifications)]
+impl ::core::clone::Clone for StrnRep {
+    #[inline]
+    fn clone(&self) -> StrnRep {
+        {
+            let _: ::core::clone::AssertParamIsClone<&'static [u8]>;
+            let _: ::core::clone::AssertParamIsClone<*const u8>;
+            *self
+        }
+    }
+}
+#[automatically_derived]
+#[allow(unused_qualifications)]
+impl ::core::marker::Copy for StrnRep { }
 impl Strn {
     /// Create a new `Strn` with a byte string. Fail if the last byte is not zero.
     /// ```
@@ -11318,7 +11385,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           120u32, 9u32))
+                                                           122u32, 9u32))
                         }
                     }
                 }
@@ -11371,7 +11438,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   145u32,
+                                                                   147u32,
                                                                    17u32))
                                 }
                             }
@@ -11390,7 +11457,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("big strn",
                                                    "rust/mynewt/src/lib.rs",
-                                                   155u32, 17u32))
+                                                   157u32, 17u32))
                     }
                 };
                 return 128 as usize;
@@ -11434,7 +11501,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   171u32,
+                                                                   173u32,
                                                                    17u32))
                                 }
                             }
@@ -11481,7 +11548,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   183u32,
+                                                                   185u32,
                                                                    17u32))
                                 }
                             }
@@ -11495,7 +11562,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("strn cstr",
                                                    "rust/mynewt/src/lib.rs",
-                                                   187u32, 17u32))
+                                                   189u32, 17u32))
                     }
                 };
                 b"\0"
@@ -11536,7 +11603,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   197u32,
+                                                                   199u32,
                                                                    17u32))
                                 }
                             }
@@ -11579,7 +11646,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           205u32, 9u32))
+                                                           207u32, 9u32))
                         }
                     }
                 }

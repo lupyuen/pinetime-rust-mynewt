@@ -96,12 +96,14 @@ pub mod result {
 /// Represents a null-terminated string, suitable for passing to Mynewt APIs as `* const char`.
 /// The string could be a null-terminated byte string created in Rust, or a pointer to a null-terminated string returned by C.
 /// Pointer may be null.
+#[derive(Clone, Copy)]  //  Strn may be copied
 pub struct Strn {
     /// Either a byte string terminated with null, or a pointer to a null-terminated string
     pub rep: StrnRep
 }
 
 /// Either a byte string or a string pointer
+#[derive(Clone, Copy)]  //  StrnRep may be copied
 #[repr(u8)]
 pub enum StrnRep {
     /// Byte string terminated with null

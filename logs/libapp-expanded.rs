@@ -369,7 +369,7 @@ mod gps_sensor {
                                             core::ptr::null_mut())?;
         if !!sensor.is_null() {
             {
-                ::core::panicking::panic(&("no gps",
+                ::core::panicking::panic(&("no GPS",
                                            "rust/app/src/gps_sensor.rs",
                                            52u32, 5u32))
             }
