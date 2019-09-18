@@ -21,8 +21,9 @@
 
 use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types
+    hw::sensor_mgr,                         //  Import Mynewt Sensor Manager API
     hw::sensor::{        
-        self,                               //  Import Mynewt Sensor API functions
+        self,                               //  Import Mynewt Sensor API
         sensor_type_t,
     },
     sys::console,                           //  Import Mynewt Console API
@@ -45,9 +46,8 @@ const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust TMP poll\n");
 
-    //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let sensor = sensor::mgr_find_next_bydevname(&SENSOR_DEVICE, core::ptr::null_mut()) ? ;
-    assert!(!sensor.is_null(), "no sensor");
+    //  Fetch the sensor by name.
+    let sensor = sensor_mgr::find_bydevname(&SENSOR_DEVICE).next().expect("no TMP");
 
     //  At power on, we ask Mynewt to poll our temperature sensor every 19 seconds.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;

@@ -21,8 +21,9 @@
 
 use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types
+    hw::sensor_mgr,                         //  Import Mynewt Sensor Manager API
     hw::sensor::{        
-        self,                               //  Import Mynewt Sensor API functions
+        self,                               //  Import Mynewt Sensor API
         sensor_type_t,
     },
     sys::console,                           //  Import Mynewt Console API
@@ -47,9 +48,8 @@ pub fn start_gps_listener() -> MynewtResult<()>  {  //  Returns an error code up
     console::print("Rust GPS poll\n");
     start_gps_l70r() ? ;
 
-    //  Fetch the sensor by name, without locking the driver for exclusive access.
-    let sensor = sensor::mgr_find_next_bydevname(&GPS_DEVICE, core::ptr::null_mut()) ? ;
-    assert!(!sensor.is_null(), "no GPS");
+    //  Fetch the sensor by name.
+    let sensor = sensor_mgr::find_bydevname(&GPS_DEVICE).next().expect("no GPS");
 
     //  At power on, we ask Mynewt to poll our GPS sensor every 11 seconds.
     sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME) ? ;

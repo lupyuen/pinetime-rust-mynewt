@@ -305,8 +305,8 @@ mod app_network {
 mod app_sensor {
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
     //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
-    use mynewt::{result::*, hw::sensor::{self, sensor_type_t}, sys::console,
-                 Strn};
+    use mynewt::{result::*, hw::sensor_mgr, hw::sensor::{self, sensor_type_t},
+                 sys::console, Strn};
     use mynewt_macros::{init_strn};
     use crate::app_network;
     ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
@@ -325,15 +325,7 @@ mod app_sensor {
     pub fn start_sensor_listener() -> MynewtResult<()> {
         console::print("Rust TMP poll\n");
         let sensor =
-            sensor::mgr_find_next_bydevname(&SENSOR_DEVICE,
-                                            core::ptr::null_mut())?;
-        if !!sensor.is_null() {
-            {
-                ::core::panicking::panic(&("no sensor",
-                                           "rust/app/src/app_sensor.rs",
-                                           50u32, 5u32))
-            }
-        };
+            sensor_mgr::find_bydevname(&SENSOR_DEVICE).next().expect("no TMP");
         sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME)?;
         let listener =
             sensor::new_sensor_listener(&TEMP_SENSOR_KEY, TEMP_SENSOR_TYPE,
@@ -345,8 +337,8 @@ mod app_sensor {
 mod gps_sensor {
     //!  Poll the GPS sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
     //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/gps_sensor.c
-    use mynewt::{result::*, hw::sensor::{self, sensor_type_t}, sys::console,
-                 Strn};
+    use mynewt::{result::*, hw::sensor_mgr, hw::sensor::{self, sensor_type_t},
+                 sys::console, Strn};
     use mynewt_macros::{init_strn};
     use crate::app_network;
     ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
@@ -365,15 +357,7 @@ mod gps_sensor {
         console::print("Rust GPS poll\n");
         start_gps_l70r()?;
         let sensor =
-            sensor::mgr_find_next_bydevname(&GPS_DEVICE,
-                                            core::ptr::null_mut())?;
-        if !!sensor.is_null() {
-            {
-                ::core::panicking::panic(&("no GPS",
-                                           "rust/app/src/gps_sensor.rs",
-                                           52u32, 5u32))
-            }
-        };
+            sensor_mgr::find_bydevname(&GPS_DEVICE).next().expect("no GPS");
         sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME)?;
         let listener =
             sensor::new_sensor_listener(&GPS_SENSOR_KEY, GPS_SENSOR_TYPE,

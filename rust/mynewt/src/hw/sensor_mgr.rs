@@ -18,30 +18,21 @@
  */
 //! Contains the Mynewt Sensor Manager API for Rust, including the safe version of the API.
 
-use ::cty::c_void;
-use mynewt_macros::{
-    init_strn,
-};
-use crate as mynewt;
 use crate::{
-    result::*,
-    kernel::os::*,
     hw::sensor::{
         mgr_find_next_bydevname,
-        sensor,
         sensor_ptr,
     },
-    Ptr,
     Strn,
-    fill_zero,
 };
 
-/// State for iterating sensors by device name
-pub struct SensorsByDevname {
-    /// Device name of the sensor
-    devname: Strn,
-    /// Last sensor that was returned
-    previous: sensor_ptr,
+/// Returns an iterator of sensors that match the device name `devname`
+pub fn find_bydevname(devname: &Strn) -> SensorsByDevname {
+    SensorsByDevname { 
+        devname: *devname,
+        previous: core::ptr::null_mut()
+    }
+    // MynewtResult<*mut sensor>
 }
 
 /// Implement the iterator for finding a sensor by device name
@@ -63,11 +54,10 @@ impl Iterator for SensorsByDevname {
     }
 }
 
-/// Returns an iterator of sensors that match the device name `devname`
-pub fn find_bydevname(devname: Strn) -> SensorsByDevname {
-    SensorsByDevname { 
-        devname,
-        previous: core::ptr::null_mut()
-    }
-    // MynewtResult<*mut sensor>
+/// State for iterating sensors by device name
+pub struct SensorsByDevname {
+    /// Device name of the sensor
+    devname: Strn,
+    /// Last sensor that was returned
+    previous: sensor_ptr,
 }
