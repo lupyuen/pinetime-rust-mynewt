@@ -103,9 +103,10 @@ mod app_network {
             Ok(())
         } else {
             let transmit_value =
-                SensorValue{key: sensor_value.key,
-                            value: sensor_value.value,
-                            geo: unsafe { CURRENT_GEOLOCATION },};
+                SensorValue{geo:
+                                unsafe {
+                                    CURRENT_GEOLOCATION
+                                }, ..*sensor_value};
             send_sensor_data(&transmit_value)
         }
     }

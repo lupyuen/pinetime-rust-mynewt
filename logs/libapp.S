@@ -712,7 +712,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000 g     F .text._ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E	000000ba .hidden _ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E
+00000000 g     F .text._ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E	000000aa .hidden _ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E
 00000000         *UND*	00000000 _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h4bfa181a78946fa0E
 00000000         *UND*	00000000 _ZN6mynewt3sys7console10print_strn17h6acf88a32c052588E
 00000000         *UND*	00000000 _ZN6mynewt3sys7console5print17h0f65bc3b0e739871E
@@ -755,8 +755,8 @@ use mynewt_macros::strn;        //  Import Mynewt procedural macros
 ///  Aggregate the sensor value with other sensor data before transmitting to server.
 ///  If the sensor value is a GPS geolocation, we remember it and attach it to other sensor data for transmission.
 pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	b0b0      	sub	sp, #192	; 0xc0
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b0a8      	sub	sp, #160	; 0xa0
    4:	4601      	mov	r1, r0
    6:	9002      	str	r0, [sp, #8]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:42
@@ -768,8 +768,8 @@ pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  { 
   10:	d11c      	bne.n	4c <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0x4c>
   12:	e7ff      	b.n	14 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0x14>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:44
-        //  Save the geolocation for later transmission.
-        unsafe { CURRENT_GEOLOCATION = sensor_value.value };
+        //  If this is a geolocation, save the geolocation for later transmission.
+        unsafe { CURRENT_GEOLOCATION = sensor_value.value };  //  Current geolocation is unsafe because it's a mutable static
   14:	9802      	ldr	r0, [sp, #8]
   16:	a904      	add	r1, sp, #16
   18:	460a      	mov	r2, r1
@@ -791,68 +791,61 @@ pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  { 
   48:	9003      	str	r0, [sp, #12]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:42
     if let SensorValueType::Geolocation {..} = sensor_value.value {
-  4a:	e033      	b.n	b4 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0xb4>
+  4a:	e02b      	b.n	a4 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0xa4>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:49
     } else {
-        //  Attach the current geolocation to the sensor data for transmission.
+        //  If this is temperature sensor data, attach the current geolocation to the sensor data for transmission.
         let transmit_value = SensorValue {
-            key:    sensor_value.key,
-  4c:	9802      	ldr	r0, [sp, #8]
-  4e:	6c01      	ldr	r1, [r0, #64]	; 0x40
-  50:	aa20      	add	r2, sp, #128	; 0x80
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:50
-            value:  sensor_value.value,
-  52:	4613      	mov	r3, r2
-  54:	e8b0 5030 	ldmia.w	r0!, {r4, r5, ip, lr}
-  58:	e8a3 5030 	stmia.w	r3!, {r4, r5, ip, lr}
-  5c:	e890 5030 	ldmia.w	r0, {r4, r5, ip, lr}
-  60:	e883 5030 	stmia.w	r3, {r4, r5, ip, lr}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:51
-            geo:    unsafe { CURRENT_GEOLOCATION }
-  64:	f240 0000 	movw	r0, #0
-  68:	f2c0 0000 	movt	r0, #0
-  6c:	ab28      	add	r3, sp, #160	; 0xa0
-  6e:	469c      	mov	ip, r3
-  70:	e8b0 4070 	ldmia.w	r0!, {r4, r5, r6, lr}
-  74:	e8ac 4070 	stmia.w	ip!, {r4, r5, r6, lr}
-  78:	e890 4070 	ldmia.w	r0, {r4, r5, r6, lr}
-  7c:	e88c 4070 	stmia.w	ip, {r4, r5, r6, lr}
+            geo: unsafe { CURRENT_GEOLOCATION },  //  Current geolocation is unsafe because it's a mutable static
+  4c:	f240 0000 	movw	r0, #0
+  50:	f2c0 0000 	movt	r0, #0
+  54:	a920      	add	r1, sp, #128	; 0x80
+  56:	460a      	mov	r2, r1
+  58:	e8b0 5018 	ldmia.w	r0!, {r3, r4, ip, lr}
+  5c:	e8a2 5018 	stmia.w	r2!, {r3, r4, ip, lr}
+  60:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+  64:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:48
         let transmit_value = SensorValue {
-  80:	911e      	str	r1, [sp, #120]	; 0x78
-  82:	a80e      	add	r0, sp, #56	; 0x38
-  84:	4601      	mov	r1, r0
-  86:	e8b2 5030 	ldmia.w	r2!, {r4, r5, ip, lr}
-  8a:	e8a1 5030 	stmia.w	r1!, {r4, r5, ip, lr}
-  8e:	e892 5030 	ldmia.w	r2, {r4, r5, ip, lr}
-  92:	e881 5030 	stmia.w	r1, {r4, r5, ip, lr}
-  96:	f100 0120 	add.w	r1, r0, #32
-  9a:	e8b3 5014 	ldmia.w	r3!, {r2, r4, ip, lr}
-  9e:	e8a1 5014 	stmia.w	r1!, {r2, r4, ip, lr}
-  a2:	e893 5014 	ldmia.w	r3, {r2, r4, ip, lr}
-  a6:	e881 5014 	stmia.w	r1, {r2, r4, ip, lr}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:54
+  68:	9802      	ldr	r0, [sp, #8]
+  6a:	6c00      	ldr	r0, [r0, #64]	; 0x40
+  6c:	901e      	str	r0, [sp, #120]	; 0x78
+  6e:	9802      	ldr	r0, [sp, #8]
+  70:	aa0e      	add	r2, sp, #56	; 0x38
+  72:	4613      	mov	r3, r2
+  74:	e8b0 5030 	ldmia.w	r0!, {r4, r5, ip, lr}
+  78:	e8a3 5030 	stmia.w	r3!, {r4, r5, ip, lr}
+  7c:	e890 5030 	ldmia.w	r0, {r4, r5, ip, lr}
+  80:	e883 5030 	stmia.w	r3, {r4, r5, ip, lr}
+  84:	f102 0020 	add.w	r0, r2, #32
+  88:	e8b1 5018 	ldmia.w	r1!, {r3, r4, ip, lr}
+  8c:	e8a0 5018 	stmia.w	r0!, {r3, r4, ip, lr}
+  90:	e891 5018 	ldmia.w	r1, {r3, r4, ip, lr}
+  94:	e880 5018 	stmia.w	r0, {r3, r4, ip, lr}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:53
+            ..*sensor_value  //  Copy the sensor name and value for transmission
         };
-        //  Transmit sensor value with geolocation.
+        //  Transmit sensor value with geolocation and return the result
         send_sensor_data(&transmit_value)
-  aa:	f7ff fffe 	bl	0 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E>
-  ae:	9003      	str	r0, [sp, #12]
-  b0:	e7ff      	b.n	b2 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0xb2>
+  98:	4610      	mov	r0, r2
+  9a:	f7ff fffe 	bl	0 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E>
+  9e:	9003      	str	r0, [sp, #12]
+  a0:	e7ff      	b.n	a2 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0xa2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:42
     if let SensorValueType::Geolocation {..} = sensor_value.value {
-  b2:	e7ff      	b.n	b4 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0xb4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:56
+  a2:	e7ff      	b.n	a4 <_ZN3app11app_network21aggregate_sensor_data17hab11c32b63abf594E+0xa4>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:55
     }
 }
-  b4:	9803      	ldr	r0, [sp, #12]
-  b6:	b030      	add	sp, #192	; 0xc0
-  b8:	bd70      	pop	{r4, r5, r6, pc}
+  a4:	9803      	ldr	r0, [sp, #12]
+  a6:	b028      	add	sp, #160	; 0xa0
+  a8:	bdb0      	pop	{r4, r5, r7, pc}
 
 Disassembly of section .text._ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE:
 
 00000000 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE>:
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:69
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:68
 /// {"values":[
 ///   {"key":"t",      "value":1715, "geo": { "lat": ..., "long": ... }},
 ///   {"key":"device", "value":"0102030405060708090a0b0c0d0e0f10"}
@@ -863,7 +856,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
    2:	f5ad 7d2a 	sub.w	sp, sp, #680	; 0x2a8
    6:	4601      	mov	r1, r0
    8:	9029      	str	r0, [sp, #164]	; 0xa4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:69
     console::print("Rust send_sensor_data\n");
    a:	f240 0000 	movw	r0, #0
    e:	f2c0 0000 	movt	r0, #0
@@ -873,7 +866,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
   18:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
   1c:	e7ff      	b.n	1e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x1e>
   1e:	a832      	add	r0, sp, #200	; 0xc8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:72
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:71
     //  Get a randomly-generated device ID that changes each time we restart the device.
     let device_id = sensor_network::get_device_id() ? ;
   20:	f7ff fffe 	bl	0 <_ZN6mynewt4libs14sensor_network13get_device_id17hf2f7fef56ca514e0E>
@@ -891,7 +884,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
   3c:	2801      	cmp	r0, #1
   3e:	d001      	beq.n	44 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x44>
   40:	e7ff      	b.n	42 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x42>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:107
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:106
     console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=");
     console::print_strn(&device_id); console::print("\n");
 
@@ -899,7 +892,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
     Ok(())
 }
   42:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:72
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:71
     let device_id = sensor_network::get_device_id() ? ;
   44:	982f      	ldr	r0, [sp, #188]	; 0xbc
   46:	9036      	str	r0, [sp, #216]	; 0xd8
@@ -912,12 +905,12 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
   58:	902a      	str	r0, [sp, #168]	; 0xa8
   5a:	e7ff      	b.n	5c <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x5c>
   5c:	e003      	b.n	66 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x66>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:107
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:106
 }
   5e:	982a      	ldr	r0, [sp, #168]	; 0xa8
   60:	f50d 7d2a 	add.w	sp, sp, #680	; 0x2a8
   64:	bd10      	pop	{r4, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:72
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:71
     let device_id = sensor_network::get_device_id() ? ;
   66:	e7fa      	b.n	5e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x5e>
   68:	982f      	ldr	r0, [sp, #188]	; 0xbc
@@ -932,7 +925,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
   7a:	922d      	str	r2, [sp, #180]	; 0xb4
   7c:	912c      	str	r1, [sp, #176]	; 0xb0
   7e:	902b      	str	r0, [sp, #172]	; 0xac
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:77
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:76
     let rc = sensor_network::init_server_post( strn!(()) ) ? ;  //  `strn!(())` means use default CoAP URI in `syscfg.yml`
   80:	f240 0100 	movw	r1, #0
   84:	f2c0 0100 	movt	r1, #0
@@ -974,7 +967,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
   dc:	f88d 010f 	strb.w	r0, [sp, #271]	; 0x10f
   e0:	f89d 010f 	ldrb.w	r0, [sp, #271]	; 0x10f
   e4:	f88d 00eb 	strb.w	r0, [sp, #235]	; 0xeb
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:79
     if !rc { return Err(MynewtError::SYS_EAGAIN); }
   e8:	f89d 00eb 	ldrb.w	r0, [sp, #235]	; 0xeb
   ec:	07c0      	lsls	r0, r0, #31
@@ -988,7 +981,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
   fe:	e7ea      	b.n	d6 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0xd6>
  100:	a848      	add	r0, sp, #288	; 0x120
  102:	2132      	movs	r1, #50	; 0x32
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
     let _payload = coap!( @json {        
  104:	f7ff fffe 	bl	0 <_ZN6mynewt4libs14sensor_network12prepare_post17hfdaf25fbf86be5c2E>
  108:	e7ff      	b.n	10a <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x10a>
@@ -1045,7 +1038,7 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
  184:	9994      	ldr	r1, [sp, #592]	; 0x250
  186:	9a95      	ldr	r2, [sp, #596]	; 0x254
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
  188:	9120      	str	r1, [sp, #128]	; 0x80
  18a:	921f      	str	r2, [sp, #124]	; 0x7c
  18c:	e7ff      	b.n	18e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x18e>
@@ -1093,7 +1086,7 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
  1f2:	99a8      	ldr	r1, [sp, #672]	; 0x2a0
  1f4:	9aa9      	ldr	r2, [sp, #676]	; 0x2a4
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
  1f6:	911d      	str	r1, [sp, #116]	; 0x74
  1f8:	921c      	str	r2, [sp, #112]	; 0x70
  1fa:	e7ff      	b.n	1fc <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x1fc>
@@ -1237,7 +1230,7 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
  366:	99a4      	ldr	r1, [sp, #656]	; 0x290
  368:	9aa5      	ldr	r2, [sp, #660]	; 0x294
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
  36a:	910f      	str	r1, [sp, #60]	; 0x3c
  36c:	920e      	str	r2, [sp, #56]	; 0x38
  36e:	e7ff      	b.n	370 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x370>
@@ -1278,7 +1271,7 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
  3c6:	99a0      	ldr	r1, [sp, #640]	; 0x280
  3c8:	9aa1      	ldr	r2, [sp, #644]	; 0x284
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
  3ca:	910c      	str	r1, [sp, #48]	; 0x30
  3cc:	920b      	str	r2, [sp, #44]	; 0x2c
  3ce:	e7ff      	b.n	3d0 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x3d0>
@@ -1323,10 +1316,10 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  43c:	a883      	add	r0, sp, #524	; 0x20c
  43e:	9082      	str	r0, [sp, #520]	; 0x208
  440:	a82b      	add	r0, sp, #172	; 0xac
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:93
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:92
         "device": &device_id,
  442:	9086      	str	r0, [sp, #536]	; 0x218
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
     let _payload = coap!( @json {        
  444:	9982      	ldr	r1, [sp, #520]	; 0x208
  446:	9a86      	ldr	r2, [sp, #536]	; 0x218
@@ -1352,7 +1345,7 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
  474:	999c      	ldr	r1, [sp, #624]	; 0x270
  476:	9a9d      	ldr	r2, [sp, #628]	; 0x274
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
  478:	9109      	str	r1, [sp, #36]	; 0x24
  47a:	9208      	str	r2, [sp, #32]
  47c:	e7ff      	b.n	47e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x47e>
@@ -1389,7 +1382,7 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
  4c8:	9998      	ldr	r1, [sp, #608]	; 0x260
  4ca:	9a99      	ldr	r2, [sp, #612]	; 0x264
 _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:83
  4cc:	9105      	str	r1, [sp, #20]
  4ce:	9204      	str	r2, [sp, #16]
  4d0:	e7ff      	b.n	4d2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x4d2>
@@ -1407,7 +1400,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  4f0:	f7ff fffe 	bl	0 <json_rep_end_root_object>
  4f4:	e7ff      	b.n	4f6 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x4f6>
  4f6:	a88d      	add	r0, sp, #564	; 0x234
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
     sensor_network::do_server_post() ? ;
  4f8:	f7ff fffe 	bl	0 <_ZN6mynewt4libs14sensor_network14do_server_post17h7661fb0cf0ad1a96E>
  4fc:	e7ff      	b.n	4fe <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x4fe>
@@ -1438,7 +1431,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  538:	e605      	b.n	146 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x146>
  53a:	f89d 022d 	ldrb.w	r0, [sp, #557]	; 0x22d
  53e:	f88d 0243 	strb.w	r0, [sp, #579]	; 0x243
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:102
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:101
     console::print("NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=");
  542:	f240 0000 	movw	r0, #0
  546:	f2c0 0000 	movt	r0, #0
@@ -1446,7 +1439,7 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  54c:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
  550:	e7ff      	b.n	552 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x552>
  552:	a82b      	add	r0, sp, #172	; 0xac
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:103
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:102
     console::print_strn(&device_id); console::print("\n");
  554:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console10print_strn17h6acf88a32c052588E>
  558:	e7ff      	b.n	2 <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x2>
@@ -1456,12 +1449,12 @@ _ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE():
  564:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
  568:	e7ff      	b.n	56a <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x56a>
  56a:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:105
     Ok(())
  56c:	902a      	str	r0, [sp, #168]	; 0xa8
  56e:	2001      	movs	r0, #1
  570:	902a      	str	r0, [sp, #168]	; 0xa8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:107
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:106
 }
  572:	e574      	b.n	5e <_ZN3app11app_network16send_sensor_data17ha00b395570ee48dfE+0x5e>
 
@@ -2589,7 +2582,8 @@ fn start_gps_l70r() -> MynewtResult<()> {
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:78
     if res == 0 { Ok(()) }
   2c:	e7ff      	b.n	2e <_ZN3app10gps_sensor14start_gps_l70r17h6ef6801301ae9855E+0x2e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/gps_sensor.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/*
   2e:	9801      	ldr	r0, [sp, #4]
   30:	b004      	add	sp, #16
   32:	bd80      	pop	{r7, pc}
