@@ -78,17 +78,33 @@ This repository contains...
 
 [`boot_stub`](apps/boot_stub): Mynewt Bootloader Stub
 
-[`adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32F1
+[`adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32 F103 (Blue Pill). Used by `temp_stm32` internal temperature sensor.
 
-[`custom_sensor`](libs/custom_sensor): Custom Sensor Definitions
+[`adc_stm32l4`](libs/adc_stm32l4): Mynewt Driver for ADC on STM32 L476. Used by `temp_stm32` internal temperature sensor.
 
-[`esp8266`](libs/esp8266): Mynewt Driver for ESP8266
+[`bc95g`](libs/bc95g): Mynewt Driver for Quectel BC95 NB-IoT module
+
+[`buffered_serial`](libs/buffered_serial): Buffered Serial Library used by `bc95g` NB-IoT driver and `gps_l70r` GPS driver
+
+[`custom_sensor`](libs/custom_sensor): Custom Sensor Definitions for Raw Temperature and Geolocation
+
+[`esp8266`](libs/esp8266): Mynewt Driver for ESP8266 WiFi module
+
+[`gps_l70r`](libs/gps_l70r): Mynewt Driver for Quectel L70-R GPS module
 
 [`hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
+
+[`low_power`](libs/low_power): Low Power functions for STM32 F103 (Blue Pill)
+
+[`mynewt_rust`](libs/mynewt_rust): Helper functions for hosting Rust on Mynewt
 
 [`nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
 
 [`remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
+
+[`rust_app`](libs/rust_app): Stub library that will be replaced by the compiled Rust application and Rust crates
+
+[`rust_libcore`](libs/rust_libcore): Stub library that will be replaced by the Rust Core Library
 
 [`semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
 
@@ -97,6 +113,10 @@ This repository contains...
 [`sensor_network`](libs/sensor_network): Sensor Network Library
 
 [`temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
+
+[`temp_stub`](libs/temp_stub): Mynewt Driver for Stub Temperature Sensor that returns a fixed value
+
+[`tiny_gps_plus`](libs/tiny_gps_plus): TinyGPS++ Library ported from Arduino. Used by `gps_l70r` GPS driver.
 
 [`scripts`](scripts): Install, build and deploy scripts
 
