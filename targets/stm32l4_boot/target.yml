@@ -1,4 +1,10 @@
-target.app: "apps/boot_stub"
-target.bsp: "hw/bsp/stm32l4"
-#target.build_profile: optimized
+# Bootloader Target Settings
+
+# Bootloader that will be targeted
+target.app:           "apps/boot_stub"
+
+# Board Support Package (BSP) for the target
+target.bsp:           "hw/bsp/stm32l4"
+
+# Build with debug support. Or select "optimized" to remove debug support.
 target.build_profile: debug

@@ -823,7 +823,7 @@ pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  { 
   90:	e891 5018 	ldmia.w	r1, {r3, r4, ip, lr}
   94:	e880 5018 	stmia.w	r0, {r3, r4, ip, lr}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:53
-            ..*sensor_value  //  Copy the sensor name and value for transmission
+            ..*sensor_value                       //  Copy the sensor name and value for transmission
         };
         //  Transmit sensor value with geolocation and return the result
         send_sensor_data(&transmit_value)
