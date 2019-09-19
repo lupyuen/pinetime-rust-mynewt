@@ -83,7 +83,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
     let _payload = coap!( @json {        
         //  Create `values` as an array of items under the root.
         //  Assume `val` contains `key: "t", val: 2870, geo: { lat, long }`. 
-        //  Append to the `values` array the Sensor Key and Sensor Value:
+        //  Append to the `values` array the Sensor Key, Value and optional Geolocation:
         //  `{"key": "t", "value": 2870, "geo": { "lat": ..., "long": ... }}`
         val,
 
