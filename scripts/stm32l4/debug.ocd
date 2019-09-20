@@ -1,4 +1,4 @@
-# This is an OpenOCD script that connects to the STM32 Blue Pill for Cortex Debug.
+# This is an OpenOCD script that connects to the STM32 L4xx for Cortex Debug.
 
 # Debug Level must be 2 or greater or gdb will fail.
 debug_level 2
