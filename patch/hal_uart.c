@@ -465,7 +465,7 @@ hal_uart_config(int port, int32_t baudrate, uint8_t databits, uint8_t stopbits,
     }
 #endif
 
-    ////  TODO: Move this
+    ////  Patch at line 468 of hal_uart.c
 #if MYNEWT_VAL(UART_2_SWAP_TXRX)
     if (cfg->suc_uart == USART3) { cr2 |= USART_CR2_SWAP; } //// Swap TX/RX so that USART3 behaves like LPUART1
 #endif  //  UART_2_SWAP_TXRX
