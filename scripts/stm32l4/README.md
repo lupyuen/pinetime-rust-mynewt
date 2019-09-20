@@ -14,6 +14,6 @@
 
 [`flash-app.ocd`](flash-app.ocd): OpenOCD script for flashing the application
 
-[`flash-init.ocd`](flash-init.ocd): OpenOCD initialisation script called by flash-boot.ocd and flash-app.ocd
+[`flash-init.ocd`](flash-init.ocd): OpenOCD initialisation script called by `flash-boot.ocd` and `flash-app.ocd`
 
-[`debug.ocd`](debug.ocd): OpenOCD script for debugging the application. Called by .vscode/launch-stm32l4.json
+[`debug.ocd`](debug.ocd): OpenOCD script for debugging the application. Called by `.vscode/launch-stm32l4.json`
