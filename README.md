@@ -21,13 +21,11 @@
 
 # Visual Embedded Rust Sensor Application for NB-IoT based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill, L476 and Apache Mynewt
 
-Tested on the Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)...
+This `l476` branch contains the source code for an NB-IoT GPS Tracker that has been tested on the Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)...
 
 [_Quick Peek of Huawei LiteOS with NB-IoT on Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)_](https://medium.com/@ly.lee/quick-peek-of-huawei-liteos-with-nb-iot-on-ghostyu-nb-ek-l476-developer-kit-2bbfb7f2fbcc?source=friends_link&sk=37f71270cd52f497fb6fb8139917031c)
 
 Refer to the tutorials...
-
-[_Visual Embedded Rust Programming with Visual Studio Code_](https://medium.com/@ly.lee/visual-embedded-rust-programming-with-visual-studio-code-1bc1262e398c?sk=222de63e45993aacd0db5a2e4b1f33c7)
 
 [_Rust Rocks NB-IoT! STM32 Blue Pill with Quectel BC95-G on Apache Mynewt_](https://medium.com/@ly.lee/rust-rocks-nb-iot-stm32-blue-pill-with-quectel-bc95-g-on-apache-mynewt-ef62a7e28f7e?sk=aaa21371f68a07c543066b6b89a760f0)
 
