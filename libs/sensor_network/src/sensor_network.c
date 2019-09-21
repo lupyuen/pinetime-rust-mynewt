@@ -371,6 +371,9 @@ const uint8_t *get_hardware_id(void) {
     return hw_id;
 }
 
+//  Device Type e.g. l476
+static const char *DEVICE_TYPE = MYNEWT_VAL(DEVICE_TYPE);
+
 const char *get_device_id(void) {
     //  Get the randomly-generated Device ID that will be sent in every CoAP Server message.  Changes upon restart.
     if (device_id_text[0]) { return device_id_text; }
@@ -385,6 +388,12 @@ const char *get_device_id(void) {
         s += 2;
     }
     device_id_text[DEVICE_ID_TEXT_LENGTH - 1] = 0;
+    //  Overwrite the start of the device ID by the device type followed by ",", e.g. "l476,010203".
+    if (strlen(DEVICE_TYPE) > 0) {
+        assert(strlen(DEVICE_TYPE) < DEVICE_ID_TEXT_LENGTH - 1);  //  DEVICE_TYPE too long
+        strcpy(device_id_text, DEVICE_TYPE);
+        device_id_text[strlen(DEVICE_TYPE)] = ',';
+    }
     console_printf("%srandom device id %s\n", _net, device_id_text);
     return device_id_text;
 }

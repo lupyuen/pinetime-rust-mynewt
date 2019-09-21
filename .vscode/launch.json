@@ -17,7 +17,7 @@
             //  Arm System View Description, downloaded from https://www.st.com/en/microcontrollers-microprocessors/stm32l476rc.html#
             "svdFile": "scripts/STM32L4x6.svd",
             "configFiles": [ 
-                //  Tell OpenOCD to open the ST Link connection to STM32F1 MCU.
+                //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
                 "interface/stlink-v2.cfg",
                 //  Previously: "target/stm32f1x.cfg",
                 "target/stm32l4x.cfg",

@@ -37,6 +37,7 @@ syscfg.vals:
     ###########################################################################
     # Network Settings
 
+    DEVICE_TYPE:            '"l476"'  # Device type that will be prepended to the Device ID. thethings.io converts the raw temperature depending on the device type.
     NBIOT_BAND:             8  # Connect to this NB-IoT band
     SENSOR_NETWORK:         1  # Enable Sensor Network library
     SENSOR_COAP:            1  # Send sensor data to CoAP server

@@ -4,6 +4,10 @@
 #   Strings must be enclosed by '"..."'
 
 syscfg.defs:
+    DEVICE_TYPE:
+        description: 'Device type that will be prepended to the Device ID'
+        value:       '""'
+
     # CoAP Server Connection Settings: Collector Node and Standalone Node will send sensor data to this server
     COAP_HOST:
         description: 'CoAP host e.g. 104.199.85.211 (for coap.thethings.io)'
