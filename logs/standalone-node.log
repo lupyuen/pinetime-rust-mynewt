@@ -1,4 +1,4 @@
-GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-18-11:42)
 Licensed under GNU GPL v2
 For bug reports, read
 	http://openocd.org/doc/doxygen/bugs.html
@@ -13,7 +13,7 @@ Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 Info : clock speed 500 kHz
 Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
-Info : Target voltage: 3.251459
+Info : Target voltage: 3.255430
 Info : stm32l4x.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : Listening on port 50000 for gdb connections
 Info : accepting 'gdb' connection on tcp/50000
@@ -21,77 +21,166 @@ Info : device id = 0x10076415
 Info : flash size = 256kbytes
 adapter speed: 500 kHz
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000
+xPSR: 0x01000000 pc: 0x08000188 msp: 0x20018000
 adapter speed: 500 kHz
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000
+xPSR: 0x01000000 pc: 0x08000188 msp: 0x20018000
 Enable ARM Semihosting to show debug output
 semihosting is enabled
 target halted due to breakpoint, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000004e msp: 0x20010000, semihosting
+xPSR: 0x61000000 pc: 0x2000004e msp: 0x20018000, semihosting
 Warn : block write succeeded
 adapter speed: 500 kHz
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000, semihosting
+xPSR: 0x01000000 pc: 0x08000188 msp: 0x20018000, semihosting
 adapter speed: 500 kHz
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000, semihosting
-Info : halted: PC: 0x0800018c
-Info : halted: PC: 0x080041ac
-Info : halted: PC: 0x08004b0c
-TMP create temp_stub_0
+xPSR: 0x01000000 pc: 0x08000188 msp: 0x20018000, semihosting
+Info : halted: PC: 0x0800444a
+ADC create adc1
+TMP create temp_stm32_0
+ADC open
+ADC open
+STM read int temp sensor
+RND personalise with hw id 22 00 29 00 04 50 42 41 46 36 39 20 
+RND seed with temp entropy 1f 00 f1 00 1f 01 f0 0f 02 e1 00 1f 10 f1 f0 00 00 0f 10 00 00 f0 10 0f 1f 1f 1f 11 f0 00 1f 1e 
 NET hwid 22 00 29 00 04 50 42 41 46 36 39 20 
 NET standalone node 
 NBT create bc95g_0
 NET svr bc95g_0
 [
 ]
-shutdown command invoked
-GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
-Licensed under GNU GPL v2
-For bug reports, read
-	http://openocd.org/doc/doxygen/bugs.html
-WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
-Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
-Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
-adapter speed: 500 kHz
-adapter_nsrst_delay: 100
-none separate
-debug_level: 2
-Info : Listening on port 6666 for tcl connections
-Info : Listening on port 4444 for telnet connections
-Info : clock speed 500 kHz
-Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
-Info : Target voltage: 3.249867
-Info : stm32l4x.cpu: hardware has 6 breakpoints, 4 watchpoints
-Info : Listening on port 50000 for gdb connections
-Info : accepting 'gdb' connection on tcp/50000
-Info : device id = 0x10076415
-Info : flash size = 256kbytes
-adapter speed: 500 kHz
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000
-adapter speed: 500 kHz
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000
-Enable ARM Semihosting to show debug output
-semihosting is enabled
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000004e msp: 0x20010000, semihosting
-Warn : block write succeeded
-adapter speed: 500 kHz
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000, semihosting
-adapter speed: 500 kHz
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20010000, semihosting
-Info : halted: PC: 0x0800018c
-Info : halted: PC: 0x080041ac
-Info : halted: PC: 0x08004b0c
-TMP create temp_stub_0
-NET hwid 22 00 29 00 04 50 42 41 46 36 39 20 
-NET standalone node 
-NBT create bc95g_0
+GPS create gps_l70r_0
+[
+]
+Rust TMP poll
+Rust GPS poll
+[
+GPS> $PMTK869,0*29
+]
+NET start
 NET svr bc95g_0
 [
+AT> AT
+AT= OK
+AT> NCONFIG=AUTOCONNECT,FALSE
+AT= OK
+AT> QREGSWT=2
+AT= OK
+AT> NRB
+AT< REBOOTING
+AT< �!@"
+AT< Boot: Unsigned
+AT< Security B.. Verified
+AT< Protocol A.. Verified
+AT< Apps A...... Verified
+AT< REBOOT_CAUSE_APPLICATION_AT
+AT< Neul 
+AT= OK
+AT> AT
+AT= OK
+AT> NBAND=8
+AT= OK
+]
+ADC open
+STM read int temp sensor
+Rust send_sensor_data
+NET random device id l476,a3865ac4a051fdb3955c0ea5e9c
+NET payload size 101
+{"values": [{"key": "t","value": 927},{"key": "device","value": "l476,a3865ac4a051fdb3955c0ea5e9c"}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=l476,a3865ac4a051fdb3955c0ea5e9c
+[
+NBT send udp
+AT> AT
+AT= OK
+AT> CFUN?
+AT< +CFUN:0
+AT= OK
+AT> CFUN=1
+AT= OK
+AT> CGATT=1
+AT= OK
+AT> CEREG=0
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,1
+AT= OK
+AT> CGATT?
+AT= +CGATT:1
+AT= OK
+AT> NSOCR=DGRAM,17,0,1
+AT= 1
+AT= OK
+AT> NSOSTF=1,104.199.85.211,5683,0x200,173,
+NBT send mbuf 173...
+58 02 00 01 00 00 16 4a 27 2a e2 39 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 39 32 37 7d 2c 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 6c 34 37 36 2c 61 33 38 36 35 61 63 34 61 30 35 31 66 64 62 33 39 35 35 63 30 65 61 35 65 39 63 22 7d 5d 7d 
+NBT send mbuf OK
+AT> ,1
+AT= 1,1
+AT< 73
+AT= OK
+AT> NSOCL=1
+AT= OK
+AT> CFUN=0
+AT= OK
+]
+ADC open
+STM read int temp sensor
+Rust send_sensor_data
+NET payload size 101
+{"values": [{"key": "t","value": 927},{"key": "device","value": "l476,a3865ac4a051fdb3955c0ea5e9c"}]}
+NET view your sensor at 
+https://blue-pill-geolocate.appspot.com?device=l476,a3865ac4a051fdb3955c0ea5e9c
+[
+NBT send udp
+AT> AT
+AT= OK
+AT> CFUN?
+AT< +CFUN:0
+AT= OK
+AT> CFUN=1
+AT= OK
+AT> CGATT=1
+AT= OK
+AT> CEREG=0
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,2
+AT= OK
+AT> CEREG?
+AT= +CEREG:0,1
+AT= OK
+AT> CGATT?
+AT= +CGATT:1
+AT= OK
+AT> NSOCR=DGRAM,17,0,1
+AT= 1
+AT= OK
+AT> NSOSTF=1,104.199.85.211,5683,0x200,173,
+NBT send mbuf 173...
+58 02 00 02 56 49 b4 b8 c9 68 4d 22 b2 76 32 06 74 68 69 6e 67 73 0d 1e 49 56 52 69 42 43 63 52 36 48 50 70 5f 43 63 5a 49 46 66 4f 5a 46 78 7a 5f 69 7a 6e 69 35 78 63 5f 4b 4f 2d 6b 67 53 41 32 59 38 11 32 51 32 ff 
+7b 22 76 61 6c 75 65 73 22 3a 20 5b 7b 22 6b 65 79 22 3a 20 22 74 22 2c 22 76 61 6c 75 65 22 3a 20 39 32 37 7d 2c 7b 22 6b 65 79 22 3a 20 22 64 65 76 69 63 65 22 2c 22 76 61 6c 75 65 22 3a 20 22 6c 34 37 36 2c 61 33 38 36 35 61 63 34 61 30 35 31 66 64 62 33 39 35 35 63 30 65 61 35 65 39 63 22 7d 5d 7d 
+NBT send mbuf OK
+AT> ,2
+AT= 1,1
+AT< 73
+AT= OK
+AT> NSOCL=1
+AT= OK
+AT> CFUN=0
+AT= OK
 ]
