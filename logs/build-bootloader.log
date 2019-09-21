@@ -1,119 +1,34 @@
-→ ./scripts/stm32l4/build-boot.sh 
-+ newt build stm32l4_boot
-WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
+> Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\stm32l4\build-boot.cmd && echo ✅ ◾ ️Done! " <
+
+
+c:\stm32bluepill-mynewt-sensor>newt\newt.exe build stm32l4_boot 
 Building target targets/stm32l4_boot
-Compiling repos/apache-mynewt-core/boot/bootutil/src/bootutil_misc.c
-Compiling repos/apache-mynewt-core/boot/bootutil/src/image_rsa.c
-Compiling repos/apache-mynewt-core/boot/bootutil/src/image_validate.c
-Compiling repos/apache-mynewt-core/boot/bootutil/src/loader.c
-Compiling repos/apache-mynewt-core/apps/boot/src/boot.c
-Compiling repos/apache-mynewt-core/boot/bootutil/src/image_ec256.c
-Compiling repos/apache-mynewt-core/boot/bootutil/src/image_ec.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/aes.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/arc4.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/aria.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/aesni.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/asn1parse.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/asn1write.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/base64.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/blowfish.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/camellia.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/bignum.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ccm.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/certs.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/chacha20.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/chachapoly.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/cmac.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/cipher.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/cipher_wrap.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ctr_drbg.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/des.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/dhm.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/debug.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ecdh.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ecdsa.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ecjpake.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ecp.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ecp_curves.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/entropy.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/entropy_poll.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/gcm.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/error.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/havege.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/hkdf.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/hmac_drbg.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/md.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/md2.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/md4.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/md5.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/md_wrap.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/memory_buffer_alloc.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/net_sockets.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/nist_kw.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/oid.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/padlock.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pem.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pk.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pkcs11.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pk_wrap.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pkcs12.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pkcs5.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pkparse.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/pkwrite.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/platform_util.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/platform.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/poly1305.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ripemd160.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/rsa.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/rsa_internal.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/sha1.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/sha256.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/sha512.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_cache.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_ciphersuites.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_cli.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_cookie.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_srv.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_ticket.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/ssl_tls.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/threading.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/timing.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/version.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/version_features.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509_create.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509_crl.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509_crt.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509_csr.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509write_crt.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/x509write_csr.c
-Compiling repos/apache-mynewt-core/crypto/mbedtls/src/xtea.c
 Assembling hw/bsp/stm32l4/src/arch/cortex_m4/startup_stm32l476xx.s
-Compiling hw/bsp/stm32l4/src/system_stm32l4xx.c
-Compiling repos/apache-mynewt-core/hw/drivers/uart/src/uart.c
-Compiling repos/apache-mynewt-core/hw/cmsis-core/src/cmsis_nvic.c
-Compiling hw/bsp/stm32l4/src/hal_bsp.c
 Compiling repos/apache-mynewt-core/hw/hal/src/hal_common.c
-Compiling repos/apache-mynewt-core/hw/drivers/uart/uart_hal/src/uart_hal.c
+Compiling hw/bsp/stm32l4/src/system_stm32l4xx.c
+Compiling repos/apache-mynewt-core/hw/cmsis-core/src/cmsis_nvic.c
+
 Compiling repos/apache-mynewt-core/hw/hal/src/hal_flash.c
+Compiling apps/boot_stub/src/boot.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_flash.c
+Compiling hw/bsp/stm32l4/src/hal_bsp.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_i2c.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_os_tick.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_nvreg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_spi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_system_start.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_watchdog.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_timer.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/sbrk.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_watchdog.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v1.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v2.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_spi.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_timer.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_i2c_v2.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_hw_id.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/Legacy/stm32l4xx_hal_can.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/stm32_driver_mod_timer.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/Legacy/stm32l4xx_hal_can.c       
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.c
@@ -133,33 +48,36 @@ Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4x
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma2d.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dsi.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_firewall.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ramfunc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ramfunc.c    
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gfxmmu.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_hash.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_hash_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_hcd.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_irda.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_iwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_lcd.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_irda.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_ltdc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_lptim.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_ltdc_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_ltdc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_nor.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_mmc.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_mmc_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_nand.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_nor.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_opamp.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_opamp_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_ospi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_qspi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_qspi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rng.c
@@ -169,8 +87,8 @@ Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4x
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sai_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sd.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sd_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_smartcard_ex.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_smartcard.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_smartcard.c        
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_smartcard_ex.c     
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_smbus.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi_ex.c
@@ -180,8 +98,8 @@ Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4x
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tsc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_usart.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_usart_ex.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_wwdg.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_adc.c
@@ -193,24 +111,24 @@ Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4x
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_dma2d.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_exti.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_gpio.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_fmc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_i2c.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_lptim.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_lpuart.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_fmc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_opamp.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_pwr.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_rcc.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_pwr.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_rng.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_rtc.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_sdmmc.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_spi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_swpmi.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_tim.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_usart.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_sdmmc.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.c
-Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/hal_reset_cause.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_usb.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/hal_flash.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.c
+Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/hal_reset_cause.c
 Compiling repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/hal_timer_freq.c
 Compiling repos/apache-mynewt-core/kernel/os/src/endian.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os.c
@@ -218,6 +136,7 @@ Compiling repos/apache-mynewt-core/kernel/os/src/os_callout.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_1mhz.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_high.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_error.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_pwr2.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_dev.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_eventq.c
@@ -239,17 +158,17 @@ Compiling repos/apache-mynewt-core/kernel/os/src/arch/cortex_m4/os_fault.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/asprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atoi.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atol.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/atoll.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/bsearch.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/bzero.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/atoll.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/calloc.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/bzero.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/fgets.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/inline.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/jrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/lrand48.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/malloc.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memchr.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memfile.c
@@ -260,17 +179,17 @@ Compiling repos/apache-mynewt-core/libc/baselibc/src/memset.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memswap.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/mrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/mynewt.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/qsort.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/nrand48.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/qsort.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/realloc.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sprintf.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sscanf.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/start.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcat.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strchr.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcmp.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/start.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcspn.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strdup.c
@@ -290,37 +209,33 @@ Compiling repos/apache-mynewt-core/libc/baselibc/src/strsep.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strrchr.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strspn.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strstr.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok_r.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strtol.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoll.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strtol.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoul.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoull.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/vasprintf.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoumax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vprintf.c
-Compiling bin/targets/stm32l4_boot/generated/src/stm32l4_boot-sysdown-app.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/vasprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.c
-Compiling bin/targets/stm32l4_boot/generated/src/stm32l4_boot-sysinit-app.c
-Compiling bin/targets/stm32l4_boot/generated/src/stm32l4_boot-sysflash.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vsprintf.c
+Compiling bin/targets/stm32l4_boot/generated/src/stm32l4_boot-sysdown-app.c
+Compiling bin/targets/stm32l4_boot/generated/src/stm32l4_boot-sysflash.c
+Compiling bin/targets/stm32l4_boot/generated/src/stm32l4_boot-sysinit-app.c
 Compiling repos/apache-mynewt-core/sys/flash_map/src/flash_map.c
-Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/log/stub/src/log.c
+Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/mfg/src/mfg.c
 Compiling repos/apache-mynewt-core/sys/sysdown/src/sysdown.c
 Compiling repos/apache-mynewt-core/sys/sysinit/src/sysinit.c
 Compiling repos/apache-mynewt-core/util/mem/src/mem.c
 Compiling repos/apache-mynewt-core/util/rwlock/src/rwlock.c
-Archiving apps_boot.a
-Archiving boot_bootutil.a
-Archiving crypto_mbedtls.a
+Archiving apps_boot_stub.a
 Archiving hw_bsp_stm32l4.a
 Archiving hw_cmsis-core.a
-Archiving hw_drivers_uart.a
-Archiving hw_drivers_uart_uart_hal.a
 Archiving hw_hal.a
 Archiving hw_mcu_stm_stm32_common.a
 Archiving hw_mcu_stm_stm32l4xx.a
@@ -335,32 +250,29 @@ Archiving sys_sysdown.a
 Archiving sys_sysinit.a
 Archiving util_mem.a
 Archiving util_rwlock.a
-Linking /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_boot/app/apps/boot/boot.elf
+Linking c:/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_boot/app/apps/boot_stub/boot_stub.elf
 Target successfully built: targets/stm32l4_boot
-+ newt size -v stm32l4_boot
-WARNING: Version mismatch in mcuboot:adf57829dc8cbeb5d33954dd4395b342e575213d; repository.yml:[1.3.0], version.yml:0.0.0
+
+c:\stm32bluepill-mynewt-sensor>newt\newt.exe size -v stm32l4_boot
 Size of Application Image: app
+Mem RAM: 0x20000000-0x20018000
 Mem FLASH: 0x8000000-0x8004000
-Mem RAM: 0x20000000-0x20010000
-  FLASH     RAM 
-     33     402 *fill*
-     44       0 apps_boot.a
-   3023    4004 boot_bootutil.a
-   1204       0 crypto_mbedtls.a
-    698      64 hw_bsp_stm32l4.a
+  FLASH     RAM
+      8     396 *fill*
+     20       0 apps_boot_stub.a
+    598       4 hw_bsp_stm32l4.a
      52       0 hw_cmsis-core.a
-    428       0 hw_drivers_uart_uart_hal.a
-    500       1 hw_hal.a
-   3092     104 hw_mcu_stm_stm32_common.a
-   1932      32 hw_mcu_stm_stm32l4xx.a
-    572     120 kernel_os.a
-    546      32 libc_baselibc.a
-    552     128 sys_flash_map.a
-    666      29 sys_mfg.a
-      6       4 sys_sysinit.a
+      6       0 hw_hal.a
+   1250      16 hw_mcu_stm_stm32_common.a
+    500       0 hw_mcu_stm_stm32l4xx.a
+    334      24 kernel_os.a
+     16       0 libc_baselibc.a
      72       0 stm32l4_boot-sysinit-app.a
-Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-  13420      88    4832   18340    47a4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_boot/app/apps/boot/boot.elf
+   2856      16     424    3296     ce0 c:/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_boot/app/apps/boot_stub/boot_stub.elf  
+✅ ◾ ️Done! 
+
+Terminal will be reused by tasks, press any key to close it.
