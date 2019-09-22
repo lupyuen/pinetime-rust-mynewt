@@ -19,13 +19,11 @@
 #
 -->
 
-# Visual Embedded Rust Sensor Application for NB-IoT based on Quectel BC95-G NB-IoT Module, STM32 Blue Pill, L476 and Apache Mynewt
+# NB-IoT GPS Tracker Application for STM32 L476 with Apache Mynewt and Embedded Rust based on Quectel L70-R GPS module and Quectel BC95 NB-IoT module
 
-This `l476` branch contains the source code for an NB-IoT GPS Tracker that has been tested on the Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)...
+This `l476` branch contains the source code for an NB-IoT GPS Tracker that has been tested on the [Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)](https://medium.com/@ly.lee/quick-peek-of-huawei-liteos-with-nb-iot-on-ghostyu-nb-ek-l476-developer-kit-2bbfb7f2fbcc?source=friends_link&sk=37f71270cd52f497fb6fb8139917031c). Refer to the tutorials...
 
-[_Quick Peek of Huawei LiteOS with NB-IoT on Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)_](https://medium.com/@ly.lee/quick-peek-of-huawei-liteos-with-nb-iot-on-ghostyu-nb-ek-l476-developer-kit-2bbfb7f2fbcc?source=friends_link&sk=37f71270cd52f497fb6fb8139917031c)
-
-Refer to the tutorials...
+[_Build an NB-IoT GPS Tracker on STM32 L476 with Apache Mynewt and Embedded Rust_](https://medium.com/@ly.lee/build-an-nb-iot-gps-tracker-on-stm32-l476-with-apache-mynewt-and-embedded-rust-8c095a925546?source=friends_link&sk=f3e802795d4fd7d569f0d67679e8c9e6)
 
 [_Rust Rocks NB-IoT! STM32 Blue Pill with Quectel BC95-G on Apache Mynewt_](https://medium.com/@ly.lee/rust-rocks-nb-iot-stm32-blue-pill-with-quectel-bc95-g-on-apache-mynewt-ef62a7e28f7e?sk=aaa21371f68a07c543066b6b89a760f0)
 

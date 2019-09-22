@@ -2,6 +2,7 @@
 # Used by tasks.json for "Load bluepill_boot" command.
 # Equivalent to "newt load -v bluepill_boot".
 
+#### TODO: From https://github.com/pcbreflux/nordic/blob/master/nRF52832/Makefile.common
 # 'init_reset halt; program $(OUTPUT_BINARY_DIRECTORY)/$(HEX) verify; reset; exit'
 
 # Connect to the device.
@@ -22,18 +23,18 @@ echo ""
 
 # Mass erase is needed to allow unlocking.
 echo "Erasing..."
-#### stm32l4x mass_erase 0
+#### TODO: stm32l4x mass_erase 0
 echo ""
 
 # Unlock will fail if device is locked, need to mass erase first.
 echo "Unlocking..."
-#### stm32l4x unlock 0  # Unlock will allow flash to be read after flashing.
+#### TODO: stm32l4x unlock 0  # Unlock will allow flash to be read after flashing.
 echo ""
 
-# Bootloader address must sync with hw/bsp/???/bsp.yml
+# Bootloader address must sync with hw/bsp/ada_feather_nrf52/bsp.yml
 echo "Flashing Bootloader to Blue Pill..."
-flash write_image erase unlock bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000
-flash verify_bank 0            bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
+flash write_image erase unlock bin/targets/ada_feather_nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000
+flash verify_bank 0            bin/targets/ada_feather_nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
 echo ""
 
 # Restart the device.
