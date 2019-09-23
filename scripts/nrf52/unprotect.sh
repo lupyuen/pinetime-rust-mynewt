@@ -11,8 +11,8 @@ set -x  #  Echo all commands.
 
 sudo $HOME/openocd/src/openocd \
     -s $HOME/openocd/tcl \
-    -d2 \
-    -f sysfsgpio.cfg \
+    -d3 \
+    -f swd-gpio.cfg \
     -f target/nrf52.cfg \
     -c "echo init..." \
     -c "init" \
