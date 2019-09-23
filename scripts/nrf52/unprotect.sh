@@ -11,12 +11,8 @@ set -x  #  Echo all commands.
 
 sudo $HOME/openocd/src/openocd \
     -s $HOME/openocd/tcl \
-    -d3 \
-    -f interface/sysfsgpio-raspberrypi.cfg \
-    -c "transport select swd" \
-    -c "set WORKAREASIZE 0" \
-    -c "adapter_nsrst_delay 100" \
-    -c "adapter_nsrst_assert_width 100" \
+    -d2 \
+    -f sysfsgpio.cfg \
     -f target/nrf52.cfg \
     -c "echo init..." \
     -c "init" \
