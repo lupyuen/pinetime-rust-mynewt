@@ -5,10 +5,12 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-sudo $HOME/openocd/src/openocd \
+$HOME/openocd/src/openocd \
     -s $HOME/openocd/tcl \
-    -d2 \
-    -f interface/cmsis-dap.cfg \
+    -d4 \
+    -c "interface vsllink" \
+    -c "adapter_khz 100" \
+    -c "transport select swd" \
     -f target/nrf52.cfg \
     -f scripts/nrf52/unprotect-flash.ocd
 
