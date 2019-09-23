@@ -28,7 +28,7 @@ interface sysfsgpio
 # For Jetson Nano: 
 
 # Connect SWD lines to Header pins:  19 (SWCLK, GPIO 16), 40 (SWDIO, GPIO 78, Low, 100K internal), 23 (SRST, GPIO 18)
-# Intermittent response
+# Consistent response
 sysfsgpio_swd_nums  16 78
 # Connect JTAG lines to Header pins: 19 (TCK, GPIO 16), 40 (TMS, GPIO 78), 22 (TDI, GPIO 13), 24 (TDO, GPIO 19)
 sysfsgpio_jtag_nums 16 78 13 19

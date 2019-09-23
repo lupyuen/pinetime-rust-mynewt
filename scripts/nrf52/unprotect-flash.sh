@@ -5,25 +5,12 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-# From https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
-# "transport select swd; set WORKAREASIZE 0; adapter_nsrst_delay 100; adapter_nsrst_assert_width 100; source [find target/nrf51.cfg]" 
-# -c "init; reset; halt; nrf51 mass_erase; reset" -c "shutdown"
-
 sudo $HOME/openocd/src/openocd \
     -s $HOME/openocd/tcl \
-    -d3 \
-    -f swd-gpio.cfg \
+    -d2 \
+    -f interface/cmsis-dap.cfg \
     -f target/nrf52.cfg \
-    -c "echo init..." \
-    -c "init" \
-    -c "echo reset..." \
-    -c "reset" \
-    -c "echo halt..." \
-    -c "halt" \
-    -c "nrf52.dap apreg 1 0x04"
-
-# From https://github.com/blacksphere/blackmagic/issues/381:
-# "init; nrf52.dap apreg 1 0x0c; nrf52.dap apreg 1 0x04 0x01; reset; nrf5 mass_erase; reset; shutdown;"
+    -f scripts/nrf52/unprotect-flash.ocd
 
 # $HOME/openocd/src/openocd -s $HOME/openocd/tcl -d2 -f interface/cmsis-dap.cfg -f target/nrf52.cfg
 
@@ -36,17 +23,6 @@ sudo $HOME/openocd/src/openocd \
 # openocd/bin/openocd -d2 -f interface/cmsis-dap.cfg -f target/nrf52.cfg
 
 exit
-
-# Enter these commands in another command prompt
-telnet localhost 4444
-
-nrf52.dap apreg 1 0x04
-# Should return 0 (protected)
-
-nrf52.dap apreg 1 0x04 0x01
-
-nrf52.dap apreg 1 0x04
-# Should return 1 (unprotected)
 
 # Test sysfs
 sudo bash

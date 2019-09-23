@@ -1,0 +1,32 @@
+    
+echo Init...
+init
+
+echo Reset...
+reset
+
+echo Halt...
+halt
+
+echo Current protection status (0 means protected)...
+nrf52.dap apreg 1 0x04
+
+# nrf52.dap apreg 1 0x04 0x01
+
+# nrf52.dap apreg 1 0x04
+# Should return 1 (unprotected)
+
+# reset
+
+# nrf5 mass_erase
+
+# reset
+
+# shutdown
+
+# From https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
+# "transport select swd; set WORKAREASIZE 0; adapter_nsrst_delay 100; adapter_nsrst_assert_width 100; source [find target/nrf51.cfg]" 
+# -c "init; reset; halt; nrf51 mass_erase; reset" -c "shutdown"
+
+# From https://github.com/blacksphere/blackmagic/issues/381:
+# "init; nrf52.dap apreg 1 0x0c; nrf52.dap apreg 1 0x04 0x01; reset; nrf5 mass_erase; reset; shutdown;"
