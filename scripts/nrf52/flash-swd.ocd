@@ -1,0 +1,26 @@
+# This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the ROM.
+
+# Disable all openocd messages.
+debug_level 0
+
+# Connect to the device.
+init
+
+# Enable ARM semihosting to show debug console output in OpenOCD console.
+arm semihosting enable
+
+echo "NOTE: Trash this window before flashing the Blue Pill again"
+
+echo "Stopping the Blue Pill..."
+reset halt
+
+flash banks
+flash list
+
+echo "Flashing the Blue Pill..."
+flash write_image erase unlock scripts/nrf52/Versaloon-STM32F103C8_BluePill.bin 0x08000000
+flash verify_bank 0            scripts/nrf52/Versaloon-STM32F103C8_BluePill.bin 0
+
+# Restart the device.
+echo "Restarting the Blue Pill..."
+reset run
