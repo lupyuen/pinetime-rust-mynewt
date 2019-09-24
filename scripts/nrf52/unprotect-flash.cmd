@@ -1,1 +1,1 @@
-openocd/bin/openocd.exe -d4 -c "interface vsllink" -c "adapter_khz 100" -c "transport select swd" -c "set WORKAREASIZE 0" -c "adapter_nsrst_delay 100" -c "adapter_nsrst_assert_width 100" -f target/nrf52.cfg -f scripts/nrf52/unprotect-flash.ocd
+openocd/bin/openocd.exe -d4 -f scripts/nrf52/versaloon.ocd -f target/nrf52.cfg -f scripts/nrf52/unprotect-flash.ocd
