@@ -1,0 +1,69 @@
+# OpenOCD script for using Raspberry Pi as SWD Programmer for nRF52
+# Based on https://devzone.nordicsemi.com/f/nordic-q-a/21650/flashing-nrf51-with-openocd-on-raspberry-pi
+# https://www.raspberrypi.org/forums/viewtopic.php?t=252551
+# https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
+
+# Select the Broadcom GPIO interface for Raspbery Pi
+interface bcm2835gpio
+
+###############################################################################
+# Peripheral Base Address
+
+# For Pi 4
+bcm2835gpio_peripheral_base 0xFE000000
+
+# For Pi 2 and 3
+# bcm2835gpio_peripheral_base 0x3F000000
+
+# For Pi 1
+# bcm2835gpio_peripheral_base 0x20000000
+
+###############################################################################
+# Transition delay calculation: SPEED_COEFF/khz - SPEED_OFFSET
+# bcm2835gpio_speed SPEED_COEFF SPEED_OFFSET
+
+# For Pi 4
+bcm2835gpio_speed_coeffs 236181 60
+
+# For Pi 3 BCM2837 (1200Mhz)
+# bcm2835gpio_speed_coeffs 194938 48
+
+# For Pi 2 BCM2836 (900Mhz)
+# bcm2835gpio_speed_coeffs 146203 36
+
+# For Pi 1 BCM2835 (700Mhz)
+# bcm2835gpio_speed_coeffs 113714 28
+
+###############################################################################
+# SWD Configuration
+
+# Each of the SWD lines need a gpio number set: swclk swdio. See https://pinout.xyz/ for Pin Number to GPIO mapping.
+# Header pin numbers: 38 (Yellow) 40 (Green)
+bcm2835gpio_swd_nums 20 21
+
+# Header pin number: 12 (White)
+bcm2835gpio_srst_num 18
+
+reset_config srst_only srst_push_pull
+
+###############################################################################
+# transport
+
+transport select swd
+
+###############################################################################
+# target
+
+set WORKAREASIZE 0
+set CHIPNAME nrf52832
+source [find target/nrf52.cfg]
+reset_config srst_only srst_nogate
+adapter_nsrst_delay 100
+adapter_nsrst_assert_width 100
+
+###############################################################################
+# execution
+
+init
+targets
+halt

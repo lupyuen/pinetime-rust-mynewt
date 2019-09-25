@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
-# Unprotect the nRF52 module using a Raspberry Pi or Jetson Nano. Tested on OpenOCD for Jetson Nano 0.10.0+dev-00932-g85a460d5 (2019-09-23-09:18)
+# Unprotect the nRF52 module using a Raspberry Pi
 # From https://stackoverflow.com/questions/52308978/problem-flashing-nrf52-chip-using-openocd/54372481#54372481
 
 # set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
+
+OPENOCD_DIR=/home/pi
+
+$OPENOCD_DIR/openocd/src/openocd \
+    -s $OPENOCD_DIR/openocd/tcl \
+    -d4 \
+    -f scripts/nrf52/swd-pi.ocd
+
+exit
 
 # From https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
 # "transport select swd; set WORKAREASIZE 0; adapter_nsrst_delay 100; adapter_nsrst_assert_width 100; source [find target/nrf51.cfg]" 

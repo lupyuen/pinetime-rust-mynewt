@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/home/pi/openocd"
 		}
 	],
 	"settings": {
