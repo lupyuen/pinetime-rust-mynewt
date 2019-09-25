@@ -55,16 +55,24 @@ sysfsgpio_jtag_nums 16 78 13 19
 # Connect JTAG lines to Header pins: 19 (TCK, GPIO 16), 21 (TMS, GPIO 17), 22 (TDI, GPIO 13), 24 (TDO, GPIO 19)
 # sysfsgpio_jtag_nums 16 17 13 19
 
+# 29 High (100K internal) gpio149
+# sysfsgpio_srst_num  149
+
+# Inverted: 23 Low (15K internal) gpio18
 sysfsgpio_srst_num  18
 
-# reset_config srst_only srst_push_pull
-# reset_config srst_nogate
-
 # From http://catch22.eu/baremetal/openocd_sysfs_stm32/
+
 reset_config srst_push_pull
+# reset_config srst_open_drain
+
 reset_config srst_only
+
 reset_config srst_nogate
+# reset_config srst_gates_jtag
+
 reset_config connect_assert_srst
+# reset_config connect_deassert_srst
 
 transport select swd
 set WORKAREASIZE 0
