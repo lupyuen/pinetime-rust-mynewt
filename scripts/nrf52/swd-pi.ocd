@@ -1,9 +1,10 @@
 # OpenOCD script for using Raspberry Pi as SWD Programmer for nRF52
 # Based on https://devzone.nordicsemi.com/f/nordic-q-a/21650/flashing-nrf51-with-openocd-on-raspberry-pi
+# https://stackoverflow.com/questions/52308978/problem-flashing-nrf52-chip-using-openocd/54372481#54372481
 # https://www.raspberrypi.org/forums/viewtopic.php?t=252551
 # https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
 
-# Build OpenOCD with latest patches:
+# Build OpenOCD on Raspberry Pi with latest patches:
 # sudo apt install git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev
 # git clone https://github.com/ntfreak/openocd
 # cd openocd
@@ -12,7 +13,7 @@
 # Check for << CMSIS-DAP Compliant Debugger            yes >>
 # make
 
-# Run OpenOCD:
+# Run OpenOCD on Raspberry Pi:
 # /home/pi/openocd/src/openocd \
 #    -s /home/pi/openocd/tcl \
 #    -d4 \
@@ -84,8 +85,19 @@ adapter_nsrst_assert_width 100
 
 init
 
-# nrf52.dap apreg 1 0x04
+# Open another command prompt on Raspberry Pi and enter
+# telnet localhost 4444
+
+# Then enter these commands...
+
+# Check APPROTECTSTATUS status register for access port protection. 0 means protection enabled.
 # nrf52.dap apreg 1 0x0c
+
+# Set ERASEALL register to 1 to erase all FLASH and RAM and remove access port protection.
+# nrf52.dap apreg 1 0x04 0x01
+
+# Check ERASEALL register. Should return 1 when erasing FLASH and RAM and removing access port protection. Restart to perform the erase.
+# nrf52.dap apreg 1 0x04
 
 # targets
 # halt
