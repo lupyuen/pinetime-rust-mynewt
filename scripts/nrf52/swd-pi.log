@@ -510,3 +510,11 @@ Info : 535 670 server.c:311 add_service(): Listening on port 3333 for gdb connec
 Info : 536 670 server.c:311 add_service(): Listening on port 6666 for tcl connections
 Info : 537 670 server.c:311 add_service(): Listening on port 4444 for telnet connections
 Debug: 538 670 command.c:143 script_debug(): command - init init
+
+Open On-Chip Debugger
+> nrf52.dap apreg 1 0x04
+SWD DPIDR 0x2ba01477
+0x00000000
+
+> nrf52.dap apreg 1 0x0c
+0x00000000
