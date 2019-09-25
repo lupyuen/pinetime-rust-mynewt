@@ -3,6 +3,23 @@
 # https://www.raspberrypi.org/forums/viewtopic.php?t=252551
 # https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
 
+# Build OpenOCD with latest patches:
+# sudo apt install git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev
+# git clone https://github.com/ntfreak/openocd
+# cd openocd
+# ./bootstrap
+# ./configure --enable-sysfsgpio --enable-bcm2835gpio --enable-cmsis-dap
+# Check for << CMSIS-DAP Compliant Debugger            yes >>
+# make
+
+# Run OpenOCD:
+# /home/pi/openocd/src/openocd \
+#    -s /home/pi/openocd/tcl \
+#    -d4 \
+#    -f swd-pi.ocd
+
+# Sample log is in swd-pi.log
+
 # Select the Broadcom GPIO interface for Raspbery Pi
 interface bcm2835gpio
 
@@ -41,10 +58,9 @@ bcm2835gpio_speed_coeffs 236181 60
 # Header pin numbers: 38 (Yellow) 40 (Green)
 bcm2835gpio_swd_nums 20 21
 
+# SRST (Reset) Pin
 # Header pin number: 12 (White)
 bcm2835gpio_srst_num 18
-
-reset_config srst_only srst_push_pull
 
 ###############################################################################
 # transport
@@ -55,8 +71,10 @@ transport select swd
 # target
 
 set WORKAREASIZE 0
-set CHIPNAME nrf52832
+# set CHIPNAME nrf52832
 source [find target/nrf52.cfg]
+
+# Reset using SRST pin
 reset_config srst_only srst_nogate
 adapter_nsrst_delay 100
 adapter_nsrst_assert_width 100
@@ -65,5 +83,9 @@ adapter_nsrst_assert_width 100
 # execution
 
 init
-targets
-halt
+
+# nrf52.dap apreg 1 0x04
+# nrf52.dap apreg 1 0x0c
+
+# targets
+# halt
