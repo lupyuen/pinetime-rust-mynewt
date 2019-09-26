@@ -1,4 +1,4 @@
-pkg.name: targets/ada_feather_nrf52_boot
+pkg.name: targets/nrf52_boot
 pkg.type: target
 pkg.description: 
 pkg.author: 

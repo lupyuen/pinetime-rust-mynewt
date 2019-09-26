@@ -4,7 +4,7 @@
 target.app:           "apps/boot_stub"
 
 # Board Support Package (BSP) for the target
-target.bsp:           "@apache-mynewt-core/hw/bsp/ada_feather_nrf52"
+target.bsp:           "hw/bsp/nrf52"
 
 # Build with debug support. Or select "optimized" to remove debug support.
 target.build_profile: debug

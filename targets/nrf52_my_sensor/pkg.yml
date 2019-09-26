@@ -1,5 +1,5 @@
 # Package Settings.  Overrides apps/my_sensor_app/pkg.yml
-pkg.name:       targets/ada_feather_nrf52_my_sensor
+pkg.name:       targets/nrf52_my_sensor
 pkg.type:       target
 pkg.description: 
 pkg.author: 
