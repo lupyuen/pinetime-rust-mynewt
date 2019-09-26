@@ -64,7 +64,7 @@ bcm2835gpio_swd_nums 20 21
 # Connect Pi Header Pin Number 12 (GPIO 18) to nRF52 RESET (White wire)
 bcm2835gpio_srst_num 18
 
-# Connect Pi 3.3V and GND to nRF52 VDD and GND
+# Connect Pi 3.3V (Red) and GND (Purple) to nRF52 VDD and GND
 
 ###############################################################################
 # Transport
