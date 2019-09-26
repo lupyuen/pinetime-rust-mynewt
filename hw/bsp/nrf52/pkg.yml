@@ -17,14 +17,12 @@
 # under the License.
 #
 
-pkg.name: hw/bsp/ada_feather_nrf52
+pkg.name: hw/bsp/nrf52
 pkg.type: bsp
-pkg.description: BSP definition for the Adafruit nRF52 Feather.
-pkg.author: "Apache Mynewt <dev@mynewt.apache.org>"
-pkg.homepage: "http://mynewt.apache.org/"
+pkg.description: BSP definition for Generic nRF52 devices.
+pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
+pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - Adafruit
-    - Feather
     - nrf52
 
 pkg.cflags:
