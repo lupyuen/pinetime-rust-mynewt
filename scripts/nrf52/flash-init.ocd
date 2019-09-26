@@ -2,4 +2,4 @@
 
 # Disable all openocd messages.
 #### debug_level 0
-debug_level 2
+debug_level 4
