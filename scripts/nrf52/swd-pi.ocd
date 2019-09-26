@@ -55,33 +55,35 @@ bcm2835gpio_speed_coeffs 236181 60
 ###############################################################################
 # SWD Configuration
 
-# Each of the SWD lines need a gpio number set: swclk swdio. See https://pinout.xyz/ for Pin Number to GPIO mapping.
-# Header pin numbers: 38 (Yellow) 40 (Green)
+# Assign each SWD line (SWCLK, SWDIO) to a Pi GPIO: (See https://pinout.xyz/ for Pi Header Pin Number to GPIO mapping)
+# Connect Pi Header Pin Number 38 (GPIO 20) to nRF52 SWCLK (Yellow wire)
+# Connect Pi Header Pin Number 40 (GPIO 21) to nRF52 SWDIO (Green wire)
 bcm2835gpio_swd_nums 20 21
 
-# SRST (Reset) Pin
-# Header pin number: 12 (White)
+# Assign SRST (Reset) line to a Pi GPIO:
+# Connect Pi Header Pin Number 12 (GPIO 18) to nRF52 RESET (White wire)
 bcm2835gpio_srst_num 18
 
+# Connect Pi 3.3V and GND to nRF52 VDD and GND
+
 ###############################################################################
-# transport
+# Transport
 
 transport select swd
 
 ###############################################################################
-# target
+# Target
 
 set WORKAREASIZE 0
-# set CHIPNAME nrf52832
 source [find target/nrf52.cfg]
 
-# Reset using SRST pin
+# Configure reset to use SRST line
 reset_config srst_only srst_nogate
 adapter_nsrst_delay 100
 adapter_nsrst_assert_width 100
 
 ###############################################################################
-# execution
+# Execution
 
 init
 
