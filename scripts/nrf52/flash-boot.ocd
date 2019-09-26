@@ -1,12 +1,6 @@
-# This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Bootloader ROM.
-# Used by tasks.json for "Load bluepill_boot" command.
-# Equivalent to "newt load -v bluepill_boot".
-
-#### TODO: From https://github.com/pcbreflux/nordic/blob/master/nRF52832/Makefile.common
-# 'init_reset halt; program $(OUTPUT_BINARY_DIRECTORY)/$(HEX) verify; reset; exit'
-
-#### TODO:
-# -c init -c "reset init" -c halt -c "nrf52 mass_erase" -c "program $FIRMWARE verify" -c reset -c exit
+# This is an OpenOCD script that connects ST-Link to the nRF52 and flashes the Bootloader ROM.
+# Used by tasks.json for "Load Bootloader" command.
+# Equivalent to "newt load -v ada_feather_nrf52_boot".
 
 # From https://devzone.nordicsemi.com/f/nordic-q-a/42824/flashing-nrf5832-using-only-st-link-v2-and-openocd
 gdb_flash_program enable
@@ -16,36 +10,14 @@ gdb_breakpoint_override hard
 init
 
 # Enable ARM semihosting to show debug console output in OpenOCD console.
-#### TODO: arm semihosting enable
-
-echo "Current flash info..."
-flash banks; flash list; 
-# flash probe 0         #  Hangs on nRF52
-# flash info 0 sectors  #  Show details of each sector
-echo ""
+arm semihosting enable
 
 echo "Stopping..."
-#### reset halt
-reset init
-halt
-# init_reset halt
-echo ""
-
-# Mass erase is needed to allow unlocking.
-#### echo "Erasing..."
-#### nrf5 mass_erase
-echo ""
-
-# Unlock will fail if device is locked, need to mass erase first.
-#### echo "Unlocking..."
-#### TODO: stm32l4x unlock 0  # Unlock will allow flash to be read after flashing.
+reset halt
 echo ""
 
 # Bootloader address must sync with hw/bsp/ada_feather_nrf52/bsp.yml
 echo "Flashing Bootloader..."
-#### flash write_image erase unlock bin/targets/ada_feather_nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
-#### flash verify_bank 0            bin/targets/ada_feather_nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin 0x00000000
-#### flash bank $_FLASHNAME nrf5 0 0x00000000 0 0 $_TARGETNAME
 program bin/targets/ada_feather_nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
 echo ""
 

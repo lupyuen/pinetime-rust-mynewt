@@ -11,5 +11,6 @@ $HOME/openocd/src/openocd \
     -f scripts/nrf52/flash-init.ocd \
     -f interface/stlink.cfg \
     -c "transport select hla_swd" \
+    -c "set WORKAREASIZE 0" \
     -f target/nrf52.cfg \
     -f scripts/nrf52/flash-boot.ocd
