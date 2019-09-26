@@ -9,7 +9,7 @@ OPENOCD_DIR=/home/pi
 
 $OPENOCD_DIR/openocd/src/openocd \
     -s $OPENOCD_DIR/openocd/tcl \
-    -d4 \
+    -d2 \
     -f scripts/nrf52/swd-pi.ocd
 
 exit

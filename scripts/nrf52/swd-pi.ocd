@@ -14,7 +14,7 @@
 # make
 
 # Run OpenOCD on Raspberry Pi:
-# /home/pi/openocd/src/openocd \
+# sudo /home/pi/openocd/src/openocd \
 #    -s /home/pi/openocd/tcl \
 #    -d4 \
 #    -f swd-pi.ocd
