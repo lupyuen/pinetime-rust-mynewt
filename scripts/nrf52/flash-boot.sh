@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-#  Flash Mynewt Bootloader
+#  Flash Mynewt Bootloader to nRF52 with ST-Link
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-# openocd/bin/openocd -f scripts/nrf52/flash-init.ocd -f interface/stlink.cfg -c "transport select hla_swd" -f target/nrf52.cfg -f scripts/nrf52/flash-boot.ocd
+# Added "set WORKAREASIZE 0" to remove the warning: "using fast async flash loader. This is currently supported only with ST-Link and CMSIS-DAP"
 
-$HOME/openocd/src/openocd \
-    -s $HOME/openocd/tcl \
+openocd/bin/openocd \
     -f scripts/nrf52/flash-init.ocd \
     -f interface/stlink.cfg \
     -c "transport select hla_swd" \
