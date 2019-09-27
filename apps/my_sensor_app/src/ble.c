@@ -1,3 +1,4 @@
+//  Based on https://mynewt.apache.org/latest/tutorials/ble/ibeacon.html
 #include "sysinit/sysinit.h"
 #include "os/os.h"
 #include "console/console.h"
@@ -28,7 +29,7 @@ ble_app_advertise(void)
 
     /* Major version=2; minor version=10. */
     //  Measured Power ranging data (Calibrated tx power at 1 meters). Must be > -126 and < 20
-    rc = ble_ibeacon_set_adv_data(uuid128, 2, 10, 0);  //  TODO: Confirm RSSI
+    rc = ble_ibeacon_set_adv_data(uuid128, 2, 10, -60);  //  TODO: Confirm RSSI
     assert(rc == 0);
 
     /* Begin advertising. */
