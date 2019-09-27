@@ -4,7 +4,7 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-#  TODO: STM32L4
+#  TODO: nRF52
 mynewt_build_app=nrf52_my_sensor
 rust_build_target=thumbv7em-none-eabihf
 cp .vscode/launch-nrf52.json .vscode/launch.json
