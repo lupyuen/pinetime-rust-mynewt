@@ -5,9 +5,14 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
 #  TODO: STM32L4
-mynewt_build_app=stm32l4_my_sensor
+mynewt_build_app=nrf52_my_sensor
 rust_build_target=thumbv7em-none-eabihf
 cp .vscode/launch-stm32l4.json .vscode/launch.json
+
+#  TODO: STM32L4
+#  mynewt_build_app=stm32l4_my_sensor
+#  rust_build_target=thumbv7em-none-eabihf
+#  cp .vscode/launch-stm32l4.json .vscode/launch.json
 
 #  TODO: STM32 Blue Pill
 #  mynewt_build_app=bluepill_my_sensor
