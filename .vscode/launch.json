@@ -4,26 +4,24 @@
     "configurations": [
         {
             //  Cortex Debug Configuration: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
-            "name": "STM32L476RCT6",
+            "name": "nRF52832",
             "type": "cortex-debug",
             "request": "launch",
             //  OpenOCD path is defined in workspace.code-workspace.
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
             //  Application Executable to be flashed to Blue Pill before debugging.  Note that the Application ELF image does not contain a valid Image Header.  So we must bypass the Bootloader, shown below.
-            "executable": "bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+            "executable": "bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
             //  For Bootloader: "executable": "bin/targets/stm32l4_boot/app/apps/boot/boot.elf",
-            "device": "STM32L476RCT6",
+            "device": "nRF52832",
             //  Arm System View Description, downloaded from https://www.st.com/en/microcontrollers-microprocessors/stm32l476rc.html#
             "svdFile": "scripts/STM32L4x6.svd",
             "configFiles": [ 
                 //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
                 "interface/stlink-v2.cfg",
-                //  Previously: "target/stm32f1x.cfg",
-                "target/stm32l4x.cfg",
+                "target/nrf52.cfg",
                 //  Tell OpenOCD to run our custom debug commands.
-                //  Previously: "scripts/debug.ocd" 
-                "scripts/stm32l4/debug.ocd"
+                "scripts/nrf52/debug.ocd"
             ],
             "preLaunchCommands": [
                 //  Before loading the Application, run these gdb commands.

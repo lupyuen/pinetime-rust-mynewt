@@ -66,7 +66,15 @@ pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  { 
 /// ]}
 /// ```
 fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
-    console::print("Rust send_sensor_data\n");
+    console::print("Rust send_sensor_data: ");
+    if let SensorValueType::Uint(i) = val.value {
+        console::print_strn(val.key);
+        console::print("=");
+        console::printint(i as i32);
+    }
+    console::print("\n");
+    console::flush(); ////
+
     //  Get a randomly-generated device ID that changes each time we restart the device.
     let device_id = sensor_network::get_device_id() ? ;
 

@@ -7,7 +7,7 @@ set -x  #  Echo all commands.
 #  TODO: STM32L4
 mynewt_build_app=nrf52_my_sensor
 rust_build_target=thumbv7em-none-eabihf
-cp .vscode/launch-stm32l4.json .vscode/launch.json
+cp .vscode/launch-nrf52.json .vscode/launch.json
 
 #  TODO: STM32L4
 #  mynewt_build_app=stm32l4_my_sensor

@@ -126,7 +126,14 @@ mod app_network {
     /// ]}
     /// ```
     fn send_sensor_data(val: &SensorValue) -> MynewtResult<()> {
-        console::print("Rust send_sensor_data\n");
+        console::print("Rust send_sensor_data: ");
+        if let SensorValueType::Uint(i) = val.value {
+            console::print_strn(val.key);
+            console::print("=");
+            console::printint(i as i32);
+        }
+        console::print("\n");
+        console::flush();
         let device_id = sensor_network::get_device_id()?;
         let rc = sensor_network::init_server_post(&Strn::new(b"\0"))?;
         if !rc { return Err(MynewtError::SYS_EAGAIN); }
@@ -318,7 +325,7 @@ mod app_sensor {
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stub_0\x00"),};
     ///  Poll sensor every 19,000 milliseconds (19 seconds)  
-    const SENSOR_POLL_TIME: u32 = (19 * 1000);
+    const SENSOR_POLL_TIME: u32 = (10 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};
