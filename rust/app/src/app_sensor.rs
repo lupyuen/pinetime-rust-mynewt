@@ -33,7 +33,8 @@ use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
 use crate::app_network;                     //  Import `app_network.rs` for sending sensor data
 
 ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
-static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
+//static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
+static SENSOR_DEVICE: Strn      = init_strn!("temp_stub_0");
 ///  Poll sensor every 19,000 milliseconds (19 seconds)  
 const SENSOR_POLL_TIME: u32     = (19 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server

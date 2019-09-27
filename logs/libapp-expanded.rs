@@ -70,11 +70,15 @@ mod app_network {
 
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
+    //sensor_network::start_server_transport()
+    //.expect("NET fail");
 
     //  Start polling the temperature sensor every 10 seconds in the background.
     //  If this is a standby wakeup, the server transport must already be started.
 
     //  Start polling the GPS.
+    //gps_sensor::start_gps_listener()
+    //.expect("GPS fail");
 
     //  Main event loop
     //  Loop forever...
@@ -312,7 +316,7 @@ mod app_sensor {
     use crate::app_network;
     ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
     static SENSOR_DEVICE: Strn =
-        Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stm32_0\x00"),};
+        Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stub_0\x00"),};
     ///  Poll sensor every 19,000 milliseconds (19 seconds)  
     const SENSOR_POLL_TIME: u32 = (19 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
@@ -383,9 +387,7 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    sensor_network::start_server_transport().expect("NET fail");
     app_sensor::start_sensor_listener().expect("TMP fail");
-    gps_sensor::start_gps_listener().expect("GPS fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

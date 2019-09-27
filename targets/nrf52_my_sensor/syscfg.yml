@@ -67,3 +67,5 @@ syscfg.vals:
     ADC_1:                  0  # Enable port ADC1
     TEMP_STM32:             0  # Enable STM32 internal temperature sensor
     HMAC_PRNG:              0  # Enable HMAC PRNG pseudorandom number generator
+    TEMP_STUB:              1  # Enable stub temperature sensor
+    
