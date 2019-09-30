@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#  Flash Mynewt Bootloader to nRF52 with ST-Link on macOS and Linux
+#  Flash Mynewt Application to nRF52 with ST-Link on macOS and Linux
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
@@ -12,4 +12,4 @@ openocd/bin/openocd \
     -c "transport select hla_swd" \
     -c "set WORKAREASIZE 0" \
     -f target/nrf52.cfg \
-    -f scripts/nrf52/flash-boot.ocd
+    -f scripts/nrf52/flash-app.ocd

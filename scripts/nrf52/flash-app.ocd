@@ -1,0 +1,38 @@
+# This is an OpenOCD script that connects to the STM32 Blue Pill and flashes the Application ROM.
+# Used by tasks.json for "Load bluepill_my_sensor" command.
+# Equivalent to "newt load -v bluepill_my_sensor".
+# openocd -f scripts/flash-init.ocd -f interface/stlink-v2.cfg -f target/stm32l4x.cfg -f scripts/flash-app.ocd
+
+# Connect to the device.
+init
+
+# Enable ARM semihosting to show debug console output in OpenOCD console.
+arm semihosting enable
+
+echo "Stopping Blue Pill..."
+reset halt
+echo ""
+
+echo "Current flash info..."
+flash banks; flash list; flash probe 0
+# flash info 0 sectors  #  Show details of each sector.
+echo ""
+
+# Unlock will fail if Blue Pill is locked, need to mass erase first.  See flash-boot.ocd.
+echo "Unlocking Blue Pill..."
+stm32l4x unlock 0  # Unlock will allow flash to be read after flashing.
+echo ""
+
+# Application address must sync with hw/bsp/stm32l4/bsp.yml
+echo "Flashing Application to Blue Pill..."
+flash write_image erase unlock bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x08004000
+flash verify_bank 0            bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img 0x00004000
+echo ""
+
+# Restart the device.
+echo "Restarting Blue Pill..."
+reset halt
+echo ""
+
+echo "**** Done!"
+exit
