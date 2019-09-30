@@ -17,7 +17,7 @@
  * under the License.
  */
 //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
-//!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
+//!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/nrf52/apps/my_sensor_app/OLDsrc/sensor.c
 
 use mynewt::{
     result::*,                              //  Import Mynewt API Result and Error types
@@ -35,8 +35,7 @@ use crate::app_network;                     //  Import `app_network.rs` for send
 ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
 //static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stub_0");
-///  Poll sensor every 19,000 milliseconds (19 seconds)  
-//const SENSOR_POLL_TIME: u32     = (19 * 1000);  
+///  Poll sensor every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32     = (10 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
 const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
@@ -53,7 +52,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
         .next()             //  Fetch the first sensor that matches
         .expect("no TMP");  //  Stop if no sensor found
 
-    //  At power on, we ask Mynewt to poll our temperature sensor every 19 seconds.
+    //  At power on, we ask Mynewt to poll our temperature sensor every 10 seconds.
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
 
     // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data

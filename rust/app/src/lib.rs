@@ -48,11 +48,10 @@ use mynewt::{
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
-    //  Initialise the Mynewt packages and Blue Pill internal temperature sensor driver.
-    //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
+    //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
-    //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+    //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
@@ -60,7 +59,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         //.expect("NET fail");
 
     //  Start polling the temperature sensor every 10 seconds in the background.
-    //  If this is a standby wakeup, the server transport must already be started.
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
 
@@ -68,7 +66,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //gps_sensor::start_gps_listener()
         //.expect("GPS fail");
 
-    //  Start Bluetooth LE.
+    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting BLE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
