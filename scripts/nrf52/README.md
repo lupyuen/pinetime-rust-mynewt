@@ -17,3 +17,9 @@
 [`flash-init.ocd`](flash-init.ocd): OpenOCD initialisation script called by `flash-boot.ocd` and `flash-app.ocd`
 
 [`debug.ocd`](debug.ocd): OpenOCD script for debugging the application. Called by `.vscode/launch-nrf52.json`
+
+[`swd-pi.ocd`](swd-pi.ocd): OpenOCD script for removing nRF52 flash protection on Raspberry Pi
+
+[`swd-pi.sh`](swd-pi.sh): Shell script that invokes `swd-pi.ocd`
+
+[`swd-pi.log`](swd-pi.log): Sample log from `swd-pi.sh`
