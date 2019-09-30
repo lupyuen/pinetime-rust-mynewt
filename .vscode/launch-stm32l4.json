@@ -15,7 +15,7 @@
             //  For Bootloader: "executable": "bin/targets/stm32l4_boot/app/apps/boot/boot.elf",
             "device": "STM32L476RCT6",
             //  Arm System View Description, downloaded from https://www.st.com/en/microcontrollers-microprocessors/stm32l476rc.html#
-            "svdFile": "scripts/STM32L4x6.svd",
+            "svdFile": "scripts/stm32l4/STM32L4x6.svd",
             "configFiles": [ 
                 //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
                 "interface/stlink-v2.cfg",

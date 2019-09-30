@@ -401,7 +401,7 @@ extern "C" fn main() -> ! {
     let rc = unsafe { start_ble() };
     if !(rc == 0) {
         {
-            ::core::panicking::panic(&("BLE fail", "rust\\app\\src\\lib.rs",
+            ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
                                        72u32, 5u32))
         }
     };
