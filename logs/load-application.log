@@ -1,44 +1,40 @@
+> Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\nrf52\flash-app.cmd && echo ✅ ◾ ️Done! " <
 
-> Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\stm32l4\flash-app.cmd && echo ✅ ◾ ️Done! " <
 
-
-c:\stm32bluepill-mynewt-sensor>openocd\bin\openocd.exe -f scripts/stm32l4/flash-init.ocd -f interface/stlink.cfg -c "transport select hla_swd" -f target/stm32l4x.cfg -f scripts/stm32l4/flash-app.ocd
+c:\stm32bluepill-mynewt-sensor>openocd\bin\openocd.exe     -f scripts/nrf52/flash-init.ocd     -f interface/stlink.cfg     -c "transport select hla_swd"     -f target/nrf52.cfg     -f scripts/nrf52/flash-app.ocd  
 GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-18-11:42)
 Licensed under GNU GPL v2
 For bug reports, read
         http://openocd.org/doc/doxygen/bugs.html
 debug_level: 0
 hla_swd
-adapter speed: 500 kHz  
-adapter_nsrst_delay: 100
-none separate
+adapter speed: 1000 kHz
+force hard breakpoints 
+Error: libusb_open() failed with LIBUSB_ERROR_NOT_SUPPORTED
 semihosting is enabled
-Stopping Blue Pill... 
-adapter speed: 500 kHz
-target halted due to debug-request, current mode: Thread
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20018000, semihosting     
-
-Current flash info...
-#0 : stm32l4x.flash (stm32l4x) at 0x00000000, size 0x00000000, buswidth 0, chipwidth 0
-flash 'stm32l4x' found at 0x08000000
-
-Unlocking Blue Pill...
-
-Flashing Application to Blue Pill...
-auto erase enabled
-auto unlock enabled
-target halted due to breakpoint, current mode: Thread
-xPSR: 0x61000000 pc: 0x2000004e msp: 0x20018000, semihosting     
-wrote 86016 bytes from file bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img in 3.392277s (24.762 KiB/s)
-read 84688 bytes from file bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img and flash bank 0 at offset 0x00004000 in 1.803572s (45.855 KiB/s)
-contents match
-
-Restarting Blue Pill...
-adapter speed: 500 kHz
+Stopping...
 target halted due to debug-request, current mode: Thread    
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x20018000, semihosting
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+
+Flashing Application...
+target halted due to debug-request, current mode: Thread    
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+** Programming Started **
+auto erase enabled
+target halted due to breakpoint, current mode: Thread       
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+wrote 155648 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img in 3.980969s (38.182 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread       
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+verified 152188 bytes in 0.400260s (371.311 KiB/s)
+** Verified OK **
+
+Restarting...
+target halted due to debug-request, current mode: Thread    
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 
 **** Done!
-✅ ◾ ️Done!
 
 Terminal will be reused by tasks, press any key to close it.

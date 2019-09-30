@@ -1,12 +1,14 @@
-> Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\stm32l4\image-app.cmd && echo ✅ ◾ ️Done! " <
+> Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\nrf52\image-app.cmd && echo ✅ ◾ ️Done! " <
 
 
-c:\stm32bluepill-mynewt-sensor>newt\newt.exe create-image -v stm32l4_my_sensor 1.0.0
+c:\stm32bluepill-mynewt-sensor>newt\newt.exe create-image -v nrf52_my_sensor 1.0.0
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/base64/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/cborattr/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
@@ -14,12 +16,11 @@ Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-myn
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/hw/bsp/stm32l4/src
-Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/hw/bsp/stm32l4/src/arch/cortex_m4/
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/hw/bsp/nrf52/src
+Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/hw/bsp/nrf52/src/arch/cortex_m4/
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/cmsis-core/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/adc/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/drivers/uart/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
@@ -27,29 +28,19 @@ Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-myn
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/hal/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/creator/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src
-Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m4/
+Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m4/  
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/adc_stm32l4/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/bc95g/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/buffered_serial/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/gps_l70r/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/hmac_prng/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/mynewt_rust/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
@@ -63,13 +54,26 @@ Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/sensor_coap
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/sensor_network/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/temp_stm32/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/tiny_gps_plus/src
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/temp_stub/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_my_sensor/generated/src
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/controller/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/drivers/nrf52/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/store/config/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/transport/ram/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/bin/targets/nrf52_my_sensor/generated/src
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/config/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/flash_map/src
@@ -92,55 +96,54 @@ Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-myn
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-App image successfully generated: c:/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
-Mem RAM: 0x20000000-0x20018000
-Mem FLASH: 0x8004000-0x8024000
+App image successfully generated: c:/stm32bluepill-mynewt-sensor/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+Mem FLASH: 0x8000-0x42000
+Mem RAM: 0x20000000-0x20010000
 
-c:\stm32bluepill-mynewt-sensor>newt\newt.exe size -v stm32l4_my_sensor
+c:\stm32bluepill-mynewt-sensor>newt\newt.exe size -v nrf52_my_sensor   
 Size of Application Image: app
-Mem FLASH: 0x8004000-0x8024000
-Mem RAM: 0x20000000-0x20018000
+Mem FLASH: 0x8000-0x42000
+Mem RAM: 0x20000000-0x20010000
   FLASH     RAM
-    402     462 *fill*
-   1452       8 apps_my_sensor_app.a
-   1926       0 crypto_tinycrypt.a
-    940       0 encoding_json.a
-    784     124 hw_bsp_stm32l4.a
+    526     306 *fill*
+    228       0 apps_my_sensor_app.a
+   2302       0 crypto_tinycrypt.a
+    401       0 encoding_base64.a
+    944       0 encoding_json.a
+    440     444 hw_bsp_nrf52.a
      52       0 hw_cmsis-core.a
-     32       0 hw_drivers_adc.a
     428       0 hw_drivers_uart_uart_hal.a
     154       0 hw_hal.a
-   3576     160 hw_mcu_stm_stm32_common.a
-   6822      32 hw_mcu_stm_stm32l4xx.a
+   4976     133 hw_mcu_nordic_nrf52xxx.a
       2       0 hw_sensor_creator.a
-   1528     260 hw_sensor.a
-   6850    8217 kernel_os.a
-   2766      50 libc_baselibc.a
-   2131     366 libs_adc_stm32l4.a
-   4718    1647 libs_bc95g.a
-    616       0 libs_buffered_serial.a
-   1727    1536 libs_gps_l70r.a
-    364     360 libs_hmac_prng.a
+   1516     260 hw_sensor.a
+   8508    8217 kernel_os.a
+   2562      50 libc_baselibc.a
     414       0 libs_mynewt_rust.a
-  19908     224 libs_rust_app.a
+  19383     224 libs_rust_app.a
   13367       0 libs_rust_libcore.a
-    735      40 libs_semihosting_console.a
+    736      40 libs_semihosting_console.a
    1356     229 libs_sensor_coap.a
-   1811     257 libs_sensor_network.a
-   1046     252 libs_temp_stm32.a
-   1720       0 libs_tiny_gps_plus.a
-   2453     394 net_oic.a
+   1157     209 libs_sensor_network.a
+    677     212 libs_temp_stub.a
+   2397     394 net_oic.a
+  35496    2109 nimble_controller.a
+   4026    1206 nimble_drivers_nrf52.a
+  44242    2783 nimble_host.a
+   1814     648 nimble_host_store_config.a
+    692    1096 nimble_transport_ram.a
+    712      42 sys_config.a
     334     128 sys_flash_map.a
       2       0 sys_log_modlog.a
     686      29 sys_mfg.a
      30       5 sys_sysinit.a
-     48       0 util_mem.a
-    156       0 stm32l4_my_sensor-sysinit-app.a
+    120       0 util_mem.a
+    164       0 nrf52_my_sensor-sysinit-app.a
 Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-  84136     480   14332   98948   18284 c:/stm32bluepill-mynewt-sensor/bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+ 151776     340   18024  170140   2989c c:/stm32bluepill-mynewt-sensor/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf   
 ✅ ◾ ️Done! 
 
 Terminal will be reused by tasks, press any key to close it.

@@ -62,11 +62,10 @@ mod app_network {
 
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
-    //  Initialise the Mynewt packages and Blue Pill internal temperature sensor driver.
-    //  Start the CoAP / OIC Background Task to transmit CoAP messages.  Any startup
+    //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
-    //  bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c
+    //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
@@ -74,13 +73,12 @@ mod app_network {
     //.expect("NET fail");
 
     //  Start polling the temperature sensor every 10 seconds in the background.
-    //  If this is a standby wakeup, the server transport must already be started.
 
     //  Start polling the GPS.
     //gps_sensor::start_gps_listener()
     //.expect("GPS fail");
 
-    //  Start Bluetooth LE.
+    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting BLE.
 
     //  Main event loop
     //  Loop forever...
@@ -318,7 +316,7 @@ mod app_network {
 }
 mod app_sensor {
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
-    //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/sensor.c
+    //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/nrf52/apps/my_sensor_app/OLDsrc/sensor.c
     use mynewt::{result::*, hw::sensor_mgr, hw::sensor::{self, sensor_type_t},
                  sys::console, Strn};
     use mynewt_macros::{init_strn};
@@ -326,7 +324,7 @@ mod app_sensor {
     ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stub_0\x00"),};
-    ///  Poll sensor every 19,000 milliseconds (19 seconds)  
+    ///  Poll sensor every 10,000 milliseconds (10 seconds)  
     const SENSOR_POLL_TIME: u32 = (10 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
@@ -403,8 +401,8 @@ extern "C" fn main() -> ! {
     let rc = unsafe { start_ble() };
     if !(rc == 0) {
         {
-            ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
-                                       74u32, 5u32))
+            ::core::panicking::panic(&("BLE fail", "rust\\app\\src\\lib.rs",
+                                       72u32, 5u32))
         }
     };
     loop  {
