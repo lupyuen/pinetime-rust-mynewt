@@ -62,7 +62,7 @@ static void ble_app_advertise(void) {
     //  Arbitrarily set the UUID to a string of 0x11 bytes.
     memset(uuid128, 0x11, sizeof uuid128);
 
-    //  Set iBeacon parameters: Major version=2; minor version=10; RSSI=-60.
+    //  Set iBeacon parameters: Major=2, Minor=10, RSSI=-60.
     //  RSSI is the Measured Power ranging data (Calibrated tx power at 1 meters). Must be > -126 and < 20.
     rc = ble_ibeacon_set_adv_data(uuid128, 2, 10, -60);  //  TODO: Verify RSSI for your device.
     assert(rc == 0);
