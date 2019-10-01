@@ -321,7 +321,7 @@ mod app_sensor {
                  sys::console, Strn};
     use mynewt_macros::{init_strn};
     use crate::app_network;
-    ///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
+    ///  Sensor to be polled: `temp_stub_0` is the stub temperature sensor that simulates a temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stub_0\x00"),};
     ///  Poll sensor every 10,000 milliseconds (10 seconds)  

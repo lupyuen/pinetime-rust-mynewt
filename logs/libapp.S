@@ -401,7 +401,7 @@ Disassembly of section .text._ZN3app10app_sensor21start_sensor_listener17h090884
 
 00000000 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E>:
 _ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:47
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:46
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)
 const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_RAW;
 
@@ -410,14 +410,14 @@ const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
    0:	b5f0      	push	{r4, r5, r6, r7, lr}
    2:	b0bd      	sub	sp, #244	; 0xf4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:48
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:47
     console::print("Rust TMP poll\n");
    4:	f240 0000 	movw	r0, #0
    8:	f2c0 0000 	movt	r0, #0
    c:	210e      	movs	r1, #14
    e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h0f65bc3b0e739871E>
   12:	e7ff      	b.n	2 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:51
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:50
 
     //  Fetch the sensor by name.
     let sensor = sensor_mgr::find_bydevname(&SENSOR_DEVICE)
@@ -439,7 +439,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   3e:	f7ff fffe 	bl	0 <_ZN4core6option15Option$LT$T$GT$6expect17h0fd15c4bf762390eE>
   42:	900c      	str	r0, [sp, #48]	; 0x30
   44:	e7ff      	b.n	46 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
         .next()             //  Fetch the first sensor that matches
         .expect("no TMP");  //  Stop if no sensor found
 
@@ -467,14 +467,14 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   76:	2801      	cmp	r0, #1
   78:	d001      	beq.n	7e <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x7e>
   7a:	e7ff      	b.n	7c <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x7c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
     //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
 
     //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
   7c:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   7e:	9811      	ldr	r0, [sp, #68]	; 0x44
   80:	9012      	str	r0, [sp, #72]	; 0x48
@@ -487,14 +487,14 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   92:	900b      	str	r0, [sp, #44]	; 0x2c
   94:	e7ff      	b.n	96 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x96>
   96:	e002      	b.n	9e <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
   98:	980b      	ldr	r0, [sp, #44]	; 0x2c
   9a:	b03d      	add	sp, #244	; 0xf4
   9c:	bdf0      	pop	{r4, r5, r6, r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
     sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   9e:	e7fb      	b.n	98 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x98>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
     let listener = sensor::new_sensor_listener(
   a0:	f240 0000 	movw	r0, #0
   a4:	f2c0 0000 	movt	r0, #0
@@ -511,7 +511,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   c4:	a922      	add	r1, sp, #136	; 0x88
   c6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h470504b6f43ee880E>
   ca:	e7ff      	b.n	cc <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0xcc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:62
     ) ? ;
   cc:	981a      	ldr	r0, [sp, #104]	; 0x68
   ce:	2800      	cmp	r0, #0
@@ -535,7 +535,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   f6:	e7ff      	b.n	f8 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0xf8>
   f8:	e7d1      	b.n	9e <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x9e>
   fa:	a81a      	add	r0, sp, #104	; 0x68
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
     let listener = sensor::new_sensor_listener(
   fc:	3008      	adds	r0, #8
   fe:	a92c      	add	r1, sp, #176	; 0xb0
@@ -546,7 +546,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  10c:	4602      	mov	r2, r0
  10e:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
  112:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:65
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
  116:	990c      	ldr	r1, [sp, #48]	; 0x30
  118:	aa34      	add	r2, sp, #208	; 0xd0
@@ -586,12 +586,12 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  168:	e7ff      	b.n	16a <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x16a>
  16a:	e7c5      	b.n	f8 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0xf8>
  16c:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:68
     Ok(())
  16e:	900b      	str	r0, [sp, #44]	; 0x2c
  170:	2001      	movs	r0, #1
  172:	900b      	str	r0, [sp, #44]	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
  174:	e790      	b.n	98 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x98>
 
 app-b90ce02d7e477c3f.35j0kb8s1vhb4ukq.rcgu.o:     file format elf32-littlearm

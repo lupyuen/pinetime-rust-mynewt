@@ -32,8 +32,7 @@ use mynewt::{
 use mynewt_macros::{ init_strn };           //  Import Mynewt procedural macros
 use crate::app_network;                     //  Import `app_network.rs` for sending sensor data
 
-///  Sensor to be polled: `temp_stm32_0` is the internal temperature sensor
-//static SENSOR_DEVICE: Strn      = init_strn!("temp_stm32_0");
+///  Sensor to be polled: `temp_stub_0` is the stub temperature sensor that simulates a temperature sensor
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stub_0");
 ///  Poll sensor every 10,000 milliseconds (10 seconds)  
 const SENSOR_POLL_TIME: u32     = (10 * 1000);  
