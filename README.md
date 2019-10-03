@@ -19,15 +19,15 @@
 #
 -->
 
-# NB-IoT GPS Tracker Application for STM32 L476 with Apache Mynewt and Embedded Rust based on Quectel L70-R GPS module and Quectel BC95 NB-IoT module
+# iBeacon Sensor Application for nRF52 with Apache Mynewt and Embedded Rust
 
-This `l476` branch contains the source code for an NB-IoT GPS Tracker that has been tested on the [Ghostyu NB-EK-L476 Developer Kit (STM32L476RCT6)](https://medium.com/@ly.lee/quick-peek-of-huawei-liteos-with-nb-iot-on-ghostyu-nb-ek-l476-developer-kit-2bbfb7f2fbcc?source=friends_link&sk=37f71270cd52f497fb6fb8139917031c). Refer to the tutorials...
+This `nrf52` branch contains the source code for an iBeacon Sensor Application for nRF52 with Apache Mynewt and Embedded Rust that has been tested on the [EBYTE E73-TBB Development Board](http://www.ebyte.com/product-view-news.aspx?id=644). Refer to the tutorial...
 
-[_Build an NB-IoT GPS Tracker on STM32 L476 with Apache Mynewt and Embedded Rust_](https://medium.com/@ly.lee/build-an-nb-iot-gps-tracker-on-stm32-l476-with-apache-mynewt-and-embedded-rust-8c095a925546?source=friends_link&sk=f3e802795d4fd7d569f0d67679e8c9e6)
-
-[_Rust Rocks NB-IoT! STM32 Blue Pill with Quectel BC95-G on Apache Mynewt_](https://medium.com/@ly.lee/rust-rocks-nb-iot-stm32-blue-pill-with-quectel-bc95-g-on-apache-mynewt-ef62a7e28f7e?sk=aaa21371f68a07c543066b6b89a760f0)
+[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004)
 
 # Fixes for Mynewt type conversion build warnings
+
+These fixes should be applied manually when upgrading Mynewt or installing Mynewt from scratch.
 
 1️⃣ `repos/apache-mynewt-core/kernel/os/include/os/os_mutex.h` line 122 <br>
 ```C
@@ -163,7 +163,7 @@ project.repositories:
 
 repository.apache-mynewt-core:
     type: github
-    vers: 1.6.0
+    vers: 1.7.0
     user: apache
     repo: mynewt-core
 ```
