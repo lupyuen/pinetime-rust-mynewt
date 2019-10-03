@@ -105,55 +105,56 @@ sudo apt install newt -y
 which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
-echo "***** Installing mynewt..."
+# echo "***** Installing mynewt..."
 
-#  Remove the existing Mynewt OS in "repos"
-if [ -d repos ]; then
-    rm -rf repos
-fi
+# #  Remove the existing Mynewt OS in "repos"
+# if [ -d repos ]; then
+#     rm -rf repos
+# fi
 
-#  Download Mynewt OS into the current project folder, under "repos" subfolder.
-set +e              #  TODO: Remove this when newt install is fixed
-newt install -v -f  #  TODO: "git checkout" fails due to uncommitted files
-set -e              #  TODO: Remove this when newt install is fixed
+# #  Download Mynewt OS into the current project folder, under "repos" subfolder.
+# set +e              #  TODO: Remove this when newt install is fixed
+# newt install -v -f  #  TODO: "git checkout" fails due to uncommitted files
+# set -e              #  TODO: Remove this when newt install is fixed
 
-#  If you see "Error: Unknown subcommand: get-url"
-#  then upgrade git as shown above.
+# #  If you see "Error: Unknown subcommand: get-url"
+# #  then upgrade git as shown above.
 
-echo "***** Reparing mynewt..."
+# echo "***** Reparing mynewt..."
 
-#  TODO: newt install fails due to uncommitted files. Need to check out manually.
+# #  TODO: newt install fails due to uncommitted files. Need to check out manually.
 
-#  Check out core
-if [ -d repos/apache-mynewt-core ]; then
-    pushd repos/apache-mynewt-core
-    git checkout $mynewt_version -f
-    popd
-fi
-#  Check out nimble
-if [ -d repos/apache-mynewt-nimble ]; then
-    pushd repos/apache-mynewt-nimble
-    git checkout $nimble_version -f
-    popd
-fi
-#  Check out mcuboot
-if [ -d repos/mcuboot ]; then
-    pushd repos/mcuboot
-    git checkout $mcuboot_version -f
-    popd
-fi
+# #  Check out core
+# if [ -d repos/apache-mynewt-core ]; then
+#     pushd repos/apache-mynewt-core
+#     git checkout $mynewt_version -f
+#     popd
+# fi
+# #  Check out nimble
+# if [ -d repos/apache-mynewt-nimble ]; then
+#     pushd repos/apache-mynewt-nimble
+#     git checkout $nimble_version -f
+#     popd
+# fi
+# #  Check out mcuboot
+# if [ -d repos/mcuboot ]; then
+#     pushd repos/mcuboot
+#     git checkout $mcuboot_version -f
+#     popd
+# fi
 
-#  If apache-mynewt-core is missing, then the installation failed.
-if [ ! -d repos/apache-mynewt-core ]; then
-    echo "***** newt install failed"
-    exit 1
-fi
+# #  If apache-mynewt-core is missing, then the installation failed.
+# if [ ! -d repos/apache-mynewt-core ]; then
+#     echo "***** newt install failed"
+#     exit 1
+# fi
 
-#  If apache-mynewt-nimble is missing, then the installation failed.
-if [ ! -d repos/apache-mynewt-nimble ]; then
-    echo "***** newt install failed"
-    exit 1
-fi
+# #  If apache-mynewt-nimble is missing, then the installation failed.
+# if [ ! -d repos/apache-mynewt-nimble ]; then
+#     echo "***** newt install failed"
+#     exit 1
+# fi
+# echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
 
 set +x  #  Stop echoing all commands.
-echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions

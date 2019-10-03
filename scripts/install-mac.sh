@@ -162,15 +162,16 @@ fi
 which newt    #  Should show "/usr/local/bin/newt"
 newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
-echo "***** Installing mynewt..."
+# echo "***** Installing mynewt..."
 
-#  Remove the existing Mynewt OS in "repos"
-if [ -d repos ]; then
-    rm -rf repos
-fi
+# #  Remove the existing Mynewt OS in "repos"
+# if [ -d repos ]; then
+#     rm -rf repos
+# fi
 
-#  Download Mynewt OS into the current project folder, under "repos" subfolder.
-newt install -v -f
+# #  Download Mynewt OS into the current project folder, under "repos" subfolder.
+# newt install -v -f
+# echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
 
 set +x  #  Stop echoing all commands.
-echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
+echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
