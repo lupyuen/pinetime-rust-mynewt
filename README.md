@@ -27,10 +27,50 @@ This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Applicat
 
 # TODO
 
-For macOS:
+- Button1, Button2, and LED1 to application key 1. It then configures Button1 and Button2
+  to publish to group 0xC000 and LED1 to subscribe to that group.
+- Button3, Button4, and LED3 to application key 1. It then configures Button3 and Button4
+  to publish to group 0xC000 and LED3 to subscribe to that group.
+
+For Raspberry Pi:
+https://learn.adafruit.com/install-bluez-on-the-raspberry-pi?view=all
 
 ```
-brew install bluez
+wget http://www.kernel.org/pub/linux/bluetooth/bluez-5.51.tar.xz
+tar -xvf bluez-5.51.tar.xz
+cd bluez-5.51/
+sudo apt-get update
+sudo apt-get install -y libusb-dev libdbus-1-dev libglib2.0-dev libudev-dev libical-dev libreadline-dev libjson-c-dev
+nano src/main.conf
+<<
+AutoEnable=false
+>>
+./configure --enable-mesh --enable-debug
+make
+sudo make install
+sudo systemctl disable bluetooth
+sudo systemctl disable bluetooth-mesh
+
+sudo systemctl daemon-reload
+sudo systemctl restart bluetooth
+sudo systemctl restart bluetooth-mesh
+systemctl status bluetooth
+systemctl status bluetooth-mesh
+
+meshctl
+discover-unprovisioned on
+provision <discovered UUID>
+menu config
+target 0100
+appkey-add 1
+bind 0 1 1000
+bind 0 1 1001
+bind 0 1 1002
+bind 0 1 1003
+sub-add 0100 c000 1000
+sub-add 0100 c000 1002
+pub-set 0100 c000 1 0 5 1001
+pub-set 0100 c000 1 0 5 1003
 ```
 
 #### Bluetooth: Mesh Generic OnOff, Generic Level, Lighting & Vendor Models
