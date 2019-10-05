@@ -19,11 +19,11 @@
 #
 -->
 
-# iBeacon Sensor Application for nRF52 with Apache Mynewt and Embedded Rust
+# Bluetooth Mesh Sensor Application for nRF52 with Apache Mynewt and Embedded Rust
 
-This `nrf52` branch contains the source code for an iBeacon Sensor Application for nRF52 with Apache Mynewt and Embedded Rust that has been tested on the [EBYTE E73-TBB Development Board](http://www.ebyte.com/product-view-news.aspx?id=644). Refer to the tutorial...
+This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Application for nRF52 with Apache Mynewt and Embedded Rust that has been tested on the [EBYTE E73-TBB Development Board](http://www.ebyte.com/product-view-news.aspx?id=644). Refer to the tutorial...
 
-[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004)
+[_???_](???)
 
 # Fixes for Mynewt type conversion build warnings
 
