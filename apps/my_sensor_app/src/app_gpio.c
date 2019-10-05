@@ -32,18 +32,18 @@
 #include "app_gpio.h"
 #include "publisher.h"
 
-int button_device[] = {
+int button_device[2] = {
 	BUTTON_1,
 	BUTTON_2,
-	BUTTON_3,
-	BUTTON_4,
+	// BUTTON_3,
+	// BUTTON_4,
 };
 
-int led_device[] = {
+int led_device[2] = {
 	LED_1,
 	LED_2,
-	LED_3,
-	LED_4,
+	// LED_3,
+	// LED_4,
 };
 
 static struct os_callout button_work;
@@ -67,8 +67,8 @@ void app_gpio_init(void)
 
 	hal_gpio_init_out(led_device[0], 1);
 	hal_gpio_init_out(led_device[1], 1);
-	hal_gpio_init_out(led_device[2], 1);
-	hal_gpio_init_out(led_device[3], 1);
+	// hal_gpio_init_out(led_device[2], 1);
+	// hal_gpio_init_out(led_device[3], 1);
 
 	/* Buttons configiuratin & setting */
 
@@ -84,12 +84,12 @@ void app_gpio_init(void)
 			  HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
 	hal_gpio_irq_enable(button_device[1]);
 
-	hal_gpio_irq_init(button_device[2], gpio_irq_handler, NULL,
-			  HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
-	hal_gpio_irq_enable(button_device[2]);
+	// hal_gpio_irq_init(button_device[2], gpio_irq_handler, NULL,
+			  //  HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
+	// hal_gpio_irq_enable(button_device[2]);
 
-	hal_gpio_irq_init(button_device[3], gpio_irq_handler, NULL,
-			  HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
-	hal_gpio_irq_enable(button_device[3]);
+	//  hal_gpio_irq_init(button_device[3], gpio_irq_handler, NULL,
+			  //  HAL_GPIO_TRIG_FALLING, HAL_GPIO_PULL_UP);
+	//  hal_gpio_irq_enable(button_device[3]);
 }
 

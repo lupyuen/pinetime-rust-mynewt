@@ -467,15 +467,10 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   76:	2801      	cmp	r0, #1
   78:	d001      	beq.n	7e <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x7e>
   7a:	e7ff      	b.n	7c <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x7c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
-    //  Register the Listener Function to be called with the polled sensor data.
-    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
-
-    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
-    Ok(())
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/*
   7c:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
-    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   7e:	9811      	ldr	r0, [sp, #68]	; 0x44
   80:	9012      	str	r0, [sp, #72]	; 0x48
   82:	9812      	ldr	r0, [sp, #72]	; 0x48
@@ -487,14 +482,15 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   92:	900b      	str	r0, [sp, #44]	; 0x2c
   94:	e7ff      	b.n	96 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x96>
   96:	e002      	b.n	9e <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
   98:	980b      	ldr	r0, [sp, #44]	; 0x2c
   9a:	b03d      	add	sp, #244	; 0xf4
   9c:	bdf0      	pop	{r4, r5, r6, r7, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
-    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   9e:	e7fb      	b.n	98 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x98>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
+
+    // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
     let listener = sensor::new_sensor_listener(
   a0:	f240 0000 	movw	r0, #0
   a4:	f2c0 0000 	movt	r0, #0
@@ -512,6 +508,9 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   c6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h470504b6f43ee880E>
   ca:	e7ff      	b.n	cc <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0xcc>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:62
+        &TEMP_SENSOR_KEY,   //  Transmit as field: `t`
+        TEMP_SENSOR_TYPE,   //  Type of sensor data: Raw temperature (integer from 0 to 4095)
+        app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
     ) ? ;
   cc:	981a      	ldr	r0, [sp, #104]	; 0x68
   ce:	2800      	cmp	r0, #0
@@ -547,6 +546,8 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  10e:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
  112:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:65
+
+    //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
  116:	990c      	ldr	r1, [sp, #48]	; 0x30
  118:	aa34      	add	r2, sp, #208	; 0xd0
@@ -587,11 +588,13 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  16a:	e7c5      	b.n	f8 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0xf8>
  16c:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:68
+
+    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
  16e:	900b      	str	r0, [sp, #44]	; 0x2c
  170:	2001      	movs	r0, #1
  172:	900b      	str	r0, [sp, #44]	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  174:	e790      	b.n	98 <_ZN3app10app_sensor21start_sensor_listener17h09088494e967a630E+0x98>
 
 app-b90ce02d7e477c3f.35j0kb8s1vhb4ukq.rcgu.o:     file format elf32-littlearm
@@ -2180,7 +2183,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt7sysinit17hfbb6001f0140a448E
 00000000 g     F .text.main	0000007c main
 00000000 g     F .text.rust_begin_unwind	000000ac rust_begin_unwind
-00000000         *UND*	00000000 start_ble
+00000000         *UND*	00000000 start_mesh
 
 
 
@@ -2219,15 +2222,15 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   18:	2208      	movs	r2, #8
   1a:	9802      	ldr	r0, [sp, #8]
   1c:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hda19e15c4ec13e31E>
-  20:	e7ff      	b.n	2 <start_ble+0x2>
+  20:	e7ff      	b.n	2 <start_mesh+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:71
     //gps_sensor::start_gps_listener()
         //.expect("GPS fail");
 
-    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting BLE.
-    extern { fn start_ble() -> i32; }
-    let rc = unsafe { start_ble() };
-  22:	f7ff fffe 	bl	0 <start_ble>
+    //  Start Bluetooth Mesh.  TODO: Create a safe wrapper for starting Bluetooth Mesh.
+    extern { fn start_mesh() -> i32; }
+    let rc = unsafe { start_mesh() };
+  22:	f7ff fffe 	bl	0 <start_mesh>
   26:	9003      	str	r0, [sp, #12]
   28:	e7ff      	b.n	2a <main+0x2a>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:72

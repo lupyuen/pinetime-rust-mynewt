@@ -78,7 +78,7 @@ mod app_network {
     //gps_sensor::start_gps_listener()
     //.expect("GPS fail");
 
-    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting BLE.
+    //  Start Bluetooth Mesh.  TODO: Create a safe wrapper for starting Bluetooth Mesh.
 
     //  Main event loop
     //  Loop forever...
@@ -396,9 +396,9 @@ extern "C" fn main() -> ! {
     mynewt::sysinit();
     app_sensor::start_sensor_listener().expect("TMP fail");
     extern "C" {
-        fn start_ble() -> i32;
+        fn start_mesh() -> i32;
     }
-    let rc = unsafe { start_ble() };
+    let rc = unsafe { start_mesh() };
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",

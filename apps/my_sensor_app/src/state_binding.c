@@ -35,30 +35,31 @@
 u16_t lightness, target_lightness;
 s16_t temperature, target_temperature;
 
-static s32_t ceiling(float num)
-{
-	s32_t inum;
+////  TODO: Use sqrt()
+// static s32_t ceiling(float num)
+// {
+// 	s32_t inum;
 
-	inum = (s32_t) num;
-	if (num == (float) inum) {
-		return inum;
-	}
+// 	inum = (s32_t) num;
+// 	if (num == (float) inum) {
+// 		return inum;
+// 	}
 
-	return inum + 1;
-}
+// 	return inum + 1;
+// }
 
 u16_t actual_to_linear(u16_t val)
 {
-	float tmp;
-
-	tmp = ((float) val / 65535);
-
-	return (u16_t) ceiling(65535 * tmp * tmp);
+	return val;  ////  TODO: Use sqrt()
+	// float tmp;
+	// tmp = ((float) val / 65535);
+	// return (u16_t) ceiling(65535 * tmp * tmp);
 }
 
 u16_t linear_to_actual(u16_t val)
 {
-	return (u16_t) (65535 * sqrt(((float) val / 65535)));
+	return val;  ////  TODO: Use sqrt()
+	// return (u16_t) (65535 * sqrt(((float) val / 65535)));
 }
 
 static void constrain_lightness(u16_t var)

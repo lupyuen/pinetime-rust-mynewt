@@ -149,18 +149,18 @@ void update_light_state(void)
 
 	if (power < 50) {
 		/* LED3 On */
-		hal_gpio_write(led_device[2], 0);
+		// hal_gpio_write(led_device[2], 0);
 	} else {
 		/* LED3 Off */
-		hal_gpio_write(led_device[2], 1);
+		// hal_gpio_write(led_device[2], 1);
 	}
 
 	if (color < 50) {
 		/* LED4 On */
-		hal_gpio_write(led_device[3], 0);
+		// hal_gpio_write(led_device[3], 0);
 	} else {
 		/* LED4 Off */
-		hal_gpio_write(led_device[3], 1);
+		// hal_gpio_write(led_device[3], 1);
 	}
 
 	if (*ptr_counter == 0 || reset == false) {

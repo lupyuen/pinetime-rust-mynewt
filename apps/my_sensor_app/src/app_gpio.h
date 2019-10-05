@@ -28,8 +28,8 @@
 #define _APP_GPIO_H
 
 /* GPIO */
-extern int button_device[];
-extern int led_device[];
+extern int button_device[2];
+extern int led_device[2];
 
 void app_gpio_init(void);
 
