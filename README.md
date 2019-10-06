@@ -33,29 +33,78 @@ This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Applicat
   to publish to group 0xC000 and LED3 to subscribe to that group.
 
 For Raspberry Pi:
-https://learn.adafruit.com/install-bluez-on-the-raspberry-pi?view=all
 
-```
-wget http://www.kernel.org/pub/linux/bluetooth/bluez-5.51.tar.xz
-tar -xvf bluez-5.51.tar.xz
-cd bluez-5.51/
-sudo apt-get update
-sudo apt-get install -y libusb-dev libdbus-1-dev libglib2.0-dev libudev-dev libical-dev libreadline-dev libjson-c-dev
-nano src/main.conf
+Developer Study Guide: Deploying
+BlueZ v5.50 on Raspberry Pi3
+Part 1 - Deployment
+https://3pl46c46ctx02p7rzdsvsg21-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/T1804_How-to-set-up-BlueZ_LFC_FINAL-1.pdf?utm_campaign=developer&utm_source=internal&utm_medium=blog&utm_content=Deploying-BlueZ-v5.50-on-Raspberry-Pi3-Update
+
+Kernel Building
+https://www.raspberrypi.org/documentation/linux/kernel/building.md
+
+```bash
+uname -a
 <<
-AutoEnable=false
+Linux raspberrypi 4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
 >>
-./configure --enable-mesh --enable-debug
-make
-sudo make install
-sudo systemctl disable bluetooth
-sudo systemctl disable bluetooth-mesh
+git clone --depth=1 --branch rpi-4.19.y https://github.com/raspberrypi/linux
+```
 
-sudo systemctl daemon-reload
-sudo systemctl restart bluetooth
-sudo systemctl restart bluetooth-mesh
-systemctl status bluetooth
-systemctl status bluetooth-mesh
+Configuring the kernel
+https://www.raspberrypi.org/documentation/linux/kernel/configuring.md
+
+Raspberry Pi 1, Pi Zero, Pi Zero W, and Compute Module default build configuration
+
+```bash
+cd linux
+KERNEL=kernel
+make bcmrpi_defconfig
+```
+
+Raspberry Pi 2, Pi 3, Pi 3+, and Compute Module 3 default build configuration
+```bash
+cd linux
+KERNEL=kernel7
+make bcm2709_defconfig
+```
+
+Raspberry Pi 4
+```
+cd linux
+KERNEL=kernel7l
+make bcm2711_defconfig
+```
+
+```bash
+make menuconfig
+```
+
+Please include the three modules below: (Press S to select)
+Select Cryptographic API ---> CMAC support
+Select Cryptographic API ---> User-space interface for hash algorithms
+Select Cryptographic API ---> User-space interface for symmetric key cipher algorithms 
+
+```bash
+make -j4 zImage modules dtbs
+sudo make modules_install
+sudo cp arch/arm/boot/dts/*.dtb /boot/
+sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
+sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/
+sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
+```
+
+How to Deploy BlueZ v5.50 on Raspberry Pi 3
+and Use It
+Part 2 — Provisioning 
+https://3pl46c46ctx02p7rzdsvsg21-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/Tutorial-How-to-set-up-BlueZ_Part2-3.pdf?utm_campaign=developer&utm_source=internal&utm_medium=blog&utm_content=Deploying-BlueZ-v5.50-on-Raspberry-Pi3-Update
+
+```bash
+sudo systemctl status bluetooth-mesh
+
+cd ~
+mkdir -p ~/.config/meshctl
+cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
+cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
 
 meshctl
 discover-unprovisioned on
