@@ -114,21 +114,142 @@ meshctl
 Failed to parse provisioning database file prov_db.json
 >>
 means need to install AEAD-AES_CCM encryption
-```
 
-```bash
-# sudo systemctl status bluetooth-mesh
-# cd ~
-# mkdir -p ~/.config/meshctl
-# cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
-# cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
-
-meshctl
 discover-unprovisioned on
+<<
+[meshctl]# discover-unprovisioned on
+SetDiscoveryFilter success
+Discovery started
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: yes
+		Mesh Provisioning Service (00001827-0000-1000-8000-00805f9b34fb)
+			Device UUID: dddd0000000000000000000000000000
+			OOB: 0000
+[NEW] Device 0E:EA:8D:AA:A0:8C nimble-mesh-node
+>>
+
 provision <discovered UUID>
+<<
+[meshctl]# provision dddd0000000000000000000000000000
+Trying to connect Device 0E:EA:8D:AA:A0:8C nimble-mesh-node
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: no
+Connection successful
+Service added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0006
+Service added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010
+Char added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0011:
+Char added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013:
+Services resolved yes
+Found matching char: path /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0011, uuid 00002adb-0000-1000-8000-00805f9b34fb
+Found matching char: path /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013, uuid 00002adc-0000-1000-8000-00805f9b34fb
+Start notification on /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013
+Characteristic property changed /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013
+AcquireNotify success: fd 7 MTU 256
+Notify for Mesh Provisioning Out Data started
+Open-Node: 0x9d2360
+Open-Prov: 0x9d7808
+Open-Prov: proxy 0x9cfa80
+Initiated provisioning
+Characteristic property changed /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0011
+AcquireWrite success: fd 8 MTU 256
+GATT-TX:	 03 00 10
+GATT-RX:	 03 01 02 00 01 00 00 06 00 18 00 00 00
+Got provisioning data (12 bytes)
+	 01 02 00 01 00 00 06 00 18 00 00 00
+GATT-TX:	 03 02 00 00 02 04 06
+GATT-TX:	 03 03 a3 be 9b ea 5b 8c 87 e2 48 54 3a b5 a8 a5
+GATT-TX:	 cd fc 44 e3 5c 7d 8f 2e 86 35 ba e0 5f 82 8a a1
+GATT-TX:	 fc c9 da d3 50 ad f4 35 e2 cc 69 e9 a0 57 62 5b
+GATT-TX:	 f9 4d 59 aa e3 cf 9e 0d 17 a0 1a dd 4e 97 73 aa
+GATT-TX:	 52 24
+GATT-RX:	 03 03 15 82 b8 23 f8 77 be 86 44 53 0a c3 fc 28
+GATT-RX:	 b8 8d 9b c2 85 98 3e 04 a6 5d b8 20 68 d5 e0 7e
+GATT-RX:	 6f a8 b8 2e 54 24 03 39 2c 99 07 a4 70 9e a4 ca
+GATT-RX:	 0f 78 f6 90 fb d2 c5 50 04 a2 13 2a 14 3f 61 c2
+GATT-RX:	 1f 90
+Got provisioning data (65 bytes)
+	 03 15 82 b8 23 f8 77 be 86 44 53 0a c3 fc 28 b8
+	 8d 9b c2 85 98 3e 04 a6 5d b8 20 68 d5 e0 7e 6f
+	 a8 b8 2e 54 24 03 39 2c 99 07 a4 70 9e a4 ca 0f
+	 78 f6 90 fb d2 c5 50 04 a2 13 2a 14 3f 61 c2 1f
+	 90
+[nimble]
+Request ASCII key (max characters 6)
+[mesh] Enter key (ascii string):
+>>
+
+Output Log:
+<<
+OOB String: L503A8
+>>
+
+<<
+[mesh] Enter key (ascii string): L503A8
+GATT-TX:	 03 05 24 3a e2 46 11 b4 6f 24 49 83 2b 10 c1 a5
+GATT-TX:	 05 9c
+[nimble]#
+>>
+
 menu config
+
+<<
+[nimble]# menu config
+Menu config:
+Available commands:
+-------------------
+target <unicast>                                  Set target node to configure
+composition-get [page_num]                        Get composition data
+netkey-add <net_idx>                              Add network key
+netkey-del <net_idx>                              Delete network key
+appkey-add <app_idx>                              Add application key
+appkey-del <app_idx>                              Delete application key
+bind <ele_idx> <app_idx> <mod_id> [cid]           Bind app key to a model
+mod-appidx-get <ele_addr> <model id>              Get model app_idx
+ttl-set <ttl>                                     Set default TTL
+ttl-get                                           Get default TTL
+pub-set <ele_addr> <pub_addr> <app_idx> <per (step|res)> <re-xmt (cnt|per)> <mod id> [cid]
+						  Set publication
+pub-get <ele_addr> <model>                        Get publication
+proxy-set <proxy>                                 Set proxy state
+proxy-get                                         Get proxy state
+ident-set <net_idx> <state>                       Set node identity state
+ident-get <net_idx>                               Get node identity state
+beacon-set <state>                                Set node identity state
+beacon-get                                        Get node beacon state
+relay-set <relay> <rexmt count> <rexmt steps>     Set relay
+relay-get                                         Get relay
+hb-pub-set <pub_addr> <count> <period> <ttl> <features> <net_idx> Set heartbeat publish
+hb-pub-get                                        Get heartbeat publish
+hb-sub-set <src_addr> <dst_addr> <period>         Set heartbeat subscribe
+hb-sub-get                                        Get heartbeat subscribe
+sub-add <ele_addr> <sub_addr> <model id>          Add subscription
+sub-get <ele_addr> <model id>                     Get subscription
+node-reset                                        Reset a node and remove it from network
+back                                              Return to main menu
+version                                           Display version
+quit                                              Quit program
+exit                                              Quit program
+help                                              Display help about this program
+export                                            Print evironment variables
+[nimble]#
+>>
+
 target 0100
+
+<<
+[nimble]# target 0100
+Configuring node 0100
+[config: Target = 0100]#
+>>
+
 appkey-add 1
+
+<<
+[config: Target = 0100]# appkey-add 1
+Node 0100
+ not found[config: Target = 0100]#
+>>
+
 bind 0 1 1000
 bind 0 1 1001
 bind 0 1 1002
@@ -137,6 +258,12 @@ sub-add 0100 c000 1000
 sub-add 0100 c000 1002
 pub-set 0100 c000 1 0 5 1001
 pub-set 0100 c000 1 0 5 1003
+
+# sudo systemctl status bluetooth-mesh
+# cd ~
+# mkdir -p ~/.config/meshctl
+# cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
+# cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
 ```
 
 target 0100 
