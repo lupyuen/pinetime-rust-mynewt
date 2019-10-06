@@ -39,6 +39,11 @@ BlueZ v5.50 on Raspberry Pi3
 Part 1 - Deployment
 https://3pl46c46ctx02p7rzdsvsg21-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/T1804_How-to-set-up-BlueZ_LFC_FINAL-1.pdf?utm_campaign=developer&utm_source=internal&utm_medium=blog&utm_content=Deploying-BlueZ-v5.50-on-Raspberry-Pi3-Update
 
+"2. Rebuilding the kernel for BlueZ v5.50"
+To enable AEAD-AES_CCM encryption.
+Instructions here are not updated for Raspberry Pi 4.
+Refer to this doc instead:
+
 Kernel Building
 https://www.raspberrypi.org/documentation/linux/kernel/building.md
 
@@ -79,7 +84,7 @@ make bcm2711_defconfig
 make menuconfig
 ```
 
-Please include the three modules below: (Press S to select)
+Include the three modules below: (Press S to select)
 Select Cryptographic API ---> CMAC support
 Select Cryptographic API ---> User-space interface for hash algorithms
 Select Cryptographic API ---> User-space interface for symmetric key cipher algorithms 
@@ -91,6 +96,7 @@ sudo cp arch/arm/boot/dts/*.dtb /boot/
 sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
 sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/
 sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
+sudo reboot
 ```
 
 How to Deploy BlueZ v5.50 on Raspberry Pi 3
@@ -98,13 +104,24 @@ and Use It
 Part 2 — Provisioning 
 https://3pl46c46ctx02p7rzdsvsg21-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/Tutorial-How-to-set-up-BlueZ_Part2-3.pdf?utm_campaign=developer&utm_source=internal&utm_medium=blog&utm_content=Deploying-BlueZ-v5.50-on-Raspberry-Pi3-Update
 
-```bash
-sudo systemctl status bluetooth-mesh
+"2.0 Provisioner Configuration"
+Don't need to update prov_db.json 
 
-cd ~
-mkdir -p ~/.config/meshctl
-cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
-cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
+```bash
+cd ~/bluez-5.50/mesh
+meshctl
+<<
+Failed to parse provisioning database file prov_db.json
+>>
+means need to install AEAD-AES_CCM encryption
+```
+
+```bash
+# sudo systemctl status bluetooth-mesh
+# cd ~
+# mkdir -p ~/.config/meshctl
+# cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
+# cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
 
 meshctl
 discover-unprovisioned on
@@ -121,6 +138,48 @@ sub-add 0100 c000 1002
 pub-set 0100 c000 1 0 5 1001
 pub-set 0100 c000 1 0 5 1003
 ```
+
+target 0100 
+Set the target node to configure, 0100 is the unicast address of the
+primary element.
+
+appkey-add 1AppKey index which points the key stored in prov_
+db.json, please refer to Edit prov_db.json.
+
+bind 0 1 1000
+ element index 0
+ AppKey index 1 which points the key stored in prov_db.json
+ model id 1000
+
+bind 0 1 1001
+bind 0 1 1002
+bind 0 1 1003
+
+sub-add 0100 c000 1000
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ model id 1000
+
+sub-add 0100 c000 1002
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ model id 1002
+
+pub-set 0100 c000 1 0 5 1001
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ 1
+ 0
+ 5
+ model id 1001
+
+pub-set 0100 c000 1 0 5 1003
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ 1
+ 0
+ 5
+ model id 1003
 
 #### Bluetooth: Mesh Generic OnOff, Generic Level, Lighting & Vendor Models
 
