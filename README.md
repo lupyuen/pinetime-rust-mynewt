@@ -48,9 +48,11 @@ Kernel Building
 https://www.raspberrypi.org/documentation/linux/kernel/building.md
 
 ```bash
+cd ~
+sudo apt-get install -y git bc bison flex libssl-dev
 uname -a
 <<
-Linux raspberrypi 4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
+Linux raspberrypi 4.19.75-v7l+ #1270 SMP Tue Sep 24 18:51:41 BST 2019 armv7l GNU/Linux
 >>
 git clone --depth=1 --branch rpi-4.19.y https://github.com/raspberrypi/linux
 ```
@@ -108,8 +110,10 @@ https://3pl46c46ctx02p7rzdsvsg21-wpengine.netdna-ssl.com/wp-content/uploads/2019
 Don't need to update prov_db.json 
 
 ```bash
-cd ~/bluez-5.50/mesh
+cd ~
+cp bluez-5.50/mesh/local_node.json bluez-5.50/mesh/prov_db.json .
 meshctl
+(Press Enter)
 ```
 
 <<
