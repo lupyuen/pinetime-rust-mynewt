@@ -810,6 +810,55 @@ GATT-TX:	 7b 75 3b c5 30 1b da 70 e8
 [config: Target = 0100]#
 >>
 
+# sudo systemctl status bluetooth-mesh
+# cd ~
+# mkdir -p ~/.config/meshctl
+# cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
+# cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
+```
+
+target 0100 
+Set the target node to configure, 0100 is the unicast address of the
+primary element.
+
+appkey-add 1
+AppKey index 1 which points the key stored in prov_db.json
+
+bind 0 1 1000
+ element index 0
+ AppKey index 1 which points the key stored in prov_db.json
+ model id 1000
+
+bind 0 1 1001
+bind 0 1 1002
+bind 0 1 1003
+
+sub-add 0100 c000 1000
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ model id 1000
+
+sub-add 0100 c000 1002
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ model id 1002
+
+pub-set 0100 c000 1 0 5 1001
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ 1
+ 0
+ 5
+ model id 1001
+
+pub-set 0100 c000 1 0 5 1003
+ element address a.k.a unicast address 0100
+ group address c000 to subscribe, range: 0xc000 ~ 0xffff
+ 1
+ 0
+ 5
+ model id 1003
+
 <<
 power-> 0, color-> 0
 STB read temp sensor
@@ -960,55 +1009,6 @@ On Off Model Message received (1) opcode 8204
 
 [on/off: Target = 0100]#
 >>
-
-# sudo systemctl status bluetooth-mesh
-# cd ~
-# mkdir -p ~/.config/meshctl
-# cp ~/bluez-5.50/mesh/prov_db.json ~/.config/meshctl/
-# cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
-```
-
-target 0100 
-Set the target node to configure, 0100 is the unicast address of the
-primary element.
-
-appkey-add 1
-AppKey index 1 which points the key stored in prov_db.json
-
-bind 0 1 1000
- element index 0
- AppKey index 1 which points the key stored in prov_db.json
- model id 1000
-
-bind 0 1 1001
-bind 0 1 1002
-bind 0 1 1003
-
-sub-add 0100 c000 1000
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- model id 1000
-
-sub-add 0100 c000 1002
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- model id 1002
-
-pub-set 0100 c000 1 0 5 1001
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- 1
- 0
- 5
- model id 1001
-
-pub-set 0100 c000 1 0 5 1003
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- 1
- 0
- 5
- model id 1003
 
 #### Bluetooth: Mesh Generic OnOff, Generic Level, Lighting & Vendor Models
 
