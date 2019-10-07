@@ -1010,6 +1010,21 @@ On Off Model Message received (1) opcode 8204
 [on/off: Target = 0100]#
 >>
 
+Command Description
+back: Back to main menu.
+menu onoff: Go to “menu onoff” menu.
+target 0100 
+target <unicast>
+ <unicast> -- unicast address
+Set the target node to configure, 0100 is the unicast address of the primary
+
+element
+onoff x onoff <0/1> -- send “SET ON/OFF” command.
+get: get – Get ON/OFF status.
+
+Button 1: LED1 On
+Button 2: LED1 Off
+
 #### Bluetooth: Mesh Generic OnOff, Generic Level, Lighting & Vendor Models
 
 ##### Overview
