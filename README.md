@@ -810,6 +810,157 @@ GATT-TX:	 7b 75 3b c5 30 1b da 70 e8
 [config: Target = 0100]#
 >>
 
+<<
+power-> 0, color-> 0
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+power-> 100, color-> 0
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+power-> 0, color-> 0
+STB read temp sensor
+Rust send_sensor_data: t=1757
+>>
+
+back
+<<
+[config: Target = 0100]# back
+Menu main:
+Available commands:
+-------------------
+config                                            Configuration Model Submenu
+onoff                                             On/Off Model Submenu
+list                                              List available controllers
+show [ctrl]                                       Controller information
+select <ctrl>                                     Select default controller
+security [0(low)/1(medium)/2(high)]               Display or change provision security level
+info [dev]                                        Device information
+connect [net_idx] [dst]                           Connect to mesh network or node on network
+discover-unprovisioned <on/off>                   Look for devices to provision
+provision <uuid>                                  Initiate provisioning
+power <on/off>                                    Set controller power
+disconnect [dev]                                  Disconnect device
+mesh-info                                         Mesh networkinfo (provisioner)
+local-info                                        Local mesh node info
+menu <name>                                       Select submenu
+version                                           Display version
+quit                                              Quit program
+exit                                              Quit program
+help                                              Display help about this program
+export                                            Print evironment variables
+>>
+
+menu onoff
+<<
+[config: Target = 0100]# menu onoff
+Menu onoff:
+Available commands:
+-------------------
+target <unicast>                                  Set node to configure
+get                                               Get ON/OFF status
+onoff <0/1>                                       Send "SET ON/OFF" command
+back                                              Return to main menu
+version                                           Display version
+quit                                              Quit program
+exit                                              Quit program
+help                                              Display help about this program
+export                                            Print evironment variables
+>>
+
+target 0100
+<<
+[config: Target = 0100]# target 0100
+Controlling ON/OFF for node 0100
+>>
+
+#turn LED1 on
+onoff 1
+<<
+[on/off: Target = 0100]# onoff 1
+GATT-TX:	 00 f4 5f d0 ff a9 b2 7a 26 21 91 f1 41 2e fe 8f
+GATT-TX:	 66 5e df 8b 3d 3d 1b
+GATT-RX:	 00 f4 40 d3 fe 5c 11 87 32 18 df 51 41 69 ca 27
+GATT-RX:	 ab 7b 34 90 04 84
+On Off Model Message received (1) opcode 8204
+	 01
+>>
+
+#turn LED1 off
+onoff 0
+<<
+[on/off: Target = 0100]# onoff 0
+GATT-TX:	 00 f4 15 0a 42 2f bb 3c e0 dd 6b 92 27 cb 14 3b
+GATT-TX:	 53 35 78 51 ce 64 99
+GATT-RX:	 00 f4 b2 70 27 58 89 4a a4 f0 33 0d eb c5 26 ac
+GATT-RX:	 b5 fc bb 0c dc 23
+On Off Model Message received (1) opcode 8204
+	 00
+>>
+
+#turn LED1 on
+onoff 1
+<<
+[on/off: Target = 0100]# onoff 1
+GATT-TX:	 00 f4 99 6c 0b 98 11 24 d7 4c 92 59 f9 10 e0 b3
+GATT-TX:	 00 d2 b6 4e 21 28 a6
+GATT-RX:	 00 f4 a9 8d c3 c7 71 3d ba dc 60 a5 10 2b 2a cb
+GATT-RX:	 5d c7 db 13 55 f8
+On Off Model Message received (1) opcode 8204
+	 01
+>>
+
+#turn LED1 off
+onoff 0
+<<
+[on/off: Target = 0100]# onoff 0
+GATT-TX:	 00 f4 95 58 11 a1 63 e2 01 05 e8 f2 d8 cf 21 0d
+GATT-TX:	 fc 97 b8 1d 6e 6e be
+GATT-RX:	 00 f4 56 88 e0 ab 25 26 17 15 fd 91 57 40 a5 7d
+GATT-RX:	 05 88 0b 7b 19 11
+On Off Model Message received (1) opcode 8204
+	 00
+>>
+
+#get LED1’s status
+get 
+<<
+[on/off: Target = 0100]# get
+GATT-TX:	 00 f4 4d 95 27 5d 78 01 f9 91 dc 36 d8 7d 7f e6
+GATT-TX:	 30 4d 18 80 02
+GATT-RX:	 00 f4 30 ef 0e 54 2a 8e 7c 0f c5 10 b9 84 3c 9d
+GATT-RX:	 54 dd 1c fd 39 27
+On Off Model Message received (1) opcode 8204
+	 00
+>>
+
+#turn LED1 on
+onoff 1
+<<
+[on/off: Target = 0100]# onoff 1
+GATT-TX:	 00 f4 83 a6 36 b8 c3 2b 06 1c db 2e 7d 6f 47 43
+GATT-TX:	 6a b2 b4 bf 53 29 4c
+GATT-RX:	 00 f4 08 b1 d9 f2 d4 32 66 75 db 98 90 d6 57 79
+GATT-RX:	 e2 d1 15 bf 59 19
+On Off Model Message received (1) opcode 8204
+	 01
+>>
+
+#get LED1’s status
+get 
+<<
+[on/off: Target = 0100]# get
+GATT-TX:	 00 f4 b6 ac 2b 46 d7 c1 13 70 c7 49 d3 37 b3 8f
+GATT-TX:	 8c 27 c9 14 b1
+GATT-RX:	 00 f4 a8 2f cc e5 88 8f 32 34 6c f0 03 95 82 2b
+GATT-RX:	 cd b7 43 e3 56 e0
+On Off Model Message received (1) opcode 8204
+	 01
+
+[on/off: Target = 0100]#
+>>
+
 # sudo systemctl status bluetooth-mesh
 # cd ~
 # mkdir -p ~/.config/meshctl
