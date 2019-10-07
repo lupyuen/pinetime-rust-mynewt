@@ -115,6 +115,9 @@ Failed to parse provisioning database file prov_db.json
 >>
 means need to install AEAD-AES_CCM encryption
 
+OOB String: 5GPX41
+Local node provisioned, primary address 0x0100
+
 discover-unprovisioned on
 <<
 [meshctl]# discover-unprovisioned on
@@ -191,7 +194,6 @@ GATT-TX:	 05 9c
 >>
 
 menu config
-
 <<
 [nimble]# menu config
 Menu config:
@@ -235,7 +237,6 @@ export                                            Print evironment variables
 >>
 
 target 0100
-
 <<
 [nimble]# target 0100
 Configuring node 0100
@@ -243,7 +244,6 @@ Configuring node 0100
 >>
 
 appkey-add 1
-
 <<
 [config: Target = 0100]# appkey-add 1
 Node 0100

@@ -142,7 +142,7 @@
             }
         },
         {
-            //  Flash the Bootloader to Blue Pill.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
+            //  Flash the Bootloader.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
             "label": "4️⃣ Load Bootloader",
             "type": "shell",
             "windows": {
@@ -174,7 +174,7 @@
             }
         },
         {
-            //  Flash the Application to Blue Pill.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
+            //  Flash the Application.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
             "label": "5️⃣ Load Application",
             "type": "shell",
             "windows": {
@@ -198,6 +198,36 @@
                 "args": [
                     "-c", "-l",
                     " scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! "
+                ],
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            }
+        },
+        {
+            //  Erase the Flash ROM
+            "label": "⚡️ Erase Flash",
+            "type": "shell",
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "/c",
+                    " scripts\\nrf52\\flash-erase.cmd && echo ✅ ◾ ️Done! "
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/nrf52/flash-erase.sh && echo ✅ ◾ ️Done! "
+                ],
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c", "-l",
+                    " scripts/nrf52/flash-erase.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
