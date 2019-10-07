@@ -110,13 +110,215 @@ Don't need to update prov_db.json
 ```bash
 cd ~/bluez-5.50/mesh
 meshctl
+```
+
 <<
 Failed to parse provisioning database file prov_db.json
 >>
 means need to install AEAD-AES_CCM encryption
 
-OOB String: 5GPX41
+```
+<<
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.253616
+Info : nrf52.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+Warn : Unknown device (HWID 0x00000147)
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+Warn : using fast async flash loader. This is currently supported
+Warn : only with ST-Link and CMSIS-DAP. If you have issues, add
+Warn : "set WORKAREASIZE 0" before sourcing nrf51.cfg/nrf52.cfg to disable it
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Info : halted: PC: 0x00008f08
+TMP create temp_stub_0
+NET hwid e2 61 11 35 36 72 66 8f 74 44 b9 13 
+NET standalone node 
+Rust TMP poll
+Initializing...
+Bluetooth initialized
+Mesh initialized
+power-> 100, color-> 0
+Reset Counter -> 0
+Reset Counter set to Zero
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET random device id nrf52,00000000000000000000000000
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+OOB String: CPXXGX
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
 Local node provisioned, primary address 0x0100
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+>>
 
 discover-unprovisioned on
 <<
@@ -128,74 +330,294 @@ Adapter property changed
 		Mesh Provisioning Service (00001827-0000-1000-8000-00805f9b34fb)
 			Device UUID: dddd0000000000000000000000000000
 			OOB: 0000
-[NEW] Device 0E:EA:8D:AA:A0:8C nimble-mesh-node
+[NEW] Device 0F:89:36:43:8A:CA nimble-mesh-node
 >>
 
 provision <discovered UUID>
 <<
 [meshctl]# provision dddd0000000000000000000000000000
-Trying to connect Device 0E:EA:8D:AA:A0:8C nimble-mesh-node
+Trying to connect Device 0F:89:36:43:8A:CA nimble-mesh-node
 Adapter property changed
 [CHG] Controller DC:A6:32:2C:70:F1 Discovering: no
 Connection successful
-Service added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0006
-Service added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010
-Char added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0011:
-Char added /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013:
+Service added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0006
+Service added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010
+Char added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0011:
+Char added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0013:
 Services resolved yes
-Found matching char: path /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0011, uuid 00002adb-0000-1000-8000-00805f9b34fb
-Found matching char: path /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013, uuid 00002adc-0000-1000-8000-00805f9b34fb
-Start notification on /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013
-Characteristic property changed /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0013
+Found matching char: path /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0011, uuid 00002adb-0000-1000-8000-00805f9b34fb
+Found matching char: path /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0013, uuid 00002adc-0000-1000-8000-00805f9b34fb
+Start notification on /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0013
+Characteristic property changed /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0013
 AcquireNotify success: fd 7 MTU 256
 Notify for Mesh Provisioning Out Data started
-Open-Node: 0x9d2360
-Open-Prov: 0x9d7808
-Open-Prov: proxy 0x9cfa80
+Open-Node: 0x1e9c360
+Open-Prov: 0x1ea17d8
+Open-Prov: proxy 0x1e9c450
 Initiated provisioning
-Characteristic property changed /org/bluez/hci0/dev_0E_EA_8D_AA_A0_8C/service0010/char0011
+Characteristic property changed /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0011
 AcquireWrite success: fd 8 MTU 256
 GATT-TX:	 03 00 10
 GATT-RX:	 03 01 02 00 01 00 00 06 00 18 00 00 00
 Got provisioning data (12 bytes)
 	 01 02 00 01 00 00 06 00 18 00 00 00
 GATT-TX:	 03 02 00 00 02 04 06
-GATT-TX:	 03 03 a3 be 9b ea 5b 8c 87 e2 48 54 3a b5 a8 a5
-GATT-TX:	 cd fc 44 e3 5c 7d 8f 2e 86 35 ba e0 5f 82 8a a1
-GATT-TX:	 fc c9 da d3 50 ad f4 35 e2 cc 69 e9 a0 57 62 5b
-GATT-TX:	 f9 4d 59 aa e3 cf 9e 0d 17 a0 1a dd 4e 97 73 aa
-GATT-TX:	 52 24
-GATT-RX:	 03 03 15 82 b8 23 f8 77 be 86 44 53 0a c3 fc 28
-GATT-RX:	 b8 8d 9b c2 85 98 3e 04 a6 5d b8 20 68 d5 e0 7e
-GATT-RX:	 6f a8 b8 2e 54 24 03 39 2c 99 07 a4 70 9e a4 ca
-GATT-RX:	 0f 78 f6 90 fb d2 c5 50 04 a2 13 2a 14 3f 61 c2
-GATT-RX:	 1f 90
+GATT-TX:	 03 03 f2 78 1c 7f e3 ed 3a 55 3c 94 56 a0 48 3e
+GATT-TX:	 4c 9e 43 86 c3 49 95 d8 2e 0e 21 9d 0b 67 9e ee
+GATT-TX:	 5b ec 8e d9 89 c5 fc 46 7a a2 ca 1f d4 1e c9 36
+GATT-TX:	 1a ae 0b fa 89 9f 44 d2 26 9e c7 cb 10 71 12 39
+GATT-TX:	 17 d8
+GATT-RX:	 03 03 2c c6 f0 22 fa 22 a7 b9 f6 47 19 2e f4 07
+GATT-RX:	 01 6b 81 27 d4 4f 05 77 02 23 1c b3 e7 29 7d 03
+GATT-RX:	 0b 02 ba 20 21 09 fc d7 ca 57 77 ff c8 eb f7 ed
+GATT-RX:	 db c7 d3 0e 24 12 a4 dd 2a 78 47 76 b1 ee dd d6
+GATT-RX:	 cf 10
 Got provisioning data (65 bytes)
-	 03 15 82 b8 23 f8 77 be 86 44 53 0a c3 fc 28 b8
-	 8d 9b c2 85 98 3e 04 a6 5d b8 20 68 d5 e0 7e 6f
-	 a8 b8 2e 54 24 03 39 2c 99 07 a4 70 9e a4 ca 0f
-	 78 f6 90 fb d2 c5 50 04 a2 13 2a 14 3f 61 c2 1f
-	 90
-[nimble]
+	 03 2c c6 f0 22 fa 22 a7 b9 f6 47 19 2e f4 07 01
+	 6b 81 27 d4 4f 05 77 02 23 1c b3 e7 29 7d 03 0b
+	 02 ba 20 21 09 fc d7 ca 57 77 ff c8 eb f7 ed db
+	 c7 d3 0e 24 12 a4 dd 2a 78 47 76 b1 ee dd d6 cf
+	 10
+[nimble]# aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
 Request ASCII key (max characters 6)
-[mesh] Enter key (ascii string):
->>
+[mesh] Enter key (ascii string): CPXXGX
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+GATT-TX:	 03 05 2a eb 3e 07 70 78 cf db d8 1b c5 54 f6 d3
+GATT-TX:	 5e 33
+GATT-RX:	 03 05 fd 36 ec 24 5f 7f d9 fa ca 4e 0a c2 0f 5d
+GATT-RX:	 fc 68
+Got provisioning data (17 bytes)
+	 05 fd 36 ec 24 5f 7f d9 fa ca 4e 0a c2 0f 5d fc
+	 68
+GATT-TX:	 03 06 3f 01 4b 9a 93 a8 4e 8e 62 5c c4 e0 da bd
+GATT-TX:	 19 96
+GATT-RX:	 03 06 ef eb dd 30 ba 63 e2 6e ad 42 28 ce 71 2b
+GATT-RX:	 ab 3d
+Got provisioning data (17 bytes)
+	 06 ef eb dd 30 ba 63 e2 6e ad 42 28 ce 71 2b ab
+	 3d
+[nimble]# aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+Confirmation Validated
+[nimble]# aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+S-Key	 51 7b 40 8d 18 a3 d8 55 42 be 1a 2a bb a9 a4 de
+S-Nonce	 cf 87 bc ac 84 8a c2 8c 77 63 f2 67 86
+DevKey	 d6 04 24 3d 60 1d a8 2a 4b 68 d6 03 8b 5c 4b 2b
+Data	 18 ee d9 c2 a5 6a dd 85 04 9f fc 3c 59 ad 0e 12
+Data	 00 00 00 00 00 00 05 01 00
+DataEncrypted + mic	 62 43 8c e4 f9 98 68 44 26 fe ac 65 8e ea 47 f3
+DataEncrypted + mic	 27 23 e0 52 8b 9a 5e 68 ec f5 47 40 83 a2 22 ce
+DataEncrypted + mic	 12
+GATT-TX:	 03 07 62 43 8c e4 f9 98 68 44 26 fe ac 65 8e ea
+GATT-TX:	 47 f3 27 23 e0 52 8b 9a 5e 68 ec f5 47 40 83 a2
+GATT-TX:	 22 ce 12
+GATT-RX:	 03 08
+Got provisioning data (1 bytes)
+	 08
+Provision success. Assigned Primary Unicast 0100
+Attempting to disconnect from 0F:89:36:43:8A:CA
+Characteristic property changed /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0010/char0013
+Write closed
+Service added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a
+Char added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000b:
+Char added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000d:
+Services resolved no
+[DEL] Device 0F:89:36:43:8A:CA nimble
+SetDiscoveryFilter success
+Discovery started
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: yes
+[meshctl]# crypto_128 1
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+crypto_128 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
 
-Output Log:
-<<
-OOB String: L503A8
->>
-
-<<
-[mesh] Enter key (ascii string): L503A8
-GATT-TX:	 03 05 24 3a e2 46 11 b4 6f 24 49 83 2b 10 c1 a5
-GATT-TX:	 05 9c
-[nimble]#
+		Mesh Proxy Service (00001828-0000-1000-8000-00805f9b34fb)
+		Identity for node 0100
+Trying to connect to mesh
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: no
+Connection successful
+Service added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service0006
+Service added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a
+Char added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000b:
+Char added /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000d:
+Services resolved yes
+Found matching char: path /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000b, uuid 00002add-0000-1000-8000-00805f9b34fb
+Found matching char: path /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000d, uuid 00002ade-0000-1000-8000-00805f9b34fb
+Start notification on /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000d
+Characteristic property changed /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000d
+AcquireNotify success: fd 7 MTU 256
+Notify for Mesh Proxy Out Data started
+Trying to open mesh session
+GATT-RX:	 01 01 00 d4 76 79 43 3f db 10 4a 00 00 00 05 f4
+GATT-RX:	 0a 41 fa b0 af 32 0b
+[nimble-Node-0100]# aes_cmac_one 1
+aes_cmac_setup 1
+aes_cmac_setup 2
+aes_cmac_setup 3
+aes_cmac_setup 4
+aes_cmac_one 2
+iv_upd_state = IV_UPD_NORMAL
+Mesh session is open
+Characteristic property changed /org/bluez/hci0/dev_0F_89_36_43_8A_CA/service000a/char000b
+AcquireWrite success: fd 8 MTU 256
+GATT-TX:	 02 f4 9e 64 99 fe 13 cd c8 9b 0e 1c e5 61 82 cc
+GATT-TX:	 ab f5 83 70
+GATT-TX:	 00 f4 03 fe 5a 4e 85 85 cd 7a 74 88 35 b6 ac 06
+GATT-TX:	 d0 87 2b 8d c1 23
+GATT-RX:	 02 f4 e7 02 fe d4 84 81 a3 32 e7 6e 4b 1b 74 4a
+GATT-RX:	 13 95 f5 61 7f eb
+Proxy Whitelist filter length: 0
+GATT-RX:	 00 f4 78 22 37 79 27 72 1f a6 70 d9 cb 58 ea 60
+GATT-RX:	 f6 62 de 7a 16 dc 72 78 e5 d7 39 4d cf 44
+GATT-RX:	 00 f4 d7 87 d8 45 f8 c3 34 0d 45 4c c3 d9 ed 39
+GATT-RX:	 33 80 f4 64 93 f2 67 64 c0 8f ab df 69 9a
+GATT-RX:	 00 f4 39 d8 09 d1 de 8c a3 32 4c c2 c2 49 69 38
+GATT-RX:	 91 c0 d7 18 3a 67 8e 37 29 de cf ae 35 96
+GATT-RX:	 00 f4 06 60 c9 18 3d eb 0a 10 da 6a cb 2b 53 ea
+GATT-RX:	 95 bf 0f 8b 1e 1e 71 01 b7 de 63 3e df 58
+GATT-RX:	 00 f4 9b 5a ee 73 bb 36 eb a8 f8 e0 02 7e c0 51
+GATT-RX:	 80 f5 37 13 48 37 b8 82 6e 01 f9 41 41 26
+GATT-RX:	 00 f4 c5 9c 90 50 93 f6 19 74 37 65 32 42 05 7f
+GATT-RX:	 a7 c0 f3 d4 56 a2 25 e7 1c e5 b3 9c 98 45
+	Composition data for node 0100 {
+  "cid":"05c3",
+  "pid":"0000",
+  "vid":"0000",
+  "crpl":"0080",
+  "features":{
+    "relay":true,
+    "proxy":true,
+    "friend":false,
+    "lpn":false
+  },
+  "elements":[
+    {
+      "elementIndex":0,
+      "location":"0000",
+      "models":[
+        "0000",
+        "0002",
+        "1000",
+        "1001",
+        "1002",
+        "1003",
+        "1004",
+        "1005",
+        "1006",
+        "1007",
+        "1008",
+        "1300",
+        "1301",
+        "1302",
+        "1303",
+        "1304",
+        "1305",
+        "05c34321"
+      ]
+    },
+    {
+      "elementIndex":1,
+      "location":"0000",
+      "models":[
+        "1002",
+        "1003",
+        "1306"
+      ]
+    }
+  ]
+}
+GATT-TX:	 00 f4 2b d6 e6 46 66 5b 65 31 1d 78 08 28 5d 16
+GATT-TX:	 92 dc 86 90 14 00 e5 1c 55
 >>
 
 menu config
 <<
-[nimble]# menu config
+[nimble-Node-0100]# menu config
 Menu config:
 Available commands:
 -------------------
@@ -233,31 +655,160 @@ quit                                              Quit program
 exit                                              Quit program
 help                                              Display help about this program
 export                                            Print evironment variables
-[nimble]#
 >>
 
 target 0100
 <<
-[nimble]# target 0100
+[nimble-Node-0100]# target 0100
 Configuring node 0100
-[config: Target = 0100]#
 >>
 
 appkey-add 1
 <<
 [config: Target = 0100]# appkey-add 1
-Node 0100
- not found[config: Target = 0100]#
+GATT-TX:	 00 f4 d3 01 d7 38 0b 85 db 7f a6 aa 7c 02 80 7f
+GATT-TX:	 48 cb a7 48 10 33 67 64 5d 6a 26 b2 ad a8
+GATT-TX:	 00 f4 30 0e ff 65 de b2 70 59 1e 4e 60 2d c9 e8
+GATT-TX:	 78 83 cd c6 c9 af 95 34 4c 6f bf d5 da 37
+GATT-RX:	 00 f4 66 34 be f3 6d b4 8c f6 a5 19 33 64 3e d8
+GATT-RX:	 74 07 ea 04 7b 38 2e 50 a2
+GATT-RX:	 00 f4 3c 64 ed 80 45 fa 68 37 5c 5a 8f ba 0f db
+GATT-RX:	 42 9a 21 a0 51 9e 33 f0 65
+Node 0100 AppKey status Success
+NetKey	000
+AppKey	001
 >>
 
 bind 0 1 1000
+<<
+[config: Target = 0100]# bind 0 1 1000
+GATT-TX:	 00 f4 ef 27 26 c9 5b 67 25 b0 47 13 07 f6 62 45
+GATT-TX:	 fb b7 61 64 77 0c d9 55 85 79 39
+GATT-RX:	 00 f4 3c 57 0c ef bd d5 3e 68 82 17 a2 38 20 91
+GATT-RX:	 22 9a 51 30 a9 ce 82 9d 5b ce 9b 5d
+Node 0100 Model App status Success
+Element Addr	0100
+Model Id	1000
+AppIdx		001
+>>
+
 bind 0 1 1001
+<<
+ [config: Target = 0100]# bind 0 1 1001
+GATT-TX:	 00 f4 b3 54 bf b4 46 f6 1a ac d1 2b 9f 64 31 15
+GATT-TX:	 1d c3 73 bf 8b bd 40 60 40 43 f6
+GATT-RX:	 00 f4 1e cc d4 0a 62 17 22 a8 00 24 98 21 2f 4d
+GATT-RX:	 d8 30 54 0d 3b c4 e7 72 ac 6c 16 b8
+Node 0100 Model App status Success
+Element Addr	0100
+Model Id	1001
+AppIdx		001
+>>
+
 bind 0 1 1002
+<<
+ [config: Target = 0100]# bind 0 1 1002
+GATT-TX:	 00 f4 33 a7 30 34 ff c1 18 4e bc 65 94 92 e4 b8
+GATT-TX:	 32 54 35 74 8c 10 12 a3 5c 57 5d
+GATT-RX:	 00 f4 ad 66 73 f8 55 9b 45 3c 01 aa a0 e8 a5 68
+GATT-RX:	 d9 77 72 ba 37 12 80 5a b3 22 4f 92
+Node 0100 Model App status Success
+Element Addr	0100
+Model Id	1002
+AppIdx		001
+>>
+
 bind 0 1 1003
+<<
+ [config: Target = 0100]# bind 0 1 1003
+GATT-TX:	 00 f4 ad 19 c0 53 b8 a5 12 96 94 9a c4 4e 26 db
+GATT-TX:	 a1 cf eb a7 1a ea 34 26 b6 fa 77
+GATT-RX:	 00 f4 59 05 26 7b 33 16 03 f4 0c 91 ea 24 73 e0
+GATT-RX:	 78 b1 55 b4 c4 48 bb df 52 9a 77 11
+Node 0100 Model App status Success
+Element Addr	0100
+Model Id	1003
+AppIdx		001
+>>
+
 sub-add 0100 c000 1000
+<<
+[config: Target = 0100]# sub-add 0100 c000 1000
+GATT-TX:	 00 f4 bc f4 e4 9c 14 d9 fd 7b cf 00 1b 2a 94 c2
+GATT-TX:	 40 f0 d8 7b 95 20 1a 70 a5 ef 20
+GATT-RX:	 00 f4 08 42 26 d0 e9 00 21 ad 83 ed 32 65 8c cf
+GATT-RX:	 98 51 d7 43 fb 85 cc 63 d2 5e e1 f9
+
+Node 0100 Subscription status Success
+Element Addr	0100
+Model Id	1000
+Subscr Addr	c000
+>>
+
 sub-add 0100 c000 1002
+<<
+[config: Target = 0100]# sub-add 0100 c000 1002
+GATT-TX:	 00 f4 9e 47 3e fa b2 dc 5e 60 31 e6 fb 5b 3d b1
+GATT-TX:	 5d 9a e8 b1 f6 84 82 9d cf 07 87
+GATT-RX:	 00 f4 2c 39 d7 32 9a 50 79 b4 9d a7 ae d6 7f f7
+GATT-RX:	 82 10 12 f1 dd 71 2e 77 df a2 76 0c
+
+Node 0100 Subscription status Success
+Element Addr	0100
+Model Id	1002
+Subscr Addr	c000
+>>
+
 pub-set 0100 c000 1 0 5 1001
+<<
+[config: Target = 0100]# pub-set 0100 c000 1 0 5 1001
+GATT-TX:	 00 f4 72 e8 70 b2 c1 5f 45 1c 76 67 90 75 94 82
+GATT-TX:	 8e 8c 37 2a 2e 06 c5 b6 09 3a af 12 81 d1
+GATT-TX:	 00 f4 ea 7e 7e 88 05 bd 0c 59 de 76 03 a4 05 e8
+GATT-TX:	 5e c2 3f 42 33 c0
+GATT-RX:	 00 f4 36 7f 3b e4 33 a4 93 05 cf 55 ae 0c 1a 87
+GATT-RX:	 32 78 26 56 31 2c a5 43 01
+GATT-RX:	 00 f4 b8 ba 82 8d 57 7f dd fa 5f db 63 81 0e fb
+GATT-RX:	 e3 fb ae fd 2d 7f c9 13 ea 98 31 2b 8c 4e
+GATT-RX:	 00 f4 58 16 c9 34 df 49 15 c7 7b 0f 05 bd d5 40
+GATT-RX:	 34 b1 6c 00 48 c8 2b 02 b8 7f 79 45
+
+Node 0100 Publication status Success
+Element Addr	0100
+Model Id	1001
+Pub Addr	c000
+Period		0 ms
+Rexmit count	0
+Rexmit steps	5
+GATT-TX:	 00 f4 2d 34 5d e4 87 f9 16 a5 7f f5 d0 6d ca f8
+GATT-TX:	 5c c4 b7 11 55 ee 3d fb 30
+>>
+
 pub-set 0100 c000 1 0 5 1003
+<<
+[config: Target = 0100]# pub-set 0100 c000 1 0 5 1003
+GATT-TX:	 00 f4 b6 5c 11 2c b0 43 a2 b9 cb 0e 6e d0 ee 19
+GATT-TX:	 ca 6a 99 18 03 8a b3 6b a9 9e 23 47 1e 55
+GATT-TX:	 00 f4 89 88 0f f1 24 51 f2 43 53 3b a5 b4 b6 8f
+GATT-TX:	 81 1f 2c 63 92 5f
+GATT-RX:	 00 f4 9e 1e 7e 88 ba 91 bd 90 49 6a 49 0e 83 78
+GATT-RX:	 0c ef 9f 4b e7 e2 65 c9 03
+GATT-RX:	 00 f4 4e ce 81 cf 1b cb b8 e2 d9 a7 17 0d 34 20
+GATT-RX:	 69 fd 0b af a1 d2 c0 ef ff 53 64 fc ac 60
+GATT-RX:	 00 f4 f1 27 30 9f 0d 74 d4 a2 f0 00 5b e6 c4 7a
+GATT-RX:	 26 d4 09 ad 52 44 2e 19 5c e2 0f 30
+
+Node 0100 Publication status Success
+Element Addr	0100
+Model Id	1003
+Pub Addr	c000
+Period		0 ms
+Rexmit count	0
+Rexmit steps	5
+GATT-TX:	 00 f4 42 aa a1 ad 08 af 07 d8 08 80 1b 3a df 95
+GATT-TX:	 7b 75 3b c5 30 1b da 70 e8
+[config: Target = 0100]#
+>>
 
 # sudo systemctl status bluetooth-mesh
 # cd ~
@@ -270,8 +821,8 @@ target 0100
 Set the target node to configure, 0100 is the unicast address of the
 primary element.
 
-appkey-add 1AppKey index which points the key stored in prov_
-db.json, please refer to Edit prov_db.json.
+appkey-add 1
+AppKey index 1 which points the key stored in prov_db.json
 
 bind 0 1 1000
  element index 0
