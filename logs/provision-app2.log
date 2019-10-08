@@ -1,0 +1,143 @@
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.265339
+Info : nrf52.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+target halted due to debug-request, current mode: Handler HardFault
+xPSR: 0x01000003 pc: 0x00000136 msp: 0x0fc0e870
+Info : nRF52832-QFAA(build code: E0) 512kB Flash
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+Warn : using fast async flash loader. This is currently supported
+Warn : only with ST-Link and CMSIS-DAP. If you have issues, add
+Warn : "set WORKAREASIZE 0" before sourcing nrf51.cfg/nrf52.cfg to disable it
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Info : halted: PC: 0x00008f08
+TMP create temp_stub_0
+NET hwid 3c e2 ae 48 55 4e 38 21 77 6f a2 ca 
+NET standalone node 
+Rust TMP poll
+Initializing...
+Bluetooth initialized
+Mesh initialized
+power-> 100, color-> 0
+Reset Counter -> 0
+Reset Counter set to Zero
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET random device id nrf52,00000000000000000000000000
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+OOB String: 9HROYH
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+Local node provisioned, primary address 0x0102
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+power-> 0, color-> 0
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+power-> 100, color-> 0
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757

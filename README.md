@@ -1114,6 +1114,14 @@ pub-set 0100 c000 1 0 5 1001
 pub-set 0100 c000 1 0 5 1003
 ```
 
+Node 2:
+```
+sub-add 0102 c000 1000
+sub-add 0102 c000 1002
+pub-set 0102 c000 1 0 5 1001
+pub-set 0102 c000 1 0 5 1003
+```
+
 The meshctl utility maintains a persistent JSON database containing
 the mesh configuration. As additional nodes (boards) are provisioned, it
 assigns sequential unicast addresses based on the number of elements

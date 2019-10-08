@@ -1,0 +1,505 @@
+pi@raspberrypi:~ $ meshctl
+[meshctl]# connect
+Looking for mesh network with net index 0000
+SetDiscoveryFilter success
+Discovery started
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: yes
+
+		Mesh Proxy Service (00001828-0000-1000-8000-00805f9b34fb)
+		Network Beacon for net index 0000
+Trying to connect to mesh
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: no
+Connection successful
+Service added /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service0006
+Service added /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a
+Char added /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000b:
+Char added /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000d:
+Services resolved yes
+Found matching char: path /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000b, uuid 00002add-0000-1000-8000-00805f9b34fb
+Found matching char: path /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000d, uuid 00002ade-0000-1000-8000-00805f9b34fb
+Start notification on /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000d
+Characteristic property changed /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000d
+AcquireNotify success: fd 7 MTU 256
+Notify for Mesh Proxy Out Data started
+Trying to open mesh session
+GATT-RX:	 01 01 00 d4 76 79 43 3f db 10 4a 00 00 00 05 f4
+GATT-RX:	 0a 41 fa b0 af 32 0b
+iv_upd_state = IV_UPD_NORMAL
+Mesh session is open
+Characteristic property changed /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000b
+AcquireWrite success: fd 8 MTU 256
+GATT-TX:	 02 f4 40 11 9b 6f c7 e0 41 27 02 ad a7 29 a9 95
+GATT-TX:	 4e ab c1 c4
+GATT-RX:	 02 f4 07 47 48 82 ba 8e 7b 04 1f 70 80 10 93 21
+GATT-RX:	 0e b0 a8 b6 dc 68
+Proxy Whitelist filter length: 0
+[nimble-Net-0000]# discover-unprovisioned on
+SetDiscoveryFilter success
+Discovery started
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: yes
+		Mesh Provisioning Service (00001827-0000-1000-8000-00805f9b34fb)
+			Device UUID: dddd0000000000000000000000000000
+			OOB: 0000
+[NEW] Device 03:CB:CD:DE:18:88 nimble-mesh-node
+[nimble-Net-0000]# provision dddd0000000000000000000000000000
+Attempting to disconnect from 27:6F:EE:8C:72:71
+Trying to connect Device 03:CB:CD:DE:18:88 nimble-mesh-node
+Characteristic property changed /org/bluez/hci0/dev_27_6F_EE_8C_72_71/service000a/char000d
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: no
+Connection successful
+Service added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0006
+Service added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010
+Char added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0011:
+Char added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0013:
+Services resolved yes
+Found matching char: path /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0011, uuid 00002adb-0000-1000-8000-00805f9b34fb
+Found matching char: path /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0013, uuid 00002adc-0000-1000-8000-00805f9b34fb
+Start notification on /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0013
+Services resolved no
+Write closed
+[DEL] Device 27:6F:EE:8C:72:71 nimble
+Characteristic property changed /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0013
+AcquireNotify success: fd 7 MTU 256
+Notify for Mesh Provisioning Out Data started
+Open-Node: 0x17154e0
+Open-Prov: 0x17103c0
+Open-Prov: proxy 0x170f110
+Initiated provisioning
+Characteristic property changed /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0011
+AcquireWrite success: fd 8 MTU 256
+GATT-TX:	 03 00 10
+GATT-RX:	 03 01 02 00 01 00 00 06 00 18 00 00 00
+Got provisioning data (12 bytes)
+	 01 02 00 01 00 00 06 00 18 00 00 00
+GATT-TX:	 03 02 00 00 02 04 06
+GATT-TX:	 03 03 bc 4e 89 1b 46 0d d5 1e ce 46 42 79 81 65
+GATT-TX:	 35 85 9f 65 97 78 98 d1 35 54 0e 0f ae 83 de 3d
+GATT-TX:	 b2 4c cc f5 42 06 1a 01 71 7f 7b 12 79 3a 37 72
+GATT-TX:	 29 2a 43 32 43 a8 13 f6 f1 0f 5b c8 41 62 1a 6f
+GATT-TX:	 85 39
+GATT-RX:	 03 03 a8 e8 6b db 76 72 b4 0c ba 26 cb 3e c6 0e
+GATT-RX:	 83 7e 65 06 19 f5 7a 56 4e c2 ca be 38 84 60 90
+GATT-RX:	 f8 96 96 29 aa 36 f8 e2 a4 8c ef 87 e6 70 6c 2f
+GATT-RX:	 bc 4a 66 0b 68 ab 02 21 bf 72 70 5f 6c 4d a6 11
+GATT-RX:	 a6 91
+Got provisioning data (65 bytes)
+	 03 a8 e8 6b db 76 72 b4 0c ba 26 cb 3e c6 0e 83
+	 7e 65 06 19 f5 7a 56 4e c2 ca be 38 84 60 90 f8
+	 96 96 29 aa 36 f8 e2 a4 8c ef 87 e6 70 6c 2f bc
+	 4a 66 0b 68 ab 02 21 bf 72 70 5f 6c 4d a6 11 a6
+	 91
+Request ASCII key (max characters 6)
+[mesh] Enter key (ascii string): 9HROYH
+GATT-TX:	 03 05 e2 63 3d 79 cb 54 f0 a2 e7 52 c8 ff 85 27
+GATT-TX:	 9f e5
+GATT-RX:	 03 05 ff 26 c2 d5 16 f0 72 29 cb c3 4c 08 40 82
+GATT-RX:	 48 91
+Got provisioning data (17 bytes)
+	 05 ff 26 c2 d5 16 f0 72 29 cb c3 4c 08 40 82 48
+	 91
+GATT-TX:	 03 06 d4 27 d5 54 9c e2 35 ed aa 7a ea 10 72 32
+GATT-TX:	 12 fb
+GATT-RX:	 03 06 1d 17 af 7c aa 28 9d cc 06 51 37 eb 51 8a
+GATT-RX:	 b5 89
+Got provisioning data (17 bytes)
+	 06 1d 17 af 7c aa 28 9d cc 06 51 37 eb 51 8a b5
+	 89
+Confirmation Validated
+S-Key	 77 23 cc 37 9f ac 8b b2 18 62 24 e6 6d 8f 38 33
+S-Nonce	 ec ef 3f d5 bf dc 7b 58 8f 4f 60 b0 71
+DevKey	 af 57 5e ee 41 da 2d 86 3b 94 4f 0d 92 1d cc 5a
+Data	 18 ee d9 c2 a5 6a dd 85 04 9f fc 3c 59 ad 0e 12
+Data	 00 00 00 00 00 00 05 01 02
+DataEncrypted + mic	 70 b1 f1 2d db a7 3d 46 07 36 4f 04 b0 36 1f d1
+DataEncrypted + mic	 5b 03 1c 61 c5 d7 bb 55 e3 44 11 f9 83 21 3f 8f
+DataEncrypted + mic	 95
+GATT-TX:	 03 07 70 b1 f1 2d db a7 3d 46 07 36 4f 04 b0 36
+GATT-TX:	 1f d1 5b 03 1c 61 c5 d7 bb 55 e3 44 11 f9 83 21
+GATT-TX:	 3f 8f 95
+GATT-RX:	 03 08
+Got provisioning data (1 bytes)
+	 08
+Provision success. Assigned Primary Unicast 0102
+Attempting to disconnect from 03:CB:CD:DE:18:88
+Characteristic property changed /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0010/char0013
+Write closed
+Service added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a
+Char added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000b:
+Char added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000d:
+Services resolved no
+[DEL] Device 03:CB:CD:DE:18:88 nimble
+SetDiscoveryFilter success
+Discovery started
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: yes
+
+		Mesh Proxy Service (00001828-0000-1000-8000-00805f9b34fb)
+		Identity for node 0102
+Trying to connect to mesh
+Adapter property changed
+[CHG] Controller DC:A6:32:2C:70:F1 Discovering: no
+Connection successful
+Service added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service0006
+Service added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a
+Char added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000b:
+Char added /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000d:
+Services resolved yes
+Found matching char: path /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000b, uuid 00002add-0000-1000-8000-00805f9b34fb
+Found matching char: path /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000d, uuid 00002ade-0000-1000-8000-00805f9b34fb
+Start notification on /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000d
+Characteristic property changed /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000d
+AcquireNotify success: fd 7 MTU 256
+Notify for Mesh Proxy Out Data started
+Trying to open mesh session
+GATT-RX:	 01 01 00 d4 76 79 43 3f db 10 4a 00 00 00 05 f4
+GATT-RX:	 0a 41 fa b0 af 32 0b
+iv_upd_state = IV_UPD_NORMAL
+Mesh session is open
+Characteristic property changed /org/bluez/hci0/dev_03_CB_CD_DE_18_88/service000a/char000b
+AcquireWrite success: fd 8 MTU 256
+GATT-TX:	 02 f4 56 ed cc 48 11 2a da 56 13 18 c8 f5 2c da
+GATT-TX:	 4c 8f e4 5f
+GATT-TX:	 00 f4 94 d6 0a 86 77 51 cb 60 d0 d6 b2 56 3a ba
+GATT-TX:	 00 8b 6e c4 2f 68
+GATT-RX:	 02 f4 d4 be 4b 79 fe e2 05 65 ac df 87 02 5e c6
+GATT-RX:	 b3 27 52 95 c7 9a
+Proxy Whitelist filter length: 0
+GATT-RX:	 00 f4 bd 5f 44 69 94 51 99 74 ec 2f 07 84 6a 10
+GATT-RX:	 8e a6 db 30 08 63 0a d4 13 ac ce 80 5a b0
+GATT-RX:	 00 f4 42 3f 1a fa 58 b2 9e b3 2e fb 3e 0e 8a 5b
+GATT-RX:	 43 ac 95 6f 49 13 88 95 16 b9 82 93 f5 4e
+GATT-RX:	 00 f4 93 3b 7e 22 9e b4 02 45 1c 5c 28 22 bf ae
+GATT-RX:	 27 34 bd 5d 62 af 00 98 d4 c4 8a 61 de 80
+GATT-RX:	 00 f4 0f 5b 2b ed 25 34 b5 46 cd 5e 04 96 f6 12
+GATT-RX:	 46 f5 df 50 79 39 12 7e 26 3d af 5b 45 46
+GATT-RX:	 00 f4 af 7c be 37 21 b0 a9 00 7e cd 40 18 0d 40
+GATT-RX:	 61 86 ed 22 86 2a 34 02 b1 ed 76 34 60 36
+GATT-RX:	 00 f4 90 6b 08 31 d7 11 2c b1 0d bf 90 4d 82 2e
+GATT-RX:	 ff d4 36 d7 44 66 5a 36 09 62 26 d0 e7 7a
+	Composition data for node 0102 {
+  "cid":"05c3",
+  "pid":"0000",
+  "vid":"0000",
+  "crpl":"0080",
+  "features":{
+    "relay":true,
+    "proxy":true,
+    "friend":false,
+    "lpn":false
+  },
+  "elements":[
+    {
+      "elementIndex":0,
+      "location":"0000",
+      "models":[
+        "0000",
+        "0002",
+        "1000",
+        "1001",
+        "1002",
+        "1003",
+        "1004",
+        "1005",
+        "1006",
+        "1007",
+        "1008",
+        "1300",
+        "1301",
+        "1302",
+        "1303",
+        "1304",
+        "1305",
+        "05c34321"
+      ]
+    },
+    {
+      "elementIndex":1,
+      "location":"0000",
+      "models":[
+        "1002",
+        "1003",
+        "1306"
+      ]
+    }
+  ]
+}
+GATT-TX:	 00 f4 de c2 db 9e 40 5f f5 d3 0c 3e aa 92 ab b6
+GATT-TX:	 01 61 79 e3 78 ba de a8 7b
+[nimble-Node-0102]# menu config
+Menu config:
+Available commands:
+-------------------
+target <unicast>                                  Set target node to configure
+composition-get [page_num]                        Get composition data
+netkey-add <net_idx>                              Add network key
+netkey-del <net_idx>                              Delete network key
+appkey-add <app_idx>                              Add application key
+appkey-del <app_idx>                              Delete application key
+bind <ele_idx> <app_idx> <mod_id> [cid]           Bind app key to a model
+mod-appidx-get <ele_addr> <model id>              Get model app_idx
+ttl-set <ttl>                                     Set default TTL
+ttl-get                                           Get default TTL
+pub-set <ele_addr> <pub_addr> <app_idx> <per (step|res)> <re-xmt (cnt|per)> <mod id> [cid]
+						  Set publication
+pub-get <ele_addr> <model>                        Get publication
+proxy-set <proxy>                                 Set proxy state
+proxy-get                                         Get proxy state
+ident-set <net_idx> <state>                       Set node identity state
+ident-get <net_idx>                               Get node identity state
+beacon-set <state>                                Set node identity state
+beacon-get                                        Get node beacon state
+relay-set <relay> <rexmt count> <rexmt steps>     Set relay
+relay-get                                         Get relay
+hb-pub-set <pub_addr> <count> <period> <ttl> <features> <net_idx> Set heartbeat publish
+hb-pub-get                                        Get heartbeat publish
+hb-sub-set <src_addr> <dst_addr> <period>         Set heartbeat subscribe
+hb-sub-get                                        Get heartbeat subscribe
+sub-add <ele_addr> <sub_addr> <model id>          Add subscription
+sub-get <ele_addr> <model id>                     Get subscription
+node-reset                                        Reset a node and remove it from network
+back                                              Return to main menu
+version                                           Display version
+quit                                              Quit program
+exit                                              Quit program
+help                                              Display help about this program
+export                                            Print evironment variables
+[nimble-Node-0102]# target 0102
+Configuring node 0102
+[config: Target = 0102]# appkey-add 1
+GATT-TX:	 00 f4 3a bc d1 75 ff 35 69 d7 f1 a9 cb da f4 fb
+GATT-TX:	 32 49 23 8b 04 da ec e3 01 c7 8d 85 8b c2
+GATT-TX:	 00 f4 9e fc 15 54 a9 8e 4f bc 33 11 d2 30 79 bf
+GATT-TX:	 c9 70 3d 1a 0a 74 27 70 2f 89 90 61 bf 76
+GATT-RX:	 00 f4 55 d9 a8 4d 9a 49 22 be e4 4a 11 35 34 c4
+GATT-RX:	 36 b7 94 02 57 85 70 a6 47
+GATT-RX:	 00 f4 af b2 39 42 24 24 12 66 3d fd 2a eb b4 48
+GATT-RX:	 c8 70 4c e6 70 17 84 77 f5
+Node 0102 AppKey status Success
+NetKey	000
+AppKey	001
+[config: Target = 0102]# bind 0 1 1000
+GATT-TX:	 00 f4 54 5c 11 74 fc b8 51 f0 0a 3e 7e 8a 52 67
+GATT-TX:	 39 15 8e c0 bc e3 76 2b 76 af 3a
+[config: Target = 0102]# bind 0 1 1001
+GATT-TX:	 00 f4 c4 02 d7 9a 09 d2 9e 3e e3 a7 ff 20 ed 0a
+GATT-TX:	 f4 5d b4 48 22 08 d7 64 62 09 d1
+[config: Target = 0102]# bind 0 1 1002
+GATT-TX:	 00 f4 b9 92 f2 ca bc bb dc 3f 55 98 50 a0 f2 f5
+GATT-TX:	 32 b8 c9 14 e9 fd f7 3d 5c 46 37
+[config: Target = 0102]# bind 0 1 1003
+GATT-TX:	 00 f4 7f 0f 6a 41 c6 35 51 c6 f7 4c c4 e6 0b eb
+GATT-TX:	 1d ba 01 85 ae e3 4b 64 95 f2 fa
+GATT-RX:	 00 f4 b1 e9 ca d0 38 92 44 f6 75 a2 56 ef 66 65
+GATT-RX:	 ef 62 f7 cc f2 82 be 6b df ca dc 8d
+Node 0102 Model App status Success
+Element Addr	0102
+Model Id	1000
+AppIdx		001
+GATT-RX:	 00 f4 b0 42 24 2d 47 d7 43 f5 cb 48 82 6e 0c ae
+GATT-RX:	 17 ed 95 d5 96 e4 48 dd 3e 45 27 a7
+Node 0102 Model App status Success
+Element Addr	0102
+Model Id	1001
+AppIdx		001
+GATT-RX:	 00 f4 cf b2 42 61 d3 23 02 8d 21 e9 1b 9a a1 93
+GATT-RX:	 19 b8 32 4a 58 1b 76 09 2a 89 10 e6
+Node 0102 Model App status Success
+Element Addr	0102
+Model Id	1002
+AppIdx		001
+GATT-RX:	 00 f4 68 03 9f 47 c9 17 3f 5a e3 ea 76 ee 8f d0
+GATT-RX:	 b9 dd 2e e6 05 4a 05 de 54 a8 ea 63
+Node 0102 Model App status Success
+Element Addr	0102
+Model Id	1003
+AppIdx		001
+ [config: Target = 0102]# sub-add 0100 c000 1000
+GATT-TX:	 00 f4 b2 70 9b dc 12 9b 7c 48 bb 4b f3 ea 6d 0d
+GATT-TX:	 fb 32 90 15 1a 42 54 7d 1d 5a 1e
+[config: Target = 0102]# sub-add 0100 c000 1002
+GATT-TX:	 00 f4 0d da fd a9 c7 df a9 8e 0b af 6d fa 4d cb
+GATT-TX:	 c1 bc c4 cb 29 a5 ee 62 9d 81 59
+[config: Target = 0102]# pub-set 0100 c000 1 0 5 1001
+GATT-TX:	 00 f4 90 31 cb fa 2a ac cd 60 64 db 11 9b d7 da
+GATT-TX:	 1b 85 82 fe 32 a2 b8 1b 5e 21 ed 8d b9 7d
+GATT-TX:	 00 f4 ba 80 51 27 c8 71 21 28 81 14 da d5 c0 04
+GATT-TX:	 a6 f4 a1 ac 22 44
+[config: Target = 0102]# pub-set 0100 c000 1 0 5 1003
+GATT-TX:	 00 f4 da 28 e8 dd 86 39 75 3a 99 e2 d8 34 11 a0
+GATT-TX:	 a1 ed db 01 4e b3 f8 77 f0 69 81 bb d9 fe
+GATT-TX:	 00 f4 9f fc bc 5f 7d a8 3e a3 e9 95 99 65 fb 56
+GATT-TX:	 d5 30 3f 25 94 af
+GATT-RX:	 00 f4 08 fd 48 11 2e cd 16 8f e4 73 70 db ad 15
+GATT-RX:	 29 eb 9c 6b 5b 8e bf 58 8a 46 7c d2
+
+Node 0102 Subscription status Invalid Address
+GATT-RX:	 00 f4 50 25 a6 6e 01 49 47 23 8c 8c 14 5d f0 6f
+GATT-RX:	 73 83 2e 55 83 86 ae 81 0b b3 3a 06
+
+Node 0102 Subscription status Invalid Address
+GATT-RX:	 00 f4 b7 56 34 86 c1 bd 21 52 fd 66 b8 ac d5 47
+GATT-RX:	 66 a2 60 9d 3b 60 05 da 1f
+GATT-RX:	 00 f4 e6 3c 61 f2 24 d5 1e 4a 77 1b b0 61 f3 43
+GATT-RX:	 bf 53 b7 56 13 a5 14 19 73 7d 3a 6b 49 3e
+GATT-RX:	 00 f4 be 4b 02 1e 6c 41 33 8b 6b 0f a2 65 9a a0
+GATT-RX:	 63 67 9c 9a a9 fb dc 63 47 d1 94 0d
+
+Node 0102 Publication status Invalid Address
+GATT-TX:	 00 f4 02 d0 51 e5 b8 64 fd 9d 1d 77 c4 40 80 1d
+GATT-TX:	 d8 06 20 54 09 a0 d9 de eb
+GATT-RX:	 00 f4 cf 03 60 e8 af 1f 31 e9 1e 34 de e2 02 56
+GATT-RX:	 4e b0 7e ec 7e 7c 5e 09 0a
+GATT-RX:	 00 f4 d0 3d aa 96 d7 ab e2 27 72 c5 1f 3e b0 61
+GATT-RX:	 9f 25 10 26 b4 ab 58 e1 03 43 53 04 bf d5
+GATT-RX:	 00 f4 55 30 1b bd 33 94 b1 96 db 1f ba 57 ae 63
+GATT-RX:	 2e f2 5a 53 39 2c 0e 56 92 ee 26 dd
+
+Node 0102 Publication status Invalid Address
+GATT-TX:	 00 f4 1f a5 46 ac d9 72 8f 3d a0 03 ff 65 a9 fd
+GATT-TX:	 13 70 bb 62 50 d1 62 93 d5
+[config: Target = 0102]# sub-add 0102 c000 1000
+GATT-TX:	 00 f4 c5 51 6a 2e 97 d1 93 02 cf 88 17 7d 59 74
+GATT-TX:	 1f 2a db 2e f0 bf b5 5a 2d f6 26
+[config: Target = 0102]# sub-add 0102 c000 1002
+GATT-TX:	 00 f4 b6 37 d0 b0 fc ab 97 44 94 cf d4 7e b1 a5
+GATT-TX:	 16 48 37 05 ed b0 1a 82 f4 b5 1e
+[config: Target = 0102]# pub-set 0102 c000 1 0 5 1001
+GATT-TX:	 00 f4 a3 06 bd 39 6b 37 bb c4 35 a9 7d b9 24 fa
+GATT-TX:	 ed 4a 3d ab 34 06 99 d1 a3 48 65 15 3d 86
+GATT-TX:	 00 f4 62 a6 1a 7a 1f 8d 47 9b 4a 52 3f 64 0b 2c
+GATT-TX:	 c6 76 dc ee fd 88
+[config: Target = 0102]# pub-set 0102 c000 1 0 5 1003
+GATT-TX:	 00 f4 08 69 1e 3c a3 2d 8d c8 ac c3 1b ee 7e a8
+GATT-TX:	 47 3b 8c d7 70 04 e3 df c4 ac fc c3 fc 08
+GATT-TX:	 00 f4 60 7a ec cf c3 5d 91 79 80 40 7d 27 ff 3a
+GATT-TX:	 90 f9 d1 74 d0 d4
+GATT-RX:	 00 f4 ca 4f 24 64 0d 8d b7 47 d5 c7 0a 31 50 2e
+GATT-RX:	 6b 4d 0f 96 d4 f0 91 25 58 49 0c 91
+
+Node 0102 Subscription status Success
+Element Addr	0102
+Model Id	1000
+Subscr Addr	c000
+GATT-RX:	 00 f4 11 d0 cd 88 87 f8 ad c1 b8 58 63 25 b2 68
+GATT-RX:	 de 3c 4b 88 10 0d d8 97 a1 01 7b 96
+
+Node 0102 Subscription status Success
+Element Addr	0102
+Model Id	1002
+Subscr Addr	c000
+GATT-RX:	 00 f4 c7 7e c2 03 be d4 ec fe c9 10 14 62 27 c6
+GATT-RX:	 d7 6c d6 f8 53 95 5e d1 65
+GATT-RX:	 00 f4 0a 84 57 c8 19 14 d8 3d c0 cf ac d3 25 20
+GATT-RX:	 bc 6b b4 e7 27 9e 87 8d cc 04 8d a3 84 41
+GATT-RX:	 00 f4 ab b2 a8 26 f3 a4 ce cd cd 93 41 b0 0e 49
+GATT-RX:	 c2 34 c2 10 9f 81 83 71 d1 0d 85 58
+
+Node 0102 Publication status Success
+Element Addr	0102
+Model Id	1001
+Pub Addr	c000
+Period		0 ms
+Rexmit count	0
+Rexmit steps	5
+GATT-TX:	 00 f4 ad ab 6a 11 a6 69 5e 5c be 50 23 58 d2 86
+GATT-TX:	 d7 e3 8a c1 d8 4d f9 4a 9e
+GATT-RX:	 00 f4 26 72 96 88 dc fe 05 e7 9c 69 44 16 aa 91
+GATT-RX:	 9b 6d 6c 4d 72 d0 78 43 4e
+GATT-RX:	 00 f4 15 a1 db 83 5f 7d 17 b5 13 14 c9 1e 61 32
+GATT-RX:	 12 f1 f0 69 56 6f 8c 9f 71 a3 6d 52 01 63
+GATT-RX:	 00 f4 00 ca 9e e1 b7 19 eb f1 78 20 a6 5a 31 f0
+GATT-RX:	 86 d3 61 75 d7 75 d9 dc 9a 8b ce 0c
+
+Node 0102 Publication status Success
+Element Addr	0102
+Model Id	1003
+Pub Addr	c000
+Period		0 ms
+Rexmit count	0
+Rexmit steps	5
+GATT-TX:	 00 f4 88 4c 58 71 6b 55 3b 40 d8 7d b0 7a fd 7a
+GATT-TX:	 8c a3 ab 17 d7 b7 45 2f f9
+[config: Target = 0102]# back
+Menu main:
+Available commands:
+-------------------
+config                                            Configuration Model Submenu
+onoff                                             On/Off Model Submenu
+list                                              List available controllers
+show [ctrl]                                       Controller information
+select <ctrl>                                     Select default controller
+security [0(low)/1(medium)/2(high)]               Display or change provision security level
+info [dev]                                        Device information
+connect [net_idx] [dst]                           Connect to mesh network or node on network
+discover-unprovisioned <on/off>                   Look for devices to provision
+provision <uuid>                                  Initiate provisioning
+power <on/off>                                    Set controller power
+disconnect [dev]                                  Disconnect device
+mesh-info                                         Mesh networkinfo (provisioner)
+local-info                                        Local mesh node info
+menu <name>                                       Select submenu
+version                                           Display version
+quit                                              Quit program
+exit                                              Quit program
+help                                              Display help about this program
+export                                            Print evironment variables
+[config: Target = 0102]# menu onoff
+Menu onoff:
+Available commands:
+-------------------
+target <unicast>                                  Set node to configure
+get                                               Get ON/OFF status
+onoff <0/1>                                       Send "SET ON/OFF" command
+back                                              Return to main menu
+version                                           Display version
+quit                                              Quit program
+exit                                              Quit program
+help                                              Display help about this program
+export                                            Print evironment variables
+[config: Target = 0102]# target 0102
+Controlling ON/OFF for node 0102
+[on/off: Target = 0102]# onoff 1
+GATT-TX:	 00 f4 a6 30 23 4d b3 c7 4b 8a d7 85 fb 4f 66 c7
+GATT-TX:	 42 d0 fc 60 ad 3d 9f
+GATT-RX:	 00 f4 32 00 2b 8d 67 cd fa 31 5d 12 97 9a dd 55
+GATT-RX:	 71 c4 9a 08 da 33
+On Off Model Message received (1) opcode 8204
+	 01
+
+[on/off: Target = 0102]# get
+GATT-TX:	 00 f4 18 b3 94 dd 27 e4 00 8d 10 a7 02 25 58 55
+GATT-TX:	 2a 6c f3 5f af
+GATT-RX:	 00 f4 fd bb 43 9e cc 6c 0d 3c 2e 3e 0c c0 ec fa
+GATT-RX:	 8a 14 3a 96 aa 7b
+On Off Model Message received (1) opcode 8204
+	 01
+
+[on/off: Target = 0102]# onoff 0
+GATT-TX:	 00 f4 84 b0 77 2a ac 54 d6 e9 1c 0c 59 37 f1 c5
+GATT-TX:	 5d cc a7 b6 c8 5e 92
+GATT-RX:	 00 f4 c7 4b b4 09 fd 82 b6 35 93 01 84 2d 8e a0
+GATT-RX:	 3c 12 11 4d db 7b
+On Off Model Message received (1) opcode 8204
+	 00
+
+[on/off: Target = 0102]# get
+GATT-TX:	 00 f4 e2 95 77 cc 4d 52 ac c3 7c 83 97 44 25 1f
+GATT-TX:	 41 bf 39 c7 a8
+GATT-RX:	 00 f4 de af 77 76 8b 95 25 22 be 58 eb d1 a8 1e
+GATT-RX:	 79 b6 8b 0c ff c2
+On Off Model Message received (1) opcode 8204
+	 00
+
+[on/off: Target = 0102]# onoff 1
+GATT-TX:	 00 f4 7b db 03 81 ae 77 96 74 4a 8c 0d 57 1b 5c
+GATT-TX:	 83 f6 70 c3 08 69 b3
+GATT-RX:	 00 f4 3b a6 17 5c 27 1f 0b e1 31 79 c6 c5 89 eb
+GATT-RX:	 32 6b e1 28 25 d5
+On Off Model Message received (1) opcode 8204
+	 01
+
+[on/off: Target = 0102]#
