@@ -27,6 +27,11 @@ This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Applicat
 
 # TODO
 
+Changes:
+- Reduced buttons and LEDs to 2
+- Added Rust support
+
+Usage:
 - Button1, Button2, and LED1 to application key 1. It then configures Button1 and Button2
   to publish to group 0xC000 and LED1 to subscribe to that group.
 - Button3, Button4, and LED3 to application key 1. It then configures Button3 and Button4
