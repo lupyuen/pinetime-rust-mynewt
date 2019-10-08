@@ -821,6 +821,7 @@ GATT-TX:	 7b 75 3b c5 30 1b da 70 e8
 # cp ~/bluez-5.50/mesh/local_node.json ~/.config/meshctl/
 ```
 
+```
 target 0100 
 Set the target node to configure, 0100 is the unicast address of the
 primary element.
@@ -1028,6 +1029,7 @@ get: get – Get ON/OFF status.
 
 Button 1: LED1 On
 Button 2: LED1 Off
+```
 
 #### Bluetooth: Mesh Generic OnOff, Generic Level, Lighting & Vendor Models
 
