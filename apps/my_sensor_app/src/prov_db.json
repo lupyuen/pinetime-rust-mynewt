@@ -34,7 +34,7 @@
   ],
   "nodes":[
     {
-      "deviceKey":"d604243d601da82a4b68d6038b5c4b2b",
+      "deviceKey":"f88c388252b3655d5c0f712bc1529223",
       "configuration":{
         "netKeys":[
           "0000"
@@ -143,7 +143,7 @@
         ]
       },
       "IVindex":5,
-      "sequenceNumber":20
+      "sequenceNumber":26
     }
   ],
   "IVindex":5,
