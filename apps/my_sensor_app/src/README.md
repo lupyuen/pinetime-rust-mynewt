@@ -1,1 +1,1 @@
-[Click here for instructions](../../../../README.md)
+[Click here for instructions](../../../README.md)
