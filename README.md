@@ -833,42 +833,77 @@ Set the target node to configure, 0100 is the unicast address of the
 primary element.
 
 appkey-add 1
-AppKey index 1 which points the key stored in prov_db.json
+add AppKey from prov_db.json
+AppKey index: 1
 
 bind 0 1 1000
- element index 0
- AppKey index 1 which points the key stored in prov_db.json
- model id 1000
+ bind appkey to element in model
+ element index: 0
+ AppKey index: 1
+ model id 1000: Generic On/Off Server (BT_MESH_MODEL_ID_GEN_ONOFF_SRV)
+ https://github.com/apache/mynewt-nimble/blob/master/nimble/host/mesh/include/mesh/access.h
 
 bind 0 1 1001
+ bind appkey to element in model
+ element index: 0
+ AppKey index: 1
+ model id 1001: Generic On/Off Client (BT_MESH_MODEL_ID_GEN_ONOFF_CLI)
+
 bind 0 1 1002
+ bind appkey to element in model
+ element index: 0
+ AppKey index: 1
+ model id 1002: Generic Level Server (BT_MESH_MODEL_ID_GEN_LEVEL_SRV)
+
 bind 0 1 1003
+ bind appkey to element in model
+ element index: 0
+ AppKey index: 1
+ model id 1003: Generic Level Client (BT_MESH_MODEL_ID_GEN_LEVEL_CLI)
 
 sub-add 0100 c000 1000
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- model id 1000
+ subscribe to element in group address
+ element address a.k.a unicast address: 0100
+ group address: c000, range: 0xc000 ~ 0xffff
+ model id 1000: Generic On/Off Server (BT_MESH_MODEL_ID_GEN_ONOFF_SRV)
 
 sub-add 0100 c000 1002
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- model id 1002
+ subscribe to element in group address
+ element address a.k.a unicast address: 0100
+ group address: c000, range: 0xc000 ~ 0xffff
+ model id 1002: Generic Level Server (BT_MESH_MODEL_ID_GEN_LEVEL_SRV)
+
+pub-set 
+<ele_addr> 
+<pub_addr> 
+<app_idx> 
+<per (step|res)> <re-xmt (cnt|per)> 
+<mod id> [cid]
 
 pub-set 0100 c000 1 0 5 1001
- element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- 1
- 0
- 5
- model id 1001
+ publish element to group address
+ element address a.k.a unicast address: 0100
+ group address: c000, range: 0xc000 ~ 0xffff
+ AppKey index: 1
+ Publish period: 0
+ Publish retransmit count: 5
+ model id 1001: Generic On/Off Client (BT_MESH_MODEL_ID_GEN_ONOFF_CLI)
+
+Mesh Profile Bluetooth® Specification
+
+3.7.6.1.3 Periodic publishing
+A model may be configured to send status messages periodically regardless of whether the state has changed or not. This is done by using a Publish Period (see Section 4.2.2.2). When the Publish Period is set to a non-zero value, unless specified otherwise by a higher layer specification, a status message shall be published at least once every Publish Period. When the Publish Period is set to 0, the status messages shall only be published on a state change when enabled.
+
+3.7.6.1.4 Publish retransmissions
+When a new message is being published by a model instance, all pending retransmissions of the previous message published by the model instance shall be canceled, and the model instance shall retransmit the new message as specified by the Publish Retransmit Count and Publish Retransmit Interval Steps states.
 
 pub-set 0100 c000 1 0 5 1003
  element address a.k.a unicast address 0100
- group address c000 to subscribe, range: 0xc000 ~ 0xffff
- 1
- 0
- 5
- model id 1003
+ group address: c000, range: 0xc000 ~ 0xffff
+ AppKey index: 1
+ Publish period: 0
+ Publish retransmit count: 5
+ model id 1003: Generic Level Client (BT_MESH_MODEL_ID_GEN_LEVEL_CLI)
 
 <<
 power-> 0, color-> 0
