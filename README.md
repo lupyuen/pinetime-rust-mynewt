@@ -30,6 +30,7 @@ This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Applicat
 Changes:
 - Reduced buttons and LEDs to 2
 - Added Rust support
+- Removed srqt
 
 Usage:
 - Button1, Button2, and LED1 to application key 1. It then configures Button1 and Button2
