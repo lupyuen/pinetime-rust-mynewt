@@ -23,7 +23,7 @@
 
 This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Application for nRF52 with Apache Mynewt and Embedded Rust that has been tested on the [EBYTE E73-TBB Development Board](http://www.ebyte.com/product-view-news.aspx?id=644). Refer to the tutorial...
 
-[_???_](???)
+[_Bluetooth Mesh with nRF52 and Apache Mynewt (Draft Version)_](https://medium.com/@ly.lee/bluetooth-mesh-with-nrf52-and-apache-mynewt-44823407c471)
 
 # TODO
 
