@@ -273,5 +273,70 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/device_composition.c",
+		"bookmarks": [
+			{
+				"line": 288,
+				"column": 16,
+				"label": ""
+			},
+			{
+				"line": 2548,
+				"column": 42,
+				"label": ""
+			},
+			{
+				"line": 2697,
+				"column": 34,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/app_gpio.c",
+		"bookmarks": [
+			{
+				"line": 74,
+				"column": 10,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/publisher.c",
+		"bookmarks": [
+			{
+				"line": 63,
+				"column": 18,
+				"label": ""
+			},
+			{
+				"line": 68,
+				"column": 7,
+				"label": ""
+			},
+			{
+				"line": 76,
+				"column": 21,
+				"label": ""
+			},
+			{
+				"line": 99,
+				"column": 29,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-nimble/apps/blemesh_models_example_2/src/publisher.c",
+		"bookmarks": [
+			{
+				"line": 63,
+				"column": 16,
+				"label": ""
+			}
+		]
 	}
 ]
