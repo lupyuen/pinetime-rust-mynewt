@@ -4,24 +4,23 @@
     "configurations": [
         {
             //  Cortex Debug Configuration: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
-            "name": "nRF52832",
+            "name": "Blue Pill",
             "type": "cortex-debug",
             "request": "launch",
             //  OpenOCD path is defined in workspace.code-workspace.
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
             //  Application Executable to be flashed to Blue Pill before debugging.  Note that the Application ELF image does not contain a valid Image Header.  So we must bypass the Bootloader, shown below.
-            "executable": "bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
-            //  For Bootloader: "executable": "bin/targets/stm32l4_boot/app/apps/boot/boot.elf",
-            "device": "nRF52832",
-            //  Arm System View Description, from apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk
-            "svdFile": "scripts/nrf52/nrf52.svd",
+            "executable": "bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+            //  For Bootloader: "executable": "bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf",
+            "device": "STM32F103C8",
+            "svdFile": "scripts/STM32F103xx.svd",
             "configFiles": [ 
-                //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
+                //  Tell OpenOCD to open the ST Link connection to STM32F1 MCU.
                 "interface/stlink-v2.cfg",
-                "target/nrf52.cfg",
+                "target/stm32f1x.cfg",
                 //  Tell OpenOCD to run our custom debug commands.
-                "scripts/nrf52/debug.ocd"
+                "scripts/debug.ocd" 
             ],
             "preLaunchCommands": [
                 //  Before loading the Application, run these gdb commands.
@@ -53,7 +52,7 @@
             "preRestartCommands": [
             ],
             "postRestartCommands": [
-            ]        
+            ]
         }
     ]
 }
