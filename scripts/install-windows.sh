@@ -62,6 +62,25 @@ if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
+#  Install RISC-V Toolchain into xPacks/riscv-none-embed-gcc/*/. From https://xpack.github.io/riscv-none-embed-gcc/, https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.2.0-3.1/
+if [ ! -d xPacks/riscv-none-embed-gcc ]; then
+    #  Remove partial downloads.
+    if [ -d xPacks ]; then
+        rm -rf xPacks
+    fi
+    rm xpack-riscv-none-embed-gcc*zip*
+    
+    wget https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.2.0-3.1/xpack-riscv-none-embed-gcc-8.2.0-3.1-win32-x64.zip
+    unzip xpack-riscv-none-embed-gcc-8.2.0-3.1-win32-x64.zip
+    rm xpack-riscv-none-embed-gcc-8.2.0-3.1-win32-x64.zip
+    # chmod -R -w xPacks/riscv-none-embed-gcc/*
+    # gccpath=`ls -d xPacks/riscv-none-embed-gcc/*/bin`
+    # echo export PATH=\"$gccpath:\$PATH\" >> ~/.bashrc
+    # echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
+    # export PATH="$gccpath:$PATH"
+fi
+xPacks/riscv-none-embed-gcc/*/bin/riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
+
 echo "***** Installing go..."
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
