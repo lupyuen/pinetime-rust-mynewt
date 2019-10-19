@@ -17,10 +17,10 @@
 # under the License.
 #
 
-bsp.name: "gd32vf103"
-bsp.url: https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
-bsp.maker: "GigaDevice"
-bsp.arch: rv32imac
+bsp.name:     "gd32vf103"
+bsp.url:      https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
+bsp.maker:    "GigaDevice"
+bsp.arch:     rv32imac
 bsp.compiler: compiler/riscv64
 bsp.linkerscript:
     - "hw/bsp/gd32vf103/gd32vf103_app.ld"
@@ -29,9 +29,9 @@ bsp.linkerscript.BOOT_LOADER.OVERWRITE:
     - "hw/bsp/gd32vf103/gd32vf103_boot.ld"
     - "hw/bsp/gd32vf103/gd32vf103.ld"
 bsp.downloadscript: "hw/bsp/gd32vf103/gd32vf103_download.sh"
-bsp.debugscript: "hw/bsp/gd32vf103/gd32vf103_debug.sh"
+bsp.debugscript:    "hw/bsp/gd32vf103/gd32vf103_debug.sh"
 bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/gd32vf103/gd32vf103_download.cmd"
-bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/gd32vf103/gd32vf103_debug.cmd"
+bsp.debugscript.WINDOWS.OVERWRITE:    "hw/bsp/gd32vf103/gd32vf103_debug.cmd"
 
 # GD32VF103C8T6 with 64 KB ROM
 
