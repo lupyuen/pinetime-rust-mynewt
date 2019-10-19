@@ -45,7 +45,7 @@ struct gd32vf103_uart_cfg {
         }                                                  \
     } while(0);
 
-extern const struct hal_flash fe310_flash_dev;
+extern const struct hal_flash gd32vf103_flash_dev;
 
 void hal_uart_sys_clock_changed(void);
 

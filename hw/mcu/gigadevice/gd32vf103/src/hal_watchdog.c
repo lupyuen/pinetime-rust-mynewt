@@ -21,11 +21,11 @@
 #include <hal/hal_watchdog.h>
 #include <env/freedom-e300-hifive1/platform.h>
 #include <mcu/plic.h>
-#include <mcu/fe310_hal.h>
+#include <mcu/gd32vf103_hal.h>
 
 #if !MYNEWT_VAL(WATCHDOG_RESET) && !MYNEWT_VAL(WATCHDOG_STUB)
 static void
-fe310_watchdog_irq(int num)
+gd32vf103_watchdog_irq(int num)
 {
     int cfg = AON_REG(AON_WDOGCFG);
     AON_REG(AON_WDOGKEY) = AON_WDOGKEY_VALUE;
@@ -62,7 +62,7 @@ hal_watchdog_init(uint32_t expire_msecs)
 #else
     AON_REG(AON_WDOGKEY) = AON_WDOGKEY_VALUE;
     AON_REG(AON_WDOGCFG) = AON_WDOGCFG_ZEROCMP | scale;
-    plic_set_handler(INT_WDOGCMP, fe310_watchdog_irq, 7);
+    plic_set_handler(INT_WDOGCMP, gd32vf103_watchdog_irq, 7);
     pending_ints = PLIC_REG(PLIC_PENDING_OFFSET);
     /* If wdog interrupt is already pending, clear it */
     if (pending_ints & (1 << INT_WDOGCMP)) {

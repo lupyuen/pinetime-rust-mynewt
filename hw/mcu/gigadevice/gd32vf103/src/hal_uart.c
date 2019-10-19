@@ -19,7 +19,7 @@
 
 #include "hal/hal_uart.h"
 #include "bsp/bsp.h"
-#include "mcu/fe310_hal.h"
+#include "mcu/gd32vf103_hal.h"
 #include "env/freedom-e300-hifive1/platform.h"
 #include <mcu/plic.h>
 
@@ -62,7 +62,7 @@ hal_uart_init_cbs(int port, hal_uart_tx_char tx_func, hal_uart_tx_done tx_done,
 }
 
 static int
-fe310_hal_uart_tx_fill_fifo(struct hal_uart *u)
+gd32vf103_hal_uart_tx_fill_fifo(struct hal_uart *u)
 {
     int data = 0;
 
@@ -97,7 +97,7 @@ hal_uart_start_tx(int port)
     __HAL_DISABLE_INTERRUPTS(sr);
     if (u->u_tx_started == 0) {
         UART0_REG(UART_REG_TXCTRL) |= UART_TXEN;
-        rc = fe310_hal_uart_tx_fill_fifo(u);
+        rc = gd32vf103_hal_uart_tx_fill_fifo(u);
         if (rc >= 0) {
             u->u_tx_started = 1;
             UART0_REG(UART_REG_IE) |= UART_IP_TXWM;
@@ -150,7 +150,7 @@ hal_uart_blocking_tx(int port, uint8_t data)
 }
 
 static void
-fe310_uart_irq_handler(int num)
+gd32vf103_uart_irq_handler(int num)
 {
     struct hal_uart *u;
     int rc;
@@ -174,7 +174,7 @@ fe310_uart_irq_handler(int num)
 
     /* TX Path */
     if (u->u_tx_started) {
-        fe310_hal_uart_tx_fill_fifo(u);
+        gd32vf103_hal_uart_tx_fill_fifo(u);
     }
 }
 
@@ -194,7 +194,7 @@ hal_uart_init(int port, void *arg)
     GPIO_REG(GPIO_IOF_SEL) &= ~mask;
 
     /* Install interrupt handler */
-    plic_set_handler(INT_UART0_BASE, fe310_uart_irq_handler, 3);
+    plic_set_handler(INT_UART0_BASE, gd32vf103_uart_irq_handler, 3);
 
     return 0;
 }

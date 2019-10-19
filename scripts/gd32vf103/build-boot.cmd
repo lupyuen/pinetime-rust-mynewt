@@ -8,4 +8,4 @@ newt\newt.exe build gd32vf103c-start_boot
 ::newt\newt.exe build -v -p gd32vf103c-start_boot
 
 ::  Show the size.
-::newt\newt.exe size -v gd32vf103c-start_boot
+newt\newt.exe size -v gd32vf103c-start_boot

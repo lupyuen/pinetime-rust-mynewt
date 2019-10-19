@@ -27,13 +27,13 @@
 #include <defs/error.h>
 #include <syscfg/syscfg.h>
 
-#include <mcu/fe310_hal.h>
+#include <mcu/gd32vf103_hal.h>
 #include <mcu/sys_clock.h>
 #include <mcu/plic.h>
-#include <sifive/devices/spi.h>
-#include <env/freedom-e300-hifive1/platform.h>
+////#include <sifive/devices/spi.h>
+////#include <env/freedom-e300-hifive1/platform.h>
 
-struct fe310_hal_spi {
+struct gd32vf103_hal_spi {
     struct hal_spi_settings spi_cfg;
 
     uint32_t spi_base;
@@ -52,26 +52,26 @@ struct fe310_hal_spi {
 };
 
 #if MYNEWT_VAL(SPI_1)
-struct fe310_hal_spi fe310_hal_spi1 = {
+struct gd32vf103_hal_spi gd32vf103_hal_spi1 = {
     .spi_base = SPI1_CTRL_ADDR
 };
 #endif
 
 #if MYNEWT_VAL(SPI_2)
-struct fe310_hal_spi fe310_hal_spi2 = {
+struct gd32vf103_hal_spi gd32vf103_hal_spi2 = {
     .spi_base = SPI2_CTRL_ADDR
 };
 #endif
 
-static struct fe310_hal_spi *fe310_hal_spis[3] = {
+static struct gd32vf103_hal_spi *gd32vf103_hal_spis[3] = {
     NULL, /* SPI 0 used to access flash */
 #if MYNEWT_VAL(SPI_1)
-    &fe310_hal_spi1,
+    &gd32vf103_hal_spi1,
 #else
     NULL,
 #endif
 #if MYNEWT_VAL(SPI_2)
-    &fe310_hal_spi2,
+    &gd32vf103_hal_spi2,
 #else
     NULL,
 #endif
@@ -82,7 +82,7 @@ static struct fe310_hal_spi *fe310_hal_spis[3] = {
         rc = SYS_EINVAL;                                    \
         goto err;                                           \
     }                                                       \
-    (__v) = (struct fe310_hal_spi *) fe310_hal_spis[(__n)]; \
+    (__v) = (struct gd32vf103_hal_spi *) gd32vf103_hal_spis[(__n)]; \
     if ((__v) == NULL) {                                    \
         rc = SYS_EINVAL;                                    \
         goto err;                                           \
@@ -91,7 +91,7 @@ static struct fe310_hal_spi *fe310_hal_spis[3] = {
 static void
 spi_interrupt_handler(int int_num)
 {
-    struct fe310_hal_spi *spi = fe310_hal_spis[int_num - INT_SPI0_BASE];
+    struct gd32vf103_hal_spi *spi = gd32vf103_hal_spis[int_num - INT_SPI0_BASE];
     uint32_t val;
     int i;
 
@@ -130,7 +130,7 @@ int
 hal_spi_init(int spi_num, void *usercfg, uint8_t spi_type)
 {
     int rc;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     FE310_HAL_SPI_RESOLVE(spi_num, spi);
 
     /* Check for valid arguments */
@@ -198,7 +198,7 @@ int
 hal_spi_set_txrx_cb(int spi_num, hal_spi_txrx_cb txrx_cb, void *arg)
 {
     int rc = 0;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     FE310_HAL_SPI_RESOLVE(spi_num, spi);
 
     spi->txrx_cb_func = txrx_cb;
@@ -242,7 +242,7 @@ hal_spi_config(int spi_num, struct hal_spi_settings *settings)
     int rc = 0;
     uint32_t fmt = SPI_FMT_LEN(8);
     uint32_t div;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     FE310_HAL_SPI_RESOLVE(spi_num, spi);
 
     if (settings->data_mode > HAL_SPI_MODE3 ||
@@ -281,7 +281,7 @@ hal_spi_txrx_noblock(int spi_num, void *txbuf, void *rxbuf, int len)
 {
     int sr;
     int rc = 0;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     FE310_HAL_SPI_RESOLVE(spi_num, spi);
 
     __HAL_DISABLE_INTERRUPTS(sr);
@@ -314,7 +314,7 @@ err:
 uint16_t hal_spi_tx_val(int spi_num, uint16_t val)
 {
     uint32_t retval;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     int rc = 0;
     FE310_HAL_SPI_RESOLVE(spi_num, spi);
 
@@ -356,7 +356,7 @@ int
 hal_spi_txrx(int spi_num, void *txbuf, void *rxbuf, int len)
 {
     int rc = 0;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     uint32_t val;
     int sent = 0;
     int received = 0;
@@ -392,7 +392,7 @@ int
 hal_spi_abort(int spi_num)
 {
     int rc = 0;
-    struct fe310_hal_spi *spi;
+    struct gd32vf103_hal_spi *spi;
     int sr;
 
     __HAL_DISABLE_INTERRUPTS(sr);

@@ -23,12 +23,12 @@
 #include "os/mynewt.h"
 #include <hal/hal_timer.h>
 #include <mcu/plic.h>
-#include <mcu/fe310_hal.h>
+#include <mcu/gd32vf103_hal.h>
 #include <env/freedom-e300-hifive1/platform.h>
 
 #define FE310_HAL_TIMER_MAX     (3)
 
-struct fe310_hal_tmr {
+struct gd32vf103_hal_tmr {
     void *pwm_regs;         /* Pointer to timer registers */
     uint32_t value;         /* Acumulated timer value, incremented on CMP0 */
     uint8_t max_scale;      /* Max value for pwmcfg.pwmscale 7 (for PMW0) or 15 (for PWM1/2) */
@@ -37,34 +37,34 @@ struct fe310_hal_tmr {
 };
 
 #if MYNEWT_VAL(TIMER_0)
-struct fe310_hal_tmr fe310_pwm2 = {
+struct gd32vf103_hal_tmr gd32vf103_pwm2 = {
     (uint32_t *) PWM2_CTRL_ADDR, 0, 15, INT_PWM2_BASE
 };
 #endif
 #if MYNEWT_VAL(TIMER_1)
-struct fe310_hal_tmr fe310_pwm1 = {
+struct gd32vf103_hal_tmr gd32vf103_pwm1 = {
     (uint32_t *) PWM1_CTRL_ADDR, 0, 15, INT_PWM1_BASE
 };
 #endif
 #if MYNEWT_VAL(TIMER_2)
-struct fe310_hal_tmr fe310_pwm0 = {
+struct gd32vf103_hal_tmr gd32vf103_pwm0 = {
     (uint32_t *) PWM0_CTRL_ADDR, 0, 7, INT_PWM0_BASE
 };
 #endif
 
-static struct fe310_hal_tmr *fe310_tmr_devs[FE310_HAL_TIMER_MAX] = {
+static struct gd32vf103_hal_tmr *gd32vf103_tmr_devs[FE310_HAL_TIMER_MAX] = {
 #if MYNEWT_VAL(TIMER_0)
-    &fe310_pwm2,
+    &gd32vf103_pwm2,
 #else
     NULL,
 #endif
 #if MYNEWT_VAL(TIMER_1)
-    &fe310_pwm1,
+    &gd32vf103_pwm1,
 #else
     NULL,
 #endif
 #if MYNEWT_VAL(TIMER_2)
-    &fe310_pwm0,
+    &gd32vf103_pwm0,
 #else
     NULL,
 #endif
@@ -73,7 +73,7 @@ static struct fe310_hal_tmr *fe310_tmr_devs[FE310_HAL_TIMER_MAX] = {
 static uint8_t pwm_to_timer[FE310_HAL_TIMER_MAX];
 
 static uint32_t
-hal_timer_cnt(struct fe310_hal_tmr *tmr)
+hal_timer_cnt(struct gd32vf103_hal_tmr *tmr)
 {
     uint32_t cnt;
     int sr;
@@ -91,7 +91,7 @@ hal_timer_cnt(struct fe310_hal_tmr *tmr)
 }
 
 static void
-fe310_tmr_check_first(struct fe310_hal_tmr *tmr)
+gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
 {
     struct hal_timer *ht;
 
@@ -114,7 +114,7 @@ fe310_tmr_check_first(struct fe310_hal_tmr *tmr)
  * Call expired timer callbacks
  */
 static void
-fe310_tmr_cbs(struct fe310_hal_tmr *tmr)
+gd32vf103_tmr_cbs(struct gd32vf103_hal_tmr *tmr)
 {
     uint32_t cnt;
     struct hal_timer *ht;
@@ -129,30 +129,30 @@ fe310_tmr_cbs(struct fe310_hal_tmr *tmr)
             break;
         }
     }
-    fe310_tmr_check_first(tmr);
+    gd32vf103_tmr_check_first(tmr);
 }
 
 void
-fe310_pwm_cmp0_handler(int num)
+gd32vf103_pwm_cmp0_handler(int num)
 {
     int pwm_num = (num - INT_PWM0_BASE) >> 2;
     int timer_num = pwm_to_timer[pwm_num];
-    struct fe310_hal_tmr *tmr = fe310_tmr_devs[timer_num];
+    struct gd32vf103_hal_tmr *tmr = gd32vf103_tmr_devs[timer_num];
     /* Turn of CMPxIP */
     _REG32(tmr->pwm_regs, PWM_CFG) &= ~PWM_CFG_CMP0IP;
     tmr->value += _REG32(tmr->pwm_regs, PWM_CMP0) + 1;
-    fe310_tmr_cbs(tmr);
+    gd32vf103_tmr_cbs(tmr);
 }
 
 void
-fe310_pwm_cmp1_handler(int num)
+gd32vf103_pwm_cmp1_handler(int num)
 {
     int pwm_num = (num - INT_PWM0_BASE) >> 2;
     int timer_num = pwm_to_timer[pwm_num];
-    struct fe310_hal_tmr *tmr = fe310_tmr_devs[timer_num];
+    struct gd32vf103_hal_tmr *tmr = gd32vf103_tmr_devs[timer_num];
     /* Turn of CMPxIP */
     _REG32(tmr->pwm_regs, PWM_CFG) &= ~PWM_CFG_CMP1IP;
-    fe310_tmr_cbs(tmr);
+    gd32vf103_tmr_cbs(tmr);
 }
 
 /**
@@ -168,9 +168,9 @@ fe310_pwm_cmp1_handler(int num)
 int
 hal_timer_init(int timer_num, void *cfg)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num]) ||
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num]) ||
         (cfg == NULL)) {
         return -1;
     }
@@ -191,12 +191,12 @@ hal_timer_init(int timer_num, void *cfg)
 int
 hal_timer_config(int timer_num, uint32_t freq_hz)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     uint32_t cpu_freq;
     uint32_t div;
     int scale = -1;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num])) {
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -219,8 +219,8 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     _REG32(tmr->pwm_regs, PWM_CMP0) = (1 << (1 + tmr->max_scale)) - 1;
     _REG32(tmr->pwm_regs, PWM_CMP1) = _REG32(tmr->pwm_regs, PWM_CMP0);
     pwm_to_timer[(tmr->pwmxcmp0_int - INT_PWM0_BASE) >> 2] = (uint8_t) timer_num;
-    plic_set_handler(tmr->pwmxcmp0_int, fe310_pwm_cmp0_handler, 3);
-    plic_set_handler(tmr->pwmxcmp0_int + 1, fe310_pwm_cmp1_handler, 3);
+    plic_set_handler(tmr->pwmxcmp0_int, gd32vf103_pwm_cmp0_handler, 3);
+    plic_set_handler(tmr->pwmxcmp0_int + 1, gd32vf103_pwm_cmp1_handler, 3);
     _REG32(tmr->pwm_regs, PWM_CFG) = PWM_CFG_ZEROCMP |
                                      PWM_CFG_ENALWAYS | scale;
     plic_enable_interrupt(tmr->pwmxcmp0_int);
@@ -240,10 +240,10 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
 int
 hal_timer_deinit(int timer_num)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     int sr;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num])) {
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -268,10 +268,10 @@ hal_timer_deinit(int timer_num)
 uint32_t
 hal_timer_get_resolution(int timer_num)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     uint32_t cpu_freq;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num])) {
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -290,9 +290,9 @@ hal_timer_get_resolution(int timer_num)
 uint32_t
 hal_timer_read(int timer_num)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num])) {
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -312,10 +312,10 @@ hal_timer_read(int timer_num)
 int
 hal_timer_delay(int timer_num, uint32_t ticks)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     uint32_t until;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num])) {
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -340,9 +340,9 @@ int
 hal_timer_set_cb(int timer_num, struct hal_timer *timer, hal_timer_cb cb_func,
                  void *arg)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
 
-    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = fe310_tmr_devs[timer_num])) {
+    if (timer_num >= FE310_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -357,10 +357,10 @@ hal_timer_set_cb(int timer_num, struct hal_timer *timer, hal_timer_cb cb_func,
 int
 hal_timer_start(struct hal_timer *timer, uint32_t ticks)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     uint32_t tick;
 
-    tmr = (struct fe310_hal_tmr *)timer->bsp_timer;
+    tmr = (struct gd32vf103_hal_tmr *)timer->bsp_timer;
 
     tick = ticks + hal_timer_cnt(tmr);
     return hal_timer_start_at(timer, tick);
@@ -369,12 +369,12 @@ hal_timer_start(struct hal_timer *timer, uint32_t ticks)
 int
 hal_timer_start_at(struct hal_timer *timer, uint32_t tick)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     struct hal_timer *ht;
     int sr;
     bool first = true;
 
-    tmr = (struct fe310_hal_tmr *)timer->bsp_timer;
+    tmr = (struct gd32vf103_hal_tmr *)timer->bsp_timer;
 
     timer->expiry = tick;
 
@@ -396,7 +396,7 @@ hal_timer_start_at(struct hal_timer *timer, uint32_t tick)
     }
 
     if (first) {
-        fe310_tmr_check_first(tmr);
+        gd32vf103_tmr_check_first(tmr);
     }
 
     __HAL_ENABLE_INTERRUPTS(sr);
@@ -416,13 +416,13 @@ hal_timer_start_at(struct hal_timer *timer, uint32_t tick)
 int
 hal_timer_stop(struct hal_timer *timer)
 {
-    struct fe310_hal_tmr *tmr;
+    struct gd32vf103_hal_tmr *tmr;
     int sr;
     bool recalc = false;
 
     __HAL_DISABLE_INTERRUPTS(sr);
 
-    tmr = (struct fe310_hal_tmr *)timer->bsp_timer;
+    tmr = (struct gd32vf103_hal_tmr *)timer->bsp_timer;
     /* Is it still in the list ? */
     if (timer->link.tqe_prev != NULL) {
         /* Recalculation only if removing first timer */
@@ -431,7 +431,7 @@ hal_timer_stop(struct hal_timer *timer)
         timer->link.tqe_prev = NULL;
 
         if (recalc) {
-            fe310_tmr_check_first(tmr);
+            gd32vf103_tmr_check_first(tmr);
         }
     }
     __HAL_ENABLE_INTERRUPTS(sr);

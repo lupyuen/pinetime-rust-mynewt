@@ -150,7 +150,7 @@ hal_gpio_toggle(int pin)
 }
 
 static void
-fe310_gpio_irq_handler(int num)
+gd32vf103_gpio_irq_handler(int num)
 {
     struct hal_gpio_irq *irq = hal_gpio_irqs + num - INT_GPIO_BASE;
     uint32_t gpio_bit_mask = 1 << (num - INT_GPIO_BASE);
@@ -187,7 +187,7 @@ hal_gpio_irq_init(int pin, hal_gpio_irq_handler_t handler, void *arg,
 {
     uint32_t mask = 1 << pin;
 
-    plic_set_handler(INT_GPIO_BASE + pin, fe310_gpio_irq_handler, 3);
+    plic_set_handler(INT_GPIO_BASE + pin, gd32vf103_gpio_irq_handler, 3);
     hal_gpio_init_in(pin, pull);
 
     /* Disable interrupt till trigger is checked and enabled */

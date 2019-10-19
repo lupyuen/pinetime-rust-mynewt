@@ -25,8 +25,8 @@
 #include <flash_map/flash_map.h>
 #include <hal/hal_bsp.h>
 #include <hal/hal_flash.h>
-#include <mcu/gd32vf103c-start_hal.h>
-#include <mcu/gd32vf103c-start_periph.h>
+#include <mcu/gd32vf103_hal.h>
+#include <mcu/gd32vf103_periph.h>
 #include <bsp/bsp.h>
 #if MYNEWT_VAL(SPIFLASH)
 #include <spiflash/spiflash.h>
@@ -55,7 +55,7 @@ struct bus_spi_node_cfg flash_spi_cfg = {
 #endif
 
 static const struct hal_flash *flash_devs[] = {
-    [0] = &gd32vf103c-start_flash_dev,
+    [0] = &gd32vf103_flash_dev,
 #if MYNEWT_VAL(SPIFLASH)
     [1] = &spiflash_dev.hal,
 #endif
@@ -84,7 +84,7 @@ hal_bsp_init(void)
     int rc;
 
     (void)rc;
-    gd32vf103c-start_periph_create();
+    gd32vf103_periph_create();
 
 #if MYNEWT_VAL(SPIFLASH)
 #if MYNEWT_VAL(BUS_DRIVER_PRESENT)
