@@ -41,9 +41,7 @@ void disable_buffer(void) { buffer_enabled = false; console_flush(); }  //  Disa
 static void split_float(float f, bool *neg, int *i, int *d);
 static void split_double(double f, bool *neg, int *i, int *d);
 
-//#define DISABLE_SEMIHOSTING ////
-
-#ifndef DISABLE_SEMIHOSTING
+#ifndef DISABLE_SEMIHOSTING  //  If Arm Semihosting is enabled...
 
 //  ARM Semihosting code from 
 //  http://www.keil.com/support/man/docs/ARMCC/armcc_pge1358787046598.htm
@@ -101,9 +99,9 @@ static int debugger_connected(void) {
 static int semihost_write(uint32_t fh, const unsigned char *buffer, unsigned int length) {
     //  Write "length" number of bytes from "buffer" to the debugger's file handle fh.
     //  We normally set fh=2 to write to the debugger's stderr output.
-#ifdef DISABLE_SEMIHOSTING
-    return 0;
-#else
+#ifdef DISABLE_SEMIHOSTING  //  If Arm Semihosting is disabled...
+    return 0;               //  Don't write debug messages.
+#else                       //  If Arm Semihosting is enabled...
     if (!debugger_connected()) { return 0; }  //  If debugger is not connected, quit.
     if (length == 0) { return 0; }
     uint32_t args[3];
@@ -138,6 +136,9 @@ void console_flush(void) {
 
 void console_buffer(const char *buffer, unsigned int length) {
     //  Append "length" number of bytes from "buffer" to the output buffer.
+#ifdef DISABLE_SEMIHOSTING  //  If Arm Semihosting is disabled...
+    return;                 //  Don't write debug messages.
+#else                       //  If Arm Semihosting is enabled...
     int rc;
     if (!log_enabled) { return; }           //  Skip if log not enabled.
     if (!debugger_connected()) { return; }  //  If debugger is not connected, quit.
@@ -150,6 +151,7 @@ void console_buffer(const char *buffer, unsigned int length) {
     //  Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
     rc = os_mbuf_append(semihost_mbuf, buffer, length);
     if (rc) { return; }  //  If out of memory, quit.
+#endif  //  DISABLE_SEMIHOSTING
 }
 
 void console_printhex(uint8_t v) {

@@ -33,5 +33,7 @@ pkg.deps:
 pkg.deps.UART_0:
     - "@apache-mynewt-core/hw/drivers/uart/uart_hal"
 
-pkg.cflags: -march=rv32imac -mabi=ilp32
-
+pkg.cflags: 
+    - -march=rv32imac 
+    - -mabi=ilp32
+    - -DDISABLE_SEMIHOSTING  #  Don't use Arm Semihosting for RISC-V
