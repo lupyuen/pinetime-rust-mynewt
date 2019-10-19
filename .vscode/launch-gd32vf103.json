@@ -1,0 +1,58 @@
+{
+    //  VSCode Debugger Config for Cortex Debug Extension.  We use Cortex Debug because it shows more details, e.g. the STM32 Peripherals.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            //  Cortex Debug Configuration: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
+            "name": "Blue Pill",
+            "type": "cortex-debug",
+            "request": "launch",
+            //  OpenOCD path is defined in workspace.code-workspace.
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            //  Application Executable to be flashed to Blue Pill before debugging.  Note that the Application ELF image does not contain a valid Image Header.  So we must bypass the Bootloader, shown below.
+            "executable": "bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+            //  For Bootloader: "executable": "bin/targets/bluepill_boot/app/apps/boot_stub/boot_stub.elf",
+            "device": "STM32F103C8",
+            "svdFile": "scripts/STM32F103xx.svd",
+            "configFiles": [ 
+                //  Tell OpenOCD to open the ST Link connection to STM32F1 MCU.
+                "interface/stlink-v2.cfg",
+                "target/stm32f1x.cfg",
+                //  Tell OpenOCD to run our custom debug commands.
+                "scripts/debug.ocd" 
+            ],
+            "preLaunchCommands": [
+                //  Before loading the Application, run these gdb commands.
+                //  Set timeout for executing openocd commands.
+                "set remotetimeout 60",
+
+                //  This indicates that an unrecognized breakpoint location should automatically result in a pending breakpoint being created.
+                "set breakpoint pending on"
+            
+                //  Display the Arm instruction when hitting breakpoint.
+                //  "display/i $pc",
+
+                //  Load Bootloader symbols in case we jump to the Bootloader.
+                //  "symbol-file bin/targets/bluepill_boot/app/apps/boot/boot.elf",
+
+                //  Restore Application symbols.
+                //  "symbol-file bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+            ],
+            "postLaunchCommands": [
+                //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
+                //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
+                //  "stepi",                    //  Must step before setting PC
+                //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
+                //  "stepi",                    //  Execute the Reset Handler
+                "break main",                   //  Break at main()
+                "break __assert_func",          //  Break for any assert failures
+                "break os_default_irq"          //  Break for any unhandled interrupts
+            ],
+            "preRestartCommands": [
+            ],
+            "postRestartCommands": [
+            ]
+        }
+    ]
+}

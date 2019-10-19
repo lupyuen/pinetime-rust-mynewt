@@ -4,10 +4,15 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+#  TODO: GD32VF103
+mynewt_build_app=gd32vf103_my_sensor
+rust_build_target=riscv32imac-unknown-none-elf
+cp .vscode/launch-gd32vf103.json .vscode/launch.json
+
 #  TODO: nRF52
-mynewt_build_app=nrf52_my_sensor
-rust_build_target=thumbv7em-none-eabihf
-cp .vscode/launch-nrf52.json .vscode/launch.json
+#  mynewt_build_app=nrf52_my_sensor
+#  rust_build_target=thumbv7em-none-eabihf
+#  cp .vscode/launch-nrf52.json .vscode/launch.json
 
 #  TODO: STM32L4
 #  mynewt_build_app=stm32l4_my_sensor
@@ -24,6 +29,9 @@ set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_targ
 #  Rust build profile: debug or release
 rust_build_profile=debug
 #  rust_build_profile=release
+
+#  TODO: Add toolchain to PATH.
+#  export PATH="???:$PATH"
 
 #  Location of the compiled ROM image.  We will remove this to force relinking the Rust app with Mynewt OS.
 app_build=$PWD/bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf

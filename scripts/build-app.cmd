@@ -1,9 +1,14 @@
 ::  Windows script to build Rust application hosted on Mynewt OS
 
+::  TODO: GD32VF103
+set mynewt_build_app=gd32vf103_my_sensor
+set rust_build_target=riscv32imac-unknown-none-elf
+copy /y .vscode\launch-gd32vf103.json .vscode\launch.json
+
 ::  TODO: nRF52
-set mynewt_build_app=nrf52_my_sensor
-set rust_build_target=thumbv7em-none-eabihf
-copy /y .vscode\launch-nrf52.json .vscode\launch.json
+::  set mynewt_build_app=nrf52_my_sensor
+::  set rust_build_target=thumbv7em-none-eabihf
+::  copy /y .vscode\launch-nrf52.json .vscode\launch.json
 
 ::  TODO: STM32L4
 ::  set mynewt_build_app=stm32l4_my_sensor
@@ -20,6 +25,9 @@ copy /y .vscode\launch-nrf52.json .vscode\launch.json
 ::  Rust build profile: debug or release
 set rust_build_profile=debug
 ::  set rust_build_profile=release
+
+::  Add toolchain to PATH.
+set PATH=%PATH%;%cd%\xPack\RISC-V Embedded GCC\8.2.0-3.1\bin
 
 ::  Location of the compiled ROM image.  We will remove this to force relinking the Rust app with Mynewt OS.
 set app_build=%cd%\bin\targets\%mynewt_build_app%\app\apps\my_sensor_app\my_sensor_app.elf

@@ -1,0 +1,10 @@
+# Bootloader Target Settings
+
+# Bootloader that will be targeted
+target.app:           "apps/boot_stub"
+
+# Board Support Package (BSP) for the target
+target.bsp:           "hw/bsp/gd32vf103"
+
+# Build with debug support. Or select "optimized" to remove debug support.
+target.build_profile: debug

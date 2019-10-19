@@ -79,7 +79,7 @@ if [ ! -d xPacks/riscv-none-embed-gcc ]; then
     # echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
     # export PATH="$gccpath:$PATH"
 fi
-xPacks/riscv-none-embed-gcc/*/bin/riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
+xPacks/riscv*gcc/*/bin/riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
 
 echo "***** Installing go..."
 

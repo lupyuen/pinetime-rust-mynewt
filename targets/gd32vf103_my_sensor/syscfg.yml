@@ -1,0 +1,71 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# System Configuration Setting Values:
+# Below are the values of the app settings. Values set here will override the defaults at
+# apps/my_sensor_app/syscfg.yml. Refer to that file for the descriptions of the settings.
+# Strings must be enclosed by '"..."'
+
+syscfg.vals:
+    ###########################################################################
+    # CoAP Server Settings
+
+    # CoAP host e.g. 104.199.85.211 (for coap.thethings.io)
+    COAP_HOST:      '"104.199.85.211"'
+
+    # CoAP UDP port, usually port 5683
+    COAP_PORT:      5683
+
+    # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
+    COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
+    ###########################################################################
+    # Network Settings
+
+    DEVICE_TYPE:            '"nrf52"'  # Device type that will be prepended to the Device ID. thethings.io converts the raw temperature depending on the device type.
+    NBIOT_BAND:             8  # Connect to this NB-IoT band
+    SENSOR_NETWORK:         1  # Enable Sensor Network library
+    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    COAP_CBOR_ENCODING:     0  # Disable CBOR encoding of CoAP payload
+    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
+
+    ###########################################################################
+    # Hardware Settings
+     
+    HARDFLOAT:              1  # Enable hardware floating-point support for STM32L476RC
+    LOW_POWER:              0  # Disable low power support
+
+    UART_0:                 0  # Disable USART2
+    UART_1:                 0  # Disable USART1
+    UART_2:                 0  # Disable USART3
+    UART_2_SWAP_TXRX:       0  # Disable swapping of TX/RX pins for USART3
+    
+    GPS_L70R:               0  # Disable driver for Quectel L70R GPS module
+    GPS_L70R_UART:          0  # Connect to Quectel L70R module on USART2
+    GPS_L70R_ENABLE_PIN:    MCU_GPIO_PORTA(1)  # GPIO Pin PA1 enables and disables the GPS module. Set to -1 for no pin.
+
+    BC95G:                  0  # Disable driver for Quectel BC95-G NB-IoT module
+    BC95G_UART:             2  # Connect to Quectel BC95-G module on LPUART1 i.e. USART3 with TX/RX pins swapped
+    BC95G_ENABLE_PIN:       MCU_GPIO_PORTA(0)  # GPIO Pin PA0 enables and disables the NB-IoT module. Set to -1 for no pin.
+
+    ADC_1:                  0  # Disable port ADC1
+    TEMP_STM32:             0  # Disable STM32 internal temperature sensor
+    HMAC_PRNG:              0  # Disable HMAC PRNG pseudorandom number generator
+    TEMP_STUB:              1  # Enable stub temperature sensor
+    
