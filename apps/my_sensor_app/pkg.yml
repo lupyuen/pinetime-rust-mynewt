@@ -32,15 +32,6 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
-    #  Bluetooth LE
-    - "@apache-mynewt-nimble/nimble/controller"
-    - "@apache-mynewt-nimble/nimble/host"
-    - "@apache-mynewt-nimble/nimble/host/store/config"
-    - "@apache-mynewt-nimble/nimble/transport/ram"
-    #  Bluetooth Mesh
-    - "@apache-mynewt-core/encoding/base64"
-    - "@apache-mynewt-nimble/nimble/host/services/gap"
-    - "@apache-mynewt-nimble/nimble/host/services/gatt"
     #  Inject the Rust build into the Mynewt build
     - "libs/mynewt_rust"   #  Rust interop layer for Mynewt
     - "libs/rust_app"      #  Rust Application Stub. Will be replaced by Rust application and external Rust libraries.
@@ -49,6 +40,19 @@ pkg.deps:
 # Optional Dependencies: Application is dependent on these optional drivers and libraries.
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
 #   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
+
+# Bluetooth LE
+pkg.deps.BLUETOOTH_LE:
+    - "@apache-mynewt-nimble/nimble/controller"
+    - "@apache-mynewt-nimble/nimble/host"
+    - "@apache-mynewt-nimble/nimble/host/store/config"
+    - "@apache-mynewt-nimble/nimble/transport/ram"
+
+# Bluetooth Mesh
+pkg.deps.BLUETOOTH_MESH:
+    - "@apache-mynewt-core/encoding/base64"
+    - "@apache-mynewt-nimble/nimble/host/services/gap"
+    - "@apache-mynewt-nimble/nimble/host/services/gatt"
 
 # Low Power Support
 pkg.deps.LOW_POWER:
