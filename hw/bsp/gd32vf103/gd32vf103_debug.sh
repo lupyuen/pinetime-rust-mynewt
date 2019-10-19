@@ -1,4 +1,4 @@
-#
+#!/bin/sh
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -6,9 +6,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-#
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,22 +17,20 @@
 # under the License.
 #
 
-### Entries containing `***` need to be replaced with actual values.
+# Called with following variables set:
+#  - CORE_PATH is absolute path to @apache-mynewt-core
+#  - BSP_PATH is absolute path to hw/bsp/bsp_name
+#  - BIN_BASENAME is the path to prefix to target binary,
+#    .elf appended to name is the ELF file
+#  - FEATURES holds the target features string
+#  - EXTRA_JTAG_CMD holds extra parameters to pass to jtag software
+#  - RESET set if target should be reset when attaching
+#  - NO_GDB set if we should not start gdb to debug
+#
+. $CORE_PATH/hw/scripts/openocd.sh
 
-pkg.name: "hw/bsp/bluepill-64kb"
-pkg.type: bsp
-pkg.description: "BSP Definition for Bluepill stm32f103c8 board (64KB ROM)"
-pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage:    "https://github.com/lupyuen"
-pkg.keywords:
-    - stm32
-    - stm32f1
-pkg.cflags: -DSTM32F103xB
+FILE_NAME=$BIN_BASENAME.elf
+CFG="-f $CORE_PATH/hw/bsp/hifive1/riscv_openocd.cfg"
+GDB=riscv64-unknown-elf-gdb
 
-pkg.deps:
-    - '@apache-mynewt-core/hw/mcu/stm/stm32f1xx'
-    - '@apache-mynewt-core/kernel/os'
-    - '@apache-mynewt-core/libc/baselibc'
-
-pkg.deps.UART_0:
-    - '@apache-mynewt-core/hw/drivers/uart/uart_hal'
+openocd_debug

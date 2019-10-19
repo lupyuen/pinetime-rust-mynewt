@@ -17,22 +17,19 @@
 # under the License.
 #
 
-### Entries containing `***` need to be replaced with actual values.
-
-pkg.name: "hw/bsp/bluepill-64kb"
-pkg.type: bsp
-pkg.description: "BSP Definition for Bluepill stm32f103c8 board (64KB ROM)"
-pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
-pkg.homepage:    "https://github.com/lupyuen"
+pkg.name: hw/mcu/sifive/fe310
+pkg.description: MCU definition for Freedom E310 chips.
+pkg.author: "Apache Mynewt <dev@mynewt.apache.org>"
+pkg.homepage: "http://mynewt.apache.org/"
 pkg.keywords:
-    - stm32
-    - stm32f1
-pkg.cflags: -DSTM32F103xB
+    - riscv
+    - riscv64
 
 pkg.deps:
-    - '@apache-mynewt-core/hw/mcu/stm/stm32f1xx'
-    - '@apache-mynewt-core/kernel/os'
-    - '@apache-mynewt-core/libc/baselibc'
+    - "@apache-mynewt-core/hw/hal"
+    - "@apache-mynewt-core/hw/mcu/sifive"
 
-pkg.deps.UART_0:
-    - '@apache-mynewt-core/hw/drivers/uart/uart_hal'
+pkg.deps.BUS_DRIVER_PRESENT:
+    - "@apache-mynewt-core/hw/bus/drivers/spi_hal"
+
+pkg.cflags: -march=rv32imac -mabi=ilp32

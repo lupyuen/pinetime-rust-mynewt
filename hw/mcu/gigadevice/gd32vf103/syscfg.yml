@@ -1,0 +1,79 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+syscfg.defs:
+    MCU_FLASH_MIN_WRITE_SIZE:
+        description: >
+            Specifies the required alignment for internal flash writes.
+            Used internally by the newt tool.
+        value: 1
+    WATCHDOG_RESET:
+        description: >
+            If 1 expired watchdog will reset platform. If 0 interrupt will
+            be generated. Set 1 in production builds.
+        value: 0
+    WATCHDOG_STUB:
+        description: >
+            Watchdog is part of always on domain, it counts even if debugger
+            is attached and system is stopped. Set WATCHDOG_STUB to 1 for
+            debugging.
+        value: 0
+    FLASH_MAX_CLOCK:
+        description: >
+            Maximum clock that flash can operate with. If system clock is more
+            then twice this value QSPI clock devider must be adjusted.
+        value: 50000000
+    HFROSC_DEFAULT_TRIM_VAL:
+        description: >
+            Default trimming value for interal high frequency oscillator.
+        value: 16
+    HFROSC_DEFAULT_DIVIDER:
+        description: >
+            Default divider used when high frequency oscillator is starting.
+        value: 4
+    XTAL_32768:
+        description: 'External 32k oscillator available.'
+        value: 0
+    SYS_CLOCK:
+        description: 'System clock'
+        value:  HFROSC_DIV_4
+    SPI_1:
+        description: 'SPI 1 master'
+        value: 0
+    SPI_2:
+        description: 'SPI 2 master'
+        value: 0
+    UART_0:
+        description: 'Whether to enable UART0'
+        value:  0
+    TIMER_0:
+        description: 'Whether to use PWM2 16 bit timer as system timer'
+        value:  0
+    TIMER_1:
+        description: 'Whether to use PWM1 16 bit timer as system timer'
+        value:  0
+    TIMER_2:
+        description: 'Whether to use PWM0 8 bit timer as system timer'
+        value:  0
+    OS_TICKS_PER_SEC:
+        description: 'Desired ticks frequency in Hz'
+        value: 128
+        range: 128,256,512,1024
+    OS_TICKLESS_SLEEP:
+        description: 'Enable tickless sleep'
+        value: 1

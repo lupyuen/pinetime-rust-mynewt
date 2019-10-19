@@ -17,22 +17,18 @@
 # under the License.
 #
 
-### Entries containing `***` need to be replaced with actual values.
-
-pkg.name: "hw/bsp/bluepill-64kb"
-pkg.type: bsp
-pkg.description: "BSP Definition for Bluepill stm32f103c8 board (64KB ROM)"
+pkg.name: hw/mcu/gigadevice
+pkg.type: sdk
+pkg.description: MCU definition for GigaDevice chips.
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - stm32
-    - stm32f1
-pkg.cflags: -DSTM32F103xB
+    - gigadevice
+    - riscv
+    - riscv64
 
 pkg.deps:
-    - '@apache-mynewt-core/hw/mcu/stm/stm32f1xx'
-    - '@apache-mynewt-core/kernel/os'
-    - '@apache-mynewt-core/libc/baselibc'
+    - "@apache-mynewt-core/hw/hal"
 
-pkg.deps.UART_0:
-    - '@apache-mynewt-core/hw/drivers/uart/uart_hal'
+pkg.src_dirs:
+    - "src/ext/freedom-e-sdk_3235929/bsp"
