@@ -106,13 +106,13 @@ if [ ! -d xPacks/riscv-none-embed-gcc ]; then
     wget https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.2.0-3.1/xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
     tar xf xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
     rm xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
-    chmod -R -w "${HOME}"/opt/xPacks/riscv-none-embed-gcc/*
+    chmod -R -w xPacks/riscv-none-embed-gcc/*
     # gccpath=`ls -d "${HOME}"/opt/xPacks/riscv-none-embed-gcc/*/bin`
     # echo export PATH=\"$gccpath:\$PATH\" >> ~/.bashrc
     # echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
     # export PATH="$gccpath:$PATH"
 fi
-xPacks/riscv-none-embed-gcc/*/bin/riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
+xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin/riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
 
 echo "***** Installing go..."
 

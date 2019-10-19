@@ -30,8 +30,8 @@ set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_targ
 rust_build_profile=debug
 #  rust_build_profile=release
 
-#  TODO: Add toolchain to PATH.
-#  export PATH="???:$PATH"
+#  Add toolchain to PATH.
+export PATH="$PWD/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:$PATH"
 
 #  Location of the compiled ROM image.  We will remove this to force relinking the Rust app with Mynewt OS.
 app_build=$PWD/bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf

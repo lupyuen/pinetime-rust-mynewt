@@ -41,4 +41,4 @@ target/
 OLDrust
 tmprustlib
 *.7z
-xPack
+xPack*
