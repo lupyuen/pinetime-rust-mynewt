@@ -17,8 +17,8 @@
  * under the License.
  */
 
-#ifndef __MCU_PLIC_H_
-#define __MCU_PLIC_H_
+#ifndef __MCU_GD32VF103_PLIC_H_
+#define __MCU_GD32VF103_PLIC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,4 +45,4 @@ void plic_disable_interrupt(int int_num);
 }
 #endif
 
-#endif /* __MCU_PLIC_H_ */
+#endif /* __MCU_GD32VF103_PLIC_H_ */

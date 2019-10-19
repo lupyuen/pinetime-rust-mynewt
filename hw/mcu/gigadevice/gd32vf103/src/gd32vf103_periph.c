@@ -27,8 +27,8 @@
 
 #include <mcu/gd32vf103_hal.h>
 #include <mcu/sys_clock.h>
-#include <sifive/devices/spi.h>
-#include <env/freedom-e300-hifive1/platform.h>
+////#include <sifive/devices/spi.h>
+////#include <env/freedom-e300-hifive1/platform.h>
 #if MYNEWT_VAL(BUS_DRIVER_PRESENT)
 #include "bus/bus.h"
 #if MYNEWT_VAL(SPI_0) || MYNEWT_VAL(SPI_1) || MYNEWT_VAL(SPI_2)

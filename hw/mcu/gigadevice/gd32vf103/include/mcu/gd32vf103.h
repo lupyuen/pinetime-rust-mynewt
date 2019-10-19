@@ -17,8 +17,8 @@
  * under the License.
  */
 
-#ifndef __MCU_FE310_H__
-#define __MCU_FE310_H__
+#ifndef __MCU_GD32VF103_H__
+#define __MCU_GD32VF103_H__
 
 #include "os/mynewt.h"
 
@@ -32,4 +32,4 @@ extern "C" {
 }
 #endif
 
-#endif /* __MCU_FE310_H__ */
+#endif /* __MCU_GD32VF103_H__ */

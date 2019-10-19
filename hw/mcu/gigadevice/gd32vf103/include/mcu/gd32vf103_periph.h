@@ -17,17 +17,17 @@
  * under the License.
  */
 
-#ifndef __H_FE310_PERIPH_
-#define __H_FE310_PERIPH_
+#ifndef __H_GD32VF103_PERIPH_
+#define __H_GD32VF103_PERIPH_
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-void fe310_periph_create(void);
+void gd32vf103_periph_create(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* __H_FE310_PERIPH_ */
+#endif  /* __H_GD32VF103_PERIPH_ */

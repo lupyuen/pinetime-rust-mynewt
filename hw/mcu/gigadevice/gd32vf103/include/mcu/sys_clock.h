@@ -17,8 +17,8 @@
  * under the License.
  */
 
-#ifndef __MCU_SYS_CLOCK_H_
-#define __MCU_SYS_CLOCK_H_
+#ifndef __MCU_GD32VF103_SYS_CLOCK_H_
+#define __MCU_GD32VF103_SYS_CLOCK_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,4 +66,4 @@ extern const clock_config_t HFXOSC_1_MHZ;
 }
 #endif
 
-#endif /* __MCU_SYS_CLOCK_H_ */
+#endif /* __MCU_GD32VF103_SYS_CLOCK_H_ */

@@ -20,7 +20,7 @@
 #include "os/mynewt.h"
 #include "hal/hal_os_tick.h"
 #include <env/encoding.h>
-#include <env/freedom-e300-hifive1/platform.h>
+////#include <env/freedom-e300-hifive1/platform.h>
 
 static uint64_t last_tick_time;
 static uint32_t ticks_per_ostick;
