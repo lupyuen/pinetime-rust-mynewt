@@ -56,6 +56,19 @@ if [ "$rust_build_profile" == 'release' ]; then
     # Build for debug: No change in options
 fi
 
+#  Set build commands for the architecture
+if [ "$rust_build_target" == 'riscv32imac-unknown-none-elf' ]; then
+    # RISC-V build commands
+    ar_cmd=riscv-none-embed-ar
+    readelf_cmd=riscv-none-embed-readelf
+    objdump_cmd=riscv-none-embed-objdump
+else 
+    # Arm build commands
+    ar_cmd=arm-none-eabi-ar
+    readelf_cmd=arm-none-eabi-readelf
+    objdump_cmd=arm-none-eabi-objdump
+fi
+
 #  If this is the very first build, do the Mynewt build to generate the rust_app and rust_libcore stubs.  This build will not link successfully but it's OK.
 if [ ! -e $rust_app_dest ]; then
     set +x ; echo ; echo "----- Build Mynewt stubs for Rust app and Rust libcore (ignore error)" ; set -x
@@ -108,14 +121,14 @@ rust_build=$rust_build_dir/*.rlib
 for f in $rust_build
 do
     if [ -e $f ]; then
-        echo "arm-none-eabi-ar x $f"
-        arm-none-eabi-ar x $f
+        echo "$ar_cmd x $f"
+        $ar_cmd x $f
     fi
 done
 
 #  Archive the object (*.o) files into rustlib.a.
-echo "arm-none-eabi-ar r rustlib.a *.o"
-arm-none-eabi-ar r rustlib.a *.o
+echo "$ar_cmd r rustlib.a *.o"
+$ar_cmd r rustlib.a *.o
 set -x
 
 #  Overwrite libs_rust_app.a in the Mynewt build by rustlib.a.  libs_rust_app.a was originally created from libs/rust_app.
@@ -125,11 +138,11 @@ fi
 cp rustlib.a $rust_app_dest
 
 #  Update the timestamp on libs_rust_app.a so that Mynewt build won't overwrite the Rust app we have copied.
-arm-none-eabi-ar s $rust_app_dest
+$ar_cmd s $rust_app_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application and libraries (except libcore)
-arm-none-eabi-objdump -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
-arm-none-eabi-objdump -t -S --demangle --line-numbers --wide rustlib.a >../logs/rustlib-demangle.S 2>&1
+$objdump_cmd -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
+$objdump_cmd -t -S --demangle --line-numbers --wide rustlib.a >../logs/rustlib-demangle.S 2>&1
 
 #  Return to the parent directory.
 popd
@@ -153,13 +166,13 @@ do
 done
 
 #  Update the timestamp on libs_rust_libcore.a so that Mynewt build won't overwrite the Rust libcore we have copied.
-arm-none-eabi-ar s $rust_libcore_dest
+$ar_cmd s $rust_libcore_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application.
 set +e
-arm-none-eabi-readelf -a --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.elf 2>&1
-arm-none-eabi-objdump -t -S            --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.S 2>&1
-arm-none-eabi-objdump -t -S --demangle --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp-demangle.S 2>&1
+$readelf_cmd -a --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.elf 2>&1
+$objdump_cmd -t -S            --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.S 2>&1
+$objdump_cmd -t -S --demangle --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp-demangle.S 2>&1
 set -e
 
 #  Run the Mynewt build, which will link with the Rust app, Rust libraries and libcore.
