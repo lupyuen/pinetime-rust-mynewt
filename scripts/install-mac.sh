@@ -93,6 +93,34 @@ if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
+echo "***** Installing RISC-V Toolchain..."
+
+#  Install RISC-V Toolchain into $HOME/opt/xPacks/riscv-none-embed-gcc/*/. From https://xpack.github.io/riscv-none-embed-gcc/, https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.2.0-3.1/
+if [ ! -d "${HOME}"/opt/xPacks/riscv-none-embed-gcc ]; then
+    if [ ! -d "${HOME}"/opt ]; then
+        mkdir -p "${HOME}"/opt
+    fi
+    pushd "${HOME}"/opt
+
+    #  Remove partial downloads.
+    if [ -d xpack-riscv-none-embed-gcc ]; then
+        rm -rf xpack-riscv-none-embed-gcc
+    fi
+    rm xpack-riscv-none-embed-gcc*tgz*
+    
+    wget https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.2.0-3.1/xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
+    # For Windows: wget https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.2.0-3.1/xpack-riscv-none-embed-gcc-8.2.0-3.1-win32-x64.zip
+    tar xf xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
+    rm xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
+    chmod -R -w "${HOME}"/opt/xPacks/riscv-none-embed-gcc/*
+    gccpath=`ls -d "${HOME}"/opt/xPacks/riscv-none-embed-gcc/*/bin`
+    echo export PATH=\"$gccpath:\$PATH\" >> ~/.bashrc
+    echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
+    export PATH="$gccpath:$PATH"
+    popd
+fi
+riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
+
 echo "***** Installing go..."
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
