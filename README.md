@@ -19,13 +19,11 @@
 #
 -->
 
-# Bluetooth Mesh Sensor Application for nRF52 with Apache Mynewt and Embedded Rust
+# Sensor Application for GigaDevice GD32VF103 with Apache Mynewt and Embedded Rust
 
-This `mesh` branch contains the source code for a Bluetooth Mesh Sensor Application for nRF52 with Apache Mynewt and Embedded Rust that has been tested on the [EBYTE E73-TBB Development Board](http://www.ebyte.com/product-view-news.aspx?id=644). Refer to the tutorial...
+This `gd32vf103` branch contains the source code for a Sensor Application for GigaDevice GD32VF103 with Apache Mynewt and Embedded Rust that has been tested on the [GigaDevice GD32VF103C-START board](https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/). Refer to the tutorial...
 
-[_Bluetooth Mesh with nRF52 and Apache Mynewt_](https://medium.com/@ly.lee/bluetooth-mesh-with-nrf52-and-apache-mynewt-44823407c471?source=friends_link&sk=ac433fa04e13f75985927c37db1e2b10)
-
-Application Code based on [Apache NimBLE sample application blemesh_models_example_2](https://github.com/apache/mynewt-nimble/tree/master/apps/blemesh_models_example_2)
+[_???_](???)
 
 # Fixes for Mynewt type conversion build warnings
 
