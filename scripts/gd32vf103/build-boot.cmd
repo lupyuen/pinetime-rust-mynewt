@@ -4,8 +4,8 @@
 @set PATH=%PATH%;%cd%\xPack\RISC-V Embedded GCC\8.2.0-3.1\bin
 
 ::  Build the bootloader.
-newt\newt.exe build gd32vf103_boot
-::newt\newt.exe build -v -p gd32vf103_boot
+newt\newt.exe build gd32vf103c-start_boot
+::newt\newt.exe build -v -p gd32vf103c-start_boot
 
 ::  Show the size.
-::newt\newt.exe size -v gd32vf103_boot
+::newt\newt.exe size -v gd32vf103c-start_boot

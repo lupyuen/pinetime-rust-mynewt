@@ -1,4 +1,4 @@
-pkg.name: targets/gd32vf103_boot
+pkg.name: targets/gd32vf103c-start_boot
 pkg.type: target
 pkg.description: 
 pkg.author: 

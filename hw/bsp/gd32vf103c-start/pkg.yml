@@ -17,17 +17,17 @@
 # under the License.
 #
 
-pkg.name: hw/bsp/gd32vf103
+pkg.name: hw/bsp/gd32vf103c-start
 pkg.type: bsp
 pkg.description: BSP definition for the GD32VF103C-START board.
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
-    - gd32vf103c
+    - gd32vf103c-startc
     - riscv
 
 pkg.deps:
-    - "hw/mcu/gigadevice/gd32vf103"
+    - "hw/mcu/gigadevice/gd32vf103c-start"
     - "@apache-mynewt-core/libc/baselibc"
 
 pkg.deps.UART_0:

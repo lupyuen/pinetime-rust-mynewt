@@ -1,4 +1,4 @@
-# gd32vf103
+# gd32vf103c-start
 
 Board Support Package for GD32VF103C-START board.
 

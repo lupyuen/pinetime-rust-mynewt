@@ -4,7 +4,7 @@
 target.app:           "apps/my_sensor_app"
 
 # Board Support Package (BSP) for the target
-target.bsp:           "hw/bsp/gd32vf103"
+target.bsp:           "hw/bsp/gd32vf103c-start"
 
 # Build with debug support. Or select "optimized" to remove debug support.
 target.build_profile: debug

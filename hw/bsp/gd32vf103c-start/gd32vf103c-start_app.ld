@@ -16,23 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-#ifndef __GD32VF103_BSP_H
-#define __GD32VF103_BSP_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* LED pins */
-#define LED_BLINK_PIN               (TODO_LED_PIN)
-
-#define CONSOLE_UART                "uart0"
-
-extern uint8_t _ram_start;
-#define RAM_SIZE        0x5000  //  20 KB RAM
-
-#ifdef __cplusplus
+MEMORY
+{
+  /*  Must sync with scripts/gd32vf103c-start/flash-app.ocd, hw/bsp/gd32vf103c-start/bsp.yml  */
+  flash (rxai!w) : ORIGIN = 0x08001000, LENGTH = 60K
+  ram   (wxa!ri) : ORIGIN = 0x20000000, LENGTH = 20K
 }
-#endif
 
-#endif  /* __GD32VF103_BSP_H */
+/* This linker script is used for images and thus contains an image header */
+_imghdr_size = 0x20;

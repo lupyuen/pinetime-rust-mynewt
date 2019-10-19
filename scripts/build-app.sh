@@ -5,7 +5,7 @@ set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
 #  TODO: GD32VF103
-mynewt_build_app=gd32vf103_my_sensor
+mynewt_build_app=gd32vf103c-start_my_sensor
 rust_build_target=riscv32imac-unknown-none-elf
 cp .vscode/launch-gd32vf103.json .vscode/launch.json
 

@@ -17,21 +17,21 @@
 # under the License.
 #
 
-bsp.name:     "gd32vf103"
+bsp.name:     "gd32vf103c-startc-start"
 bsp.url:      "https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/"
 bsp.maker:    "GigaDevice"
 bsp.arch:     "rv32imac"
 bsp.compiler: "compiler/riscv-none-embed"
 bsp.linkerscript:
-    - "hw/bsp/gd32vf103/gd32vf103_app.ld"
-    - "hw/bsp/gd32vf103/gd32vf103.ld"
+    - "hw/bsp/gd32vf103c-start/gd32vf103c-start_app.ld"
+    - "hw/bsp/gd32vf103c-start/gd32vf103c-start.ld"
 bsp.linkerscript.BOOT_LOADER.OVERWRITE:
-    - "hw/bsp/gd32vf103/gd32vf103_boot.ld"
-    - "hw/bsp/gd32vf103/gd32vf103.ld"
-bsp.downloadscript: "hw/bsp/gd32vf103/gd32vf103_download.sh"
-bsp.debugscript:    "hw/bsp/gd32vf103/gd32vf103_debug.sh"
-bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/gd32vf103/gd32vf103_download.cmd"
-bsp.debugscript.WINDOWS.OVERWRITE:    "hw/bsp/gd32vf103/gd32vf103_debug.cmd"
+    - "hw/bsp/gd32vf103c-start/gd32vf103c-start_boot.ld"
+    - "hw/bsp/gd32vf103c-start/gd32vf103c-start.ld"
+bsp.downloadscript: "hw/bsp/gd32vf103c-start/gd32vf103c-start_download.sh"
+bsp.debugscript:    "hw/bsp/gd32vf103c-start/gd32vf103c-start_debug.sh"
+bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/gd32vf103c-start/gd32vf103c-start_download.cmd"
+bsp.debugscript.WINDOWS.OVERWRITE:    "hw/bsp/gd32vf103c-start/gd32vf103c-start_debug.cmd"
 
 # GD32VF103C8T6 with 64 KB ROM
 
@@ -39,12 +39,12 @@ bsp.flash_map:
     areas:
         # Bootloader Stub and Application located in lower 64 KB ROM.
         FLASH_AREA_BOOTLOADER:
-            # Must sync with gd32vf10_boot.ld, scripts/gd32vf103/flash-boot.ocd
+            # Must sync with gd32vf10_boot.ld, scripts/gd32vf103c-start/flash-boot.ocd
             device: 0
             offset: 0x08000000
             size: 4kB
         FLASH_AREA_IMAGE_0:
-            # Must sync with gd32vf103_app.ld, scripts/gd32vf103/flash-app.ocd
+            # Must sync with gd32vf103c-start_app.ld, scripts/gd32vf103c-start/flash-app.ocd
             device: 0
             offset: 0x08001000 
             size: 60kB

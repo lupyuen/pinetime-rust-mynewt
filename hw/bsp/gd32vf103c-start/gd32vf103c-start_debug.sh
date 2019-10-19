@@ -17,33 +17,22 @@
 # under the License.
 #
 
-# TODO for gd32vf103
+# TODO for gd32vf103c-start
 
 # Called with following variables set:
 #  - CORE_PATH is absolute path to @apache-mynewt-core
 #  - BSP_PATH is absolute path to hw/bsp/bsp_name
 #  - BIN_BASENAME is the path to prefix to target binary,
 #    .elf appended to name is the ELF file
-#  - IMAGE_SLOT is the image slot to download to (for non-mfg-image, non-boot)
 #  - FEATURES holds the target features string
 #  - EXTRA_JTAG_CMD holds extra parameters to pass to jtag software
-#  - MFG_IMAGE is "1" if this is a manufacturing image
-#  - FLASH_OFFSET contains the flash offset to download to
-#  - BOOT_LOADER is set if downloading a bootloader
-
+#  - RESET set if target should be reset when attaching
+#  - NO_GDB set if we should not start gdb to debug
+#
 . $CORE_PATH/hw/scripts/openocd.sh
 
-CFG="-f $CORE_PATH/hw/bsp/gd32vf103/riscv_openocd.cfg"
+FILE_NAME=$BIN_BASENAME.elf
+CFG="-f $CORE_PATH/hw/bsp/gd32vf103c-start/riscv_openocd.cfg"
+GDB=riscv64-unknown-elf-gdb
 
-# TODO: Checke what should be here
-#if [ "$MFG_IMAGE" ]; then
-#    FLASH_OFFSET=0x08000000
-#fi
-
-common_file_to_load
-CFG_RESET="halt"
-CFG_POST_INIT="flash protect 0 0 last off"
-openocd_load
-
-# Start running target
-openocd $CFG -c init -c "halt" -c "resume 0x20000000" -c shutdown
+openocd_debug
