@@ -18,10 +18,10 @@
 #
 
 bsp.name:     "gd32vf103"
-bsp.url:      https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/
+bsp.url:      "https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/"
 bsp.maker:    "GigaDevice"
-bsp.arch:     rv32imac
-bsp.compiler: compiler/riscv64
+bsp.arch:     "rv32imac"
+bsp.compiler: "compiler/riscv-none-embed"
 bsp.linkerscript:
     - "hw/bsp/gd32vf103/gd32vf103_app.ld"
     - "hw/bsp/gd32vf103/gd32vf103.ld"

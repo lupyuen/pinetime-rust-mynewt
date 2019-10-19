@@ -17,6 +17,8 @@
 @rem under the License.
 @rem
 
+@rem TODO for gd32vf103
+
 @rem Execute a shell with a script of the same name and .sh extension
 
 @bash "%~dp0%~n0.sh"

@@ -17,6 +17,8 @@
 # under the License.
 #
 
+# TODO for gd32vf103
+
 # Called with following variables set:
 #  - CORE_PATH is absolute path to @apache-mynewt-core
 #  - BSP_PATH is absolute path to hw/bsp/bsp_name
@@ -31,7 +33,7 @@
 
 . $CORE_PATH/hw/scripts/openocd.sh
 
-CFG="-f $CORE_PATH/hw/bsp/hifive1/riscv_openocd.cfg"
+CFG="-f $CORE_PATH/hw/bsp/gd32vf103/riscv_openocd.cfg"
 
 # TODO: Checke what should be here
 #if [ "$MFG_IMAGE" ]; then
