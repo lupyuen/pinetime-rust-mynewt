@@ -19,8 +19,9 @@
 
 MEMORY
 {
-  flash (rxai!w) : ORIGIN = 0x20400000, LENGTH = 512M
-  ram (wxa!ri) : ORIGIN = 0x80000000, LENGTH = 16K
+  /*  Must sync with scripts/gd32vf103/flash-app.ocd, hw/bsp/gd32vf103/bsp.yml  */
+  flash (rxai!w) : ORIGIN = 0x08001000, LENGTH = 60K
+  ram   (wxa!ri) : ORIGIN = 0x20000000, LENGTH = 20K
 }
 
 /* This linker script is used for images and thus contains an image header */

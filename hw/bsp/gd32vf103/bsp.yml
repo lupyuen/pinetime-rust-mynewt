@@ -33,34 +33,40 @@ bsp.debugscript: "hw/bsp/gd32vf103/gd32vf103_debug.sh"
 bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/gd32vf103/gd32vf103_download.cmd"
 bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/gd32vf103/gd32vf103_debug.cmd"
 
+# GD32VF103C8T6 with 64 KB ROM
+
 bsp.flash_map:
     areas:
-        # System areas.
+        # Bootloader Stub and Application located in lower 64 KB ROM.
         FLASH_AREA_BOOTLOADER:
+            # Must sync with gd32vf10_boot.ld, scripts/gd32vf103/flash-boot.ocd
             device: 0
-            offset: 0x20000000
-            size: 32kB
-        FLASH_AREA_IMAGE_0:
-            device: 0
-            offset: 0x20400000
-            size: 480kB
-        FLASH_AREA_IMAGE_1:
-            device: 0
-            offset: 0x20500000
-            size: 480kB
-        FLASH_AREA_IMAGE_SCRATCH:
-            device: 0
-            offset: 0x207FF000
+            offset: 0x08000000
             size: 4kB
+        FLASH_AREA_IMAGE_0:
+            # Must sync with gd32vf103_app.ld, scripts/gd32vf103/flash-app.ocd
+            device: 0
+            offset: 0x08001000 
+            size: 60kB
 
-        # User areas.
+        # Log and Filesystem located in upper 64 KB ROM.
         FLASH_AREA_REBOOT_LOG:
             user_id: 0
             device: 0
-            offset: 0x207F0000
-            size: 48kB
+            offset: 0x08010000
+            size: 8kB
         FLASH_AREA_NFFS:
             user_id: 1
             device: 0
-            offset: 0x207FC000
-            size: 12kB
+            offset: 0x08012000
+            size: 8kB
+
+        # Second application image is not supported.
+        FLASH_AREA_IMAGE_1:  # Second application image is not supported.
+            device: 0
+            offset: 0x08014010
+            size: 0kB
+        FLASH_AREA_IMAGE_SCRATCH:  # Swapping of application image is not supported.
+            device: 0
+            offset: 0x08014020
+            size: 0kB
