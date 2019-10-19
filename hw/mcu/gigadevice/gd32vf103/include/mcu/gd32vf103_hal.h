@@ -17,8 +17,8 @@
  * under the License.
  */
 
-#ifndef H_FE310_HAL_
-#define H_FE310_HAL_
+#ifndef H_GD32VF103_HAL_
+#define H_GD32VF103_HAL_
 
 #include <stdint.h>
 #include <env/encoding.h>
@@ -27,7 +27,7 @@
  extern "C" {
 #endif
 
-struct fe310_uart_cfg {
+struct gd32vf103_uart_cfg {
     int8_t suc_pin_tx;                          /* pins for IO */
     int8_t suc_pin_rx;
 };
@@ -51,10 +51,10 @@ void hal_uart_sys_clock_changed(void);
 
 void hal_uart_sys_clock_changed(void);
 
-#define FE310_SPI_FIFO_LENGHT 8
+#define GD32VF103_SPI_FIFO_LENGHT 8
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* H_FE310_HAL_ */
+#endif  /* H_GD32VF103_HAL_ */

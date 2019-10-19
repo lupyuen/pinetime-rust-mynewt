@@ -25,7 +25,7 @@
 #include <defs/error.h>
 #include <syscfg/syscfg.h>
 
-#include <mcu/fe310_hal.h>
+#include <mcu/gd32vf103_hal.h>
 #include <mcu/sys_clock.h>
 #include <sifive/devices/spi.h>
 #include <env/freedom-e300-hifive1/platform.h>
@@ -42,13 +42,13 @@
 #endif
 
 #if MYNEWT_VAL(TIMER_0)
-extern struct fe310_hal_tmr fe310_pwm2;
+extern struct gd32vf103_hal_tmr gd32vf103_pwm2;
 #endif
 #if MYNEWT_VAL(TIMER_1)
-extern struct fe310_hal_tmr fe310_pwm1;
+extern struct gd32vf103_hal_tmr gd32vf103_pwm1;
 #endif
 #if MYNEWT_VAL(TIMER_2)
-extern struct fe310_hal_tmr fe310_pwm0;
+extern struct gd32vf103_hal_tmr gd32vf103_pwm0;
 #endif
 
 #if MYNEWT_VAL(UART_0)
@@ -71,22 +71,22 @@ static struct bus_spi_dev spi2_bus;
 #endif
 
 static void
-fe310_periph_create_timers(void)
+gd32vf103_periph_create_timers(void)
 {
     int rc;
 
     (void)rc;
 
 #if MYNEWT_VAL(TIMER_0)
-    rc = hal_timer_init(0, (void *)&fe310_pwm2);
+    rc = hal_timer_init(0, (void *)&gd32vf103_pwm2);
     assert(rc == 0);
 #endif
 #if MYNEWT_VAL(TIMER_1)
-    rc = hal_timer_init(1, (void *)&fe310_pwm1);
+    rc = hal_timer_init(1, (void *)&gd32vf103_pwm1);
     assert(rc == 0);
 #endif
 #if MYNEWT_VAL(TIMER_2)
-    rc = hal_timer_init(2, (void *)&fe310_pwm0);
+    rc = hal_timer_init(2, (void *)&gd32vf103_pwm0);
     assert(rc == 0);
 #endif
 
@@ -97,7 +97,7 @@ fe310_periph_create_timers(void)
 }
 
 static void
-fe310_periph_create_uart(void)
+gd32vf103_periph_create_uart(void)
 {
 #if MYNEWT_VAL(UART_0)
     int rc;
@@ -110,7 +110,7 @@ fe310_periph_create_uart(void)
 }
 
 static void
-fe310_periph_create_spi(void)
+gd32vf103_periph_create_spi(void)
 {
     int rc;
 
@@ -139,9 +139,9 @@ fe310_periph_create_spi(void)
 }
 
 void
-fe310_periph_create(void)
+gd32vf103_periph_create(void)
 {
-    fe310_periph_create_timers();
-    fe310_periph_create_uart();
-    fe310_periph_create_spi();
+    gd32vf103_periph_create_timers();
+    gd32vf103_periph_create_uart();
+    gd32vf103_periph_create_spi();
 }
