@@ -395,7 +395,7 @@ use mynewt::{kernel::os, sys::console, libs::sensor_network};
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]
-extern "C" fn main() -> ! {
+extern "C" fn OLDmain() -> ! {
     mynewt::sysinit();
     app_sensor::start_sensor_listener().expect("TMP fail");
     loop  {
