@@ -43,7 +43,7 @@ OF SUCH DAMAGE.
     \param[out] none
     \retval     none
 */
-int main(void)
+int gd32vf103_main(void)  //  Previously main(void)
 {
     gd_eval_led_init(LED1);
     gd_eval_led_init(LED2);
