@@ -24,7 +24,7 @@
 #include <hal/hal_timer.h>
 #include <mcu/plic.h>
 #include <mcu/gd32vf103_hal.h>
-#include <env/freedom-e300-hifive1/platform.h>
+////#include <env/freedom-e300-hifive1/platform.h>
 
 #define FE310_HAL_TIMER_MAX     (3)
 

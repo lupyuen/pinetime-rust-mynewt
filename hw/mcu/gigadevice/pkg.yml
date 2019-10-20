@@ -31,4 +31,4 @@ pkg.deps:
     - "@apache-mynewt-core/hw/hal"
 
 pkg.src_dirs:
-    - "src/ext/freedom-e-sdk_3235929/bsp"
+# TODO    - "src/ext/freedom-e-sdk_3235929/bsp"

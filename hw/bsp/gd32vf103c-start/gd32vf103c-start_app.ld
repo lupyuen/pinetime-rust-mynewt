@@ -19,7 +19,7 @@
 
 MEMORY
 {
-  /*  Must sync with scripts/gd32vf103c-start/flash-app.ocd, hw/bsp/gd32vf103c-start/bsp.yml  */
+  /*  Must sync with scripts/gd32vf103/flash-app.ocd, hw/bsp/gd32vf103c-start/bsp.yml  */
   flash (rxai!w) : ORIGIN = 0x08001000, LENGTH = 60K
   ram   (wxa!ri) : ORIGIN = 0x20000000, LENGTH = 20K
 }

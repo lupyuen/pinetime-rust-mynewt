@@ -21,8 +21,8 @@
 
 #include "os/mynewt.h"
 
-#include <env/freedom-e300-hifive1/platform.h>
-#include <env/encoding.h>
+////#include <env/freedom-e300-hifive1/platform.h>
+////#include <env/encoding.h>
 #include <mcu/sys_clock.h>
 
 volatile int test;

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-#include <env/encoding.h>
+////#include <env/encoding.h>
 
     .section .init
     .globl _reset_handler
@@ -28,11 +28,13 @@ _reset_handler:
     la sp, _sp
 
     /* Disable Local/Timer/External interrupts */
+    /* TODO
     csrc mstatus, MSTATUS_MIE
     csrr t0, mie
     li t1, ~(MIP_MSIP | MIP_MTIP | MIP_MEIP)
     and t0, t0, t1
     csrw mie, t0
+    */
 
     /* Load data section from flash */
     la a0, _data_lma

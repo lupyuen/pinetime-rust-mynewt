@@ -25,6 +25,12 @@ This `gd32vf103` branch contains the source code for a Sensor Application for Gi
 
 [_???_](???)
 
+# TODO
+
+repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/ctx.s
+
+repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/os_arch_rv32imac.c
+
 # Fixes for Mynewt type conversion build warnings
 
 These fixes should be applied manually when upgrading Mynewt or installing Mynewt from scratch.
