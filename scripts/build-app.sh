@@ -27,8 +27,8 @@ cp .vscode/launch-gd32vf103.json .vscode/launch.json
 set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." ; set -x
 
 #  Rust build profile: debug or release
-rust_build_profile=debug
-#  rust_build_profile=release
+#  rust_build_profile=debug
+rust_build_profile=release
 
 #  Add toolchain to PATH.
 export PATH="$PWD/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:$PATH"
