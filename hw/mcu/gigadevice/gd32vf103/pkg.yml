@@ -39,11 +39,5 @@ pkg.cflags:
     # Where the firmware include files provided by GigaDevice are located
     - -Ihw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral
     - -Ihw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Include
-    - -Ihw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_usbfs_driver/Include
     - -Ihw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/drivers
     - -Ihw/mcu/gigadevice/gd32vf103/src/ext/Template
-
-# Where the firmware source files provided by GigaDevice are located. Only these folders will be compiled.
-pkg.src_dirs:
-    - "src/ext/Firmware/GD32VF103_standard_peripheral"
-    - "src/ext/Firmware/RISCV"
