@@ -33,4 +33,10 @@ pkg.deps:
 pkg.deps.BUS_DRIVER_PRESENT:
     - "@apache-mynewt-core/hw/bus/drivers/spi_hal"
 
-pkg.cflags: -march=rv32imac -mabi=ilp32
+pkg.cflags: 
+    - -march=rv32imac 
+    - -mabi=ilp32
+
+# Where the firmware files provided by GigaDevice are located
+pkg.src_dirs:
+    - "src/ext/Firmware"
