@@ -8028,7 +8028,7 @@ _ZN4core4iter5range116_$LT$impl$u20$core..iter..traits..double_ended..DoubleEnde
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:243
    e:	c14c                	sw	a1,4(a0)
   10:	4611                	li	a2,4
-_ZN4core6option15Option$LT$T$GT$3map17h0747487c104446aeE():
+_ZN105_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..double_ended..DoubleEndedIterator$GT$9next_back28_$u7b$$u7b$closure$u7d$$u7d$17he9e8b8021829456eE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:162
             self.range.next_back().map(|i| self.data[i])
   12:	00c5fd63          	bgeu	a1,a2,2c <_ZN105_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..double_ended..DoubleEndedIterator$GT$9next_back17h55be92664e254848E+0x2c>
@@ -8045,7 +8045,7 @@ _ZN105_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..double
   26:	40b2                	lw	ra,12(sp)
   28:	0141                	addi	sp,sp,16
   2a:	8082                	ret
-_ZN4core6option15Option$LT$T$GT$3map17h0747487c104446aeE():
+_ZN105_$LT$cstr_core..ascii..EscapeDefault$u20$as$u20$core..iter..traits..double_ended..DoubleEndedIterator$GT$9next_back28_$u7b$$u7b$closure$u7d$$u7d$17he9e8b8021829456eE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cstr_core-0.1.2/src/lib.rs:162
             self.range.next_back().map(|i| self.data[i])
   2c:	00000537          	lui	a0,0x0
@@ -10496,7 +10496,7 @@ _ZN6memchr8fallback7memchr217h5bff36c9ae1942ecE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/fallback.rs:121
 }
  12c:	8082                	ret
-_ZN6memchr8fallback3sub17h0f52472a27d05f59E():
+_ZN6memchr8fallback14forward_search17hede49463111ff839E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/fallback.rs:345
     (a as usize) - (b as usize)
  12e:	40c685b3          	sub	a1,a3,a2
@@ -17156,7 +17156,7 @@ _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E():
  106:	00050593          	mv	a1,a0
  10a:	00b99f63          	bne	s3,a1,128 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E+0x128>
  10e:	a025                	j	136 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E+0x136>
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17h3c134fae793e6b97E():
+_ZN4core3cmp5impls69_$LT$impl$u20$core..cmp..PartialEq$LT$$RF$B$GT$$u20$for$u20$$RF$A$GT$2eq17hcf2474734a7ba443E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
  110:	04a91063          	bne	s2,a0,150 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E+0x150>
 _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E():

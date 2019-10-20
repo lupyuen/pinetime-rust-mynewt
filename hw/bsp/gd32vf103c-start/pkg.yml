@@ -37,3 +37,5 @@ pkg.cflags:
     - -march=rv32imac 
     - -mabi=ilp32
     - -DDISABLE_SEMIHOSTING  #  Don't use Arm Semihosting for RISC-V
+    # Identify the board. Needed by hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/gd32vf103.h
+    - -DGD32VF103C_START
