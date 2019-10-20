@@ -23,8 +23,10 @@ int __wrap_coap_receive(/* struct os_mbuf **mp */) {
 //  Dummy destructor for global C++ objects, since our program never terminates.  
 //  From https://arobenko.gitbooks.io/bare_metal_cpp/content/compiler_output/static.html.
 void* __dso_handle = NULL;
-void _fini(void) { }
 int __aeabi_atexit(void *object, void (*destructor)(void *), void *dso_handle) { return 0; }
+#ifndef ARCH_rv32imac  //  If not RISC-V...
+void _fini(void) { }   //  Define the function to be called when main() exits
+#endif  //  ARCH_rv32imac
 
 /** About directory "my_sensor_app" for BSP "bluepill" and MCU "stm32f1xx"...
  * Depending on the type of package, there are different

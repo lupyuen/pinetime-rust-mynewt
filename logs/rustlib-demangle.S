@@ -11,13 +11,12 @@ app-d0445c1fb25dc647.app.9uhxv32r-cgu.0.rcgu.o:     file format elf32-littlerisc
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 app.9uhxv32r-cgu.0
-000000b0 l       .debug_ranges	00000000 
+00000098 l       .debug_ranges	00000000 
 00000000 l       .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E	00000000 
 00000000 l       .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E	00000000 
 00000002 l       .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E	00000000 
 00000006 l       .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E	00000000 
 0000000e l       .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E	00000000 
-00003135 l       .debug_str	00000000 
 0000314b l       .debug_str	00000000 
 00003169 l       .debug_str	00000000 
 00003172 l       .debug_str	00000000 
@@ -43,23 +42,21 @@ SYMBOL TABLE:
 00000166 l       .debug_loc	00000000 
 00000179 l       .debug_loc	00000000 
 000001a2 l       .debug_loc	00000000 
-000001c0 l       .debug_loc	00000000 
-000001e9 l       .debug_loc	00000000 
-000001fc l       .debug_loc	00000000 
-00000225 l       .debug_loc	00000000 
-00000238 l       .debug_loc	00000000 
-0000024b l       .debug_loc	00000000 
-0000025e l       .debug_loc	00000000 
-00000287 l       .debug_loc	00000000 
-0000029a l       .debug_loc	00000000 
-000002b2 l       .debug_loc	00000000 
+000001cb l       .debug_loc	00000000 
+000001de l       .debug_loc	00000000 
+00000207 l       .debug_loc	00000000 
+0000021a l       .debug_loc	00000000 
+0000022d l       .debug_loc	00000000 
+00000240 l       .debug_loc	00000000 
+00000269 l       .debug_loc	00000000 
+0000027c l       .debug_loc	00000000 
+00000294 l       .debug_loc	00000000 
 00000000 l       .debug_info	00000000 
-000000c8 l       .debug_ranges	00000000 
+000000b0 l       .debug_ranges	00000000 
 00000000 l       .debug_ranges	00000000 
 00000020 l       .debug_ranges	00000000 
 00000038 l       .debug_ranges	00000000 
 00000050 l       .debug_ranges	00000000 
-00000098 l       .debug_ranges	00000000 
 00000068 l       .debug_ranges	00000000 
 00000080 l       .debug_ranges	00000000 
 00000000 l       .text._ZN4core6result13unwrap_failed17h3314c9605742429cE	00000000 
@@ -102,31 +99,28 @@ SYMBOL TABLE:
 000000a2 l       .text.main	00000000 
 000000a8 l       .text.main	00000000 
 000000e8 l       .text.main	00000000 
-000000f0 l       .text.main	00000000 
-000000f6 l       .text.main	00000000 
-000000fe l       .text.main	00000000 
-00000106 l       .text.main	00000000 
-0000010e l       .text.main	00000000 
+000000ea l       .text.main	00000000 
+000000f4 l       .text.main	00000000 
+000000fc l       .text.main	00000000 
+00000104 l       .text.main	00000000 
+00000108 l       .text.main	00000000 
+0000010a l       .text.main	00000000 
 00000112 l       .text.main	00000000 
-00000114 l       .text.main	00000000 
-0000011c l       .text.main	00000000 
+0000011a l       .text.main	00000000 
+00000122 l       .text.main	00000000 
 00000124 l       .text.main	00000000 
 0000012c l       .text.main	00000000 
-0000012e l       .text.main	00000000 
-00000136 l       .text.main	00000000 
+00000134 l       .text.main	00000000 
+0000013c l       .text.main	00000000 
 0000013e l       .text.main	00000000 
 00000146 l       .text.main	00000000 
-00000148 l       .text.main	00000000 
-00000150 l       .text.main	00000000 
-00000158 l       .text.main	00000000 
-00000160 l       .text.main	00000000 
-00000164 l       .text.main	00000000 
+0000014e l       .text.main	00000000 
+00000156 l       .text.main	00000000 
+0000015a l       .text.main	00000000 
+0000015e l       .text.main	00000000 
 00000168 l       .text.main	00000000 
-00000172 l       .text.main	00000000 
-0000017a l       .text.main	00000000 
-0000017e l       .text.main	00000000 
-00000192 l       .text.main	00000000 
-00000192 l       .text.main	00000000 
+00000170 l       .text.main	00000000 
+00000170 l       .text.main	00000000 
 00000000 l       .text.rust_begin_unwind	00000000 
 00000000 l       .text.rust_begin_unwind	00000000 
 0000000c l       .text.rust_begin_unwind	00000000 
@@ -659,6 +653,7 @@ SYMBOL TABLE:
 00003124 l       .debug_str	00000000 
 00003128 l       .debug_str	00000000 
 0000312d l       .debug_str	00000000 
+00003135 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0	00000000 .Lanon.3ed011473997af99b525cde47c9eaaac.0
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1	00000002 .Lanon.3ed011473997af99b525cde47c9eaaac.1
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.10
@@ -683,14 +678,11 @@ SYMBOL TABLE:
 00000000 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.28
 00000008 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.29
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3	00000015 .Lanon.3ed011473997af99b525cde47c9eaaac.3
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.30	00000013 .Lanon.3ed011473997af99b525cde47c9eaaac.30
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.31	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.31
-00000010 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.32
-00000018 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.33
+00000010 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.30
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.31	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.31
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.32	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.32
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.33	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.33
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.34	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.34
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.35	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.35
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.36	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.36
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.37	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.37
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4	00000010 .Lanon.3ed011473997af99b525cde47c9eaaac.4
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5	00000013 .Lanon.3ed011473997af99b525cde47c9eaaac.5
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6	00000056 .Lanon.3ed011473997af99b525cde47c9eaaac.6
@@ -748,9 +740,8 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 json_helper_set_text_string
 00000000         *UND*	00000000 json_rep_end_root_object
 00000000         *UND*	00000000 json_rep_start_root_object
-00000000 g     F .text.main	00000192 main
+00000000 g     F .text.main	00000170 main
 00000000 g     F .text.rust_begin_unwind	000000bc rust_begin_unwind
-00000000         *UND*	00000000 start_mesh
 
 
 
@@ -995,7 +986,7 @@ _ZN3app11app_network16send_sensor_data17h7e29709a4e7008e6E():
  144:	4cd6                	lw	s9,84(sp)
  146:	a4f5                	j	432 <app::app_network::aggregate_sensor_data+0x432>
  148:	65c1                	lui	a1,0x10
- 14a:	f0058593          	addi	a1,a1,-256 # ff00 <.Lanon.3ed011473997af99b525cde47c9eaaac.33+0xfee8>
+ 14a:	f0058593          	addi	a1,a1,-256 # ff00 <.Lanon.3ed011473997af99b525cde47c9eaaac.30+0xfef0>
  14e:	8d6d                	and	a0,a0,a1
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:87
 
@@ -1349,11 +1340,11 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   42:	000080e7          	jalr	ra # 3e <main+0x3e>
 _ZN4core6option15Option$LT$T$GT$6expect17hb32244d3bb0aaa35E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:313
-  46:	10050d63          	beqz	a0,160 <main+0x160>
+  46:	10050863          	beqz	a0,156 <main+0x156>
 _ZN3app10app_sensor21start_sensor_listener17h7401e0f6ca5bfdaaE():
   4a:	892e                	mv	s2,a1
   4c:	6509                	lui	a0,0x2
-  4e:	71050593          	addi	a1,a0,1808 # 2710 <.Lanon.3ed011473997af99b525cde47c9eaaac.33+0x26f8>
+  4e:	71050593          	addi	a1,a0,1808 # 2710 <.Lanon.3ed011473997af99b525cde47c9eaaac.30+0x2700>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
         .next()             //  Fetch the first sensor that matches
         .expect("no TMP");  //  Stop if no sensor found
@@ -1364,7 +1355,7 @@ _ZN3app10app_sensor21start_sensor_listener17h7401e0f6ca5bfdaaE():
   54:	00000097          	auipc	ra,0x0
   58:	000080e7          	jalr	ra # 54 <main+0x54>
   5c:	4985                	li	s3,1
-  5e:	0f351463          	bne	a0,s3,146 <main+0x146>
+  5e:	0d351f63          	bne	a0,s3,13c <main+0x13c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
 
     // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
@@ -1405,7 +1396,7 @@ main():
 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h4181d780272b5615E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:826
   a2:	05358363          	beq	a1,s3,e8 <main+0xe8>
-  a6:	a04d                	j	148 <main+0x148>
+  a6:	a861                	j	13e <main+0x13e>
 _ZN3app10app_sensor21start_sensor_listener17h7401e0f6ca5bfdaaE():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
     let listener = sensor::new_sensor_listener(
@@ -1441,90 +1432,70 @@ _ZN3app10app_sensor21start_sensor_listener17h7401e0f6ca5bfdaaE():
   da:	854a                	mv	a0,s2
   dc:	00000097          	auipc	ra,0x0
   e0:	000080e7          	jalr	ra # dc <main+0xdc>
-  e4:	07351163          	bne	a0,s3,146 <main+0x146>
+  e4:	05351c63          	bne	a0,s3,13c <main+0x13c>
 main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:71
-    //gps_sensor::start_gps_listener()
-        //.expect("GPS fail");
-
-    //  Start Bluetooth Mesh.  TODO: Create a safe wrapper for starting Bluetooth Mesh.
-    extern { fn start_mesh() -> i32; }
-    let rc = unsafe { start_mesh() };
-  e8:	00000097          	auipc	ra,0x0
-  ec:	000080e7          	jalr	ra # e8 <main+0xe8>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:72
-    assert!(rc == 0, "BLE fail");
-  f0:	e549                	bnez	a0,17a <main+0x17a>
-  f2:	1804                	addi	s1,sp,48
+  e8:	1804                	addi	s1,sp,48
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:77
+    //  assert!(rc == 0, "BLE fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
-  f4:	8526                	mv	a0,s1
-  f6:	00000097          	auipc	ra,0x0
-  fa:	000080e7          	jalr	ra # f6 <main+0xf6>
+  ea:	8526                	mv	a0,s1
+  ec:	00000097          	auipc	ra,0x0
+  f0:	000080e7          	jalr	ra # ec <main+0xec>
 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h02d401e7fe1e837aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:826
-  fe:	5542                	lw	a0,48(sp)
- 100:	03350663          	beq	a0,s3,12c <main+0x12c>
- 104:	5552                	lw	a0,52(sp)
+  f4:	5542                	lw	a0,48(sp)
+  f6:	03350663          	beq	a0,s3,122 <main+0x122>
+  fa:	5552                	lw	a0,52(sp)
 main():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:76
         os::eventq_run(               //  Processing events...
- 106:	00000097          	auipc	ra,0x0
- 10a:	000080e7          	jalr	ra # 106 <main+0x106>
+  fc:	00000097          	auipc	ra,0x0
+ 100:	000080e7          	jalr	ra # fc <main+0xfc>
 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h4181d780272b5615E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:826
- 10e:	ff3503e3          	beq	a0,s3,f4 <main+0xf4>
+ 104:	ff3503e3          	beq	a0,s3,ea <main+0xea>
 main():
- 112:	85aa                	mv	a1,a0
+ 108:	85aa                	mv	a1,a0
 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h4181d780272b5615E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:827
- 114:	00000537          	lui	a0,0x0
- 118:	00050513          	mv	a0,a0
- 11c:	00000097          	auipc	ra,0x0
- 120:	000080e7          	jalr	ra # 11c <main+0x11c>
- 124:	00000097          	auipc	ra,0x0
- 128:	000080e7          	jalr	ra # 124 <main+0x124>
+ 10a:	00000537          	lui	a0,0x0
+ 10e:	00050513          	mv	a0,a0
+ 112:	00000097          	auipc	ra,0x0
+ 116:	000080e7          	jalr	ra # 112 <main+0x112>
+ 11a:	00000097          	auipc	ra,0x0
+ 11e:	000080e7          	jalr	ra # 11a <main+0x11a>
 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h02d401e7fe1e837aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:827
- 12c:	55d2                	lw	a1,52(sp)
- 12e:	00000537          	lui	a0,0x0
- 132:	00050513          	mv	a0,a0
- 136:	00000097          	auipc	ra,0x0
- 13a:	000080e7          	jalr	ra # 136 <main+0x136>
- 13e:	00000097          	auipc	ra,0x0
- 142:	000080e7          	jalr	ra # 13e <main+0x13e>
+ 122:	55d2                	lw	a1,52(sp)
+ 124:	00000537          	lui	a0,0x0
+ 128:	00050513          	mv	a0,a0
+ 12c:	00000097          	auipc	ra,0x0
+ 130:	000080e7          	jalr	ra # 12c <main+0x12c>
+ 134:	00000097          	auipc	ra,0x0
+ 138:	000080e7          	jalr	ra # 134 <main+0x134>
 main():
- 146:	85aa                	mv	a1,a0
+ 13c:	85aa                	mv	a1,a0
 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h4181d780272b5615E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:827
- 148:	00000537          	lui	a0,0x0
- 14c:	00050513          	mv	a0,a0
- 150:	00000097          	auipc	ra,0x0
- 154:	000080e7          	jalr	ra # 150 <main+0x150>
- 158:	00000097          	auipc	ra,0x0
- 15c:	000080e7          	jalr	ra # 158 <main+0x158>
+ 13e:	00000537          	lui	a0,0x0
+ 142:	00050513          	mv	a0,a0
+ 146:	00000097          	auipc	ra,0x0
+ 14a:	000080e7          	jalr	ra # 146 <main+0x146>
+ 14e:	00000097          	auipc	ra,0x0
+ 152:	000080e7          	jalr	ra # 14e <main+0x14e>
 _ZN4core6option15Option$LT$T$GT$6expect17hb32244d3bb0aaa35E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:314
- 160:	00000537          	lui	a0,0x0
- 164:	00050513          	mv	a0,a0
- 168:	4599                	li	a1,6
- 16a:	00000097          	auipc	ra,0x0
- 16e:	000080e7          	jalr	ra # 16a <main+0x16a>
- 172:	00000097          	auipc	ra,0x0
- 176:	000080e7          	jalr	ra # 172 <main+0x172>
-main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:72
-    assert!(rc == 0, "BLE fail");
- 17a:	00000537          	lui	a0,0x0
- 17e:	00050513          	mv	a0,a0
- 182:	00000097          	auipc	ra,0x0
- 186:	000080e7          	jalr	ra # 182 <main+0x182>
- 18a:	00000097          	auipc	ra,0x0
- 18e:	000080e7          	jalr	ra # 18a <main+0x18a>
+ 156:	00000537          	lui	a0,0x0
+ 15a:	00050513          	mv	a0,a0
+ 15e:	4599                	li	a1,6
+ 160:	00000097          	auipc	ra,0x0
+ 164:	000080e7          	jalr	ra # 160 <main+0x160>
+ 168:	00000097          	auipc	ra,0x0
+ 16c:	000080e7          	jalr	ra # 168 <main+0x168>
 
 Disassembly of section .text.rust_begin_unwind:
 
