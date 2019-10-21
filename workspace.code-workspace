@@ -69,7 +69,9 @@
 			"stm32l4xx_hal_dma.h": "c",
 			"optional": "cpp",
 			"system_error": "cpp",
-			"*.tcc": "cpp"
+			"*.tcc": "cpp",
+			"platform.h": "c",
+			"clint.h": "c"
 		},
 		"rust.racer_completion": false
 	}

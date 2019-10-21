@@ -5662,7 +5662,7 @@ _ZN8cortex_m10peripheral4syst44_$LT$impl$u20$cortex_m..peripheral..SYST$GT$10is_
     /// from 10 ms.
     pub fn is_precise() -> bool {
    0:	e000e537          	lui	a0,0xe000e
-_ZN17volatile_register11RO$LT$T$GT$4read17heb9b4dd29523348fE():
+_ZN4core3ptr13read_volatile17h5a5665c4ba9f8ff3E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:871
    4:	4d48                	lw	a0,28(a0)
    6:	400005b7          	lui	a1,0x40000

@@ -16676,7 +16676,7 @@ _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4last17h3ae33594a8cb47c3E():
   80:	00957963          	bgeu	a0,s1,92 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E+0x92>
   84:	00a4b5b3          	sltu	a1,s1,a0
   88:	e589                	bnez	a1,92 <_ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E+0x92>
-_ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17hb1089664e311acecE():
+_ZN68_$LT$usize$u20$as$u20$core..slice..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$13get_unchecked17he373ab9e87cd3b2aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1077
   8a:	9532                	add	a0,a0,a2
   8c:	00054503          	lbu	a0,0(a0)
