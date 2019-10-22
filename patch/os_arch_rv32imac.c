@@ -64,7 +64,7 @@ struct context_switch_frame {
     uint32_t  a7;
 };
 
-#ifdef NOTUSED  //  TODO: Should be moved to MCU
+#ifdef NOTUSED
 uint32_t
 mtime_lo(void)
 {
@@ -95,13 +95,13 @@ set_mtimecmp(uint64_t time)
     CLINT_REG(CLINT_MTIMECMP) = (uint32_t) time;
     CLINT_REG(CLINT_MTIMECMP + 4) = (uint32_t) (time >> 32);
 }
-#endif  //  NOTUSED
 
 unsigned long
 get_timer_freq()
 {
   return 32768;
 }
+#endif  //  NOTUSED
 
 /* XXX: determine how to deal with running un-privileged */
 /* only priv currently supported */
@@ -124,7 +124,6 @@ timer_handler(void)
     os_time_advance(1);
 }
 
-#ifdef NOTUSED  //  TODO: Should be moved to MCU
 void
 os_arch_ctx_sw(struct os_task *t)
 {
@@ -137,7 +136,6 @@ os_arch_ctx_sw(struct os_task *t)
      */
     CLINT_REG(CLINT_MSIP) = 1;
 }
-#endif  //  NOTUSED
 
 os_sr_t
 os_arch_save_sr(void)

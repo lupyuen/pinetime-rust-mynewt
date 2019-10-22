@@ -18,15 +18,14 @@
  */
 
 #include "os/mynewt.h"
-////#include <env/freedom-e300-hifive1/platform.h>
 #include <mcu/plic.h>
 
-interrupt_handler_t plic_interrupts[PLIC_NUM_INTERRUPTS];
+interrupt_handler_t plic_interrupts[ECLIC_NUM_INTERRUPTS];
 
 void
 plic_set_handler(int int_num, interrupt_handler_t handler, int priority)
 {
-    if (int_num > 0 && int_num < PLIC_NUM_INTERRUPTS) {
+    if (int_num > 0 && int_num < ECLIC_NUM_INTERRUPTS) {
         plic_interrupts[int_num] = handler;
         PLIC_REG(PLIC_PRIORITY_OFFSET + int_num * 4) = priority;
     }
@@ -35,7 +34,7 @@ plic_set_handler(int int_num, interrupt_handler_t handler, int priority)
 void
 plic_enable_interrupt(int int_num)
 {
-    if (int_num > 0 && int_num < PLIC_NUM_INTERRUPTS) {
+    if (int_num > 0 && int_num < ECLIC_NUM_INTERRUPTS) {
         PLIC_REG(PLIC_ENABLE_OFFSET + 4 * (int_num / 32)) |= 1 << (int_num & 0x1F);
     }
 }
@@ -43,7 +42,7 @@ plic_enable_interrupt(int int_num)
 void
 plic_disable_interrupt(int int_num)
 {
-    if (int_num > 0 && int_num < PLIC_NUM_INTERRUPTS) {
+    if (int_num > 0 && int_num < ECLIC_NUM_INTERRUPTS) {
         PLIC_REG(PLIC_ENABLE_OFFSET + 4 * (int_num / 32)) &= ~(1 << (int_num & 0x1F));
     }
 }

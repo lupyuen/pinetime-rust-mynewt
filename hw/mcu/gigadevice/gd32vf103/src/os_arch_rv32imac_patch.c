@@ -17,17 +17,21 @@
  * under the License.
  */
 //  Patched functions for repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/os_arch_rv32imac.c
+//  Based on hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/init.c.TODO
+//  and https://github.com/nucleisys/Bumblebee_Core_Doc/blob/master/Bumblebee%20Core%20Architecture%20Manual.pdf
 
 #include "os/mynewt.h"
 //#include "os_priv.h"
-
 #include <hal/hal_bsp.h>
 #include <hal/hal_os_tick.h>
 #include <env/encoding.h>
-#include <env/freedom-e300-hifive1/platform.h>
 #include <mcu/plic.h>
+#include "ext/Firmware/RISCV/drivers/n200_func.h"
+#undef bool  //  TODO: Needed for gd32vf103.h
+#include "ext/Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
 
-extern void trap_entry();
+extern void trap_entry();                   //  Defined in repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/ctx.s
+extern uint32_t disable_mcycle_minstret();  //  Defined in start.S
 
 #define OS_TICK_PRIO 0
 
@@ -36,27 +40,31 @@ os_arch_os_init(void)
 {
     os_error_t err = OS_OK;
 
-    //  Based on hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/init.c.TODO
-	//  ECLIC init
+	//  Enable the ECLIC unit for handling interrupts.
 	eclic_init(ECLIC_NUM_INTERRUPTS);
 	eclic_mode_enable();
 	//  printf("After ECLIC mode enabled, the mtvec value is %x \n\n\r", read_csr(mtvec));
-
-#ifdef NOTUSED
-	// It must be NOTED:
-	//    * In the RISC-V arch, if user mode and PMP supported, then by default if PMP is not configured
-	//      with valid entries, then user mode cannot access any memory, and cannot execute any instructions.
-	//    * So if switch to user-mode and still want to continue, then you must configure PMP first
-	pmp_open_all_space();
-	switch_m2u_mode();
-#endif  //  NOTUSED
 
     //  Before enter into main, add the cycle/instret disable by default to save power,
     //  only use them when needed to measure the cycle/instret
 	disable_mcycle_minstret();
     
-    //  TODO: Set all external interrupts to default handler
+    //  Set all external interrupts to default handler. We are using a non-vectored interrupt: trap_entry at mtvec.
+    /*  Each interrupt source of the ECLIC can be set to vectored or non-vectored interrupt (via the
+    shv field of the register clicintattr[i]). The key points are as follows:
+
+    - If the interrupt is configured as a vectored interrupt, then the core will jump to the
+    corresponding target address of this interrupt in the Vector Table Entry when this
+    interrupt is taken. For details about the Interrupt Vector Table, please refer to Section
+    5.8. For details of the vectored processing mode, please refer to Section 5.13.2. 
+
+    - If the interrupt is configured as a non-vectored interrupt, then the core will jump to a
+    common base address shared by all interrupts (mtvec). For details of the non-vectored
+    processing mode, please refer to Section 5.13.1 */
     int i;
+    for (i = 0; i < ECLIC_NUM_INTERRUPTS; ++i) {
+        plic_interrupts[i] = plic_default_isr;
+    }
 
     //  Default priority set to 0, never interrupt
     //  Already done in eclic_init()
@@ -69,7 +77,7 @@ os_arch_os_init(void)
     //  Enable interrupts at 0 level
     //  Already cleared minthresh register in eclic_init()
 
-    //  Set main trap handler
+    //  Set main trap handler, which will call external_interrupt_handler() for external interrupts.
     write_csr(mtvec, &trap_entry);
 
     os_arch_init();
@@ -97,6 +105,7 @@ os_arch_os_init(void)
     write_csr(mtvec, &trap_entry);
 #endif  //  NOTUSED
 
+#ifdef NOTUSED
 uint32_t
 os_arch_start(void)
 {
@@ -136,6 +145,7 @@ os_arch_start(void)
     /* This should not be reached */
     return (uint32_t) (t->t_arg);
 }
+#endif  //  NOTUSED
 
 #ifdef NOTUSED
     struct context_switch_frame {
@@ -298,7 +308,7 @@ os_arch_start(void)
     {
         os_init_idle_task();
     }
-    
+
     os_error_t
     os_arch_os_start(void)
     {
