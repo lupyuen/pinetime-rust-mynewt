@@ -49,7 +49,6 @@ os_arch_os_init(void)
     //  only use them when needed to measure the cycle/instret
 	disable_mcycle_minstret();
     
-    //  Set all external interrupts to default handler. We are using a non-vectored interrupt: trap_entry at mtvec.
     /*  Each interrupt source of the ECLIC can be set to vectored or non-vectored interrupt (via the
     shv field of the register clicintattr[i]). The key points are as follows:
 
@@ -61,21 +60,23 @@ os_arch_os_init(void)
     - If the interrupt is configured as a non-vectored interrupt, then the core will jump to a
     common base address shared by all interrupts (mtvec). For details of the non-vectored
     processing mode, please refer to Section 5.13.1 */
+
+    //  Set all external interrupts to default handler. 
+    //  For External Interrupts we are using trap_entry() at mtvec.
     int i;
     for (i = 0; i < ECLIC_NUM_INTERRUPTS; ++i) {
         plic_interrupts[i] = plic_default_isr;
+        //  Default priority set to 0, never interrupt
+        eclic_set_irq_priority(i, 0);
     }
 
-    //  Default priority set to 0, never interrupt
-    //  Already done in eclic_init()
-    //  uint8_t eclic_set_irq_priority(uint32_t source, uint8_t priority);
-
     //  Disable all interrupts
-    //  Already done in eclic_init()
-    //  void eclic_disable_interrupt (uint32_t source);
+    for (i = 0; i < ECLIC_NUM_INTERRUPTS; ++i) {
+        eclic_disable_interrupt(i);
+    }
 
-    //  Enable interrupts at 0 level
-    //  Already cleared minthresh register in eclic_init()
+    //  Enable interrupts at 0 level (min threshold = 0)
+    eclic_set_mth(0);
 
     //  Set main trap handler, which will call external_interrupt_handler() for external interrupts.
     write_csr(mtvec, &trap_entry);
