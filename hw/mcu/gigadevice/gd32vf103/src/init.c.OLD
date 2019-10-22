@@ -28,6 +28,7 @@
 volatile int test;
 
 /* Function called just before main() */
+//  Replaced by hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/system_gd32vf103.c
 void
 SystemInit(void)
 {
@@ -35,7 +36,7 @@ SystemInit(void)
 }
 
 /* Function called after main() finishes */
-void
+//  Replaced by apps/my_sensor_app/src/support.c
 _fini()
 {
 }
