@@ -88,6 +88,7 @@
     .weak  USBFS_IRQHandler
 
 vector_base:
+    /* Insert vector table at the start of firmware, similar to Arm */
     j _reset_handler
     .align    2
     .word     0
@@ -182,6 +183,7 @@ vector_base:
     .type _reset_handler,@function
 
 _reset_handler:
+    /* Called upon startup */
     la gp, _gp
     la sp, _sp
 
