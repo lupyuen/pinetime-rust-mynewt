@@ -71,6 +71,8 @@ plic_disable_interrupt(int int_num)
 void
 external_interrupt_handler(uintptr_t mcause)
 {
+    assert(0);  //  TODO: Handle external interrupt
+#ifdef NOTUSED    
     //  Called by trap_entry() in repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/ctx.s
     int num = PLIC_REG(PLIC_CLAIM_OFFSET);
     //  TODO: Handle all pending interrupts.
@@ -82,4 +84,5 @@ external_interrupt_handler(uintptr_t mcause)
         //  Check if other interupt is already pending
         num = PLIC_REG(PLIC_CLAIM_OFFSET);
     }
+#endif  //  NOTUSED
 }
