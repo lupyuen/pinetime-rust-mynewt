@@ -55,10 +55,12 @@ struct bus_spi_node_cfg flash_spi_cfg = {
 #endif
 
 static const struct hal_flash *flash_devs[] = {
+#ifdef TODO  ////
     [0] = &gd32vf103_flash_dev,
 #if MYNEWT_VAL(SPIFLASH)
     [1] = &spiflash_dev.hal,
 #endif
+#endif  //  TODO
 };
 
 const struct hal_flash *
