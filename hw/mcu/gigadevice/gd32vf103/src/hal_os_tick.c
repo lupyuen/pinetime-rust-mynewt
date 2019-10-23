@@ -19,8 +19,7 @@
 #include <assert.h>
 #include "os/mynewt.h"
 #include "hal/hal_os_tick.h"
-////#include <env/encoding.h>
-////#include <env/freedom-e300-hifive1/platform.h>
+#include <env/encoding.h>
 
 static uint64_t last_tick_time;
 static uint32_t ticks_per_ostick;
@@ -68,4 +67,13 @@ timer_interrupt_handler(void)
     set_mtimecmp(last_tick_time + ticks_per_ostick);
 
     os_time_advance(ticks);
+}
+
+//  From repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/os_arch_rv32imac.c
+void
+set_mtimecmp(uint64_t time)
+{
+    CLINT_REG(CLINT_MTIMECMP + 4) = -1;
+    CLINT_REG(CLINT_MTIMECMP) = (uint32_t) time;
+    CLINT_REG(CLINT_MTIMECMP + 4) = (uint32_t) (time >> 32);
 }
