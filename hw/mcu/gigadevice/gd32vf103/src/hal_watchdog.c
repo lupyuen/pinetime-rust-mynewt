@@ -24,6 +24,7 @@
 #include <mcu/gd32vf103_hal.h>
 
 #if !MYNEWT_VAL(WATCHDOG_RESET) && !MYNEWT_VAL(WATCHDOG_STUB)
+#ifdef TODO ////
 static void
 gd32vf103_watchdog_irq(int num)
 {
@@ -36,11 +37,13 @@ gd32vf103_watchdog_irq(int num)
     while (1) {
     }
 }
+#endif  //  TODO
 #endif
 
 int
 hal_watchdog_init(uint32_t expire_msecs)
 {
+#ifdef TODO  ////
 #if !MYNEWT_VAL(WATCHDOG_STUB)
 #if !MYNEWT_VAL(WATCHDOG_RESET)
     int pending_ints;
@@ -84,6 +87,7 @@ hal_watchdog_init(uint32_t expire_msecs)
     AON_REG(AON_WDOGKEY) = AON_WDOGKEY_VALUE;
     AON_REG(AON_WDOGCMP) = (uint32_t)expiration;
 #endif /* WATCHDOG_STUB */
+#endif  //  TODO
 
     return 0;
 }
@@ -92,8 +96,10 @@ void
 hal_watchdog_enable(void)
 {
 #if !MYNEWT_VAL(WATCHDOG_STUB)
+#ifdef TODO  ////
     AON_REG(AON_WDOGKEY) = AON_WDOGKEY_VALUE;
     AON_REG(AON_WDOGCFG) |= AON_WDOGCFG_ENCOREAWAKE;
+#endif  //  TODO
 #endif
 }
 
@@ -101,7 +107,9 @@ void
 hal_watchdog_tickle(void)
 {
 #if !MYNEWT_VAL(WATCHDOG_STUB)
+#ifdef TODO  ////
     AON_REG(AON_WDOGKEY) = AON_WDOGKEY_VALUE;
     AON_REG(AON_WDOGFEED) = AON_WDOGFEED_VALUE;
+#endif  //  TODO
 #endif
 }
