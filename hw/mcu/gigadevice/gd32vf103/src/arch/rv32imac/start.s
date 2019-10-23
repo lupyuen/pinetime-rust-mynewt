@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+/* Startup code for Bootloader and Application Firmware */
 
 #include <env/encoding.h>
 
