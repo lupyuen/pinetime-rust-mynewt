@@ -202,36 +202,38 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     }
 
     //  Based on Examples/TIMER/TIMER1_timebase/main.c
-
     eclic_global_interrupt_enable();
     eclic_set_nlbits(ECLIC_GROUP_LEVEL3_PRIO1);
     eclic_irq_enable(TIMER1_IRQn, 1, 0);
 
     /* ----------------------------------------------------------------------------
+    Assume SystemCoreClock = 108 MHz max
     TIMER1 Configuration: 
     TIMER1CLK = SystemCoreClock/5400 = 20KHz.
     TIMER1 configuration is timing mode, and the timing is 0.2s(4000/20000 = 0.2s).
-    CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
-
-    SystemCoreClock = 5400 * 20KHz = 108 MHz max
     ---------------------------------------------------------------------------- */
-    timer_oc_parameter_struct timer_ocinitpara;
+    uint32_t prescaler = SystemCoreClock / freq_hz;
+    if (prescaler > 0xffff) {
+        assert(0);
+        return -1;  //  Only 16 bits supported for prescaler
+    }
+
     timer_parameter_struct timer_initpara;
-
     rcu_periph_clock_enable(RCU_TIMER1);
-
     timer_deinit(TIMER1);
     /* initialize TIMER init parameter struct */
     timer_struct_para_init(&timer_initpara);
     /* TIMER1 configuration */
-    timer_initpara.prescaler         = 5399;
+    timer_initpara.prescaler         = prescaler;  //  Previously 5399
     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
-    timer_initpara.counterdirection  = TIMER_COUNTER_UP;
-    timer_initpara.period            = 4000;
+    timer_initpara.counterdirection  = TIMER_COUNTER_UP;  //  Count from 0
+    timer_initpara.period            = 1;  //  Count to 1. Previously 4000
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_init(TIMER1, &timer_initpara);
 
 #ifdef NOTUSED
+    //  CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
+    timer_oc_parameter_struct timer_ocinitpara;
     /* initialize TIMER channel output parameter struct */
     timer_channel_output_struct_para_init(&timer_ocinitpara);
     /* CH0,CH1 and CH2 configuration in OC timing mode */
@@ -244,9 +246,9 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 2000);
     timer_channel_output_mode_config(TIMER1, TIMER_CH_0, TIMER_OC_MODE_TIMING);
     timer_channel_output_shadow_config(TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
+    timer_interrupt_enable(TIMER1, TIMER_INT_CH0);
 #endif  //  NOTUSED
 
-    timer_interrupt_enable(TIMER1, TIMER_INT_CH0);
     timer_enable(TIMER1);
 
 #ifdef OLD
