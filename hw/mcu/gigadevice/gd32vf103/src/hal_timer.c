@@ -218,37 +218,36 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
         return -1;  //  Only 16 bits supported for prescaler
     }
 
+    //  TODO: Allow multiple timers
     timer_parameter_struct timer_initpara;
     rcu_periph_clock_enable(RCU_TIMER1);
     timer_deinit(TIMER1);
-    /* initialize TIMER init parameter struct */
+    //  Initialize TIMER init parameter struct
     timer_struct_para_init(&timer_initpara);
-    /* TIMER1 configuration */
-    timer_initpara.prescaler         = prescaler;  //  Previously 5399
+    //  TIMER1 configuration
+    timer_initpara.prescaler         = prescaler;         //  Previously 5399
     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
-    timer_initpara.counterdirection  = TIMER_COUNTER_UP;  //  Count from 0
-    timer_initpara.period            = 1;  //  Count to 1. Previously 4000
+    timer_initpara.counterdirection  = TIMER_COUNTER_UP;  //  Count starts from 0
+    timer_initpara.period            = 1;                 //  Count ends at 1, previously 4000
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_init(TIMER1, &timer_initpara);
 
-#ifdef NOTUSED
     //  CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
     timer_oc_parameter_struct timer_ocinitpara;
-    /* initialize TIMER channel output parameter struct */
+    //  Initialize TIMER channel output parameter struct
     timer_channel_output_struct_para_init(&timer_ocinitpara);
-    /* CH0,CH1 and CH2 configuration in OC timing mode */
+    //  CH0, CH1 and CH2 configuration in OC timing mode
     timer_ocinitpara.outputstate  = TIMER_CCX_ENABLE;
     timer_ocinitpara.ocpolarity   = TIMER_OC_POLARITY_HIGH;
     timer_ocinitpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
     timer_channel_output_config(TIMER1, TIMER_CH_0, &timer_ocinitpara);
 
-    /* CH0 configuration in OC timing mode */
+    //  CH0 configuration in OC timing mode
     timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 2000);
     timer_channel_output_mode_config(TIMER1, TIMER_CH_0, TIMER_OC_MODE_TIMING);
     timer_channel_output_shadow_config(TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
-    timer_interrupt_enable(TIMER1, TIMER_INT_CH0);
-#endif  //  NOTUSED
 
+    timer_interrupt_enable(TIMER1, TIMER_INT_CH0);
     timer_enable(TIMER1);
 
 #ifdef OLD
