@@ -212,6 +212,8 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     TIMER1CLK = SystemCoreClock/5400 = 20KHz.
     TIMER1 configuration is timing mode, and the timing is 0.2s(4000/20000 = 0.2s).
     CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
+
+    SystemCoreClock = 5400 * 20KHz = 108 MHz max
     ---------------------------------------------------------------------------- */
     timer_oc_parameter_struct timer_ocinitpara;
     timer_parameter_struct timer_initpara;
@@ -229,6 +231,7 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_init(TIMER1, &timer_initpara);
 
+#ifdef NOTUSED
     /* initialize TIMER channel output parameter struct */
     timer_channel_output_struct_para_init(&timer_ocinitpara);
     /* CH0,CH1 and CH2 configuration in OC timing mode */
@@ -241,11 +244,12 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 2000);
     timer_channel_output_mode_config(TIMER1, TIMER_CH_0, TIMER_OC_MODE_TIMING);
     timer_channel_output_shadow_config(TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
+#endif  //  NOTUSED
 
     timer_interrupt_enable(TIMER1, TIMER_INT_CH0);
     timer_enable(TIMER1);
 
-#ifdef NOTUSED
+#ifdef OLD
     cpu_freq = get_cpu_freq();
     div = cpu_freq / freq_hz;
 
@@ -270,7 +274,7 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     _REG32(tmr->pwm_regs, PWM_CFG) = PWM_CFG_ZEROCMP |
                                      PWM_CFG_ENALWAYS | scale;
     plic_enable_interrupt(tmr->pwmxcmp0_int);
-#endif  //  NOTUSED
+#endif  //  OLD
 
     return 0;
 }
