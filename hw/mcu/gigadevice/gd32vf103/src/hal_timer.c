@@ -211,6 +211,7 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     TIMER1 Configuration: 
     TIMER1CLK = SystemCoreClock/5400 = 20KHz.
     TIMER1 configuration is timing mode, and the timing is 0.2s(4000/20000 = 0.2s).
+    CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
     ---------------------------------------------------------------------------- */
     uint32_t prescaler = SystemCoreClock / freq_hz;
     if (prescaler > 0xffff) {
@@ -232,7 +233,6 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_init(TIMER1, &timer_initpara);
 
-    //  CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
     timer_oc_parameter_struct timer_ocinitpara;
     //  Initialize TIMER channel output parameter struct
     timer_channel_output_struct_para_init(&timer_ocinitpara);
@@ -240,15 +240,15 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_ocinitpara.outputstate  = TIMER_CCX_ENABLE;
     timer_ocinitpara.ocpolarity   = TIMER_OC_POLARITY_HIGH;
     timer_ocinitpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
-    timer_channel_output_config(TIMER1, TIMER_CH_0, &timer_ocinitpara);
+    timer_channel_output_config(            TIMER1, TIMER_CH_0, &timer_ocinitpara);
 
     //  CH0 configuration in OC timing mode
-    timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 2000);
-    timer_channel_output_mode_config(TIMER1, TIMER_CH_0, TIMER_OC_MODE_TIMING);
-    timer_channel_output_shadow_config(TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 2000);  //  TODO: Why 2000
+    timer_channel_output_mode_config(       TIMER1, TIMER_CH_0, TIMER_OC_MODE_TIMING);
+    timer_channel_output_shadow_config(     TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
 
-    timer_interrupt_enable(TIMER1, TIMER_INT_CH0);
-    timer_enable(TIMER1);
+    timer_interrupt_enable(                 TIMER1, TIMER_INT_CH0);
+    timer_enable(                           TIMER1);
 
 #ifdef OLD
     cpu_freq = get_cpu_freq();
