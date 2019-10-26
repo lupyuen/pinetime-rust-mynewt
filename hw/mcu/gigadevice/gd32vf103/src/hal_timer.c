@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+//  Based on repos\apache-mynewt-core\hw\mcu\stm\stm32_common\src\hal_timer.c
 
 #include <stdint.h>
 #include <errno.h>
@@ -337,20 +338,19 @@ hal_timer_get_resolution(int timer_num)
 }
 
 static uint32_t
-hal_timer_cnt(struct stm32_hal_tmr *tmr)
+hal_timer_cnt(struct gd32vf103_hal_tmr *tmr)
 {
     uint32_t cnt;
     int sr;
 
     __HAL_DISABLE_INTERRUPTS(sr);
+    /* TODO: Handle overflow
     if (tmr->sht_regs->SR & TIM_SR_UIF) {
-        /*
-         * Just overflowed
-         */
         tmr->sht_oflow += STM32_OFLOW_VALUE;
         tmr->sht_regs->SR &= ~TIM_SR_UIF;
     }
-    cnt = tmr->sht_oflow + tmr->sht_regs->CNT;
+    cnt = tmr->sht_oflow + tmr->sht_regs->CNT; */
+    cnt = timer_counter_read(tmr->periph);
     __HAL_ENABLE_INTERRUPTS(sr);
 
     return cnt;
@@ -432,6 +432,16 @@ hal_timer_set_cb(int timer_num, struct hal_timer *timer, hal_timer_cb cb_func,
     return 0;
 }
 
+/**
+ * hal_timer_start()
+ *
+ * Start a timer. Timer fires 'ticks' ticks from now.
+ *
+ * @param timer
+ * @param ticks
+ *
+ * @return int
+ */
 int
 hal_timer_start(struct hal_timer *timer, uint32_t ticks)
 {
@@ -444,6 +454,16 @@ hal_timer_start(struct hal_timer *timer, uint32_t ticks)
     return hal_timer_start_at(timer, tick);
 }
 
+/**
+ * hal_timer_start_at()
+ *
+ * Start a timer. Timer fires at tick 'tick'.
+ *
+ * @param timer
+ * @param tick
+ *
+ * @return int
+ */
 int
 hal_timer_start_at(struct hal_timer *timer, uint32_t tick)
 {
@@ -477,15 +497,31 @@ hal_timer_start_at(struct hal_timer *timer, uint32_t tick)
         gd32vf103_tmr_check_first(tmr);
     }
 
+#ifdef TODO
+    if ((int32_t)(tick - hal_timer_cnt(tmr)) <= 0) {
+        /*
+         * Event in the past (should be the case if it was just inserted).
+         */
+        tmr->sht_regs->EGR |= TIM_EGR_CC1G;
+        tmr->sht_regs->DIER |= TIM_DIER_CC1IE;
+    } else {
+        if (timer == TAILQ_FIRST(&tmr->sht_timers)) {
+            TIM_CCxChannelCmd(tmr->sht_regs, TIM_CHANNEL_1, TIM_CCx_ENABLE);
+            tmr->sht_regs->CCR1 = timer->expiry;
+            tmr->sht_regs->DIER |= TIM_DIER_CC1IE;
+        }
+    }
+#endif  //  TODO
+
     __HAL_ENABLE_INTERRUPTS(sr);
 
     return 0;
 }
 
 /**
- * hal timer stop
+ * hal_timer_stop()
  *
- * Stop a timer.
+ * Cancels the timer.
  *
  * @param timer
  *
@@ -511,6 +547,19 @@ hal_timer_stop(struct hal_timer *timer)
         if (recalc) {
             gd32vf103_tmr_check_first(tmr);
         }
+
+#ifdef TODO
+        if (reset_ocmp) {
+            if (ht) {
+                tmr->sht_regs->CCR1 = ht->expiry;
+            } else {
+                TIM_CCxChannelCmd(tmr->sht_regs, TIM_CHANNEL_1,
+                  TIM_CCx_DISABLE);
+                tmr->sht_regs->DIER &= ~TIM_DIER_CC1IE;
+            }
+        }
+#endif  //  TODO
+
     }
     __HAL_ENABLE_INTERRUPTS(sr);
 
