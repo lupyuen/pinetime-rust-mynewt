@@ -223,7 +223,7 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_deinit(tmr->periph);
     //  Initialize TIMER init parameter struct
     timer_struct_para_init(&timer_initpara);
-    //  TIMER1 configuration
+    //  TIMER configuration
     timer_initpara.prescaler         = prescaler;         //  Previously 5399
     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection  = TIMER_COUNTER_UP;  //  Count starts from 0
@@ -297,14 +297,21 @@ hal_timer_deinit(int timer_num)
         return -1;
     }
     __HAL_DISABLE_INTERRUPTS(sr);
-#ifdef TODO
+    timer_disable(          tmr->periph);
+    timer_interrupt_disable(tmr->periph, TIMER_INT_CH0);
+    timer_deinit(           tmr->periph);
+
+#ifdef OLD
     _REG32(tmr->pwm_regs, PWM_CFG) = 0;
     plic_disable_interrupt(tmr->pwmxcmp0_int);
     plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
+#endif  //  OLD
     __HAL_ENABLE_INTERRUPTS(sr);
-#endif  //  TODO
     return 0;
 }
+
+///  Number of nanoseconds in a second
+#define NSEC_PER_SEC (1000000000UL)
 
 /**
  * hal timer get resolution
@@ -324,16 +331,37 @@ hal_timer_get_resolution(int timer_num)
     if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
+    uint16_t prescaler = timer_prescaler_read(tmr->periph);
+    assert(prescaler != 0);
+    return NSEC_PER_SEC / (SystemCoreClock / prescaler);
+}
 
-    cpu_freq = get_cpu_freq();
+static uint32_t
+hal_timer_cnt(struct stm32_hal_tmr *tmr)
+{
+    uint32_t cnt;
+    int sr;
 
-    return 1000000000 / (cpu_freq >> (_REG32(tmr->pwm_regs, PWM_CFG) & PWM_CFG_SCALE));
+    __HAL_DISABLE_INTERRUPTS(sr);
+    if (tmr->sht_regs->SR & TIM_SR_UIF) {
+        /*
+         * Just overflowed
+         */
+        tmr->sht_oflow += STM32_OFLOW_VALUE;
+        tmr->sht_regs->SR &= ~TIM_SR_UIF;
+    }
+    cnt = tmr->sht_oflow + tmr->sht_regs->CNT;
+    __HAL_ENABLE_INTERRUPTS(sr);
+
+    return cnt;
 }
 
 /**
  * hal timer read
  *
- * Returns the timer counter.
+ * Returns the timer counter. NOTE: if the timer is a 16-bit timer, only
+ * the lower 16 bits are valid. If the timer is a 64-bit timer, only the
+ * low 32-bits are returned.
  *
  * @return uint32_t The timer counter register.
  */
