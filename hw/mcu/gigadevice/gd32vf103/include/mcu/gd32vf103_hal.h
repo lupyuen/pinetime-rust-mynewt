@@ -21,7 +21,7 @@
 #define H_GD32VF103_HAL_
 
 #include <stdint.h>
-////#include <env/encoding.h>
+#include <env/encoding.h>
 
 #ifdef __cplusplus
  extern "C" {

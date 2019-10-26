@@ -27,8 +27,6 @@
 
 #include <mcu/gd32vf103_hal.h>
 #include <mcu/sys_clock.h>
-////#include <sifive/devices/spi.h>
-////#include <env/freedom-e300-hifive1/platform.h>
 #if MYNEWT_VAL(BUS_DRIVER_PRESENT)
 #include "bus/bus.h"
 #if MYNEWT_VAL(SPI_0) || MYNEWT_VAL(SPI_1) || MYNEWT_VAL(SPI_2)
@@ -42,13 +40,13 @@
 #endif
 
 #if MYNEWT_VAL(TIMER_0)
-extern struct gd32vf103_hal_tmr gd32vf103_pwm2;
+extern struct gd32vf103_hal_tmr gd32vf103_tmr0;
 #endif
 #if MYNEWT_VAL(TIMER_1)
-extern struct gd32vf103_hal_tmr gd32vf103_pwm1;
+extern struct gd32vf103_hal_tmr gd32vf103_tmr1;
 #endif
 #if MYNEWT_VAL(TIMER_2)
-extern struct gd32vf103_hal_tmr gd32vf103_pwm0;
+extern struct gd32vf103_hal_tmr gd32vf103_tmr2;
 #endif
 
 #if MYNEWT_VAL(UART_0)
@@ -78,15 +76,15 @@ gd32vf103_periph_create_timers(void)
     (void)rc;
 
 #if MYNEWT_VAL(TIMER_0)
-    hal_timer_init(0, TIM2);
+    hal_timer_init(0, NULL);
 #endif
 
 #if MYNEWT_VAL(TIMER_1)
-    hal_timer_init(1, TIM3);
+    hal_timer_init(1, NULL);
 #endif
 
 #if MYNEWT_VAL(TIMER_2)
-    hal_timer_init(2, TIM4);
+    hal_timer_init(2, NULL);
 #endif
 
 #if MYNEWT_VAL(OS_CPUTIME_TIMER_NUM) >= 0

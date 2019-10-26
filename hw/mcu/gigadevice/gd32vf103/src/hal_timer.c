@@ -24,136 +24,139 @@
 #include <hal/hal_timer.h>
 #include <mcu/plic.h>
 #include <mcu/gd32vf103_hal.h>
+#include "ext/Firmware/RISCV/drivers/n200_func.h"
+#undef bool  //  TODO: Needed for gd32vf103.h
+#include "ext/Firmware/GD32VF103_standard_peripheral/gd32vf103.h"
 
-#ifdef NOTUSED
 #define GD32VF103_HAL_TIMER_MAX     (3)
 
 struct gd32vf103_hal_tmr {
-    void *pwm_regs;         /* Pointer to timer registers */
-    uint32_t value;         /* Acumulated timer value, incremented on CMP0 */
-    uint8_t max_scale;      /* Max value for pwmcfg.pwmscale 7 (for PMW0) or 15 (for PWM1/2) */
-    uint8_t pwmxcmp0_int;   /* PWMxCMP0 interrupt number */
-    TAILQ_HEAD(hal_timer_qhead, hal_timer) sht_timers;
+    uint32_t periph;      //  Timer instance e.g. TIMER1
+    rcu_periph_enum rcu;  //  RCU instance e.g. RCU_TIMER1
+    uint32_t irq;         //  IRQ instance e.g. TIMER1_IRQn
+    TAILQ_HEAD(hal_timer_qhead, hal_timer) sht_timers;  //  List of timer callbacks
 };
 
 #if MYNEWT_VAL(TIMER_0)
-struct gd32vf103_hal_tmr gd32vf103_pwm2 = {
-    (uint32_t *) PWM2_CTRL_ADDR, 0, 15, INT_PWM2_BASE
+struct gd32vf103_hal_tmr gd32vf103_tmr0 = {
+    TIMER1, RCU_TIMER1, TIMER1_IRQn
 };
 #endif
 #if MYNEWT_VAL(TIMER_1)
-struct gd32vf103_hal_tmr gd32vf103_pwm1 = {
-    (uint32_t *) PWM1_CTRL_ADDR, 0, 15, INT_PWM1_BASE
+struct gd32vf103_hal_tmr gd32vf103_tmr1 = {
+    TIMER2, RCU_TIMER2, TIMER2_IRQn
 };
 #endif
 #if MYNEWT_VAL(TIMER_2)
-struct gd32vf103_hal_tmr gd32vf103_pwm0 = {
-    (uint32_t *) PWM0_CTRL_ADDR, 0, 7, INT_PWM0_BASE
+struct gd32vf103_hal_tmr gd32vf103_tmr2 = {
+    TIMER3, RCU_TIMER3, TIMER2_IRQn
 };
 #endif
 
 static struct gd32vf103_hal_tmr *gd32vf103_tmr_devs[GD32VF103_HAL_TIMER_MAX] = {
 #if MYNEWT_VAL(TIMER_0)
-    &gd32vf103_pwm2,
+    &gd32vf103_tmr0,
 #else
     NULL,
 #endif
 #if MYNEWT_VAL(TIMER_1)
-    &gd32vf103_pwm1,
+    &gd32vf103_tmr1,
 #else
     NULL,
 #endif
 #if MYNEWT_VAL(TIMER_2)
-    &gd32vf103_pwm0,
+    &gd32vf103_tmr2,
 #else
     NULL,
 #endif
 };
 
-static uint8_t pwm_to_timer[GD32VF103_HAL_TIMER_MAX];
+#ifdef NOTUSED
 
-static uint32_t
-hal_timer_cnt(struct gd32vf103_hal_tmr *tmr)
-{
-    uint32_t cnt;
-    int sr;
-    uint32_t regs = (uint32_t) tmr->pwm_regs;
+    static uint8_t pwm_to_timer[GD32VF103_HAL_TIMER_MAX];
 
-    __HAL_DISABLE_INTERRUPTS(sr);
-    cnt = _REG32(regs, PWM_S) + tmr->value;
-    /* Check if just overflowed */
-    if (_REG32(regs, PWM_CFG) & PWM_CMP0) {
-        cnt += _REG32(regs, PWM_CMP0) + 1;
-    }
-    __HAL_ENABLE_INTERRUPTS(sr);
+    static uint32_t
+    hal_timer_cnt(struct gd32vf103_hal_tmr *tmr)
+    {
+        uint32_t cnt;
+        int sr;
+        uint32_t regs = (uint32_t) tmr->pwm_regs;
 
-    return cnt;
-}
-
-static void
-gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
-{
-    struct hal_timer *ht;
-
-    ht = TAILQ_FIRST(&tmr->sht_timers);
-    if (ht) {
-        uint32_t cnt = hal_timer_cnt(tmr);
-        int32_t ticks = (int32_t)(ht->expiry - cnt);
-        if (ticks < _REG32(tmr->pwm_regs, PWM_CMP0)) {
-            _REG32(tmr->pwm_regs, PWM_CMP1) = ticks;
-            plic_enable_interrupt(tmr->pwmxcmp0_int + 1);
-            return;
+        __HAL_DISABLE_INTERRUPTS(sr);
+        cnt = _REG32(regs, PWM_S) + tmr->value;
+        /* Check if just overflowed */
+        if (_REG32(regs, PWM_CFG) & PWM_CMP0) {
+            cnt += _REG32(regs, PWM_CMP0) + 1;
         }
+        __HAL_ENABLE_INTERRUPTS(sr);
+
+        return cnt;
     }
-    _REG32(tmr->pwm_regs, PWM_CMP1) = _REG32(tmr->pwm_regs, PWM_CMP0);
-     /* Disable PWMxCMP1 interrupt, leaving only CMP0 which is used all the time */
-    plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
-}
 
-/*
- * Call expired timer callbacks
- */
-static void
-gd32vf103_tmr_cbs(struct gd32vf103_hal_tmr *tmr)
-{
-    uint32_t cnt;
-    struct hal_timer *ht;
+    static void
+    gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
+    {
+        struct hal_timer *ht;
 
-    while ((ht = TAILQ_FIRST(&tmr->sht_timers)) != NULL) {
-        cnt = hal_timer_cnt(tmr);
-        if (((int32_t)(cnt - ht->expiry)) >= 0) {
-            TAILQ_REMOVE(&tmr->sht_timers, ht, link);
-            ht->link.tqe_prev = NULL;
-            ht->cb_func(ht->cb_arg);
-        } else {
-            break;
+        ht = TAILQ_FIRST(&tmr->sht_timers);
+        if (ht) {
+            uint32_t cnt = hal_timer_cnt(tmr);
+            int32_t ticks = (int32_t)(ht->expiry - cnt);
+            if (ticks < _REG32(tmr->pwm_regs, PWM_CMP0)) {
+                _REG32(tmr->pwm_regs, PWM_CMP1) = ticks;
+                plic_enable_interrupt(tmr->pwmxcmp0_int + 1);
+                return;
+            }
         }
+        _REG32(tmr->pwm_regs, PWM_CMP1) = _REG32(tmr->pwm_regs, PWM_CMP0);
+        /* Disable PWMxCMP1 interrupt, leaving only CMP0 which is used all the time */
+        plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
     }
-    gd32vf103_tmr_check_first(tmr);
-}
 
-void
-gd32vf103_pwm_cmp0_handler(int num)
-{
-    int pwm_num = (num - INT_PWM0_BASE) >> 2;
-    int timer_num = pwm_to_timer[pwm_num];
-    struct gd32vf103_hal_tmr *tmr = gd32vf103_tmr_devs[timer_num];
-    /* Turn of CMPxIP */
-    _REG32(tmr->pwm_regs, PWM_CFG) &= ~PWM_CFG_CMP0IP;
-    tmr->value += _REG32(tmr->pwm_regs, PWM_CMP0) + 1;
-    gd32vf103_tmr_cbs(tmr);
-}
+    /*
+    * Call expired timer callbacks
+    */
+    static void
+    gd32vf103_tmr_cbs(struct gd32vf103_hal_tmr *tmr)
+    {
+        uint32_t cnt;
+        struct hal_timer *ht;
 
-void
-gd32vf103_pwm_cmp1_handler(int num)
-{
-    int pwm_num = (num - INT_PWM0_BASE) >> 2;
-    int timer_num = pwm_to_timer[pwm_num];
-    struct gd32vf103_hal_tmr *tmr = gd32vf103_tmr_devs[timer_num];
-    /* Turn of CMPxIP */
-    _REG32(tmr->pwm_regs, PWM_CFG) &= ~PWM_CFG_CMP1IP;
-    gd32vf103_tmr_cbs(tmr);
-}
+        while ((ht = TAILQ_FIRST(&tmr->sht_timers)) != NULL) {
+            cnt = hal_timer_cnt(tmr);
+            if (((int32_t)(cnt - ht->expiry)) >= 0) {
+                TAILQ_REMOVE(&tmr->sht_timers, ht, link);
+                ht->link.tqe_prev = NULL;
+                ht->cb_func(ht->cb_arg);
+            } else {
+                break;
+            }
+        }
+        gd32vf103_tmr_check_first(tmr);
+    }
+
+    void
+    gd32vf103_pwm_cmp0_handler(int num)
+    {
+        int pwm_num = (num - INT_PWM0_BASE) >> 2;
+        int timer_num = pwm_to_timer[pwm_num];
+        struct gd32vf103_hal_tmr *tmr = gd32vf103_tmr_devs[timer_num];
+        /* Turn of CMPxIP */
+        _REG32(tmr->pwm_regs, PWM_CFG) &= ~PWM_CFG_CMP0IP;
+        tmr->value += _REG32(tmr->pwm_regs, PWM_CMP0) + 1;
+        gd32vf103_tmr_cbs(tmr);
+    }
+
+    void
+    gd32vf103_pwm_cmp1_handler(int num)
+    {
+        int pwm_num = (num - INT_PWM0_BASE) >> 2;
+        int timer_num = pwm_to_timer[pwm_num];
+        struct gd32vf103_hal_tmr *tmr = gd32vf103_tmr_devs[timer_num];
+        /* Turn of CMPxIP */
+        _REG32(tmr->pwm_regs, PWM_CFG) &= ~PWM_CFG_CMP1IP;
+        gd32vf103_tmr_cbs(tmr);
+    }
 #endif  //  NOTUSED
 
 /**
@@ -171,8 +174,8 @@ hal_timer_init(int timer_num, void *cfg)
 {
     struct gd32vf103_hal_tmr *tmr;
 
-    if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num]) ||
-        (cfg == NULL)) {
+    if (timer_num >= GD32VF103_HAL_TIMER_MAX 
+        || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
 
@@ -193,10 +196,6 @@ int
 hal_timer_config(int timer_num, uint32_t freq_hz)
 {
     struct gd32vf103_hal_tmr *tmr;
-    uint32_t cpu_freq;
-    uint32_t div;
-    int scale = -1;
-
     if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
@@ -204,7 +203,7 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     //  Based on Examples/TIMER/TIMER1_timebase/main.c
     eclic_global_interrupt_enable();
     eclic_set_nlbits(ECLIC_GROUP_LEVEL3_PRIO1);
-    eclic_irq_enable(TIMER1_IRQn, 1, 0);
+    eclic_irq_enable(tmr->irq, 1, 0);
 
     /* ----------------------------------------------------------------------------
     Assume SystemCoreClock = 108 MHz max
@@ -219,10 +218,9 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
         return -1;  //  Only 16 bits supported for prescaler
     }
 
-    //  TODO: Allow multiple timers
     timer_parameter_struct timer_initpara;
-    rcu_periph_clock_enable(RCU_TIMER1);
-    timer_deinit(TIMER1);
+    rcu_periph_clock_enable(tmr->rcu);
+    timer_deinit(tmr->periph);
     //  Initialize TIMER init parameter struct
     timer_struct_para_init(&timer_initpara);
     //  TIMER1 configuration
@@ -231,7 +229,7 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_initpara.counterdirection  = TIMER_COUNTER_UP;  //  Count starts from 0
     timer_initpara.period            = 1;                 //  Count ends at 1, previously 4000
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
-    timer_init(TIMER1, &timer_initpara);
+    timer_init(tmr->periph, &timer_initpara);
 
     timer_oc_parameter_struct timer_ocinitpara;
     //  Initialize TIMER channel output parameter struct
@@ -240,15 +238,15 @@ hal_timer_config(int timer_num, uint32_t freq_hz)
     timer_ocinitpara.outputstate  = TIMER_CCX_ENABLE;
     timer_ocinitpara.ocpolarity   = TIMER_OC_POLARITY_HIGH;
     timer_ocinitpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
-    timer_channel_output_config(            TIMER1, TIMER_CH_0, &timer_ocinitpara);
+    timer_channel_output_config(            tmr->periph, TIMER_CH_0, &timer_ocinitpara);
 
     //  CH0 configuration in OC timing mode
-    timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 2000);  //  TODO: Why 2000
-    timer_channel_output_mode_config(       TIMER1, TIMER_CH_0, TIMER_OC_MODE_TIMING);
+    timer_channel_output_pulse_value_config(tmr->periph, TIMER_CH_0, 2000);  //  TODO: Why 2000
+    timer_channel_output_mode_config(       tmr->periph, TIMER_CH_0, TIMER_OC_MODE_TIMING);
     timer_channel_output_shadow_config(     TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
 
-    timer_interrupt_enable(                 TIMER1, TIMER_INT_CH0);
-    timer_enable(                           TIMER1);
+    timer_interrupt_enable(                 tmr->periph, TIMER_INT_CH0);
+    timer_enable(                           tmr->periph);
 
 #ifdef OLD
     cpu_freq = get_cpu_freq();
@@ -298,13 +296,13 @@ hal_timer_deinit(int timer_num)
     if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
-
     __HAL_DISABLE_INTERRUPTS(sr);
+#ifdef TODO
     _REG32(tmr->pwm_regs, PWM_CFG) = 0;
     plic_disable_interrupt(tmr->pwmxcmp0_int);
     plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
     __HAL_ENABLE_INTERRUPTS(sr);
-
+#endif  //  TODO
     return 0;
 }
 
