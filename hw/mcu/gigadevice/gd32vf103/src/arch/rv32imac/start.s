@@ -222,15 +222,15 @@ _reset_handler:
     csrci CSR_MCOUNTINHIBIT, 0x5
     /* End hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
 
-    /* Init heap */
+    /* NOTUSED: Init heap
     la a0, _end
     la a1, _heap_end
-    call _sbrkInit
+    call _sbrkInit */
 
-    /* Call global constructors */
+    /* NOTUSED: Call global constructors
     la a0, __libc_fini_array
     call atexit
-    call __libc_init_array
+    call __libc_init_array */
 
     call SystemInit
     call _start
