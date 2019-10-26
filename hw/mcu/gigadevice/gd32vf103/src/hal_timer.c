@@ -140,6 +140,7 @@ static struct gd32vf103_hal_tmr *gd32vf103_tmr_devs[GD32VF103_HAL_TIMER_MAX] = {
     }
 #endif  //  NOTUSED
 
+#ifdef TODO
 static void
 gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
 {
@@ -159,6 +160,7 @@ gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
     /* Disable PWMxCMP1 interrupt, leaving only CMP0 which is used all the time */
     plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
 }
+#endif  //  TODO
 
 /**
  * hal timer init
@@ -492,7 +494,7 @@ hal_timer_start_at(struct hal_timer *timer, uint32_t tick)
     }
 
     if (first) {
-        gd32vf103_tmr_check_first(tmr);
+        ////  TODO: gd32vf103_tmr_check_first(tmr);
     }
 
 #ifdef TODO
@@ -543,7 +545,7 @@ hal_timer_stop(struct hal_timer *timer)
         timer->link.tqe_prev = NULL;
 
         if (recalc) {
-            gd32vf103_tmr_check_first(tmr);
+            ////  TODO: gd32vf103_tmr_check_first(tmr);
         }
 
 #ifdef TODO
