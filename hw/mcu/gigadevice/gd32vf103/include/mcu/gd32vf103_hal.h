@@ -23,6 +23,8 @@
 #include <stdint.h>
 #include <env/encoding.h>
 
+#define UID_BASE              0x1FFFF7E8U    /*!< Unique device ID (96 bits) register base address */
+
 #ifdef __cplusplus
  extern "C" {
 #endif

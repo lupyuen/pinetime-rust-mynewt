@@ -71,7 +71,8 @@
 			"system_error": "cpp",
 			"*.tcc": "cpp",
 			"platform.h": "c",
-			"clint.h": "c"
+			"clint.h": "c",
+			"gd32vf103_hal.h": "c"
 		},
 		"rust.racer_completion": false
 	}
