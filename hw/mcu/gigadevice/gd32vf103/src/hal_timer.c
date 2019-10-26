@@ -94,26 +94,6 @@ static struct gd32vf103_hal_tmr *gd32vf103_tmr_devs[GD32VF103_HAL_TIMER_MAX] = {
         return cnt;
     }
 
-    static void
-    gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
-    {
-        struct hal_timer *ht;
-
-        ht = TAILQ_FIRST(&tmr->sht_timers);
-        if (ht) {
-            uint32_t cnt = hal_timer_cnt(tmr);
-            int32_t ticks = (int32_t)(ht->expiry - cnt);
-            if (ticks < _REG32(tmr->pwm_regs, PWM_CMP0)) {
-                _REG32(tmr->pwm_regs, PWM_CMP1) = ticks;
-                plic_enable_interrupt(tmr->pwmxcmp0_int + 1);
-                return;
-            }
-        }
-        _REG32(tmr->pwm_regs, PWM_CMP1) = _REG32(tmr->pwm_regs, PWM_CMP0);
-        /* Disable PWMxCMP1 interrupt, leaving only CMP0 which is used all the time */
-        plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
-    }
-
     /*
     * Call expired timer callbacks
     */
@@ -159,6 +139,26 @@ static struct gd32vf103_hal_tmr *gd32vf103_tmr_devs[GD32VF103_HAL_TIMER_MAX] = {
         gd32vf103_tmr_cbs(tmr);
     }
 #endif  //  NOTUSED
+
+static void
+gd32vf103_tmr_check_first(struct gd32vf103_hal_tmr *tmr)
+{
+    struct hal_timer *ht;
+
+    ht = TAILQ_FIRST(&tmr->sht_timers);
+    if (ht) {
+        uint32_t cnt = hal_timer_cnt(tmr);
+        int32_t ticks = (int32_t)(ht->expiry - cnt);
+        if (ticks < _REG32(tmr->pwm_regs, PWM_CMP0)) {
+            _REG32(tmr->pwm_regs, PWM_CMP1) = ticks;
+            plic_enable_interrupt(tmr->pwmxcmp0_int + 1);
+            return;
+        }
+    }
+    _REG32(tmr->pwm_regs, PWM_CMP1) = _REG32(tmr->pwm_regs, PWM_CMP0);
+    /* Disable PWMxCMP1 interrupt, leaving only CMP0 which is used all the time */
+    plic_disable_interrupt(tmr->pwmxcmp0_int + 1);
+}
 
 /**
  * hal timer init
@@ -327,8 +327,6 @@ uint32_t
 hal_timer_get_resolution(int timer_num)
 {
     struct gd32vf103_hal_tmr *tmr;
-    uint32_t cpu_freq;
-
     if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
         return -1;
     }
