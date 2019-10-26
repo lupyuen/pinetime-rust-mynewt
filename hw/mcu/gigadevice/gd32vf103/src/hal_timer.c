@@ -311,7 +311,7 @@ hal_timer_deinit(int timer_num)
     return 0;
 }
 
-///  Number of nanoseconds in a second
+//  Number of nanoseconds in a second
 #define NSEC_PER_SEC (1000000000UL)
 
 /**
