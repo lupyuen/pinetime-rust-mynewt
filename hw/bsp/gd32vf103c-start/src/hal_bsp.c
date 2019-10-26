@@ -98,11 +98,3 @@ hal_bsp_init(void)
 #endif
 #endif
 }
-
-int
-hal_bsp_hw_id(uint8_t *id, int max_len)
-{
-    /* XXX figure out what to put here */
-
-    return 0;
-}
