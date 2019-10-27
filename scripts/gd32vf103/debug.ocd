@@ -1,0 +1,10 @@
+# This is an OpenOCD script that connects to the nRF52 for Cortex Debug.
+
+# Debug Level must be 2 or greater or gdb will fail.
+debug_level 2
+
+# Select JTAG transport
+transport select jtag
+
+$_TARGETNAME configure -event reset-init {
+}
