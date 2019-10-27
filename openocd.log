@@ -20,3 +20,4 @@ Warn : STM32 flash size failed, probe inaccurate - assuming 128k flash
 Info : flash size = 128kbytes
 target halted due to debug-request, current mode: Thread 
 xPSR: 00000000 pc: 0x00000024 msp: 0x96f3b83c
+
