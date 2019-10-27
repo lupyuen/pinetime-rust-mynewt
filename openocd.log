@@ -1,23 +1,26 @@
-Open On-Chip Debugger 0.10.0
-Licensed under GNU GPL v2
-For bug reports, read
-	http://openocd.org/doc/doxygen/bugs.html
-Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
-Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+debug_level: 2
 adapter speed: 1000 kHz
-adapter_nsrst_delay: 100
-none separate
-Info : Unable to match requested speed 1000 kHz, using 950 kHz
-Info : Unable to match requested speed 1000 kHz, using 950 kHz
-Info : clock speed 950 kHz
-Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
-Info : using stlink api v2
-Info : Target voltage: 3.225943
-Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
-Info : accepting 'gdb' connection on tcp/3333
-Info : device id = 0x20036410
-Warn : STM32 flash size failed, probe inaccurate - assuming 128k flash
-Info : flash size = 128kbytes
-target halted due to debug-request, current mode: Thread 
-xPSR: 00000000 pc: 0x00000024 msp: 0x96f3b83c
-
+srst_only separate srst_gates_jtag srst_open_drain connect_deassert_srst
+adapter_nsrst_assert_width: 100
+riscv.flash
+debug_level: 2
+Warn : Transport "jtag" was already selected
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : CMSIS-DAP: SWD  Supported
+Info : CMSIS-DAP: JTAG Supported
+Info : CMSIS-DAP: FW Version = 2.0.0
+Info : CMSIS-DAP: Interface Initialised (JTAG)
+Info : SWCLK/TCK = 1 SWDIO/TMS = 1 TDI = 1 TDO = 0 nTRST = 0 nRESET = 1
+Info : CMSIS-DAP: Interface ready
+Info : clock speed 1000 kHz
+Info : cmsis-dap JTAG TLR_RESET
+Info : cmsis-dap JTAG TLR_RESET
+Info : JTAG tap: riscv.cpu tap/device found: 0x1000563d (mfg: 0x31e (Andes Technology Corporation), part: 0x0005, ver: 0x1)
+Info : JTAG tap: auto0.tap tap/device found: 0x790007a3 (mfg: 0x3d1 (GigaDevice Semiconductor (Beijing)), part: 0x9000, ver: 0x7)
+Warn : AUTO auto0.tap - use "jtag newtap auto0 tap -irlen 5 -expected-id 0x790007a3"
+Info : datacount=4 progbufsize=2
+Info : Examined RISC-V core; found 1 harts
+Info :  hart 0: XLEN=32, misa=0x40901105
+Info : accepting 'gdb' connection from pipe
+Info : dropped 'gdb' connection

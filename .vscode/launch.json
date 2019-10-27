@@ -23,8 +23,8 @@
                 "target remote | openocd/bin/openocd -c \"gdb_port pipe; log_output openocd.log\" -f scripts/gd32vf103/flash-init.ocd -f interface/cmsis-dap.cfg -f scripts/gd32vf103/gd32vf103.ocd -f scripts/gd32vf103/debug.ocd ",
 
                 //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
-                "monitor reset halt",
-                "flushregs",
+                //  "monitor reset halt",
+                //  "flushregs",
 
                 //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
                 //  "stepi",                    //  Must step before setting PC
@@ -32,10 +32,10 @@
                 //  "stepi",                    //  Execute the Reset Handler
                 "break main",                   //  Break at main()
                 "break __assert_func",          //  Break for any assert failures
-                "break os_default_irq"          //  Break for any unhandled interrupts
+                "break os_default_irq",         //  Break for any unhandled interrupts
 
-                // "thb main",
-                // "continue",
+                //  "thb main",
+                //  "continue",
             ]
             //  "valuesFormatting": "parseText"
         },
