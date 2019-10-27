@@ -13,7 +13,7 @@
             //  Application Executable to be flashed to Blue Pill before debugging.  Note that the Application ELF image does not contain a valid Image Header.  So we must bypass the Bootloader, shown below.
             "executable": "bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
             //  For Bootloader: "executable": "bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf",
-            "device": "STM32F103C8",
+            "device": "GD32VF103",
             "svdFile": "scripts/STM32F103xx.svd",
             "configFiles": [ 
                 //  Tell OpenOCD to open the JTAG connection to MCU
@@ -21,7 +21,7 @@
                 "interface/cmsis-dap.cfg",
                 "scripts/gd32vf103/gd32vf103.ocd",
                 //  Tell OpenOCD to run our custom debug commands.
-                "scripts/debug.ocd" 
+                "scripts/gd32vf103/debug.ocd" 
             ],
             "preLaunchCommands": [
                 //  Before loading the Application, run these gdb commands.
