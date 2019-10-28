@@ -19,21 +19,21 @@
                 //  This indicates that an unrecognized breakpoint location should automatically result in a pending breakpoint being created.
                 "set breakpoint pending on",
 
-                //  Launch OpenOCD
-                //  "target remote | openocd/bin/openocd -c \"gdb_port pipe; log_output openocd.log\" -f scripts/gd32vf103/flash-init.ocd -f interface/cmsis-dap.cfg -f scripts/gd32vf103/gd32vf103.ocd -f scripts/gd32vf103/debug.ocd ",
-                "target remote | riscv-openocd/src/openocd -s riscv-openocd/tcl -c \"gdb_port pipe; log_output openocd.log\" -f scripts/gd32vf103/debug.ocd ",
+                //  Launch OpenOCD. Based on https://www.justinmklam.com/posts/2017/10/vscode-debugger-setup/
+                "target remote | riscv-openocd/src/openocd -s riscv-openocd/tcl -c \"gdb_port pipe; log_output openocd.log\" -f scripts/gd32vf103/flash-init.ocd -f interface/cmsis-dap.cfg -f scripts/gd32vf103/gd32vf103.ocd -f scripts/gd32vf103/debug.ocd ",
 
                 //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
-                //  "monitor reset halt",
-                //  "flushregs",
+                "monitor reset halt",           //  Restart and halt
+                "flushregs",                    //  Flush the register cache
 
-                //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
-                //  "stepi",                    //  Must step before setting PC
-                //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
-                //  "stepi",                    //  Execute the Reset Handler
                 "break main",                   //  Break at main()
                 "break __assert_func",          //  Break for any assert failures
                 "break os_default_irq",         //  Break for any unhandled interrupts
+
+                //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
+                "stepi",                    //  Must step before setting PC
+                //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
+                //  "stepi",                    //  Execute the Reset Handler
 
                 //  "thb main",
                 //  "continue",

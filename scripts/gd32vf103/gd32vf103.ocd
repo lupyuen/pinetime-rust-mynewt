@@ -7,7 +7,8 @@ set _CHIPNAME riscv
 
 # Change expected ID for other dev boards
 # For GD32VF103C-START:
-jtag newtap $_CHIPNAME cpu -irlen 5 -expected-id 0x1000563d
+# jtag newtap $_CHIPNAME cpu -irlen 5 -expected-id 0x1000563d
+jtag newtap $_CHIPNAME cpu -irlen 5 -expected-id 0x1e200a6d
 
 set _TARGETNAME $_CHIPNAME.cpu
 target create $_TARGETNAME riscv -chain-position $_TARGETNAME

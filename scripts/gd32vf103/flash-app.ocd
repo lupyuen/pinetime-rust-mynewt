@@ -9,10 +9,14 @@ echo "Flashing Application..."
 flash bank bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.img gd32vf103 0x08001000 0 0 0 $_TARGETNAME
 echo ""
 
-# Restart the device.
-echo "Restarting..."
+# Connect to the MCU
+echo "Connecting..."
 riscv set_reset_timeout_sec 1
 init
+echo ""
+
+# Restart the device.
+echo "Restarting..."
 reset halt
 echo ""
 
