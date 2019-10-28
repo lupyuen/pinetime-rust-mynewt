@@ -45,9 +45,9 @@ fi
 
 echo "***** Installing openocd..."
 
-#  Install OpenOCD into the ./openocd folder.
+#  Install Arm version of OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd ]; then
-    if [ ! gnu-mcu-eclipse*tgz* ]; then
+    if [ -e gnu-mcu-eclipse*tgz* ]; then
         rm gnu-mcu-eclipse*tgz*
     fi
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
@@ -56,6 +56,16 @@ if [ ! -e openocd/bin/openocd ]; then
     mv gnu-mcu-eclipse openocd
     mv openocd/openocd/*/* openocd
     rm -rf openocd/openocd
+fi
+
+#  Install RISC-V version of OpenOCD into the ./riscv-openocd folder.
+if [ ! -d riscv-openocd ]; then
+    git clone https://github.com/riscv-mcu/riscv-openocd
+    cd riscv-openocd
+    ./bootstrap
+    ./configure --enable-cmsis-dap --enable-ftdi
+    make
+    cd ..
 fi
 
 echo "***** Installing npm..."

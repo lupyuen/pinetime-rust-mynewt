@@ -1,28 +1,18 @@
 # This is an OpenOCD script that flashes the Bootloader ROM.
 # Used by tasks.json for "Load Bootloader" command.
 # Equivalent to "newt load -v gd32vf103c-start_my_sensor".
+# "flash gd32vf103" requires the RISC-V version of OpenOCD: https://github.com/riscv-mcu/riscv-openocd
 # Based on https://github.com/Tencent/TencentOS-tiny/blob/master/doc/RISC-V%20eclipse%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md
-
-# Connect to the device.
-init
-
-echo "Stopping..."
-reset halt
-echo ""
-
-flash banks
-flash list
 
 # Bootloader address must sync with hw/bsp/gd32vf103c-start/bsp.yml
 echo "Flashing Bootloader..."
-#flash bank $_FLASHNAME bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000 0 0 0 $_TARGETNAME
+flash bank bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf.bin gd32vf103 0x08000000 0 0 0 $_TARGETNAME
 echo ""
 
 # Restart the device.
 echo "Restarting..."
 riscv set_reset_timeout_sec 1
-#init
-#halt
+init
 reset halt
 echo ""
 
