@@ -1,6 +1,6 @@
 adapter_nsrst_assert_width: 100
 
-riscv.flash
+1
 debug_level: 2
 
 Info : Listening on port 6666 for tcl connections

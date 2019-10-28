@@ -7,6 +7,7 @@
 # Application address must sync with hw/bsp/gd32vf103c-start/bsp.yml
 echo "Flashing Application..."
 flash bank bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.img gd32vf103 0x08001000 0 0 0 $_TARGETNAME
+riscv expose_csrs 3040-3071
 echo ""
 
 # Connect to the MCU

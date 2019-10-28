@@ -4,10 +4,27 @@
 # "flash gd32vf103" requires the RISC-V version of OpenOCD: https://github.com/riscv-mcu/riscv-openocd
 # Based on https://github.com/Tencent/TencentOS-tiny/blob/master/doc/RISC-V%20eclipse%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md
 
+init
+
+echo "Stopping..."
+halt
+echo ""
+
+#echo "flash protect..."
+#flash protect 0 0 last off
+#echo ""
+
 # Bootloader address must sync with hw/bsp/gd32vf103c-start/bsp.yml
 echo "Flashing Bootloader..."
-flash bank bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf.bin gd32vf103 0x08000000 0 0 0 $_TARGETNAME
+program bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf.bin 0x08000000 verify
 echo ""
+
+# mww 0xe004200c 0x4b5a6978
+# mww 0xe0042008 0x01
+
+#flash bank bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf.bin gd32vf103 0x08000000 0 0 0 $_TARGETNAME
+#riscv expose_csrs 3040-3071
+#echo ""
 
 # Connect to the MCU
 echo "Connecting..."
