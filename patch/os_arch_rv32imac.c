@@ -220,6 +220,7 @@ os_arch_os_init(void)
 
     return err;
 }
+#endif  //  NOTUSED
 
 uint32_t
 os_arch_start(void)
@@ -260,7 +261,6 @@ os_arch_start(void)
     /* This should not be reached */
     return (uint32_t) (t->t_arg);
 }
-#endif  //  NOTUSED
 
 os_error_t
 os_arch_os_start(void)
