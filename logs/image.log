@@ -1,159 +1,112 @@
-> Executing task in folder stm32bluepill-mynewt-sensor: cmd /c " scripts\nrf52\image-app.cmd && echo ✅ ◾ ️Done! " <
 
+> Executing task in folder stm32bluepill-mynewt-sensor: bash -c -l ' scripts/gd32vf103/image-app.sh && echo ✅ ◾ ️Done! ' <
 
-c:\stm32bluepill-mynewt-sensor>newt\newt.exe create-image -v nrf52_my_sensor 1.0.0
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/crypto/tinycrypt/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/base64/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/cborattr/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/json/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/fs/fcb/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/hw/bsp/nrf52/src
-Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/hw/bsp/nrf52/src/arch/cortex_m4/
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/cmsis-core/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/hal/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/creator/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src
-Compiling architecture specific src pkgs in directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/cortex_m4/
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/mynewt_rust/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/rust_app/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/rust_libcore/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/semihosting_console/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/sensor_coap/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/sensor_network/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/libs/temp_stub/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/controller/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/drivers/nrf52/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/mesh/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/services/gap/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/services/gatt/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/host/store/config/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-nimble/nimble/transport/ram/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/bin/targets/nrf52_my_sensor/generated/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/config/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/flash_map/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/modlog/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/stub/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/mfg/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysdown/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysinit/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/crc/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/mem/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-Compiling src in base directory: c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-App image successfully generated: c:/stm32bluepill-mynewt-sensor/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img     
-Mem FLASH: 0x8000-0x42000
-Mem RAM: 0x20000000-0x20010000
-
-c:\stm32bluepill-mynewt-sensor>newt\newt.exe size -v nrf52_my_sensor 
++ export PATH=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:/Users/Luppy/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Wireshark.app/Contents/MacOS:/Users/Luppy/.platformio/penv/bin:/Users/Luppy/.platformio/penv:/Users/Luppy/.local/bin:/usr/local/opt/llvm@3.9/bin:/Users/Luppy/google-cloud-sdk/bin:/Users/Luppy/anaconda/bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/opt/local/bin:/opt/local/sbin:PATH=/Users/Luppy/google-cloud-sdk/bin:/Users/Luppy/go/bin:/Users/Luppy/.rvm/bin:/Applications/apache-ant-1.8.4/bin:/usr/local/share/npm/bin/:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/bin
++ PATH=/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:/Users/Luppy/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Wireshark.app/Contents/MacOS:/Users/Luppy/.platformio/penv/bin:/Users/Luppy/.platformio/penv:/Users/Luppy/.local/bin:/usr/local/opt/llvm@3.9/bin:/Users/Luppy/google-cloud-sdk/bin:/Users/Luppy/anaconda/bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/opt/local/bin:/opt/local/sbin:PATH=/Users/Luppy/google-cloud-sdk/bin:/Users/Luppy/go/bin:/Users/Luppy/.rvm/bin:/Applications/apache-ant-1.8.4/bin:/usr/local/share/npm/bin/:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/bin
++ newt create-image -v gd32vf103c-start_my_sensor 1.0.0
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/cborattr/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/json/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/encoding/tinycbor/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_my_sensor/generated/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/hw/bsp/gd32vf103c-start/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/hal/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/hw/mcu/gigadevice/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/hw/mcu/gigadevice/gd32vf103/src
+Compiling architecture specific src pkgs in directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/hw/mcu/gigadevice/gd32vf103/src/arch/rv32imac/
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/hw/sensor/creator/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src
+Compiling architecture specific src pkgs in directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/libc/baselibc/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/mynewt_rust/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/rust_app/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/rust_libcore/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/semihosting_console/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/sensor_coap/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/sensor_network/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/libs/temp_stub/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/net/oic/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/flash_map/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/modlog/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/log/stub/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/mfg/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysdown/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/sys/sysinit/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/mem/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
+Computed Hash for image as 1b8444154e8a4e77976678708d943f7eebed28fc14d63b7eee1090f4aeb0bca8
+App image successfully generated: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+Mem flash: 0x8001000-0x8010000
+Mem ram: 0x20000000-0x20005000
++ newt size -v gd32vf103c-start_my_sensor
 Size of Application Image: app
-Mem FLASH: 0x8000-0x42000
-Mem RAM: 0x20000000-0x20010000
-  FLASH     RAM
-    740     379 *fill*
-  20172    2658 apps_my_sensor_app.a
-   7268       4 crypto_tinycrypt.a
-    401       0 encoding_base64.a
-    944       0 encoding_json.a
-   1750       0 fs_fcb.a
-    440     444 hw_bsp_nrf52.a
-     52       0 hw_cmsis-core.a
-    640       1 hw_hal.a
-   4410     110 hw_mcu_nordic_nrf52xxx.a
+Mem flash: 0x8001000-0x8010000
+Mem ram: 0x20000000-0x20005000
+  flash     ram 
+    110    2069 *fill*
+    100       0 apps_my_sensor_app.a
+     16       0 hw_bsp_gd32vf103c-start.a
+    176       0 hw_hal.a
+   3688     424 hw_mcu_gigadevice_gd32vf103.a
       2       0 hw_sensor_creator.a
-   1516     260 hw_sensor.a
-   8896   18732 kernel_os.a
-   2980      50 libc_baselibc.a
-    414       0 libs_mynewt_rust.a
-  19383     224 libs_rust_app.a
-  13367       0 libs_rust_libcore.a
-    736      42 libs_semihosting_console.a
-   1356     225 libs_sensor_coap.a
-   1157     209 libs_sensor_network.a
-    677     212 libs_temp_stub.a
-   2397     394 net_oic.a
-  35496    2107 nimble_controller.a
-   4026    1203 nimble_drivers_nrf52.a
-  45539   13288 nimble_host_mesh.a
-  49052    3002 nimble_host.a
-    348     118 nimble_host_services_gap.a
-    236      62 nimble_host_services_gatt.a
-   1815     648 nimble_host_store_config.a
-    692    1096 nimble_transport_ram.a
-   1846     222 sys_config.a
-    558     128 sys_flash_map.a
+   1518     260 hw_sensor.a
+   5506    8213 kernel_os.a
+   2072      12 libc_baselibc.a
+    401      40 libs_semihosting_console.a
+     40       9 libs_sensor_coap.a
+   1223     203 libs_sensor_network.a
+    701     212 libs_temp_stub.a
+    461     396 net_oic.a
+    378     128 sys_flash_map.a
       2       0 sys_log_modlog.a
-    686      29 sys_mfg.a
-     30       5 sys_sysinit.a
-     68       0 util_crc.a
-    120       0 util_mem.a
-    180       0 nrf52_my_sensor-sysinit-app.a
-Loading compiler c:/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+    774      29 sys_mfg.a
+     28       5 sys_sysinit.a
+     74       0 util_mem.a
+    144       0 gd32vf103c-start_my_sensor-sysinit-app.a
+   2086       0 libgcc.a
+Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
- 231484    3520   41932  276936   439c8 c:/stm32bluepill-mynewt-sensor/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
-✅ ◾ ️Done! 
+  19468     128   11904   31500    7b0c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+✅ ◾ ️Done!
 
 Terminal will be reused by tasks, press any key to close it.
