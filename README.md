@@ -21,9 +21,9 @@
 
 # Sensor Application for GigaDevice GD32VF103 with Apache Mynewt and Embedded Rust
 
-This `gd32vf103` branch contains the source code for a Sensor Application for GigaDevice GD32VF103 with Apache Mynewt and Embedded Rust that has been tested on the [GigaDevice GD32VF103C-START board](https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/). Refer to the tutorial...
+This `gd32vf103` branch contains the source code for a Sensor Application for GigaDevice GD32VF103 with Apache Mynewt and Embedded Rust that has been tested on the [GigaDevice GD32VF103C-START board](https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/). Refer to the article...
 
-[_???_](???)
+[_Porting Apache Mynewt OS to GigaDevice GD32 VF103 on RISC-V_](https://medium.com/@ly.lee/porting-apache-mynewt-os-to-gigadevice-gd32-vf103-on-risc-v-4054a5922493)
 
 # TODO
 
