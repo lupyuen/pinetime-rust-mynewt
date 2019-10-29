@@ -16,13 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-/* Startup code for Bootloader and Application Firmware */
+/* Startup code for Bootloader and Application Firmware.
+Based on hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
 
 #include <env/encoding.h>
 
     .section .init
 
-    /* From hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */	
     .weak  eclic_msip_handler
     .weak  eclic_mtip_handler
     .weak  eclic_bwei_handler
@@ -89,7 +89,7 @@
     .weak  USBFS_IRQHandler
 
 vector_base:
-    /* Insert vector table at the start of firmware, similar to Arm */
+    /* Insert vector table at the start of ROM address 0x800 0000, similar to Arm */
     j _reset_handler
     .align    2
     .word     0
@@ -178,67 +178,103 @@ vector_base:
 	.word     CAN1_RX1_IRQHandler
 	.word     CAN1_EWMC_IRQHandler
 	.word     USBFS_IRQHandler
-    /* End hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
 
     .globl _reset_handler
     .type _reset_handler,@function
 
 _reset_handler:
     /* Called upon startup */
-    la gp, _gp
-    la sp, _sp
 
     /* Disable Local/Timer/External interrupts */
-    csrc mstatus, MSTATUS_MIE
-    csrr t0, mie
-    li t1, ~(MIP_MSIP | MIP_MTIP | MIP_MEIP)
-    and t0, t0, t1
-    csrw mie, t0
+	csrc CSR_MSTATUS, MSTATUS_MIE
 
-    /* Load data section from flash */
-    la a0, _data_lma
-    la a1, _data
-    la a2, _edata
-    bgeu a1, a2, 2f
-1:
-    lw t0, (a0)
-    sw t0, (a1)
-    addi a0, a0, 4
-    addi a1, a1, 4
-    bltu a1, a2, 1b
-2:
+	/* Upon restart, program starts running at address 0x0, which is aliased to ROM address 0x800 0000. 
+    We jump to the right ROM address 0x800 0000 so that RAM addressing works correctly. */
+    la		a0,	_reset_handler
+    li		a1,	1
+	slli	a1,	a1, 29
+    bleu	a1, a0, _reset_handler_0800
+    srli	a1,	a1, 2
+    bleu	a1, a0, _reset_handler_0800
+    la		a0,	_reset_handler_0800
+    add		a0, a0, a1
+	jr      a0
 
-    /* Clear bss section */
-    la a0, __bss_start
-    la a1, _end
-    bgeu a0, a1, 2f
+_reset_handler_0800:
+    /* We are now running at the right ROM address 0x800 0000 */
+
+    /* Set the the NMI base to share with mtvec by setting CSR_MMISC_CTL */
+    li t0, 0x200
+    csrs CSR_MMISC_CTL, t0
+
+	/* Intialise the mtvt */
+    la t0, vector_base
+    csrw CSR_MTVT, t0
+
+	/* Intialise the mtvt2 and enable it */
+    la t0, irq_entry
+    csrw CSR_MTVT2, t0
+    csrs CSR_MTVT2, 0x1
+
+    /* Intialise the CSR MTVEC for the Trap and NMI base address */
+    la t0, trap_entry
+    csrw CSR_MTVEC, t0
+
+#ifdef __riscv_flen
+	/* Enable FPU */
+	li t0, MSTATUS_FS
+	csrs mstatus, t0
+	csrw fcsr, x0
+#endif
+
+.option push
+.option norelax
+	la gp, __global_pointer$
+.option pop
+	la sp, _sp
+
+	/* Load data section */
+	la a0, _data_lma
+	la a1, _data
+	la a2, _edata
+	bgeu a1, a2, 2f
 1:
-    sw zero, (a0)
-    addi a0, a0, 4
-    bltu a0, a1, 1b
+	lw t0, (a0)
+	sw t0, (a1)
+	addi a0, a0, 4
+	addi a1, a1, 4
+	bltu a1, a2, 1b
 2:
-    /* From hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
-    /*enable mcycle_minstret*/
+	/* Clear bss section */
+	la a0, __bss_start
+	la a1, _end
+	bgeu a0, a1, 2f
+1:
+	sw zero, (a0)
+	addi a0, a0, 4
+	bltu a0, a1, 1b
+2:
+	/*enable mcycle_minstret*/
     csrci CSR_MCOUNTINHIBIT, 0x5
-    /* End hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
 
     /* NOTUSED: Init heap
     la a0, _end
     la a1, _heap_end
     call _sbrkInit */
 
-    /* NOTUSED: Call global constructors
-    la a0, __libc_fini_array
-    call atexit
-    call __libc_init_array */
+	/* NOTUSED: Call global constructors
+	la a0, __libc_fini_array
+	call atexit
+	call __libc_init_array */
 
     call SystemInit
     call _start
     call _fini
     tail exit
-
-    /* From hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
-    .global disable_mcycle_minstret
+1:
+	j 1b
+	
+	.global disable_mcycle_minstret
 disable_mcycle_minstret:
     csrsi CSR_MCOUNTINHIBIT, 0x5
 	ret
@@ -247,4 +283,3 @@ disable_mcycle_minstret:
 enable_mcycle_minstret:
     csrci CSR_MCOUNTINHIBIT, 0x5
 	ret
-    /* End hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/env_Eclipse/start.S.TODO */
