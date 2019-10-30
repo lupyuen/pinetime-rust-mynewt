@@ -17156,7 +17156,7 @@ _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E():
  106:	00050593          	mv	a1,a0
  10a:	00b99f63          	bne	s3,a1,128 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E+0x128>
  10e:	a025                	j	136 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E+0x136>
-_ZN68_$LT$$u5b$A$u5d$$u20$as$u20$core..slice..SlicePartialEq$LT$A$GT$$GT$5equal17h3c134fae793e6b97E():
+_ZN4core3cmp5impls69_$LT$impl$u20$core..cmp..PartialEq$LT$$RF$B$GT$$u20$for$u20$$RF$A$GT$2eq17hcf2474734a7ba443E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:5242
  110:	04a91063          	bne	s2,a0,150 <_ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E+0x150>
 _ZN6mynewt8encoding12coap_context11CoapContext7encoder17h6812658e1cee96a1E():

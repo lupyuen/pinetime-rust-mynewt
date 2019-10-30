@@ -55,10 +55,5 @@ Info : accepting 'gdb' connection from pipe
 Info : device id = 0x19060410
 Info : flash_size_in_kb = 0x00000080
 Info : flash size = 128kbytes
-Info : cmsis-dap JTAG TLR_RESET
-Info : cmsis-dap JTAG TLR_RESET
-Info : cmsis-dap JTAG TLR_RESET
-Info : JTAG tap: riscv.cpu tap/device found: 0x1e200a6d (mfg: 0x536 (Nuclei System Technology Co.,Ltd.), part: 0xe200, ver: 0x1)
-Info : JTAG tap: auto0.tap tap/device found: 0x790007a3 (mfg: 0x3d1 (GigaDevice Semiconductor (Beijing)), part: 0x9000, ver: 0x7)
 Info : [0] Found 4 triggers
 Info : dropped 'gdb' connection

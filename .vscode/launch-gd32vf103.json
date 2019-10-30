@@ -23,22 +23,17 @@
                 "target remote | riscv-openocd/src/openocd -s riscv-openocd/tcl -c \"gdb_port pipe; log_output openocd.log\" -f scripts/gd32vf103/flash-init.ocd -f interface/cmsis-dap.cfg -f scripts/gd32vf103/gd32vf103.ocd -f scripts/gd32vf103/debug.ocd ",
 
                 //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
-                //  Based on https://github.com/Tencent/TencentOS-tiny/blob/master/doc/RISC-V%20eclipse%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md
-                "monitor riscv expose_csrs 3040-3071",
-                "monitor reset halt",           //  Restart and halt
-                "flushregs",                    //  Flush the register cache
+                ////"monitor reset halt",           //  Restart and halt
+                ////"flushregs",                    //  Flush the register cache
 
-                "break main",                   //  Break at main()
-                "break __assert_func",          //  Break for any assert failures
-                "break os_default_irq",         //  Break for any unhandled interrupts
+                ////"break main",                   //  Break at main()
+                ////"break __assert_func",          //  Break for any assert failures
+                ////"break os_default_irq",         //  Break for any unhandled interrupts
 
                 //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
-                "stepi",                    //  Must step before setting PC
+                //  "stepi",                    //  Must step before setting PC
                 //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
                 //  "stepi",                    //  Execute the Reset Handler
-
-                //  "thb main",
-                //  "continue",
             ]
             //  "valuesFormatting": "parseText"
         }

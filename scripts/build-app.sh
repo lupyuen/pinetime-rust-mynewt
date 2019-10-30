@@ -183,6 +183,11 @@ newt build $mynewt_build_app
 #  Display the image size.
 newt size -v $mynewt_build_app
 
+####  TODO: Remove these
+sleep 5
+scripts/gd32vf103/image-app.sh
+scripts/gd32vf103/flash-app.sh
+
 #  Typical Mynewt build options:
 #  arm-none-eabi-gcc -DAPP_NAME=my_sensor_app -DAPP_my_sensor_app -DARCH_NAME=cortex_m4 -DARCH_cortex_m4 
 #  -DBSP_NAME=stm32l4 -DBSP_stm32l4 -DFLOAT_SUPPORT -DHAL_ADC_MODULE_ENABLED -DMYNEWT=1 -DSECURE=0 
