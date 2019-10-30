@@ -201,7 +201,7 @@
   csrw CSR_MSUBM, x5  
 .endm
 
-
+#ifdef NOTUSED  //  trap_entry already implemented in repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/ctx.s
 
 ###############################################
 ###############################################
@@ -236,6 +236,7 @@ trap_entry:
   // Return to regular code
   mret
 
+#endif  //  NOTUSED
 
 ###############################################
 ###############################################

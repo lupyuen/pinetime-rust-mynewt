@@ -26,7 +26,7 @@
 #include <os/os.h>            //  For Mynewt OS functions
 #include <console/console.h>  //  For Mynewt console output. Actually points to libs/semihosting_console
 #include <sensor_network/sensor_network.h>   //  For start_server_transport()
-////#include "sensor.h"                          //  For start_sensor_listener()
+#include "sensor.h"                          //  For start_sensor_listener()
 
 int main(int argc, char **argv) {
     //  Main program that initialises the sensor, network driver and starts reading 
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     sysinit();  console_flush();
 
     //  Starting polling the temperature sensor every 10 seconds in the background.
-    ////int rc1 = start_sensor_listener();  assert(rc1 == 0);
+    int rc1 = start_sensor_listener();  assert(rc1 == 0);
 
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
     int rc2 = start_server_transport();  assert(rc2 == 0);

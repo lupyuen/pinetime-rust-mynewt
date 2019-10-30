@@ -216,9 +216,10 @@ _reset_handler_0800:
     csrw CSR_MTVT2, t0
     csrs CSR_MTVT2, 0x1
 
-    /* Intialise the CSR MTVEC for the Trap and NMI base address */
+    /* Intialise the CSR MTVEC for the Trap and NMI base address
+    Already done in hw/mcu/gigadevice/gd32vf103/src/os_arch_rv32imac_patch.c
     la t0, trap_entry
-    csrw CSR_MTVEC, t0
+    csrw CSR_MTVEC, t0 */
 
 #ifdef __riscv_flen
 	/* Enable FPU */

@@ -12,7 +12,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          69476 (bytes into file)
+  Start of section headers:          69464 (bytes into file)
   Flags:                             0x1, RVC, soft-float ABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -24,73 +24,73 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 00fbd4 00138f 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 00fbcc 00138c 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E PROGBITS        00000000 000034 00000e 00  AX  0   0  2
-  [ 4] .rela.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E RELA            00000000 00c208 00000c 0c     67   3  4
+  [ 4] .rela.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E RELA            00000000 00c200 00000c 0c     67   3  4
   [ 5] .text._ZN4core6result13unwrap_failed17h3314c9605742429cE PROGBITS        00000000 000042 000058 00  AX  0   0  2
-  [ 6] .rela.text._ZN4core6result13unwrap_failed17h3314c9605742429cE RELA            00000000 00c214 000078 0c     67   5  4
+  [ 6] .rela.text._ZN4core6result13unwrap_failed17h3314c9605742429cE RELA            00000000 00c20c 000078 0c     67   5  4
   [ 7] .text._ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE PROGBITS        00000000 00009a 000450 00  AX  0   0  2
-  [ 8] .rela.text._ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE RELA            00000000 00c28c 000438 0c     67   7  4
-  [ 9] .text.OLDmain     PROGBITS        00000000 0004ea 000170 00  AX  0   0  2
-  [10] .rela.text.OLDmain RELA            00000000 00c6c4 00018c 0c     67   9  4
+  [ 8] .rela.text._ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE RELA            00000000 00c284 000438 0c     67   7  4
+  [ 9] .text.main        PROGBITS        00000000 0004ea 000170 00  AX  0   0  2
+  [10] .rela.text.main   RELA            00000000 00c6bc 00018c 0c     67   9  4
   [11] .text.rust_begin_unwind PROGBITS        00000000 00065a 0000bc 00  AX  0   0  2
-  [12] .rela.text.rust_begin_unwind RELA            00000000 00c850 000120 0c     67  11  4
-  [13] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.0 PROGBITS        00000000 000716 000000 00   A  0   0  1
-  [14] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.1 PROGBITS        00000000 000716 000002 00   A  0   0  1
-  [15] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.2 PROGBITS        00000000 000718 000010 00   A  0   0  4
-  [16] .rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.2 RELA            00000000 00c970 000018 0c     67  15  4
-  [17] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.3 PROGBITS        00000000 000728 000015 00   A  0   0  1
-  [18] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.4 PROGBITS        00000000 000740 000010 00   A  0   0  4
-  [19] .rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.4 RELA            00000000 00c988 00000c 0c     67  18  4
-  [20] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.5 PROGBITS        00000000 000750 000013 00   A  0   0  1
-  [21] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.6 PROGBITS        00000000 000763 000056 00   A  0   0  1
-  [22] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.7 PROGBITS        00000000 0007bc 000018 00   A  0   0  4
-  [23] .rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.7 RELA            00000000 00c994 000018 0c     67  22  4
-  [24] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.8 PROGBITS        00000000 0007d4 000017 00   A  0   0  1
-  [25] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.9 PROGBITS        00000000 0007eb 000001 00   A  0   0  1
-  [26] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.10 PROGBITS        00000000 0007ec 000001 00   A  0   0  1
-  [27] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.11 PROGBITS        00000000 0007ed 000001 00   A  0   0  1
-  [28] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.12 PROGBITS        00000000 0007ee 000007 00   A  0   0  1
-  [29] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.13 PROGBITS        00000000 0007f5 00000d 00   A  0   0  1
-  [30] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.14 PROGBITS        00000000 000802 000003 00   A  0   0  1
-  [31] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.15 PROGBITS        00000000 000805 000005 00   A  0   0  1
+  [12] .rela.text.rust_begin_unwind RELA            00000000 00c848 000120 0c     67  11  4
+  [13] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.0 PROGBITS        00000000 000716 000000 00   A  0   0  1
+  [14] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.1 PROGBITS        00000000 000716 000002 00   A  0   0  1
+  [15] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2 PROGBITS        00000000 000718 000010 00   A  0   0  4
+  [16] .rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2 RELA            00000000 00c968 000018 0c     67  15  4
+  [17] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3 PROGBITS        00000000 000728 000015 00   A  0   0  1
+  [18] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4 PROGBITS        00000000 000740 000010 00   A  0   0  4
+  [19] .rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4 RELA            00000000 00c980 00000c 0c     67  18  4
+  [20] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.5 PROGBITS        00000000 000750 000013 00   A  0   0  1
+  [21] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.6 PROGBITS        00000000 000763 000056 00   A  0   0  1
+  [22] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7 PROGBITS        00000000 0007bc 000018 00   A  0   0  4
+  [23] .rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7 RELA            00000000 00c98c 000018 0c     67  22  4
+  [24] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8 PROGBITS        00000000 0007d4 000017 00   A  0   0  1
+  [25] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9 PROGBITS        00000000 0007eb 000001 00   A  0   0  1
+  [26] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10 PROGBITS        00000000 0007ec 000001 00   A  0   0  1
+  [27] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11 PROGBITS        00000000 0007ed 000001 00   A  0   0  1
+  [28] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.12 PROGBITS        00000000 0007ee 000007 00   A  0   0  1
+  [29] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.13 PROGBITS        00000000 0007f5 00000d 00   A  0   0  1
+  [30] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.14 PROGBITS        00000000 000802 000003 00   A  0   0  1
+  [31] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.15 PROGBITS        00000000 000805 000005 00   A  0   0  1
   [32] .rodata.cst4      PROGBITS        00000000 00080a 00000c 04  AM  0   0  1
-  [33] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.18 PROGBITS        00000000 000816 000005 00   A  0   0  1
-  [34] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.20 PROGBITS        00000000 00081b 000007 00   A  0   0  1
-  [35] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.21 PROGBITS        00000000 000822 000006 00   A  0   0  1
-  [36] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.22 PROGBITS        00000000 000828 000048 00   A  0   0  1
+  [33] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.18 PROGBITS        00000000 000816 000005 00   A  0   0  1
+  [34] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.20 PROGBITS        00000000 00081b 000007 00   A  0   0  1
+  [35] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.21 PROGBITS        00000000 000822 000006 00   A  0   0  1
+  [36] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.22 PROGBITS        00000000 000828 000048 00   A  0   0  1
   [37] .bss._ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E NOBITS          00000000 000870 000020 00  WA  0   0  8
-  [38] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.23 PROGBITS        00000000 000870 00000c 00   A  0   0  1
+  [38] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.23 PROGBITS        00000000 000870 00000c 00   A  0   0  1
   [39] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E PROGBITS        00000000 00087c 00000c 00   A  0   0  4
-  [40] .rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E RELA            00000000 00c9ac 00000c 0c     67  39  4
-  [41] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.24 PROGBITS        00000000 000888 00000e 00   A  0   0  1
-  [42] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.25 PROGBITS        00000000 000896 000006 00   A  0   0  1
-  [43] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.26 PROGBITS        00000000 00089c 000002 00   A  0   0  1
-  [44] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.27 PROGBITS        00000000 0008a0 00000c 00   A  0   0  4
-  [45] .rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.27 RELA            00000000 00c9b8 00000c 0c     67  44  4
+  [40] .rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E RELA            00000000 00c9a4 00000c 0c     67  39  4
+  [41] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.24 PROGBITS        00000000 000888 00000e 00   A  0   0  1
+  [42] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.25 PROGBITS        00000000 000896 000006 00   A  0   0  1
+  [43] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.26 PROGBITS        00000000 00089c 000002 00   A  0   0  1
+  [44] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.27 PROGBITS        00000000 0008a0 00000c 00   A  0   0  4
+  [45] .rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.27 RELA            00000000 00c9b0 00000c 0c     67  44  4
   [46] .rodata.cst8      PROGBITS        00000000 0008ac 000018 08  AM  0   0  1
-  [47] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.31 PROGBITS        00000000 0008c4 000006 00   A  0   0  1
-  [48] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.32 PROGBITS        00000000 0008ca 000007 00   A  0   0  1
-  [49] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.33 PROGBITS        00000000 0008d1 000003 00   A  0   0  1
-  [50] .rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.34 PROGBITS        00000000 0008d4 000006 00   A  0   0  1
-  [51] .debug_str        PROGBITS        00000000 0008da 0031c5 01  MS  0   0  1
-  [52] .debug_loc        PROGBITS        00000000 003a9f 0002a7 00      0   0  1
-  [53] .rela.debug_loc   RELA            00000000 00c9c4 000378 0c     67  52  4
-  [54] .debug_abbrev     PROGBITS        00000000 003d46 000272 00      0   0  1
-  [55] .debug_info       PROGBITS        00000000 003fb8 0027dc 00      0   0  1
-  [56] .rela.debug_info  RELA            00000000 00cd3c 002c64 0c     67  55  4
-  [57] .debug_ranges     PROGBITS        00000000 006794 0000e0 00      0   0  1
-  [58] .rela.debug_ranges RELA            00000000 00f9a0 0001e0 0c     67  57  4
-  [59] .debug_macinfo    PROGBITS        00000000 006874 000001 00      0   0  1
-  [60] .debug_pubnames   PROGBITS        00000000 006875 000370 00      0   0  1
-  [61] .rela.debug_pubnames RELA            00000000 00fb80 00000c 0c     67  60  4
-  [62] .debug_pubtypes   PROGBITS        00000000 006be5 0023ee 00      0   0  1
-  [63] .rela.debug_pubtypes RELA            00000000 00fb8c 00000c 0c     67  62  4
-  [64] .note.GNU-stack   PROGBITS        00000000 008fd3 000000 00      0   0  1
-  [65] .debug_line       PROGBITS        00000000 008fd3 000462 00      0   0  1
-  [66] .rela.debug_line  RELA            00000000 00fb98 00003c 0c     67  65  4
-  [67] .symtab           SYMTAB          00000000 009438 002dd0 10      1 687  4
+  [47] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.31 PROGBITS        00000000 0008c4 000006 00   A  0   0  1
+  [48] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.32 PROGBITS        00000000 0008ca 000007 00   A  0   0  1
+  [49] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.33 PROGBITS        00000000 0008d1 000003 00   A  0   0  1
+  [50] .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.34 PROGBITS        00000000 0008d4 000006 00   A  0   0  1
+  [51] .debug_str        PROGBITS        00000000 0008da 0031c2 01  MS  0   0  1
+  [52] .debug_loc        PROGBITS        00000000 003a9c 0002a7 00      0   0  1
+  [53] .rela.debug_loc   RELA            00000000 00c9bc 000378 0c     67  52  4
+  [54] .debug_abbrev     PROGBITS        00000000 003d43 000272 00      0   0  1
+  [55] .debug_info       PROGBITS        00000000 003fb5 0027dc 00      0   0  1
+  [56] .rela.debug_info  RELA            00000000 00cd34 002c64 0c     67  55  4
+  [57] .debug_ranges     PROGBITS        00000000 006791 0000e0 00      0   0  1
+  [58] .rela.debug_ranges RELA            00000000 00f998 0001e0 0c     67  57  4
+  [59] .debug_macinfo    PROGBITS        00000000 006871 000001 00      0   0  1
+  [60] .debug_pubnames   PROGBITS        00000000 006872 00036d 00      0   0  1
+  [61] .rela.debug_pubnames RELA            00000000 00fb78 00000c 0c     67  60  4
+  [62] .debug_pubtypes   PROGBITS        00000000 006bdf 0023ee 00      0   0  1
+  [63] .rela.debug_pubtypes RELA            00000000 00fb84 00000c 0c     67  62  4
+  [64] .note.GNU-stack   PROGBITS        00000000 008fcd 000000 00      0   0  1
+  [65] .debug_line       PROGBITS        00000000 008fcd 000462 00      0   0  1
+  [66] .rela.debug_line  RELA            00000000 00fb90 00003c 0c     67  65  4
+  [67] .symtab           SYMTAB          00000000 009430 002dd0 10      1 687  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -103,24 +103,24 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rela.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E' at offset 0xc208 contains 1 entry:
+Relocation section '.rela.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E' at offset 0xc200 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000006  0002b012 R_RISCV_CALL           00000000   _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE + 0
+00000006  0002af12 R_RISCV_CALL           00000000   _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE + 0
 
-Relocation section '.rela.text._ZN4core6result13unwrap_failed17h3314c9605742429cE' at offset 0xc214 contains 10 entries:
+Relocation section '.rela.text._ZN4core6result13unwrap_failed17h3314c9605742429cE' at offset 0xc20c contains 10 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-0000000c  0002b71a R_RISCV_HI20           00000000   _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4ea6aa97237e1e60E + 0
-00000010  0002b71b R_RISCV_LO12_I         00000000   _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4ea6aa97237e1e60E + 0
+0000000c  0002b61a R_RISCV_HI20           00000000   _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4ea6aa97237e1e60E + 0
+00000010  0002b61b R_RISCV_LO12_I         00000000   _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4ea6aa97237e1e60E + 0
 0000001a  0002ac1a R_RISCV_HI20           00000000   _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E + 0
 0000001e  0002ac1b R_RISCV_LO12_I         00000000   _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E + 0
-00000034  0002911a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.2 + 0
-00000038  0002911b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.2 + 0
-0000003e  0002a21a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.4 + 0
-00000042  0002a21b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.4 + 0
-00000048  0002b612 R_RISCV_CALL           00000000   _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E + 0
-00000050  0002d312 R_RISCV_CALL           00000000   abort + 0
+00000034  0002911a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.2 + 0
+00000038  0002911b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.2 + 0
+0000003e  0002a21a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.4 + 0
+00000042  0002a21b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.4 + 0
+00000048  0002b512 R_RISCV_CALL           00000000   _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E + 0
+00000050  0002d212 R_RISCV_CALL           00000000   abort + 0
 
-Relocation section '.rela.text._ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE' at offset 0xc28c contains 90 entries:
+Relocation section '.rela.text._ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE' at offset 0xc284 contains 90 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000024  0002aa1a R_RISCV_HI20           00000000   _ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E + 0
 00000028  0002aa1b R_RISCV_LO12_I         00000000   _ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E + 0
@@ -128,177 +128,177 @@ Relocation section '.rela.text._ZN3app11app_network21aggregate_sensor_data17h16b
 00000066  0002aa1a R_RISCV_HI20           00000000   _ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E + 0
 0000006a  0002aa1b R_RISCV_LO12_I         00000000   _ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E + 0
 0000007c  0002aa1b R_RISCV_LO12_I         00000000   _ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E + 0
-0000009c  0002a61a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.8 + 0
-000000a0  0002a61b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.8 + 0
-000000a6  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-000000b6  0002bc12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console10print_strn17h04bd7e2a27ff349cE + 0
-000000be  0002a71a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.9 + 0
-000000c2  0002a71b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.9 + 0
-000000c8  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-000000d2  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console8printint17h7c7d7028aeda8dd2E + 0
-000000da  0002871a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.10 + 0
-000000de  0002871b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.10 + 0
-000000e6  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-000000ee  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5flush17hbf393adbbaededb9E + 0
-000000f8  0002c312 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network13get_device_id17hea5bbcf5456b66c0E + 0
-00000116  0002881a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.11 + 0
-0000011a  0002881b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.11 + 0
-00000126  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-00000132  0002c512 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network16init_server_post17h8ae86e6b88fcde3eE + 0
-0000015a  0002c212 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network12prepare_post17hd02b64e4d7b637f9E + 0
-0000016c  0002db12 R_RISCV_CALL           00000000   json_rep_start_root_object + 0
-00000174  0002cf1a R_RISCV_HI20           00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17hd1d9c5815270d297E + 0
-00000178  0002cf1b R_RISCV_LO12_I         00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17hd1d9c5815270d297E + 0
-0000017e  0002ca12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
-00000188  0002891a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.12 + 0
-0000018c  0002891b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.12 + 0
-00000196  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-000001a2  0002d712 R_RISCV_CALL           00000000   json_helper_set_array + 0
-000001ce  00028a1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.13 + 0
-000001d2  00028a1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.13 + 0
-000001dc  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-000001e4  0002d612 R_RISCV_CALL           00000000   json_helper_object_array_start_item + 0
-000001ec  00028b1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.14 + 0
-000001f0  00028b1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.14 + 0
-000001f6  0002d012 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h172354ca0391548fE + 0
-00000204  0002d112 R_RISCV_CALL           00000000   _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hae64e8766a77e514E + 0
-00000212  0002ca12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
-00000222  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-00000232  0002cb12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h6c075bbdd12e1839E + 0
-00000240  0002d912 R_RISCV_CALL           00000000   json_helper_set_text_string + 0
-00000248  00028c1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.15 + 0
-0000024c  00028c1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.15 + 0
-00000254  0002d012 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h172354ca0391548fE + 0
-00000262  0002ca12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
-00000272  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-00000282  0002d812 R_RISCV_CALL           00000000   json_helper_set_int + 0
-0000028a  00028d1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.16 + 0
-0000028e  00028d1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.16 + 0
-0000029c  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-000002a4  00028e1a R_RISCV_HI20           00000004   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.17 + 0
-000002a8  00028e1b R_RISCV_LO12_I         00000004   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.17 + 0
-000002b4  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-000002bc  00028f1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.18 + 0
-000002c0  00028f1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.18 + 0
-000002ca  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-000002fc  0002cc12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext20json_set_geolocation17h7e7ff0e5ef7c6ffdE + 0
-0000030a  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-00000312  0002d512 R_RISCV_CALL           00000000   json_helper_object_array_end_item + 0
-00000324  0002ce12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext4fail17h18b2574d199d0ab3E + 0
-0000032c  00028a1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.13 + 0
-00000330  00028a1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.13 + 0
-0000033c  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-00000344  0002d612 R_RISCV_CALL           00000000   json_helper_object_array_start_item + 0
-0000034c  0002901a R_RISCV_HI20           00000008   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.19 + 0
-00000350  0002901b R_RISCV_LO12_I         00000008   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.19 + 0
-0000035c  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-00000364  0002921a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.20 + 0
-00000368  0002921b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.20 + 0
-00000374  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-00000382  0002cd12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E + 0
-0000038a  0002931a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.21 + 0
-0000038e  0002931b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.21 + 0
-00000398  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
-000003a6  0002cd12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E + 0
-000003b4  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-000003bc  0002d512 R_RISCV_CALL           00000000   json_helper_object_array_end_item + 0
-000003c6  0002ca12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
-000003d6  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
-000003e2  0002d412 R_RISCV_CALL           00000000   json_helper_close_array + 0
-000003ea  0002da12 R_RISCV_CALL           00000000   json_rep_end_root_object + 0
-000003f4  0002c412 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network14do_server_post17h26084f25b670f291E + 0
-00000408  0002941a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.22 + 0
-0000040c  0002941b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.22 + 0
-00000414  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-0000041e  0002bc12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console10print_strn17h04bd7e2a27ff349cE + 0
-0000042a  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+0000009c  0002a61a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.8 + 0
+000000a0  0002a61b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.8 + 0
+000000a6  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+000000b6  0002bb12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console10print_strn17h04bd7e2a27ff349cE + 0
+000000be  0002a71a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.9 + 0
+000000c2  0002a71b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.9 + 0
+000000c8  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+000000d2  0002bf12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console8printint17h7c7d7028aeda8dd2E + 0
+000000da  0002871a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.10 + 0
+000000de  0002871b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.10 + 0
+000000e6  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+000000ee  0002bc12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5flush17hbf393adbbaededb9E + 0
+000000f8  0002c212 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network13get_device_id17hea5bbcf5456b66c0E + 0
+00000116  0002881a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.11 + 0
+0000011a  0002881b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.11 + 0
+00000126  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+00000132  0002c412 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network16init_server_post17h8ae86e6b88fcde3eE + 0
+0000015a  0002c112 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network12prepare_post17hd02b64e4d7b637f9E + 0
+0000016c  0002da12 R_RISCV_CALL           00000000   json_rep_start_root_object + 0
+00000174  0002ce1a R_RISCV_HI20           00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17hd1d9c5815270d297E + 0
+00000178  0002ce1b R_RISCV_LO12_I         00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17hd1d9c5815270d297E + 0
+0000017e  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
+00000188  0002891a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.12 + 0
+0000018c  0002891b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.12 + 0
+00000196  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+000001a2  0002d612 R_RISCV_CALL           00000000   json_helper_set_array + 0
+000001ce  00028a1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13 + 0
+000001d2  00028a1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13 + 0
+000001dc  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+000001e4  0002d512 R_RISCV_CALL           00000000   json_helper_object_array_start_item + 0
+000001ec  00028b1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.14 + 0
+000001f0  00028b1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.14 + 0
+000001f6  0002cf12 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h172354ca0391548fE + 0
+00000204  0002d012 R_RISCV_CALL           00000000   _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hae64e8766a77e514E + 0
+00000212  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
+00000222  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+00000232  0002ca12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h6c075bbdd12e1839E + 0
+00000240  0002d812 R_RISCV_CALL           00000000   json_helper_set_text_string + 0
+00000248  00028c1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.15 + 0
+0000024c  00028c1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.15 + 0
+00000254  0002cf12 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h172354ca0391548fE + 0
+00000262  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
+00000272  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+00000282  0002d712 R_RISCV_CALL           00000000   json_helper_set_int + 0
+0000028a  00028d1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.16 + 0
+0000028e  00028d1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.16 + 0
+0000029c  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+000002a4  00028e1a R_RISCV_HI20           00000004   .Lanon.3ed011473997af99b525cde47c9eaaac.17 + 0
+000002a8  00028e1b R_RISCV_LO12_I         00000004   .Lanon.3ed011473997af99b525cde47c9eaaac.17 + 0
+000002b4  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+000002bc  00028f1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.18 + 0
+000002c0  00028f1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.18 + 0
+000002ca  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+000002fc  0002cb12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext20json_set_geolocation17h7e7ff0e5ef7c6ffdE + 0
+0000030a  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+00000312  0002d412 R_RISCV_CALL           00000000   json_helper_object_array_end_item + 0
+00000324  0002cd12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext4fail17h18b2574d199d0ab3E + 0
+0000032c  00028a1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13 + 0
+00000330  00028a1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.13 + 0
+0000033c  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+00000344  0002d512 R_RISCV_CALL           00000000   json_helper_object_array_start_item + 0
+0000034c  0002901a R_RISCV_HI20           00000008   .Lanon.3ed011473997af99b525cde47c9eaaac.19 + 0
+00000350  0002901b R_RISCV_LO12_I         00000008   .Lanon.3ed011473997af99b525cde47c9eaaac.19 + 0
+0000035c  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+00000364  0002921a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.20 + 0
+00000368  0002921b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.20 + 0
+00000374  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+00000382  0002cc12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E + 0
+0000038a  0002931a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21 + 0
+0000038e  0002931b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.21 + 0
+00000398  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt4Strn3new17h505d7b5ee6564253E + 0
+000003a6  0002cc12 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E + 0
+000003b4  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+000003bc  0002d412 R_RISCV_CALL           00000000   json_helper_object_array_end_item + 0
+000003c6  0002c912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE + 0
+000003d6  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE + 0
+000003e2  0002d312 R_RISCV_CALL           00000000   json_helper_close_array + 0
+000003ea  0002d912 R_RISCV_CALL           00000000   json_rep_end_root_object + 0
+000003f4  0002c312 R_RISCV_CALL           00000000   _ZN6mynewt4libs14sensor_network14do_server_post17h26084f25b670f291E + 0
+00000408  0002941a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.22 + 0
+0000040c  0002941b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.22 + 0
+00000414  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+0000041e  0002bb12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console10print_strn17h04bd7e2a27ff349cE + 0
+0000042a  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
 
-Relocation section '.rela.text.OLDmain' at offset 0xc6c4 contains 33 entries:
+Relocation section '.rela.text.main' at offset 0xc6bc contains 33 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-0000000a  0002c812 R_RISCV_CALL           00000000   _ZN6mynewt7sysinit17h46656f63b85c8fe0E + 0
-00000012  0002961a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.24 + 0
-00000016  0002961b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.24 + 0
-0000001c  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+0000000a  0002c712 R_RISCV_CALL           00000000   _ZN6mynewt7sysinit17h46656f63b85c8fe0E + 0
+00000012  0002961a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24 + 0
+00000016  0002961b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.24 + 0
+0000001c  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
 00000024  0002a91a R_RISCV_HI20           00000000   _ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E + 0
 00000028  0002a91b R_RISCV_LO12_I         00000000   _ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E + 0
-00000034  0002b812 R_RISCV_CALL           00000000   _ZN6mynewt2hw10sensor_mgr14find_bydevname17h3b1f6b8f255d15acE + 0
-0000003e  0002d212 R_RISCV_CALL           00000000   _ZN99_$LT$mynewt..hw..sensor_mgr..SensorsByDevname$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h2413b8f055cbd3f6E + 0
-00000054  0002bb12 R_RISCV_CALL           00000000   _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h94e658dc8a8affe2E + 0
-00000062  0002991a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.27 + 0
-00000066  0002991b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.27 + 0
+00000034  0002b712 R_RISCV_CALL           00000000   _ZN6mynewt2hw10sensor_mgr14find_bydevname17h3b1f6b8f255d15acE + 0
+0000003e  0002d112 R_RISCV_CALL           00000000   _ZN99_$LT$mynewt..hw..sensor_mgr..SensorsByDevname$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h2413b8f055cbd3f6E + 0
+00000054  0002ba12 R_RISCV_CALL           00000000   _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h94e658dc8a8affe2E + 0
+00000062  0002991a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.27 + 0
+00000066  0002991b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.27 + 0
 0000006a  0002ab1a R_RISCV_HI20           00000000   _ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE + 0
 0000006e  0002ab1b R_RISCV_LO12_I         00000000   _ZN3app11app_network21aggregate_sensor_data17h16bb200023b7761eE + 0
-0000007a  0002ba12 R_RISCV_CALL           00000000   _ZN6mynewt2hw6sensor19new_sensor_listener17h28f0369dc17b732dE + 0
-000000dc  0002b912 R_RISCV_CALL           00000000   _ZN6mynewt2hw6sensor17register_listener17hd64d0c3ec01fbcabE + 0
-000000ec  0002c712 R_RISCV_CALL           00000000   _ZN6mynewt6kernel2os15eventq_dflt_get17ha91431cf3cedfcd0E + 0
-000000fc  0002c612 R_RISCV_CALL           00000000   _ZN6mynewt6kernel2os10eventq_run17h6ac9d8384aa82ab0E + 0
-0000010a  00029d1a R_RISCV_HI20           00000010   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.30 + 0
-0000010e  00029d1b R_RISCV_LO12_I         00000010   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.30 + 0
+0000007a  0002b912 R_RISCV_CALL           00000000   _ZN6mynewt2hw6sensor19new_sensor_listener17h28f0369dc17b732dE + 0
+000000dc  0002b812 R_RISCV_CALL           00000000   _ZN6mynewt2hw6sensor17register_listener17hd64d0c3ec01fbcabE + 0
+000000ec  0002c612 R_RISCV_CALL           00000000   _ZN6mynewt6kernel2os15eventq_dflt_get17ha91431cf3cedfcd0E + 0
+000000fc  0002c512 R_RISCV_CALL           00000000   _ZN6mynewt6kernel2os10eventq_run17h6ac9d8384aa82ab0E + 0
+0000010a  00029d1a R_RISCV_HI20           00000010   .Lanon.3ed011473997af99b525cde47c9eaaac.30 + 0
+0000010e  00029d1b R_RISCV_LO12_I         00000010   .Lanon.3ed011473997af99b525cde47c9eaaac.30 + 0
 00000112  0002ad12 R_RISCV_CALL           00000000   _ZN4core6result13unwrap_failed17h3314c9605742429cE + 0
-0000011a  0002d312 R_RISCV_CALL           00000000   abort + 0
-00000124  00029b1a R_RISCV_HI20           00000008   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.29 + 0
-00000128  00029b1b R_RISCV_LO12_I         00000008   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.29 + 0
+0000011a  0002d212 R_RISCV_CALL           00000000   abort + 0
+00000124  00029b1a R_RISCV_HI20           00000008   .Lanon.3ed011473997af99b525cde47c9eaaac.29 + 0
+00000128  00029b1b R_RISCV_LO12_I         00000008   .Lanon.3ed011473997af99b525cde47c9eaaac.29 + 0
 0000012c  0002ad12 R_RISCV_CALL           00000000   _ZN4core6result13unwrap_failed17h3314c9605742429cE + 0
-00000134  0002d312 R_RISCV_CALL           00000000   abort + 0
-0000013e  00029a1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.28 + 0
-00000142  00029a1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.28 + 0
+00000134  0002d212 R_RISCV_CALL           00000000   abort + 0
+0000013e  00029a1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.28 + 0
+00000142  00029a1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.28 + 0
 00000146  0002ad12 R_RISCV_CALL           00000000   _ZN4core6result13unwrap_failed17h3314c9605742429cE + 0
-0000014e  0002d312 R_RISCV_CALL           00000000   abort + 0
-00000156  0002971a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.25 + 0
-0000015a  0002971b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.25 + 0
-00000160  0002b412 R_RISCV_CALL           00000000   _ZN4core6option13expect_failed17h3eeb96a257d935a1E + 0
-00000168  0002d312 R_RISCV_CALL           00000000   abort + 0
+0000014e  0002d212 R_RISCV_CALL           00000000   abort + 0
+00000156  0002971a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.25 + 0
+0000015a  0002971b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.25 + 0
+00000160  0002b312 R_RISCV_CALL           00000000   _ZN4core6option13expect_failed17h3eeb96a257d935a1E + 0
+00000168  0002d212 R_RISCV_CALL           00000000   abort + 0
 
-Relocation section '.rela.text.rust_begin_unwind' at offset 0xc850 contains 24 entries:
+Relocation section '.rela.text.rust_begin_unwind' at offset 0xc848 contains 24 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-0000000c  00029e1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.31 + 0
-00000010  00029e1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.31 + 0
-00000016  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-00000020  0002b312 R_RISCV_CALL           00000000   _ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E + 0
-0000002a  00029f1a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.32 + 0
-0000002e  00029f1b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.32 + 0
-00000038  0002b112 R_RISCV_CALL           00000000   _ZN4core5panic8Location4file17h94cc6af18de736c4E + 0
-00000046  0002b212 R_RISCV_CALL           00000000   _ZN4core5panic8Location4line17h3ffc63f14d0a6636E + 0
-00000050  0002a01a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.33 + 0
-00000054  0002a01b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.33 + 0
-0000005a  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-00000066  0002bf12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console6buffer17hcf0a88e6843405bdE + 0
-0000006e  0002a11a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.34 + 0
-00000072  0002a11b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.34 + 0
-00000078  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-00000082  0002c012 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console8printint17h7c7d7028aeda8dd2E + 0
-0000008a  0002871a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.10 + 0
-0000008e  0002871b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.10 + 0
-00000094  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
-0000009c  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5flush17hbf393adbbaededb9E + 0
-000000a4  0002a51a R_RISCV_HI20           00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.7 + 0
-000000a8  0002a51b R_RISCV_LO12_I         00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.7 + 0
-000000ac  0002b512 R_RISCV_CALL           00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E + 0
-000000b4  0002d312 R_RISCV_CALL           00000000   abort + 0
+0000000c  00029e1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.31 + 0
+00000010  00029e1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.31 + 0
+00000016  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+00000020  0002b212 R_RISCV_CALL           00000000   _ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E + 0
+0000002a  00029f1a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.32 + 0
+0000002e  00029f1b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.32 + 0
+00000038  0002b012 R_RISCV_CALL           00000000   _ZN4core5panic8Location4file17h94cc6af18de736c4E + 0
+00000046  0002b112 R_RISCV_CALL           00000000   _ZN4core5panic8Location4line17h3ffc63f14d0a6636E + 0
+00000050  0002a01a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.33 + 0
+00000054  0002a01b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.33 + 0
+0000005a  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+00000066  0002be12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console6buffer17hcf0a88e6843405bdE + 0
+0000006e  0002a11a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.34 + 0
+00000072  0002a11b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.34 + 0
+00000078  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+00000082  0002bf12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console8printint17h7c7d7028aeda8dd2E + 0
+0000008a  0002871a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.10 + 0
+0000008e  0002871b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.10 + 0
+00000094  0002bd12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E + 0
+0000009c  0002bc12 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5flush17hbf393adbbaededb9E + 0
+000000a4  0002a51a R_RISCV_HI20           00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.7 + 0
+000000a8  0002a51b R_RISCV_LO12_I         00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.7 + 0
+000000ac  0002b412 R_RISCV_CALL           00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E + 0
+000000b4  0002d212 R_RISCV_CALL           00000000   abort + 0
 
-Relocation section '.rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.2' at offset 0xc970 contains 2 entries:
+Relocation section '.rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2' at offset 0xc968 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000000  00028501 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.0 + 0
-00000008  00028601 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.1 + 0
+00000000  00028501 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.0 + 0
+00000008  00028601 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.1 + 0
 
-Relocation section '.rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.4' at offset 0xc988 contains 1 entry:
+Relocation section '.rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.4' at offset 0xc980 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000000  00029c01 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.3 + 0
+00000000  00029c01 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.3 + 0
 
-Relocation section '.rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.7' at offset 0xc994 contains 2 entries:
+Relocation section '.rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7' at offset 0xc98c contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000000  0002a301 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.5 + 0
-00000008  0002a401 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.6 + 0
+00000000  0002a301 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.5 + 0
+00000008  0002a401 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.6 + 0
 
-Relocation section '.rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E' at offset 0xc9ac contains 1 entry:
+Relocation section '.rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E' at offset 0xc9a4 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000004  00029501 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.23 + 0
+00000004  00029501 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.23 + 0
 
-Relocation section '.rela.rodata..Lanon.11968f35cf7d5ede4d26cdab79eaa170.27' at offset 0xc9b8 contains 1 entry:
+Relocation section '.rela.rodata..Lanon.3ed011473997af99b525cde47c9eaaac.27' at offset 0xc9b0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000004  00029801 R_RISCV_32             00000000   .Lanon.11968f35cf7d5ede4d26cdab79eaa170.26 + 0
+00000004  00029801 R_RISCV_32             00000000   .Lanon.3ed011473997af99b525cde47c9eaaac.26 + 0
 
-Relocation section '.rela.debug_loc' at offset 0xc9c4 contains 74 entries:
+Relocation section '.rela.debug_loc' at offset 0xc9bc contains 74 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000000  00000301 R_RISCV_32             00000000    + 0
 00000004  00000601 R_RISCV_32             00000006    + 0
@@ -375,7 +375,7 @@ Relocation section '.rela.debug_loc' at offset 0xc9c4 contains 74 entries:
 00000294  00007901 R_RISCV_32             00000050    + 0
 00000298  00007a01 R_RISCV_32             00000094    + 0
 
-Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
+Relocation section '.rela.debug_info' at offset 0xcd34 contains 947 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  0002ae01 R_RISCV_32             00000000   .debug_abbrev + 0
 0000000c  00007d01 R_RISCV_32             00000000    + 0
@@ -423,9 +423,9 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 000001db  00027501 R_RISCV_32             0000307a    + 0
 000001df  00027601 R_RISCV_32             000030ba    + 0
 000001ea  00001501 R_RISCV_32             0000006d    + 0
-000001ee  00027d01 R_RISCV_32             000030fe    + 0
+000001ee  00027d01 R_RISCV_32             000030fb    + 0
 000001f9  00004001 R_RISCV_32             0000009c    + 0
-00000202  00027e01 R_RISCV_32             0000310b    + 0
+00000202  00027e01 R_RISCV_32             00003108    + 0
 00000212  00004001 R_RISCV_32             0000009c    + 0
 00000222  00004101 R_RISCV_32             000000b4    + 0
 0000022b  00001601 R_RISCV_32             0000008b    + 0
@@ -484,19 +484,19 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 00000475  00005f01 R_RISCV_32             0000010a    + 0
 0000047e  00002301 R_RISCV_32             00000207    + 0
 0000048a  00007001 R_RISCV_32             00000000    + 0
-00000494  00027801 R_RISCV_32             000030d8    + 0
-00000498  00027901 R_RISCV_32             000030ea    + 0
+00000494  00027801 R_RISCV_32             000030d5    + 0
+00000498  00027901 R_RISCV_32             000030e7    + 0
 000004a3  00002601 R_RISCV_32             00000240    + 0
-000004a7  00027f01 R_RISCV_32             0000311a    + 0
+000004a7  00027f01 R_RISCV_32             00003117    + 0
 000004b2  00000201 R_RISCV_32             00000098    + 0
 000004b7  00002701 R_RISCV_32             00000269    + 0
-000004bb  00000901 R_RISCV_32             0000316c    + 0
+000004bb  00000901 R_RISCV_32             00003169    + 0
 000004c6  00007801 R_RISCV_32             00000044    + 0
 000004cf  00002801 R_RISCV_32             0000027c    + 0
-000004d3  00000a01 R_RISCV_32             00003175    + 0
+000004d3  00000a01 R_RISCV_32             00003172    + 0
 000004de  00007901 R_RISCV_32             00000050    + 0
 000004e7  00002901 R_RISCV_32             00000294    + 0
-000004eb  00000b01 R_RISCV_32             0000317a    + 0
+000004eb  00000b01 R_RISCV_32             00003177    + 0
 000004fd  00007b01 R_RISCV_32             000000a4    + 0
 0000050a  00008301 R_RISCV_32             000000a9    + 0
 0000050f  00008401 R_RISCV_32             000000b0    + 0
@@ -841,7 +841,7 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 00001282  00027301 R_RISCV_32             0000304d    + 0
 0000128e  00025701 R_RISCV_32             00002c93    + 0
 00001299  00001301 R_RISCV_32             00000031    + 0
-0000129d  00027c01 R_RISCV_32             000030f8    + 0
+0000129d  00027c01 R_RISCV_32             000030f5    + 0
 000012ac  00003501 R_RISCV_32             0000002a    + 0
 000012b7  00001401 R_RISCV_32             00000044    + 0
 000012ca  00010d01 R_RISCV_32             0000071b    + 0
@@ -973,7 +973,7 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 000017ef  00001101 R_RISCV_32             00000000    + 0
 000017f3  00012401 R_RISCV_32             000008d1    + 0
 000017fe  00001201 R_RISCV_32             00000013    + 0
-00001802  00027b01 R_RISCV_32             000030f6    + 0
+00001802  00027b01 R_RISCV_32             000030f3    + 0
 00001811  0000e201 R_RISCV_32             00000457    + 0
 00001818  00010801 R_RISCV_32             0000068c    + 0
 0000181f  0000c901 R_RISCV_32             00000372    + 0
@@ -1180,7 +1180,7 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 00002103  00012401 R_RISCV_32             000008d1    + 0
 0000210e  00025701 R_RISCV_32             00002c93    + 0
 0000211a  00010f01 R_RISCV_32             00000745    + 0
-00002129  00000801 R_RISCV_32             0000314e    + 0
+00002129  00000801 R_RISCV_32             0000314b    + 0
 0000213e  00008701 R_RISCV_32             000000be    + 0
 0000214b  0000e301 R_RISCV_32             00000459    + 0
 00002158  00008701 R_RISCV_32             000000be    + 0
@@ -1224,17 +1224,17 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 0000229a  0000fd01 R_RISCV_32             00000566    + 0
 000022a5  0000fe01 R_RISCV_32             0000056a    + 0
 000022b4  0000e201 R_RISCV_32             00000457    + 0
-000022bb  00027901 R_RISCV_32             000030ea    + 0
-000022c0  00000e01 R_RISCV_32             0000318c    + 0
-000022c7  00028001 R_RISCV_32             0000311f    + 0
-000022d2  00028301 R_RISCV_32             00003130    + 0
-000022dd  00000901 R_RISCV_32             0000316c    + 0
-000022e9  00000d01 R_RISCV_32             00003183    + 0
-000022f0  00000a01 R_RISCV_32             00003175    + 0
-000022fb  00000b01 R_RISCV_32             0000317a    + 0
-00002306  00000c01 R_RISCV_32             0000317f    + 0
-00002313  00028101 R_RISCV_32             00003127    + 0
-00002318  00028201 R_RISCV_32             0000312b    + 0
+000022bb  00027901 R_RISCV_32             000030e7    + 0
+000022c0  00000e01 R_RISCV_32             00003189    + 0
+000022c7  00028001 R_RISCV_32             0000311c    + 0
+000022d2  00028301 R_RISCV_32             0000312d    + 0
+000022dd  00000901 R_RISCV_32             00003169    + 0
+000022e9  00000d01 R_RISCV_32             00003180    + 0
+000022f0  00000a01 R_RISCV_32             00003172    + 0
+000022fb  00000b01 R_RISCV_32             00003177    + 0
+00002306  00000c01 R_RISCV_32             0000317c    + 0
+00002313  00028101 R_RISCV_32             00003124    + 0
+00002318  00028201 R_RISCV_32             00003128    + 0
 0000231f  0000ed01 R_RISCV_32             000004bc    + 0
 0000232a  0000ef01 R_RISCV_32             000004cc    + 0
 00002338  0000b101 R_RISCV_32             00000279    + 0
@@ -1320,12 +1320,12 @@ Relocation section '.rela.debug_info' at offset 0xcd3c contains 947 entries:
 00002794  00026e01 R_RISCV_32             00002fbf    + 0
 000027aa  00026f01 R_RISCV_32             00002fc4    + 0
 000027b1  00027401 R_RISCV_32             00003078    + 0
-000027bc  00027a01 R_RISCV_32             000030f0    + 0
-000027c5  00000f01 R_RISCV_32             00003196    + 0
-000027ce  00028401 R_RISCV_32             00003138    + 0
-000027d7  00001001 R_RISCV_32             000031ae    + 0
+000027bc  00027a01 R_RISCV_32             000030ed    + 0
+000027c5  00000f01 R_RISCV_32             00003193    + 0
+000027ce  00028401 R_RISCV_32             00003135    + 0
+000027d7  00001001 R_RISCV_32             000031ab    + 0
 
-Relocation section '.rela.debug_ranges' at offset 0xf9a0 contains 40 entries:
+Relocation section '.rela.debug_ranges' at offset 0xf998 contains 40 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000000  00004e01 R_RISCV_32             00000012    + 0
 00000004  00005601 R_RISCV_32             000000a0    + 0
@@ -1368,15 +1368,15 @@ Relocation section '.rela.debug_ranges' at offset 0xf9a0 contains 40 entries:
 000000d0  00007001 R_RISCV_32             00000000    + 0
 000000d4  00007c01 R_RISCV_32             000000bc    + 0
 
-Relocation section '.rela.debug_pubnames' at offset 0xfb80 contains 1 entry:
+Relocation section '.rela.debug_pubnames' at offset 0xfb78 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00002a01 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_pubtypes' at offset 0xfb8c contains 1 entry:
+Relocation section '.rela.debug_pubtypes' at offset 0xfb84 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00002a01 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_line' at offset 0xfb98 contains 5 entries:
+Relocation section '.rela.debug_line' at offset 0xfb90 contains 5 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000197  00000401 R_RISCV_32             00000000    + 0
 000001b1  00003301 R_RISCV_32             00000000    + 0
@@ -1396,15 +1396,15 @@ Symbol table '.symtab' contains 733 entries:
      5: 00000002     0 NOTYPE  LOCAL  DEFAULT    3 
      6: 00000006     0 NOTYPE  LOCAL  DEFAULT    3 
      7: 0000000e     0 NOTYPE  LOCAL  DEFAULT    3 
-     8: 0000314e     0 NOTYPE  LOCAL  DEFAULT   51 
-     9: 0000316c     0 NOTYPE  LOCAL  DEFAULT   51 
-    10: 00003175     0 NOTYPE  LOCAL  DEFAULT   51 
-    11: 0000317a     0 NOTYPE  LOCAL  DEFAULT   51 
-    12: 0000317f     0 NOTYPE  LOCAL  DEFAULT   51 
-    13: 00003183     0 NOTYPE  LOCAL  DEFAULT   51 
-    14: 0000318c     0 NOTYPE  LOCAL  DEFAULT   51 
-    15: 00003196     0 NOTYPE  LOCAL  DEFAULT   51 
-    16: 000031ae     0 NOTYPE  LOCAL  DEFAULT   51 
+     8: 0000314b     0 NOTYPE  LOCAL  DEFAULT   51 
+     9: 00003169     0 NOTYPE  LOCAL  DEFAULT   51 
+    10: 00003172     0 NOTYPE  LOCAL  DEFAULT   51 
+    11: 00003177     0 NOTYPE  LOCAL  DEFAULT   51 
+    12: 0000317c     0 NOTYPE  LOCAL  DEFAULT   51 
+    13: 00003180     0 NOTYPE  LOCAL  DEFAULT   51 
+    14: 00003189     0 NOTYPE  LOCAL  DEFAULT   51 
+    15: 00003193     0 NOTYPE  LOCAL  DEFAULT   51 
+    16: 000031ab     0 NOTYPE  LOCAL  DEFAULT   51 
     17: 00000000     0 NOTYPE  LOCAL  DEFAULT   52 
     18: 00000013     0 NOTYPE  LOCAL  DEFAULT   52 
     19: 00000031     0 NOTYPE  LOCAL  DEFAULT   52 
@@ -2020,54 +2020,54 @@ Symbol table '.symtab' contains 733 entries:
    629: 0000307a     0 NOTYPE  LOCAL  DEFAULT   51 
    630: 000030ba     0 NOTYPE  LOCAL  DEFAULT   51 
    631: 000030d0     0 NOTYPE  LOCAL  DEFAULT   51 
-   632: 000030d8     0 NOTYPE  LOCAL  DEFAULT   51 
-   633: 000030ea     0 NOTYPE  LOCAL  DEFAULT   51 
-   634: 000030f0     0 NOTYPE  LOCAL  DEFAULT   51 
-   635: 000030f6     0 NOTYPE  LOCAL  DEFAULT   51 
-   636: 000030f8     0 NOTYPE  LOCAL  DEFAULT   51 
-   637: 000030fe     0 NOTYPE  LOCAL  DEFAULT   51 
-   638: 0000310b     0 NOTYPE  LOCAL  DEFAULT   51 
-   639: 0000311a     0 NOTYPE  LOCAL  DEFAULT   51 
-   640: 0000311f     0 NOTYPE  LOCAL  DEFAULT   51 
-   641: 00003127     0 NOTYPE  LOCAL  DEFAULT   51 
-   642: 0000312b     0 NOTYPE  LOCAL  DEFAULT   51 
-   643: 00003130     0 NOTYPE  LOCAL  DEFAULT   51 
-   644: 00003138     0 NOTYPE  LOCAL  DEFAULT   51 
-   645: 00000000     0 OBJECT  LOCAL  DEFAULT   13 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.0
-   646: 00000000     2 OBJECT  LOCAL  DEFAULT   14 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.1
-   647: 00000000     1 OBJECT  LOCAL  DEFAULT   26 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.10
-   648: 00000000     1 OBJECT  LOCAL  DEFAULT   27 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.11
-   649: 00000000     7 OBJECT  LOCAL  DEFAULT   28 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.12
-   650: 00000000    13 OBJECT  LOCAL  DEFAULT   29 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.13
-   651: 00000000     3 OBJECT  LOCAL  DEFAULT   30 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.14
-   652: 00000000     5 OBJECT  LOCAL  DEFAULT   31 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.15
-   653: 00000000     4 OBJECT  LOCAL  DEFAULT   32 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.16
-   654: 00000004     4 OBJECT  LOCAL  DEFAULT   32 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.17
-   655: 00000000     5 OBJECT  LOCAL  DEFAULT   33 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.18
-   656: 00000008     4 OBJECT  LOCAL  DEFAULT   32 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.19
-   657: 00000000    16 OBJECT  LOCAL  DEFAULT   15 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.2
-   658: 00000000     7 OBJECT  LOCAL  DEFAULT   34 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.20
-   659: 00000000     6 OBJECT  LOCAL  DEFAULT   35 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.21
-   660: 00000000    72 OBJECT  LOCAL  DEFAULT   36 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.22
-   661: 00000000    12 OBJECT  LOCAL  DEFAULT   38 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.23
-   662: 00000000    14 OBJECT  LOCAL  DEFAULT   41 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.24
-   663: 00000000     6 OBJECT  LOCAL  DEFAULT   42 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.25
-   664: 00000000     2 OBJECT  LOCAL  DEFAULT   43 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.26
-   665: 00000000    12 OBJECT  LOCAL  DEFAULT   44 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.27
-   666: 00000000     8 OBJECT  LOCAL  DEFAULT   46 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.28
-   667: 00000008     8 OBJECT  LOCAL  DEFAULT   46 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.29
-   668: 00000000    21 OBJECT  LOCAL  DEFAULT   17 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.3
-   669: 00000010     8 OBJECT  LOCAL  DEFAULT   46 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.30
-   670: 00000000     6 OBJECT  LOCAL  DEFAULT   47 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.31
-   671: 00000000     7 OBJECT  LOCAL  DEFAULT   48 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.32
-   672: 00000000     3 OBJECT  LOCAL  DEFAULT   49 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.33
-   673: 00000000     6 OBJECT  LOCAL  DEFAULT   50 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.34
-   674: 00000000    16 OBJECT  LOCAL  DEFAULT   18 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.4
-   675: 00000000    19 OBJECT  LOCAL  DEFAULT   20 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.5
-   676: 00000000    86 OBJECT  LOCAL  DEFAULT   21 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.6
-   677: 00000000    24 OBJECT  LOCAL  DEFAULT   22 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.7
-   678: 00000000    23 OBJECT  LOCAL  DEFAULT   24 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.8
-   679: 00000000     1 OBJECT  LOCAL  DEFAULT   25 .Lanon.11968f35cf7d5ede4d26cdab79eaa170.9
+   632: 000030d5     0 NOTYPE  LOCAL  DEFAULT   51 
+   633: 000030e7     0 NOTYPE  LOCAL  DEFAULT   51 
+   634: 000030ed     0 NOTYPE  LOCAL  DEFAULT   51 
+   635: 000030f3     0 NOTYPE  LOCAL  DEFAULT   51 
+   636: 000030f5     0 NOTYPE  LOCAL  DEFAULT   51 
+   637: 000030fb     0 NOTYPE  LOCAL  DEFAULT   51 
+   638: 00003108     0 NOTYPE  LOCAL  DEFAULT   51 
+   639: 00003117     0 NOTYPE  LOCAL  DEFAULT   51 
+   640: 0000311c     0 NOTYPE  LOCAL  DEFAULT   51 
+   641: 00003124     0 NOTYPE  LOCAL  DEFAULT   51 
+   642: 00003128     0 NOTYPE  LOCAL  DEFAULT   51 
+   643: 0000312d     0 NOTYPE  LOCAL  DEFAULT   51 
+   644: 00003135     0 NOTYPE  LOCAL  DEFAULT   51 
+   645: 00000000     0 OBJECT  LOCAL  DEFAULT   13 .Lanon.3ed011473997af99b525cde47c9eaaac.0
+   646: 00000000     2 OBJECT  LOCAL  DEFAULT   14 .Lanon.3ed011473997af99b525cde47c9eaaac.1
+   647: 00000000     1 OBJECT  LOCAL  DEFAULT   26 .Lanon.3ed011473997af99b525cde47c9eaaac.10
+   648: 00000000     1 OBJECT  LOCAL  DEFAULT   27 .Lanon.3ed011473997af99b525cde47c9eaaac.11
+   649: 00000000     7 OBJECT  LOCAL  DEFAULT   28 .Lanon.3ed011473997af99b525cde47c9eaaac.12
+   650: 00000000    13 OBJECT  LOCAL  DEFAULT   29 .Lanon.3ed011473997af99b525cde47c9eaaac.13
+   651: 00000000     3 OBJECT  LOCAL  DEFAULT   30 .Lanon.3ed011473997af99b525cde47c9eaaac.14
+   652: 00000000     5 OBJECT  LOCAL  DEFAULT   31 .Lanon.3ed011473997af99b525cde47c9eaaac.15
+   653: 00000000     4 OBJECT  LOCAL  DEFAULT   32 .Lanon.3ed011473997af99b525cde47c9eaaac.16
+   654: 00000004     4 OBJECT  LOCAL  DEFAULT   32 .Lanon.3ed011473997af99b525cde47c9eaaac.17
+   655: 00000000     5 OBJECT  LOCAL  DEFAULT   33 .Lanon.3ed011473997af99b525cde47c9eaaac.18
+   656: 00000008     4 OBJECT  LOCAL  DEFAULT   32 .Lanon.3ed011473997af99b525cde47c9eaaac.19
+   657: 00000000    16 OBJECT  LOCAL  DEFAULT   15 .Lanon.3ed011473997af99b525cde47c9eaaac.2
+   658: 00000000     7 OBJECT  LOCAL  DEFAULT   34 .Lanon.3ed011473997af99b525cde47c9eaaac.20
+   659: 00000000     6 OBJECT  LOCAL  DEFAULT   35 .Lanon.3ed011473997af99b525cde47c9eaaac.21
+   660: 00000000    72 OBJECT  LOCAL  DEFAULT   36 .Lanon.3ed011473997af99b525cde47c9eaaac.22
+   661: 00000000    12 OBJECT  LOCAL  DEFAULT   38 .Lanon.3ed011473997af99b525cde47c9eaaac.23
+   662: 00000000    14 OBJECT  LOCAL  DEFAULT   41 .Lanon.3ed011473997af99b525cde47c9eaaac.24
+   663: 00000000     6 OBJECT  LOCAL  DEFAULT   42 .Lanon.3ed011473997af99b525cde47c9eaaac.25
+   664: 00000000     2 OBJECT  LOCAL  DEFAULT   43 .Lanon.3ed011473997af99b525cde47c9eaaac.26
+   665: 00000000    12 OBJECT  LOCAL  DEFAULT   44 .Lanon.3ed011473997af99b525cde47c9eaaac.27
+   666: 00000000     8 OBJECT  LOCAL  DEFAULT   46 .Lanon.3ed011473997af99b525cde47c9eaaac.28
+   667: 00000008     8 OBJECT  LOCAL  DEFAULT   46 .Lanon.3ed011473997af99b525cde47c9eaaac.29
+   668: 00000000    21 OBJECT  LOCAL  DEFAULT   17 .Lanon.3ed011473997af99b525cde47c9eaaac.3
+   669: 00000010     8 OBJECT  LOCAL  DEFAULT   46 .Lanon.3ed011473997af99b525cde47c9eaaac.30
+   670: 00000000     6 OBJECT  LOCAL  DEFAULT   47 .Lanon.3ed011473997af99b525cde47c9eaaac.31
+   671: 00000000     7 OBJECT  LOCAL  DEFAULT   48 .Lanon.3ed011473997af99b525cde47c9eaaac.32
+   672: 00000000     3 OBJECT  LOCAL  DEFAULT   49 .Lanon.3ed011473997af99b525cde47c9eaaac.33
+   673: 00000000     6 OBJECT  LOCAL  DEFAULT   50 .Lanon.3ed011473997af99b525cde47c9eaaac.34
+   674: 00000000    16 OBJECT  LOCAL  DEFAULT   18 .Lanon.3ed011473997af99b525cde47c9eaaac.4
+   675: 00000000    19 OBJECT  LOCAL  DEFAULT   20 .Lanon.3ed011473997af99b525cde47c9eaaac.5
+   676: 00000000    86 OBJECT  LOCAL  DEFAULT   21 .Lanon.3ed011473997af99b525cde47c9eaaac.6
+   677: 00000000    24 OBJECT  LOCAL  DEFAULT   22 .Lanon.3ed011473997af99b525cde47c9eaaac.7
+   678: 00000000    23 OBJECT  LOCAL  DEFAULT   24 .Lanon.3ed011473997af99b525cde47c9eaaac.8
+   679: 00000000     1 OBJECT  LOCAL  DEFAULT   25 .Lanon.3ed011473997af99b525cde47c9eaaac.9
    680: 00000000     0 NOTYPE  LOCAL  DEFAULT   65 .Lline_table_start0
    681: 00000000    12 OBJECT  LOCAL  DEFAULT   39 _ZN3app10app_sensor13SENSOR_DEVICE17hf7071d50e0c44316E
    682: 00000000    32 OBJECT  LOCAL  DEFAULT   37 _ZN3app11app_network19CURRENT_GEOLOCATION17h3b985aea7df51bf5E
@@ -2075,51 +2075,51 @@ Symbol table '.symtab' contains 733 entries:
    684: 00000000    14 FUNC    LOCAL  DEFAULT    3 _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17had15619c85373ca3E
    685: 00000000    88 FUNC    LOCAL  DEFAULT    5 _ZN4core6result13unwrap_failed17h3314c9605742429cE
    686: 00000000     0 SECTION LOCAL  DEFAULT   54 
-   687: 00000000   368 FUNC    GLOBAL DEFAULT    9 OLDmain
-   688: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE
-   689: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5panic8Location4file17h94cc6af18de736c4E
-   690: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5panic8Location4line17h3ffc63f14d0a6636E
-   691: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E
-   692: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6option13expect_failed17h3eeb96a257d935a1E
-   693: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-   694: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
-   695: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4ea6aa97237e1e60E
-   696: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw10sensor_mgr14find_bydevname17h3b1f6b8f255d15acE
-   697: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor17register_listener17hd64d0c3ec01fbcabE
-   698: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor19new_sensor_listener17h28f0369dc17b732dE
-   699: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h94e658dc8a8affe2E
-   700: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console10print_strn17h04bd7e2a27ff349cE
-   701: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5flush17hbf393adbbaededb9E
-   702: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E
-   703: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console6buffer17hcf0a88e6843405bdE
-   704: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console8printint17h7c7d7028aeda8dd2E
-   705: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4Strn3new17h505d7b5ee6564253E
-   706: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network12prepare_post17hd02b64e4d7b637f9E
-   707: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network13get_device_id17hea5bbcf5456b66c0E
-   708: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network14do_server_post17h26084f25b670f291E
-   709: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network16init_server_post17h8ae86e6b88fcde3eE
-   710: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os10eventq_run17h6ac9d8384aa82ab0E
-   711: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17ha91431cf3cedfcd0E
-   712: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt7sysinit17h46656f63b85c8fe0E
-   713: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE
-   714: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE
-   715: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h6c075bbdd12e1839E
-   716: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext20json_set_geolocation17h7e7ff0e5ef7c6ffdE
-   717: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E
-   718: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext4fail17h18b2574d199d0ab3E
-   719: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17hd1d9c5815270d297E
-   720: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h172354ca0391548fE
-   721: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hae64e8766a77e514E
-   722: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN99_$LT$mynewt..hw..sensor_mgr..SensorsByDevname$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h2413b8f055cbd3f6E
-   723: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND abort
-   724: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_close_array
-   725: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_object_array_end_item
-   726: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_object_array_start_item
-   727: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_set_array
-   728: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_set_int
-   729: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_set_text_string
-   730: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_rep_end_root_object
-   731: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_rep_start_root_object
+   687: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17h3a34938e29ce59dcE
+   688: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5panic8Location4file17h94cc6af18de736c4E
+   689: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5panic8Location4line17h3ffc63f14d0a6636E
+   690: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E
+   691: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6option13expect_failed17h3eeb96a257d935a1E
+   692: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+   693: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
+   694: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h4ea6aa97237e1e60E
+   695: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw10sensor_mgr14find_bydevname17h3b1f6b8f255d15acE
+   696: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor17register_listener17hd64d0c3ec01fbcabE
+   697: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor19new_sensor_listener17h28f0369dc17b732dE
+   698: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17h94e658dc8a8affe2E
+   699: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console10print_strn17h04bd7e2a27ff349cE
+   700: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5flush17hbf393adbbaededb9E
+   701: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5print17hd4cb89499f7dc1b1E
+   702: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console6buffer17hcf0a88e6843405bdE
+   703: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console8printint17h7c7d7028aeda8dd2E
+   704: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4Strn3new17h505d7b5ee6564253E
+   705: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network12prepare_post17hd02b64e4d7b637f9E
+   706: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network13get_device_id17hea5bbcf5456b66c0E
+   707: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network14do_server_post17h26084f25b670f291E
+   708: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt4libs14sensor_network16init_server_post17h8ae86e6b88fcde3eE
+   709: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os10eventq_run17h6ac9d8384aa82ab0E
+   710: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17ha91431cf3cedfcd0E
+   711: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt7sysinit17h46656f63b85c8fe0E
+   712: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11key_to_cstr17hf1dc1a639a9fd65cE
+   713: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17he7e29acd0362609bE
+   714: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext13value_to_cstr17h6c075bbdd12e1839E
+   715: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext20json_set_geolocation17h7e7ff0e5ef7c6ffdE
+   716: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17h7840ecb859761e17E
+   717: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context11CoapContext4fail17h18b2574d199d0ab3E
+   718: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17hd1d9c5815270d297E
+   719: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h172354ca0391548fE
+   720: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hae64e8766a77e514E
+   721: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN99_$LT$mynewt..hw..sensor_mgr..SensorsByDevname$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h2413b8f055cbd3f6E
+   722: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND abort
+   723: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_close_array
+   724: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_object_array_end_item
+   725: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_object_array_start_item
+   726: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_set_array
+   727: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_set_int
+   728: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_set_text_string
+   729: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_rep_end_root_object
+   730: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_rep_start_root_object
+   731: 00000000   368 FUNC    GLOBAL DEFAULT    9 main
    732: 00000000   188 FUNC    GLOBAL DEFAULT   11 rust_begin_unwind
 
 No version information found in this file.
