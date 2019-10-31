@@ -94,9 +94,9 @@ pub mod result {
 
     /// Implement formatted output for MynewtError
     impl ::core::fmt::Debug for MynewtError {
-        fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+        fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
             //  TODO
-            fmt.write_str("MynewtError")
+            Ok(())
         }
     }
 }

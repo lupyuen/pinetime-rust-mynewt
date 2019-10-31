@@ -89,6 +89,9 @@ syscfg.defs:
 #   targets/bluepill_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
+    OS_MAIN_STACK_SIZE: 1024    #  Small stack size: 2 KB
+    # OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 4 KB
+
     ###########################################################################
     # CoAP Server Settings
 

@@ -198,9 +198,9 @@ pub enum CoapError {
 
 /// Implement formatted output for CoapError
 impl ::core::fmt::Debug for CoapError {
-    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+    fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
         //  TODO
-        fmt.write_str("CoapError")
+        Ok(())
     }
 }
 

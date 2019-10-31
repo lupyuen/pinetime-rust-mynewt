@@ -37,7 +37,7 @@ syscfg.vals:
     ###########################################################################
     # Network Settings
 
-    DEVICE_TYPE:            '"nrf52"'  # Device type that will be prepended to the Device ID. thethings.io converts the raw temperature depending on the device type.
+    DEVICE_TYPE:            '"gd32vf103"'  # Device type that will be prepended to the Device ID. thethings.io converts the raw temperature depending on the device type.
     NBIOT_BAND:             8  # Connect to this NB-IoT band
     SENSOR_NETWORK:         1  # Enable Sensor Network library
     SENSOR_COAP:            1  # Send sensor data to CoAP server
@@ -48,7 +48,7 @@ syscfg.vals:
     ###########################################################################
     # Hardware Settings
      
-    HARDFLOAT:              1  # Enable hardware floating-point support for STM32L476RC
+    HARDFLOAT:              0  # Disable hardware floating-point support
     LOW_POWER:              0  # Disable low power support
 
     UART_0:                 0  # Disable USART2

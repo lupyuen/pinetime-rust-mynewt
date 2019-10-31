@@ -28,6 +28,7 @@ impl<T> __IncompleteArrayField<T> {
         ::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
     }
 }
+#[cfg(feature = "NOTUSED")]  ////  TODO
 impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
     fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
         fmt.write_str("__IncompleteArrayField")
