@@ -25,6 +25,8 @@
 
 #![no_std]
 //  Don't link with standard Rust library, which is not compatible with embedded systems
+#![no_main]
+//  Don't use formatting `core::fmt`
 #![feature(trace_macros)]
 //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]

@@ -22,6 +22,7 @@
 //!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/main.c`
 
 #![no_std]                       //  Don't link with standard Rust library, which is not compatible with embedded systems
+#![no_main]                      //  Don't use formatting `core::fmt`
 #![feature(trace_macros)]        //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]       //  Allow `concat_idents!()` macro used in `coap!()` macro
 #![feature(const_transmute)]     //  Allow `transmute` for initialising Mynewt structs
