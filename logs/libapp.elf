@@ -2323,7 +2323,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          40020 (bytes into file)
+  Start of section headers:          40044 (bytes into file)
   Flags:                             0x1, RVC, soft-float ABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -2335,32 +2335,32 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 009628 00062c 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 009640 00062c 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E PROGBITS        00000000 000034 0001e0 00  AX  0   0  2
-  [ 4] .rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E RELA            00000000 007a08 00015c 0c     26   3  4
+  [ 4] .rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E RELA            00000000 007a20 00015c 0c     26   3  4
   [ 5] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.0 PROGBITS        00000000 000214 00000c 00   A  0   0  1
   [ 6] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE PROGBITS        00000000 000220 00000c 00   A  0   0  4
-  [ 7] .rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE RELA            00000000 007b64 00000c 0c     26   6  4
+  [ 7] .rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE RELA            00000000 007b7c 00000c 0c     26   6  4
   [ 8] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.1 PROGBITS        00000000 00022c 00000e 00   A  0   0  1
   [ 9] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.2 PROGBITS        00000000 00023a 000006 00   A  0   0  1
   [10] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.3 PROGBITS        00000000 000240 000002 00   A  0   0  1
   [11] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.4 PROGBITS        00000000 000244 00000c 00   A  0   0  4
-  [12] .rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4 RELA            00000000 007b70 00000c 0c     26  11  4
+  [12] .rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4 RELA            00000000 007b88 00000c 0c     26  11  4
   [13] .debug_str        PROGBITS        00000000 000250 002502 01  MS  0   0  1
   [14] .debug_abbrev     PROGBITS        00000000 002752 00011f 00      0   0  1
   [15] .debug_info       PROGBITS        00000000 002871 001831 00      0   0  1
-  [16] .rela.debug_info  RELA            00000000 007b7c 001a88 0c     26  15  4
+  [16] .rela.debug_info  RELA            00000000 007b94 001a88 0c     26  15  4
   [17] .debug_ranges     PROGBITS        00000000 0040a2 000090 00      0   0  1
   [18] .debug_macinfo    PROGBITS        00000000 004132 000001 00      0   0  1
   [19] .debug_pubnames   PROGBITS        00000000 004133 0000c3 00      0   0  1
-  [20] .rela.debug_pubnames RELA            00000000 009604 00000c 0c     26  19  4
+  [20] .rela.debug_pubnames RELA            00000000 00961c 00000c 0c     26  19  4
   [21] .debug_pubtypes   PROGBITS        00000000 0041f6 001e58 00      0   0  1
-  [22] .rela.debug_pubtypes RELA            00000000 009610 00000c 0c     26  21  4
+  [22] .rela.debug_pubtypes RELA            00000000 009628 00000c 0c     26  21  4
   [23] .note.GNU-stack   PROGBITS        00000000 00604e 000000 00      0   0  1
-  [24] .debug_line       PROGBITS        00000000 00604e 0000e9 00      0   0  1
-  [25] .rela.debug_line  RELA            00000000 00961c 00000c 0c     26  24  4
-  [26] .symtab           SYMTAB          00000000 006138 0018d0 10      1 383  4
+  [24] .debug_line       PROGBITS        00000000 00604e 000100 00      0   0  1
+  [25] .rela.debug_line  RELA            00000000 009634 00000c 0c     26  24  4
+  [26] .symtab           SYMTAB          00000000 006150 0018d0 10      1 383  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -2373,7 +2373,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E' at offset 0x7a08 contains 29 entries:
+Relocation section '.rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E' at offset 0x7a20 contains 29 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  0001781a R_RISCV_HI20           00000000   .Lanon.8cebc08783836756eb94252c490d3f87.1 + 0
 0000000a  0001781b R_RISCV_LO12_I         00000000   .Lanon.8cebc08783836756eb94252c490d3f87.1 + 0
@@ -2405,15 +2405,15 @@ Relocation section '.rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee
 000001be  00018212 R_RISCV_CALL           00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h174be8bb28bd8cccE + 0
 000001cc  00018812 R_RISCV_CALL           00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h0505a393ece61477E + 0
 
-Relocation section '.rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE' at offset 0x7b64 contains 1 entry:
+Relocation section '.rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE' at offset 0x7b7c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000004  00017701 R_RISCV_32             00000000   .Lanon.8cebc08783836756eb94252c490d3f87.0 + 0
 
-Relocation section '.rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4' at offset 0x7b70 contains 1 entry:
+Relocation section '.rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4' at offset 0x7b88 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000004  00017a01 R_RISCV_32             00000000   .Lanon.8cebc08783836756eb94252c490d3f87.3 + 0
 
-Relocation section '.rela.debug_info' at offset 0x7b7c contains 566 entries:
+Relocation section '.rela.debug_info' at offset 0x7b94 contains 566 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00017e01 R_RISCV_32             00000000   .debug_abbrev + 0
 0000000c  00000e01 R_RISCV_32             00000000    + 0
@@ -2982,17 +2982,17 @@ Relocation section '.rela.debug_info' at offset 0x7b7c contains 566 entries:
 0000180e  00017001 R_RISCV_32             0000243b    + 0
 00001817  00016a01 R_RISCV_32             0000232e    + 0
 
-Relocation section '.rela.debug_pubnames' at offset 0x9604 contains 1 entry:
+Relocation section '.rela.debug_pubnames' at offset 0x961c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00000701 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_pubtypes' at offset 0x9610 contains 1 entry:
+Relocation section '.rela.debug_pubtypes' at offset 0x9628 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00000701 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_line' at offset 0x961c contains 1 entry:
+Relocation section '.rela.debug_line' at offset 0x9634 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-0000003f  00000301 R_RISCV_32             00000000    + 0
+00000049  00000301 R_RISCV_32             00000000    + 0
 
 The decoding of unwind sections for machine type RISC-V is not currently supported.
 

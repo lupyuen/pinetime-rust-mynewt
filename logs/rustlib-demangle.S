@@ -1581,16 +1581,11 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   96:	55a2                	lw	a1,40(sp)
   98:	00a59763          	bne	a1,a0,a6 <app::app_sensor::start_sensor_listener+0xa6>
   9c:	a009                	j	9e <app::app_sensor::start_sensor_listener+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
-    //  Register the Listener Function to be called with the polled sensor data.
-    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
-
-    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
-    Ok(())
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/*
   9e:	00000097          	auipc	ra,0x0
   a2:	000080e7          	jalr	ra # 9e <app::app_sensor::start_sensor_listener+0x9e>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
-    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   a6:	4546                	lw	a0,80(sp)
   a8:	caaa                	sw	a0,84(sp)
   aa:	00000097          	auipc	ra,0x0
@@ -1603,15 +1598,16 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   c0:	dc2a                	sw	a0,56(sp)
   c2:	a009                	j	c4 <app::app_sensor::start_sensor_listener+0xc4>
   c4:	a031                	j	d0 <app::app_sensor::start_sensor_listener+0xd0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
   c6:	5562                	lw	a0,56(sp)
   c8:	10c12083          	lw	ra,268(sp)
   cc:	6151                	addi	sp,sp,272
   ce:	8082                	ret
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
-    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   d0:	bfdd                	j	c6 <app::app_sensor::start_sensor_listener+0xc6>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
+
+    // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
     let listener = sensor::new_sensor_listener(
   d2:	00000537          	lui	a0,0x0
   d6:	00050593          	mv	a1,a0
@@ -1633,6 +1629,9 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  104:	000080e7          	jalr	ra # 100 <app::app_sensor::start_sensor_listener+0x100>
  108:	a009                	j	10a <app::app_sensor::start_sensor_listener+0x10a>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:62
+        &TEMP_SENSOR_KEY,   //  Transmit as field: `t`
+        TEMP_SENSOR_TYPE,   //  Type of sensor data: Raw temperature (integer from 0 to 4095)
+        app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
     ) ? ;
  10a:	5566                	lw	a0,120(sp)
  10c:	4581                	li	a1,0
@@ -1677,6 +1676,8 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  162:	cbaa                	sw	a0,212(sp)
  164:	daaa                	sw	a0,116(sp)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:65
+
+    //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
  166:	5556                	lw	a0,116(sp)
  168:	dbaa                	sw	a0,244(sp)
@@ -1726,9 +1727,11 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  1d8:	b7a5                	j	140 <app::app_sensor::start_sensor_listener+0x140>
  1da:	4505                	li	a0,1
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:68
+
+    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
  1dc:	dc2a                	sw	a0,56(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  1de:	b5e5                	j	c6 <app::app_sensor::start_sensor_listener+0xc6>
 
 app-f4cb6f209913395b.4t5g0ab2q1psib7f.rcgu.o:     file format elf32-littleriscv

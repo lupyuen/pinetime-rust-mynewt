@@ -2,6 +2,7 @@
 #  Generate Rust bindings for Mynewt C API. Install "bindgen" before running:
 #  cargo install bindgen
 #  Also install rustfmt when prompted
+#  TODO: Remove derive[Debug]
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
