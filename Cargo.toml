@@ -13,7 +13,7 @@ members = [
 panic         = "abort"     # Disable stack unwinding on panic
 codegen-units = 1           # Better optimizations
 lto           = true        # Optimize linker by removing dead code
-opt-level     = 'z'         # Optimize for size
+#opt-level     = 'z'         # Optimize for size
 
 # Options for `cargo build --release`
 [profile.release]
